@@ -11,15 +11,15 @@ Claude Skills and Commands for Search Engine Optimization (SEO) and Generative E
 
 ## Quick Start
 
-> Works with [Claude Code](https://claude.ai/download), [OpenClaw](https://openclaw.com), [Cursor](https://cursor.com), [Codex](https://openai.com/codex), and [35+ other agents](https://skills.sh). No other dependencies.
+> Works with [Claude Code](https://claude.ai/download), [OpenClaw](https://openclaw.com), [Cursor](https://cursor.com), [Windsurf](https://codeium.com/windsurf), and [35+ other agents](https://skills.sh). No other dependencies.
 
-1. **Install** — pick the method for your tool:
+1. **Install** â pick the method for your tool:
 
    | Your tool | Install command |
    |-----------|----------------|
-   | **OpenClaw** | `clawhub install aaron-he-zhu/<skill-name>` — [browse all 20](https://clawhub.ai/u/aaron-he-zhu) |
+   | **OpenClaw** | `clawhub install aaron-he-zhu/<skill-name>` â [browse all 20](https://clawhub.ai/u/aaron-he-zhu) |
    | **Claude Code** | `/plugin marketplace add aaron-he-zhu/seo-geo-claude-skills` (all 20) |
-   | **Cursor / Codex / Windsurf / other** | `npx skills add aaron-he-zhu/seo-geo-claude-skills` (all 20) |
+   | **Cursor / Windsurf / other** | `npx skills add aaron-he-zhu/seo-geo-claude-skills` (all 20) |
 
    > All installation methods remain available at all times. If any marketplace is temporarily unavailable, use an alternative method.
 
@@ -91,7 +91,7 @@ Claude Skills and Commands for Search Engine Optimization (SEO) and Generative E
 
    </details>
 
-2. **Use immediately** — no tool integrations required:
+2. **Use immediately** â no tool integrations required:
    ```
    Research keywords for [your topic] and identify high-value opportunities
    ```
@@ -101,20 +101,20 @@ Claude Skills and Commands for Search Engine Optimization (SEO) and Generative E
    /seo:audit-page https://example.com/your-page
    ```
 
-4. **Optionally connect tools** — edit [CONNECTORS.md](./CONNECTORS.md) to map `~~placeholders` to your toolstack (Ahrefs, SEMrush, Google Analytics, etc.)
+4. **Optionally connect tools** â edit [CONNECTORS.md](./CONNECTORS.md) to map `~~placeholders` to your toolstack (Ahrefs, SEMrush, Google Analytics, etc.)
 
 ### Where to Begin
 
 | Your Goal | Start Here | Then |
 |-----------|-----------|------|
-| Starting from scratch | `keyword-research` → `competitor-analysis` | → `seo-content-writer` |
-| Write new content | `keyword-research` | → `seo-content-writer` + `geo-content-optimizer` |
-| Improve existing content | `/seo:audit-page <URL>` | → `content-refresher` or `seo-content-writer` |
-| Fix technical issues | `/seo:check-technical <URL>` | → `technical-seo-checker` |
-| Assess domain authority | `/seo:audit-domain <domain>` | → `backlink-analyzer` |
-| Full quality assessment | `content-quality-auditor` + `domain-authority-auditor` | → 120-item combined report |
-| Build entity/brand presence | `entity-optimizer` | → `schema-markup-generator` + `geo-content-optimizer` |
-| Generate performance report | `/seo:report <domain> <period>` | → periodic monitoring |
+| Starting from scratch | `keyword-research` â `competitor-analysis` | â `seo-content-writer` |
+| Write new content | `keyword-research` | â `seo-content-writer` + `geo-content-optimizer` |
+| Improve existing content | `/seo:audit-page <URL>` | â `content-refresher` or `seo-content-writer` |
+| Fix technical issues | `/seo:check-technical <URL>` | â `technical-seo-checker` |
+| Assess domain authority | `/seo:audit-domain <domain>` | â `backlink-analyzer` |
+| Full quality assessment | `content-quality-auditor` + `domain-authority-auditor` | â 120-item combined report |
+| Build entity/brand presence | `entity-optimizer` | â `schema-markup-generator` + `geo-content-optimizer` |
+| Generate performance report | `/seo:report <domain> <period>` | â periodic monitoring |
 
 ## Methodology
 
@@ -122,20 +122,20 @@ Skills are organized into four phases. Use them in order for new projects, or ju
 
 ```
  RESEARCH          BUILD            OPTIMIZE          MONITOR
- ─────────         ─────────        ─────────         ─────────
+ âââââââââ         âââââââââ        âââââââââ         âââââââââ
  Keywords          Content          On-Page           Rankings
  Competitors       Meta Tags        Technical         Backlinks
  SERP              Schema           Links             Performance
  Gaps              GEO              Refresh           Alerts
 
- CROSS-CUTTING ──────────────────────────────────────────────────
- Content Quality (CORE-EEAT) · Domain Authority (CITE) · Entity · Memory
+ CROSS-CUTTING ââââââââââââââââââââââââââââââââââââââââââââââââââ
+ Content Quality (CORE-EEAT) Â· Domain Authority (CITE) Â· Entity Â· Memory
 ```
 
 ## Skills
 
 <!-- SKILLS:START -->
-### Research — understand your market before creating content
+### Research â understand your market before creating content
 
 | Skill | What it does |
 |-------|-------------|
@@ -144,7 +144,7 @@ Skills are organized into four phases. Use them in order for new projects, or ju
 | [serp-analysis](./research/serp-analysis/) | Analyze search results and AI answer patterns for target queries |
 | [content-gap-analysis](./research/content-gap-analysis/) | Find content opportunities your competitors cover but you don't |
 
-### Build — create content optimized for search and AI
+### Build â create content optimized for search and AI
 
 | Skill | What it does |
 |-------|-------------|
@@ -153,7 +153,7 @@ Skills are organized into four phases. Use them in order for new projects, or ju
 | [meta-tags-optimizer](./build/meta-tags-optimizer/) | Create compelling titles, descriptions, and Open Graph tags |
 | [schema-markup-generator](./build/schema-markup-generator/) | Generate JSON-LD structured data for rich results |
 
-### Optimize — improve existing content and technical health
+### Optimize â improve existing content and technical health
 
 | Skill | What it does |
 |-------|-------------|
@@ -162,7 +162,7 @@ Skills are organized into four phases. Use them in order for new projects, or ju
 | [internal-linking-optimizer](./optimize/internal-linking-optimizer/) | Optimize internal link structure for better crawling and authority flow |
 | [content-refresher](./optimize/content-refresher/) | Update outdated content to recover or improve rankings |
 
-### Monitor — track performance and catch issues early
+### Monitor â track performance and catch issues early
 
 | Skill | What it does |
 |-------|-------------|
@@ -171,7 +171,7 @@ Skills are organized into four phases. Use them in order for new projects, or ju
 | [performance-reporter](./monitor/performance-reporter/) | Generate SEO/GEO performance reports for stakeholders |
 | [alert-manager](./monitor/alert-manager/) | Set up alerts for ranking drops, traffic changes, and technical issues |
 
-### Cross-cutting — span all phases
+### Cross-cutting â span all phases
 
 | Skill | What it does |
 |-------|-------------|
@@ -221,15 +221,15 @@ graph TD
 
 **Skill combos that work well together:**
 
-- **keyword-research** + **content-gap-analysis** → comprehensive content strategy
-- **seo-content-writer** + **geo-content-optimizer** → dual-optimized content
-- **on-page-seo-auditor** + **technical-seo-checker** → complete site audit
-- **rank-tracker** + **alert-manager** → proactive monitoring
-- **content-quality-auditor** + **content-refresher** → data-driven content refresh
-- **content-quality-auditor** + **domain-authority-auditor** → complete 120-item assessment
-- **domain-authority-auditor** + **backlink-analyzer** → domain authority deep-dive
-- **entity-optimizer** + **schema-markup-generator** → complete entity markup
-- **memory-management** + any skill → persistent project context
+- **keyword-research** + **content-gap-analysis** â comprehensive content strategy
+- **seo-content-writer** + **geo-content-optimizer** â dual-optimized content
+- **on-page-seo-auditor** + **technical-seo-checker** â complete site audit
+- **rank-tracker** + **alert-manager** â proactive monitoring
+- **content-quality-auditor** + **content-refresher** â data-driven content refresh
+- **content-quality-auditor** + **domain-authority-auditor** â complete 120-item assessment
+- **domain-authority-auditor** + **backlink-analyzer** â domain authority deep-dive
+- **entity-optimizer** + **schema-markup-generator** â complete entity markup
+- **memory-management** + any skill â persistent project context
 
 ## Inter-Skill Handoff Protocol
 
@@ -239,7 +239,7 @@ When skills recommend running another skill (via Related Skills), preserve this 
 |---------|------------|---------|
 | Target keyword | Include in the skill invocation | "Run content-refresher for keyword 'cloud hosting'" |
 | Content type | State explicitly | "Content type: how-to guide" |
-| CORE-EEAT scores | Summarize dimension scores | "Current scores: C:75 O:60 R:80 E:45 — focus on Exclusivity" |
+| CORE-EEAT scores | Summarize dimension scores | "Current scores: C:75 O:60 R:80 E:45 â focus on Exclusivity" |
 | CITE scores | Summarize dimension + veto status | "CITE: C:82 I:65 T:71 E:58, no veto triggers" |
 | Priority items | List specific item IDs | "Priority: improve O08, E07, R06" |
 | Content URL | Include for fetch-capable skills | "Analyze https://example.com/page" |
@@ -315,7 +315,7 @@ Not sure which skill to use? Search by what you're trying to do:
 | **Fork & Customize** | Fork + `npx skills add YOUR-ORG/...` | Teams with custom needs |
 | **Manual** | `git clone` + copy | No CLI needed |
 
-Browse all 20 skills: [GitHub](https://github.com/aaron-he-zhu/seo-geo-claude-skills) · [ClawHub](https://clawhub.ai/u/aaron-he-zhu) · [skills.sh](https://skills.sh/aaron-he-zhu/seo-geo-claude-skills)
+Browse all 20 skills: [GitHub](https://github.com/aaron-he-zhu/seo-geo-claude-skills) Â· [ClawHub](https://clawhub.ai/u/aaron-he-zhu) Â· [skills.sh](https://skills.sh/aaron-he-zhu/seo-geo-claude-skills)
 
 ```bash
 # Install all skills (skills.sh)
