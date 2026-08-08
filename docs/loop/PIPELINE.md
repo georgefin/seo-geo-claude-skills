@@ -5,10 +5,11 @@ Approver: Sani. Repo: fork `georgefin/seo-geo-claude-skills` (upstream:
 `aaron-he-zhu/seo-geo-claude-skills`). Last updated: 2026-08-08 (loop audit).
 
 **GROUNDING RULE — do this first**: before researching or proposing anything, read the
-four files in `docs/loop/`: `PIPELINE.md` (this file), `SETTLED-RULINGS.md`,
-`WATCH-ITEMS.md`, `GATED-ITEMS.md`. Local checkout preferred; else fetch raw from the fork
-(same pattern as `VERSIONS.md:3`). Rulings are non-relitigable without new primary
-evidence; gated items are untouchable without Sani's recorded verdict.
+five files in `docs/loop/`: `PIPELINE.md` (this file), `SETTLED-RULINGS.md`,
+`WATCH-ITEMS.md`, `GATED-ITEMS.md`, `FAILURE-LEDGER.md`. Local checkout preferred; else
+fetch raw from the fork (same pattern as `VERSIONS.md:3`). Rulings are non-relitigable
+without new primary evidence; gated items are untouchable without Sani's recorded
+verdict; ledgered failures must not be repeated — repeating one is an incident.
 
 ## The 5 stages
 
@@ -58,6 +59,28 @@ evidence; gated items are untouchable without Sani's recorded verdict.
    unsubscribe, do NOT re-arm, report final status**. Next Saturday's DETECT run then
    verifies the merged deltas landed (loop-closure metric).
 
+## Learning metrics (the loop's own report card)
+
+A recursive loop is learning only if it stops repeating its own mistakes. Raw average
+scores can rise while old failures recur — so these three metrics OUTRANK any raw
+pass-rate when judging the loop (maintainer directive, 2026-08-08):
+
+1. **Eval regression rate** — of expectations that PASSED in the previous recorded
+   baseline, the share now failing on the same-or-newer skill version. Computed at every
+   VALIDATE run of a suite against `docs/loop/eval-baselines/` (dated, append-only).
+   Target: 0. ANY regression = do-not-merge + a FAILURE-LEDGER entry.
+2. **Repeat-failure count** — recurrences recorded in `FAILURE-LEDGER.md` (a failure
+   matching an existing entry's signature). A recurrence means the guard failed; guard
+   redesign becomes mandatory work. Target: 0.
+3. **Tool-correctness rate** — share of agent runs clean of tool misuse: zero tool
+   errors, zero scope violations, zero fabricated results, expectations gradeable as
+   written. Recorded per eval/review run in the baseline files.
+
+Raw pass-rates are still recorded (they catch absolute quality drift) but are read AFTER
+the three above: a 90% average with one regression is worse than a stable 75% — the
+first is a loop forgetting, the second is a loop that has not yet learned. First
+baselines: `docs/loop/eval-baselines/2026-08-08.json`.
+
 ## Trigger registry
 
 | Routine | ID | State | Schedule (UTC) |
@@ -100,6 +123,8 @@ same winter drift — its fix would be `0 5 * * 1-5`.
 | `SETTLED-RULINGS.md` | non-relitigable research rulings + pinned baselines | rulings: gated PR only; baselines: normal PR on verified drift |
 | `WATCH-ITEMS.md` | [VERIFY] queue: claim, file:line, source, cadence, owner action | PR after verification |
 | `GATED-ITEMS.md` | proposals awaiting Sani, risk/rollback, verdicts | Sani's verdict via PR |
+| `FAILURE-LEDGER.md` | append-only failure entries + guards + recurrence counts | every FIX/BLOCK, regression, revert, incident |
+| `eval-baselines/` | dated eval-run records (per-expectation outcomes, tool-correctness) — regression-rate denominator | skill-reviewer runs via APPLY sessions |
 | `reports/` (optional) | dated weekly report mirrors | APPLY-stage sessions |
 
 ## Trigger hygiene policy (standing)
@@ -121,10 +146,11 @@ same winter drift — its fix would be `0 5 * * 1-5`.
    (spent one-shots display a bogus +24h value).
 7. Vehicle: the weekly prompt's STEP 5b runs this sweep on the first Saturday of
    Jan/Apr/Jul/Oct — no separate loop.
-8. The same quarterly STEP 5b reports the four **loop-KPIs** (meta-loop measurement,
-   added 2026-08-08): proposal→merge latency · reverts this quarter · watch-item
-   resolution rate · ruling stability (supersession candidates raised). Trend, not
-   ceremony: two lines per KPI.
+8. The same quarterly STEP 5b reports the **loop-KPIs** (meta-loop measurement,
+   2026-08-08; learning metrics FIRST per maintainer directive): eval regression rate ·
+   repeat-failure count (FAILURE-LEDGER recurrences) · tool-correctness rate · then
+   proposal→merge latency · reverts this quarter · watch-item resolution rate · ruling
+   stability (supersession candidates raised). Trend, not ceremony: two lines per KPI.
 
 ## Deferred by decision (not omission)
 

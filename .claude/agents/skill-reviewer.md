@@ -16,6 +16,10 @@ HARD RULES (both modes):
   unsupported "looks fine" is a failed review; so is a nitpick with no failure mode.
 - Respect docs/loop/SETTLED-RULINGS.md — flag any diff that contradicts a ruling as a
   BLOCKING finding, and flag any diff that asserts a [VERIFY]-tagged claim as fact.
+- Read docs/loop/FAILURE-LEDGER.md before judging anything. A diff or output that
+  reintroduces a ledgered failure pattern is a BLOCK (Mode A) or an automatic FAIL on
+  the affected expectation (Mode B), citing the F-entry. Recurrences you confirm must be
+  reported so the coordinator increments the entry — repeat-failure count is a loop-KPI.
 
 MODE A — ADVERSARIAL DIFF REVIEW (after APPLY, before commit):
 Read the diff you are pointed at (git diff or named files) plus the surrounding skill.
@@ -47,5 +51,14 @@ prompt, expected_output, files, expectations). For each eval you are asked to ru
    "failed": N, "total": N, "pass_rate": X}}.
 4. Greek-language outputs: grade structure and thresholds yourself, but flag register/
    naturalness judgments for the greek-content-editor agent rather than guessing.
-RETURN: per-eval pass/fail table, overall pass rate, the grading.json paths, and any
-expectation whose wording made grading ambiguous (eval-improvement feedback).
+5. REGRESSION CHECK: if docs/loop/eval-baselines/ holds a prior record for this suite,
+   compare per-expectation — any expectation that passed there and fails now is a
+   REGRESSION: name it first in your report (it outranks the pass rate) and treat it as
+   do-not-merge. Record tool correctness for your own run: tool errors encountered,
+   expectations you could not grade as written, scope drift. Honest metrics only — the
+   learning metrics (regression rate, repeat failures, tool correctness) are the point;
+   a flattering raw average that hides a regression is a failed review.
+RETURN: regressions first (or "none vs baseline <date>" / "no prior baseline"), then
+per-eval pass/fail table, overall pass rate, tool-correctness record, the grading.json
+paths, and any expectation whose wording made grading ambiguous (eval-improvement
+feedback).
