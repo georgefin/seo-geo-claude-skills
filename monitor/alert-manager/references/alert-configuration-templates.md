@@ -174,21 +174,28 @@ Detailed alert configuration templates for each alert category. Use these templa
 
 ## GEO (AI Visibility) Alerts
 
+All GEO alerts use a weekly check window; thresholds are tunable operational defaults (see the threshold guide).
+
 ### AI Citation Alerts
 
 | Alert Name | Condition | Priority |
 |------------|-----------|----------|
-| Citation Lost | Lost AI Overview citation | Medium |
-| Citation Won | New AI Overview citation | Positive |
-| Citation Position Drop | Dropped from 1st to 3rd+ source | Medium |
-| New AI Overview | AI Overview appears for tracked keyword | Info |
+| Priority-1 Citation Lost | Any priority-1 query loses its citation | High |
+| Priority-1 Loss Cluster | 3+ priority-1 queries lose citations in one window | Critical |
+| Citation Position Slip | Position within the AI answer worsens by 2+ slots | Medium |
+| Dropped From Answer | Removed from the AI answer entirely | High |
+| Citation Won | New citation gained on a tracked query | Positive (Info) |
+| AI Overview Change | AI Overview appears or disappears on a tracked query | Medium |
 
 ### GEO Trend Alerts
 
 | Alert Name | Condition | Priority |
 |------------|-----------|----------|
-| Citation Rate Drop | AI citation rate drops 20%+ | High |
+| Citation Rate Slide | Citation rate down 10+ percentage points vs. baseline | High |
+| Citation Rate Floor | Citation rate below 10% absolute | Critical |
 | GEO Competitor | Competitor cited where you're not | Medium |
+
+**Response plan**: citation-loss alerts (loss, position, rate) hand the affected query and page to content-refresher's AI Overview recovery playbook. Priority-1 = the client-critical keywords from alert setup (money, brand, top-converting terms).
 
 ---
 

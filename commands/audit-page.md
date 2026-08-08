@@ -72,8 +72,8 @@ CORE-EEAT CONTENT QUALITY
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Content Type: [type]
-Veto Status: Pass / Fail [item]
-Weighted Score: XX/100 ([rating])
+Veto Status: Pass / Capped — 1 veto failed [item], final score ≤59 / BLOCK — 2+ vetoes failed [items], no final score / T04 N/A (no material connection)
+Weighted Score: XX/100 ([rating]) — suppressed on BLOCK; "no score issued" if veto evidence unassessable
 
 GEO Score (CORE): XX/100    SEO Score (EEAT): XX/100
 

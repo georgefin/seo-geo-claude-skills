@@ -55,9 +55,9 @@ Referenced from [SKILL.md](../SKILL.md).
 
 | Metric | Mobile | Desktop | Target | Status |
 |--------|--------|---------|--------|--------|
-| LCP (Largest Contentful Paint) | 4.8s | 2.1s | <2.5s | ❌ Mobile / ✅ Desktop |
-| CLS (Cumulative Layout Shift) | 0.24 | 0.08 | <0.1 | ❌ Mobile / ✅ Desktop |
-| INP (Interaction to Next Paint) | 380ms | 140ms | <200ms | ❌ Mobile / ✅ Desktop |
+| LCP (Largest Contentful Paint) | 4.8s | 2.1s | ≤2.5s | ❌ Mobile / ✅ Desktop |
+| CLS (Cumulative Layout Shift) | 0.24 | 0.08 | ≤0.1 | ❌ Mobile / ✅ Desktop |
+| INP (Interaction to Next Paint) | 380ms | 140ms | ≤200ms | ❌ Mobile / ✅ Desktop |
 
 ### Additional Performance Metrics
 
@@ -118,7 +118,7 @@ Score Breakdown:
 ## Priority Issues
 
 ### 🔴 Critical (Fix Immediately)
-1. **Mobile LCP 4.8s (target <2.5s)** — Evidence: field LCP 4.8s, TTFB 1,240ms, hero image 2.3MB. Impact: fails the CWV Good threshold on the highest-traffic template. Fix: compress hero to WebP (est. save 1.9MB) and add a CDN to bring TTFB <400ms. Confidence: Confirmed.
+1. **Mobile LCP 4.8s (target ≤2.5s)** — Evidence: field LCP 4.8s, TTFB 1,240ms, hero image 2.3MB. Impact: fails the CWV Good threshold on the highest-traffic template. Fix: compress hero to WebP (est. save 1.9MB) and add a CDN to bring TTFB <400ms. Confidence: Confirmed.
 
 ### 🟡 Important (Fix Soon)
 2. **HTTP not redirecting to HTTPS** — Evidence: http:// URLs return 200 without redirect; 7 mixed-content images on /features/. Impact: split signals and browser trust warnings. Fix: 301 http→https, enable HSTS, update the 7 image URLs. Confidence: Confirmed.

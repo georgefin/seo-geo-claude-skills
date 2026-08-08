@@ -24,17 +24,27 @@ Specifies which bot the rules apply to.
 
 **Syntax**: `User-agent: [bot-name]`
 
-**Common user-agents**:
-```
-User-agent: *                    # All bots
-User-agent: Googlebot            # Google's crawler
-User-agent: Bingbot              # Bing's crawler
-User-agent: GPTBot               # OpenAI's crawler
-User-agent: CCBot                # Common Crawl bot
-User-agent: anthropic-ai         # Anthropic's crawler
-User-agent: PerplexityBot        # Perplexity AI crawler
-User-agent: ClaudeBot            # Claude's web crawler
-```
+**Bot-role roster** — every AI vendor ships more than one agent, and each agent has a
+different job (training vs. search/citation discovery vs. user-triggered fetching).
+Decide access **per role**, never per vendor name alone.
+`[VERIFY vendor-primary at next sweep — bot rosters churn]` (roster compiled 2026-08-08).
+
+| User-agent token | Operator | Role |
+|------------------|----------|------|
+| `Googlebot` | Google | Search indexing |
+| `Google-Extended` | Google | AI-training opt-out control |
+| `Bingbot` | Microsoft | Search indexing (feeds the Copilot ecosystem) |
+| `GPTBot` | OpenAI | Model training |
+| `OAI-SearchBot` | OpenAI | Search / citation discovery |
+| `ChatGPT-User` | OpenAI | User-triggered fetching |
+| `ClaudeBot` | Anthropic | Crawling / training |
+| `anthropic-ai` | Anthropic | Crawling / training (second Anthropic token — address both) |
+| `Claude-SearchBot` | Anthropic | Search / citation discovery |
+| `Claude-User` | Anthropic | User-triggered fetching |
+| `PerplexityBot` | Perplexity | Answer retrieval / citation |
+| `Perplexity-User` | Perplexity | User-triggered fetching |
+| `CCBot` | Common Crawl | Open corpus widely used for AI training |
+| `*` | — | Every bot not matched by a named group |
 
 **Multiple user-agents**: Group rules by leaving no blank lines between user-agent declarations.
 
@@ -167,41 +177,75 @@ Standard configuration blocking admin and utility directories.
 
 ---
 
-### 4. Block All AI Crawlers
+### 4. AI-Crawler Stances (Pick One Deliberately)
+
+AI-crawler access is a policy decision with three coherent stances. The common failure
+mode is an accidental fourth: pasting whatever block list a blog post supplied, with no
+stance behind it.
+
+**The bot-pair rule (core of this section)**: every AI vendor ships a bot pair or triple —
+one agent for model *training*, one for *search/citation discovery*, and often one for
+*user-triggered* fetching (see the bot-role roster above). Each role must be decided
+**separately**. Blocking a vendor's training bot while never explicitly allowing its
+search bot silently forfeits that engine's citations.
+
+**Audit finding to flag**: *"training bot blocked but sibling search bot not explicitly
+allowed."* Raise it whenever a robots.txt disallows any training agent (GPTBot, ClaudeBot,
+anthropic-ai, CCBot, Google-Extended) without a matching explicit group for the same
+vendor's search/citation and user-triggered agents.
+
+| Stance | Choose when | Shape |
+|--------|-------------|-------|
+| **Default-open** | AI visibility and citation discovery are goals (typical marketing site) | No AI-specific groups; `User-agent: *` allows; only normal directory blocks |
+| **Default-closed** | Licensed/paid/private content, or a deliberate text-and-data-mining reservation | All AI agents (training AND search/citation AND user-triggered) disallowed; the site accepts losing AI citations |
+| **Split (search yes, training no)** | Search indexing and AI citations wanted; model-training use refused | Training agents disallowed; search/citation and user-triggered agents explicitly allowed |
+
+**Split-stance example** (search + citations kept, training refused):
 
 ```
-# Block OpenAI
+# --- AI model training: refused ---
 User-agent: GPTBot
-Disallow: /
-
-# Block Anthropic
-User-agent: anthropic-ai
 User-agent: ClaudeBot
-Disallow: /
-
-# Block Common Crawl
+User-agent: anthropic-ai
 User-agent: CCBot
-Disallow: /
-
-# Block Perplexity
-User-agent: PerplexityBot
-Disallow: /
-
-# Block Google-Extended (Bard training)
 User-agent: Google-Extended
 Disallow: /
 
-# Allow search engines
-User-agent: Googlebot
+# --- AI search / citation discovery: allowed ---
+User-agent: OAI-SearchBot
+User-agent: Claude-SearchBot
+User-agent: PerplexityBot
 Disallow:
 
+# --- User-triggered fetchers: allowed ---
+User-agent: ChatGPT-User
+User-agent: Claude-User
+User-agent: Perplexity-User
+Disallow:
+
+# --- Search engines: allowed ---
+User-agent: Googlebot
 User-agent: Bingbot
 Disallow:
+
+# --- Everyone else ---
+User-agent: *
+Disallow: /admin/
+Disallow: /private/
 
 Sitemap: https://example.com/sitemap.xml
 ```
 
-Use when you want search indexing but not AI training.
+**Ops checks (run for ANY stance)**:
+
+- **Edge can override origin.** CDN/WAF layers (bot-management toggles, edge rules) can
+  serve a different robots.txt or block user agents before the origin file is ever
+  reached — verify the edge configuration separately from the origin file.
+- **File health.** Confirm robots.txt returns HTTP 200 (not 403/404, not a redirect to an
+  error page) and parses cleanly.
+- **Logs are the truth.** Check the declared policy against actual bot visits in server
+  logs: a "blocked" bot still fetching pages, or an "allowed" bot never visiting, means
+  the policy is not doing what the file claims.
 
 ---
 

@@ -110,3 +110,45 @@ regression rate · repeat-failure count · tool-correctness rate.
 - **Recurrence**: 0 (two instances in one wave counted as the founding pattern; a
   future false verdict that ESCAPES into a report increments this).
 - **Status**: guard live; encoded in the skill-reviewer Mode B discipline.
+
+## F8 — 2026-08-08 · Review target mutated during an in-flight adversarial review
+
+- **Failure**: the coordinator edited `.claude/agents/skill-reviewer.md` (a G4 harvest
+  item) while a Mode A reviewer was reviewing the UNCOMMITTED working tree for the G1
+  pilot. The reviewer's closing scan found 8 modified files where its opening scan saw
+  7 — scope-purity FAIL on an otherwise SHIP-grade diff, and the mid-review edit itself
+  carried a semantics error (verdict-cap wording that inverted ledger rule 5) that was
+  only caught because the reviewer flagged the intrusion.
+- **Root cause**: working-tree reviews have no frozen target; concurrent writers can
+  change the reviewable unit mid-review.
+- **Guard**: Mode A launches only against a frozen target — a committed SHA (preferred)
+  or an explicit file manifest declared at launch; while a working-tree review is in
+  flight, coordinator and implementers do not write inside the repo. Caught same-day by
+  the reviewer's open-vs-close scan discipline; the offending edit was corrected and
+  committed separately with the reviewer's semantic fix applied.
+- **Recurrence**: 0. **Status**: guard live (this entry is the standing rule).
+
+## F9 — 2026-08-08 · Deprecated-concept purges scoped per skill left sibling leftovers
+
+- **Failure**: FID (retired 03-2024, ruling R4) survived THREE purges — the 4.0.1
+  technical-seo-checker cleanup, the labels wave's two-reference purge, and the R4
+  pointer refresh — because each swept only the skill in front of it. A fourth file
+  (`build/geo-content-optimizer/references/quotable-content-examples.md`) still taught
+  "FID <100ms" until today's repo-wide grep caught it.
+- **Root cause**: concept deprecations executed as per-skill edits; shared concepts
+  (CWV metrics, veto shorthands, schema patterns) live in MANY skills' references.
+- **Guard**: standing rule — retiring or redefining any cross-skill concept requires a
+  repo-wide grep sweep for the concept's tokens (all spellings/units) in the same wave,
+  with the hit list resolved or explicitly queued; per-skill scoping is only valid for
+  skill-local concepts. Applied today: `<2.5|<200ms|<0.1|FID|Affiliate links disclosed`
+  swept repo-wide; remaining hits zero.
+- **Recurrence**: **1** (2026-08-08, same day — the entry's own founding sweep claimed
+  "remaining hits zero" while a FIFTH live FID file survived it:
+  `research/competitor-analysis/references/analysis-templates.md:140`, caught by the
+  Mode A reviewer's independent grep). Per rule 3 the guard failed and was REDESIGNED
+  same day: manual grep claims are no longer the guard — `scripts/validate-tracking.sh`
+  check (f) now runs a scripted deprecated-token sweep (FID / First Input Delay /
+  affiliate-only T04) on every gate run, fault-injection-tested; retiring any
+  cross-skill concept adds a row to its token list.
+- **Status**: redesigned guard live (scripted, gate-enforced); recurrence counter at 1
+  stands as the permanent record that the manual version failed.

@@ -13,9 +13,9 @@ Detailed output templates for technical-seo-checker steps 3-9. Referenced from [
 
 | Metric | Mobile | Desktop | Target | Status |
 |--------|--------|---------|--------|--------|
-| LCP (Largest Contentful Paint) | [X]s | [X]s | <2.5s | ✅/⚠️/❌ |
-| CLS (Cumulative Layout Shift) | [X] | [X] | <0.1 | ✅/⚠️/❌ |
-| INP (Interaction to Next Paint) | [X]ms | [X]ms | <200ms | ✅/⚠️/❌ |
+| LCP (Largest Contentful Paint) | [X]s | [X]s | ≤2.5s | ✅/⚠️/❌ |
+| CLS (Cumulative Layout Shift) | [X] | [X] | ≤0.1 | ✅/⚠️/❌ |
+| INP (Interaction to Next Paint) | [X]ms | [X]ms | ≤200ms | ✅/⚠️/❌ |
 
 ### Additional Performance Metrics
 

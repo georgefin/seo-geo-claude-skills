@@ -9,27 +9,42 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 | Skill | Category | Version | Last Updated |
 |-------|----------|---------|--------------|
 | keyword-research | research | 4.2.1 | 2026-08-08 |
-| competitor-analysis | research | 4.0.1 | 2026-08-08 |
+| competitor-analysis | research | 4.0.2 | 2026-08-08 |
 | serp-analysis | research | 4.2.0 | 2026-08-08 |
 | content-gap-analysis | research | 4.0.1 | 2026-08-08 |
 | seo-content-writer | build | 4.2.0 | 2026-08-08 |
-| geo-content-optimizer | build | 4.1.2 | 2026-08-08 |
+| geo-content-optimizer | build | 4.1.4 | 2026-08-08 |
 | meta-tags-optimizer | build | 4.1.1 | 2026-08-08 |
 | schema-markup-generator | build | 4.1.0 | 2026-08-08 |
-| on-page-seo-auditor | optimize | 4.1.0 | 2026-08-08 |
-| technical-seo-checker | optimize | 4.1.0 | 2026-08-08 |
+| on-page-seo-auditor | optimize | 4.1.1 | 2026-08-08 |
+| technical-seo-checker | optimize | 4.2.1 | 2026-08-08 |
 | internal-linking-optimizer | optimize | 4.0.1 | 2026-08-08 |
-| content-refresher | optimize | 4.0.1 | 2026-08-08 |
-| rank-tracker | monitor | 4.0.2 | 2026-08-08 |
+| content-refresher | optimize | 4.1.0 | 2026-08-08 |
+| rank-tracker | monitor | 4.1.0 | 2026-08-08 |
 | backlink-analyzer | monitor | 4.0.1 | 2026-08-08 |
-| performance-reporter | monitor | 4.0.1 | 2026-08-08 |
-| alert-manager | monitor | 4.0.1 | 2026-08-08 |
-| content-quality-auditor | cross-cutting | 4.1.0 | 2026-08-08 |
+| performance-reporter | monitor | 4.1.0 | 2026-08-08 |
+| alert-manager | monitor | 4.1.1 | 2026-08-08 |
+| content-quality-auditor | cross-cutting | 4.2.0 | 2026-08-08 |
 | domain-authority-auditor | cross-cutting | 4.1.0 | 2026-08-08 |
 | entity-optimizer | cross-cutting | 4.1.1 | 2026-08-08 |
-| memory-management | cross-cutting | 4.0.1 | 2026-08-08 |
+| memory-management | cross-cutting | 4.0.2 | 2026-08-08 |
 
 ## Changelog
+
+### v4.3.0 (2026-08-08)
+
+Gate execution wave (Sani's verdicts: "1. merge 2. Yes 3. Yes 4. Please explain 5. harvest"). G1 spec pilot + all seven G4 upstream harvest ports (aaron-marketing-skills v19.1.0 concepts, original wording, Apache-2.0) + shared-framework veto refinements. Every commit group adversarially reviewed against frozen targets; two new ledger guards (F8 frozen-review-target, F9 scripted deprecated-token sweep — recurrence 1 recorded honestly, guard redesigned same day).
+
+- **G1 pilot**: memory-management 4.0.2 is the one spec-aligned skill (top-level `version` removed; `metadata.version` is the authority); plugin.json drops `schemaVersion`/`id` (official validator: two warnings removed, zero new findings; W8 resolved); both gate scripts learn the transitional rule; CLAUDE.md + CONTRIBUTING.md updated in lockstep; full migration (command/hook/mcpServer shapes) remains a separate decision
+- **content-refresher 4.1.0**: AI Overview recovery playbook (`references/ai-overview-recovery.md` — trigger profile, 28-day GSC diagnostics, four-case segmentation, T+7/14/28 verification, stop rules with entity-optimizer handoffs; FAQ markup conditioned on the R2 both-things test)
+- **technical-seo-checker 4.2.1**: 12-agent AI-crawler bot-role roster [VERIFY at sweep], three deliberate stances with own-composition split example, never-block-the-pair audit rule, edge-override + log-verification checks; CWV example/template boundaries made R4-inclusive
+- **alert-manager 4.1.1**: citation-loss three-metric weekly block (rate −10pp warn / 10% floor critical; priority-1 loss any/≥3 — priority-1 now defined; position ≥2 slots/dropped), won-citation + AI-Overview event alerts, optional SD severity ladder, response path to the recovery playbook; configuration templates harmonized
+- **performance-reporter 4.1.0**: AI-referrals reporting cut (three-source triangulation, hostname roster [VERIFY — churns], AI-share headline, AI-vs-organic gap, delta-vs-control rule, linked≠cited caveat)
+- **rank-tracker 4.1.0**: striking-distance GSC mining (~5–20 band, client-side position filtering, opportunity formula with manual-tier fallback, 50-impression house floor; keyword-research boundary intact)
+- **CORE-EEAT framework + content-quality-auditor 4.2.0**: R10 veto narrowed to material internal contradiction (broken links = remediable Partial, never veto); T04 broadened to all material connections as a true conditional veto (no connection = N/A excluded, never Partial; link markup insufficient); veto scoring consequences stated (1 veto = cap 59 flagged; 2+ = BLOCK, no final score; unassessable = no score); Section 5 mapping aligned to the R2 boundary; `commands/audit-page.md` scaffold aligned
+- **skill-reviewer roster**: UNDECIDED verdict for missing evidence (rule-based Mode A preserved: one BLOCK-class violation = BLOCK)
+- **Consistency sweep**: FID purged from a fourth AND fifth live file (geo quotable-examples 4.1.4, competitor-analysis 4.0.2 — the fifth found by the reviewer after a "complete" manual sweep → F9 recurrence 1, guard now scripted as validate-tracking check (f), fault-injection-tested); geo's misattributed CWV statistic corrected (24% = lower abandonment, 2020 Chrome data — not "more clicks"); on-page-seo-auditor 4.1.1 T04 template row
+- **Loop records**: verdict log third entry; G2 approved, blocked on the fork's disabled Issues feature; G3 explanation delivered (fact question open); quarterly upstream harvest lane (PIPELINE hygiene §9, first run 2026-10); W8 resolved; F8/F9 ledgered
 
 ### v4.2.0 (2026-08-08)
 

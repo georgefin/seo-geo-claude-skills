@@ -4,7 +4,7 @@
 >
 > This file is a reference adaptation for the SEO & GEO Skills Library. For the full benchmark with detailed examples, see the source repository.
 >
-> **Version sync**: When the source spec updates, check: item count references in README (currently "80 items"), skill validation checkpoints, and Sections 2, 3, 7 below.
+> **Version sync**: When the source spec updates, check: item count references in README (currently "80 items"), skill validation checkpoints, and Sections 2, 3, 7 below. Library-governed refinements — the R10/T04 veto semantics and veto scoring consequences (Sections 2, 3, 7) and the Section 5 single-primary schema mapping — supersede the v3.0 source wording where they differ; do not revert them on a sync.
 
 **8 dimensions × 10 items = 80 evaluation criteria** for optimizing content visibility across AI engines (GEO) and search engines (SEO).
 
@@ -77,7 +77,7 @@
 | R07 | R | Entity Precision | GEO 🎯 | Full names for people/orgs/products; no "a company" |
 | R08 | R | Internal Link Graph | SEO 🔍 | Descriptive anchor texts forming topic clusters |
 | R09 | R | HTML Semantics | GEO 🎯 | Uses `<article>`, `<figure>`, `<time>`, `<cite>` |
-| R10 | R | Content Consistency | Dual ⚡ | Data self-consistent; no broken links (404) |
+| R10 | R | Content Consistency | Dual ⚡ | Material facts/calculations self-consistent; cited links resolve |
 | E01 | E | Original Data | GEO 🎯 | First-party surveys, experiments, or statistics |
 | E02 | E | Novel Framework | GEO 🎯 | Named, citable original framework or model |
 | E03 | E | Primary Research | GEO 🎯 | Original experiments/surveys with documented process |
@@ -126,7 +126,7 @@
 | T01 | T | Legal Compliance | SEO 🔍 | Privacy Policy + Terms of Service present |
 | T02 | T | Contact Transparency | SEO 🔍 | Physical address or ≥2 contact methods |
 | T03 | T | Security Standards | SEO 🔍 | Site-wide HTTPS, no security warnings |
-| T04 | T | Disclosure Statements | Dual ⚡ | Affiliate links disclosed (veto if missing) |
+| T04 | T | Disclosure Statements | Dual ⚡ | Material connections disclosed (conditional veto; N/A when none exist) |
 | T05 | T | Editorial Policy | SEO 🔍 | Content standards and review process published |
 | T06 | T | Correction & Update Policy | Dual ⚡ | Has corrections page or changelog |
 | T07 | T | Ad Experience | SEO 🔍 | Ads <30% of page; no intrusive popups |
@@ -145,6 +145,7 @@
 | Pass | 10 |
 | Partial | 5 |
 | Fail | 0 |
+| N/A (item not applicable, e.g., T04 with no material connection) | Excluded from the dimension average — never converted to Partial or Fail |
 
 ### Score Calculation
 
@@ -179,11 +180,19 @@
 
 ### Veto Items
 
-The following items can override the overall score — a Fail on any veto item caps the total at "Low" regardless of other scores:
+Three items act as vetoes — trust failures that override the arithmetic regardless of other scores:
 
-- **T04** — Affiliate links without disclosure
+- **T04** — A material connection (sponsorship, ownership, compensated product, affiliate relationship) undisclosed or materially obscured. **Conditional veto**: T04 applies only when a material connection exists; when none exists, T04 is N/A and excluded from scoring — absence of connections is never scored Partial.
 - **C01** — Clickbait (title doesn't match content)
-- **R10** — Data contradicts itself
+- **R10** — Material internal contradiction: two parts of the content make incompatible factual or numerical claims. Isolated broken links, stale non-material references, and wording inconsistencies are remediable Partial-level findings — they never trigger this veto.
+
+**Veto scoring consequences** — framework rule definitions (normative, not empirical thresholds):
+
+| Veto outcome | Effect on the final score |
+|--------------|---------------------------|
+| One verified veto failure | Final overall score capped at 59 (top of "Low"); the cap is flagged in the report |
+| Two or more verified veto failures | BLOCK-class outcome — no final score is reported (dimension scores may still be shown; the final is suppressed) |
+| Evidence for a veto item missing or unassessable | No final score is issued at all — a veto item is never guessed past |
 
 ---
 
@@ -213,17 +222,19 @@ The following items can override the overall score — a Fail on any veto item c
 
 ## 5. Schema by Content Type
 
-| Content Type | Required Schema | Conditional Schema |
-|-------------|----------------|-------------------|
-| Blog (guides) | Article, Breadcrumb | FAQ, HowTo |
-| Blog (tools) | Article, Breadcrumb | FAQ, Review |
-| Blog (insights) | Article, Breadcrumb | FAQ |
-| Alternative | Comparison*, Breadcrumb, FAQ | AggregateRating |
-| Best-of | ItemList, Breadcrumb, FAQ | AggregateRating per tool |
-| Use-case | WebPage, Breadcrumb, FAQ | — |
-| FAQ | FAQPage, Breadcrumb | — |
-| Landing | SoftwareApplication, Breadcrumb, FAQ | WebPage |
-| Testimonial | Review, Breadcrumb | FAQ, Person |
+One primary content type per page (item O05). Documented auxiliaries are legitimate only when each has its own engine-documented, non-citation job and the page data warrants it: BreadcrumbList for a real breadcrumb trail; Organization/Person as publisher/author identity (normally nested inside the primary — top-level only on the entity's own page); WebSite on the homepage. A second full content type on the same page (e.g., FAQPage bolted onto a service page) is not allowed — unless the page genuinely is both things and each type is complete, accurate, and independently justified.
+
+| Content Type | Primary Type (pick ONE) | Documented Auxiliaries (only if warranted) |
+|-------------|------------------------|--------------------------------------------|
+| Blog (guides) | Article — HowTo instead when the page IS a step-by-step procedure | BreadcrumbList (real trail); author/publisher nested |
+| Blog (tools) | Article | BreadcrumbList; author/publisher nested |
+| Blog (insights) | Article | BreadcrumbList; author/publisher nested |
+| Alternative | Article (comparison editorial) | BreadcrumbList |
+| Best-of | ItemList | BreadcrumbList |
+| Use-case | WebPage | BreadcrumbList |
+| FAQ | FAQPage | BreadcrumbList |
+| Landing | SoftwareApplication (or the accurate Product/Service type) | BreadcrumbList |
+| Testimonial | Review | BreadcrumbList; reviewed item + reviewer nested inside the Review |
 
 ---
 
@@ -397,9 +408,9 @@ What is the primary goal?
 - **Fail**: Pure `<div>` markup.
 
 **R10: Content Consistency** | Dual ⚡
-- **Pass**: Data self-consistent; no broken links; has corrections log.
-- **Partial**: Mostly consistent.
-- **Fail**: Data contradicts itself or broken links.
+- **Pass**: Material facts and calculations internally consistent; cited links resolve at the observation date.
+- **Partial**: Isolated broken links, stale non-material references, or wording inconsistencies — remediable findings that never trigger the veto.
+- **Fail**: Material internal contradiction — two parts of the content make incompatible factual or numerical claims — VETO.
 
 ### E — Exclusivity
 
@@ -627,9 +638,10 @@ What is the primary goal?
 - **Fail**: HTTP.
 
 **T04: Disclosure Statements** | Dual ⚡
-- **Pass**: Affiliate links disclosed.
-- **Partial**: No affiliate links (N/A).
-- **Fail**: Affiliates without disclosure — VETO.
+- **Applicability**: Conditional veto — assessed only when a material connection exists (sponsorship, ownership, compensated products, affiliate relationships). With no material connection, T04 is N/A and excluded from scoring — never recorded as Partial.
+- **Pass**: Every material connection carries a clear, human-readable disclosure placed where readers encounter the connection.
+- **Partial**: Disclosure present but contextually weak — buried (e.g., footer-only), ambiguous wording, or placed far from the connection it covers.
+- **Fail**: A material connection undisclosed or materially obscured — VETO. Link markup (`rel="sponsored"` etc.) does not substitute for human-readable disclosure.
 
 **T05: Editorial Policy** | SEO 🔍
 - **Pass**: Content standards and review process published.

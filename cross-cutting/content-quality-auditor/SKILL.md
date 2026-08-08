@@ -1,6 +1,6 @@
 ---
 name: content-quality-auditor
-version: "4.1.0"
+version: "4.2.0"
 description: 'Run the full 80-item CORE-EEAT audit across 8 dimensions with content-type weighted scoring, veto checks, and prioritized fix plans. Use when the user asks to "audit content quality", "EEAT score", "CORE-EEAT audit", "content quality check", "how good is my content", "content improvement plan", "is my content AI-citation worthy", "GEO quality score". For SEO page element audits, see on-page-seo-auditor. For domain-level authority, see domain-authority-auditor.'
 license: Apache-2.0
 allowed-tools: WebFetch
@@ -8,7 +8,7 @@ compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, 
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.1.0"
+  version: "4.2.0"
   geo-relevance: "high"
   tags:
     - seo
@@ -57,7 +57,7 @@ This skill evaluates content quality across 80 standardized criteria organized i
 2. **Dimension Scoring**: Calculates scores for all 8 dimensions (0-100 each)
 3. **System Scoring**: Computes GEO Score (CORE) and SEO Score (EEAT)
 4. **Weighted Totals**: Applies content-type-specific weights for final score
-5. **Veto Detection**: Flags critical trust violations (T04, C01, R10)
+5. **Veto Detection**: Flags critical trust violations (T04, C01, R10) and applies the benchmark's veto scoring consequences (cap / BLOCK / no-score)
 6. **Priority Ranking**: Identifies Top 5 improvements sorted by impact
 7. **Action Plan**: Generates specific, actionable improvement steps
 
@@ -121,12 +121,14 @@ When a user requests a content quality audit:
 
 | Veto Item | Status | Action |
 |-----------|--------|--------|
-| T04: Disclosure Statements | ✅ Pass / ⚠️ VETO | [If VETO: "Add disclosure banner at page top immediately"] |
+| T04: Disclosure Statements | ✅ Pass / N/A (no material connection) / ⚠️ VETO | [If VETO: "Add human-readable disclosure where readers encounter the connection — immediately"] |
 | C01: Intent Alignment | ✅ Pass / ⚠️ VETO | [If VETO: "Rewrite title and first paragraph"] |
-| R10: Content Consistency | ✅ Pass / ⚠️ VETO | [If VETO: "Verify all data before publishing"] |
+| R10: Content Consistency | ✅ Pass / ⚠️ VETO | [If VETO: "Resolve the contradictory claims before publishing"] |
 ```
 
-If any veto item triggers, flag it prominently at the top of the report and recommend immediate action before continuing the full audit.
+Veto semantics (benchmark Section 3): T04 is a **conditional veto** — assessed only when a material connection (sponsorship, ownership, compensated product, affiliate relationship) exists; with none, mark N/A and exclude from scoring, never Partial. R10's veto fires only on **material internal contradiction** (incompatible factual/numerical claims); isolated broken links, stale non-material references, and wording inconsistencies are remediable Partial-level findings, never veto.
+
+If any veto item triggers, flag it prominently at the top of the report and recommend immediate action before continuing the full audit. Scoring consequences (framework rules, benchmark Section 3): one verified veto failure caps the final overall score at 59, with the cap flagged in the report; two or more verified veto failures = BLOCK — show dimension scores but suppress the final score; if a veto item's evidence is missing or unassessable, issue no final score at all — never guess past a veto item.
 
 ### Step 2: CORE Audit (40 items)
 
@@ -198,7 +200,7 @@ Calculate scores and generate the final report. Every finding — each Partial/F
 - **Audit Date**: [date]
 - **Total Score**: [score]/100 ([rating])
 - **GEO Score**: [score]/100 | **SEO Score**: [score]/100
-- **Veto Status**: ✅ No triggers / ⚠️ [item] triggered
+- **Veto Status**: ✅ No triggers / ⚠️ [item] triggered — final score capped at 59 / ⛔ BLOCK ([items]) — final score suppressed / ❓ [item] unassessable — no final score issued
 
 ### Dimension Scores
 
@@ -299,7 +301,7 @@ Sorted by: weight × points lost (highest impact first). Every entry carries all
 - [ ] All 80 items scored (or marked N/A with reason)
 - [ ] All 8 dimension scores calculated correctly
 - [ ] Weighted total matches content-type weight configuration
-- [ ] Veto items checked and flagged if triggered
+- [ ] Veto items checked and flagged if triggered; consequence applied (one veto = cap at 59, two+ = BLOCK, unassessable = no final score); T04 marked N/A when no material connection exists
 - [ ] Top 5 improvements sorted by weighted impact, not arbitrary
 - [ ] Every recommendation is specific and actionable (not generic advice)
 - [ ] Action plan includes concrete steps with effort estimates
@@ -312,8 +314,8 @@ See [references/item-reference.md](./references/item-reference.md) for a complet
 
 ## Tips for Success
 
-1. **Start with veto items** — T04, C01, R10 are deal-breakers regardless of total score
-   > These veto items are consistent with the CORE-EEAT benchmark (Section 3), which defines them as items that can override the overall score.
+1. **Start with veto items** — T04 (conditional: only when a material connection exists), C01, and R10 override the arithmetic: one verified veto failure caps the final score at 59, two or more = BLOCK (no final score), unassessable veto evidence = no score issued
+   > These veto items and their scoring consequences follow the CORE-EEAT benchmark (Section 3), which defines them as framework rules that override the overall score.
 2. **Focus on high-weight dimensions** — Different content types prioritize different dimensions
 3. **GEO-First items matter most for AI visibility** — Prioritize items tagged GEO 🎯 if AI citation is the goal
 4. **Some EEAT items need site-level data** — Don't penalize content for things only observable at the site level (backlinks, brand recognition)

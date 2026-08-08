@@ -1,13 +1,13 @@
 ---
 name: content-refresher
-version: "4.0.1"
+version: "4.1.0"
 description: 'Refresh old blog posts and outdated content with current statistics, new information, and freshness signals to restore search rankings. Use when the user asks to "update old content", "refresh content", "content is outdated", "improve declining rankings", "revive old blog posts", "traffic is declining on this page", "rankings dropped for this article", or "this post is outdated". For writing new content from scratch, see seo-content-writer. For auditing without rewriting, see on-page-seo-auditor.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.0.1"
+  version: "4.1.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -216,6 +216,8 @@ When a user requests content refresh help:
    5. **GEO potential**: [AI citation opportunities]
    ```
 
+   > **Branch — AI Overview displacement**: if the metrics above show CTR down 20-60% on ≥5 queries over 2-4 weeks while impressions hold (flat or rising) and rankings stay top-3, suspect an AI Overview above the organic results rather than ordinary decay. Run the diagnostic sequence, remediation order, verification ladder, and stop rules in [references/ai-overview-recovery.md](./references/ai-overview-recovery.md) before writing a generic refresh plan.
+
 4. **Identify Specific Updates Needed**
 
    ```markdown
@@ -311,6 +313,7 @@ When a user requests content refresh help:
 ## Reference Materials
 
 - [Content Decay Signals](./references/content-decay-signals.md) — Decay indicators, lifecycle stages, and refresh triggers by content type
+- [AI Overview Recovery Playbook](./references/ai-overview-recovery.md) — Trigger profile, four-case query segmentation, answer-first remediation, T+7/T+14/T+28 verification ladder, stop rules with entity-optimizer handoff
 - [Refresh Templates](./references/refresh-templates.md) — Detailed output templates for steps 5-9 (refresh plan, content writing, GEO enhancement, republishing, report)
 - [Refresh Example & Checklist](./references/refresh-example.md) — Full worked example and pre/post-refresh checklist
 

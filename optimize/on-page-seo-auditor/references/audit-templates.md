@@ -208,7 +208,7 @@ Content-relevant items from the 80-item benchmark:
 | R10 | Content Consistency | ✅/⚠️/❌ | No contradictions |
 | Exp01 | First-Person Narrative | ✅/⚠️/❌ | "I tested" or "We found" |
 | Ept01 | Author Identity | ✅/⚠️/❌ | Byline + bio present |
-| T04 | Disclosure Statements | ✅/⚠️/❌ | Affiliate links disclosed |
+| T04 | Disclosure Statements | ✅/⚠️/❌/N/A | Material connections disclosed (conditional veto; N/A when none exist) |
 
 **CORE-EEAT Quick Score**: [X]/17 items passing
 

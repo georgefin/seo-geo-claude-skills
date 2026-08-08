@@ -1,13 +1,13 @@
 ---
 name: alert-manager
-version: "4.0.1"
+version: "4.1.1"
 description: 'Set up automated monitoring and notifications for SEO ranking drops, traffic changes, technical issues, and competitor movements. Use when the user asks to "set up SEO alerts", "notify me when rankings drop", "traffic alerts", "watch competitor changes", "alert me if rankings drop", "notify me of traffic changes", "monitor rankings", or "watch my keywords for changes". For detailed rank analysis, see rank-tracker. For comprehensive reporting, see performance-reporter.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.0.1"
+  version: "4.1.1"
   geo-relevance: "low"
   tags:
     - seo
@@ -261,14 +261,23 @@ When a user requests alert setup:
 | Crawl errors | >10 new/day | >50 new/day | Daily |
 | Core Web Vitals | "Needs Improvement" | "Poor" | Weekly |
 | Backlinks lost | >5% in 1 week | >15% in 1 week | Weekly |
-| AI citation loss | Any key query | >20% queries | Weekly |
+| AI citation rate | Down 10+ pp vs. baseline | Below 10% absolute floor | Weekly |
+| AI citation loss (priority-1) | Any priority-1 query loses its citation | 3+ priority-1 queries lose citations | Weekly |
+| AI citation position | Worsens by 2+ slots within the answer | Dropped from the answer entirely | Weekly |
 | Security issues | Any detected | Any detected | Daily |
+
+**AI citation event alerts** (same weekly window): a citation **won** on a tracked query is logged as a positive, informational alert; an **AI Overview appearing or disappearing** on a tracked query is a Medium-severity event — either direction reshapes the click landscape for that query.
+
+**Priority-1 queries** are the client-critical keywords captured during alert setup (the critical-keywords intake, Data Sources item 2): money terms, brand terms, and top-converting queries. This is the same set the threshold guide calls "Tier 1" — maintain one list, not two.
+
+**Response path**: when any citation-loss alert fires (rate, priority-1, or position), hand the affected query and its source page to [content-refresher](../../optimize/content-refresher/) and run its AI Overview recovery playbook. All AI-citation thresholds above are tunable operational defaults, not measured constants — calibrate them against the site's own baseline per the threshold guide.
 
 > **Reference**: See [references/alert-threshold-guide.md](./references/alert-threshold-guide.md) for baseline establishment, threshold setting methodology, fatigue prevention, escalation paths, and response playbooks.
 
 ## Reference Materials
 
 - [Alert Threshold Guide](./references/alert-threshold-guide.md) — Recommended thresholds by metric, fatigue prevention strategies, and escalation path templates
+- [Alert Configuration Templates](./references/alert-configuration-templates.md) — Ready-to-use alert definitions per monitoring category, incl. the GEO/AI citation set
 
 ## Related Skills
 
@@ -277,5 +286,5 @@ When a user requests alert setup:
 - [technical-seo-checker](../../optimize/technical-seo-checker/) — Technical monitoring
 - [performance-reporter](../performance-reporter/) — Alert summaries in reports
 - [memory-management](../../cross-cutting/memory-management/) — Store alert history and thresholds in project memory
-- [content-refresher](../../optimize/content-refresher/) — Content decay alerts trigger refresh workflows
+- [content-refresher](../../optimize/content-refresher/) — Content decay and AI-citation-loss alerts trigger refresh workflows (AI Overview recovery playbook)
 

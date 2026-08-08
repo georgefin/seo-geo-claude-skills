@@ -137,7 +137,7 @@ Templates for each step of the competitor analysis workflow. Use these to struct
 **Site Performance**
 - Core Web Vitals: [Pass/Fail]
 - LCP: [X]s
-- FID: [X]ms
+- INP: [X]ms
 - CLS: [X]
 - Mobile-friendly: [Yes/No]
 

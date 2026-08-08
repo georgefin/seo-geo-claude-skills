@@ -1,13 +1,13 @@
 ---
 name: performance-reporter
-version: "4.0.1"
+version: "4.1.0"
 description: 'Generate consolidated SEO and GEO performance dashboards combining rankings, traffic, backlinks, and AI visibility metrics for stakeholders. Use when the user asks to "generate SEO report", "performance report", "SEO dashboard", "report to stakeholders", "show me the numbers", "monthly SEO report", "traffic report", or "present SEO results to my boss". For detailed rank tracking, see rank-tracker. For link-specific analysis, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.0.1"
+  version: "4.1.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -125,6 +125,8 @@ When a user requests a performance report:
 
 5. **Report GEO/AI Performance** -- AI citation overview, citations by topic, GEO wins, optimization opportunities.
 
+   **AI-referrals cut** -- Also report the traffic AI assistants actually send. Triangulate three sources: ~~analytics referral source/medium plus conversions (GA4), ~~search console AI-surface query/click data where the property exposes it, and server-log referrer + user-agent rows. Match referrers against the AI hostname roster in [references/kpi-definitions.md](./references/kpi-definitions.md) (operational config — it churns). Report four cuts: AI share of total sessions period-over-period (the headline), top AI-landing pages with sessions and conversion rate, the AI-vs-organic engagement/conversion gap for the same window, and GSC AI-surface corroboration. **Control rule**: any attribution claim needs a parallel holdout (an unchanged own page, a sibling URL, or a competitor) — report delta-vs-control, never a raw delta. **Caveat to state in the report**: AI referral traffic proves an AI answer *linked* the site, not that it cited it prominently — treat referrals as leads for citation checking, not citation proof. Label every figure per this skill's source discipline (tool-measured / user-provided / estimated).
+
 6. **Report Domain Authority (CITE Score)** -- If a CITE audit has been run, include CITE dimension scores (C/I/T/E) with period-over-period trends and veto status. If no audit exists, note as "Not yet evaluated."
 
 7. **Content Quality (CORE-EEAT Score)** -- If content-quality-auditor has been run, include average scores across all 8 CORE-EEAT dimensions with trends. If no audit exists, note as "Not yet evaluated."
@@ -190,8 +192,8 @@ When a user requests a performance report:
 
 ## Reference Materials
 
-- [Report Output Templates](./references/report-output-templates.md) — Complete output templates for all 11 report sections
-- [KPI Definitions](./references/kpi-definitions.md) — SEO/GEO metric definitions with benchmarks, good ranges, warning thresholds, trend analysis, and attribution guidance
+- [Report Output Templates](./references/report-output-templates.md) — Complete output templates for all 11 report sections, including the AI referral traffic cut (5b)
+- [KPI Definitions](./references/kpi-definitions.md) — SEO/GEO metric definitions with benchmarks, good ranges, warning thresholds, trend analysis, attribution guidance, and the AI referral KPI with its hostname roster
 - [Report Templates by Audience](./references/report-templates.md) — Copy-ready templates for executive, marketing, technical, and client audiences
 
 ## Related Skills
