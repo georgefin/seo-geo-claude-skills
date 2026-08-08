@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+# pre-push-gate.sh — the APPLY-stage validation gate. Run (or let the
+# .claude/settings.json PreToolUse hook run it) before ANY git push:
+#   1. scripts/validate-skill.sh on every skill touched vs the base ref
+#      (committed or uncommitted) — localizes errors per skill;
+#   2. scripts/validate-tracking.sh once — repo-level consistency
+#      (version sync, manifest parity, VERSIONS.md rows, 350-line cap,
+#      references/ links).
+# Push only when both pass. With Actions disabled on this fork, this gate
+# is the effective CI (docs/loop/PIPELINE.md stage 4).
+#
+# Usage: ./scripts/pre-push-gate.sh [base-ref]   (default: origin/main)
+# Exit:  0 = gate passed, 1 = gate failed
+
+set -u
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+BASE="${1:-origin/main}"
+overall=0
+
+skill_dirs_from() { grep -oE '^(research|build|optimize|monitor|cross-cutting)/[^/]+' | sort -u; }
+
+if git -C "$ROOT" rev-parse --verify --quiet "$BASE" >/dev/null; then
+    committed=$(git -C "$ROOT" diff --name-only "$BASE"...HEAD 2>/dev/null | skill_dirs_from || true)
+else
+    echo "note: base ref '$BASE' not found — checking uncommitted changes only"
+    committed=""
+fi
+uncommitted=$(git -C "$ROOT" status --porcelain 2>/dev/null | awk '{print $NF}' | skill_dirs_from || true)
+touched=$(printf '%s\n%s\n' "$committed" "$uncommitted" | grep . | sort -u || true)
+
+if [ -n "$touched" ]; then
+    while IFS= read -r s; do
+        [ -n "$s" ] || continue
+        if [ ! -f "$ROOT/$s/SKILL.md" ]; then
+            echo "== skip $s (no SKILL.md here — deletion or non-skill path; parity is covered by validate-tracking)"
+            continue
+        fi
+        echo "== validate-skill: $s"
+        bash "$ROOT/scripts/validate-skill.sh" "$ROOT/$s" || overall=1
+    done <<< "$touched"
+else
+    echo "== no skill directories touched vs $BASE"
+fi
+
+echo "== validate-tracking (repo-level)"
+bash "$ROOT/scripts/validate-tracking.sh" "$ROOT" || overall=1
+
+echo ""
+if [ "$overall" -ne 0 ]; then
+    echo "PRE-PUSH GATE: FAILED — fix the FAILs above before pushing."
+    exit 1
+fi
+echo "PRE-PUSH GATE: PASSED"
+exit 0
