@@ -4,7 +4,7 @@ Complete, copy-ready structured data templates for all major schema types. Custo
 
 ## FAQPage Schema
 
-For pages with frequently asked questions. Minimum 2 Q&A pairs required.
+For pages with frequently asked questions — one Question object per visible Q&A pair. No Google rich result (FAQ rich results retired 2026); still generated because AI engines extract clean Q&A pairs from it (settled ruling R3). Validate with the Schema.org validator — the Rich Results Test no longer supports FAQ.
 
 ```json
 {
@@ -573,9 +573,9 @@ For software, apps, and tools.
 
 ---
 
-## Multiple Schema Types (Combined Array)
+## Primary Type + Documented Auxiliary (Combined Array)
 
-To include multiple schema types on one page, wrap them in an array:
+Default output is ONE primary type per page (settled ruling R2). Use the array form only when a documented auxiliary legitimately accompanies the primary — e.g., BreadcrumbList for a real breadcrumb trail:
 
 ```html
 <script type="application/ld+json">
@@ -588,20 +588,6 @@ To include multiple schema types on one page, wrap them in an array:
       "@type": "Person",
       "name": "[Author]"
     }
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "[Question]",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "[Answer]"
-        }
-      }
-    ]
   },
   {
     "@context": "https://schema.org",
@@ -619,11 +605,14 @@ To include multiple schema types on one page, wrap them in an array:
 </script>
 ```
 
+Do NOT use the array form to stack a second full content type onto the page (e.g., FAQPage added to an Article or service page hoping more types raise AI-citation odds). No engine documents a citation gain from extra types, and extra markup that mismatches the page risks spam-policy trouble. A page carries two content types only when it genuinely is both things and each type is complete, accurate, and independently justified (ruling R2 boundary).
+
 ---
 
 ## Implementation Notes
 
-- Always validate schema at https://validator.schema.org/ and https://search.google.com/test/rich-results
+- ONE primary type per page; nest supporting entities inside it — see the array note above (settled ruling R2)
+- Always validate at https://validator.schema.org/; additionally test non-FAQ types at https://search.google.com/test/rich-results (FAQ support was cut in 2026)
 - Remove bracketed placeholders and replace with actual content
 - Use absolute URLs, not relative paths
 - Dates must be in ISO 8601 format

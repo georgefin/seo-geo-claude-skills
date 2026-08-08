@@ -9,17 +9,20 @@ Complete reference for validating, testing, and troubleshooting structured data.
 - **Purpose**: Check if your schema is eligible for Google rich results
 - **Tests**: Live URL or code snippet
 - **Output**: Errors, warnings, eligible rich result types
+- **FAQ exception**: FAQ support was cut in 2026 — do not use this tool for FAQPage; validate FAQPage with the Schema.org Validator instead
 
 ### Schema.org Validator
 - **URL**: https://validator.schema.org/
 - **Purpose**: Validate against official Schema.org specification
 - **Tests**: URL, code snippet, or microdata
 - **Output**: Technical validation errors
+- **Note**: The primary (and only) validator for FAQPage since the 2026 FAQ rich-result retirement
 
 ### Google Search Console
 - **Location**: Search Console → Enhancements section
 - **Purpose**: Monitor rich results performance and errors at scale
 - **Reports**: Rich results status, coverage, issues over time
+- **FAQ exception**: FAQ reporting, the API, and the Enhancements appearance filter were cut in 2026 — there is nothing to monitor here for FAQPage
 
 ---
 
@@ -118,11 +121,11 @@ Complete reference for validating, testing, and troubleshooting structured data.
 | Property | Status | Notes |
 |----------|--------|-------|
 | @type | Required | Must be "FAQPage" |
-| mainEntity | Required | Array of Question objects |
+| mainEntity | Required | Array of Question objects — one per visible Q&A pair |
 | Question.name | Required | The question text |
 | Answer.text | Required | The answer text |
 
-**Minimum**: 2 Q&A pairs
+**Status note**: FAQPage produces no Google rich result (retired 2026). It is still generated for AI-engine/GEO parsing (settled ruling R3) and validates against Schema.org semantics only.
 
 ### HowTo Schema
 
@@ -203,22 +206,18 @@ Complete reference for validating, testing, and troubleshooting structured data.
 
 ## Google Rich Result Eligibility Requirements
 
-### FAQ Rich Results
+### FAQPage — No Rich Result (Retired 2026)
 
-**Eligibility checklist**:
-- [ ] Minimum 2 Q&A pairs
-- [ ] Questions are actual questions (contain "?")
-- [ ] Answers are complete and comprehensive
-- [ ] Content matches visible page content exactly
-- [ ] Not a forum or Q&A page where users can submit answers
-- [ ] Not advertising or promotional in nature
-- [ ] Not for medical, legal, or financial advice without proper E-E-A-T
+Google retired FAQ rich results in 2026: Search Console reporting, the API, the Enhancements appearance filter, and Rich Results Test support were all cut. There is no FAQ eligibility to test and no SERP accordion to earn — promise neither.
 
-**Ineligible content**:
-- Medical advice without credentials
-- Legal advice
-- Product/service comparisons that are promotional
-- User-generated Q&A (use QAPage instead)
+FAQPage stays in the library (settled ruling R3): its value is AI-engine/GEO parsing — answer engines extract clean Q&A pairs from it. The quality bar that still applies:
+
+- Q&A pairs match the visible page content exactly (general structured-data content-match policy)
+- Questions are actual questions; answers are complete
+- Neutral, informational wording — not promotional copy
+- User-generated Q&A belongs in QAPage, not FAQPage
+
+Validate FAQPage at https://validator.schema.org/ (syntax + Schema.org semantics). Do not run it through the Rich Results Test or look for it in Search Console.
 
 ### How-To Rich Results
 
@@ -273,26 +272,27 @@ Complete reference for validating, testing, and troubleshooting structured data.
 2. **Validate syntax at validator.schema.org**
    - Paste code or test URL
    - Fix all errors before proceeding
-3. **Test at Google Rich Results Test**
+3. **Test at Google Rich Results Test (non-FAQ types only)**
    - Check for Google-specific issues
    - Verify eligible rich result types
+   - FAQPage: skip this step — FAQ support was cut in 2026; the Schema.org validation in step 2 is the whole check
 4. **Visual inspection**
    - View page source to confirm schema is present
    - Check JSON formatting in browser
 
 ### Pre-Launch Testing
 
-1. **Test on staging URL with Rich Results Test**
+1. **Test on staging URL with Rich Results Test** (non-FAQ types)
 2. **Verify all required properties present**
 3. **Confirm content matches visible page content**
 4. **Check for policy violations**
-5. **Test multiple schema types if combining**
+5. **Confirm ONE primary type** — if a documented auxiliary accompanies it (e.g., BreadcrumbList for a real trail), validate each object; a second full content type is stacking (settled ruling R2)
 6. **Validate images are accessible and meet size requirements**
 
 ### Post-Launch Monitoring
 
 1. **Submit sitemap to Google Search Console**
-2. **Monitor Enhancements reports**
+2. **Monitor Enhancements reports** (non-FAQ types — FAQ reporting was cut in 2026)
    - Check for validation errors
    - Watch for policy violations
    - Track rich result impressions
@@ -324,9 +324,9 @@ Complete reference for validating, testing, and troubleshooting structured data.
 
 **Violation**: Excessive or irrelevant schema
 
-**Example**: Adding Product schema to every blog post
+**Example**: Adding Product schema to every blog post; bolting a second full content type (e.g., FAQPage) onto a page on the theory that more types raise AI-citation odds — that is citation-lever stacking (settled ruling R2), and no engine documents a citation gain from extra types
 
-**Fix**: Only use schema types relevant to page content
+**Fix**: ONE accurate primary type per page; nest supporting entities; documented auxiliaries (BreadcrumbList, WebSite on the homepage) only where the page data warrants
 
 ### Hidden Content
 
@@ -365,6 +365,7 @@ Complete reference for validating, testing, and troubleshooting structured data.
 ### Rich Results Not Showing in Search
 
 **Possible causes**:
+- The type no longer has a rich result (FAQ retired in 2026 — nothing will show; that is expected, not a bug)
 - Schema is new (can take days/weeks to appear)
 - Page not indexed by Google
 - Schema has errors in Search Console
@@ -397,19 +398,19 @@ Complete reference for validating, testing, and troubleshooting structured data.
 
 ### Monthly
 - [ ] Check Search Console for new errors
-- [ ] Verify rich results are still appearing
+- [ ] Verify rich results are still appearing (non-FAQ types)
 - [ ] Update `dateModified` on changed content
 
 ### Quarterly
-- [ ] Audit all schema implementations
-- [ ] Test key pages with Rich Results Test
+- [ ] Audit all schema implementations (one primary type per page — flag stacked types, ruling R2)
+- [ ] Test key pages with Rich Results Test (non-FAQ types); FAQPage via Schema.org validator
 - [ ] Update any outdated information (prices, dates, etc.)
 - [ ] Check for new schema types relevant to your content
 
 ### After Content Changes
 - [ ] Update schema to match new content
 - [ ] Update `dateModified` timestamp
-- [ ] Re-validate with Rich Results Test
+- [ ] Re-validate: Schema.org validator; Rich Results Test for non-FAQ types
 - [ ] Request re-indexing in Search Console if major changes
 
 ### After Site Migration
@@ -439,6 +440,6 @@ Complete reference for validating, testing, and troubleshooting structured data.
 
 - **Schema.org Documentation**: https://schema.org/
 - **Google Search Central**: https://developers.google.com/search/docs/appearance/structured-data
-- **Rich Results Test**: https://search.google.com/test/rich-results
-- **Schema Validator**: https://validator.schema.org/
+- **Rich Results Test**: https://search.google.com/test/rich-results (no FAQ support since 2026)
+- **Schema Validator**: https://validator.schema.org/ (use this for FAQPage)
 - **JSON-LD Playground**: https://json-ld.org/playground/
