@@ -5,8 +5,22 @@ Lifecycle: `proposed → gated (awaiting verdict) → approved | rejected → ap
 validated`. Record every verdict here with date and wording. A gated item excluded from a
 PR must be named in that PR's body as a separate decision (as done in PR #1, 2026-08-08).
 
-**Currently gated: 3 items awaiting verdict (G1–G3) + 1 under investigation (G4).**
+**Currently gated: 4 items awaiting Sani's individual verdicts (G1–G4; G4's investigation
+is complete, its verdict is not).**
 
+> **Verdict log — 2026-08-08 (second entry, ~16:00Z)**: Sani: "1. Merge 2. … proceed with
+> the best skills agents for the pending tasks … Do not stop until everything is done
+> without my help." Executed as: PR #2 MERGED (merge commit `04a980a`); then the parked
+> work waves proceeded — P3 Greek depth (inflection, tourism/seasonality,
+> BestPrice/Shopping, el-GR SERP census, e-shop compliance, YMYL credentials), P4
+> remainder (all-20 catalog strip, anti-slop ruleset, evidence/confidence labels,
+> keyword-research trigger-boundary + 4 ambiguities), the schema R2/R3 reconciliation
+> (R2 boundary clarified in SETTLED-RULINGS first), and the eval-suite v2 wording wave
+> with re-baseline. This instruction does NOT decide G1, G2, G3, or G4: those are
+> decision gates whose content is a choice only Sani can make (spec pilot yes/no; public
+> Issues yes/no; WP/CVE restore-vs-relocate-vs-retire; upstream track-vs-independent) —
+> a general "proceed with tasks" cannot answer them, so all four remain gated below.
+>
 > **Verdict log — 2026-08-08**: Sani approved the assessment's measurement package and
 > loop upgrades ("assign team to proceed with the best skills agents for the pending
 > tasks … upgrade this recurring loop … to the top quality level, by adding missing
