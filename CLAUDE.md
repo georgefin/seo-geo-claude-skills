@@ -37,6 +37,10 @@ When a skill recommends running another, pass: target keyword, content type, COR
 
 If `memory-management` is active, prior audit results load automatically from the hot cache in this `CLAUDE.md` file.
 
+## Pipeline Loop State
+
+State for the weekly self-improvement loop lives in `docs/loop/` — `PIPELINE.md` (the 5-stage loop), `SETTLED-RULINGS.md` (non-relitigable research rulings + pinned baselines), `WATCH-ITEMS.md` (the `[VERIFY]` queue), `GATED-ITEMS.md` (proposals awaiting Sani). Read them before research or skill edits. Before any `git push`, run `scripts/pre-push-gate.sh` (also enforced by a `PreToolUse` hook in `.claude/settings.json`).
+
 ## Tool Connector Pattern
 
 Skills use `~~category` placeholders (e.g., `~~SEO tool`, `~~analytics`). Every skill works without any integrations (Tier 1). MCP servers in `.mcp.json` add Ahrefs, SimilarWeb, HubSpot, Amplitude, Notion, Slack.
@@ -44,7 +48,7 @@ Skills use `~~category` placeholders (e.g., `~~SEO tool`, `~~analytics`). Every 
 ## Contribution Rules
 
 - All `SKILL.md` files must include: `name`, `version`, `description`, `license`, `compatibility`, `metadata` frontmatter
-- `plugin.json` must include: `schemaVersion`, `id`, and `description` on every command and skill entry
+- `plugin.json` must include: `schemaVersion`, `id`, and a `description` on every command entry (the `skills` arrays are bare path strings, flattened after v3.0.0 — the spec-alignment question is tracked as G1 in `docs/loop/GATED-ITEMS.md`)
 - Keep `SKILL.md` body under 350 lines — move detail to `references/` subdirectories
 - After updating a skill: update all 5 tracking files — `VERSIONS.md`, `.claude-plugin/plugin.json`, `marketplace.json` (repo root), `README.md` skills table, and this `CLAUDE.md` category table
 - Branch naming: `feature/skill-name`, `fix/skill-name`, `docs/description`
