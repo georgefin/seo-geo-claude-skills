@@ -1,13 +1,12 @@
 ---
 name: memory-management
-version: "4.0.1"
 description: 'Persist SEO/GEO project context, brand guidelines, and target keywords across sessions so your agent remembers strategy without re-explaining. Use when the user asks to "remember project context", "save SEO data", "track campaign progress", "store keyword data", "manage project memory", "remember this for next time", "save my keyword data", "keep track of this campaign". Manages a two-layer memory system (hot cache + cold storage) with intelligent promotion/demotion.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.0.1"
+  version: "4.0.2"
   geo-relevance: "low"
   tags:
     - seo

@@ -56,8 +56,9 @@ echo "=============================================="
 echo ""
 echo "[a] Plugin version sync (plugin.json / marketplace.json x2 / README badge)"
 
-# Top-level "version" in plugin.json. The manifest also contains "schemaVersion",
-# which does NOT match '"version"' (quote must directly precede the word).
+# Top-level "version" in plugin.json. The pattern requires the quote directly
+# before the word, so a field like "schemaVersion" (removed in the G1 pilot
+# trim, 2026-08-08) would not match even if reintroduced.
 PLUGIN_VER=$(grep -oE '"version"[[:space:]]*:[[:space:]]*"[^"]+"' "$PLUGIN_JSON" | head -1 | sed 's/.*:[[:space:]]*"//; s/"$//')
 
 # marketplace.json carries the plugin version in TWO places: metadata.version and
@@ -162,9 +163,11 @@ fi
 
 # ---------------------------------------------------------------------------
 # Check (c): SKILL.md frontmatter version == VERSIONS.md current row
-#   Compares the top-level 'version:' frontmatter field. Also cross-checks the
-#   nested 'metadata.version' field, since VERSIONS.md:5 declares THAT field
-#   authoritative — the two must not drift from each other.
+#   'metadata.version' is the version authority (VERSIONS.md:5; G1 transitional
+#   rule, pilot 2026-08-08). Legacy skills may also carry a top-level 'version:'
+#   field — then it must stay in lockstep with metadata.version. Spec-aligned
+#   skills omit the top-level field entirely; metadata.version alone is compared
+#   against the VERSIONS.md row.
 # ---------------------------------------------------------------------------
 echo ""
 echo "[c] SKILL.md frontmatter version == VERSIONS.md row"
@@ -185,8 +188,12 @@ while IFS= read -r rel; do
         if ($2 == n) { print $4; exit }
     }' "$VERSIONS")
 
-    if [ -z "$top_ver" ]; then
-        fail "(c) $rel/SKILL.md has no top-level 'version:' frontmatter field"
+    if [ -z "$meta_ver" ]; then
+        if [ -n "$top_ver" ]; then
+            fail "(c) $rel/SKILL.md has a top-level 'version:' but no 'metadata.version' (metadata.version is the version authority — G1 transitional rule)"
+        else
+            fail "(c) $rel/SKILL.md has no 'metadata.version' frontmatter field (version authority)"
+        fi
         C_OK=0
         continue
     fi
@@ -195,12 +202,12 @@ while IFS= read -r rel; do
         C_OK=0
         continue
     fi
-    if [ "$top_ver" != "$row_ver" ]; then
-        fail "(c) $rel: SKILL.md version '$top_ver' != VERSIONS.md row '$row_ver'"
+    if [ "$meta_ver" != "$row_ver" ]; then
+        fail "(c) $rel: SKILL.md metadata.version '$meta_ver' != VERSIONS.md row '$row_ver'"
         C_OK=0
     fi
-    if [ -n "$meta_ver" ] && [ "$meta_ver" != "$top_ver" ]; then
-        fail "(c) $rel: frontmatter version '$top_ver' != metadata.version '$meta_ver' (VERSIONS.md:5 declares metadata.version authoritative — keep both in lockstep)"
+    if [ -n "$top_ver" ] && [ "$top_ver" != "$meta_ver" ]; then
+        fail "(c) $rel: top-level version '$top_ver' != metadata.version '$meta_ver' (metadata.version is authoritative — legacy skills keep both in lockstep, or drop the top-level field)"
         C_OK=0
     fi
     C_CHECKED=$((C_CHECKED + 1))
@@ -216,7 +223,7 @@ while IFS= read -r row_name; do
     fi
 done < <(awk -F'|' 'NF>=4 { gsub(/^[ \t]+|[ \t]+$/, "", $2); if ($2 != "" && $2 != "Skill" && $2 !~ /^-+$/) print $2 }' "$VERSIONS")
 
-[ "$C_OK" -eq 1 ] && pass "(c) all $C_CHECKED SKILL.md versions match VERSIONS.md (and metadata.version in lockstep); no orphan rows"
+[ "$C_OK" -eq 1 ] && pass "(c) all $C_CHECKED SKILL.md metadata.versions match VERSIONS.md (legacy top-level fields in lockstep); no orphan rows"
 
 # ---------------------------------------------------------------------------
 # Check (d): SKILL.md body <= 350 lines (body = lines after closing '---' of

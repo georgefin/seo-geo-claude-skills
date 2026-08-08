@@ -139,6 +139,29 @@ else
     warn "Missing recommended field: metadata"
 fi
 
+# --- Version authority (G1 transitional rule, pilot 2026-08-08) ---
+# metadata.version is the single version authority. Two compliant shapes:
+#   legacy:       top-level 'version:' present AND equal to metadata.version (lockstep)
+#   spec-aligned: top-level 'version:' absent, metadata.version present
+#   (Agent Skills spec defines no top-level 'version' frontmatter field.)
+TOP_VER=$(echo "$FRONTMATTER" | grep -E '^version:' | sed 's/version: *//' | tr -d '"'"'" | tr -d '\r')
+META_VER=$(echo "$FRONTMATTER" | grep -E '^  version:' | sed 's/^  version: *//' | tr -d '"'"'" | tr -d '\r')
+if [ -n "$META_VER" ]; then
+    if [ -z "$TOP_VER" ]; then
+        pass "version authority: spec-aligned (no top-level version; metadata.version $META_VER)"
+    elif [ "$TOP_VER" = "$META_VER" ]; then
+        pass "version authority: legacy lockstep (top-level version == metadata.version $META_VER)"
+    else
+        fail "version drift: top-level version '$TOP_VER' != metadata.version '$META_VER' (metadata.version is authoritative — keep legacy lockstep or drop the top-level field)"
+    fi
+else
+    if [ -n "$TOP_VER" ]; then
+        fail "top-level version '$TOP_VER' present but metadata.version missing (metadata.version is the version authority — G1 transitional rule)"
+    else
+        fail "no version anywhere: metadata.version required (version authority — G1 transitional rule)"
+    fi
+fi
+
 # --- Body length check ---
 BODY_LINES=$(awk 'BEGIN{n=0} /^---/{n++; next} n>=2{print}' "$SKILL_FILE" | wc -l | tr -d ' ')
 if [ "$BODY_LINES" -gt 400 ]; then

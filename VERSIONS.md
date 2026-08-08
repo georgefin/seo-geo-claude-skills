@@ -27,7 +27,7 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 | content-quality-auditor | cross-cutting | 4.1.0 | 2026-08-08 |
 | domain-authority-auditor | cross-cutting | 4.1.0 | 2026-08-08 |
 | entity-optimizer | cross-cutting | 4.1.1 | 2026-08-08 |
-| memory-management | cross-cutting | 4.0.1 | 2026-08-08 |
+| memory-management | cross-cutting | 4.0.2 | 2026-08-08 |
 
 ## Changelog
 

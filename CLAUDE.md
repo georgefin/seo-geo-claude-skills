@@ -47,8 +47,8 @@ Skills use `~~category` placeholders (e.g., `~~SEO tool`, `~~analytics`). Every 
 
 ## Contribution Rules
 
-- All `SKILL.md` files must include: `name`, `version`, `description`, `license`, `compatibility`, `metadata` frontmatter
-- `plugin.json` must include: `schemaVersion`, `id`, and a `description` on every command entry (the `skills` arrays are bare path strings, flattened after v3.0.0 — the spec-alignment question is tracked as G1 in `docs/loop/GATED-ITEMS.md`)
+- All `SKILL.md` files must include: `name`, `description`, `license`, `compatibility`, `metadata` frontmatter. `metadata.version` is the version authority (G1 pilot, 2026-08-08): a top-level `version` field is tolerated on legacy skills (must stay in lockstep with `metadata.version`) and absent on spec-aligned ones — full migration pending the pilot verdict (`docs/loop/GATED-ITEMS.md` G1)
+- `plugin.json` carries no `schemaVersion`/`id` (`name` is the identity — trimmed in the G1 pilot, 2026-08-08) and must keep a `description` on every command entry (the `skills` arrays are bare path strings, flattened after v3.0.0 — command-entry flattening remains tracked under G1 in `docs/loop/GATED-ITEMS.md`)
 - Keep `SKILL.md` body under 350 lines — move detail to `references/` subdirectories
 - After updating a skill: update all 5 tracking files — `VERSIONS.md`, `.claude-plugin/plugin.json`, `marketplace.json` (repo root), `README.md` skills table, and this `CLAUDE.md` category table
 - Branch naming: `feature/skill-name`, `fix/skill-name`, `docs/description`

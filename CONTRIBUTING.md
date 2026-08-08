@@ -37,7 +37,6 @@ Use this template:
 ```yaml
 ---
 name: your-skill-name
-version: "1.0.0"
 description: 'Use when the user asks to "[trigger phrase 1]", "[trigger phrase 2]". [What it does in one sentence]. For [related task], see [other-skill].'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -60,6 +59,8 @@ metadata:
 ```
 
 **Critical**: The `name` field must match the directory name exactly.
+
+**Versioning (G1 transitional rule, pilot 2026-08-08)**: `metadata.version` is the single version authority — the Agent Skills spec defines no top-level `version` frontmatter field, so new skills omit it (as in the template above). Existing legacy skills that still carry a top-level `version` must keep it in lockstep with `metadata.version` until the full migration lands (pending the pilot verdict, `docs/loop/GATED-ITEMS.md` G1).
 
 ### 4. Write effective instructions
 
