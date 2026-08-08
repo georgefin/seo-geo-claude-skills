@@ -22,6 +22,7 @@ On-page SEO checklist, content writing template, and featured snippet optimizati
 - [ ] Actionable takeaways
 - [ ] Examples and illustrations
 - [ ] Expert quotes or citations (for E-E-A-T)
+- [ ] Anti-slop pass complete — zero Tier-1 vocabulary, structure varied, information gain per section (see [anti-slop-ruleset.md](./anti-slop-ruleset.md))
 
 **Readability**:
 - [ ] Paragraphs of 3-5 sentences (per CORE-EEAT O06 Section Chunking standard)
@@ -129,6 +130,8 @@ Number each step clearly: "Step 1:", "Step 2:", etc.
 
 **User**: "Write an SEO-optimized article about 'email marketing best practices' targeting small businesses"
 
+> **Note**: Statistics in this example are deliberately shown as bracketed `[SOURCED STAT: …]` placeholders. Per the statistics rule (sourced, cited, or placeholder — never invented), a worked example must not model fabricated numbers; replace each placeholder with a sourced figure at write time.
+
 **Output**:
 
 ```markdown
@@ -138,9 +141,9 @@ Number each step clearly: "Step 1:", "Step 2:", etc.
 
 ---
 
-Want to know the secret behind small businesses that consistently turn subscribers into loyal customers? It's not luck---it's strategic email marketing.
+Effective email marketing for small businesses comes down to five practices: permission-based list building, double opt-in, segmentation, tested subject lines, and disciplined send frequency. This guide covers how to implement each one.
 
-Email marketing remains one of the most effective channels for small businesses, delivering an average ROI of $42 for every $1 spent. But with inboxes more crowded than ever, following email marketing best practices isn't optional---it's essential for survival.
+Email marketing remains one of the highest-ROI channels available to small businesses ([SOURCED STAT: average email ROI --- cite source and year]). With inboxes more crowded than ever, the practices below determine whether your campaigns get read or deleted.
 
 In this guide, you'll learn:
 - How to build a quality email list that converts
@@ -148,18 +151,16 @@ In this guide, you'll learn:
 - Advanced personalization techniques that drive results
 - Common mistakes that kill email performance
 
-Let's dive into the strategies that will transform your email marketing.
-
 ## Why Email Marketing Matters for Small Businesses
 
 Before we explore the best practices, let's understand why email deserves your attention.
 
 Unlike social media where algorithms control who sees your content, email gives you direct access to your audience. You own your email list---no platform can take it away.
 
-**Key email marketing statistics for small businesses**:
-- 81% of SMBs rely on email as their primary customer acquisition channel
-- Email subscribers are 3x more likely to share content on social media
-- Personalized emails generate 6x higher transaction rates
+**Key email marketing statistics for small businesses** (placeholders --- fill with sourced figures):
+- [SOURCED STAT: share of SMBs using email as a primary acquisition channel --- cite source and year]
+- [SOURCED STAT: engagement lift of email subscribers vs. non-subscribers --- cite source and year]
+- [SOURCED STAT: transaction-rate lift from personalized emails --- cite source and year]
 
 ## Building a High-Quality Email List
 
@@ -228,7 +229,7 @@ For most small businesses, sending 1-2 emails per week strikes the right balance
 
 ### What is a good email open rate for small businesses?
 
-A good email open rate for small businesses is 20-25%. However, this varies by industry. E-commerce averages 15-20%, while B2B services often see 25-30%. Focus on improving your own benchmarks rather than industry averages.
+A good open rate varies by industry and list quality --- compare against a current benchmark report rather than a universal number ([SOURCED STAT: small-business average open rate by industry --- cite ESP benchmark report and year]). Focus on beating your own trailing average instead of chasing industry figures.
 
 ### Should I buy email lists to grow faster?
 
@@ -246,5 +247,5 @@ Start with one improvement today. Whether it's segmenting your list, testing sub
 
 *Further reading: [Internal link: "How to Write Email Copy That Converts"]*
 
-*Sources: [Litmus Email Marketing Statistics](https://litmus.com), [Campaign Monitor Email Benchmarks](https://campaignmonitor.com)*
+*Sources: [one entry per `[SOURCED STAT]` filled above --- name and link every source cited]*
 ```

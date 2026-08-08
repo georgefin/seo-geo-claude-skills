@@ -1,13 +1,13 @@
 ---
 name: seo-content-writer
-version: "4.1.1"
+version: "4.2.0"
 description: 'Write search-engine-optimized blog posts, landing pages, and articles with keyword integration, header hierarchy, and featured snippet targeting. Use when the user asks to "write SEO content", "create a blog post", "write an article", "draft optimized content", "write a landing page", or "SEO copywriting". Creates keyword-optimized content using a 12-step workflow with CORE-EEAT checklist, title optimization, meta description, H1/H2/H3 hierarchy, and internal/external linking. For AI-citation optimization, see geo-content-optimizer. For updating existing content, see content-refresher.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.1.1"
+  version: "4.2.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -225,6 +225,12 @@ When a user requests SEO content:
 
    Structure: H1 (primary keyword, one per page) > Introduction (100-150 words, hook + promise + keyword in first 100 words) > H2 sections (secondary keywords/questions) > H3 sub-topics > FAQ section > Conclusion (summary + keyword + CTA).
 
+   **Anti-slop rules** (apply while drafting — full ruleset with EN + EL ban lists: [references/anti-slop-ruleset.md](./references/anti-slop-ruleset.md)):
+   - **Tier 1 vocabulary — hard ban** (EN and EL calques): "delve", "tapestry", "in today's fast-paced world"/«στη σημερινή ψηφιακή εποχή», "unlock"/«ξεκλειδώστε» (metaphorical), "elevate"/«απογειώστε», "game-changer", "it's important to note", "in conclusion" as a section opener — plus the full Tier 1 list. **Tier 2 vocabulary is rationed** (≤1 per 1,000 words per term). Greek slop is usually translation-ese — check the calque patterns list for EL pages.
+   - **Structural bans**: uniform paragraph lengths, per-section closing summaries, rhetorical-question openers, listicle padding ("Let's dive in"/«Ας ξεκινήσουμε»)
+   - **Information gain**: a sentence that could sit unchanged on any competitor's page gets specific (datum, case, mechanism, named entity) or gets cut; every section must add something not derivable from its own heading
+   - **Specificity ladder**: vague → quantified → quantified + sourced; aim for the top rung using only provided/verifiable data — absent data becomes a `[CLIENT DATA: …]` placeholder, never an invented number (statistics rule)
+
 7. **Apply On-Page SEO Best Practices**
 
    Follow the on-page SEO checklist (keyword placement, content quality, readability, technical elements) and the content writing template (H1 with keyword, hook, sections with H2/H3, FAQ, conclusion with CTA).
@@ -271,6 +277,8 @@ When a user requests SEO content:
    Do not publish a language variant until every row above is locale-native, not translated.
    ```
 
+   **Greek YMYL content (health/legal/finance)**: the author-signals row tightens to *registry-verifiable* — bio = full name + credential + affiliation checkable against the relevant Greek professional registry (regional ιατρικοί σύλλογοι/ΠΙΣ for medical; δικηγορικοί σύλλογοι, e.g. ΔΣΑ, for legal; ΤΕΕ for engineers; ΟΕΕ for economists/accountants; ΓΕΜΗ for company legitimacy) + registry number where public. Unverifiable credentials are omitted, never approximated. Registry landscape, bio templates, and fallbacks: [references/greek-ymyl-credentials.md](./references/greek-ymyl-credentials.md).
+
 10. **Final SEO Review and CORE-EEAT Self-Check**
 
     Score content across 10 SEO factors (title, meta description, H1, keyword placement, H2s, internal links, external links, FAQ, readability, word count) and produce an Overall SEO Score out of 10.
@@ -294,6 +302,7 @@ When a user requests SEO content:
 - [ ] FAQ section present with at least 3 questions
 - [ ] Readability score appropriate for target audience
 - [ ] Source of each data point clearly stated (~~SEO tool data, user-provided, or estimated)
+- [ ] Anti-slop self-check passed (vocabulary tiers, structure, information gain, specificity — [references/anti-slop-ruleset.md](./references/anti-slop-ruleset.md) §5)
 
 ## Example
 
@@ -301,7 +310,7 @@ When a user requests SEO content:
 
 > **Reference**: See [references/seo-writing-checklist.md](./references/seo-writing-checklist.md) for the full example output demonstrating a complete SEO article with meta description, H1/H2/H3 hierarchy, statistics with citations, comparison tables, FAQ section, and conclusion with CTA.
 
-The example output demonstrates: keyword in H1 and first 100 words, statistics with sources (DMA, Emarsys), comparison tables, bullet-point lists, pro tips, FAQ section with 40-60 word answers, and a clear CTA in the conclusion.
+The example output demonstrates: keyword in H1 and first 100 words, statistics carried as `[SOURCED STAT: …]` placeholders per the statistics rule (sourced, cited, or placeholder — never invented), comparison tables, bullet-point lists, pro tips, FAQ section with 40-60 word answers, and a clear CTA in the conclusion.
 
 ## Content Type Templates
 
@@ -342,6 +351,9 @@ Write an ultimate guide about [topic] (3,000+ words) targeting [keyword]
 
 - [Title Formulas](./references/title-formulas.md) - Proven headline formulas, power words, CTR patterns
 - [Content Structure Templates](./references/content-structure-templates.md) - Templates for blog posts, comparisons, listicles, how-tos, pillar pages
+- [SEO Writing Checklist](./references/seo-writing-checklist.md) - On-page checklist, content writing template, snippet patterns, full worked example
+- [Anti-Slop Ruleset](./references/anti-slop-ruleset.md) - Tiered vocabulary bans (EN + EL), structural bans, information-gain test, specificity ladder
+- [Greek YMYL Credentials](./references/greek-ymyl-credentials.md) - Registry-verifiable author bios for EL health/legal/finance content
 
 ## Related Skills
 
