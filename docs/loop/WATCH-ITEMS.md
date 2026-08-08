@@ -8,8 +8,12 @@ grep with `\[VERIFY` (not `\[VERIFY\]`) to find all of them.
 Weekly DETECT runs re-check items at their cadence and report deltas; resolution edits
 (dropping a tag, revising a claim) go through normal PR flow.
 
-**Last full inventory: 2026-08-08** — 23 tag instances in 5 repo files (20 claim-bearing;
-skroutz `:3`/`:85` are legend/instructions, `VERSIONS.md:36` is prose).
+**Last full inventory: 2026-08-08 (post P3/P4 wave)** — 44 matching lines in 13 repo
+files (`grep -rc '\[VERIFY' research build optimize monitor cross-cutting references
+VERSIONS.md`). 13 new claim-bearing tags entered with the Greek wave — registered as
+W9–W11 below; the remainder of the new lines are legend/discipline references, not
+claims (tourism `:3`/`:76`, shopping `:3`/`:13`/`:58`, ymyl-credentials intro,
+content-quality-auditor discipline note).
 
 ---
 
@@ -96,6 +100,42 @@ skroutz `:3`/`:85` are legend/instructions, `VERSIONS.md:36` is prose).
 - **Where**: NOT in repo; belongs to gated item **G1** (see `GATED-ITEMS.md`).
 - **Action**: run `claude plugin validate --strict` during the G1 pilot.
 - **Cadence**: resolved by G1 pilot; blocked on Sani's gate verdict.
+
+## W9 — Greek commerce-surface magnitudes (vendor cluster, 4 claims)
+
+- **Where**: `research/serp-analysis/references/greek-shopping-surfaces.md:17` (SimilarWeb:
+  BestPrice ~6.9M visits/mo, #1 in price-comparison *category*; Skroutz ~40.8M, Apr/Jun
+  2026), `:30` (BestPrice ranking-effect magnitude — nothing published), `:45`
+  (e-satisfaction claims 100+ Greek e-shop review clients, self-published);
+  `references/greek-tourism-seasonality.md:24` (free-booking-link clicks −30% under DMA,
+  vendor-reported).
+- **Resolves when**: engine/primary or first-party data replaces the vendor figure (e.g.
+  client Merchant Center/BestPrice merchant data; Google-primary DMA impact numbers).
+  Until then: directional only, never client-facing as fact.
+- **Cadence**: quarterly with the Skroutz cluster (W6); always before client-facing figures.
+
+## W10 — el-GR feature mechanics (2 claims)
+
+- **Where**: `research/serp-analysis/references/serp-feature-taxonomy.md:233` (LSA
+  apparently NOT available in Greece — vendor guide 2026);
+  `research/keyword-research/references/greek-keyword-coverage.md:103` (SERP-distinctness
+  magnitude of inflected forms per query class).
+- **Resolves when**: LSA — check Google's official LSA country list (primary page exists;
+  cheap, next sweep). Inflection distinctness — el-GR SERP sampling at the first Greek
+  keyword engagement (Sani local or client data).
+- **Cadence**: LSA next weekly sweep; inflection on-use.
+
+## W11 — Greek registry/compliance lookup specifics (7 claims)
+
+- **Where**: `build/seo-content-writer/references/greek-ymyl-credentials.md` — six
+  `[VERIFY at build time]` tags on lookup portal/search mechanics (ΠΙΣ + regional medical
+  associations, bar associations, ΤΕΕ, ΟΕΕ incl. license classes, ΓΕΜΗ, other health
+  bodies); `cross-cutting/domain-authority-auditor/references/greek-eshop-compliance.md:46`
+  (exact statutory scope of the ΓΕΜΗ display obligation — a lawyer question by design).
+- **Resolves when**: verified against the registries themselves at the first YMYL/e-shop
+  client build (institutions' existence is settled; only mechanics/scope are open). The
+  ΓΕΜΗ statutory question goes to the client's lawyer, never resolved in-repo.
+- **Cadence**: on-use — before the first client deliverable that relies on them.
 
 ---
 

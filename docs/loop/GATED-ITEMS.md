@@ -135,30 +135,26 @@ From the 08-08-2026 report's slow-loop lane; promote to gated only when concreti
   2608.04003).
 - **Institutionalized [VERIFY] queue** — implemented by this `docs/loop/` structure;
   becomes real when this directory merges.
-- **Ruling-vs-body reconciliation inside schema-markup-generator** (surfaced by eval
-  authoring, 2026-08-08): the skill's own step 2 / O05 mapping table / decision-tree
-  reference still teach multi-type output, and `references/schema-decision-tree.md` +
-  `references/validation-guide.md` still carry pre-retirement FAQ rich-result guidance —
-  tension with rulings R2/R3. Needs a careful pass (R2 targets citation-lever stacking,
-  not every legitimate multi-schema page — e.g. Article+Breadcrumb is Google-documented),
-  so the reconciliation must define R2's precise boundary, then align body, references,
-  and the new eval expectations together. Not a quick fix; own small APPLY wave.
-- **keyword-research trigger-boundary contradiction** (surfaced by eval authoring,
-  2026-08-08): the body's "How to Use → Competitive Research" and "Advanced Usage →
-  Competitor Gap" sections invite exactly the prompts the description routes to
-  competitor-analysis. Align body sections with the description boundary (or add an
-  explicit handoff note). Small; bundle with the P4 remainder.
-- **keyword-research execution ambiguities** (surfaced by the 2026-08-08 baseline run;
-  responsible for part of its honest 74.2%): (a) skill says ask clarifying questions but
-  never says how to proceed single-turn; (b) `references/example-report.md`'s GEO-table
-  format contradicts the metrics-column expectations — mirroring the skill's own example
-  fails two of them (fix reference or expectations together); (c) skill never states
-  that Step-4 form expansion applies even when keywords arrive via tool export; (d)
-  reply language for Greeklish prompts unspecified. Bundle with the same P4 pass.
-- **Eval-suite v2 wording refinements** (from the three baseline graders' feedback,
-  2026-08-08; 14 items total — full lists in `docs/loop/eval-baselines/2026-08-08.json`
-  `eval_feedback` fields): placeholder-convention definition, universal-negative
-  phrasings, N/A carve-outs, derived-figure clause, honesty-vs-template-slot split,
-  cluster quantification, timezone/ISO-code tolerances. NOTE: any expectation-wording
-  change re-baselines the affected items — apply as one deliberate suite-v2 wave, never
-  piecemeal.
+- **Ruling-vs-body reconciliation inside schema-markup-generator** — **APPLIED
+  2026-08-08** (4.1.0, this wave): R2 boundary first clarified in SETTLED-RULINGS
+  (precision, not reversal), then body + all three references aligned; FAQ rich-result
+  guidance purged per R3. Residue queued separately below (core-eeat-benchmark §5).
+- **keyword-research trigger-boundary contradiction** — **APPLIED 2026-08-08** (4.2.0,
+  this wave): body sections aligned with the description boundary; explicit handoff to
+  competitor-analysis with payload.
+- **keyword-research execution ambiguities (a)–(d)** — **APPLIED 2026-08-08** (4.2.0,
+  this wave): single-turn default with stated assumptions; example-report GEO table
+  fixed to the metrics-columns + explained-N/A resolution; Step-4 expansion stated
+  universal incl. tool-export arrivals; Greeklish reply-language rule encoded.
+- **Eval-suite v2 wording refinements** — **APPLIED 2026-08-08** (commit `cb47ac8`):
+  all 14 items as 17 in-place rewords, counts/structure byte-identical elsewhere;
+  re-baselining map preserved (changed indices: schema e1.9/e2.9/e3.7/e4.4/e4.5/e4.8/
+  e5.9; keyword e1.5/e2.6/e3.3/e4.1/e4.5/e5.2; geo e2.2/e3.1/e3.7/e5.4); Mode B
+  re-baseline runs follow in the same wave.
+- **NEW — shared-framework consistency pass** (surfaced 2026-08-08 by the schema
+  reconciliation + auditor labels agents): `references/core-eeat-benchmark.md` Section 5
+  (≈ lines 216-226) still teaches the pre-clarification multi-type mapping ("Article,
+  Breadcrumb | FAQ, HowTo") — skill text currently states "where they differ, R2
+  governs", but the benchmark needs its own scoped pass; bundle the `<`-vs-`≤` CWV
+  boundary phrasing nuance (R4 uses ≤; several references use `<`) into the same pass.
+  Shared framework files — small, deliberate, own wave.
