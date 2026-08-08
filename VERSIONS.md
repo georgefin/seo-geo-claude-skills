@@ -16,8 +16,8 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 | geo-content-optimizer | build | 4.1.2 | 2026-08-08 |
 | meta-tags-optimizer | build | 4.1.1 | 2026-08-08 |
 | schema-markup-generator | build | 4.0.3 | 2026-08-08 |
-| on-page-seo-auditor | optimize | 4.0.1 | 2026-08-08 |
-| technical-seo-checker | optimize | 4.0.2 | 2026-08-08 |
+| on-page-seo-auditor | optimize | 4.1.0 | 2026-08-08 |
+| technical-seo-checker | optimize | 4.1.0 | 2026-08-08 |
 | internal-linking-optimizer | optimize | 4.0.1 | 2026-08-08 |
 | content-refresher | optimize | 4.0.1 | 2026-08-08 |
 | rank-tracker | monitor | 4.0.2 | 2026-08-08 |
@@ -25,7 +25,7 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 | performance-reporter | monitor | 4.0.1 | 2026-08-08 |
 | alert-manager | monitor | 4.0.1 | 2026-08-08 |
 | content-quality-auditor | cross-cutting | 4.0.1 | 2026-08-08 |
-| domain-authority-auditor | cross-cutting | 4.0.1 | 2026-08-08 |
+| domain-authority-auditor | cross-cutting | 4.1.0 | 2026-08-08 |
 | entity-optimizer | cross-cutting | 4.1.1 | 2026-08-08 |
 | memory-management | cross-cutting | 4.0.1 | 2026-08-08 |
 

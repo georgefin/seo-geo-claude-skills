@@ -1,6 +1,6 @@
 ---
 name: technical-seo-checker
-version: "4.0.2"
+version: "4.1.0"
 description: 'Run technical SEO audits covering Core Web Vitals, crawlability, indexing, mobile-friendliness, and site architecture. Use when the user asks to "technical SEO audit", "check page speed", "Core Web Vitals", "crawl errors", "indexing problems", "site health check". For content element issues, see on-page-seo-auditor. For link architecture, see internal-linking-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.0.2"
+  version: "4.1.0"
   geo-relevance: "low"
   tags:
     - seo
@@ -119,6 +119,20 @@ Proceed with the full audit using provided data. Note in the output which findin
 ## Instructions
 
 When a user requests a technical SEO audit:
+
+### Finding Format & Confidence Labels
+
+Every issue in the audit output carries **Finding** (what is wrong, with affected URLs or
+scope), **Evidence** (the observed data behind it — crawl line, response header, metric),
+**Impact** (what it costs), and **Fix** (the specific change), plus a **Confidence** label:
+
+- **Confirmed** — directly observed in provided data or crawl output (e.g., fetched robots.txt, ~~page speed tool report)
+- **Likely** — strong indirect evidence (e.g., a pattern seen across the URLs sampled)
+- **Hypothesis** — plausible but needs verification (e.g., anything inferred without crawl or tool access)
+
+**Rule**: every Hypothesis finding must name what would confirm it (the specific check,
+tool, or data source). Carry the labels through each step's "Issues Found" list into the
+Step 9 audit summary.
 
 1. **Audit Crawlability**
 
@@ -281,6 +295,7 @@ When a user requests a technical SEO audit:
 - [ ] All issues include affected URLs or page counts
 - [ ] Performance metrics include actual numbers with units (seconds, KB, etc.)
 - [ ] Source of each data point clearly stated (~~web crawler data, ~~page speed tool, user-provided, or estimated)
+- [ ] Every finding carries a Confidence label (Confirmed / Likely / Hypothesis); Hypothesis findings name what would confirm them
 
 ## Example
 

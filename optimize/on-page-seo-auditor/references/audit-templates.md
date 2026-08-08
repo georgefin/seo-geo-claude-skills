@@ -242,17 +242,21 @@ Score Breakdown:
 
 ## Priority Issues
 
+Each issue carries Finding / Evidence / Impact / Fix plus a Confidence label
+(Confirmed = directly observed in provided data or crawl · Likely = strong indirect
+evidence · Hypothesis = plausible, needs verification — name what would confirm it).
+
 ### 🔴 Critical (Fix Immediately)
-1. [Critical issue 1]
-2. [Critical issue 2]
+1. **[Finding]** — Evidence: [observed data] · Impact: [effect] · Fix: [specific change] · Confidence: [Confirmed/Likely/Hypothesis]
+2. **[Finding]** — Evidence: [observed data] · Impact: [effect] · Fix: [specific change] · Confidence: [Confirmed/Likely/Hypothesis]
 
 ### 🟡 Important (Fix Soon)
-1. [Important issue 1]
-2. [Important issue 2]
+1. [Important issue 1 — same format]
+2. [Important issue 2 — same format]
 
 ### 🟢 Minor (Nice to Have)
-1. [Minor issue 1]
-2. [Minor issue 2]
+1. [Minor issue 1 — same format]
+2. [Minor issue 2 — same format]
 
 ## Quick Wins
 
