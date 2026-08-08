@@ -6,6 +6,17 @@ A comprehensive reference covering every SERP feature type, trigger conditions, 
 
 Modern Search Engine Results Pages are far more than ten blue links. Google displays 20+ distinct feature types that can dramatically affect click-through rates, visibility, and traffic. Understanding which features appear for your target keywords -- and how to optimize for them -- is essential to any SEO or GEO strategy.
 
+### Greece (el-GR) Availability Note
+
+This taxonomy is **locale-unverified for Greece** except where a marked "**Greece (el-GR) availability**" annotation appears in a feature section below. Feature availability differs by country: for Greek audits, confirm each feature's presence in live el-GR SERPs before recommending tactics for it. Evidenced el-GR asymmetries as of 2026-08-08 (annotated in place at §3, §7, §8):
+
+- **AI Mode** — live in Greek since 2025-10-08 (pinned baseline, last verified 2026-08-08)
+- **Shopping free listings** — live/supported for Greece (engine-primary: Google Merchant Center Help)
+- **Local Services Ads** — apparently NOT available in Greece (vendor-sourced, unverified — see §7)
+- **Hotel SERP features (EU/DMA)** — in flux: Google's DMA compliance changes affect EU hotel search features, and Google tested removing hotel SERP features (Google blog, DMA compliance update, 2024-11). This taxonomy has no hotel-feature section — for hotel/accommodation SERP checks use [greek-tourism-seasonality.md](./greek-tourism-seasonality.md) §2 and audit the live SERP.
+
+No other feature in this file carries a verified el-GR status — absence of an annotation means "unknown for Greece," not "available in Greece."
+
 ---
 
 ## SERP Feature Categories
@@ -125,6 +136,8 @@ SERP features fall into five broad categories:
 | Comparison data | AI synthesizes multi-source comparisons | Create comparison tables with clear labels |
 | Expert quotes | AI values authoritative voices | Include expert attribution with credentials |
 
+**Greece (el-GR) availability:** Google **AI Mode** (the adjacent conversational search surface) is live in Greek since 2025-10-08 (pinned baseline, last verified 2026-08-08). AI Overview trigger rates for el-GR queries are not separately verified — record AI Overview presence per keyword during the audit rather than assuming the general trigger patterns above hold for Greek queries.
+
 ---
 
 ### 4. Knowledge Panel
@@ -217,6 +230,8 @@ SERP features fall into five broad categories:
 7. **Build local backlinks** -- Local news, chambers of commerce, community sites
 8. **Post Google Business updates** -- Regular posts signal activity
 
+**Greece (el-GR) availability:** Local Services Ads (LSA — the Google-screened paid local unit shown near local results in some countries; distinct from the organic Local Pack) is apparently **not** available in Greece. Source: vendor guide, 2026 — **[VERIFY]** against Google's official LSA country/availability list before advising Greek local businesses either way; do not recommend (or rule out) LSA for Greece on vendor evidence alone. The organic Local Pack itself carries no verified el-GR status — the top-of-file locale note applies.
+
 ---
 
 ### 8. Shopping Results
@@ -238,6 +253,8 @@ SERP features fall into five broad categories:
 5. **Keep pricing accurate** -- Mismatches between feed and landing page cause disapproval
 6. **Collect product reviews** -- Aggregate ratings appear in shopping results
 7. **Optimize landing pages** -- Fast, mobile-friendly, clear purchase path
+
+**Greece (el-GR) availability:** Free product listings are live/supported for Greece — engine-primary (Google Merchant Center Help; Greece appears in the shipping-attribute-required country list; checked 2026-08-08). A Merchant Center feed is therefore a zero-cost SERP surface for Greek merchants. Greek-market specifics and checklist: [greek-shopping-surfaces.md](./greek-shopping-surfaces.md) §2.
 
 ---
 
