@@ -5,9 +5,19 @@ Lifecycle: `proposed → gated (awaiting verdict) → approved | rejected → ap
 validated`. Record every verdict here with date and wording. A gated item excluded from a
 PR must be named in that PR's body as a separate decision (as done in PR #1, 2026-08-08).
 
-**Currently gated: 1 item awaiting Sani (G3 — explanation requested, fact question open).
-G1 approved (pilot executing), G2 approved (implemented), G4 decided (harvest).**
+**Currently gated: 1 item awaiting Sani (G3 — fact question open). G1 pilot merged
+(PR #4), G2 approved but blocked on the Issues repo setting, G4 harvest merged (PR #4).**
 
+> **Verdict log — 2026-08-08 (fourth entry, ~21:51Z)**: Sani, mid-session, verbatim:
+> "merge PR #4" — the merge gate on the gate-execution release. Executed as: PR #4
+> marked ready and MERGED (merge commit `db7ebd5`, 21:51Z) — library v4.3.0 on main
+> (G1 pilot + all seven G4 harvest ports + F8/F9 guards). Post-merge: the PR-#4
+> subscription and check-in trigger were removed, the working branch restarted from
+> main, and a fresh accumulator PR opened for the remaining work. The G1 rollback
+> watch is now LIVE (ClawHub / skills.sh listings). Still open: G2 (waiting on the
+> Issues toggle), G3 (waiting on the WP-loop fact answer). Weekly routine's first
+> solo fire: Saturday 2026-08-15 ~04:08Z (it was created after the 08-08 slot passed).
+>
 > **Verdict log — 2026-08-08 (third entry, ~19:30Z)**: against the numbered five-item
 > recommendation sheet (1 merge PR #3 · 2 G1 pilot · 3 G2 Issues · 4 G3 explain · 5 G4
 > harvest), Sani replied verbatim: "1. merge 2. Yes 3. Yes 4. Please explain 5. harvest".
@@ -50,7 +60,7 @@ G1 approved (pilot executing), G2 approved (implemented), G4 decided (harvest).*
 ## G1 — Align SKILL.md frontmatter + plugin.json with current Agent Skills spec ("#8")
 
 - **Status**: **APPROVED by Sani 2026-08-08** ("2. Yes" on the recommendation sheet).
-  Pilot executing per the plan below; W8 validator question resolves inside the pilot.
+  Pilot executed and MERGED (PR #4, `db7ebd5`); W8 resolved — see Pilot result below.
 - **Proposal**: The current spec diverges from this repo's own rules:
   - agentskills.io/specification.md (checked 2026-08-08): SKILL.md frontmatter defines
     **no top-level `version` field** (6 fields only) — repo mandates it (`CLAUDE.md:46`,
@@ -125,7 +135,8 @@ G1 approved (pilot executing), G2 approved (implemented), G4 decided (harvest).*
 ## G4 — Upstream reconciliation (aaron-marketing-skills v19.1.0)
 
 - **Status**: **DECIDED by Sani 2026-08-08: HARVEST** ("5. harvest"). Topology stays 20;
-  quarterly upstream lane; no parasite port; NDJSON deferred. Harvest wave in APPLY.
+  quarterly upstream lane; no parasite port; NDJSON deferred. All seven harvest ports
+  applied and MERGED (PR #4, `db7ebd5`).
 - **Facts established** (raw-file inspection, accessed 2026-08-08): ancestor frozen at
   v9.9.12 "receives no updates"; successor bundle v19.1.0 (2026-08-01, hot cadence — 5
   major versions since 2026-06-28). 20→16 = 3 pairwise merges (writer+refresher,
