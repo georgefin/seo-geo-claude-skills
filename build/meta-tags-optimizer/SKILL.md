@@ -1,13 +1,13 @@
 ---
 name: meta-tags-optimizer
-version: "4.0.0"
+version: "4.1.0"
 description: 'Create and optimize title tags, meta descriptions, Open Graph tags, and Twitter cards for maximum click-through rates. Use when the user asks to "optimize title tag", "write meta description", "improve CTR", "Open Graph tags", "social media preview", "fix my meta tags", or "OG tags not showing". Produces optimized meta tags with character counting, A/B test variations, and CTR analysis. For a broader on-page audit, see on-page-seo-auditor. For structured data markup, see schema-markup-generator.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.0.0"
+  version: "4.1.0"
   geo-relevance: "low"
   tags:
     - seo
@@ -272,6 +272,28 @@ When a user requests meta tag optimization:
    - Description: [Alternative description]
    - Hypothesis: [Why this might perform better]
    ```
+
+## Hreflang Checklist (Multi-Language Pages)
+
+For EL/EN/DE (or any multi-language) page sets. Hreflang implementations commonly fail on a handful of classic errors — verify all six before shipping.
+
+| # | Check | Rule | Fails When |
+|---|-------|------|------------|
+| a | **Return links** | Every variant's tag block lists ALL variants, including itself (bidirectional) | Page A → B exists but B → A is missing |
+| b | **x-default** | Exactly one `hreflang="x-default"` per cluster | Zero, or more than one, x-default declared |
+| c | **Self-referential canonical** | Each variant's `<link rel="canonical">` points to itself — never to another language version | EL/DE canonical points to the EN "master" page |
+| d | **ISO codes** | Language only: `el`, `en`, `de`. Language-region: `el-GR`, `en-US`, `de-DE`. Never a bare region/country code as the language | `hreflang="gr"` used instead of `el` |
+| e | **Sitemap match** | hreflang set matches sitemap `<xhtml:link>` entries 1:1 | Page declares 3 variants; sitemap lists 2 |
+| f | **3-language example** | See block below | — |
+
+**EL/EN/DE example** — identical block on all three pages (canonical self-referential, href swapped per page):
+```html
+<link rel="canonical" href="https://example.com/el/page/" />
+<link rel="alternate" hreflang="el" href="https://example.com/el/page/" />
+<link rel="alternate" hreflang="en" href="https://example.com/en/page/" />
+<link rel="alternate" hreflang="de" href="https://example.com/de/page/" />
+<link rel="alternate" hreflang="x-default" href="https://example.com/en/page/" />
+```
 
 ## Validation Checkpoints
 
