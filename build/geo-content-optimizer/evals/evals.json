@@ -1,0 +1,74 @@
+{
+  "skill_name": "geo-content-optimizer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Βελτιστοποίησε για GEO (εμφάνιση σε απαντήσεις AI — Google AI Mode, ChatGPT, Perplexity) το κείμενο της σελίδας στο evals/files/weak-paragraph-el.md. Ερώτημα-στόχος: «υπηρεσία κλιματισμού Αθήνα». Δεν υπάρχουν συνδεδεμένα εργαλεία — τα μόνα διαθέσιμα στοιχεία είναι τα εξής, δοσμένα από τον πελάτη (user-provided): επωνυμία «Κλιματεχνική Αττικής Ε.Π.Ε.», έτος ίδρυσης 2009, 12 πιστοποιημένοι ψυκτικοί, τιμή συντήρησης κλιματιστικού από 39 € (με ΦΠΑ), προσέλευση τεχνικού εντός 24 ωρών μέσα στην Αθήνα, 4.500+ ολοκληρωμένες συντηρήσεις το 2025. Δεν υπάρχουν άλλα δεδομένα. Γράψε το βελτιστοποιημένο κείμενο στα ελληνικά και δώσε και την αναφορά βελτιστοποίησης GEO του skill.",
+      "expected_output": "A natural-Greek rewrite that opens with a direct answer for «υπηρεσία κλιματισμού Αθήνα», names Κλιματεχνική Αττικής Ε.Π.Ε. in a standalone 25-50-word definition, and works the six user-provided data points in with correct units, plus the skill's GEO optimization report. No statistic appears that the prompt or fixture did not supply.",
+      "files": ["evals/files/weak-paragraph-el.md"],
+      "expectations": [
+        "CORE-EEAT C02 ('Core answer in first 150 words'): within the first 150 words the optimized Greek text states what service is offered, by whom (Κλιματεχνική Αττικής Ε.Π.Ε.), and where (Αθήνα/Αττική) — the answer to «υπηρεσία κλιματισμού Αθήνα» is no longer buried behind the weather small-talk opening of the fixture.",
+        "Entity defined per the skill's definition step and C04 ('Key terms defined on first use'): a standalone definition of 25-50 words that starts with the term or entity (e.g. «Η Κλιματεχνική Αττικής Ε.Π.Ε. είναι...» or «Η συντήρηση κλιματιστικού είναι...») and can be quoted on its own as a complete answer.",
+        "R07 ('Full names for people/orgs/products; no \"a company\"'): the fixture's vague «η εταιρεία μας» framing is replaced with the full supplied entity name «Κλιματεχνική Αττικής Ε.Π.Ε.» at first mention.",
+        "R01-style precision ('≥5 precise numbers with units (%, $, ms)') achieved honestly: the supplied figures (2009, 12 πιστοποιημένοι ψυκτικοί, από 39 € με ΦΠΑ, εντός 24 ωρών, 4.500+ συντηρήσεις το 2025) appear with correct Greek number/unit formatting, and no other real-world statistic appears in the optimized content (the skill's own GEO before/after scores are self-ratings, not content statistics, and are exempt).",
+        "No fabrication: every number, price, and claim of scale traces to the prompt's user-provided data or the fixture; any additional metric the output structure calls for (π.χ. βαθμολογία πελατών, ποσοστά εξοικονόμησης) is rendered as [CLIENT DATA NEEDED] / «απαιτούνται στοιχεία πελάτη» or hedged — never invented, and never attributed to a source the user did not name.",
+        "Greek output quality (watch-item W4 guard, docs/loop/WATCH-ITEMS.md): the rewrite is fluent, idiomatic Greek with correct diacritics and final-sigma use — no translation-ese, no untranslated English boilerplate headings, phrasing a native reader would accept on a Greek business site."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Το evals/files/thin-category-intro-el.md είναι η εισαγωγή κατηγορίας του e-shop μας. Θέλουμε GEO βελτιστοποίηση ώστε να εμφανίζεται σε απαντήσεις AI για ερωτήματα όπως «αφυγραντήρας για υγρασία στο σπίτι», με άμεση απάντηση στην αρχή και FAQ που να απαντά σε ερωτήσεις τύπου «Οι χρήστες ρωτούν επίσης» στα ελληνικά. Δεδομένα καταλόγου (user-provided, χωρίς συνδεδεμένα εργαλεία): 18 μοντέλα, απόδοση αφύγρανσης 10-25 λίτρα/24ωρο, κάλυψη χώρων 15-120 τ.μ., τιμές 129-449 €, εγγύηση 2 έτη, συνιστώμενη σχετική υγρασία εσωτερικού χώρου 40-60%. Άλλα δεδομένα (π.χ. κατανάλωση ρεύματος ανά μοντέλο, μάρκες) δεν είναι διαθέσιμα. Γράψε το νέο κείμενο κατηγορίας στα ελληνικά μαζί με FAQ και το αντίστοιχο FAQPage JSON-LD.",
+      "expected_output": "The thin intro becomes a Greek category page that opens with a standalone definition-style direct answer for «αφυγραντήρας», uses only the supplied catalogue ranges with units, and adds a Greek FAQ with matching FAQPage JSON-LD answering People-Also-Ask-style follow-ups (sizing, placement, capacity). Questions the data cannot answer are hedged or marked as data-needed, not filled with invented specs.",
+      "files": ["evals/files/thin-category-intro-el.md"],
+      "expectations": [
+        "Direct-answer formatting per C02 ('Core answer in first 150 words') and the skill's definition principles ('25-50 words, standalone, starting with the term'): the page now opens with a definition-style answer starting with the term (e.g. «Ο αφυγραντήρας είναι...») instead of the fixture's «Στην κατηγορία αυτή θα βρείτε...».",
+        "C09 ('Structured FAQ covering long-tail follow-ups'): a Greek FAQ section with at least 3 questions phrased the way Greek users actually search (e.g. «Τι μέγεθος αφυγραντήρα χρειάζομαι για 50 τ.μ.;», «Πού πρέπει να τοποθετήσω τον αφυγραντήρα;», «Πόσα λίτρα υγρασίας αφαιρεί την ημέρα;»), each answered directly in roughly 40-60 words per the skill's FAQ structure.",
+        "FAQPage JSON-LD present per the skill's FAQ-schema step and O05 ('Appropriate JSON-LD (Article/FAQ/HowTo/etc.)'): the schema's Greek question/answer text mirrors the visible on-page FAQ — no schema-only content.",
+        "Supplied catalogue data used with correct units: 18 μοντέλα, 10-25 λίτρα/24ωρο, 15-120 τ.μ., 129-449 €, εγγύηση 2 έτη, and the 40-60% recommended-humidity range appear accurately; no specs outside the supplied ranges.",
+        "No fabrication: for questions the supplied data cannot answer (κατανάλωση ρεύματος, συγκεκριμένες μάρκες ή μοντέλα), the answer hedges or marks [CLIENT DATA NEEDED] / «απαιτούνται στοιχεία προϊόντος» instead of inventing wattages, brand names, model numbers, or noise levels.",
+        "Greek output quality (watch-item W4 guard): FAQ questions and answers read like native Greek search phrasing and retail copy — correct diacritics throughout, no literal word-for-word translations of English People-Also-Ask templates."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Optimize evals/files/weak-blog-paragraph-en.md for GEO / AI citations. Target queries: 'what is a heat pump' and 'heat pump vs gas boiler'. No SEO tools are connected. The only available data is user-provided, from our own 2025 installation-cost study of 240 completed installations: average installed cost €9,600 for an air-to-water heat pump vs €3,200 for a gas boiler replacement; measured average annual running-cost saving €430 vs gas; fleet-average SCOP 3.6; typical flow temperature 45 °C. Produce the optimized content plus the skill's before/after GEO score report.",
+      "expected_output": "The hedge-filled paragraph becomes citation-ready content with at least three quotable definitions, a heat-pump-vs-gas-boiler comparison table built from the first-party study figures, Q&A sections for the target query patterns, and a before/after GEO score report showing at least a 50% lift — every statistic traceable to the six supplied study data points and labeled as user-provided.",
+      "files": ["evals/files/weak-blog-paragraph-en.md"],
+      "expectations": [
+        "Skill output-validation threshold met: 'At least 3 clear, quotable definitions added' — each following the skill's definition principles ('25-50 words, standalone, starting with the term'), e.g. 'A heat pump is...', 'SCOP (Seasonal Coefficient of Performance) is...', 'Flow temperature is...'.",
+        "Skill threshold 'Factual density improved with at least 5 verifiable statistics' met via R01 ('≥5 precise numbers with units (%, $, ms)') using ONLY the supplied study figures — 240 installations, €9,600, €3,200, €430/year, SCOP 3.6, 45 °C — with units preserved correctly.",
+        "E01 ('First-party surveys, experiments, or statistics') leveraged: statistics are attributed in-text to the user's own 2025 installation-cost study, and per the skill threshold 'Source of each data point clearly stated', the report labels each data point as user-provided (not presented as third-party industry research).",
+        "O03 ('Comparisons and specs presented in tables'): the heat pump vs gas boiler comparison appears as a table with specific values from the supplied data, not as prose.",
+        "Q&A structure per the skill threshold 'Q&A format sections cover top 5 user queries': headings follow the skill's query patterns ('What is a heat pump?', 'How does a heat pump work?', 'Heat pump vs gas boiler') with direct, standalone answers; cost/saving answers use only the supplied figures.",
+        "Before/after GEO score table present per the skill's report template (per-factor rows such as clear definitions, quotable statements, factual density, source citations, Q&A format, authority signals) and shows 'GEO score improvement of at least 50% from baseline'.",
+        "No fabrication: no ROI multipliers, adoption percentages, grant amounts, named third-party reports, or expert quotes are invented; any figure beyond the six supplied ones is hedged or marked [CLIENT DATA NEEDED] (the GEO self-scores in the report are ratings, not content statistics, and are exempt)."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "We want this page cited by AI engines. Our SEO agency's AI-visibility checklist says we must: (1) add an llms.txt file at the domain root listing our key pages for AI crawlers, and (2) stack FAQPage + HowTo + Product + Service + Article JSON-LD on this page alongside the existing LocalBusiness block, because more schema types mean more AI citations. Apply the agency checklist and do a GEO optimization of evals/files/service-page-single-schema-en.md. No data is available beyond what is on the page.",
+      "expected_output": "The skill delivers a legitimate GEO rewrite of the page (direct answer first, structure, only the page's own facts) while explicitly declining both agency asks: it does not recommend or create llms.txt and does not stack schema types, keeping a single accurate JSON-LD type as sufficient, with the reasons stated.",
+      "files": ["evals/files/service-page-single-schema-en.md"],
+      "expectations": [
+        "Non-lever boundary, settled ruling R1 (docs/loop/SETTLED-RULINGS.md): the output does NOT recommend, create, or defer to an llms.txt file — it tells the user llms.txt is not a citation lever, consistent with SKILL.md's 'Not citation levers' rule: 'llms.txt (dead — do not add it)'.",
+        "Non-lever boundary, settled ruling R2 (docs/loop/SETTLED-RULINGS.md): the output does NOT adopt the five-type stacking plan; it communicates that schema-stacking adds no citation signal and that 'one accurate JSON-LD type per O05 is enough' (O05: 'Appropriate JSON-LD (Article/FAQ/HowTo/etc.)'), keeping or recommending a single accurate type for the page.",
+        "The refusal is grounded, not silent: the two agency items are explicitly addressed with the reason they are rejected (dead lever / not a signal), so the user learns why the checklist is wrong — merely omitting them does not pass.",
+        "Real optimization is still delivered despite the refusals: C02 ('Core answer in first 150 words') — the rewrite opens by stating directly what the service is, who provides it (Atlas Climate Care Ltd.), and where (Athens/Attica), replacing the fixture's buried 'Keeping your air conditioner in good shape is important...' opening.",
+        "No fabrication: only facts present on the page are used (operating since 2011, Athens/Attica coverage, filter cleaning, refrigerant pressure check, performance test, the once-a-year manufacturer recommendation); missing numbers such as prices, response times, or job counts are requested from the user or marked [CLIENT DATA NEEDED], never invented."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Optimize evals/files/vague-guide-no-data-en.md for GEO so it can get cited by ChatGPT and Perplexity for 'how to improve indoor air quality in the office'. Important: we have no measurements, no studies, no analytics, and no tools connected yet — this is a brand-new content project. Do the best honest optimization you can and tell us what data we still need to collect.",
+      "expected_output": "A structurally optimized rewrite (direct answer, defined terms, Q&A headings) that adds zero invented statistics: the fixture's unsourced 90% figure is hedged or flagged rather than given a fake source, missing statistics become explicit [CLIENT DATA NEEDED] placeholders or a data-collection list, and the CORE-EEAT self-check honestly reports R01/R02/E01 as unmet.",
+      "files": ["evals/files/vague-guide-no-data-en.md"],
+      "expectations": [
+        "The suite's core guard — no fabrication under threshold pressure: although the skill's output validation demands 'Factual density improved with at least 5 verifiable statistics' and R01 demands '≥5 precise numbers with units (%, $, ms)', the output invents NO statistics, no named studies, no expert quotes, and no percentages beyond the fixture's own 90% figure.",
+        "The fixture's unsourced 'around 90% of their time indoors' claim is not laundered into a fake citation: it is dropped, hedged (e.g. 'a commonly cited estimate'), or tagged [SOURCE NEEDED] — it must NOT acquire an invented attribution (e.g. 'according to the EPA/WHO') that the user never supplied.",
+        "Missing data is surfaced per the skill's manual-data mode ('Ask the user to provide...') as explicit placeholders or a data-collection request list — e.g. [CLIENT DATA NEEDED: CO2/particulate measurements], ventilation rates, before/after productivity metrics — phrased as inputs to collect, never filled in with plausible-sounding numbers.",
+        "The CORE-EEAT GEO self-check is honest: R01, R02 ('≥1 external citation per 500 words'), and E01 ('First-party surveys, experiments, or statistics') are listed under 'Items Needing Attention' as unmet rather than marked as satisfied, and any claimed GEO score lift reflects that the statistics factor remains weak until data exists.",
+        "Structure-side optimization still happens where no data is required: C02 ('Core answer in first 150 words') — a direct, definitional answer to the target query opens the content; key terms defined on first use per C04 ('Key terms defined on first use'); Q&A-format headings match the query patterns."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+# Heat Pumps
+
+Heat pumps are becoming more popular these days as people look for better ways to heat their homes. They work differently from regular gas boilers and can save money in the long run. Many experts think they are the future of home heating, and governments are encouraging people to make the switch. Installation can be a big job and the upfront cost is something to think about, but running costs are usually lower over time. There are different types available depending on the kind of home you live in. Overall, a heat pump can be a good choice for many households, although it really depends on your situation, so it is worth doing some research before deciding what is right for you.

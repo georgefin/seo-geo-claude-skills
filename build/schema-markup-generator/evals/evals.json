@@ -1,0 +1,89 @@
+{
+  "skill_name": "schema-markup-generator",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Generate LocalBusiness schema for our HVAC company in Athens. The contact page copy is in evals/files/klimatismos-oikonomou-contact.md — use exactly the details listed there, nothing else. The markup goes on https://www.klimatismos-oikonomou.gr/epikoinonia.",
+      "expected_output": "A single LocalBusiness (or HVACBusiness) JSON-LD object populated only from the fixture: Greek name Κλιματισμός Οικονόμου Ο.Ε., full Greek PostalAddress (Λεωφόρος Βουλιαγμένης 274, Άγιος Δημήτριος, 173 43, Αττική, GR), telephone +30 210 976 5432, url and email from the fixture, and openingHoursSpecification for Monday–Friday 08:00–16:00 plus Saturday 09:00–14:00. geo, aggregateRating, and priceRange are omitted or left as marked placeholders because the fixture supplies none. Brief implementation and validation guidance follows the markup.",
+      "files": ["evals/files/klimatismos-oikonomou-contact.md"],
+      "expectations": [
+        "The response contains a JSON-LD code block that parses as valid JSON (no trailing commas, all property names quoted).",
+        "The JSON-LD declares \"@context\": \"https://schema.org\" and its top-level \"@type\" is \"LocalBusiness\" or a schema.org LocalBusiness subtype fitting an HVAC company (e.g. \"HVACBusiness\" or \"HomeAndConstructionBusiness\").",
+        "Exactly one top-level schema object is produced for the page — the output is not a JSON array of multiple schema types, and no additional top-level types (Organization, WebSite, BreadcrumbList, FAQPage) are emitted (settled ruling R2: one accurate type per page).",
+        "All required LocalBusiness properties are present: name, and address as a PostalAddress with streetAddress, addressLocality, addressRegion, postalCode, and addressCountry \"GR\".",
+        "The \"name\" value is exactly \"Κλιματισμός Οικονόμου Ο.Ε.\" — Greek script preserved with correct tonos diacritics; the business name is not transliterated to Latin characters (no \"Klimatismos Oikonomou\" as the name value).",
+        "Address values reproduce the fixture's Greek data: streetAddress \"Λεωφόρος Βουλιαγμένης 274\", addressLocality \"Άγιος Δημήτριος\", postalCode \"173 43\" (or \"17343\"), addressRegion \"Αττική\".",
+        "The telephone value is in international format: it contains the +30 country code and the digit sequence 210 976 5432 from the fixture (spacing/dashes may vary).",
+        "openingHoursSpecification matches the fixture: Monday–Friday opens \"08:00\" closes \"16:00\", and Saturday opens \"09:00\" closes \"14:00\"; no opening hours are asserted for Sunday.",
+        "No fabricated values appear: the fixture supplies no coordinates, ratings, or price range, so geo, aggregateRating, and priceRange are either omitted or contain clearly marked placeholders (e.g. \"[LATITUDE]\") — never concrete invented numbers."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Μπορείς να μου φτιάξεις Product schema για τη σελίδα προϊόντος του e-shop μας; Όλα τα στοιχεία είναι στο αρχείο evals/files/eshop-product-elaiolado.md. Θέλουμε να εμφανίζεται η τιμή μας στα αποτελέσματα της Google.",
+      "expected_output": "A single Product JSON-LD object with the Greek name and description preserved, sku EL-KAL-750, brand Ελαιώνες Μεσσηνίας, and a nested Offer: price \"12.90\", priceCurrency \"EUR\", availability https://schema.org/InStock, seller Ελαιώνες Μεσσηνίας Μονοπρόσωπη Ι.Κ.Ε., and the product URL. The image property is a clearly marked placeholder (no image URL exists in the fixture); no ratings, reviews, or priceValidUntil are invented. The response notes that price display in Google requires offers.price + priceCurrency + availability.",
+      "files": ["evals/files/eshop-product-elaiolado.md"],
+      "expectations": [
+        "The response contains a JSON-LD code block that parses as valid JSON.",
+        "The JSON-LD declares \"@context\": \"https://schema.org\" and exactly one top-level \"@type\": \"Product\".",
+        "The Offer appears only nested under the Product's \"offers\" property (\"@type\": \"Offer\") — not as a separate top-level object — and no extra top-level types (Organization, BreadcrumbList, FAQPage) are stacked on the page (settled ruling R2).",
+        "Price-display properties are complete: offers.price, offers.priceCurrency, and offers.availability are all present, alongside the Product's required name.",
+        "The Greek price notation \"12,90 €\" is converted correctly: \"price\": \"12.90\" (decimal point, no currency symbol inside the value) with \"priceCurrency\": \"EUR\".",
+        "The Greek availability phrase \"Άμεσα διαθέσιμο\" is mapped to \"availability\": \"https://schema.org/InStock\".",
+        "The product name is exactly \"Εξαιρετικό Παρθένο Ελαιόλαδο Καλαμάτας ΠΟΠ 750ml\" with all diacritics intact — not transliterated to Latin script and not translated to English.",
+        "Fixture data is carried over faithfully: sku \"EL-KAL-750\", brand name \"Ελαιώνες Μεσσηνίας\", and a Greek-language description drawn from the fixture's Περιγραφή text.",
+        "Nothing is fabricated: the fixture provides no image URL, no ratings, no reviews, and no price expiry date, so image is a clearly marked placeholder (or the response asks the user for it), and aggregateRating, review, and priceValidUntil carry no invented values."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "hey — we want FAQ schema on our pricing FAQ page, the page copy is in evals/files/faq-pricing-page.md. main goal is getting those FAQ dropdowns under our result in Google like our competitors used to have. can you generate the markup for us?",
+      "expected_output": "FAQPage JSON-LD containing the fixture's 4 Q&A pairs verbatim, plus an honest SERP-status correction: Google retired FAQ rich results in 2026, so no dropdown/accordion is promised — the markup's remaining value is AI-engine/GEO parsing (answer engines extract clean Q&A pairs). Validation guidance points to the Schema.org validator, not Google's Rich Results Test or Search Console FAQ reports.",
+      "files": ["evals/files/faq-pricing-page.md"],
+      "expectations": [
+        "The skill DOES generate FAQPage JSON-LD (settled ruling R3: FAQPage is kept despite the 2026 rich-result retirement) — it does not refuse or substitute a different schema type.",
+        "The JSON-LD parses as valid JSON and declares \"@context\": \"https://schema.org\" with top-level \"@type\": \"FAQPage\".",
+        "Exactly one schema type is emitted for the page — no Article, BreadcrumbList, or Organization stacked alongside the FAQPage (settled ruling R2).",
+        "mainEntity is an array of exactly 4 objects of \"@type\": \"Question\", each with a \"name\" and an \"acceptedAnswer\" of \"@type\": \"Answer\" containing \"text\".",
+        "The four question names match the fixture's headings verbatim, including \"How much does TidyBooks cost?\" and \"Do you offer a discount for annual billing?\".",
+        "Each answer text matches the fixture's visible answer copy (content-match policy) — no rewritten, shortened, or invented answers, and no fifth Q&A pair added.",
+        "The response nowhere claims the markup is eligible for FAQ rich results, SERP dropdowns/accordions, or any Google rich-result appearance — despite the user explicitly asking for \"those FAQ dropdowns\".",
+        "The response states that Google retired FAQ rich results in 2026 and frames the markup's remaining value as AI-engine/GEO parsing (answer engines extracting clean Q&A pairs).",
+        "The response does not instruct the user to monitor FAQ rich results in Search Console or to test FAQ eligibility in Google's Rich Results Test (both were cut for FAQ in 2026); if validation is suggested, it points to the Schema.org validator."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "We're a small yoga studio and I've written up our autumn workshop page in evals/files/workshop-event-page.md. Should the markup be Event schema or Organization schema, or both? Whichever is right, give me the final JSON-LD to paste into the page.",
+      "expected_output": "A recommendation to use exactly one type — Event — with a short one-accurate-type-per-page rationale (declining the \"both\" option), followed by a single Event JSON-LD object: name from the fixture title, startDate 2026-09-19T10:00 in ISO 8601 (endDate 13:00 if included), location Place \"The Loft Studio\" with the full postal address, nested offers (price 35, GBP, booking URL), and Wildbird Yoga nested as organizer inside the Event. No separate Organization block; missing data such as an event image is placeholdered or omitted, never invented.",
+      "files": ["evals/files/workshop-event-page.md"],
+      "expectations": [
+        "The response picks exactly ONE schema type for the page and says so explicitly: Event is recommended as the single type, and the user's suggestion to add both Event and Organization is declined with a one-accurate-type-per-page rationale (settled ruling R2).",
+        "The JSON-LD parses as valid JSON and declares \"@context\": \"https://schema.org\" with a single top-level \"@type\": \"Event\" — the output is not an array containing an Organization or any second top-level object.",
+        "Required Event properties are present: name, startDate, and location.",
+        "startDate is ISO 8601 and encodes 19 September 2026 at 10:00 (it begins with \"2026-09-19T10:00\"); if endDate is present it encodes 13:00 on the same date.",
+        "location is a Place named \"The Loft Studio\" with a PostalAddress matching the fixture: streetAddress \"14 Ropewalk Lane\", addressLocality \"Norwich\", postalCode \"NR1 3EX\", addressCountry \"GB\" (or \"UK\"/\"United Kingdom\").",
+        "The £35 ticket is nested as offers (\"@type\": \"Offer\") with \"price\": \"35\" or \"35.00\" and \"priceCurrency\": \"GBP\", using the booking URL from the fixture.",
+        "Wildbird Yoga appears, if at all, only as the nested \"organizer\" property of the Event — never as a separate top-level Organization schema object.",
+        "No data is fabricated: the fixture supplies no event image, no performer, and no ticket-sale start date, so image, performer, and offers.validFrom are omitted or clearly marked placeholders — never invented values."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Please review and improve the schema markup on one of our blog posts — I pasted the visible page excerpt and the current JSON-LD from the page source into evals/files/blog-existing-schema.md. Our SEO crawler reports structured data errors on this URL. What should the corrected markup be?",
+      "expected_output": "An audit that names the defects — trailing comma after the author name, non-ISO datePublished \"03/12/2025\", relative image URL, and an irrelevant stacked Product object (a consulting service marked up as Product on a blog post) — followed by corrected JSON-LD: one BlogPosting object with the headline unchanged, datePublished 2025-03-12 in ISO 8601 (disambiguated by the visible \"12 March 2025\" byline), the image URL made absolute on northbeam-consulting.com, author Dana Okafor, and any publisher logo left as a placeholder or requested from the user. The Product object is removed.",
+      "files": ["evals/files/blog-existing-schema.md"],
+      "expectations": [
+        "The corrected JSON-LD parses as valid JSON — the trailing comma after the author's \"name\" property is removed.",
+        "The corrected output contains exactly one top-level schema object of \"@type\": \"BlogPosting\" (or \"Article\") — the stacked Product object is removed and the output is no longer an array of multiple types (settled ruling R2).",
+        "The response explicitly flags the Product markup as inappropriate/spammy for a blog post (schema must match visible page content; a consulting service marked up as Product on an article page violates that policy).",
+        "The response identifies all three syntax/format defects by name: the trailing comma, the non-ISO date format, and the relative image URL.",
+        "datePublished is corrected to ISO 8601 for 12 March 2025 — it begins with \"2025-03-12\", not \"2025-12-03\" (the visible byline disambiguates \"03/12/2025\").",
+        "The image URL is made absolute on the site's own domain: \"https://www.northbeam-consulting.com/img/fulfilment-hero.jpg\" — not left relative and not moved to an invented domain.",
+        "Required Article properties are present in the corrected markup: headline, image, datePublished, and author (\"@type\": \"Person\", \"name\": \"Dana Okafor\").",
+        "The headline value matches the visible post title exactly: \"How Mid-Market Retailers Can Cut Fulfilment Costs by 18%\".",
+        "The publisher is not fabricated: publisher.name may be \"Northbeam Consulting\" (traceable to the fixture's domain and existing brand markup), but the publisher.logo URL is a clearly marked placeholder or explicitly requested from the user — never an invented URL."
+      ]
+    }
+  ]
+}
