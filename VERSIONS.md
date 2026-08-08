@@ -8,19 +8,19 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 
 | Skill | Category | Version | Last Updated |
 |-------|----------|---------|--------------|
-| keyword-research | research | 4.1.0 | 2026-08-08 |
+| keyword-research | research | 4.1.1 | 2026-08-08 |
 | competitor-analysis | research | 4.0.0 | 2026-03-24 |
 | serp-analysis | research | 4.1.0 | 2026-08-08 |
 | content-gap-analysis | research | 4.0.0 | 2026-03-24 |
 | seo-content-writer | build | 4.1.0 | 2026-08-08 |
-| geo-content-optimizer | build | 4.1.0 | 2026-08-08 |
+| geo-content-optimizer | build | 4.1.1 | 2026-08-08 |
 | meta-tags-optimizer | build | 4.1.0 | 2026-08-08 |
-| schema-markup-generator | build | 4.0.1 | 2026-08-08 |
+| schema-markup-generator | build | 4.0.2 | 2026-08-08 |
 | on-page-seo-auditor | optimize | 4.0.0 | 2026-03-24 |
 | technical-seo-checker | optimize | 4.0.1 | 2026-08-08 |
 | internal-linking-optimizer | optimize | 4.0.0 | 2026-03-24 |
 | content-refresher | optimize | 4.0.0 | 2026-03-24 |
-| rank-tracker | monitor | 4.0.0 | 2026-03-24 |
+| rank-tracker | monitor | 4.0.1 | 2026-08-08 |
 | backlink-analyzer | monitor | 4.0.0 | 2026-03-24 |
 | performance-reporter | monitor | 4.0.0 | 2026-03-24 |
 | alert-manager | monitor | 4.0.0 | 2026-03-24 |
@@ -30,6 +30,16 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 | memory-management | cross-cutting | 4.0.0 | 2026-03-24 |
 
 ## Changelog
+
+### v4.1.1 (2026-08-08)
+
+Measurement package + surgical craft fixes (loop assessment of 2026-08-08, maintainer-approved):
+
+- **geo-content-optimizer 4.1.1**: worked example reworked to model sourced-data-only statistics with `[CLIENT DATA: ...]` placeholders (was demonstrating unsourced named stats); statistics rule added under Output Validation; missing Reference Materials row for `references/geo-optimization-techniques.md`; behavioral eval suite added (`evals/`, 5 evals / 29 expectations / 2 Greek)
+- **keyword-research 4.1.1**: behavioral eval suite added (`evals/`, 5 evals / 31 expectations / 3 Greek-market incl. Greeklish-prompt case)
+- **schema-markup-generator 4.0.2**: behavioral eval suite added (`evals/`, 5 evals / 44 expectations / 2 Greek incl. EUR/availability mapping)
+- **rank-tracker 4.0.1**: tracking-artifact persistence contract (dated ranking snapshot + memory-management handoff); missing Reference Materials row for `references/ranking-analysis-templates.md`
+- Infrastructure (no version bump): `.claude/agents/` roster +2 judge roles (`skill-reviewer` adversarial review + eval runner, `greek-content-editor` native EL judge); `docs/loop/PIPELINE.md` VALIDATE gains a behavioral leg (eval regression = do-not-merge) and APPLY gains adversarial diff review; quarterly loop-KPIs; `scripts/check-freshness.sh` (advisory staleness check); AREX (arXiv 2607.21461) existence confirmed with corrected title, W1 downgraded to optional; RSI baseline extended (GRASP / SEA-Eval / feedback-dynamics / OpenSkillEval); CITE acronym disambiguation note in `references/cite-domain-rating.md`
 
 ### v4.1.0 (2026-08-08)
 
