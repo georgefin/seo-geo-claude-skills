@@ -1,13 +1,13 @@
 ---
 name: keyword-research
-version: "4.0.0"
+version: "4.1.1"
 description: 'Discover high-value SEO keywords with search intent analysis, difficulty scoring, topic clustering, and AI citation potential. Use when the user asks to "find keywords", "keyword research", "what should I write about", "keyword difficulty score", "identify ranking opportunities", "topic ideas", "what are people searching for", or "long-tail keyword suggestions". For competitor keyword gaps, see competitor-analysis. For topic coverage gaps, see content-gap-analysis.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.0.0"
+  version: "4.1.1"
   geo-relevance: "medium"
   tags:
     - seo
@@ -178,7 +178,26 @@ When a user requests keyword research:
    - [keyword] guide
    ```
 
-4. **Classify Search Intent**
+4. **Expand Greek Seed Keywords (Dual-Coverage)**
+
+   Greek users search tonos-optional (accents dropped) and often in Greeklish (Latin-script transliteration). For every Greek seed keyword, expand to 4 forms — one demand cluster for volume aggregation, distinct forms for placement:
+
+   ```markdown
+   ### Greek Dual-Coverage Pattern
+
+   | Form | Example | Placement |
+   |------|---------|-----------|
+   | (a) Accented Greek | κατασκευή ιστοσελίδων | Visible copy — titles, H1s, meta, body |
+   | (b) Unaccented Greek | κατασκευη ιστοσελιδων | Search-engine normalization only — do not stuff as visible text |
+   | (c) Greeklish | kataskevi istoselidon | Brand terms, domains, paid search |
+   | (d) EN equivalent | web development Athens | Bilingual pages, EN-audience content |
+
+   Second example: υδραυλικός Αθήνα / υδραυλικος αθηνα / ydravlikos athina / plumber Athens
+   ```
+
+   Diacritic normalization (a ↔ b) is reliable in search matching; Greeklish (c) is not — target it explicitly (domains, brand terms, paid search bids) rather than relying on organic normalization. More forms and verticals: [references/greek-keyword-coverage.md](./references/greek-keyword-coverage.md).
+
+5. **Classify Search Intent**
 
    Categorize each keyword:
 
@@ -189,7 +208,7 @@ When a user requests keyword research:
    | Commercial | best, review, vs, compare | "best SEO tools [current year]" | Comparison posts, reviews |
    | Transactional | buy, price, discount, order | "buy SEO software" | Product pages, pricing |
 
-5. **Assess Keyword Difficulty**
+6. **Assess Keyword Difficulty**
 
    Score each keyword (1-100 scale):
 
@@ -214,7 +233,7 @@ When a user requests keyword research:
    - New or emerging topics
    ```
 
-6. **Calculate Opportunity Score**
+7. **Calculate Opportunity Score**
 
    Formula: `Opportunity = (Volume × Intent Value) / Difficulty`
 
@@ -235,7 +254,7 @@ When a user requests keyword research:
    | Research | Low | Low | Low | ⭐⭐ |
    ```
 
-7. **Identify GEO Opportunities**
+8. **Identify GEO Opportunities**
 
    Keywords likely to trigger AI responses:
    
@@ -256,7 +275,7 @@ When a user requests keyword research:
    - Low commercial intent
    ```
 
-8. **Create Topic Clusters**
+9. **Create Topic Clusters**
 
    Group keywords into content clusters:
 
@@ -285,11 +304,24 @@ When a user requests keyword research:
    [Continue for all cluster keywords...]
    ```
 
-9. **Generate Output Report**
+10. **Map Local-Intent Keywords to GBP Surfaces**
 
-   Produce a report containing: Executive Summary, Top Keyword Opportunities (Quick Wins, Growth, GEO), Topic Clusters, Content Calendar, and Next Steps.
+    Local-intent keywords ("near me", [service] + city/neighborhood) map to more than website pages — map them to Google Business Profile surfaces too:
 
-   > **Reference**: See [references/example-report.md](./references/example-report.md) for the full report template and example.
+    | Keyword Type | Website Surface | GBP Surface |
+    |---------------|-----------------|-------------|
+    | Service + city ("υδραυλικός Αθήνα") | Service/location page | Products/Services description |
+    | Question queries ("πόσο κοστίζει...") | FAQ section | Q&A — seed the top 3-5 |
+    | Time-sensitive/offer ("ανοιχτά Κυριακή") | Homepage banner | Posts — refresh weekly, they expire |
+    | Brand + Greeklish ("[brand] kataskevi") | Domain, meta title | Business name field |
+
+    GBP fields are indexed and surface in Maps/Local Pack — treat them as a content destination, not a directory listing. Detail: [references/greek-keyword-coverage.md](./references/greek-keyword-coverage.md).
+
+11. **Generate Output Report**
+
+    Produce a report containing: Executive Summary, Top Keyword Opportunities (Quick Wins, Growth, GEO), Topic Clusters, Content Calendar, and Next Steps.
+
+    > **Reference**: See [references/example-report.md](./references/example-report.md) for the full report template and example.
 
 ## Validation Checkpoints
 
@@ -304,6 +336,8 @@ When a user requests keyword research:
 - [ ] Search volume and difficulty scores included for each keyword
 - [ ] Keywords grouped by intent and mapped to content types
 - [ ] Topic clusters show clear pillar-to-cluster relationships
+- [ ] Greek-market keywords show accented, unaccented, Greeklish, and EN forms with placement noted (if applicable)
+- [ ] Local-intent keywords mapped to GBP surfaces, not just website pages (if applicable)
 - [ ] Source of each data point clearly stated (~~SEO tool data, user-provided, or estimated)
 
 ## Example
@@ -334,6 +368,7 @@ When a user requests keyword research:
 - [Topic Cluster Templates](./references/topic-cluster-templates.md) — Hub-and-spoke architecture templates for pillar and cluster content
 - [Keyword Prioritization Framework](./references/keyword-prioritization-framework.md) — Priority scoring matrix, categories, and seasonal keyword patterns
 - [Example Report](./references/example-report.md) — Complete example keyword research report for project management software
+- [Greek Keyword Coverage](./references/greek-keyword-coverage.md) — Diacritics/Greeklish dual-coverage patterns, transliteration reference, and GBP surface mapping
 
 ## Related Skills
 

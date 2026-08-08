@@ -1,6 +1,6 @@
 # GEO Optimization Techniques
 
-Detailed techniques for optimizing content for AI citation across Google AI Overviews, ChatGPT, Perplexity AI, Claude, and Gemini.
+Detailed techniques for optimizing content for AI citation across Google AI Mode (incl. AI Overviews), ChatGPT, Perplexity AI, Claude, and Gemini.
 
 ## Definition Optimization
 

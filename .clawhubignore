@@ -15,6 +15,9 @@ Thumbs.db
 # Internal planning (not part of skill bundles)
 docs/plans/
 
+# Pipeline state & weekly-loop registries (internal, not part of skill bundles)
+docs/loop/
+
 # Node tooling (not needed in skill bundles)
 node_modules/
 package-lock.json

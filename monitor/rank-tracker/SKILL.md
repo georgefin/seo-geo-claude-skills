@@ -1,13 +1,13 @@
 ---
 name: rank-tracker
-version: "4.0.0"
+version: "4.0.1"
 description: 'Track keyword ranking positions and SERP position changes over time in both traditional search and AI-generated responses. Use when the user asks to "track rankings", "check keyword positions", "monitor SERP positions", "how am I ranking", "where do I rank for this keyword", "did my rankings change", "ranking changes", or "keyword position tracking". For automated alerting, see alert-manager. For comprehensive reports, see performance-reporter.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.0.0"
+  version: "4.0.1"
   geo-relevance: "medium"
   tags:
     - seo
@@ -132,6 +132,8 @@ When a user requests rank tracking or analysis:
 
 1. **Set Up Keyword Tracking** -- Configure domain, location, device, language, update frequency. Add keywords with volume, current rank, type, and priority. Set up competitor tracking and keyword categories (brand/product/informational/commercial).
 
+   **Tracking artifact (persistence contract)** -- Every run produces a dated ranking snapshot: one row per keyword with keyword, position, ranking URL, SERP features, check date, and data source (~~SEO tool, ~~search console, or user-provided). If [memory-management](../../cross-cutting/memory-management/) is active, hand the snapshot to it (hot-cache summary + dated snapshot in cold storage, per its conventions). Otherwise, save the snapshot to a file and confirm the location with the user. On every subsequent run, read the prior snapshot first -- it is the baseline for all change calculations.
+
 2. **Record Current Rankings** -- Ranking overview by position range (#1, #2-3, #4-10, #11-20, etc.), position distribution visualization, detailed rankings with URL, SERP features, and change.
 
 3. **Analyze Ranking Changes** -- Overall movement metrics, biggest improvements and declines with hypothesized causes, recommended recovery actions, stable keywords, new rankings, lost rankings.
@@ -217,6 +219,7 @@ Keywords in top 10 increased from 12 to 17 (+5)
 ## Reference Materials
 
 - [Tracking Setup Guide](./references/tracking-setup-guide.md) — Configuration best practices, device/location settings, and SERP feature tracking setup
+- [Ranking Analysis Templates](./references/ranking-analysis-templates.md) — Complete output templates for all 7 workflow steps
 
 ## Related Skills
 

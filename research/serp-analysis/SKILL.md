@@ -1,6 +1,6 @@
 ---
 name: serp-analysis
-version: "4.0.0"
+version: "4.1.0"
 description: 'Analyze search engine results pages to understand ranking factors, SERP features, user intent patterns, and AI overview triggers. Use when the user asks to "analyze search results", "SERP analysis", "what ranks for", "SERP features", "why does this page rank", "featured snippets", "AI overviews", or "what does Google show for". For tracking rankings over time, see rank-tracker. For keyword discovery, see keyword-research.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ allowed-tools: WebFetch
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.0.0"
+  version: "4.1.0"
   geo-relevance: "high"
   tags:
     - seo
@@ -188,6 +188,28 @@ When a user requests SERP analysis:
 - [ ] Content requirements based on observed patterns in current SERP
 - [ ] Source of each data point clearly stated (~~SEO tool data, ~~AI monitor data, user-provided, or manual observation)
 
+## Skroutz as Second SERP (Greek E-Commerce)
+
+When the target market is Greek e-commerce, Skroutz.gr is a second SERP — often the first stop for Greek shoppers on purchase-intent queries, ahead of Google. Audit Skroutz visibility alongside the Google workflow above; it supplements, not replaces, the Google analysis.
+
+**Trigger conditions** (any of):
+- Target market/locale is Greece and content type is product, category, or commercial-investigation
+- Client sells through, or competes against sellers listed on, Skroutz
+- User explicitly asks about Skroutz visibility or ranking
+
+**What to audit** (full checklist in reference file):
+1. Category/taxonomy placement accuracy
+2. Price competitiveness vs. same-product (identical SKU) listings
+3. Delivery-speed expectations — locker network coverage, speed badges
+4. Trusted Reviews standing — volume, recency, response rate
+5. Returns-policy compliance
+6. Marketplace fee context (e.g., Skoop per-order fee) as a competitive-cost input, not a ranking factor
+7. Shop rating and fulfillment SLA adherence
+
+Report Skroutz findings as a clearly separated section alongside the Google SERP analysis — they are different, independently unpublished algorithms; do not merge their ranking-factor lists.
+
+> **Reference**: See [references/skroutz-visibility-factors.md](./references/skroutz-visibility-factors.md) for the full factor checklist. Skroutz does not publish its ranking algorithm — every item is an observable lever to audit, not a confirmed weight.
+
 ## Example
 
 > **Reference**: See [references/example-report.md](./references/example-report.md) for a complete example analyzing the SERP for "how to start a podcast".
@@ -233,6 +255,7 @@ Analyze mobile vs desktop SERP differences for [keyword]
 - [Analysis Templates](./references/analysis-templates.md) — Detailed templates for each analysis step (SERP composition, top results, ranking patterns, features, intent, difficulty, recommendations)
 - [SERP Feature Taxonomy](./references/serp-feature-taxonomy.md) — Complete taxonomy of SERP features with trigger conditions, AI overview framework, intent signals, and volatility assessment
 - [Example Report](./references/example-report.md) — Complete example analyzing the SERP for "how to start a podcast"
+- [Skroutz Visibility Factors](./references/skroutz-visibility-factors.md) — Telegraphic checklist of observable Skroutz ranking levers for Greek e-commerce audits (algorithm unpublished — checklist, not confirmed weights)
 
 ## Related Skills
 

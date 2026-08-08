@@ -2,7 +2,9 @@
 
 How different AI systems select and cite content. Understanding these patterns helps optimize content for AI visibility.
 
-## Google AI Overviews
+## Google AI Mode (Default Surface, incl. AI Overviews)
+
+**Baseline shift**: AI Mode is now Google's default search surface (Google I/O 2026) — AI Overviews folded in, no longer a separate peer feature. Live for Greek-language queries since 08-10-2025. Organic CTR baselines shift accordingly: classic "10 blue links" click-through is no longer the default outcome, so optimize primarily for in-surface citation, not just ranking position.
 
 ### Citation Behavior
 
@@ -448,7 +450,7 @@ Highlighted important points.
 
 ## AI System Comparison Summary
 
-| Factor | Google AI Overviews | ChatGPT | Perplexity | Claude |
+| Factor | Google AI Mode | ChatGPT | Perplexity | Claude |
 |--------|---------------------|---------|------------|--------|
 | **Freshness bias** | High | Medium | Very high | N/A (training data) |
 | **Authority weight** | Very high | High | High | High |
@@ -460,15 +462,31 @@ Highlighted important points.
 
 ---
 
+## Per-Engine Overlap & Community Citations
+
+Engines don't share sources as much as "AI traffic" framing assumes. [VERIFY – 2026 industry studies, unverified methodology]:
+
+- **ChatGPT ↔ Perplexity domain overlap**: ~11%. Citation on one engine doesn't predict citation on the other for the same query.
+- **Community/UGC citation share**: Reddit-type community content ≈40% of citations across engines — forums and discussion threads are a real, non-brand citation channel.
+
+**Implication**: optimize and track citation presence per engine — separate rows per engine in any visibility report, not one combined "AI traffic" metric.
+
+**Community channel** [VERIFY, directional]: where topically relevant, monitor (and, if genuinely useful, participate in) relevant community threads — Reddit, niche forums; for Greek-market queries, insomnia.gr-type communities where relevant. Presence is a citation channel, never a guaranteed placement.
+
+**Not citation levers**: llms.txt is a dead lever — do not add one expecting citation gains. Schema stacking (piling on multiple schema types per page) is not a citation lever either — one accurate JSON-LD type (O05) is enough; more schema for its own sake adds no citation signal.
+
+---
+
 ## Tracking AI Citations
 
 ### Manual Monitoring
 
 **Check if your content appears in**:
-- Google AI Overviews for target keywords
+- Google AI Mode / AI Overviews for target keywords
 - ChatGPT responses (search your domain in ChatGPT)
 - Perplexity results for relevant queries
 - Other AI search engines
+- Community threads (Reddit, niche forums) that engines cite [VERIFY, directional]
 
 **Test queries**:
 - Exact-match questions from your FAQ
