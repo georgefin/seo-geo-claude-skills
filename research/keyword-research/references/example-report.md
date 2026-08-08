@@ -14,6 +14,8 @@ This is a complete example output showing the expected format for keyword resear
 **Generated**: [current month and year]
 **Target Audience**: Small business owners and teams
 **Business Goal**: Software signups and trials
+**Assumptions (stated up front — single-turn rule)**: EN/US market assumed; business goal assumed to be signups/trials (not stated in the prompt); no site-maturity data provided
+**Data sources**: volume and difficulty figures are ~~SEO tool estimates; intent is analyst-classified; metrics the tool does not report appear as "N/A — not tool-reported"
 
 ## Executive Summary
 
@@ -47,13 +49,15 @@ This is a complete example output showing the expected format for keyword resear
 
 ### GEO Opportunities (AI-citation potential)
 
-| Keyword | Type | AI Potential | Recommended Format |
-|---------|------|--------------|-------------------|
-| what is project management | Definition | ⭐⭐⭐⭐⭐ | Clear definition + methodology |
-| agile vs waterfall | Comparison | ⭐⭐⭐⭐⭐ | Side-by-side comparison table |
-| project management methodologies | List | ⭐⭐⭐⭐ | Comprehensive list with pros/cons |
-| how to create a project plan | How-to | ⭐⭐⭐⭐ | Step-by-step guide |
-| project management best practices | List | ⭐⭐⭐⭐ | Numbered best practices |
+| Keyword | Type | Volume | Difficulty | Intent | AI Potential | Recommended Format |
+|---------|------|--------|------------|--------|--------------|-------------------|
+| what is project management | Definition | 2,200 | N/A — not tool-reported | Informational | ⭐⭐⭐⭐⭐ | Clear definition + methodology |
+| agile vs waterfall | Comparison | N/A — not tool-reported | N/A — not tool-reported | Informational | ⭐⭐⭐⭐⭐ | Side-by-side comparison table |
+| project management methodologies | List | N/A — not tool-reported | N/A — not tool-reported | Informational | ⭐⭐⭐⭐ | Comprehensive list with pros/cons |
+| how to create a project plan | How-to | 1,400 | N/A — not tool-reported | Informational | ⭐⭐⭐⭐ | Step-by-step guide |
+| project management best practices | List | 1,200 | N/A — not tool-reported | Informational | ⭐⭐⭐⭐ | Numbered best practices |
+
+*GEO/conversational tables keep the Volume / Difficulty / Intent columns. Tool-reported metrics are shown where they exist (these volumes match the cluster data below); unreported metrics — typical for conversational phrasings, and true of difficulty for these question-format keywords in this example — get an explained N/A, never an invented number.*
 
 ## Topic Clusters
 
