@@ -1,13 +1,13 @@
 ---
 name: geo-content-optimizer
-version: "4.0.0"
-description: 'Optimize content for AI citation across ChatGPT, Perplexity, Google AI Overviews, and Gemini with quotable statements and structured Q&A. Use when the user asks to "optimize for AI", "get cited by ChatGPT", "GEO optimization", "appear in AI answers", "make content AI-quotable", or "Google AI Overview optimization". Adds quotable statements, structured Q&A, precise statistics with sources, expert attribution, and FAQ schema. Uses CORE-EEAT GEO-First items as optimization targets. For SEO-focused writing, see seo-content-writer. For entity and brand AI presence, see entity-optimizer.'
+version: "4.1.0"
+description: 'Optimize content for AI citation across Google AI Mode (default search surface, incl. AI Overviews), ChatGPT, Perplexity, and Gemini with quotable statements and structured Q&A. Use when the user asks to "optimize for AI", "get cited by ChatGPT", "GEO optimization", "appear in AI answers", "make content AI-quotable", "Google AI Overview optimization", or "Google AI Mode optimization". Adds quotable statements, structured Q&A, precise statistics with sources, expert attribution, and FAQ schema. Uses CORE-EEAT GEO-First items as optimization targets. For SEO-focused writing, see seo-content-writer. For entity and brand AI presence, see entity-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.0.0"
+  version: "4.1.0"
   geo-relevance: "high"
   tags:
     - geo
@@ -59,7 +59,7 @@ This skill optimizes content to appear in AI-generated responses. As AI systems 
 
 - Optimizing existing content for AI citations
 - Creating new content designed for both SEO and GEO
-- Improving chances of appearing in AI Overviews
+- Improving chances of appearing in Google AI Mode (default surface; AI Overviews folded in)
 - Making content more quotable by AI systems
 - Adding authority signals that AI systems trust
 - Structuring content for AI comprehension
@@ -106,7 +106,7 @@ Audit this content for GEO readiness and suggest improvements
 > **Note:** All integrations are optional. This skill works without any API keys — users provide data manually when no tools are connected.
 
 **With ~~AI monitor + ~~SEO tool connected:**
-Automatically pull AI citation patterns (which content is being cited by ChatGPT, Claude, Perplexity), current AI visibility scores, competitor citation frequency, and AI Overview appearance tracking.
+Automatically pull AI citation patterns (which content is being cited by ChatGPT, Claude, Perplexity), current AI visibility scores, competitor citation frequency, and AI Mode/AI Overview appearance tracking.
 
 **With manual data only:**
 Ask the user to provide:
@@ -147,12 +147,19 @@ When a user requests GEO optimization:
    **AI Engine Preferences**:
    | Engine | Priority Items |
    |--------|----------------|
-   | Google AI Overview | C02, O03, O05, C09 |
+   | Google AI Mode (default) | C02, O03, O05, C09 |
    | ChatGPT Browse | C02, R01, R02, E01 |
    | Perplexity AI | E01, R03, R05, Ept05 |
    | Claude | R04, Ept08, Exp10, R03 |
 
+   **Engine Model (2026 baseline)**: Google AI Mode is Google's default search surface (AI Overviews folded in; live for Greek queries since 08-10-2025) — organic CTR baselines shift accordingly. ChatGPT, Perplexity, Gemini, Claude remain separate engines, each with its own selection behavior.
+
+   **Per-Engine Reality Check** [VERIFY – 2026 industry studies]: ~11% ChatGPT↔Perplexity domain overlap; community/UGC content (Reddit-type) ≈40% of citations, cross-engine. Optimize and track citation presence **per engine**, not as one "AI traffic" bucket — community threads (Reddit, niche forums; Greece: insomnia.gr-type where topically relevant) are a citation channel too, directional only.
+
+   **Not citation levers**: llms.txt (dead — do not add it); schema-stacking (not a signal — one accurate JSON-LD type per O05 is enough).
+
    _Full benchmark: [references/core-eeat-benchmark.md](../../references/core-eeat-benchmark.md)_
+   _Engine behavior detail: [references/ai-citation-patterns.md](./references/ai-citation-patterns.md)_
    ```
 
 2. **Analyze Current Content**
@@ -340,7 +347,7 @@ Changes: added clear definition, 2 stats with sources, structured list, DMA/Emar
 
 ## Reference Materials
 
-- [AI Citation Patterns](./references/ai-citation-patterns.md) - How Google AI Overviews, ChatGPT, Perplexity, and Claude select and cite sources
+- [AI Citation Patterns](./references/ai-citation-patterns.md) - How Google AI Mode (incl. AI Overviews), ChatGPT, Perplexity, and Claude select and cite sources, plus per-engine overlap and community/UGC citation patterns
 - [Quotable Content Examples](./references/quotable-content-examples.md) - Before/after examples of content optimized for AI citation
 
 ## Related Skills
@@ -349,5 +356,5 @@ Changes: added clear definition, 2 stats with sources, structured list, DMA/Emar
 - [schema-markup-generator](../schema-markup-generator/) — Add structured data
 - [content-refresher](../../optimize/content-refresher/) — Update content for freshness
 - [content-quality-auditor](../../cross-cutting/content-quality-auditor/) — Full 80-item CORE-EEAT audit
-- [serp-analysis](../../research/serp-analysis/) — Analyze AI Overview patterns
+- [serp-analysis](../../research/serp-analysis/) — Analyze AI Mode/AI Overview patterns
 
