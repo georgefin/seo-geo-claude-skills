@@ -110,3 +110,20 @@ regression rate · repeat-failure count · tool-correctness rate.
 - **Recurrence**: 0 (two instances in one wave counted as the founding pattern; a
   future false verdict that ESCAPES into a report increments this).
 - **Status**: guard live; encoded in the skill-reviewer Mode B discipline.
+
+## F8 — 2026-08-08 · Review target mutated during an in-flight adversarial review
+
+- **Failure**: the coordinator edited `.claude/agents/skill-reviewer.md` (a G4 harvest
+  item) while a Mode A reviewer was reviewing the UNCOMMITTED working tree for the G1
+  pilot. The reviewer's closing scan found 8 modified files where its opening scan saw
+  7 — scope-purity FAIL on an otherwise SHIP-grade diff, and the mid-review edit itself
+  carried a semantics error (verdict-cap wording that inverted ledger rule 5) that was
+  only caught because the reviewer flagged the intrusion.
+- **Root cause**: working-tree reviews have no frozen target; concurrent writers can
+  change the reviewable unit mid-review.
+- **Guard**: Mode A launches only against a frozen target — a committed SHA (preferred)
+  or an explicit file manifest declared at launch; while a working-tree review is in
+  flight, coordinator and implementers do not write inside the repo. Caught same-day by
+  the reviewer's open-vs-close scan discipline; the offending edit was corrected and
+  committed separately with the reviewer's semantic fix applied.
+- **Recurrence**: 0. **Status**: guard live (this entry is the standing rule).

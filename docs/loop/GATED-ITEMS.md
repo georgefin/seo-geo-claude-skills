@@ -69,6 +69,15 @@ G1 approved (pilot executing), G2 approved (implemented), G4 decided (harvest).*
 - **Rollback triggers**: validator errors post-merge; marketplace listing breakage; CI red;
   contradiction reported by the next weekly run.
 - **Verdict**: APPROVED 2026-08-08 ("2. Yes") — see the third verdict-log entry.
+- **Pilot result (2026-08-08, commit `6c10295`)**: executed and SHIP-verdicted after
+  scope separation (Mode A; 6/6 gate fault-injections caught). memory-management is the
+  one spec-aligned skill (metadata.version authority); plugin.json carries no
+  schemaVersion/id; official validator confirms a strict warning-reduction with zero
+  new findings. W8 RESOLVED. **Remaining full-migration scope — a NEW decision for
+  Sani, not covered by this approval**: flatten `commands` entries, re-shape
+  `hooks`/`mcpServers` to validator-accepted forms, decide the `capabilities` field and
+  root-CLAUDE.md packaging. Rollback triggers stay armed: watch ClawHub/skills.sh
+  listings after merge; revert = `git revert 6c10295`.
 
 ## G2 — Publish weekly reports as GitHub Issues on the fork
 

@@ -93,13 +93,19 @@ content-quality-auditor discipline note).
   sweep's verification; otherwise drop.
 - **Cadence**: next sweep.
 
-## W8 — Plugin validator tolerance of extra manifest fields
+## W8 — Plugin validator tolerance of extra manifest fields — RESOLVED 2026-08-08
 
-- **Claim**: Unknown whether `claude plugin validate` tolerates the repo's extra
-  `schemaVersion`/`id`/`version` fields (tagged `[VERIFY tolerance]` in the 08-08 report).
-- **Where**: NOT in repo; belongs to gated item **G1** (see `GATED-ITEMS.md`).
-- **Action**: run `claude plugin validate --strict` during the G1 pilot.
-- **Cadence**: resolved by G1 pilot; blocked on Sani's gate verdict.
+- **Resolution** (G1 pilot run, `claude` CLI 2.1.226 present in the cloud environment):
+  extra fields are TOLERATED as warnings and ignored at load time ("Unknown field …
+  Claude Code ignores it at load time"; `id` "belongs in the marketplace entry"). The
+  pilot's trim removed exactly those two warnings with zero new findings — official-
+  validator confirmation of the G1 direction.
+- **Remaining backlog surfaced** (pre-existing at HEAD, NOT pilot-caused): 3 strict
+  errors — `hooks`/`commands`/`mcpServers` carry v3.0.0 object shapes the validator
+  rejects — plus a `capabilities` unknown-field warning and a root-CLAUDE.md packaging
+  warning. These define the full-migration scope and sit BEYOND G1's recorded scope;
+  full migration is a separate Sani decision (see G1 pilot-result block).
+- **Cadence**: closed; folds into the G1 continuation decision.
 
 ## W9 — Greek commerce-surface magnitudes (vendor cluster, 4 claims)
 
