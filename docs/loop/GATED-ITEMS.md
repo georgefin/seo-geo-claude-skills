@@ -5,9 +5,22 @@ Lifecycle: `proposed → gated (awaiting verdict) → approved | rejected → ap
 validated`. Record every verdict here with date and wording. A gated item excluded from a
 PR must be named in that PR's body as a separate decision (as done in PR #1, 2026-08-08).
 
-**Currently gated: 4 items awaiting Sani's individual verdicts (G1–G4; G4's investigation
-is complete, its verdict is not).**
+**Currently gated: 1 item awaiting Sani (G3 — explanation requested, fact question open).
+G1 approved (pilot executing), G2 approved (implemented), G4 decided (harvest).**
 
+> **Verdict log — 2026-08-08 (third entry, ~19:30Z)**: against the numbered five-item
+> recommendation sheet (1 merge PR #3 · 2 G1 pilot · 3 G2 Issues · 4 G3 explain · 5 G4
+> harvest), Sani replied verbatim: "1. merge 2. Yes 3. Yes 4. Please explain 5. harvest".
+> Executed as: PR #3 MERGED (`e2d7e22`, merge commit); **G1 APPROVED** — one-skill pilot
+> per the recorded plan; **G2 APPROVED** — weekly routine STEP 6 gains the single
+> issue-filing write action + rolling [VERIFY]-queue issue; **G3 still open** —
+> explanation delivered, waiting on Sani's one fact (does the local WP vuln loop still
+> cover the 5 production sites?); **G4 DECIDED: HARVEST** — keep the 20-skill topology,
+> port features only (O2); upstream tracked as a quarterly harvest lane, not weekly
+> (O1); no parasite/borrowed-authority port (O4, per the recommendation Sani adopted);
+> NDJSON entity registry deferred until a client engagement needs it (O5). The 7-item
+> harvest wave moves to APPLY.
+>
 > **Verdict log — 2026-08-08 (second entry, ~16:00Z)**: Sani: "1. Merge 2. … proceed with
 > the best skills agents for the pending tasks … Do not stop until everything is done
 > without my help." Executed as: PR #2 MERGED (merge commit `04a980a`); then the parked
@@ -36,8 +49,8 @@ is complete, its verdict is not).**
 
 ## G1 — Align SKILL.md frontmatter + plugin.json with current Agent Skills spec ("#8")
 
-- **Status**: GATED — awaiting Sani's verdict (requested for Mon 2026-08-10 in the
-  08-08-2026 weekly report's 7-day plan). Deliberately excluded from PR #1.
+- **Status**: **APPROVED by Sani 2026-08-08** ("2. Yes" on the recommendation sheet).
+  Pilot executing per the plan below; W8 validator question resolves inside the pilot.
 - **Proposal**: The current spec diverges from this repo's own rules:
   - agentskills.io/specification.md (checked 2026-08-08): SKILL.md frontmatter defines
     **no top-level `version` field** (6 fields only) — repo mandates it (`CLAUDE.md:46`,
@@ -55,11 +68,12 @@ is complete, its verdict is not).**
 - **Plan**: pilot on **one** skill first; single commit so **rollback = one `git revert`**.
 - **Rollback triggers**: validator errors post-merge; marketplace listing breakage; CI red;
   contradiction reported by the next weekly run.
-- **Verdict**: _none yet_.
+- **Verdict**: APPROVED 2026-08-08 ("2. Yes") — see the third verdict-log entry.
 
 ## G2 — Publish weekly reports as GitHub Issues on the fork
 
-- **Status**: GATED — proposed 2026-08-08 (loop audit). Awaiting Sani's yes/no.
+- **Status**: **APPROVED by Sani 2026-08-08** ("3. Yes"). Implemented same day: STEP 6
+  amendment on the weekly routine + rolling [VERIFY]-queue issue seeded from W-items.
 - **Proposal**: amend the weekly routine (STEP 6) to allow exactly one write action: file
   each report as an issue titled `Weekly skill-update-check — YYYY-MM-DD` (label
   `weekly-report`), plus maintain one rolling `[VERIFY] queue` issue (label `verify-queue`)
@@ -71,12 +85,14 @@ is complete, its verdict is not).**
   research and pipeline process, no client data, and PR #1 already exposes equivalent
   content; still, this is *recurring outward-facing publication*, hence gated.
 - **Rollback**: remove the STEP 6 instruction (one `update_trigger`); close the issues.
-- **Verdict**: _none yet_.
+- **Verdict**: APPROVED 2026-08-08 ("3. Yes") — see the third verdict-log entry.
 
 ## G3 — WordPress/CVE security lane: restore, relocate, or retire
 
-- **Status**: GATED — surfaced by the 2026-08-08 loop audit (v1→v2 prompt diff). Awaiting
-  Sani's decision.
+- **Status**: GATED — Sani requested the explanation 2026-08-08 ("4. Please explain");
+  delivered same day. Open fact question: does the local WP vuln loop still run and
+  cover the 5 production sites? yes → option (c) retire; no/unsure → option (b) Monday
+  routine (team recommendation).
 - **Context**: the superseded v1 weekly carried a WordPress + security lane (WP
   core/WooCommerce/Rank Math version watch; ACTIVE plugin CVEs from Patchstack/Wordfence
   with CVE IDs, affected ranges, fixed-in versions; fake-mu-plugin backdoor patterns)
@@ -95,7 +111,8 @@ is complete, its verdict is not).**
 
 ## G4 — Upstream reconciliation (aaron-marketing-skills v19.1.0)
 
-- **Status**: INVESTIGATED 2026-08-08 (read-only P2) — awaiting Sani's verdict.
+- **Status**: **DECIDED by Sani 2026-08-08: HARVEST** ("5. harvest"). Topology stays 20;
+  quarterly upstream lane; no parasite port; NDJSON deferred. Harvest wave in APPLY.
 - **Facts established** (raw-file inspection, accessed 2026-08-08): ancestor frozen at
   v9.9.12 "receives no updates"; successor bundle v19.1.0 (2026-08-01, hot cadence — 5
   major versions since 2026-06-28). 20→16 = 3 pairwise merges (writer+refresher,
@@ -121,7 +138,7 @@ is complete, its verdict is not).**
   and harvest features only (recommended by the conflict scan) vs converge to 16 with a
   Greek re-port; O4 whether the parasite/borrowed-authority play is brand-acceptable
   before any port; O5 whether an NDJSON entity-registry pattern is wanted for client ops.
-- **Verdict**: _none yet_.
+- **Verdict**: HARVEST — recorded in the 2026-08-08 third verdict-log entry above.
 
 ---
 
