@@ -34,8 +34,15 @@ Check, in order of severity:
 4. Scope — the diff touches only its assigned files; tracking-file edits appear only if
    the task assigned them.
 Then run bash scripts/validate-skill.sh <skill> and include the tally.
-RETURN: verdict SHIP / FIX (with the ordered fix list) / BLOCK (with the violated rule),
-plus evidence per finding. Do not fix anything yourself.
+RETURN: verdict SHIP / FIX (with the ordered fix list) / BLOCK (with the violated rule) /
+UNDECIDED (cannot judge as reviewed: required evidence absent — diff incomplete, baseline
+missing, validator unrunnable; issue NO verdict and return a named list of the missing
+inputs instead — never downgrade missing evidence to a soft FIX, and never let an
+UNDECIDED situation pass as SHIP), plus evidence per finding. Mode A verdicts are
+rule-based, never scored: a single violation of a BLOCK-class rule (ledgered failure
+pattern, settled-ruling contradiction) is a BLOCK on its own — it is never averaged
+away or softened to FIX. (Score-cap veto semantics belong to the scored content/domain
+audits, not to this review.) Do not fix anything yourself.
 
 MODE B — EVAL RUN & GRADING (skill-creator conventions):
 The skill's evals live at <skill>/evals/evals.json (fields: skill_name, evals[] with id,
