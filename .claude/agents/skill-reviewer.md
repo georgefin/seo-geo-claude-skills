@@ -47,6 +47,10 @@ prompt, expected_output, files, expectations). For each eval you are asked to ru
    {"text": ..., "passed": true|false, "evidence": ...} — evidence quotes the output or
    names its absence. Programmatically checkable expectations (JSON validity, counts,
    required properties) get checked by a script you write and run, not by eyeballing.
+   Scripts print the matched/unmatched evidence, never bare booleans; before ANY
+   failure — above all a would-be regression — is reported, inspect the raw output at
+   the flagged location and quote it (ledger F7: two checker false-verdicts were caught
+   only by this step).
 3. Write grading.json per run: {"expectations": [...], "summary": {"passed": N,
    "failed": N, "total": N, "pass_rate": X}}.
 4. Greek-language outputs: grade structure and thresholds yourself, but flag register/
