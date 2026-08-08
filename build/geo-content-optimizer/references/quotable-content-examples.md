@@ -332,9 +332,9 @@ Before/after examples of content optimized for AI citation. Each example shows t
 >
 > | Metric | Measures | Good Score | Impact |
 > |--------|----------|------------|--------|
-> | **LCP (Largest Contentful Paint)** | Loading performance | <2.5 seconds | How quickly main content appears |
-> | **FID (First Input Delay)** | Interactivity | <100 milliseconds | How quickly page responds to user input |
-> | **CLS (Cumulative Layout Shift)** | Visual stability | <0.1 | How much content shifts during loading |
+> | **LCP (Largest Contentful Paint)** | Loading performance | ≤2.5 seconds | How quickly main content appears |
+> | **INP (Interaction to Next Paint)** | Interactivity | ≤200 milliseconds | How quickly the page responds to interactions |
+> | **CLS (Cumulative Layout Shift)** | Visual stability | ≤0.1 | How much content shifts during loading |
 >
 > According to Google's 2024 documentation, pages meeting all three thresholds rank higher and receive 24% more clicks than pages failing these metrics. Core Web Vitals became an official ranking factor in June 2021 as part of Google's Page Experience update.
 >
