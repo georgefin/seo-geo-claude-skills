@@ -193,6 +193,12 @@ From the 08-08-2026 report's slow-loop lane; promote to gated only when concreti
   nonexistent "Root Cause Taxonomy"). Pre-existing, outside the harvest proposal —
   small honest fix for a future wave: either write the missing sections or trim the
   promise to what exists.
+- **Benchmark polish pair** (reviewer advisories, 2026-08-08, verdict-neutral): (a)
+  core-eeat-benchmark scoring-table N/A row could state that rubric-granted
+  conditionality (currently T04 only) is the sole rubric-level N/A source, foreclosing
+  at-will N/A readings; (b) content-quality-auditor's emergency-brake veto table lists
+  no Partial state (by design — full pass handles it) — one clarifying line would stop
+  the question recurring. Bundle with the next framework touch.
 - **NEW — shared-framework consistency pass** (surfaced 2026-08-08 by the schema
   reconciliation + auditor labels agents): `references/core-eeat-benchmark.md` Section 5
   (≈ lines 216-226) still teaches the pre-clarification multi-type mapping ("Article,

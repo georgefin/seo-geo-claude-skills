@@ -62,7 +62,8 @@ before 2026-07-18 are not recoverable from the current session transcript.
   (INP-only). The circulating "2.0s LCP" figure is vendor-blog, not Google.
 - **Decided**: on/before 2026-07-18; FID cleanup applied 2026-08-08
   (technical-seo-checker 4.0.1).
-- **Encoded in repo**: `monitor/performance-reporter/references/kpi-definitions.md:277`;
+- **Encoded in repo**: `monitor/performance-reporter/references/kpi-definitions.md:298-304`
+  (pointer refreshed 2026-08-08 after the AI-referrals insertion shifted the table);
   `VERSIONS.md:45`; `optimize/technical-seo-checker/SKILL.md:258` (pointer refreshed
   2026-08-08 after the labels wave; FID rows also purged from that skill's two reference
   files the same day — the 4.0.1 cleanup had missed them).

@@ -282,6 +282,30 @@ done <<< "$DISK_SORTED"
 [ "$E_OK" -eq 1 ] && pass "(e) all $E_LINKS unique references/ links across SKILL.md files resolve"
 
 # ---------------------------------------------------------------------------
+# (f) deprecated-token sweep (ledger F9 guard redesign, 2026-08-08)
+# ---------------------------------------------------------------------------
+# F9 recurred the same day it was written: a manually-claimed "repo-wide" FID
+# sweep missed a fifth file. Sweep completeness is therefore a SCRIPT'S job.
+# Each entry: token regex | grep -E flags applied to skill/command/reference
+# trees only (docs/loop, VERSIONS.md changelog, and SETTLED-RULINGS legitimately
+# quote old states and are excluded). Add a row when a cross-skill concept is
+# retired; remove a row only when the concept may legitimately return.
+echo ""
+echo "[f] deprecated-token sweep (F9 guard)"
+F_OK=1
+DEPRECATED_TOKENS='\bFID\b|First Input Delay|Affiliate links disclosed'
+F_HITS=$(grep -rnE "$DEPRECATED_TOKENS" \
+    research build optimize monitor cross-cutting commands references \
+    --include='*.md' 2>/dev/null | grep -v 'evals/' || true)
+if [ -n "$F_HITS" ]; then
+    while IFS= read -r hit; do
+        fail "(f) deprecated token still taught: $hit"
+    done <<< "$F_HITS"
+    F_OK=0
+fi
+[ "$F_OK" -eq 1 ] && pass "(f) no deprecated tokens (FID / First Input Delay / affiliate-only T04) in live skill, command, or framework files"
+
+# ---------------------------------------------------------------------------
 # Summary
 # ---------------------------------------------------------------------------
 echo ""

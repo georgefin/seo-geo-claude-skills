@@ -142,6 +142,13 @@ regression rate · repeat-failure count · tool-correctness rate.
   with the hit list resolved or explicitly queued; per-skill scoping is only valid for
   skill-local concepts. Applied today: `<2.5|<200ms|<0.1|FID|Affiliate links disclosed`
   swept repo-wide; remaining hits zero.
-- **Recurrence**: 0 going forward (the three historical misses are the founding
-  pattern; a future leftover found after a claimed repo-wide sweep increments this).
-- **Status**: guard live.
+- **Recurrence**: **1** (2026-08-08, same day — the entry's own founding sweep claimed
+  "remaining hits zero" while a FIFTH live FID file survived it:
+  `research/competitor-analysis/references/analysis-templates.md:140`, caught by the
+  Mode A reviewer's independent grep). Per rule 3 the guard failed and was REDESIGNED
+  same day: manual grep claims are no longer the guard — `scripts/validate-tracking.sh`
+  check (f) now runs a scripted deprecated-token sweep (FID / First Input Delay /
+  affiliate-only T04) on every gate run, fault-injection-tested; retiring any
+  cross-skill concept adds a row to its token list.
+- **Status**: redesigned guard live (scripted, gate-enforced); recurrence counter at 1
+  stands as the permanent record that the manual version failed.
