@@ -1,13 +1,13 @@
 ---
 name: entity-optimizer
-version: "4.0.0"
+version: "4.1.0"
 description: 'Audit and build entity presence across Google Knowledge Graph, Wikidata, and AI systems for brand recognition and AI citations. Use when the user asks to "optimize entity presence", "build knowledge graph", "improve knowledge panel", "entity audit", "establish brand entity", "Google doesn''t know my brand", "no knowledge panel", "establish my brand as an entity". For structured data implementation, see schema-markup-generator. For content-level AI optimization, see geo-content-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.0.0"
+  version: "4.1.0"
   geo-relevance: "high"
   tags:
     - seo
@@ -161,6 +161,7 @@ Establish the entity's current state across all systems.
 | Platform | Status | Details |
 |----------|--------|---------|
 | Google Knowledge Panel | ✅ Present / ❌ Absent / ⚠️ Incorrect | [details] |
+| Google Business Profile | ✅ Claimed & complete / ⚠️ Claimed, incomplete / ❌ Unclaimed | [category accuracy, NAP match, review velocity] |
 | Wikidata | ✅ Listed / ❌ Not listed | [QID if exists] |
 | Wikipedia | ✅ Article / ⚠️ Mentioned only / ❌ Absent | [notability assessment] |
 | Google Knowledge Graph API | ✅ Entity found / ❌ Not found | [entity ID, types, score] |
@@ -186,18 +187,21 @@ Test how AI systems identify this entity by querying:
 
 ### Step 2: Entity Signal Audit
 
-Evaluate entity signals across 6 categories. For the detailed 47-signal checklist with verification methods, see [references/entity-signal-checklist.md](./references/entity-signal-checklist.md).
+Evaluate entity signals across 7 categories. For the detailed 47-signal checklist covering categories 1-6, see [references/entity-signal-checklist.md](./references/entity-signal-checklist.md); Google Business Profile (category 7) is audited directly below.
 
-Evaluate each signal as Pass / Fail / Partial with a specific action for each gap. The 6 categories are:
+Evaluate each signal as Pass / Fail / Partial with a specific action for each gap. The 7 categories are:
 
 1. **Structured Data Signals** -- Organization/Person schema, sameAs links, @id consistency, author schema
 2. **Knowledge Base Signals** -- Wikidata, Wikipedia, CrunchBase, industry directories
-3. **Consistent NAP+E Signals** -- Name/description/logo/social consistency across platforms
+3. **Consistent NAP+E Signals** -- Name, Address, Phone in exact matching format across site, Google Business Profile, and Greek directories (vrisko.gr, xo.gr) — including Greek/Latin script variants of the business name — plus description/logo/social consistency
 4. **Content-Based Entity Signals** -- About page, author pages, topical authority, branded backlinks
 5. **Third-Party Entity Signals** -- Authoritative mentions, co-citation, reviews, press coverage
 6. **AI-Specific Entity Signals** -- Clear definitions, disambiguation, verifiable claims, crawlability
+7. **Google Business Profile Signals** -- Profile completeness, primary/secondary category accuracy, Posts/Q&A/Products surface activity, photo freshness, review velocity, review response rate
 
-> **Reference**: Use the audit template in [references/entity-signal-checklist.md](./references/entity-signal-checklist.md) for the full 47-signal checklist with verification methods for each category.
+> **[VERIFY – 2026 policy reports]** Review solicitation naming individual staff members and staff review quotas reportedly banned (04-2026, blog-sourced) — confirm against Google's review policy page before advising clients; suspension risk if true.
+
+> **Reference**: Use the audit template in [references/entity-signal-checklist.md](./references/entity-signal-checklist.md) for the full 47-signal checklist with verification methods for categories 1-6.
 
 ### Step 3: Report & Action Plan
 
@@ -220,6 +224,7 @@ Evaluate each signal as Pass / Fail / Partial with a specific action for each ga
 | Content-Based | ✅ Strong / ⚠️ Gaps / ❌ Missing | [key findings] |
 | Third-Party | ✅ Strong / ⚠️ Gaps / ❌ Missing | [key findings] |
 | AI-Specific | ✅ Strong / ⚠️ Gaps / ❌ Missing | [key findings] |
+| Google Business Profile | ✅ Strong / ⚠️ Gaps / ❌ Missing | [key findings] |
 
 ### Critical Issues
 
@@ -244,7 +249,8 @@ Sorted by: impact on entity recognition × effort required
 #### Week 1-2: Foundation (Structured Data + Consistency)
 - [ ] Implement/fix Organization or Person schema with full properties
 - [ ] Add sameAs links to all authoritative profiles
-- [ ] Audit and fix NAP+E consistency across all platforms
+- [ ] Audit and fix NAP (Name/Address/Phone) + description/logo/social consistency — exact format across site, Google Business Profile, and Greek directories (vrisko.gr, xo.gr), including Greek/Latin script variants of the business name
+- [ ] Claim/complete Google Business Profile — categories, Posts, Q&A, Products, photos
 - [ ] Ensure About page is entity-rich and well-structured
 
 #### Month 1: Knowledge Bases
@@ -282,7 +288,9 @@ Sorted by: impact on entity recognition × effort required
 - [ ] Disambiguation context provided (if entity name is common)
 
 ### Output Validation
-- [ ] All 6 signal categories evaluated
+- [ ] All 7 signal categories evaluated
+- [ ] NAP (Name/Address/Phone) checked in exact-matching format across site, GBP, and Greek directories (vrisko.gr, xo.gr), including Greek/Latin script variants
+- [ ] Google Business Profile audited as its own category (completeness, categories, Posts/Q&A/Products, photo freshness, review velocity/response rate)
 - [ ] AI entity resolution tested with at least 3 queries
 - [ ] Knowledge Panel status checked
 - [ ] Wikidata/Wikipedia status verified
