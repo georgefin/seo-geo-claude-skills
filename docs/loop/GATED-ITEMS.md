@@ -186,6 +186,13 @@ From the 08-08-2026 report's slow-loop lane; promote to gated only when concreti
   `eval_feedback_v3_backlog` fields (Z-designator, placeholder prose scope, threshold-
   reference exemptions, e1.5 anywhere→above alignment, 150-word count start, etc.).
   Same one-wave rule: apply together, never piecemeal, re-baselining the touched items.
+- **rank-tracker reference gap** (flagged by the H1 harvest implementer, 2026-08-08):
+  SKILL.md's blockquote (~line 210) promises "root cause taxonomy, CTR benchmarks by
+  position, SERP feature CTR impact, algorithm update assessment" that
+  `references/tracking-setup-guide.md` does not contain (its Section 6 points at a
+  nonexistent "Root Cause Taxonomy"). Pre-existing, outside the harvest proposal —
+  small honest fix for a future wave: either write the missing sections or trim the
+  promise to what exists.
 - **NEW — shared-framework consistency pass** (surfaced 2026-08-08 by the schema
   reconciliation + auditor labels agents): `references/core-eeat-benchmark.md` Section 5
   (≈ lines 216-226) still teaches the pre-clarification multi-type mapping ("Article,

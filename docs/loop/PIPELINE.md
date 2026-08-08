@@ -151,6 +151,13 @@ same winter drift — its fix would be `0 5 * * 1-5`.
    repeat-failure count (FAILURE-LEDGER recurrences) · tool-correctness rate · then
    proposal→merge latency · reverts this quarter · watch-item resolution rate · ruling
    stability (supersession candidates raised). Trend, not ceremony: two lines per KPI.
+9. **Quarterly upstream harvest lane** (G4 verdict 2026-08-08: HARVEST, quarterly not
+   weekly): in the same quarterly STEP 5b pass, diff `aaron-he-zhu/aaron-marketing-skills`'s
+   SEO/GEO line against the last-harvested state (baseline: v19.1.0, harvested
+   2026-08-08 — items 1-7 recorded in GATED-ITEMS G4) and report NEW harvest candidates
+   as proposals for the gate. Read-only lane; topology stays 20 skills; llms.txt
+   enthusiasm upstream never ports (R1); parasite/borrowed-authority plays never port
+   (O4 verdict). First run: first Saturday of 2026-10.
 
 ## Deferred by decision (not omission)
 
