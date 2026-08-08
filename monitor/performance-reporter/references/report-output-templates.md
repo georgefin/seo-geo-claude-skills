@@ -191,6 +191,56 @@ Action Required:
 | [query] | Yes | No | [gap] | [action] |
 ```
 
+### 5b. AI Referral Traffic Template
+
+Use inside the GEO/AI section when AI-referral data exists. Sources: ~~analytics (GA4), ~~search console AI-surface data, server logs — triangulated; hostname roster in [kpi-definitions.md](./kpi-definitions.md).
+
+```markdown
+## AI Referral Traffic
+
+**Sources**: [GA4: tool-measured] · [GSC AI-surface: tool-measured or "not exposed"] · [server logs: tool-measured] · [note any user-provided rows]
+
+### Headline: AI Share of Total Sessions
+
+| Metric | This Period | Last Period | Change |
+|--------|-------------|-------------|--------|
+| AI referral sessions | [X] | [Y] | [+/-Z%] |
+| AI share of total sessions | [X]% | [Y]% | [+/-Z pp] |
+
+### Sessions by Assistant
+
+| Assistant hostname | Sessions | Conversions | Conv. Rate |
+|--------------------|----------|-------------|------------|
+| [hostname 1] | [X] | [Y] | [Z]% |
+
+### Top AI-Landing Pages
+
+| Page | AI Sessions | AI Conv. Rate | Organic Conv. Rate (same page) |
+|------|-------------|---------------|--------------------------------|
+| [page 1] | [X] | [Y]% | [Z]% |
+
+### AI vs. Organic Gap (same window)
+
+| Metric | AI Referrals | Organic | Gap |
+|--------|--------------|---------|-----|
+| Engagement rate | [X]% | [Y]% | [+/-Z pp] |
+| Conversion rate | [X]% | [Y]% | [+/-Z pp] |
+
+### GSC AI-Surface Corroboration
+
+[What ~~search console AI-surface data shows for the same pages/queries, or "not exposed for this property"]
+
+### Control Comparison (required for any attribution claim)
+
+| Cohort | Delta this period | Notes |
+|--------|-------------------|-------|
+| AI-linked pages | [+/-X%] | |
+| Holdout: [unchanged own page / sibling URL / competitor] | [+/-Y%] | |
+| **Delta vs. control** | **[+/-Z pp]** | The only figure to attribute |
+
+> Caveat: AI referrals prove an AI answer linked this site — not that it cited it prominently. Queue linked pages for citation checking before claiming citation wins.
+```
+
 ---
 
 ## 6. Domain Authority (CITE Score) Template

@@ -1,13 +1,13 @@
 ---
 name: rank-tracker
-version: "4.0.2"
+version: "4.1.0"
 description: 'Track keyword ranking positions and SERP position changes over time in both traditional search and AI-generated responses. Use when the user asks to "track rankings", "check keyword positions", "monitor SERP positions", "how am I ranking", "where do I rank for this keyword", "did my rankings change", "ranking changes", or "keyword position tracking". For automated alerting, see alert-manager. For comprehensive reports, see performance-reporter.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.0.2"
+  version: "4.1.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -63,6 +63,7 @@ Tracks, analyzes, and reports on keyword ranking positions over time. Monitors b
 5. **SERP Feature Tracking**: Monitors featured snippets, PAA
 6. **GEO Visibility Tracking**: Tracks AI citation appearances
 7. **Report Generation**: Creates ranking performance reports
+8. **Striking-Distance Mining**: Surfaces the tracked property's own GSC queries at positions 5-20 as push targets
 
 ## How to Use
 
@@ -117,19 +118,23 @@ When a user requests rank tracking or analysis:
 
    **Tracking artifact (persistence contract)** -- Every run produces a dated ranking snapshot: one row per keyword with keyword, position, ranking URL, SERP features, check date, and data source (~~SEO tool, ~~search console, or user-provided). If [memory-management](../../cross-cutting/memory-management/) is active, hand the snapshot to it (hot-cache summary + dated snapshot in cold storage, per its conventions). Otherwise, save the snapshot to a file and confirm the location with the user. On every subsequent run, read the prior snapshot first -- it is the baseline for all change calculations.
 
-2. **Record Current Rankings** -- Ranking overview by position range (#1, #2-3, #4-10, #11-20, etc.), position distribution visualization, detailed rankings with URL, SERP features, and change.
+2. **Mine Striking-Distance Queries (own GSC data)** -- When ~~search console is connected (or the user exports its query report), pull the tracked property's queries sitting at average positions ~5-20: the page-one tail plus page two, where demand is already proven and one push can move real clicks. Use this GSC-derived list first, before third-party rank data, whenever it is available. API mechanic: the Search Analytics API returns rows sorted by clicks and offers no position filter -- request a high rowLimit and filter the 5-20 window client-side; label the resulting metrics tool-measured. Prioritize by Opportunity = (Volume × Intent Value) / Difficulty where those inputs exist; when volume/difficulty are unavailable (manual tier), degrade gracefully to Impressions × Position Gap (position gap = current average position minus 1). Skip queries below an impression floor -- default 50 impressions in the pull window, a house default to tune per site (upstream defines none). Append the mined rows to the dated snapshot from step 1's persistence contract, and hand queries whose ranking URL needs content work to [content-refresher](../../optimize/content-refresher/) as refresh targets. Boundary: this step only re-reads the tracked property's own Search Console data for positions it already holds -- discovering *new* keywords stays with [keyword-research](../../research/keyword-research/).
 
-3. **Analyze Ranking Changes** -- Overall movement metrics, biggest improvements and declines with hypothesized causes, recommended recovery actions, stable keywords, new rankings, lost rankings.
+   > **Reference**: See [references/tracking-setup-guide.md](./references/tracking-setup-guide.md) Section 9 for the full mining methodology, defaults, and output format.
 
-4. **Track SERP Features** -- Feature ownership comparison vs competitors (snippets, PAA, image/video pack, local pack), featured snippet status, PAA appearances.
+3. **Record Current Rankings** -- Ranking overview by position range (#1, #2-3, #4-10, #11-20, etc.), position distribution visualization, detailed rankings with URL, SERP features, and change.
 
-5. **Track GEO/AI Visibility** -- AI Overview presence per keyword, citation rate and position, GEO performance trend over time, improvement opportunities.
+4. **Analyze Ranking Changes** -- Overall movement metrics, biggest improvements and declines with hypothesized causes, recommended recovery actions, stable keywords, new rankings, lost rankings.
 
-6. **Compare Against Competitors** -- Share of voice table, head-to-head comparison per keyword, competitor movement alerts with threat level.
+5. **Track SERP Features** -- Feature ownership comparison vs competitors (snippets, PAA, image/video pack, local pack), featured snippet status, PAA appearances.
 
-7. **Generate Ranking Report** -- Executive summary with overall trend, position distribution, key highlights (wins/concerns/opportunities), detailed analysis, SERP feature report, GEO visibility, competitive position, recommendations.
+6. **Track GEO/AI Visibility** -- AI Overview presence per keyword, citation rate and position, GEO performance trend over time, improvement opportunities.
 
-   > **Reference**: See [references/ranking-analysis-templates.md](./references/ranking-analysis-templates.md) for complete output templates for all 7 steps.
+7. **Compare Against Competitors** -- Share of voice table, head-to-head comparison per keyword, competitor movement alerts with threat level.
+
+8. **Generate Ranking Report** -- Executive summary with overall trend, position distribution, key highlights (wins/concerns/opportunities), detailed analysis, SERP feature report, GEO visibility, competitive position, recommendations.
+
+   > **Reference**: See [references/ranking-analysis-templates.md](./references/ranking-analysis-templates.md) for complete output templates for the seven core steps (setup, snapshot, change analysis, SERP features, GEO visibility, competitor comparison, report); the mining step's output format lives in the tracking setup guide.
 
 ## Validation Checkpoints
 
@@ -201,8 +206,8 @@ Keywords in top 10 increased from 12 to 17 (+5)
 
 ## Reference Materials
 
-- [Tracking Setup Guide](./references/tracking-setup-guide.md) — Configuration best practices, device/location settings, and SERP feature tracking setup
-- [Ranking Analysis Templates](./references/ranking-analysis-templates.md) — Complete output templates for all 7 workflow steps
+- [Tracking Setup Guide](./references/tracking-setup-guide.md) — Configuration best practices, device/location settings, SERP feature tracking setup, and striking-distance GSC mining methodology (Section 9)
+- [Ranking Analysis Templates](./references/ranking-analysis-templates.md) — Complete output templates for the seven core workflow steps (mining step's format is in the setup guide)
 
 ## Related Skills
 
@@ -210,5 +215,6 @@ Keywords in top 10 increased from 12 to 17 (+5)
 - [serp-analysis](../../research/serp-analysis/) — Understand SERP composition
 - [alert-manager](../alert-manager/) — Set up ranking alerts
 - [performance-reporter](../performance-reporter/) — Comprehensive reporting
+- [content-refresher](../../optimize/content-refresher/) — Receives striking-distance queries whose URLs need content work as refresh targets
 - [memory-management](../../cross-cutting/memory-management/) — Store ranking history in project memory
 

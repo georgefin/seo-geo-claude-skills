@@ -20,10 +20,10 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 | technical-seo-checker | optimize | 4.2.0 | 2026-08-08 |
 | internal-linking-optimizer | optimize | 4.0.1 | 2026-08-08 |
 | content-refresher | optimize | 4.1.0 | 2026-08-08 |
-| rank-tracker | monitor | 4.0.2 | 2026-08-08 |
+| rank-tracker | monitor | 4.1.0 | 2026-08-08 |
 | backlink-analyzer | monitor | 4.0.1 | 2026-08-08 |
-| performance-reporter | monitor | 4.0.1 | 2026-08-08 |
-| alert-manager | monitor | 4.0.1 | 2026-08-08 |
+| performance-reporter | monitor | 4.1.0 | 2026-08-08 |
+| alert-manager | monitor | 4.1.0 | 2026-08-08 |
 | content-quality-auditor | cross-cutting | 4.1.0 | 2026-08-08 |
 | domain-authority-auditor | cross-cutting | 4.1.0 | 2026-08-08 |
 | entity-optimizer | cross-cutting | 4.1.1 | 2026-08-08 |

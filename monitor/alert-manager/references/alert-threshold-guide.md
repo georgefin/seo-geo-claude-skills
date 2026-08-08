@@ -158,12 +158,27 @@ For binary or count-based metrics, use absolute thresholds.
 
 ### GEO / AI Visibility Thresholds
 
+All GEO/AI thresholds run on a **weekly check window**. The values below are tunable operational defaults, not measured constants — start here, then calibrate against the site's own citation baseline (Section 1).
+
 | Metric | Warning | Critical |
 |--------|---------|----------|
-| AI citation rate | Drops 10+ percentage points | Drops below 10% |
-| Key query citation lost | Any Tier 1 query | 3+ Tier 1 queries |
-| Citation position degradation | Average position worsens by 2+ | Dropped from citations entirely |
+| AI citation rate | Down 10+ percentage points vs. baseline | Below a 10% absolute floor |
+| Priority-1 citation loss | Any priority-1 query loses its citation | 3+ priority-1 queries lose citations in one window |
+| Citation position (within the answer) | Worsens by 2+ slots | Dropped from the answer entirely |
 | Competitor gains citation you lost | 1 instance | Pattern across queries |
+
+**Priority-1 definition:** the client-critical keywords collected at alert setup — money terms, brand terms, and top-converting queries. Identical to "Tier 1" in the keyword-tier tables above; keep a single list so ranking alerts and citation alerts fire on the same queries.
+
+**Event alerts (same weekly window):**
+
+| Event | Severity | Handling |
+|-------|----------|----------|
+| Citation won on a tracked query | Informational (positive) | Log the win and note which page earned it — replicable patterns matter |
+| AI Overview appears or disappears on a tracked query | Medium | Re-assess expected CTR for that query; both directions shift the click landscape |
+
+**Optional statistical ladder:** once enough weekly citation history exists for a stable mean and standard deviation (8+ weeks — see the Section 1 baseline periods), the Section 2 standard-deviation method may replace the fixed defaults for citation metrics: deviations from the baseline mean at 1 / 1.5 / 2 / 3 standard deviations map to Info / Warning / Critical / Emergency. This is a statistical option that requires sufficient history, not a requirement — with thin history the fixed defaults above are safer.
+
+**Response path:** every citation-loss alert (rate, priority-1, or position) hands the affected query and its source page to content-refresher's AI Overview recovery playbook.
 
 ---
 

@@ -327,3 +327,61 @@ If you need to switch rank tracking tools, follow this process to preserve data 
 | 7 | Decommission old tool after confidence in new data |
 
 **Important**: Different tools may report slightly different positions due to data center sampling, timing, and methodology. A 1-2 position variance between tools is normal.
+
+---
+
+## 9. Striking-Distance Query Mining (GSC)
+
+Methodology for the mining step in SKILL.md. Scope guard first: this section works exclusively with the **tracked property's own Search Console data** — queries the site already ranks for at near-page-one positions. Net-new keyword discovery is a different job and belongs to keyword-research.
+
+### Why Positions ~5-20
+
+Queries at average positions ~5-20 (page-one tail plus page two) combine two properties no other candidate pool offers: the demand is proven (the property already earns impressions on them), and the distance to top-of-page-one click rates is short. The position-vs-traffic table in Section 6 shows why the payoff concentrates here — crossing from page two onto page one, or from the page-one tail into the top 5, moves far more clicks than equivalent movement lower down.
+
+### Pull Mechanics
+
+| Aspect | Practice |
+|--------|----------|
+| Source | ~~search console Search Analytics (API or UI export) for the tracked property only |
+| Ordering | GSC-first: when the connector or an export is available, mine this list before consulting third-party rank data |
+| API behavior | The Search Analytics API returns rows sorted by clicks and exposes no position filter — request a high rowLimit and apply the 5-20 position window client-side |
+| Manual path | No connector: ask the user for a GSC Performance export (queries + position + impressions + clicks) and apply the same window |
+| Pull window | Last 28 days by default; widen to 90 days for low-traffic properties (house default, tunable) |
+| Labeling | Positions, impressions, and clicks from this pull are tool-measured |
+
+### Filtering Defaults
+
+| Rule | Default | Status |
+|------|---------|--------|
+| Position window | Average position 5-20 | Core striking-distance definition (page-one tail + page two) |
+| Impression floor | Skip queries with fewer than 50 impressions in the pull window | House default — upstream defines no floor; tune per site size and window length |
+| Dedup | Collapse near-duplicate queries onto their shared ranking URL | Keeps the action list page-shaped, not query-shaped |
+| Brand queries | Exclude | Brand terms move on brand signals, not content pushes |
+
+### Prioritization
+
+**Primary score — when volume/difficulty inputs exist:**
+
+```
+Opportunity = (Volume × Intent Value) / Difficulty
+```
+
+- Volume: monthly searches from ~~SEO tool (tool-measured)
+- Intent Value: business weighting supplied by the user (e.g., transactional 3, commercial 2, informational 1) — user-provided
+- Difficulty: keyword difficulty from ~~SEO tool (tool-measured)
+
+**Fallback score — manual tier, no volume/difficulty available:**
+
+```
+Opportunity = Impressions × Position Gap        (Position Gap = current average position − 1)
+```
+
+Both formulas order the same work queue. Never mix the two scales in one ranked list — state which formula produced each ranking.
+
+### Output Format
+
+| Query | Ranking URL | Avg Position | Impressions | Clicks | Opportunity (formula) | Action |
+|-------|-------------|--------------|-------------|--------|-----------------------|--------|
+| [query] | [url] | [5-20] | [X] | [Y] | [Z] ([primary/fallback]) | [refresh / on-page / internal links] |
+
+Persist the mined table as part of the dated snapshot required by SKILL.md step 1's persistence contract, so the next run can measure movement on mined queries against a baseline. Hand queries whose URL needs content work to content-refresher as refresh targets.

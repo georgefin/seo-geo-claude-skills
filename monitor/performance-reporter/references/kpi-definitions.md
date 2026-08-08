@@ -201,6 +201,33 @@ Complete glossary of SEO and GEO key performance indicators with calculation for
 
 ---
 
+### AI Referral Sessions & Share
+
+| Attribute | Detail |
+|-----------|--------|
+| **Definition** | Sessions arriving via a link inside an AI assistant's answer, identified by referral hostname |
+| **Formula** | Count of sessions whose referral source matches the hostname roster below; Share = (AI referral sessions / total sessions) x 100 |
+| **Data Source** | Three-source triangulation: ~~analytics (GA4 session source/medium + conversions), ~~search console AI-surface query/click data where exposed, server-log referrer + user-agent rows |
+| **Good Range** | Share growing period-over-period |
+| **Warning** | Share falling while AI citation metrics hold steady (the answer may still cite you but no longer link you) |
+| **Segmentation** | By assistant hostname, by landing page, vs. organic sessions in the same window |
+
+**AI referral hostname roster** — operational matching config, not a stable fact: assistant referrer hostnames churn, so re-check this list against current logs at the next weekly sweep before relying on it. **[VERIFY – roster ported 2026-08-08 via the G4 upstream harvest (aaron-marketing-skills v19.1.0, Apache-2.0); re-confirm hostnames each sweep]**
+
+| Group | Hostnames |
+|-------|-----------|
+| Core roster | chatgpt.com, openai.com, perplexity.ai, copilot.microsoft.com, copilot.com, gemini.google, claude.ai, anthropic.com, edgeservices.bing.com |
+| Legacy alias | bard.google.com |
+| Optional (non-EL/EN markets) | deepseek.com, doubao.com, chat.qwen.ai, poe.com |
+
+**Measurement rules:**
+
+- **Control rule**: never attribute a traffic movement to AI answers from a raw delta. Keep a parallel holdout — an unchanged page of your own, a sibling URL, or a competitor page — and report delta-vs-control.
+- **Caveat**: AI referral traffic proves an AI answer *linked* the site; it does not prove a prominent citation. Treat referral spikes as leads for citation checking (~~AI monitor or rank-tracker's GEO step), not as citation proof.
+- **Labels**: GA4/GSC/log-derived counts are tool-measured; figures the client pastes in are user-provided; projections are estimated.
+
+---
+
 ## 3. Domain Authority KPIs
 
 ### Domain Rating / Domain Authority
@@ -432,6 +459,7 @@ Complete glossary of SEO and GEO key performance indicators with calculation for
 | AI citation position | Average position in AI response citations | Top 3 sources | Not cited | ~~AI monitor |
 | AI answer coverage | % of your topics appearing in AI answers | Growing | Declining | ~~AI monitor |
 | Brand mention in AI | Times your brand is mentioned in AI responses | Growing | Zero | ~~AI monitor |
+| AI referral sessions/share | Sessions referred from AI assistant hostnames; % of total sessions | Share growing PoP | Share falling with stable citations | ~~analytics + server logs |
 
 ### Domain Authority Metrics
 
