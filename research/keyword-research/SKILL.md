@@ -1,13 +1,13 @@
 ---
 name: keyword-research
-version: "4.1.1"
+version: "4.1.2"
 description: 'Discover high-value SEO keywords with search intent analysis, difficulty scoring, topic clustering, and AI citation potential. Use when the user asks to "find keywords", "keyword research", "what should I write about", "keyword difficulty score", "identify ranking opportunities", "topic ideas", "what are people searching for", or "long-tail keyword suggestions". For competitor keyword gaps, see competitor-analysis. For topic coverage gaps, see content-gap-analysis.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.1.1"
+  version: "4.1.2"
   geo-relevance: "medium"
   tags:
     - seo
@@ -40,23 +40,6 @@ metadata:
 
 # Keyword Research
 
-
-> **[SEO & GEO Skills Library](https://github.com/aaron-he-zhu/seo-geo-claude-skills)** · 20 skills for SEO + GEO · [ClawHub](https://clawhub.ai/u/aaron-he-zhu) · [skills.sh](https://skills.sh/aaron-he-zhu/seo-geo-claude-skills)
-
-<details>
-<summary>Browse all 20 skills</summary>
-
-**Research** · **keyword-research** · [competitor-analysis](../competitor-analysis/) · [serp-analysis](../serp-analysis/) · [content-gap-analysis](../content-gap-analysis/)
-
-**Build** · [seo-content-writer](../../build/seo-content-writer/) · [geo-content-optimizer](../../build/geo-content-optimizer/) · [meta-tags-optimizer](../../build/meta-tags-optimizer/) · [schema-markup-generator](../../build/schema-markup-generator/)
-
-**Optimize** · [on-page-seo-auditor](../../optimize/on-page-seo-auditor/) · [technical-seo-checker](../../optimize/technical-seo-checker/) · [internal-linking-optimizer](../../optimize/internal-linking-optimizer/) · [content-refresher](../../optimize/content-refresher/)
-
-**Monitor** · [rank-tracker](../../monitor/rank-tracker/) · [backlink-analyzer](../../monitor/backlink-analyzer/) · [performance-reporter](../../monitor/performance-reporter/) · [alert-manager](../../monitor/alert-manager/)
-
-**Cross-cutting** · [content-quality-auditor](../../cross-cutting/content-quality-auditor/) · [domain-authority-auditor](../../cross-cutting/domain-authority-auditor/) · [entity-optimizer](../../cross-cutting/entity-optimizer/) · [memory-management](../../cross-cutting/memory-management/)
-
-</details>
 
 Discovers, analyzes, and prioritizes keywords for SEO and GEO content strategies. Identifies high-value opportunities based on search volume, competition, intent, and business relevance.
 
