@@ -1,13 +1,13 @@
 ---
 name: geo-content-optimizer
-version: "4.1.0"
+version: "4.1.1"
 description: 'Optimize content for AI citation across Google AI Mode (default search surface, incl. AI Overviews), ChatGPT, Perplexity, and Gemini with quotable statements and structured Q&A. Use when the user asks to "optimize for AI", "get cited by ChatGPT", "GEO optimization", "appear in AI answers", "make content AI-quotable", "Google AI Overview optimization", or "Google AI Mode optimization". Adds quotable statements, structured Q&A, precise statistics with sources, expert attribution, and FAQ schema. Uses CORE-EEAT GEO-First items as optimization targets. For SEO-focused writing, see seo-content-writer. For entity and brand AI presence, see entity-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.1.0"
+  version: "4.1.1"
   geo-relevance: "high"
   tags:
     - geo
@@ -296,40 +296,43 @@ When a user requests GEO optimization:
 - [ ] GEO score improvement of at least 50% from baseline
 - [ ] Source of each data point clearly stated (~~AI monitor data, user-provided, or estimated)
 
+**Statistics rule**: Every statistic must come from user-supplied data, a cited source, or be marked as a `[CLIENT DATA: …]` placeholder — never invented to satisfy a threshold. AI engines cite verifiable content; a fabricated number that gets cited is a liability.
+
 ## Example
 
-**User**: "Optimize this paragraph for GEO: 'Email marketing is a good way to reach customers. It's been around for a while and many businesses use it. You can send newsletters, promotions, and other messages.'"
+**User**: "Optimize this paragraph for GEO: 'Solar water heaters are very common in Greece. They save energy and need servicing now and then. A technician checks the parts and replaces what is worn.'
+
+Client-provided data:
+- Our 2025 service records (1,240 jobs): average service visit costs €85
+- Manufacturer manual (2024): annual anode-rod replacement extends tank life by 3-5 years"
 
 **Output**:
 
 ```markdown
 ## GEO-Optimized Version
 
-**Email marketing** is a digital marketing strategy that uses email to promote 
-products, build customer relationships, and drive conversions. According to 
-the Data & Marketing Association, email marketing delivers an average ROI 
-of $42 for every $1 invested, making it the highest-performing digital 
-marketing channel.
+**Solar water heater servicing** is the scheduled inspection of a solar 
+thermal system's collector, tank, anode rod, and safety valve. In Greece — 
+where solar water heaters are installed in [CLIENT DATA: share of Greek 
+households — no source provided] of homes — the average service visit costs 
+€85 (client 2025 service records, 1,240 jobs).
 
-### Key email marketing formats include:
+### A standard annual service includes:
 
-1. **Newsletters**: Regular updates sharing company news, industry insights, 
-   and valuable content to maintain subscriber engagement
-2. **Promotional emails**: Time-sensitive offers, discounts, and product 
-   announcements designed to drive immediate sales
-3. **Transactional emails**: Order confirmations, shipping updates, and 
-   account notifications with 8x higher open rates than marketing emails
-4. **Automated sequences**: Pre-scheduled email series triggered by user 
-   actions, such as welcome series or abandoned cart reminders
+1. **Anode-rod check**: Annual replacement extends tank life by 3-5 years 
+   (manufacturer manual, 2024)
+2. **Collector and circuit inspection**: Glass condition, antifreeze 
+   concentration, and loop pressure
+3. **Safety valve test**: Confirms overpressure protection works correctly
 
-> **Key statistic**: 81% of small businesses rely on email as their primary 
-> customer acquisition channel (Emarsys, 2024).
+> **Key statistic**: The average solar water heater service visit in Greece 
+> costs €85 (client 2025 service records, n=1,240).
 
 ---
 
 ### Changes Made:
 
-Changes: added clear definition, 2 stats with sources, structured list, DMA/Emarsys citations, 3 quotable facts. **GEO Score**: 1/10 → 8/10.
+Changes: added clear definition, 2 stats used only from the client-provided data block, 1 explicit `[CLIENT DATA]` placeholder where no figure was supplied (no number invented), structured list, 2 quotable facts. **GEO Score**: 1/10 → 7/10 (8/10 once the placeholder is filled with a sourced figure).
 ```
 
 ## GEO Optimization Checklist
@@ -348,6 +351,7 @@ Changes: added clear definition, 2 stats with sources, structured list, DMA/Emar
 ## Reference Materials
 
 - [AI Citation Patterns](./references/ai-citation-patterns.md) - How Google AI Mode (incl. AI Overviews), ChatGPT, Perplexity, and Claude select and cite sources, plus per-engine overlap and community/UGC citation patterns
+- [GEO Optimization Techniques](./references/geo-optimization-techniques.md) - Detailed before/after examples, templates, and checklists for the six core optimization techniques
 - [Quotable Content Examples](./references/quotable-content-examples.md) - Before/after examples of content optimized for AI citation
 
 ## Related Skills
