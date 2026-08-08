@@ -28,7 +28,7 @@ This plugin provides **20 skills and 9 commands** for Search Engine Optimization
 
 ## Quality Frameworks
 
-- **CORE-EEAT** (`references/core-eeat-benchmark.md`): 80-item content quality framework (8 dimensions). GEO Score = CORE avg; SEO Score = EEAT avg. Three veto items: T04, C01, R10.
+- **CORE-EEAT** (`references/core-eeat-benchmark.md`): 80-item content quality framework (8 dimensions). GEO Score = CORE avg; SEO Score = EEAT avg. Three veto items: T04 (conditional — applies only when a material connection exists), C01, R10 (material self-contradiction, not broken links). One verified veto caps the final score at 59; two or more = BLOCK (no final score).
 - **CITE** (`references/cite-domain-rating.md`): 40-item domain authority framework (4 dimensions). Three veto items: T03, T05, T09.
 
 ## Inter-Skill Handoff
