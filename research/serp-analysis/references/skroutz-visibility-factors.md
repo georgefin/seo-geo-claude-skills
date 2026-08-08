@@ -4,7 +4,7 @@
 >
 > Context snapshot: 2026-08-08. Marketplace fees, delivery infrastructure, and returns rules change — re-verify dated items before reuse.
 
-Use alongside the Google SERP workflow — see [SKILL.md](../SKILL.md), section "Skroutz as Second SERP (Greek E-Commerce)," for when to trigger this audit and how to report findings.
+Use alongside the Google SERP workflow — see [SKILL.md](../SKILL.md), section "Greek Comparison-Shopping Surfaces (Skroutz, BestPrice, Google Shopping)," for when to trigger this audit and how to report findings.
 
 ---
 
@@ -90,5 +90,5 @@ Use alongside the Google SERP workflow — see [SKILL.md](../SKILL.md), section 
 
 ## Related
 
-- [SKILL.md](../SKILL.md) — main SERP analysis workflow; see "Skroutz as Second SERP (Greek E-Commerce)"
+- [SKILL.md](../SKILL.md) — main SERP analysis workflow; see "Greek Comparison-Shopping Surfaces (Skroutz, BestPrice, Google Shopping)"
 - [SERP Feature Taxonomy](./serp-feature-taxonomy.md) — Google SERP feature reference, for contrast with Skroutz's non-Google surface

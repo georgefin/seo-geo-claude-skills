@@ -36,7 +36,7 @@ content-quality-auditor discipline note).
 
 - **Claim**: Phase 2 mandatory for ALL businesses by 01-10-2026; Phase 1 (>€1M turnover)
   live since 02-03-2026 → 8-week ops flag for every Greek e-shop client.
-- **Where**: NOT in repo. 2026-08-08 weekly report only, tagged `[VERIFY — AADE primary blocked]`.
+- **Where**: claim dates NOT in repo (2026-08-08 weekly report only, tagged `[VERIFY — AADE primary blocked]`); referenced do-not-assert-only in `cross-cutting/domain-authority-auditor/references/greek-eshop-compliance.md` §6 since 2026-08-08.
 - **Action / owner**: **Sani, local re-verify vs aade.gr/myDATA** before any client advice.
 - **Cadence**: hard re-check by 2026-09-01 (deadline is 8 weeks out from 2026-08-08).
 
@@ -59,7 +59,7 @@ content-quality-auditor discipline note).
 
 - **Claim**: Translation-only pages lose AI-engine citations to the strongest-language
   version (often EN) — treat thin EL/DE translations as a citation risk.
-- **Where**: `build/seo-content-writer/SKILL.md:286`.
+- **Where**: `build/seo-content-writer/SKILL.md:275` (pointer refreshed 2026-08-08 after the anti-slop wave).
 - **Source**: searchengineland.com/multilingual-regions-ai-search-future-478282 (2026, day n/a).
 - **Resolves when**: engine-primary documentation or a robust multilingual citation study.
 - **Cadence**: quarterly.

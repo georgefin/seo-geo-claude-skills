@@ -118,13 +118,13 @@ Score Breakdown:
 ## Priority Issues
 
 ### 🔴 Critical (Fix Immediately)
-1. **Mobile LCP 4.8s (target <2.5s)** — Compress hero image to WebP (est. save 1.9MB) and implement a CDN to reduce TTFB from 1,240ms to <400ms.
+1. **Mobile LCP 4.8s (target <2.5s)** — Evidence: field LCP 4.8s, TTFB 1,240ms, hero image 2.3MB. Impact: fails the CWV Good threshold on the highest-traffic template. Fix: compress hero to WebP (est. save 1.9MB) and add a CDN to bring TTFB <400ms. Confidence: Confirmed.
 
 ### 🟡 Important (Fix Soon)
-2. **HTTP not redirecting to HTTPS** — Add 301 redirect from http:// to https:// and enable HSTS header. 7 mixed-content images on /features/ need URL updates.
+2. **HTTP not redirecting to HTTPS** — Evidence: http:// URLs return 200 without redirect; 7 mixed-content images on /features/. Impact: split signals and browser trust warnings. Fix: 301 http→https, enable HSTS, update the 7 image URLs. Confidence: Confirmed.
 
 ### 🟢 Minor (Optimize)
-3. **No Article/FAQ schema on blog posts** — Add Article schema to 48 blog posts and FAQ schema to 12 FAQ pages for rich result eligibility.
+3. **No Article/FAQPage schema on blog posts** — Evidence: crawl found no structured data on 48 blog posts and 12 FAQ pages. Impact: missed Article rich-result eligibility and weaker AI-engine parsing. Fix: add Article schema to the blog posts; add FAQPage markup to the FAQ pages for AI-engine parsing (FAQ rich results retired 2026 — no SERP promise). Confidence: Confirmed.
 ```
 
 ---

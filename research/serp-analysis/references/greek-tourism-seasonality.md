@@ -12,8 +12,8 @@ Use alongside the Google SERP workflow — see [SKILL.md](../SKILL.md), section 
 
 Market context — sourced to INSETE (the research institute of the Greek tourism confederation), treated as solid:
 
-- Direct travel & tourism contribution: **€32.4B**, **13% of Greek GDP** (2025 figures; INSETE report 2025-06, reported by GTP Headlines 2026-05-27)
-- Total contribution including indirect effects: **28.7–34.6% of GDP** (same sources, 2025 figures)
+- Direct travel & tourism contribution: **€32.4B**, **13% of Greek GDP** (2025 figures as reported by GTP Headlines 2026-05-27 from INSETE statistics; INSETE's published report edition of 2025-06 covers 2023–2024, so the 2025 actuals are secondary-reported until the primary 2025 edition is checked)
+- Total contribution including indirect effects: **28.7–34.6% of GDP** (same GTP-reported INSETE sourcing, 2025 figures)
 
 Implication for SERP work: accommodation, destination, and activity queries are a structurally large commercial battleground in Greek search — expect OTA-grade competition on head terms and plan difficulty assessments accordingly. Do **not** convert these GDP figures into search-volume or SERP-share claims: demand is measured per keyword set (Section 4), never inferred from macro figures.
 

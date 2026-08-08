@@ -490,7 +490,7 @@ Where section weights are: Title 0.15, Meta 0.05, Headers 0.10, Content 0.25, Ke
 | Metric | Good | Needs Improvement | Poor |
 |--------|------|-------------------|------|
 | LCP | ≤2.5s | 2.5-4.0s | >4.0s |
-| FID/INP | ≤100ms/200ms | 100-300ms | >300ms |
+| INP | ≤200ms | 200-500ms | >500ms |
 | CLS | ≤0.1 | 0.1-0.25 | >0.25 |
 | TTFB | ≤800ms | 800-1800ms | >1800ms |
 

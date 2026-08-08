@@ -93,7 +93,7 @@ per-locale E-E-A-T step (SKILL.md step 9): locale-native evidence, not literal t
 
 | Banned pattern | Why | Do instead |
 |---|---|---|
-| Uniform paragraph lengths (every paragraph the same 2–3-sentence shape) | machine rhythm | vary 1–5 sentences by content; O06 chunking still applies |
+| Uniform paragraph lengths (every paragraph the same 2–3-sentence shape) | machine rhythm | vary within the O06 3–5-sentence band; an occasional 1–2-sentence paragraph for emphasis is a deliberate, marked exception |
 | Every section ends with its own mini-summary ("Overall, …" / «Συμπερασματικά…» per section) | scaffolding; repeats the section it just ended | summarize once — in the O02 summary box and the conclusion |
 | Rhetorical-question openers (intro or H2/H3 openers) | delays the answer; C02 wants answer-first | open with the claim, the number, or the definition |
 | Listicle padding: "Let's dive in", "Without further ado", "Let's get started", «Ας ξεκινήσουμε» | zero information | delete — the heading already did this job |
