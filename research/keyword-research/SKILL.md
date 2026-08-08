@@ -1,13 +1,13 @@
 ---
 name: keyword-research
-version: "4.2.0"
+version: "4.2.1"
 description: 'Discover high-value SEO keywords with search intent analysis, difficulty scoring, topic clustering, and AI citation potential. Use when the user asks to "find keywords", "keyword research", "what should I write about", "keyword difficulty score", "identify ranking opportunities", "topic ideas", "what are people searching for", or "long-tail keyword suggestions". For competitor keyword gaps, see competitor-analysis. For topic coverage gaps, see content-gap-analysis.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.2.0"
+  version: "4.2.1"
   geo-relevance: "medium"
   tags:
     - seo
@@ -297,6 +297,8 @@ When a user requests keyword research:
 
     Local-intent keywords ("near me", [service] + city/neighborhood) map to more than website pages — map them to Google Business Profile surfaces too:
 
+    Every keyword referenced here must already carry metrics in an analysis table above; a new target surfacing at this step first gets an analysis row (explained N/A allowed).
+
     | Keyword Type | Website Surface | GBP Surface |
     |---------------|-----------------|-------------|
     | Service + city ("υδραυλικός Αθήνα") | Service/location page | Products/Services description |
@@ -310,7 +312,7 @@ When a user requests keyword research:
 
     Produce a report containing: Executive Summary, Top Keyword Opportunities (Quick Wins, Growth, GEO), Topic Clusters, Content Calendar, and Next Steps.
 
-    **Metrics columns are universal**: every keyword table in the deliverable — including GEO/conversational-query tables — carries Volume / Difficulty / Intent columns. When a metric is not tool-reported (typical for GEO conversational queries and GBP-driven local terms), the cell shows an explained N/A (e.g., "N/A — not tool-reported") — never an invented number.
+    **Metrics columns are universal in analysis tables**: every keyword analysis table in the deliverable — including GEO/conversational-query tables — carries Volume / Difficulty / Intent columns. When a metric is not tool-reported (typical for GEO conversational queries and GBP-driven local terms), the cell shows an explained N/A (e.g., "N/A — not tool-reported") — never an invented number. Placement/crosswalk tables (like Step 10's GBP mapping) reference keywords already metricized in an analysis table; a keyword target may not appear for the first time in a crosswalk — give it an analysis row (explained N/A allowed) first.
 
     > **Reference**: See [references/example-report.md](./references/example-report.md) for the full report template and example.
 
@@ -324,7 +326,7 @@ When a user requests keyword research:
 
 ### Output Validation
 - [ ] Every recommendation cites specific data points (not generic advice)
-- [ ] Every keyword table (incl. GEO/conversational and local) carries volume / difficulty / intent columns — unreported metrics as explained N/A ("N/A — not tool-reported"), never invented
+- [ ] Every keyword analysis table (incl. GEO/conversational and local) carries volume / difficulty / intent columns — unreported metrics as explained N/A ("N/A — not tool-reported"), never invented; crosswalk tables only reference keywords already metricized above
 - [ ] Keywords grouped by intent and mapped to content types
 - [ ] Topic clusters show clear pillar-to-cluster relationships
 - [ ] Greek-market keywords show accented, unaccented, Greeklish, and EN forms with placement noted (if applicable)

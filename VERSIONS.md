@@ -8,7 +8,7 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 
 | Skill | Category | Version | Last Updated |
 |-------|----------|---------|--------------|
-| keyword-research | research | 4.2.0 | 2026-08-08 |
+| keyword-research | research | 4.2.1 | 2026-08-08 |
 | competitor-analysis | research | 4.0.1 | 2026-08-08 |
 | serp-analysis | research | 4.2.0 | 2026-08-08 |
 | content-gap-analysis | research | 4.0.1 | 2026-08-08 |
