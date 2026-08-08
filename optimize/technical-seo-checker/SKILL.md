@@ -1,6 +1,6 @@
 ---
 name: technical-seo-checker
-version: "4.0.0"
+version: "4.0.1"
 description: 'Run technical SEO audits covering Core Web Vitals, crawlability, indexing, mobile-friendliness, and site architecture. Use when the user asks to "technical SEO audit", "check page speed", "Core Web Vitals", "crawl errors", "indexing problems", "site health check". For content element issues, see on-page-seo-auditor. For link architecture, see internal-linking-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.0.0"
+  version: "4.0.1"
   geo-relevance: "low"
   tags:
     - seo
@@ -258,7 +258,7 @@ When a user requests a technical SEO audit:
    **Indexability Score**: [X]/10
    ```
 
-3. **Audit Site Speed & Core Web Vitals** — CWV metrics (LCP/FID/CLS/INP), additional performance metrics (TTFB/FCP/Speed Index/TBT), resource loading breakdown, optimization recommendations
+3. **Audit Site Speed & Core Web Vitals** — CWV metrics (LCP/CLS/INP), additional performance metrics (TTFB/FCP/Speed Index/TBT), resource loading breakdown, optimization recommendations
 
    > **Reference**: See [references/technical-audit-templates.md](./references/technical-audit-templates.md) for the performance analysis template (Step 3).
 
