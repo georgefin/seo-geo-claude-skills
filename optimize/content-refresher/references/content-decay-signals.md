@@ -343,6 +343,7 @@ After retiring content, monitor for 4 weeks:
 | Outdated statistics/dates | Manual review | Medium | Annual content audit |
 | Broken external links | Crawler | Medium | Monthly crawl reports |
 | Decreased CTR | Search Console | Medium | Quarterly CTR analysis |
+| AI Overview displacement (CTR down 20-60% on ≥5 queries over 2-4 weeks, impressions and rankings held) | Search Console + live SERP | High | 28-day GSC compare → [AI Overview recovery playbook](./ai-overview-recovery.md) |
 | Competitor new content | SERP monitoring | Medium | Monthly SERP checks |
 | User engagement drop | Analytics | Low | Quarterly engagement review |
 | Index coverage issues | Search Console | High | Weekly coverage monitoring |

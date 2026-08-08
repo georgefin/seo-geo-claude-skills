@@ -1,6 +1,6 @@
 ---
 name: technical-seo-checker
-version: "4.1.0"
+version: "4.2.0"
 description: 'Run technical SEO audits covering Core Web Vitals, crawlability, indexing, mobile-friendliness, and site architecture. Use when the user asks to "technical SEO audit", "check page speed", "Core Web Vitals", "crawl errors", "indexing problems", "site health check". For content element issues, see on-page-seo-auditor. For link architecture, see internal-linking-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.1.0"
+  version: "4.2.0"
   geo-relevance: "low"
   tags:
     - seo
@@ -157,6 +157,7 @@ Step 9 audit summary.
    | Important pages blocked | ✅/⚠️/❌ | [blocked paths] |
    | Assets blocked | ✅/⚠️/❌ | [CSS/JS blocked?] |
    | Correct user-agents | ✅/⚠️/❌ | [notes] |
+   | AI-crawler stance consistent | ✅/⚠️/❌ | [stance: open/closed/split; flag any vendor with training bot blocked but sibling search bot not explicitly allowed] |
    
    **Issues Found**:
    - [Issue 1]
@@ -313,7 +314,7 @@ Step 9 audit summary.
 
 ## Reference Materials
 
-- [robots.txt Reference](./references/robots-txt-reference.md) — Syntax guide, templates, common configurations
+- [robots.txt Reference](./references/robots-txt-reference.md) — Syntax guide, templates, common configurations, AI-crawler bot-role roster and the three access stances (open/closed/split)
 - [HTTP Status Codes](./references/http-status-codes.md) — SEO impact of each status code, redirect best practices
 - [Technical Audit Templates](./references/technical-audit-templates.md) — Detailed output templates for steps 3-9 (CWV, mobile, security, URL structure, structured data, international, audit summary)
 - [Technical Audit Example & Checklist](./references/technical-audit-example.md) — Full worked example and comprehensive technical SEO checklist
