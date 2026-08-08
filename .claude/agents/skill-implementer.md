@@ -27,6 +27,11 @@ HARD RULES:
 VALIDATE BEFORE RETURNING: run `bash scripts/validate-skill.sh <category>/<skill>` for
 your skill and include its PASS/WARN/FAIL tally verbatim in your report. A FAIL you
 cannot fix inside your scope is a blocking finding — report it, do not paper over it.
+If the skill carries an `evals/` suite, say so in your report — the coordinator then
+schedules a `skill-reviewer` eval pass (Mode B) before merge; do not run or edit the
+suite yourself unless it IS your assigned scope. Expect your diff to face a
+`skill-reviewer` adversarial pass (Mode A) — write for that reviewer: honest tags,
+clean scope, evidence in your report.
 
 OUTPUT: exact list of edits (file → what changed, one line each) · validator tally ·
 any stopped-at-scope-boundary issues · nothing else.
