@@ -127,3 +127,21 @@ regression rate · repeat-failure count · tool-correctness rate.
   the reviewer's open-vs-close scan discipline; the offending edit was corrected and
   committed separately with the reviewer's semantic fix applied.
 - **Recurrence**: 0. **Status**: guard live (this entry is the standing rule).
+
+## F9 — 2026-08-08 · Deprecated-concept purges scoped per skill left sibling leftovers
+
+- **Failure**: FID (retired 03-2024, ruling R4) survived THREE purges — the 4.0.1
+  technical-seo-checker cleanup, the labels wave's two-reference purge, and the R4
+  pointer refresh — because each swept only the skill in front of it. A fourth file
+  (`build/geo-content-optimizer/references/quotable-content-examples.md`) still taught
+  "FID <100ms" until today's repo-wide grep caught it.
+- **Root cause**: concept deprecations executed as per-skill edits; shared concepts
+  (CWV metrics, veto shorthands, schema patterns) live in MANY skills' references.
+- **Guard**: standing rule — retiring or redefining any cross-skill concept requires a
+  repo-wide grep sweep for the concept's tokens (all spellings/units) in the same wave,
+  with the hit list resolved or explicitly queued; per-skill scoping is only valid for
+  skill-local concepts. Applied today: `<2.5|<200ms|<0.1|FID|Affiliate links disclosed`
+  swept repo-wide; remaining hits zero.
+- **Recurrence**: 0 going forward (the three historical misses are the founding
+  pattern; a future leftover found after a claimed repo-wide sweep increments this).
+- **Status**: guard live.
