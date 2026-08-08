@@ -286,7 +286,7 @@ Validate FAQPage at https://validator.schema.org/ (syntax + Schema.org semantics
 2. **Verify all required properties present**
 3. **Confirm content matches visible page content**
 4. **Check for policy violations**
-5. **Confirm ONE primary type** — if a documented auxiliary accompanies it (e.g., BreadcrumbList for a real trail), validate each object; a second full content type is stacking (settled ruling R2)
+5. **Confirm ONE primary type** — if a documented auxiliary accompanies it (e.g., BreadcrumbList for a real trail), validate each object; a second full content type is stacking (settled ruling R2), unless the page genuinely is both things and each type is complete, accurate, and independently justified
 6. **Validate images are accessible and meet size requirements**
 
 ### Post-Launch Monitoring
