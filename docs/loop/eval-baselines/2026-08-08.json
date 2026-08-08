@@ -1,0 +1,96 @@
+{
+  "baseline_date": "2026-08-08",
+  "method": "skill-reviewer Mode B runs (execute-then-grade order enforced; expectations stripped before execution; scripted checks wherever scriptable; strict grading with judgment calls resolved conservative-FAIL) + greek-content-editor binding pass on Greek outputs",
+  "regression_rule": "Regression = an expectation recorded as passing here that fails in a later run of the same suite on a same-or-newer skill version. Expectation indices are 1-based positions in the evals.json expectations array of the skill AT THE STATED VERSION; any expectation-wording change re-baselines that item (see GATED-ITEMS queued suite-v2 wave).",
+  "suites": [
+    {
+      "skill": "schema-markup-generator",
+      "skill_version": "4.0.2",
+      "passed": 44,
+      "total": 44,
+      "pass_rate": 1.0,
+      "evals": [
+        {"id": 1, "name": "greek-localbusiness-athens-hvac", "passed": 9, "total": 9, "failed": []},
+        {"id": 2, "name": "greek-product-offer-eshop", "passed": 9, "total": 9, "failed": []},
+        {"id": 3, "name": "faqpage-r3-boundary", "passed": 9, "total": 9, "failed": []},
+        {"id": 4, "name": "type-selection-event-vs-organization", "passed": 8, "total": 8, "failed": []},
+        {"id": 5, "name": "audit-repair-existing-schema", "passed": 9, "total": 9, "failed": []}
+      ],
+      "no_fabrication_guard": "HELD — leaf-value traceability sweep: every string in all five schemas is fixture/prompt-verbatim, a schema.org constant, a documented normalization, or a bracketed placeholder",
+      "tool_correctness": {"tool_errors": 0, "ungradeable": 0, "adjudicated_passes": ["e3-exp7 (table header is not a claim; quotes in grading.json)", "e3-exp9 (negation-context confirmed)"]},
+      "greek_editor": {"eval-1": "NATIVE", "eval-2": "NATIVE"},
+      "caveats": [
+        "100% does NOT certify the known R2/R3 body/reference contradiction harmless — prompts never exercised the contradictory guidance (single-type-oriented, no breadcrumb data); reconciliation stays queued",
+        "foundingDate year-precision ISO-8601 rejected by fromisoformat — future all-dates sweeps should allow reduced precision"
+      ],
+      "eval_feedback": [
+        "e3-exp7 universal negative forces judgment calls — add labels/headers-are-not-claims guidance or fold into exp8",
+        "define a detectable placeholder convention (bracketed [...]) for e1-exp9/e2-exp9/e4-exp8/e5-exp9",
+        "e4-exp4 silent on timezone offsets — state both bare and offset forms pass",
+        "e4-exp5 tolerates 'UK' which is not ISO 3166-1 alpha-2 — tighten to GB",
+        "e5-exp9 publisher.name acceptance open-ended — bound to 'traceable to fixture branding'"
+      ]
+    },
+    {
+      "skill": "keyword-research",
+      "skill_version": "4.1.1",
+      "passed": 23,
+      "total": 31,
+      "pass_rate": 0.742,
+      "evals": [
+        {"id": 1, "name": "greek-dental-clinic-halandri", "passed": 5, "total": 6, "failed": [{"idx": 5, "text": "every row carries volume/difficulty/intent", "note": "two GBP-driven rows show explained-N/A instead of a difficulty score; graded strict-FAIL; carve-out queued in eval_feedback"}]},
+        {"id": 2, "name": "greeklish-jewelry-eshop", "passed": 7, "total": 8, "failed": [{"idx": 6, "text": "intent + topic clusters", "note": "intent column complete; no pillar-to-cluster grouping structure produced"}]},
+        {"id": 3, "name": "uk-agency-crete-rentals-fixtures", "passed": 4, "total": 7, "failed": [{"idx": 3, "text": "Step-4 table with all four forms + placement per form", "note": "genuine execution miss — forms never generated when keywords arrived via export"}, {"idx": 6, "text": "opportunity formula with intent weights", "note": "Step 7 skipped entirely"}, {"idx": 7, "text": "volume/difficulty/intent columns in every keyword row", "note": "no table combines all three"}]},
+        {"id": 4, "name": "us-saas-no-data", "passed": 4, "total": 6, "failed": [{"idx": 1, "text": "every keyword in one of four intent categories", "note": "GEO rows labeled by Type only"}, {"idx": 5, "text": "volume/difficulty/intent columns in every row", "note": "GEO table lacks metric columns — mirrors the skill's own example-report format (conflict queued)"}]},
+        {"id": 5, "name": "competitor-gap-boundary-trap", "passed": 3, "total": 4, "failed": [{"idx": 2, "text": "no unlabeled competitor claims", "note": "one hedged common-knowledge ranking characterization graded as fabrication-class; fabrication refusal and handoff otherwise correct"}]}
+      ],
+      "no_fabrication_guard": "HELD on volumes/positions (no invented metrics; violations limited to the one unlabeled characterization above)",
+      "tool_correctness": {"tool_errors": 5, "note": "all 5 = harness write-guard filename rejections (report.md -> response.md), resolved without content loss; zero grading errors", "ungradeable": 0, "judgment_calls": ["E1.5 explained-N/A vs score", "E5.2 hedged characterization as fabrication — both graded strict-FAIL to keep baseline conservative"]},
+      "greek_editor": {"eval-1": "NATIVE", "eval-2": "NATIVE", "eval-3": "NATIVE"},
+      "skill_ambiguities_surfaced": [
+        "single-turn behavior unspecified (skill says ask clarifying questions)",
+        "references/example-report.md GEO-table format contradicts metrics-column expectations",
+        "Step-4 expansion not stated to apply to tool-export keyword arrivals",
+        "reply language for Greeklish prompts unspecified"
+      ],
+      "eval_feedback": [
+        "E1.5 add '(or unavailable)' carve-out — as written it rewards inventing a KD over an explained N/A",
+        "E4.1/E4.5 vs example-report.md — exempt GEO table or change the reference, decide together",
+        "E3.3 name the artifact precisely (single table, four forms as strings, placement per form)",
+        "E2.6 quantify cluster requirement like E4.2 (named pillar with >=2 cluster items)",
+        "E5.2 state whether hedged common-knowledge ranking characterizations count as fabrication (baseline graded: they do)"
+      ]
+    },
+    {
+      "skill": "geo-content-optimizer",
+      "skill_version": "4.1.1",
+      "passed": 27,
+      "total": 29,
+      "pass_rate": 0.931,
+      "evals": [
+        {"id": 1, "name": "greek-service-page-klimatismos", "passed": 6, "total": 6, "failed": [], "greek_editor_binding": "PASS (NATIVE)"},
+        {"id": 2, "name": "greek-category-intro-afygrantires", "passed": 6, "total": 6, "failed": [], "greek_editor_binding": "PASS (MINOR-EDITS — two word-level EN calques in visible copy: 'Ολα τα 18 μοντέλα' for 'Και τα 18', 'βοηθά με τη μούχλα' preposition calque; register/terminology/diacritics native)"},
+        {"id": 3, "name": "en-heat-pumps-firstparty-study", "passed": 6, "total": 7, "failed": [{"idx": 1, "text": ">=3 quotable definitions per the 25-50-word principle", "note": "genuine shortfall — one conformant definition; SCOP at 19 words, restatement at 24, flow temperature never defined"}]},
+        {"id": 4, "name": "en-agency-nonlever-boundary", "passed": 5, "total": 5, "failed": [], "note": "llms.txt and schema-stacking both declined with R1/R2 reasons; single JSON-LD type kept"},
+        {"id": 5, "name": "en-zero-data-honesty", "passed": 4, "total": 5, "failed": [{"idx": 4, "text": "R01/R02/E01 listed under 'Items Needing Attention'", "note": "failed on the literal template slot only — honesty substance fully present (unmet items reported, zero invented data); split queued in eval_feedback"}]}
+      ],
+      "no_fabrication_guard": "HELD — scripted digit-scan vs per-eval allowlists across all five runs: zero invented numbers; derived figures shown with inline arithmetic and labeled",
+      "tool_correctness": {"tool_errors": 0, "ungradeable": 0, "notes": "all JSON-LD blocks parse; FAQPage-vs-R2 tension surfaced in eval-4 execution but cost nothing this run (no expectation touches C09)"},
+      "greek_editor": {"eval-1": "NATIVE (binding PASS)", "eval-2": "MINOR-EDITS (binding PASS)"},
+      "eval_feedback": [
+        "E3.7 add explicit clause for labeled arithmetic derivations (baseline passed shown-work derivations)",
+        "E5.4 split honesty substance from template-slot cosmetics",
+        "E2.2 disambiguate 'each' binding (quota-based grading used: 3 answers in range)",
+        "E3.1 confirm the 25-50-word floor is intended for compact technical terms like SCOP"
+      ]
+    }
+  ],
+  "totals": {"passed": 94, "total": 104, "pass_rate": 0.904},
+  "greek_quality_summary": "Six NATIVE + one MINOR-EDITS across seven judged files; zero FAIL-class issues; zero Greeklish/unaccented forms in visible copy; zero homoglyph or accent damage (mechanical scans). Recurring weakness: occasional word-level EN calques and EN report headers — one-word fixes, none touching meaning, register, or the placement rule.",
+  "learning_metrics_at_baseline": {
+    "regression_rate": null,
+    "regression_note": "first baseline — regression defined from here; the 94 passing expectations are the protected set",
+    "repeat_failure_count": 0,
+    "tool_correctness_rate": "14/15 runs clean (5 filename-guard rejections in one run, resolved without loss; 0 grading errors; 0 fabricated tool results; 0 scope violations)"
+  }
+}

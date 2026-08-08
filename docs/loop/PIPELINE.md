@@ -86,7 +86,7 @@ baselines: `docs/loop/eval-baselines/2026-08-08.json`.
 | Routine | ID | State | Schedule (UTC) |
 |---|---|---|---|
 | v3 weekly (current) | `trig_012FupQL9hy8p9FPeBHo9Lee` | enabled; created 2026-08-08, prompt upgraded to v3 2026-08-08 (audit); push+email notifications ON | `0 4 * * 6` (~04:08 actual) |
-| v1 (superseded) | `trig_01TEakvC4M948KZwaGiMZVDR` | **RETIREMENT PENDING — Sani action required**: created from the claude.ai side (http_api) 2026-07-18, so agent sessions CANNOT disable it. Sani must pause it in the claude.ai Routines UI **before Sat 2026-08-15 04:00 UTC** or both weeklies double-fire. Keep (paused, renamed `[RETIRED …]`) ≥1 quarter for run history, then delete with sign-off. | `0 4 * * 6` |
+| v1 (retired) | `trig_01TEakvC4M948KZwaGiMZVDR` | **DELETED by Sani 2026-08-08, API-verified** (UI offered delete-only; agent writes ownership-refused). Prompt archived at `docs/loop/archive/v1-weekly-prompt-2026-07-18.txt`; its past run sessions survive in the account's session list. Double-fire risk closed. | was `0 4 * * 6` |
 | DST flip 1/2 | `trig_01HsA9dHtk5Vo4nhBDV7AbsE` | armed one-shot | once 2026-10-24T09:00Z |
 | DST flip 2/2 | `trig_01UDJeyM9xHvbHs2DoYurTZU` | armed one-shot | once 2027-03-27T09:00Z |
 | PR monitor check-ins | (rotating `send_later` one-shots) | self-re-arming while a PR is open | per monitor policy above |

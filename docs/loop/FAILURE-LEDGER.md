@@ -30,9 +30,11 @@ regression rate · repeat-failure count · tool-correctness rate.
   `0 4 * * 6`; would have double-fired 2026-08-15 (04:00:47Z and 04:08:36Z).
 - **Root cause**: routine state assumed from a UI action instead of verified via API.
 - **Guard**: duplicate-cron tripwire (PIPELINE.md hygiene §5) + quarterly trigger sweep
-  (weekly prompt STEP 5b).
-- **Recurrence**: 0. **Status**: guard live; v1 disable itself still pending Sani
-  (UI-created — agent API writes refused).
+  (weekly prompt STEP 5b) + read-back verification rule (see F4 — it caught two failed
+  UI disable attempts before Sani's successful deletion).
+- **Recurrence**: 0. **Status**: CLOSED 2026-08-08 — v1 deleted by Sani (UI pause
+  unavailable; delete-only), absence API-verified; prompt archived in
+  `docs/loop/archive/`. Guards remain live for future duplicates.
 
 ## F2 — 2026-08-08 · Stale README version badge survived multiple releases
 

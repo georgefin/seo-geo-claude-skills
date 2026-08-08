@@ -134,3 +134,17 @@ From the 08-08-2026 report's slow-loop lane; promote to gated only when concreti
   Competitor Gap" sections invite exactly the prompts the description routes to
   competitor-analysis. Align body sections with the description boundary (or add an
   explicit handoff note). Small; bundle with the P4 remainder.
+- **keyword-research execution ambiguities** (surfaced by the 2026-08-08 baseline run;
+  responsible for part of its honest 74.2%): (a) skill says ask clarifying questions but
+  never says how to proceed single-turn; (b) `references/example-report.md`'s GEO-table
+  format contradicts the metrics-column expectations — mirroring the skill's own example
+  fails two of them (fix reference or expectations together); (c) skill never states
+  that Step-4 form expansion applies even when keywords arrive via tool export; (d)
+  reply language for Greeklish prompts unspecified. Bundle with the same P4 pass.
+- **Eval-suite v2 wording refinements** (from the three baseline graders' feedback,
+  2026-08-08; 14 items total — full lists in `docs/loop/eval-baselines/2026-08-08.json`
+  `eval_feedback` fields): placeholder-convention definition, universal-negative
+  phrasings, N/A carve-outs, derived-figure clause, honesty-vs-template-slot split,
+  cluster quantification, timezone/ISO-code tolerances. NOTE: any expectation-wording
+  change re-baselines the affected items — apply as one deliberate suite-v2 wave, never
+  piecemeal.
