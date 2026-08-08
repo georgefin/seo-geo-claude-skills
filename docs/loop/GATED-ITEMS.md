@@ -72,8 +72,12 @@ G1 approved (pilot executing), G2 approved (implemented), G4 decided (harvest).*
 
 ## G2 — Publish weekly reports as GitHub Issues on the fork
 
-- **Status**: **APPROVED by Sani 2026-08-08** ("3. Yes"). Implemented same day: STEP 6
-  amendment on the weekly routine + rolling [VERIFY]-queue issue seeded from W-items.
+- **Status**: **APPROVED by Sani 2026-08-08** ("3. Yes") — implementation **BLOCKED on a
+  repo setting**: GitHub returned `410 Issues has been disabled in this repository` on
+  the first issue-create. Sani must enable Issues (repo → Settings → General → Features
+  → check "Issues"); then the coordinator creates the rolling [VERIFY]-queue issue and
+  amends the weekly routine's STEP 6 in one pass. Holding the trigger amendment until
+  then so the routine never ships a half-working step.
 - **Proposal**: amend the weekly routine (STEP 6) to allow exactly one write action: file
   each report as an issue titled `Weekly skill-update-check — YYYY-MM-DD` (label
   `weekly-report`), plus maintain one rolling `[VERIFY] queue` issue (label `verify-queue`)
