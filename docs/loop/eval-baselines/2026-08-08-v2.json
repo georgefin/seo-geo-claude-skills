@@ -1,0 +1,92 @@
+{
+  "baseline_date": "2026-08-08",
+  "baseline_label": "v2 — post P3/P4 wave (suite v2 wording + upgraded skills)",
+  "supersedes": "2026-08-08.json (v1; kept for regression lineage)",
+  "method": "skill-reviewer Mode B (execute-then-grade; expectations stripped before execution; scripted checks print evidence per ledger F7 guard; conservative-FAIL on judgment) + greek-content-editor binding pass on all fresh Greek outputs",
+  "suite_wording_provenance": "v2 wave commit cb47ac8 (14 refinements as 17 in-place rewords) + a176327 (anchor refresh e1.5/e4.5) + 1d0f6ea (e1.5 crosswalk clause with skill 4.2.1). Changed indices are re-baselined here; all other indices byte-identical to v1 and regression-compared.",
+  "regression_rule": "Regression = an expectation recorded as passing here that fails in a later run of the same suite on a same-or-newer skill version. 1-based indices vs evals.json at the stated version. Any expectation-wording change re-baselines that item (one deliberate wave, never piecemeal).",
+  "suites": [
+    {
+      "skill": "schema-markup-generator",
+      "skill_version": "4.1.0",
+      "passed": 44, "total": 44, "pass_rate": 1.0,
+      "regressions_vs_v1": 0,
+      "protected_unchanged_indices_all_passed": 37,
+      "rebaselined_fresh_results": {"e1.9": "PASS", "e2.9": "PASS", "e3.7": "PASS", "e4.4": "PASS", "e4.5": "PASS (skill emitted GB via ISO normalization; UK fail-mode did not occur)", "e4.8": "PASS", "e5.9": "PASS"},
+      "evals": [
+        {"id": 1, "name": "greek-localbusiness-athens-hvac", "passed": 9, "total": 9},
+        {"id": 2, "name": "greek-product-offer-eshop", "passed": 9, "total": 9},
+        {"id": 3, "name": "faqpage-r3-boundary", "passed": 9, "total": 9},
+        {"id": 4, "name": "type-selection-event-vs-organization", "passed": 8, "total": 8},
+        {"id": 5, "name": "audit-repair-existing-schema", "passed": 9, "total": 9}
+      ],
+      "no_fabrication_guard": "HELD — leaf-value traceability 100/100 leaves (fixture-verbatim 43, schema.org constants 42, documented normalizations 13, bracketed placeholders 2); two adjudicated tokens documented in-output",
+      "tool_correctness": {"harness_errors": 0, "checker_defects_self_caught": 1, "note": "e3.9 claim-scan regex missed markdown-bold negations; caught by evidence inspection before reporting (ledger F7 instance 1)"},
+      "greek_editor_binding": {"eval-1": "NATIVE", "eval-2": "MINOR-EDITS (breadcrumb attributive order; 'Υποχρεωτικό εκκρεμές' label)"},
+      "eval_feedback_v3_backlog": [
+        "e4.4 silent on the Z designator alongside offsets",
+        "e1.9/e2.9 scope of bracketed placeholders in prose suggestions vs emitted JSON",
+        "e3.7 novel-phrasing judgment dependence (v2 clause resolved all cases this run)"
+      ]
+    },
+    {
+      "skill": "keyword-research",
+      "skill_version": "4.2.1 (eval 1 run at 4.2.1 after the crosswalk resolution; evals 2-5 run at 4.2.0 — 4.2.1 touched only Step-10/11 rule text)",
+      "passed": 31, "total": 31, "pass_rate": 1.0,
+      "regressions_vs_v1": 0,
+      "protected_unchanged_indices_all_passed": 23,
+      "fixed_failures_at_unchanged_wording": {"e3.6": "opportunity formula now produced with shown arithmetic (v1: step skipped)", "e3.7": "V/D/I combined on every row (v1: no table combined all three)"},
+      "rebaselined_fresh_results": {"e1.5": "PASS at v2.1 wording after skill 4.2.1 resolved the Step-10-crosswalk-vs-universal-metrics conflict the first v2 run surfaced (that run's conservative-FAIL was correct and is the documented trigger)", "e2.6": "PASS", "e3.3": "PASS", "e4.1": "PASS", "e4.5": "PASS", "e5.2": "PASS"},
+      "evals": [
+        {"id": 1, "name": "greek-dental-clinic-halandri", "passed": 6, "total": 6, "note": "focused rerun at 4.2.1; protected e1.1-4,6 re-passed"},
+        {"id": 2, "name": "greeklish-jewelry-eshop", "passed": 8, "total": 8},
+        {"id": 3, "name": "uk-agency-crete-rentals-fixtures", "passed": 7, "total": 7},
+        {"id": 4, "name": "us-saas-no-data", "passed": 6, "total": 6},
+        {"id": 5, "name": "competitor-gap-boundary-trap", "passed": 4, "total": 4}
+      ],
+      "no_fabrication_guard": "HELD — digit-provenance scan clean on fixtures run; est.-labeled or explained-N/A everywhere else; zero competitor ranking/position/URL claims in eval 5",
+      "tool_correctness": {"harness_errors": 0, "checker_defects_self_caught": 1, "note": "rerun table parser matched '| G1' data row as header; caught by evidence inspection (ledger F7 instance 2). v1's report.md write-guard failure mode avoided in all runs — repeat-failure count 0"},
+      "greek_editor_binding": {"eval-1-rerun": "NATIVE", "eval-2": "MINOR-EDITS ('εξουσία domain' calque; 'AI-απάντηση' compound)", "eval-3": "MINOR-EDITS ('παράδοση αεροδρόμιο' query-style label)"},
+      "eval_feedback_v3_backlog": [
+        "e1.5 says analysis row 'anywhere' while SKILL.md Step 10 says 'above' — align to 'above'",
+        "e1.3 state that exactly 5 Q&A seeds passes ('top 3-5')",
+        "e3.7 inherits the crosswalk ambiguity e1.5 fixed — align when next re-baselined"
+      ]
+    },
+    {
+      "skill": "geo-content-optimizer",
+      "skill_version": "4.1.2",
+      "passed": 29, "total": 29, "pass_rate": 1.0,
+      "regressions_vs_v1": 0,
+      "protected_unchanged_indices_all_passed": 25,
+      "rebaselined_fresh_results": {"e2.2": "PASS (kept; 6/6 answers 47-49 words)", "e3.1": "PASS fresh (moot-strict: all three definitions 40-45w, inside both old and new floors)", "e3.7": "PASS (kept; zero derived figures — placeholders used instead)", "e5.4": "PASS fresh (honesty substance: R01/R02/E01 each reported unmet in three places, scores capped)"},
+      "evals": [
+        {"id": 1, "name": "greek-service-page-klimatismos", "passed": 6, "total": 6, "greek_editor_binding": "PASS-class (MINOR-EDITS — agency-perspective provenance labels ('στοιχεία πελάτη') and one workflow sentence leaked into customer-visible copy; language itself native)"},
+        {"id": 2, "name": "greek-category-intro-afygrantires", "passed": 6, "total": 6, "greek_editor_binding": "PASS-class (NATIVE — v1 calque families resolved: «βοηθά στη μούχλα» ruled idiomatic, «όλα με εγγύηση 2 ετών» native; disambiguating σάς correct)"},
+        {"id": 3, "name": "en-heat-pumps-firstparty-study", "passed": 7, "total": 7},
+        {"id": 4, "name": "en-agency-nonlever-boundary", "passed": 5, "total": 5},
+        {"id": 5, "name": "en-zero-data-honesty", "passed": 5, "total": 5}
+      ],
+      "no_fabrication_guard": "HELD — scripted digit-scan vs per-eval allowlists: zero invented numbers; eval-4 R01 honestly reported unmet; eval-5 zero-data honesty held under threshold pressure",
+      "tool_correctness": {"harness_errors": 0, "checker_defects_self_caught": 0, "notes": "two authoring-time word-count corrections applied before expectations were read (execute-then-grade preserved)"},
+      "eval_feedback_v3_backlog": [
+        "exempt skill-threshold references ('+50%', '≥5') alongside self-ratings in no-fab expectations",
+        "e2.3 state whether schema may drop visible source-note parentheticals",
+        "e1.1/e4.4 define the 150-word count start (H1 vs body)",
+        "e5.1 restate the self-rating carve-out explicitly",
+        "classify edit-date metadata as non-statistic in allowlists"
+      ]
+    }
+  ],
+  "totals": {"passed": 104, "total": 104, "pass_rate": 1.0},
+  "totals_caveat": "104/104 is measured against v2 wording with 17 re-baselined items; the v1-comparable claims are the learning metrics below, per the maintainer's metric-priority directive — a perfect average would still be worthless with a regression in it, and there are none.",
+  "learning_metrics": {
+    "regression_rate": "0.0 — 0 of 85 protected expectations (byte-identical wording, v1-passing: schema 37 + keyword 23 + geo 25) failed on re-run. First measurable regression rate of the loop.",
+    "fixed_failures_at_unchanged_wording": 2,
+    "repeat_failure_count": 0,
+    "tool_correctness_rate": "4/4 Mode B runs with zero harness/tool errors (v1's five report.md write-guard rejections not repeated); 2 grading-checker defects arose and were self-caught before reporting — ledgered as F7 with the evidence-inspection guard made mandatory",
+    "skill_conflicts_surfaced_and_closed_same_wave": 1
+  },
+  "greek_quality_summary": "Binding editor pass over seven fresh outputs: 3 NATIVE + 4 MINOR-EDITS, zero FAIL-class, zero Greeklish/unaccented leakage into visible copy. Trajectory vs v1: geo eval-2 improved MINOR-EDITS to NATIVE with both v1 calque families genuinely resolved; new MINOR-EDITS findings are word-level items on surfaces first judged this round (keyword deliverable prose, schema audit prose) — all one-word/label fixes, none touching meaning or register. Recurring lesson fed to anti-slop/editor notes: agency-perspective provenance labels must not leak into customer-visible copy.",
+  "protected_set_for_next_run": "all 104 expectations at the suite versions in this file"
+}

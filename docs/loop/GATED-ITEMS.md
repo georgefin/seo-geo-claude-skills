@@ -151,6 +151,11 @@ From the 08-08-2026 report's slow-loop lane; promote to gated only when concreti
   re-baselining map preserved (changed indices: schema e1.9/e2.9/e3.7/e4.4/e4.5/e4.8/
   e5.9; keyword e1.5/e2.6/e3.3/e4.1/e4.5/e5.2; geo e2.2/e3.1/e3.7/e5.4); Mode B
   re-baseline runs follow in the same wave.
+- **Eval-suite v3 wording backlog** (from the v2 Mode B graders + focused rerun,
+  2026-08-08): 11 minor items recorded in `docs/loop/eval-baselines/2026-08-08-v2.json`
+  `eval_feedback_v3_backlog` fields (Z-designator, placeholder prose scope, threshold-
+  reference exemptions, e1.5 anywhere→above alignment, 150-word count start, etc.).
+  Same one-wave rule: apply together, never piecemeal, re-baselining the touched items.
 - **NEW — shared-framework consistency pass** (surfaced 2026-08-08 by the schema
   reconciliation + auditor labels agents): `references/core-eeat-benchmark.md` Section 5
   (≈ lines 216-226) still teaches the pre-clarification multi-type mapping ("Article,

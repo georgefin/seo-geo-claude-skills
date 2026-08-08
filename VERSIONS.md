@@ -31,6 +31,20 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 
 ## Changelog
 
+### v4.2.0 (2026-08-08)
+
+Greek depth wave (P3) + P4 remainder + rulings reconciliation, maintainer-approved ("proceed with the pending tasks"). Eval-verified: zero regressions on the 85 protected expectations; 104/104 on suite v2; learning metrics in `docs/loop/eval-baselines/2026-08-08-v2.json`.
+
+- **All 20 skills (patch)**: cross-catalog "Browse all 20 skills" blocks stripped from every SKILL.md (catalog lives in README/CLAUDE.md; curated Related Skills footers stay)
+- **keyword-research 4.2.0→4.2.1**: Greek inflection clustering module (case/number variants as one demand cluster; inflected forms belong in visible copy — placement asymmetry vs unaccented forms); trigger boundary aligned to description (competitor-gap handoff); single-turn default with stated assumptions; universal Volume/Difficulty/Intent columns in analysis tables with explained-N/A (never invented) and the Step-10 crosswalk-reference rule (4.2.1, surfaced by the eval re-run); Step-4 expansion applies to tool-export arrivals; Greeklish prompts answered in proper Greek
+- **serp-analysis 4.2.0**: new `references/greek-tourism-seasonality.md` (INSETE-sourced market context, DMA-flux hotel checklists, measured seasonal calendar, EL/EN/DE split) and `references/greek-shopping-surfaces.md` (BestPrice.gr + Google Shopping free listings as check-and-verify surfaces); el-GR availability census in the SERP-feature taxonomy (only evidenced asymmetries annotated)
+- **schema-markup-generator 4.1.0**: R2/R3 reconciliation — one primary type per page with documented auxiliaries (BreadcrumbList / nested identity / homepage WebSite), citation-lever stacking banned with the genuinely-both-things exception; all FAQ rich-result guidance purged (FAQPage kept for AI-engine parsing, Schema.org validation)
+- **seo-content-writer 4.2.0**: anti-slop ruleset (`references/anti-slop-ruleset.md` — tiered EN+EL vocabulary bans incl. Greek calque patterns, structural bans, information-gain test, specificity ladder); Greek YMYL credential conventions (`references/greek-ymyl-credentials.md` — registry-verifiable bios or omission, never approximation)
+- **content-quality-auditor 4.1.0**: anti-slop audit scans AS-1..AS-4 mapped onto existing CORE-EEAT items; findings carry Finding/Evidence/Impact/Fix + Confirmed/Likely/Hypothesis labels
+- **domain-authority-auditor 4.1.0**: `references/greek-eshop-compliance.md` (ODR platform discontinued 2025-07-20 → stale footer links are a staleness finding; ΓΕΜΗ/ΑΦΜ display, withdrawal right, ToS transparency — mapped to CITE T06/T08/T10, not-legal-advice disclaimer); confidence-labeled findings
+- **on-page-seo-auditor 4.1.0 / technical-seo-checker 4.1.0**: confidence-labeled finding formats; R4 leftovers purged (FID rows removed from references incl. the scoring rubric)
+- **Eval infrastructure**: suite v2 wording wave (14 grader refinements as 17 in-place rewords, one deliberate re-baselining wave); Mode B re-runs with regression check — 0 regressions, 2 fixed failures at unchanged wording, both grading-checker defects self-caught (ledger F7, evidence-inspection guard now mandatory); binding greek-content-editor pass on all fresh outputs (3 NATIVE / 4 MINOR-EDITS / 0 FAIL-class); new baseline `docs/loop/eval-baselines/2026-08-08-v2.json`
+
 ### v4.1.1 (2026-08-08)
 
 Measurement package + surgical craft fixes (loop assessment of 2026-08-08, maintainer-approved):
