@@ -1,14 +1,14 @@
 ---
 name: schema-markup-generator
-version: "4.0.2"
-description: 'Generate Schema.org JSON-LD structured data for FAQ, HowTo, Article, Product, LocalBusiness, and 6 other types targeting rich results. Use when the user asks to "add schema markup", "generate structured data", "JSON-LD", "FAQ schema", "rich snippets", "I want star ratings in Google", or "structured data validation errors". Produces validated markup targeting Google Rich Results, Bing structured data, and AI system understanding. Validates against Google Rich Results Test requirements. For broader technical SEO, see technical-seo-checker. For meta tag optimization, see meta-tags-optimizer.'
+version: "4.1.0"
+description: 'Generate Schema.org JSON-LD structured data — one accurate primary type per page (FAQPage, HowTo, Article, Product, LocalBusiness, and 6 other types) plus documented auxiliaries only where warranted. Use when the user asks to "add schema markup", "generate structured data", "JSON-LD", "FAQ schema", "rich snippets", "I want star ratings in Google", or "structured data validation errors". Produces validated markup for Google rich results where still offered (FAQ rich results retired 2026 — FAQPage is kept for AI-engine/GEO parsing), Bing structured data, and AI system understanding. Validates via the Schema.org validator, plus Rich Results Test for non-FAQ types. For broader technical SEO, see technical-seo-checker. For meta tag optimization, see meta-tags-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.0.2"
+  version: "4.1.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -38,24 +38,7 @@ metadata:
 
 # Schema Markup Generator
 
-> **[SEO & GEO Skills Library](https://github.com/aaron-he-zhu/seo-geo-claude-skills)** · 20 skills for SEO + GEO · [ClawHub](https://clawhub.ai/u/aaron-he-zhu) · [skills.sh](https://skills.sh/aaron-he-zhu/seo-geo-claude-skills)
-
-<details>
-<summary>Browse all 20 skills</summary>
-
-**Research** · [keyword-research](../../research/keyword-research/) · [competitor-analysis](../../research/competitor-analysis/) · [serp-analysis](../../research/serp-analysis/) · [content-gap-analysis](../../research/content-gap-analysis/)
-
-**Build** · [seo-content-writer](../seo-content-writer/) · [geo-content-optimizer](../geo-content-optimizer/) · [meta-tags-optimizer](../meta-tags-optimizer/) · **schema-markup-generator**
-
-**Optimize** · [on-page-seo-auditor](../../optimize/on-page-seo-auditor/) · [technical-seo-checker](../../optimize/technical-seo-checker/) · [internal-linking-optimizer](../../optimize/internal-linking-optimizer/) · [content-refresher](../../optimize/content-refresher/)
-
-**Monitor** · [rank-tracker](../../monitor/rank-tracker/) · [backlink-analyzer](../../monitor/backlink-analyzer/) · [performance-reporter](../../monitor/performance-reporter/) · [alert-manager](../../monitor/alert-manager/)
-
-**Cross-cutting** · [content-quality-auditor](../../cross-cutting/content-quality-auditor/) · [domain-authority-auditor](../../cross-cutting/domain-authority-auditor/) · [entity-optimizer](../../cross-cutting/entity-optimizer/) · [memory-management](../../cross-cutting/memory-management/)
-
-</details>
-
-This skill creates Schema.org structured data markup in JSON-LD format to help search engines understand your content and enable rich results in SERPs.
+This skill creates Schema.org structured data markup in JSON-LD format — ONE accurate primary type per page (settled ruling R2, CORE-EEAT O05) — to help search and AI engines understand your content and enable rich results where Google still offers them.
 
 ## When to Use This Skill
 
@@ -66,16 +49,16 @@ This skill creates Schema.org structured data markup in JSON-LD format to help s
 - Adding Local Business schema for location pages
 - Creating Review/Rating schema
 - Implementing Organization schema for brand presence
-- Any page where rich results would improve visibility
+- Any page where rich results (non-FAQ) or AI-engine parsing would improve visibility
 
 ## What This Skill Does
 
-1. **Schema Type Selection**: Recommends appropriate schema types
+1. **Schema Type Selection**: Recommends the ONE primary type that matches the page
 2. **JSON-LD Generation**: Creates valid structured data markup
 3. **Property Mapping**: Maps your content to schema properties
 4. **Validation Guidance**: Ensures schema meets requirements
-5. **Nested Schema**: Handles complex, multi-type schemas
-6. **Rich Result Eligibility**: Identifies which rich results you can target
+5. **Nested Entities**: Nests supporting entities (Offer, author, publisher, organizer, provider) inside the primary type instead of emitting extra top-level objects
+6. **Rich Result Eligibility**: Flags which rich results still exist for the chosen type (FAQ retired 2026)
 
 ## How to Use
 
@@ -125,26 +108,25 @@ Proceed with the full workflow using provided data. Note in the output which dat
 
 When a user requests schema markup:
 
-1. **Identify Content Type and Rich Result Opportunity**
+1. **Identify Content Type and Select ONE Primary Schema Type**
 
-   Reference the [CORE-EEAT Benchmark](../../references/core-eeat-benchmark.md) item **O05 (Schema Markup)** for content-type to schema mapping:
+   Reference the [CORE-EEAT Benchmark](../../references/core-eeat-benchmark.md) item **O05 (Schema Markup)** — its Pass criterion is *correct JSON-LD matching the content type*: one accurate primary type per page. The mapping below applies the settled ruling R2 boundary (`docs/loop/SETTLED-RULINGS.md`) to the O05 content-type list; the benchmark's own Section 5 table predates the R2 boundary clarification — where they differ, R2 governs:
 
    ```markdown
-   ### CORE-EEAT Schema Mapping (O05)
+   ### CORE-EEAT Schema Mapping (O05, single-primary form)
 
-   | Content Type | Required Schema | Conditional Schema |
-   |-------------|----------------|--------------------|
-   | Blog (guides) | Article, Breadcrumb | FAQ, HowTo |
-   | Blog (tools) | Article, Breadcrumb | FAQ, Review |
-   | Blog (insights) | Article, Breadcrumb | FAQ |
-   | Alternative | Comparison*, Breadcrumb, FAQ | AggregateRating |
-   | Best-of | ItemList, Breadcrumb, FAQ | AggregateRating per tool |
-   | Use-case | WebPage, Breadcrumb, FAQ | — |
-   | FAQ | FAQPage, Breadcrumb | — |
-   | Landing | SoftwareApplication, Breadcrumb, FAQ | WebPage |
-   | Testimonial | Review, Breadcrumb | FAQ, Person |
+   | Content Type | Primary Type (pick ONE) | Documented Auxiliaries (only if page data warrants) |
+   |-------------|-------------------------|-----------------------------------------------------|
+   | Blog (guides/tools/insights) | Article / BlogPosting | BreadcrumbList (real trail); author + publisher nested inside the Article |
+   | Alternative (X vs Y) | Article (comparison editorial) | BreadcrumbList |
+   | Best-of / list | ItemList | BreadcrumbList |
+   | Use-case | WebPage | BreadcrumbList |
+   | FAQ | FAQPage | BreadcrumbList |
+   | Landing (software) | SoftwareApplication | BreadcrumbList |
+   | Testimonial | Review | BreadcrumbList; reviewed item + reviewer nested inside the Review |
+   | Homepage | Organization (or WebSite) | — |
 
-   *Use the mapping above to ensure schema type matches content type (CORE-EEAT O05: Pass criteria).*
+   *ONE primary type satisfies O05. Auxiliaries are extras with their own documented job — never a way to "add more types".*
    ```
 
    ```markdown
@@ -165,23 +147,29 @@ When a user requests schema markup:
    | Breadcrumb | ✅/❌ | Medium - Shows navigation path |
    | Video | ✅/❌ | High - Shows video thumbnail |
    
-   **Recommended Schema Types**:
-   1. [Primary schema type] - [reason]
-   2. [Secondary schema type] - [reason]
+   **Recommended Schema**:
+   - **Primary type (ONE per page)**: [type] — [why it matches the content]
+   - **Auxiliaries (only if page data warrants)**: [e.g., BreadcrumbList — real trail provided | none]
    ```
 
 2. **Generate Schema Markup**
 
-   Based on the identified content type, generate the appropriate JSON-LD schema. Supported types: FAQPage, HowTo, Article/BlogPosting/NewsArticle, Product, LocalBusiness, Organization, BreadcrumbList, Event, Recipe, and combined multi-type schemas.
+   Generate JSON-LD for the ONE primary type selected in step 1. Supported types: FAQPage, HowTo, Article/BlogPosting/NewsArticle, Product, LocalBusiness, Organization, BreadcrumbList, Event, Recipe, SoftwareApplication.
 
    > **Reference**: See [references/schema-templates.md](./references/schema-templates.md) for complete, copy-ready JSON-LD templates for all schema types with required and optional properties.
 
+   **One primary type per page (settled ruling R2).** Default output is a single JSON-LD object. Supporting entities belong NESTED inside it as properties (`offers`, `author`, `publisher`, `organizer`, `provider`, `location`) — not as separate top-level objects.
+
+   - **Legitimate auxiliaries** — a second top-level object is justified only when it has its own engine-documented, non-citation job AND the page data warrants it: BreadcrumbList for a real breadcrumb trail (Google-documented site-structure feature); Organization/Person as publisher/author identity (normally nested — top-level only on the entity's own page); WebSite on the homepage.
+   - **Banned — citation-lever stacking**: adding schema types on the theory that more types raise AI-citation odds. No engine documents a citation gain from extra types; stacking only adds maintenance surface and content-mismatch (spam-policy) risk. A second full content type on one page (e.g., FAQPage bolted onto a service page, Article + Product both as primaries) IS stacking — banned unless the page genuinely is both things and each type is complete, accurate, and independently justified.
+   - When the user asks "type X or type Y — or both?", pick the one type the page IS and nest the other entity inside it (e.g., an Event with the organizer nested — not Event + Organization side by side).
+
    For each schema generated, include:
    - All required properties for the chosen type
-   - Rich result preview showing expected SERP appearance
+   - Rich result preview where the type still has one (FAQ: none — state the AI-engine/GEO parsing value instead)
    - Notes on which properties are required vs. optional
 
-   When combining multiple schema types on one page, wrap them in a JSON array inside a single `<script type="application/ld+json">` tag.
+   When a documented auxiliary legitimately accompanies the primary (e.g., BreadcrumbList), wrap the objects in a JSON array inside a single `<script type="application/ld+json">` tag — only then.
 
 3. **Provide Implementation and Validation**
 
@@ -238,9 +226,10 @@ When a user requests schema markup:
 - [ ] Page URL or content provided
 - [ ] Schema type appropriate for content (Article for blog, Product for e-commerce, etc.)
 - [ ] All required data available (author, dates, prices, etc. depending on schema type)
-- [ ] Content eligibility for rich results confirmed
+- [ ] Rich-result expectations honest for the type (FAQ has none — retired 2026)
 
 ### Output Validation
+- [ ] Exactly ONE primary type emitted; any auxiliary has a documented job and real page data behind it (R2)
 - [ ] JSON syntax validates (no trailing commas, proper quotes)
 - [ ] All required properties present for chosen schema type
 - [ ] URLs are absolute, not relative
@@ -317,20 +306,22 @@ FAQ rich results are retired — Google pulled Search Console reporting/API, the
 
 ## Tips for Success
 
-1. **Match visible content** - Schema must reflect what users see
-2. **Don't spam** - Only add schema for relevant content
-3. **Keep updated** - Update dates and prices when they change
-4. **Test thoroughly** - Validate before deploying
-5. **Monitor Search Console** - Watch for errors and warnings
+1. **One primary type per page** - Nest supporting entities; auxiliaries only with a documented job (R2)
+2. **Match visible content** - Schema must reflect what users see
+3. **Don't spam** - Only add schema for relevant content; more types is not more citations
+4. **Keep updated** - Update dates and prices when they change
+5. **Test thoroughly** - Validate before deploying
+6. **Monitor Search Console** - Watch for errors and warnings (non-FAQ types — FAQ reporting was cut in 2026)
 
 ## Schema Type Decision Tree
 
-> **Reference**: See [references/schema-decision-tree.md](./references/schema-decision-tree.md) for the full decision tree (content-to-schema mapping), industry-specific recommendations, implementation priority tiers (P0-P4), and validation quick reference.
+> **Reference**: See [references/schema-decision-tree.md](./references/schema-decision-tree.md) for primary-type selection by content, the nested-vs-auxiliary boundary (R2), industry starting points, implementation priority tiers (P0-P4), and validation quick reference.
 
 ## Reference Materials
 
-- [Schema Templates](./references/schema-templates.md) - Copy-ready JSON-LD templates for all schema types
-- [Validation Guide](./references/validation-guide.md) - Common errors, required properties, testing workflow
+- [Schema Templates](./references/schema-templates.md) - Copy-ready JSON-LD templates for all schema types, plus the primary + auxiliary array form
+- [Schema Decision Tree](./references/schema-decision-tree.md) - Primary-type selection, nested-vs-auxiliary boundary, industry starting points, priority tiers (P0-P4)
+- [Validation Guide](./references/validation-guide.md) - Common errors, required properties, testing workflow (FAQPage: Schema.org validator only)
 
 ## Related Skills
 

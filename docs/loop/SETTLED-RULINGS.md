@@ -29,8 +29,20 @@ before 2026-07-18 are not recoverable from the current session transcript.
 - **Statement**: Piling multiple schema types on a page adds no citation signal. One accurate
   JSON-LD type per page (CORE-EEAT item O05) is enough.
 - **Decided**: on/before 2026-07-18; re-affirmed 2026-08-08.
+- **Boundary (clarified 2026-08-08 — precision, not reversal)**: R2 bans *citation-lever
+  stacking*: adding schema types on the theory that more types raise AI-citation odds. It
+  does NOT ban multi-type markup where each extra type has its own engine-documented,
+  non-citation job. Concretely: (a) one PRIMARY content type per page (O05) remains the
+  rule; (b) documented auxiliary types alongside it are legitimate — BreadcrumbList
+  (Google-documented site-structure feature), Organization/Person nested as
+  publisher/author identity, WebSite on the homepage; (c) a second full content type on
+  the same page (e.g., FAQPage bolted onto a service page, Article + Product both as
+  primaries) IS stacking and stays banned — unless the page genuinely is both things and
+  each type is complete, accurate, and independently justified. Skill text and references
+  must teach this boundary, not the pre-clarification "pile types" pattern.
 - **Encoded in repo**: `build/geo-content-optimizer/SKILL.md:159`;
-  `build/geo-content-optimizer/references/ai-citation-patterns.md:476`; `VERSIONS.md:40`.
+  `build/geo-content-optimizer/references/ai-citation-patterns.md:476`; `VERSIONS.md:40`;
+  boundary alignment in `build/schema-markup-generator/` v4.1.0 (2026-08-08 wave).
 - **Reopens on**: primary evidence (Google/engine docs or engine-published research) that
   multiple types per page raise citation odds.
 
@@ -51,7 +63,9 @@ before 2026-07-18 are not recoverable from the current session transcript.
 - **Decided**: on/before 2026-07-18; FID cleanup applied 2026-08-08
   (technical-seo-checker 4.0.1).
 - **Encoded in repo**: `monitor/performance-reporter/references/kpi-definitions.md:277`;
-  `VERSIONS.md:45`; `optimize/technical-seo-checker/SKILL.md:261`.
+  `VERSIONS.md:45`; `optimize/technical-seo-checker/SKILL.md:258` (pointer refreshed
+  2026-08-08 after the labels wave; FID rows also purged from that skill's two reference
+  files the same day — the 4.0.1 cleanup had missed them).
 - **Reopens on**: Google-primary threshold change only (web.dev / Google Search Central).
 
 ## R5 — Unlinked brand mentions are a GEO/entity visibility signal

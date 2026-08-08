@@ -70,15 +70,15 @@ Quick reference for all 80 CORE-EEAT audit items. Full scoring criteria in [core
 | ID  | Check Item         | Score   | Points | Notes                                                       |
 |-----|--------------------|---------|--------|-------------------------------------------------------------|
 | C01 | Intent Alignment   | Pass    | 10     | Matches "best X" comparison intent; title and body aligned  |
-| C02 | Direct Answer      | Partial | 5      | Answer appears in first 300 words but no summary box        |
+| C02 | Direct Answer      | Partial | 5      | Answer appears in first 300 words but no summary box — Confirmed |
 | C03 | Query Coverage     | Pass    | 10     | Covers "project management tools", "remote team software", "best PM tools" |
 | C04 | Definition First   | Pass    | 10     | Key terms ("PM tool", "async collaboration") defined on first use |
-| C05 | Topic Scope        | Partial | 5      | States what's covered but not what's excluded               |
+| C05 | Topic Scope        | Partial | 5      | States what's covered but not what's excluded — Confirmed   |
 | C06 | Audience Targeting | Pass    | 10     | Explicitly targets "remote team leads and managers"         |
 | C07 | Semantic Coherence | Pass    | 10     | Logical flow: intro > criteria > tools > comparison > verdict |
 | C08 | Use Case Mapping   | Pass    | 10     | Decision matrix for team size, budget, and features         |
-| C09 | FAQ Coverage       | Fail    | 0      | No FAQ section despite long-tail potential ("free PM tools for small teams") |
-| C10 | Semantic Closure   | Partial | 5      | Conclusion present but doesn't loop back to opening promise |
+| C09 | FAQ Coverage       | Fail    | 0      | No FAQ section despite long-tail potential ("free PM tools for small teams") — Confirmed |
+| C10 | Semantic Closure   | Partial | 5      | Conclusion present but doesn't loop back to opening promise — Confirmed |
 
 **C Dimension Score**: 75/100 (Good)
 **Blog Post weight for C**: 25%
@@ -86,14 +86,19 @@ Quick reference for all 80 CORE-EEAT audit items. Full scoring criteria in [core
 
 #### Priority Improvements from C Dimension
 
-1. **C09 FAQ Coverage** -- Add FAQ section with 3-5 long-tail questions
-   - Current: Fail (0) | Potential gain: 2.5 weighted points
-   - Action: Add FAQ with "Are there free PM tools for small remote teams?", "How to migrate between PM tools?", etc.
+1. **C09 FAQ Coverage** -- Confirmed
+   - **Finding**: No FAQ section despite clear long-tail potential
+   - **Evidence**: no FAQ/Q&A block anywhere on the page; uncovered long-tail queries such as "free PM tools for small remote teams"
+   - **Impact**: Fail (0) -> potential gain of 2.5 weighted points
+   - **Fix**: Add FAQ with "Are there free PM tools for small remote teams?", "How to migrate between PM tools?", etc.
 
-2. **C02 Direct Answer** -- Add a summary box above the fold
-   - Current: Partial (5) | Potential gain: 1.25 weighted points
-   - Action: Insert a "Top 3 Picks" callout box in the first 150 words
+2. **C02 Direct Answer** -- Confirmed
+   - **Finding**: Core answer not delivered in the first 150 words
+   - **Evidence**: answer first appears in the first 300 words; no summary box above the fold
+   - **Impact**: Partial (5) -> potential gain of 1.25 weighted points
+   - **Fix**: Insert a "Top 3 Picks" callout box in the first 150 words
 
 [... remaining 7 dimensions (O, R, E, Exp, Ept, A, T) follow the same per-item format ...]
-[... then: Dimension Scores table, Top 5 Priority Improvements, Action Plan, Recommended Next Steps ...]
+[... anti-slop scan hits (AS-1 to AS-4) are recorded in the notes of the items they evidence: O09, O06, C02, E06, E08, R01, R02, R04, Ept03 ...]
+[... then: Dimension Scores table, Top 5 Priority Improvements (Finding / Evidence / Impact / Fix + confidence label), Action Plan, Recommended Next Steps ...]
 ```

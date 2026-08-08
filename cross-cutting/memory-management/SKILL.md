@@ -1,13 +1,13 @@
 ---
 name: memory-management
-version: "4.0.0"
+version: "4.0.1"
 description: 'Persist SEO/GEO project context, brand guidelines, and target keywords across sessions so your agent remembers strategy without re-explaining. Use when the user asks to "remember project context", "save SEO data", "track campaign progress", "store keyword data", "manage project memory", "remember this for next time", "save my keyword data", "keep track of this campaign". Manages a two-layer memory system (hot cache + cold storage) with intelligent promotion/demotion.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.0.0"
+  version: "4.0.1"
   geo-relevance: "low"
   tags:
     - seo
@@ -40,23 +40,6 @@ metadata:
 
 # Memory Management
 
-
-> **[SEO & GEO Skills Library](https://github.com/aaron-he-zhu/seo-geo-claude-skills)** · 20 skills for SEO + GEO · [ClawHub](https://clawhub.ai/u/aaron-he-zhu) · [skills.sh](https://skills.sh/aaron-he-zhu/seo-geo-claude-skills)
-
-<details>
-<summary>Browse all 20 skills</summary>
-
-**Research** · [keyword-research](../../research/keyword-research/) · [competitor-analysis](../../research/competitor-analysis/) · [serp-analysis](../../research/serp-analysis/) · [content-gap-analysis](../../research/content-gap-analysis/)
-
-**Build** · [seo-content-writer](../../build/seo-content-writer/) · [geo-content-optimizer](../../build/geo-content-optimizer/) · [meta-tags-optimizer](../../build/meta-tags-optimizer/) · [schema-markup-generator](../../build/schema-markup-generator/)
-
-**Optimize** · [on-page-seo-auditor](../../optimize/on-page-seo-auditor/) · [technical-seo-checker](../../optimize/technical-seo-checker/) · [internal-linking-optimizer](../../optimize/internal-linking-optimizer/) · [content-refresher](../../optimize/content-refresher/)
-
-**Monitor** · [rank-tracker](../../monitor/rank-tracker/) · [backlink-analyzer](../../monitor/backlink-analyzer/) · [performance-reporter](../../monitor/performance-reporter/) · [alert-manager](../../monitor/alert-manager/)
-
-**Cross-cutting** · [content-quality-auditor](../content-quality-auditor/) · [domain-authority-auditor](../domain-authority-auditor/) · [entity-optimizer](../entity-optimizer/) · **memory-management**
-
-</details>
 
 This skill implements a two-layer memory system for SEO and GEO projects, maintaining a hot cache for active context and cold storage for detailed historical data. It automatically promotes frequently referenced items and demotes stale data, ensuring optimal context loading and efficient project memory.
 

@@ -1,13 +1,13 @@
 ---
 name: domain-authority-auditor
-version: "4.0.0"
+version: "4.1.0"
 description: 'Run the full 40-item CITE domain authority audit across 4 dimensions with domain-type weighting and veto checks. Use when the user asks to "audit domain authority", "domain trust score", "CITE audit", "how authoritative is my site", "domain credibility check", "is my domain trustworthy", "domain credibility score", "domain rating". For content-level assessment, see content-quality-auditor. For link profile details, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.0.0"
+  version: "4.1.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -40,23 +40,6 @@ metadata:
 # Domain Authority Auditor
 
 > Based on [CITE Domain Rating](https://github.com/aaron-he-zhu/cite-domain-rating). Full benchmark reference: [references/cite-domain-rating.md](../../references/cite-domain-rating.md)
-
-> **[SEO & GEO Skills Library](https://github.com/aaron-he-zhu/seo-geo-claude-skills)** · 20 skills for SEO + GEO · [ClawHub](https://clawhub.ai/u/aaron-he-zhu) · [skills.sh](https://skills.sh/aaron-he-zhu/seo-geo-claude-skills)
-
-<details>
-<summary>Browse all 20 skills</summary>
-
-**Research** · [keyword-research](../../research/keyword-research/) · [competitor-analysis](../../research/competitor-analysis/) · [serp-analysis](../../research/serp-analysis/) · [content-gap-analysis](../../research/content-gap-analysis/)
-
-**Build** · [seo-content-writer](../../build/seo-content-writer/) · [geo-content-optimizer](../../build/geo-content-optimizer/) · [meta-tags-optimizer](../../build/meta-tags-optimizer/) · [schema-markup-generator](../../build/schema-markup-generator/)
-
-**Optimize** · [on-page-seo-auditor](../../optimize/on-page-seo-auditor/) · [technical-seo-checker](../../optimize/technical-seo-checker/) · [internal-linking-optimizer](../../optimize/internal-linking-optimizer/) · [content-refresher](../../optimize/content-refresher/)
-
-**Monitor** · [rank-tracker](../../monitor/rank-tracker/) · [backlink-analyzer](../../monitor/backlink-analyzer/) · [performance-reporter](../../monitor/performance-reporter/) · [alert-manager](../../monitor/alert-manager/)
-
-**Cross-cutting** · [content-quality-auditor](../content-quality-auditor/) · **domain-authority-auditor** · [entity-optimizer](../entity-optimizer/) · [memory-management](../memory-management/)
-
-</details>
 
 This skill evaluates domain authority across 40 standardized criteria organized in 4 dimensions. It produces a comprehensive audit report with per-item scoring, dimension and weighted scores by domain type, veto item checks, and a prioritized action plan.
 
@@ -133,6 +116,21 @@ Proceed with the full 40-item audit using provided data. Note in the output whic
 ## Instructions
 
 When a user requests a domain authority audit:
+
+### Finding Format & Confidence Labels
+
+Findings surface in two places — per-item **Notes** and the **Top 5 Priority
+Improvements**. Report each with **Finding** (the item and what falls short), **Evidence**
+(the observed data behind the score), **Impact** (weighted points at stake), and **Fix**
+(the concrete action), plus a **Confidence** label:
+
+- **Confirmed** — directly observed in provided data or crawl output
+- **Likely** — strong indirect evidence (e.g., a consistent pattern across sampled pages or tool exports)
+- **Hypothesis** — plausible but needs verification (e.g., anything inferred without crawl/tool access)
+
+**Rule**: every Hypothesis finding must name what would confirm it (the specific tool,
+query, or data source). Items that cannot be evaluated at all stay "N/A — requires [data
+source]" (see Step 3) — do not downgrade them into Hypothesis scores.
 
 ### Step 1: Preparation
 
@@ -222,6 +220,8 @@ Same format for Trust and Eminence dimensions.
 
 **Note**: Some items require specialized data (C05-C08 AI citation data, I01 knowledge graph queries, T04-T05 IP/profile analysis). Score what is observable; mark unverifiable items as "N/A — requires [data source]" and exclude from dimension average.
 
+**Greek e-commerce domains**: apply the supplementary trust/staleness checks in [references/greek-eshop-compliance.md](./references/greek-eshop-compliance.md) when scoring T06, T08, and T10 (stale ODR link, ΓΕΜΗ/ΑΦΜ and entity transparency, withdrawal/returns and policy furniture). These are audit signals only — never legal advice; compliance conclusions go to the client's lawyer.
+
 ### Step 4: Scoring & Report
 
 Calculate scores and generate the final report:
@@ -266,9 +266,11 @@ Sorted by: weight × points lost (highest impact first)
 
 1. **[ID] [Name]** — [specific modification suggestion]
    - Current: [Fail/Partial] | Potential gain: [X] weighted points
+   - Evidence: [observed data behind the score] | Confidence: [Confirmed/Likely/Hypothesis — if Hypothesis, name what would confirm it]
    - Action: [concrete step]
 2. **[ID] [Name]** — [specific modification suggestion]
    - Current: [Fail/Partial] | Potential gain: [X] weighted points
+   - Evidence: [observed data behind the score] | Confidence: [Confirmed/Likely/Hypothesis — if Hypothesis, name what would confirm it]
    - Action: [concrete step]
 3–5. [Same format]
 
@@ -323,6 +325,7 @@ For a complete assessment, pair this CITE audit with a CORE-EEAT content audit:
 - [ ] All 3 veto items checked first and flagged if triggered
 - [ ] Top 5 improvements sorted by weighted impact, not arbitrary
 - [ ] Every recommendation is specific and actionable (not generic advice)
+- [ ] Every finding carries a Confidence label (Confirmed / Likely / Hypothesis); Hypothesis findings name what would confirm them
 - [ ] Action plan includes concrete steps with effort estimates
 
 ## Example
@@ -341,6 +344,7 @@ See [references/example-report.md](./references/example-report.md) for a complet
 
 - [CITE Domain Rating](../../references/cite-domain-rating.md) — Full 40-item benchmark with dimension definitions, scoring criteria, domain-type weight tables, and veto items
 - [references/example-report.md](./references/example-report.md) — Complete CITE audit example with scored dimensions, top 5 improvements, action plan, and CORE-EEAT cross-reference
+- [references/greek-eshop-compliance.md](./references/greek-eshop-compliance.md) — Greek e-shop trust/compliance audit items mapped onto CITE T06/T08/T10 (stale ODR link, ΓΕΜΗ/ΑΦΜ transparency, withdrawal/returns and policy furniture) — audit signals, not legal advice
 
 ## Related Skills
 

@@ -47,23 +47,23 @@ Full example audit output for reference. See the [SKILL.md](../SKILL.md) for the
 Sorted by: weight × points lost (highest impact first)
 
 1. **I01 Knowledge Graph Presence** — Create entity entry in Google Knowledge Graph
-   - Current: Fail | Potential gain: 1.5 weighted points
+   - Current: Fail | Potential gain: 1.5 weighted points | Evidence: graded Fail in the dimension table above (no entity entry found) | Confidence: Confirmed
    - Action: Create Wikidata entry for CloudHost Inc. with P856 (website), P452 (industry), P571 (inception)
 
 2. **C05 AI Citation Volume** — Increase citations in AI-generated answers
-   - Current: Partial | Potential gain: 2.0 weighted points
+   - Current: Partial | Potential gain: 2.0 weighted points | Evidence: graded Partial in the dimension table above | Confidence: Likely (sampled AI answers, not exhaustive)
    - Action: Optimize top 10 pages for GEO; add definitive statements AI can quote directly
 
 3. **I03 Brand SERP Control** — Branded SERP shows only 4 of 10 results from owned properties
-   - Current: Partial | Potential gain: 0.75 weighted points
+   - Current: Partial | Potential gain: 0.75 weighted points | Evidence: branded-SERP scan, 4 of 10 results owned | Confidence: Confirmed
    - Action: Claim Google Business Profile; build out social profiles; create CrunchBase entry
 
 4. **E04 Content Freshness Cadence** — 40% of content is >12 months without update
-   - Current: Partial | Potential gain: 1.25 weighted points
+   - Current: Partial | Potential gain: 1.25 weighted points | Evidence: content inventory, 40% of URLs >12 months old | Confidence: Confirmed
    - Action: Establish monthly content refresh schedule; prioritize top 20 traffic pages
 
 5. **I05 Schema.org Completeness** — Organization schema missing sameAs, founder, foundingDate
-   - Current: Partial | Potential gain: 0.75 weighted points
+   - Current: Partial | Potential gain: 0.75 weighted points | Evidence: markup crawl, properties absent from Organization schema | Confidence: Confirmed
    - Action: Add complete Organization schema with sameAs links to Wikidata, LinkedIn, CrunchBase
 
 ### Action Plan

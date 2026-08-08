@@ -49,11 +49,11 @@ Score Breakdown:
 ## Priority Issues
 
 ### Critical
-1. **Internal linking severely underdeveloped** — Only 2 internal links found. Add links to individual headphone review pages (/sony-wh1000xm5-review, /bose-qc-ultra-review) and the headphones category page. Target 5-8 contextual internal links.
-2. **3 product images missing alt text** — Images for Sony WH-1000XM5, Bose QC Ultra, and Apple AirPods Max have empty alt attributes. Each missing alt tag is a lost ranking signal in Google Images.
+1. **Internal linking severely underdeveloped** — Evidence: crawl found only 2 internal links in the body. Impact: topical authority does not flow to the review pages this post should feed. Fix: add links to /sony-wh1000xm5-review, /bose-qc-ultra-review and the headphones category page; target 5-8 contextual links. Confidence: Confirmed.
+2. **3 product images missing alt text** — Evidence: Sony WH-1000XM5, Bose QC Ultra, and Apple AirPods Max images have empty alt attributes. Impact: lost Google Images ranking signals and weaker accessibility. Fix: add descriptive alt text to all three. Confidence: Confirmed.
 
 ### Important
-1. **Meta description lacks call-to-action** — Current description states facts but does not compel clicks. Add "Compare prices and features" or "See our top picks" to drive CTR.
+1. **Meta description lacks call-to-action** — Evidence: current description states facts with no click prompt. Impact: depressed SERP CTR against comparison competitors. Fix: add "Compare prices and features" or "See our top picks". Confidence: Likely (CTR effect inferred, not measured on this page).
 
 ## Quick Wins
 

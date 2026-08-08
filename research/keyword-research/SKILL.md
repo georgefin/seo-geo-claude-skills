@@ -1,13 +1,13 @@
 ---
 name: keyword-research
-version: "4.1.1"
+version: "4.2.1"
 description: 'Discover high-value SEO keywords with search intent analysis, difficulty scoring, topic clustering, and AI citation potential. Use when the user asks to "find keywords", "keyword research", "what should I write about", "keyword difficulty score", "identify ranking opportunities", "topic ideas", "what are people searching for", or "long-tail keyword suggestions". For competitor keyword gaps, see competitor-analysis. For topic coverage gaps, see content-gap-analysis.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.1.1"
+  version: "4.2.1"
   geo-relevance: "medium"
   tags:
     - seo
@@ -40,23 +40,6 @@ metadata:
 
 # Keyword Research
 
-
-> **[SEO & GEO Skills Library](https://github.com/aaron-he-zhu/seo-geo-claude-skills)** · 20 skills for SEO + GEO · [ClawHub](https://clawhub.ai/u/aaron-he-zhu) · [skills.sh](https://skills.sh/aaron-he-zhu/seo-geo-claude-skills)
-
-<details>
-<summary>Browse all 20 skills</summary>
-
-**Research** · **keyword-research** · [competitor-analysis](../competitor-analysis/) · [serp-analysis](../serp-analysis/) · [content-gap-analysis](../content-gap-analysis/)
-
-**Build** · [seo-content-writer](../../build/seo-content-writer/) · [geo-content-optimizer](../../build/geo-content-optimizer/) · [meta-tags-optimizer](../../build/meta-tags-optimizer/) · [schema-markup-generator](../../build/schema-markup-generator/)
-
-**Optimize** · [on-page-seo-auditor](../../optimize/on-page-seo-auditor/) · [technical-seo-checker](../../optimize/technical-seo-checker/) · [internal-linking-optimizer](../../optimize/internal-linking-optimizer/) · [content-refresher](../../optimize/content-refresher/)
-
-**Monitor** · [rank-tracker](../../monitor/rank-tracker/) · [backlink-analyzer](../../monitor/backlink-analyzer/) · [performance-reporter](../../monitor/performance-reporter/) · [alert-manager](../../monitor/alert-manager/)
-
-**Cross-cutting** · [content-quality-auditor](../../cross-cutting/content-quality-auditor/) · [domain-authority-auditor](../../cross-cutting/domain-authority-auditor/) · [entity-optimizer](../../cross-cutting/entity-optimizer/) · [memory-management](../../cross-cutting/memory-management/)
-
-</details>
 
 Discovers, analyzes, and prioritizes keywords for SEO and GEO content strategies. Identifies high-value opportunities based on search volume, competition, intent, and business relevance.
 
@@ -101,11 +84,13 @@ Find low-competition keywords for [topic] with commercial intent
 Identify question-based keywords for [topic] that AI systems might answer
 ```
 
-### Competitive Research
+### Competitive Context
 
 ```
-What keywords is [competitor URL] ranking for that I should target?
+Research keywords for [topic] — my main competitors are [competitor A] and [competitor B]
 ```
+
+Competitor names are context for seed generation only. Full competitor keyword/gap analysis ("what does [competitor] rank for that I don't?") → hand off to [competitor-analysis](../competitor-analysis/), passing your domain, the competitor domains, and target keywords. Never present guessed competitor rankings, positions, or URLs as observed data — label any competitor-keyword guess explicitly as an assumption or estimate (hedging words like "likely" are not a label).
 
 ## Data Sources
 
@@ -130,15 +115,17 @@ Proceed with the full analysis using provided data. Note in the output which met
 
 When a user requests keyword research:
 
-1. **Understand the Context**
+1. **Understand the Context — single turn by default**
 
-   Ask clarifying questions if not provided:
+   If the request already contains a seed topic plus market/language context, proceed immediately and list the stated assumptions at the top of the report. Ask clarifying questions only when genuinely blocked — no seed topic at all, or contradictory instructions; anything else missing becomes a stated assumption, not a question. Establish (from the prompt, or as a stated assumption):
    - What is your product/service/topic?
    - Who is your target audience?
    - What is your business goal? (traffic, leads, sales)
    - What is your current domain authority? (new site, established, etc.)
    - Any specific geographic targeting?
    - Preferred language?
+
+   **Reply language**: a Greeklish prompt gets its reply in proper Greek (full diacritics); a prompt mixing Greek and English business language follows the language of the user's prose. Greeklish forms belong in keyword-targeting tables only, never in visible deliverable copy — placement rules: [references/greek-keyword-coverage.md](./references/greek-keyword-coverage.md).
 
 2. **Generate Seed Keywords**
 
@@ -180,7 +167,7 @@ When a user requests keyword research:
 
 4. **Expand Greek Seed Keywords (Dual-Coverage)**
 
-   Greek users search tonos-optional (accents dropped) and often in Greeklish (Latin-script transliteration). For every Greek seed keyword, expand to 4 forms — one demand cluster for volume aggregation, distinct forms for placement:
+   Greek users search tonos-optional (accents dropped) and often in Greeklish (Latin-script transliteration). Expand every Greek keyword to 4 forms — regardless of how it arrived (typed by the user, brainstormed in Steps 2-3, or imported from a tool export file) — one demand cluster for volume aggregation, distinct forms for placement:
 
    ```markdown
    ### Greek Dual-Coverage Pattern
@@ -196,6 +183,8 @@ When a user requests keyword research:
    ```
 
    Diacritic normalization (a ↔ b) is reliable in search matching; Greeklish (c) is not — target it explicitly (domains, brand terms, paid search bids) rather than relying on organic normalization. More forms and verticals: [references/greek-keyword-coverage.md](./references/greek-keyword-coverage.md).
+
+   Greek keywords also inflect across case and number ("θήκη κινητού" ↔ "θήκες κινητών"): cluster and sum inflected variants the same way — but unlike forms (b)/(c), inflected forms are correct Greek and belong in visible copy, used naturally. See [Inflected Forms](./references/greek-keyword-coverage.md#inflected-forms-case-and-number-as-one-demand-cluster).
 
 5. **Classify Search Intent**
 
@@ -308,6 +297,8 @@ When a user requests keyword research:
 
     Local-intent keywords ("near me", [service] + city/neighborhood) map to more than website pages — map them to Google Business Profile surfaces too:
 
+    Every keyword referenced here must already carry metrics in an analysis table above; a new target surfacing at this step first gets an analysis row (explained N/A allowed).
+
     | Keyword Type | Website Surface | GBP Surface |
     |---------------|-----------------|-------------|
     | Service + city ("υδραυλικός Αθήνα") | Service/location page | Products/Services description |
@@ -321,6 +312,8 @@ When a user requests keyword research:
 
     Produce a report containing: Executive Summary, Top Keyword Opportunities (Quick Wins, Growth, GEO), Topic Clusters, Content Calendar, and Next Steps.
 
+    **Metrics columns are universal in analysis tables**: every keyword analysis table in the deliverable — including GEO/conversational-query tables — carries Volume / Difficulty / Intent columns. When a metric is not tool-reported (typical for GEO conversational queries and GBP-driven local terms), the cell shows an explained N/A (e.g., "N/A — not tool-reported") — never an invented number. Placement/crosswalk tables (like Step 10's GBP mapping) reference keywords already metricized in an analysis table; a keyword target may not appear for the first time in a crosswalk — give it an analysis row (explained N/A allowed) first.
+
     > **Reference**: See [references/example-report.md](./references/example-report.md) for the full report template and example.
 
 ## Validation Checkpoints
@@ -333,7 +326,7 @@ When a user requests keyword research:
 
 ### Output Validation
 - [ ] Every recommendation cites specific data points (not generic advice)
-- [ ] Search volume and difficulty scores included for each keyword
+- [ ] Every keyword analysis table (incl. GEO/conversational and local) carries volume / difficulty / intent columns — unreported metrics as explained N/A ("N/A — not tool-reported"), never invented; crosswalk tables only reference keywords already metricized above
 - [ ] Keywords grouped by intent and mapped to content types
 - [ ] Topic clusters show clear pillar-to-cluster relationships
 - [ ] Greek-market keywords show accented, unaccented, Greeklish, and EN forms with placement noted (if applicable)
@@ -348,7 +341,7 @@ When a user requests keyword research:
 
 - **Intent Mapping**: `Map all keywords for [topic] by search intent and funnel stage`
 - **Seasonal Analysis**: `Identify seasonal keyword trends for [industry]`
-- **Competitor Gap**: `What keywords do [competitor 1], [competitor 2] rank for that I'm missing?`
+- **Competitor Gap → handoff**: competitor keyword/gap analysis belongs to [competitor-analysis](../competitor-analysis/) — refer the user there, passing your domain, the competitor domains, and any target keywords
 - **Local Keywords**: `Research local keywords for [business type] in [city/region]`
 
 ## Tips for Success
@@ -368,7 +361,7 @@ When a user requests keyword research:
 - [Topic Cluster Templates](./references/topic-cluster-templates.md) — Hub-and-spoke architecture templates for pillar and cluster content
 - [Keyword Prioritization Framework](./references/keyword-prioritization-framework.md) — Priority scoring matrix, categories, and seasonal keyword patterns
 - [Example Report](./references/example-report.md) — Complete example keyword research report for project management software
-- [Greek Keyword Coverage](./references/greek-keyword-coverage.md) — Diacritics/Greeklish dual-coverage patterns, transliteration reference, and GBP surface mapping
+- [Greek Keyword Coverage](./references/greek-keyword-coverage.md) — Diacritics/Greeklish dual-coverage patterns, inflection-set clustering (case/number), transliteration reference, and GBP surface mapping
 
 ## Related Skills
 

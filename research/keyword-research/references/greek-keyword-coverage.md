@@ -1,13 +1,14 @@
-# Greek Keyword Coverage: Diacritics, Greeklish, and GBP Mapping
+# Greek Keyword Coverage: Diacritics, Greeklish, Inflection, and GBP Mapping
 
 Reference detail for Step 4 (Greek Dual-Coverage Expansion) and Step 10 (GBP Surface Mapping) of the main workflow. Applies whenever the target market or audience is Greek.
 
 ## Why It Matters
 
-Greek search behavior fragments a single demand signal into multiple spellings:
+Greek search behavior fragments a single demand signal into multiple surface forms:
 
 - **Tonos-optional**: Many users type without diacritics (tonos) — mobile autocomplete, habit, and older input methods all drop accents.
 - **Greeklish**: Latin-script transliteration is common on non-Greek keyboards, in the diaspora, and for brand recall (e.g., typing a brand name from memory).
+- **Inflection**: Greek nouns and adjectives inflect for case and number — "θήκη κινητού" and "θήκες κινητών" are distinct query strings for the same need (see [Inflected Forms](#inflected-forms-case-and-number-as-one-demand-cluster)).
 
 Treated as separate keywords, these fragment volume and understate real demand. Treated as one cluster with careless placement, they produce spammy, duplicated, or unreadable copy. The dual-coverage pattern solves both.
 
@@ -66,6 +67,41 @@ Common renderings for letters that create the most keyword-variant fragmentation
 
 Practical implication: when generating Greeklish forms for paid search or domain checks, generate 2-3 plausible variants per keyword (e.g., both "x" and "h" for χ) rather than assuming one canonical spelling — Greeklish has no single standard.
 
+## Inflected Forms: Case and Number as One Demand Cluster
+
+The 4-form pattern covers spelling axes (diacritics, script). Greek adds a morphological axis: nouns and adjectives inflect for **case** (nominative / genitive / accusative in everyday modern Greek) and **number** (singular / plural), so one commercial need surfaces as several distinct query strings:
+
+| Query string | Morphology | Underlying need |
+|--------------|------------|-----------------|
+| θήκη κινητού | nom. sg. + gen. sg. | phone case |
+| θήκες κινητών | nom. pl. + gen. pl. | phone case — same need |
+| τιμή θήκης κινητού | "price of..." genitive chain | phone case — same head noun, price angle |
+
+Keyword tools index surface strings, so tool-reported volume fragments across inflected variants exactly as it does across accented/unaccented and Greeklish variants — each form can appear as its own export row. **Treat an inflection set as ONE demand cluster**: sum volumes across its variants when scoring opportunity (Step 7), just as with the 4 spelling forms above. (The axes multiply: each inflected variant still has its own unaccented and Greeklish spellings — cluster the whole set.)
+
+The inflection system itself is standard modern Greek grammar, and Greek IR/stemming work (e.g., Ntais 2006, a suffix-stripping Greek stemmer thesis) exists precisely because surface forms must be conflated to a shared stem for retrieval. Anything beyond the existence of the system — per-variant demand splits, ranking magnitudes — is not established here; take it from your tool data or leave it unstated.
+
+### Placement: The Critical Asymmetry
+
+Unlike unaccented Greek (b) and Greeklish (c), inflected forms are **correct Greek** — they DO belong in visible copy. Use whichever form each sentence naturally calls for; never contort copy to repeat the nominative where grammar wants a genitive or a plural. Natural writing already rotates through the inflection set — that is coverage, not keyword stuffing.
+
+| Variant axis | Cluster + sum volume? | Allowed in visible copy? |
+|--------------|-----------------------|---------------------------|
+| Accented ↔ unaccented (a ↔ b) | Yes | Accented form only |
+| Greeklish (c) | Yes | No — domains, brand variants, paid search |
+| Inflected forms (case / number) | Yes | Yes — any variant, as grammar dictates |
+
+### Practical Workflow
+
+1. **Generate the inflection set** per head noun: singular / plural × nominative / genitive / accusative, keeping the commercially plausible forms (genitives are frequent inside compound commercial queries — "θήκη **κινητού**", "τιμές **υδραυλικών**").
+2. **Check tool coverage**: see which variants your tools report as separate rows (typical) and which they already conflate.
+3. **Cluster and sum**: one row per inflection set in opportunity scoring, volumes summed across variants — the same move as the 4-form aggregation.
+4. **Pick the natural form per placement**: whichever variant the title, heading, or sentence grammatically calls for; no placement is restricted to the nominative.
+
+### Open Question: SERP Distinctness
+
+Whether Google el-GR collapses inflected variants into one SERP or ranks them distinctly — and how much that differs by query class — is not established by primary evidence: `[VERIFY: SERP-distinctness magnitude per query class]` (tagged 2026-08-08; grounded only in the morphology/stemming literature above, which establishes the inflection system, not SERP behavior). Until verified: cluster volumes for scoring either way, and spot-check live SERPs for a set's main variants before assuming one page covers the whole set.
+
 ## GBP Surface Mapping (Local Intent)
 
 Extends Step 10. Local-intent keywords should map to a GBP surface in addition to a website page — GBP fields are indexed and surface directly in Maps and the Local Pack.
@@ -88,6 +124,7 @@ Extends Step 10. Local-intent keywords should map to a GBP surface in addition t
 
 - [ ] Every Greek seed keyword expanded to all 4 forms
 - [ ] Volumes aggregated across forms for opportunity scoring (Step 7), not treated as 4 separate keywords
+- [ ] Inflected variants (case/number) clustered with their head keyword and volumes summed — natural inflected forms used freely in visible copy
 - [ ] Only accented Greek used in visible copy (titles, H1s, body, meta, alt text)
 - [ ] Unaccented Greek left to search-engine normalization — not written into content
 - [ ] Greeklish captured in domains, brand variants, and paid search bids — not stuffed into body text

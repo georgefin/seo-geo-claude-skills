@@ -14,7 +14,6 @@ Detailed output templates for technical-seo-checker steps 3-9. Referenced from [
 | Metric | Mobile | Desktop | Target | Status |
 |--------|--------|---------|--------|--------|
 | LCP (Largest Contentful Paint) | [X]s | [X]s | <2.5s | ✅/⚠️/❌ |
-| FID (First Input Delay) | [X]ms | [X]ms | <100ms | ✅/⚠️/❌ |
 | CLS (Cumulative Layout Shift) | [X] | [X] | <0.1 | ✅/⚠️/❌ |
 | INP (Interaction to Next Paint) | [X]ms | [X]ms | <200ms | ✅/⚠️/❌ |
 
@@ -259,25 +258,31 @@ Score Breakdown:
 
 ## Critical Issues (Fix Immediately)
 
+Each issue carries Finding / Evidence / Impact / Fix plus a Confidence label
+(Confirmed = directly observed in provided data or crawl · Likely = strong indirect
+evidence · Hypothesis = plausible, needs verification — name what would confirm it).
+
 1. **[Issue]**: [Impact]
+   - Evidence: [observed data — crawl line, response header, metric]
    - Affected: [pages/scope]
    - Solution: [specific fix]
-   - Priority: 🔴 Critical
+   - Priority: 🔴 Critical · Confidence: [Confirmed/Likely/Hypothesis]
 
 2. **[Issue]**: [Impact]
+   - Evidence: [observed data — crawl line, response header, metric]
    - Affected: [pages/scope]
    - Solution: [specific fix]
-   - Priority: 🔴 Critical
+   - Priority: 🔴 Critical · Confidence: [Confirmed/Likely/Hypothesis]
 
 ## High Priority Issues
 
-1. **[Issue]**: [Solution]
-2. **[Issue]**: [Solution]
+1. **[Issue]**: [Solution] — Evidence: [observed data] · Confidence: [label]
+2. **[Issue]**: [Solution] — Evidence: [observed data] · Confidence: [label]
 
 ## Medium Priority Issues
 
-1. **[Issue]**: [Solution]
-2. **[Issue]**: [Solution]
+1. **[Issue]**: [Solution] — Evidence: [observed data] · Confidence: [label]
+2. **[Issue]**: [Solution] — Evidence: [observed data] · Confidence: [label]
 
 ## Quick Wins
 

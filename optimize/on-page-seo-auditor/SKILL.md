@@ -1,6 +1,6 @@
 ---
 name: on-page-seo-auditor
-version: "4.0.0"
+version: "4.1.0"
 description: 'Audit on-page HTML elements including title tags, headers, image alt text, and internal links with a scored SEO report. Use when the user asks to "audit page SEO", "on-page SEO check", "SEO score", "page optimization", "what SEO issues does this page have", "score my page", "why is this page not ranking", or "check my page". For server, speed, and crawl issues, see technical-seo-checker. For full EEAT content quality scoring, see content-quality-auditor.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.0.0"
+  version: "4.1.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -43,23 +43,6 @@ metadata:
 
 # On-Page SEO Auditor
 
-
-> **[SEO & GEO Skills Library](https://github.com/aaron-he-zhu/seo-geo-claude-skills)** · 20 skills for SEO + GEO · [ClawHub](https://clawhub.ai/u/aaron-he-zhu) · [skills.sh](https://skills.sh/aaron-he-zhu/seo-geo-claude-skills)
-
-<details>
-<summary>Browse all 20 skills</summary>
-
-**Research** · [keyword-research](../../research/keyword-research/) · [competitor-analysis](../../research/competitor-analysis/) · [serp-analysis](../../research/serp-analysis/) · [content-gap-analysis](../../research/content-gap-analysis/)
-
-**Build** · [seo-content-writer](../../build/seo-content-writer/) · [geo-content-optimizer](../../build/geo-content-optimizer/) · [meta-tags-optimizer](../../build/meta-tags-optimizer/) · [schema-markup-generator](../../build/schema-markup-generator/)
-
-**Optimize** · **on-page-seo-auditor** · [technical-seo-checker](../technical-seo-checker/) · [internal-linking-optimizer](../internal-linking-optimizer/) · [content-refresher](../content-refresher/)
-
-**Monitor** · [rank-tracker](../../monitor/rank-tracker/) · [backlink-analyzer](../../monitor/backlink-analyzer/) · [performance-reporter](../../monitor/performance-reporter/) · [alert-manager](../../monitor/alert-manager/)
-
-**Cross-cutting** · [content-quality-auditor](../../cross-cutting/content-quality-auditor/) · [domain-authority-auditor](../../cross-cutting/domain-authority-auditor/) · [entity-optimizer](../../cross-cutting/entity-optimizer/) · [memory-management](../../cross-cutting/memory-management/)
-
-</details>
 
 This skill performs detailed on-page SEO audits to identify issues and optimization opportunities. It analyzes all on-page elements that affect search rankings and provides actionable recommendations.
 
@@ -126,6 +109,20 @@ Proceed with the full audit using provided data. Note in the output which findin
 ## Instructions
 
 When a user requests an on-page SEO audit:
+
+### Finding Format & Confidence Labels
+
+Every finding in the audit output carries **Finding** (what is wrong, with the specific
+element or location), **Evidence** (the observed data behind it), **Impact** (why it
+matters), and **Fix** (the specific change), plus a **Confidence** label:
+
+- **Confirmed** — directly observed in provided data or crawl output (e.g., the fetched HTML)
+- **Likely** — strong indirect evidence (e.g., a pattern consistent across the elements sampled)
+- **Hypothesis** — plausible but needs verification (e.g., anything inferred without crawl or tool access)
+
+**Rule**: every Hypothesis finding must name what would confirm it (the specific check,
+tool, or data source). Use the labels in each step's "Issues Found" list and carry them
+into the Step 11 Priority Issues summary.
 
 1. **Gather Page Information**
 
@@ -271,6 +268,7 @@ When a user requests an on-page SEO audit:
 - [ ] Scores based on measurable criteria, not subjective opinion
 - [ ] All suggested changes include specific locations (title tag, H2 #3, paragraph 5, etc.)
 - [ ] Source of each data point clearly stated (~~SEO tool data, user-provided, ~~web crawler, or manual review)
+- [ ] Every finding carries a Confidence label (Confirmed / Likely / Hypothesis); Hypothesis findings name what would confirm them
 
 ## Example
 

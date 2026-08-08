@@ -1,6 +1,6 @@
 ---
 name: serp-analysis
-version: "4.1.0"
+version: "4.2.0"
 description: 'Analyze search engine results pages to understand ranking factors, SERP features, user intent patterns, and AI overview triggers. Use when the user asks to "analyze search results", "SERP analysis", "what ranks for", "SERP features", "why does this page rank", "featured snippets", "AI overviews", or "what does Google show for". For tracking rankings over time, see rank-tracker. For keyword discovery, see keyword-research.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ allowed-tools: WebFetch
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.1.0"
+  version: "4.2.0"
   geo-relevance: "high"
   tags:
     - seo
@@ -44,23 +44,6 @@ metadata:
 
 # SERP Analysis
 
-
-> **[SEO & GEO Skills Library](https://github.com/aaron-he-zhu/seo-geo-claude-skills)** · 20 skills for SEO + GEO · [ClawHub](https://clawhub.ai/u/aaron-he-zhu) · [skills.sh](https://skills.sh/aaron-he-zhu/seo-geo-claude-skills)
-
-<details>
-<summary>Browse all 20 skills</summary>
-
-**Research** · [keyword-research](../keyword-research/) · [competitor-analysis](../competitor-analysis/) · **serp-analysis** · [content-gap-analysis](../content-gap-analysis/)
-
-**Build** · [seo-content-writer](../../build/seo-content-writer/) · [geo-content-optimizer](../../build/geo-content-optimizer/) · [meta-tags-optimizer](../../build/meta-tags-optimizer/) · [schema-markup-generator](../../build/schema-markup-generator/)
-
-**Optimize** · [on-page-seo-auditor](../../optimize/on-page-seo-auditor/) · [technical-seo-checker](../../optimize/technical-seo-checker/) · [internal-linking-optimizer](../../optimize/internal-linking-optimizer/) · [content-refresher](../../optimize/content-refresher/)
-
-**Monitor** · [rank-tracker](../../monitor/rank-tracker/) · [backlink-analyzer](../../monitor/backlink-analyzer/) · [performance-reporter](../../monitor/performance-reporter/) · [alert-manager](../../monitor/alert-manager/)
-
-**Cross-cutting** · [content-quality-auditor](../../cross-cutting/content-quality-auditor/) · [domain-authority-auditor](../../cross-cutting/domain-authority-auditor/) · [entity-optimizer](../../cross-cutting/entity-optimizer/) · [memory-management](../../cross-cutting/memory-management/)
-
-</details>
 
 This skill analyzes Search Engine Results Pages to reveal what's working for ranking content, which SERP features appear, and what triggers AI-generated answers. Understand the battlefield before creating content.
 
@@ -188,14 +171,14 @@ When a user requests SERP analysis:
 - [ ] Content requirements based on observed patterns in current SERP
 - [ ] Source of each data point clearly stated (~~SEO tool data, ~~AI monitor data, user-provided, or manual observation)
 
-## Skroutz as Second SERP (Greek E-Commerce)
+## Greek Comparison-Shopping Surfaces (Skroutz, BestPrice, Google Shopping)
 
-When the target market is Greek e-commerce, Skroutz.gr is a second SERP — often the first stop for Greek shoppers on purchase-intent queries, ahead of Google. Audit Skroutz visibility alongside the Google workflow above; it supplements, not replaces, the Google analysis.
+When the target market is Greek e-commerce, Skroutz.gr is a second SERP — often the first stop for Greek shoppers on purchase-intent queries, ahead of Google. Audit Skroutz visibility alongside the Google workflow above; it supplements, not replaces, the Google analysis. Two further surfaces complete the Greek comparison-shopping picture: BestPrice.gr, a second comparison surface (vendor-measured magnitudes are tagged unverified in the reference), and Google's Shopping tab with free listings — live for Greece via Merchant Center (engine-primary), a zero-cost surface. See [references/greek-shopping-surfaces.md](./references/greek-shopping-surfaces.md); it cross-references the Skroutz checklist rather than duplicating it.
 
 **Trigger conditions** (any of):
 - Target market/locale is Greece and content type is product, category, or commercial-investigation
 - Client sells through, or competes against sellers listed on, Skroutz
-- User explicitly asks about Skroutz visibility or ranking
+- User explicitly asks about Skroutz, BestPrice, or Google Shopping visibility in Greece
 
 **What to audit** (full checklist in reference file):
 1. Category/taxonomy placement accuracy
@@ -209,6 +192,10 @@ When the target market is Greek e-commerce, Skroutz.gr is a second SERP — ofte
 Report Skroutz findings as a clearly separated section alongside the Google SERP analysis — they are different, independently unpublished algorithms; do not merge their ranking-factor lists.
 
 > **Reference**: See [references/skroutz-visibility-factors.md](./references/skroutz-visibility-factors.md) for the full factor checklist. Skroutz does not publish its ranking algorithm — every item is an observable lever to audit, not a confirmed weight.
+
+## Greek Tourism Vertical (Seasonality & Hotel SERPs)
+
+When the target market is Greece and the vertical is tourism/accommodation (hotel, destination, activity, or travel queries), load [references/greek-tourism-seasonality.md](./references/greek-tourism-seasonality.md) alongside the standard workflow. Tourism directly contributes 13% of Greek GDP (INSETE, 2025 figures), hotel SERP features are in DMA-driven flux (capture live SERPs — assume no layout), TripAdvisor/Booking review surfaces act as parallel visibility channels, and demand is seasonal in destination-specific patterns that must be measured, not assumed. Includes EL/EN/DE inbound-language keyword-set guidance with hreflang tie-ins.
 
 ## Example
 
@@ -256,6 +243,8 @@ Analyze mobile vs desktop SERP differences for [keyword]
 - [SERP Feature Taxonomy](./references/serp-feature-taxonomy.md) — Complete taxonomy of SERP features with trigger conditions, AI overview framework, intent signals, and volatility assessment
 - [Example Report](./references/example-report.md) — Complete example analyzing the SERP for "how to start a podcast"
 - [Skroutz Visibility Factors](./references/skroutz-visibility-factors.md) — Telegraphic checklist of observable Skroutz ranking levers for Greek e-commerce audits (algorithm unpublished — checklist, not confirmed weights)
+- [Greek Shopping Surfaces](./references/greek-shopping-surfaces.md) — Comparison-shopping surfaces beyond Skroutz: BestPrice.gr levers, Google Shopping free listings for Greece (engine-primary), domestic review-platform indicator (companion to the Skroutz checklist)
+- [Greek Tourism & Seasonality](./references/greek-tourism-seasonality.md) — Tourism-vertical module for Greek SERP audits: INSETE market context, hotel-SERP checks under DMA flux, review-surface levers, measured seasonality calendars, EL/EN/DE language splits
 
 ## Related Skills
 

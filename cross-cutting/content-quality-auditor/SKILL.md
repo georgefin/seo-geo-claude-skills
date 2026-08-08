@@ -1,6 +1,6 @@
 ---
 name: content-quality-auditor
-version: "4.0.0"
+version: "4.1.0"
 description: 'Run the full 80-item CORE-EEAT audit across 8 dimensions with content-type weighted scoring, veto checks, and prioritized fix plans. Use when the user asks to "audit content quality", "EEAT score", "CORE-EEAT audit", "content quality check", "how good is my content", "content improvement plan", "is my content AI-citation worthy", "GEO quality score". For SEO page element audits, see on-page-seo-auditor. For domain-level authority, see domain-authority-auditor.'
 license: Apache-2.0
 allowed-tools: WebFetch
@@ -8,7 +8,7 @@ compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, 
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.0.0"
+  version: "4.1.0"
   geo-relevance: "high"
   tags:
     - seo
@@ -38,23 +38,6 @@ metadata:
 
 > Based on [CORE-EEAT Content Benchmark](https://github.com/aaron-he-zhu/core-eeat-content-benchmark). Full benchmark reference: [references/core-eeat-benchmark.md](../../references/core-eeat-benchmark.md)
 
-
-> **[SEO & GEO Skills Library](https://github.com/aaron-he-zhu/seo-geo-claude-skills)** · 20 skills for SEO + GEO · [ClawHub](https://clawhub.ai/u/aaron-he-zhu) · [skills.sh](https://skills.sh/aaron-he-zhu/seo-geo-claude-skills)
-
-<details>
-<summary>Browse all 20 skills</summary>
-
-**Research** · [keyword-research](../../research/keyword-research/) · [competitor-analysis](../../research/competitor-analysis/) · [serp-analysis](../../research/serp-analysis/) · [content-gap-analysis](../../research/content-gap-analysis/)
-
-**Build** · [seo-content-writer](../../build/seo-content-writer/) · [geo-content-optimizer](../../build/geo-content-optimizer/) · [meta-tags-optimizer](../../build/meta-tags-optimizer/) · [schema-markup-generator](../../build/schema-markup-generator/)
-
-**Optimize** · [on-page-seo-auditor](../../optimize/on-page-seo-auditor/) · [technical-seo-checker](../../optimize/technical-seo-checker/) · [internal-linking-optimizer](../../optimize/internal-linking-optimizer/) · [content-refresher](../../optimize/content-refresher/)
-
-**Monitor** · [rank-tracker](../../monitor/rank-tracker/) · [backlink-analyzer](../../monitor/backlink-analyzer/) · [performance-reporter](../../monitor/performance-reporter/) · [alert-manager](../../monitor/alert-manager/)
-
-**Cross-cutting** · **content-quality-auditor** · [domain-authority-auditor](../domain-authority-auditor/) · [entity-optimizer](../entity-optimizer/) · [memory-management](../memory-management/)
-
-</details>
 
 This skill evaluates content quality across 80 standardized criteria organized in 8 dimensions. It produces a comprehensive audit report with per-item scoring, dimension and system scores, weighted totals by content type, and a prioritized action plan.
 
@@ -154,6 +137,8 @@ Score each item:
 - **Partial** = 5 points (partially meets criteria)
 - **Fail** = 0 points (does not meet criteria)
 
+**Confidence labels** — every Partial/Fail note carries one: **Confirmed** (directly observed in the provided content/data) · **Likely** (strong indirect evidence) · **Hypothesis** (plausible, needs verification — name the verification step). Pass and N/A notes may omit the label. This extends the library's `[VERIFY]` discipline into client deliverables: a guess presented as an observation is a defect.
+
 ```markdown
 ### C — Contextual Clarity
 
@@ -186,9 +171,22 @@ Repeat the same table format for **Ept** (Expertise), **A** (Authority), and **T
 
 See [references/item-reference.md](./references/item-reference.md) for the complete 80-item ID lookup table and site-level item handling notes.
 
+### Step 3b: Anti-Slop Scans (evidence for existing items)
+
+Run four scans and record hits in the Notes column of the items they evidence — the scans add no new items and change no weights:
+
+| Scan | Detects | Evidences (primary → secondary) |
+|------|---------|--------------------------------|
+| AS-1 Slop-vocabulary density | Tier-1/Tier-2 AI-tell vocabulary, EN + EL calques | O09 → Ept03 |
+| AS-2 Structural patterns | uniform paragraph lengths, per-section summaries, rhetorical-question openers, padding lines | O06 → O09, C02 |
+| AS-3 Per-section information gain | sentences that could sit on any competitor page; sections adding nothing beyond their heading | E06 → E08, O09 |
+| AS-4 Specificity rungs | vague claims (rung 1) that provided data could have quantified (rung 2) or sourced (rung 3) | R01 → R04, R02 |
+
+A text with Tier-1 vocabulary hits cannot honestly score O09 Pass ("no filler"). Scan procedures, EN + EL ban lists, thresholds, and per-scan confidence guidance: [references/anti-slop-audit-checks.md](./references/anti-slop-audit-checks.md).
+
 ### Step 4: Scoring & Report
 
-Calculate scores and generate the final report:
+Calculate scores and generate the final report. Every finding — each Partial/Fail note and each priority improvement — carries its confidence label (defined in Step 2); priority improvements use the Finding / Evidence / Impact / Fix structure:
 
 ```markdown
 ## CORE-EEAT Audit Report
@@ -257,17 +255,15 @@ When an item cannot be evaluated (e.g., A01 Backlink Profile requires site-level
 
 ### Top 5 Priority Improvements
 
-Sorted by: weight × points lost (highest impact first)
+Sorted by: weight × points lost (highest impact first). Every entry carries all four parts plus its confidence label — **Confirmed** (directly observed in the provided content/data) · **Likely** (strong indirect evidence) · **Hypothesis** (plausible, needs verification).
 
-1. **[ID] [Name]** — [specific modification suggestion]
-   - Current: [Fail/Partial] | Potential gain: [X] weighted points
-   - Action: [concrete step]
+1. **[ID] [Name]** — [Confirmed / Likely / Hypothesis]
+   - **Finding**: [what is wrong, one sentence]
+   - **Evidence**: [verbatim quote or measurement from the content; for Likely/Hypothesis, the indirect signal plus the step that would confirm it]
+   - **Impact**: [Fail/Partial] → potential gain of [X] weighted points
+   - **Fix**: [concrete step]
 
-2. **[ID] [Name]** — [specific modification suggestion]
-   - Current: [Fail/Partial] | Potential gain: [X] weighted points
-   - Action: [concrete step]
-
-3–5. [Same format]
+2–5. [Same format]
 
 ### Action Plan
 
@@ -307,6 +303,8 @@ Sorted by: weight × points lost (highest impact first)
 - [ ] Top 5 improvements sorted by weighted impact, not arbitrary
 - [ ] Every recommendation is specific and actionable (not generic advice)
 - [ ] Action plan includes concrete steps with effort estimates
+- [ ] Every Partial/Fail note and every priority improvement carries a confidence label (Confirmed / Likely / Hypothesis); each Hypothesis names its verification step
+- [ ] Anti-slop scans (AS-1 to AS-4) run, with hits recorded in the evidenced items' notes (O09, O06, C02, E06, E08, R01, R02, R04, Ept03)
 
 ## Example
 
@@ -322,11 +320,14 @@ See [references/item-reference.md](./references/item-reference.md) for a complet
 5. **Use the weighted score, not just the raw average** — A product review with strong Exclusivity matters more than strong Authority
 6. **Re-audit after improvements** — Run again to verify score improvements and catch regressions
 7. **Pair with CITE for domain-level context** — A high content score on a low-authority domain signals a different priority than the reverse; run [domain-authority-auditor](../domain-authority-auditor/) for the full 120-item picture
+8. **Label your confidence honestly** — Confirmed beats Likely beats Hypothesis; a Hypothesis finding without a named verification step is not deliverable
+9. **Slop hits are evidence, not a verdict** — record AS-scan hits with verbatim quotes in the evidenced items' notes; the benchmark criteria still decide each score
 
 ## Reference Materials
 
 - [CORE-EEAT Content Benchmark](../../references/core-eeat-benchmark.md) — Full 80-item benchmark with dimension definitions, scoring criteria, and GEO-First item markers
 - [references/item-reference.md](./references/item-reference.md) — All 80 item IDs in a compact lookup table + site-level item handling notes + scored example report
+- [references/anti-slop-audit-checks.md](./references/anti-slop-audit-checks.md) — AS-1 to AS-4 scan procedures, EN + EL ban lists, thresholds, and item mappings (O09, O06, C02, E06, E08, R01, R02, R04, Ept03)
 
 ## Related Skills
 

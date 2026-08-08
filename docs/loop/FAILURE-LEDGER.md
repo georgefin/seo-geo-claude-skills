@@ -90,3 +90,23 @@ regression rate · repeat-failure count · tool-correctness rate.
   triangulation is the working fallback); prompt v4 + PIPELINE constraints corrected;
   standing rule: fallback paths must be verified from the environment that will use them.
 - **Recurrence**: 0. **Status**: guard live.
+
+## F7 — 2026-08-08 · Grading scripts produced false verdicts on real evidence
+
+- **Failure**: two same-day instances during the v2 Mode B wave: (1) schema run — a
+  claim-scan regex missed markdown-bold negations and reported protected item e3.9 as
+  FAIL, which would have been recorded as a regression; (2) keyword eval-1 rerun — a
+  table parser matched the literal "| G1" data row as a header, silently skipped two
+  rows, and produced a false E5 failure. In both cases the DELIVERABLE was correct;
+  the checker was wrong.
+- **Root cause**: scripted checks trusted as verdict-authoritative without inspecting
+  the evidence they claimed to have matched; regex/parser assumptions never tested
+  against the actual output format.
+- **Guard**: standing Mode B rule — before ANY failure (especially a would-be
+  regression) is reported, the grader must inspect the raw output at the flagged
+  location and quote it; grading scripts must print the matched/unmatched evidence,
+  not bare booleans. Both instances were caught by exactly this evidence-inspection
+  step working as designed — this entry makes the step mandatory rather than habitual.
+- **Recurrence**: 0 (two instances in one wave counted as the founding pattern; a
+  future false verdict that ESCAPES into a report increments this).
+- **Status**: guard live; encoded in the skill-reviewer Mode B discipline.
