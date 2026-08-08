@@ -78,7 +78,8 @@ no gate needed).
 | Google Search Quality Rater Guidelines | last known active version dated 2025-09-11 | 2026-08-08 |
 | Google AI Mode in Greek | live since 2025-10-08 (`VERSIONS.md:40`) | 2026-08-08 |
 | awesome-generative-engine-optimization (GitHub) | last commit 2026-04-14 (quiet) | 2026-08-08 |
-| RSI paper baseline | MetaSkill-Evolve arXiv 2607.05297 · RSI survey arXiv 2607.07663 · AREX arXiv 2607.21461 (unverified — W1) · PAST-Bench arXiv 2608.04003 | 2026-08-08 |
+| RSI paper baseline | MetaSkill-Evolve arXiv 2607.05297 · RSI survey arXiv 2607.07663 · AREX arXiv 2607.21461 ("AREX: Towards a Recursively Self-Improving Agent for Deep Research", BAAI, v1/v2 — existence confirmed 2026-08-08, see W1) · PAST-Bench arXiv 2608.04003 | 2026-08-08 |
+| Skill-loop literature (2026-08-08 assessment additions) | GRASP arXiv 2605.29668 · SEA-Eval arXiv 2604.08988 · feedback-dynamics arXiv 2608.02636 · OpenSkillEval arXiv 2605.23657 (titles search-verified; contents beyond abstracts [VERIFY]) | 2026-08-08 |
 | Last confirmed Google core update | 2026-05-21 → 2026-06-02 (Search Status Dashboard) | 2026-08-08 |
 
 ---

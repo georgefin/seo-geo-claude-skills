@@ -5,7 +5,18 @@ Lifecycle: `proposed → gated (awaiting verdict) → approved | rejected → ap
 validated`. Record every verdict here with date and wording. A gated item excluded from a
 PR must be named in that PR's body as a separate decision (as done in PR #1, 2026-08-08).
 
-**Currently gated: 3 items.**
+**Currently gated: 3 items awaiting verdict (G1–G3) + 1 under investigation (G4).**
+
+> **Verdict log — 2026-08-08**: Sani approved the assessment's measurement package and
+> loop upgrades ("assign team to proceed with the best skills agents for the pending
+> tasks … upgrade this recurring loop … to the top quality level, by adding missing
+> elements") — applied as: eval-suite pilot on 3 skills, `skill-reviewer` +
+> `greek-content-editor` roster additions, VALIDATE behavioral leg, loop-KPIs, baseline/
+> W1 corrections, surgical craft fixes (geo worked example, rank-tracker contract), and
+> the P2 upstream investigation (G4). This approval does NOT cover G1, G2, or G3 — each
+> still needs its own explicit verdict. Also still parked awaiting a go: the Greek depth
+> wave (P3: inflection, tourism, BestPrice/Shopping, SERP census, compliance, YMYL
+> credentials) and the all-20 catalog-block strip (P4 remainder).
 
 ---
 
@@ -68,13 +79,58 @@ PR must be named in that PR's body as a separate decision (as done in PR #1, 202
   having decided that.
 - **Verdict**: _none yet_.
 
+## G4 — Upstream reconciliation (aaron-marketing-skills v19.1.0)
+
+- **Status**: INVESTIGATED 2026-08-08 (read-only P2) — awaiting Sani's verdict.
+- **Facts established** (raw-file inspection, accessed 2026-08-08): ancestor frozen at
+  v9.9.12 "receives no updates"; successor bundle v19.1.0 (2026-08-01, hot cadence — 5
+  major versions since 2026-06-28). 20→16 = 3 pairwise merges (writer+refresher,
+  meta-tags+schema→serp-markup-builder, reporter+alerts→performance-monitor) + 2 moves
+  to a protocol layer (entity split, memory) + 1 new skill (page-play-builder:
+  programmatic/comparison/local/parasite modes); **nothing dropped**. Their "8 auditor
+  gates" = hybrid scored+categorical verdicts (SHIP / FIX / BLOCK / UNDECIDED; one veto
+  caps score at 59; two vetoes = BLOCK with no score; missing evidence = no score). Their
+  "protocol layer" = append-only operational NDJSON registries (entity/offer/consent…) —
+  NOT research-truth governance; **our docs/loop/ has no upstream equivalent**. CITE
+  unchanged upstream; CORE-EEAT identical structure with REFINED veto wording (R10
+  material-contradiction not broken-links; T04 conditional N/A). **Zero Greek content
+  anywhere in their line** (second language axis: Chinese) — wholesale topology adoption
+  would orphan all 6 of our Greek modules. They recommend llms.txt (skill-file evidence
+  only — ruling R1 STANDS, not a supersession). Their plugin.json: no `schemaVersion`,
+  bare path strings → supporting evidence for G1's trim direction.
+- **Top harvest candidates** (full 11-item list in the 2026-08-08 investigation report):
+  gate verdict typing (S), veto wording refinements (S, [VERIFY source-repo version]),
+  AI Overview recovery playbook (M), ai-referrals analytics mode (M), AI-citation-loss
+  alert threshold (S), striking-distance GSC mining (S), AI-crawler stance templates (S).
+- **Questions only Sani can answer**: O1 track upstream as a recurring harvest lane vs
+  declare independent lineage (tracking has real weekly cost); O2 keep 20-skill topology
+  and harvest features only (recommended by the conflict scan) vs converge to 16 with a
+  Greek re-port; O4 whether the parasite/borrowed-authority play is brand-acceptable
+  before any port; O5 whether an NDJSON entity-registry pattern is wanted for client ops.
+- **Verdict**: _none yet_.
+
 ---
 
 ## Queued slow-loop proposals (NOT yet gated — listed for continuity)
 
 From the 08-08-2026 report's slow-loop lane; promote to gated only when concretized:
 
-- **PAST-Bench-style eval for the loop** — benchmark the pipeline's own improvement
-  (PAST-Bench: arXiv 2608.04003, found 2026-08-08).
+- **PAST-Bench-style eval for the loop** — partially realized 2026-08-08: skill-level
+  eval suites (VALIDATE leg ii) + quarterly loop-KPIs (PIPELINE hygiene §8). Remaining
+  ambition: benchmark the pipeline's own improvement run-over-run (PAST-Bench: arXiv
+  2608.04003).
 - **Institutionalized [VERIFY] queue** — implemented by this `docs/loop/` structure;
   becomes real when this directory merges.
+- **Ruling-vs-body reconciliation inside schema-markup-generator** (surfaced by eval
+  authoring, 2026-08-08): the skill's own step 2 / O05 mapping table / decision-tree
+  reference still teach multi-type output, and `references/schema-decision-tree.md` +
+  `references/validation-guide.md` still carry pre-retirement FAQ rich-result guidance —
+  tension with rulings R2/R3. Needs a careful pass (R2 targets citation-lever stacking,
+  not every legitimate multi-schema page — e.g. Article+Breadcrumb is Google-documented),
+  so the reconciliation must define R2's precise boundary, then align body, references,
+  and the new eval expectations together. Not a quick fix; own small APPLY wave.
+- **keyword-research trigger-boundary contradiction** (surfaced by eval authoring,
+  2026-08-08): the body's "How to Use → Competitive Research" and "Advanced Usage →
+  Competitor Gap" sections invite exactly the prompts the description routes to
+  competitor-analysis. Align body sections with the description boundary (or add an
+  explicit handoff note). Small; bundle with the P4 remainder.

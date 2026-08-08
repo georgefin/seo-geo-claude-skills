@@ -13,16 +13,20 @@ skroutz `:3`/`:85` are legend/instructions, `VERSIONS.md:36` is prose).
 
 ---
 
-## W1 — AREX paper (arXiv 2607.21461)
+## W1 — AREX paper (arXiv 2607.21461) — EXISTENCE CONFIRMED 2026-08-08
 
-- **Claim**: "AREX: Recursively Self-Improving Agent", arXiv 2607.21461 (Jul 2026) — part
-  of the routine's Lane 7 (RSI/skill-evolution) baseline.
-- **Where**: NOT in repo. Routine prompt Lane 7 baseline only ("flagged unverified 08-08-2026").
-- **Status**: Unverifiable from cloud — arxiv.org egress-blocked; web search returned zero
-  hits for "AREX" (2026-08-08).
-- **Action / owner**: **Sani, local machine re-verify** (unblocked network). Resolves when
-  title/authors confirmed (keep in baseline) or declared nonexistent (drop from Lane 7).
-- **Cadence**: weekly nudge until resolved.
+- **Claim**: arXiv 2607.21461, corrected title **"AREX: Towards a Recursively
+  Self-Improving Agent for Deep Research"** (BAAI, submitted 2026-07-23) — part of the
+  routine's Lane 7 (RSI/skill-evolution) baseline.
+- **Status**: Existence CONFIRMED by the 2026-08-08 loop assessment (supersedes the same
+  morning's zero-hits status): web search surfaced the arXiv listing (v1 AND v2), an
+  alphaXiv page, and Hugging Face model cards `BAAI/AREX-Base` / `BAAI/AREX-Turbo`.
+  Snippet-level design (inner research loop + outer constraint-wise audit loop) is
+  consistent across sources; the paper itself remains unfetchable from cloud
+  (arxiv.org + huggingface.co + semanticscholar.org all egress-blocked).
+- **Action / owner**: Sani local re-verify **downgraded to OPTIONAL** — abstract-level
+  confirmation of the design claims if ever needed for encoding them into skills.
+- **Cadence**: baseline row updated; drops off the weekly nudge list.
 
 ## W2 — AADE myDATA e-invoicing dates
 
@@ -43,6 +47,9 @@ skroutz `:3`/`:85` are legend/instructions, `VERSIONS.md:36` is prose).
   unverified).
 - **Resolves when**: independent second study replicates (drop tag) or contradicts (revise).
 - **Cadence**: quarterly, or on any new large citation study.
+- **Tooling note (2026-08-08)**: per-engine citation share is now productized (SE Ranking
+  AI share-of-voice, Profound and similar AI-visibility trackers) — measurement tooling
+  for future verification, not itself evidence for the claim.
 
 ## W4 — Semantic collapse in multilingual E-E-A-T
 

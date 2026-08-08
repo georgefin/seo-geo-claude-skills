@@ -10,6 +10,8 @@
 
 **Sister benchmark**: [CORE-EEAT Content Benchmark](./core-eeat-benchmark.md) — content-level quality assessment (80 items).
 
+> **Naming note (2026-08-08)**: this CITE (domain-level, 40 items) is unrelated to SE Ranking's "CITE" content checklist (Clear answer / Include primary stats / Timestamp / Entity authority — content-level, 30 items, seranking/seo-skills). Same acronym, different framework; do not merge findings across the two.
+
 ---
 
 ## 1. Framework Overview

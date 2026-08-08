@@ -29,16 +29,26 @@ evidence; gated items are untouchable without Sani's recorded verdict.
    parked in `GATED-ITEMS.md` until an explicit verdict.
 3. **APPLY** — Herbert (interactive session) implements approved items via parallel
    `skill-implementer` subagents on disjoint file scopes; per-skill commits for clean
-   revert. Branch naming per `CLAUDE.md:50` (`feature/…`, `fix/…`, `docs/…`); cloud
-   sessions use their assigned `claude/*` branch. Skill edits trigger the 5-tracking-file
-   sync (`CLAUDE.md:49`); docs-only changes (this directory) do NOT.
-4. **VALIDATE** — `scripts/pre-push-gate.sh` before EVERY push: it runs
+   revert. Before commit, `skill-reviewer` (Mode A) makes an adversarial pass over each
+   diff — SHIP / FIX / BLOCK on ruling compliance, `[VERIFY]`-tag preservation, contract
+   integrity, scope. Self-review by the implementing agent does not count. Branch naming
+   per `CLAUDE.md:50` (`feature/…`, `fix/…`, `docs/…`); cloud sessions use their assigned
+   `claude/*` branch. Skill edits trigger the 5-tracking-file sync (`CLAUDE.md:49`);
+   docs-only changes (this directory) do NOT.
+4. **VALIDATE** — two legs, both required:
+   (i) STRUCTURAL: `scripts/pre-push-gate.sh` before EVERY push — runs
    `scripts/validate-skill.sh` on each touched skill plus `scripts/validate-tracking.sh`
-   (repo-level: version tri-sync, manifest↔disk parity, VERSIONS.md↔frontmatter, 350-line
-   body cap, references/ link integrity). A `PreToolUse` hook in `.claude/settings.json`
-   enforces the gate on `git push` in cloud sessions. The fork's GitHub Actions are
-   disabled, so the **local gate is the effective gate** (enabling Actions and pointing CI
-   at the same two scripts is the recommended follow-up).
+   (version tri-sync, manifest↔disk parity, VERSIONS.md↔frontmatter, 350-line body cap,
+   references/ link integrity). A `PreToolUse` hook in `.claude/settings.json` enforces
+   the gate on `git push` in cloud sessions. Fork Actions disabled → local gate is the
+   effective gate (enabling Actions on the same scripts is the recommended follow-up).
+   (ii) BEHAVIORAL: skills carrying an `evals/` suite (pilot 2026-08-08:
+   schema-markup-generator, keyword-research, geo-content-optimizer) must pass their
+   suite — `skill-reviewer` (Mode B) executes and grades per skill-creator conventions;
+   an eval regression is a do-not-merge finding. Greek-language outputs additionally go
+   to `greek-content-editor` for register/diacritics/Greeklish-placement judgment.
+   `scripts/check-freshness.sh` (advisory, non-blocking) flags dated baselines and
+   snapshots older than their re-check window.
 5. **MONITOR** — `subscribe_pr_activity` on open PRs (webhook events wake the session)
    PLUS a self-re-arming `send_later` check-in chain. The two are complementary: webhooks
    deliver comments fast; only polling sees merged/closed/conflict transitions. Check-in
@@ -111,12 +121,30 @@ same winter drift — its fix would be `0 5 * * 1-5`.
    (spent one-shots display a bogus +24h value).
 7. Vehicle: the weekly prompt's STEP 5b runs this sweep on the first Saturday of
    Jan/Apr/Jul/Oct — no separate loop.
+8. The same quarterly STEP 5b reports the four **loop-KPIs** (meta-loop measurement,
+   added 2026-08-08): proposal→merge latency · reverts this quarter · watch-item
+   resolution rate · ruling stability (supersession candidates raised). Trend, not
+   ceremony: two lines per KPI.
+
+## Deferred by decision (not omission)
+
+- **Event-driven DETECT** (e.g., Google-update webhook → immediate sweep): assessed
+  2026-08-08, deferred. Confirmed core updates run ~2–4×/year; the weekly cadence caps
+  reaction latency at 6 days, immaterial for library edits (client-facing immediacy is
+  `alert-manager`'s job, not this loop's). If ever built: the Google Search Status
+  Dashboard has an official RSS feed — a daily poll is S effort.
+- **Real-site A/B / holdout for content-skill changes**: aspirational rigor ceiling;
+  requires client-site inventory and months of window. Output-level blind A/B (old skill
+  vs new skill on fixed eval prompts) is the feasible substitute and part of VALIDATE (ii).
 
 ## Known constraints
 
 - Cloud egress: arxiv.org blocked; many domains WebFetch-blocked — use the
-  `[BLOCKED-EGRESS]` rule (2 attempts, then mirrors, then tag and move on). AREX
-  re-verification is Sani's local task (W1).
+  `[BLOCKED-EGRESS]` rule (2 attempts, then a mirror, then tag and move on). Mirror
+  reality check (2026-08-08): semanticscholar.org and huggingface.co are ALSO blocked
+  from this environment; openreview.net plus WebSearch snippets are the working
+  fallback (snippet-verified 4/4 pinned RSI papers). AREX existence confirmed
+  2026-08-08 (W1 — Sani re-verify now optional).
 - Fork GitHub Actions disabled (local gate is authoritative); GitHub Issues enabled.
 - Routine-fired sessions: no connectors (org limitation on in-session `create_trigger`).
 - The rulings/watch-items digest inside the routine prompt is a FALLBACK only — this
