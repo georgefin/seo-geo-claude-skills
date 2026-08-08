@@ -35,7 +35,7 @@ the engagement, not assumed:
 | Health (physicians) | Πανελλήνιος Ιατρικός Σύλλογος (ΠΙΣ) — national umbrella; membership held at the regional ιατρικοί σύλλογοι (e.g., Ιατρικός Σύλλογος Αθηνών) | physician status, specialty | «μέλος του Ιατρικού Συλλόγου [πόλης]» + Α.Μ. where public | [VERIFY at build time: current lookup portal; whether specialty is publicly searchable] |
 | Legal | δικηγορικοί σύλλογοι (bar associations), e.g., Δικηγορικός Σύλλογος Αθηνών (ΔΣΑ) | lawyer status, bar membership | «δικηγόρος, μέλος του [συλλόγου]» + Α.Μ. where public | [VERIFY at build time: per-bar online member search availability] |
 | Engineering / technical–property content | Τεχνικό Επιμελητήριο Ελλάδας (ΤΕΕ) | chamber membership, registry number | «μέλος ΤΕΕ» + Α.Μ. ΤΕΕ where public | [VERIFY at build time: ΤΕΕ member lookup mechanics] |
-| Finance / accounting | Οικονομικό Επιμελητήριο (ΟΕΕ) | economist membership; accountant–tax-consultant licensing (λογιστής-φοροτεχνικός) | «μέλος ΟΕΕ» / license class where applicable | [VERIFY at build time: ΟΕΕ lookup mechanics; current license classes] |
+| Finance / accounting | Οικονομικό Επιμελητήριο Ελλάδας (ΟΕΕ) | economist membership; accountant–tax-consultant licensing (λογιστής-φοροτεχνικός) | «μέλος ΟΕΕ» / license class where applicable | [VERIFY at build time: ΟΕΕ lookup mechanics; current license classes] |
 | Company legitimacy (any vertical) | ΓΕΜΗ (Γενικό Εμπορικό Μητρώο) | company registration | «Αρ. ΓΕΜΗ [number]» in the site footer/imprint | [VERIFY at build time: public ΓΕΜΗ search mechanics] |
 
 Other health professions (dentists, pharmacists, psychologists, dietitians, …) follow the
@@ -47,14 +47,14 @@ engagement and [VERIFY at build time: relevant body + lookup mechanics].
 Byline:
 
 ```
-[Ονοματεπώνυμο], [ιδιότητα/ειδικότητα], μέλος του [σύλλογος/επιμελητήριο]
+[Ονοματεπώνυμο], [ιδιότητα/ειδικότητα], μέλος του [συλλόγου/επιμελητηρίου]
 (Α.Μ. [αριθμός μητρώου — μόνο εφόσον είναι δημόσια διαθέσιμος])
 ```
 
 Reviewed-by variant (writer without credential + verifiable reviewer):
 
 ```
-Επιστημονική επιμέλεια: [Ονοματεπώνυμο], [ειδικότητα], μέλος του [σύλλογος/επιμελητήριο]
+Επιστημονική επιμέλεια: [Ονοματεπώνυμο], [ειδικότητα], μέλος του [συλλόγου/επιμελητηρίου]
 ```
 
 All bracketed fields are placeholders — filled only with real, registry-checked values at
