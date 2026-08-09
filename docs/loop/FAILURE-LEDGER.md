@@ -204,3 +204,32 @@ regression rate · repeat-failure count · tool-correctness rate.
   day (queue issue #6; prompt v4.2 archived per this guard) — see the GATED-ITEMS
   fifth verdict-log entry. The resolution note's closing line ("waits on the Issues
   toggle alone") is historical as of that timestamp.
+
+## F11 — 2026-08-09 · Close-out records drafted in one pass carried small integrity drifts
+
+- **Failure**: three same-morning Mode A rounds on register close-out commits (F10
+  closure `b51f65b` SHIP + advisory; G2 execution `000a906` FIX×2; G3 retirement
+  `69455b6` FIX×4) found recurring drift classes in coordinator-drafted verdict
+  records: a stale sibling field contradicting the new status (G3 "Verdict: _none
+  yet_" three fields below "RESOLVED"); a forward-approximated timestamp postdating
+  its own commit ("~08:25Z" inside a commit authored 08:17:49Z); attribution glosses
+  presenting inference as evidence content ("the five … fall under the same
+  site-health process" and "machine-independent" framed as paste facts; the
+  `list_issues`-EMPTY behavior stated as a GitHub-wide fact). Six real findings
+  total; all caught pre-merge (two commits reviewed pre-push, two fixed forward
+  minutes after a hook-driven push); none reached main. This entry satisfies ledger
+  rule 1 for both FIX verdicts.
+- **Root cause**: single-pass drafting of multi-field register updates — sibling
+  fields and evidence-class framing not re-scanned after a status flip; timestamps
+  estimated instead of read from the clock.
+- **Guard**: (1) Mode A review is MANDATORY for every commit that records a verdict,
+  closes a gate, or flips a register status — no longer coordinator-discretionary
+  (this morning is the evidence it pays: 6/6 findings real). Applying a review's
+  specified fixes verbatim, plus the ledger record of that review, does not itself
+  trigger a fresh round — the established fix-application pattern, else review
+  recurses forever. (2) Close-out drafting checklist: after any status flip, re-scan
+  the SAME entry for stale sibling fields (Status/Verdict/header triplet); read
+  verdict-log timestamps from `date -u` at drafting time, never estimate; claims
+  inside an attribution frame ("per the paste/response") must be quote-traceable —
+  inferences move outside the frame with their real basis named.
+- **Recurrence**: 0. **Status**: guard live (this entry).

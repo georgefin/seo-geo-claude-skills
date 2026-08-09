@@ -10,12 +10,12 @@ PR must be named in that PR's body as a separate decision (as done in PR #1, 202
 amendment applied — prompt v4.2), G3 RETIRED 2026-08-09 (option c — the local loop
 owns WP vuln watching), G4 harvest merged (PR #4).**
 
-> **Verdict log — 2026-08-09 (sixth entry, ~08:25Z)**: G3 resolved by evidence. After
+> **Verdict log — 2026-08-09 (sixth entry, ~08:10Z)**: G3 resolved by evidence. After
 > the coordinator's guide mapped the recorded fact question to its pre-approved
 > branches, Sani answered by pasting their canonical local `STANDING-LOOPS.md`
 > registry (R168) in-session. Its row 3 — "WP plugin-update + vuln check" — shows the
 > loop ALIVE and registry-driven per that paste: cadence Weekly (Mon/overdue), fired
-> by the Learn Protocol Step 6 hook (machine-independent by design), state file
+> by the Learn Protocol Step 6 hook ("NOT machine-local cron" per the paste), state file
 > `RESUME_PROMPTS/web-tasks/site-health/WP-WEEKLY-UPDATE-STATE.md`, runbook
 > `protocols/site-health-audit-process.md` point 4b, `last_run: 31-07-2026 PARTIAL
 > (authenticated lane ran on 3 of 6…)` — and the registry's own convention #1 keeps a
@@ -160,8 +160,9 @@ owns WP vuln watching), G4 harvest merged (PR #4).**
   cover the 5 production sites? yes → (c) retire; no/unsure → (b) Monday routine —
   was answered 2026-08-09 by Sani's pasted canonical `STANDING-LOOPS.md`: row 3 is a
   live, registry-driven weekly loop with a `wp-vulnerability-monitor` report among
-  its log destinations (its own scope counts 6 targets — the five v1-named WP sites
-  fall under the same site-health process either way; `last_run: 31-07-2026 PARTIAL`,
+  its log destinations (its own scope counts 6 targets where v1 named 5 WP sites —
+  the paste does not enumerate them; coverage of the five rests on Sani answering
+  the recorded coverage question with this registry; `last_run: 31-07-2026 PARTIAL`,
   still-due by the registry's PARTIAL convention until the pass completes). The v1
   cloud advisory feed is therefore retired deliberately. **Residual delta, recorded**:
   the v1 lane's external advisory-watch angle (Patchstack/Wordfence CVE feeds,
@@ -185,7 +186,8 @@ owns WP vuln watching), G4 harvest merged (PR #4).**
   deliberately.
 - **Risk of inaction**: 5 production sites lose a CVE early-warning feed without anyone
   having decided that.
-- **Verdict**: _none yet_.
+- **Verdict**: option (c) RETIRE — resolved 2026-08-09 by Sani's pasted
+  `STANDING-LOOPS.md` registry (sixth verdict-log entry above).
 
 ## G4 — Upstream reconciliation (aaron-marketing-skills v19.1.0)
 
