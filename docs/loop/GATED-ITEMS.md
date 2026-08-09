@@ -435,10 +435,13 @@ watching), G4 harvest merged (PR #4).**
   committed (`28534c4`, `3730ad4`, `783ca4e`, `3bb7970`) with all four Mode A
   reviews returned (technical-seo-checker, content-refresher, and
   domain-authority-auditor SHIP with zero findings; internal-linking FIX ×1
-  applied); first Mode B baselines recorded 2026-08-09 — on-page-seo-auditor
-  29/30 and content-quality-auditor 26/28, binding editor MINOR-EDITS on both;
-  the remaining suites follow per the done-definition below. Proposed
-  2026-08-09 (`MASTER-IMPROVEMENT-PLAN.md` §2).
+  applied); E1 first Mode B baselines COMPLETE 2026-08-09 — on-page 29/30,
+  content-quality-auditor 26/28, meta-tags-optimizer 29/29, seo-content-writer
+  30/30 (114/117), six binding editor passes NATIVE ×2 / MINOR-EDITS ×4 /
+  FAIL ×0, founding records in `eval-baselines/2026-08-09-e1.json`; E2/E3
+  first baselines follow per the done-definition below (deferred 2026-08-09
+  by coordinator budget decision protecting the 2026-08-15 solo-fire
+  allowance). Proposed 2026-08-09 (`MASTER-IMPROVEMENT-PLAN.md` §2).
 - **Proposal**: five waves — E1 score authorities (content-quality-auditor,
   on-page-seo-auditor, seo-content-writer, meta-tags-optimizer; eval-the-scorer
   pattern for CORE-EEAT: veto handling, N/A discipline, cap math), E2 research
