@@ -26,10 +26,16 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 | alert-manager | monitor | 4.1.1 | 2026-08-08 |
 | content-quality-auditor | cross-cutting | 4.2.0 | 2026-08-08 |
 | domain-authority-auditor | cross-cutting | 4.1.0 | 2026-08-08 |
-| entity-optimizer | cross-cutting | 4.1.2 | 2026-08-09 |
+| entity-optimizer | cross-cutting | 4.1.3 | 2026-08-09 |
 | memory-management | cross-cutting | 4.0.2 | 2026-08-08 |
 
 ## Changelog
+
+### v4.3.2 (2026-08-09)
+
+W5 closed at primary grade — the first watch-item resolved through the new G2 verdict flow (owner live-page read, verbatim text pasted in-session):
+
+- **entity-optimizer 4.1.3**: review-solicitation callout upgraded to owner-verified wording — both banned behaviors now carry Google's full "Merchants requesting…" phrasing (confirming the merchant-directive reading from the primary source); enforcement enriched with the set-period qualifiers, the public warning banner, and the email-notice + appeal path; the `[VERIFY]` tag dropped (W5 resolved-primary; the business/answer/7400114 same-text mirror stays a hedged pointer — not separately opened)
 
 ### v4.3.1 (2026-08-09)
 
