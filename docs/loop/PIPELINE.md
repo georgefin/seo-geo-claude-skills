@@ -3,7 +3,8 @@
 One-read orientation for ANY fresh session or fired routine. Coordinator: Herbert.
 Approver: Sani. Repo: fork `georgefin/seo-geo-claude-skills` (upstream:
 `aaron-he-zhu/seo-geo-claude-skills`). Last updated: 2026-08-09 (F10 prompt recovery;
-G2 executed — weekly prompt v4.2, report archive live).
+G2 executed — weekly prompt v4.2, report archive live; G3 retired — WP vuln watching
+owned by Sani's local loop registry).
 
 **GROUNDING RULE — do this first**: before researching or proposing anything, read the
 five files in `docs/loop/`: `PIPELINE.md` (this file), `SETTLED-RULINGS.md`,

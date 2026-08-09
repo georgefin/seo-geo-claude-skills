@@ -5,10 +5,26 @@ Lifecycle: `proposed → gated (awaiting verdict) → approved | rejected → ap
 validated`. Record every verdict here with date and wording. A gated item excluded from a
 PR must be named in that PR's body as a separate decision (as done in PR #1, 2026-08-08).
 
-**Currently gated: 1 item awaiting Sani (G3 — fact question open). G1 pilot merged
+**Currently gated: NONE awaiting Sani — all four items resolved. G1 pilot merged
 (PR #4), G2 EXECUTED 2026-08-09 (Issues enabled by Sani; queue issue #6 live; STEP 6
-amendment applied — prompt v4.2), G4 harvest merged (PR #4).**
+amendment applied — prompt v4.2), G3 RETIRED 2026-08-09 (option c — the local loop
+owns WP vuln watching), G4 harvest merged (PR #4).**
 
+> **Verdict log — 2026-08-09 (sixth entry, ~08:25Z)**: G3 resolved by evidence. After
+> the coordinator's guide mapped the recorded fact question to its pre-approved
+> branches, Sani answered by pasting their canonical local `STANDING-LOOPS.md`
+> registry (R168) in-session. Its row 3 — "WP plugin-update + vuln check" — shows the
+> loop ALIVE and registry-driven per that paste: cadence Weekly (Mon/overdue), fired
+> by the Learn Protocol Step 6 hook (machine-independent by design), state file
+> `RESUME_PROMPTS/web-tasks/site-health/WP-WEEKLY-UPDATE-STATE.md`, runbook
+> `protocols/site-health-audit-process.md` point 4b, `last_run: 31-07-2026 PARTIAL
+> (authenticated lane ran on 3 of 6…)` — and the registry's own convention #1 keeps a
+> PARTIAL run due until a full pass rewrites a bare date; log destinations include a
+> `wp-vulnerability-monitor` Step 4 report. Per the pre-approved map ("yes → option
+> (c) retire"), executed as: the v1 cloud CVE-advisory feed retired DELIBERATELY —
+> the concern is owned local-side. Residual delta + reopen path recorded in the G3
+> status block. No trigger changes; register-only close-out.
+>
 > **Verdict log — 2026-08-09 (fifth entry, ~07:50Z)**: Sani enabled GitHub Issues on
 > the fork and confirmed verbatim: "Done" (answering the coordinator's how-to for
 > G2's last blocker). Executed as the G2 completion pass: the rolling [VERIFY]-queue
@@ -138,10 +154,23 @@ amendment applied — prompt v4.2), G4 harvest merged (PR #4).**
 
 ## G3 — WordPress/CVE security lane: restore, relocate, or retire
 
-- **Status**: GATED — Sani requested the explanation 2026-08-08 ("4. Please explain");
-  delivered same day. Open fact question: does the local WP vuln loop still run and
-  cover the 5 production sites? yes → option (c) retire; no/unsure → option (b) Monday
-  routine (team recommendation).
+- **Status**: **RESOLVED 2026-08-09 — option (c) RETIRE** (sixth verdict-log entry).
+  History: Sani requested the explanation 2026-08-08 ("4. Please explain"), delivered
+  same day; the recorded fact question — does the local WP vuln loop still run and
+  cover the 5 production sites? yes → (c) retire; no/unsure → (b) Monday routine —
+  was answered 2026-08-09 by Sani's pasted canonical `STANDING-LOOPS.md`: row 3 is a
+  live, registry-driven weekly loop with a `wp-vulnerability-monitor` report among
+  its log destinations (its own scope counts 6 targets — the five v1-named WP sites
+  fall under the same site-health process either way; `last_run: 31-07-2026 PARTIAL`,
+  still-due by the registry's PARTIAL convention until the pass completes). The v1
+  cloud advisory feed is therefore retired deliberately. **Residual delta, recorded**:
+  the v1 lane's external advisory-watch angle (Patchstack/Wordfence CVE feeds,
+  WP-core/WooCommerce/Rank Math version watch, fake-mu-plugin campaign chatter) is
+  covered only to the extent the local runbook includes it — ownership of that angle
+  now rests wholly with the local loop. **Reopen path**: one `create_trigger` Monday
+  routine reconstructed from the archived v1 lane
+  (`docs/loop/archive/v1-weekly-prompt-2026-07-18.txt`, STEP 1 area 5) + F10 archive
+  — nothing was lost.
 - **Context**: the superseded v1 weekly carried a WordPress + security lane (WP
   core/WooCommerce/Rank Math version watch; ACTIVE plugin CVEs from Patchstack/Wordfence
   with CVE IDs, affected ranges, fixed-in versions; fake-mu-plugin backdoor patterns)
