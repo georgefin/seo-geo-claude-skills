@@ -1,0 +1,9 @@
+--- a/docs/loop/GATED-ITEMS.md
++++ b/docs/loop/GATED-ITEMS.md
+@@ -1,2 +1,6 @@
+ ## G2 — Publish weekly reports as GitHub Issues on the fork
+
++- Queue issue #6 created and the STEP 6 amendment applied ~08:25Z; register
++  updated in the same pass.
++- Completion recorded 2026-08-09T08:25:00Z; both edits landed on the routine's
++  stored prompt.

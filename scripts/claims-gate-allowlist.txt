@@ -1,0 +1,25 @@
+# claims-gate-allowlist.txt — stable phrases masked out before the rule-1
+# risk-lexicon scan (scripts/claims-gate.sh; ledger F11, plan
+# docs/loop/MASTER-IMPROVEMENT-PLAN.md 1b).
+#
+# One phrase per line. Matching is case-insensitive, fixed-substring (no regex);
+# every occurrence of a listed phrase is masked from the scanned copy of an added
+# line before the lexicon patterns run, so lexicon words INSIDE the phrase cannot
+# trip the gate. '#' lines and blank lines are ignored.
+#
+# DISCIPLINE: add a phrase only when it is a category name, a standing tag, or a
+# rule's own meta-vocabulary — never to wave an actual live-state claim through.
+# The plan's rule: tighten/grow weekly on accumulated false-positive data, and
+# every addition should be explainable in one line here.
+
+# Standing epistemic tag (PIPELINE.md DETECT discipline) — names a state class,
+# is not itself a claim about a specific probe:
+[BLOCKED-EGRESS]
+
+# Category term from validate-tracking.sh check (g): "the live registers" names
+# the four scanned files, not a state claim (covers singular + plural):
+live register
+
+# The claims-gate rule's own meta-vocabulary — register text QUOTING the rule
+# ("every live-state claim …") must not trip the rule:
+live-state claim
