@@ -10,6 +10,21 @@ PR must be named in that PR's body as a separate decision (as done in PR #1, 202
 amendment applied — prompt v4.2), G3 RETIRED 2026-08-09 (option c — the local loop
 owns WP vuln watching), G4 harvest merged (PR #4).**
 
+> **Verdict log — 2026-08-09 (seventh entry, 09:28Z)**: Sani, verbatim: "#5 merge
+> now. Fix Issue #6". Executed as: PR #5 marked ready and MERGED (merge commit
+> `676ae74`, 2026-08-09T09:28:09Z) — library v4.3.3 on main: the v4.3.1 verification
+> wave, F10 closure, G2 execution, G3 retirement, the W5 + W10-LSA owner-verified
+> closures, and the F11/F12 guards (20 commits). Issue #6 repaired in the same pass —
+> two real defects found on inspection: the how-to line's angle-bracket placeholder
+> had been eaten by HTML sanitization (leaving a dangling arrow), and the attribution
+> footer had been stripped by a prior body update; both fixed, and the body now notes
+> the register is current on main. Post-merge transition per the recorded pattern:
+> PR-#5 subscription removed (merge webhook also confirmed), branch restarted from
+> main, fresh accumulator PR opened for follow-on work (W2 fold-back, Saturday-fire
+> follow-ups, and the still-in-flight W10+F12 Mode A round's findings if any), monitor
+> chain re-pointed. First solo weekly fire Sat 2026-08-15 ~04:08Z now reads all of
+> this from main — the loop-closure metric's designed test.
+>
 > **Verdict log — 2026-08-09 (sixth entry, ~08:10Z)**: G3 resolved by evidence. After
 > the coordinator's guide mapped the recorded fact question to its pre-approved
 > branches, Sani answered by pasting their canonical local `STANDING-LOOPS.md`
