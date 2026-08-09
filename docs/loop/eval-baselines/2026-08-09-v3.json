@@ -1,0 +1,107 @@
+{
+  "baseline_date": "2026-08-09",
+  "baseline_label": "v3",
+  "scope": "Three-suite wave baseline: schema-markup-generator (full, 4.1.0), keyword-research (full, 4.2.1), geo-content-optimizer (full three-iteration arc closing at 4.1.6). Supersedes the geo-only 2026-08-09.json and the 2026-08-08-v2.json sections for these three suites; all other suites' protections continue from 2026-08-08-v2.json until their own first baselines.",
+  "method": "skill-reviewer Mode B runs (execute-then-grade: outputs written before any grading; scripted checkers print matched/unmatched evidence per ledger F7). Executor and grader shared a session per run — same-session caveat stands; blind-protocol (independent grader session) reinstatement queued for the next full-library baseline.",
+  "regression_rule": "Regression = an expectation recorded as passing here that fails in a later run of the same suite at same-or-later skill version under unchanged wording. Re-baselined indices are governed by their new wording from this file forward.",
+  "regression_checks": {
+    "schema_vs_2026-08-08-v2": {
+      "verdict": "CLEAN",
+      "regressions": 0,
+      "rebaselined_indices": [
+        "e1.9",
+        "e2.9",
+        "e3.7",
+        "e4.4"
+      ],
+      "note": "All protected unchanged indices passed; the four re-baselined indices ran under their b08253d wording and passed."
+    },
+    "keyword_vs_2026-08-08-v2": {
+      "verdict": "CLEAN",
+      "regressions": 0,
+      "note": "31/31; protected unchanged indices all passed; rebaselined v3 indices per fragment modeb-keyword.json."
+    },
+    "geo_vs_2026-08-09_geo_only": {
+      "verdict": "CLEAN at the structural layer across r2 and r3",
+      "regressions": 0,
+      "note": "r2 29/29 at 4.1.6 (e2.5 re-baselined at its b411592 placement wording); r3 e2-only 6/6 at unchanged 4.1.6 with ruleset §6 in tree. The r2 EDITOR fail (totality calque) was a content-class regression against a v1 editor ruling, not a structural-expectation regression — recorded as ledger F13 Recurrence 1 and closed by the §6 carrier + r3 MINOR-EDITS verdict."
+    }
+  },
+  "suites": [
+    {
+      "skill": "schema-markup-generator",
+      "skill_version": "4.1.0",
+      "passed": 44,
+      "total": 44,
+      "pass_rate": 1.0,
+      "evals": {
+        "e1": "9/9",
+        "e2": "9/9",
+        "e3": "9/9",
+        "e4": "8/8",
+        "e5": "9/9"
+      },
+      "no_fabrication_guard": "HELD (scripted digit-scan vs per-eval allowlists; zero unexplained numbers)",
+      "greek_editor": "Morning binding pass over greek-out-schema-1/2: PASS (register/naturalness clean; no ruled-class hits).",
+      "confirm_or_contest": "S2 bracket-scope clause (e1.9/e2.9): CONFIRMED load-bearing this run.",
+      "eval_feedback_v4_backlog": [
+        "Port the S2 bracket-scope clause into e4.8 and e5.9 (same stretchability without it)",
+        "e4.4 offset-precision tolerance could state its rounding rule explicitly",
+        "e1.4 addressRegion nit (accept both ISO-3166-2 and spelled-out forms)"
+      ]
+    },
+    {
+      "skill": "keyword-research",
+      "skill_version": "4.2.1",
+      "passed": 31,
+      "total": 31,
+      "pass_rate": 1.0,
+      "evals_commit": "b08253d",
+      "no_fabrication_guard": "HELD",
+      "greek_editor": "Morning binding pass over greek-out-keyword-1/2/3: PASS with one word-level advisory (keyword-2).",
+      "eval_feedback_v4_backlog": [
+        "Port K2's parenthetical ('any count inside that range satisfies it') into e3.5's seeded-questions quota (zero friction this run; prophylactic)",
+        "Derived-tables clarifier (which tables count as derived outputs for the no-fab scan)",
+        "Editor word-level item on keyword-2 output"
+      ]
+    },
+    {
+      "skill": "geo-content-optimizer",
+      "skill_version": "4.1.6",
+      "passed": 29,
+      "total": 29,
+      "pass_rate": 1.0,
+      "arc": [
+        "r1 (morning, 4.1.5): structural 29/29 BUT binding editor FAIL on geo-2 — unbracketed agency provenance «απαιτούνται στοιχεία προϊόντος» inside a published FAQ answer + its FAQPage JSON-LD mirror; e2.5's own wording had steered the marker into the answer. Ledgered as F13 founding observation.",
+        "fix 1 (b411592): 4.1.6 placement rule (Statistics rule Placement clause + Output Validation line) + e2.5 placement rework.",
+        "r2 (post-16:00Z, 4.1.6): 29/29; placement scan 0 violations across all 5 outputs (fix verified). BUT binding editor FAIL on geo-2-r2 — «Όλα τα 18 μοντέλα» totality calque, a v1-ruled FAIL-grade class stored note-only. Ledgered as F13 Recurrence 1.",
+        "fix 2 (97a0c08): backfill carrier — anti-slop-ruleset.md §6 'Ruled Greek Regression Classes' (greppable FAIL-grade families + advisory families), writer 4.2.1.",
+        "r3 (e2-only, 4.1.6 unchanged, HEAD 8c79a14): 6/6; placement scan CLEAN; ruled-families scan CLEAN («Όλα τα [0-9]» zero; native «Και τα 18…» present at 4 sites, third native variant at line 38 reads authored). Binding editor verdict: MINOR-EDITS — arc CLOSED, wave mergeable."
+      ],
+      "no_fabrication_guard": "HELD in r2 and r3 (r3: 20 digit-scan flags, all adjudicated per F7 as SHA substrings/CORE-EEAT item IDs)",
+      "greek_editor": "r3 binding verdict MINOR-EDITS: all four §6 FAIL-grade families confirmed absent from customer-visible surfaces; advisory families actively applied; 5 advisory polish items (see backlog).",
+      "eval_feedback_v4_backlog": [
+        "e4.5-first no-fab parenthetical + e2.4 sibling; optional e2.1/e5.5 C02 count-rule consistency",
+        "e2.3 drop-a-parenthetical clause now structurally rare post-4.1.6 (provenance stays out of customer copy) — harmless, keep",
+        "Editor word-level: geo-1 «κατά το ραντεβού» nit (r2 pass)",
+        "r3 editor MINOR-EDITS, visible copy: «αρκεί μοντέλο στο κάτω άκρο του εύρους» for the stacked genitive at 44/80; standardize «πριν από την αγορά»; «ενιαία τιμή κατανάλωσης» clarity at 64/120",
+        "r3 editor MINOR-EDITS, report-only: «σε πρόζα» → «σε συνεχές κείμενο» (168/204); line-151 hyphen apposition → «Ορισμός ως άμεση απάντηση…»"
+      ]
+    }
+  ],
+  "totals": {
+    "passed": 104,
+    "total": 104,
+    "pass_rate": 1.0,
+    "note": "44 schema + 31 keyword + 29 geo (r3's e2 6/6 re-validates within the geo 29, not additive)."
+  },
+  "greek_quality_summary": "The wave's defining result: the binding Greek-editor gate produced two designed-position catches in succession (provenance class, then totality calque), each converted same-wave into an enforcement carrier (4.1.6 placement rule; ruleset §6 ruled-classes table). The note-only lesson era is closed — every FAIL-grade ruling now has a greppable carrier, and new rulings append to §6 in the wave they are issued (F13 guard + backfill obligation).",
+  "learning_metrics_at_baseline": {
+    "regression_rate": 0.0,
+    "regression_note": "0 structural regressions across all protected indices in all three suites.",
+    "ledgered_recurrences_this_window": 3,
+    "recurrence_note": "F11-r6 (release flip left register Status fields stale — caught out-of-diff by a Mode A reviewer), F13-r1 (v1-ruled calque recurred from a note-only ruling — caught by the binding editor), F9-r2 (R3 retirement never fed the token sweep — caught by two independent Mode A reviewers). Every recurrence was caught by a designed position and redesigned same-wave (claims-gate + checklist line; §6 backfill carrier; check (f) R3 sub-sweep + backfill rule).",
+    "tool_correctness_rate": "0 checker escapes: r2 self-caught its e3.5 tokenizer and e5.2 newline-regex defects mid-run per F7; r3 self-caught grep -i's Greek case-fold gap and re-scanned with explicit alternation.",
+    "method_caveat": "Same-session executor/grader throughout; blind-protocol reinstatement queued."
+  }
+}
