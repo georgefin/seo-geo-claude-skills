@@ -35,7 +35,7 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 
 Master-directive wave (tenth/eleventh verdict-log entries): G5–G7 and G8's executable scope released and executed; the binding Greek-editor gate closed the F13 arc.
 
-- **Loop hardening (G5/G6/G8)**: `MASTER-IMPROVEMENT-PLAN.md`; claims-gate + allowlist + 9 fixtures, fragment-lint, trigger-archive check, `KPI.md` (claims-gate wired into `pre-push-gate.sh` in the integration commit directly after this wave's push); `ADVERSARIAL-LAYER.md`; `PILOT.md` (live deployment stays blocked on the three Sani inputs)
+- **Loop hardening (G5/G6/G8)**: `MASTER-IMPROVEMENT-PLAN.md`; claims-gate + allowlist + 9 fixtures, fragment-lint, trigger-archive check, `KPI.md` (claims-gate wired into `pre-push-gate.sh` in the integration commit directly after this wave's push); `ADVERSARIAL-LAYER.md`; `PILOT.md` (deployment gated on the three Sani inputs per G8)
 - **G7 evals, waves E1+E2**: 7 behavioral suites authored (meta-tags-optimizer, seo-content-writer, content-quality-auditor, on-page-seo-auditor, competitor-analysis, content-gap-analysis, serp-analysis — 205 expectations); 7 Mode A reviews returned 10 findings, all applied with the reviewers' exact wording; first Mode B baselines pending
 - **geo-content-optimizer 4.1.6**: Statistics-rule Placement clause — provenance notes and placeholders confined to report/gap-table surfaces, never ship-ready copy or JSON-LD (first editor-FAIL fix)
 - **seo-content-writer 4.2.1→4.2.2**: anti-slop-ruleset §6 "Ruled Greek Regression Classes" — every FAIL-grade editor ruling now has a greppable carrier (F13-r1 backfill); 4.2.2 via the R3 purge

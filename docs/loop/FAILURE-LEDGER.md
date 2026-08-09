@@ -353,7 +353,13 @@ regression rate · repeat-failure count · tool-correctness rate.
   the machine form: a `FLIP:` trailer in the register commit message drives the
   whole-register sweep. The commit landing this note carries both forms as the
   crossover record. Pre-gate branch history goes to the Mode A covering round
-  rather than being retro-anchored.
+  rather than being retro-anchored. Its first run, the same hour, held
+  the integration push itself — a v4.4.1 changelog edit had re-added a line
+  whose untouched tail carried unanchored hard-lexicon tokens
+  (`VERSIONS.md:38`); the line was reworded before the push went through
+  [obs:2026-08-09T21:10:37Z gate output, integration-push run]. The guard
+  PREVENTS from its first invocation, closing the same gap F12's check (g)
+  closed for pointer drift.
 
 ## F12 — 2026-08-09 · Settled-ruling line-number pointers break on every changelog insertion
 
