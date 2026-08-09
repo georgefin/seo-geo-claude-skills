@@ -6,9 +6,22 @@ validated`. Record every verdict here with date and wording. A gated item exclud
 PR must be named in that PR's body as a separate decision (as done in PR #1, 2026-08-08).
 
 **Currently gated: 1 item awaiting Sani (G3 — fact question open). G1 pilot merged
-(PR #4), G2 approved and blocked on the Issues toggle alone (the F10 prompt-pinning
-prerequisite was satisfied 2026-08-09), G4 harvest merged (PR #4).**
+(PR #4), G2 EXECUTED 2026-08-09 (Issues enabled by Sani; queue issue #6 live; STEP 6
+amendment applied — prompt v4.2), G4 harvest merged (PR #4).**
 
+> **Verdict log — 2026-08-09 (fifth entry, ~07:50Z)**: Sani enabled GitHub Issues on
+> the fork and confirmed verbatim: "Done" (answering the coordinator's how-to for
+> G2's last blocker). Executed as the G2 completion pass: the rolling [VERIFY]-queue
+> issue created — #6, label `verify-queue` (the create itself was the truthful probe;
+> first non-410 write after three 410s across 08-08→09) — then ONE `update_trigger`
+> STEP 6 amendment on the weekly routine against the pinned v4.1 baseline → prompt
+> v4.2 (+1,324 chars across exactly 3 lines, word-diff-proven surgical; cron
+> `0 4 * * 6`, next_run 2026-08-15T04:08Z, push+email notifications all unchanged in
+> the response's stored-object echo — an independent `list_triggers` re-read was
+> denied by tool permissions this call, noted). v4.2 archived per F10. G2 lifecycle:
+> approved → applied; validation leg = the 2026-08-15 fire files the first report
+> issue and next week's DETECT confirms it.
+>
 > **Verdict log — 2026-08-08 (fourth entry, ~21:51Z)**: Sani, mid-session, verbatim:
 > "merge PR #4" — the merge gate on the gate-execution release. Executed as: PR #4
 > marked ready and MERGED (merge commit `db7ebd5`, 21:51Z) — library v4.3.0 on main
@@ -97,20 +110,19 @@ prerequisite was satisfied 2026-08-09), G4 harvest merged (PR #4).**
 
 ## G2 — Publish weekly reports as GitHub Issues on the fork
 
-- **Status**: **APPROVED by Sani 2026-08-08** ("3. Yes") — implementation **BLOCKED on a
-  repo setting**: GitHub returned `410 Issues has been disabled in this repository` on
-  the first issue-create; re-verified 2026-08-09 ~04:00Z — the fully prepared
-  queue-issue create drew the same 410. Sani must enable Issues (repo → Settings →
-  General → Features → check "Issues"); then the coordinator creates the rolling
-  [VERIFY]-queue issue and amends the weekly routine's STEP 6 in one pass. Holding the
-  trigger amendment until then so the routine never ships a half-working step.
-  **Second prerequisite discovered 2026-08-09 (F10) — SATISFIED the same day**: the
-  v4.1 prompt was unpinned in-repo; recovered verbatim from the trigger store the same
-  morning (`list_triggers` does expose stored prompts — path and corroboration in the
-  F10 resolution) and pinned at `docs/loop/archive/v4.1-weekly-prompt-2026-08-08.txt`.
-  No Sani paste needed. G2 is now blocked on the Issues toggle ALONE; when it flips:
-  create the rolling queue issue, then ONE `update_trigger` STEP 6 amendment against
-  the pinned baseline (F4 read-back; the new prompt version archived per F10).
+- **Status**: **EXECUTED 2026-08-09 ~07:51Z** (fifth verdict-log entry). History: 410
+  on issue-create 2026-08-08, re-verified twice 2026-08-09 (the fully prepared
+  queue-issue create drew the same 410); F10 second prerequisite (v4.1 prompt pinning)
+  discovered and satisfied same day via the trigger-store recovery. Sani enabled
+  Issues and confirmed "Done" → queue issue **#6** created on first attempt (label
+  `verify-queue` — the create doubled as the probe), then the STEP 6 amendment applied
+  as ONE `update_trigger` against the pinned v4.1 baseline → **prompt v4.2**, archived
+  at `docs/loop/archive/v4.2-weekly-prompt-2026-08-09.txt` (F10). Three surgical
+  touches only (mission-line clarifier, STEP 6 issue-archive block, closing-line
+  addendum; +1,324 chars, word-diff-proven). Read-back: the update response's
+  stored-object echo shows all three edits live with cron/next-run/notifications
+  unchanged. Remaining validation leg: the 2026-08-15 fire files the first
+  `weekly-report` issue; next week's DETECT verifies (loop-closure).
 - **Proposal**: amend the weekly routine (STEP 6) to allow exactly one write action: file
   each report as an issue titled `Weekly skill-update-check — YYYY-MM-DD` (label
   `weekly-report`), plus maintain one rolling `[VERIFY] queue` issue (label `verify-queue`)

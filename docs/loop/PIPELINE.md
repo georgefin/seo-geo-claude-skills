@@ -2,7 +2,8 @@
 
 One-read orientation for ANY fresh session or fired routine. Coordinator: Herbert.
 Approver: Sani. Repo: fork `georgefin/seo-geo-claude-skills` (upstream:
-`aaron-he-zhu/seo-geo-claude-skills`). Last updated: 2026-08-09 (F10 prompt recovery).
+`aaron-he-zhu/seo-geo-claude-skills`). Last updated: 2026-08-09 (F10 prompt recovery;
+G2 executed — weekly prompt v4.2, report archive live).
 
 **GROUNDING RULE — do this first**: before researching or proposing anything, read the
 five files in `docs/loop/`: `PIPELINE.md` (this file), `SETTLED-RULINGS.md`,
@@ -85,7 +86,7 @@ baselines: `docs/loop/eval-baselines/2026-08-08.json`.
 
 | Routine | ID | State | Schedule (UTC) |
 |---|---|---|---|
-| weekly skill-update check (current, prompt v4.1) | `trig_012FupQL9hy8p9FPeBHo9Lee` | enabled; created 2026-08-08, prompt upgraded v2→v3→v4→v4.1 same day (audit + RSI waves); push+email notifications ON; first solo fire expected 2026-08-15; prompt pinned at `docs/loop/archive/v4.1-weekly-prompt-2026-08-08.txt` (recovered from the trigger store 2026-08-09, F10) | `0 4 * * 6` (~04:08 actual) |
+| weekly skill-update check (current, prompt v4.2) | `trig_012FupQL9hy8p9FPeBHo9Lee` | enabled; created 2026-08-08, prompt upgraded v2→v3→v4→v4.1 same day (audit + RSI waves), v4.2 on 2026-08-09 (G2 STEP 6 issue archive); push+email notifications ON; first solo fire expected 2026-08-15; prompt pinned at `docs/loop/archive/v4.2-weekly-prompt-2026-08-09.txt` (v4.1 baseline at `…/v4.1-weekly-prompt-2026-08-08.txt`, recovered from the trigger store 2026-08-09, F10) | `0 4 * * 6` (~04:08 actual) |
 | v1 (retired) | `trig_01TEakvC4M948KZwaGiMZVDR` | **DELETED by Sani 2026-08-08, API-verified** (UI offered delete-only; agent writes ownership-refused). Prompt archived at `docs/loop/archive/v1-weekly-prompt-2026-07-18.txt`; its past run sessions survive in the account's session list. Double-fire risk closed. | was `0 4 * * 6` |
 | DST flip 1/2 | `trig_01HsA9dHtk5Vo4nhBDV7AbsE` | armed one-shot; prompt pinned at `docs/loop/archive/dst-flip-1-prompt-2026-08-08.txt` | once 2026-10-24T09:00Z |
 | DST flip 2/2 | `trig_01UDJeyM9xHvbHs2DoYurTZU` | armed one-shot; prompt pinned at `docs/loop/archive/dst-flip-2-prompt-2026-08-08.txt` | once 2027-03-27T09:00Z |
@@ -108,10 +109,14 @@ same winter drift — its fix would be `0 5 * * 1-5`.
   (code.claude.com/docs/en/routines.md, 2026-08-08) say connectors attach by default in
   the claude.ai Routines UI creation form — recreating the routine there (with Gmail) is
   the known upgrade path, Sani's call.
-- **Durable archive — GATED (G2 in `GATED-ITEMS.md`)**: file each weekly report as a
-  GitHub Issue on the fork (`weekly-report` label) + one rolling `verify-queue` issue
-  mirroring WATCH-ITEMS.md. Filing issues violates neither the no-edit nor the no-push
-  rule, but the fork is public, so recurring publication awaits Sani's yes.
+- **Durable archive — LIVE (G2 executed 2026-08-09)**: each weekly report is filed as
+  a GitHub Issue on the fork (title `Weekly skill-update-check — YYYY-MM-DD`, label
+  `weekly-report`), and the rolling `[VERIFY] queue` issue
+  ([#6](https://github.com/georgefin/seo-geo-claude-skills/issues/6), label
+  `verify-queue`) mirrors WATCH-ITEMS.md — Sani posts local-verification verdicts
+  there; the weekly run reads them as findings and comments its deltas. The STEP 6
+  filing/comments are the routine's single permitted write (still no file edits, no
+  pushes, no email sends). First filing expected from the 2026-08-15 fire.
 - Optional mirror: `docs/loop/reports/YYYY-MM-DD_skill-update-check.md`, committed by
   APPLY-stage sessions. Sani's local Dropbox tree (`skill-update-checks/…`, `_INDEX.md`,
   `STANDING-LOOPS.md` row 5) is a separate, unchanged surface for local runs.
@@ -178,10 +183,13 @@ same winter drift — its fix would be `0 5 * * 1-5`.
   from this environment; openreview.net plus WebSearch snippets are the working
   fallback (snippet-verified 4/4 pinned RSI papers). AREX existence confirmed
   2026-08-08 (W1 — Sani re-verify now optional).
-- Fork GitHub Actions disabled (local gate is authoritative). GitHub Issues DISABLED —
-  410 on issue-create verified 2026-08-08 and re-verified twice 2026-08-09; the durable
-  report archive (G2) waits on the toggle. This line previously said "enabled" — never
-  assert a repo capability without a verified probe (F4/F10 spirit).
+- Fork GitHub Actions disabled (local gate is authoritative). GitHub Issues ENABLED by
+  Sani 2026-08-09 — verified by the successful queue-issue create (#6), not by the
+  toggle claim; before that, three 410s on issue-create (2026-08-08 → 09). Standing
+  lesson kept: never assert a repo capability without a verified probe (F4/F10 spirit
+  — an earlier version of this line said "enabled" while 410s were live), and GraphQL
+  `list_issues` returns EMPTY (not an error) on Issues-disabled repos — only a real
+  `issue_write` create is a truthful probe.
 - Routine-fired sessions: no connectors (org limitation on in-session `create_trigger`).
 - The rulings/watch-items digest inside the routine prompt is a FALLBACK only — this
   directory is authoritative.

@@ -18,6 +18,13 @@ in `VERSIONS.md` — bookkeeping references, not new claims. The 2026-08-08 note
 (tourism `:3`/`:76`, shopping `:3`/`:13`/`:58`, ymyl-credentials intro,
 content-quality-auditor discipline note).
 
+**GitHub mirror (G2, live 2026-08-09)**: rolling issue
+[#6](https://github.com/georgefin/seo-geo-claude-skills/issues/6) (label
+`verify-queue`) mirrors this register — Sani posts local-verification verdicts there
+as comments; weekly runs read them as findings and comment their deltas; APPLY
+sessions fold verdicts back into this file and refresh the issue. This file stays
+authoritative.
+
 ---
 
 ## W1 — AREX paper (arXiv 2607.21461) — EXISTENCE CONFIRMED 2026-08-08
