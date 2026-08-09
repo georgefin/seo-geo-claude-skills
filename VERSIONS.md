@@ -22,9 +22,9 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 | content-refresher | optimize | 4.1.0 | 2026-08-08 |
 | rank-tracker | monitor | 4.1.1 | 2026-08-09 |
 | backlink-analyzer | monitor | 4.0.1 | 2026-08-08 |
-| performance-reporter | monitor | 4.1.0 | 2026-08-08 |
+| performance-reporter | monitor | 4.1.1 | 2026-08-09 |
 | alert-manager | monitor | 4.1.1 | 2026-08-08 |
-| content-quality-auditor | cross-cutting | 4.2.0 | 2026-08-08 |
+| content-quality-auditor | cross-cutting | 4.2.1 | 2026-08-09 |
 | domain-authority-auditor | cross-cutting | 4.1.0 | 2026-08-08 |
 | entity-optimizer | cross-cutting | 4.1.4 | 2026-08-09 |
 | memory-management | cross-cutting | 4.0.2 | 2026-08-08 |
