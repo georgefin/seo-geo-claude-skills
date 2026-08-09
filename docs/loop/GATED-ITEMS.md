@@ -99,7 +99,8 @@ owns WP vuln watching), G4 harvest merged (PR #4).**
     schema has **no `schemaVersion`/`id`** (only `name` required), and `commands`/`skills`
     are documented as path strings/arrays, not `{name, description, path}` objects — repo
     mandates the opposite (`CLAUDE.md:47`; fields present at `.claude-plugin/plugin.json:2-3`;
-    added deliberately in v3.0.0, `VERSIONS.md:79-88`).
+    added deliberately in v3.0.0, `VERSIONS.md:127` ("### v3.0.0" section —
+    pointer anchor-tagged per F12; had silently drifted from :79-88)).
   - Sketch if approved: fold `version` into `metadata` (keep `metadata.version`), trim
     non-spec plugin.json fields, run `claude plugin validate --strict` (watch-item W8).
 - **Risk**: could break ClawHub / skills.sh marketplace listings (their tolerance of the
@@ -254,6 +255,11 @@ From the 08-08-2026 report's slow-loop lane; promote to gated only when concreti
   `eval_feedback_v3_backlog` fields (Z-designator, placeholder prose scope, threshold-
   reference exemptions, e1.5 anywhere→above alignment, 150-word count start, etc.).
   Same one-wave rule: apply together, never piecemeal, re-baselining the touched items.
+- **Scripted settled-pointer check** (F12, 2026-08-09): `validate-tracking.sh`
+  check (g) — parse the anchor-tagged `` `VERSIONS.md:<line>` ("<token>") ``
+  pointers in `docs/loop/` and fail the gate when the target line lacks its token;
+  fault-injection-test like checks (a)/(f). Until shipped, the anchor format itself
+  is the guard (F12).
 - **Weekly-prompt v4.3 wording backlog** (Mode A advisories, 2026-08-09,
   verdict-neutral): disambiguate STEP 6's "first filing verified 2026-08-09" (it means
   the first successful issue WRITE — queue issue #6 — not the first weekly-report

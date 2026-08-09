@@ -232,4 +232,39 @@ regression rate · repeat-failure count · tool-correctness rate.
   verdict-log timestamps from `date -u` at drafting time, never estimate; claims
   inside an attribution frame ("per the paste/response") must be quote-traceable —
   inferences move outside the frame with their real basis named.
-- **Recurrence**: 0. **Status**: guard live (this entry).
+- **Recurrence**: **1** (2026-08-09, same day — the W5 close-out placed "graduated"
+  enforcement inside BOTH owner-verified frames while the pasted page contains no
+  gradation language at all ("may be subject to certain restrictions" + a flat
+  example list); "banner" for the page's "warning" fell in the same class. Guard (1)
+  — the mandatory close-out review — caught it in its designed position, at BLOCK
+  severity per ledger rule 5. Guard (2) — the drafting checklist — FAILED at
+  drafting time; per rule 3 it was REDESIGNED same day: quote-traceability is now
+  WORD-level — every content word inside a verified/CONFIRMED frame must itself
+  appear in the evidence text, or the sentence moves outside the frame with its
+  real basis named; the coordinator runs the word check at drafting and Mode A
+  repeats it mechanically. Fixes applied verbatim the same hour
+  (entity-optimizer 4.1.4).) **Status**: guard live, redesigned; the recurrence
+  stands as the record that checklist-level discipline alone was insufficient.
+
+## F12 — 2026-08-09 · Settled-ruling line-number pointers break on every changelog insertion
+
+- **Failure**: SETTLED-RULINGS' `VERSIONS.md:<line>` pointers went stale for the
+  THIRD time in two days — refreshed after the 2026-08-08 labels wave, re-refreshed
+  after the v4.3.1 insertion (2026-08-09 morning), broken again the SAME DAY by the
+  v4.3.2 changelog insertion (+6 lines shifted :87/:91/:92 → :93/:97/:98; caught as
+  finding 4 of the W5-closure Mode A round). A pre-existing sibling: GATED-ITEMS'
+  `VERSIONS.md:79-88` (v3.0.0 content) had silently drifted to :127 at some earlier
+  insertion. Bare line numbers into an append-at-top changelog break structurally on
+  every release.
+- **Root cause**: the pointer format encodes a coordinate that every changelog
+  insertion invalidates; freshness depends on remembering a manual refresh pass.
+- **Guard**: pointer format changed — every `VERSIONS.md` pointer in the loop
+  registers now carries an anchor token beside the line number (e.g.
+  `VERSIONS.md:93` ("non-levers")); refreshing = grep the token, and a line/token
+  mismatch is self-evident to any reader. Applied this wave to all six affected
+  pointers (R1, R2, R3, R4, the pinned-baseline row, GATED-ITEMS G1). Durable
+  upgrade QUEUED (GATED-ITEMS slow-loop list): a scripted `validate-tracking.sh`
+  check that greps each anchor-tagged pointer's target line for its token,
+  fault-injection-tested per the F2/F9 precedent — until it ships, the anchor
+  format + Mode A's pointer checks are the live guard.
+- **Recurrence**: 0. **Status**: anchor format live; scripted check queued.

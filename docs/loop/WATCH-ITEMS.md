@@ -8,13 +8,15 @@ grep with `\[VERIFY` (not `\[VERIFY\]`) to find all of them.
 Weekly DETECT runs re-check items at their cadence and report deltas; resolution edits
 (dropping a tag, revising a claim) go through normal PR flow.
 
-**Last full inventory: 2026-08-09 (post W5 closure)** — 53 matching lines in 14
+**Last full inventory: 2026-08-09 (post W5+W10 closures)** — 53 matching lines in 13
 repo files (`grep -rc '\[VERIFY' research build optimize monitor cross-cutting references
-VERSIONS.md`). Delta vs the same-day post-wave count (53 in 15): −1 claim tag (W5
-dropped at entity-optimizer SKILL.md:185 — resolved-primary), +1 v4.3.2 changelog
-bookkeeping mention in `VERSIONS.md`; entity-optimizer's SKILL.md now carries no tag,
-hence 15→14 files. The post-wave note stands: the v4.3.x changelog prose mentions in
-`VERSIONS.md` are bookkeeping references, not new claims. The 2026-08-08 note stands:
+VERSIONS.md`). Delta vs the same-day post-wave count (53 in 15): −2 claim tags (W5
+dropped at entity-optimizer SKILL.md:185, W10-LSA dropped at
+serp-feature-taxonomy.md:233 — both resolved-primary by owner reads), +2 changelog
+bookkeeping mentions in `VERSIONS.md` (v4.3.2, v4.3.3); entity-optimizer's SKILL.md
+and the taxonomy file now carry no tags, hence 15→13 files. The post-wave note
+stands: the v4.3.x changelog prose mentions in `VERSIONS.md` are bookkeeping
+references, not new claims. The 2026-08-08 note stands:
 13 Greek-wave claim tags registered as W9–W11; legend/discipline lines are not claims
 (tourism `:3`/`:76`, shopping `:3`/`:13`/`:58`, ymyl-credentials intro,
 content-quality-auditor discipline note).
@@ -91,9 +93,9 @@ authoritative.
   its content was not separately checked) and pasted the verbatim text in-session:
   both phrases CONFIRMED with the fuller live prefix "Merchants requesting…" —
   nailing the merchant-directive reading from the primary source — and
-  business/answer/14114287 CONFIRMED as graduated enforcement: removal of violative
-  reviews + set-period new-review freeze, set-period unpublishing of existing
-  reviews, public warning banner, email notice, appeal path; no automatic
+  business/answer/14114287 CONFIRMED: removal of violative reviews + set-period
+  new-review freeze, set-period unpublishing of existing reviews, public warning
+  displayed to consumers, email notice, appeal path; no automatic
   suspension. Encoded at `cross-cutting/entity-optimizer/SKILL.md:185`
   (entity-optimizer 4.1.3, tag dropped). The business/answer/7400114 same-text
   mirror was NOT separately opened — kept in the callout as a hedged pointer only.
@@ -162,26 +164,25 @@ authoritative.
   Until then: directional only, never client-facing as fact.
 - **Cadence**: quarterly with the Skroutz cluster (W6); always before client-facing figures.
 
-## W10 — el-GR feature mechanics (2 claims)
+## W10 — el-GR feature mechanics — LSA leg RESOLVED-PRIMARY 2026-08-09 (owner read); inflection leg open
 
-- **Where**: `research/serp-analysis/references/serp-feature-taxonomy.md:233` (LSA
-  apparently NOT available in Greece — vendor guide 2026);
-  `research/keyword-research/references/greek-keyword-coverage.md:103` (SERP-distinctness
-  magnitude of inflected forms per query class).
-- **LSA leg — evidence upgraded 2026-08-09, still OPEN**: three independent vendor
-  guides unanimously list the LSA footprint as US, CA + AT, BE, FR, DE, IE, IT, NL, ES,
-  CH, UK (Greece absent), and Google's Help Center publishes per-country variants of
-  the LSA getting-started page for exactly those countries with no Greece variant
-  (claim upgraded single-vendor → multi-vendor + official-domain-structural;
-  serp-analysis 4.2.1). `support.google.com` is egress-blocked domain-wide from cloud —
-  no cloud sweep can ever reach CONFIRMED-PRIMARY on this item.
-- **Resolves when**: LSA — Sani local one-shot: open
-  support.google.com/localservices/answer/6224841, use the country picker, confirm
-  Greece absent, then drop the serp-feature-taxonomy.md:233 tag. (URL may move: LSA is
-  migrating into Google Ads — US from 2026-08, non-US 2027.) Inflection distinctness —
-  el-GR SERP sampling at the first Greek keyword engagement (Sani local or client data).
-- **Cadence**: LSA off the weekly nudge (cloud-blocked permanently), Sani-local
-  one-shot; inflection on-use.
+- **Where**: `research/serp-analysis/references/serp-feature-taxonomy.md:233` (LSA —
+  resolved, tag dropped, serp-analysis 4.2.2);
+  `research/keyword-research/references/greek-keyword-coverage.md:103`
+  (SERP-distinctness magnitude of inflected forms per query class — the remaining
+  open claim).
+- **LSA resolution (2026-08-09)**: Sani opened the LSA getting-started page's country
+  picker (support.google.com/localservices/answer/6224841) and confirmed in-session:
+  "Greece not listed". Claim upgraded multi-vendor + official-domain-structural →
+  owner-verified-primary; encoded at `:233` with a migration re-check note (LSA is
+  migrating into Google Ads — US from 2026-08, non-US 2027; the page and picker may
+  move, re-verify on migration only).
+- **History**: the 2026-08-09 sweep had upgraded single-vendor → three unanimous
+  vendor guides + Google's per-country help-variant structure; `support.google.com`
+  egress-blocked from cloud (permanent) — Mode A held the tag until this owner read.
+- **Inflection leg — resolves when**: el-GR SERP sampling at the first Greek keyword
+  engagement (Sani local or client data).
+- **Cadence**: LSA leg CLOSED (re-check on migration only); inflection on-use.
 
 ## W11 — Greek registry/compliance lookup specifics (7 claims)
 
