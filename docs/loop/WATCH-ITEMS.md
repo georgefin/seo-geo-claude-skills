@@ -97,7 +97,8 @@ authoritative.
   new-review freeze, set-period unpublishing of existing reviews, public warning
   displayed to consumers, email notice, appeal path; no automatic
   suspension. Encoded at `cross-cutting/entity-optimizer/SKILL.md:185`
-  (entity-optimizer 4.1.3, tag dropped). The business/answer/7400114 same-text
+  (entity-optimizer 4.1.3, tag dropped; wording corrected to evidence-exact in
+  4.1.4 after the close-out review). The business/answer/7400114 same-text
   mirror was NOT separately opened — kept in the callout as a hedged pointer only.
 - **History**: 2026-08-09 sweep had reached snippet-corroborated via
   `site:support.google.com` probes (cloud egress-blocked from the domain); Mode A
@@ -175,8 +176,8 @@ authoritative.
   picker (support.google.com/localservices/answer/6224841) and confirmed in-session:
   "Greece not listed". Claim upgraded multi-vendor + official-domain-structural →
   owner-verified-primary; encoded at `:233` with a migration re-check note (LSA is
-  migrating into Google Ads — US from 2026-08, non-US 2027; the page and picker may
-  move, re-verify on migration only).
+  migrating into Google Ads — reported timeline: US from 2026-08, non-US 2027; the
+  page and picker may move, re-verify on migration only).
 - **History**: the 2026-08-09 sweep had upgraded single-vendor → three unanimous
   vendor guides + Google's per-country help-variant structure; `support.google.com`
   egress-blocked from cloud (permanent) — Mode A held the tag until this owner read.

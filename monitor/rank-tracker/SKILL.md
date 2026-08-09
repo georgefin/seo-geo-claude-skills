@@ -1,13 +1,13 @@
 ---
 name: rank-tracker
-version: "4.1.0"
+version: "4.1.1"
 description: 'Track keyword ranking positions and SERP position changes over time in both traditional search and AI-generated responses. Use when the user asks to "track rankings", "check keyword positions", "monitor SERP positions", "how am I ranking", "where do I rank for this keyword", "did my rankings change", "ranking changes", or "keyword position tracking". For automated alerting, see alert-manager. For comprehensive reports, see performance-reporter.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.1.0"
+  version: "4.1.1"
   geo-relevance: "medium"
   tags:
     - seo
@@ -202,11 +202,11 @@ Keywords in top 10 increased from 12 to 17 (+5)
 | Drop off page 1 | Emergency response | Comprehensive audit + recovery plan |
 | Position gained | Document and learn | What worked? Can you replicate? |
 
-> **Reference**: See [references/tracking-setup-guide.md](./references/tracking-setup-guide.md) for root cause taxonomy, CTR benchmarks by position, SERP feature CTR impact, algorithm update assessment, tracking configuration best practices, keyword selection and grouping strategies, and data interpretation guidelines.
+> **Reference**: See [references/tracking-setup-guide.md](./references/tracking-setup-guide.md) for rank fluctuation patterns and their interpretation, position-vs-traffic impact estimates, alert threshold configuration, tracking configuration best practices, keyword selection and grouping strategies, and data interpretation guidelines.
 
 ## Reference Materials
 
-- [Tracking Setup Guide](./references/tracking-setup-guide.md) — Configuration best practices, device/location settings, SERP feature tracking setup, and striking-distance GSC mining methodology (Section 9)
+- [Tracking Setup Guide](./references/tracking-setup-guide.md) — Configuration best practices, device/location settings, and striking-distance GSC mining methodology (Section 9)
 - [Ranking Analysis Templates](./references/ranking-analysis-templates.md) — Complete output templates for the seven core workflow steps (mining step's format is in the setup guide)
 
 ## Related Skills

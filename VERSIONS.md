@@ -10,7 +10,7 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 |-------|----------|---------|--------------|
 | keyword-research | research | 4.2.1 | 2026-08-08 |
 | competitor-analysis | research | 4.0.2 | 2026-08-08 |
-| serp-analysis | research | 4.2.2 | 2026-08-09 |
+| serp-analysis | research | 4.2.3 | 2026-08-09 |
 | content-gap-analysis | research | 4.0.1 | 2026-08-08 |
 | seo-content-writer | build | 4.2.0 | 2026-08-08 |
 | geo-content-optimizer | build | 4.1.5 | 2026-08-09 |
@@ -20,7 +20,7 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 | technical-seo-checker | optimize | 4.2.1 | 2026-08-08 |
 | internal-linking-optimizer | optimize | 4.0.1 | 2026-08-08 |
 | content-refresher | optimize | 4.1.0 | 2026-08-08 |
-| rank-tracker | monitor | 4.1.0 | 2026-08-08 |
+| rank-tracker | monitor | 4.1.1 | 2026-08-09 |
 | backlink-analyzer | monitor | 4.0.1 | 2026-08-08 |
 | performance-reporter | monitor | 4.1.0 | 2026-08-08 |
 | alert-manager | monitor | 4.1.1 | 2026-08-08 |
@@ -30,6 +30,20 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 | memory-management | cross-cutting | 4.0.2 | 2026-08-08 |
 
 ## Changelog
+
+### v4.3.5 (2026-08-09)
+
+Pending-tasks wave (Sani proceed order): both agent-doable register items closed, plus the marketplace-discovery fix surfaced by Sani's same-day "other computers" question.
+
+- **rank-tracker 4.1.1**: reference promises trimmed to what the guide contains — SKILL.md blockquote and Reference Materials bullet now list only real sections of tracking-setup-guide.md (the bullet's "SERP feature tracking setup" was a second same-class phrase, caught in-wave); guide Section 6's dangling "Root Cause Taxonomy" pointer dropped; nothing invented (F3 rule)
+- Infrastructure (no version bump): validate-tracking check (g) — settled-pointer anchor verification (F12 promoted guard; scans the four live registers, ledger/archive/eval-baselines excluded; fault-injection-tested incl. a load-bearing negative control) — and check (a) extended for the new `.claude-plugin/marketplace.json` marketplace-discovery shim: probed 2026-08-09, `claude plugin marketplace add georgefin/seo-geo-claude-skills` fails with a root-only manifest while a directory-source add via the shim succeeds (add + marketplace-update responses observed), so a byte-identical copy now lives at the path Claude Code resolves (root stays canonical; identity gate-enforced); CORRECTED same day — this bullet's earlier "install succeed end-to-end" wording overclaimed two success responses (F11 recurrence 3): the deeper probe shows plugin INSTALL rejected at manifest validation ("hooks: Invalid input, commands: Invalid input, mcpServers: Invalid input" — the recorded W8 backlog), so working fork installs wait on the G1 continuation decision
+
+### v4.3.4 (2026-08-09)
+
+Review fix-forward pass — the two Mode A rounds on the merged v4.3.3 wave and on the merge-transition commit returned FIX and BLOCK; all findings applied with the reviewers' wording:
+
+- **serp-analysis 4.2.3**: LSA migration timeline hedged as reported ("reported timeline: US from 2026-08, non-US 2027") — the owner verification covered the country picker only, never the migration dates
+- **Registers**: all six anchor-tagged pointers re-grepped against the final tree (F12 recurrence 1 — the founding wave's own changelog insertion had re-shifted them +8 at birth; drafting-sequence rule adopted, scripted check promoted to next wave); the seventh verdict-log entry's issue-repair sentence rebuilt observed-vs-diagnosis (F11 recurrence 2 — structural OBSERVED/DIAGNOSIS template adopted for close-out records)
 
 ### v4.3.3 (2026-08-09)
 

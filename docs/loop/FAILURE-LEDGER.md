@@ -243,8 +243,38 @@ regression rate · repeat-failure count · tool-correctness rate.
   appear in the evidence text, or the sentence moves outside the frame with its
   real basis named; the coordinator runs the word check at drafting and Mode A
   repeats it mechanically. Fixes applied verbatim the same hour
-  (entity-optimizer 4.1.4).) **Status**: guard live, redesigned; the recurrence
-  stands as the record that checklist-level discipline alone was insufficient.
+  (entity-optimizer 4.1.4).)
+- **Recurrence 2** (2026-08-09, hours later — the PR-#5 merge-transition entry
+  asserted two failure MECHANISMS ("eaten by HTML sanitization"; "stripped by a
+  prior body update") inside its found-on-inspection frame, where the evidence
+  attested only the observables: placeholder missing with a dangling arrow; footer
+  absent despite having been sent — drop mechanism never established. Guard (1)
+  caught it at BLOCK, again in designed position; the word-level checklist
+  (redesign 1) failed at drafting a SECOND time. **Redesign 2 (rule 3 —
+  structural, since per-word vigilance twice proved insufficient)**: close-out and
+  verdict-log records now separate OBSERVED (evidence-traceable statements only)
+  from DIAGNOSIS (a labeled, explicitly-unverified clause where mechanisms and
+  causes live — e.g. "(diagnosed, not platform-verified: …)"); mechanism words are
+  excluded from observed frames by construction, and Mode A enforces the
+  separation mechanically. Fix applied with the reviewer's exact wording.)
+  **Status**: guard live, twice redesigned; recurrence 2 stands as the record that
+  vigilance without structure was insufficient.
+- **Recurrence 3** (2026-08-09, hours later — the v4.3.5 changelog bullet, PR #7
+  body, and one GATED-ITEMS queued row stated "local path-add + install succeed
+  end-to-end" inside a probed frame. The observed evidence was two success
+  RESPONSES (marketplace add; plugin install); "end-to-end" was an unlabeled
+  extrapolation to a working end state. The coordinator's own deeper probe
+  minutes later showed the file-source install in "failed to load: cache-miss"
+  state and the directory-source install rejected outright at manifest
+  validation (the recorded W8 trio) — pushed 10:10–10:12Z, contradicted 10:17Z,
+  corrected in the same session before anyone relied on it, but it REACHED the
+  pushed branch (unlike recurrences 1–2, caught pre-reliance in review). Guard
+  scope EXTENDED per rule 3: the OBSERVED/DIAGNOSIS separation and word-level
+  traceability bind EVERY probed/verified frame in pushed prose — changelogs,
+  PR bodies, queued rows — not close-out records alone; "works"/"end-to-end"
+  claims require the END STATE observed (e.g. `claude plugin list` status, a
+  loaded skill), never a mutation response alone. Mode A enforces this on the
+  same frames.)
 
 ## F12 — 2026-08-09 · Settled-ruling line-number pointers break on every changelog insertion
 
@@ -267,4 +297,30 @@ regression rate · repeat-failure count · tool-correctness rate.
   check that greps each anchor-tagged pointer's target line for its token,
   fault-injection-tested per the F2/F9 precedent — until it ships, the anchor
   format + Mode A's pointer checks are the live guard.
-- **Recurrence**: 0. **Status**: anchor format live; scripted check queued.
+- **Recurrence**: **1** (2026-08-09, same wave — the founding commit itself shipped
+  all six pointers stale at birth: the wave's own v4.3.3 changelog insertion
+  (+8 lines) re-shifted every target AFTER the coordinates were grepped and BEFORE
+  the register commit; committed :93/:97/:98/:127 vs actual :101/:105/:106/:135 at
+  merge — the same shape as F9's founding "remaining hits zero". Caught by the
+  wave's own Mode A round: the interim guard DETECTED but did not PREVENT.
+  **Redesign (rule 3)**: (i) drafting-sequence rule — pointer coordinates are
+  grepped against the FINAL tree, after every changelog/release insertion of the
+  wave exists in it; register commits go LAST; (ii) the scripted check (g) is
+  PROMOTED from the slow-loop queue to the next wave — detection without
+  prevention is not a guard. Fix-forward applied post-merge with a final-tree
+  re-grep (current coordinates :108/:112/:113/:142 after the v4.3.4 insertion —
+  on any future mismatch the TOKEN is authoritative, never a recorded number).)
+  **Status**: anchor format + sequence rule live; scripted check promoted
+  (implement next wave).
+- **Shipped (2026-08-09, same day — supersedes "implement next wave" above)**:
+  check (g) live in `validate-tracking.sh` (implementation commit `fdedb6c`;
+  check (a) shim extension in `fd6f289`). Fault-injection evidence at
+  implementation: wrong-line and broken-token injections FAIL printing the
+  pointer and the actual target line; restored copy passes 6/6; negative
+  control verified load-bearing (the ledger's own historical `:93` example
+  would have tripped if this file were scanned — it produced zero findings,
+  proving the scope exclusion). First live gate run the same day: the v4.3.5
+  changelog insertion shifted all six pointers and the gate BLOCKED the push
+  until the register re-anchor commit landed — the guard now PREVENTS, closing
+  the detection-without-prevention gap this entry records. Recurrence counter
+  stays 1 as the permanent record.

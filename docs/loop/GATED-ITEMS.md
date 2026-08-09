@@ -10,6 +10,24 @@ PR must be named in that PR's body as a separate decision (as done in PR #1, 202
 amendment applied — prompt v4.2), G3 RETIRED 2026-08-09 (option c — the local loop
 owns WP vuln watching), G4 harvest merged (PR #4).**
 
+> **Verdict log — 2026-08-09 (seventh entry, 09:28Z)**: Sani, verbatim: "#5 merge
+> now. Fix Issue #6". Executed as: PR #5 marked ready and MERGED (merge commit
+> `676ae74`, 2026-08-09T09:28:09Z) — library v4.3.3 on main: the v4.3.1 verification
+> wave, F10 closure, G2 execution, G3 retirement, the W5 + W10-LSA owner-verified
+> closures, and the F11/F12 guards (20 commits). Issue #6 repaired in the same pass —
+> two real defects found on inspection: the how-to line's angle-bracket placeholder
+> was missing from the stored body, a dangling arrow left behind (diagnosed, not
+> platform-verified: angle-bracket content eaten by sanitization), and the
+> attribution footer was absent despite having been sent in the prior body update
+> (drop mechanism not established); both fixed (placeholder rewritten without angle
+> brackets, footer re-appended), and the body now notes the register is current on
+> main. Post-merge transition per the recorded pattern:
+> PR-#5 subscription removed (merge webhook also confirmed), branch restarted from
+> main, fresh accumulator PR opened for follow-on work (W2 fold-back, Saturday-fire
+> follow-ups, and the still-in-flight W10+F12 Mode A round's findings if any), monitor
+> chain re-pointed. First solo weekly fire Sat 2026-08-15 ~04:08Z now reads all of
+> this from main — the loop-closure metric's designed test.
+>
 > **Verdict log — 2026-08-09 (sixth entry, ~08:10Z)**: G3 resolved by evidence. After
 > the coordinator's guide mapped the recorded fact question to its pre-approved
 > branches, Sani answered by pasting their canonical local `STANDING-LOOPS.md`
@@ -99,8 +117,9 @@ owns WP vuln watching), G4 harvest merged (PR #4).**
     schema has **no `schemaVersion`/`id`** (only `name` required), and `commands`/`skills`
     are documented as path strings/arrays, not `{name, description, path}` objects — repo
     mandates the opposite (`CLAUDE.md:47`; fields present at `.claude-plugin/plugin.json:2-3`;
-    added deliberately in v3.0.0, `VERSIONS.md:127` ("### v3.0.0" section —
-    pointer anchor-tagged per F12; had silently drifted from :79-88)).
+    added deliberately in v3.0.0, `VERSIONS.md:149` ("### v3.0.0" section —
+    pointer anchor-tagged per F12, token authoritative on mismatch; had silently
+    drifted from :79-88)).
   - Sketch if approved: fold `version` into `metadata` (keep `metadata.version`), trim
     non-spec plugin.json fields, run `claude plugin validate --strict` (watch-item W8).
 - **Risk**: could break ClawHub / skills.sh marketplace listings (their tolerance of the
@@ -122,8 +141,29 @@ owns WP vuln watching), G4 harvest merged (PR #4).**
   upstream namespace only (ClawHub: vendored openclaw/skills snapshots, bundle v9.9.5;
   skills.sh: `aaron-he-zhu/...` path, 20 skills / 60.4K installs baseline; "georgefin"
   zero hits on either; both sites [BLOCKED-EGRESS] from cloud, snippet-verified).
+  (2026-08-09 second re-check, dedicated lane: baseline HOLDS at snippet grade —
+  v9.9.5 and the 60.4K figure re-surfaced (snippet grade cannot distinguish
+  unchanged from cached), georgefin still zero hits in 5 scoped queries
+  (search-absence, not platform proof), no fork-indexing signal; additive at
+  snippet grade: a second DEPRECATED ClawHub bundle listing v8.0.1 [VERIFY], a
+  third upstream-keyed directory claudepluginhub.com, and a noise guard — the
+  unrelated `resciencelab/opc-skills/seo-geo` skill on skills.sh is not this
+  library.)
   Effective rollback signals: strict-validator errors + next weekly's contradiction
   check; revert = `git revert 6c10295`.
+- **Continuation now LOAD-BEARING for installs (2026-08-09, probe evidence)**: the
+  fork cannot be installed as a working Claude Code plugin until this decision
+  lands. Probed on the v4.3.5 tree: `claude plugin install
+  seo-geo-claude-skills@seo-geo-claude-skills` from a directory-source marketplace
+  (resolved via the new shim) is REJECTED at install-time validation with exactly
+  the recorded W8 trio — "Validation errors: hooks: Invalid input, commands:
+  Invalid input, mcpServers: Invalid input". The file-source variant's install
+  response reports success, but `claude plugin list` then shows "failed to load:
+  cache-miss" (observed in the probe container; load mechanism not further
+  diagnosed). The v4.3.5 marketplace-discovery shim fixed manifest DISCOVERY
+  only. The decision itself remains Sani's, per the pilot-result scope above:
+  flatten `commands`, re-shape `hooks`/`mcpServers` (+ `capabilities`/packaging
+  calls) — one wave, single-commit revert.
 
 ## G2 — Publish weekly reports as GitHub Issues on the fork
 
@@ -255,11 +295,17 @@ From the 08-08-2026 report's slow-loop lane; promote to gated only when concreti
   `eval_feedback_v3_backlog` fields (Z-designator, placeholder prose scope, threshold-
   reference exemptions, e1.5 anywhere→above alignment, 150-word count start, etc.).
   Same one-wave rule: apply together, never piecemeal, re-baselining the touched items.
-- **Scripted settled-pointer check** (F12, 2026-08-09): `validate-tracking.sh`
-  check (g) — parse the anchor-tagged `` `VERSIONS.md:<line>` ("<token>") ``
-  pointers in `docs/loop/` and fail the gate when the target line lacks its token;
-  fault-injection-test like checks (a)/(f). Until shipped, the anchor format itself
-  is the guard (F12).
+- **Scripted settled-pointer check — SHIPPED 2026-08-09** (was PROMOTED same day,
+  F12 recurrence 1): `validate-tracking.sh` check (g) live — parses the
+  anchor-tagged `` `VERSIONS.md:<line>` ("<token>") `` pointers in the four live
+  registers and fails the gate on any token mismatch (FAILURE-LEDGER.md, archive/,
+  eval-baselines/ excluded by design — the append-only ledger legitimately quotes
+  historical pointer examples). Fault-injection-tested like (a)/(f), with a
+  negative control verified load-bearing at implementation. First live gate run
+  the same day caught all six pointers shifted by the v4.3.5 changelog insertion
+  and BLOCKED the push until the register re-anchor commit — detection AND
+  prevention. The F12 drafting-sequence rule (final-tree grep, registers last)
+  remains standing discipline.
 - **Weekly-prompt v4.3 wording backlog** (Mode A advisories, 2026-08-09,
   verdict-neutral): disambiguate STEP 6's "first filing verified 2026-08-09" (it means
   the first successful issue WRITE — queue issue #6 — not the first weekly-report
@@ -267,13 +313,16 @@ From the 08-08-2026 report's slow-loop lane; promote to gated only when concreti
   Gmail-DRAFT clause (a draft is arguably a write; fired sessions lack Gmail anyway).
   Bundle into the NEXT prompt amendment (one `update_trigger`, F10 archive) — never a
   solo respin.
-- **rank-tracker reference gap** (flagged by the H1 harvest implementer, 2026-08-08):
-  SKILL.md's blockquote (~line 210) promises "root cause taxonomy, CTR benchmarks by
-  position, SERP feature CTR impact, algorithm update assessment" that
-  `references/tracking-setup-guide.md` does not contain (its Section 6 points at a
-  nonexistent "Root Cause Taxonomy"). Pre-existing, outside the harvest proposal —
-  small honest fix for a future wave: either write the missing sections or trim the
-  promise to what exists.
+- **rank-tracker reference gap** (flagged by the H1 harvest implementer,
+  2026-08-08) — **APPLIED 2026-08-09** (4.1.1, this wave), trim-to-what-exists
+  resolution: the SKILL.md blockquote and Reference Materials bullet now promise
+  only sections tracking-setup-guide.md actually contains, and the guide's
+  Section 6 dangling "Root Cause Taxonomy" pointer is dropped; nothing was
+  written into the reference (F3 rule — no invented taxonomies/benchmarks). The
+  bullet's "SERP feature tracking setup" phrase was a SECOND same-class instance,
+  found by the implementer at the scope boundary and fixed in-wave as a declared
+  coordinator extension (the guide covers SERP features only as a pitfalls row
+  and reporting-cadence lines, not a setup section).
 - **Benchmark polish pair** (reviewer advisories, 2026-08-08, verdict-neutral): (a)
   core-eeat-benchmark scoring-table N/A row could state that rubric-granted
   conditionality (currently T04 only) is the sole rubric-level N/A source, foreclosing
@@ -287,3 +336,12 @@ From the 08-08-2026 report's slow-loop lane; promote to gated only when concreti
   governs", but the benchmark needs its own scoped pass; bundle the `<`-vs-`≤` CWV
   boundary phrasing nuance (R4 uses ≤; several references use `<`) into the same pass.
   Shared framework files — small, deliberate, own wave.
+- **NEW — fork-manifest attribution (Sani decision, flagged 2026-08-09)**: both
+  marketplace manifests' `owner`/`metadata.repository` fields and `VERSIONS.md:3`'s
+  raw-fetch URL still carry the upstream identity (aaron-he-zhu) — fork
+  inheritance, surfaced when the marketplace-discovery shim landed. No functional
+  impact on marketplace discovery (probed: the add succeeds with the
+  upstream-attributed manifests; installs are blocked separately by the W8
+  manifest shapes — see the G1 continuation note). Whether to re-attribute the fork's outward-facing
+  identity (and which fields) is Sani's call — outward-facing publication class,
+  never a coordinator default.

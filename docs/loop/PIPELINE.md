@@ -4,7 +4,8 @@ One-read orientation for ANY fresh session or fired routine. Coordinator: Herber
 Approver: Sani. Repo: fork `georgefin/seo-geo-claude-skills` (upstream:
 `aaron-he-zhu/seo-geo-claude-skills`). Last updated: 2026-08-09 (F10 prompt recovery;
 G2 executed — weekly prompt v4.2, report archive live; G3 retired — WP vuln watching
-owned by Sani's local loop registry).
+owned by Sani's local loop registry; v4.3.5 pending-tasks wave — settled-pointer
+gate check (g) shipped, marketplace-discovery shim, rank-tracker 4.1.1).
 
 **GROUNDING RULE — do this first**: before researching or proposing anything, read the
 five files in `docs/loop/`: `PIPELINE.md` (this file), `SETTLED-RULINGS.md`,
@@ -41,8 +42,9 @@ verdict; ledgered failures must not be repeated — repeating one is an incident
 4. **VALIDATE** — two legs, both required:
    (i) STRUCTURAL: `scripts/pre-push-gate.sh` before EVERY push — runs
    `scripts/validate-skill.sh` on each touched skill plus `scripts/validate-tracking.sh`
-   (version tri-sync, manifest↔disk parity, VERSIONS.md↔frontmatter, 350-line body cap,
-   references/ link integrity). A `PreToolUse` hook in `.claude/settings.json` enforces
+   (version tri-sync incl. the `.claude-plugin/` marketplace shim, manifest↔disk
+   parity, VERSIONS.md↔frontmatter, 350-line body cap, references/ link integrity,
+   settled-pointer anchors). A `PreToolUse` hook in `.claude/settings.json` enforces
    the gate on `git push` in cloud sessions. Fork Actions disabled → local gate is the
    effective gate (enabling Actions on the same scripts is the recommended follow-up).
    (ii) BEHAVIORAL: skills carrying an `evals/` suite (pilot 2026-08-08:

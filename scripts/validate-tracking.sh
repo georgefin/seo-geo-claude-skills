@@ -9,7 +9,7 @@
 #
 # Usage:   ./validate-tracking.sh [repo-root]     (default: .)
 # Exit:    0 = all checks pass (warnings allowed), 1 = any FAIL, 2 = usage/setup error
-# No network access. Dependencies: bash, coreutils, grep, sed, awk, sort, comm.
+# No network access. Dependencies: bash, coreutils, grep, sed, awk, sort, comm, cmp (diffutils).
 
 set -u
 
@@ -94,7 +94,20 @@ if [ "$A_OK" -eq 1 ]; then
         A_OK=0
     fi
 fi
-[ "$A_OK" -eq 1 ] && pass "(a) version '$PLUGIN_VER' consistent across plugin.json, marketplace.json (x$MKT_COUNT), README badge"
+# Marketplace-discovery shim (2026-08-09): Claude Code's `plugin marketplace
+# add <owner>/<repo>` resolves .claude-plugin/marketplace.json ONLY — probed
+# on this fork: the add fails when the manifest sits at repo root alone. The
+# repo therefore carries a byte-identical copy at that path; root
+# marketplace.json stays the canonical, hand-edited file.
+MKT_SHIM="$ROOT/.claude-plugin/marketplace.json"
+if [ ! -f "$MKT_SHIM" ]; then
+    fail "(a) marketplace-discovery shim missing: .claude-plugin/marketplace.json (byte-identical copy of root marketplace.json)"
+    A_OK=0
+elif ! cmp -s "$MARKETPLACE_JSON" "$MKT_SHIM"; then
+    fail "(a) .claude-plugin/marketplace.json differs from root marketplace.json — root is canonical; refresh with: cp marketplace.json .claude-plugin/marketplace.json"
+    A_OK=0
+fi
+[ "$A_OK" -eq 1 ] && pass "(a) version '$PLUGIN_VER' consistent across plugin.json, marketplace.json (x$MKT_COUNT), README badge; .claude-plugin/ shim byte-identical"
 
 # ---------------------------------------------------------------------------
 # Shared inventory: skill directories on disk (contain a SKILL.md)
@@ -304,6 +317,82 @@ if [ -n "$F_HITS" ]; then
     F_OK=0
 fi
 [ "$F_OK" -eq 1 ] && pass "(f) no deprecated tokens (FID / First Input Delay / affiliate-only T04) in live skill, command, or framework files"
+
+# ---------------------------------------------------------------------------
+# (g) settled-pointer anchor check (F12 guard)
+# ---------------------------------------------------------------------------
+# F12 (2026-08-09, recurrence 1): bare VERSIONS.md line-number pointers in the
+# loop registers break on every changelog insertion, so every live pointer is
+# anchor-tagged — `VERSIONS.md:<N>` ("<token>") — and the TOKEN is
+# authoritative. This check parses each anchor-tagged pointer in the four LIVE
+# registers and fails the gate when VERSIONS.md line N no longer CONTAINS its
+# token as a fixed substring (grep -F semantics, not regex).
+# Scope (F12 rationale): scan ONLY the live registers — SETTLED-RULINGS.md,
+# GATED-ITEMS.md, WATCH-ITEMS.md, PIPELINE.md. FAILURE-LEDGER.md is EXCLUDED:
+# it is an append-only ledger that legitimately quotes historical pointer
+# examples (its F12 entry keeps `VERSIONS.md:93` ("non-levers") as a worked
+# example that was correct at writing time) and must never trip the gate.
+# docs/loop/archive/ (frozen snapshots) and docs/loop/eval-baselines/ are
+# excluded likewise. GATED-ITEMS' format TEMPLATE (literal <line>/<token>
+# placeholders) never matches the digit-requiring pattern below, and bare
+# un-anchored refs (e.g. PIPELINE.md's `VERSIONS.md:3`) are ignored by design.
+echo ""
+echo "[g] settled-pointer anchor check (F12 guard)"
+G_OK=1
+G_COUNT=0
+G_REGISTERS="SETTLED-RULINGS.md GATED-ITEMS.md WATCH-ITEMS.md PIPELINE.md"
+G_VLINES=$(awk 'END { print NR }' "$VERSIONS")
+for reg in $G_REGISTERS; do
+    reg_file="$ROOT/docs/loop/$reg"
+    if [ ! -f "$reg_file" ]; then
+        warn "(g) live register missing, skipped: docs/loop/$reg"
+        continue
+    fi
+    # Flatten the register to one string first so a pointer whose ("token")
+    # wraps onto the next line (R3's does) still parses; emit "N<TAB>token".
+    while IFS=$'\t' read -r ptr_line ptr_token; do
+        [ -n "$ptr_line" ] || continue
+        if [ "$ptr_line" = "PARSE-ERR" ]; then
+            fail "(g) docs/loop/$reg: malformed pointer \`VERSIONS.md:$ptr_token\` — no closing double quote after its (\" token opener"
+            G_OK=0
+            continue
+        fi
+        G_COUNT=$((G_COUNT + 1))
+        if [ -z "$ptr_token" ]; then
+            fail "(g) docs/loop/$reg pointer \`VERSIONS.md:$ptr_line\` (\"\") — empty anchor token would match any line; token is authoritative and must be non-empty"
+            G_OK=0
+            continue
+        fi
+        if [ "$ptr_line" -lt 1 ] || [ "$ptr_line" -gt "$G_VLINES" ]; then
+            fail "(g) docs/loop/$reg pointer \`VERSIONS.md:$ptr_line\` (\"$ptr_token\") — VERSIONS.md line $ptr_line does not exist (file has $G_VLINES lines); grep the token to refresh"
+            G_OK=0
+            continue
+        fi
+        actual=$(sed -n "${ptr_line}p" "$VERSIONS")
+        if ! printf '%s\n' "$actual" | grep -qF -- "$ptr_token"; then
+            fail "(g) docs/loop/$reg pointer \`VERSIONS.md:$ptr_line\` (\"$ptr_token\") — target line lacks its token (token is authoritative; grep it to refresh)"
+            printf '      actual VERSIONS.md:%s: %s\n' "$ptr_line" "$actual"
+            G_OK=0
+        fi
+    done < <(awk '
+        { buf = buf $0 " " }
+        END {
+            while (match(buf, /`VERSIONS\.md:[0-9]+`[ \t\r]*\("/)) {
+                head = substr(buf, RSTART, RLENGTH)
+                buf  = substr(buf, RSTART + RLENGTH)
+                n = head; gsub(/[^0-9]/, "", n)
+                q = index(buf, "\"")
+                if (q == 0) { printf "PARSE-ERR\t%s\n", n; break }
+                printf "%s\t%s\n", n, substr(buf, 1, q - 1)
+                buf = substr(buf, q + 1)
+            }
+        }' "$reg_file")
+done
+if [ "$G_COUNT" -eq 0 ]; then
+    fail "(g) parsed ZERO anchor-tagged pointers across the live registers — parser or format drift (at least the six known live pointers should match)"
+    G_OK=0
+fi
+[ "$G_OK" -eq 1 ] && pass "(g) all $G_COUNT anchor-tagged \`VERSIONS.md:<line>\` (\"<token>\") pointers in the live registers verified against their target lines"
 
 # ---------------------------------------------------------------------------
 # Summary
