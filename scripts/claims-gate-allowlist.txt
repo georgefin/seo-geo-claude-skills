@@ -23,3 +23,6 @@ live register
 # The claims-gate rule's own meta-vocabulary — register text QUOTING the rule
 # ("every live-state claim …") must not trip the rule:
 live-state claim
+# R-ruling pinned row (SETTLED-RULINGS baselines table): settled fact, re-added
+# on every F12 pointer re-anchor — decided 2026-08-09, reopens per its row.
+live since 2025-10-08
