@@ -31,6 +31,13 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 
 ## Changelog
 
+### v4.4.0 (2026-08-09)
+
+G1 continuation executed (approved in the eighth verdict-log entry — Sani: "I want all machines to have the exact same plugins and skills and loops installed"): the manifest-shape migration that unblocks fork installs.
+
+- **plugin.json spec migration**: `commands` flattened to bare path strings (all 9 descriptions verified present in the command files' frontmatter before the flatten); `mcpServers` re-shaped to the path string `./.mcp.json`; `hooks` field dropped and the empty `hooks/hooks.json` (content `{"hooks": {}}`) retired with it; non-spec `capabilities` block removed; validator: the three W8 strict ERRORS gone, sole remaining strict finding is the recorded root-CLAUDE.md packaging warning (accepted residual)
+- **End state observed (the F11-r3 standard)**: directory-source add + install on the migrated tree → `claude plugin list` reports "Version: 4.4.0 · Status: √ enabled"; remote flow against post-merge main → `claude plugin marketplace add georgefin/seo-geo-claude-skills` SUCCEEDS (the same command that failed pre-shim — remote discovery leg now verified), while install from main's pre-migration 4.3.5 manifest still draws the W8 validation trio as expected; the remote flow completes when this wave reaches main
+
 ### v4.3.5 (2026-08-09)
 
 Pending-tasks wave (Sani proceed order): both agent-doable register items closed, plus the marketplace-discovery fix surfaced by Sani's same-day "other computers" question.
