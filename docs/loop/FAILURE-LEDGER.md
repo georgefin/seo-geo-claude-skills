@@ -301,6 +301,19 @@ regression rate · repeat-failure count · tool-correctness rate.
   by a same-entry flip. Fixes applied with the reviewer's exact wording, same
   hour; also applied: the recurrence-3 quote-precision note above and the
   Finding-3 relabel of the classifier-denial gloss.)
+- **Recurrence 5** (2026-08-09, ninth-entry Mode A round — the entry itself
+  verified clean on all 16 lines (probe reproduced byte-exact, git facts
+  confirmed), but the PR #8 merge it records had falsified two live-state
+  claims ELSEWHERE in the same register, left unmarked: the attribution queued
+  row's "installs are blocked" and the G1 note's "still draws the W8 trio
+  until this wave merges" — both true pre-merge, both false against main at
+  commit time; the G1 Status field also stopped at EXECUTED where the
+  register's own convention records MERGED. Guard REDESIGNED per rule 3
+  (third scope widening: word → entry → REGISTER): a recorded flip triggers a
+  re-scan of the WHOLE register for every live-state claim the event touches —
+  the scope the catching round itself had to use — with the F10 "historical
+  as of" note remaining the required form for prose a flip leaves behind.
+  Fixes applied with the reviewer's exact wording, same hour.)
 
 ## F12 — 2026-08-09 · Settled-ruling line-number pointers break on every changelog insertion
 

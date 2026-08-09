@@ -147,8 +147,8 @@ owns WP vuln watching), G4 harvest merged (PR #4).**
 
 - **Status**: **APPROVED by Sani 2026-08-08** ("2. Yes" on the recommendation sheet).
   Pilot executed and MERGED (PR #4, `db7ebd5`); W8 resolved — see Pilot result
-  below; continuation APPROVED + EXECUTED 2026-08-09 (v4.4.0 — see Continuation
-  notes below).
+  below; continuation APPROVED + EXECUTED + MERGED 2026-08-09 (PR #8, `3f22f23`;
+  v4.4.0 on main — see Continuation notes below).
 - **Proposal**: The current spec diverges from this repo's own rules:
   - agentskills.io/specification.md (checked 2026-08-08): SKILL.md frontmatter defines
     **no top-level `version` field** (6 fields only) — repo mandates it (`CLAUDE.md:46`,
@@ -205,8 +205,10 @@ owns WP vuln watching), G4 harvest merged (PR #4).**
   now SUCCEEDS against post-merge main — the reviewer's Finding 2 re-probe RUN
   rather than recorded-as-queued (adapted with the review's substance intact:
   the merge landed between the round's freeze and its return); install from
-  main's pre-migration 4.3.5 manifest still draws the W8 trio until this wave
-  merges, completing the remote flow. Revert = single commit. A `.claude/
+  main's then-current pre-migration 4.3.5 manifest still drew the W8 trio until
+  this wave merged (historical as of the PR #8 merge, 2026-08-09 ~10:47Z —
+  remote flow complete and probe-verified on main, ninth verdict-log entry).
+  Revert = single commit. A `.claude/
   settings.json` team-marketplace addition (extraKnownMarketplaces +
   enabledPlugins) was attempted and DENIED by the session permission classifier
   (that file carries the push-gate hook; diagnosed, not classifier-stated:
@@ -408,7 +410,9 @@ From the 08-08-2026 report's slow-loop lane; promote to gated only when concreti
   raw-fetch URL still carry the upstream identity (aaron-he-zhu) — fork
   inheritance, surfaced when the marketplace-discovery shim landed. No functional
   impact on marketplace discovery (probed: the add succeeds with the
-  upstream-attributed manifests; installs are blocked separately by the W8
-  manifest shapes — see the G1 continuation note). Whether to re-attribute the fork's outward-facing
+  upstream-attributed manifests; installs were blocked separately by the W8
+  manifest shapes at flag time (historical as of the PR #8 merge, 2026-08-09
+  ~10:47Z — installs from main now succeed, ninth verdict-log entry); see the
+  G1 continuation note). Whether to re-attribute the fork's outward-facing
   identity (and which fields) is Sani's call — outward-facing publication class,
   never a coordinator default.
