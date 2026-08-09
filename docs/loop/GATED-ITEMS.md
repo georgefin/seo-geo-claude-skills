@@ -210,7 +210,7 @@ watching), G4 harvest merged (PR #4).**
     schema has **no `schemaVersion`/`id`** (only `name` required), and `commands`/`skills`
     are documented as path strings/arrays, not `{name, description, path}` objects — repo
     mandates the opposite (`CLAUDE.md:47`; fields present at `.claude-plugin/plugin.json:2-3`;
-    added deliberately in v3.0.0, `VERSIONS.md:156` ("### v3.0.0" section —
+    added deliberately in v3.0.0, `VERSIONS.md:168` ("### v3.0.0" section —
     pointer anchor-tagged per F12, token authoritative on mismatch; had silently
     drifted from :79-88)).
   - Sketch if approved: fold `version` into `metadata` (keep `metadata.version`), trim
@@ -499,7 +499,9 @@ From the 08-08-2026 report's slow-loop lane; promote to gated only when concreti
   e5.9; keyword e1.5/e2.6/e3.3/e4.1/e4.5/e5.2; geo e2.2/e3.1/e3.7/e5.4); Mode B
   re-baseline runs follow in the same wave.
 - **Eval-suite v3 wording backlog** (from the v2 Mode B graders + focused rerun,
-  2026-08-08): 11 minor items recorded in `docs/loop/eval-baselines/2026-08-08-v2.json`
+  2026-08-08) — **APPLIED 2026-08-09** (`b08253d`, the 11 items as 13 in-place
+  rewords; touched indices re-baselined in
+  `docs/loop/eval-baselines/2026-08-09-v3.json`): 11 minor items recorded in `docs/loop/eval-baselines/2026-08-08-v2.json`
   `eval_feedback_v3_backlog` fields (Z-designator, placeholder prose scope, threshold-
   reference exemptions, e1.5 anywhere→above alignment, 150-word count start, etc.).
   Same one-wave rule: apply together, never piecemeal, re-baselining the touched items.
@@ -531,14 +533,20 @@ From the 08-08-2026 report's slow-loop lane; promote to gated only when concreti
   found by the implementer at the scope boundary and fixed in-wave as a declared
   coordinator extension (the guide covers SERP features only as a pitfalls row
   and reporting-cadence lines, not a setup section).
-- **Benchmark polish pair** (reviewer advisories, 2026-08-08, verdict-neutral): (a)
+- **Benchmark polish pair** (reviewer advisories, 2026-08-08, verdict-neutral) —
+  **APPLIED 2026-08-09** (`29e880c`: benchmark N/A-source clarification +
+  emergency-brake Partial-by-design line; content-quality-auditor 4.2.1,
+  performance-reporter 4.1.1): (a)
   core-eeat-benchmark scoring-table N/A row could state that rubric-granted
   conditionality (currently T04 only) is the sole rubric-level N/A source, foreclosing
   at-will N/A readings; (b) content-quality-auditor's emergency-brake veto table lists
   no Partial state (by design — full pass handles it) — one clarifying line would stop
   the question recurring. Bundle with the next framework touch.
-- **NEW — shared-framework consistency pass** (surfaced 2026-08-08 by the schema
-  reconciliation + auditor labels agents): `references/core-eeat-benchmark.md` Section 5
+- **Shared-framework consistency pass** (surfaced 2026-08-08 by the schema
+  reconciliation + auditor labels agents) — **VERIFIED ALREADY APPLIED 2026-08-09**
+  (the Section 5 R2 alignment shipped in `512b83e` the evening this was queued;
+  `29e880c` independently confirmed it and closed the bundled CWV `<`-vs-`≤` leg
+  via the bucket-mislabel fix): `references/core-eeat-benchmark.md` Section 5
   (≈ lines 216-226) still teaches the pre-clarification multi-type mapping ("Article,
   Breadcrumb | FAQ, HowTo") — skill text currently states "where they differ, R2
   governs", but the benchmark needs its own scoped pass; bundle the `<`-vs-`≤` CWV
