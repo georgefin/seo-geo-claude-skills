@@ -266,7 +266,7 @@ What is the primary goal?
 - **Fail**: Clickbait; content doesn't match title.
 
 **C02: Direct Answer** | GEO 🎯
-- **Pass**: First 150 words contain clear definition or conclusion (directly citable by AI).
+- **Pass**: First 150 words contain clear definition or conclusion (directly citable by AI). The count starts at the first body word after the H1 — the H1's own words are not part of the count.
 - **Partial**: Answer within first 300 words with lengthy preamble.
 - **Fail**: Answer buried in middle or end.
 
