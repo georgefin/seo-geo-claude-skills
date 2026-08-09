@@ -10,10 +10,10 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 |-------|----------|---------|--------------|
 | keyword-research | research | 4.2.1 | 2026-08-08 |
 | competitor-analysis | research | 4.0.2 | 2026-08-08 |
-| serp-analysis | research | 4.2.0 | 2026-08-08 |
+| serp-analysis | research | 4.2.1 | 2026-08-09 |
 | content-gap-analysis | research | 4.0.1 | 2026-08-08 |
 | seo-content-writer | build | 4.2.0 | 2026-08-08 |
-| geo-content-optimizer | build | 4.1.4 | 2026-08-08 |
+| geo-content-optimizer | build | 4.1.5 | 2026-08-09 |
 | meta-tags-optimizer | build | 4.1.1 | 2026-08-08 |
 | schema-markup-generator | build | 4.1.0 | 2026-08-08 |
 | on-page-seo-auditor | optimize | 4.1.1 | 2026-08-08 |
@@ -26,10 +26,18 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 | alert-manager | monitor | 4.1.1 | 2026-08-08 |
 | content-quality-auditor | cross-cutting | 4.2.0 | 2026-08-08 |
 | domain-authority-auditor | cross-cutting | 4.1.0 | 2026-08-08 |
-| entity-optimizer | cross-cutting | 4.1.1 | 2026-08-08 |
+| entity-optimizer | cross-cutting | 4.1.2 | 2026-08-09 |
 | memory-management | cross-cutting | 4.0.2 | 2026-08-08 |
 
 ## Changelog
+
+### v4.3.1 (2026-08-09)
+
+Verification wave (2026-08-09, Sani proceed order): three evidence upgrades from the weekly sweep — all three encoded with explicit [VERIFY] scope pending Sani-local primary checks (support.google.com + blog.google egress-blocked from cloud).
+
+- **serp-analysis 4.2.1**: LSA Greece-absence claim upgraded from single-vendor to multi-vendor + official-domain-structural corroboration (2026-08-09 sweep); [VERIFY] kept pending Sani-local primary check (support.google.com egress-blocked from cloud)
+- **geo-content-optimizer 4.1.5**: AIO/AI Mode quote-preview module encoded (Google-primary 2026-05-06) in ai-citation-patterns.md with rollout-scope [VERIFY]; community-channel framing updated (channel Google-primary, magnitudes stay W3-tagged)
+- **entity-optimizer 4.1.2**: review-solicitation claim upgraded from blog-sourced to Google-policy verbatim wording (snippet-corroborated 2026-08-09, ~2026-04-17 addition) — staff-quota + staff-naming bans, spontaneous-mention exemption; enforcement corrected from "suspension risk" to the documented restrictions ladder; [VERIFY] kept pending Sani-local primary check (W5 stays open)
 
 ### v4.3.0 (2026-08-08)
 
