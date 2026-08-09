@@ -282,7 +282,7 @@ Use this template for engineering teams, dev leads, and technical stakeholders. 
 
 | Metric | Mobile | Desktop | Status |
 |--------|--------|---------|--------|
-| LCP | 3.8s (Poor) | 2.1s (Good) | Mobile needs fix |
+| LCP | 3.8s (Needs Improvement) | 2.1s (Good) | Mobile needs fix |
 | CLS | 0.08 (Good) | 0.05 (Good) | Passing |
 | INP | 180ms (Good) | 120ms (Good) | Passing |
 

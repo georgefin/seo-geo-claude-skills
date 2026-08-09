@@ -1,6 +1,6 @@
 ---
 name: content-quality-auditor
-version: "4.2.0"
+version: "4.2.1"
 description: 'Run the full 80-item CORE-EEAT audit across 8 dimensions with content-type weighted scoring, veto checks, and prioritized fix plans. Use when the user asks to "audit content quality", "EEAT score", "CORE-EEAT audit", "content quality check", "how good is my content", "content improvement plan", "is my content AI-citation worthy", "GEO quality score". For SEO page element audits, see on-page-seo-auditor. For domain-level authority, see domain-authority-auditor.'
 license: Apache-2.0
 allowed-tools: WebFetch
@@ -8,7 +8,7 @@ compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, 
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.2.0"
+  version: "4.2.1"
   geo-relevance: "high"
   tags:
     - seo
@@ -127,6 +127,8 @@ When a user requests a content quality audit:
 ```
 
 Veto semantics (benchmark Section 3): T04 is a **conditional veto** — assessed only when a material connection (sponsorship, ownership, compensated product, affiliate relationship) exists; with none, mark N/A and exclude from scoring, never Partial. R10's veto fires only on **material internal contradiction** (incompatible factual/numerical claims); isolated broken links, stale non-material references, and wording inconsistencies are remediable Partial-level findings, never veto.
+
+By design, this emergency-brake table lists no Partial state: it screens only for veto-grade failures — Partial-grade findings on these same items (e.g., a present-but-buried disclosure) are scored normally in the full 80-item pass (Steps 2–3).
 
 If any veto item triggers, flag it prominently at the top of the report and recommend immediate action before continuing the full audit. Scoring consequences (framework rules, benchmark Section 3): one verified veto failure caps the final overall score at 59, with the cap flagged in the report; two or more verified veto failures = BLOCK — show dimension scores but suppress the final score; if a veto item's evidence is missing or unassessable, issue no final score at all — never guess past a veto item.
 

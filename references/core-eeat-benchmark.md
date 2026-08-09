@@ -147,6 +147,8 @@
 | Fail | 0 |
 | N/A (item not applicable, e.g., T04 with no material connection) | Excluded from the dimension average — never converted to Partial or Fail |
 
+Rubric-granted conditionality (currently T04 only) is the sole rubric-level source of N/A: no other item may be judged "not applicable" at the auditor's discretion — for every other item, N/A marks only unobservable evidence (e.g., site-level data not provided), never an applicability call.
+
 ### Score Calculation
 
 - **Dimension score** = sum of 10 items (0–100)
