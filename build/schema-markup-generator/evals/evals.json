@@ -15,7 +15,7 @@
         "Address values reproduce the fixture's Greek data: streetAddress \"Λεωφόρος Βουλιαγμένης 274\", addressLocality \"Άγιος Δημήτριος\", postalCode \"173 43\" (or \"17343\"), addressRegion \"Αττική\".",
         "The telephone value is in international format: it contains the +30 country code and the digit sequence 210 976 5432 from the fixture (spacing/dashes may vary).",
         "openingHoursSpecification matches the fixture: Monday–Friday opens \"08:00\" closes \"16:00\", and Saturday opens \"09:00\" closes \"14:00\"; no opening hours are asserted for Sunday.",
-        "No fabricated values appear: the fixture supplies no coordinates, ratings, or price range, so geo, aggregateRating, and priceRange are either omitted or contain clearly marked placeholders — a placeholder counts as clearly marked only if it is wrapped in square brackets (e.g. \"[LATITUDE]\", \"[PRICE-RANGE]\"); an unbracketed stand-in value fails — never concrete invented numbers."
+        "No fabricated values appear: the fixture supplies no coordinates, ratings, or price range, so geo, aggregateRating, and priceRange are either omitted or contain clearly marked placeholders — a placeholder counts as clearly marked only if it is wrapped in square brackets (e.g. \"[LATITUDE]\", \"[PRICE-RANGE]\"); an unbracketed stand-in value fails; the bracket rule governs placeholder values in the emitted JSON-LD (prose suggestions that merely name the missing data need no brackets) — never concrete invented numbers."
       ]
     },
     {
@@ -32,7 +32,7 @@
         "The Greek availability phrase \"Άμεσα διαθέσιμο\" is mapped to \"availability\": \"https://schema.org/InStock\".",
         "The product name is exactly \"Εξαιρετικό Παρθένο Ελαιόλαδο Καλαμάτας ΠΟΠ 750ml\" with all diacritics intact — not transliterated to Latin script and not translated to English.",
         "Fixture data is carried over faithfully: sku \"EL-KAL-750\", brand name \"Ελαιώνες Μεσσηνίας\", and a Greek-language description drawn from the fixture's Περιγραφή text.",
-        "Nothing is fabricated: the fixture provides no image URL, no ratings, no reviews, and no price expiry date, so image is a clearly marked placeholder — a placeholder counts as clearly marked only if it is wrapped in square brackets (e.g. \"[IMAGE-URL]\"); an unbracketed stand-in value fails — or the response asks the user for it, and aggregateRating, review, and priceValidUntil carry no invented values."
+        "Nothing is fabricated: the fixture provides no image URL, no ratings, no reviews, and no price expiry date, so image is a clearly marked placeholder — a placeholder counts as clearly marked only if it is wrapped in square brackets (e.g. \"[IMAGE-URL]\"); an unbracketed stand-in value fails; the bracket rule governs placeholder values in the emitted JSON-LD (prose suggestions that merely name the missing data need no brackets) — or the response asks the user for it, and aggregateRating, review, and priceValidUntil carry no invented values."
       ]
     },
     {
@@ -47,7 +47,7 @@
         "mainEntity is an array of exactly 4 objects of \"@type\": \"Question\", each with a \"name\" and an \"acceptedAnswer\" of \"@type\": \"Answer\" containing \"text\".",
         "The four question names match the fixture's headings verbatim, including \"How much does TidyBooks cost?\" and \"Do you offer a discount for annual billing?\".",
         "Each answer text matches the fixture's visible answer copy (content-match policy) — no rewritten, shortened, or invented answers, and no fifth Q&A pair added.",
-        "The response nowhere claims the markup is eligible for FAQ rich results, SERP dropdowns/accordions, or any Google rich-result appearance — despite the user explicitly asking for \"those FAQ dropdowns\". Labels and headers are not claims: a table header, row label, or section heading that merely names the concept (e.g. a status-table row labeled \"FAQ rich results\") does not count; only prose asserting eligibility or promising such an appearance counts as a claim.",
+        "The response nowhere claims the markup is eligible for FAQ rich results, SERP dropdowns/accordions, or any Google rich-result appearance — despite the user explicitly asking for \"those FAQ dropdowns\". Labels and headers are not claims: a table header, row label, or section heading that merely names the concept (e.g. a status-table row labeled \"FAQ rich results\") does not count; only prose asserting eligibility or promising such an appearance counts as a claim — and that same assert-or-promise test governs any novel phrasing this list does not anticipate.",
         "The response states that Google retired FAQ rich results in 2026 and frames the markup's remaining value as AI-engine/GEO parsing (answer engines extracting clean Q&A pairs).",
         "The response does not instruct the user to monitor FAQ rich results in Search Console or to test FAQ eligibility in Google's Rich Results Test (both were cut for FAQ in 2026); if validation is suggested, it points to the Schema.org validator."
       ]
@@ -61,7 +61,7 @@
         "The response picks exactly ONE schema type for the page and says so explicitly: Event is recommended as the single type, and the user's suggestion to add both Event and Organization is declined with a one-accurate-type-per-page rationale (settled ruling R2).",
         "The JSON-LD parses as valid JSON and declares \"@context\": \"https://schema.org\" with a single top-level \"@type\": \"Event\" — the output is not an array containing an Organization or any second top-level object.",
         "Required Event properties are present: name, startDate, and location.",
-        "startDate is ISO 8601 and encodes 19 September 2026 at 10:00 — both the bare local form (\"2026-09-19T10:00\", with or without seconds) and the same datetime with a timezone offset (e.g. \"2026-09-19T10:00:00+01:00\") pass; if endDate is present it encodes 13:00 on the same date.",
+        "startDate is ISO 8601 and encodes 19 September 2026 at 10:00 — the bare local form (\"2026-09-19T10:00\", with or without seconds), the same datetime with a timezone offset (e.g. \"2026-09-19T10:00:00+01:00\"), and the equivalent UTC instant with the Z designator (\"2026-09-19T09:00:00Z\") all pass; if endDate is present it encodes 13:00 on the same date.",
         "location is a Place named \"The Loft Studio\" with a PostalAddress matching the fixture: streetAddress \"14 Ropewalk Lane\", addressLocality \"Norwich\", postalCode \"NR1 3EX\", and addressCountry exactly \"GB\" (the ISO 3166-1 alpha-2 code) — \"UK\" or \"United Kingdom\" fails.",
         "The £35 ticket is nested as offers (\"@type\": \"Offer\") with \"price\": \"35\" or \"35.00\" and \"priceCurrency\": \"GBP\", using the booking URL from the fixture.",
         "Wildbird Yoga appears, if at all, only as the nested \"organizer\" property of the Event — never as a separate top-level Organization schema object.",
