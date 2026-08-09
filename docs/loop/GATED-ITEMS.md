@@ -141,8 +141,29 @@ owns WP vuln watching), G4 harvest merged (PR #4).**
   upstream namespace only (ClawHub: vendored openclaw/skills snapshots, bundle v9.9.5;
   skills.sh: `aaron-he-zhu/...` path, 20 skills / 60.4K installs baseline; "georgefin"
   zero hits on either; both sites [BLOCKED-EGRESS] from cloud, snippet-verified).
+  (2026-08-09 second re-check, dedicated lane: baseline HOLDS at snippet grade —
+  v9.9.5 and the 60.4K figure re-surfaced (snippet grade cannot distinguish
+  unchanged from cached), georgefin still zero hits in 5 scoped queries
+  (search-absence, not platform proof), no fork-indexing signal; additive at
+  snippet grade: a second DEPRECATED ClawHub bundle listing v8.0.1 [VERIFY], a
+  third upstream-keyed directory claudepluginhub.com, and a noise guard — the
+  unrelated `resciencelab/opc-skills/seo-geo` skill on skills.sh is not this
+  library.)
   Effective rollback signals: strict-validator errors + next weekly's contradiction
   check; revert = `git revert 6c10295`.
+- **Continuation now LOAD-BEARING for installs (2026-08-09, probe evidence)**: the
+  fork cannot be installed as a working Claude Code plugin until this decision
+  lands. Probed on the v4.3.5 tree: `claude plugin install
+  seo-geo-claude-skills@seo-geo-claude-skills` from a directory-source marketplace
+  (resolved via the new shim) is REJECTED at install-time validation with exactly
+  the recorded W8 trio — "Validation errors: hooks: Invalid input, commands:
+  Invalid input, mcpServers: Invalid input". The file-source variant's install
+  response reports success, but `claude plugin list` then shows "failed to load:
+  cache-miss" (observed in the probe container; load mechanism not further
+  diagnosed). The v4.3.5 marketplace-discovery shim fixed manifest DISCOVERY
+  only. The decision itself remains Sani's, per the pilot-result scope above:
+  flatten `commands`, re-shape `hooks`/`mcpServers` (+ `capabilities`/packaging
+  calls) — one wave, single-commit revert.
 
 ## G2 — Publish weekly reports as GitHub Issues on the fork
 
@@ -319,7 +340,8 @@ From the 08-08-2026 report's slow-loop lane; promote to gated only when concreti
   marketplace manifests' `owner`/`metadata.repository` fields and `VERSIONS.md:3`'s
   raw-fetch URL still carry the upstream identity (aaron-he-zhu) — fork
   inheritance, surfaced when the marketplace-discovery shim landed. No functional
-  impact on installs (probed: local path-add + install succeed with the
-  upstream-attributed manifests). Whether to re-attribute the fork's outward-facing
+  impact on marketplace discovery (probed: the add succeeds with the
+  upstream-attributed manifests; installs are blocked separately by the W8
+  manifest shapes — see the G1 continuation note). Whether to re-attribute the fork's outward-facing
   identity (and which fields) is Sani's call — outward-facing publication class,
   never a coordinator default.

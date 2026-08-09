@@ -259,6 +259,22 @@ regression rate · repeat-failure count · tool-correctness rate.
   separation mechanically. Fix applied with the reviewer's exact wording.)
   **Status**: guard live, twice redesigned; recurrence 2 stands as the record that
   vigilance without structure was insufficient.
+- **Recurrence 3** (2026-08-09, hours later — the v4.3.5 changelog bullet, PR #7
+  body, and one GATED-ITEMS queued row stated "local path-add + install succeed
+  end-to-end" inside a probed frame. The observed evidence was two success
+  RESPONSES (marketplace add; plugin install); "end-to-end" was an unlabeled
+  extrapolation to a working end state. The coordinator's own deeper probe
+  minutes later showed the file-source install in "failed to load: cache-miss"
+  state and the directory-source install rejected outright at manifest
+  validation (the recorded W8 trio) — pushed 10:10–10:12Z, contradicted 10:17Z,
+  corrected in the same session before anyone relied on it, but it REACHED the
+  pushed branch (unlike recurrences 1–2, caught pre-reliance in review). Guard
+  scope EXTENDED per rule 3: the OBSERVED/DIAGNOSIS separation and word-level
+  traceability bind EVERY probed/verified frame in pushed prose — changelogs,
+  PR bodies, queued rows — not close-out records alone; "works"/"end-to-end"
+  claims require the END STATE observed (e.g. `claude plugin list` status, a
+  loaded skill), never a mutation response alone. Mode A enforces this on the
+  same frames.)
 
 ## F12 — 2026-08-09 · Settled-ruling line-number pointers break on every changelog insertion
 
