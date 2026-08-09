@@ -5,9 +5,49 @@ Lifecycle: `proposed → gated (awaiting verdict) → approved | rejected → ap
 validated`. Record every verdict here with date and wording. A gated item excluded from a
 PR must be named in that PR's body as a separate decision (as done in PR #1, 2026-08-08).
 
-**Currently gated: 1 item awaiting Sani (G3 — explanation requested, fact question open).
-G1 approved (pilot executing), G2 approved (implemented), G4 decided (harvest).**
+**Currently gated: NONE awaiting Sani — all four items resolved. G1 pilot merged
+(PR #4), G2 EXECUTED 2026-08-09 (Issues enabled by Sani; queue issue #6 live; STEP 6
+amendment applied — prompt v4.2), G3 RETIRED 2026-08-09 (option c — the local loop
+owns WP vuln watching), G4 harvest merged (PR #4).**
 
+> **Verdict log — 2026-08-09 (sixth entry, ~08:10Z)**: G3 resolved by evidence. After
+> the coordinator's guide mapped the recorded fact question to its pre-approved
+> branches, Sani answered by pasting their canonical local `STANDING-LOOPS.md`
+> registry (R168) in-session. Its row 3 — "WP plugin-update + vuln check" — shows the
+> loop ALIVE and registry-driven per that paste: cadence Weekly (Mon/overdue), fired
+> by the Learn Protocol Step 6 hook ("NOT machine-local cron" per the paste), state file
+> `RESUME_PROMPTS/web-tasks/site-health/WP-WEEKLY-UPDATE-STATE.md`, runbook
+> `protocols/site-health-audit-process.md` point 4b, `last_run: 31-07-2026 PARTIAL
+> (authenticated lane ran on 3 of 6…)` — and the registry's own convention #1 keeps a
+> PARTIAL run due until a full pass rewrites a bare date; log destinations include a
+> `wp-vulnerability-monitor` Step 4 report. Per the pre-approved map ("yes → option
+> (c) retire"), executed as: the v1 cloud CVE-advisory feed retired DELIBERATELY —
+> the concern is owned local-side. Residual delta + reopen path recorded in the G3
+> status block. No trigger changes; register-only close-out.
+>
+> **Verdict log — 2026-08-09 (fifth entry, ~07:50Z)**: Sani enabled GitHub Issues on
+> the fork and confirmed verbatim: "Done" (answering the coordinator's how-to for
+> G2's last blocker). Executed as the G2 completion pass: the rolling [VERIFY]-queue
+> issue created — #6, label `verify-queue` (the create itself was the truthful probe;
+> first non-410 write after three 410s across 08-08→09) — then ONE `update_trigger`
+> STEP 6 amendment on the weekly routine against the pinned v4.1 baseline → prompt
+> v4.2 (+1,324 chars across exactly 3 lines, word-diff-proven surgical; cron
+> `0 4 * * 6`, next_run 2026-08-15T04:08Z, push+email notifications all unchanged in
+> the response's stored-object echo — an independent `list_triggers` re-read was
+> denied by tool permissions this call, noted). v4.2 archived per F10. G2 lifecycle:
+> approved → applied; validation leg = the 2026-08-15 fire files the first report
+> issue and next week's DETECT confirms it.
+>
+> **Verdict log — 2026-08-08 (fourth entry, ~21:51Z)**: Sani, mid-session, verbatim:
+> "merge PR #4" — the merge gate on the gate-execution release. Executed as: PR #4
+> marked ready and MERGED (merge commit `db7ebd5`, 21:51Z) — library v4.3.0 on main
+> (G1 pilot + all seven G4 harvest ports + F8/F9 guards). Post-merge: the PR-#4
+> subscription and check-in trigger were removed, the working branch restarted from
+> main, and a fresh accumulator PR opened for the remaining work. The G1 rollback
+> watch is now LIVE (ClawHub / skills.sh listings). Still open: G2 (waiting on the
+> Issues toggle), G3 (waiting on the WP-loop fact answer). Weekly routine's first
+> solo fire: Saturday 2026-08-15 ~04:08Z (it was created after the 08-08 slot passed).
+>
 > **Verdict log — 2026-08-08 (third entry, ~19:30Z)**: against the numbered five-item
 > recommendation sheet (1 merge PR #3 · 2 G1 pilot · 3 G2 Issues · 4 G3 explain · 5 G4
 > harvest), Sani replied verbatim: "1. merge 2. Yes 3. Yes 4. Please explain 5. harvest".
@@ -50,7 +90,7 @@ G1 approved (pilot executing), G2 approved (implemented), G4 decided (harvest).*
 ## G1 — Align SKILL.md frontmatter + plugin.json with current Agent Skills spec ("#8")
 
 - **Status**: **APPROVED by Sani 2026-08-08** ("2. Yes" on the recommendation sheet).
-  Pilot executing per the plan below; W8 validator question resolves inside the pilot.
+  Pilot executed and MERGED (PR #4, `db7ebd5`); W8 resolved — see Pilot result below.
 - **Proposal**: The current spec diverges from this repo's own rules:
   - agentskills.io/specification.md (checked 2026-08-08): SKILL.md frontmatter defines
     **no top-level `version` field** (6 fields only) — repo mandates it (`CLAUDE.md:46`,
@@ -59,7 +99,8 @@ G1 approved (pilot executing), G2 approved (implemented), G4 decided (harvest).*
     schema has **no `schemaVersion`/`id`** (only `name` required), and `commands`/`skills`
     are documented as path strings/arrays, not `{name, description, path}` objects — repo
     mandates the opposite (`CLAUDE.md:47`; fields present at `.claude-plugin/plugin.json:2-3`;
-    added deliberately in v3.0.0, `VERSIONS.md:79-88`).
+    added deliberately in v3.0.0, `VERSIONS.md:127` ("### v3.0.0" section —
+    pointer anchor-tagged per F12; had silently drifted from :79-88)).
   - Sketch if approved: fold `version` into `metadata` (keep `metadata.version`), trim
     non-spec plugin.json fields, run `claude plugin validate --strict` (watch-item W8).
 - **Risk**: could break ClawHub / skills.sh marketplace listings (their tolerance of the
@@ -76,17 +117,29 @@ G1 approved (pilot executing), G2 approved (implemented), G4 decided (harvest).*
   new findings. W8 RESOLVED. **Remaining full-migration scope — a NEW decision for
   Sani, not covered by this approval**: flatten `commands` entries, re-shape
   `hooks`/`mcpServers` to validator-accepted forms, decide the `capabilities` field and
-  root-CLAUDE.md packaging. Rollback triggers stay armed: watch ClawHub/skills.sh
-  listings after merge; revert = `git revert 6c10295`.
+  root-CLAUDE.md packaging. Rollback triggers: first post-merge check 2026-08-09 =
+  **CLEAR**, and the marketplace leg is structurally DEAD — both marketplaces index the
+  upstream namespace only (ClawHub: vendored openclaw/skills snapshots, bundle v9.9.5;
+  skills.sh: `aaron-he-zhu/...` path, 20 skills / 60.4K installs baseline; "georgefin"
+  zero hits on either; both sites [BLOCKED-EGRESS] from cloud, snippet-verified).
+  Effective rollback signals: strict-validator errors + next weekly's contradiction
+  check; revert = `git revert 6c10295`.
 
 ## G2 — Publish weekly reports as GitHub Issues on the fork
 
-- **Status**: **APPROVED by Sani 2026-08-08** ("3. Yes") — implementation **BLOCKED on a
-  repo setting**: GitHub returned `410 Issues has been disabled in this repository` on
-  the first issue-create. Sani must enable Issues (repo → Settings → General → Features
-  → check "Issues"); then the coordinator creates the rolling [VERIFY]-queue issue and
-  amends the weekly routine's STEP 6 in one pass. Holding the trigger amendment until
-  then so the routine never ships a half-working step.
+- **Status**: **EXECUTED 2026-08-09 ~07:51Z** (fifth verdict-log entry). History: 410
+  on issue-create 2026-08-08, re-verified twice 2026-08-09 (the fully prepared
+  queue-issue create drew the same 410); F10 second prerequisite (v4.1 prompt pinning)
+  discovered and satisfied same day via the trigger-store recovery. Sani enabled
+  Issues and confirmed "Done" → queue issue **#6** created on first attempt (label
+  `verify-queue` — the create doubled as the probe), then the STEP 6 amendment applied
+  as ONE `update_trigger` against the pinned v4.1 baseline → **prompt v4.2**, archived
+  at `docs/loop/archive/v4.2-weekly-prompt-2026-08-09.txt` (F10). Three surgical
+  touches only (mission-line clarifier, STEP 6 issue-archive block, closing-line
+  addendum; +1,324 chars, word-diff-proven). Read-back: the update response's
+  stored-object echo shows all three edits live with cron/next-run/notifications
+  unchanged. Remaining validation leg: the 2026-08-15 fire files the first
+  `weekly-report` issue; next week's DETECT verifies (loop-closure).
 - **Proposal**: amend the weekly routine (STEP 6) to allow exactly one write action: file
   each report as an issue titled `Weekly skill-update-check — YYYY-MM-DD` (label
   `weekly-report`), plus maintain one rolling `[VERIFY] queue` issue (label `verify-queue`)
@@ -102,10 +155,24 @@ G1 approved (pilot executing), G2 approved (implemented), G4 decided (harvest).*
 
 ## G3 — WordPress/CVE security lane: restore, relocate, or retire
 
-- **Status**: GATED — Sani requested the explanation 2026-08-08 ("4. Please explain");
-  delivered same day. Open fact question: does the local WP vuln loop still run and
-  cover the 5 production sites? yes → option (c) retire; no/unsure → option (b) Monday
-  routine (team recommendation).
+- **Status**: **RESOLVED 2026-08-09 — option (c) RETIRE** (sixth verdict-log entry).
+  History: Sani requested the explanation 2026-08-08 ("4. Please explain"), delivered
+  same day; the recorded fact question — does the local WP vuln loop still run and
+  cover the 5 production sites? yes → (c) retire; no/unsure → (b) Monday routine —
+  was answered 2026-08-09 by Sani's pasted canonical `STANDING-LOOPS.md`: row 3 is a
+  live, registry-driven weekly loop with a `wp-vulnerability-monitor` report among
+  its log destinations (its own scope counts 6 targets where v1 named 5 WP sites —
+  the paste does not enumerate them; coverage of the five rests on Sani answering
+  the recorded coverage question with this registry; `last_run: 31-07-2026 PARTIAL`,
+  still-due by the registry's PARTIAL convention until the pass completes). The v1
+  cloud advisory feed is therefore retired deliberately. **Residual delta, recorded**:
+  the v1 lane's external advisory-watch angle (Patchstack/Wordfence CVE feeds,
+  WP-core/WooCommerce/Rank Math version watch, fake-mu-plugin campaign chatter) is
+  covered only to the extent the local runbook includes it — ownership of that angle
+  now rests wholly with the local loop. **Reopen path**: one `create_trigger` Monday
+  routine reconstructed from the archived v1 lane
+  (`docs/loop/archive/v1-weekly-prompt-2026-07-18.txt`, STEP 1 area 5) + F10 archive
+  — nothing was lost.
 - **Context**: the superseded v1 weekly carried a WordPress + security lane (WP
   core/WooCommerce/Rank Math version watch; ACTIVE plugin CVEs from Patchstack/Wordfence
   with CVE IDs, affected ranges, fixed-in versions; fake-mu-plugin backdoor patterns)
@@ -120,12 +187,14 @@ G1 approved (pilot executing), G2 approved (implemented), G4 decided (harvest).*
   deliberately.
 - **Risk of inaction**: 5 production sites lose a CVE early-warning feed without anyone
   having decided that.
-- **Verdict**: _none yet_.
+- **Verdict**: option (c) RETIRE — resolved 2026-08-09 by Sani's pasted
+  `STANDING-LOOPS.md` registry (sixth verdict-log entry above).
 
 ## G4 — Upstream reconciliation (aaron-marketing-skills v19.1.0)
 
 - **Status**: **DECIDED by Sani 2026-08-08: HARVEST** ("5. harvest"). Topology stays 20;
-  quarterly upstream lane; no parasite port; NDJSON deferred. Harvest wave in APPLY.
+  quarterly upstream lane; no parasite port; NDJSON deferred. All seven harvest ports
+  applied and MERGED (PR #4, `db7ebd5`).
 - **Facts established** (raw-file inspection, accessed 2026-08-08): ancestor frozen at
   v9.9.12 "receives no updates"; successor bundle v19.1.0 (2026-08-01, hot cadence — 5
   major versions since 2026-06-28). 20→16 = 3 pairwise merges (writer+refresher,
@@ -186,6 +255,18 @@ From the 08-08-2026 report's slow-loop lane; promote to gated only when concreti
   `eval_feedback_v3_backlog` fields (Z-designator, placeholder prose scope, threshold-
   reference exemptions, e1.5 anywhere→above alignment, 150-word count start, etc.).
   Same one-wave rule: apply together, never piecemeal, re-baselining the touched items.
+- **Scripted settled-pointer check** (F12, 2026-08-09): `validate-tracking.sh`
+  check (g) — parse the anchor-tagged `` `VERSIONS.md:<line>` ("<token>") ``
+  pointers in `docs/loop/` and fail the gate when the target line lacks its token;
+  fault-injection-test like checks (a)/(f). Until shipped, the anchor format itself
+  is the guard (F12).
+- **Weekly-prompt v4.3 wording backlog** (Mode A advisories, 2026-08-09,
+  verdict-neutral): disambiguate STEP 6's "first filing verified 2026-08-09" (it means
+  the first successful issue WRITE — queue issue #6 — not the first weekly-report
+  filing, which lands 2026-08-15); reconcile "sole permitted write" with the retained
+  Gmail-DRAFT clause (a draft is arguably a write; fired sessions lack Gmail anyway).
+  Bundle into the NEXT prompt amendment (one `update_trigger`, F10 archive) — never a
+  solo respin.
 - **rank-tracker reference gap** (flagged by the H1 harvest implementer, 2026-08-08):
   SKILL.md's blockquote (~line 210) promises "root cause taxonomy, CTR benchmarks by
   position, SERP feature CTR impact, algorithm update assessment" that

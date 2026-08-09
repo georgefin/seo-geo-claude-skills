@@ -67,7 +67,12 @@ regression rate · repeat-failure count · tool-correctness rate.
   response; verify post-mutation state via a read call. skill-reviewer Mode A treats
   unverified state claims in diffs as a FIX finding. (Caught pre-commit by coordinator
   review — this ledger entry makes the rule durable.)
-- **Recurrence**: 0. **Status**: rule encoded; reviewer enforces.
+- **Recurrence**: 0 — near-miss 2026-08-09, no increment: the verification wave's
+  changelog claimed "resolved confirmed-primary / [VERIFY] dropped" for a
+  snippet-mechanism read (support.google.com egress-blocked — the primary was never
+  opened); skill-reviewer Mode A flagged it under exactly this guard and the wave was
+  FIXed pre-commit (tag kept, wording softened to "snippet-corroborated"). Guard
+  confirmed live in its designed position. **Status**: rule encoded; reviewer enforces.
 
 ## F5 — 2026-08-08 · Freshness checker counted future dates as review stamps
 
@@ -152,3 +157,114 @@ regression rate · repeat-failure count · tool-correctness rate.
   cross-skill concept adds a row to its token list.
 - **Status**: redesigned guard live (scripted, gate-enforced); recurrence counter at 1
   stands as the permanent record that the manual version failed.
+
+## F10 — 2026-08-09 · Live trigger prompt existed nowhere but the trigger store
+
+- **Failure**: preparing the approved G2 amendment (weekly STEP 6 issue-filing), the
+  04:00Z check-in found the routine's current prompt (v4.1) unrecoverable from the
+  repo: only superseded v1 is archived (`archive/v1-weekly-prompt-2026-07-18.txt`);
+  v2→v4.1 were applied via `update_trigger` without committing the text, no git blob
+  carries them, and the Routines API has no prompt-read path (`list_triggers` omits
+  prompts). `update_trigger` replaces prompts wholesale, so amending STEP 6 without
+  the verbatim baseline risks silently destroying four same-day upgrade waves.
+- **Root cause**: prompt upgrades treated the trigger store as the system of record;
+  the archiving habit that existed at v1 was dropped mid-cadence and no gate checked.
+- **Guard**: standing rule — every `create_trigger`/`update_trigger` that sets a
+  prompt commits the full text to `docs/loop/archive/` (versioned filename) in the
+  same wave; the PIPELINE.md trigger-table row links the file. Recovery for v4.1:
+  Sani pastes it from the Routines UI (claude.ai → Routines → weekly skill-update
+  check), or the 2026-08-15 fired session is asked to archive its own opening prompt;
+  whichever lands first unblocks the amendment.
+- **Status**: gap **CLOSED 2026-08-09** (same day — resolution below); guard remains
+  live, adopted from this entry forward.
+- **Resolution (2026-08-09, supersedes the recovery plan above)**: a prompt-read path
+  EXISTS after all — `list_triggers` returns each trigger's full stored prompt at the
+  undocumented nested field `job_config.ccr.events[].data.message.content`. The
+  morning's "no prompt-read path / `list_triggers` omits prompts" sub-claim is
+  contradicted by today's full-payload read (132KB, sliced); whether the field was
+  missed in a partial read or the surface changed is not reconstructible — either way,
+  a NEGATIVE capability claim needs the full-payload probe too (PIPELINE.md:184
+  spirit; no counter change — signature differs from F4's mutation class). Recovered
+  and pinned verbatim: weekly v4.1 (10,818 chars, sha256 `2d16bcb5…`, store
+  `updated_at` 2026-08-08T13:39:19Z — after the v4→v4.1 wave; content markers concur:
+  Lane 7 RSI additions, openreview fallback, STEP 5b loop-KPIs, and no STEP 6
+  issue-filing) at `archive/v4.1-weekly-prompt-2026-08-08.txt`; both DST flip prompts
+  (same store-only class, created pre-guard) at
+  `archive/dst-flip-{1,2}-prompt-2026-08-08.txt`. Guard UNCHANGED and still binding:
+  the nested field is undocumented and may vanish — the repo archive stays the system
+  of record. G2's second prerequisite is satisfied; the STEP 6 amendment now waits on
+  the Issues toggle alone.
+- **Guard scope precision (2026-08-09)**: the archive-on-write rule binds durable/
+  recurring prompts (the weekly routine, DST flips, any future routine). One-shot
+  monitor check-in cursors (the `send_later` chain) are EXEMPT: they are
+  wholesale-replaced derivations of the in-repo monitor policy (PIPELINE.md stage 5),
+  never amended — the amend-without-baseline hazard this entry records cannot arise
+  for them, and per-re-arm archive files would be noise.
+- **Superseded (2026-08-09 ~07:51Z)**: Issues toggle flipped by Sani; G2 executed same
+  day (queue issue #6; prompt v4.2 archived per this guard) — see the GATED-ITEMS
+  fifth verdict-log entry. The resolution note's closing line ("waits on the Issues
+  toggle alone") is historical as of that timestamp.
+
+## F11 — 2026-08-09 · Close-out records drafted in one pass carried small integrity drifts
+
+- **Failure**: three same-morning Mode A rounds on register close-out commits (F10
+  closure `b51f65b` SHIP + advisory; G2 execution `000a906` FIX×2; G3 retirement
+  `69455b6` FIX×4) found recurring drift classes in coordinator-drafted verdict
+  records: a stale sibling field contradicting the new status (G3 "Verdict: _none
+  yet_" three fields below "RESOLVED"); a forward-approximated timestamp postdating
+  its own commit ("~08:25Z" inside a commit authored 08:17:49Z); attribution glosses
+  presenting inference as evidence content ("the five … fall under the same
+  site-health process" and "machine-independent" framed as paste facts; the
+  `list_issues`-EMPTY behavior stated as a GitHub-wide fact). Six real findings
+  total; all caught pre-merge (two commits reviewed pre-push, two fixed forward
+  minutes after a hook-driven push); none reached main. This entry satisfies ledger
+  rule 1 for both FIX verdicts.
+- **Root cause**: single-pass drafting of multi-field register updates — sibling
+  fields and evidence-class framing not re-scanned after a status flip; timestamps
+  estimated instead of read from the clock.
+- **Guard**: (1) Mode A review is MANDATORY for every commit that records a verdict,
+  closes a gate, or flips a register status — no longer coordinator-discretionary
+  (this morning is the evidence it pays: 6/6 findings real). Applying a review's
+  specified fixes verbatim, plus the ledger record of that review, does not itself
+  trigger a fresh round — the established fix-application pattern, else review
+  recurses forever. (2) Close-out drafting checklist: after any status flip, re-scan
+  the SAME entry for stale sibling fields (Status/Verdict/header triplet); read
+  verdict-log timestamps from `date -u` at drafting time, never estimate; claims
+  inside an attribution frame ("per the paste/response") must be quote-traceable —
+  inferences move outside the frame with their real basis named.
+- **Recurrence**: **1** (2026-08-09, same day — the W5 close-out placed "graduated"
+  enforcement inside BOTH owner-verified frames while the pasted page contains no
+  gradation language at all ("may be subject to certain restrictions" + a flat
+  example list); "banner" for the page's "warning" fell in the same class. Guard (1)
+  — the mandatory close-out review — caught it in its designed position, at BLOCK
+  severity per ledger rule 5. Guard (2) — the drafting checklist — FAILED at
+  drafting time; per rule 3 it was REDESIGNED same day: quote-traceability is now
+  WORD-level — every content word inside a verified/CONFIRMED frame must itself
+  appear in the evidence text, or the sentence moves outside the frame with its
+  real basis named; the coordinator runs the word check at drafting and Mode A
+  repeats it mechanically. Fixes applied verbatim the same hour
+  (entity-optimizer 4.1.4).) **Status**: guard live, redesigned; the recurrence
+  stands as the record that checklist-level discipline alone was insufficient.
+
+## F12 — 2026-08-09 · Settled-ruling line-number pointers break on every changelog insertion
+
+- **Failure**: SETTLED-RULINGS' `VERSIONS.md:<line>` pointers went stale for the
+  THIRD time in two days — refreshed after the 2026-08-08 labels wave, re-refreshed
+  after the v4.3.1 insertion (2026-08-09 morning), broken again the SAME DAY by the
+  v4.3.2 changelog insertion (+6 lines shifted :87/:91/:92 → :93/:97/:98; caught as
+  finding 4 of the W5-closure Mode A round). A pre-existing sibling: GATED-ITEMS'
+  `VERSIONS.md:79-88` (v3.0.0 content) had silently drifted to :127 at some earlier
+  insertion. Bare line numbers into an append-at-top changelog break structurally on
+  every release.
+- **Root cause**: the pointer format encodes a coordinate that every changelog
+  insertion invalidates; freshness depends on remembering a manual refresh pass.
+- **Guard**: pointer format changed — every `VERSIONS.md` pointer in the loop
+  registers now carries an anchor token beside the line number (e.g.
+  `VERSIONS.md:93` ("non-levers")); refreshing = grep the token, and a line/token
+  mismatch is self-evident to any reader. Applied this wave to all six affected
+  pointers (R1, R2, R3, R4, the pinned-baseline row, GATED-ITEMS G1). Durable
+  upgrade QUEUED (GATED-ITEMS slow-loop list): a scripted `validate-tracking.sh`
+  check that greps each anchor-tagged pointer's target line for its token,
+  fault-injection-tested per the F2/F9 precedent — until it ships, the anchor
+  format + Mode A's pointer checks are the live guard.
+- **Recurrence**: 0. **Status**: anchor format live; scripted check queued.
