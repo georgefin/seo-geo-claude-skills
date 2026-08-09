@@ -283,6 +283,24 @@ regression rate · repeat-failure count · tool-correctness rate.
   pre-merge stop because Sani's merge order executed while the round was in
   flight; the ordering rule is now recorded (PIPELINE stage 3): the review is
   never skipped, only its landing point moves.
+- **Recurrence-3 record precision (2026-08-09, covering Mode A)**: the quoted
+  phrase appeared verbatim in the changelog bullet (and PR #7 body per the
+  correcting session); the GATED-ITEMS queued row's actual wording was "local
+  path-add + install succeed with the upstream-attributed manifests" — same
+  class, variant wording; match the signature on the class, not the string.
+- **Recurrence 4** (2026-08-09, covering Mode A round on 39745fb + f719ada +
+  f5e64fe + c8330d7 — verdict BLOCK: the G1 continuation note's closing
+  sentence "The decision itself remains Sani's…" was written pre-approval
+  (39745fb, 10:20Z) and left standing while f719ada (+APPROVED) and c8330d7
+  (+EXECUTED) flipped the entry's status directly above it — a stale
+  status-bearing sibling in the gate-authority register, the entry's founding
+  class. Guard (2) REDESIGNED per rule 3: the post-flip re-scan covers EVERY
+  bullet and sentence of the flipped entry — not the Status/Verdict/header
+  triplet alone — and the F10 house pattern ("historical as of that
+  timestamp" supersession notes) is the required form for prose left behind
+  by a same-entry flip. Fixes applied with the reviewer's exact wording, same
+  hour; also applied: the recurrence-3 quote-precision note above and the
+  Finding-3 relabel of the classifier-denial gloss.)
 
 ## F12 — 2026-08-09 · Settled-ruling line-number pointers break on every changelog insertion
 

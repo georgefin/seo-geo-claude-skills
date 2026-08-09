@@ -130,7 +130,9 @@ owns WP vuln watching), G4 harvest merged (PR #4).**
 ## G1 — Align SKILL.md frontmatter + plugin.json with current Agent Skills spec ("#8")
 
 - **Status**: **APPROVED by Sani 2026-08-08** ("2. Yes" on the recommendation sheet).
-  Pilot executed and MERGED (PR #4, `db7ebd5`); W8 resolved — see Pilot result below.
+  Pilot executed and MERGED (PR #4, `db7ebd5`); W8 resolved — see Pilot result
+  below; continuation APPROVED + EXECUTED 2026-08-09 (v4.4.0 — see Continuation
+  notes below).
 - **Proposal**: The current spec diverges from this repo's own rules:
   - agentskills.io/specification.md (checked 2026-08-08): SKILL.md frontmatter defines
     **no top-level `version` field** (6 fields only) — repo mandates it (`CLAUDE.md:46`,
@@ -191,8 +193,10 @@ owns WP vuln watching), G4 harvest merged (PR #4).**
   merges, completing the remote flow. Revert = single commit. A `.claude/
   settings.json` team-marketplace addition (extraKnownMarketplaces +
   enabledPlugins) was attempted and DENIED by the session permission classifier
-  (that file carries the push-gate hook — self-editing it is blocked); the
-  8-line snippet goes to Sani for manual or interactive-session addition.
+  (that file carries the push-gate hook; diagnosed, not classifier-stated:
+  self-edit protection on the gate file — the denial message said only "Blocked
+  by classifier"); the 8-line snippet goes to Sani for manual or
+  interactive-session addition.
 - **Continuation now LOAD-BEARING for installs (2026-08-09, probe evidence)**: the
   fork cannot be installed as a working Claude Code plugin until this decision
   lands. Probed on the v4.3.5 tree: `claude plugin install
@@ -203,9 +207,9 @@ owns WP vuln watching), G4 harvest merged (PR #4).**
   response reports success, but `claude plugin list` then shows "failed to load:
   cache-miss" (observed in the probe container; load mechanism not further
   diagnosed). The v4.3.5 marketplace-discovery shim fixed manifest DISCOVERY
-  only. The decision itself remains Sani's, per the pilot-result scope above:
-  flatten `commands`, re-shape `hooks`/`mcpServers` (+ `capabilities`/packaging
-  calls) — one wave, single-commit revert.
+  only. (Superseded same day: continuation APPROVED (eighth verdict-log entry)
+  and EXECUTED (v4.4.0) — see the two notes above; the scope as executed matched
+  this recorded scope.)
 
 ## G2 — Publish weekly reports as GitHub Issues on the fork
 
@@ -378,6 +382,11 @@ From the 08-08-2026 report's slow-loop lane; promote to gated only when concreti
   governs", but the benchmark needs its own scoped pass; bundle the `<`-vs-`≤` CWV
   boundary phrasing nuance (R4 uses ≤; several references use `<`) into the same pass.
   Shared framework files — small, deliberate, own wave.
+- **check (g) scope-extension question (covering-round advisory, 2026-08-09)**:
+  PIPELINE's stage-3 `CLAUDE.md:49`/`:50` pointers had silently drifted to
+  :53/:54 (grep-verified, corrected in the advisory's fix-forward) — check (g)
+  verifies `VERSIONS.md` targets only. Whether to extend it to CLAUDE.md-target
+  pointers in the registers: decide at the next scripts-touching wave.
 - **NEW — fork-manifest attribution (Sani decision, flagged 2026-08-09)**: both
   marketplace manifests' `owner`/`metadata.repository` fields and `VERSIONS.md:3`'s
   raw-fetch URL still carry the upstream identity (aaron-he-zhu) — fork
