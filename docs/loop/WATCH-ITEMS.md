@@ -151,6 +151,10 @@ authoritative.
   warning. These define the full-migration scope and sit BEYOND G1's recorded scope;
   full migration is a separate Sani decision (see G1 pilot-result block).
 - **Cadence**: closed; folds into the G1 continuation decision.
+- **Addendum 2026-08-09**: G1 continuation approved and executed (v4.4.0) — the
+  3 strict errors resolved by the manifest migration; the root-CLAUDE.md
+  packaging warning remains as the recorded, accepted residual (see the G1
+  execution note in GATED-ITEMS).
 
 ## W9 — Greek commerce-surface magnitudes (vendor cluster, 4 claims)
 

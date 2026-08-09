@@ -5,7 +5,8 @@ Approver: Sani. Repo: fork `georgefin/seo-geo-claude-skills` (upstream:
 `aaron-he-zhu/seo-geo-claude-skills`). Last updated: 2026-08-09 (F10 prompt recovery;
 G2 executed — weekly prompt v4.2, report archive live; G3 retired — WP vuln watching
 owned by Sani's local loop registry; v4.3.5 pending-tasks wave — settled-pointer
-gate check (g) shipped, marketplace-discovery shim, rank-tracker 4.1.1).
+gate check (g) shipped, marketplace-discovery shim, rank-tracker 4.1.1; G1
+continuation executed — v4.4.0 manifest migration, install end-state verified).
 
 **GROUNDING RULE — do this first**: before researching or proposing anything, read the
 five files in `docs/loop/`: `PIPELINE.md` (this file), `SETTLED-RULINGS.md`,
@@ -35,9 +36,15 @@ verdict; ledgered failures must not be repeated — repeating one is an incident
    `skill-implementer` subagents on disjoint file scopes; per-skill commits for clean
    revert. Before commit, `skill-reviewer` (Mode A) makes an adversarial pass over each
    diff — SHIP / FIX / BLOCK on ruling compliance, `[VERIFY]`-tag preservation, contract
-   integrity, scope. Self-review by the implementing agent does not count. Branch naming
-   per `CLAUDE.md:50` (`feature/…`, `fix/…`, `docs/…`); cloud sessions use their assigned
-   `claude/*` branch. Skill edits trigger the 5-tracking-file sync (`CLAUDE.md:49`);
+   integrity, scope. Self-review by the implementing agent does not count.
+   Merge-order vs in-flight review (recorded 2026-08-09 after the v4.3.5
+   close-out round returned post-merge): Sani's explicit merge order executes
+   immediately — approver authority; a mandatory review in flight at merge time
+   completes against its frozen SHAs and its findings land fix-forward on the
+   successor accumulator. The review is never skipped, only its landing point
+   moves. Branch naming
+   per `CLAUDE.md:54` (`feature/…`, `fix/…`, `docs/…`); cloud sessions use their assigned
+   `claude/*` branch. Skill edits trigger the 5-tracking-file sync (`CLAUDE.md:53`);
    docs-only changes (this directory) do NOT.
 4. **VALIDATE** — two legs, both required:
    (i) STRUCTURAL: `scripts/pre-push-gate.sh` before EVERY push — runs
