@@ -8,12 +8,13 @@ grep with `\[VERIFY` (not `\[VERIFY\]`) to find all of them.
 Weekly DETECT runs re-check items at their cadence and report deltas; resolution edits
 (dropping a tag, revising a claim) go through normal PR flow.
 
-**Last full inventory: 2026-08-09 (post verification wave)** — 53 matching lines in 15
+**Last full inventory: 2026-08-09 (post W5 closure)** — 53 matching lines in 14
 repo files (`grep -rc '\[VERIFY' research build optimize monitor cross-cutting references
-VERSIONS.md`). Delta vs the 2026-08-08 count (44 in 13): +1 encoded module tag
-(ai-citation-patterns.md:476, W7), reworded tags at serp-feature-taxonomy.md:233 (W10)
-and entity-optimizer SKILL.md:185 (W5), and the rest are v4.3.1 changelog prose mentions
-in `VERSIONS.md` — bookkeeping references, not new claims. The 2026-08-08 note stands:
+VERSIONS.md`). Delta vs the same-day post-wave count (53 in 15): −1 claim tag (W5
+dropped at entity-optimizer SKILL.md:185 — resolved-primary), +1 v4.3.2 changelog
+bookkeeping mention in `VERSIONS.md`; entity-optimizer's SKILL.md now carries no tag,
+hence 15→14 files. The post-wave note stands: the v4.3.x changelog prose mentions in
+`VERSIONS.md` are bookkeeping references, not new claims. The 2026-08-08 note stands:
 13 Greek-wave claim tags registered as W9–W11; legend/discipline lines are not claims
 (tourism `:3`/`:76`, shopping `:3`/`:13`/`:58`, ymyl-credentials intro,
 content-quality-auditor discipline note).
@@ -80,28 +81,28 @@ authoritative.
 - **Resolves when**: engine-primary documentation or a robust multilingual citation study.
 - **Cadence**: quarterly.
 
-## W5 — Greek review-compliance rules
+## W5 — Greek review-compliance rules — RESOLVED-PRIMARY 2026-08-09 (owner read)
 
-- **Claim**: Review solicitation naming individual staff, and staff review quotas,
-  banned under "Prohibited & restricted content" (Fake engagement) — reported policy
-  addition ~2026-04-17.
-- **Where**: `cross-cutting/entity-optimizer/SKILL.md:185` (pointer fixed 2026-08-09 —
-  register said :202, claim actually sat at :185; now the confirmed-callout + scoped tag).
-- **2026-08-09 sweep result — snippet-corroborated, still OPEN**: both policy phrases
-  matched EXACT on the primary domain via `site:support.google.com` probes ("requesting
-  that staff solicit a certain number of reviews"; "…reviews that include specific
-  content, including content that identifies a staff member"), pages
-  contributionpolicy/answer/7400114 + business/answer/7400114. Full-page primary read
-  impossible from cloud (support.google.com egress-blocked domain-wide) — Mode A held
-  the tag per the F4 guard class. Precision corrections encoded: ban attaches to the
-  merchant's DIRECTIVE (spontaneous customer mentions of staff stay fine); consequence
-  is removal + Business Profile restrictions ladder (business/answer/14114287), not
-  flat suspension.
-- **Resolves when**: Sani local (30 seconds) — open contributionpolicy/answer/7400114 +
-  business/answer/14114287, confirm both quoted phrases, the same-text mirror, and the
-  restrictions ladder; then drop the SKILL.md:185 tag and close this entry.
-- **Cadence**: Sani-local one-shot; off the weekly nudge (cloud cannot advance it).
-  Always before client advice.
+- **Claim (as resolved)**: Review solicitation naming individual staff, and staff
+  review quotas, banned under "Prohibited & restricted content" (Fake engagement) —
+  reported policy addition ~2026-04-17.
+- **Resolution (2026-08-09)**: Sani opened both pages live (English versions — the
+  policy page auto-served Greek first, so an el localization of the page exists;
+  its content was not separately checked) and pasted the verbatim text in-session:
+  both phrases CONFIRMED with the fuller live prefix "Merchants requesting…" —
+  nailing the merchant-directive reading from the primary source — and
+  business/answer/14114287 CONFIRMED as graduated enforcement: removal of violative
+  reviews + set-period new-review freeze, set-period unpublishing of existing
+  reviews, public warning banner, email notice, appeal path; no automatic
+  suspension. Encoded at `cross-cutting/entity-optimizer/SKILL.md:185`
+  (entity-optimizer 4.1.3, tag dropped). The business/answer/7400114 same-text
+  mirror was NOT separately opened — kept in the callout as a hedged pointer only.
+- **History**: 2026-08-09 sweep had reached snippet-corroborated via
+  `site:support.google.com` probes (cloud egress-blocked from the domain); Mode A
+  held the tag per the F4 guard class until this owner read.
+- **Residual (untagged, immaterial for use)**: the "~2026-04-17 addition" date stays
+  vendor-reported — current presence is what was verified, not the addition date.
+- **Cadence**: CLOSED. Re-opens only on policy-page drift (normal weekly sweep watch).
 
 ## W6 — Skroutz visibility levers (cluster, 8 claims)
 
