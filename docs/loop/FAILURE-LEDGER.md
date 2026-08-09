@@ -152,3 +152,23 @@ regression rate · repeat-failure count · tool-correctness rate.
   cross-skill concept adds a row to its token list.
 - **Status**: redesigned guard live (scripted, gate-enforced); recurrence counter at 1
   stands as the permanent record that the manual version failed.
+
+## F10 — 2026-08-09 · Live trigger prompt existed nowhere but the trigger store
+
+- **Failure**: preparing the approved G2 amendment (weekly STEP 6 issue-filing), the
+  04:00Z check-in found the routine's current prompt (v4.1) unrecoverable from the
+  repo: only superseded v1 is archived (`archive/v1-weekly-prompt-2026-07-18.txt`);
+  v2→v4.1 were applied via `update_trigger` without committing the text, no git blob
+  carries them, and the Routines API has no prompt-read path (`list_triggers` omits
+  prompts). `update_trigger` replaces prompts wholesale, so amending STEP 6 without
+  the verbatim baseline risks silently destroying four same-day upgrade waves.
+- **Root cause**: prompt upgrades treated the trigger store as the system of record;
+  the archiving habit that existed at v1 was dropped mid-cadence and no gate checked.
+- **Guard**: standing rule — every `create_trigger`/`update_trigger` that sets a
+  prompt commits the full text to `docs/loop/archive/` (versioned filename) in the
+  same wave; the PIPELINE.md trigger-table row links the file. Recovery for v4.1:
+  Sani pastes it from the Routines UI (claude.ai → Routines → weekly skill-update
+  check), or the 2026-08-15 fired session is asked to archive its own opening prompt;
+  whichever lands first unblocks the amendment.
+- **Status**: gap OPEN (v4.1 unpinned); guard adopted from this entry forward; G2
+  execution order updated — no trigger amendment until the baseline is in-repo.

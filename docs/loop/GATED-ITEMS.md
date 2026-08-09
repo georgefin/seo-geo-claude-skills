@@ -6,7 +6,8 @@ validated`. Record every verdict here with date and wording. A gated item exclud
 PR must be named in that PR's body as a separate decision (as done in PR #1, 2026-08-08).
 
 **Currently gated: 1 item awaiting Sani (G3 — fact question open). G1 pilot merged
-(PR #4), G2 approved but blocked on the Issues repo setting, G4 harvest merged (PR #4).**
+(PR #4), G2 approved but blocked on the Issues toggle + prompt pinning (F10), G4
+harvest merged (PR #4).**
 
 > **Verdict log — 2026-08-08 (fourth entry, ~21:51Z)**: Sani, mid-session, verbatim:
 > "merge PR #4" — the merge gate on the gate-execution release. Executed as: PR #4
@@ -93,10 +94,15 @@ PR must be named in that PR's body as a separate decision (as done in PR #1, 202
 
 - **Status**: **APPROVED by Sani 2026-08-08** ("3. Yes") — implementation **BLOCKED on a
   repo setting**: GitHub returned `410 Issues has been disabled in this repository` on
-  the first issue-create. Sani must enable Issues (repo → Settings → General → Features
-  → check "Issues"); then the coordinator creates the rolling [VERIFY]-queue issue and
-  amends the weekly routine's STEP 6 in one pass. Holding the trigger amendment until
-  then so the routine never ships a half-working step.
+  the first issue-create; re-verified 2026-08-09 ~04:00Z — the fully prepared
+  queue-issue create drew the same 410. Sani must enable Issues (repo → Settings →
+  General → Features → check "Issues"); then the coordinator creates the rolling
+  [VERIFY]-queue issue and amends the weekly routine's STEP 6 in one pass. Holding the
+  trigger amendment until then so the routine never ships a half-working step.
+  **Second prerequisite discovered 2026-08-09 (F10)**: the v4.1 prompt text is not
+  pinned in-repo, so the STEP 6 amendment additionally waits on the verbatim prompt
+  landing in `docs/loop/archive/` — Sani pastes it from the Routines UI, or the
+  2026-08-15 fired session archives its own opening prompt (whichever comes first).
 - **Proposal**: amend the weekly routine (STEP 6) to allow exactly one write action: file
   each report as an issue titled `Weekly skill-update-check — YYYY-MM-DD` (label
   `weekly-report`), plus maintain one rolling `[VERIFY] queue` issue (label `verify-queue`)
