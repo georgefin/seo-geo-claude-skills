@@ -175,5 +175,28 @@ regression rate · repeat-failure count · tool-correctness rate.
   Sani pastes it from the Routines UI (claude.ai → Routines → weekly skill-update
   check), or the 2026-08-15 fired session is asked to archive its own opening prompt;
   whichever lands first unblocks the amendment.
-- **Status**: gap OPEN (v4.1 unpinned); guard adopted from this entry forward; G2
-  execution order updated — no trigger amendment until the baseline is in-repo.
+- **Status**: gap **CLOSED 2026-08-09** (same day — resolution below); guard remains
+  live, adopted from this entry forward.
+- **Resolution (2026-08-09, supersedes the recovery plan above)**: a prompt-read path
+  EXISTS after all — `list_triggers` returns each trigger's full stored prompt at the
+  undocumented nested field `job_config.ccr.events[].data.message.content`. The
+  morning's "no prompt-read path / `list_triggers` omits prompts" sub-claim is
+  contradicted by today's full-payload read (132KB, sliced); whether the field was
+  missed in a partial read or the surface changed is not reconstructible — either way,
+  a NEGATIVE capability claim needs the full-payload probe too (PIPELINE.md:184
+  spirit; no counter change — signature differs from F4's mutation class). Recovered
+  and pinned verbatim: weekly v4.1 (10,818 chars, sha256 `2d16bcb5…`, store
+  `updated_at` 2026-08-08T13:39:19Z — after the v4→v4.1 wave; content markers concur:
+  Lane 7 RSI additions, openreview fallback, STEP 5b loop-KPIs, and no STEP 6
+  issue-filing) at `archive/v4.1-weekly-prompt-2026-08-08.txt`; both DST flip prompts
+  (same store-only class, created pre-guard) at
+  `archive/dst-flip-{1,2}-prompt-2026-08-08.txt`. Guard UNCHANGED and still binding:
+  the nested field is undocumented and may vanish — the repo archive stays the system
+  of record. G2's second prerequisite is satisfied; the STEP 6 amendment now waits on
+  the Issues toggle alone.
+- **Guard scope precision (2026-08-09)**: the archive-on-write rule binds durable/
+  recurring prompts (the weekly routine, DST flips, any future routine). One-shot
+  monitor check-in cursors (the `send_later` chain) are EXEMPT: they are
+  wholesale-replaced derivations of the in-repo monitor policy (PIPELINE.md stage 5),
+  never amended — the amend-without-baseline hazard this entry records cannot arise
+  for them, and per-re-arm archive files would be noise.

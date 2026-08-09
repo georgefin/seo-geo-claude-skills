@@ -2,7 +2,7 @@
 
 One-read orientation for ANY fresh session or fired routine. Coordinator: Herbert.
 Approver: Sani. Repo: fork `georgefin/seo-geo-claude-skills` (upstream:
-`aaron-he-zhu/seo-geo-claude-skills`). Last updated: 2026-08-08 (loop audit).
+`aaron-he-zhu/seo-geo-claude-skills`). Last updated: 2026-08-09 (F10 prompt recovery).
 
 **GROUNDING RULE — do this first**: before researching or proposing anything, read the
 five files in `docs/loop/`: `PIPELINE.md` (this file), `SETTLED-RULINGS.md`,
@@ -85,11 +85,11 @@ baselines: `docs/loop/eval-baselines/2026-08-08.json`.
 
 | Routine | ID | State | Schedule (UTC) |
 |---|---|---|---|
-| weekly skill-update check (current, prompt v4.1) | `trig_012FupQL9hy8p9FPeBHo9Lee` | enabled; created 2026-08-08, prompt upgraded v2→v3→v4→v4.1 same day (audit + RSI waves); push+email notifications ON; first solo fire expected 2026-08-15 | `0 4 * * 6` (~04:08 actual) |
+| weekly skill-update check (current, prompt v4.1) | `trig_012FupQL9hy8p9FPeBHo9Lee` | enabled; created 2026-08-08, prompt upgraded v2→v3→v4→v4.1 same day (audit + RSI waves); push+email notifications ON; first solo fire expected 2026-08-15; prompt pinned at `docs/loop/archive/v4.1-weekly-prompt-2026-08-08.txt` (recovered from the trigger store 2026-08-09, F10) | `0 4 * * 6` (~04:08 actual) |
 | v1 (retired) | `trig_01TEakvC4M948KZwaGiMZVDR` | **DELETED by Sani 2026-08-08, API-verified** (UI offered delete-only; agent writes ownership-refused). Prompt archived at `docs/loop/archive/v1-weekly-prompt-2026-07-18.txt`; its past run sessions survive in the account's session list. Double-fire risk closed. | was `0 4 * * 6` |
-| DST flip 1/2 | `trig_01HsA9dHtk5Vo4nhBDV7AbsE` | armed one-shot | once 2026-10-24T09:00Z |
-| DST flip 2/2 | `trig_01UDJeyM9xHvbHs2DoYurTZU` | armed one-shot | once 2027-03-27T09:00Z |
-| PR monitor check-ins | (rotating `send_later` one-shots) | self-re-arming while a PR is open | per monitor policy above |
+| DST flip 1/2 | `trig_01HsA9dHtk5Vo4nhBDV7AbsE` | armed one-shot; prompt pinned at `docs/loop/archive/dst-flip-1-prompt-2026-08-08.txt` | once 2026-10-24T09:00Z |
+| DST flip 2/2 | `trig_01UDJeyM9xHvbHs2DoYurTZU` | armed one-shot; prompt pinned at `docs/loop/archive/dst-flip-2-prompt-2026-08-08.txt` | once 2027-03-27T09:00Z |
+| PR monitor check-ins | (rotating `send_later` one-shots) | self-re-arming while a PR is open; cursor prompts exempt from F10 archiving (wholesale-replaced derivations of the stage-5 policy) | per monitor policy above |
 | v2 interim test | `trig_011r86dkH91sfNUurCXrrJrJ` | deleted 2026-08-08 (replaced to add notifications) | — |
 
 **DST**: Europe/Athens leaves EEST (UTC+3) on Sun 2026-10-25 and returns Sun 2027-03-28.
