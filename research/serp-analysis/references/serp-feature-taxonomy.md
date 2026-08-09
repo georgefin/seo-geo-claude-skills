@@ -12,7 +12,7 @@ This taxonomy is **locale-unverified for Greece** except where a marked "**Greec
 
 - **AI Mode** — live in Greek since 2025-10-08 (pinned baseline, last verified 2026-08-08)
 - **Shopping free listings** — live/supported for Greece (engine-primary: Google Merchant Center Help)
-- **Local Services Ads** — apparently NOT available in Greece (multi-source corroborated 2026-08-09, primary blocked — see §7)
+- **Local Services Ads** — NOT available in Greece (owner-verified 2026-08-09 via the LSA country picker — see §7)
 - **Hotel SERP features (EU/DMA)** — in flux: Google's DMA compliance changes affect EU hotel search features, and Google tested removing hotel SERP features (Google blog, DMA compliance update, 2024-11). This taxonomy has no hotel-feature section — for hotel/accommodation SERP checks use [greek-tourism-seasonality.md](./greek-tourism-seasonality.md) §2 and audit the live SERP.
 
 No other feature in this file carries a verified el-GR status — absence of an annotation means "unknown for Greece," not "available in Greece."
@@ -230,7 +230,7 @@ SERP features fall into five broad categories:
 7. **Build local backlinks** -- Local news, chambers of commerce, community sites
 8. **Post Google Business updates** -- Regular posts signal activity
 
-**Greece (el-GR) availability:** Local Services Ads (LSA — the Google-screened paid local unit shown near local results in some countries; distinct from the organic Local Pack) is apparently **not** available in Greece. Source: corroborated 2026-08-09 — three independent vendor guides unanimously list the LSA footprint as US, CA + AT, BE, FR, DE, IE, IT, NL, ES, CH, UK (Greece absent), and Google's own Help Center publishes per-country variants of the LSA getting-started page (support.google.com/localservices/answer/6224841) for exactly those countries with no Greece variant. [VERIFY — primary page egress-blocked from cloud; Sani local: open answer/6224841 country picker, confirm Greece absent, then drop this tag] The organic Local Pack itself carries no verified el-GR status — the top-of-file locale note applies.
+**Greece (el-GR) availability:** Local Services Ads (LSA — the Google-screened paid local unit shown near local results in some countries; distinct from the organic Local Pack) is **not** available in Greece — owner-verified 2026-08-09: the country picker on Google's LSA getting-started page (support.google.com/localservices/answer/6224841) does not list Greece. Corroborating context (2026-08-09): three independent vendor guides unanimously list the LSA footprint as US, CA + AT, BE, FR, DE, IE, IT, NL, ES, CH, UK, and Google's Help Center publishes per-country variants of that page for exactly those countries. Re-check on the LSA→Google Ads migration (US from 2026-08, non-US 2027 — the page and its picker may move). The organic Local Pack itself carries no verified el-GR status — the top-of-file locale note applies.
 
 ---
 
