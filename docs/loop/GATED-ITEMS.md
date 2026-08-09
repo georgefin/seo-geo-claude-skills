@@ -211,7 +211,7 @@ watching), G4 harvest merged (PR #4).**
     schema has **no `schemaVersion`/`id`** (only `name` required), and `commands`/`skills`
     are documented as path strings/arrays, not `{name, description, path}` objects — repo
     mandates the opposite (`CLAUDE.md:47`; fields present at `.claude-plugin/plugin.json:2-3`;
-    added deliberately in v3.0.0, `VERSIONS.md:168` ("### v3.0.0" section —
+    added deliberately in v3.0.0, `VERSIONS.md:169` ("### v3.0.0" section —
     pointer anchor-tagged per F12, token authoritative on mismatch; had silently
     drifted from :79-88)).
   - Sketch if approved: fold `version` into `metadata` (keep `metadata.version`), trim

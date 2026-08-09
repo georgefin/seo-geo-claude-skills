@@ -8,9 +8,11 @@ grep with `\[VERIFY` (not `\[VERIFY\]`) to find all of them.
 Weekly DETECT runs re-check items at their cadence and report deltas; resolution edits
 (dropping a tag, revising a claim) go through normal PR flow.
 
-**Last full inventory: 2026-08-09 (post W5+W10 closures)** — 53 matching lines in 13
-repo files (`grep -rc '\[VERIFY' research build optimize monitor cross-cutting references
-VERSIONS.md`). Delta vs the same-day post-wave count (53 in 15): −2 claim tags (W5
+**Last full inventory: 2026-08-09 (post W5+W10 closures; recount post-E1 suites)** —
+55 matching lines in 14 repo files (`grep -rc '\[VERIFY' research build optimize
+monitor cross-cutting references VERSIONS.md`); +2 vs the post-closure count are
+bookkeeping guard-references in `build/seo-content-writer/evals/evals.json`
+(`262e46a`), not claim tags. Delta vs the same-day post-wave count (53 in 15): −2 claim tags (W5
 dropped at entity-optimizer SKILL.md:185, W10-LSA dropped at
 serp-feature-taxonomy.md:233 — both resolved-primary by owner reads), +2 changelog
 bookkeeping mentions in `VERSIONS.md` (v4.3.2, v4.3.3); entity-optimizer's SKILL.md
