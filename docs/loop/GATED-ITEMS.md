@@ -11,6 +11,22 @@ flagged in the queued list (fork-manifest attribution). G1 pilot merged
 amendment applied — prompt v4.2), G3 RETIRED 2026-08-09 (option c — the local loop
 owns WP vuln watching), G4 harvest merged (PR #4).**
 
+> **Verdict log — 2026-08-09 (ninth entry, ~10:47Z)**: Sani, verbatim: "Merge" —
+> answering the coordinator's "PR #8 is the single remaining gate" message.
+> Executed as: PR #8 marked ready and MERGED (merge commit `3f22f23`, read from
+> the merge response) — library v4.4.0 on main (G1 continuation manifest
+> migration + the covering-round fixes through `3738317`). Post-merge transition
+> per the pattern: subscription removed (merge webhook concurred), babysit
+> one-shot deleted, branch restarted from main. END STATE OBSERVED 10:47Z, full
+> remote flow against merged main from this container: `claude plugin
+> marketplace add georgefin/seo-geo-claude-skills` → "Successfully added";
+> `claude plugin install seo-geo-claude-skills@seo-geo-claude-skills` →
+> "Successfully installed"; `claude plugin list` → "Version: 4.4.0 · Scope:
+> user · Status: √ enabled"; probe state cleaned up after. The two-command
+> install flow the eighth-entry goal required is LIVE on main — per-machine
+> adoption is now Sani-side (runbook delivered in-session; each machine's
+> `claude plugin list` output is its verification artifact).
+>
 > **Verdict log — 2026-08-09 (eighth entry, ~10:24Z)**: Sani, verbatim: "1. merge
 > PR #7 to main / 2. I want all machines to have the exact same plugins and skills
 > and loops installed". Executed #1 as: PR #7 marked ready and MERGED (merge
