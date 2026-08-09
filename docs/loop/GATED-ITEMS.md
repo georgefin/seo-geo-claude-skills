@@ -5,12 +5,62 @@ Lifecycle: `proposed → gated (awaiting verdict) → approved | rejected → ap
 validated`. Record every verdict here with date and wording. A gated item excluded from a
 PR must be named in that PR's body as a separate decision (as done in PR #1, 2026-08-08).
 
-**Currently gated: NONE formally gated — all four G-items resolved; Sani decisions
-flagged in the queued list (fork-manifest attribution). G1 pilot merged
-(PR #4), G2 EXECUTED 2026-08-09 (Issues enabled by Sani; queue issue #6 live; STEP 6
-amendment applied — prompt v4.2), G3 RETIRED 2026-08-09 (option c — the local loop
-owns WP vuln watching), G4 harvest merged (PR #4).**
+**Currently gated: G5–G8 (Master Improvement Directive 2026-08-09 — proposal in
+`MASTER-IMPROVEMENT-PLAN.md`; per-item release by Sani's explicit words naming the
+item). Sani decisions also flagged in the queued list (fork-manifest attribution).
+G1–G4 resolved: G1 pilot merged (PR #4) + continuation merged (PR #8), G2 EXECUTED
+2026-08-09 (Issues enabled by Sani; queue issue #6 live; STEP 6 amendment applied —
+prompt v4.2), G3 RETIRED 2026-08-09 (option c — the local loop owns WP vuln
+watching), G4 harvest merged (PR #4).**
 
+> **Verdict log — 2026-08-09 (eleventh entry, logged 16:13:33Z clock-read)**: Sani,
+> verbatim: "Herbert did you assign the am to execute in the best possible manner,
+> following the best possible practice phase 1, phase 2, phase 3, phase 4?" ("the am"
+> read as "the team"). **Decision reading (recorded)**: taken together with the
+> directive's own imperative ("Please execute the following Master Improvement
+> Directive") and the two same-day "Proceed" messages, this is execute-language
+> naming all four phases — recorded as the RELEASE of **G5, G6, G7**, and of **G8's
+> executable scope** (pilot protocol, pre-registration templates, sampling protocol,
+> KPI persistence). G8's live-site deployment stays blocked on its three FACTUAL
+> prerequisites — named target cluster, data access, publication workflow with
+> per-change HITL approval — inputs only Sani can supply per the plan's own design
+> (and the directive's own Phase 4.2), not a coordinator-imposed gate. **Execution
+> order (best practice, recorded)**: the in-flight wave close-out completes first
+> (it IS the F13 validation leg); then G5+G6 in one wave — the guard layer ships
+> before the volume work so every subsequent wave runs under scripted protection
+> (the directive's own "no manual vigilance" principle applied to the rollout
+> itself); then G7 eval waves E1→E5; G8 preparables alongside. Staged rather than
+> all-at-once fleet launch also bounds the risk demonstrated the same day: the
+> weekly API limit froze the entire team 12:20→16:00Z mid-wave.
+>
+> **Verdict log — 2026-08-09 (tenth entry, logged 12:18:14Z clock-read)**: Sani's
+> **Master Improvement Directive** arrived mid-turn (after the 12:05:23Z clock read,
+> during the Greek-editor-FAIL fix wave). Verbatim anchors: "Please execute the
+> following Master Improvement Directive"; targets "Team Structure (7→10), Skills
+> (6.5→10), and Loops (6.5→10)"; Phase 1.1 "Neutralize Coordinator Drafting Risk
+> (F11) … No manual vigilance allowed"; Phase 2.1 "Expand Behavioral Evals (3/20 →
+> 20/20)"; Phase 3.1 "Any guard currently relying on human or agent vigilance must
+> immediately be refactored into a scripted, automated check (like checks f and g)";
+> Phase 3.2 "Allow the weekly loop to run fully autonomous ('solo') starting this
+> Saturday"; Phase 4.1 "Formally authorize and scope the real-world pilot on a live
+> target (e.g., Sani Hellas property)"; closing "REQUIRED RESPONSE & DELIVERABLES:
+> Herbert, please respond with a Gated Proposal breaking this down into actionable
+> implementation phases" naming three artifacts (script specs, eval roadmap, pilot
+> plan). **Decision reading (recorded for Mode A contest)**: the message's own
+> REQUIRED RESPONSE clause governs the "execute" verb — the deliverable of this turn
+> is the Gated Proposal, delivered as `MASTER-IMPROVEMENT-PLAN.md` with G5–G8
+> registered below; each releases only on Sani's explicit per-item words. Two items
+> decide now: Phase 3.2 confirms the ALREADY-ARMED solo state (weekly v4.2, first
+> solo fire 2026-08-15 ~04:08Z — no trigger change needed or made); Phase 4.1
+> authorizes pilot SCOPING (plan §3) — deployment additionally waits on the three
+> Sani inputs named there plus per-change HITL approval, which is the directive's
+> own Phase 4.2 requirement. Phase 2.2 (watch-item verification) is standing loop
+> work, audited in plan §5, not gated. Same-turn context: the directive's
+> vigilance-to-code thesis had its first live instance minutes earlier — the binding
+> Greek-editor pass returned FAIL on the geo eval-2 output (v2's note-only lesson
+> recurred) and the fix landed structurally as geo-content-optimizer 4.1.6 + ledger
+> F13.
+>
 > **Verdict log — 2026-08-09 (ninth entry, ~10:47Z)**: Sani, verbatim: "Merge" —
 > answering the coordinator's "PR #8 is the single remaining gate" message.
 > Executed as: PR #8 marked ready and MERGED (merge commit `3f22f23`, read from
@@ -325,6 +375,79 @@ owns WP vuln watching), G4 harvest merged (PR #4).**
   Greek re-port; O4 whether the parasite/borrowed-authority play is brand-acceptable
   before any port; O5 whether an NDJSON entity-registry pattern is wanted for client ops.
 - **Verdict**: HARVEST — recorded in the 2026-08-08 third verdict-log entry above.
+
+## G5 — Vigilance-to-code wave (claims-gate + archive/fragment checks + KPI persistence)
+
+- **Status**: **GATED** (proposed 2026-08-09, `MASTER-IMPROVEMENT-PLAN.md` §1a–1b;
+  tenth verdict-log entry). Releases on Sani's explicit words naming G5.
+- **Proposal**: `scripts/claims-gate.sh` wired into the pre-push gate — rule 1
+  anchored-claims lexicon (two tiers: hard-FAIL narrow, WARN broad), rule 2
+  flip-manifest whole-register sweep (F11-r5's re-scan, executed by machine), rule 3
+  timestamp sanity; plus check (h) trigger-archive presence (F10), Mode B
+  fragment-lint (F7 evidence fields), and `docs/loop/KPI.md` (append-only cold rows
+  written by the weekly routine — Phase 3.2's KPI persistence).
+- **Acceptance test**: the five recorded F11 instances reconstructed as
+  fault-injection fixtures — 5/5 caught, clean negative control (F2/F9/(g) precedent).
+- **Honest boundary**: enforces form (anchors present, sweeps run), not truth —
+  Mode A keeps the truth leg.
+- **Risk**: lexicon false positives → two-tier design with weekly tightening +
+  allowlist. **Rollback**: unhook from the gate (one commit); checks are additive.
+
+## G6 — Adversarial Sanity Layer (cross-tier contrastive review)
+
+- **Status**: **GATED** (`MASTER-IMPROVEMENT-PLAN.md` §1c). Releases on Sani's words.
+- **Proposal**: defined high-stakes outputs (gate/verdict flips, releases,
+  Sani-facing numbers, external-world skill rules) get a second review lane on a
+  different Claude tier under a contrastive charter (assume-wrong, construct the
+  strongest disproof); charter templates + the high-stakes definition land in the
+  loop docs. Protocol B: a paste-ready prompt for Sani's ~5-minute monthly
+  cross-family check in a non-Anthropic model — the only true cross-family leg
+  available (in-environment models are all Claude-family; stated in the plan).
+- **Risk**: ~2× review tokens on the ~10–15% of commits that qualify.
+- **Rollback**: drop the second lane (procedural; no repo surface beyond docs).
+
+## G7 — Behavioral evals for the remaining 17 skills (3/20 → 20/20)
+
+- **Status**: **GATED** (`MASTER-IMPROVEMENT-PLAN.md` §2). Releases on Sani's words.
+- **Proposal**: five waves — E1 score authorities (content-quality-auditor,
+  on-page-seo-auditor, seo-content-writer, meta-tags-optimizer; eval-the-scorer
+  pattern for CORE-EEAT: veto handling, N/A discipline, cap math), E2 research
+  (serp-analysis, competitor-analysis, content-gap-analysis), E3 technical + CITE
+  (technical-seo-checker, internal-linking-optimizer, content-refresher,
+  domain-authority-auditor), E4 monitor (rank-tracker, backlink-analyzer,
+  performance-reporter, alert-manager), E5 cross-cutting + one cross-skill handoff
+  eval (entity-optimizer, memory-management). House pattern per suite: 5 evals,
+  ~25–30 expectations, no-fab in every eval, zero-data honesty eval, ≥1 Greek eval
+  where the skill produces prose, Mode B first baseline, Greek-editor binding.
+  Done per skill = suite + baseline + zero-regression protection + VERSIONS sync.
+  Cadence: ~one wave/week alongside the loop → 20/20 in ~5 weeks.
+- **Risk**: token cost per wave (batch cadence bounds it). **Rollback**: none
+  needed — suites are additive.
+
+## G8 — Real-site outcome pilot (execution)
+
+- **Status**: **GATED for execution**; scoping AUTHORIZED by the directive (tenth
+  verdict-log entry) and delivered as `MASTER-IMPROVEMENT-PLAN.md` §3.
+- **Proposal**: matched-pair (control pages held) or before/after pilot on a
+  Sani-named non-core cluster (5–15 pages); pre-registered success/null criteria
+  BEFORE deployment; three metrics at weeks 2/4/8/12 — rankings on a fixed query
+  set including Greek inflected pairs (folds in W10's open inflection leg), GSC
+  clicks/impressions, AI-citation rate under a written sampling protocol; every
+  published change passes CORE-EEAT threshold + Greek editor (EL) + **Sani approval
+  before publication** (HITL); byte-exact pre-change copies for rollback; quarterly
+  cold HITL review rides this gate (first ~2026-11, reminder Routine armed on
+  approval).
+- **Blocked on (Sani, all three)**: named target cluster; data access (GSC/GA4
+  exports, or connector auth — the session's ahrefs/similarweb MCP servers are
+  unauthenticated as of 2026-08-09 and OAuth cannot run in this non-interactive
+  session: authorize in claude.ai connector settings or an interactive `/mcp`
+  session; CSV exports are a full substitute); publication workflow (who applies
+  changes).
+- **Risk**: outward-facing changes on a live property — bounded by non-core cluster
+  choice, HITL on every publish, stored rollback copies; a null result is reported
+  as a finding (pre-registration forecloses curve-fitting).
+- **Rollback**: restore stored copies; halt = stop publishing (measurement can
+  continue as observation).
 
 ---
 

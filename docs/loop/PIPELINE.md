@@ -6,7 +6,10 @@ Approver: Sani. Repo: fork `georgefin/seo-geo-claude-skills` (upstream:
 G2 executed — weekly prompt v4.2, report archive live; G3 retired — WP vuln watching
 owned by Sani's local loop registry; v4.3.5 pending-tasks wave — settled-pointer
 gate check (g) shipped, marketplace-discovery shim, rank-tracker 4.1.1; G1
-continuation executed — v4.4.0 manifest migration, install end-state verified).
+continuation executed — v4.4.0 manifest migration, install end-state verified;
+framework + eval-v3 wave — the binding Greek-editor gate caught the note-only-lesson
+class (ledger F13), geo 4.1.6 placement rule shipped; Master Improvement Directive
+received — G5–G8 registered, proposal in `MASTER-IMPROVEMENT-PLAN.md`).
 
 **GROUNDING RULE — do this first**: before researching or proposing anything, read the
 five files in `docs/loop/`: `PIPELINE.md` (this file), `SETTLED-RULINGS.md`,

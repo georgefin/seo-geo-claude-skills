@@ -363,3 +363,33 @@ regression rate · repeat-failure count · tool-correctness rate.
   until the register re-anchor commit landed — the guard now PREVENTS, closing
   the detection-without-prevention gap this entry records. Recurrence counter
   stays 1 as the permanent record.
+
+## F13 — 2026-08-09 · Binding-editor content lesson stored note-only recurred in the next run's outputs
+
+- **Failure**: the v2 baseline recorded "agency-perspective provenance labels must not
+  leak into customer-visible copy" as a lesson in its `greek_quality_summary` — fed to
+  notes, carried by no skill rule and no eval expectation. The v3 geo run (skill 4.1.5)
+  reproduced the class: unbracketed «απαιτούνται στοιχεία προϊόντος» inside a published
+  FAQ answer, mirrored verbatim into the paste-ready FAQPage JSON-LD, plus an
+  unbracketed publishable table cell (greek-out-geo-2.md lines 40/66/125). Mode B
+  graded the run 29/29 — eval e2.5's own wording steered the marker INTO the answer
+  ("the answer hedges or marks …"), so the structural layer rewarded the failure — and
+  the class was caught only by the binding greek-content-editor pass (FAIL verdict, its
+  designed position; the editor charter makes v2-ruled-class regressions FAIL-grade).
+- **Root cause**: content-class lessons recorded as baseline prose have no enforcement
+  carrier; and an eval expectation written placement-blind taught the failure (kin to
+  F3's example-taught fabrication).
+- **Guard** (structural, adopted this wave): every content-class lesson from a binding
+  editor pass must land in the SAME wave as a skill-rule line or an eval expectation —
+  note-only recording is open work, not a guard (mirrors ledger rule 2). First
+  application: geo-content-optimizer 4.1.6 placement rule (Statistics rule + Output
+  Validation checklist) + the e2.5 placement rework, commit `b411592`.
+- **Recurrence**: 0 — the v2→v3 recurrence IS the founding observation (the class
+  predates the entry; F7/F11 founding-count convention). A future note-only lesson, or
+  this class re-leaking with the carrier in place, increments it.
+- **Status**: skill fix committed (`b411592`). Validation leg: the first re-run agent
+  (launched ~12:1xZ) terminated at start on the account's weekly API limit ("You've
+  hit your weekly limit · resets 4pm (UTC)" — the stall also froze the coordinator
+  session ~12:20→16:05Z); relaunched after the 16:00Z reset (clock-read 16:05:55Z) —
+  full geo re-run at 4.1.6 + editor re-judge of the fresh outputs; the v3 baseline
+  records the arc whichever way the re-run lands.
