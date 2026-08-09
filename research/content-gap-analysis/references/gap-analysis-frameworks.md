@@ -146,7 +146,7 @@ Certain formats unlock specific SERP features:
 
 | Content Format | Unlocks SERP Feature | Schema Required |
 |---------------|---------------------|----------------|
-| FAQ sections | FAQ rich results, PAA eligibility | FAQPage |
+| FAQ sections | PAA eligibility, AI-engine Q&A extraction (FAQ rich results retired 2026) | FAQPage (GEO parsing only, ruling R3) |
 | Step-by-step tutorials | How-To rich results, Featured Snippet (list) | HowTo |
 | Review/comparison content | Review stars, AI Overview citations | Review, AggregateRating |
 | Video content | Video carousel, Video rich result | VideoObject |

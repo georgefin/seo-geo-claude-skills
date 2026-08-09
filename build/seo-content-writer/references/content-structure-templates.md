@@ -765,7 +765,7 @@ This is the most comprehensive guide to [topic] on the web. You'll learn everyth
 ## FAQ Page
 
 **Target word count**: 1,000-1,500 words
-**Primary goal**: Answer common questions, rank for question queries, enable FAQ rich results
+**Primary goal**: Answer common questions, rank for question queries, supply clean Q&A pairs for AI-engine/GEO extraction (FAQ rich results retired 2026)
 
 ```markdown
 # [Topic]: Frequently Asked Questions
@@ -853,7 +853,7 @@ This is the most comprehensive guide to [topic] on the web. You'll learn everyth
 [Contact information or link to contact page]
 ```
 
-**Schema markup**: Add FAQPage schema to enable rich results
+**Schema markup**: Add FAQPage schema for AI-engine/GEO parsing — no rich result (FAQ rich results retired 2026, ruling R3)
 **Internal links**: Link to detailed guides for complex answers
 **Keywords**: Include question keywords naturally
 

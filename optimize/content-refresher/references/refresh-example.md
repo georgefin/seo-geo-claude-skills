@@ -84,7 +84,7 @@ Referenced from [SKILL.md](../SKILL.md).
 3. **Add affiliate disclosure and FAQ section** (~200 words)
    - Add disclosure statement below introduction: "This post contains affiliate links. See our editorial policy."
    - Add FAQ with 4 questions targeting People Also Ask (e.g., "What is the cheapest cloud hosting?", "Is cloud hosting faster than shared hosting?")
-   - Implement FAQ schema markup for rich result eligibility
+   - Implement FAQ schema markup for AI-engine/GEO parsing (FAQ rich results retired 2026 — no SERP feature)
 
 4. **Fix broken links and update internal links** (~15 min)
    - Replace 3 broken outbound links with current provider URLs
