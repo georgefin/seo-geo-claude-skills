@@ -9,7 +9,8 @@ PR must be named in that PR's body as a separate decision (as done in PR #1, 202
 named target cluster, data access, publication workflow). G5–G7 and G8's executable
 scope RELEASED 2026-08-09 (eleventh verdict-log entry): G5 delivered and wired
 into `pre-push-gate.sh` (integration commit, 2026-08-09), G6 delivered
-(`69c5f7e`), G7 in execution (E1+E2 suites committed), G8 preparables delivered
+(`69c5f7e`), G7 in execution (E1–E3 suites committed, all 11 reviews returned and
+fixes applied), G8 preparables delivered
 (`9c6adb4`). Sani decisions also flagged in the queued list (fork-manifest
 attribution).
 G1–G4 resolved: G1 pilot merged (PR #4) + continuation merged (PR #8), G2 EXECUTED
@@ -429,8 +430,15 @@ watching), G4 harvest merged (PR #4).**
   `609a9a2`) with all four Mode A reviews returned (quality-auditor SHIP;
   on-page FIX applied; writer FIX ×2 applied; meta-tags FIX applied — no fresh
   round needed per the fix-application convention); E2 authored and
-  committed (`591acfd`, `5559474`, `e0d0c34`); Mode B first baselines pending per
-  the done-definition below. Proposed 2026-08-09 (`MASTER-IMPROVEMENT-PLAN.md` §2).
+  committed (`591acfd`, `5559474`, `e0d0c34`) with all three Mode A reviews
+  returned (FIX ×2 each; applied `4310d7c`, `c736b64`); E3 authored and
+  committed (`28534c4`, `3730ad4`, `783ca4e`, `3bb7970`) with all four Mode A
+  reviews returned (technical-seo-checker, content-refresher, and
+  domain-authority-auditor SHIP with zero findings; internal-linking FIX ×1
+  applied); first Mode B baselines recorded 2026-08-09 — on-page-seo-auditor
+  29/30 and content-quality-auditor 26/28, binding editor MINOR-EDITS on both;
+  the remaining suites follow per the done-definition below. Proposed
+  2026-08-09 (`MASTER-IMPROVEMENT-PLAN.md` §2).
 - **Proposal**: five waves — E1 score authorities (content-quality-auditor,
   on-page-seo-auditor, seo-content-writer, meta-tags-optimizer; eval-the-scorer
   pattern for CORE-EEAT: veto handling, N/A discipline, cap math), E2 research

@@ -69,9 +69,11 @@ before 2026-07-18 are not recoverable from the current session transcript.
 - **Encoded in repo**: `monitor/performance-reporter/references/kpi-definitions.md:298-304`
   (pointer refreshed 2026-08-08 after the AI-referrals insertion shifted the table);
   `VERSIONS.md:140` ("technical-seo-checker 4.0.1", anchor-tagged per F12 — token
-  authoritative on mismatch); `optimize/technical-seo-checker/SKILL.md:258` (pointer refreshed
-  2026-08-08 after the labels wave; FID rows also purged from that skill's two reference
-  files the same day — the 4.0.1 cleanup had missed them).
+  authoritative on mismatch); `optimize/technical-seo-checker/SKILL.md:259`
+  (pointer refreshed 2026-08-09 — an E3 Mode A round found :258 resolving to a
+  blank line, a pointer class check (g) does not cover; previously refreshed
+  2026-08-08 after the labels wave; FID rows also purged from that skill's two
+  reference files the same day — the 4.0.1 cleanup had missed them).
 - **Reopens on**: Google-primary threshold change only (web.dev / Google Search Central).
 
 ## R5 — Unlinked brand mentions are a GEO/entity visibility signal
