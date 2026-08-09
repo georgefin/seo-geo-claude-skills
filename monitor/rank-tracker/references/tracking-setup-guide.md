@@ -241,7 +241,7 @@ Before setting alerts, establish a baseline by tracking for 2-4 weeks without al
 |---------|---------|--------|
 | Daily +/- 1-2 positions | Normal fluctuation | Ignore; track weekly trend |
 | Sudden drop 5+ positions, recovers in 2-3 days | Google testing / data center variation | Monitor, no action needed |
-| Steady decline over 2+ weeks | Real ranking loss | Investigate cause (see Root Cause Taxonomy) |
+| Steady decline over 2+ weeks | Real ranking loss | Investigate cause |
 | Sudden drop affecting many keywords | Algorithm update or technical issue | Check Search Status Dashboard + technical health |
 | One keyword drops, others stable | Page-specific or competitor-specific issue | Analyze that specific SERP |
 | All keywords for one URL drop | Page-level issue (noindex, 404, slow) | Check page technical health |
