@@ -316,7 +316,27 @@ if [ -n "$F_HITS" ]; then
     done <<< "$F_HITS"
     F_OK=0
 fi
-[ "$F_OK" -eq 1 ] && pass "(f) no deprecated tokens (FID / First Input Delay / affiliate-only T04) in live skill, command, or framework files"
+# R3 token class (added 2026-08-09; settled ruling R3): Google retired FAQ rich
+# results in 2026 — FAQPage markup stays ONLY for AI-engine/GEO parsing. Live
+# files may mention FAQ near "rich result"/"eligibility"/the accordion visual
+# ONLY when the same line acknowledges the retirement (a marker in R3_LEGAL,
+# e.g. "FAQ rich results retired 2026", "non-FAQ types", "FAQ: none"); a line
+# without such a marker is a retired SERP-eligibility claim taught as live.
+# Case-insensitive (tables write "Rich Results (FAQ)"). Same scope as the
+# tokens above: live trees only — docs/loop legitimately quotes the retired
+# state (SETTLED-RULINGS R3 itself) and stays out of the sweep.
+R3_TOKENS='faq.*rich[- ]?(result|snippet)|rich[- ]?(result|snippet)s?.*faq|eligib[^.|]*faq|faq[^.|]*eligib|expandable q&a below|faq (accordion|dropdown|drop-down)|serp accordion'
+R3_LEGAL='retired|retirement|no longer|non-faq|no faq (support|eligibility)|faq(:| has) none|dropped faq support|do not run it through|"add faq rich results"'
+R3_HITS=$(grep -rniE "$R3_TOKENS" \
+    research build optimize monitor cross-cutting commands references \
+    --include='*.md' 2>/dev/null | grep -v 'evals/' | grep -viE "$R3_LEGAL" || true)
+if [ -n "$R3_HITS" ]; then
+    while IFS= read -r hit; do
+        fail "(f) FAQ rich-result eligibility claim (FAQ rich results retired 2026, ruling R3): $hit"
+    done <<< "$R3_HITS"
+    F_OK=0
+fi
+[ "$F_OK" -eq 1 ] && pass "(f) no deprecated tokens (FID / First Input Delay / affiliate-only T04) and no un-acknowledged FAQ rich-result claims (R3) in live skill, command, or framework files"
 
 # ---------------------------------------------------------------------------
 # (g) settled-pointer anchor check (F12 guard)
