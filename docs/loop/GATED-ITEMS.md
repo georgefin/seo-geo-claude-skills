@@ -87,8 +87,13 @@ harvest merged (PR #4).**
   new findings. W8 RESOLVED. **Remaining full-migration scope — a NEW decision for
   Sani, not covered by this approval**: flatten `commands` entries, re-shape
   `hooks`/`mcpServers` to validator-accepted forms, decide the `capabilities` field and
-  root-CLAUDE.md packaging. Rollback triggers stay armed: watch ClawHub/skills.sh
-  listings after merge; revert = `git revert 6c10295`.
+  root-CLAUDE.md packaging. Rollback triggers: first post-merge check 2026-08-09 =
+  **CLEAR**, and the marketplace leg is structurally DEAD — both marketplaces index the
+  upstream namespace only (ClawHub: vendored openclaw/skills snapshots, bundle v9.9.5;
+  skills.sh: `aaron-he-zhu/...` path, 20 skills / 60.4K installs baseline; "georgefin"
+  zero hits on either; both sites [BLOCKED-EGRESS] from cloud, snippet-verified).
+  Effective rollback signals: strict-validator errors + next weekly's contradiction
+  check; revert = `git revert 6c10295`.
 
 ## G2 — Publish weekly reports as GitHub Issues on the fork
 
