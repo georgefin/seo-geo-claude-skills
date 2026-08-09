@@ -10,7 +10,7 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 |-------|----------|---------|--------------|
 | keyword-research | research | 4.2.1 | 2026-08-08 |
 | competitor-analysis | research | 4.0.2 | 2026-08-08 |
-| serp-analysis | research | 4.2.2 | 2026-08-09 |
+| serp-analysis | research | 4.2.3 | 2026-08-09 |
 | content-gap-analysis | research | 4.0.1 | 2026-08-08 |
 | seo-content-writer | build | 4.2.0 | 2026-08-08 |
 | geo-content-optimizer | build | 4.1.5 | 2026-08-09 |
@@ -30,6 +30,13 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 | memory-management | cross-cutting | 4.0.2 | 2026-08-08 |
 
 ## Changelog
+
+### v4.3.4 (2026-08-09)
+
+Review fix-forward pass — the two Mode A rounds on the merged v4.3.3 wave and on the merge-transition commit returned FIX and BLOCK; all findings applied with the reviewers' wording:
+
+- **serp-analysis 4.2.3**: LSA migration timeline hedged as reported ("reported timeline: US from 2026-08, non-US 2027") — the owner verification covered the country picker only, never the migration dates
+- **Registers**: all six anchor-tagged pointers re-grepped against the final tree (F12 recurrence 1 — the founding wave's own changelog insertion had re-shifted them +8 at birth; drafting-sequence rule adopted, scripted check promoted to next wave); the seventh verdict-log entry's issue-repair sentence rebuilt observed-vs-diagnosis (F11 recurrence 2 — structural OBSERVED/DIAGNOSIS template adopted for close-out records)
 
 ### v4.3.3 (2026-08-09)
 

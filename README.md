@@ -3,7 +3,7 @@
 [![ClawHub](https://img.shields.io/badge/ClawHub-20_skills-purple)](https://clawhub.ai/u/aaron-he-zhu)
 [![Skills](https://img.shields.io/badge/skills.sh-20_skills-blue)](https://skills.sh/aaron-he-zhu/seo-geo-claude-skills)
 [![License](https://img.shields.io/badge/license-Apache%202.0-green)](./LICENSE)
-[![Version](https://img.shields.io/badge/version-4.3.3-orange)](./VERSIONS.md)
+[![Version](https://img.shields.io/badge/version-4.3.4-orange)](./VERSIONS.md)
 
 Claude Skills and Commands for Search Engine Optimization (SEO) and Generative Engine Optimization (GEO). 20 skills, 9 commands, tool-agnostic, works with or without integrations. Content quality powered by the [CORE-EEAT Content Benchmark](https://github.com/aaron-he-zhu/core-eeat-content-benchmark). Domain authority powered by the [CITE Domain Rating](https://github.com/aaron-he-zhu/cite-domain-rating).
 
