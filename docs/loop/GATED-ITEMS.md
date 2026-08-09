@@ -5,9 +5,12 @@ Lifecycle: `proposed → gated (awaiting verdict) → approved | rejected → ap
 validated`. Record every verdict here with date and wording. A gated item excluded from a
 PR must be named in that PR's body as a separate decision (as done in PR #1, 2026-08-08).
 
-**Currently gated: G5–G8 (Master Improvement Directive 2026-08-09 — proposal in
-`MASTER-IMPROVEMENT-PLAN.md`; per-item release by Sani's explicit words naming the
-item). Sani decisions also flagged in the queued list (fork-manifest attribution).
+**Currently gated: G8 live-site deployment only (blocked on Sani's three inputs —
+named target cluster, data access, publication workflow). G5–G7 and G8's executable
+scope RELEASED 2026-08-09 (eleventh verdict-log entry): G5 delivered (gate wiring
+pending the wave close-out push), G6 delivered (`69c5f7e`), G7 in execution (E1+E2
+suites committed), G8 preparables delivered (`9c6adb4`). Sani decisions also flagged
+in the queued list (fork-manifest attribution).
 G1–G4 resolved: G1 pilot merged (PR #4) + continuation merged (PR #8), G2 EXECUTED
 2026-08-09 (Issues enabled by Sani; queue issue #6 live; STEP 6 amendment applied —
 prompt v4.2), G3 RETIRED 2026-08-09 (option c — the local loop owns WP vuln
@@ -378,8 +381,14 @@ watching), G4 harvest merged (PR #4).**
 
 ## G5 — Vigilance-to-code wave (claims-gate + archive/fragment checks + KPI persistence)
 
-- **Status**: **GATED** (proposed 2026-08-09, `MASTER-IMPROVEMENT-PLAN.md` §1a–1b;
-  tenth verdict-log entry). Releases on Sani's explicit words naming G5.
+- **Status**: **RELEASED 2026-08-09** (eleventh verdict-log entry) **+ DELIVERED**
+  same day — scripts + fixtures + `KPI.md` implemented; acceptance test per the
+  implementer's report: all five gate-detectable F11 instances caught at FAIL,
+  three truth-class instances at WARN (the plan's form/truth tiering), negative
+  control clean. Gate WIRING pending: lands immediately after the in-flight wave
+  close-out push (sequencing: the close-out is not gated by an unproven check).
+  Proposed 2026-08-09 (`MASTER-IMPROVEMENT-PLAN.md` §1a–1b; tenth verdict-log
+  entry).
 - **Proposal**: `scripts/claims-gate.sh` wired into the pre-push gate — rule 1
   anchored-claims lexicon (two tiers: hard-FAIL narrow, WARN broad), rule 2
   flip-manifest whole-register sweep (F11-r5's re-scan, executed by machine), rule 3
@@ -395,7 +404,10 @@ watching), G4 harvest merged (PR #4).**
 
 ## G6 — Adversarial Sanity Layer (cross-tier contrastive review)
 
-- **Status**: **GATED** (`MASTER-IMPROVEMENT-PLAN.md` §1c). Releases on Sani's words.
+- **Status**: **RELEASED 2026-08-09** (eleventh verdict-log entry) **+ DELIVERED**
+  same day — `ADVERSARIAL-LAYER.md` committed (`69c5f7e`); PIPELINE/CLAUDE.md
+  pointer wiring rides the integration batch. Proposed 2026-08-09
+  (`MASTER-IMPROVEMENT-PLAN.md` §1c).
 - **Proposal**: defined high-stakes outputs (gate/verdict flips, releases,
   Sani-facing numbers, external-world skill rules) get a second review lane on a
   different Claude tier under a contrastive charter (assume-wrong, construct the
@@ -408,7 +420,13 @@ watching), G4 harvest merged (PR #4).**
 
 ## G7 — Behavioral evals for the remaining 17 skills (3/20 → 20/20)
 
-- **Status**: **GATED** (`MASTER-IMPROVEMENT-PLAN.md` §2). Releases on Sani's words.
+- **Status**: **RELEASED 2026-08-09** (eleventh verdict-log entry) **+ IN
+  EXECUTION** — E1 authored and committed (`7212660`, `262e46a`, `c0e4642`,
+  `609a9a2`) with all four Mode A reviews returned (quality-auditor SHIP;
+  on-page FIX applied; writer FIX ×2 applied; meta-tags FIX applied — no fresh
+  round needed per the fix-application convention); E2 authored and
+  committed (`591acfd`, `5559474`, `e0d0c34`); Mode B first baselines pending per
+  the done-definition below. Proposed 2026-08-09 (`MASTER-IMPROVEMENT-PLAN.md` §2).
 - **Proposal**: five waves — E1 score authorities (content-quality-auditor,
   on-page-seo-auditor, seo-content-writer, meta-tags-optimizer; eval-the-scorer
   pattern for CORE-EEAT: veto handling, N/A discipline, cap math), E2 research
@@ -426,8 +444,11 @@ watching), G4 harvest merged (PR #4).**
 
 ## G8 — Real-site outcome pilot (execution)
 
-- **Status**: **GATED for execution**; scoping AUTHORIZED by the directive (tenth
-  verdict-log entry) and delivered as `MASTER-IMPROVEMENT-PLAN.md` §3.
+- **Status**: executable scope **RELEASED 2026-08-09** (eleventh verdict-log
+  entry) **+ DELIVERED** — `PILOT.md` committed (`9c6adb4`); live-site deployment
+  remains blocked on the three Sani inputs below. Scoping was AUTHORIZED by the
+  directive (tenth verdict-log entry) and delivered as `MASTER-IMPROVEMENT-PLAN.md`
+  §3.
 - **Proposal**: matched-pair (control pages held) or before/after pilot on a
   Sani-named non-core cluster (5–15 pages); pre-registered success/null criteria
   BEFORE deployment; three metrics at weeks 2/4/8/12 — rankings on a fixed query

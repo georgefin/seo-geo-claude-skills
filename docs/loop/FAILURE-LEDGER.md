@@ -314,6 +314,22 @@ regression rate · repeat-failure count · tool-correctness rate.
   the scope the catching round itself had to use — with the F10 "historical
   as of" note remaining the required form for prose a flip leaves behind.
   Fixes applied with the reviewer's exact wording, same hour.)
+- **Recurrence 6** (2026-08-09 — the eleventh verdict-log entry, 16:13:33Z,
+  recorded the RELEASE of G5/G6/G7 + G8's executable scope while the four
+  G-blocks written ~30 minutes earlier kept Status "GATED … Releases on Sani's
+  words" and the register header kept "Currently gated: G5–G8" — the founding
+  stale-sibling class at register scale; the r5 whole-register re-scan was
+  skipped at drafting time. Caught OUT-OF-DIFF by the E1 on-page suite's Mode A
+  reviewer (designed position: every round checks the registers against the
+  ledger). Fixes applied same hour: four Status flips + header rewrite.
+  **Redesign (rule 3)**: the vigilance form of this guard is retired as
+  primary — the scripted claims-gate (G5 delivery; its fixtures
+  f11-r4/f11-r5 reproduce exactly this class and its acceptance test caught
+  5/5 gate-detectable instances) becomes the guard when wired into
+  `pre-push-gate.sh`, planned as the first commit after the in-flight wave
+  close-out push; until that wiring lands, every register commit message must
+  carry the flip re-scan as a written checklist line — evidence of the scan,
+  not memory of it.)
 
 ## F12 — 2026-08-09 · Settled-ruling line-number pointers break on every changelog insertion
 
@@ -393,3 +409,20 @@ regression rate · repeat-failure count · tool-correctness rate.
   session ~12:20→16:05Z); relaunched after the 16:00Z reset (clock-read 16:05:55Z) —
   full geo re-run at 4.1.6 + editor re-judge of the fresh outputs; the v3 baseline
   records the arc whichever way the re-run lands.
+- **Recurrence 1** (2026-08-09, the validation leg itself — the post-reset r2
+  re-run at 4.1.6 came back provenance-clean (the founding carrier held; Mode B
+  29/29 with a zero-violation placement scan), but the editor re-judge FAILed
+  geo-2-r2 on «Όλα τα 18 μοντέλα» — the totality calque ruled FAIL-grade in the
+  v1 editor pass, whose ruling had lived note-only in baseline prose ever since.
+  Signature match, not a new entry: a ruled content class with no enforcement
+  carrier recurred in the next run; the founding fix carried ONE class and left
+  every earlier ruling uncarried. **Redesign (rule 3)**: the guard gains a
+  BACKFILL obligation — same-wave carriage applies retroactively to ALL
+  previously issued FAIL-grade rulings, not only new ones. Executed this wave as
+  `anti-slop-ruleset.md` §6 "Ruled Greek Regression Classes": every FAIL-grade
+  family from the v1/v2/v3 editor passes tabled with greppable signatures
+  (e.g. `Όλα τα [0-9]` → «και τα [N]»), advisory families listed beneath, new
+  rulings append in the same wave they are issued; carried by seo-content-writer
+  4.2.1 (the ruleset's owning skill). Validation leg: geo eval-2-only r3 at
+  unchanged 4.1.6 + ruled-families scan of the fresh output + editor re-judge;
+  the v3 baseline records the full three-iteration arc.)
