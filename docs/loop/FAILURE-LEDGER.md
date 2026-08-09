@@ -296,3 +296,15 @@ regression rate · repeat-failure count · tool-correctness rate.
   on any future mismatch the TOKEN is authoritative, never a recorded number).)
   **Status**: anchor format + sequence rule live; scripted check promoted
   (implement next wave).
+- **Shipped (2026-08-09, same day — supersedes "implement next wave" above)**:
+  check (g) live in `validate-tracking.sh` (implementation commit `fdedb6c`;
+  check (a) shim extension in `fd6f289`). Fault-injection evidence at
+  implementation: wrong-line and broken-token injections FAIL printing the
+  pointer and the actual target line; restored copy passes 6/6; negative
+  control verified load-bearing (the ledger's own historical `:93` example
+  would have tripped if this file were scanned — it produced zero findings,
+  proving the scope exclusion). First live gate run the same day: the v4.3.5
+  changelog insertion shifted all six pointers and the gate BLOCKED the push
+  until the register re-anchor commit landed — the guard now PREVENTS, closing
+  the detection-without-prevention gap this entry records. Recurrence counter
+  stays 1 as the permanent record.

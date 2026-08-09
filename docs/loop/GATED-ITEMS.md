@@ -117,7 +117,7 @@ owns WP vuln watching), G4 harvest merged (PR #4).**
     schema has **no `schemaVersion`/`id`** (only `name` required), and `commands`/`skills`
     are documented as path strings/arrays, not `{name, description, path}` objects — repo
     mandates the opposite (`CLAUDE.md:47`; fields present at `.claude-plugin/plugin.json:2-3`;
-    added deliberately in v3.0.0, `VERSIONS.md:142` ("### v3.0.0" section —
+    added deliberately in v3.0.0, `VERSIONS.md:149` ("### v3.0.0" section —
     pointer anchor-tagged per F12, token authoritative on mismatch; had silently
     drifted from :79-88)).
   - Sketch if approved: fold `version` into `metadata` (keep `metadata.version`), trim
@@ -274,13 +274,17 @@ From the 08-08-2026 report's slow-loop lane; promote to gated only when concreti
   `eval_feedback_v3_backlog` fields (Z-designator, placeholder prose scope, threshold-
   reference exemptions, e1.5 anywhere→above alignment, 150-word count start, etc.).
   Same one-wave rule: apply together, never piecemeal, re-baselining the touched items.
-- **Scripted settled-pointer check — PROMOTED to next wave** (F12 recurrence 1,
-  2026-08-09 — detection without prevention is not a guard): `validate-tracking.sh`
-  check (g) — parse the anchor-tagged `` `VERSIONS.md:<line>` ("<token>") ``
-  pointers in `docs/loop/` and fail the gate when the target line lacks its token;
-  fault-injection-test like checks (a)/(f). No longer slow-loop: implement in the
-  NEXT wave that touches scripts or registers. Until shipped, the anchor format +
-  final-tree sequence rule are the guard (F12).
+- **Scripted settled-pointer check — SHIPPED 2026-08-09** (was PROMOTED same day,
+  F12 recurrence 1): `validate-tracking.sh` check (g) live — parses the
+  anchor-tagged `` `VERSIONS.md:<line>` ("<token>") `` pointers in the four live
+  registers and fails the gate on any token mismatch (FAILURE-LEDGER.md, archive/,
+  eval-baselines/ excluded by design — the append-only ledger legitimately quotes
+  historical pointer examples). Fault-injection-tested like (a)/(f), with a
+  negative control verified load-bearing at implementation. First live gate run
+  the same day caught all six pointers shifted by the v4.3.5 changelog insertion
+  and BLOCKED the push until the register re-anchor commit — detection AND
+  prevention. The F12 drafting-sequence rule (final-tree grep, registers last)
+  remains standing discipline.
 - **Weekly-prompt v4.3 wording backlog** (Mode A advisories, 2026-08-09,
   verdict-neutral): disambiguate STEP 6's "first filing verified 2026-08-09" (it means
   the first successful issue WRITE — queue issue #6 — not the first weekly-report
@@ -288,13 +292,16 @@ From the 08-08-2026 report's slow-loop lane; promote to gated only when concreti
   Gmail-DRAFT clause (a draft is arguably a write; fired sessions lack Gmail anyway).
   Bundle into the NEXT prompt amendment (one `update_trigger`, F10 archive) — never a
   solo respin.
-- **rank-tracker reference gap** (flagged by the H1 harvest implementer, 2026-08-08):
-  SKILL.md's blockquote (~line 210) promises "root cause taxonomy, CTR benchmarks by
-  position, SERP feature CTR impact, algorithm update assessment" that
-  `references/tracking-setup-guide.md` does not contain (its Section 6 points at a
-  nonexistent "Root Cause Taxonomy"). Pre-existing, outside the harvest proposal —
-  small honest fix for a future wave: either write the missing sections or trim the
-  promise to what exists.
+- **rank-tracker reference gap** (flagged by the H1 harvest implementer,
+  2026-08-08) — **APPLIED 2026-08-09** (4.1.1, this wave), trim-to-what-exists
+  resolution: the SKILL.md blockquote and Reference Materials bullet now promise
+  only sections tracking-setup-guide.md actually contains, and the guide's
+  Section 6 dangling "Root Cause Taxonomy" pointer is dropped; nothing was
+  written into the reference (F3 rule — no invented taxonomies/benchmarks). The
+  bullet's "SERP feature tracking setup" phrase was a SECOND same-class instance,
+  found by the implementer at the scope boundary and fixed in-wave as a declared
+  coordinator extension (the guide covers SERP features only as a pitfalls row
+  and reporting-cadence lines, not a setup section).
 - **Benchmark polish pair** (reviewer advisories, 2026-08-08, verdict-neutral): (a)
   core-eeat-benchmark scoring-table N/A row could state that rubric-granted
   conditionality (currently T04 only) is the sole rubric-level N/A source, foreclosing
@@ -308,3 +315,11 @@ From the 08-08-2026 report's slow-loop lane; promote to gated only when concreti
   governs", but the benchmark needs its own scoped pass; bundle the `<`-vs-`≤` CWV
   boundary phrasing nuance (R4 uses ≤; several references use `<`) into the same pass.
   Shared framework files — small, deliberate, own wave.
+- **NEW — fork-manifest attribution (Sani decision, flagged 2026-08-09)**: both
+  marketplace manifests' `owner`/`metadata.repository` fields and `VERSIONS.md:3`'s
+  raw-fetch URL still carry the upstream identity (aaron-he-zhu) — fork
+  inheritance, surfaced when the marketplace-discovery shim landed. No functional
+  impact on installs (probed: local path-add + install succeed with the
+  upstream-attributed manifests). Whether to re-attribute the fork's outward-facing
+  identity (and which fields) is Sani's call — outward-facing publication class,
+  never a coordinator default.
