@@ -10,6 +10,27 @@ PR must be named in that PR's body as a separate decision (as done in PR #1, 202
 amendment applied — prompt v4.2), G3 RETIRED 2026-08-09 (option c — the local loop
 owns WP vuln watching), G4 harvest merged (PR #4).**
 
+> **Verdict log — 2026-08-09 (eighth entry, ~10:24Z)**: Sani, verbatim: "1. merge
+> PR #7 to main / 2. I want all machines to have the exact same plugins and skills
+> and loops installed". Executed #1 as: PR #7 marked ready and MERGED (merge
+> commit `8f8b03e`, read from the merge response) — library v4.3.5 on main: the
+> v4.3.4 fix-forward wave, the v4.3.5 pending-tasks wave (rank-tracker 4.1.1,
+> check (g), marketplace-discovery shim), and the same-day F11-r3 correction.
+> Post-merge transition per the pattern: PR-#7 subscription removed (merge
+> webhook also confirmed), stale babysit one-shot deleted, branch restarted from
+> main (force-with-lease over merged-history only). #2 recorded as the
+> **G1-CONTINUATION APPROVAL**: the numbered reply answers the coordinator's
+> two-decision message ((a) merge PR #7; (b) G1 continuation yes/no), and its #2
+> states the goal whose only recorded path is that continuation — installs
+> probe-blocked the same morning on the W8 manifest shapes (evidence in the G1
+> block below). Scope as recorded in the pilot-result block: flatten `commands`,
+> re-shape `hooks`/`mcpServers` to validator-accepted forms, minimal
+> `capabilities`/packaging calls; CLAUDE.md + CONTRIBUTING.md contract lines
+> change in the same wave; single-commit revert. The "loops" clause needs no
+> per-machine install: the Routines fire in cloud sessions on the account (as
+> observed all week — no machine involved), and `docs/loop/` rides with the repo
+> clone.
+>
 > **Verdict log — 2026-08-09 (seventh entry, 09:28Z)**: Sani, verbatim: "#5 merge
 > now. Fix Issue #6". Executed as: PR #5 marked ready and MERGED (merge commit
 > `676ae74`, 2026-08-09T09:28:09Z) — library v4.3.3 on main: the v4.3.1 verification
@@ -151,6 +172,9 @@ owns WP vuln watching), G4 harvest merged (PR #4).**
   library.)
   Effective rollback signals: strict-validator errors + next weekly's contradiction
   check; revert = `git revert 6c10295`.
+- **Continuation APPROVED 2026-08-09** (eighth verdict-log entry — Sani's #2,
+  answering the two-decision message; execution wave same day, results recorded
+  on completion).
 - **Continuation now LOAD-BEARING for installs (2026-08-09, probe evidence)**: the
   fork cannot be installed as a working Claude Code plugin until this decision
   lands. Probed on the v4.3.5 tree: `claude plugin install
