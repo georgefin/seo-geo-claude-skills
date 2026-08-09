@@ -473,6 +473,8 @@ Engines don't share sources as much as "AI traffic" framing assumes. [VERIFY –
 
 **Community channel** [VERIFY, directional]: where topically relevant, monitor (and, if genuinely useful, participate in) relevant community threads — Reddit, niche forums; for Greek-market queries, insomnia.gr-type communities where relevant. Presence is a citation channel, never a guaranteed placement.
 
+**AIO/AI Mode quote-preview module** (Google-announced 2026-05-06, blog.google "How AI Mode and AI Overviews help you explore the web"): AI responses can include a section — labeled "Expert Advice", "Community Perspectives", or similar depending on the query — that previews verbatim quotes from forum/social UGC (Reddit, niche forums, blogs) with the creator's name/handle/community and a link to the source thread. Being the quoted voice in a relevant thread is therefore a direct AIO/AI Mode surface, not just a background citation signal. [VERIFY – rollout scope: US/English first (2026-05-06/07, vendor-reported); el-GR availability unconfirmed; Google post full text unread from cloud (blog.google egress-blocked). Resolves when: local read of the blog.google post confirms wording/scope AND/OR first el-GR SERP sighting of the module.]
+
 **Not citation levers**: llms.txt is a dead lever — do not add one expecting citation gains. Schema stacking (piling on multiple schema types per page) is not a citation lever either — one accurate JSON-LD type (O05) is enough; more schema for its own sake adds no citation signal.
 
 ---

@@ -1,13 +1,13 @@
 ---
 name: geo-content-optimizer
-version: "4.1.4"
+version: "4.1.5"
 description: 'Optimize content for AI citation across Google AI Mode (default search surface, incl. AI Overviews), ChatGPT, Perplexity, and Gemini with quotable statements and structured Q&A. Use when the user asks to "optimize for AI", "get cited by ChatGPT", "GEO optimization", "appear in AI answers", "make content AI-quotable", "Google AI Overview optimization", or "Google AI Mode optimization". Adds quotable statements, structured Q&A, precise statistics with sources, expert attribution, and FAQ schema. Uses CORE-EEAT GEO-First items as optimization targets. For SEO-focused writing, see seo-content-writer. For entity and brand AI presence, see entity-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.1.4"
+  version: "4.1.5"
   geo-relevance: "high"
   tags:
     - geo
@@ -137,7 +137,7 @@ When a user requests GEO optimization:
 
    **Engine Model (2026 baseline)**: Google AI Mode is Google's default search surface (AI Overviews folded in; live for Greek queries since 08-10-2025) — organic CTR baselines shift accordingly. ChatGPT, Perplexity, Gemini, Claude remain separate engines, each with its own selection behavior.
 
-   **Per-Engine Reality Check** [VERIFY – 2026 industry studies]: ~11% ChatGPT↔Perplexity domain overlap; community/UGC content (Reddit-type) ≈40% of citations, cross-engine. Optimize and track citation presence **per engine**, not as one "AI traffic" bucket — community threads (Reddit, niche forums; Greece: insomnia.gr-type where topically relevant) are a citation channel too, directional only.
+   **Per-Engine Reality Check** [VERIFY – 2026 industry studies]: ~11% ChatGPT↔Perplexity domain overlap; community/UGC content (Reddit-type) ≈40% of citations, cross-engine. Optimize and track citation presence **per engine**, not as one "AI traffic" bucket — community threads (Reddit, niche forums; Greece: insomnia.gr-type where topically relevant) are a first-class AIO/AI Mode quote surface (Google-announced quote-preview module, 2026-05-06; rollout scope [VERIFY] — see ai-citation-patterns.md); the overlap/share magnitudes stay directional.
 
    **Not citation levers**: llms.txt (dead — do not add it); schema-stacking (not a signal — one accurate JSON-LD type per O05 is enough).
 
