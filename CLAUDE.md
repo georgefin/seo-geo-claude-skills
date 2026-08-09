@@ -39,7 +39,7 @@ If `memory-management` is active, prior audit results load automatically from th
 
 ## Pipeline Loop State
 
-State for the weekly self-improvement loop lives in `docs/loop/` — `PIPELINE.md` (the 5-stage loop), `SETTLED-RULINGS.md` (non-relitigable research rulings + pinned baselines), `WATCH-ITEMS.md` (the `[VERIFY]` queue), `GATED-ITEMS.md` (proposals awaiting Sani). Read them before research or skill edits. Before any `git push`, run `scripts/pre-push-gate.sh` (also enforced by a `PreToolUse` hook in `.claude/settings.json`).
+State for the weekly self-improvement loop lives in `docs/loop/` — `PIPELINE.md` (the 5-stage loop), `SETTLED-RULINGS.md` (non-relitigable research rulings + pinned baselines), `WATCH-ITEMS.md` (the `[VERIFY]` queue), `GATED-ITEMS.md` (proposals awaiting Sani), plus `PILOT.md` (real-site pilot scope), `ADVERSARIAL-LAYER.md` (second-lane review protocols), and `KPI.md` (cold weekly KPI rows). Read them before research or skill edits. Before any `git push`, run `scripts/pre-push-gate.sh` (also enforced by a `PreToolUse` hook in `.claude/settings.json`).
 
 ## Tool Connector Pattern
 

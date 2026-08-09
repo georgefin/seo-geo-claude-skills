@@ -5,8 +5,10 @@
 #      (committed or uncommitted) — localizes errors per skill;
 #   2. scripts/validate-tracking.sh once — repo-level consistency
 #      (version sync, manifest parity, VERSIONS.md rows, 350-line cap,
-#      references/ links).
-# Push only when both pass. With Actions disabled on this fork, this gate
+#      references/ links);
+#   3. scripts/claims-gate.sh — F11 drafting-integrity rules on the outgoing
+#      register diff (per-push @{upstream} scope; wired 2026-08-09, G5).
+# Push only when all three pass. With Actions disabled on this fork, this gate
 # is the effective CI (docs/loop/PIPELINE.md stage 4).
 #
 # Usage: ./scripts/pre-push-gate.sh [base-ref]   (default: origin/main)
@@ -45,6 +47,13 @@ fi
 
 echo "== validate-tracking (repo-level)"
 bash "$ROOT/scripts/validate-tracking.sh" "$ROOT" || overall=1
+
+echo "== claims-gate (F11 register drafting integrity)"
+# Scope decision (G5 wiring, 2026-08-09): no base arg — claims-gate resolves
+# @{upstream}, gating each push's NEW outgoing register drafting. Pre-gate
+# branch history is grandfathered to the Mode A covering round; retro-anchoring
+# pre-gate text would fabricate drafting-time evidence.
+bash "$ROOT/scripts/claims-gate.sh" || overall=1
 
 echo ""
 if [ "$overall" -ne 0 ]; then

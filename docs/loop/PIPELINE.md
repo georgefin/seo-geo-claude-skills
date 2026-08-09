@@ -143,6 +143,9 @@ same winter drift — its fix would be `0 5 * * 1-5`.
 | `GATED-ITEMS.md` | proposals awaiting Sani, risk/rollback, verdicts | Sani's verdict via PR |
 | `FAILURE-LEDGER.md` | append-only failure entries + guards + recurrence counts | every FIX/BLOCK, regression, revert, incident |
 | `eval-baselines/` | dated eval-run records (per-expectation outcomes, tool-correctness) — regression-rate denominator | skill-reviewer runs via APPLY sessions |
+| `PILOT.md` | real-site pilot: keyword set, measurement design, per-change HITL workflow; deployment gated on Sani's three inputs (§0) | scope edits via gated PR |
+| `ADVERSARIAL-LAYER.md` | second-lane review protocols (Protocol A cross-tier contrastive; Protocol B Sani's monthly cross-family paste) | protocol edits via normal PR |
+| `KPI.md` | append-only cold KPI rows (weekly loop metrics for trend reads) | weekly routine appends a row; corrections append, never rewrite |
 | `reports/` (optional) | dated weekly report mirrors | APPLY-stage sessions |
 
 ## Trigger hygiene policy (standing)
