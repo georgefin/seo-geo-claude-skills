@@ -10,7 +10,7 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 |-------|----------|---------|--------------|
 | keyword-research | research | 4.2.1 | 2026-08-08 |
 | competitor-analysis | research | 4.0.2 | 2026-08-08 |
-| serp-analysis | research | 4.2.1 | 2026-08-09 |
+| serp-analysis | research | 4.2.2 | 2026-08-09 |
 | content-gap-analysis | research | 4.0.1 | 2026-08-08 |
 | seo-content-writer | build | 4.2.0 | 2026-08-08 |
 | geo-content-optimizer | build | 4.1.5 | 2026-08-09 |
@@ -26,10 +26,18 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 | alert-manager | monitor | 4.1.1 | 2026-08-08 |
 | content-quality-auditor | cross-cutting | 4.2.0 | 2026-08-08 |
 | domain-authority-auditor | cross-cutting | 4.1.0 | 2026-08-08 |
-| entity-optimizer | cross-cutting | 4.1.3 | 2026-08-09 |
+| entity-optimizer | cross-cutting | 4.1.4 | 2026-08-09 |
 | memory-management | cross-cutting | 4.0.2 | 2026-08-08 |
 
 ## Changelog
+
+### v4.3.3 (2026-08-09)
+
+W10's LSA leg closed at primary grade (second watch-item through the owner-verdict flow) + the W5 close-out's Mode A BLOCK corrected:
+
+- **serp-analysis 4.2.2**: LSA Greece-absence upgraded to owner-verified — Sani opened the LSA country picker (answer/6224841) and confirmed Greece absent; `[VERIFY]` tag dropped at `serp-feature-taxonomy.md:233` with a migration re-check note (LSA→Google Ads: US 2026-08, non-US 2027)
+- **entity-optimizer 4.1.4**: three evidence-fidelity corrections from the W5 review's BLOCK (F11 recurrence 1): "graduated" deleted (the enforcement page states discretionary restrictions with no progression language), "banner" → the page's own word "warning", quote B now carries the paste's terminal period
+- **Registers**: five SETTLED-RULINGS pointers + one GATED-ITEMS pointer refreshed and anchor-tagged (new ledger entry F12 — bare line numbers into an append-at-top changelog break on every release; scripted gate check queued)
 
 ### v4.3.2 (2026-08-09)
 
