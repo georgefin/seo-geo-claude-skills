@@ -9,7 +9,7 @@
 #
 # Usage:   ./validate-tracking.sh [repo-root]     (default: .)
 # Exit:    0 = all checks pass (warnings allowed), 1 = any FAIL, 2 = usage/setup error
-# No network access. Dependencies: bash, coreutils, grep, sed, awk, sort, comm.
+# No network access. Dependencies: bash, coreutils, grep, sed, awk, sort, comm, cmp (diffutils).
 
 set -u
 
@@ -94,7 +94,20 @@ if [ "$A_OK" -eq 1 ]; then
         A_OK=0
     fi
 fi
-[ "$A_OK" -eq 1 ] && pass "(a) version '$PLUGIN_VER' consistent across plugin.json, marketplace.json (x$MKT_COUNT), README badge"
+# Marketplace-discovery shim (2026-08-09): Claude Code's `plugin marketplace
+# add <owner>/<repo>` resolves .claude-plugin/marketplace.json ONLY — probed
+# on this fork: the add fails when the manifest sits at repo root alone. The
+# repo therefore carries a byte-identical copy at that path; root
+# marketplace.json stays the canonical, hand-edited file.
+MKT_SHIM="$ROOT/.claude-plugin/marketplace.json"
+if [ ! -f "$MKT_SHIM" ]; then
+    fail "(a) marketplace-discovery shim missing: .claude-plugin/marketplace.json (byte-identical copy of root marketplace.json)"
+    A_OK=0
+elif ! cmp -s "$MARKETPLACE_JSON" "$MKT_SHIM"; then
+    fail "(a) .claude-plugin/marketplace.json differs from root marketplace.json — root is canonical; refresh with: cp marketplace.json .claude-plugin/marketplace.json"
+    A_OK=0
+fi
+[ "$A_OK" -eq 1 ] && pass "(a) version '$PLUGIN_VER' consistent across plugin.json, marketplace.json (x$MKT_COUNT), README badge; .claude-plugin/ shim byte-identical"
 
 # ---------------------------------------------------------------------------
 # Shared inventory: skill directories on disk (contain a SKILL.md)

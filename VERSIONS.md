@@ -20,7 +20,7 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 | technical-seo-checker | optimize | 4.2.1 | 2026-08-08 |
 | internal-linking-optimizer | optimize | 4.0.1 | 2026-08-08 |
 | content-refresher | optimize | 4.1.0 | 2026-08-08 |
-| rank-tracker | monitor | 4.1.0 | 2026-08-08 |
+| rank-tracker | monitor | 4.1.1 | 2026-08-09 |
 | backlink-analyzer | monitor | 4.0.1 | 2026-08-08 |
 | performance-reporter | monitor | 4.1.0 | 2026-08-08 |
 | alert-manager | monitor | 4.1.1 | 2026-08-08 |
@@ -30,6 +30,13 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 | memory-management | cross-cutting | 4.0.2 | 2026-08-08 |
 
 ## Changelog
+
+### v4.3.5 (2026-08-09)
+
+Pending-tasks wave (Sani proceed order): both agent-doable register items closed, plus the marketplace-discovery fix surfaced by Sani's same-day "other computers" question.
+
+- **rank-tracker 4.1.1**: reference promises trimmed to what the guide contains — SKILL.md blockquote and Reference Materials bullet now list only real sections of tracking-setup-guide.md (the bullet's "SERP feature tracking setup" was a second same-class phrase, caught in-wave); guide Section 6's dangling "Root Cause Taxonomy" pointer dropped; nothing invented (F3 rule)
+- Infrastructure (no version bump): validate-tracking check (g) — settled-pointer anchor verification (F12 promoted guard; scans the four live registers, ledger/archive/eval-baselines excluded; fault-injection-tested incl. a load-bearing negative control) — and check (a) extended for the new `.claude-plugin/marketplace.json` marketplace-discovery shim: probed 2026-08-09, `claude plugin marketplace add georgefin/seo-geo-claude-skills` fails with a root-only manifest while local path-add + install succeed end-to-end, so a byte-identical copy now lives at the path Claude Code resolves (root stays canonical; identity gate-enforced)
 
 ### v4.3.4 (2026-08-09)
 
