@@ -1,13 +1,13 @@
 ---
 name: entity-optimizer
-version: "4.1.1"
+version: "4.1.2"
 description: 'Audit and build entity presence across Google Knowledge Graph, Wikidata, and AI systems for brand recognition and AI citations. Use when the user asks to "optimize entity presence", "build knowledge graph", "improve knowledge panel", "entity audit", "establish brand entity", "Google doesn''t know my brand", "no knowledge panel", "establish my brand as an entity". For structured data implementation, see schema-markup-generator. For content-level AI optimization, see geo-content-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.1.1"
+  version: "4.1.2"
   geo-relevance: "high"
   tags:
     - seo
@@ -182,7 +182,7 @@ Evaluate each signal as Pass / Fail / Partial with a specific action for each ga
 6. **AI-Specific Entity Signals** -- Clear definitions, disambiguation, verifiable claims, crawlability
 7. **Google Business Profile Signals** -- Profile completeness, primary/secondary category accuracy, Posts/Q&A/Products surface activity, photo freshness, review velocity, review response rate
 
-> **[VERIFY – 2026 policy reports]** Review solicitation naming individual staff members and staff review quotas reportedly banned (04-2026, blog-sourced) — confirm against Google's review policy page before advising clients; suspension risk if true.
+> **Google review-solicitation policy (reported addition ~2026-04-17)**: Google's "Prohibited & restricted content" policy (Fake engagement section) bans "requesting that staff solicit a certain number of reviews" (staff review quotas) and "requesting that staff solicit reviews that include specific content, including content that identifies a staff member". Never set per-staff review targets; never script customers to include staff names or other specified content — spontaneous customer mentions of staff remain fine. Violations count as fake engagement: review removal + Business Profile restrictions (new-review freeze, review unpublishing, public warning banner), not automatic suspension. Primary: support.google.com/contributionpolicy/answer/7400114 (reported same text at support.google.com/business/answer/7400114); enforcement ladder: support.google.com/business/answer/14114287. [VERIFY — phrase wording + URLs snippet-corroborated 2026-08-09; primary pages egress-blocked from cloud (support.google.com); Sani local: open contributionpolicy/answer/7400114 + business/answer/14114287, confirm both quoted phrases, the same-text mirror at business/answer/7400114, and the restrictions ladder, then drop this tag]
 
 > **Reference**: Use the audit template in [references/entity-signal-checklist.md](./references/entity-signal-checklist.md) for the full 47-signal checklist with verification methods for categories 1-6.
 
