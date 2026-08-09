@@ -8,11 +8,14 @@ grep with `\[VERIFY` (not `\[VERIFY\]`) to find all of them.
 Weekly DETECT runs re-check items at their cadence and report deltas; resolution edits
 (dropping a tag, revising a claim) go through normal PR flow.
 
-**Last full inventory: 2026-08-08 (post P3/P4 wave)** — 44 matching lines in 13 repo
-files (`grep -rc '\[VERIFY' research build optimize monitor cross-cutting references
-VERSIONS.md`). 13 new claim-bearing tags entered with the Greek wave — registered as
-W9–W11 below; the remainder of the new lines are legend/discipline references, not
-claims (tourism `:3`/`:76`, shopping `:3`/`:13`/`:58`, ymyl-credentials intro,
+**Last full inventory: 2026-08-09 (post verification wave)** — 53 matching lines in 15
+repo files (`grep -rc '\[VERIFY' research build optimize monitor cross-cutting references
+VERSIONS.md`). Delta vs the 2026-08-08 count (44 in 13): +1 encoded module tag
+(ai-citation-patterns.md:476, W7), reworded tags at serp-feature-taxonomy.md:233 (W10)
+and entity-optimizer SKILL.md:185 (W5), and the rest are v4.3.1 changelog prose mentions
+in `VERSIONS.md` — bookkeeping references, not new claims. The 2026-08-08 note stands:
+13 Greek-wave claim tags registered as W9–W11; legend/discipline lines are not claims
+(tourism `:3`/`:76`, shopping `:3`/`:13`/`:58`, ymyl-credentials intro,
 content-quality-auditor discipline note).
 
 ---
@@ -45,8 +48,14 @@ content-quality-auditor discipline note).
 - **Claim**: ~11% ChatGPT↔Perplexity domain overlap; Reddit-type community/UGC content
   ≈40% of citations cross-engine (transcript also carried a 46x brand-citation-rate gap,
   0.59% vs 13.05% — not encoded in repo).
-- **Where**: `build/geo-content-optimizer/SKILL.md:157`;
-  `build/geo-content-optimizer/references/ai-citation-patterns.md:467-470,474,489`.
+- **Where**: `build/geo-content-optimizer/SKILL.md:140`;
+  `build/geo-content-optimizer/references/ai-citation-patterns.md:467-470,474,491`
+  (pointers refreshed 2026-08-09 — SKILL.md ref was stale, file refs shifted by the
+  4.1.5 module insertion).
+- **Partial corroboration 2026-08-09 (W7 lane)**: the community-citation CHANNEL is now
+  Google-primary — the 2026-05-06 quote-preview module announcement, encoded at
+  `ai-citation-patterns.md:476`. The ~11% overlap and ≈40% share MAGNITUDES remain the
+  open claims; their tags are unchanged and this item stays open for them alone.
 - **Source**: "680M-citation study", machinerelations.ai (2026, undated, methodology
   unverified).
 - **Resolves when**: independent second study replicates (drop tag) or contradicts (revise).
@@ -67,10 +76,25 @@ content-quality-auditor discipline note).
 ## W5 — Greek review-compliance rules
 
 - **Claim**: Review solicitation naming individual staff, and staff review quotas,
-  reportedly banned (04-2026, blog-sourced); suspension risk if true.
-- **Where**: `cross-cutting/entity-optimizer/SKILL.md:202`.
-- **Resolves when**: confirmed against Google's review policy page (primary).
-- **Cadence**: next sweep; always before client advice.
+  banned under "Prohibited & restricted content" (Fake engagement) — reported policy
+  addition ~2026-04-17.
+- **Where**: `cross-cutting/entity-optimizer/SKILL.md:185` (pointer fixed 2026-08-09 —
+  register said :202, claim actually sat at :185; now the confirmed-callout + scoped tag).
+- **2026-08-09 sweep result — snippet-corroborated, still OPEN**: both policy phrases
+  matched EXACT on the primary domain via `site:support.google.com` probes ("requesting
+  that staff solicit a certain number of reviews"; "…reviews that include specific
+  content, including content that identifies a staff member"), pages
+  contributionpolicy/answer/7400114 + business/answer/7400114. Full-page primary read
+  impossible from cloud (support.google.com egress-blocked domain-wide) — Mode A held
+  the tag per the F4 guard class. Precision corrections encoded: ban attaches to the
+  merchant's DIRECTIVE (spontaneous customer mentions of staff stay fine); consequence
+  is removal + Business Profile restrictions ladder (business/answer/14114287), not
+  flat suspension.
+- **Resolves when**: Sani local (30 seconds) — open contributionpolicy/answer/7400114 +
+  business/answer/14114287, confirm both quoted phrases, the same-text mirror, and the
+  restrictions ladder; then drop the SKILL.md:185 tag and close this entry.
+- **Cadence**: Sani-local one-shot; off the weekly nudge (cloud cannot advance it).
+  Always before client advice.
 
 ## W6 — Skroutz visibility levers (cluster, 8 claims)
 
@@ -85,13 +109,23 @@ content-quality-auditor discipline note).
 - **Cadence**: quarterly ("fast-moving market", file `:87`); always before client-facing
   figures (fees, locker counts, SLA, returns terms).
 
-## W7 — AI Overviews "Expert Advice" quotes forum UGC directly
+## W7 — AI Overviews "Expert Advice" quotes forum UGC directly — SURVIVED, ENCODED 2026-08-09
 
-- **Claim**: AIO "Expert Advice" module quotes Reddit/forum UGC directly.
-- **Where**: NOT in repo; 2026-08-08 weekly report only, tagged [VERIFY].
-- **Action**: encode into `ai-citation-patterns.md` (with tag) only if it survives next
-  sweep's verification; otherwise drop.
-- **Cadence**: next sweep.
+- **Claim**: AIO/AI Mode quote-preview module ("Expert Advice" is ONE of several
+  query-dependent labels — also "Community Perspectives"/"Perspectives") previews
+  verbatim quotes from forum/social UGC with creator attribution + source link.
+- **Verification (2026-08-09 sweep)**: PRIMARY grade — Google's own announcement
+  (blog.google "How AI Mode and AI Overviews help you explore the web", Hema Budaraju,
+  2026-05-06; snippet-verified, direct fetch egress-blocked) + 4 independent same-day
+  outlets (TechCrunch, Engadget, MacRumors, TechRadar) describing identical behavior.
+  Production rollout, not a Labs test; no retirement coverage through 2026-08-09.
+- **Where**: encoded at `build/geo-content-optimizer/references/ai-citation-patterns.md:476`
+  (geo-content-optimizer 4.1.5) with the label-variability precision.
+- **Remaining open leg**: rollout scope only — US/English-first is vendor-reported;
+  el-GR availability unconfirmed and matters for Sani Hellas clients. The encoded tag's
+  resolves-when: local read of the blog.google post AND/OR first el-GR SERP sighting.
+- **Cadence**: el-GR scope-check at the next quarterly sweep or first client AIO
+  sighting, whichever first.
 
 ## W8 — Plugin validator tolerance of extra manifest fields — RESOLVED 2026-08-08
 
@@ -126,10 +160,20 @@ content-quality-auditor discipline note).
   apparently NOT available in Greece — vendor guide 2026);
   `research/keyword-research/references/greek-keyword-coverage.md:103` (SERP-distinctness
   magnitude of inflected forms per query class).
-- **Resolves when**: LSA — check Google's official LSA country list (primary page exists;
-  cheap, next sweep). Inflection distinctness — el-GR SERP sampling at the first Greek
-  keyword engagement (Sani local or client data).
-- **Cadence**: LSA next weekly sweep; inflection on-use.
+- **LSA leg — evidence upgraded 2026-08-09, still OPEN**: three independent vendor
+  guides unanimously list the LSA footprint as US, CA + AT, BE, FR, DE, IE, IT, NL, ES,
+  CH, UK (Greece absent), and Google's Help Center publishes per-country variants of
+  the LSA getting-started page for exactly those countries with no Greece variant
+  (claim upgraded single-vendor → multi-vendor + official-domain-structural;
+  serp-analysis 4.2.1). `support.google.com` is egress-blocked domain-wide from cloud —
+  no cloud sweep can ever reach CONFIRMED-PRIMARY on this item.
+- **Resolves when**: LSA — Sani local one-shot: open
+  support.google.com/localservices/answer/6224841, use the country picker, confirm
+  Greece absent, then drop the serp-feature-taxonomy.md:233 tag. (URL may move: LSA is
+  migrating into Google Ads — US from 2026-08, non-US 2027.) Inflection distinctness —
+  el-GR SERP sampling at the first Greek keyword engagement (Sani local or client data).
+- **Cadence**: LSA off the weekly nudge (cloud-blocked permanently), Sani-local
+  one-shot; inflection on-use.
 
 ## W11 — Greek registry/compliance lookup specifics (7 claims)
 

@@ -67,7 +67,12 @@ regression rate · repeat-failure count · tool-correctness rate.
   response; verify post-mutation state via a read call. skill-reviewer Mode A treats
   unverified state claims in diffs as a FIX finding. (Caught pre-commit by coordinator
   review — this ledger entry makes the rule durable.)
-- **Recurrence**: 0. **Status**: rule encoded; reviewer enforces.
+- **Recurrence**: 0 — near-miss 2026-08-09, no increment: the verification wave's
+  changelog claimed "resolved confirmed-primary / [VERIFY] dropped" for a
+  snippet-mechanism read (support.google.com egress-blocked — the primary was never
+  opened); skill-reviewer Mode A flagged it under exactly this guard and the wave was
+  FIXed pre-commit (tag kept, wording softened to "snippet-corroborated"). Guard
+  confirmed live in its designed position. **Status**: rule encoded; reviewer enforces.
 
 ## F5 — 2026-08-08 · Freshness checker counted future dates as review stamps
 

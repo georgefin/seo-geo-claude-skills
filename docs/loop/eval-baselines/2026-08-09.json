@@ -1,0 +1,48 @@
+{
+  "baseline_date": "2026-08-09",
+  "scope": "WAVE-SCOPED RE-RUN — geo-content-optimizer ONLY (post-4.1.5 verification-wave eval leg; Mode A shipped the diff, this is the behavioral confirmation). NOT a full 3-skill baseline: schema-markup-generator and keyword-research baselines remain those recorded in 2026-08-08.json.",
+  "method": "skill-reviewer Mode B run (execute-then-grade order: all five outputs written before the grading script existed; scripted evidence-printing checks per ledger F7 — every digit-scan flag inspected at the raw-output location before adjudication; strict grading). METHOD DIFFERENCES vs 2026-08-08 baseline, recorded for honest comparison: (1) single-agent run — the grader also produced the outputs, and evals.json expectations were visible to the executor before execution (the 2026-08-08 wave stripped expectations pre-execution); mitigated by faithful SKILL.md-workflow execution and scripted checks, but the separation is weaker and this 100% should be read with that caveat; (2) greek-content-editor binding pass NOT run — Greek expectations graded on mechanical scans only (see greek_editor field).",
+  "regression_rule": "Regression = an expectation recorded as passing here that fails in a later run of the same suite on a same-or-newer skill version. Expectation indices are 1-based positions in the evals.json expectations array of the skill AT THE STATED VERSION; any expectation-wording change re-baselines that item. This run grades the suite-v2 wording (commit cb47ac8) — the four expectations reworded in that wave (e2.2 quota reading, e3.1 compact-term floor, e3.7 shown-arithmetic carve-out, e5.4 honesty-substance) are re-baselined here at their v2 wording.",
+  "regression_check_vs_2026-08-08": {
+    "regressions": [],
+    "verdict": "CLEAN — zero regressions",
+    "detail": "All 25 strictly-protected expectations (baseline-passing, wording unchanged) pass; both reworded-but-baseline-passing items (e2.2, e3.7) pass under v2 wording; the two baseline failures (e3.1 definitions shortfall, e5.4 template-slot miss) now pass — and both also satisfy their pre-rework wording in this run (all three eval-3 definitions land in 25-50 words; eval-5 lists R01/R02/E01 under the literal 'Items Needing Attention' line as well), so neither pass depends on the carve-out alone."
+  },
+  "suites": [
+    {
+      "skill": "geo-content-optimizer",
+      "skill_version": "4.1.5",
+      "passed": 29,
+      "total": 29,
+      "pass_rate": 1.0,
+      "evals": [
+        {"id": 1, "name": "greek-service-page-klimatismos", "passed": 6, "total": 6, "failed": [], "greek_editor_binding": "NOT RUN — mechanical scans only (zero Latin tokens in visible copy, zero final-sigma errors, diacritics ratio 0.103)"},
+        {"id": 2, "name": "greek-category-intro-afygrantires", "passed": 6, "total": 6, "failed": [], "greek_editor_binding": "NOT RUN — mechanical scans only (zero Latin tokens, zero sigma errors, diacritics ratio 0.126; the 2026-08-08 MINOR-EDITS calques «Ολα τα 18»/«βοηθά με τη μούχλα» deliberately avoided: output uses «Και τα 18 μοντέλα», «να περιοριστούν η μούχλα»)"},
+        {"id": 3, "name": "en-heat-pumps-firstparty-study", "passed": 7, "total": 7, "failed": [], "note": "former baseline fail e3.1 now passes: definitions at 31/38/35 words, verbatim, term-first — within the v2 compact-term floor AND the original 25-50 band"},
+        {"id": 4, "name": "en-agency-nonlever-boundary", "passed": 5, "total": 5, "failed": [], "note": "llms.txt and schema-stacking both declined with R1/R2 reasons; output JSON-LD @type list = ['LocalBusiness'] only; FAQPage deliberately withheld from the visible Q&A page with the stacking reason stated (C09 tension handled per R2 boundary, as in baseline run)"},
+        {"id": 5, "name": "en-zero-data-honesty", "passed": 5, "total": 5, "failed": [], "note": "former baseline fail e5.4 now passes under v2 honesty-substance wording and also under the old template-slot wording (R01/R02/E01 each ❌ UNMET in the self-check AND named in Items Needing Attention); factual density/source citations/authority self-scored 1→1, lift reported as +2.8 points structure-only"}
+      ],
+      "no_fabrication_guard": "HELD — scripted digit-scan vs per-eval allowlists across all five runs, every flagged token inspected in context: zero invented numbers; the only unlisted tokens were exempt self-ratings (score-table deltas), self-referential word counts of the outputs' own definitions, and supplied figures in alternate formatting; derived figures (€6,400; ≈14.9 years) appear only adjacent to their inline arithmetic; eval-5 contains no percentage other than the fixture's own hedged 90%; 34 explicit placeholder markers across runs ([CLIENT DATA NEEDED]/[SOURCE NEEDED]/[ΑΠΑΙΤΟΥΝΤΑΙ ΣΤΟΙΧΕΙΑ ΠΕΛΑΤΗ]/[απαιτούνται στοιχεία προϊόντος])",
+      "tool_correctness": {"tool_errors": 0, "ungradeable": 0, "scope_violations": 0, "fabricated_results": 0, "notes": "all scripted checks printed matched/unmatched evidence per F7; FAQPage JSON-LD parsed and mirrored visible FAQ 6/6 questions + 6/6 answers; no write-guard or filename rejections this run"},
+      "greek_editor": {"eval-1": "NOT RUN (mechanical PASS — coordinator to decide whether a greek-content-editor binding pass is required before this 100% is treated as certified)", "eval-2": "NOT RUN (mechanical PASS — same caveat)"},
+      "caveats": [
+        "Single-agent method caveat (see method): executor and grader were the same session and expectations were visible pre-execution — weaker separation than the 2026-08-08 wave; treat the 29/29 as behavioral confirmation of 4.1.5, not as a harder measurement than the baseline's 27/29",
+        "The 4.1.5 diff surface (SKILL.md:140 community-channel reframe + ai-citation-patterns.md AIO quote-preview paragraph) is not directly exercised by any of the five prompts — this run confirms no collateral behavioral damage, not the new paragraph's own correctness (that claim carries its own [VERIFY] scope)",
+        "Greek naturalness/register not editor-certified this run (mechanics only)"
+      ],
+      "eval_feedback": [
+        "No expectation was ambiguous under the v2 wording this run — the four cb47ac8 rewords (quota reading, compact-term floor, shown-arithmetic, honesty-substance) all resolved cleanly at grading time",
+        "e4 still has no expectation touching C09/FAQPage-vs-R2 on a service page; the tension recurred in execution (FAQPage withheld with reason) — consider an explicit expectation so the behavior is measured, not incidental"
+      ]
+    }
+  ],
+  "totals": {"passed": 29, "total": 29, "pass_rate": 1.0, "note": "geo-content-optimizer suite only (wave-scoped)"},
+  "greek_quality_summary": "Mechanical scans across both Greek runs: zero Greeklish/unaccented forms, zero Latin-script tokens in visible copy, zero final-sigma errors, natural diacritic ratios; the two word-level calques the 2026-08-08 greek-content-editor flagged were avoided. NATIVE/MINOR-EDITS classification NOT issued — greek-content-editor was not run.",
+  "learning_metrics_at_baseline": {
+    "regression_rate": 0.0,
+    "regression_note": "0 regressions / 25 strictly-protected expectations (0/27 counting the two reworded-but-passing items); the 2026-08-08 protected set is fully upheld for this suite",
+    "repeat_failure_count": 0,
+    "repeat_failure_note": "no ledgered failure pattern (F1-F10) reproduced in outputs or grading; F3-class fabrication pressure explicitly re-tested by evals 3/5 and held; F7 evidence-inspection applied to every scan flag",
+    "tool_correctness_rate": "5/5 eval runs clean (0 tool errors, 0 grading errors, 0 fabricated tool results, 0 scope violations — repo writes limited to this file)"
+  }
+}
