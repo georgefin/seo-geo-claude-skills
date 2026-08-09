@@ -7,10 +7,11 @@ PR must be named in that PR's body as a separate decision (as done in PR #1, 202
 
 **Currently gated: G8 live-site deployment only (blocked on Sani's three inputs —
 named target cluster, data access, publication workflow). G5–G7 and G8's executable
-scope RELEASED 2026-08-09 (eleventh verdict-log entry): G5 delivered (gate wiring
-pending the wave close-out push), G6 delivered (`69c5f7e`), G7 in execution (E1+E2
-suites committed), G8 preparables delivered (`9c6adb4`). Sani decisions also flagged
-in the queued list (fork-manifest attribution).
+scope RELEASED 2026-08-09 (eleventh verdict-log entry): G5 delivered and wired
+into `pre-push-gate.sh` (integration commit, 2026-08-09), G6 delivered
+(`69c5f7e`), G7 in execution (E1+E2 suites committed), G8 preparables delivered
+(`9c6adb4`). Sani decisions also flagged in the queued list (fork-manifest
+attribution).
 G1–G4 resolved: G1 pilot merged (PR #4) + continuation merged (PR #8), G2 EXECUTED
 2026-08-09 (Issues enabled by Sani; queue issue #6 live; STEP 6 amendment applied —
 prompt v4.2), G3 RETIRED 2026-08-09 (option c — the local loop owns WP vuln
@@ -381,12 +382,15 @@ watching), G4 harvest merged (PR #4).**
 
 ## G5 — Vigilance-to-code wave (claims-gate + archive/fragment checks + KPI persistence)
 
-- **Status**: **RELEASED 2026-08-09** (eleventh verdict-log entry) **+ DELIVERED**
-  same day — scripts + fixtures + `KPI.md` implemented; acceptance test per the
-  implementer's report: all five gate-detectable F11 instances caught at FAIL,
-  three truth-class instances at WARN (the plan's form/truth tiering), negative
-  control clean. Gate WIRING pending: lands immediately after the in-flight wave
-  close-out push (sequencing: the close-out is not gated by an unproven check).
+- **Status**: **RELEASED 2026-08-09** (eleventh verdict-log entry) **+ DELIVERED
+  + WIRED 2026-08-09** — scripts + fixtures + `KPI.md` implemented; acceptance
+  test per the implementer's report: all five gate-detectable F11 instances
+  caught at FAIL, three truth-class instances at WARN (the plan's form/truth
+  tiering), negative control clean. Wired into `pre-push-gate.sh` on per-push
+  scope (claims-gate resolves `@{upstream}`; pre-gate branch history goes to the
+  Mode A covering round rather than being retro-anchored — anchoring pre-gate
+  drafting after the fact would fabricate drafting-time evidence)
+  [obs:2026-08-09T21:09:18Z integration commit, first gated push].
   Proposed 2026-08-09 (`MASTER-IMPROVEMENT-PLAN.md` §1a–1b; tenth verdict-log
   entry).
 - **Proposal**: `scripts/claims-gate.sh` wired into the pre-push gate — rule 1
@@ -406,7 +410,7 @@ watching), G4 harvest merged (PR #4).**
 
 - **Status**: **RELEASED 2026-08-09** (eleventh verdict-log entry) **+ DELIVERED**
   same day — `ADVERSARIAL-LAYER.md` committed (`69c5f7e`); PIPELINE/CLAUDE.md
-  pointer wiring rides the integration batch. Proposed 2026-08-09
+  pointers added in the G5 integration commit (2026-08-09). Proposed 2026-08-09
   (`MASTER-IMPROVEMENT-PLAN.md` §1c).
 - **Proposal**: defined high-stakes outputs (gate/verdict flips, releases,
   Sani-facing numbers, external-world skill rules) get a second review lane on a

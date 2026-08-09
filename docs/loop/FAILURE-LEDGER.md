@@ -347,6 +347,13 @@ regression rate · repeat-failure count · tool-correctness rate.
   close-out push; until that wiring lands, every register commit message must
   carry the flip re-scan as a written checklist line — evidence of the scan,
   not memory of it.)
+- **Wired (2026-08-09 [obs:2026-08-09T21:09:18Z integration commit])**: the
+  claims-gate runs inside `pre-push-gate.sh` on per-push scope from this commit
+  forward — the r6 interim rule (written checklist line) retires, replaced by
+  the machine form: a `FLIP:` trailer in the register commit message drives the
+  whole-register sweep. The commit landing this note carries both forms as the
+  crossover record. Pre-gate branch history goes to the Mode A covering round
+  rather than being retro-anchored.
 
 ## F12 — 2026-08-09 · Settled-ruling line-number pointers break on every changelog insertion
 
