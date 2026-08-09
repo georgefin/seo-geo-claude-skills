@@ -157,6 +157,23 @@ regression rate · repeat-failure count · tool-correctness rate.
   cross-skill concept adds a row to its token list.
 - **Status**: redesigned guard live (scripted, gate-enforced); recurrence counter at 1
   stands as the permanent record that the manual version failed.
+- **Recurrence 2** (2026-08-09 — the same per-skill-scoping signature with R3's
+  tokens: the 2026-08-08 FAQ-rich-results retirement was purged only inside
+  schema-markup-generator, and the redesign's own closing rule ("retiring any
+  cross-skill concept adds a row to its token list") was never executed for R3 —
+  ruled the very day the rule was written. Nine live eligibility claims survived
+  in five sibling skills (serp taxonomy ×4, content-gap frameworks, writer
+  templates ×2, content-refresher example, meta-tags CTR reference), surfaced
+  2026-08-09 by two independent E2 Mode A reviewers (designed position).
+  **Redesign (rule 3)**: the token-list rule gains the F13-r1 BACKFILL shape —
+  it binds retroactively to every previously ruled retirement, not only future
+  ones. Executed same wave: check (f) R3 sub-sweep (fault-injection: injected
+  claim FAILs printing file:line:text, restore PASSes, docs/loop exclusion
+  verified load-bearing — SETTLED-RULINGS' own R3 text stays legal); all nine
+  instances rewritten to post-R3 truth with five patch bumps; retirement audit
+  confirms R3+R4 are the complete set of ruled retirements and both carry token
+  rows. A ruled retirement shipping without its same-wave token row, or a
+  backfill gap found later, increments this counter.)
 
 ## F10 — 2026-08-09 · Live trigger prompt existed nowhere but the trigger store
 

@@ -201,6 +201,22 @@ authoritative.
   ΓΕΜΗ statutory question goes to the client's lawyer, never resolved in-repo.
 - **Cadence**: on-use — before the first client deliverable that relies on them.
 
+## W12 — HowTo rich results: current Google support [VERIFY]
+
+- **Where**: `research/serp-analysis/references/serp-feature-taxonomy.md` (:30
+  Rich Results row and the How-To playbook rows ~:291),
+  `research/content-gap-analysis/references/gap-analysis-frameworks.md:150`,
+  `build/meta-tags-optimizer/references/ctr-and-social-reference.md:121` — all
+  still teach HowTo rich results as a live SERP feature. Surfaced 2026-08-09 by
+  the R3-purge implementer as an out-of-scope observation: training-knowledge
+  signal that Google deprecated HowTo rich results in 2023. No ruling covers it
+  and no dated primary source is on file — signal only, not encodable.
+- **Resolves when**: a research lane returns dated primary sources (Google
+  Search Central announcement/documentation) on HowTo rich-result status. If
+  retirement confirms: ruling drafted, purge executed, and the check (f) token
+  row ships in the same wave (F9-r2 backfill rule).
+- **Cadence**: next weekly research sweep (2026-08-15 solo fire) — DETECT lane.
+
 ---
 
 **Standing weekly discipline (not a register item)**: Google core/spam "update" chatter is
