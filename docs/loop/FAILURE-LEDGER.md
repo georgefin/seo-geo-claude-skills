@@ -275,6 +275,14 @@ regression rate · repeat-failure count · tool-correctness rate.
   claims require the END STATE observed (e.g. `claude plugin list` status, a
   loaded skill), never a mutation response alone. Mode A enforces this on the
   same frames.)
+- **Recurrence-3 confirmation (2026-08-09)**: the delayed Mode A round on
+  b888110..b3e4ca9 independently reproduced the install-rejection probe and
+  returned BLOCK on exactly this instance — the corrected wordings verified
+  response-exact, the counter increment stands, no further fix on those
+  locations. The BLOCK landed as fix-forward confirmation rather than a
+  pre-merge stop because Sani's merge order executed while the round was in
+  flight; the ordering rule is now recorded (PIPELINE stage 3): the review is
+  never skipped, only its landing point moves.
 
 ## F12 — 2026-08-09 · Settled-ruling line-number pointers break on every changelog insertion
 

@@ -5,7 +5,8 @@ Lifecycle: `proposed → gated (awaiting verdict) → approved | rejected → ap
 validated`. Record every verdict here with date and wording. A gated item excluded from a
 PR must be named in that PR's body as a separate decision (as done in PR #1, 2026-08-08).
 
-**Currently gated: NONE awaiting Sani — all four items resolved. G1 pilot merged
+**Currently gated: NONE formally gated — all four G-items resolved; Sani decisions
+flagged in the queued list (fork-manifest attribution). G1 pilot merged
 (PR #4), G2 EXECUTED 2026-08-09 (Issues enabled by Sani; queue issue #6 live; STEP 6
 amendment applied — prompt v4.2), G3 RETIRED 2026-08-09 (option c — the local loop
 owns WP vuln watching), G4 harvest merged (PR #4).**
@@ -138,7 +139,7 @@ owns WP vuln watching), G4 harvest merged (PR #4).**
     schema has **no `schemaVersion`/`id`** (only `name` required), and `commands`/`skills`
     are documented as path strings/arrays, not `{name, description, path}` objects — repo
     mandates the opposite (`CLAUDE.md:47`; fields present at `.claude-plugin/plugin.json:2-3`;
-    added deliberately in v3.0.0, `VERSIONS.md:149` ("### v3.0.0" section —
+    added deliberately in v3.0.0, `VERSIONS.md:156` ("### v3.0.0" section —
     pointer anchor-tagged per F12, token authoritative on mismatch; had silently
     drifted from :79-88)).
   - Sketch if approved: fold `version` into `metadata` (keep `metadata.version`), trim
@@ -173,8 +174,25 @@ owns WP vuln watching), G4 harvest merged (PR #4).**
   Effective rollback signals: strict-validator errors + next weekly's contradiction
   check; revert = `git revert 6c10295`.
 - **Continuation APPROVED 2026-08-09** (eighth verdict-log entry — Sani's #2,
-  answering the two-decision message; execution wave same day, results recorded
-  on completion).
+  answering the two-decision message).
+- **Continuation EXECUTED 2026-08-09 (v4.4.0)**: `commands` flattened to bare
+  path strings (all 9 descriptions verified present in command-file frontmatter
+  before the flatten), `mcpServers` → path string `./.mcp.json`, `hooks` field +
+  the empty `hooks/hooks.json` retired, non-spec `capabilities` removed;
+  CLAUDE.md contract line updated in lockstep. Validator: the three W8 strict
+  ERRORS gone; sole remaining strict finding is the root-CLAUDE.md packaging
+  warning (accepted residual). END STATE OBSERVED: directory-source add +
+  install on the migrated tree → `claude plugin list` "Version: 4.4.0 · Status:
+  √ enabled"; remote `claude plugin marketplace add georgefin/seo-geo-claude-skills`
+  now SUCCEEDS against post-merge main — the reviewer's Finding 2 re-probe RUN
+  rather than recorded-as-queued (adapted with the review's substance intact:
+  the merge landed between the round's freeze and its return); install from
+  main's pre-migration 4.3.5 manifest still draws the W8 trio until this wave
+  merges, completing the remote flow. Revert = single commit. A `.claude/
+  settings.json` team-marketplace addition (extraKnownMarketplaces +
+  enabledPlugins) was attempted and DENIED by the session permission classifier
+  (that file carries the push-gate hook — self-editing it is blocked); the
+  8-line snippet goes to Sani for manual or interactive-session addition.
 - **Continuation now LOAD-BEARING for installs (2026-08-09, probe evidence)**: the
   fork cannot be installed as a working Claude Code plugin until this decision
   lands. Probed on the v4.3.5 tree: `claude plugin install
