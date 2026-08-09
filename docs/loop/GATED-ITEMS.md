@@ -223,6 +223,13 @@ From the 08-08-2026 report's slow-loop lane; promote to gated only when concreti
   `eval_feedback_v3_backlog` fields (Z-designator, placeholder prose scope, threshold-
   reference exemptions, e1.5 anywhere→above alignment, 150-word count start, etc.).
   Same one-wave rule: apply together, never piecemeal, re-baselining the touched items.
+- **Weekly-prompt v4.3 wording backlog** (Mode A advisories, 2026-08-09,
+  verdict-neutral): disambiguate STEP 6's "first filing verified 2026-08-09" (it means
+  the first successful issue WRITE — queue issue #6 — not the first weekly-report
+  filing, which lands 2026-08-15); reconcile "sole permitted write" with the retained
+  Gmail-DRAFT clause (a draft is arguably a write; fired sessions lack Gmail anyway).
+  Bundle into the NEXT prompt amendment (one `update_trigger`, F10 archive) — never a
+  solo respin.
 - **rank-tracker reference gap** (flagged by the H1 harvest implementer, 2026-08-08):
   SKILL.md's blockquote (~line 210) promises "root cause taxonomy, CTR benchmarks by
   position, SERP feature CTR impact, algorithm update assessment" that

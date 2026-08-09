@@ -200,3 +200,7 @@ regression rate · repeat-failure count · tool-correctness rate.
   wholesale-replaced derivations of the in-repo monitor policy (PIPELINE.md stage 5),
   never amended — the amend-without-baseline hazard this entry records cannot arise
   for them, and per-re-arm archive files would be noise.
+- **Superseded (2026-08-09 ~07:51Z)**: Issues toggle flipped by Sani; G2 executed same
+  day (queue issue #6; prompt v4.2 archived per this guard) — see the GATED-ITEMS
+  fifth verdict-log entry. The resolution note's closing line ("waits on the Issues
+  toggle alone") is historical as of that timestamp.

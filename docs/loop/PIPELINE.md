@@ -187,9 +187,12 @@ same winter drift — its fix would be `0 5 * * 1-5`.
   Sani 2026-08-09 — verified by the successful queue-issue create (#6), not by the
   toggle claim; before that, three 410s on issue-create (2026-08-08 → 09). Standing
   lesson kept: never assert a repo capability without a verified probe (F4/F10 spirit
-  — an earlier version of this line said "enabled" while 410s were live), and GraphQL
-  `list_issues` returns EMPTY (not an error) on Issues-disabled repos — only a real
-  `issue_write` create is a truthful probe.
-- Routine-fired sessions: no connectors (org limitation on in-session `create_trigger`).
+  — an earlier version of this line said "enabled" while 410s were live), and
+  `list_issues` returned EMPTY (not an error) on this fork while Issues were disabled
+  (observed 2026-08-08→09) — only a real `issue_write` create proved a truthful probe.
+- Routine-fired sessions: no connectors (org limitation on in-session `create_trigger`)
+  — that covers claude.ai connectors (Gmail etc.). The environment-level GitHub MCP
+  tools are a separate surface: expected present in fired sessions but unproven until
+  the 2026-08-15 fire (STEP 6's tool-absence path degrades gracefully if absent).
 - The rulings/watch-items digest inside the routine prompt is a FALLBACK only — this
   directory is authoritative.
