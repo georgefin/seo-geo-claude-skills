@@ -149,3 +149,31 @@ or rewritten as mechanism — "because" beats "very".
 Scored enforcement: content-quality-auditor runs these as audit scans (AS-1 to AS-4)
 mapped onto existing CORE-EEAT items O09, O06, C02, E06, E08, R01, R02, R04, and Ept03 —
 no new items, no framework changes.
+
+---
+
+## 6. Ruled Greek Regression Classes (binding-editor rulings)
+
+Provenance: binding greek-content-editor passes (v1/v2 2026-08-08; v3 2026-08-09). Each
+family below was ruled FAIL-grade on customer-visible surfaces; recurrence in any fresh
+Greek output is an automatic FAIL in Mode B and editor passes (ledger F13 — ruled lessons
+must live here as carriers, never as notes). Graders grep the patterns given; the editor
+judges the rest.
+
+### FAIL-grade families
+
+| # | Family | Ruled form → native form | Greppable pattern |
+|---|---|---|---|
+| 1 | Totality-with-numeral calque | «Όλα τα 18 μοντέλα συνοδεύονται…» → «Και τα 18 μοντέλα συνοδεύονται…» (or restructure: «Όλα τα μοντέλα — 18 συνολικά — …») | `Όλα τα [0-9]` |
+| 2 | Agency provenance labels/placeholders in publishable copy or schema | «(απαιτούνται στοιχεία προϊόντος)» inside a FAQ answer or JSON-LD → gap note in the report's gap table only; customer-voice hedging stays legitimate | `απαιτούνται στοιχεία` outside report/gap sections; any `[CLIENT DATA` / `[SOURCE NEEDED` inside paste-ready copy or schema (structural carrier: geo-content-optimizer 4.1.6 Statistics-rule Placement clause) |
+| 3 | Mechanically translated UI/label terms | «Υποχρεωτικό εκκρεμές» as a form label → natural Greek labels («Πεδίο / Τιμή / Σημείωση») | — (editor judgment) |
+| 4 | Query-style article-less labels in visible copy | «παράδοση αεροδρόμιο» as page copy → «παράδοση στο αεροδρόμιο Ηρακλείου»; keyword-export strings on explicitly keyword-list surfaces are exempt | — (editor judgment) |
+
+### Advisory families (fix on touch; internal-report surfaces non-blocking)
+
+- «Γρήγορα κέρδη» for "quick wins" → «Άμεσες βελτιώσεις» / «Άμεσα οφέλη» (or keep EN "quick wins")
+- «ετικέτα ενέργειας» → «ενεργειακή ετικέτα» · «βόρειο δωμάτιο» (orientation) → «βορινό δωμάτιο» · «πάνω μέρος του εύρους» → «άνω άκρο του εύρους»
+- «εξουσία domain» → «το κύρος του domain» · «AI-απάντηση» compounds → «απάντηση AI» / «μηχανές AI» · «χάρτης GBP» for "GBP surface mapping" → «αντιστοίχιση σε επιφάνειες GBP»
+- «σε φυσικό αναγνώστη» → «σε Έλληνα αναγνώστη» · «κάθε μοντέλο αναγράφει» → «σε κάθε μοντέλο αναγράφεται»
+
+New rulings append here in the same wave they are issued (ledger F13 guard).
