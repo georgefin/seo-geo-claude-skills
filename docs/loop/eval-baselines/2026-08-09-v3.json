@@ -1,7 +1,7 @@
 {
   "baseline_date": "2026-08-09",
   "baseline_label": "v3",
-  "scope": "Three-suite wave baseline: schema-markup-generator (full, 4.1.0), keyword-research (full, 4.2.1), geo-content-optimizer (full three-iteration arc closing at 4.1.6). Supersedes the geo-only 2026-08-09.json and the 2026-08-08-v2.json sections for these three suites; all other suites' protections continue from 2026-08-08-v2.json until their own first baselines.",
+  "scope": "Three-suite wave baseline: schema-markup-generator (full, 4.1.0), keyword-research (full, 4.2.1), geo-content-optimizer (full three-iteration arc closing at 4.1.6). Supersedes the geo-only 2026-08-09.json and the 2026-08-08-v2.json sections for these three suites; no other suite carries a prior baseline (2026-08-08-v2.json covers only these same three); the G7 E1/E2 suites take zero-regression protection from their own first Mode B baselines.",
   "method": "skill-reviewer Mode B runs (execute-then-grade: outputs written before any grading; scripted checkers print matched/unmatched evidence per ledger F7). Executor and grader shared a session per run — same-session caveat stands; blind-protocol (independent grader session) reinstatement queued for the next full-library baseline.",
   "regression_rule": "Regression = an expectation recorded as passing here that fails in a later run of the same suite at same-or-later skill version under unchanged wording. Re-baselined indices are governed by their new wording from this file forward.",
   "regression_checks": {
