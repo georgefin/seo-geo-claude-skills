@@ -178,7 +178,10 @@ same winter drift — its fix would be `0 5 * * 1-5`.
   from this environment; openreview.net plus WebSearch snippets are the working
   fallback (snippet-verified 4/4 pinned RSI papers). AREX existence confirmed
   2026-08-08 (W1 — Sani re-verify now optional).
-- Fork GitHub Actions disabled (local gate is authoritative); GitHub Issues enabled.
+- Fork GitHub Actions disabled (local gate is authoritative). GitHub Issues DISABLED —
+  410 on issue-create verified 2026-08-08 and re-verified twice 2026-08-09; the durable
+  report archive (G2) waits on the toggle. This line previously said "enabled" — never
+  assert a repo capability without a verified probe (F4/F10 spirit).
 - Routine-fired sessions: no connectors (org limitation on in-session `create_trigger`).
 - The rulings/watch-items digest inside the routine prompt is a FALLBACK only — this
   directory is authoritative.
