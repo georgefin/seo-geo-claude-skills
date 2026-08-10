@@ -623,6 +623,24 @@ regression rate · repeat-failure count · tool-correctness rate.
   this note records the gap as a tooling gap rather than an unknown. Counter reading with
   this entry: 2.
 
+**Scripted guard added 2026-08-10 (F13-r2's phrase-shaped half)** — `scripts/expectation-carrier-check.sh`.
+For every suite it extracts each "double-quoted" and `backticked` phrase from the expectations
+and greps the skill's own text (SKILL.md + its `references/` + the shared frameworks and the
+anti-slop ruleset) for it; a phrase the suite demands and the skill never states is reported as
+a candidate. Advisory, never wired into the gate — its hits need judgement, and a gate failing
+on candidates trains people to ignore it. **Measured coverage, per F15's ship-with-a-probe
+rule: 1 of the 2 known instances.** It CATCHES technical-seo-checker at `df560ae`, where
+"paste-ready" appeared 4× in `evals.json` and 0× in the skill. It MISSES entity-optimizer and
+always will — that suite graded fabrication while the skill said nothing about it, a demand for
+a BEHAVIOUR with no quoted string to grep, and it was the library's floor at 62.1%. So a clean
+line means *no uncarried vocabulary was found*, never *the skill states every rule its suite
+grades*; the behaviour-shaped half still needs a human reading the suite beside the skill. First
+library-wide run: 5 candidates across 20 suites, all adjudicated false positives — two fragments
+the extractor split across a quote boundary (meta-tags names `hreflang` 9 times), a Latin
+transliteration of a Greek fixture name, and two client-prompt phrasings. The extractor was
+deliberately NOT tightened to suppress them: a screen that over-generates is recoverable, one
+that under-generates is F15 again.
+
 ## F14 — 2026-08-10 · Parallel agents' untracked files swept into a coordinator commit by `git add -A`
 
 - **Failure**: the identity commit `67ecad7` ("chore(identity): re-attribute fork
