@@ -1,13 +1,13 @@
 ---
 name: internal-linking-optimizer
-version: "4.0.2"
+version: "4.1.0"
 description: 'Analyze and optimize internal link structure to improve site architecture, distribute page authority, and fix orphan pages. Use when the user asks to "fix internal links", "improve site architecture", "link structure", "distribute page authority", "internal linking strategy", "orphan pages", "site architecture is messy", or "pages have no links pointing to them". For a broader on-page audit, see on-page-seo-auditor. For external link analysis, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.0.2"
+  version: "4.1.0"
   geo-relevance: "low"
   tags:
     - seo
@@ -156,8 +156,20 @@ When a user requests internal linking optimization:
    | [URL 1] | [X] | [X]/mo | [X]+ |
    | [URL 2] | [X] | [X]/mo | [X]+ |
    
-   **Structure Score**: [X]/10
+   **Structure Score**: [X]/10 ([points] ÷ [rows scored]; [N] rows not checked — [why]; scored against the [model] targets)
    ```
+
+   > **Deriving it**: six rows — orphan pages, average links per page, under-linked important
+   > pages, click depth, broken internal links, cluster bidirectionality — each ✅ 1 · ⚠️ 0.5 ·
+   > ❌ 0, then `round(10 × points ÷ rows scored)` with an exact half rounding down. Rows you
+   > could not check leave the denominator; they are never scored 0. The tables above the score
+   > are evidence, not scored rows. Row definitions, targets and a worked derivation:
+   > [references/score-rubric.md](./references/score-rubric.md).
+   >
+   > **Authority** in the Top Linked Pages table is a within-site relative label read off that
+   > row's own inbound-link count, and the cut is stated ("High = 5+ inbound in-body links on
+   > this 8-page site"). It is never an external metric — no DA, DR, PA or vendor authority
+   > score appears unless a named connected tool supplied it.
 
 2. **Identify Orphan Pages**
 
@@ -234,8 +246,19 @@ When a user requests internal linking optimization:
    - "[variation 2]" - Use from [page type]
    - "[variation 3]" - Use from [page type]
    
-   **Anchor Score**: [X]/10
+   **Anchor Score**: [X]/10 ([points] ÷ [N] in-body link instances; [M] template links excluded)
    ```
+
+   > **Deriving it**: one row per internal link instance you inventoried, graded by the
+   > Assessment column above — ✅ 1 descriptive · ⚠️ 0.5 exact-match repetition into one target,
+   > the same anchor on two different targets, or a Natural-band anchor ("this article",
+   > "learn more") that names no destination · ❌ 0 generic ("click here", "read more", a bare
+   > URL) — then `round(10 × points ÷ instances graded)`, halves down. **The population is
+   > printed with the score**: 6/10 over 14 links and 6/10 over 1,400 are different findings,
+   > and a reader who cannot see which cannot check either. Template links repeated site-wide
+   > are excluded (or graded once) and the report says which rule it applied. Grades, the
+   > unresolved Natural-band tension and a worked derivation:
+   > [references/score-rubric.md](./references/score-rubric.md).
 
 4. **Create Topic Cluster Link Strategy** — Map current pillar/cluster links, recommend link structure, list specific links to add
 
@@ -253,6 +276,30 @@ When a user requests internal linking optimization:
 
    > **Reference**: See [references/linking-templates.md](./references/linking-templates.md) for the full implementation plan template (Step 7).
 
+## Scoring & Impact-Figure Rules
+
+Two rules that bind every step above.
+
+**Every number shows its working.** Both scores are arithmetic over rows the analysis already
+printed (Steps 1 and 3 above), and so is everything else: a total names its population before
+it is stated — "21 link instances — 14 in body copy, 1 of them broken, plus 7 template logo
+links" — and every derived figure prints its arithmetic, `14 ÷ 8 = 1.75`, `3/5 = 60%`. A
+percentage or a score without a visible base is not deliverable. A row, or a whole score, that
+the data could not settle is written `not scored — no link data`, never `0/10`: zero means
+measured and failing, blank means unmeasured. **With no site data at all, neither score is
+printed** — name the input that unlocks each one and stop. Full rubric:
+[references/score-rubric.md](./references/score-rubric.md).
+
+**No site-specific traffic or ranking forecast.** Predicting "+18% traffic" for a named site
+needs a ranking and traffic baseline plus a counterfactual, and an internal-link analysis has
+neither — so the Step 7 executive summary reports what was measured (link opportunities found,
+orphans to fix, pages gaining inbound links) and stops. The ROI Estimation ranges in
+[references/link-architecture-patterns.md](./references/link-architecture-patterns.md) are
+uncited practitioner estimates carrying a `[VERIFY]` tag; they may be quoted only with that
+attribution in the same sentence, never in the summary's metrics list, never multiplied by the
+site's sessions, never as "expected". When a client wants a number, offer the measurement that
+would produce one — baseline the affected pages now, re-measure 4-8 weeks after implementation.
+
 ## Validation Checkpoints
 
 ### Input Validation
@@ -265,6 +312,9 @@ When a user requests internal linking optimization:
 - [ ] All link suggestions include source page, target page, and recommended anchor text
 - [ ] Orphan page lists include URLs and recommended actions
 - [ ] Source of each data point stated in the report's own words — the resolved tool name (Screaming Frog, Google Analytics 4), "user-provided", or "manual analysis"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
+- [ ] Each score prints its derivation — Structure Score as [points] ÷ [rows scored] with the model it was scored against and the unchecked rows named; Anchor Score as [points] ÷ [link instances graded] with the excluded template links named. A score with nothing checkable reads "not scored — no link data", never 0/10; no site data at all means no score in the report
+- [ ] Every total names its population and every derived figure shows its arithmetic (`14 ÷ 8 = 1.75`, `3/5 = 60%`); the Authority column states its cut and carries no external DA/DR/PA figure unless a named tool supplied it
+- [ ] No traffic or ranking outcome is stated as this site's expected number; the reference's ROI ranges appear only with their "typical ranges, not a projection for your site" attribution attached, and never in the executive summary's metrics list
 
 ## Example
 
@@ -280,6 +330,7 @@ When a user requests internal linking optimization:
 
 ## Reference Materials
 
+- [Score Rubric & Impact-Figure Rule](./references/score-rubric.md) — How the Structure Score and Anchor Score are derived: the six structure rows and their targets, one row per link instance for anchors, population and rounding rules, when a score is withheld, and what the plan may say about traffic impact
 - [Link Architecture Patterns](./references/link-architecture-patterns.md) — Architecture models (hub-and-spoke, silo, flat, pyramid, mesh), anchor text diversity framework, link equity flow model, and internal link audit checklist
 - [Linking Templates](./references/linking-templates.md) — Detailed output templates for steps 6-7 (navigation optimization, implementation plan)
 - [Linking Example](./references/linking-example.md) — Full worked example for internal linking opportunities

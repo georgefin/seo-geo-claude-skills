@@ -1,6 +1,6 @@
 ---
 name: on-page-seo-auditor
-version: "4.1.3"
+version: "4.2.0"
 description: 'Audit on-page HTML elements including title tags, headers, image alt text, and internal links with a scored SEO report. Use when the user asks to "audit page SEO", "on-page SEO check", "SEO score", "page optimization", "what SEO issues does this page have", "score my page", "why is this page not ranking", or "check my page". For server, speed, and crawl issues, see technical-seo-checker. For full EEAT content quality scoring, see content-quality-auditor.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.1.3"
+  version: "4.2.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -136,6 +136,24 @@ carry a line (statistics rule: sourced, cited, or placeholder, never invented). 
 own Evidence follows the same rule: quote the page verbatim from the HTML or content in front
 of you, never from memory or reconstruction.
 
+**Section scores and the overall score.** Every section score is arithmetic over the criterion
+table printed above it, scored on **that section's own maximum** — Title Tag /15 · Meta
+Description /5 · Header Structure /10 · Content Quality /25 · Keyword Optimization /15 ·
+Internal/External Links /10 · Image Optimization /10 · Page-Level Technical /10. Those eight
+maxima *are* the section weights (15%, 5%, 10%, 25%, 15%, 10%, 10%, 10%), so the **Overall Score
+is the plain sum of the eight section scores, out of 100** — no conversion step, no rounding
+drift, and a client can check it by adding the eight numbers the report already printed. Per
+criterion: ✅ full points · ⚠️ half · ❌ 0. **A criterion you could not verify is excluded from
+both the numerator and the section maximum** — never scored 0, never guessed (the rubric's own
+rule: "note it as unverified rather than guessing"), because zero means measured and failing
+while blank means unmeasured. The overall is then `round(100 × awarded ÷ points scored)`, and
+every score prints its numerator, its denominator, and how many criteria were excluded. **If no
+section could be scored, the report carries no overall score at all** — name which input unlocks
+which section and stop; a score for a page nobody has seen is a fabricated figure, whatever the
+requester says about the deadline. Criterion point tables, calibration examples, the
+unverified-criterion worked case and the grade bands:
+[references/scoring-rubric.md](./references/scoring-rubric.md).
+
 1. **Gather Page Information**
 
    ```markdown
@@ -156,16 +174,18 @@ of you, never from memory or reconstruction.
    **Current Title**: [title]
    **Character Count**: [X] characters
    
-   | Criterion | Status | Notes |
-   |-----------|--------|-------|
-   | Length (50-60 chars) | ✅/⚠️/❌ | [notes] |
-   | Keyword included | ✅/⚠️/❌ | Position: [front/middle/end] |
-   | Keyword at front | ✅/⚠️/❌ | [notes] |
-   | Unique across site | ✅/⚠️/❌ | [notes] |
-   | Compelling/clickable | ✅/⚠️/❌ | [notes] |
-   | Matches intent | ✅/⚠️/❌ | [notes] |
+   | Criterion | Status | Points | Notes |
+   |-----------|--------|--------|-------|
+   | Keyword included | ✅/⚠️/❌ | [X]/3 | Position: [front/middle/end] |
+   | Keyword at front | ✅/⚠️/❌ | [X]/2 | [notes] |
+   | Length (50-60 chars) | ✅/⚠️/❌ | [X]/2 | [notes] |
+   | Unique across site | ✅/⚠️/❌ | [X]/2 | [notes] |
+   | Compelling/clickable | ✅/⚠️/❌ | [X]/2 | [notes] |
+   | Matches intent | ✅/⚠️/❌ | [X]/2 | [notes] |
+   | Brand at end | ✅/⚠️/❌ | [X]/1 | [notes] |
+   | No truncation risk | ✅/⚠️/❌ | [X]/1 | [notes] |
    
-   **Title Score**: [X]/10
+   **Title Score**: [X]/15 ([awarded] ÷ [points scored]; [N] criteria unverified and excluded)
    
    **Issues Found**:
    - [Issue 1]
@@ -185,16 +205,16 @@ of you, never from memory or reconstruction.
    **Current Description**: [description]
    **Character Count**: [X] characters
    
-   | Criterion | Status | Notes |
-   |-----------|--------|-------|
-   | Length (150-160 chars) | ✅/⚠️/❌ | [notes] |
-   | Keyword included | ✅/⚠️/❌ | [notes] |
-   | Call-to-action present | ✅/⚠️/❌ | [notes] |
-   | Unique across site | ✅/⚠️/❌ | [notes] |
-   | Accurately describes page | ✅/⚠️/❌ | [notes] |
-   | Compelling copy | ✅/⚠️/❌ | [notes] |
+   | Criterion | Status | Points | Notes |
+   |-----------|--------|--------|-------|
+   | Keyword included | ✅/⚠️/❌ | [X]/1 | [notes] |
+   | Length (150-160 chars) | ✅/⚠️/❌ | [X]/1 | [notes] |
+   | Call-to-action present | ✅/⚠️/❌ | [X]/1 | [notes] |
+   | Unique across site | ✅/⚠️/❌ | [X]/1 | [notes] |
+   | Accurately describes page | ✅/⚠️/❌ | [X]/1 | [notes] |
+   | Compelling copy | ✅/⚠️/❌ | — | Observed, not scored: the 5-point scale has no point for it. It drives the rewrite below |
    
-   **Description Score**: [X]/10
+   **Description Score**: [X]/5 ([awarded] ÷ [points scored]; [N] criteria unverified and excluded)
    
    **Issues Found**:
    - [Issue 1]
@@ -220,16 +240,16 @@ of you, never from memory or reconstruction.
      H2: [H2 text]
    ```
    
-   | Criterion | Status | Notes |
-   |-----------|--------|-------|
-   | Single H1 | ✅/⚠️/❌ | Found: [X] H1s |
-   | H1 includes keyword | ✅/⚠️/❌ | [notes] |
-   | Logical hierarchy | ✅/⚠️/❌ | [notes] |
-   | H2s include keywords | ✅/⚠️/❌ | [X]/[Y] contain keywords |
-   | No skipped levels | ✅/⚠️/❌ | [notes] |
-   | Descriptive headers | ✅/⚠️/❌ | [notes] |
+   | Criterion | Status | Points | Notes |
+   |-----------|--------|--------|-------|
+   | Single H1 | ✅/⚠️/❌ | [X]/2 | Found: [X] H1s |
+   | H1 includes keyword | ✅/⚠️/❌ | [X]/2 | [notes] |
+   | Logical hierarchy — no skipped levels | ✅/⚠️/❌ | [X]/2 | [notes] |
+   | H2s cover key subtopics | ✅/⚠️/❌ | [X]/2 | [notes] |
+   | Descriptive headers | ✅/⚠️/❌ | [X]/1 | [notes] |
+   | Keyword variations in H2s | ✅/⚠️/❌ | [X]/1 | [X]/[Y] contain keywords |
    
-   **Header Score**: [X]/10
+   **Header Score**: [X]/10 ([awarded] ÷ [points scored]; [N] criteria unverified and excluded)
    
    **Issues Found**:
    - [Issue 1]
@@ -278,6 +298,9 @@ of you, never from memory or reconstruction.
 ### Output Validation
 - [ ] Every recommendation cites specific data points (not generic advice)
 - [ ] Scores based on measurable criteria, not subjective opinion
+- [ ] Every section score is printed on its own maximum (Title /15, Meta /5, Headers /10, Content /25, Keywords /15, Links /10, Images /10, Technical /10) with its derivation — [awarded] ÷ [points scored] and the count of unverified criteria excluded; the Overall Score is the sum of the eight and recomputes from them; nothing measurable at all means no overall score in the report
+- [ ] No unverified criterion is scored 0 or guessed; it is named unverified and left out of both the numerator and that section's maximum
+- [ ] No ranking, CTR or traffic outcome is predicted as a number for this page — expected results are stated as what to re-measure and when, not as a forecast
 - [ ] All suggested changes include specific locations (title tag, H2 #3, paragraph 5, etc.)
 - [ ] Source of each data point stated in the report's own words — the resolved tool name (Google Search Console, Ahrefs, Screaming Frog), "the HTML you provided", or "manual review"; where no tool was connected and nothing was supplied, the report says exactly that and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 - [ ] Every finding carries a Confidence label (Confirmed / Likely / Hypothesis); Hypothesis findings name what would confirm them
@@ -295,11 +318,11 @@ of you, never from memory or reconstruction.
 4. **Audit regularly** - Content degrades over time
 5. **Test changes** - Track ranking changes after updates
 
-> **Scoring details**: For the complete weight distribution, scoring scale, issue resolution playbook, and industry benchmarks, see [references/scoring-rubric.md](./references/scoring-rubric.md).
+> **Scoring details**: For the per-criterion point tables, the unverified-criterion rule, calibration examples, weight distribution, issue resolution playbook, and industry benchmarks, see [references/scoring-rubric.md](./references/scoring-rubric.md).
 
 ## Reference Materials
 
-- [Scoring Rubric](./references/scoring-rubric.md) — Detailed scoring criteria, weight distribution, and grade boundaries for on-page audits
+- [Scoring Rubric](./references/scoring-rubric.md) — Per-criterion points for all eight sections and their maxima, how ✅/⚠️/❌ becomes points, what an unverified criterion does to the denominator, the overall-score arithmetic and grade bands, plus calibration examples
 - [Audit Templates](./references/audit-templates.md) — Detailed output templates for steps 5-11 (content quality, keywords, links, images, technical, CORE-EEAT scan, audit summary)
 - [Audit Example & Checklists](./references/audit-example.md) — Full worked example and page-type checklists (blog, product, landing page)
 

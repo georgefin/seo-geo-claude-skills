@@ -23,28 +23,32 @@ Referenced from [SKILL.md](../SKILL.md).
 
 | Audit Area | Score | Key Finding |
 |------------|-------|-------------|
-| Title Tag | 8/10 | Good keyword placement; slightly long at 63 chars |
-| Meta Description | 6/10 | Missing CTA; keyword present but generic copy |
-| Header Structure | 9/10 | Clean hierarchy; H2s cover all major products |
-| Content Quality | 7/10 | 2,400 words is solid; lacks original test data |
-| Keyword Optimization | 8/10 | Strong placement; density at 1.2% is healthy |
-| Internal Links | 5/10 | Only 2 internal links; missing links to brand pages |
-| Images | 6/10 | 3/8 images missing alt text; no WebP format |
-| Technical Elements | 7/10 | Missing Product schema; good URL and mobile |
+| Title Tag | 12/15 | Keyword present and at the front; 63 chars costs the length and truncation points |
+| Meta Description | 4/5 | Keyword, length, uniqueness and accuracy all pass; no CTA costs the fifth point. The copy is generic — observed, not scored |
+| Header Structure | 9/10 | Clean hierarchy; H2s cover all major products; no keyword variations in the H2s |
+| Content Quality | 20/25 | 2,400 words and full subtopic coverage; no original test data, thin author credentials |
+| Keyword Optimization | 12/15 | Strong placement, density 1.2%; secondary and LSI terms thin, no keyword in any alt |
+| Internal/External Links | 5/10 | Only 2 internal links; no external sources cited |
+| Image Optimization | 6/10 | 3/8 images missing alt text; no WebP format |
+| Page-Level Technical | 7/8 | Missing Product schema; good URL, canonical and mobile. Page speed unverified — no speed tool ran, so its 2 points leave the section maximum |
 
-## Overall Score: 71/100
+## Overall Score: 77/100 (75 awarded ÷ 98 points scored; 1 criterion unverified — page speed, no speed tool ran)
 
-Calculation: (8x0.15 + 6x0.05 + 9x0.10 + 7x0.25 + 8x0.15 + 5x0.10 + 6x0.10 + 7x0.10) x 10 = 71
+Calculation: 12 + 4 + 9 + 20 + 12 + 5 + 6 + 7 = 75 awarded, over 98 points scored (100 minus the
+2 points of the unverified page-speed criterion); `round(100 × 75 ÷ 98)` = 77. Each section is
+scored on its own maximum, and the maxima are the section weights, so no separate weighting step
+applies — see [scoring-rubric.md](./scoring-rubric.md). Page speed is left out of both sides
+rather than scored 0: nothing measured it, and a 0 would have read as a measured failure.
 
-Score Breakdown:
-████████░░ Title Tag:        8/10  (15%)
-██████░░░░ Meta Description: 6/10  ( 5%)
-█████████░ Headers:          9/10  (10%)
-███████░░░ Content:          7/10  (25%)
-████████░░ Keywords:         8/10  (15%)
-█████░░░░░ Internal Links:   5/10  (10%)
-██████░░░░ Images:           6/10  (10%)
-███████░░░ Technical:        7/10  (10%)
+Score Breakdown (bar = share of that section's scored maximum):
+████████░░ Title Tag:        12/15  (15%)
+████████░░ Meta Description:  4/5   ( 5%)
+█████████░ Headers:           9/10  (10%)
+████████░░ Content:          20/25  (25%)
+████████░░ Keywords:         12/15  (15%)
+█████░░░░░ Internal Links:    5/10  (10%)
+██████░░░░ Images:            6/10  (10%)
+█████████░ Technical:         7/8   (10%, LCP excluded)
 
 ## Priority Issues
 

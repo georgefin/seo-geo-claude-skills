@@ -2,12 +2,35 @@
 
 Detailed scoring criteria for each of the 8 audit sections. Use this rubric to ensure consistent, objective scoring across audits.
 
+Referenced from [SKILL.md](../SKILL.md) Steps 2-4 and 11, and from every score line in
+[audit-templates.md](./audit-templates.md).
+
 ## How to Use This Rubric
 
-1. Score each section independently using the criteria below
-2. Apply the section weight to calculate the weighted score
-3. Sum all weighted scores for the overall page score (out of 100)
-4. Use calibration examples to verify your scoring is consistent
+1. **Score each section on its own maximum**, using the criterion tables below. The eight maxima
+   are Title Tag 15 · Meta Description 5 · Header Structure 10 · Content Quality 25 · Keyword
+   Optimization 15 · Internal/External Links 10 · Image Optimization 10 · Page-Level Technical
+   10. **Report each score on that maximum** — `Title Score: 12/15`, `Description Score: 4/5` —
+   never rescaled to a common /10. Meta Description has five one-point criteria, so a
+   description can score 0, 1, 2, 3, 4 or 5 and nothing between; printing it out of 10 would
+   advertise a resolution the instrument does not have and would make half its values
+   unreachable.
+2. **Turn each criterion's ✅/⚠️/❌ into points**: ✅ = the criterion's full points · ⚠️ = half ·
+   ❌ = 0. Half points are expected — a 3-point criterion at ⚠️ is 1.5, and a section total of
+   11.5/15 is a correct answer, not a slipped tally.
+3. **A criterion you could not verify leaves both sides.** It is named unverified in the table
+   (`— unverified: needs a site-wide crawl`) and subtracted from the section maximum, never
+   scored 0 and never guessed (§ Calibration Guidance, "Tool dependency"). Zero means measured
+   and failing; blank means unmeasured, and confusing them makes the audit invent a finding.
+4. **The Overall Score is the plain sum of the eight section scores.** The maxima above are also
+   the section weights (15%, 5%, 10%, 25%, 15%, 10%, 10%, 10%), so weighting is already done and
+   no conversion step exists. With unverified criteria excluded the pool shrinks below 100 and
+   the score is `round(100 × awarded ÷ points scored)`.
+5. **Every score prints its derivation** — numerator, denominator, and how many criteria were
+   excluded. A score a client cannot recompute from the tables printed above it is not
+   deliverable, and two audits of the same HTML must land on the same number.
+6. Use the calibration examples to check that your scoring is consistent. They are keyed to each
+   section's own maximum, which is the maximum you report on.
 
 ## Section 1: Title Tag (Weight: 15%, Max: 15 points)
 
@@ -327,13 +350,24 @@ H2: More Information
 ### Formula
 
 ```
-Overall Score = Sum of (Section Score / Section Max * Section Weight * 100)
+Overall Score = round(100 × points awarded ÷ points scored)
+```
+
+`points awarded` is the sum of the eight section scores; `points scored` is the sum of the eight
+section maxima **minus every criterion excluded as unverified**. When every criterion was
+checkable, `points scored` = 100 and the overall is simply the eight section scores added up.
+
+The section maxima are the section weights (15, 5, 10, 25, 15, 10, 10, 10 — summing to 100), so
+the weighting is built into the maxima and there is no separate weighting step. Print the sum:
+
+```
+## Overall Score: 76/100 (76 awarded ÷ 100 points scored — every criterion checkable)
 ```
 
 ### Example Calculation
 
-| Section | Raw Score | Max | Weight | Weighted Score |
-|---------|-----------|-----|--------|---------------|
+| Section | Score | Max | Weight | Contribution to the /100 |
+|---------|-------|-----|--------|--------------------------|
 | Title Tag | 12 | 15 | 15% | 12.0 |
 | Meta Description | 4 | 5 | 5% | 4.0 |
 | Header Structure | 8 | 10 | 10% | 8.0 |
@@ -342,7 +376,37 @@ Overall Score = Sum of (Section Score / Section Max * Section Weight * 100)
 | Internal/External Links | 7 | 10 | 10% | 7.0 |
 | Image Optimization | 6 | 10 | 10% | 6.0 |
 | Page-Level Technical | 8 | 10 | 10% | 8.0 |
-| **Total** | | | **100%** | **76.0/100** |
+| **Total** | **76** | **100** | **100%** | **76.0/100** |
+
+The last column equals the second in every row — that is the point of setting each maximum equal
+to its weight. `12 + 4 + 8 + 20 + 11 + 7 + 6 + 8 = 76`.
+
+### Worked case: unverified criteria shrink the pool
+
+A static HTML file with no crawler and no speed tool. Four criteria cannot be settled from it:
+Title "Uniqueness" (2), Meta "Unique description" (1), Links "No broken links" (1), and Technical
+"Mobile-friendly" (2) and "Page speed (LCP)" (2) — 8 points in all. Suppose the page earns 79 of
+the remaining 92.
+
+| Method | Arithmetic | Result |
+|--------|-----------|--------|
+| Correct — exclude the unverified | `round(100 × 79 ÷ 92)` | **86/100** |
+| Wrong — score the unverified 0 | `round(100 × 79 ÷ 100)` | 79/100 (understates by 7) |
+
+Print it as `## Overall Score: 86/100 (79 awarded ÷ 92 points scored; 5 criteria unverified — no
+crawl or speed data)`, and name those five criteria in their own tables. Marking a criterion
+unverified is not a soft pass: it costs the page nothing and it costs the audit nothing, which is
+exactly why the report has to say how many there were.
+
+### When there is no overall score
+
+- **A section where no criterion could be checked** is written `not scored — no data`, never
+  `0/25`. It leaves the overall pool entirely and is named under the breakdown.
+- **If no section could be scored, the report carries no overall score at all.** State which
+  input unlocks which section — the page's HTML, the target keyword, a crawl for uniqueness, a
+  speed run for LCP — and stop. A score for a page nobody has seen is a fabricated figure.
+- **Scores are never carried over** from a previous audit of the page, borrowed from a
+  competitor, or estimated from "typical" pages of that type.
 
 ### Overall Score Interpretation
 
@@ -378,11 +442,22 @@ The default weights suit most content pages. Consider adjusting for:
 
 Always document weight adjustments and the reasoning in the audit report.
 
+**A weight change is a maximum change.** Because each section's maximum *is* its weight, moving
+Image Optimization from 10% to 15% moves its maximum from 10 to 15, and something else must give
+back 5 so the eight maxima still total 100. State the adjusted maxima and the new per-criterion
+points in the report before the first score appears, or the overall stops being the sum of its
+parts and stops being checkable. If you would rather not re-derive the criterion points, do not
+adjust the weights: report the default scores and say in prose which sections matter most for
+this page type.
+
 ---
 
-## Scoring Rubric
+## Scoring Reference Card
 
 ### Section Weight Distribution
+
+Weight and maximum are the same number by design — that identity is what makes the overall score
+the plain sum of the eight section scores.
 
 | Audit Section | Weight | Max Score | Rationale |
 |--------------|--------|-----------|-----------|
@@ -395,41 +470,48 @@ Always document weight adjustments and the reasoning in the audit report.
 | Image Optimization | 10% | 10 | Accessibility + image search opportunity |
 | Page-Level Technical | 10% | 10 | Core Web Vitals, mobile, security |
 
-### Scoring Scale per Factor
+### Reading a Section Score
 
-| Score | Meaning | Action Required |
-|-------|---------|-----------------|
-| 10/10 | Excellent — follows all best practices | None |
-| 7-9/10 | Good — minor improvements possible | Optional optimization |
-| 4-6/10 | Needs work — notable issues | Fix within this week |
-| 1-3/10 | Poor — significant problems | Fix immediately (Critical) |
-| 0/10 | Missing or broken | Fix immediately (Blocking) |
+A section score is reported on its own maximum, so the band is read as a share of that maximum.
+That keeps one scale across sections whose maxima differ (25/25 and 5/5 are both "Excellent").
 
-### Scoring Conversion Formula
+| Share of the section's scored maximum | Meaning | Action Required |
+|---------------------------------------|---------|-----------------|
+| 100% (e.g. 15/15, 5/5, 25/25) | Excellent — follows all best practices | None |
+| 70-99% (e.g. 11/15, 4/5, 18/25) | Good — minor improvements possible | Optional optimization |
+| 40-69% (e.g. 7/15, 2/5, 12/25) | Needs work — notable issues | Fix within this week |
+| 1-39% (e.g. 3/15, 1/5, 6/25) | Poor — significant problems | Fix immediately (Critical) |
+| 0% | Missing or broken | Fix immediately (Blocking) |
 
-Each section is scored out of 10, then converted to the 100-point overall score using section weights:
+Never convert a section to /10 to read this table. Title 11/15 is 73% and reads "Good" straight
+off the row; rescaling it to "7/10" both loses a third of a point and, for the 5-point Meta
+Description scale, invents values the criteria cannot produce.
+
+### Scoring Formula
 
 ```
-Overall Score = Sum of (section_score x section_weight) x 10
+Section score  = Σ criterion points  (✅ full · ⚠️ half · ❌ 0; unverified criteria excluded)
+Overall Score  = round(100 × Σ section scores ÷ Σ scored maxima)
 ```
 
-Where section weights are: Title 0.15, Meta 0.05, Headers 0.10, Content 0.25, Keywords 0.15, Links 0.10, Images 0.10, Technical 0.10.
+**Worked example** — the headphones audit in [audit-example.md](./audit-example.md), audited from
+a crawl with no speed tool connected:
 
-**Worked example:**
+| Section | Score | Scored max |
+|---------|-------|-----------|
+| Title Tag | 12 | 15 |
+| Meta Description | 4 | 5 |
+| Header Structure | 9 | 10 |
+| Content Quality | 20 | 25 |
+| Keyword Optimization | 12 | 15 |
+| Internal/External Links | 5 | 10 |
+| Image Optimization | 6 | 10 |
+| Page-Level Technical | 7 | 8 — page speed unverified, its 2 points excluded |
+| **Total** | **75** | **98** |
 
-| Section | Score /10 | Weight | Weighted |
-|---------|-----------|--------|----------|
-| Title Tag | 8 | 0.15 | 1.20 |
-| Meta Description | 6 | 0.05 | 0.30 |
-| Header Structure | 9 | 0.10 | 0.90 |
-| Content Quality | 7 | 0.25 | 1.75 |
-| Keyword Optimization | 8 | 0.15 | 1.20 |
-| Internal/External Links | 5 | 0.10 | 0.50 |
-| Image Optimization | 6 | 0.10 | 0.60 |
-| Page-Level Technical | 7 | 0.10 | 0.70 |
-| **Total** | | **1.00** | **7.15** |
-
-**Overall Score** = 7.15 x 10 = **71 / 100**
+**Overall Score** = `round(100 × 75 ÷ 98)` = **77 / 100** (B). `12 + 4 + 9 + 20 + 12 + 5 + 6 + 7
+= 75` is the check a client can run on the report's own summary table, and the 98 is the check
+that the excluded criterion was declared rather than quietly scored 0.
 
 ## Common Issue Resolution Playbook
 
@@ -437,7 +519,7 @@ Where section weights are: Title 0.15, Meta 0.05, Headers 0.10, Content 0.25, Ke
 
 | Issue | Impact | Quick Fix Template |
 |-------|--------|-------------------|
-| Missing title | Critical | Add: "[Primary Keyword]: [Benefit] | [Brand]" |
+| Missing title | Critical | Add: "[Primary Keyword]: [Benefit] \| [Brand]" (the separator is a literal pipe character) |
 | Too long (>60 chars) | Medium | Shorten: move brand to end, remove filler words |
 | Too short (<30 chars) | Medium | Expand: add modifier, benefit, or year |
 | Missing keyword | High | Rewrite to include primary keyword in first half |

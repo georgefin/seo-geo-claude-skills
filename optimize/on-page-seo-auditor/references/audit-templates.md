@@ -2,6 +2,14 @@
 
 Detailed output templates for on-page-seo-auditor steps 5-11. Referenced from [SKILL.md](../SKILL.md).
 
+**Every score below is scored on its own maximum** — Content Quality /25, Keyword Optimization
+/15, Internal/External Links /10, Image Optimization /10, Page-Level Technical /10 — from the
+per-criterion point tables in [scoring-rubric.md](./scoring-rubric.md): ✅ full points · ⚠️ half ·
+❌ 0, with any criterion you could not verify named as unverified and excluded from both the
+numerator and that section's maximum rather than scored 0. Each score prints its numerator, its
+denominator and the count of excluded criteria; the Overall Score in Step 11 is the sum of the
+eight section scores.
+
 ---
 
 ## Step 5: Audit Content Quality
@@ -9,9 +17,9 @@ Detailed output templates for on-page-seo-auditor steps 5-11. Referenced from [S
 ```markdown
 ## Content Quality Analysis
 
-**Word Count**: [X] words
+**Word Count**: [X] words (visible body text; navigation, footer and boilerplate excluded)
 **Reading Level**: [Grade level]
-**Estimated Read Time**: [X] minutes
+**Estimated Read Time**: [X] minutes ([word count] ÷ [words per minute you divided by])
 
 | Criterion | Status | Notes |
 |-----------|--------|-------|
@@ -35,7 +43,7 @@ Detailed output templates for on-page-seo-auditor steps 5-11. Referenced from [S
 - [ ] FAQ section
 - [ ] Conclusion with CTA
 
-**Content Score**: [X]/10
+**Content Score**: [X]/25 ([awarded] ÷ [points scored]; [N] criteria unverified and excluded)
 
 **Gaps Identified**:
 - [Missing topic/section 1]
@@ -63,7 +71,7 @@ Step 11 recommendations; same rule as SKILL.md "Finding Format & Confidence Labe
 ## Keyword Optimization Analysis
 
 **Primary Keyword**: "[keyword]"
-**Keyword Density**: [X]%
+**Keyword Density**: [X]% ([occurrences] ÷ [words in the base], counting [what counted as an occurrence] over [which words are the base])
 
 ### Keyword Placement
 
@@ -91,7 +99,7 @@ Step 11 recommendations; same rule as SKILL.md "Finding Format & Confidence Labe
 **Present**: [list of related terms found]
 **Missing**: [important related terms not found]
 
-**Keyword Score**: [X]/10
+**Keyword Score**: [X]/15 ([awarded] ÷ [points scored]; [N] criteria unverified and excluded)
 
 **Issues**:
 - [Issue 1]
@@ -99,6 +107,14 @@ Step 11 recommendations; same rule as SKILL.md "Finding Format & Confidence Labe
 **Recommendations**:
 - [Suggestion 1]
 ```
+
+**Density has no single convention, so the report states the one it used.** Two choices move the
+number: what counts as an occurrence (the exact phrase only, or inflections and near-matches too;
+headings and alt text in, or body paragraphs only) and which words form the base (visible body
+text, or every word in the HTML). Print both alongside the percentage — "15 exact-phrase
+occurrences including headings ÷ 229 visible words = 6.6%" — so the density bands in
+[scoring-rubric.md](./scoring-rubric.md) are applied to a number the reader can reproduce. A bare
+percentage is unusable: the same page yields wildly different figures under different counts.
 
 ---
 
@@ -124,7 +140,7 @@ Step 11 recommendations; same rule as SKILL.md "Finding Format & Confidence Labe
 2. "[Anchor text]" → [URL]
 3. "[Anchor text]" → [URL]
 
-**Internal Linking Score**: [X]/10
+**Internal Linking Score**: [X]/10 ([awarded] ÷ [points scored]; [N] criteria unverified and excluded)
 
 **Recommended Additional Links**:
 1. Add link to "[Related page]" with anchor "[suggested anchor]"
@@ -159,7 +175,7 @@ Step 11 recommendations; same rule as SKILL.md "Finding Format & Confidence Labe
 | Modern formats (WebP) | ✅/⚠️/❌ | [notes] |
 | Lazy loading enabled | ✅/⚠️/❌ | [notes] |
 
-**Image Score**: [X]/10
+**Image Score**: [X]/10 ([awarded] ÷ [points scored]; [N] criteria unverified and excluded)
 
 **Recommendations**:
 1. Add alt text to image [X]: "[suggested alt text]"
@@ -185,7 +201,7 @@ Step 11 recommendations; same rule as SKILL.md "Finding Format & Confidence Labe
 | HTTPS | [yes/no] | ✅/⚠️/❌ | [notes] |
 | Schema markup | [types or "none"] | ✅/⚠️/❌ | [notes] |
 
-**Technical Score**: [X]/10
+**Technical Score**: [X]/10 ([awarded] ÷ [points scored]; [N] criteria unverified and excluded)
 ```
 
 ---
@@ -219,10 +235,16 @@ Content-relevant items from the 80-item benchmark:
 | Ept01 | Author Identity | ✅/⚠️/❌ | Byline + bio present |
 | T04 | Disclosure Statements | ✅/⚠️/❌/N/A | Material connections disclosed (conditional veto; N/A when none exist) |
 
-**CORE-EEAT Quick Score**: [X]/17 items passing
+**CORE-EEAT Quick Score**: [X]/[Y] items passing ([Z] N/A or unverifiable, excluded)
 
 > For a complete 80-item audit with weighted scoring, use [content-quality-auditor](../../cross-cutting/content-quality-auditor/).
 ```
+
+**Counting the quick score.** Only ✅ counts as passing; ⚠️ and ❌ do not. The denominator starts
+at 17 and shrinks: T04 is N/A when no material connection exists, and any item you could not
+settle from the content in front of you is excluded rather than marked ❌. So `14/16 items
+passing (1 N/A)` is a complete answer and `14/17` would be a different, wrong one. This quick
+score is a separate count from the eight section scores — it never enters the /100 overall.
 
 ---
 
@@ -235,19 +257,25 @@ Content-relevant items from the 80-item benchmark:
 **Target Keyword**: [keyword]
 **Audit Date**: [date]
 
-## Overall Score: [X]/100
+## Overall Score: [X]/100 ([awarded] ÷ [points scored]; [N] criteria unverified and excluded)
 
 ```
-Score Breakdown:
-████████░░ Title Tag: 8/10
-██████░░░░ Meta Description: 6/10
-█████████░ Headers: 9/10
-███████░░░ Content: 7/10
-██████░░░░ Keywords: 6/10
-█████░░░░░ Internal Links: 5/10
-████░░░░░░ Images: 4/10
-████████░░ Technical: 8/10
+Score Breakdown (bar = share of that section's scored maximum):
+████████░░ Title Tag:        12/15
+████████░░ Meta Description:  4/5
+█████████░ Headers:           9/10
+████████░░ Content:          20/25
+████████░░ Keywords:         12/15
+█████░░░░░ Internal Links:    5/10
+██████░░░░ Images:            6/10
+███████░░░ Technical:         7/10
+                      Total: 75/100
 ```
+
+The eight section scores add up to the overall — print the addition if the summary table does
+not make it obvious. If a section could not be scored at all, its row reads
+`not scored — no data` and it leaves the total on both sides; if no section could be scored,
+there is no Overall Score line in the report.
 
 ## Priority Issues
 
@@ -321,8 +349,18 @@ These changes will have immediate impact:
 
 ## Expected Results
 
-After implementing these changes:
-- Estimated ranking improvement: [X] positions
-- Estimated CTR improvement: [X]%
-- Estimated traffic increase: [X]%
+After implementing these changes, re-measure — this audit predicts no numbers:
+- Criteria this plan converts: [N] of the [M] currently failing (name them, with the points they
+  return: e.g. "alt text on 3 images returns 1.5 of Image Optimization's 10")
+- Projected score after the fixes: [X]/100, computed by re-scoring only the criteria the plan
+  changes and leaving every other criterion where it is
+- What to re-measure, and when: impressions, average position and CTR for this page in Search
+  Console, 4-8 weeks after the changes ship, against the 28 days before them
 ```
+
+**No ranking, CTR or traffic forecast appears here.** A "+18% traffic" or "+4 positions" figure
+for a named page needs a baseline plus a counterfactual, and an on-page audit has neither — the
+number would be invented, which is precisely what the Confidence labels and the statistics rule
+exist to prevent. The projected score above is the one legitimate forward-looking figure,
+because it recomputes from this report's own rubric and a reader can check it. Say what the
+client should watch and when, and let the re-measure produce the number.

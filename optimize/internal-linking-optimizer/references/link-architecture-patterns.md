@@ -265,8 +265,8 @@ The mesh model allows free-form linking between any related pages, regardless of
 
 ### Common Migration Paths
 
-| From | To | Reason | Difficulty |
-|------|----|--------|-----------|
+| Migration | Reason | Difficulty |
+|-----------|--------|-----------|
 | Flat → Hub-and-Spoke | Site grew beyond 100 pages | Medium |
 | Silo → Hub-and-Spoke | Silos too rigid, need cross-topic links | Medium |
 | Pyramid → Hub-and-Spoke | Want to build topical clusters | High |
@@ -319,6 +319,16 @@ The mesh model allows free-form linking between any related pages, regardless of
 | New content linked within 48 hours | Editorial process | Add to related pages upon publishing |
 
 ### ROI Estimation
+
+**These ranges are illustrative magnitudes, not evidence, and never a client's number.**
+`[VERIFY no primary source — the ranges below are uncited practitioner estimates carried by
+this file since its first version; checked 2026-08-10, no engine-official documentation or
+published study backing them was found]`. They may be quoted only with that status attached in
+the same sentence ("typical ranges published in this skill's architecture reference, not a
+projection for your site"), never in a plan's executive summary metrics, never multiplied by a
+site's sessions to produce a figure, and never restated as "expected". A site-specific forecast
+needs a traffic and ranking baseline plus a re-measure — see
+[score-rubric.md](./score-rubric.md) §6 for what the report says instead.
 
 | Architecture Change | Typical Impact | Timeline to See Results |
 |--------------------|---------------|----------------------|

@@ -146,17 +146,24 @@ For each page, find relevant pages to link to based on:
 
 - Total link opportunities found: [X]
 - Orphan pages to fix: [X]
-- Estimated traffic impact: [+X%]
+- Pages gaining inbound links under this plan: [X]
 - Priority actions: [X]
+
+*No traffic or ranking forecast appears here.* Every line above is a count this analysis
+produced. A "+X% traffic" figure would need a ranking and traffic baseline plus a
+counterfactual, and this analysis has neither — see [score-rubric.md](./score-rubric.md) §6,
+and offer the baseline-then-re-measure plan instead of a number.
 
 ## Current State
 
 | Metric | Current | Target | Gap |
 |--------|---------|--------|-----|
-| Avg links per page | [X] | [X] | [X] |
+| Avg links per page | [X] ([links] ÷ [pages]) | [X] | [X] |
 | Orphan pages | [X] | 0 | [X] |
-| Over-optimized anchors | [X]% | <10% | [X]% |
-| Topic cluster coverage | [X]% | 100% | [X]% |
+| Over-optimized anchors | [X]% ([n]/[base]) | <10% | [X]% |
+| Topic cluster coverage | [X]% ([n]/[base]) | 100% | [X]% |
+
+Current is the measurement with its base shown; Target is the target; Gap is their difference.
 
 ## Priority Actions
 
@@ -182,7 +189,7 @@ For each page, find relevant pages to link to based on:
 ### Phase 3: Optimization (Week 4+)
 
 **Anchor Text Diversity**:
-- [ ] Vary anchors for [Page] - currently [X]% exact match
+- [ ] Vary anchors for [Page] - currently [n] of [base] inbound anchors are exact match ([X]%)
 - [ ] [Additional tasks]
 
 **Navigation Updates**:
@@ -211,9 +218,17 @@ Best practices:
 
 ## Tracking Success
 
-Monitor these metrics weekly:
-- [ ] Rankings for target keywords
-- [ ] Traffic to previously orphan pages
-- [ ] Crawl stats in Search Console
-- [ ] Internal link distribution changes
+Baselined from this analysis (measurable today, re-measurable after each phase):
+- [ ] Inbound in-body link count per priority page — baseline: [X]
+- [ ] Orphan page count — baseline: [X]
+- [ ] Anchor distribution for the over-optimized targets — baseline: [n]/[base]
+
+Needs data not yet connected (list the connector, do not report a baseline):
+- [ ] Rankings for target keywords — requires rank-tracking data
+- [ ] Traffic to previously orphan pages — requires analytics
+- [ ] Crawl stats — requires Search Console
 ```
+
+**Split the tracking list.** Metrics this analysis can baseline get a number now; metrics that
+need a tool nobody connected are listed with the connector they need and no baseline beside
+them. A tracking row with an invented starting figure poisons every later comparison.
