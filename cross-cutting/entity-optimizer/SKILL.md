@@ -1,13 +1,13 @@
 ---
 name: entity-optimizer
-version: "4.1.4"
+version: "4.1.5"
 description: 'Audit and build entity presence across Google Knowledge Graph, Wikidata, and AI systems for brand recognition and AI citations. Use when the user asks to "optimize entity presence", "build knowledge graph", "improve knowledge panel", "entity audit", "establish brand entity", "Google doesn''t know my brand", "no knowledge panel", "establish my brand as an entity". For structured data implementation, see schema-markup-generator. For content-level AI optimization, see geo-content-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.1.4"
+  version: "4.1.5"
   geo-relevance: "high"
   tags:
     - seo
@@ -182,11 +182,19 @@ Evaluate each signal as Pass / Fail / Partial with a specific action for each ga
 6. **AI-Specific Entity Signals** -- Clear definitions, disambiguation, verifiable claims, crawlability
 7. **Google Business Profile Signals** -- Profile completeness, primary/secondary category accuracy, Posts/Q&A/Products surface activity, photo freshness, review velocity, review response rate
 
+> **Measuring category 5 mentions — count them, never price them**: report mentions as a count over a stated population, each one resolved to its source and its date, with linked and unlinked mentions counted separately (unlinked mentions are a scored entity signal — CITE I09). Never divide a retainer, an agency fee, or any budget by a mention count to produce a cost-per-mention, cost-per-link, ROI, or payback figure — not even hedged as "a ratio, nothing more", and not when the user's question invites one. The denominator is whatever a monitoring tool happened to catch in one window, so the quotient prices the alert feed rather than the work, and a client handed a €-per-mention number will manage to it: cheap mentions on weak sources raise the count and move no entity signal. Answer a "is this spend worth it" question with what the mentions do and do not do for entity recognition, and name the evidence that would settle it.
+
 > **Google review-solicitation policy (reported addition ~2026-04-17; policy text + enforcement page verified 2026-08-09 by owner live-page read)**: Google's "Prohibited & restricted content" policy (Fake engagement section) bans "Merchants requesting that staff solicit a certain number of reviews" (staff review quotas) and "Merchants requesting that staff solicit reviews that include specific content, including content that identifies a staff member." The ban attaches to the merchant's directive; spontaneous customer mentions of staff remain fine. Never set per-staff review targets; never script customers to include staff names or other specified content. Violations count as fake engagement: removal of the violative reviews + Business Profile restrictions (new-review freeze for a set period, existing reviews unpublished for a set period, public warning telling consumers fake reviews were removed), with email notice and an appeal path — not automatic suspension. Primary: support.google.com/contributionpolicy/answer/7400114 (reported same text at support.google.com/business/answer/7400114 — mirror not separately verified); enforcement: support.google.com/business/answer/14114287.
 
 > **Reference**: Use the audit template in [references/entity-signal-checklist.md](./references/entity-signal-checklist.md) for the full 47-signal checklist with verification methods for categories 1-6.
 
 ### Step 3: Report & Action Plan
+
+Two rules apply to every claim the report below will carry. Apply them while writing it, not after.
+
+**Every fact traces to a named input — including facts about entities that are not the client.** A widely-known fact is still an unsourced assertion the moment it enters a client deliverable: a landmark's century, another organisation's founding year, the size of some other entity's content footprint, the year something will matter. Nobody in this audit measured it, the client cannot check it, and it travels to everyone the client forwards the report to. Background knowledge is not a source, and being famous is not a citation. Instead: name a colliding or comparison entity exactly as the supplied input names it, and build the disambiguation finding or the priority argument out of surfaces the audit actually read. If the argument needs a fact no input carries, either make the argument without that fact or state the check that would supply it — never fill the gap from memory to make a recommendation sound stronger.
+
+**Recount every derived count against its source before publishing it.** Any figure presented as read off a supplied file — mentions per name form, surfaces carrying an address, profiles missing a property — is recounted from that file at write-up time, and the report states the population it was counted over. Where the recount disagrees with the working figure, the recount is the number. A count that contradicts the file it claims to come from is worse than a missing count: it carries the authority of a derivation, so the client acts on it and the error is only found by whoever opens the file next.
 
 ```markdown
 ## Entity Optimization Report
@@ -278,6 +286,9 @@ Sorted by: impact on entity recognition × effort required
 - [ ] Knowledge Panel status checked
 - [ ] Wikidata/Wikipedia status verified
 - [ ] Schema.org markup on primary site audited
+- [ ] Every fact and figure traces to a named input — no date, size, or attribute of a non-client entity supplied from background knowledge
+- [ ] Every derived count recounted against its source file, with the population it was counted over stated
+- [ ] No cost-per-mention, cost-per-link, ROI, or payback figure derived from a fee, retainer, or budget
 - [ ] Every recommendation is specific and actionable
 - [ ] Roadmap includes concrete steps with timeframes
 - [ ] Cross-reference with CORE-EEAT A07/A08 and CITE I01-I10 noted

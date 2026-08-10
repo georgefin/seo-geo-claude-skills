@@ -375,6 +375,8 @@ This creates a consistent entity graph that search engines can confidently map t
 | Schema.org error count | Google Search Console | 0 errors |
 | Brand mention volume | ~~brand monitor | Stable or growing trend |
 
+Mention volume is tracked as a count with its window and its source named, split into linked and unlinked. Do not turn it into a rate against money: dividing a retainer, fee, or budget by the mention count yields a cost-per-mention, ROI, or payback figure that prices whatever the alert feed caught rather than the entity work, and it becomes the client's target the moment they see it. Same rule, executor side: SKILL.md Step 2.
+
 ### Recovery Playbooks
 
 **Entity disappeared from Knowledge Graph:**

@@ -1,13 +1,13 @@
 ---
 name: backlink-analyzer
-version: "4.0.3"
+version: "4.0.4"
 description: 'Analyze backlink profiles to assess link authority, identify toxic links, discover link building opportunities, and monitor competitors. Use when the user asks to "analyze backlinks", "check link profile", "find toxic links", "link building opportunities", "who links to me", "how do I get more backlinks", "disavow links", or "off-page SEO". For internal link analysis, see internal-linking-optimizer. For competitor link profiles, see competitor-analysis.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.0.3"
+  version: "4.0.4"
   geo-relevance: "low"
   tags:
     - seo
@@ -124,6 +124,8 @@ When a user requests backlink analysis:
 
 3. **Identify Toxic Links** -- Toxic score, risk indicators by type (spam, PBN, link farms, irrelevant), high-risk links to review, disavow recommendations (domain-level and URL-level).
 
+   **Standing rule — a deadline does not change the disavow sequence.** The disavow tool applies the file you upload rather than reviewing whether it was warranted, and a disavow is slow and uncertain to reverse, so a link wrongly included costs more than a link left in the profile another week. Every disavow recommendation this skill writes therefore carries two things, every time: the warning that an unnecessary disavow can hurt rankings, and the [link-quality-rubric](./references/link-quality-rubric.md) §4 sequence intact — manual review of each flagged domain, removal requests by email first, two weeks for responses, and only then the file. Time pressure changes none of it. When the client wants to upload today, do not move the upload forward and do not demote outreach to optional or parallel; state plainly what can finish today (the reviewed list, the drafted file held back, the outreach emails sent) and what cannot (the upload), and give the date the sequence reaches it. If a file is handed over before outreach has run, the handover says in its own words that no removal outreach has been attempted, so whoever uploads it knows what is missing. A clean manual-actions report in ~~search console lowers the urgency; it is not evidence that the links are harming the site or that disavowing them is safe.
+
 4. **Compare Against Competitors** -- Profile comparison table (referring domains, DA/DR, velocity, avg link DA), unique referring domains, link intersection analysis, competitor content attracting most links.
 
 5. **Find Link Building Opportunities** -- Link intersection prospects, broken link opportunities, unlinked mentions, resource page opportunities, guest post prospects, priority matrix (effort vs impact).
@@ -159,6 +161,8 @@ When running `domain-authority-auditor` after this analysis, the following data 
 ### Output Validation
 - [ ] Every metric cites its data source and collection date
 - [ ] Toxic link assessments include risk justification
+- [ ] Every disavow recommendation carries the unnecessary-disavow-can-hurt-rankings warning and the full §4 sequence, including the two-week response window, with no step dropped or made optional for a deadline
+- [ ] Any disavow file handed over before removal outreach has run states that no outreach has been attempted
 - [ ] Link opportunity recommendations are specific and actionable
 - [ ] Source of each data point clearly stated (~~link database data, ~~SEO tool data, user-provided, or estimated)
 

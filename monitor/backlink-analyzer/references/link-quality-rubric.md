@@ -198,7 +198,7 @@ Build a prioritized list with contact information, outreach angle, and template 
 
 ### When to Disavow
 
-Only disavow links when you have clear evidence of risk. Unnecessary disavow can hurt your rankings.
+Only disavow links when you have clear evidence of risk. Unnecessary disavow can hurt your rankings. That warning is not background for the analyst — it ships inside the recommendation itself, in the client's copy, every time a disavow is proposed.
 
 | Situation | Disavow? | Reasoning |
 |-----------|----------|-----------|
@@ -254,6 +254,8 @@ domain:spam-directory.net
 | 7 | Upload to Google Search Console | Disavow Links tool |
 | 8 | Document all actions and dates | Internal records |
 | 9 | Re-check in 4-6 weeks | Verify processing |
+
+**The sequence does not compress under a deadline.** Steps 4 and 5 are what keep good links out of the file, and they are exactly the two a same-day request asks you to skip. The two-week window at step 5 is real waiting time, not a formality to mention and then step over: the tool applies the file you upload rather than reviewing whether it was warranted, and a disavow is slow and uncertain to reverse, so a link wrongly included costs more than a link left in the profile another week. When a client wants the upload today, the deliverable says what can finish today — steps 1-4, plus the file drafted and held — and what cannot, with the date the sequence reaches the upload. Removal outreach is never described as optional or parallel to the upload; it is the step the upload waits on. A file that leaves your hands before outreach has run carries a plain statement that no removal outreach was attempted, and a clean manual-actions report is recorded as lower urgency rather than as evidence that disavowing is safe.
 
 ---
 
