@@ -50,7 +50,7 @@ Complete glossary of SEO and GEO key performance indicators with calculation for
 
 **Interpretation:**
 - High impressions but low CTR = title tags and meta descriptions need optimization.
-- CTR declining for stable positions = SERP features (AI Overview, PAA) stealing clicks.
+- Site-wide CTR falling while every segment's CTR holds or rises = an impression-mix shift, not a snippet problem — decompose by share of impressions before blaming titles (see "Aggregate vs. segment divergence" under Trend Analysis Framework). Only where the segments themselves fell at stable positions is SERP features (AI Overview, PAA) stealing clicks the live hypothesis.
 - CTR higher than position benchmarks = strong brand recognition or compelling snippets.
 
 ---
@@ -439,6 +439,29 @@ Complete glossary of SEO and GEO key performance indicators with calculation for
 
 ---
 
+## Quoting a Benchmark From This File
+
+Every band, range and threshold in this file — the per-KPI **Good Range** and **Warning**
+rows above as much as the summary tables below — is quoted into a report **verbatim**. Copy
+it from the line, do not retype it from memory, and do not narrow, widen or round it on the
+way: "3-10% MoM growth is healthy" is not "4-10%", and a report that states the band
+correctly in one section and differently in another has contradicted itself in front of the
+client.
+
+Any figure **derived** from a band prints the arithmetic that produced it, multiplier
+included, in the report where the reader can redo it:
+
+> Our KPI reference calls 3-10% month-over-month growth healthy. From July's 2,890 sessions
+> that is 2,890 × 1.03 = **2,977** at the low end and 2,890 × 1.10 = **3,179** at the high
+> end for August.
+
+A bare "3,006-3,179" fails this twice over: the reader cannot check it, and 3,006 is
+2,890 × 1.04 — a band this file does not state. The rule holds inside goal tables and
+proposal tables, which is exactly where the observed defect landed; a band that is being
+*proposed* as a target is still being *quoted* as a benchmark.
+
+---
+
 ## SEO/GEO Metric Definitions and Benchmarks
 
 ### Organic Search Metrics
@@ -539,6 +562,51 @@ Complete glossary of SEO and GEO key performance indicators with calculation for
 | Gradual decline | Content decay, competition, technical debt | Comprehensive audit needed |
 | Flat line | Plateau — existing strategy maxed out | New content areas, new link strategies |
 | Seasonal pattern | Industry/demand cycles | Plan content calendar around peaks |
+
+### Aggregate vs. Segment Divergence (Mix Shift)
+
+A site-wide ratio can fall while every one of its parts rises, because the aggregate is
+weighted by the size of each part. Whenever a site-wide CTR, conversion rate or average
+position moves against the segments underneath it, the mix is the first explanation to test
+and usually the right one — **run this decomposition before offering any mechanism**
+(snippets, titles, SERP features, AI Overviews, an algorithm update).
+
+The decomposition, on the ratio's own denominator — for CTR that denominator is
+**impressions**, and a share of clicks answers a different question:
+
+| Step | Prior period | Current period |
+|------|--------------|----------------|
+| 1. Segment the denominator (brand / non-brand / any new cluster) | 10,000 + 40,000 = 50,000 | 9,000 + 43,000 + 18,000 = 70,000 |
+| 2. Each segment's share of it | non-brand 40,000/50,000 = **80.0%** | non-brand 61,000/70,000 = **87.1%** |
+| 3. State the shift in percentage points | — | **+7.1 pp toward non-brand** |
+| 4. Check each segment's own ratio | brand CTR 12.0%, established non-brand 2.0% | brand 13.0%, established non-brand 2.3%, new cluster 1.96% |
+
+Read: every segment improved, and the site-wide CTR still fell, because a structurally
+lower-CTR segment took 7.1 pp more of the impressions. That sentence — with the shares and
+the pp shift printed — *is* the finding, and "our snippets got worse" is refuted by the same
+table rather than merely left unsaid.
+
+Average position takes the same treatment: Search Console weights it by impressions, so a
+new cluster entering at position 14.9 raises the site-wide average with no existing ranking
+having moved. Report the weighted arithmetic, not the site-wide number alone.
+
+### Small Bases and Counterfactual Figures
+
+A percentage computed on a small base moves violently, and saying so is worth a line — but
+the line has to be arithmetically true. State the **exact perturbation** you are modelling
+and compute the figure from it:
+
+- Correct: "15 → 20 sessions is +33.3%, and one session either way moves it a long way: a
+  June base of 16 gives +25.0% and 14 gives +42.9%; a July figure of 21 gives +40.0% and 19
+  gives +26.7%."
+- Wrong, and shipped once: "its own +33.3% is five sessions and would read as +20% or +47%
+  if one session had fallen either way." Those two figures are 3/15 and 7/15 — a **two**-unit
+  move with the base frozen. The arithmetic is reconstructible and the stated cause is still
+  false by a factor of two.
+
+If the perturbation you named and the number you printed do not reconcile, the number does
+not go in the report. The same applies to run-rates, break-evens and any other "what if"
+figure: name the assumption, then derive from it.
 
 ## SEO Attribution Guidance
 

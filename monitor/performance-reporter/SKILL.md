@@ -1,13 +1,13 @@
 ---
 name: performance-reporter
-version: "4.1.3"
+version: "4.2.0"
 description: 'Generate consolidated SEO and GEO performance dashboards combining rankings, traffic, backlinks, and AI visibility metrics for stakeholders. Use when the user asks to "generate SEO report", "performance report", "SEO dashboard", "report to stakeholders", "show me the numbers", "monthly SEO report", "traffic report", or "present SEO results to my boss". For detailed rank tracking, see rank-tracker. For link-specific analysis, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.1.3"
+  version: "4.2.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -123,6 +123,8 @@ When a user requests a performance report:
 
 4. **Report Keyword Rankings** -- Rankings overview by position range, distribution change visualization, top improvements and declines, SERP feature performance.
 
+   **Explaining a CTR or average-position move -- mix before mechanism.** Before offering any snippet, title, SERP-feature or AI-Overview explanation, test whether the aggregate moved against its own segments. Split clicks and impressions by segment (brand vs. non-brand at minimum, plus any newly launched cluster), compute each segment's **share of total impressions** in both periods, and state the shift in percentage points -- e.g. non-brand 40,000/50,000 = 80.0% to 61,000/70,000 = 87.1%, **+7.1 pp**. If every segment that existed in the prior period held or improved its CTR while the site-wide CTR fell, the cause is the impression mix and saying so *is* the finding; a "snippets got worse" diagnosis in that case contradicts the data in front of you. Average position needs the same test, because Search Console weights it by impressions -- a new cluster entering deep in the results raises the site-wide average without any existing ranking moving. Segment shares are reported as shares of **impressions**; a share of clicks answers a different question and does not substitute. Worked arithmetic in [references/kpi-definitions.md](./references/kpi-definitions.md) under "Aggregate vs. segment divergence".
+
 5. **Report GEO/AI Performance** -- AI citation overview, citations by topic, GEO wins, optimization opportunities.
 
    **AI-referrals cut** -- Also report the traffic AI assistants actually send. Triangulate three sources: ~~analytics referral source/medium plus conversions (GA4), ~~search console AI-surface query/click data where the property exposes it, and server-log referrer + user-agent rows. Match referrers against the AI hostname roster in [references/kpi-definitions.md](./references/kpi-definitions.md) (operational config — it churns). Report four cuts: AI share of total sessions period-over-period (the headline), top AI-landing pages with sessions and conversion rate, the AI-vs-organic engagement/conversion gap for the same window, and GSC AI-surface corroboration. **Control rule**: any attribution claim needs a parallel holdout (an unchanged own page, a sibling URL, or a competitor) — report delta-vs-control, never a raw delta. **Caveat to state in the report**: AI referral traffic proves an AI answer *linked* the site, not that it cited it prominently — treat referrals as leads for citation checking, not citation proof. Label every figure per this skill's source discipline (tool-measured / user-provided / estimated).
@@ -137,9 +139,31 @@ When a user requests a performance report:
 
 10. **Generate Recommendations** -- Immediate/short-term/long-term actions with priority, expected impact, and owner. Goals for next period.
 
-11. **Compile Full Report** -- Combine all sections with table of contents, appendix (data sources, methodology, glossary).
+11. **Compile to the Audience's Section Set** -- Assemble only the sections this report's audience actually receives, per the assembly table in [references/report-templates.md](./references/report-templates.md) §4: a CEO/board pack is the executive template alone (one page plus optional appendix, technical detail excluded); an agency client gets executive plus marketing sections 1-3 and 6; only a full-detail reader gets every section. Sections outside that audience's row are left out, not compressed into the pack. Whatever is assembled carries a table of contents and the appendix (data sources, methodology, glossary).
 
-   > **Reference**: See [references/report-output-templates.md](./references/report-output-templates.md) for complete output templates for all 11 report sections.
+   > **Reference**: See [references/report-output-templates.md](./references/report-output-templates.md) for complete output templates for all 11 report sections, and [references/report-templates.md](./references/report-templates.md) §4 for which of them each audience gets.
+
+### Figure Discipline
+
+Two rules that bind every step above. Both come from defects found in this skill's own
+graded output, and both describe a number that is *traceable* but wrong about where it
+came from — the reader can redo the arithmetic and still be misled about what it means.
+
+- **A benchmark is reproduced verbatim.** Any band, range or threshold attributed to this
+  skill's references is quoted exactly as that reference states it -- re-read the line
+  before typing it; never narrow, widen or round it in transit, and if the same band appears
+  twice in one report the two statements must agree. Every figure derived from a band prints
+  the arithmetic that produced it, multiplier included, so a reader can reconcile figure with
+  band: "the 3-10% MoM band our KPI reference calls healthy gives 2,890 x 1.03 = 2,977 to
+  2,890 x 1.10 = 3,179 for August", never a bare range whose lower bound reconstructs to a
+  band nobody stated. A goal or proposal table is not an exemption -- a misquoted band is
+  wrong wherever it is printed.
+- **A counterfactual states the perturbation it assumes.** A sensitivity, small-base or
+  "what if" figure names the exact change it models and is computed from that change: on
+  15 → 20 sessions (+33.3%), "one session either way" means moving the base to 16 or 14,
+  which gives +25.0% or +42.9% -- not "+20% or +47%", which is 3/15 and 7/15, a *two*-session
+  move with the base frozen. If the named perturbation and the printed number do not
+  reconcile, the number is not printed.
 
 ## Validation Checkpoints
 
@@ -153,6 +177,10 @@ When a user requests a performance report:
 - [ ] Every metric cites its data source and collection date
 - [ ] Trends include period-over-period comparisons
 - [ ] Recommendations are specific, prioritized, and actionable
+- [ ] Every band, range or threshold quoted from the references matches that reference exactly (checked against the line, not from memory), and every figure derived from one shows its multiplier
+- [ ] Every sensitivity or counterfactual figure names the exact perturbation it assumes and reconciles with it
+- [ ] Any aggregate that moved against its own segments (site-wide CTR, average position) is explained as a mix effect, with the impression-share shift stated in percentage points
+- [ ] Sections included match the audience's row in report-templates.md §4 — a board pack is the executive template alone
 - [ ] Source of each data point stated in the report's own words — the resolved tool name (Google Analytics 4, Google Search Console, Ahrefs), "user-provided", or "estimated"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 
 ## Example
@@ -192,9 +220,9 @@ When a user requests a performance report:
 
 ## Reference Materials
 
-- [Report Output Templates](./references/report-output-templates.md) — Complete output templates for all 11 report sections, including the AI referral traffic cut (5b)
-- [KPI Definitions](./references/kpi-definitions.md) — SEO/GEO metric definitions with benchmarks, good ranges, warning thresholds, trend analysis, attribution guidance, and the AI referral KPI with its hostname roster
-- [Report Templates by Audience](./references/report-templates.md) — Copy-ready templates for executive, marketing, technical, and client audiences
+- [Report Output Templates](./references/report-output-templates.md) — Complete output templates for all 11 report sections, including the search-performance segment block (4), the AI referral traffic cut (5b), and the client-read wording for the domain-authority and content-quality sections
+- [KPI Definitions](./references/kpi-definitions.md) — SEO/GEO metric definitions with benchmarks, good ranges, warning thresholds, the rule for quoting a benchmark verbatim, mix-shift decomposition, small-base and counterfactual arithmetic, attribution guidance, and the AI referral KPI with its hostname roster
+- [Report Templates by Audience](./references/report-templates.md) — Copy-ready templates for executive, marketing, technical, and client audiences, plus the §4 assembly table that decides which sections each audience receives
 
 ## Related Skills
 

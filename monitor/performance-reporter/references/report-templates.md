@@ -397,6 +397,11 @@ Use this template for engineering teams, dev leads, and technical stakeholders. 
 
 ### How to Combine Templates
 
+This table decides which sections a pack contains — it governs step 11 of the skill, and the
+twelve-section compilation in `report-output-templates.md` §11 is the full-detail assembly
+rather than the default. A board pack is the executive template alone: sections its row
+excludes are left out, not summarised into it.
+
 | Audience | Include Sections | Exclude |
 |----------|-----------------|---------|
 | CEO / Board | Executive template only | All technical detail |
@@ -424,4 +429,7 @@ Use this template for engineering teams, dev leads, and technical stakeholders. 
 - [ ] Report tailored to audience (no jargon for executives, full detail for technical)
 - [ ] Visualizations are clear and labeled
 - [ ] Sources cited for all external benchmarks
+- [ ] Every band, range or threshold quoted from the KPI reference reproduced verbatim — checked against the reference line, not from memory — with the multiplier shown for any figure derived from it, and the same band stated identically wherever it recurs
+- [ ] Every sensitivity or "what if" figure names the exact perturbation it assumes and is computed from it
+- [ ] Sections match the audience's row in the assembly table above
 - [ ] Draft reviewed for accuracy before distribution

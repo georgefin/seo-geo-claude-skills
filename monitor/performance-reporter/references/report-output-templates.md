@@ -122,8 +122,28 @@ Action Required:
 
 ## 4. Keyword Ranking Performance Template
 
+Whenever the site-wide CTR or average position moved, the segment block below is filled in
+**before** any explanation is written: an aggregate that moves against its own segments is a
+mix effect, and the shares are the evidence for saying so (SKILL.md step 4;
+`kpi-definitions.md` → "Aggregate vs. segment divergence").
+
 ```markdown
 ## Keyword Ranking Performance
+
+### Search Performance by Segment
+
+| Segment | Clicks (prev → curr) | Impressions (prev → curr) | Share of impressions (prev → curr) | CTR (prev → curr) | Avg. position |
+|---------|---------------------|---------------------------|------------------------------------|-------------------|---------------|
+| Brand | [X] → [Y] | [X] → [Y] | [X]% → [Y]% | [X]% → [Y]% | [X] → [Y] |
+| Non-brand — established | [X] → [Y] | [X] → [Y] | [X]% → [Y]% | [X]% → [Y]% | [X] → [Y] |
+| [Any newly launched cluster] | [X] → [Y] | [X] → [Y] | [X]% → [Y]% | [X]% → [Y]% | [X] → [Y] |
+| **Site-wide** | **[X] → [Y]** | **[X] → [Y]** | **100%** | **[X]% → [Y]%** | **[X] → [Y]** |
+
+**Mix reading**: [segment] moved from [X]% to [Y]% of impressions, **[+/-Z] pp** — state the
+arithmetic (e.g. 40,000/50,000 = 80.0% → 61,000/70,000 = 87.1%). If every segment's CTR held
+or rose while the site-wide figure fell, say so plainly: the mix changed, the snippets did
+not. Shares here are shares of **impressions**; a share of clicks is a different metric and
+does not answer this question.
 
 ### Rankings Overview
 
@@ -245,37 +265,63 @@ Use inside the GEO/AI section when AI-referral data exists. Sources: ~~analytics
 
 ## 6. Domain Authority (CITE Score) Template
 
+**Client-read surface — gloss the framework, drop the machinery.** The block below is read
+by the client, so the CITE name is introduced with what it measures before it is used as a
+label (anti-slop-ruleset.md §6 family 8 gloss-on-first-use exemption), and two things never
+appear in it at all: a framework **item ID** (`T03`, `C01` — a coordinate in a document the
+client has never seen) and a **skill or command slug** (`/seo:audit-domain`,
+`domain-authority-auditor` — a tool in a library they do not have). Name the finding and the
+next step in the client's own words; the routing instruction belongs in the operator note
+underneath, not inside the report.
+
 ```markdown
-## Domain Authority (CITE Score)
+## Domain Authority
+
+Domain authority here is the **CITE score**: a 40-check review of how well this domain is
+cited elsewhere, how clearly its identity is established, how far it earns trust, and how it
+stands against comparable sites — scored out of 100 on each of those four dimensions and
+overall.
 
 ### CITE Score Summary
 
-| Metric | This Period | Last Period | Change |
+| Measure | This Period | Last Period | Change |
 |--------|-------------|-------------|--------|
-| CITE Score | [X]/100 | [Y]/100 | [+/-Z] |
-| C -- Citation | [X]/100 | [Y]/100 | [+/-Z] |
-| I -- Identity | [X]/100 | [Y]/100 | [+/-Z] |
-| T -- Trust | [X]/100 | [Y]/100 | [+/-Z] |
-| E -- Eminence | [X]/100 | [Y]/100 | [+/-Z] |
+| Overall | [X]/100 | [Y]/100 | [+/-Z] |
+| Citation — who cites and links this domain | [X]/100 | [Y]/100 | [+/-Z] |
+| Identity — how clearly the business is identified | [X]/100 | [Y]/100 | [+/-Z] |
+| Trust — trust signals on the site itself | [X]/100 | [Y]/100 | [+/-Z] |
+| Eminence — standing against comparable sites | [X]/100 | [Y]/100 | [+/-Z] |
 
-**Veto Status**: No triggers / [item] triggered
+**Blocking issues**: none / [name each one in plain words — e.g. "no company identity or
+contact details anywhere on the site" — never the internal item code]
 
 ### Key Changes
 
 - [Notable improvement or concern 1]
 - [Notable improvement or concern 2]
 
-_For full 40-item evaluation, run `/seo:audit-domain`_
+_This score summarises a 40-check domain review; the check-by-check detail is available on request._
 ```
 
-**Note**: If no previous CITE audit exists, note this section as "Not yet evaluated -- run domain-authority-auditor for baseline" and skip.
+**Note**: If no previous domain audit exists, mark the section in the report as "Not yet
+evaluated" in the client's own words and skip it — the report never names the audit tool.
+**Operator**: run `domain-authority-auditor` (`/seo:audit-domain`) to establish the baseline.
 
 ---
 
 ## 7. Content Quality (CORE-EEAT Score) Template
 
+**Client-read surface — same rule as section 6.** Gloss CORE-EEAT on first use, then use the
+label; never print a framework item ID (`O05`, `C01`, `Ept03`) or a command slug in the
+report body (anti-slop-ruleset.md §6 family 8).
+
 ```markdown
-## Content Quality (CORE-EEAT Score)
+## Content Quality
+
+Content quality here is the **CORE-EEAT score**: an 80-check read of each audited page —
+how clearly it answers, how it is organised, how quotable and distinctive it is (the parts
+AI assistants reward), plus the experience, expertise, authority and trust signals search
+engines weigh. Scored out of 100.
 
 ### Content Quality Summary
 
@@ -283,9 +329,9 @@ _For full 40-item evaluation, run `/seo:audit-domain`_
 |--------|-------|
 | Pages Audited | [count] |
 | Average CORE-EEAT Score | [score]/100 ([rating]) |
-| Average GEO Score (CORE) | [score]/100 |
-| Average SEO Score (EEAT) | [score]/100 |
-| Veto Items Triggered | [count] ([item IDs]) |
+| Average score on the AI-visibility half (CORE) | [score]/100 |
+| Average score on the search-trust half (EEAT) | [score]/100 |
+| Blocking issues found | [count] ([name each in plain words — never the internal item code]) |
 
 ### Dimension Averages Across Audited Pages
 
@@ -305,10 +351,13 @@ _For full 40-item evaluation, run `/seo:audit-domain`_
 - [Notable score changes since last report]
 - [Pages with significant quality improvements/declines]
 
-_For full 80-item evaluation, run `/seo:audit-page` on individual pages._
+_Each page score summarises an 80-check content review; the check-by-check detail for any page is available on request._
 ```
 
-**Note**: If no content quality audit exists, note this section as "Content quality not yet evaluated -- run `/seo:audit-page` on key landing pages to establish baseline" and skip.
+**Note**: If no content quality audit exists, mark the section in the report as "Content
+quality not yet evaluated" in the client's own words and skip it — the report never names
+the audit tool or the command. **Operator**: run `content-quality-auditor`
+(`/seo:audit-page`) on the key landing pages to establish the baseline.
 
 ---
 
@@ -421,6 +470,13 @@ Your referring domains rank #[X] of [Y] competitors.
 
 ## 11. Full Report Compilation Template
 
+**This is the full-detail assembly, not the default one.** Which sections a given audience
+receives is settled by the assembly table in [report-templates.md](./report-templates.md)
+§4: a CEO/board pack is the executive template alone, an agency client gets executive plus
+marketing sections 1-3 and 6, and only a full-detail reader gets the twelve-section
+compilation below. Assemble to that row and drop the rest; the table of contents lists what
+the pack actually contains.
+
 The Appendix's Data Sources list is the report's own provenance record, so each entry is
 resolved before the report leaves: the connected tool's real name, the export or hand-check
 the figures actually came from, or a plain statement that the category was unavailable and
@@ -441,8 +497,8 @@ operator, and the founding instance of this defect was a report's own source col
 2. Organic Traffic Performance
 3. Keyword Rankings
 4. GEO/AI Visibility
-5. Domain Authority (CITE Score)
-6. Content Quality (CORE-EEAT Score)
+5. Domain Authority
+6. Content Quality
 7. Backlink Analysis
 8. Content Performance
 9. Technical Health
