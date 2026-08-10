@@ -488,6 +488,41 @@ a negative ROI as a verdict.
 
 ## 10. Recommendations Template
 
+**Two columns, two questions — and the Priority column answers only one of them.** The
+**priority** (P0 · P1 · P2 · P3) says how much the action matters and who acts first; it is set
+from business impact. The **horizon** — which of the three sections below the row sits in — says
+when the work is booked; it is set from capacity, dependencies and whoever owns the calendar.
+The Priority column carries a P-level and nothing else. A schedule word — "Planned", "Backlog",
+"Q2" — is not a priority: it belongs to the horizon, which the section heading already states,
+and this skill's own Technical Debt Tracker ([report-templates.md](./report-templates.md) §3,
+technical template, table 6) already keeps it in a separate Status column beside a P-level
+Priority column. P0-P3 is the library convention — `keyword-research` and `content-gap-analysis`
+both read their priority tiers as P0-P3, and `alert-manager` grades response priority on the same
+four levels. It is what `kpi-definitions.md` promises this skill's readers ("Action Items — P0-P3
+prioritized task list"), and what the Action Items table in report-templates.md §2 already prints.
+
+Default pairing — a work queue, not a pager rota: **P0** starts before anything else, today when
+the damage is live (manual action, deindexation, outage, security incident) · **P1** this week or
+the current sprint · **P2** this month · **P3** this quarter or the backlog. A row booked past the
+end of its priority's default horizon names the reason in the same line — "P0 · ships Feb 15, the
+sprint that owns the fix opens Feb 10". Earlier than default needs no note; pulling work
+forward surprises nobody. `alert-manager` uses these same four names on this same axis with far
+shorter clocks, because an alert is an incident and a recommendation is work: the names carry
+across the two skills, the clocks do not.
+
+**Converting a report that graded High / Medium / Planned** — the previous wording of this
+template: **High → P1 · Medium → P2 · Planned → P3**, section headings unchanged. Nothing moves,
+because those three words were fixed per section: every Immediate row read High, every Short-term
+row read Medium, every Long-term row read Planned, so the column restated its own heading and
+carried no information of its own. **P0 is new headroom** — no row that read High becomes P0 by
+conversion, only by meeting the P0 test above, and then it says why in the same line.
+
+Everywhere a Priority column appears in this skill — here, the action items and exclusion-reason
+tables in report-templates.md, the error log, the technical debt tracker — it holds a P-level and
+optionally the one-line reason. A row with nothing to do reads **"no action —"** plus why, never
+a blank and never a bare word that reads like a level ("Clean", "Verify intentional"): a reader
+scanning a Priority column cannot tell a level they do not recognise from a level they missed.
+
 ```markdown
 ## Recommendations & Next Steps
 
@@ -495,19 +530,20 @@ a negative ROI as a verdict.
 
 | Priority | Action | Expected Impact | Owner |
 |----------|--------|-----------------|-------|
-| High | [Action 1] | [Impact] | [Owner] |
+| P0 | [Only live damage belongs here — name it] | [Impact] | [Owner] |
+| P1 | [Action 1] | [Impact] | [Owner] |
 
 ### Short-term (This Month)
 
 | Priority | Action | Expected Impact | Owner |
 |----------|--------|-----------------|-------|
-| Medium | [Action 1] | [Impact] | [Owner] |
+| P2 | [Action 1] | [Impact] | [Owner] |
 
 ### Long-term (This Quarter)
 
 | Priority | Action | Expected Impact | Owner |
 |----------|--------|-----------------|-------|
-| Planned | [Action 1] | [Impact] | [Owner] |
+| P3 | [Action 1] | [Impact] | [Owner] |
 
 ### Goals for Next Period
 

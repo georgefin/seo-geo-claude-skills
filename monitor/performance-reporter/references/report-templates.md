@@ -257,12 +257,20 @@ document the client may forward.
 
 | Priority | Action | Owner | Deadline |
 |----------|--------|-------|----------|
-| P0 | Fix mobile LCP issue (currently 3.8s) | Engineering | Feb 15 |
+| P0 | Fix mobile LCP issue (currently 3.8s) | Engineering | Feb 15 — later than P0 implies: the fix ships with the engineering sprint that opens Feb 10 |
 | P1 | Refresh kanban board software article | Content | Feb 10 |
 | P1 | Publish 2025 trends article (replace 2023 version) | Content | Feb 14 |
 | P2 | Build links to CRM comparison page (target: 5 new) | SEO | Feb 28 |
 | P2 | Optimize 3 pages for AI citation (add structured data) | SEO | Feb 21 |
 | P3 | Research new keyword opportunities in "AI tools" space | SEO | Feb 28 |
+
+Priority is P0-P3 and only P0-P3 — the single scheme this skill grades actions on
+(`report-output-templates.md` §10, which carries the definitions and the default
+priority-to-horizon map). The Deadline column is the other axis: when the work is booked, set
+from capacity and dependencies rather than from impact. They come apart, and the first row is
+why the two columns exist — the highest-priority item here has the latest deadline of the top
+three, so it says so in its own cell. A deadline later than its priority's default horizon
+carries that reason; earlier needs no note.
 ```
 
 ---
@@ -270,6 +278,40 @@ document the client may forward.
 ## 3. Technical SEO Report Template
 
 Use this template for engineering teams, dev leads, and technical stakeholders. Focuses on crawlability, indexation, performance, and error resolution.
+
+**Status words here are a movement band, not a target comparison.** These tables have no target
+column — a crawl rate or a response time has no agreed number it is supposed to be at — so the
+On track / Watch / Off track bands that govern the KPI tables (`report-output-templates.md` §2)
+do not reach them and must not be borrowed. What a technical Status word grades is how far the
+metric moved from its own baseline and what that movement obliges: the same axis `alert-manager`
+calls a threshold band, read three steps coarse for a periodic report rather than as a firing
+threshold.
+
+- **Normal** — inside the range this metric normally varies in, or moving in the improving
+  direction. Nothing to do.
+- **Monitor** — outside normal variation, but no threshold with a known cost has been crossed.
+  Name what will be re-checked and when. It does not produce an action item.
+- **Investigate** — a threshold with a known cost was crossed, or the cause is unknown and the
+  metric gates something downstream (crawl, indexation, rendering). It produces a row in the
+  action-items table with a priority and an owner. Investigate is the finding; P0-P3 is what
+  happens about it; neither word substitutes for the other.
+
+**Each Status word prints the comparison that produced it, in its own cell** — the same rule the
+KPI statuses follow when they print their percentage of target (SKILL.md, Figure Discipline: a
+word-rating shows its working where it is printed). That comparison is one of three things and
+nothing else: a published band quoted verbatim **with its window** (Core Web Vitals against the
+CrUX bands in `kpi-definitions.md`; a band borrowed from the alert configuration keeps the window
+it was defined on — `>10 new crawl errors/day` does not grade a period total of 18); or this
+site's own observed variation with the span it was measured over; or, where neither exists, no
+Status word at all — "no baseline — first measurement" is the honest cell. Where the band is
+already printed beside the figure, as in the Core Web Vitals rows, the Status cell restates it
+and needs nothing further.
+
+Two neighbouring columns are deliberately **not** this scale, and folding them into it would lose
+information: a **workflow state** (Pending · Investigating · Redirect created Jan 8, in the
+error-resolution table) says where the work has got to, not how a metric moved; and **Effort and
+Impact sized Low · Medium · High** in the technical debt tracker size the job, not its urgency.
+Neither is a priority and neither becomes a P-level.
 
 ---
 
@@ -288,10 +330,10 @@ Use this template for engineering teams, dev leads, and technical stakeholders. 
 
 | Metric | Jan 2025 | Dec 2024 | Change | Status |
 |--------|----------|----------|--------|--------|
-| Total pages crawled | 12,400 | 11,800 | +5.1% | Normal |
-| Avg crawl rate (pages/day) | 400 | 381 | +5.0% | Normal |
-| Avg response time | 320ms | 290ms | +10.3% | Monitor |
-| Crawl errors | 18 | 12 | +6 | Investigate |
+| Total pages crawled | 12,400 | 11,800 | +5.1% | Normal — inside the ±8% month-to-month range this site has held since Aug |
+| Avg crawl rate (pages/day) | 400 | 381 | +5.0% | Normal — same ±8% range, and moving the useful way |
+| Avg response time | 320ms | 290ms | +10.3% | Monitor — first move outside that range; re-check on the Mar 3 pull |
+| Crawl errors | 18 | 12 | +6 | Investigate — 18 vs 12 is +50%, cause unknown, and crawl errors gate indexation → action item below |
 
 ### Crawl Budget Efficiency
 
@@ -322,9 +364,9 @@ Use this template for engineering teams, dev leads, and technical stakeholders. 
 |--------|-------|--------|----------|
 | Crawled, not indexed | 34 | +8 | P1 — improve content quality |
 | Duplicate without canonical | 15 | +2 | P2 — add canonical tags |
-| Blocked by robots.txt | 12 | 0 | Verify intentional |
+| Blocked by robots.txt | 12 | 0 | P3 — confirm the block is still intentional |
 | Soft 404 | 6 | +2 | P1 — fix or redirect |
-| Server error (5xx) | 0 | 0 | Clean |
+| Server error (5xx) | 0 | 0 | no action — none open |
 
 ## 3. Core Web Vitals
 

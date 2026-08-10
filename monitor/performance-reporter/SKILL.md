@@ -1,13 +1,13 @@
 ---
 name: performance-reporter
-version: "4.3.0"
+version: "4.4.0"
 description: 'Generate consolidated SEO and GEO performance dashboards combining rankings, traffic, backlinks, and AI visibility metrics for stakeholders. Use when the user asks to "generate SEO report", "performance report", "SEO dashboard", "report to stakeholders", "show me the numbers", "monthly SEO report", "traffic report", or "present SEO results to my boss". For detailed rank tracking, see rank-tracker. For link-specific analysis, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.0"
+  version: "4.4.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -139,6 +139,8 @@ When a user requests a performance report:
 
 10. **Generate Recommendations** -- Immediate/short-term/long-term actions with priority, expected impact, and owner. Goals for next period.
 
+    **Priority and horizon are two columns, not one.** Actions are graded **P0 · P1 · P2 · P3** — the library's scheme, and the one [references/kpi-definitions.md](./references/kpi-definitions.md) already promises this report's readers ("Action Items — P0-P3 prioritized task list"). A Priority column holds a P-level and nothing else. *When* the work is booked is the other axis, carried by the section heading (Immediate / Short-term / Long-term) and by any deadline column; a schedule word — "Planned", "Backlog", "Q2" — is never a priority. Default pairing: **P0** starts before anything else, today when the damage is live (manual action, deindexation, outage, security) · **P1** this week or the current sprint · **P2** this month · **P3** this quarter or the backlog. A row booked past the end of its priority's default horizon states the reason in the same line; earlier than default needs no note. Converting a report that graded High / Medium / Planned: **High → P1 · Medium → P2 · Planned → P3**, section headings unchanged — those three words were fixed per section, so the column only restated its own heading. Full rule, the "no action" convention, and why `alert-manager`'s identical P-names carry much shorter clocks: [references/report-output-templates.md](./references/report-output-templates.md) §10.
+
 11. **Compile to the Audience's Section Set** -- Assemble only the sections this report's audience actually receives, per the assembly table in [references/report-templates.md](./references/report-templates.md) §4: a CEO/board pack is the executive template alone (one page plus optional appendix, technical detail excluded); an agency client gets executive plus marketing sections 1-3 and 6; only a full-detail reader gets every section. Sections outside that audience's row are left out, not compressed into the pack. Whatever is assembled carries a table of contents and the appendix (data sources, methodology, glossary).
 
    > **Reference**: See [references/report-output-templates.md](./references/report-output-templates.md) for complete output templates for all 11 report sections, and [references/report-templates.md](./references/report-templates.md) §4 for which of them each audience gets.
@@ -190,7 +192,9 @@ means.
 - [ ] Recommendations are specific, prioritized, and actionable
 - [ ] Every band, range or threshold quoted from the references matches that reference exactly (checked against the line, not from memory), and every figure derived from one shows its multiplier
 - [ ] Every sensitivity or counterfactual figure names the exact perturbation it assumes and reconciles with it
-- [ ] Every rate, mean, ROI and word-rating in the report prints its derivation beside itself — both counts for a rate, the population for a mean, the subtraction for an ROI, the status tally for the Overall Performance rating — and each status follows the stated target bands (at or above target = On track · 90-99% = Watch · below 90% = Off track)
+- [ ] Every rate, mean, ROI and word-rating in the report prints its derivation beside itself — both counts for a rate, the population for a mean, the subtraction for an ROI, the status tally for the Overall Performance rating — and each KPI status follows the stated target bands (at or above target = On track · 90-99% = Watch · below 90% = Off track)
+- [ ] Every action is graded P0-P3 in every table — never High / Medium / Planned, never a schedule word in a Priority column, and a row with no work reads "no action —" plus the reason; any deadline later than its priority's default horizon states why in the same line
+- [ ] Technical Status words (Normal / Monitor / Investigate) read the movement band, not the KPI target bands, and print the comparison behind them — a published band quoted with its own window, or the site's observed variation with the span it was measured over, or no word at all where neither exists
 - [ ] Any aggregate that moved against its own segments (site-wide CTR, average position) is explained as a mix effect, with the impression-share shift stated in percentage points
 - [ ] Sections included match the audience's row in report-templates.md §4 — a board pack is the executive template alone
 - [ ] Source of each data point stated in the report's own words — the resolved tool name (Google Analytics 4, Google Search Console, Ahrefs), "user-provided", or "estimated"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
@@ -217,9 +221,9 @@ _5 KPIs scored: 1 on track, 4 watch, 0 off track — no metric fell below 90% of
 
 **SEO ROI**: ($41,000 organic revenue − $8,200 invested) ÷ $8,200 = **400%** for January
 
-**Immediate**: Fix 37 crawl errors on /pricing/ pages
-**This Month**: Optimize mobile LCP; publish 3 AI Overview comparison pages
-**This Quarter**: Build Wikidata entry for CloudHost Inc.
+**Immediate (P1)**: Fix 37 crawl errors on /pricing/ pages
+**This Month (P2)**: Optimize mobile LCP; publish 3 AI Overview comparison pages
+**This Quarter (P3)**: Build Wikidata entry for CloudHost Inc.
 ```
 
 ## Tips for Success
@@ -233,9 +237,9 @@ _5 KPIs scored: 1 on track, 4 watch, 0 off track — no metric fell below 90% of
 
 ## Reference Materials
 
-- [Report Output Templates](./references/report-output-templates.md) — Complete output templates for all 11 report sections, including the search-performance segment block (4), the AI referral traffic cut (5b), and the client-read wording for the domain-authority and content-quality sections
+- [Report Output Templates](./references/report-output-templates.md) — Complete output templates for all 11 report sections, including the search-performance segment block (4), the AI referral traffic cut (5b), the client-read wording for the domain-authority and content-quality sections, and the P0-P3 action-priority scheme with its priority-to-horizon map (10)
 - [KPI Definitions](./references/kpi-definitions.md) — SEO/GEO metric definitions with benchmarks, good ranges, warning thresholds, the rule for quoting a benchmark verbatim, mix-shift decomposition, small-base and counterfactual arithmetic, attribution guidance, and the AI referral KPI with its hostname roster
-- [Report Templates by Audience](./references/report-templates.md) — Copy-ready templates for executive, marketing, technical, and client audiences, plus the §4 assembly table that decides which sections each audience receives
+- [Report Templates by Audience](./references/report-templates.md) — Copy-ready templates for executive, marketing, technical, and client audiences, the movement-band rule for the technical Status words (Normal / Monitor / Investigate), plus the §4 assembly table that decides which sections each audience receives
 
 ## Related Skills
 
