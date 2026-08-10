@@ -36,3 +36,28 @@ this file is the data, not the definition.
 
 | date | regression rate | repeat-failure count | tool-correctness rate | evals passed/total | caught pre-push vs post-push | notes |
 |---|---|---|---|---|---|---|
+| 2026-08-10 | n/a — no suite run | 1 | 12/12 agent, 10/12 incl. coordinator | n/a — no suite run | 8/0 | directed wave, not a routine fire; F14-r1; corpus unchanged 534/590 rec + 539/590 maj; suite totals 596→602; 16 skills bumped; PR #9 |
+
+**Column notes for the 2026-08-10 row** (kept here rather than in the notes cell, which the
+discipline holds to terse pointers):
+
+- **`evals passed/total` is `n/a`, and that is not an empty cell.** This fire ran no suite —
+  it applied fixes found by the previous fire's blind runs. The corpus is unchanged at
+  `534/590` as recorded and `539/590` under the majority convention. **Two figures, because
+  this column's schema assumes one**, and `scripts/eval-corpus-report.sh` refuses to print a
+  headline while five suites of twenty leave the Greek editor's slot uncounted and fifteen
+  count it. The structural fix landed this fire (the slot now stays in `total` and never in
+  `passed`), so the column becomes single-valued on the next re-run, not now. Four suites'
+  totals shifted, so those rebaseline rather than compare.
+- **`repeat-failure count` is scoped to this fire, not to the day.** One recurrence was
+  recorded here: F14 Recurrence 1. The day carried more across earlier waves; counting those
+  here would double-count them against the first routine fire's row.
+- **`tool-correctness` is given twice on purpose.** Twelve agent runs (nine dispatches, three
+  resumed) reported no tool misuse and clean validators. The coordinator made two errors in
+  the same class: a directory `git add` swept an agent's in-flight file into the stage, and
+  the explicit-path correction then omitted a finished file. A single blended rate would have
+  hidden that every defect in this cell was mine.
+- **`caught pre-push` counts gate FAILs only** — two claims-gate lexicon hits and six
+  commit-scope-check failures, all on the coordinator's own commits. It does not count the
+  defects agents found in skills, which are the fire's actual output, nor the four stale
+  ruling pointers an agent found that no gate looks for.
