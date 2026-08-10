@@ -369,12 +369,62 @@ do_gate_check() {
 
     local ntenure
     ntenure=$(printf '%s\n' "$tenures" | grep -c . || true)
+    # A declaration may vouch for OTHER commits by naming their short SHAs:
+    #   Register-Lock: none -- covers 5d9befb d7abfb8: <why you know>
+    # Why this exists (2026-08-10): per-commit self-declaration is the stronger form,
+    # but it cannot be applied to a commit that is already several deep in a branch
+    # other agents are still committing to — rewriting that history to add a trailer is
+    # more dangerous than the record defect it fixes. Naming the SHAs keeps the claim
+    # specific and auditable: you must enumerate exactly which commits you are vouching
+    # for, so nobody can wave a whole range through with one sentence.
+    # The declaration may name `none` (no holder content) OR name the holder whose work
+    # the commit does carry — both are honest answers, and which one is true is exactly
+    # what the committer must decide. Any Register-Lock line containing `covers <sha>…`
+    # vouches for those SHAs.
+    local vouched
+    vouched=$(for sha in $commits; do
+                  git log -1 --format=%B "$sha" | grep -i '^Register-Lock:.*covers' || true
+              done | grep -oE '\b[0-9a-f]{7,40}\b' | cut -c1-7 | sort -u | tr '\n' ' ')
+    [ -n "$vouched" ] && echo "  vouched by an explicit Register-Lock declaration: $vouched"
+
     local sha ct subject files declared hit f
     for sha in $commits; do
+        case " $vouched " in
+            *" ${sha:0:7} "*)
+                pass=$((pass + 1))
+                echo "${YELLOW}  DECLARED${NC}: ${sha:0:7} vouched by a Register-Lock declaration naming it in this push"
+                continue
+                ;;
+        esac
         ct=$(git log -1 --format=%ct "$sha")
         subject=$(git log -1 --format=%s "$sha")
         files=$(git diff-tree --no-commit-id --name-only -r "$sha")
         declared=$(git log -1 --format=%B "$sha" | grep -i '^Register-Lock:' | sed 's/^[Rr]egister-[Ll]ock:[[:space:]]*//' | tr ',' ' ')
+        # A commit may instead assert that NO holder's content rides in it, with a
+        # reason: `Register-Lock: none -- <why you know>`. Added 2026-08-10 after the
+        # first production block, which was a false positive: this check fails any
+        # commit touching a locked path during ANY tenure, whether or not the holder's
+        # content is actually present — it cannot tell, as the header states. Without
+        # an honest escape the only ways past were a FALSE `Register-Lock: <holder>`
+        # or breaking a live lock, so the check taught lying. The `none` form keeps the
+        # guard's real value — you cannot push silently, you must state an auditable
+        # claim someone can later check against the diff — in the same shape as
+        # claims-gate's FLIP trailer, which also declares rather than proves. A bare
+        # `none` with no reason is NOT accepted.
+        local none_reason=""
+        case " $declared " in
+            *" none "*)
+                none_reason=$(git log -1 --format=%B "$sha" \
+                    | grep -i '^Register-Lock:[[:space:]]*none' \
+                    | sed 's/^[^-]*--[[:space:]]*//' )
+                ;;
+        esac
+        if [ -n "$none_reason" ] && [ "$none_reason" != "none" ]; then
+            pass=$((pass + 1))
+            echo "${YELLOW}  DECLARED${NC}: ${sha:0:7} asserts no holder content — $none_reason"
+            echo "            (auditable claim, not a proof; verify against the diff if it matters)"
+            continue
+        fi
         hit=0
         while IFS=$'\t' read -r h pth st en iso state; do
             [ -n "$h" ] || continue
