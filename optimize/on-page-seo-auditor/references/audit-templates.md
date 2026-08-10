@@ -210,8 +210,22 @@ percentage is unusable: the same page yields wildly different figures under diff
 
 Run a quick scan of on-page-relevant CORE-EEAT items. Reference: [CORE-EEAT Benchmark](../../references/core-eeat-benchmark.md)
 
+**This scan is an operator surface, and its fence says so.** It is triage, not a report section:
+its pass count never enters the /100 overall, the client's worked report does not print it
+([audit-example.md](./audit-example.md)), and its ID column is the input the escalation payload
+below is built from — a 17-item scan travels as failing item IDs and never as a dimension score
+([inter-skill-handoff.md § 4.3](../../../references/inter-skill-handoff.md)). A framework item ID
+is a coordinate in a document the client has never opened, so the label goes **inside** the fence,
+in that fence's own syntax — a model copies the fence, not the heading above it (`CLAUDE.md`
+§ The Reader Test, clause 2). What the client gets from this scan is Step 11's Priority Issues,
+in plain words.
+
 ```markdown
-## CORE-EEAT Quick Scan
+<!-- OPERATOR BLOCK — for whoever runs this audit, not part of the client report. The ID column
+     is a coordinate into the 80-item benchmark and feeds the escalation payload below. Nothing
+     in this fence goes to the client as written: its findings reach them as plain-language
+     Priority Issues in Step 11. -->
+### CORE-EEAT quick scan — operator triage
 
 Content-relevant items from the 80-item benchmark:
 
@@ -219,7 +233,7 @@ Content-relevant items from the 80-item benchmark:
 |----|-----------|--------|-------|
 | C01 | Intent Alignment | ✅/⚠️/❌ | Title promise = content delivery |
 | C02 | Direct Answer | ✅/⚠️/❌ | Core answer in first 150 words |
-| C09 | FAQ Coverage | ✅/⚠️/❌ | Structured FAQ present |
+| C09 | FAQ Coverage | ✅/⚠️/❌ | Visible Q&A block covering long-tail follow-ups; markup not required for the Pass |
 | C10 | Semantic Closure | ✅/⚠️/❌ | Conclusion answers opening |
 | O01 | Heading Hierarchy | ✅/⚠️/❌ | H1→H2→H3, no skipping |
 | O02 | Summary Box | ✅/⚠️/❌ | TL;DR or Key Takeaways |
@@ -238,10 +252,11 @@ Content-relevant items from the 80-item benchmark:
 **CORE-EEAT Quick Score**: [X]/[Y] items passing ([Z] N/A or unverifiable, excluded)
 ```
 
-The escalation to a full audit is a **handoff**, and the slug makes it operator-addressed — so it
-leaves the scan fence above and gets a fence of its own, with its label **inside** it. A model
-copies the fence, not the sentence beneath it (`CLAUDE.md` § The Value Rule, clause 2; handoff
-sub-rule: [inter-skill-handoff.md § 3.1](../../../references/inter-skill-handoff.md)).
+The escalation to a full audit is a **handoff** carrying its own payload, so it stays in a fence
+of its own rather than folded into the scan above — separately copyable, separately labelled,
+with the label **inside** it. A model copies the fence, not the sentence beneath it (`CLAUDE.md`
+§ The Value Rule, clause 2; handoff sub-rule:
+[inter-skill-handoff.md § 3.1](../../../references/inter-skill-handoff.md)).
 
 ```markdown
 <!-- OPERATOR BLOCK — for the client's team, not part of the report above. Nothing in this fence
@@ -361,7 +376,7 @@ These changes will have immediate impact:
 - [ ] Add [X] more internal links
 - [ ] Add alt text to [X] images
 - [ ] Add [X] more content sections
-- [ ] Implement FAQ schema
+- [ ] Add the page's one primary schema type, where it is missing
 - [ ] [Additional action items]
 
 ## Expected Results

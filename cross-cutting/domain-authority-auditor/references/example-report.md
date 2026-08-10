@@ -52,7 +52,7 @@ part of what it is demonstrating.
 Sorted by: weight × points lost (highest impact first). Potential gain = recoverable points
 (10 from Fail, 5 from Partial) × that dimension's weight.
 
-1. **C05 AI Citation Volume** — Increase citations in AI-generated answers
+1. **C05 AI Citation Frequency** — Increase citations in AI-generated answers
    - Current: Partial | Potential gain: 5 × 40% = 2.0 weighted points | Evidence: graded Partial in the dimension table above | Confidence: Likely (sampled AI answers, not exhaustive)
    - Action: Optimize top 10 pages for GEO; add definitive statements AI can quote directly
 
@@ -60,19 +60,19 @@ Sorted by: weight × points lost (highest impact first). Potential gain = recove
    - Current: Fail | Potential gain: 10 × 15% = 1.5 weighted points | Evidence: graded Fail in the dimension table above (no entity entry found) | Confidence: Confirmed
    - Action: Create Wikidata entry for CloudHost Inc. with P856 (website), P452 (industry), P571 (inception)
 
-3. **E04 Content Freshness Cadence** — 40% of content is >12 months without update
-   - Current: Partial | Potential gain: 5 × 25% = 1.25 weighted points | Evidence: content inventory, 40% of URLs >12 months old | Confidence: Confirmed
+3. **T08 Content Freshness Signal** — 40% of content is >12 months without update
+   - Current: Partial | Potential gain: 5 × 20% = 1.0 weighted points | Evidence: content inventory, 40% of URLs >12 months old | Confidence: Confirmed
    - Action: Establish monthly content refresh schedule; prioritize top 20 traffic pages
 
-4. **I03 Brand SERP Control** — Branded SERP shows only 4 of 10 results from owned properties
+4. **I03 Brand SERP Ownership** — Branded SERP shows only 4 of 10 results from owned properties
    - Current: Partial | Potential gain: 5 × 15% = 0.75 weighted points | Evidence: branded-SERP scan, 4 of 10 results owned | Confidence: Confirmed
    - Action: Claim Google Business Profile; build out social profiles; create CrunchBase entry
 
-5. **I05 Schema.org Completeness** — Organization schema missing sameAs, founder, foundingDate
+5. **I04 Schema.org Coverage** — Organization schema present but incomplete: sameAs, founder and foundingDate absent
    - Current: Partial | Potential gain: 5 × 15% = 0.75 weighted points | Evidence: markup crawl, properties absent from Organization schema | Confidence: Confirmed
    - Action: Add complete Organization schema with sameAs links to Wikidata, LinkedIn, CrunchBase
 
-These five together are worth 2.0 + 1.5 + 1.25 + 0.75 + 0.75 = **6.25 weighted points** — the sum of the individual gains, no more.
+These five together are worth 2.0 + 1.5 + 1.0 + 0.75 + 0.75 = **6.0 weighted points** — the sum of the individual gains, no more.
 
 ### Action Plan
 
@@ -102,8 +102,18 @@ yet, so we cannot say which of the two is holding the site back. A content revie
 landing pages settles it, and is the cheaper of the two to run first.
 ```
 
-The client's report ends at that fence. The follow-up runs go in a **separate fence of their own**,
-and the label lives **inside** it — a model copies the fence, not the heading above it
+The client's report ends at that fence.
+
+**Why row 3 of the Top 5 is worth 1.0 and not 1.25** — a note for whoever runs this audit, not
+part of the report above. Each potential gain takes the weight of the dimension its item belongs
+to, and freshness is `CITE-T08`, a Trust item at 20%, not an Eminence item at 25%. Read the item
+ID off [cite-domain-rating.md](../../../references/cite-domain-rating.md) § 2 before multiplying:
+the dimension letter in the ID *is* the weight selector, so a mis-attributed item prices the fix
+wrongly even when the grade behind it is right. The Top 5 stays sorted by the gains as computed —
+2.0 · 1.5 · 1.0 · 0.75 · 0.75 — and the closing sum equals those five numbers added, nothing else.
+
+The follow-up runs go in a **separate fence of their own**, and the label lives **inside** it —
+a model copies the fence, not the heading above it
 (`CLAUDE.md` § The Value Rule, clause 2; the handoff sub-rule is
 [inter-skill-handoff.md § 3.1](../../../references/inter-skill-handoff.md)). Continuing the same
 example:
@@ -116,7 +126,7 @@ example:
 | Run | Why | Payload |
 |-----|-----|---------|
 | `content-quality-auditor` | Settles the diagnosis above — domain authority is mid-range and content is unmeasured | cloudhosting.com, Content Publisher · the 5 landing pages, one row each · `CITE C:70 I:55 T:80 E:65` · vetoes `CITE-T03` pass, `CITE-T05` pass, `CITE-T09` pass · audited 2025-02-03 |
-| `entity-optimizer` | Identity is the weakest dimension (55/100) and carries two of the top 5 priorities | cloudhosting.com, Content Publisher · priority `CITE-I01, CITE-I03` · `CITE C:70 I:55 T:80 E:65` · audited 2025-02-03 |
+| `entity-optimizer` | Identity is the weakest dimension (55/100) and carries three of the top 5 priorities | cloudhosting.com, Content Publisher · priority `CITE-I01, CITE-I03, CITE-I04` · `CITE C:70 I:55 T:80 E:65` · audited 2025-02-03 |
 | `/seo:report` | Quarterly trend tracking against this baseline | cloudhosting.com · baseline `CITE C:70 I:55 T:80 E:65`, audited 2025-02-03 |
 ```
 

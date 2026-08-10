@@ -1,13 +1,13 @@
 ---
 name: domain-authority-auditor
-version: "4.3.0"
+version: "4.3.1"
 description: 'Run the full 40-item CITE domain authority audit across 4 dimensions with domain-type weighting and veto checks. Use when the user asks to "audit domain authority", "domain trust score", "CITE audit", "how authoritative is my site", "domain credibility check", "is my domain trustworthy", "domain credibility score", "domain rating". For content-level assessment, see content-quality-auditor. For link profile details, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.0"
+  version: "4.3.1"
   geo-relevance: "medium"
   tags:
     - seo
@@ -245,6 +245,11 @@ and any "what the score would be if X" projection. Three rules carry most of the
    gain claim equals the sum of the gains it aggregates; a projected range equals the
    difference of its own two endpoints.
 3. **The tables win** — if a sentence disagrees with the table above it, fix the sentence.
+4. **The item ID selects the weight** — a gain is recoverable points × *that item's own
+   dimension* weight, and the dimension letter in the ID is what picks it. Check the ID and its
+   name against `references/cite-domain-rating.md` § 2 before multiplying: freshness is `T08`
+   (Trust), not `E04` (Technical Crawlability), and those two weights differ, so a mis-attributed
+   item prices the fix wrongly even when the grade behind it is right.
 
 Formulas, N/A rescaling, veto-cap handling, and worked gain/projection examples:
 [references/score-arithmetic.md](./references/score-arithmetic.md).

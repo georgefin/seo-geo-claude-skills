@@ -81,7 +81,7 @@ Score Breakdown (bar = share of that section's scored maximum):
 - [ ] 1,500+ words for competitive topics
 - [ ] 3+ internal links with varied anchors
 - [ ] Images with descriptive alt text
-- [ ] FAQ section with schema
+- [ ] Visible FAQ section covering long-tail follow-ups (markup not required)
 - [ ] Author bio with credentials
 ```
 

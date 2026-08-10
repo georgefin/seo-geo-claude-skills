@@ -335,7 +335,20 @@ H2: More Information
 - Fully responsive, passes mobile-friendly test
 - LCP: 1.8s on mobile
 - HTTPS with valid certificate
-- Article + FAQ schema implemented
+- Article schema implemented — one primary type, matching what the page is
+
+**One primary type earns the point; a second content type adds nothing to it.** The criterion
+above says "appropriate schema *type*", singular: Article on an article, HowTo on a how-to,
+Product on a product, FAQPage only where the page genuinely is an FAQ page. Documented
+auxiliaries alongside the primary type are fine and cost nothing — BreadcrumbList for a real
+breadcrumb trail, Organization/Person nested as publisher or author — because each has its own
+non-citation job. Stacking a **second full content type** (FAQPage bolted onto an article,
+Article + Product both as primaries) earns no extra point here: extra types are not a citation
+lever, and the boundary is the shipped one —
+[core-eeat-benchmark.md](../../../references/core-eeat-benchmark.md) § 5 (single primary type,
+item O05) and § 7 item C09, where a page's FAQ credit is earned by the **visible on-page Q&A
+block**, with or without markup. Score the schema criterion on the primary type the page actually
+needs; recommend the missing one, never a second one.
 
 **Score 5/10 (Needs Work)**:
 - URL: /blog/?p=4532 (not descriptive)
