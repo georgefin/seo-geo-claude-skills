@@ -1717,7 +1717,7 @@
       "defect": "§6 family-5's greppable token list (`κανέν · καμί · τίποτ · πουθενά · ποτέ`) MISSES THE NOMINATIVE n-word «κανείς», and being CASE-SENSITIVE it misses capitalised forms — Greek does not case-fold under grep -i.",
       "evidence": "The backlink e3 Greek output contains «Κανένα εργαλείο δεν είναι συνδεδεμένο», «Κανένα εμπορικό anchor δεν επαναλαμβάνεται» and «για να μη σας το πουλήσει κανείς» — all correct Greek, none of which the published pattern would surface for hand-checking.",
       "corroboration": "The same case-sensitivity bug independently bit FIVE runs' own checkers in this wave (serp, competitor, performance, backlink, entity, memory), and the entity runner noted it was 'one line away from producing a false Greek FAIL'. This is a systematic, reproducible defect in the published pattern, not a one-off.",
-      "status": "OPEN — carrier fix not made in this record's scope; queued for the coordinator."
+      "status": "CLOSED same-wave, 225a3c4 (seo-content-writer 4.2.4). Recorded as OPEN in this file's first draft because the fix landed in a parallel agent while this record was being written; corrected here rather than left standing. The fix adds the nominative «κανείς» and matches both the n-word tokens and the «δεν» licenser case-insensitively, and the limits paragraph now carries a reproduced check rather than an assertion: grep -i 'δεν' missed «Δεν έγινε καμία νέα μέτρηση.» under the default LC_CTYPE=POSIX and matched it under LC_ALL=C.UTF-8 (GNU grep 3.11, this container, 2026-08-10)."
     },
     "coverage_honesty": "The binding editor judged 7 of the 13 Greek artefacts this wave. SIX REMAIN UNJUDGED: greek-out-ranktracker-e3.md, greek-out-performance-e5.md, greek-out-alertmanager-e3.md, greek-out-backlink-e3.md, greek-out-entity-e4.md, greek-out-memory-e4.md. Their suites' Greek expectations are recorded here on their MECHANICAL layers only. Any statement that this wave's Greek is clean applies to seven files, not thirteen.",
     "out_of_remit_flag_routed": "The editor flagged, outside its language remit, that greek-out-refresher-e3.md L87 states «τα FAQ rich results αποσύρθηκαν το 2026» while it understood Google's FAQ rich-result deprecation to be on record as August 2023. NOT actioned in the editor pass — R3 is non-relitigable without new primary evidence. A verification lane was opened the same day; see research_lane_r3_w12.",
@@ -1729,14 +1729,16 @@
       "expectations": "e2.5 / e2.6",
       "defect": "MUTUALLY UNSATISFIABLE AS WRITTEN",
       "detail": "e2.5 requires the factual correction to be made 'against the ΓΕΜΗ incorporation date of 14/03/2019', but that date lives in entity-profiles-inventory-pharos.md, which is NOT in eval 2's files list (only the mention log is). e2.6 simultaneously requires every date to trace to 'the log'. LITERAL SATISFACTION OF e2.5 WOULD VIOLATE e2.6. Suggested fix from the runner: add the inventory to eval 2's files, or reword to 'against the company's registry incorporation date'.",
-      "effect_on_this_baseline": "e2.5 was graded on its operative clauses and PASSED; the conflict is logged rather than resolved by the grader."
+      "effect_on_this_baseline": "e2.5 was graded on its operative clauses and PASSED; the conflict is logged rather than resolved by the grader.",
+      "status": "FIXED same-wave, bb6ef16. The date requirement was dropped rather than exempting registry facts from the tracing rule: the eval's prompt states the mention log is everything the client has, so a registry exception would have licensed exactly the unsourced-assertion class this suite exists to catch. Passing shape now asks the CEO to supply the incorporation date instead of asserting one."
     },
     {
       "suite": "memory-management",
       "expectations": "E3.1 / E3.3",
       "defect": "ONE SENTENCE CAN SATISFY ONE EXPECTATION AND FAIL THE OTHER",
       "detail": "E3.1 REWARDS quoting the skill's hot-cache line ceiling; E3.3 DISQUALIFIES routing decided 'by a generic size argument'. A blind executor that leads with the ceiling, as E3.1 asks, can satisfy one and fail the other on the same sentence. Suggested fix from the runner: make E3.3 require the promotion/demotion criteria as an ADDITIONAL stated basis rather than as an alternative to the size argument.",
-      "effect_on_this_baseline": "This is one of the four memory FAILs (E3.3). It is recorded as a real FAIL because the promotion/demotion criteria genuinely are absent — but the suite made the trap cheaper to fall into than to avoid."
+      "effect_on_this_baseline": "This is one of the four memory FAILs (E3.3). It is recorded as a real FAIL because the promotion/demotion criteria genuinely are absent — but the suite made the trap cheaper to fall into than to avoid.",
+      "status": "FIXED same-wave, bb6ef16. The size ceiling may now be cited as context; only a routing decision whose sole stated ground is bulk fails. Reworded against references/promotion-demotion-rules.md so the binding basis is the skill's own promotion/demotion criteria."
     }
   ],
   "suite_defects_found_by_the_blind_runs_note": "BOTH DEFECTS WERE FOUND BY THE BLIND RUNS AND NEITHER WAS FOUND BY TEN INFORMED-EXECUTOR RUNS ACROSS TWO WAVES OF MODE A REVIEW. An executor that knows the expectations unconsciously reconciles them; an executor that does not, walks into the conflict and makes it visible. That is a second, independent argument for the blind protocol beyond score realism.",
@@ -1806,7 +1808,8 @@
       "They carry no variance estimate: every eval ran exactly once, so a single re-run could move any of these rates and nothing here says by how much.",
       "They do not measure the skills against each other's difficulty: entity-optimizer's 62.1% is not evidence that entity-optimizer is the worst skill in the library — it is the hardest-graded suite run under the strictest method, and its expectations bundle more clauses per verdict than most.",
       "They do not close the informed/blind question: re-running the ten informed suites blind is the only way to learn what those skills actually do, and that work is not done."
-    ]
+    ],
+    "record_correction_note": "This file was corrected once after its first commit: two items it recorded as OPEN (the §6 coverage gap and both suite-defect pairs) had been fixed by a parallel agent while it was being assembled. The corrections are stamped with their commits above. No result, score or FAIL was altered."
   },
   "research_lane_r3_w12": {
     "why_it_is_in_this_record": "The lane was opened by this wave: the binding Greek editor, judging content-refresher's Greek output, flagged out-of-remit that «τα FAQ rich results αποσύρθηκαν το 2026» disagreed with its understanding of an August-2023 deprecation. The eval wave produced the finding, so the eval record carries it.",
