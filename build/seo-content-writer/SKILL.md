@@ -1,13 +1,13 @@
 ---
 name: seo-content-writer
-version: "4.2.4"
+version: "4.2.5"
 description: 'Write search-engine-optimized blog posts, landing pages, and articles with keyword integration, header hierarchy, and featured snippet targeting. Use when the user asks to "write SEO content", "create a blog post", "write an article", "draft optimized content", "write a landing page", or "SEO copywriting". Creates keyword-optimized content using a 12-step workflow with CORE-EEAT checklist, title optimization, meta description, H1/H2/H3 hierarchy, and internal/external linking. For AI-citation optimization, see geo-content-optimizer. For updating existing content, see content-refresher.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.2.4"
+  version: "4.2.5"
   geo-relevance: "medium"
   tags:
     - seo
@@ -95,6 +95,8 @@ Ask the user to provide:
 4. Any competitor URLs or content examples to reference
 
 Proceed with the full workflow using provided data. Note in the output which metrics are from automated collection vs. user-provided data.
+
+**Resolve every `~~category` token before the deliverable leaves.** The token addresses you and the operator, never the reader: write the connected tool's real name (Ahrefs, Google Search Console), or name the actual source in plain language ("your 28-day Search Console export"), or state that no tool was connected and the figure is unavailable — never a token where a source or a number belongs. Internal surfaces keep it (this skill's own text, references, gap notes that stay in-house). See [references/anti-slop-ruleset.md](./references/anti-slop-ruleset.md) §6 family 7 and the root CLAUDE.md Tool Connector Pattern rule.
 
 ## Instructions
 
@@ -301,7 +303,7 @@ When a user requests SEO content:
 - [ ] Internal links included (2-5 relevant links)
 - [ ] FAQ section present with at least 3 questions
 - [ ] Readability score appropriate for target audience
-- [ ] Source of each data point clearly stated (~~SEO tool data, user-provided, or estimated)
+- [ ] Source of each data point clearly stated in the deliverable's own words — the resolved tool name (Ahrefs, Google Search Console), "user-provided", or "estimated"; never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 - [ ] Anti-slop self-check passed (vocabulary tiers, structure, information gain, specificity — [references/anti-slop-ruleset.md](./references/anti-slop-ruleset.md) §5)
 
 ## Example

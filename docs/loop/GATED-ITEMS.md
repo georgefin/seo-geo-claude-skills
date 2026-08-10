@@ -233,20 +233,20 @@ watching), G4 harvest merged (PR #4).**
   v4.4.0 on main — see Continuation notes below).
 - **Proposal**: The current spec diverges from this repo's own rules:
   - agentskills.io/specification.md (checked 2026-08-08): SKILL.md frontmatter defines
-    **no top-level `version` field** (6 fields only) — repo mandates it (`CLAUDE.md:46`,
+    **no top-level `version` field** (6 fields only) — repo mandates it (`CLAUDE.md:58`,
     `CONTRIBUTING.md:40`).
   - code.claude.com/docs/en/skills plugin docs (fetched 2026-08-08): documented plugin.json
     schema has **no `schemaVersion`/`id`** (only `name` required), and `commands`/`skills`
     are documented as path strings/arrays, not `{name, description, path}` objects — repo
-    mandates the opposite (`CLAUDE.md:47`; fields present at `.claude-plugin/plugin.json:2-3`;
-    added deliberately in v3.0.0, `VERSIONS.md:181` ("### v3.0.0" section —
+    mandates the opposite (`CLAUDE.md:59`; fields present at `.claude-plugin/plugin.json:2-3`;
+    added deliberately in v3.0.0, `VERSIONS.md:183` ("### v3.0.0" section —
     pointer anchor-tagged per F12, token authoritative on mismatch; had silently
     drifted from :79-88)).
   - Sketch if approved: fold `version` into `metadata` (keep `metadata.version`), trim
     non-spec plugin.json fields, run `claude plugin validate --strict` (watch-item W8).
 - **Risk**: could break ClawHub / skills.sh marketplace listings (their tolerance of the
   spec-pure format is unproven); contradicts the repo's published contribution contract,
-  so `CLAUDE.md:46-47` + the `CONTRIBUTING.md` template must change in the same PR.
+  so `CLAUDE.md:58-59` + the `CONTRIBUTING.md` template must change in the same PR.
 - **Plan**: pilot on **one** skill first; single commit so **rollback = one `git revert`**.
 - **Rollback triggers**: validator errors post-merge; marketplace listing breakage; CI red;
   contradiction reported by the next weekly run.

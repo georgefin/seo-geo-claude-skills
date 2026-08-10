@@ -45,6 +45,14 @@ State for the weekly self-improvement loop lives in `docs/loop/` — `PIPELINE.m
 
 Skills use `~~category` placeholders (e.g., `~~SEO tool`, `~~analytics`). Every skill works without any integrations (Tier 1). MCP servers in `.mcp.json` add Ahrefs, SimilarWeb, HubSpot, Amplitude, Notion, Slack.
 
+**Resolution rule (binding, ruled 2026-08-10 after a second binding-editor pass found the tokens in client-facing output — 19 occurrences in one Greek report):** a `~~category` token is a template artefact addressed to the **skill author and the operator**. It names a tool *category* so skill text stays tool-agnostic; it is not a word in any deliverable language and must never survive onto a surface a client reads. Resolve it when the output is written:
+
+1. **Tool connected** → write the tool's real name — "Google Search Console", "Ahrefs".
+2. **No tool, data from elsewhere** → name that source in plain language, in the deliverable's language — "your 28-day Search Console export", «από το αρχείο που στείλατε», "hand-checked in incognito, 10 Aug".
+3. **No tool and no data** → say exactly that and leave the figure out: no tool was connected, so the number is unavailable. Never a token standing in for a number (statistics rule; matches the honest zero-data eval expectations).
+
+The rule resolves the **word**, never the workflow — Tier 1 operation with zero connectors is unaffected. **The test is the reader, not the section**: surfaces read only by the author or the operator keep the token (skill text and references, eval expectations, `CONNECTORS.md`, in-house gap tables and operator notes — the reader there holds the mapping). Anything handed to the client resolves it, including a client-read report's data-source column, gap table, and limitation notes. Carrier: `build/seo-content-writer/references/anti-slop-ruleset.md` §6, FAIL-grade family 7 (greppable `~~`).
+
 ## Contribution Rules
 
 - All `SKILL.md` files must include: `name`, `description`, `license`, `compatibility`, `metadata` frontmatter. `metadata.version` is the version authority (G1 pilot, 2026-08-08): a top-level `version` field is tolerated on legacy skills (must stay in lockstep with `metadata.version`) and absent on spec-aligned ones — full migration pending the pilot verdict (`docs/loop/GATED-ITEMS.md` G1)

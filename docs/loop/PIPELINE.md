@@ -46,8 +46,8 @@ verdict; ledgered failures must not be repeated — repeating one is an incident
    completes against its frozen SHAs and its findings land fix-forward on the
    successor accumulator. The review is never skipped, only its landing point
    moves. Branch naming
-   per `CLAUDE.md:54` (`feature/…`, `fix/…`, `docs/…`); cloud sessions use their assigned
-   `claude/*` branch. Skill edits trigger the 5-tracking-file sync (`CLAUDE.md:53`);
+   per `CLAUDE.md:62` (`feature/…`, `fix/…`, `docs/…`); cloud sessions use their assigned
+   `claude/*` branch. Skill edits trigger the 5-tracking-file sync (`CLAUDE.md:61`);
    docs-only changes (this directory) do NOT.
 4. **VALIDATE** — two legs, both required:
    (i) STRUCTURAL: `scripts/pre-push-gate.sh` before EVERY push — runs

@@ -80,7 +80,7 @@ authoritative.
 
 - **Claim**: Translation-only pages lose AI-engine citations to the strongest-language
   version (often EN) — treat thin EL/DE translations as a citation risk.
-- **Where**: `build/seo-content-writer/SKILL.md:275` (pointer refreshed 2026-08-08 after the anti-slop wave).
+- **Where**: `build/seo-content-writer/SKILL.md:277` (pointer refreshed 2026-08-10 after the 4.2.5 connector-rule insertion; previously 2026-08-08 after the anti-slop wave).
 - **Source**: searchengineland.com/multilingual-regions-ai-search-future-478282 (2026, day n/a).
 - **Resolves when**: engine-primary documentation or a robust multilingual citation study.
 - **Cadence**: quarterly.
