@@ -237,6 +237,10 @@ Score each identified gap on 5 factors (1-5 scale each):
 
 **Gap Priority Score** = Σ (Factor Weight x Score)
 
+Weights are decimals — 25% is 0.25, and the five sum to 1.00 — so the score lands in 1.0-5.0, the tier range below. Reading them as whole percents gives 100-500 and reaches no tier.
+
+**When a factor cannot be scored.** Search Demand is banded in monthly search volume, so with no SEO tool connected and nothing supplied it has no input; the Quick Win Score below consumes the same factor. Do not guess it. Either score it from a **named proxy** and state that basis in the report (competitor cluster depth, the site's own analytics sessions on adjacent pages), or **drop the factor** and renormalise the remaining weights over their own sum. Dropping Search Demand leaves 0.75, so Competitive Density becomes 0.20/0.75 = 0.267, Business Relevance 0.25/0.75 = 0.333, Creation Effort 0.15/0.75 = 0.20 and Conversion Potential 0.15/0.75 = 0.20 — which still sum to 1.00, so the tiers below stay readable. State the rescaling (the denominator or the renormalised weights) and name the dropped factor in the report. A Search Demand score resting on an invented volume figure is not a scored factor; it is a guess wearing a weight.
+
 ### Priority Tiers
 
 | Tier | Score Range | Timeline | Action |

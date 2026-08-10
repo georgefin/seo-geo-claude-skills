@@ -1,13 +1,13 @@
 ---
 name: content-gap-analysis
-version: "4.0.5"
+version: "4.1.0"
 description: 'Find content opportunities by identifying topics and keywords your competitors cover that you don''t. Use when the user asks to "find content gaps", "what am I missing", "topics to cover", "content opportunities", "what topics am I missing", "where are my content blind spots", "untapped topics", or "content strategy gaps". For broader competitive intelligence, see competitor-analysis. For general keyword discovery, see keyword-research.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.0.5"
+  version: "4.1.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -161,6 +161,8 @@ When a user requests content gap analysis:
 
    Produce a final report with: Executive Summary, Prioritized Gap List (Tier 1 Quick Wins, Tier 2 Strategic Builds, Tier 3 Long-term), Content Calendar, and Success Metrics.
 
+   **When a factor cannot be scored, do not invent its input.** The Gap Priority Score bands Search Demand in monthly search volume, and Step 4's categories need difficulty. With no SEO tool connected and nothing supplied, neither figure exists for this run — and guessing one produces a precise-looking ranking with nothing behind it. Two routes are honest, and the report states which it took. **Named proxy**: score the factor from something the supplied data actually contains and name that basis in the report — e.g. "Search Demand scored from competitor cluster depth (9 + 4 articles across the two competitors); a coverage proxy, not a volume measurement". **Drop it**: leave the factor unscored, renormalise the remaining weights over their own sum, and state the rescaling — the denominator or the renormalised weights — together with which factor dropped out and why. Read the P0-P3 tiers against the renormalised score; see [references/gap-analysis-frameworks.md](./references/gap-analysis-frameworks.md) §4. The same discipline governs the label: "estimated" is a source label only where the estimate has a stated basis — a range the user gave, a named proxy, a hand-check you describe. With no tool and nothing supplied there is nothing to estimate from, so the cell carries an explained N/A and the report says so in plain words.
+
    > **Reference**: See [references/analysis-templates.md](./references/analysis-templates.md) for detailed templates for each step.
 
 ## Validation Checkpoints
@@ -174,7 +176,7 @@ When a user requests content gap analysis:
 ### Output Validation
 - [ ] Every recommendation cites specific data points (not generic advice)
 - [ ] Gap analysis compares like-to-like content (topic clusters to topic clusters)
-- [ ] Priority scoring based on measurable criteria (volume, difficulty, business fit)
+- [ ] Priority scoring based on measurable criteria (volume, difficulty, business fit) — and where an input is unavailable, on the factors that can be scored, with the named proxy or the renormalisation stated per Step 9 rather than a guessed volume
 - [ ] Content calendar maps gaps to realistic timeframes
 - [ ] Source of each data point stated in the report's own words — the resolved tool name (Ahrefs, Google Analytics 4, Otterly), "user-provided", or "estimated"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 
