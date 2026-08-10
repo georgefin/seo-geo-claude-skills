@@ -1075,3 +1075,62 @@ its own stated convention. Each is correct as recorded. What fails is the set.
   states. **Resolves when**: a probe installs the plugin from a directory source and reports
   whether the handoff convention is in the session's context. Not probed here.
 - **Status**: opened, carrier fix queued, amplifier unprobed. FLIP: F17 -- none
+
+---
+
+## F18 — 2026-08-10 · The evidence that grounds a rule identifies the run it came from, and that identification is a hint to the next run of the same suite
+
+- **What happened**: three of the four blind executors in one wave independently reported, unprompted,
+  that a **required read** had told them which defect classes their own suite's previous run was
+  marked down for. None of them had contact with the others. Verified at source, not taken on
+  report — `build/seo-content-writer/references/anti-slop-ruleset.md`:
+  - `:174` cites `rank-tracker E3`, `keyword E2`, `schema E2` and `linking E3` with occurrence
+    counts; `:255`, `:286` and `:287` cite the rank-tracker E3 deliverable again at 19, 11 and 7
+    occurrences, naming the exact classes.
+  - `:177-181` describes the content-refresher E3 output down to **the section heading its
+    defective span sat under** («Έτοιμα κείμενα για δημοσίευση») and both of the editor's ruled
+    defects. The executor running content-refresher read this before writing its own E3.
+  - `:269` cites competitor-analysis's Greek E3 at 8 occurrences.
+  - `:265` quotes *"absent tools mean absent numbers"* — a **verbatim expectation string** from
+    `cross-cutting/domain-authority-auditor/evals/evals.json`, where it appears in two
+    expectations. Every blind executor reading the ruleset has been reading an eval expectation.
+  At least six suites are affected. The ruleset is on the required-read list for every blind run,
+  because it is skill instruction the deliverable must obey.
+- **Why this is a new mechanism and not a recurrence of F13 or F8**: nothing here is stale, and
+  nothing changed mid-run. Every cited line is accurate, current, and load-bearing — the citations
+  are what make the rules auditable rather than assertions. The defect is that **the same sentence
+  that grounds a rule for its author is a hint for the next executor of the named suite.** One
+  artefact serves two readers with opposite information needs, and the pipeline never noticed
+  because both readers were being served correctly.
+- **The tension is real and must not be resolved by deleting the evidence.** F13's fix is to state
+  a rule where the executor meets it; F15's is to ship a guard with its measured hit rate. Both
+  push toward citing the founding instance, and citing it is why `§6` can be audited at all. The
+  answer is not less provenance — it is that provenance and rule have different audiences and
+  should not share a file the executor is required to read.
+- **Effect on this wave, stated rather than smoothed**: rank-tracker is worst affected — its
+  executor wrote E3 knowing a prior E3 leaked `~~` tokens and skill slugs, which are exactly what
+  several expectations grade. content-refresher's e3 is primed on families 5 and 6 specifically.
+  Both records are being labelled **primed, not blind** at the expectation level rather than
+  discarded: a labelled run is evidence, an unlabelled one is contamination. geo-content-optimizer
+  and content-gap-analysis are unaffected by this vector.
+- **Root cause**: a rule's provenance was written for the person deciding whether the rule is
+  justified. That reader needs the suite name, the count and the date. The executor needs the rule
+  and nothing else. Putting both in one file was never a decision — the provenance accreted into
+  the carrier because the carrier is where the rule lives.
+- **Guard**: split the surface. `§6`'s rule text carries the ruled form, the pattern and the
+  protected list, and **no suite identifier, run label, occurrence count or quoted expectation**.
+  The provenance — which suite, which run, how many, which editor verdict — moves to a companion
+  record that graders and authors read and the executor's required-read list does not include.
+  A rule that cannot be stated without naming the run it came from is a rule that is not yet
+  general enough to ship.
+- **A second observation from the same wave, recorded because it is unanimous**: all four executors
+  independently declined to read `FAILURE-LEDGER.md`, each giving the same reasoning — the hard rule
+  conditions it on *"before judging anything"*, and an EXECUTOR judges nothing, while the ledger
+  indexes suite-specific failure patterns that would function as expectations. Four for four, with
+  no contact between them. They were right, and this entry is the proof: the ledger has exactly the
+  property F18 describes, more so than the ruleset. The rule is now explicit rather than inferred.
+- **Recurrence**: 0 (founding). A new `§6` entry naming a suite, a run label or an occurrence count
+  in rule text, or any quoted expectation string appearing on an executor-read surface, increments
+  this.
+- **Status**: opened; restructure queued behind the in-flight graders, which are reading the file.
+  FLIP: F18 -- none
