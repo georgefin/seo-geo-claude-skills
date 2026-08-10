@@ -168,7 +168,7 @@ notes). Graders grep the patterns given; the editor judges the rest.
 | 2 | Agency provenance labels/placeholders in publishable copy or schema | «(απαιτούνται στοιχεία προϊόντος)» inside a FAQ answer or JSON-LD → gap note in the report's gap table only; customer-voice hedging stays legitimate | `απαιτούνται στοιχεία` outside report/gap sections; any `[CLIENT DATA` / `[SOURCE NEEDED` inside paste-ready copy or schema (structural carrier: geo-content-optimizer 4.1.6 Statistics-rule Placement clause) |
 | 3 | Mechanically translated UI/label terms | «Υποχρεωτικό εκκρεμές» as a form label → natural Greek labels («Πεδίο / Τιμή / Σημείωση») | — (editor judgment) |
 | 4 | Query-style article-less labels in visible copy | «παράδοση αεροδρόμιο» as page copy → «παράδοση στο αεροδρόμιο Ηρακλείου»; keyword-export strings on explicitly keyword-list surfaces are exempt | — (editor judgment) |
-| 5 | Negative-concord violation — an n-word in a finite clause with no preverbal «δεν» | «η εκτίμηση κοστίζει μηδέν και **δεσμεύει κανέναν**» → «η προσφορά είναι δωρεάν και **δεν σας δεσμεύει σε τίποτα**». Modern Greek is a strict negative-concord language: «κανέναν / κανένα / καμία / τίποτα / ποτέ / πουθενά» beside a finite verb REQUIRE a preverbal «δεν». Without it a Greek reader resolves the affirmative — here "it commits somebody" — and the commercial promise inverts. The telegraphic nominal parallel «Κόστος μηδέν, δέσμευση καμία.» licenses no finite verb, so it is no defence once a verb appears | n-word tokens `κανέν` · `καμί` · `τίποτ` · `πουθενά` · `ποτέ`, each hit hand-checked for «δεν» in its own clause (approximation — limits stated under the table) |
+| 5 | Negative-concord violation — an n-word in a finite clause with no preverbal «δεν» | «η εκτίμηση κοστίζει μηδέν και **δεσμεύει κανέναν**» → «η προσφορά είναι δωρεάν και **δεν σας δεσμεύει σε τίποτα**». Modern Greek is a strict negative-concord language: «κανείς / κανέναν / κανένα / καμία / τίποτα / ποτέ / πουθενά» beside a finite verb REQUIRE a preverbal «δεν». Without it a Greek reader resolves the affirmative — here "it commits somebody" — and the commercial promise inverts. The telegraphic nominal parallel «Κόστος μηδέν, δέσμευση καμία.» licenses no finite verb, so it is no defence once a verb appears | n-word tokens `κανείς` · `κανέν` · `καμί` · `τίποτ` · `πουθενά` · `ποτέ` — matched CASE-INSENSITIVELY, since sentence-initial «Κανείς», «Κανένα», «Καμία», «Ποτέ» are the same tokens — each hit hand-checked for a preverbal «δεν» in its own clause, that licenser matched case-insensitively too («Δεν») (approximation — limits stated under the table) |
 | 6 | "Costs-zero" calque in publishable copy | «κοστίζει μηδέν» → «δεν κοστίζει τίποτα» / «είναι δωρεάν» | `κοστίζει μηδέν` |
 
 **Families 5–6 provenance (2026-08-10)**: both come from ONE eight-word span of paste-ready
@@ -179,10 +179,17 @@ clause that also lost its «δεν», not a stray typo.
 
 **The family-5 grep is an approximation — a review trigger, not a verdict.** No plain-text
 pattern can decide "finite verb, no «δεν» earlier in the clause"; this one is the practical
-substitute. Two steps: (1) grep the five n-word tokens; (2) from the hits drop the lines
-that also carry a licenser — «δεν», «δε», «μην», «μη», «ούτε», «χωρίς», «πριν» — matched as
-WHOLE WORDS, and hand-check what is left. Its stated limits, each of which produces wrong
-answers if ignored: the licenser test must be word-bounded, because as substrings these
+substitute. Two steps: (1) grep the six n-word tokens, case-insensitively; (2) from the
+hits drop the lines that also carry a licenser — «δεν», «δε», «μην», «μη», «ούτε», «χωρίς»,
+«πριν» — matched as WHOLE WORDS and, again, case-insensitively, and hand-check what is
+left. Its stated limits, each of which produces wrong answers if ignored: **case-insensitive
+matching is not free in Greek** — `grep -i` case-folds Greek only under a UTF-8 locale, so
+in a default `LC_CTYPE=POSIX` shell `grep -i 'δεν'` silently misses «Δεν» while the same
+pattern under `LC_ALL=C.UTF-8` matches it (checked in this repo's environment 2026-08-10,
+GNU grep 3.11, on the line «Δεν έγινε καμία νέα μέτρηση.»), so an implementer rebuilding
+this check handles capitals deliberately — set a UTF-8 locale, or write both cases into the
+pattern («[δΔ]εν», «[κΚ]ανέν», «[κΚ]αμί») — and never assumes `-i` did it; the licenser test
+must be word-bounded, because as substrings these
 strings misfire badly in both directions («δεσμεύει» contains `δε`, «μηδέν» contains `μη`,
 «μηδενικό» contains `δεν` — a substring filter would have exempted the founding instance
 itself), and Greek word boundaries are not reliably expressible in every grep; it is
@@ -191,6 +198,16 @@ line-based, so a clause split across two lines, or one line holding two clauses 
 flagged («Κόστος μηδέν, δέσμευση καμία.», «Καμία χρέωση.»); questions and conditionals
 license the n-word with no «δεν» and are correct («Έχετε καμία απορία;», «αν χρειαστείτε
 τίποτα»). It proposes candidates; the editor rules.
+
+**Family-5 coverage gap — found and closed the same day the carrier shipped (2026-08-10).**
+As first written that morning the entry listed five tokens, all lowercase, with no case
+rule. Two independent blind Mode B runs hit the hole within hours: capitalised forms
+(«Κανένα» and the licenser «Δεν», three of them in one run's own Greek output) never
+matched the pattern, so correct Greek passed unseen instead of reaching hand-checking, and
+each run's own lowercase-only licenser alternation read the correct sentence «Δεν έγινε
+καμία νέα μέτρηση» as unlicensed — one line short of a false Greek FAIL in both. The
+nominative «κανείς» was missing from the token list outright. Recorded here because the
+record should show this guard tested by the pipeline rather than assumed sound.
 
 ### Advisory families (fix on touch; internal-report surfaces non-blocking)
 
