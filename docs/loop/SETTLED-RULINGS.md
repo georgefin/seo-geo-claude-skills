@@ -59,6 +59,7 @@ before 2026-07-18 are not recoverable from the current session transcript.
   (pointers refreshed 2026-08-09, same shift as R1; VERSIONS pointer re-refreshed twice on
   2026-08-10, same two changelog insertions as R1; skill pointers re-derived at source
   2026-08-10 — see R1's note, both were already wrong at HEAD before this wave began);
+  earlier boundary alignment in `build/schema-markup-generator/` v4.1.0 (2026-08-08 wave).
 - **Carried where it is scored, not only where it is stated (added 2026-08-10)**: the ruling
   had a hole one level below every skill. `references/core-eeat-benchmark.md` item **C09**
   read "Structured FAQ with FAQPage Schema" as its Pass criterion, so the shared framework
@@ -73,8 +74,8 @@ before 2026-07-18 are not recoverable from the current session transcript.
   Downstream sweep the same day: `commands/generate-schema.md` was advising the banned shape
   outright ("Combine multiple schemas when appropriate (Article + FAQ, Product + Review)"),
   and `schema-markup-generator` was aligned on the ban while four of its FAQPage entry points
-  authorised emitting the type with no primary-type test.
-  boundary alignment in `build/schema-markup-generator/` v4.1.0 (2026-08-08 wave).
+  authorised emitting the type with no primary-type test. Its carrier for this sweep is
+  **v4.2.1 (2026-08-10)**.
 - **Reopens on**: primary evidence (Google/engine docs or engine-published research) that
   multiple types per page raise citation odds.
 
