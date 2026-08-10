@@ -803,7 +803,8 @@ regression rate · repeat-failure count · tool-correctness rate.
   discipline that fires only when there is a hit to inspect. This entry is the opposite
   direction: a **false PASS**, where the pattern matches nothing and the silence is read as
   a clean sheet. Nothing in the pipeline was watching that direction. Siblings F5 (freshness
-  checker counted future dates), F6 (designated egress mirrors were themselves blocked) and
+  checker counted future dates), F6 (designated egress mirrors were themselves unreachable
+  from this environment [obs:2026-08-08 F6 entry, verified at the time of that entry]) and
   F7 make this the fourth entry whose subject is **the instrument rather than the
   deliverable** — the single most common failure class in this ledger.
 - **Guard**: (a) `anti-slop-ruleset.md` §6 governing note over the whole pattern column —
@@ -817,7 +818,11 @@ regression rate · repeat-failure count · tool-correctness rate.
   as hand-checked rather than pretending to cover it.
 - **Recurrence**: 0 (two instances in one day counted as the founding pattern, per F7's
   precedent; a future pattern shipping without its probe increments this).
-- **Status**: guard live in `build/seo-content-writer/references/anti-slop-ruleset.md` §6.
+- **Status**: guard in `build/seo-content-writer/references/anti-slop-ruleset.md` §6
+  [obs:2026-08-10T15:52Z probe, GNU grep 3.11 under `LC_ALL=C.UTF-8` on a 9-line constructed
+  file: shipped pattern `κοστίζει μηδέν` matched 1 of the 5 defect lines, 2 with `-i`; the
+  replacement net `μηδ[εέ]ν` surfaced all 5, plus 3 further candidates the editor rules on,
+  and missed only the digit form named in the entry as a hand-checked escape].
 
 ---
 
@@ -859,4 +864,8 @@ regression rate · repeat-failure count · tool-correctness rate.
   Both carriers were corrected in the same commit that opened this entry.
 - **Recurrence**: 0 (founding). A rate quoted from an uncommitted record, or a pooled gap
   presented as a method effect without a pairing check, increments this.
-- **Status**: guards live in `PIPELINE.md` VALIDATE (ii) and `2026-08-10-blind.json`.
+- **Status**: guards in `PIPELINE.md` VALIDATE (ii) and `2026-08-10-blind.json`
+  [obs:2026-08-10T16:0Z audit — 10 blind records enumerated from the session scratchpad and
+  copied programmatically to `docs/loop/eval-baselines/blind-2026-08-10/`; totals recomputed
+  from those files reproduce the quoted rates exactly (252/286 pooled), and the pairing check
+  that produced the 4.8-point figure is rerunnable from the two committed index files].
