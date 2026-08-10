@@ -1,13 +1,13 @@
 ---
 name: meta-tags-optimizer
-version: "4.1.4"
+version: "4.2.0"
 description: 'Create and optimize title tags, meta descriptions, Open Graph tags, and Twitter cards for maximum click-through rates. Use when the user asks to "optimize title tag", "write meta description", "improve CTR", "Open Graph tags", "social media preview", "fix my meta tags", or "OG tags not showing". Produces optimized meta tags with character counting, A/B test variations, and CTR analysis. For a broader on-page audit, see on-page-seo-auditor. For structured data markup, see schema-markup-generator.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.1.4"
+  version: "4.2.0"
   geo-relevance: "low"
   tags:
     - seo
@@ -227,6 +227,8 @@ When a user requests meta tag optimization:
 
 9. **Provide CTR Optimization Tips**
 
+   The third column carries no percentage, and must not be given one back: this skill has no sourced effect size for any of these elements, and an unsourced uplift number in a client's report reads as a forecast. Single carrier for what each element does and for the order below: [references/ctr-and-social-reference.md](./references/ctr-and-social-reference.md). The measurement protocol the block sends the client to is in [references/meta-tag-formulas.md](./references/meta-tag-formulas.md).
+
    ```markdown
    ## CTR Optimization Analysis
 
@@ -236,13 +238,16 @@ When a user requests meta tag optimization:
 
    ### CTR Boosting Elements
 
-   | Element | Present | Impact |
-   |---------|---------|--------|
-   | Numbers | Yes/No | +20-30% CTR |
-   | Current Year | Yes/No | +15-20% CTR |
-   | Power Words | Yes/No | +10-15% CTR |
-   | Question | Yes/No | +10-15% CTR |
-   | Brackets | Yes/No | +10% CTR |
+   | Element | Present | What it does to the SERP entry |
+   |---------|---------|--------------------------------|
+   | Match search intent | Yes/No | Structural — decides whether the result answers the query at all |
+   | Numbers | Yes/No | Commits to a concrete scope before the click |
+   | Current Year | Yes/No | Signals recency where staleness is the reader's risk |
+   | Brackets | Yes/No | Adds a separate information unit without lengthening the main clause |
+   | Question | Yes/No | Mirrors the query's own wording when the query is itself a question |
+   | Power Words | Yes/No | Tone only — differentiates an otherwise interchangeable title |
+
+   **Expected uplift: not quoted.** No effect size for these elements comes from a named source, so this report puts no percentage on any of them. The number that matters is this page's own: change one element, wait for the re-crawl, then compare 30 days of click-through rate against the 30 days before it at a comparable average position.
 
    ### A/B Test Suggestions
 
@@ -350,7 +355,7 @@ _Complete meta tag block (with OG, Twitter, Article tags) generated using templa
 ## Reference Materials
 
 - [Meta Tag Formulas](./references/meta-tag-formulas.md) — Proven title and description formulas
-- [CTR and Social Reference](./references/ctr-and-social-reference.md) — Page-type templates, CTR data, OG best practices
+- [CTR and Social Reference](./references/ctr-and-social-reference.md) — Page-type templates, the single carrier for CTR technique guidance (no unsourced percentages anywhere in this skill), OG best practices
 
 ## Related Skills
 

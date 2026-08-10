@@ -121,7 +121,7 @@ Patterns to fill, not text to ship: every `[slot]` below resolves to the page's 
 ### Pre-Test Preparation
 
 1. **Baseline metrics** — Record current CTR, average position, impressions, and clicks for the target page (minimum 30 days of data from ~~search console).
-2. **Hypothesis** — State what you expect to change and why: "Adding a number to the title will increase CTR by X% because listicle titles outperform generic ones at this SERP position."
+2. **Hypothesis** — State what you expect to change and why, grounding the "why" in something you can point at rather than in a general claim about titles: "Adding a number to the title will raise CTR here because five of the ten results on this SERP lead with a count and ours does not." Name the size you would accept as a win before the test starts; it is your threshold, not a published effect size.
 3. **Single variable** — Change only ONE element per test (title OR description, not both).
 4. **Minimum sample** — Wait until the page has accumulated at least 1,000 impressions in the test period before drawing conclusions.
 
@@ -138,16 +138,23 @@ Patterns to fill, not text to ship: every `[slot]` below resolves to the page's 
 
 ### What to Test (Priority Order)
 
-| Priority | Element | Test Variable | Expected Impact |
-|----------|---------|--------------|-----------------|
-| 1 | Title tag | Add/remove number | +15-25% CTR |
-| 2 | Title tag | Add/remove year | +10-15% CTR |
-| 3 | Title tag | Add brackets/parentheses | +10-38% CTR |
-| 4 | Title tag | Change power word | +5-12% CTR |
-| 5 | Title tag | Reorder keyword placement | +5-10% CTR |
-| 6 | Meta description | Add CTA | +5-10% CTR |
-| 7 | Meta description | Add numbers/statistics | +5-15% CTR |
-| 8 | Meta description | Change emotional tone | +3-8% CTR |
+**No expected-impact percentage appears in this table, by rule.** This skill quotes a CTR effect
+size only with its source — publisher, year, sample — and has none on file for any of these
+changes; the reasoning and the single carrier for technique guidance are in
+`ctr-and-social-reference.md`. The ordering below is this skill's judgement about how much of the
+listing's promise each change moves, not a measured effect ranking. The magnitude for the page in
+front of you is what the protocol above exists to produce.
+
+| Priority | Element | Test Variable | Why it sits here |
+|----------|---------|--------------|------------------|
+| 1 | Title tag | Add/remove number | Changes what the entry promises about scope — the largest single shift in meaning a title can make |
+| 2 | Title tag | Add/remove year | Changes the freshness claim: decisive on "best"/"top" queries, close to irrelevant on evergreen ones |
+| 3 | Title tag | Add brackets/parentheses | Adds a second information unit without spending the main clause |
+| 4 | Title tag | Change power word | Tone only — the promise is unchanged |
+| 5 | Title tag | Reorder keyword placement | Affects truncation and scanability more than meaning; matters most when the keyword currently falls past 60 characters |
+| 6 | Meta description | Add CTA | The description does not rank, so every description test is a CTR-only test — start with the element that is missing |
+| 7 | Meta description | Add numbers/statistics | Same class as the title's number, on a surface Google rewrites more often |
+| 8 | Meta description | Change emotional tone | Tone only, on the surface with the weaker claim on the click |
 
 ### Interpreting Results
 
@@ -199,6 +206,17 @@ Keep the core title evergreen but append a freshness signal:
 ---
 
 ## CTR Benchmarks by Industry
+
+`[VERIFY]` **No source is on file for any figure in this section.** The position curve and the
+per-vertical bands below carry no publisher, year, methodology, or sample size, no citation
+accompanies them here, and none exists anywhere else in this repository (grepped 2026-08-10 while
+reconciling this skill's CTR effect-size cluster; no external search was made). Treat them as
+unsourced round numbers, not measurements: **do not quote them to a client as a benchmark.** The
+honest client-facing baseline is the site's own position-versus-CTR curve from its Search Console
+export, which reflects its actual queries and SERP features — use these tables only as an internal
+relative sanity check when no export exists, and say in the report which of the two you used.
+**Resolves when**: each table is cited to a named study with its year and sample, or replaced by a
+measured curve from the site's own data.
 
 ### Average Organic CTR by SERP Position (All Industries)
 
