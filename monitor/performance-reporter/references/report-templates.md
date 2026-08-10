@@ -1,6 +1,22 @@
 # SEO/GEO Report Templates
 
-Copy-ready report templates for executive, marketing, and technical audiences. Each template includes example data to illustrate proper formatting and data presentation.
+Copy-ready report templates for executive, marketing, and technical audiences. Copy the
+structure, not the contents.
+
+> **Illustrative example — the figures below are not measurements.** Every number,
+> domain, publisher and period in these templates was made up to show the shape of a
+> report; nobody measured any of it. In real output each figure comes from a named,
+> dated source — ~~analytics, ~~search console, ~~SEO tool, ~~link database or a
+> user-supplied export — and the report says which. Two rules the templates model on
+> purpose, because a report that breaks them is checkable and will be checked:
+>
+> - **Never assign an authority score, a traffic figure or a link count to a real
+>   named company or publication you have no data for.** The linking sites below use
+>   the reserved `.example` TLD so no cell describes a real business; replace them with
+>   the real domains you measured, each carrying the tool the score came from.
+> - **Every derived number states the arithmetic that produces it**, in the report,
+>   where the reader can redo it. A ratio whose own inputs sit two columns away is the
+>   first thing an executive recomputes.
 
 ---
 
@@ -11,11 +27,18 @@ Use this template for C-suite, VP-level, or board reporting. Focuses on business
 ---
 
 ```markdown
+<!-- ILLUSTRATIVE FILL — every number, domain and date below is invented to show the
+     shape of the report. Replace all of them with measured figures before this goes to
+     anyone, and delete this comment. A figure you cannot source comes out of the
+     report and is named as unavailable in the Data sources line. -->
 # SEO & GEO Performance Summary
 
 **Period:** January 2025
 **Prepared for:** Leadership Team
 **Prepared by:** [Name], SEO Lead
+**Data sources:** [analytics platform, rank tracker and link database used, each with its
+pull date] — every figure below traces to one of them, and a metric no source covers is
+reported as unavailable rather than estimated
 
 ---
 
@@ -44,9 +67,9 @@ Use this template for C-suite, VP-level, or board reporting. Focuses on business
 
 ## Key Wins
 
-1. **Achieved #1 ranking for "project management software"** — estimated $18K/month traffic value
-2. **AI citation rate increased to 34%** — up from 22% in Q3, now cited in AI responses for core product queries
-3. **Published research report generated 45 backlinks** — from sites including TechCrunch (DR 94) and Forbes (DR 95)
+1. **Achieved #1 ranking for "project management software"** — $18K/month traffic value, which is the rank-tracking tool's modelled estimate for this keyword at position 1, not booked revenue
+2. **AI citations rose from 28 to 34** (+21% MoM) — 34 of the 78 tracked queries returning an AI Overview cited us, a citation rate of 43.6%, up from 38.9% in December
+3. **Published research report generated 45 backlinks** — including industrynews.example (DR 94) and businessmagazine.example (DR 95); see the link table for how each DR was sourced
 
 ## Risks & Mitigation
 
@@ -56,12 +79,18 @@ Use this template for C-suite, VP-level, or board reporting. Focuses on business
 
 ## Investment & ROI
 
-| Item | Jan Spend | Organic Revenue | Cumulative ROI (12mo) |
-|------|----------|----------------|----------------------|
-| SEO team | $12,000 | $142,000 | 418% |
-| Content production | $8,000 | (included above) | (included above) |
-| Tools & data | $2,500 | (included above) | (included above) |
-| **Total** | **$22,500** | **$142,000** | **418%** |
+| Item | Jan Spend | Jan Organic Revenue | Jan ROI |
+|------|----------|--------------------|---------|
+| SEO team | $12,000 | (not split by line item) | (not split by line item) |
+| Content production | $8,000 | (not split by line item) | (not split by line item) |
+| Tools & data | $2,500 | (not split by line item) | (not split by line item) |
+| **Total** | **$22,500** | **$142,000** | **531%** |
+
+ROI = (organic revenue − spend) / spend = ($142,000 − $22,500) / $22,500 = 531%. Both
+columns cover the same month, January. State the formula and the period every time: on
+the same figures, revenue ÷ spend gives 631%, and a reader who assumes the other
+definition is out by 100 points. Revenue is not attributable to individual cost lines,
+so no per-line ROI is shown rather than repeating the total in each row.
 
 ## Ask for Next Period
 
@@ -78,6 +107,10 @@ Use this template for marketing managers, content teams, and channel leads. Prov
 ---
 
 ```markdown
+<!-- ILLUSTRATIVE FILL — every number, domain and date below is invented to show the
+     shape of the report. Replace all of them with measured figures before this goes to
+     anyone, and delete this comment. Linking sites stay on the reserved `.example` TLD
+     until you have a real, dated export to name. -->
 # Monthly SEO & GEO Performance Report
 
 **Domain:** yoursite.com
@@ -141,6 +174,11 @@ Use this template for marketing managers, content teams, and channel leads. Prov
 | agile methodology guide | 4,400 | 22 | 9 | +13 | +180/mo |
 | remote work software | 5,100 | 15 | 7 | +8 | +210/mo |
 
+Est. Traffic is the rank tracker's modelled click estimate for the new position at the
+listed volume — a model output, not measured sessions. Name the model or the CTR curve
+behind it; an estimate with neither stated does not belong in a column headed with a
+number.
+
 ### Top 5 Ranking Declines
 
 | Keyword | Volume | Old Rank | New Rank | Change | Action |
@@ -178,7 +216,7 @@ Use this template for marketing managers, content teams, and channel leads. Prov
 | Queries with AI Overview | 78/500 | 72/500 | +6 |
 | Your citations in AI | 34 | 28 | +6 |
 | Citation rate | 43.6% | 38.9% | +4.7pp |
-| Avg citation position | 2.1 | 2.4 | +0.3 (better) |
+| Avg citation position | 2.1 | 2.4 | -0.3 (better — cited higher) |
 
 ### New AI Citations Won
 
@@ -197,11 +235,17 @@ Use this template for marketing managers, content teams, and channel leads. Prov
 
 ### Notable New Links
 
-| Source | DR | Type |
-|--------|-----|------|
-| TechCrunch | 94 | Press mention (research report) |
-| Forbes | 95 | Expert quote in roundup |
-| HubSpot Blog | 93 | Resource citation |
+| Source | DR | DR source | Type |
+|--------|-----|-----------|------|
+| industrynews.example | 94 | Link database export, Feb 3 | Press mention (research report) |
+| businessmagazine.example | 95 | Link database export, Feb 3 | Expert quote in roundup |
+| vendorblog.example | 93 | Link database export, Feb 3 | Resource citation |
+
+Linking sites appear on the reserved `.example` TLD here because nobody measured a DR for
+a real publication to put in this table. Your own report names the real domains — and
+keeps the DR source column: a DR with no named, dated export behind it is not reportable,
+and a DR attached to a real publisher on no evidence is a checkable falsehood in a
+document the client may forward.
 
 ## 6. Action Items
 

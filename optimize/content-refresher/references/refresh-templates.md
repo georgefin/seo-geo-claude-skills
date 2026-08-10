@@ -92,11 +92,18 @@ Detailed output templates for content-refresher steps 5-9. Referenced from [SKIL
 
 ### Updated Statistics Section
 
+<!-- SKELETON — not publishable copy. The replacement figure comes from a source you
+     have open right now, and the citation carries THAT SOURCE'S OWN publication year.
+     Never stamp the year you are writing in onto a citation. If no source can be
+     found, the statistic comes out of the article rather than being restated with a
+     fresher-looking date. -->
+
 **Replace**:
 > "[Old statement with outdated stat]"
 
 **With**:
-> "[New statement with current stat] (Source, [current year])"
+> "[SOURCED STAT: what this sentence needs to claim --- cite the source by name and
+> its own publication year]"
 
 ### New FAQ Section
 
@@ -130,13 +137,18 @@ Detailed output templates for content-refresher steps 5-9. Referenced from [SKIL
 
 ### Add Quotable Statements
 
+<!-- SKELETON — not publishable copy. What makes a statement quotable is a real figure
+     with a real source, so the slot below stays a slot until you have consulted one.
+     A statement that cannot be filled from a source you have read gets cut, not
+     guessed. -->
+
 **Transform**:
 > "Email marketing is effective for businesses."
 
 **Into**:
-> "Email marketing delivers an average ROI of $42 for every $1
-> invested, making it the highest-ROI digital marketing channel
-> according to the Data & Marketing Association ([current year])."
+> "Email marketing remains one of the highest-ROI channels available to
+> small businesses ([SOURCED STAT: average email ROI --- cite the source
+> by name and its own publication year])."
 
 ### Add Q&A Sections
 
@@ -148,10 +160,14 @@ Structure content with questions AI might answer:
 
 ### Update Citations
 
-- Add sources for all statistics
-- Link to authoritative references
-- Include publication dates
-- Use recent sources (last 2 years)
+- Every statistic names the source it came from, and links to it where a public URL exists
+- The date in a citation is the **publication year printed on the source you actually
+  consulted** — never the current year, and never a year inferred to make a source look
+  recent. A citation date is a fact about the source, not a freshness lever
+- Prefer sources published in the last 2 years; when the best available source is older,
+  cite its real date and say in the sentence how old the figure is
+- A statistic with no consultable source does not ship: cut the claim, or leave the
+  `[SOURCED STAT: ...]` slot open in the draft so the gap is visible before publication
 ```
 
 ---
@@ -245,7 +261,12 @@ Structure content with questions AI might answer:
 |--------|---------|---------------|---------------|
 | Avg Position | [X] | [Y] | [Z] |
 | Organic Traffic | [X]/mo | [Y]/mo | [Z]/mo |
-| Featured Snippets | 0 | 1+ | 2+ |
+| Featured Snippets | [X] | [Y] | [Z] |
+
+Every target in this table states the assumption it rests on, in the sentence
+underneath it — otherwise write "not projected; to be measured after republishing".
+A refresh does not convert into a position or a traffic figure by any model this
+skill carries, so a bare number here is a guess wearing a target.
 
 ## Next Review
 

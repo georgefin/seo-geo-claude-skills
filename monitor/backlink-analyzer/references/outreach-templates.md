@@ -544,12 +544,19 @@ Do not send further emails. Add to a "re-engage in 3-6 months" list. When you re
 
 ### Personalization Levels
 
-| Level | Effort | Response Rate Impact | When to Use |
-|-------|--------|---------------------|-------------|
-| **Zero** (template only) | Minimal | Baseline (lowest) | Never recommended |
-| **Basic** (name + site name) | Low | +20-30% | Bulk outreach to lower-priority targets |
-| **Moderate** (+ specific article reference) | Medium | +50-80% | Standard outreach to mid-tier targets |
-| **Deep** (+ shared interest, social reference, mutual connection) | High | +100-200% | High-priority targets (DR 60+ sites, key relationships) |
+| Level | Effort | Expected response rate, relative | When to Use |
+|-------|--------|--------------------------------|-------------|
+| **Zero** (template only) | Minimal | Lowest of the four | Never recommended |
+| **Basic** (name + site name) | Low | Above Zero | Bulk outreach to lower-priority targets |
+| **Moderate** (+ specific article reference) | Medium | Above Basic | Standard outreach to mid-tier targets |
+| **Deep** (+ shared interest, social reference, mutual connection) | High | Highest of the four | High-priority targets (DR 60+ sites, key relationships) |
+
+**That column is an ordering, not a lift.** Response rate is not projected here. How much
+one level gains over the next depends on the list, the niche, the sender's existing
+relationships and the ask itself, and this skill carries no model that turns
+personalization depth into a percentage — so no percentage is offered. Measure your own:
+log sends and replies per level as you run the campaign, and quote a number to a client
+only after that campaign produced it.
 
 ---
 
