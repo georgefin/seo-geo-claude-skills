@@ -1,6 +1,6 @@
 ---
 name: on-page-seo-auditor
-version: "4.1.1"
+version: "4.1.2"
 description: 'Audit on-page HTML elements including title tags, headers, image alt text, and internal links with a scored SEO report. Use when the user asks to "audit page SEO", "on-page SEO check", "SEO score", "page optimization", "what SEO issues does this page have", "score my page", "why is this page not ranking", or "check my page". For server, speed, and crawl issues, see technical-seo-checker. For full EEAT content quality scoring, see content-quality-auditor.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.1.1"
+  version: "4.1.2"
   geo-relevance: "medium"
   tags:
     - seo
@@ -105,6 +105,8 @@ Ask the user to provide:
 3. Competitor page URLs for comparison (optional)
 
 Proceed with the full audit using provided data. Note in the output which findings are from automated crawl vs. manual review.
+
+**Resolve every `~~category` token before the audit leaves.** The token addresses you and the operator, never the person reading the report: write the connected tool's real name (Google Search Console, Ahrefs, Screaming Frog), or name the actual source in plain language ("the HTML you pasted", "hand-checked in incognito, 10 Aug"), or state plainly that no tool was connected and the figure is therefore unavailable. Never a token where a source or a number belongs — an unobtainable metric is reported as unobtainable, which is what the Hypothesis label and the "what would confirm it" rule below already require. Internal surfaces keep the token (this skill's own text and references, operator notes). Rule: root `CLAUDE.md` Tool Connector Pattern; check: `build/seo-content-writer/references/anti-slop-ruleset.md` §6 family 7.
 
 ## Instructions
 
@@ -267,7 +269,7 @@ into the Step 11 Priority Issues summary.
 - [ ] Every recommendation cites specific data points (not generic advice)
 - [ ] Scores based on measurable criteria, not subjective opinion
 - [ ] All suggested changes include specific locations (title tag, H2 #3, paragraph 5, etc.)
-- [ ] Source of each data point clearly stated (~~SEO tool data, user-provided, ~~web crawler, or manual review)
+- [ ] Source of each data point stated in the report's own words — the resolved tool name (Google Search Console, Ahrefs, Screaming Frog), "the HTML you provided", or "manual review"; where no tool was connected and nothing was supplied, the report says exactly that and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 - [ ] Every finding carries a Confidence label (Confirmed / Likely / Hypothesis); Hypothesis findings name what would confirm them
 
 ## Example
