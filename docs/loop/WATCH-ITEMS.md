@@ -260,6 +260,29 @@ authoritative.
   context. One probe, one answer, no research lane needed.
 - **Cadence**: next weekly sweep (2026-08-15 solo fire) if not answered before.
 
+## W14 — CTR benchmark tables: position curve and per-vertical bands [VERIFY]
+
+- **Where**: `build/meta-tags-optimizer/references/meta-tag-formulas.md:210-219` — the
+  position-by-CTR curve and the per-vertical CTR bands. Tagged in place during the
+  meta-tags-optimizer 4.2.0 wave (2026-08-10) by the implementer, which flagged that opening a
+  `[VERIFY]` without a register row leaves it where the weekly sweep does not read — the same
+  shape as F17. This row closes that.
+- **The question**: these figures carry no citation here and none anywhere in the repository
+  (grepped 2026-08-10; **no external search was made**, which is stated so the gap is not read
+  as a negative finding). They are plausible and widely circulated, and that is exactly what
+  makes them the kind of number this library has twice found to be wrong in transit.
+- **Why they were left intact rather than removed**, unlike the CTR effect sizes fixed in the
+  same wave: those four surfaces **contradicted each other**, so no source was needed to know
+  something was wrong. These do not contradict anything. Deleting a figure nobody has sourced is
+  a different act from deleting figures that disagree, and the second needs evidence the first
+  does not.
+- **Status**: tagged in place, not quoted to clients, superseded in practice by the site's own
+  Search Console curve wherever one exists. FLIP: W14 -- none
+- **Resolves when**: a named study with a year and a sample size is on file, or the figures are
+  replaced by measured client data. Either resolves it; neither is urgent while the skill
+  instructs the reader to prefer their own curve.
+- **Cadence**: next weekly sweep (2026-08-15 solo fire), or on first use in a client build.
+
 ---
 
 **Standing weekly discipline (not a register item)**: Google core/spam "update" chatter is
