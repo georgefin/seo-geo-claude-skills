@@ -239,7 +239,7 @@ watching), G4 harvest merged (PR #4).**
     schema has **no `schemaVersion`/`id`** (only `name` required), and `commands`/`skills`
     are documented as path strings/arrays, not `{name, description, path}` objects — repo
     mandates the opposite (`CLAUDE.md:47`; fields present at `.claude-plugin/plugin.json:2-3`;
-    added deliberately in v3.0.0, `VERSIONS.md:173` ("### v3.0.0" section —
+    added deliberately in v3.0.0, `VERSIONS.md:175` ("### v3.0.0" section —
     pointer anchor-tagged per F12, token authoritative on mismatch; had silently
     drifted from :79-88)).
   - Sketch if approved: fold `version` into `metadata` (keep `metadata.version`), trim
@@ -533,9 +533,10 @@ watching), G4 harvest merged (PR #4).**
   2023-08-08 narrowed FAQ rich-result ELIGIBILITY to well-known government and health
   sites; 2026-05-07 ended the display entirely, with the search appearance, rich
   result report and Rich Results Test support dropped June 2026 and Search Console
-  API support scheduled for August 2026. Every clause of R3 verified except two
-  precisions (below). The reopen condition is NOT triggered — FAQPage is present in
-  schema.org v30.0, re-confirmed 2026-08-10.
+  API support scheduled for August 2026. Every clause of R3 checked out except two
+  precisions (below) [obs:2026-08-10T04:02:00Z research-lane return]. The reopen
+  condition is NOT triggered — FAQPage is present in schema.org v30.0, re-read
+  2026-08-10.
 - **Proposal 9a — R3 provenance amendment (settled-ruling text, so gated)**: append a
   sentence distinguishing the 2023 eligibility narrowing from the 2026 retirement;
   soften "API … cut" to "scheduled August 2026" until completion is observed (today is
