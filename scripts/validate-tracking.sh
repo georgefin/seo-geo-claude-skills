@@ -187,6 +187,53 @@ echo "[c] SKILL.md frontmatter version == VERSIONS.md row"
 
 C_OK=1
 C_CHECKED=0
+
+# Emit "name<TAB>version" for the rows of the skills table ONLY — the pipe table
+# that follows the '## Skills' heading, ending at the first non-table line.
+#
+# WHY BOUNDED (queue #33). This used to be an unbounded `awk -F'|' 'NF>=4'` over
+# the whole file, which treats ANY line carrying three pipes as a skill row. The
+# changelog is prose in the same file, and prose quotes tables: on 2026-08-10 a
+# changelog line describing a report column produced the phantom skill 'Value'
+# (from `Metric | Value | Industry Avg | Status`), and a second described a grep
+# alternation and produced 'missing data'. Both were "fixed" by rewriting the
+# prose to avoid pipes — a workaround the check imposed on every future author.
+# The table has a heading; use it.
+#
+# PROBE, 2026-08-10 (F15 ships a guard with its hit rate, and exercises each
+# component separately — a compound pattern can pass because one working part
+# covers for a broken one). Fixture: a 2-skill table plus changelog prose
+# reproducing both real-world shapes.
+#   old extractor -> 4 rows for 2 skills: the phantoms 'Value' and 'bar'. 2 of 2.
+#   new extractor -> exactly the 2 real skills. 0 of 2 phantoms survive.
+#   heading renamed to '## Skill Inventory' -> 0 rows, and the guard below fires
+#   rather than reporting all-clear over an empty set.
+vers_table_rows() {
+    awk -F'|' '
+        /^##[[:space:]]+Skills[[:space:]]*$/ { in_sec = 1; next }
+        in_sec && /^##[[:space:]]/           { exit }
+        !in_sec                              { next }
+        /^[[:space:]]*\|/ {
+            started = 1
+            name = $2; gsub(/^[ \t]+|[ \t]+$/, "", name)
+            ver  = $4; gsub(/^[ \t]+|[ \t]+$/, "", ver)
+            if (name == "" || name == "Skill" || name ~ /^:?-+:?$/) next
+            print name "\t" ver
+            next
+        }
+        started { exit }
+    ' "$VERSIONS"
+}
+VERS_ROWS=$(vers_table_rows)
+
+# F15 guard: a narrowed matcher can pass by matching nothing. If the heading is
+# ever renamed or the table moved, every comparison below would silently compare
+# against an empty set and check (c) would report all-clear while checking zero
+# rows. That is the failure mode F15 was opened for, so it fails loudly instead.
+if [ -z "$VERS_ROWS" ]; then
+    fail "(c) no skills table found under a '## Skills' heading in VERSIONS.md — check (c) cannot compare anything (F15: a guard must not pass by matching nothing)"
+    C_OK=0
+fi
 while IFS= read -r rel; do
     [ -n "$rel" ] || continue
     name=$(basename "$rel")
@@ -195,11 +242,8 @@ while IFS= read -r rel; do
     top_ver=$(awk 'n<2 && /^---[[:space:]]*$/{n++; next} n==1 && /^version:/{sub(/^version:[[:space:]]*/,""); gsub(/["'"'"'\r]/,""); print; exit}' "$skill_file")
     meta_ver=$(awk 'n<2 && /^---[[:space:]]*$/{n++; next} n==1 && /^[[:space:]]+version:/{sub(/^[[:space:]]+version:[[:space:]]*/,""); gsub(/["'"'"'\r]/,""); print; exit}' "$skill_file")
 
-    # VERSIONS.md row: | name | category | version | date |
-    row_ver=$(awk -F'|' -v n="$name" '{
-        gsub(/^[ \t]+|[ \t]+$/, "", $2); gsub(/^[ \t]+|[ \t]+$/, "", $4);
-        if ($2 == n) { print $4; exit }
-    }' "$VERSIONS")
+    # VERSIONS.md row: | name | category | version | date | — skills table only.
+    row_ver=$(printf '%s\n' "$VERS_ROWS" | awk -F'\t' -v n="$name" '$1 == n { print $2; exit }')
 
     if [ -z "$meta_ver" ]; then
         if [ -n "$top_ver" ]; then
@@ -234,7 +278,7 @@ while IFS= read -r row_name; do
         fail "(c) VERSIONS.md row '$row_name' has no matching skill directory on disk"
         C_OK=0
     fi
-done < <(awk -F'|' 'NF>=4 { gsub(/^[ \t]+|[ \t]+$/, "", $2); if ($2 != "" && $2 != "Skill" && $2 !~ /^-+$/) print $2 }' "$VERSIONS")
+done < <(printf '%s\n' "$VERS_ROWS" | cut -f1)
 
 [ "$C_OK" -eq 1 ] && pass "(c) all $C_CHECKED SKILL.md metadata.versions match VERSIONS.md (legacy top-level fields in lockstep); no orphan rows"
 
