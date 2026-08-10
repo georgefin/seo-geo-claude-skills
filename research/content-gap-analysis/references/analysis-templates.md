@@ -45,15 +45,15 @@ Templates for each step of the content gap analysis workflow. Use these to struc
 ### Competitor 1: [Name/URL]
 
 **Content Volume**: [X] pages
-**Monthly Traffic**: [X] visits
+**Monthly Traffic**: [X] visits — [tool name] estimate, [date]
 
 **Content Distribution**:
-| Type | Count | Est. Traffic |
-|------|-------|--------------|
-| Blog posts | [X] | [X] |
-| Guides | [X] | [X] |
-| Tools | [X] | [X] |
-| Videos | [X] | [X] |
+| Type | Count | Share of their content | Where counted |
+|------|-------|------------------------|---------------|
+| Blog posts | [X] | [X]% | [section/index URL] |
+| Guides | [X] | [X]% | [section/index URL] |
+| Tools | [X] | [X]% | [section/index URL] |
+| Videos | [X] | [X]% | [section/index URL] |
 
 **Topic Coverage**:
 | Topic | Articles | Your Coverage |
@@ -61,11 +61,24 @@ Templates for each step of the content gap analysis workflow. Use these to struc
 | [topic] | [X] | [X or "None"] |
 
 **Unique Content They Have**:
-1. [Content piece] - [traffic] - [why it works]
-2. [Content piece] - [traffic] - [why it works]
+1. [Content piece] - [what it does that yours does not] - [why it works]
+2. [Content piece] - [what it does that yours does not] - [why it works]
 
 [Repeat for each competitor]
 ```
+
+**Why the traffic column left this table.** Step 3 of the workflow collects a competitor's traffic
+at site level only, so a per-type traffic cell had no input to fill it from — and the tempting fix,
+apportioning the site total across their content types, invents the split. Every competitor traffic
+figure is somebody's estimate and is labelled as one with the tool and date named; a tool's own
+per-URL estimate may be quoted where the export supplies it, but never derived from a site total.
+The columns that replaced it are arithmetic over the Count column — each type's share of their
+page total — with the place you counted it named. See
+[score-arithmetic.md](./score-arithmetic.md) §6.
+
+Where no tool supplied a site-level figure, the **Monthly Traffic** line is dropped from the
+deliverable entirely and its absence noted in the Data Sources section. It is never carried as a
+bracket token, a guess or a "n/a" that reappears as a range later on.
 
 ## Keyword Gap Analysis Template
 
@@ -82,10 +95,16 @@ Templates for each step of the content gap analysis workflow. Use these to struc
 | [kw 2] | [vol] | [diff] | [comp] | [pos] |
 | [kw 3] | [vol] | [diff] | [comp] | [pos] |
 
-**Quick Win Gaps** (Lower volume, low difficulty)
+**Quick Win Gaps** (Demand evidence present, lower volume, low difficulty)
 
-| Keyword | Volume | Difficulty | Competitor | Their Position |
-|---------|--------|------------|------------|----------------|
+A quick win is cheap *and wanted*. Low difficulty on its own does not qualify a keyword: it has
+to clear the demand floor set in the gap filters — >100/month by default, adjusted for the niche
+— or, where no volume figures exist for this run, carry the named demand proxy the report states
+(gap-analysis-frameworks.md §4). A zero-demand keyword in an empty SERP is not a quick win; it is
+a page nobody will read.
+
+| Keyword | Volume (or named proxy) | Difficulty | Competitor | Their Position |
+|---------|-------------------------|------------|------------|----------------|
 | [kw 1] | [vol] | [diff] | [comp] | [pos] |
 
 **Long-term Gaps** (High volume, high difficulty)
@@ -229,10 +248,19 @@ cited, or placeholder, never invented).
 
 ### GEO Opportunity Score
 
-| Topic | Traditional SEO Value | GEO Value | Combined Priority |
-|-------|----------------------|-----------|-------------------|
-| [topic] | [score] | [score] | [priority] |
+| Topic | Traditional SEO Value | GEO Value (rubric band) | Combined Priority |
+|-------|----------------------|-------------------------|-------------------|
+| [topic] | [Gap Priority Score + the five factor scores it came from] | [1-5 + the rubric row scored against] | [tier from the SEO score; GEO Value breaks ties inside a tier] |
 ```
+
+**All three cells are defined arithmetic, not impressions.** Traditional SEO Value *is* the gap's
+Gap Priority Score — the same number, printed with the factor row that produced it, never a second
+score computed alongside it. GEO Value is a 1-5 judgement against the rubric in
+[score-arithmetic.md](./score-arithmetic.md) §4, and the report says in those words that it is a
+judgement against a stated rubric, not a measured AI-citation count. Combined Priority is the tier
+the gap already carries; inside a tier the order follows the priority score, with GEO Value
+breaking ties. No blended SEO+GEO number is computed, because no exchange rate between the two
+exists to blend them with.
 
 ## Audience Journey Gap Template
 
@@ -241,12 +269,20 @@ cited, or placeholder, never invented).
 
 ### Funnel Stage Coverage
 
-| Stage | Your Content | Competitor Avg | Gap |
-|-------|--------------|----------------|-----|
+Four stages, matching gap-analysis-frameworks.md §3 and SKILL.md Step 8. Awareness absorbs
+Interest; Decision absorbs Intent and Purchase; Retention absorbs Advocacy.
+
+| Stage | Your Content | Competitor Avg (mean of [n] columns) | Gap |
+|-------|--------------|--------------------------------------|-----|
 | Awareness | [X] articles | [X] articles | [+/-X] |
 | Consideration | [X] articles | [X] articles | [+/-X] |
 | Decision | [X] articles | [X] articles | [+/-X] |
 | Retention | [X] articles | [X] articles | [+/-X] |
+| **Total counted** | [X] articles | [X] articles | — |
+
+Gap = your count − the competitor mean, so a negative figure means they have more. Every page is
+counted once in exactly one stage, and the four rows sum to the Total row — a stage table that
+does not reconcile has double-counted a page or dropped one.
 
 ### Journey Gap Details
 
@@ -259,6 +295,10 @@ cited, or placeholder, never invented).
 - Opportunity: [description]
 
 #### Decision Stage Gaps
+- Missing: [topics/content]
+- Opportunity: [description]
+
+#### Retention Stage Gaps
 - Missing: [topics/content]
 - Opportunity: [description]
 ```
@@ -279,38 +319,48 @@ cited, or placeholder, never invented).
 3. [Third significant gap]
 
 **Total Opportunity**:
-- Keywords gaps identified: [X]
-- Estimated traffic opportunity: [X]/month
-- Quick wins available: [X] pieces
+- Keyword gaps identified: [X]
+- Combined search volume across those gaps: [X]/month — search volume, not visits
+- Quick wins available: [X] pieces (Quick Win Score 2+)
 
 ---
 
 ## Prioritized Gap List
 
+**How these tiers were assigned**: Tier 1 = P0 or P1 with a Quick Win Score of 2 or better ·
+Tier 2 = P0 or P1 below that bar · Tier 3 = P2 and P3.
+
 ### Tier 1: Quick Wins (Do Now)
 
-| Content to Create | Target Keyword | Volume | Difficulty | Impact |
-|-------------------|----------------|--------|------------|--------|
-| [Title idea] | [keyword] | [vol] | [diff] | High |
-| [Title idea] | [keyword] | [vol] | [diff] | High |
+| Content to Create | Target Keyword | Volume | Difficulty | Factor scores (D/Den/R/E/C) | Gap Priority Score → tier | Quick Win Score |
+|-------------------|----------------|--------|------------|------------------------------|---------------------------|-----------------|
+| [Title idea] | [keyword] | [vol] | [diff] | [5/4/5/4/3] | [0.25×5 + 0.20×4 + 0.25×5 + 0.15×4 + 0.15×3 = 4.35 → P0] | [5+5+4+4−12 = +6] |
+| [Title idea] | [keyword] | [vol] | [diff] | [scores] | [arithmetic → tier] | [arithmetic] |
 
-**Why prioritize**: Low effort, immediate ranking potential
+**Why prioritize**: wanted, relevant, cheap and uncontested — the four inputs of the Quick Win
+Score, all of them above midpoint
 
 ### Tier 2: Strategic Builds (This Quarter)
 
-| Content to Create | Target Keyword | Volume | Difficulty | Impact |
-|-------------------|----------------|--------|------------|--------|
-| [Title idea] | [keyword] | [vol] | [diff] | High |
+| Content to Create | Target Keyword | Volume | Difficulty | Factor scores (D/Den/R/E/C) | Gap Priority Score → tier | Quick Win Score |
+|-------------------|----------------|--------|------------|------------------------------|---------------------------|-----------------|
+| [Title idea] | [keyword] | [vol] | [diff] | [scores] | [arithmetic → tier] | [arithmetic] |
 
-**Why prioritize**: High value, requires more resources
+**Why prioritize**: High value, requires more resources — a P0/P1 score that the quick-win screen
+did not clear, usually on Creation Effort
 
 ### Tier 3: Long-term Investments (This Year)
 
-| Content to Create | Target Keyword | Volume | Difficulty | Impact |
-|-------------------|----------------|--------|------------|--------|
-| [Title idea] | [keyword] | [vol] | [diff] | High |
+| Content to Create | Target Keyword | Volume | Difficulty | Factor scores (D/Den/R/E/C) | Gap Priority Score → tier | Quick Win Score |
+|-------------------|----------------|--------|------------|------------------------------|---------------------------|-----------------|
+| [Title idea] | [keyword] | [vol] | [diff] | [scores] | [arithmetic → tier] | [arithmetic] |
 
 **Why prioritize**: Builds authority, competitive differentiator
+
+**No traffic projection appears in this report.** Searches are not visits: the share that becomes
+sessions depends on the position these pages reach and the click-through rate there, and neither
+is known before they rank. The Total Opportunity line above reports combined search volume, and a
+traffic target gets set from the first published pages' own rank data after about 90 days.
 
 ---
 
@@ -340,6 +390,20 @@ Track these to measure gap-filling success:
 |--------|---------|----------------|----------------|
 | Keyword coverage | [X] | [X] | [X] |
 | Topic clusters complete | [X] | [X] | [X] |
-| Traffic from new content | [X] | [X] | [X] |
+| Traffic from new content | 0 — these pages do not exist yet | target set once the first pages have ~90 days of rank data | target set from the 3-month reading |
 | AI citations | [X] | [X] | [X] |
 ```
+
+**Three things about the report above are the author's job, not the client's reading.** *Tier
+assignment* is read from the two scores per SKILL.md Step 9; where the quick-win screen did not
+run (Search Demand dropped), say so and read the tiers from the priority score alone. *Total
+Opportunity* carries the gap count alone, and says so, when no volumes exist for the run. *No
+traffic projection* is a rule, not a stylistic choice — see
+[score-arithmetic.md](./score-arithmetic.md) §6.
+
+**Two rows in the Success Metrics table are conditional.** *Traffic from new content* carries no plan-time target
+number: the pages do not exist, so a figure there would be a forecast with no baseline and no
+counterfactual behind it — the same reason no traffic projection appears in Total Opportunity.
+Commit to the measurement date instead, and set the number from real rank and CTR data. *AI
+citations* is filled only when an AI monitor supplied a count; with no monitor connected the row
+is dropped and its absence noted, never carried as a zero — zero means measured and none found.

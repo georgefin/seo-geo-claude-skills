@@ -731,6 +731,30 @@ which is the behaviour-shaped half its own header already declares it cannot see
   commit that does not declare them means this guard failed and needs redesign
   (ledger rule 3) — not a reminder to stage more carefully.
 
+- **Recurrence 1 (2026-08-10, the coordinator, twice in one wave) — the guard checks
+  WHICH SKILL, not WHOSE FILE, and a directory add defeats it silently.** Staging three
+  finished skills, `git add research/content-gap-analysis/` swept in that skill's
+  `evals/evals.json`, which a different agent was concurrently editing in another lane. Caught
+  by reading `git diff --cached --name-only` before committing, and unstaged. It had
+  already happened once earlier the same day with a directory add of an eval-baselines
+  folder, recorded then as "luck, not care" — so this is the second instance and the
+  recurrence rule above says the guard failed rather than the operator did.
+  **Why `commit-scope-check` cannot see it**: the guard's question is whether a commit
+  carries skill files its subject does not name. Here the subject named
+  content-gap-analysis and the swept file lives inside content-gap-analysis, so the
+  file is in declared scope and the check passes correctly. The guard was built for a
+  commit reaching into an *unnamed* skill; this is a commit reaching into an unfinished
+  file inside a *named* one. Same family, different axis, and no amount of tightening
+  the subject-matching would catch it.
+  **What actually holds**: `git add <explicit file paths>` and a mandatory read of
+  `git diff --cached --name-only` before every commit made while any agent is running.
+  Both are vigilance, which ledger rule 3 says is not a fix — so this is recorded as a
+  known open scope gap, not as closed. A real guard would need to know which paths are
+  under an agent's open tenure; `.register-locks` already models exactly that for registers,
+  and extending its tenure model to agent file scopes is the shape a fix would take.
+  Not attempted here: designing it mid-wave, while eight agents hold file scopes, is how
+  the first instance happened.
+
 - **Second mechanism, same failure family (2026-08-10, hours after the founding
   instance)**: the §6-carrier agent's one-line pointer refresh in
   `docs/loop/GATED-ITEMS.md` (`VERSIONS.md:173→175`) landed inside the coordinator's

@@ -41,7 +41,10 @@ days of rank-tracker data behind them.
 
 ## Top Keyword Gaps
 
-### Quick Wins (Difficulty <40)
+### Quick Wins (volume above the 100/month floor AND difficulty <40)
+
+Both conditions, not either: a keyword nobody searches for is not a quick win however easy it is
+to write.
 
 | Keyword | Volume | Difficulty | Who Ranks |
 |---------|--------|------------|-----------|
@@ -49,6 +52,31 @@ days of rank-tracker data behind them.
 | b2b email sequences | 890 | 28 | chatvendor.example #5 |
 | saas onboarding emails | 720 | 25 | Neither! |
 | marketing qualified lead definition | 1,800 | 35 | marketingpro.example #1 |
+
+### How These Were Scored
+
+Factor scores in table order — Search Demand / Competitive Density / Business Relevance /
+Creation Effort / Conversion Potential — with the arithmetic that produced each figure. All five
+run the same way: 5 is the value that favours us, including Creation Effort (5 = quick to create)
+and Competitive Density (5 = nobody holds it).
+
+| Gap | Factors | Gap Priority Score | Tier | Quick Win Score |
+|-----|---------|--------------------|------|-----------------|
+| saas onboarding emails | 3/5/5/5/3 | 0.25×3 + 0.20×5 + 0.25×5 + 0.15×5 + 0.15×3 = **4.20** | P0 | 3+5+5+5 − 12 = **+6** strong |
+| b2b email sequences | 3/3/5/4/3 | 0.25×3 + 0.20×3 + 0.25×5 + 0.15×4 + 0.15×3 = **3.65** | P1 | 3+5+4+3 − 12 = **+3** moderate |
+| saas marketing metrics | 3/3/5/4/2 | 0.25×3 + 0.20×3 + 0.25×5 + 0.15×4 + 0.15×2 = **3.50** | P1 | 3+5+4+3 − 12 = **+3** moderate |
+| marketing qualified lead definition | 3/2/5/5/2 | 0.25×3 + 0.20×2 + 0.25×5 + 0.15×5 + 0.15×2 = **3.45** | P1 | 3+5+5+2 − 12 = **+3** moderate |
+
+All four are P0 or P1 with a Quick Win Score of 2 or better, so all four are Tier 1 and the
+calendar below runs in this order.
+
+`saas onboarding emails` carries the lowest volume of the four and still tops the list: neither
+competitor holds it, it sits on our own product's ground, and it is a single article we can write
+from support tickets. That is what the model is for — ordering on volume alone would have put it
+last. `marketing qualified lead definition` scores GEO Value 5 (a definition — the shape an engine
+lifts whole, per the rubric). That does not move it up the order — GEO Value breaks ties, and 3.45
+is third among the P1s on its own merits — but it is the GEO play of the four, so its brief gets
+written for answerability. The two numbers stay side by side rather than blended into one.
 
 ### Content Format Gaps
 
@@ -62,10 +90,13 @@ days of rank-tracker data behind them.
 
 ## Recommended Content Calendar
 
-**Week 1**: "SaaS Marketing Metrics: Complete Guide" — `saas marketing metrics` (quick win)
-**Week 2**: "What is a Marketing Qualified Lead?" — `marketing qualified lead definition` (GEO opportunity)
-**Week 3**: "B2B Email Sequences: Templates and Onboarding Flows" — covers both
-`b2b email sequences` and `saas onboarding emails`, one intent and one page; the second is the
-only gap in the table neither competitor holds
+Sequenced by the scores above, not by volume.
+
+**Week 1**: "B2B Email Sequences: Templates and Onboarding Flows" — covers both
+`saas onboarding emails` (4.20, P0) and `b2b email sequences` (3.65, P1), one intent and one page;
+the first is the only gap in the table neither competitor holds
+**Week 2**: "SaaS Marketing Metrics: Complete Guide" — `saas marketing metrics` (3.50, P1)
+**Week 3**: "What is a Marketing Qualified Lead?" — `marketing qualified lead definition`
+(3.45, P1; GEO Value 5 — a definition page)
 **Week 4**: "[Your Tool] vs marketingpro.example" — comparison gap
 ```

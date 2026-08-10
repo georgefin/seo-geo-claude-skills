@@ -81,7 +81,7 @@ explicitly:
   "know-how" dropped into Greek copy. Exception: established loans and terms of art
   (SEO, μάρκετινγκ, e-shop) — the test is whether Greek trade press uses the term natively.
 - **Uniform «Ας δούμε…» / «Ας εξερευνήσουμε…» section transitions** — the EL "let's dive in".
-- **English abstract subject taking a Greek verb** (3 hits, 2 files, 2026-08-10) — an English abstract noun left as the grammatical subject of a Greek clause, so the sentence has English syntax wearing Greek morphology. **No regex exists for this and none should be written**: the defect is a semantic mismatch between subject and verb with no surface string to match, and a pattern here would produce noise plus false confidence — the binding editor said so explicitly and declined to propose one. Prose guidance only; the editor catches it, a grep cannot.
+- **English abstract subject taking a Greek verb** (ruled 2026-08-10) — an English abstract noun left as the grammatical subject of a Greek clause, so the sentence has English syntax wearing Greek morphology. **No regex exists for this and none should be written**: the defect is a semantic mismatch between subject and verb with no surface string to match, and a pattern here would produce noise plus false confidence — the binding editor said so explicitly and declined to propose one. Prose guidance only; the editor catches it, a grep cannot.
 - **Adjective inflation in translated-ad register**: stacked evaluative adjectives with no
   spec («μοναδική, πρωτοποριακή λύση» with nothing measurable behind them).
 
@@ -132,9 +132,9 @@ Every substantive claim climbs as high as **the data you actually have** allows:
 Deliverables aim for rung 3. The rungs are capped by real data: per the library's
 **statistics rule**, every statistic comes from user-supplied data, a cited source, or is
 marked as a `[CLIENT DATA: …]` / `[SOURCED STAT: …]` placeholder — a number is **never
-invented** to reach a higher rung (failure-ledger entry F3 exists because a worked example
-once modeled the opposite). A rung-1 claim that cannot be raised with real data gets cut,
-or rewritten as mechanism — "because" beats "very".
+invented** to reach a higher rung, and a rung the data cannot reach is simply not climbed.
+A rung-1 claim that cannot be raised with real data gets cut, or rewritten as mechanism —
+"because" beats "very".
 
 ---
 
@@ -155,30 +155,32 @@ no new items, no framework changes.
 
 ## 6. Ruled Greek Regression Classes (binding-editor rulings)
 
-Provenance: binding greek-content-editor passes (v1/v2 2026-08-08; v3 2026-08-09;
-E2/E3/E4 baseline wave 2026-08-10). Each family below was ruled FAIL-grade on
-customer-visible surfaces; recurrence in any fresh Greek output is an automatic FAIL in
-Mode B and editor passes (ledger F13 — ruled lessons must live here as carriers, never as
-notes). Graders grep the patterns given; the editor judges the rest.
+Each family below was ruled FAIL-grade by the binding Greek editor on customer-visible
+surfaces; recurrence in any fresh Greek output is an automatic FAIL in Mode B and editor
+passes — a ruled lesson lives here as a carrier, never as a note somewhere else. Graders
+grep the patterns given; the editor judges the rest.
+
+**This section is rule text, and rule text is all it is.** Which pass ruled a family, which
+run surfaced it, and how many times it occurred are recorded elsewhere, and deliberately not
+here: that record is evidence for whoever audits a rule, never instruction for whoever is
+writing one. **If you are writing a deliverable, you are finished at the end of §6.**
 
 ### FAIL-grade families
 
 | # | Family | Ruled form → native form | Greppable pattern |
 |---|---|---|---|
-| 1 | Totality-with-numeral calque | «Όλα τα 18 μοντέλα συνοδεύονται…» → «Και τα 18 μοντέλα συνοδεύονται…» (or restructure: «Όλα τα μοντέλα — 18 συνολικά — …»). Carrier evidence, 2026-08-10 batch: the ruled native form was produced unprompted across the wave — «και τα 12 μοντέλα φέρουν πιστοποίηση Solar Keymark», «και οι 4 από τον host cdn-old», «συμπληρώστε και τα 3 πεδία» — i.e. avoidance plus correct production, with zero family-1 hits | `Όλα τα [0-9]` |
-| 2 | Agency provenance labels/placeholders in publishable copy or schema | «(απαιτούνται στοιχεία προϊόντος)» inside a FAQ answer or JSON-LD → gap note in the report's gap table only; customer-voice hedging stays legitimate | `απαιτούνται στοιχεία` outside report/gap sections; any `[CLIENT DATA` / `[SOURCE NEEDED` inside paste-ready copy or schema (structural carrier: geo-content-optimizer 4.1.6 Statistics-rule Placement clause) |
-| 3 | Mechanically translated UI/label terms | «Υποχρεωτικό εκκρεμές» as a form label → natural Greek labels («Πεδίο / Τιμή / Σημείωση») | — (editor judgment) |
-| 4 | Query-style article-less labels in visible copy | «παράδοση αεροδρόμιο» as page copy → «παράδοση στο αεροδρόμιο Ηρακλείου»; keyword-export strings on explicitly keyword-list surfaces are exempt | — (editor judgment) |
-| 5 | Negative-concord violation — an n-word in a finite clause with no preverbal «δεν» | «η εκτίμηση κοστίζει μηδέν και **δεσμεύει κανέναν**» → «η προσφορά είναι δωρεάν και **δεν σας δεσμεύει σε τίποτα**». Modern Greek is a strict negative-concord language: «κανείς / κανέναν / κανένα / καμία / τίποτα / ποτέ / πουθενά» beside a finite verb REQUIRE a preverbal «δεν». Without it a Greek reader resolves the affirmative — here "it commits somebody" — and the commercial promise inverts. The telegraphic nominal parallel «Κόστος μηδέν, δέσμευση καμία.» licenses no finite verb, so it is no defence once a verb appears | n-word tokens `κανείς` · `κανέν` · `καμί` · `τίποτ` · `πουθενά` · `ποτέ` — matched CASE-INSENSITIVELY, since sentence-initial «Κανείς», «Κανένα», «Καμία», «Ποτέ» are the same tokens — each hit hand-checked for a preverbal «δεν» in its own clause, that licenser matched case-insensitively too («Δεν») (approximation — limits stated under the table) |
+| 1 | Totality-with-numeral calque | «Όλα τα 7 καταστήματα δέχονται παραγγελίες…» → «Και τα 7 καταστήματα δέχονται παραγγελίες…» (or restructure: «Όλα τα καταστήματα — 7 συνολικά — …»). The native form generalises across genders and cases — «και οι 4 πάροχοι», «και τα 6 χρώματα» — so there is no construction this rule leaves you unable to write | `Όλα τα [0-9]` |
+| 2 | Agency provenance labels/placeholders in publishable copy or schema | «(απαιτούνται στοιχεία τιμολόγησης)» left standing inside publishable copy or structured data → gap note in the report's gap table only; customer-voice hedging stays legitimate | `απαιτούνται στοιχεία` outside report/gap sections; any `[CLIENT DATA` / `[SOURCE NEEDED` inside paste-ready copy or schema |
+| 3 | Mechanically translated UI/label terms | «Εκκρεμεί υποχρεωτικό» as a status label, taken word-for-word off an English UI string → natural Greek labels («Πεδίο / Τιμή / Σημείωση», «Κατάσταση: Εκκρεμεί») | — (editor judgment) |
+| 4 | Query-style article-less labels in visible copy | «επισκευή ψυγείο Πάτρα» as page copy → «επισκευή ψυγείων στην Πάτρα»; keyword-export strings on explicitly keyword-list surfaces are exempt | — (editor judgment) |
+| 5 | Negative-concord violation — an n-word in a finite clause with no preverbal «δεν» | «η προσφορά ισχύει για όλους και **υποχρεώνει κανέναν**» → «η προσφορά ισχύει για όλους και **δεν υποχρεώνει κανέναν**». Modern Greek is a strict negative-concord language: «κανείς / κανέναν / κανένα / καμία / τίποτα / ποτέ / πουθενά» beside a finite verb REQUIRE a preverbal «δεν». Without it a Greek reader resolves the affirmative — here "it obliges somebody" — and the commercial promise inverts. The telegraphic nominal parallel «Κόστος μηδέν, δέσμευση καμία.» licenses no finite verb, so it is no defence once a verb appears | n-word tokens `κανείς` · `κανέν` · `καμί` · `τίποτ` · `πουθενά` · `ποτέ` — matched CASE-INSENSITIVELY, since sentence-initial «Κανείς», «Κανένα», «Καμία», «Ποτέ» are the same tokens — each hit hand-checked for a preverbal «δεν» in its own clause, that licenser matched case-insensitively too («Δεν») (approximation — limits stated under the table) |
 | 6 | "Costs-zero" calque in publishable copy | «κοστίζει μηδέν» → «δεν κοστίζει τίποτα» / «είναι δωρεάν». The defect survives inflection and derivation, and so must the check: «κοστίζ**ουν** μηδέν», «κοστίζει **απολύτως** μηδέν», «κοστίζει **μηδενικά** ευρώ», sentence-initial «**Κ**οστίζει μηδέν», and the digit form «κοστίζει **0** ευρώ» are one family, not five defects | Two-step screen, both steps case-insensitive **under a UTF-8 locale** (see the governing note below). NET: `μηδ[εέ]ν` — the bracket is load-bearing, since «μηδέν» carries the tonos but its derivatives move it off the ε («μηδενικά», «μηδενικό»), so either spelling alone catches only half the family. RANK the hits with the verb stem `κοστίζ`, which covers κοστίζει/κοστίζουν/κοστίζοντας and any intervening adverb. Known escape, hand-checked: a zero written as a digit — `κοστίζ[^.]{0,20}0 ?ευρώ` · `κοστίζ[^.]{0,20}0 ?€` (written as two patterns rather than one alternation because an unescaped pipe inside a table cell splits the row — it did, and this line is the fix). Verbless nominal parallels («Μηδέν κόστος, μηδέν δέσμευση.») surface on the net and are correct Greek — family 5's protected list governs them |
-| 8 | Internal artefact names, framework IDs and skill slugs on a client-read surface | «Παραδόσεις σε άλλες **δεξιότητες**» / «τρέξτε τη δεξιότητα `keyword-research`» / «(ρύθμιση R2 / **CORE-EEAT O05**)» → name the **job**, never the artefact: «τρέξτε την ανάλυση λέξεων-κλειδιών», «ο κανόνας για τα δομημένα δεδομένα». Translating the artefact name fails the same way leaving it in English does — «δεξιότητα» in Greek is a person's competence, so "hand this to a skill" gives a client nothing to act on, and a framework item ID is a coordinate in a document they have never seen. **Promoted from advisory to FAIL-grade on 2026-08-10 at Recurrence 2**: a founding instance (14 occurrences, 5 files), a same-day recurrence (11 occurrences, rank-tracker E3), then 5 more across 2 files in the blind wave. Fix-on-touch failed three recorded passes, which is the promotion threshold this table uses | The 20 skill slugs are enumerable, so this is the cleanest net in the section — build it from `.claude-plugin/plugin.json` rather than hand-listing, then add `CORE-EEAT` · `CITE` · `\b[ACEIORT][0-9]{2}\b` · `\bEpt[0-9]{2}\b` · `\bExp[0-9]{2}\b` (framework item IDs, written as three pipe-free patterns rather than one alternation because an unescaped pipe splits a table row — that happened while writing this very cell, the fifth instance of the class today — **measured 90/90 against the real ID set extracted from `references/core-eeat-benchmark.md` and `references/cite-domain-rating.md`, zero false positives on non-ID tokens**. The pattern first shipped here was `\b[CORET][0-9]{2}\b` and caught **50 of 90**: its character class omitted `I`, and CITE's dimensions are C/**I**/T/E, so every I-dimension ID escaped, along with all of A, `Ept` and `Exp`. Found by a blind run whose own deliverable carried `CITE item I09` — an instance the item-ID net would not have caught, surfaced only because the same grep also carried the `CITE` alternation. **Known false-positive class, found the same day by the run that uses it**: `\b[ACEIORT][0-9]{2}\b` fires on ordinary two-digit labels of the same shape — alert-manager's own alert IDs `A10` / `A11` / `A12` are the recorded instance. Widening the class to catch A-dimension items necessarily catches A-labels; that is a cost of coverage, not a bug to pattern away, so the cell records it and the hit is hand-checked against whether the document defines the label itself. **This is why a probe must exercise each component, not the pattern as a whole**: the family-8 probe passed at promotion because the alternation covered for the broken component) · `δεξιότητ` (hand-checked: ordinary Greek for a person's competence, so it has legitimate uses). **Exemption, restored 2026-08-10 from the founding advisory this family was promoted out of — it was dropped in the promotion and two blind runs found the gap the same day.** A framework *name* the client is actually buying (CITE, CORE-EEAT, a named audit methodology) may appear on a client surface **if it is glossed on first use**, the same way «Core Web Vitals» is: name what it measures in the client's own vocabulary, then use the label. The editor's original wording demonstrated the exemption with alert-manager keeping «Tier 1» because it cites the client's own file. What is never exempt is a framework **item ID** (`O05`, `T03`, `C01`) — a coordinate in a document the client has never seen — or a **skill slug**, which names a tool in a library they do not have. The distinction is whether the string denotes something the client can hold: a glossed methodology can be, a row number in an internal rubric cannot. **Measured 2026-08-10 per the ship-with-a-probe rule**: run against the four Greek deliverables the binding editor had just judged, it caught every instance the editor named — 4 in the keyword E2 handoff list, the `CORE-EEAT O05` line in schema E2, 13 in the rank-tracker E3 recurrence — and returned a clean sheet on linking E3, where the editor also found none. No false quiet on the evidence available |
-| 7 | Connector placeholders on a client-read surface | «Πηγή δεδομένων: ~~search console» → the resolved source, by the three-step rule in the root `CLAUDE.md` Tool Connector Pattern section: (a) tool connected → its real name, «Search Console» / «Ahrefs»; (b) no tool but the data came from somewhere → that source in plain language, «από το αρχείο εξαγωγής που στείλατε», «χειροκίνητος έλεγχος, 10 Αυγούστου»; (c) no tool and no data → say so and drop the figure, «δεν συνδέθηκε εργαλείο — ο αριθμός δεν είναι διαθέσιμος», never a token in a number's place. A `~~category` token addresses the skill author and the operator; a client sees a double-tilde string with no referent. **Exemption — the test is the reader, not the section**: surfaces read only by author or operator keep the token (skill text and references, eval expectations, `CONNECTORS.md`, in-house gap tables and operator notes). Anything the client reads resolves it, report tables included — same boundary as the artefact-name class below, and NOT family 2's: family 2 governs where a provenance MARKER may sit, this one governs a category token that has no client referent on any surface | `~~` (the double tilde is unique to this convention in the library — no hand-checking needed to spot it; the hand-check is only whether the surface is client-read) |
+| 8 | Internal artefact names, framework IDs and skill slugs on a client-read surface | «Παραδόσεις σε άλλες **δεξιότητες**» / «τρέξτε τη δεξιότητα `keyword-research`» / «(ρύθμιση R2 / **CORE-EEAT O05**)» **in a sentence the client is meant to read** → name the **job**, never the artefact: «τρέξτε την ανάλυση λέξεων-κλειδιών», «ο κανόνας για τα δομημένα δεδομένα». Translating the artefact name fails the same way leaving it in English does — «δεξιότητα» in Greek is a person's competence, so "hand this to a skill" gives a client nothing to act on, and a framework item ID is a coordinate in a document they have never seen. **Promoted from advisory to FAIL-grade on 2026-08-10**: fix-on-touch failed three recorded passes, which is the promotion threshold this table uses. **Exemption — the test is the reader, not the section** (ruled 2026-08-10; the same test family 7 runs, for the same reason). A **run handle** — a skill slug, a framework item ID, an internal artefact name — survives on a surface addressed to whoever operates the library, and never in client prose. An operator-addressed surface **sitting inside a client deliverable is still an operator surface**, and the handle stays: a «Επόμενα βήματα για την ομάδα σας» block, an appendix of follow-up runs, a handoff table of URL → next run. The same handle in a sentence the client is meant to read is family 8. Two conditions, both required: the operator block is **labelled** as one, and each handle carries its job in the client's words beside it — an unlabelled list of slugs dropped into a client report is client prose and fails. Worked both ways under the table | The 20 skill slugs are enumerable, so this is the cleanest net in the section — build it from `.claude-plugin/plugin.json` rather than hand-listing, then add `CORE-EEAT` · `\bCITE\b` · `\b[ACEIORT][0-9]{2}\b` · `\bEpt[0-9]{2}\b` · `\bExp[0-9]{2}\b` (framework item IDs, written as separate pipe-free patterns rather than one alternation because an unescaped pipe splits a table row — **measured 90/90 against the real ID set extracted from `references/core-eeat-benchmark.md` and `references/cite-domain-rating.md`, zero false positives on non-ID tokens**. An earlier form of this pattern was `\b[CORET][0-9]{2}\b` and caught **50 of 90**: its character class omitted `I`, and CITE's dimensions are C/**I**/T/E, so every I-dimension ID escaped, along with all of A, `Ept` and `Exp` — **which is why a probe must exercise each component, not the pattern as a whole**, since the alternation covered for the broken component and the whole-pattern probe passed. **Two known false-positive classes, both hand-checked rather than patterned away.** (i) `\b[ACEIORT][0-9]{2}\b` fires on any ordinary two-digit label of the same shape — a document numbering its own alerts `A10` / `A11` / `A12`, a checklist numbered `R01` — so each hit is checked against whether the document defines the label itself; widening the class to catch A-dimension items necessarily catches A-labels, which is a cost of coverage, not a bug. (ii) **`CITE` is four ordinary English letters.** Matched case-insensitively it fires on *cited*, *citation*, *cite* and *excite*, which appear in any report that sources anything — so match it **case-sensitively and word-bounded**, `grep "\bCITE\b"`, and never with `-i`. Checked at the shell 2026-08-10, GNU grep 3.11: on a line set containing all four English words plus «CITE score is 72», `grep -i CITE` returned every line and `grep "\bCITE\b"` returned only the framework name) · `δεξιότητ` (hand-checked: ordinary Greek for a person's competence, so it has legitimate uses). Every surviving hit is then put to the reader test above: a handle inside a labelled operator block is a pass, not a finding, and only a handle in client prose is the defect. **Exemption — the gloss rule, restored 2026-08-10 from the founding advisory this family was promoted out of.** A framework *name* the client is actually buying (CITE, CORE-EEAT, a named audit methodology) may appear on a client surface **if it is glossed on first use**, the same way «Core Web Vitals» is: name what it measures in the client's own vocabulary, then use the label. A label the client's own paperwork already uses — «Tier 1» off their own plan — is theirs and stays. What is never exempt is a framework **item ID** (`O05`, `T03`, `C01`) — a coordinate in a document the client has never seen — or a **skill slug**, which names a tool in a library they do not have. The distinction is whether the string denotes something the client can hold: a glossed methodology can be, a row number in an internal rubric cannot |
+| 7 | Connector placeholders on a client-read surface | «Πηγή δεδομένων: ~~search console» → the resolved source, by the three-step rule in the root `CLAUDE.md` Tool Connector Pattern section: (a) tool connected → its real name, «Search Console» / «Ahrefs»; (b) no tool but the data came from somewhere → that source in plain language, «από το αρχείο εξαγωγής που στείλατε», «χειροκίνητος έλεγχος, 10 Αυγούστου»; (c) no tool and no data → say so and drop the figure, «δεν συνδέθηκε εργαλείο — ο αριθμός δεν είναι διαθέσιμος», never a token in a number's place. A `~~category` token addresses the skill author and the operator; a client sees a double-tilde string with no referent. **Exemption — the test is the reader, not the section**: surfaces read only by author or operator keep the token (skill text and references, eval expectations, `CONNECTORS.md`, in-house gap tables and operator notes). Anything the client reads resolves it, report tables included — the same boundary family 8's run handles are governed by, and NOT family 2's: family 2 governs where a provenance MARKER may sit, this one governs a category token that has no client referent on any surface | `~~` (the double tilde is unique to this convention in the library — no hand-checking needed to spot it; the hand-check is only whether the surface is client-read) |
 
-**Families 5–6 provenance (2026-08-10)**: both come from ONE eight-word span of paste-ready
-customer copy — a FAQ answer under «Έτοιμα κείμενα για δημοσίευση» in the content-refresher
-E3 output, i.e. text the client is told to publish unchanged. The editor graded the span
-FAIL on the dropped negator and named the calque as its second defect: a translation-shaped
-clause that also lost its «δεν», not a stray typo.
+**Families 5 and 6 are one span, not two coincidences.** Both were ruled on a single clause of
+paste-ready customer copy that had lost its negator *and* been built out of a translated
+"costs-zero" frame. Where one appears, screen for the other.
 
 **Governing note — every pattern in the right-hand column is a screen, not a verdict, and
 two of them have already been measured failing.** A Greek plain-text pattern is defeated by
@@ -192,12 +194,12 @@ written as a digit. Both holes found so far are of exactly this shape, both had 
 looking authoritative, and both were caught by the pipeline running the check rather than by
 anyone reasoning about it in advance: family 5's lowercase-only token list and family 6's
 fixed two-word string, which was measured catching **1 of 5** constructed instances of its
-own ruled defect (2 of 5 with `-i`). Both closed 2026-08-10; details under each family below.
+own ruled defect (2 of 5 with `-i`). Both closed 2026-08-10.
 Consequence for reviewers: report a grep result as *"screened, nothing surfaced"* in those
 words. A FAIL or a clean sheet on any Greek family is the binding editor's call on
 hand-checked evidence, and a pattern's silence is not evidence.
 
-**Requirement for adding or amending a family here (ledger F15).** A pattern may not ship
+**Requirement for adding or amending a family here.** A pattern may not ship
 on the strength of matching the instance that motivated it. Before a family lands, write
 three to six *constructed variants of its own defect* — inflect the verb, move the accent,
 capitalise the first word, insert an adverb, swap the digit for the word — run the pattern
@@ -215,76 +217,63 @@ left. Its stated limits, each of which produces wrong answers if ignored: **case
 matching is not free in Greek** — `grep -i` case-folds Greek only under a UTF-8 locale, so
 in a default `LC_CTYPE=POSIX` shell `grep -i 'δεν'` silently misses «Δεν» while the same
 pattern under `LC_ALL=C.UTF-8` matches it (checked in this repo's environment 2026-08-10,
-GNU grep 3.11, on the line «Δεν έγινε καμία νέα μέτρηση.»), so an implementer rebuilding
+GNU grep 3.11, on the line «Δεν χρεώνουμε καμία προμήθεια.»), so an implementer rebuilding
 this check handles capitals deliberately — set a UTF-8 locale, or write both cases into the
-pattern («[δΔ]εν», «[κΚ]ανέν», «[κΚ]αμί») — and never assumes `-i` did it; the licenser test
+pattern («[δΔ]εν», «[κΚ]ανέν», «[κΚ]αμί»), which is safe in either locale because an explicit
+two-character bracket is not a range. A Greek *range* is safe in neither: `[α-ω]` aborts the
+grep with `Invalid collation character` and exit status 2, so never reach for one (both
+checked 2026-08-10, same environment) — and never assumes `-i` did it; the licenser test
 must be word-bounded, because as substrings these
 strings misfire badly in both directions («δεσμεύει» contains `δε`, «μηδέν» contains `μη`,
 «μηδενικό» contains `δεν` — a substring filter would have exempted the founding instance
 itself), and Greek word boundaries are not reliably expressible in every grep; it is
 line-based, so a clause split across two lines, or one line holding two clauses with the
 «δεν» in the wrong one, both mislead it; verbless fragments are correct Greek and will be
-flagged («Κόστος μηδέν, δέσμευση καμία.», «Καμία χρέωση.»); **`ποτέ` matches inside «αποτέλεσμα» / «αποτελέσματα»** — proven at the shell, and hit independently by three runs on 2026-08-10; in a performance or analytics report «αποτέλεσμα» is unavoidable, so this family over-generates on every reporting suite and its hits there are mostly this. Questions and conditionals
+flagged («Κόστος μηδέν, δέσμευση καμία.», «Καμία χρέωση.»); **`ποτέ` matches inside «αποτέλεσμα» / «αποτελέσματα»** — proven at the shell; in a performance or analytics report «αποτέλεσμα» is unavoidable, so this family over-generates badly on any reporting deliverable and its hits there are mostly this. Questions and conditionals
 license the n-word with no «δεν» and are correct («Έχετε καμία απορία;», «αν χρειαστείτε
 τίποτα»). It proposes candidates; the editor rules.
 
-**Family-5 coverage gap — found and closed the same day the carrier shipped (2026-08-10).**
-As first written that morning the entry listed five tokens, all lowercase, with no case
-rule. Two independent blind Mode B runs hit the hole within hours: capitalised forms
-(«Κανένα» and the licenser «Δεν», three of them in one run's own Greek output) never
-matched the pattern, so correct Greek passed unseen instead of reaching hand-checking, and
-each run's own lowercase-only licenser alternation read the correct sentence «Δεν έγινε
-καμία νέα μέτρηση» as unlicensed — one line short of a false Greek FAIL in both. The
-nominative «κανείς» was missing from the token list outright. Recorded here because the
-record should show this guard tested by the pipeline rather than assumed sound.
+**Scope — families 7 and 8 are language-neutral, ruled on Greek evidence.** Both sit in a
+section headed "Greek" because that is where the editor found them and where their FAIL
+grade was ruled, but neither defect is Greek. A `~~category` token has no client referent in
+any language, and neither has a run handle: `domain-authority-auditor` and `CORE-EEAT O05`
+are exactly as opaque to an English reader as to a Greek one. The same rule has since been
+applied on English report surfaces library-wide. Read both families as *ruled here, enforced
+everywhere* — an English deliverable does not sit outside their reach. The language-independent
+statement of family 7 is the root `CLAUDE.md` Tool Connector Pattern section; this entry is
+its Greek carrier and, because the double tilde is unique to the convention, the library's
+greppable check for it in any language.
 
-**Family-6 coverage gap — closed 2026-08-10, the same shape as family 5's.** As shipped that
-morning the pattern was the literal string `κοστίζει μηδέν`: the founding instance's exact
-two words, which is how a pattern written from a single example behaves. Probed against
-constructed variants of its own ruled defect it matched one of five, and two of five with
-`-i`. It missed the derivational accent shift («κοστίζει μηδενικά ευρώ»), the inflected verb
-(«κοστίζουν μηδέν») and an intervening adverb («κοστίζει απολύτως μηδέν») — none of them
-exotic Greek, all of them the same calque. The replacement above splits net from rank so
-that no single spelling has to carry the family. Recorded because the two gaps together are
-the argument for the governing note: **a pattern lifted from the founding instance encodes
-that instance, not the class**, and reading one back later feels like coverage because it
-still matches the example it was born from. Both were caught within a day of shipping, by
-running them, which is the only way this class of error is ever found.
+**Family 8 in detail — the reader test, worked both ways.** One slug, one deliverable, two
+verdicts, and the only thing that changes is who the surrounding block is addressed to.
 
-**Family-7 provenance (2026-08-10) — the library's own convention leaking.** Founding
-instance: the rank-tracker E3 deliverable, 19 occurrences, which is the whole of that
-pass's required-fix count — `~~search console` ×14 (including all 12 rows of the §8 table's
-«Πηγή δεδομένων» column), `~~analytics` ×4, `~~SEO tool` ×1. The same document wrote
-«Search Console» correctly in Greek prose five times, so the class is residue on the way
-out, not a gap in what the skill knows; that is why the resolution rule lives with the
-convention (root `CLAUDE.md`) and its check lives here, rather than being handled as a
-skill-by-skill instruction. Second editor to raise it: an earlier competitor-analysis pass
-called the same tokens "worth a policy call" without a count. Zero-connector operation is
-untouched by the rule — step (c) is a sentence the deliverable can always write, and it is
-the same honest zero-data move the eval suites already expect ("no tools are connected …
-absent tools mean absent numbers"). One template cause is on record and fixed in this
-skill: an Output Validation line that offered `~~SEO tool data` as source-label vocabulary,
-i.e. the placeholder taught as the label a source column should carry (the
-meta-tags-optimizer 4.1.3 finding — cause in the template, not in the model).
-**Scope — family 8 is language-neutral too, and for the same reason.** It was promoted on Greek evidence and sits in a section headed "Greek", but a skill slug or a framework item ID has no client referent in any language: `domain-authority-auditor` and `CORE-EEAT O05` are as opaque to an English reader as to a Greek one. The blind competitor-analysis run made the point concretely — its Greek E3 carried 8 occurrences and its four English deliverables carried 5–7 lines each, and the executor noted that the English ones sat outside the family's literal reach as written. They do not. Read family 8 as *ruled here, enforced everywhere*, exactly as family 7 is. **Known cause, not yet fixed at time of writing**: `research/competitor-analysis` MANDATES the violation — `references/analysis-templates.md:224` puts "run the domain-authority-auditor … to get CITE scores" and a `CITE / C / I / T / E` table inside a *client-facing* Synthesis Report Template, and `SKILL.md:166` requires that section. A skill that orders the defect will keep producing it whatever this table says.
+- **PASS.** A table headed «Επόμενα βήματα — παραδόσεις» whose row reads
+  «/blog/kalliergeia-vasilikou → `content-refresher` (ανανέωση υπάρχοντος άρθρου)». The
+  heading says who the block is for, the handle is what that person types, and the job is
+  glossed beside it. The block ships inside the client's report and is still not client prose.
+- **FAIL.** The same slug in the report's own sentences: «Στείλαμε τις διευθύνσεις στο
+  content-refresher για ανανέωση». That asks the client to act on a name they hold nothing
+  for — and no gloss rescues it, because the string is not what they are missing.
 
-**Scope — family 7 is language-neutral, ruled on Greek evidence.** It sits in a section
-headed "Greek" because that is where the editor found it and where its FAIL grade was ruled,
-but a `~~category` token has no client referent in any language; the library-wide sweep of
-2026-08-10 resolved it on English report surfaces under the identical rule, across 15 skills.
-Read the family as *ruled here, enforced everywhere*. The language-independent statement is
-the root `CLAUDE.md` Tool Connector Pattern section; this entry is its Greek carrier and,
-because the double tilde is unique to the convention, the library's greppable check for it in
-any language.
+The test decides **where a handle may sit, and nothing else.** It does not reach the gloss
+rule: a framework *name* is still glossed on first use wherever a client meets it, and a
+framework *item ID* or a *skill slug* is still never glossed into client prose. Glossing is
+not what makes those two opaque, so glossing is not what would fix them.
+
+**When a family-8 hit traces to a template, fix the template.** A skill whose own client-facing
+template orders the defect — a client report section that instructs the writer to name another
+skill by slug, or prints a column of framework item IDs — will keep producing it whatever this
+table says, and the deliverable-side fix will be re-broken by the next run. Treat a mandated
+violation as a defect in the ordering skill, not in the output.
 
 ### Advisory families (fix on touch; internal-report surfaces non-blocking)
 
-- **«νίκη» for "win" — net on the noun, not the adjective.** The entry as first written listed «Γρήγορα κέρδη» / «Γρήγορη νίκη» and was escaped on 2026-08-10 by changing the adjective: «η πιο **γρήγορη** νίκη» and «η **φθηνότερη** νίκη» in one deliverable. That is family 6's failure shape exactly — a pattern written from the founding instance encoding that instance — so the net is the noun `νίκη`, ranked with `γρήγορ` · `φθηνότερ` · `εύκολ`, and the ruling is about the metaphor, not the adjective. Original entry: «Γρήγορα κέρδη» / «Γρήγορη νίκη» for "quick wins" → «Άμεσες βελτιώσεις» / «Άμεσα οφέλη» / «Άμεσο όφελος» (or keep EN "quick wins"). Not «Γρήγορες διορθώσεις», which is natural Greek for *quick fixes* — see the protected list below
+- **«νίκη» for "win" — net on the noun, not the adjective.** «Γρήγορα κέρδη» / «Γρήγορη νίκη» for "quick wins" → «Άμεσες βελτιώσεις» / «Άμεσα οφέλη» / «Άμεσο όφελος» (or keep EN "quick wins"). Not «Γρήγορες διορθώσεις», which is natural Greek for *quick fixes* — see the protected list below. The ruling is about the metaphor, not the adjective: an entry netting the two-word phrase is escaped by any writer who changes the adjective («η πιο **γρήγορη** νίκη», «η **φθηνότερη** νίκη»), which is family 6's failure shape exactly, so the net is the noun `νίκη`, ranked with `γρήγορ` · `φθηνότερ` · `εύκολ`. **Guard — `νίκη` is a substring of «Θεσσαλονίκη».** Bare, the net fires on «Θεσσαλονίκη» / «Θεσσαλονίκης», a city that belongs in the delivery copy of half the Greek shops there are, and on given names built the same way («Βερονίκη», «Ανδρονίκη»). Screen the city out by negative context — `grep -P "(?<!Θεσσαλο)νίκη"` — which is the one form measured working in **both** locales (checked 2026-08-10, GNU grep 3.11: it returned «Η νίκη ήταν εύκολη» and «η πιο γρήγορη νίκη» and dropped both Θεσσαλονίκη lines under `LC_ALL=POSIX` *and* under `LC_ALL=C.UTF-8`). It does not drop the given names, which stay a hand-check. Do **not** reach for `grep -w` instead: it does the right thing under `LC_ALL=C.UTF-8` and silently returns the Θεσσαλονίκη lines under `LC_ALL=POSIX`, where Greek letters are not word characters — measured, same session. Do not reach for a Greek bracket range either; `[α-ω]` aborts the grep with `Invalid collation character` and exit 2. Where `-P` is unavailable, run the bare noun and hand-drop the place-name and given-name hits, saying they were dropped
 - «ετικέτα ενέργειας» → «ενεργειακή ετικέτα» · «βόρειο δωμάτιο» (orientation) → «βορινό δωμάτιο» · «πάνω μέρος του εύρους» → «άνω άκρο του εύρους»
 - «εξουσία domain» → «το κύρος του domain» · «AI-απάντηση» compounds → «απάντηση AI» / «μηχανές AI» · «χάρτης GBP» for "GBP surface mapping" → «αντιστοίχιση σε επιφάνειες GBP»
 - «σε φυσικό αναγνώστη» → «σε Έλληνα αναγνώστη» · «κάθε μοντέλο αναγράφει» → «σε κάθε μοντέλο αναγράφεται»
-- **English artefact names in Greek client-visible prose** (2026-08-10; 14 occurrences across 5 files) — «το skill» / «του skill», «το template» / «του template», «στη βιβλιοθήκη μας», «Εκτελέστε <skill-name>» → «η μεθοδολογία μας» / «η μεθοδολογία ελέγχου» / «το πρότυπο ελέγχου». A Greek reader sees an untranslated token with no referent («Ορισμός (από το skill)»). Fix it on ANY surface the client reads, report surfaces included — this is **not** family 2: the editor fixed report surfaces as family 2's sanctioned home, and this class is the internal artefact's NAME leaking, not a provenance marker sitting where it belongs. Greppable in Greek prose: `το skill` · `του skill` · `το template` · `του template` · `βιβλιοθήκη μας` · `δεξιότητ` (this last one hand-checked — «δεξιότητα» is ordinary Greek for a person's competence and has legitimate uses). **Recurrence 1 — the same day the carrier shipped (2026-08-10), 11 occurrences** in the rank-tracker E3 deliverable: bare `content-refresher` / `keyword-research` / `memory-management` in Greek prose, «Παραδόσεις σε άλλες **δεξιότητες**», «τρέξτε τη **δεξιότητα** keyword-research». Translating the artefact name fails the same way leaving it in English does: «δεξιότητα» in Greek is a personal competence, so "run the skill" gives a client nothing to act on — name the job, not the artefact («τρέξτε την ανάλυση λέξεων-κλειδιών»). Recorded because it is evidence about how this class behaves: writing the carrier did not stop the class inside one day, so a Greek pass greps it every time instead of treating it as settled
-- **Process machinery as client vocabulary** (2026-08-10, ruled on the rank-tracker E3 deliverable; 7 occurrences) — internal process nouns with no client referent: «σε αυτή την **εκτέλεση**» ×4, «**το βήμα** εξόρυξης» ×2, «(**χειροκίνητη βαθμίδα**)». Native alternatives the same document produced itself: «Σε αυτή την **ανάλυση**», «κύκλος». The move is to name what the client gets, not the machinery that produced it; the editor ruled these instances and those two replacements, so any other wording is editor judgment rather than a ruled form. **Sibling of the English-artefact-name class above** — same shape (an internal noun with no client referent), different token set: there the artefact's NAME, here the process's. Review them as one family, grep them as two. Greppable but hand-checked, since each token has legitimate uses («εκτέλεση» of a contract, a «βαθμίδα» in education): `εκτέλεση` · `το βήμα` · `βαθμίδα` · `συνεδρί` (added 2026-08-10, 2 hits across 2 files in the blind wave; the ruled replacement is the same one «εκτέλεση» already has, «σε αυτή την ανάλυση». Greek-specific aggravation: «Συνεδρίες» is GA4's own Greek UI string for *sessions*, so an analytics report using it for a working session collides with its own key metric — hand-check)
+- **English artefact names in Greek client-visible prose** (2026-08-10) — «το skill» / «του skill», «το template» / «του template», «στη βιβλιοθήκη μας», «Εκτελέστε <skill-name>» → «η μεθοδολογία μας» / «η μεθοδολογία ελέγχου» / «το πρότυπο ελέγχου». A Greek reader sees an untranslated token with no referent («Ορισμός (από το skill)»). Fix it on ANY surface the client reads, report surfaces included — this is **not** family 2: report surfaces are family 2's sanctioned home, and this class is the internal artefact's NAME leaking, not a provenance marker sitting where it belongs. Greppable in Greek prose: `το skill` · `του skill` · `το template` · `του template` · `βιβλιοθήκη μας` · `δεξιότητ` (this last one hand-checked — «δεξιότητα» is ordinary Greek for a person's competence and has legitimate uses). Translating the artefact name fails the same way leaving it in English does: «δεξιότητα» in Greek is a personal competence, so «τρέξτε τη **δεξιότητα** keyword-research» gives a client nothing to act on — name the job, not the artefact («τρέξτε την ανάλυση λέξεων-κλειδιών»). This class is the advisory ancestor of family 8, and **family 8's reader test governs it too**: the same handle in a labelled operator block («Επόμενα βήματα για την ομάδα σας») is not a hit. Writing this carrier did not stop the class inside a day, so a Greek pass greps it every time instead of treating it as settled
+- **Process machinery as client vocabulary** (2026-08-10) — internal process nouns with no client referent: «σε αυτή την **εκτέλεση**», «**το βήμα** εξόρυξης», «(**χειροκίνητη βαθμίδα**)». Native alternatives, both ruled: «Σε αυτή την **ανάλυση**», «κύκλος». The move is to name what the client gets, not the machinery that produced it; the editor ruled those instances and those two replacements, so any other wording is editor judgment rather than a ruled form. **Sibling of the English-artefact-name class above** — same shape (an internal noun with no client referent), different token set: there the artefact's NAME, here the process's. Review them as one family, grep them as two. Greppable but hand-checked, since each token has legitimate uses («εκτέλεση» of a contract, a «βαθμίδα» in education): `εκτέλεση` · `το βήμα` · `βαθμίδα` · `συνεδρί` (added 2026-08-10; the ruled replacement is the same one «εκτέλεση» already has, «σε αυτή την ανάλυση». Greek-specific aggravation: «Συνεδρίες» is GA4's own Greek UI string for *sessions*, so an analytics report using it for a working session collides with its own key metric — hand-check)
 - **English residue never finished into Greek** (2026-08-10) — (a) raw English rubric sentences quoted into Greek body copy where the same sentence is already glossed in Greek beside them: **delete the English**, do not translate it a second time; (b) untranslated framework labels used as client-facing headings («Απόφαση: REFRESH ή rewrite;»); (c) «έτοιμες για copy-paste» → «έτοιμες για αντιγραφή»; (d) «(user-provided)» → «(στοιχεία που παρείχατε εσείς)»; (e) English title-case and «&» inside Greek headings — Greek does not title-case content words, and «&» is written «και». **Exempt, keep verbatim** (flagging these is itself the error): configuration values and identifiers — «DENY or SAMEORIGIN», «1; mode=block», «nosniff», «strict-origin-when-cross-origin», «ERR_TOO_MANY_REDIRECTS» — nginx directives, URLs, and genuine brand names (Solar Keymark, BoxNow, Skroutz)
 - «τομέας» for *domain* → keep *domain* («Κύρος domain», «260 αναφέροντα domains», «Παλαιότητα domain»); «τομέας» is a sector, and the same reports use «κλάδοι» for sectors a screen later · «προμηθευτής» for a data provider → «πάροχος» (a supplier supplies goods) · «πάνελ» for a question set → «σετ» (a Greek «πάνελ» is a discussion panel) · «εφευρίσκω» for data → «επινοώ» (εφευρίσκω is for devices). Greppable but hand-checked, since each token has legitimate uses: `τομέα` · `προμηθευτ` · `πάνελ` · `εφευρ`
 - «απο-ευρετηρίαση» → «αποευρετηρίαση» — Greek prefixes attach without a hyphen, the same pseudo-compound shape ruled against in «AI-απάντηση» above · «μακριάς ουράς» → «μακράς ουράς» (μακρύς is physical length). Greppable: `απο-ευρετηρίαση`, and the general shape — a Greek prefix immediately followed by a hyphen · `μακριάς`
@@ -297,7 +286,8 @@ A false positive is itself a defect: §6 must never require a banned phrasing an
 flag correct Greek. The forms below were checked by the binding editor and ruled correct as
 written — leave them alone.
 
-- Regional/administrative forms: «νομό Ηρακλείου»
+- Regional/administrative forms and place names: «νομό Ηρακλείου», «Θεσσαλονίκη» /
+  «Θεσσαλονίκης» (a city, not the quick-wins metaphor — see the `νίκη` guard above)
 - Standard Greek vocabulary: «πλαφόν», «ελλείψει», «συναπτά έτη», «αυστηροποίηση»,
   «διαστασιολόγηση», «ευρετηρίαση»
 - «Μη αυτόματες ενέργειες» — Search Console's own Greek UI string; reproduce it verbatim
@@ -307,4 +297,11 @@ written — leave them alone.
   withheld where the host word does not take one («κείμενο του site σας»)
 - Authentic quoted client speech in its own register («πόσο πρόστιμο τρώμε;»)
 
-New rulings append here in the same wave they are issued (ledger F13 guard).
+New rulings append here in the same wave they are issued.
+
+**End of rule text.** Everything in this file is a rule. Nothing in it is evidence *about* a
+rule — the two were separated on 2026-08-10 so that a required read stays safe to read.
+
+Provenance for the rules above — the evidence each one was ruled on — is kept in
+[anti-slop-provenance.md](anti-slop-provenance.md). That file is for graders and rule authors
+and is **not** an executor's read: if you are writing a deliverable, you are finished here.
