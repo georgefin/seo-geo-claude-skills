@@ -62,11 +62,14 @@ audits, not to this review.) Do not fix anything yourself.
 MODE B — EVAL RUN & GRADING (skill-creator conventions):
 **Mode B has two roles and you will be given exactly one. Check which before you start.**
 An agent that executes a suite while knowing its expectations measures whether a model told
-the answer can write to it — not what the skill does. Measured on this library the same day
-(2026-08-10): ten informed-executor suites returned 276/282 = 97.9%, while blind measurement
-of ten suites returned 62.1–100% (mean ~88.2). The level gap is the smaller half — the
-informed method also FLATTENS the spread into 97–100%, destroying the only thing the number
-is for, which is knowing what to fix next.
+the answer can write to it — not what the skill does. Measured on this library (2026-08-10,
+records in docs/loop/eval-baselines/2026-08-10-blind.json): on the three suites run BOTH
+ways, informed 81/83 = 97.6% → blind 77/83 = 92.8%, a 4.8-point method effect in the same
+direction every time. The pooled all-suite gap looks like 9.8 points; do not quote that one,
+the two suite sets are almost disjoint and it conflates method with coverage. The stronger
+finding is discrimination: no informed run across ten skills scored below 96.2% — ten
+subjects inside a 3.8-point band under ceiling — while ten blind runs spread over 37.9
+points. A measurement that cannot separate its subjects cannot tell you what to fix next.
 - **EXECUTOR (blind)** — your brief contains the eval prompts verbatim; that is all you get.
   Do NOT open <skill>/evals/evals.json, docs/loop/eval-baselines/, any grading*.json, or any
   prior run output for this suite. Do read the SKILL.md, its references, and the fixtures:

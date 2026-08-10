@@ -91,15 +91,31 @@ verdict; ledgered failures must not be repeated — repeating one is an incident
    A run that sees an expectation is **labelled contaminated, not discarded quietly** — a
    labelled contaminated run is usable evidence; a silently contaminated one poisons the
    baseline it lands in.
-   Founding measurement (2026-08-10, the same library in the same window): ten
-   informed-executor suites returned **276/282 = 97.9%**; blind measurement of ten suites
-   returned **62.1 / 82.8 / 85.7 / 86.2 / 89.3 / 90.0 / 92.3 / 96.6 / 96.7 / 100%**
-   (mean ≈ 88.2). The level gap is the smaller half of the finding: **the informed method
-   also flattens the spread**, compressing every skill into 97–100% and so destroying the
-   only thing the number is for — knowing which skill to fix next. The blind spread named
-   `entity-optimizer` at 62.1% as the library's floor, and inspecting why found that it
-   carried no no-fabrication guidance at all while its own suite graded fabrication. No
-   informed run had ever surfaced it.
+   Founding measurement (2026-08-10, same library, same window; full records in
+   `eval-baselines/2026-08-10-blind.json` and `blind-2026-08-10/<suite>.json`): ten
+   informed-executor suites returned **276/282 = 97.9%**, ten blind suites **252/286 =
+   88.1%**. **Do not quote that 9.8-point gap as the method effect** — the two sets are
+   almost disjoint, only `domain`, `serp` and `technical` were measured both ways, so the
+   pooled figure mixes the method with which skills each method happened to cover. The
+   defensible comparison is the paired one: informed 81/83 = 97.6% → blind 77/83 = 92.8%,
+   a **4.8-point method effect**, same direction in all three suites (domain −3.8, serp
+   −3.4, technical −7.1), n = 3 — act on it, do not treat it as a coefficient.
+   The **discrimination** finding is the stronger one and it survives the confound: across
+   ten different skills no informed run scored below 96.2%, ten independent subjects inside
+   a 3.8-point band just under ceiling, while ten blind runs spread over 37.9 points. A
+   measurement that cannot separate its subjects cannot tell you what to fix next, which is
+   the only thing these numbers are for. The blind spread put `entity-optimizer` at the
+   library's floor (62.1%) and inspecting why found it carried no no-fabrication guidance at
+   all while its own suite graded fabrication. State that as found-by-blind, **not** as
+   missed-by-informed: entity-optimizer was never run informed, so there is no informed run
+   to have missed it.
+   Blindness is **not uniform across those ten** and each record states its own limits —
+   `technical` saved all five deliverables before opening `evals.json` at all; seven suites
+   used per-eval alternation so later evals had seen earlier expectations (`metatags` labels
+   this "RESIDUAL CONTAMINATION, DISCLOSED" and shows it in its data); `memory` calls itself
+   "informed executor, blind grader" because its launching brief pre-named traps, and `serp`
+   carries the same discount. Every one of those disclosures was volunteered by the run that
+   made it and every one weakens its own number. That is the behaviour to keep.
    Greek-language outputs additionally go to `greek-content-editor` for
    register/diacritics/Greeklish-placement judgment.
    `scripts/check-freshness.sh` (advisory, non-blocking) flags dated baselines and

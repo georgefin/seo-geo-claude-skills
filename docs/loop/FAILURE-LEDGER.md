@@ -818,3 +818,45 @@ regression rate · repeat-failure count · tool-correctness rate.
 - **Recurrence**: 0 (two instances in one day counted as the founding pattern, per F7's
   precedent; a future pattern shipping without its probe increments this).
 - **Status**: guard live in `build/seo-content-writer/references/anti-slop-ruleset.md` §6.
+
+---
+
+## F16 — 2026-08-10 · Measurements quoted as fact were weaker than their record in two different ways
+
+- **Failure**, two mechanisms found in one audit, both in the blind-eval evidence base:
+  **(a) Evidence durability.** Ten blind Mode B runs were executed and their headline rates
+  were quoted in `PIPELINE.md`, in `.claude/agents/skill-reviewer.md` and in reports to the
+  maintainer. **Seven of the ten existed only as JSON in the session scratchpad** — an
+  ephemeral directory reclaimed when the session ends. Only backlink, entity and memory had
+  reached a baseline record. Every figure was accurate; none of the seven was reproducible
+  from the repository, and nothing would have announced that when the directory vanished.
+  **(b) A confounded aggregate quoted as a causal effect.** The same carriers stated
+  "informed 97.9% vs blind 88.1%" and read the 9.8-point difference as the method effect.
+  The two suite sets are **almost disjoint — only 3 of 10 suites (domain, serp, technical)
+  were measured both ways** — so the pooled gap mixes the method with which skills each
+  method happened to cover. The paired comparison is 97.6% → 92.8%, a **4.8-point** effect:
+  real, same-signed in all three suites, and half the size claimed. A third statement,
+  "no informed run had ever surfaced entity-optimizer's 62.1%", was true only vacuously —
+  entity-optimizer was never run informed.
+- **Root cause**: a number that has been computed feels established. Neither mechanism is
+  about the number being wrong — every rate above reproduces exactly. Both are about the
+  **record being weaker than the claim built on it**: (a) persisted nowhere durable, (b)
+  compared across groups that were never checked for overlap. Nothing in the pipeline asked
+  either question, because both look like bookkeeping after the interesting work is done.
+- **Aggravating, and the reason this entry is worth its space**: mechanism (b) was committed
+  **within the hour** of shipping `domain-authority-auditor` 4.2.0, whose entire content is a
+  derived-figure discipline — recompute every figure you compute rather than copy, and
+  reconcile it against the tables above it. The rule was written for the skills and not
+  applied to the loop's own reporting. A rule the pipeline enforces on its outputs and not
+  on itself is half a rule.
+- **Guard**: (a) a blind or informed run is not complete until its record is committed under
+  `docs/loop/eval-baselines/`; the scratchpad is a workspace, never a record, and a rate may
+  not be quoted in a carrier or a report until its record has a repo path. The ten records
+  are now at `eval-baselines/blind-2026-08-10/<suite>.json` with the index at
+  `2026-08-10-blind.json`. (b) Any cross-method or cross-window comparison states which
+  subjects are in both groups before it states a difference; where the groups are not the
+  same, the paired figure is the headline and the pooled figure is labelled confounded.
+  Both carriers were corrected in the same commit that opened this entry.
+- **Recurrence**: 0 (founding). A rate quoted from an uncommitted record, or a pooled gap
+  presented as a method effect without a pairing check, increments this.
+- **Status**: guards live in `PIPELINE.md` VALIDATE (ii) and `2026-08-10-blind.json`.
