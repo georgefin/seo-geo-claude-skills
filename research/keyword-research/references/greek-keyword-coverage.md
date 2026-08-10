@@ -110,9 +110,11 @@ Extends Step 10. Local-intent keywords should map to a GBP surface in addition t
 |----------------------------|---------|----------------------|-----------------------------|
 | Service + city/area | υδραυλικός Αθήνα (plumber Athens) | Products/Services description | Service or location page |
 | Proximity ("near me") | κοντινό φαρμακείο (nearby pharmacy) | Categories + attributes, verified address | Store locator page |
-| Question queries | πόσο κοστίζει... (how much does it cost) | Q&A — seed the top 3-5 proactively | FAQ section / FAQ schema |
+| Question queries | πόσο κοστίζει... (how much does it cost) | Q&A — seed the top 3-5 proactively | FAQ section — the visible Q&A block |
 | Time-sensitive / offers | ανοιχτά Κυριακή (open Sunday) | Posts | Homepage banner |
 | Brand + Greeklish | [brand] kataskevi | Business name / alternate spelling field | Domain, meta title |
+
+The website-side FAQ section for question queries is content, not markup: the visible Q&A block is what AI engines parse and what earns CORE-EEAT C09, with no markup at all. Add FAQPage JSON-LD only where FAQPage is that page's one primary type — on a service or location page whose accurate type is LocalBusiness, FAQPage on top is schema stacking and adds no citation signal (settled ruling R2).
 
 ### GBP Content Cadence
 
