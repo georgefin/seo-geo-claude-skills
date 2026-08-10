@@ -20,7 +20,7 @@ before 2026-07-18 are not recoverable from the current session transcript.
 - **Decided**: on/before 2026-07-18 (in v1 routine prompt); re-affirmed 2026-08-08.
 - **Evidence**: No engine-official adoption found; absence re-confirmed each weekly sweep.
 - **Encoded in repo**: `build/geo-content-optimizer/SKILL.md:159`;
-  `build/geo-content-optimizer/references/ai-citation-patterns.md:478`; `VERSIONS.md:171` ("non-levers")
+  `build/geo-content-optimizer/references/ai-citation-patterns.md:478`; `VERSIONS.md:173` ("non-levers")
   (pointers refreshed 2026-08-09 — 4.1.5 module insertion + v4.3.1 changelog shifted both;
   VERSIONS pointer re-refreshed 2026-08-10, +2 from the seo-content-writer 4.2.5 bullet,
   then +2 again from the entity-optimizer 4.1.5 / backlink-analyzer 4.0.4 bullet).
@@ -44,7 +44,7 @@ before 2026-07-18 are not recoverable from the current session transcript.
   each type is complete, accurate, and independently justified. Skill text and references
   must teach this boundary, not the pre-clarification "pile types" pattern.
 - **Encoded in repo**: `build/geo-content-optimizer/SKILL.md:159`;
-  `build/geo-content-optimizer/references/ai-citation-patterns.md:478`; `VERSIONS.md:171` ("non-levers")
+  `build/geo-content-optimizer/references/ai-citation-patterns.md:478`; `VERSIONS.md:173` ("non-levers")
   (pointers refreshed 2026-08-09, same shift as R1; VERSIONS pointer re-refreshed twice on
   2026-08-10, same two changelog insertions as R1);
   boundary alignment in `build/schema-markup-generator/` v4.1.0 (2026-08-08 wave).
@@ -57,7 +57,7 @@ before 2026-07-18 are not recoverable from the current session transcript.
   Enhancements appearance filter, and Rich Results Test support all cut) — but FAQPage
   generation stays in the library. Its value is AI-engine/GEO parsing, not SERP monitoring.
 - **Decided**: 2026-08-08 sweep (retirement reflected in schema-markup-generator 4.0.1).
-- **Encoded in repo**: `build/schema-markup-generator/SKILL.md:223`; `VERSIONS.md:175`
+- **Encoded in repo**: `build/schema-markup-generator/SKILL.md:223`; `VERSIONS.md:177`
   ("schema-markup-generator 4.0.1" — anchor-tagged per F12; on any line/token
   mismatch, grep the token — the token is authoritative; VERSIONS pointer refreshed
   2026-08-10, +2 from the entity-optimizer 4.1.5 / backlink-analyzer 4.0.4 bullet).
@@ -72,7 +72,7 @@ before 2026-07-18 are not recoverable from the current session transcript.
   (technical-seo-checker 4.0.1).
 - **Encoded in repo**: `monitor/performance-reporter/references/kpi-definitions.md:300-306`
   (pointer refreshed 2026-08-08 after the AI-referrals insertion shifted the table);
-  `VERSIONS.md:176` ("technical-seo-checker 4.0.1", anchor-tagged per F12 — token
+  `VERSIONS.md:178` ("technical-seo-checker 4.0.1", anchor-tagged per F12 — token
   authoritative on mismatch; refreshed 2026-08-10, +2 from the entity-optimizer 4.1.5 /
   backlink-analyzer 4.0.4 bullet); `optimize/technical-seo-checker/SKILL.md:259`
   (pointer refreshed 2026-08-09 — an E3 Mode A round found :258 resolving to a
@@ -103,7 +103,7 @@ no gate needed).
 |---|---|---|
 | schema.org release | v30.0 | 2026-03-19 |
 | Google Search Quality Rater Guidelines | last known active version dated 2025-09-11 | 2026-08-08 |
-| Google AI Mode in Greek | live since 2025-10-08 (`VERSIONS.md:171` ("non-levers")) | 2026-08-09 |
+| Google AI Mode in Greek | live since 2025-10-08 (`VERSIONS.md:173` ("non-levers")) | 2026-08-09 |
 | awesome-generative-engine-optimization (GitHub) | last commit 2026-04-14 (quiet) | 2026-08-08 |
 | RSI paper baseline | MetaSkill-Evolve arXiv 2607.05297 · RSI survey arXiv 2607.07663 · AREX arXiv 2607.21461 ("AREX: Towards a Recursively Self-Improving Agent for Deep Research", BAAI, v1/v2 — existence confirmed 2026-08-08, see W1) · PAST-Bench arXiv 2608.04003 | 2026-08-08 |
 | Skill-loop literature (2026-08-08 assessment additions) | GRASP arXiv 2605.29668 · SEA-Eval arXiv 2604.08988 · feedback-dynamics arXiv 2608.02636 · OpenSkillEval arXiv 2605.23657 (titles search-verified; contents beyond abstracts [VERIFY]) | 2026-08-08 |
