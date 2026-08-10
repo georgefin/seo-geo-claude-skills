@@ -1,13 +1,13 @@
 ---
 name: domain-authority-auditor
-version: "4.1.0"
+version: "4.2.0"
 description: 'Run the full 40-item CITE domain authority audit across 4 dimensions with domain-type weighting and veto checks. Use when the user asks to "audit domain authority", "domain trust score", "CITE audit", "how authoritative is my site", "domain credibility check", "is my domain trustworthy", "domain credibility score", "domain rating". For content-level assessment, see content-quality-auditor. For link profile details, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.1.0"
+  version: "4.2.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -172,6 +172,11 @@ Score each item:
 - **Partial** = 5 points (partially meets criteria)
 - **Fail** = 0 points (does not meet criteria)
 
+**A dimension score is the sum of that dimension's ten item points** — so with all ten items
+scored it is always a multiple of 5 (N/A items rescale it; see Step 3). Publish the tally
+beside the score so a reader can check it. If tally and score disagree, the item table is
+right and the sentence is wrong: recount before publishing.
+
 ```markdown
 ### C — Citation
 
@@ -182,7 +187,7 @@ Score each item:
 | ... | ... | ... | ... |
 | C10 | Link Source Diversity | Pass/Partial/Fail | [specific observation] |
 
-**C Score**: [X]/100
+**C Score**: [X]/100 — [p] Pass + [q] Partial + [r] Fail = [p]×10 + [q]×5 (p + q + r = 10)
 
 ### I — Identity
 
@@ -191,7 +196,7 @@ Score each item:
 | I01 | Knowledge Graph Presence | Pass/Partial/Fail | [specific observation] |
 | ... | ... | ... | ... |
 
-**I Score**: [X]/100
+**I Score**: [X]/100 — [p] Pass + [q] Partial + [r] Fail = [p]×10 + [q]×5 (p + q + r = 10)
 ```
 
 ### Step 3: T + E Audit (20 items)
@@ -206,7 +211,7 @@ Same format for Trust and Eminence dimensions.
 | T01 | Link Profile Naturalness | Pass/Partial/Fail | [specific observation] |
 | ... | ... | ... | ... |
 
-**T Score**: [X]/100
+**T Score**: [X]/100 — [p] Pass + [q] Partial + [r] Fail = [p]×10 + [q]×5 (p + q + r = 10)
 
 ### E — Eminence
 
@@ -215,14 +220,34 @@ Same format for Trust and Eminence dimensions.
 | E01 | Organic Search Visibility | Pass/Partial/Fail | [specific observation] |
 | ... | ... | ... | ... |
 
-**E Score**: [X]/100
+**E Score**: [X]/100 — [p] Pass + [q] Partial + [r] Fail = [p]×10 + [q]×5 (p + q + r = 10)
 ```
 
 **Note**: Some items require specialized data (C05-C08 AI citation data, I01 knowledge graph queries, T04-T05 IP/profile analysis). Score what is observable; mark unverifiable items as "N/A — requires [data source]" and exclude from dimension average.
 
+Excluded means the denominator shrinks, never that the item scores 0: **dimension score =
+points earned ÷ (10 × scored items) × 100**. State the denominator beside the score —
+`C Score: 58/100 — 35 pts over 6 scored items; C05-C08 N/A`. Worked N/A cases:
+[references/score-arithmetic.md](./references/score-arithmetic.md).
+
 **Greek e-commerce domains**: apply the supplementary trust/staleness checks in [references/greek-eshop-compliance.md](./references/greek-eshop-compliance.md) when scoring T06, T08, and T10 (stale ODR link, ΓΕΜΗ/ΑΦΜ and entity transparency, withdrawal/returns and policy furniture). These are audit signals only — never legal advice; compliance conclusions go to the client's lawyer.
 
 ### Step 4: Scoring & Report
+
+**Derived figures — recompute every one before you publish.** Any number not copied from the
+input is derived from the report's own per-item grades and stated weights: dimension scores,
+the weighted CITE Score, item tallies, points-scored/points-lost sums, Top 5 potential gains,
+and any "what the score would be if X" projection. Three rules carry most of the defects:
+
+1. **A count matches the list it names** — "the four C Partials (C04, C05, C06, C07, C09)"
+   is wrong: five IDs, called four. Count the IDs you just typed.
+2. **A total equals its parts** — points scored + points lost = points available; a combined
+   gain claim equals the sum of the gains it aggregates; a projected range equals the
+   difference of its own two endpoints.
+3. **The tables win** — if a sentence disagrees with the table above it, fix the sentence.
+
+Formulas, N/A rescaling, veto-cap handling, and worked gain/projection examples:
+[references/score-arithmetic.md](./references/score-arithmetic.md).
 
 Calculate scores and generate the final report:
 
@@ -239,15 +264,15 @@ Calculate scores and generate the final report:
 
 ### Dimension Scores
 
-| Dimension | Score | Rating | Weight | Weighted |
-|-----------|-------|--------|--------|----------|
-| C — Citation | [X]/100 | [rating] | [X]% | [X] |
-| I — Identity | [X]/100 | [rating] | [X]% | [X] |
-| T — Trust | [X]/100 | [rating] | [X]% | [X] |
-| E — Eminence | [X]/100 | [rating] | [X]% | [X] |
-| **CITE Score** | | | | **[X]/100** |
+| Dimension | Score | Items (Pass/Partial/Fail) | Rating | Weight | Weighted |
+|-----------|-------|:-------------------------:|--------|--------|----------|
+| C — Citation | [X]/100 | [p]/[q]/[r] | [rating] | [X]% | [X] |
+| I — Identity | [X]/100 | [p]/[q]/[r] | [rating] | [X]% | [X] |
+| T — Trust | [X]/100 | [p]/[q]/[r] | [rating] | [X]% | [X] |
+| E — Eminence | [X]/100 | [p]/[q]/[r] | [rating] | [X]% | [X] |
+| **CITE Score** | | | | | **[X]/100** |
 
-**Score Calculation**: CITE Score = C × [w_C] + I × [w_I] + T × [w_T] + E × [w_E]
+**Score Calculation**: CITE Score = C × [w_C] + I × [w_I] + T × [w_T] + E × [w_E] = [each product] = [unrounded sum] → **[rounded]/100** (one decimal, half up; the rating label follows the rounded number)
 
 **Rating Scale**: 90-100 Excellent | 75-89 Good | 60-74 Medium | 40-59 Low | 0-39 Poor
 
@@ -262,14 +287,15 @@ Calculate scores and generate the final report:
 
 ### Top 5 Priority Improvements
 
-Sorted by: weight × points lost (highest impact first)
+Sorted by: weight × points lost (highest impact first). Potential gain = recoverable points
+(10 from Fail, 5 from Partial) × that dimension's weight — show the multiplication.
 
 1. **[ID] [Name]** — [specific modification suggestion]
-   - Current: [Fail/Partial] | Potential gain: [X] weighted points
+   - Current: [Fail/Partial] | Potential gain: [10 or 5] × [dim weight] = [X] weighted points
    - Evidence: [observed data behind the score] | Confidence: [Confirmed/Likely/Hypothesis — if Hypothesis, name what would confirm it]
    - Action: [concrete step]
 2. **[ID] [Name]** — [specific modification suggestion]
-   - Current: [Fail/Partial] | Potential gain: [X] weighted points
+   - Current: [Fail/Partial] | Potential gain: [10 or 5] × [dim weight] = [X] weighted points
    - Evidence: [observed data behind the score] | Confidence: [Confirmed/Likely/Hypothesis — if Hypothesis, name what would confirm it]
    - Action: [concrete step]
 3–5. [Same format]
@@ -320,8 +346,9 @@ For a complete assessment, pair this CITE audit with a CORE-EEAT content audit:
 
 ### Output Validation
 - [ ] All 40 items scored (or marked N/A with reason)
-- [ ] All 4 dimension scores calculated correctly
-- [ ] Weighted CITE Score matches domain-type weight configuration
+- [ ] All 4 dimension scores calculated correctly — each equals its own item tally (N/A items rescale the denominator, they never score 0)
+- [ ] Weighted CITE Score matches domain-type weight configuration, shown unrounded then rounded
+- [ ] Every other derived figure (item tallies, points-lost sums, potential gains, projections) recomputes from the report's own tables, and every stated count matches the number of items it enumerates
 - [ ] All 3 veto items checked first and flagged if triggered
 - [ ] Top 5 improvements sorted by weighted impact, not arbitrary
 - [ ] Every recommendation is specific and actionable (not generic advice)
@@ -343,6 +370,7 @@ See [references/example-report.md](./references/example-report.md) for a complet
 ## Reference Materials
 
 - [CITE Domain Rating](../../references/cite-domain-rating.md) — Full 40-item benchmark with dimension definitions, scoring criteria, domain-type weight tables, and veto items
+- [references/score-arithmetic.md](./references/score-arithmetic.md) — How every derived figure is composed: dimension tallies, N/A rescaling, the weighted total and its rounding, veto-cap presentation, potential-gain and projection formulas, plus the pre-send recompute pass
 - [references/example-report.md](./references/example-report.md) — Complete CITE audit example with scored dimensions, top 5 improvements, action plan, and CORE-EEAT cross-reference
 - [references/greek-eshop-compliance.md](./references/greek-eshop-compliance.md) — Greek e-shop trust/compliance audit items mapped onto CITE T06/T08/T10 (stale ODR link, ΓΕΜΗ/ΑΦΜ transparency, withdrawal/returns and policy furniture) — audit signals, not legal advice
 

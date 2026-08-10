@@ -750,7 +750,8 @@
         "e3 expectation 3: the recomputed CITE score (74.14-74.2) lands in the rating scale's 74-75 band gap ('60-74 Medium | 75-89 Good'); no expectation pins the band-interval convention, so any label read must be accepted. Minor wording gap. (Recorded only.)",
         "e4 expectation 5 scopes fluency/register out of the expectation while the suite discipline routes them to the binding greek-content-editor — the verdict a passing mechanical layer should carry pre-editor (PASS vs EDITOR-PENDING) is not stated in the expectation text; this run records EDITOR-PENDING per the run discipline. Suggest the expectation name its pre-editor verdict explicitly. (Recorded only.)",
         "e4: the Greek pack contains no authoritative-media data, so E06 is genuinely unmeasurable, but neither prompt nor expectations mention an N/A for this eval; N/A (skill-faithful, E=66,7 → CITE 70,2) and Fail-as-absence (E=60 → CITE 68,5) both satisfy the self-consistency expectations while yielding different scores. Worth pinning E06's intended handling in a future suite revision. (Recorded only.)"
-      ]
+      ],
+      "denominator_superseded_2026_08_10": "This record's total of 26 is FROZEN AS RUN and remains the correct denominator for these verdicts. It is no longer the suite's size: domain-authority-auditor 4.2.0 added one derived-arithmetic expectation to each of evals 1-4, taking the suite to 30. Both this informed record and the blind rebase record (24/26) predate that change, so neither may be compared expectation-for-expectation against a post-4.2.0 run without noting the four new items — a run scoring 26/30 has not regressed from 25/26. The next baseline written for this suite carries 30."
     },
     {
       "skill": "rank-tracker",

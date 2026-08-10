@@ -1,0 +1,171 @@
+# CITE Score Arithmetic — How Every Derived Figure Is Composed
+
+Companion to [SKILL.md](../SKILL.md) Step 2-4. A CITE audit's entire deliverable is numbers,
+and most of them are **derived** — computed from the report's own grades and weights rather
+than copied from the client's data. This file states how each one is composed so the report
+can show its working and so a reader can check it.
+
+Nothing here changes the framework. The 40 items, the 4 dimensions, the domain-type weights,
+the three veto items (T03, T05, T09) and the veto consequence (CITE Score capped at 39 /
+Poor, plus a **Manipulation Alert**) are as defined in
+[references/cite-domain-rating.md](../../../references/cite-domain-rating.md). This file only
+makes the existing mechanic show its arithmetic.
+
+## 1. The chain, in order
+
+| # | Figure | Composed from |
+|---|--------|---------------|
+| 1 | Item points | Pass = 10 · Partial = 5 · Fail = 0 |
+| 2 | Dimension score (0-100) | Sum of that dimension's ten item points |
+| 3 | Weighted contribution | Dimension score × that dimension's domain-type weight |
+| 4 | CITE Score | Sum of the four weighted contributions |
+| 5 | Rating label | The rounded CITE Score read off the rating scale |
+| 6 | Reported score | The CITE Score, or 39 if a veto item Fails (§4) |
+
+Everything else in the report — tallies, points-lost sums, potential gains, projections — is
+a further derivation from these six and must reconcile with them.
+
+**Show the tally next to the score.** `C Score: 70/100 — 4 Pass + 6 Partial + 0 Fail =
+40 + 30`. The three counts always sum to 10 (or to the scored-item count, §3). A dimension
+score with every item graded is therefore always a multiple of 5; a figure like 72/100 cannot
+be produced by ten items scored 10/5/0 and signals a slipped tally.
+
+## 2. The weighted total and its rounding
+
+Write the products, then the unrounded sum, then the rounded score:
+
+```
+CITE Score = 70 × 0.40 + 55 × 0.15 + 80 × 0.20 + 65 × 0.25
+           = 28.0 + 8.25 + 16.0 + 16.25
+           = 68.5 → 68.5/100 (Medium)
+```
+
+- **Round half up, at one decimal.** 69.95 → 70.0, not 69.9. Truncation is the common slip.
+- **The rating label follows the rounded number**, on the scale 90-100 Excellent | 75-89 Good
+  | 60-74 Medium | 40-59 Low | 0-39 Poor. A number in a band gap does not exist — the bands
+  are contiguous once the figure is rounded to one decimal.
+- **Always print the unrounded sum** as well as the rounded score. It is what lets a reader
+  reproduce the figure, and it removes any dependence on which rounding convention they hold.
+- In a Greek-language report the decimal separator is a comma («68,5»). The arithmetic is
+  identical and the comma is not a defect.
+
+## 3. N/A items — the denominator shrinks, the item never scores 0
+
+An item that cannot be evaluated is marked `N/A — requires [data source]` and **excluded from
+its dimension's average**. Excluding is not the same as scoring zero:
+
+```
+dimension score = points earned ÷ (10 × scored items) × 100
+```
+
+Worked case — C with C05-C08 N/A (no AI-citation data of any kind), six items scored
+1 Pass + 4 Partial + 1 Fail:
+
+| Method | Arithmetic | Result |
+|--------|-----------|--------|
+| Correct — exclude | (10 + 20 + 0) ÷ (10 × 6) × 100 | **50.0/100** |
+| Wrong — N/A as 0 | (10 + 20 + 0) ÷ 100 × 100 | 30/100 (understates by 20) |
+
+State the denominator beside the score: `C Score: 50.0/100 — 30 pts over 6 scored items;
+C05-C08 N/A (no AI-citation test run)`. Rescaled dimension scores are usually not multiples
+of 5, and that is expected. Report how many of the 40 items were scored and how many were
+N/A, and make sure that count matches the item tables (34 + 6 = 40).
+
+## 4. Veto cap — an override, not a term in the sum
+
+A Fail on T03, T05, or T09 caps the reported CITE Score at 39 (Poor) and raises a
+**Manipulation Alert**. Compute the weighted score normally first, then apply the cap:
+
+- The cap is a ceiling. A weighted figure above 39 is reported as 39; a weighted figure
+  already below 39 stands as it is. Either way the Manipulation Alert is raised.
+- The uncapped figure may appear **only** labelled as what the score would have been without
+  the veto — never as the score. It still has to recompute from the dimension table.
+- Per-item grades and dimension scores are unchanged by a veto. The cap changes the final
+  score, not the tables.
+- More than one veto still caps at 39. CITE has no BLOCK verdict and no 59 cap — those are
+  CORE-EEAT's mechanics and importing them into a CITE report is an error.
+
+## 5. Potential gain, and the sum of several gains
+
+```
+potential gain = recoverable points × that dimension's weight
+recoverable points = 10 from Fail, 5 from Partial
+```
+
+Worked, on E-commerce weights (C 20% / I 20% / T 35% / E 25%):
+
+| Item | Current | Recoverable | Weight | Gain |
+|------|---------|:-----------:|:------:|:----:|
+| T06 | Partial | 5 | 35% | 1.75 |
+| I05 | Fail | 10 | 20% | 2.00 |
+| T08 | Partial | 5 | 35% | 1.75 |
+
+**A combined claim equals the sum of its parts.** T06 + I05 is worth **3.75** weighted
+points. Writing "these fixes capture more than five points" overstates it — and adding T08
+to reach 5.50 only works if the action prescribed for T08 can actually flip that item. If
+the report's own T08 row says the grade is driven by content age, a footer fix cannot claim
+T08's 1.75. Claim the gain of the item your action actually moves.
+
+The Top 5 is sorted by this same figure, descending. Sort by the numbers after you have
+computed them, not by the order you found the items in.
+
+## 6. Projections and sensitivity brackets
+
+If the report projects what the score becomes under a different grade for an item, recompute
+**both endpoints** from the dimension table — do not estimate the swing.
+
+Worked case — E06 N/A, E's nine scored items earning 60 points, E weight 25%:
+
+| Scenario | E dimension | CITE contribution | CITE Score |
+|----------|-------------|-------------------|------------|
+| Reported (E06 N/A) | 60 ÷ 90 × 100 = 66.67 | 16.67 | 70.17 → 70.2 |
+| E06 proves Fail | 60 ÷ 100 × 100 = 60.0 | 15.0 | 68.50 |
+| E06 proves Pass | 70 ÷ 100 × 100 = 70.0 | 17.5 | 71.00 |
+
+Only E moves, so C + I + T contribute the same 53.50 in all three rows — which is what makes
+each CITE Score in the last column checkable. The bracket is **68.50 to 71.00** and its width is **2.50 points** — the difference of the
+two endpoints the report itself just stated, which is also 10 E-points × 25%. A stated range
+that does not equal the gap between its own endpoints is a defect regardless of how plausible
+it sounds.
+
+## 7. Counts and tallies in prose
+
+Prose counts are derived figures too, and they fail more often than the score does because
+nobody recomputes a sentence.
+
+- **Count the IDs you typed.** "the four C-dimension Partials (C04, C05, C06, C07, C09)" —
+  five IDs, called four.
+- **Keep one number per fact.** "8 Partials (…nine Partials, 45 points)" contradicts itself
+  inside one sentence; and 45 points is 9 × 5, so the list, not the count, was right.
+- **Points available, scored and lost must close.** With all 40 items scored the raw pool is
+  400. Scored + lost = 400, and lost = (Partials × 5) + (Fails × 10). With N/A items the pool
+  is 10 × scored items — say so rather than leaving 400 standing.
+
+## 8. Pre-send recompute pass
+
+Run this after the report is written, against the finished tables:
+
+1. Each dimension score = its own item tally, and the tally counts sum to the scored items.
+2. Scored + N/A = 40, and the N/A list in the prose matches the N/A rows in the tables.
+3. The weighted sum reproduces from the four dimension scores and the stated weights; the
+   unrounded figure is printed; the rating label matches the rounded number.
+4. If a veto fired: reported score is the cap, the uncapped figure is labelled as such, and
+   the Manipulation Alert is present.
+5. Every Top 5 gain = recoverable points × weight, the list is sorted descending, and any
+   combined claim equals the sum of the gains it aggregates.
+6. Every projection's endpoints and range recompute; every prose count matches its own list.
+7. Where a sentence and a table disagree, the table wins — fix the sentence.
+
+## 9. Defect shapes this file exists to prevent
+
+Observed in this skill's own eval deliverables during the 2026-08-10 blind Mode B run and in
+the executor-phase correction logged in the preceding informed run — all four are derived
+figures that no source-data check would catch, because every input metric was traced
+correctly:
+
+| Shape | What it looked like | Fix |
+|-------|--------------------|-----|
+| Self-contradicting tally | "60 lost points … 8 Partials (nine listed, 45 points)" | Recount from the table; one number per fact |
+| Wrong pool | "400 raw points available; 340 scored" against tables totalling 335 | Scored + lost = pool |
+| Miscounted enumeration | "the four C-dimension Partials" followed by five IDs | Count the IDs typed |
+| Unrecomputed bracket | A sensitivity range whose endpoints and width were all three wrong | Recompute both endpoints; range = their difference |
