@@ -667,3 +667,50 @@ regression rate · repeat-failure count · tool-correctness rate.
   cheap: never compound commit with push in one command, since a hook that refuses the
   command leaves the tree in a state the next command inherits; and never `--amend`
   without reading `git show --stat` first.
+
+- **Recurrence 2 (2026-08-10) — a lesson stored where no later agent could reach it, twice
+  over.** Two separate instances in one wave, same signature: (a) a blind Mode B run's
+  extracted-prompts file, generically named `blind-prompts.json`, was overwritten mid-run by a
+  different skill's blind run sharing the scratchpad — caught only because the fixture it named
+  did not exist in the skill under test; (b) an earlier run's checker script was overwritten by
+  a sibling's script of the same name. The mitigation for (a) had ALREADY been learned: the
+  2026-08-09 baseline records "suite-prefixed grading filenames after a shared-scratchpad
+  collision". **It lived only as prose inside a baseline JSON**, which no subsequent agent
+  reads — so the next agent could not apply it, and did not. That is F13's thesis restated
+  against the pipeline's own tooling rather than against content: a ruling with no carrier on
+  the surface the actor reads is not a ruling, it is a memory.
+  **Redesign (rule 3)**: carried into `.claude/agents/skill-reviewer.md` as a HARD RULE — every
+  scratchpad file prefixed with its suite or review name, generic names named and banned, with
+  both collisions cited so the rule carries its own evidence. The same edit carries the second
+  lesson the wave produced: re-check your own inputs at close, because a skill's references are
+  simultaneously the executor's instructions and the grader's rubric, and two runs had a
+  ruleset gain a FAIL-grade family mid-run.
+  **Stated limit**: agent definitions load at session start, so this carrier takes effect in
+  the NEXT session, not the one that wrote it. The same lag applies to the `Write` tool added
+  to `greek-content-editor` earlier today, which a pass launched minutes later still did not
+  have. Recorded so a future reader does not mistake the lag for a failed fix.
+- **Third mechanism, and the one that explains the other two (2026-08-10)**: commit
+  `5d9befb` carries five `VERSIONS.md` rows and two changelog bullets belonging to three
+  other agents, and its message names none of them. Two separate agents reported it
+  independently, and one of them explained the mechanism precisely: it built its index
+  entry surgically — HEAD plus its own four changes, no whole-file `git add` — and
+  verified with `git diff --cached VERSIONS.md` immediately before committing. **Between
+  that check and the `git commit`, another agent ran `git add VERSIONS.md`.** The git
+  index is a single file in a shared worktree, so their add replaced the verified entry
+  and the commit consumed it.
+  **What this retires**: "stage only your own paths with an explicit pathspec", the
+  instruction given to every authoring agent in this wave and written into two earlier
+  entries here, is **insufficient by construction**. It cannot survive a concurrent
+  `git add` from another actor, because the thing it protects is not per-agent. No amount
+  of care at the pathspec level closes it.
+  **What actually closes it**: `register-lock.sh`'s PREVENTION leg — refusing the second
+  writer at announce time, so the concurrent window never opens. Its detection leg cannot
+  substitute, and the agent that skipped acquiring said so plainly in hindsight: it
+  reasoned that detection would fail the push for commits by agents who never acquired,
+  and it traded a record collision for a push block. On the evidence that was the wrong
+  trade — the block happened anyway, and the collision happened too.
+  **Redesign (rule 3)**: acquiring the lock before touching a shared register becomes a
+  standing rule for authoring agents, not a coordinator suggestion, and the wave that
+  writes it is the next agent-definition wave. Recorded as the open item; until it lands,
+  the prevention leg protects only actors that opt in, which is the honest description of
+  its reach.
