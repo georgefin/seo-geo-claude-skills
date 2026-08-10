@@ -456,3 +456,42 @@ regression rate · repeat-failure count · tool-correctness rate.
   4.2.1 (the ruleset's owning skill). Validation leg: geo eval-2-only r3 at
   unchanged 4.1.6 + ruled-families scan of the fresh output + editor re-judge;
   the v3 baseline records the full three-iteration arc.)
+
+## F14 — 2026-08-10 · Parallel agents' untracked files swept into a coordinator commit by `git add -A`
+
+- **Failure**: the identity commit `67ecad7` ("chore(identity): re-attribute fork
+  manifests to georgefin, keep upstream credit") also carried four eval fixtures
+  under `monitor/backlink-analyzer/evals/files/` — written by a parallel authoring
+  agent whose first attempt had died mid-run from an API credit error, leaving its
+  fixtures untracked in the shared working tree. The coordinator staged with
+  `git add -A`. Nothing was lost and no file was wrong; the RECORD was wrong. A
+  commit message that accurately describes its own scope, sitting on top of files
+  from an unrelated workstream, is precisely the kind of false provenance the whole
+  Mode A review layer depends on being able to trust. Detected by the backlink
+  author's own scope-boundary report on its second attempt, which found its
+  "untracked" fixtures already committed by someone else — not by any gate.
+- **Root cause**: coordinator sessions run authoring agents concurrently, so the
+  working tree routinely holds another actor's untracked output. `git add -A` and
+  `git add .` stage by tree state, not by intent, and the committer never sees what
+  it swept. Every prior wave got away with it only because the timing never
+  overlapped a commit.
+- **Guard**: `scripts/commit-scope-check.sh`, wired as check 4 of
+  `pre-push-gate.sh` (same per-push `@{upstream}` scope as claims-gate). Per
+  outgoing commit it collects the skill directories touched under
+  `build|research|optimize|monitor|cross-cutting/<skill>/` and FAILs when the
+  subject line does not name them; a genuine multi-skill commit declares breadth
+  instead (`library-wide`, `sweep`, `purge`, `wave`, `all skills`). Verified
+  against the founding instance before wiring: run on the breach it prints the
+  four offending paths and exits 1; run on the clean tree it passes. History
+  pushed before the guard existed is grandfathered by construction — it is no
+  longer outgoing — which is the honest treatment, since the guard cannot testify
+  about staging decisions it never observed.
+- **Not repaired by history rewrite**: `67ecad7` is already pushed to an open PR
+  branch. Force-pushing to correct a provenance label would trade a small
+  documented inaccuracy for a rewritten shared history, and the ledger entry plus
+  the backlink suite's own commit body already carry the correction. The four
+  files are in the right place and are covered by the backlink-analyzer suite's
+  Mode A review regardless of which commit introduced them.
+- **Recurrence rule**: a second instance of another actor's files landing in a
+  commit that does not declare them means this guard failed and needs redesign
+  (ledger rule 3) — not a reminder to stage more carefully.

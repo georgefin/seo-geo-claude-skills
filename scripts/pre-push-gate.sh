@@ -7,8 +7,10 @@
 #      (version sync, manifest parity, VERSIONS.md rows, 350-line cap,
 #      references/ links);
 #   3. scripts/claims-gate.sh — F11 drafting-integrity rules on the outgoing
-#      register diff (per-push @{upstream} scope; wired 2026-08-09, G5).
-# Push only when all three pass. With Actions disabled on this fork, this gate
+#      register diff (per-push @{upstream} scope; wired 2026-08-09, G5);
+#   4. scripts/commit-scope-check.sh — F14 declared-scope integrity: no commit
+#      may carry skill files its subject does not name (same per-push scope).
+# Push only when all four pass. With Actions disabled on this fork, this gate
 # is the effective CI (docs/loop/PIPELINE.md stage 4).
 #
 # Usage: ./scripts/pre-push-gate.sh [base-ref]   (default: origin/main)
@@ -54,6 +56,14 @@ echo "== claims-gate (F11 register drafting integrity)"
 # branch history is grandfathered to the Mode A covering round; retro-anchoring
 # pre-gate text would fabricate drafting-time evidence.
 bash "$ROOT/scripts/claims-gate.sh" || overall=1
+
+echo "== commit-scope-check (F14 declared-scope integrity)"
+# Same per-push scope decision as claims-gate: no base arg, so the check
+# resolves @{upstream} and judges only this push's NEW commits. History pushed
+# before the guard existed is grandfathered by construction — it is no longer
+# outgoing — which is the honest treatment: the guard cannot testify about
+# staging decisions it never observed.
+bash "$ROOT/scripts/commit-scope-check.sh" || overall=1
 
 echo ""
 if [ "$overall" -ne 0 ]; then
