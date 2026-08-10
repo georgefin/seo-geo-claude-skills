@@ -6,6 +6,12 @@ On-page SEO checklist, content writing template, and featured snippet optimizati
 
 ## On-Page SEO Checklist
 
+**These 23 boxes are a drafting pre-flight list, not the score.** They are unweighted, they have
+no scale, and a tally of ticked boxes is not an Overall SEO Score — that number comes from the
+ten scored factors in [seo-score-rubric.md](./seo-score-rubric.md), which is a different
+instrument with a different membership (eight boxes below feed no factor; the FAQ and word-count
+factors have no box here). Run both, report both, never present one as the other.
+
 **Keyword Placement**:
 - [ ] Primary keyword in title
 - [ ] Primary keyword in H1

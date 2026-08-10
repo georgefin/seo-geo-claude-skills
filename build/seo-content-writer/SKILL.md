@@ -1,13 +1,13 @@
 ---
 name: seo-content-writer
-version: "4.3.4"
+version: "4.4.0"
 description: 'Write search-engine-optimized blog posts, landing pages, and articles with keyword integration, header hierarchy, and featured snippet targeting. Use when the user asks to "write SEO content", "create a blog post", "write an article", "draft optimized content", "write a landing page", or "SEO copywriting". Creates keyword-optimized content using a 12-step workflow with CORE-EEAT checklist, title optimization, meta description, H1/H2/H3 hierarchy, and internal/external linking. For AI-citation optimization, see geo-content-optimizer. For updating existing content, see content-refresher.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.4"
+  version: "4.4.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -283,7 +283,11 @@ When a user requests SEO content:
 
 10. **Final SEO Review and CORE-EEAT Self-Check**
 
-    Score content across 10 SEO factors (title, meta description, H1, keyword placement, H2s, internal links, external links, FAQ, readability, word count) and produce an Overall SEO Score out of 10.
+    Score the content across 10 SEO factors — title, meta description, H1, keyword placement, H2s, internal links, external links, FAQ, readability, word count. **Each factor is worth one point: met = 1 · partly met = 0.5 · not met = 0**, and the **Overall SEO Score is the plain sum of the ten, out of 10** — no weights, no conversion step, so a reader checks it by adding the ten numbers the review printed. Print every factor's grade with the one-line reason it earned it, and print the total as arithmetic (`1 + 0.5 + … = 8.0/10`).
+
+    **A factor you cannot check is excluded from the numerator and the denominator** — never scored 0, never guessed — and the score prints on the shrunken denominator with the exclusion named (`7.5/9 factors scored — internal links N/A, single-page site`). Zero means measured and failing; blank means unmeasured. Nothing checkable at all means no Overall SEO Score in the deliverable, only the list of what is missing and which input unlocks it. **A bracketed placeholder is not a citation and not a link**: a draft whose sources are all `[SOURCED STAT: …]` scores 0 on external links and says so.
+
+    Per-factor 1/0.5/0 criteria, the worked arithmetic, why the ten factors and the 23-box on-page checklist are two different instruments, and why this 0–10 number is not the 0–100 CORE-EEAT SEO/GEO score: [references/seo-score-rubric.md](./references/seo-score-rubric.md).
 
     Then verify the 16 CORE-EEAT pre-write constraints (C01, C02, C06, C10, O01, O02, O06, O09, R01, R02, R04, R07, C03, O08, O10, E07) with pass/warning/fail status. List items needing attention.
 
@@ -305,6 +309,7 @@ When a user requests SEO content:
 - [ ] Readability score appropriate for target audience
 - [ ] Source of each data point clearly stated in the deliverable's own words — the resolved tool name (Ahrefs, Google Search Console), "user-provided", or "estimated"; never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 - [ ] Anti-slop self-check passed (vocabulary tiers, structure, information gain, specificity — [references/anti-slop-ruleset.md](./references/anti-slop-ruleset.md) §5)
+- [ ] Overall SEO Score printed as arithmetic over the ten factor grades, each grade carrying its reason, with any excluded factor named and the denominator matching ([references/seo-score-rubric.md](./references/seo-score-rubric.md))
 
 ## Example
 
@@ -353,7 +358,8 @@ Write an ultimate guide about [topic] (3,000+ words) targeting [keyword]
 
 - [Title Formulas](./references/title-formulas.md) - Proven headline formulas, power words, CTR patterns
 - [Content Structure Templates](./references/content-structure-templates.md) - Templates for blog posts, comparisons, listicles, how-tos, pillar pages
-- [SEO Writing Checklist](./references/seo-writing-checklist.md) - On-page checklist, content writing template, snippet patterns, full worked example
+- [SEO Writing Checklist](./references/seo-writing-checklist.md) - On-page checklist (23 drafting boxes), content writing template, snippet patterns, full worked example
+- [SEO Score Rubric](./references/seo-score-rubric.md) - Step-10 Overall SEO Score: per-factor 1/0.5/0 criteria, aggregation, unscoreable factors, checklist-vs-score boundary
 - [Anti-Slop Ruleset](./references/anti-slop-ruleset.md) - Tiered vocabulary bans (EN + EL), structural bans, information-gain test, specificity ladder
 - [Greek YMYL Credentials](./references/greek-ymyl-credentials.md) - Registry-verifiable author bios for EL health/legal/finance content
 

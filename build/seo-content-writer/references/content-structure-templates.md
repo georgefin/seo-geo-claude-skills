@@ -2,6 +2,17 @@
 
 Markdown templates for common SEO content types. Customize section headings and content while maintaining the structural framework.
 
+**Standing rule for every fence in this file — the fence is a skeleton, not a draft.** Every
+value position inside a fenced template below is a bracket slot, and **no fence here carries a
+filled value**: no number, price, rating, score, date or brand. The reason is mechanical — a
+model copies the fence and leaves the prose around it behind, so anything pre-filled ships as
+the client's own published claim under the client's byline. A slot you cannot fill from the
+client's data or from your own recorded work is **deleted together with the line that holds
+it** and listed in the notes beside the draft; it is never guessed, and never left standing as
+a plausible-looking default. The implementation checklist's "customize all [bracketed
+placeholders]" box cannot catch a default that was never bracketed, which is why this rule is
+stated here rather than left to that box.
+
 ## Blog Post (Informational)
 
 **Target word count**: 1,200-1,800 words
@@ -215,15 +226,15 @@ In this guide, you'll discover:
 
 ### [Option A] Pricing
 
-- [Tier 1]: $[X]/month - [What's included]
-- [Tier 2]: $[X]/month - [What's included]
-- [Tier 3]: $[X]/month - [What's included]
+- [Tier 1]: [price with currency] per [billing period] - [What's included]
+- [Tier 2]: [price with currency] per [billing period] - [What's included]
+- [Tier 3]: [price with currency] per [billing period] - [What's included]
 
 ### [Option B] Pricing
 
-- [Tier 1]: $[X]/month - [What's included]
-- [Tier 2]: $[X]/month - [What's included]
-- [Tier 3]: $[X]/month - [What's included]
+- [Tier 1]: [price with currency] per [billing period] - [What's included]
+- [Tier 2]: [price with currency] per [billing period] - [What's included]
+- [Tier 3]: [price with currency] per [billing period] - [What's included]
 
 **Value winner**: [Which offers better value and why]
 
@@ -544,7 +555,7 @@ After using [Product] for [timeframe], here's my honest assessment of whether it
 
 **Best for**: [Ideal user or use case]
 
-**Rating**: ★★★★☆ (4/5)
+**Rating**: [X.X]/5 — [weighted score from "How We Scored" below; delete this line if no scoring was run]
 
 ## Pros and Cons at a Glance
 
@@ -593,13 +604,26 @@ After using [Product] for [timeframe], here's my honest assessment of whether it
 
 [Continue testing pattern]
 
+## How We Scored [Product Name]
+
+[One sentence naming who tested it, over what period, and on what unit/plan]
+
+| Criterion | Weight | Score | What we observed |
+|-----------|:------:|:-----:|------------------|
+| [Criterion 1] | [X]% | [N]/5 | [What was tested, when, and what happened] |
+| [Criterion 2] | [X]% | [N]/5 | [What was tested, when, and what happened] |
+| [Criterion 3] | [X]% | [N]/5 | [What was tested, when, and what happened] |
+| [Criterion 4] | [X]% | [N]/5 | [What was tested, when, and what happened] |
+
+**Overall rating**: [N]×[X]% + [N]×[X]% + [N]×[X]% + [N]×[X]% = [X.X]/5
+
 ## Pricing and Plans
 
 | Plan | Price | What's Included |
 |------|-------|-----------------|
-| [Tier 1] | $[X]/month | [Features] |
-| [Tier 2] | $[X]/month | [Features] |
-| [Tier 3] | $[X]/month | [Features] |
+| [Tier 1] | [price with currency] per [billing period] | [Features] |
+| [Tier 2] | [price with currency] per [billing period] | [Features] |
+| [Tier 3] | [price with currency] per [billing period] | [Features] |
 
 **Value assessment**: [Whether pricing is justified]
 
@@ -641,10 +665,26 @@ After using [Product] for [timeframe], here's my honest assessment of whether it
 
 [Specific recommendation based on use case]
 
-**Our rating**: ★★★★☆ (4/5)
+**Our rating**: [X.X]/5 — [the same figure as the overview block, not a fresh judgement]
 
 [Link to product with disclosure if affiliate]
 ```
+
+**Rating discipline — the one hard rule in this template.** The rating is a *derived* figure:
+the weighted sum of the criteria table the reviewer filled in from their own testing, with the
+weights set before testing and totalling 100%. It is never a number chosen to fit the verdict,
+and never a default left behind in the template. Both rating lines carry the same figure, and
+that figure recomputes from the table. **No scoring run means no rating** — delete both rating
+lines and the "How We Scored" section, and let the review stand on its pros, cons, testing
+observations and verdict in words; an unsourced rating is dropped, not estimated. A criterion
+nobody tested is dropped from the table and its weight redistributed across the criteria that
+were tested, never scored from impression.
+
+**Downstream — structured data.** `Review` / `AggregateRating` markup is generated only from a
+rating the page itself shows. A dropped rating means the property is dropped from the JSON-LD
+as well, never filled from a guess: a fabricated rating in structured data is ingested by
+search engines as the client's genuine verdict, and it puts the site's rich results at risk.
+Same rule on the markup side: [schema-markup-generator](../../schema-markup-generator/).
 
 **Disclosure**: Include affiliate disclosure if applicable
 **Internal links**: Related product reviews, comparison articles, category pages
