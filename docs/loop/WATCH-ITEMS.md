@@ -213,11 +213,30 @@ authoritative.
   the R3-purge implementer as an out-of-scope observation: training-knowledge
   signal that Google deprecated HowTo rich results in 2023. No ruling covers it
   and no dated primary source is on file — signal only, not encodable.
-- **Resolves when**: a research lane returns dated primary sources (Google
-  Search Central announcement/documentation) on HowTo rich-result status. If
-  retirement confirms: ruling drafted, purge executed, and the check (f) token
-  row ships in the same wave (F9-r2 backfill rule).
-- **Cadence**: next weekly research sweep (2026-08-15 solo fire) — DETECT lane.
+- **Verification (2026-08-10 lane, ahead of the scheduled sweep)**: the signal is
+  CORROBORATED at primary-domain snippet grade — the same grade W5/W7 were accepted
+  on. Source: `https://developers.google.com/search/blog/2023/08/howto-faq-changes`
+  ("Changes to HowTo and FAQ rich results", Google Search Central Blog,
+  2023-08-08). Returned wording: HowTo rich results *"will only be shown for desktop
+  users, and not for users on mobile devices"*; then the same post's September
+  update, *"As of September 13, Google Search no longer shows How-to rich results on
+  desktop"*, with the How-to search appearance, rich result report and Rich Results
+  Test support dropped in 30 days and Search Console API support at 180 days.
+  **Grade caveat**: WebFetch is egress-restricted for `developers.google.com`, so
+  the quotes are search-index returns over the primary domain, not owner-read
+  verbatim; the year on the "As of September 13" note is contextually 2023 but not
+  independently pinned. Full lane record: the coordinator's 2026-08-10 research
+  transcription (scratchpad `research-r3-faq-timeline.md`).
+- **Status**: resolve-condition MET pending owner read. The ruling draft + purge is
+  routed to Sani as **G9** rather than applied here — creating a ruling is
+  gate-class, and a library-wide purge on snippet-grade evidence is Sani's call.
+  The E2–E5 eval suites are unaffected: every one was authored to assert nothing
+  about HowTo either way, which is what the [VERIFY] tag is for.
+- **Resolves when**: Sani's verdict on G9. If retirement is ruled: ruling drafted,
+  purge executed, and the check (f) token row ships in the same wave (F9-r2
+  backfill rule).
+- **Cadence**: next weekly research sweep (2026-08-15 solo fire) — DETECT lane, if
+  G9 has not been decided by then.
 
 ---
 

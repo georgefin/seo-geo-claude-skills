@@ -521,6 +521,56 @@ watching), G4 harvest merged (PR #4).**
 
 ---
 
+## G9 — FAQ/HowTo rich-result provenance: R3 amendment + a HowTo ruling with library purge
+
+- **Status**: GATED, proposed 2026-08-10. Two related changes, both gate-class because
+  they touch settled rulings. Origin: the binding Greek editor, judging an unrelated
+  Greek output, flagged out-of-remit that the deliverable's "FAQ rich results were
+  retired in 2026" disagreed with its understanding that the deprecation dates to
+  August 2023. A research lane was opened the same day; its full record is the
+  coordinator's 2026-08-10 transcription (scratchpad `research-r3-faq-timeline.md`).
+- **Finding**: both events are real and distinct, so **R3 is not contradicted**.
+  2023-08-08 narrowed FAQ rich-result ELIGIBILITY to well-known government and health
+  sites; 2026-05-07 ended the display entirely, with the search appearance, rich
+  result report and Rich Results Test support dropped June 2026 and Search Console
+  API support scheduled for August 2026. Every clause of R3 verified except two
+  precisions (below). The reopen condition is NOT triggered — FAQPage is present in
+  schema.org v30.0, re-confirmed 2026-08-10.
+- **Proposal 9a — R3 provenance amendment (settled-ruling text, so gated)**: append a
+  sentence distinguishing the 2023 eligibility narrowing from the 2026 retirement;
+  soften "API … cut" to "scheduled August 2026" until completion is observed (today is
+  2026-08-10, so that cut is in-month, not confirmed done); and cite Google's own
+  "there's no need to proactively remove it" guidance, which is newly-found primary
+  support for R3's keep-decision and is currently uncited. Also record honestly that
+  R3's rationale clause — "its value is AI-engine/GEO parsing" — has **no primary
+  source either way**, and that Google's 2026 AI-optimization guide states no special
+  structured data is needed for its own AI surfaces. That does not overturn the
+  keep-decision (schema.org validity plus non-Google engines carry it) but it does
+  constrain how confidently the library may phrase the benefit.
+- **Proposal 9b — HowTo ruling + purge (W12)**: rule that HowTo rich results ended in
+  2023 and purge the four library loci still teaching them as a current SERP feature
+  (`research/serp-analysis/references/serp-feature-taxonomy.md:30` and `~:291`,
+  `research/content-gap-analysis/references/gap-analysis-frameworks.md:150`,
+  `build/meta-tags-optimizer/references/ctr-and-social-reference.md:121`), shipping the
+  check (f) token row in the same wave per the F9-r2 backfill rule.
+- **Why gated rather than applied**: creating a ruling is gate-class by the loop's own
+  protocol, and the evidence — while consistent across independent
+  domain-restricted queries against Google's own domain — is snippet grade, not
+  owner-read verbatim, because WebFetch is egress-restricted for
+  `developers.google.com`. The coordinator will not purge four skill files
+  library-wide on evidence it could not read directly. W5 and W7 were accepted at
+  this same grade, so precedent supports acceptance; that precedent is Sani's to
+  apply, not the coordinator's to assume.
+- **Risk / rollback**: 9a is text-only in one register, revert = one commit. 9b touches
+  four reference files across three skills plus version rows; revert = one commit. The
+  eval suites need no change either way — every E2–E5 suite was authored to assert
+  nothing about HowTo, which is what the [VERIFY] tag protects.
+- **What Sani decides**: (i) accept 9a as drafted, (ii) accept 9b and authorize the
+  purge, (iii) hold either pending an owner read of the two Google URLs, which takes
+  about two minutes in a browser and would upgrade the evidence grade.
+
+---
+
 ## Queued slow-loop proposals (NOT yet gated — listed for continuity)
 
 From the 08-08-2026 report's slow-loop lane; promote to gated only when concretized:
