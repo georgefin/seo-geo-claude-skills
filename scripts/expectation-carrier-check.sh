@@ -44,6 +44,11 @@
 #           no-fabrication guidance at all, and it scored 62.1%, the library's floor. This
 #           tool reports it CLEAN, and always will: the expectation demanded a BEHAVIOUR, not
 #           a phrase, so there is no quoted string to grep. 1 of 2 known instances.
+#   THIRD HOLE, 2026-08-10 — the phrase-length cap. It was {3,60}; the anchor that founded
+#           F9 recurrence 2 is 87 characters, so the tool missed all ten instances of the very
+#           class it was extended to catch, twice over. Raised to {3,140}. Diagnosed precisely:
+#           a reviewing agent attributed the miss to parentheses with inner quotes; the real
+#           cause was length alone, which is why the fix is a number and not a regex rewrite.
 #   HOLE FOUND BY USE, 2026-08-10 — and closed: the extractor read only "double" and
 #           `backtick` quotes, while this repo's suites quote in 'single' quotes as house
 #           style. Three stale anchors in keyword-research went unseen for that reason.
@@ -132,7 +137,7 @@ for suite in suites:
             # ceased to exist at df560ae were invisible to this check until 2026-08-10.
             # Apostrophes inside words ("don't") are excluded by requiring the opening quote
             # to follow a non-word character and the closing quote to precede one.
-            for phrase in re.findall(r'"([^"]{3,60})"|`([^`]{3,60})`|(?<![\w])\'([^\']{3,60})\'(?![\w])', text):
+            for phrase in re.findall(r'"([^"]{3,140})"|`([^`]{3,140})`|(?<![\w])\'([^\']{3,140})\'(?![\w])', text):
                 ph = (phrase[0] or phrase[1] or phrase[2]).strip()
                 if not ph or STOP.match(ph): continue
                 if len(ph.split()) < min_words: continue
