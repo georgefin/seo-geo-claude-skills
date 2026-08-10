@@ -160,8 +160,21 @@ would have taken to fill it, and say what the client would have to send.
 
 Run this against the finished report, not the working notes.
 
-1. Every Gap Priority Score recomputes from the five factor scores printed on its own row, and is
-   an attainable value under §3 (a multiple of 0.05, and not 1.05, 1.10, 4.90 or 4.95).
+1. Every Gap Priority Score recomputes from the factor scores printed on its own row, and is an
+   attainable value under §3 **for the weight set that row actually used**. The two sets have
+   different attainable values, so a score tested against the wrong one reads as an arithmetic
+   error when it is correct:
+   - **All five factors scored, published weights** — a multiple of 0.05, and not 1.05, 1.10, 4.90
+     or 4.95.
+   - **Search Demand dropped, renormalised weights** — a multiple of 1/15 ≈ 0.0667, and not 16/15,
+     17/15, 73/15 or 74/15 (1.07, 1.13, 4.87 and 4.93 rounded). Most of these are not multiples of
+     0.05: the renormalised 19/15, printed 1.27, is a correct score that the published-weight test
+     would reject. Check the fraction or the unrounded value printed beside the rounded figure,
+     never the 2 dp figure alone.
+   - **Any other factor dropped** — a third attainable set, on its own denominator: drop either
+     0.25 factor and the step is 1/15, drop Competitive Density and it is 1/16, drop either 0.15
+     factor and it is 1/17. Derive the step from the renormalised weights before testing anything
+     against it.
 2. Every tier reads correctly off its rounded score under the §4 tier table; no gap sits in a
    tier its score does not support.
 3. Every Quick Win Score is an integer in -8 to +8 and equals the sum of its four factors minus

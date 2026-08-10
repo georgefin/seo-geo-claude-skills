@@ -77,11 +77,12 @@ was connected in this session.
 
 ### Composite Decay Score — 91.2/100
 
-Derived from 4 of the 5 signals: traffic −56% (score 75 × 35.3%), average position 14.8, off page 1
-(100 × 29.4%), CTR −62% relative (100 × 17.6%), freshness 3.5 years with facts since changed
-(100 × 17.6%). **Competitive displacement is unscored** — no dated SERP check was run or supplied —
-so the four remaining weights were renormalised over their own 85% sum:
-26.47 + 29.41 + 17.65 + 17.65 = 91.18.
+Derived from 4 of the 5 signals: traffic −56% (score 75 × 30/85), average position 14.8, off page 1
+(100 × 25/85), CTR −62% relative (100 × 15/85), freshness 3.5 years with facts since changed
+(100 × 15/85). **Competitive displacement is unscored** — no dated SERP check was run or supplied —
+so the four remaining weights were renormalised over their own 85% sum (displayed as 35.3%, 29.4%,
+17.6% and 17.6%; the arithmetic runs on the fractions, per content-decay-signals.md):
+26.47 + 29.41 + 17.65 + 17.65 = 91.18 → 91.2/100, and the band is read off 91.
 
 Band: terminal decay — **urgency, not disposition**. The disposition comes from the refresh-vs-
 rewrite framework below, and it is REFRESH.

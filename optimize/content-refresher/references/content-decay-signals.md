@@ -229,19 +229,44 @@ Content freshness  last updated 26 months ago; stated facts still accurate      
 CTR decline        N/A — no Search Console export supplied
 Competitive displ. N/A — no dated SERP check, no competitor notes supplied
 
-Scored weight = 30 + 25 + 15 = 70%  → renormalised: 30/70 = 42.9%, 25/70 = 35.7%, 15/70 = 21.4%
-Composite = 75(0.429) + 50(0.357) + 75(0.214) = 32.1 + 17.9 + 16.1 = 66.1 / 100
+Scored weight = 30 + 25 + 15 = 70%  → renormalised weights 30/70, 25/70, 15/70 (42.9%, 35.7%, 21.4%)
+Composite = 75(30/70) + 50(25/70) + 75(15/70) = 32.1 + 17.9 + 16.1 = 66.1 / 100  → band read at 66
 ```
 
+**The multiplier in a printed derivation is the exact fraction, never the rounded percentage.** The
+percentages are how the renormalised weights are *displayed*; the arithmetic runs on 30/70, 25/70
+and 15/70. Multiply by the rounded weight instead and the line stops reproducing — 75 × 0.429 =
+32.175, which prints as 32.2, not the 32.1 above. A derivation is printed so the reader can
+recompute it from the operands beside it, so the operands shown are the ones the arithmetic used —
+with each addend and the total displayed to one decimal, halves up.
+
 Printed in the deliverable as: *"Composite decay score 66.1/100 — significant decay. Derived from 3
-of 5 signals: traffic −40% (75 × 42.9%), positions −4 (50 × 35.7%), freshness 26 months (75 ×
-21.4%). CTR decline and competitive displacement are unscored — no Search Console export and no
-dated SERP check were available — and the three remaining weights were renormalised over their own
-70% sum."*
+of 5 signals: traffic −40% (75 × 30/70 = 32.1), positions −4 (50 × 25/70 = 17.9), freshness 26
+months (75 × 15/70 = 16.1). CTR decline and competitive displacement are unscored — no Search
+Console export and no dated SERP check were available — and the three remaining weights were
+renormalised over their own 70% sum, i.e. 42.9%, 35.7% and 21.4%."*
 
 ### Score Interpretation
 
-| Composite Score | Decay Stage | Urgency |
+**Rounding convention: the composite is printed to one decimal, and the band is read off that figure
+rounded to the nearest whole number, halves up.** The rounding step is what makes the bands
+contiguous. It is a reading device only — the score itself stays as computed, and anything derived
+from it downstream (the decay-severity factor in Refresh Priority Scoring) consumes the printed
+score, not the band-read integer.
+
+With all five signals scored the step changes nothing: every weight is a multiple of 5 and every
+ladder value a multiple of 25, so a fully scored composite is always a multiple of 1.25, and no
+multiple of 1.25 falls between two bands. **The renormalisation rule above breaks that guarantee** —
+a scored-weight sum of 45, 55, 60, 70, 75 or 85 rather than 100 puts values on a finer grid, most of
+which do not terminate as decimals, and **seven attainable values fall strictly between two bands**:
+each of 20 < S < 21, 40 < S < 41, 60 < S < 61 and 80 < S < 81 contains at least one. Traffic 50 and
+positions 50 with freshness 100, the other two signals unscored, gives 4250/70 = 60.714…, which sits
+in no band at all unrounded and reads as **61 — significant decay** once rounded. Halves up sends a
+score to whichever band it is nearer, in both directions: a renormalised 60.294… (the four-signal,
+85% path) reads as 60, active decay. Print the unrounded figure beside the band so the reader can
+rerun the rounding.
+
+| Composite Score (rounded) | Decay Stage | Urgency |
 |----------------|-------------|---------|
 | 0-20 | Healthy | Continue monitoring |
 | 21-40 | Early decay | Add to refresh queue (next month) |
@@ -411,7 +436,7 @@ highest in this batch) × 25%, decay severity 7 (composite 66.1) × 20%, refresh
 (blog-post playbook, about 3.5 h) × 15%, strategic importance 9 (owner named it the lead page) ×
 10%. Competitive opportunity and backlink equity are unscored — no SERP check and no backlink data
 were supplied — so the four remaining weights were renormalised over their own 70% sum:
-8(0.357) + 7(0.286) + 6(0.214) + 9(0.143) = 7.4."*
+8(25/70) + 7(20/70) + 6(15/70) + 9(10/70) = 7.4."*
 
 ---
 
