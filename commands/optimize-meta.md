@@ -45,6 +45,9 @@ Analyzes and enhances **title tags, meta descriptions, and social media tags** t
 ## Output Format
 
 ```
+# SKELETON -- scaffold, not output. Every [bracket] and <N> is a slot; the implementation
+# code ships as finished HTML with real values, and a tag that cannot be filled is dropped
+# and named in prose.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 META TAG OPTIMIZATION REPORT
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

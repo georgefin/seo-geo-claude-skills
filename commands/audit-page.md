@@ -41,6 +41,9 @@ A combined **on-page SEO** + **CORE-EEAT content quality** audit. For full site-
 ## Output Format
 
 ```
+# SKELETON -- scaffold, not output. Every [bracket] and XX is a slot filled from this
+# audit's own arithmetic; a criterion nobody could verify is named as excluded, never
+# shipped as XX and never scored 0.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ON-PAGE SEO AUDIT: [Page Title or URL]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

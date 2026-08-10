@@ -1344,3 +1344,47 @@ that skill's other fixes. FLIP: F18-r1 -- none
   the file. The split ships with the family-8 reader-test ruling in the same edit, per F9's lesson
   that a class fixed in halves is a class fixed nowhere.
   FLIP: F18 -- none
+
+
+### F15 Recurrence 1 — 2026-08-10 · a guard passed on a file that taught the banned instruction, because the ban and its context sat 45 lines apart
+
+F15's founding entry is about guards that pass by matching nothing. This is the same outcome
+reached by a different road, and the road is the part worth recording.
+
+**What happened.** `scripts/validate-tracking.sh` check (f) enforces settled ruling **R3** across
+the command tree by matching a token regex line by line. `commands/generate-schema.md` had
+**zero** lines matching that regex, so check (f) passed on every run — while the file's step 2
+told the reader to test every page with Google's Rich Results Test and its step 3 to wait 2-4
+weeks for rich results, unconditionally, in a command whose own first usage example is an FAQ.
+For FAQPage both instructions are dead: support was cut in 2026, and the skill's own
+`validation-guide.md` already says to skip that step for that type.
+
+**Why the regex could not see it.** The guard is line-local. The FAQ context is at line 24 (the
+usage example) and the banned instruction at line 69 — **45 lines apart, in different sections**.
+Neither line is wrong in isolation. "Test with the Rich Results Test" is correct advice for the
+types that still have a rich result; "generate FAQ schema" is a legitimate request. The defect is
+that one file says both without a condition joining them, and a line-oriented matcher has no way
+to represent "these two lines are fine apart and wrong together".
+
+**This is not a call to widen the regex.** A token list long enough to catch this would fire on
+every legitimate mention of the Rich Results Test in the library, and the last two false-positive
+nets we fixed (`νίκη` inside «Θεσσαλονίκη», `CITE` inside "cited") cost more trust than they
+bought. The honest statement is that **check (f) verifies no line states the retired claim, and
+nothing more** — it does not and cannot verify that a document's instructions are jointly
+consistent with R3.
+
+**Guard**: check (f)'s own header comment must state that limit, so the next reader does not
+take a pass as evidence of R3 compliance. A guard whose scope is undocumented gets quoted as
+though its scope were total — which is exactly what happened here, since this file sat clean
+under (f) through every gate run of the last three days.
+
+**How it was actually found**: not by a guard, by an agent sent to fix a different ruling in the
+same file and reading around the site it was given. Three separate sweeps this day found more
+sites than their brief named. That is a pattern about briefs, not about luck: **a brief that
+names line numbers gets line numbers fixed; a brief that names the class gets the class fixed.**
+
+**Recurrence**: F15 → 1. A guard reported as passing where the defect it names is present in the
+scanned file increments this.
+
+**Status**: recorded; the check (f) scope note is queued. No regex change proposed.
+FLIP: F15-r1 -- none

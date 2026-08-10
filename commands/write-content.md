@@ -43,6 +43,8 @@ Writes search-engine-optimized content, then applies a GEO optimization pass for
 ## Output Format
 
 ```markdown
+<!-- SKELETON -- scaffold, not the deliverable. Every [bracket] and X is a slot filled from
+     the draft and its own arithmetic; the content that ships carries no bracket token. -->
 # [Final Optimized Title]
 
 **Meta Description**: "[description]" ([X] chars)

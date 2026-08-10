@@ -34,6 +34,9 @@ A focused **technical SEO health check** covering infrastructure, performance, a
 ## Output Format
 
 ```
+# SKELETON -- scaffold, not output. Every [bracket] is a slot. The 63/100 and the
+# "Security: 4/10" line are worked examples of the derivation shape, not this run's
+# scores: recompute both from the rubric below and replace them.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 TECHNICAL SEO CHECK: [URL or Domain]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

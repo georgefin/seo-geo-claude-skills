@@ -16,7 +16,7 @@ parameters:
 
 # Generate Schema Command
 
-Generates valid **Schema.org JSON-LD** structured data markup to enhance search visibility and enable rich results.
+Generates valid **Schema.org JSON-LD** structured data markup so search and answer engines can parse the page's entities. Rich-result eligibility depends on the type -- FAQPage has none since Google's 2026 retirement and is generated for AI-engine/GEO parsing instead (settled ruling R3).
 
 ## Usage
 
@@ -35,19 +35,24 @@ Generates valid **Schema.org JSON-LD** structured data markup to enhance search 
 ## Workflow
 
 1. **Identify Schema Requirements** -- Parse schema type, fetch URL content if provided, settle the ONE primary type the page actually is, and note any documented auxiliary the page data warrants (BreadcrumbList for a real trail).
-2. **Generate Schema Markup** -- Invoke `schema-markup-generator`. Select most specific type, collect required + recommended properties, generate valid JSON-LD, validate against Google rich result requirements.
+2. **Generate Schema Markup** -- Invoke `schema-markup-generator`. Select most specific type, collect required + recommended properties, generate valid JSON-LD, validate syntax at the Schema.org validator, and check Google's rich-result requirements for the types that still have one.
 3. **Compile Output** -- Format markup with validation results and implementation instructions.
 
 ## Output Format
 
 ```
+# SKELETON -- scaffold, not output. Every [bracket] is a slot filled from the page's own
+# data; the JSON-LD itself ships resolved values only, any unsourceable property dropped
+# and the gap named in prose.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 SCHEMA.ORG MARKUP GENERATOR
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 PRIMARY TYPE (ONE per page): [SchemaType]
 AUXILIARIES: [BreadcrumbList -- real trail | none]
-RICH RESULT ELIGIBLE: [Yes/No]
+RICH RESULT ELIGIBILITY: [prose per type emitted -- what Google is eligible to show, never
+  Yes/No, never an appearance promise. FAQPage: none, retired 2026; value is AI-engine/GEO
+  parsing (settled ruling R3)]
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 GENERATED MARKUP
@@ -59,15 +64,22 @@ GENERATED MARKUP
 VALIDATION RESULTS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-[JSON syntax, required properties, data types, Google requirements]
+[JSON syntax, required properties, data types; Google rich-result requirements only for the
+types that still have one]
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 IMPLEMENTATION INSTRUCTIONS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 1. Add JSON-LD to page <head> in a <script type="application/ld+json"> tag
-2. Test: https://search.google.com/test/rich-results
-3. Submit URL in Google Search Console; allow 2-4 weeks for rich results
+2. Validate syntax at https://validator.schema.org -- every type, always
+3. Types that still have a Google rich result: also run
+   https://search.google.com/test/rich-results, then submit the URL in Search Console and
+   allow 2-4 weeks for the result to appear if Google chooses to show one
+4. FAQPage: stop after step 2. Google retired FAQ rich results in 2026 -- Rich Results Test
+   support and Search Console reporting are both gone, so there is nothing to test and
+   nothing to wait for. The payoff is AI-engine/GEO parsing, which no Search Console report
+   measures (settled ruling R3)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
