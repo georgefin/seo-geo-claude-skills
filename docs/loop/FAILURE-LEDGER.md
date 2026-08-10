@@ -1022,6 +1022,68 @@ its own stated convention. Each is correct as recorded. What fails is the set.
 
 **Status**: recorded, both guards queued under #25. FLIP: F16-r1 -- none
 
+
+### F9 Recurrence 3 — 2026-08-10 · the derivation discipline was applied where each defect was found and nowhere else
+
+A read-only survey of all twenty skills, commissioned as queue item #35 after a grep proxy of my
+own gave a false clean (it reported `content-refresher` as stating no derivation when the skill
+says *"Calculate a 0-100 decay severity score by summing weighted signal scores"* — my regex simply
+did not contain the author's phrasing, which is F15's shape in the coordinator's own instrument).
+Thirteen skills emit a score, rating, band or percentage into a deliverable with no stated way to
+arrive at it.
+
+**The finding is not the count. It is that the same skill often does both.**
+
+- `content-refresher` derives its Composite Decay Score completely (`content-decay-signals.md:158-180`)
+  and its CORE-EEAT Quick Score not at all — and that second score's own worked example is
+  non-monotonic against its own flag (`refresh-example.md:21-28`: 55 → green, 60 → red, 60 → red,
+  50 → amber), so the flag is demonstrably not a function of the number it sits beside.
+- `backlink-analyzer` governs the per-domain Risk Score explicitly — *"This skill defines no
+  risk-score scale of its own, so a link with no tool-reported score gets N/A"* — and forty lines
+  above leaves `Profile Health Score: [X]/100` and `Toxic Score: [X]/100` with no formula at all.
+- `content-gap-analysis` derives its Gap Priority Score fully and leaves the GEO Opportunity table
+  with no scale, no rubric and no combination rule.
+- `keyword-research` is exemplary on Priority Score, renormalisation and its explicit
+  do-not-divide-by-5 note, while the Score column in the file its own SKILL.md calls "the full
+  report template" reproduces from no stated formula — the published figures do not follow from
+  the stated one and do not even preserve its ordering.
+
+**Root cause, and why it is F9's mechanism rather than a new one**: every one of these disciplines
+was written in response to a specific defect, in the skill where that defect surfaced. F9's founding
+entry is a deprecated token purged where it was noticed and left standing in its siblings. This is
+the same motion applied to a rule instead of a deletion — a positive discipline landing at the site
+of discovery and nowhere else. The distinction worth recording is that F9's earlier recurrences were
+about the same *token*, which greps; this is about the same *discipline*, which does not. No pattern
+would have found it. A person read twenty skills.
+
+**Two figures that cannot be produced at all**, both verified at source before this entry:
+`cross-cutting/content-quality-auditor/SKILL.md:240-241` carries an example with an item score of **8**
+on a scale that admits only 10, 5 and 0, printing a dimension score of 65 that no legal pair of
+inputs can reach — in the skill that defines the library's content-quality framework. And
+`commands/check-technical.md` compiles **six** area scores where the skill it invokes scores
+**eight**; since the overall is a sum over sections scored, the command's denominator differs from
+the skill's and so does the number.
+
+**One defect from the survey is graver than the scoring class and is being fixed separately**:
+`build/seo-content-writer/references/content-structure-templates.md:547` and `:644` carry
+`**Rating**: ★★★★☆ (4/5)` as a **hardcoded value inside a paste-ready Product Review template**,
+where every neighbouring field is a bracket slot. A model copies the fence, so a fixed rating ships
+for whatever product is reviewed, under the client's byline, and feeds `Review`/`AggregateRating`
+structured data. It is the Value Rule inverted — that rule forbids an unsourceable token in a value
+position, and a fixed value in a slot position is worse, because nothing signals it needs replacing.
+
+**Guard**: the derivation rule becomes library-wide rather than per-skill — a number emitted into a
+deliverable states how it was reached, or is not emitted. `domain-authority-auditor`'s
+`references/score-arithmetic.md` and `on-page-seo-auditor` are the two working models and the
+remaining skills copy one of them rather than each inventing a third convention. Recorded with the
+survey's own denominator so the coverage is auditable: roughly 30 quoted figures across 14 files
+were checked against their sources and found faithful, including the 3-10% band fixed hours earlier.
+
+**Recurrence**: F9 → 3. A discipline applied at one site while an identical sibling is left
+untouched increments this.
+
+**Status**: surveyed, three fixes dispatched, remainder queued. FLIP: F9-r3 -- none
+
 ---
 
 ## F17 — 2026-08-10 · A cross-skill rule was ruled in the coordination documents and given no carrier in any shipped skill
