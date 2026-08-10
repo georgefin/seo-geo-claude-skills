@@ -165,6 +165,22 @@ and offer the baseline-then-re-measure plan instead of a number.
 
 Current is the measurement with its base shown; Target is the target; Gap is their difference.
 
+## After This Plan
+
+Optional — print it only if you state projected figures at all, and only for the link graph.
+
+| Metric | Now | After these changes | How it gets there |
+|--------|-----|---------------------|-------------------|
+| Live in-body internal links | [X] | [Y] | [X] + [n] additions listed above = [Y] |
+| Avg links per page | [X] | [Y] | [after-state links] ÷ [pages] = [Y] |
+| Orphan pages | [X] | [Y] | [which listed fix removes which orphan] |
+| Inbound links to [priority page] | [X] | [Y] | [X] + [n] of the additions target it = [Y] |
+
+The last column is the check: every projection assumes **only** the changes this plan lists,
+and the reader can re-run it from the tables above. Drop a row whose arithmetic will not fit
+there, and drop the table entirely rather than carry one borrowed figure. No traffic or ranking
+row belongs here — see [score-rubric.md](./score-rubric.md) §5 (after-state figures) and §6.
+
 ## Priority Actions
 
 ### Phase 1: Critical Fixes (Week 1)
@@ -214,7 +230,17 @@ Best practices:
 | Exact match | "keyword research" | 10-20% |
 | Partial match | "tips for keyword research" | 30-40% |
 | Branded | "Brand's guide to..." | 10-20% |
-| Natural | "this article", "learn more" | 20-30% |
+| Natural (conversational, still names the destination) | "this guide to brake adjustment", "how we true a wheel" | 20-30% |
+| Content-free | "this article", "learn more", "click here", "read more", a bare URL | 0% |
+
+**Natural means conversational, not content-free** (ruled 2026-08-10, resolving this table's
+conflict with SKILL.md Step 3, which marks content-free anchors ❌ Not descriptive). A
+Natural-band anchor is relaxed phrasing that still tells the reader what is on the other side —
+"this guide to brake adjustment", not "this article". A content-free string names neither the
+destination nor its topic, so it gives a reader nothing to decide on and an engine nothing to
+index; it is in no band at any percentage, and it is never a recommended anchor. Score-side
+consequence in [score-rubric.md](./score-rubric.md) §3: descriptive-conversational scores ✅ 1,
+content-free scores ❌ 0.
 
 ## Tracking Success
 

@@ -64,15 +64,19 @@ own Assessment column is the grade:
 
 | Grade | Points | The class |
 |-------|--------|-----------|
-| ✅ | 1 | Descriptive — names the destination's topic or type, and distinguishes it from the page's other links |
-| ⚠️ | 0.5 | Exact-match keyword repeated across a target's inbound links beyond the 10-20% exact-match band in [linking-templates.md](./linking-templates.md); or the same anchor string pointing at two different targets (Step 3's own "Same anchor to multiple pages"); or a Natural-band anchor that names no destination (see below) |
-| ❌ | 0 | Generic — "click here", "read more", a bare URL, or an anchor naming neither the destination nor its topic. These are the two strings Step 3's table already marks "❌ Not descriptive", and their class |
+| ✅ | 1 | Descriptive — names the destination's topic or type, and distinguishes it from the page's other links. Conversational phrasing counts, provided it still names the destination ("this guide to brake adjustment") |
+| ⚠️ | 0.5 | Exact-match keyword repeated across a target's inbound links beyond the 10-20% exact-match band in [linking-templates.md](./linking-templates.md); or the same anchor string pointing at two different targets (Step 3's own "Same anchor to multiple pages") |
+| ❌ | 0 | Content-free — "click here", "read more", "this article", "learn more", a bare URL, or any anchor naming neither the destination nor its topic. Two of these are the strings Step 3's table already marks "❌ Not descriptive"; the rest are their class |
 
-**The Natural-band tension is stated, not resolved.** "this article" and "learn more" are
-sanctioned at 20-30% by the Anchor Text Guidelines in linking-templates.md and are
-non-descriptive by Step 3's table. The skill does not resolve which surface wins, so a Natural
-anchor scores ⚠️ — between the two — and the derivation says so. Do not silently promote it to
-✅ or demote it to ❌.
+**The Natural band is descriptive, not content-free** — ruled 2026-08-10, and this paragraph
+replaces the unresolved tension earlier versions recorded here. The Anchor Text Guidelines row
+that sanctions "Natural" anchors at 20-30% means *conversational but still naming the
+destination*; it never meant content-free. So "this article" and "learn more" are not
+Natural-band anchors at all: they score ❌ 0 beside "click here" and "read more", they are 0%
+of the target mix, and they are never recommended. A conversational anchor that does name its
+destination scores ✅ 1 like any other descriptive anchor, and the ⚠️ class keeps only
+exact-match repetition and the same anchor on two targets. Both surfaces now say this —
+[linking-templates.md](./linking-templates.md) Anchor Text Guidelines and SKILL.md Step 3.
 
 **Print the population.** An anchor score without its base is not deliverable — the reader
 cannot tell whether 6/10 describes 14 links or 1,400:
@@ -116,6 +120,24 @@ scores because nobody recomputes them.
 - **Show the arithmetic of every derived number.** `Average links per page: 14 ÷ 8 = 1.75`.
   Every percentage prints its numerator and denominator: `3/5 = 60% of that page's inbound
   anchors`. A percentage without a visible base is not checkable.
+- **Shown arithmetic and a specified model both count as visible — under different conditions.**
+  `13 ÷ 8 = 1.625` is *shown*: the reader re-runs it in their head. A figure from a named model
+  — a PageRank-style authority share — cannot be shown that way, so it is *specified* instead,
+  and a specification counts only when it is complete enough to reproduce the number from what
+  the report itself prints: the model, its parameters, and the exact graph it ran on
+  ("damped random-surfer, damping 0.85, on the 8-page graph above, logo links included, the
+  broken link excluded"). Name the model but not its inputs, or run it on a graph the report
+  never prints, and the figure is neither shown nor specified — show the arithmetic instead or
+  leave it out.
+- **After-state figures are derived from this report's own proposals, and from nothing else.**
+  A projected link total, average, inbound count or authority share may assume only the link
+  changes this report lists, and prints the addition that gets there: "13 live in-body links +
+  the 10 additions in the table above = 23". A projection that reproduces only if links from
+  another report — or another conversation — are added is unreproducible for the reader holding
+  this one, and it is the same defect as an invented current figure, one tense later. The
+  after-state table names its assumption set beside it. Note what this rule is *not*: link-graph
+  arithmetic over your own recommendations is legitimate and useful; §6's prohibition is on
+  traffic and ranking outcomes, which no amount of link arithmetic produces.
 - **The Authority column** in Step 1's Top Linked Pages table is a *within-site relative label*
   read off that row's own inbound-link count, and the cut is stated — "High = 5 or more inbound
   in-body links on this 8-page site". It is never an external metric: no DA, DR, PA or vendor
