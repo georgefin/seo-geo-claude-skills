@@ -37,6 +37,8 @@ When a skill recommends running another, pass: target keyword, content type, COR
 
 If `memory-management` is active, prior audit results load automatically from the hot cache in this `CLAUDE.md` file.
 
+Carrier: `references/inter-skill-handoff.md` — payload fields and the exact score-string notation (framework-labelled: `CORE-EEAT C:75 O:60 R:80 E:45 …`, `CITE C:62 I:45 T:80 E:55`), the operator-block placement rule, the drop-and-name rule for an unavailable field, and the grep-derived producer/consumer map. **Item IDs travel in one form only: hyphenated, framework-first — `CITE-C01`, `CORE-EEAT-R02`.** CORE-EEAT and CITE share C, E and T, so a bare `C01` is ambiguous between two frameworks, and a receiving run must be able to act without asking a human which one it came from. Score strings keep the framework as a single leading token rather than hyphenating each pair, because the pairs are one reading of one instrument and never travel individually.
+
 ## Pipeline Loop State
 
 State for the weekly self-improvement loop lives in `docs/loop/` — `PIPELINE.md` (the 5-stage loop), `SETTLED-RULINGS.md` (non-relitigable research rulings + pinned baselines), `WATCH-ITEMS.md` (the `[VERIFY]` queue), `GATED-ITEMS.md` (proposals awaiting Sani), plus `PILOT.md` (real-site pilot scope), `ADVERSARIAL-LAYER.md` (second-lane review protocols), and `KPI.md` (cold weekly KPI rows). Read them before research or skill edits. Before any `git push`, run `scripts/pre-push-gate.sh` (also enforced by a `PreToolUse` hook in `.claude/settings.json`).
@@ -65,6 +67,18 @@ Ruled after a blind run exposed that two skills gave opposite instructions about
 2. **The skeleton exception** — bracket tokens are the correct notation inside a block explicitly labelled a skeleton. The label lives **inside the fence, in that fence's own syntax**: `<!-- SKELETON … -->` for HTML, `"_SKELETON": "…"` as the first member for JSON-LD, `# SKELETON …` for text formats. This is not a style preference: **a model copies the fence, not the heading above it** (the meta-tags-optimizer 4.1.3 finding). A skeleton is never introduced with paste-ready framing.
 
 Carriers: `build/schema-markup-generator/references/schema-templates.md` (12 JSON fences + the HTML array fence), `build/meta-tags-optimizer/references/meta-tag-code-templates.md` (the filled/skeleton split that solved this first).
+
+## The Reader Test (binding, ruled 2026-08-10)
+
+Ruled after a blind run hit **two expectations inside a single eval that could not both be satisfied**: rank-tracker's e3.6 required handing URLs to `content-refresher` — naming the skill — on a Greek client-read surface, while e3.4 forbade a skill slug on that same surface under anti-slop family 8. Neither expectation was wrong. The rule they both pointed at had a gap. Three agents hit it independently and asked for a ruling rather than picking a side.
+
+1. **A run handle** — a skill slug, a framework item ID, an internal artefact name — **survives on a surface addressed to whoever operates the library, and never in client prose.** This is family 7's existing test ("the test is the reader, not the section") extended to family 8. It does not loosen the gloss rule: framework *names* are still glossed on first use, framework *item IDs* and *slugs* are still never glossed into client prose.
+
+2. **An operator block inside a client deliverable is an operator surface — but only if it is labelled inside the fence, in that fence's own syntax.** Found while wiring the handoff carrier: both auditors' *Recommended Next Steps* blocks sat inside the client-read report fence carrying bare slugs, with the operator framing in prose *outside* the fence. That framing is worthless, for the Value Rule's founding reason — **a model copies the fence, not the heading above it.** Two forms satisfy this, and lifting the block out of the client fence entirely is preferred over labelling it in place. An unlabelled operator block inside a client fence is family 8.
+
+The test to apply, in one question: **could a reader who copies only the fence tell this block is not for the client?** If no, it is not fixed.
+
+Carriers: `build/seo-content-writer/references/anti-slop-ruleset.md` §6 family 8 and its "reader test, worked both ways" section; `references/inter-skill-handoff.md` §3.1 (the in-fence label rule, with the four fence-syntax label forms). Provenance for every §6 rule lives in `build/seo-content-writer/references/anti-slop-provenance.md`, which is **not** an executor's read — see ledger F18.
 
 ## Contribution Rules
 
