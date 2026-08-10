@@ -169,7 +169,7 @@ notes). Graders grep the patterns given; the editor judges the rest.
 | 3 | Mechanically translated UI/label terms | «Υποχρεωτικό εκκρεμές» as a form label → natural Greek labels («Πεδίο / Τιμή / Σημείωση») | — (editor judgment) |
 | 4 | Query-style article-less labels in visible copy | «παράδοση αεροδρόμιο» as page copy → «παράδοση στο αεροδρόμιο Ηρακλείου»; keyword-export strings on explicitly keyword-list surfaces are exempt | — (editor judgment) |
 | 5 | Negative-concord violation — an n-word in a finite clause with no preverbal «δεν» | «η εκτίμηση κοστίζει μηδέν και **δεσμεύει κανέναν**» → «η προσφορά είναι δωρεάν και **δεν σας δεσμεύει σε τίποτα**». Modern Greek is a strict negative-concord language: «κανείς / κανέναν / κανένα / καμία / τίποτα / ποτέ / πουθενά» beside a finite verb REQUIRE a preverbal «δεν». Without it a Greek reader resolves the affirmative — here "it commits somebody" — and the commercial promise inverts. The telegraphic nominal parallel «Κόστος μηδέν, δέσμευση καμία.» licenses no finite verb, so it is no defence once a verb appears | n-word tokens `κανείς` · `κανέν` · `καμί` · `τίποτ` · `πουθενά` · `ποτέ` — matched CASE-INSENSITIVELY, since sentence-initial «Κανείς», «Κανένα», «Καμία», «Ποτέ» are the same tokens — each hit hand-checked for a preverbal «δεν» in its own clause, that licenser matched case-insensitively too («Δεν») (approximation — limits stated under the table) |
-| 6 | "Costs-zero" calque in publishable copy | «κοστίζει μηδέν» → «δεν κοστίζει τίποτα» / «είναι δωρεάν» | `κοστίζει μηδέν` |
+| 6 | "Costs-zero" calque in publishable copy | «κοστίζει μηδέν» → «δεν κοστίζει τίποτα» / «είναι δωρεάν». The defect survives inflection and derivation, and so must the check: «κοστίζ**ουν** μηδέν», «κοστίζει **απολύτως** μηδέν», «κοστίζει **μηδενικά** ευρώ», sentence-initial «**Κ**οστίζει μηδέν», and the digit form «κοστίζει **0** ευρώ» are one family, not five defects | Two-step screen, both steps case-insensitive **under a UTF-8 locale** (see the governing note below). NET: `μηδ[εέ]ν` — the bracket is load-bearing, since «μηδέν» carries the tonos but its derivatives move it off the ε («μηδενικά», «μηδενικό»), so either spelling alone catches only half the family. RANK the hits with the verb stem `κοστίζ`, which covers κοστίζει/κοστίζουν/κοστίζοντας and any intervening adverb. Known escape, hand-checked: a zero written as a digit, `κοστίζ[^.]{0,20}0 ?(ευρώ|€)`. Verbless nominal parallels («Μηδέν κόστος, μηδέν δέσμευση.») surface on the net and are correct Greek — family 5's protected list governs them |
 | 7 | Connector placeholders on a client-read surface | «Πηγή δεδομένων: ~~search console» → the resolved source, by the three-step rule in the root `CLAUDE.md` Tool Connector Pattern section: (a) tool connected → its real name, «Search Console» / «Ahrefs»; (b) no tool but the data came from somewhere → that source in plain language, «από το αρχείο εξαγωγής που στείλατε», «χειροκίνητος έλεγχος, 10 Αυγούστου»; (c) no tool and no data → say so and drop the figure, «δεν συνδέθηκε εργαλείο — ο αριθμός δεν είναι διαθέσιμος», never a token in a number's place. A `~~category` token addresses the skill author and the operator; a client sees a double-tilde string with no referent. **Exemption — the test is the reader, not the section**: surfaces read only by author or operator keep the token (skill text and references, eval expectations, `CONNECTORS.md`, in-house gap tables and operator notes). Anything the client reads resolves it, report tables included — same boundary as the artefact-name class below, and NOT family 2's: family 2 governs where a provenance MARKER may sit, this one governs a category token that has no client referent on any surface | `~~` (the double tilde is unique to this convention in the library — no hand-checking needed to spot it; the hand-check is only whether the surface is client-read) |
 
 **Families 5–6 provenance (2026-08-10)**: both come from ONE eight-word span of paste-ready
@@ -178,7 +178,24 @@ E3 output, i.e. text the client is told to publish unchanged. The editor graded 
 FAIL on the dropped negator and named the calque as its second defect: a translation-shaped
 clause that also lost its «δεν», not a stray typo.
 
-**The family-5 grep is an approximation — a review trigger, not a verdict.** No plain-text
+**Governing note — every pattern in the right-hand column is a screen, not a verdict, and
+two of them have already been measured failing.** A Greek plain-text pattern is defeated by
+three things at once, so a clean grep means "nothing surfaced", never "clean": (i) **case** —
+`grep -i` case-folds Greek only under a UTF-8 locale, so a default `LC_CTYPE=POSIX` shell
+silently misses «Δεν», «Κανένα», «Κοστίζει»; (ii) **the accent moves under inflection and
+derivation** — «μηδέν» → «μηδενικά» shifts the tonos off the ε, so an accented pattern and an
+unaccented one each catch half of one family; (iii) **the surface form varies** — verbs
+inflect, adverbs intervene between the words a fixed string joins, and a number can be
+written as a digit. Both holes found so far are of exactly this shape, both had shipped
+looking authoritative, and both were caught by the pipeline running the check rather than by
+anyone reasoning about it in advance: family 5's lowercase-only token list and family 6's
+fixed two-word string, which was measured catching **1 of 5** constructed instances of its
+own ruled defect (2 of 5 with `-i`). Both closed 2026-08-10; details under each family below.
+Consequence for reviewers: report a grep result as *"screened, nothing surfaced"* in those
+words. A FAIL or a clean sheet on any Greek family is the binding editor's call on
+hand-checked evidence, and a pattern's silence is not evidence.
+
+**Family 5 in detail — the hardest screen of the seven.** No plain-text
 pattern can decide "finite verb, no «δεν» earlier in the clause"; this one is the practical
 substitute. Two steps: (1) grep the six n-word tokens, case-insensitively; (2) from the
 hits drop the lines that also carry a licenser — «δεν», «δε», «μην», «μη», «ούτε», «χωρίς»,
@@ -210,6 +227,19 @@ each run's own lowercase-only licenser alternation read the correct sentence «�
 nominative «κανείς» was missing from the token list outright. Recorded here because the
 record should show this guard tested by the pipeline rather than assumed sound.
 
+**Family-6 coverage gap — closed 2026-08-10, the same shape as family 5's.** As shipped that
+morning the pattern was the literal string `κοστίζει μηδέν`: the founding instance's exact
+two words, which is how a pattern written from a single example behaves. Probed against
+constructed variants of its own ruled defect it matched one of five, and two of five with
+`-i`. It missed the derivational accent shift («κοστίζει μηδενικά ευρώ»), the inflected verb
+(«κοστίζουν μηδέν») and an intervening adverb («κοστίζει απολύτως μηδέν») — none of them
+exotic Greek, all of them the same calque. The replacement above splits net from rank so
+that no single spelling has to carry the family. Recorded because the two gaps together are
+the argument for the governing note: **a pattern lifted from the founding instance encodes
+that instance, not the class**, and reading one back later feels like coverage because it
+still matches the example it was born from. Both were caught within a day of shipping, by
+running them, which is the only way this class of error is ever found.
+
 **Family-7 provenance (2026-08-10) — the library's own convention leaking.** Founding
 instance: the rank-tracker E3 deliverable, 19 occurrences, which is the whole of that
 pass's required-fix count — `~~search console` ×14 (including all 12 rows of the §8 table's
@@ -225,6 +255,14 @@ absent tools mean absent numbers"). One template cause is on record and fixed in
 skill: an Output Validation line that offered `~~SEO tool data` as source-label vocabulary,
 i.e. the placeholder taught as the label a source column should carry (the
 meta-tags-optimizer 4.1.3 finding — cause in the template, not in the model).
+**Scope — family 7 is language-neutral, ruled on Greek evidence.** It sits in a section
+headed "Greek" because that is where the editor found it and where its FAIL grade was ruled,
+but a `~~category` token has no client referent in any language; the library-wide sweep of
+2026-08-10 resolved it on English report surfaces under the identical rule, across 15 skills.
+Read the family as *ruled here, enforced everywhere*. The language-independent statement is
+the root `CLAUDE.md` Tool Connector Pattern section; this entry is its Greek carrier and,
+because the double tilde is unique to the convention, the library's greppable check for it in
+any language.
 
 ### Advisory families (fix on touch; internal-report surfaces non-blocking)
 
