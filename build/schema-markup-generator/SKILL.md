@@ -1,6 +1,6 @@
 ---
 name: schema-markup-generator
-version: "4.2.0"
+version: "4.2.1"
 description: 'Generate Schema.org JSON-LD structured data — one accurate primary type per page (FAQPage, HowTo, Article, Product, LocalBusiness, and 6 other types) plus documented auxiliaries only where warranted. Use when the user asks to "add schema markup", "generate structured data", "JSON-LD", "FAQ schema", "rich snippets", "I want star ratings in Google", or "structured data validation errors". Produces validated markup for Google rich results where still offered (FAQ rich results retired 2026 — FAQPage is kept for AI-engine/GEO parsing), Bing structured data, and AI system understanding. Validates via the Schema.org validator, plus Rich Results Test for non-FAQ types. For broader technical SEO, see technical-seo-checker. For meta tag optimization, see meta-tags-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.2.0"
+  version: "4.2.1"
   geo-relevance: "medium"
   tags:
     - seo
@@ -42,7 +42,7 @@ This skill creates Schema.org structured data markup in JSON-LD format — ONE a
 
 ## When to Use This Skill
 
-- Adding FAQ schema for AI-engine/GEO parsing value
+- Adding FAQ schema where FAQPage is the page's one primary type — for AI-engine/GEO parsing value
 - Creating How-To schema for step-by-step content
 - Adding Product schema for e-commerce pages
 - Implementing Article schema for blog posts
@@ -114,7 +114,7 @@ When a user requests schema markup:
 
 1. **Identify Content Type and Select ONE Primary Schema Type**
 
-   Reference the [CORE-EEAT Benchmark](../../references/core-eeat-benchmark.md) item **O05 (Schema Markup)** — its Pass criterion is *correct JSON-LD matching the content type*: one accurate primary type per page. The mapping below applies the settled ruling R2 boundary (`docs/loop/SETTLED-RULINGS.md`) to the O05 content-type list; the benchmark's own Section 5 table predates the R2 boundary clarification — where they differ, R2 governs:
+   Reference the [CORE-EEAT Benchmark](../../references/core-eeat-benchmark.md) item **O05 (Schema Markup)** — its Pass criterion is *correct JSON-LD matching the content type*: one accurate primary type per page. The benchmark's Section 5 table and settled ruling R2 (`docs/loop/SETTLED-RULINGS.md`) state one boundary, not two, so a page mapped here maps the same way there. The table below is that boundary on this skill's supported types, plus the homepage row Section 5 does not carry:
 
    ```markdown
    ### CORE-EEAT Schema Mapping (O05, single-primary form)
@@ -261,6 +261,8 @@ When a user requests schema markup:
 ## Example
 
 **User**: "Generate FAQ schema for a page about SEO with 3 questions"
+
+**Primary-type check first (step 1)**: the page here is a dedicated Q&A page, so FAQPage is the one type it needs. Had the same three questions sat in the FAQ section of an SEO guide, the primary type would be Article, FAQPage on top of it would be stacking (settled ruling R2), and the visible Q&A block would carry the value — it earns CORE-EEAT C09 with no markup at all.
 
 **Output**:
 
