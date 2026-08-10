@@ -239,7 +239,7 @@ watching), G4 harvest merged (PR #4).**
     schema has **no `schemaVersion`/`id`** (only `name` required), and `commands`/`skills`
     are documented as path strings/arrays, not `{name, description, path}` objects — repo
     mandates the opposite (`CLAUDE.md:47`; fields present at `.claude-plugin/plugin.json:2-3`;
-    added deliberately in v3.0.0, `VERSIONS.md:177` ("### v3.0.0" section —
+    added deliberately in v3.0.0, `VERSIONS.md:179` ("### v3.0.0" section —
     pointer anchor-tagged per F12, token authoritative on mismatch; had silently
     drifted from :79-88)).
   - Sketch if approved: fold `version` into `metadata` (keep `metadata.version`), trim
@@ -465,10 +465,26 @@ watching), G4 harvest merged (PR #4).**
   applied); E1 first Mode B baselines COMPLETE 2026-08-09 — on-page 29/30,
   content-quality-auditor 26/28, meta-tags-optimizer 29/29, seo-content-writer
   30/30 (114/117), six binding editor passes NATIVE ×2 / MINOR-EDITS ×4 /
-  FAIL ×0, founding records in `eval-baselines/2026-08-09-e1.json`; E2/E3
-  first baselines follow per the done-definition below (deferred 2026-08-09
-  by coordinator budget decision protecting the 2026-08-15 solo-fire
-  allowance). Proposed 2026-08-09 (`MASTER-IMPROVEMENT-PLAN.md` §2).
+  FAIL ×0, founding records in `eval-baselines/2026-08-09-e1.json`.
+  **COVERAGE COMPLETE 2026-08-10 — 20/20.** E4 (rank-tracker,
+  backlink-analyzer, performance-reporter, alert-manager) and E5
+  (entity-optimizer, memory-management, the latter carrying the cross-skill
+  handoff eval) authored, reviewed and fixed: 41 Mode A findings across the two
+  waves, all applied. E2–E5 founding baselines recorded in
+  `eval-baselines/2026-08-10-e2345.json` (13 suites).
+  **Read that record's method block before quoting any score.** Ten suites were
+  graded by an agent that executed AND graded knowing the expectations
+  (276/282 = 0.979) and three under a blind-execute method with expectations
+  withheld until each deliverable was saved (67/86 = 0.779; memory 86.2%,
+  backlink 85.7%, entity 62.1%). The two are NOT comparable and are never
+  averaged in the record; the informed-executor figures are an upper bound on
+  what the library does, not a floor. The gap surfaced 19 real behavioural
+  FAILs — 7 positive errors (invented figures, a banned cost-per-mention
+  artefact, counts contradicting the fixture, a quote silently re-cased, a
+  disavow sequence that folded under deadline pressure) and 12 omissions. The
+  method fix is queued for the next re-baseline wave, and the wave's own
+  same-day fixes are stamped in the record (`225a3c4`, `bb6ef16`).
+  Proposed 2026-08-09 (`MASTER-IMPROVEMENT-PLAN.md` §2).
 - **Proposal**: five waves — E1 score authorities (content-quality-auditor,
   on-page-seo-auditor, seo-content-writer, meta-tags-optimizer; eval-the-scorer
   pattern for CORE-EEAT: veto handling, N/A discipline, cap math), E2 research
