@@ -1175,6 +1175,21 @@ untouched increments this.
   Both records are being labelled **primed, not blind** at the expectation level rather than
   discarded: a labelled run is evidence, an unlabelled one is contamination. geo-content-optimizer
   and content-gap-analysis are unaffected by this vector.
+- **CORRECTION, 2026-08-10, same day, found by the geo grader and verified at source before
+  amending**: the sentence above is **wrong about geo-content-optimizer**, and the error is mine.
+  `§6`'s family-1 cell (`:168`) states its ruled form as «Όλα τα 18 μοντέλα συνοδεύονται…» →
+  «Και τα 18 μοντέλα συνοδεύονται…», and family 2 (`:169`) states its example as
+  «(απαιτούνται στοιχεία προϊόντος)» inside a FAQ answer or JSON-LD, citing geo-content-optimizer
+  by version. Eval 2 of that suite supplies «18 μοντέλα» in its prompt and asks for exactly a
+  category text with a Greek FAQ and its FAQPage markup. So the required read hands that
+  executor the ruled sentence for its own scenario, with the same numeral. One correction to the
+  grader's wording, checked rather than copied: the 18 is in the **eval 2 prompt**, not in the
+  fixture file — no geo fixture contains the string at all. The substance holds either way.
+  **Effect**: e2's three productions of the ruled native form and its zero family-2 leaks are
+  **primed, not cold carrier evidence**, and the geo record labels them so. Priming can only
+  assist a pass, so no verdict moves. Five suites are now known-affected, not four, and the
+  original sentence stands corrected rather than rewritten — a register that edits away its own
+  errors teaches nobody what the error was.
 - **Root cause**: a rule's provenance was written for the person deciding whether the rule is
   justified. That reader needs the suite name, the count and the date. The executor needs the rule
   and nothing else. Putting both in one file was never a decision — the provenance accreted into
