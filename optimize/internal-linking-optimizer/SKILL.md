@@ -1,13 +1,13 @@
 ---
 name: internal-linking-optimizer
-version: "4.2.1"
+version: "4.3.0"
 description: 'Analyze and optimize internal link structure to improve site architecture, distribute page authority, and fix orphan pages. Use when the user asks to "fix internal links", "improve site architecture", "link structure", "distribute page authority", "internal linking strategy", "orphan pages", "site architecture is messy", or "pages have no links pointing to them". For a broader on-page audit, see on-page-seo-auditor. For external link analysis, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.2.1"
+  version: "4.3.0"
   geo-relevance: "low"
   tags:
     - seo
@@ -117,6 +117,15 @@ Proceed with the analysis using provided data. Note in the output which findings
 
 ## Instructions
 
+**The suggestion contract, binding on every step below.** A concrete link suggestion carries four
+fields — source page, target page, **anchor text**, placement. A bare count ("add links from 3
+pages", "add the two missing cluster links") is a finding, not a suggestion: expand it into one
+row per link, each with its own anchor, or cite the table row that carries them. A redirect or a
+deletion is not a link suggestion; a navigation entry's anchor is its menu label. **Anchors ship
+as final copy**: bracket tokens in the templates below are slots you fill, and a client-pasted
+string carries no bracket token, no `TBD`, no provenance note and no workflow marker — where a
+value cannot be sourced, drop that field and name the gap in report prose *outside* the string.
+
 When a user requests internal linking optimization:
 
 1. **Analyze Current Internal Link Structure**
@@ -155,7 +164,7 @@ When a user requests internal linking optimization:
    
    ### Under-Linked Important Pages
    
-   | Page | Current Links | Traffic | Recommended Links |
+   | Page | Current Links | Traffic | Recommended Links (a count — the links themselves are in Steps 4-5) |
    |------|---------------|---------|-------------------|
    | [URL 1] | [X] | [X]/mo | [X]+ |
    | [URL 2] | [X] | [X]/mo | [X]+ |
@@ -197,9 +206,9 @@ When a user requests internal linking optimization:
    ### Fix Strategy
    
    Priority: **High** where the orphan pages have traffic/rankings, **Medium** where they are
-   potentially valuable, **Low** where you would consider removing them. Each fix below is a
-   link suggestion, so it carries the same four fields as every other suggestion in this
-   report: source page, target page, anchor text, placement.
+   potentially valuable, **Low** where you would consider removing them. Each fix below is a link
+   suggestion, so it carries the contract's four fields: source page, target page, anchor text,
+   placement — one row per link, and the anchor is the string that ships.
    
    | Orphan (target) | Priority | Link from (source) | Anchor text | Placement on source |
    |-----------------|----------|--------------------|-------------|---------------------|
@@ -253,10 +262,10 @@ When a user requests internal linking optimization:
    
    Current: "[current anchor]" used [X] times
    
-   Recommended variety:
-   - "[variation 1]" - Use from [page type]
-   - "[variation 2]" - Use from [page type]
-   - "[variation 3]" - Use from [page type]
+   Recommended variety — each line names the source page the anchor goes on; the string ships as written:
+   - "[variation 1]" - on [source URL], [section]
+   - "[variation 2]" - on [source URL], [section]
+   - "[variation 3]" - on [source URL], [section]
    
    **Anchor Score**: [X]/10 ([points] ÷ [N] in-body link instances; [M] template links excluded)
    ```
@@ -294,7 +303,7 @@ When a user requests internal linking optimization:
 
 7. **Generate Link Implementation Plan** — Executive summary, current state metrics, phased priority actions (weeks 1-4+), implementation guide, tracking plan
 
-   > **Reference**: See [references/linking-templates.md](./references/linking-templates.md) for the full implementation plan template (Step 7).
+   > **Reference**: See [references/linking-templates.md](./references/linking-templates.md) for the full implementation plan template (Step 7). This is the what-to-fix-first surface, so the contract applies hardest here: every phase checkbox that adds a link is one checkbox per link, written `[source] → [target] · "[anchor]" · [placement]` — never "add links from [X] pages" or "add the [X] missing cluster links". A checkbox may cite the row that already carries the four fields instead of repeating them.
 
 ## Scoring & Impact-Figure Rules
 
@@ -344,6 +353,7 @@ would produce one — baseline the affected pages now, re-measure 4-8 weeks afte
 - [ ] All link suggestions include source page, target page, and recommended anchor text — orphan fixes included, since a fix for an orphan is a link suggestion (Step 2's Fix Strategy table carries the same four fields as Step 4's)
 - [ ] Orphan page lists include URLs and recommended actions, and list only pages with no inbound link of any kind; a page reachable through template/nav links only is reported as template-only inbound, not as an orphan
 - [ ] No recommended anchor is content-free ("click here", "read more", "this article", "learn more", a bare URL) — the Natural band means conversational *and* descriptive
+- [ ] Every paste-ready string — a recommended anchor, the sentence carrying it, any link markup — is final copy: no bracket token, no `TBD`/`XX`, no provenance note ("client data needed", "per the export") and no agency-workflow marker inside it. Gaps, assumptions and source labels live in the report and recommendation-table frame around it, never in the string the client copies
 - [ ] Every projected or after-state figure is re-derivable from the changes this report itself proposes, with the addition shown; a model-produced figure prints its model, parameters and input graph
 - [ ] Source of each data point stated in the report's own words — the resolved tool name (Screaming Frog, Google Analytics 4), "user-provided", or "manual analysis"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 - [ ] Each score prints its derivation — Structure Score as [points] ÷ [rows scored] with the model it was scored against and the unchecked rows named; Anchor Score as [points] ÷ [link instances graded] with the excluded template links named. A score with nothing checkable reads "not scored — no link data", never 0/10; no site data at all means no score in the report

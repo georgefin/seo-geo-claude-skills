@@ -2,6 +2,16 @@
 
 Detailed output templates for internal-linking-optimizer steps 4-7. Referenced from [SKILL.md](../SKILL.md).
 
+**The suggestion contract applies to every template in this file** (SKILL.md § Instructions).
+Each of these templates emits link suggestions, and a suggestion carries four fields — source
+page, target page, **anchor text**, placement. One row or checkbox per link: a bare count ("add
+links from 3 pages", "add the 2 missing cluster links") is a finding, not a suggestion — the site
+owner still has no words to put on the page. Every `"[anchor]"` below is a slot you fill with the
+string that ships; a client-read string never carries a bracket token, `TBD`, a provenance note
+or an agency-workflow marker. An anchor you cannot source — because the
+target page's own wording is not in front of you — means that suggestion is left out and the gap
+is named in the report prose, never shipped as `"[anchor TBD]"`.
+
 ---
 
 ## Step 4: Create Topic Cluster Link Strategy
@@ -48,6 +58,11 @@ Detailed output templates for internal-linking-optimizer steps 4-7. Referenced f
 | [URL 1] | [URL 2] | "[anchor]" | [paragraph/section] |
 | [URL 2] | [URL 3] | "[anchor]" | [paragraph/section] |
 | [Pillar] | [Cluster 1] | "[anchor]" | [section] |
+
+One row per missing link — every pillar→cluster and cluster→pillar gap the map above shows gets
+its own row here, so "the cluster is incomplete" never travels as a summary. The Anchor Text cell
+holds the exact words that will appear on the source page; if the source page's own wording is
+not in front of you, leave the row out and say which page's text you need.
 ```
 
 ---
@@ -124,8 +139,10 @@ For each page, find relevant pages to link to based on:
 
 ### Pages to Add to Navigation
 
-1. [Page] - Add to [location] because [reason]
-2. [Page] - Add to [location] because [reason]
+A navigation entry's anchor is its menu label, so name the label you propose.
+
+1. [Page] - Add to [location] with the label "[label]" because [reason]
+2. [Page] - Add to [location] with the label "[label]" because [reason]
 
 ### Pages to Remove from Navigation
 
@@ -183,33 +200,43 @@ row belongs here — see [score-rubric.md](./score-rubric.md) §5 (after-state f
 
 ## Priority Actions
 
+Phases follow the Implementation Priority Order (structural fixes, then architecture, then
+cross-linking, then anchors). Every checkbox that adds or rewrites a link is a link suggestion,
+so it is written one link per checkbox as `[source] → [target] · "[anchor]" · [placement]`. A
+checkbox may cite the row that already carries those fields ("Links to Add, row 3") instead of
+repeating them; it may not replace them with a count.
+
 ### Phase 1: Critical Fixes (Week 1)
 
-**Fix Orphan Pages**:
-- [ ] [URL] - Add links from [X] pages
-- [ ] [URL] - Add links from [X] pages
+**Fix Orphan Pages** — one checkbox per inbound link, not one per orphan:
+- [ ] [source URL] → [orphan URL] · "[anchor]" · [section on the source page]
+- [ ] [source URL] → [orphan URL] · "[anchor]" · [section on the source page]
+
+**Fix Broken Internal Links**:
+- [ ] [source URL] → [broken URL] · repoint to [live URL], anchor "[anchor]" · [section] (or remove the link and say so)
 
 **High-Value Link Additions**:
-- [ ] Link [Page A] to [Page B] with "[anchor]"
-- [ ] Link [Page A] to [Page C] with "[anchor]"
+- [ ] [Page A] → [Page B] · "[anchor]" · [section]
+- [ ] [Page A] → [Page C] · "[anchor]" · [section]
 
 ### Phase 2: Topic Clusters (Week 2-3)
 
-**Cluster 1: [Topic]**
-- [ ] Ensure pillar links to all [X] cluster articles
-- [ ] Add [X] cross-links between cluster articles
+**Cluster 1: [Topic]** — one checkbox per missing link; "complete the cluster" is not a task:
+- [ ] [Pillar] → [Cluster article 1] · "[anchor]" · [section]
+- [ ] [Cluster article 2] → [Pillar] · "[anchor]" · [section]
+- [ ] [Cluster article 1] → [Cluster article 2] · "[anchor]" · [section] — cross-link
 
 **Cluster 2: [Topic]**
-- [ ] [Tasks]
+- [ ] [same shape, one checkbox per link]
 
 ### Phase 3: Optimization (Week 4+)
 
-**Anchor Text Diversity**:
-- [ ] Vary anchors for [Page] - currently [n] of [base] inbound anchors are exact match ([X]%)
-- [ ] [Additional tasks]
+**Anchor Text Diversity** — a rewrite names the link it rewrites and both strings:
+- [ ] [source URL] → [target URL] · "[current anchor]" → "[replacement anchor]" ([n] of [base] inbound anchors are exact match, [X]%)
+- [ ] [source URL] → [target URL] · "[current anchor]" → "[replacement anchor]"
 
-**Navigation Updates**:
-- [ ] Add [Page] to main navigation
+**Navigation Updates** (template links — the menu label is the anchor):
+- [ ] Add [Page] to main navigation with the label "[label]"
 - [ ] Update footer links
 
 ## Implementation Guide

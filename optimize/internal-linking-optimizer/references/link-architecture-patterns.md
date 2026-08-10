@@ -370,3 +370,10 @@ Homepage
 5. Monitor and iterate
 
 This order ensures each phase builds on a solid foundation rather than optimizing details on a broken structure.
+
+**It orders the work; it does not describe the payload.** Every item above that resolves into
+concrete links is written out one link at a time, each carrying source page, target page, anchor
+text and placement (SKILL.md § Instructions, the suggestion contract). "Fix structural issues
+first" is a phase; the phase's checkboxes name each inbound link and the exact words it will use.
+The same holds for the Monthly Monitoring Checklist above — "Add internal links immediately" is
+the action class, and what you hand the site owner is the individual links with their anchors.
