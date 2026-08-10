@@ -26,7 +26,7 @@ Detailed output templates for content-refresher steps 5-9. Referenced from [SKIL
 **Add New Sections**:
 - [New Section 1] - [description, ~X words]
 - [New Section 2] - [description, ~X words]
-- FAQ Section - [X questions for featured snippets]
+- FAQ Section - [X questions the page's own queries actually raise; FAQ content, not markup]
 
 **Remove/Consolidate**:
 - [Section 5] - Outdated, remove or redirect topic
@@ -111,7 +111,7 @@ Detailed output templates for content-refresher steps 5-9. Referenced from [SKIL
 
 ### [Question matching PAA/common query]?
 
-[Direct answer in 40-60 words, optimized for featured snippets]
+[Direct answer in 40-60 words — answer the question in the first sentence, then qualify]
 
 ### [Question 2]?
 
@@ -121,6 +121,24 @@ Detailed output templates for content-refresher steps 5-9. Referenced from [SKIL
 
 [Direct answer]
 ```
+
+### Correcting claims about SERP features (author's rule, not template copy)
+
+An old article often states what Google *shows* — rich results, snippets, panels. Correct only what
+this library has settled, and only that far. The rule governs the refreshed copy the client
+publishes, where an unresolved claim reads as fact:
+
+- **FAQ rich results retired 2026 — no SERP feature** (settled ruling R3). An article promising them
+  is wrong, and the line is rewritten. FAQPage markup, where a page justifies it under R2, is kept
+  for AI-engine/GEO parsing and promises nothing on the SERP.
+- **Every other feature's status is open until this library settles it.** HowTo rich results are the
+  live case: that question is an open `[VERIFY]` item in the watch register (W12,
+  `docs/loop/WATCH-ITEMS.md`), so refreshed copy asserts nothing about them in either direction —
+  not that they still appear, not that they are gone. Flag the sentence for verification against
+  Google Search Central before publication and write what is actually known: as of this run, the
+  claim is unverified.
+- **A retirement one type underwent is not evidence about another type.** Do not generalise from the
+  FAQ line to any other feature; each is settled or it is not.
 
 ---
 
@@ -252,7 +270,7 @@ Structure content with questions AI might answer:
 - [x] Updated [X] statistics with sources
 - [x] Fixed [X] broken links
 - [x] Added FAQ section for GEO
-- [x] Implemented FAQ schema
+- [ ] FAQPage markup — added only where the page justifies it; unchanged otherwise
 - [x] Updated images and alt text
 
 ## Expected Outcomes
@@ -272,3 +290,14 @@ skill carries, so a bare number here is a guess wearing a target.
 
 Schedule next refresh review: [Date - 6 months from now]
 ```
+
+**On the FAQPage line** (author's rule, not report copy): the box is ticked only where the page
+passes ruling R2's both-things test — it genuinely is both its primary type and an FAQ resource,
+each complete and independently justified. Otherwise the FAQ content ships and the schema is left
+alone, and the report says so. Either way the value claimed is AI-engine/GEO parsing: FAQ rich
+results retired 2026 — no SERP feature (ruling R3).
+
+**On every score this report prints** — a CORE-EEAT quick score, the composite decay score, the
+refresh priority score, an ROI figure: the derivation sits beside the number, and a signal or factor
+with no input is shown N/A with its missing input named, never estimated into a value. The rules and
+worked derivations are in [content-decay-signals.md](./content-decay-signals.md).

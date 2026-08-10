@@ -95,13 +95,30 @@ These five together are worth 2.0 + 1.5 + 1.25 + 0.75 + 0.75 = **6.25 weighted p
 | Assessment | Score | Rating |
 |-----------|-------|--------|
 | CITE (Domain) | 68.5/100 | Medium |
-| CORE-EEAT (Content) | Run content-quality-auditor on sample pages | — |
+| CORE-EEAT (Content) | Not yet evaluated | — |
 
-**Diagnosis**: Medium CITE + unknown CORE-EEAT → Run `/seo:audit-page` on top 5 landing pages to determine whether to prioritize content quality or domain authority first.
-
-### Recommended Next Steps
-
-- For entity building: run [entity-optimizer](../entity-optimizer/) to strengthen I-dimension signals
-- For content audit: use [content-quality-auditor](../content-quality-auditor/) on key pages
-- For tracking progress: run `/seo:report` with CITE score trends quarterly
+**Diagnosis**: domain authority is mid-range, and page-level content quality has not been measured
+yet, so we cannot say which of the two is holding the site back. A content review of the top five
+landing pages settles it, and is the cheaper of the two to run first.
 ```
+
+The client's report ends at that fence. The follow-up runs go in a **separate fence of their own**,
+and the label lives **inside** it — a model copies the fence, not the heading above it
+(`CLAUDE.md` § The Value Rule, clause 2; the handoff sub-rule is
+[inter-skill-handoff.md § 3.1](../../../references/inter-skill-handoff.md)). Continuing the same
+example:
+
+```markdown
+<!-- OPERATOR BLOCK — for the client's team, not part of the report above. Every row names a
+     library run and carries its payload. Nothing in this fence goes to the client as written. -->
+### Next steps for your team
+
+| Run | Why | Payload |
+|-----|-----|---------|
+| `content-quality-auditor` | Settles the diagnosis above — domain authority is mid-range and content is unmeasured | cloudhosting.com, Content Publisher · the 5 landing pages, one row each · `CITE C:70 I:55 T:80 E:65` · vetoes `CITE-T03` pass, `CITE-T05` pass, `CITE-T09` pass · audited 2025-02-03 |
+| `entity-optimizer` | Identity is the weakest dimension (55/100) and carries two of the top 5 priorities | cloudhosting.com, Content Publisher · priority `CITE-I01, CITE-I03` · `CITE C:70 I:55 T:80 E:65` · audited 2025-02-03 |
+| `/seo:report` | Quarterly trend tracking against this baseline | cloudhosting.com · baseline `CITE C:70 I:55 T:80 E:65`, audited 2025-02-03 |
+```
+
+The CORE-EEAT field is absent from every row because no content audit exists yet — that absence is
+the reason for row 1, and it is named rather than estimated.

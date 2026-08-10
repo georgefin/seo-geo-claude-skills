@@ -1,6 +1,6 @@
 ---
 name: technical-seo-checker
-version: "4.3.0"
+version: "4.4.0"
 description: 'Run technical SEO audits covering Core Web Vitals, crawlability, indexing, mobile-friendliness, and site architecture. Use when the user asks to "technical SEO audit", "check page speed", "Core Web Vitals", "crawl errors", "indexing problems", "site health check". For content element issues, see on-page-seo-auditor. For link architecture, see internal-linking-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.3.0"
+  version: "4.4.0"
   geo-relevance: "low"
   tags:
     - seo
@@ -352,6 +352,7 @@ land in. Blocks, the four ways a pasted redirect breaks a site, and the verifica
 - [Score Rubric](./references/score-rubric.md) — How every /10 section score and the /100 overall are derived: scored rows per section, count-row conversion, CWV mobile rule, rounding, and when a score must be withheld
 - [Server-Config Fix Snippets](./references/server-config-fixes.md) — Placement-complete nginx/Apache redirect and header blocks, the four ways a pasted redirect takes a site down, verification and rollback
 - [Technical Audit Example & Checklist](./references/technical-audit-example.md) — Full worked example and comprehensive technical SEO checklist
+- [Inter-Skill Handoff](../../references/inter-skill-handoff.md) — what to pass when this audit names a follow-up run (step 7's escalation to a content audit is the standing one), the operator-block placement rule, and the drop-and-name rule for an unavailable field. An alerting or monitoring handoff carries thresholds and metrics instead — see the uncovered-shapes list there
 
 ## Related Skills
 

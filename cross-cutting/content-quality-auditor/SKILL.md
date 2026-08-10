@@ -1,6 +1,6 @@
 ---
 name: content-quality-auditor
-version: "4.3.0"
+version: "4.4.0"
 description: 'Run the full 80-item CORE-EEAT audit across 8 dimensions with content-type weighted scoring, veto checks, and prioritized fix plans. Use when the user asks to "audit content quality", "EEAT score", "CORE-EEAT audit", "content quality check", "how good is my content", "content improvement plan", "is my content AI-citation worthy", "GEO quality score". For SEO page element audits, see on-page-seo-auditor. For domain-level authority, see domain-authority-auditor.'
 license: Apache-2.0
 allowed-tools: WebFetch
@@ -8,7 +8,7 @@ compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, 
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.0"
+  version: "4.4.0"
   geo-relevance: "high"
   tags:
     - seo
@@ -294,14 +294,24 @@ Sorted by: weight × points lost (highest impact first). Every entry carries all
 #### Strategic (Requires planning)
 - [ ] [Action 5]
 - [ ] [Action 6]
-
-### Recommended Next Steps
-
-- For full content rewrite: use [seo-content-writer](../../build/seo-content-writer/) with CORE-EEAT constraints
-- For GEO optimization: use [geo-content-optimizer](../../build/geo-content-optimizer/) targeting failed GEO-First items
-- For content refresh: use [content-refresher](../../optimize/content-refresher/) with weak dimensions as focus
-- For technical fixes: run `/seo:check-technical` for site-level issues
 ```
+
+The client's report ends there. Follow-up runs go in a **separate fence of their own**, carrying the label **inside** the fence — a model copies the fence, not the heading above it (`CLAUDE.md` § The Value Rule, clause 2; the handoff sub-rule is [inter-skill-handoff.md § 3.1](../../references/inter-skill-handoff.md)). Payload fields, the hyphenated framework-first ID form, and the drop-and-name rule for a field you cannot source are all in that file.
+
+```markdown
+<!-- OPERATOR BLOCK — for the client's team, not part of the report above. Every row names a
+     library run and carries its payload. Nothing in this fence goes to the client as written. -->
+### Next steps for your team
+
+| Run | Why | Payload |
+|-----|-----|---------|
+| `seo-content-writer` | Full rewrite against CORE-EEAT constraints | [keyword] · [content type] · [URL] · `CORE-EEAT C:… O:… R:… E:… Exp:… Ept:… A:… T:…` · vetoes · audited [date] |
+| `geo-content-optimizer` | Targets the failed GEO-First items | Same payload, priority `CORE-EEAT-[ID], …` |
+| `content-refresher` | Refreshes against the weak dimensions | Same payload, weak dimensions as the focus set |
+| `/seo:check-technical` | Site-level issues a page-level audit cannot see | [domain] |
+```
+
+Drop any row whose run this audit did not actually motivate; a standing list of four is not a handoff. When a payload field cannot be sourced, the field is omitted from the row and named beneath the block — never a bracket token left in a value position.
 
 ## Validation Checkpoints
 
@@ -322,6 +332,7 @@ Sorted by: weight × points lost (highest impact first). Every entry carries all
 - [ ] Every Partial/Fail note and every priority improvement carries a confidence label (Confirmed / Likely / Hypothesis); each Hypothesis names its verification step
 - [ ] No quotation in the report attributes words to a named person or organisation without a checkable source beside it; Evidence quotes are verbatim from the audited content, and no Fix or Action Plan step drafts a quote in a real person's name
 - [ ] Anti-slop scans (AS-1 to AS-4) run, with hits recorded in the evidenced items' notes (O09, O06, C02, E06, E08, R01, R02, R04, Ept03)
+- [ ] The follow-up-run block is a separate fence carrying `<!-- OPERATOR BLOCK … -->` as its first line, and no skill slug, command slug or item ID appears inside the client report fence — a reader who copies only that fence must be able to tell it is not for the client
 
 ## Example
 
@@ -346,6 +357,7 @@ See [references/item-reference.md](./references/item-reference.md) for a complet
 - [references/item-reference.md](./references/item-reference.md) — All 80 item IDs in a compact lookup table + site-level item handling notes + scored example report
 - [references/anti-slop-audit-checks.md](./references/anti-slop-audit-checks.md) — AS-1 to AS-4 scan procedures, EN + EL ban lists, thresholds, and item mappings (O09, O06, C02, E06, E08, R01, R02, R04, Ept03)
 - [references/score-arithmetic.md](./references/score-arithmetic.md) — which dimension, GEO/SEO and weighted figures the 10/5/0 scale can produce, the N/A denominator, rounding, and the veto outcomes that override the arithmetic
+- [Inter-Skill Handoff](../../references/inter-skill-handoff.md) — the payload every follow-up-run row passes to the run it names, the label-inside-the-fence rule for an operator block, the hyphenated framework-first item-ID form, and the drop-and-name rule for an unavailable field
 
 ## Related Skills
 

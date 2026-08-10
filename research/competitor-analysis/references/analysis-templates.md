@@ -241,7 +241,10 @@ Test competitor content in AI systems for relevant queries:
 
 - The Domain Authority Comparison block is filled from a run of
   [domain-authority-auditor](../../cross-cutting/domain-authority-auditor/), one per domain,
-  passing the domains along per the library handoff convention. Inside the report, name the
+  passing the domains along per the library handoff convention — carried in
+  [references/inter-skill-handoff.md](../../../references/inter-skill-handoff.md), which also
+  records that the convention's "content URL" field is page-level and singular, so a multi-domain
+  handoff sends one labelled row per domain. Inside the report, name the
   *work* ("a domain-level authority audit of the three domains") and gloss CITE on first use, as
   the fence does. A skill slug on a surface the client reads is a family-8 failure
   (`build/seo-content-writer/references/anti-slop-ruleset.md` §6), and so is a bare framework

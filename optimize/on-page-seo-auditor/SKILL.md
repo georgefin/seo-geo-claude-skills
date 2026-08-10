@@ -1,6 +1,6 @@
 ---
 name: on-page-seo-auditor
-version: "4.2.0"
+version: "4.3.0"
 description: 'Audit on-page HTML elements including title tags, headers, image alt text, and internal links with a scored SEO report. Use when the user asks to "audit page SEO", "on-page SEO check", "SEO score", "page optimization", "what SEO issues does this page have", "score my page", "why is this page not ranking", or "check my page". For server, speed, and crawl issues, see technical-seo-checker. For full EEAT content quality scoring, see content-quality-auditor.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.2.0"
+  version: "4.3.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -325,6 +325,7 @@ unverified-criterion worked case and the grade bands:
 - [Scoring Rubric](./references/scoring-rubric.md) — Per-criterion points for all eight sections and their maxima, how ✅/⚠️/❌ becomes points, what an unverified criterion does to the denominator, the overall-score arithmetic and grade bands, plus calibration examples
 - [Audit Templates](./references/audit-templates.md) — Detailed output templates for steps 5-11 (content quality, keywords, links, images, technical, CORE-EEAT scan, audit summary)
 - [Audit Example & Checklists](./references/audit-example.md) — Full worked example and page-type checklists (blog, product, landing page)
+- [Inter-Skill Handoff](../../references/inter-skill-handoff.md) — what to pass when this audit names a follow-up run (step 10's escalation to the full 80-item audit is the standing one), the operator-block placement rule, and the drop-and-name rule for an unavailable field
 
 ## Related Skills
 

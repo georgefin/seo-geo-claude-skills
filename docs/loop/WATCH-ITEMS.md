@@ -262,11 +262,21 @@ authoritative.
 
 ## W14 — CTR benchmark tables: position curve and per-vertical bands [VERIFY]
 
-- **Where**: `build/meta-tags-optimizer/references/meta-tag-formulas.md:210-219` — the
-  position-by-CTR curve and the per-vertical CTR bands. Tagged in place during the
-  meta-tags-optimizer 4.2.0 wave (2026-08-10) by the implementer, which flagged that opening a
-  `[VERIFY]` without a register row leaves it where the weekly sweep does not read — the same
-  shape as F17. This row closes that.
+- **Where**: THREE carriers, all found on 2026-08-10, each by a different agent that did not
+  know about the others:
+  1. `build/meta-tags-optimizer/references/meta-tag-formulas.md:210-219` — the position-by-CTR
+     curve and the per-vertical CTR bands. Tagged in place during the meta-tags-optimizer 4.2.0
+     wave by the implementer, which flagged that opening a `[VERIFY]` without a register row
+     leaves it where the weekly sweep does not read — the same shape as F17. This row closes that.
+  2. `optimize/content-refresher/references/content-decay-signals.md:47-55` — a position-CTR
+     curve, reframed as an illustrative shape rather than a benchmark, with quoting it to a
+     client forbidden at the point of use.
+  3. `monitor/rank-tracker/references/tracking-setup-guide.md` — the position-versus-traffic
+     click-loss table, tagged in place; the row strings its eval suite quotes are byte-identical
+     after tagging.
+  **That three independent skills carried the same unsourced curve is the finding, not an
+  aside.** A figure this widely circulated arrives in a library by many doors at once, so
+  resolving it in one file resolves nothing — this row exists so the sweep checks all three.
 - **The question**: these figures carry no citation here and none anywhere in the repository
   (grepped 2026-08-10; **no external search was made**, which is stated so the gap is not read
   as a negative finding). They are plausible and widely circulated, and that is exactly what

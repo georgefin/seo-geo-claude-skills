@@ -1,13 +1,13 @@
 ---
 name: content-refresher
-version: "4.1.4"
+version: "4.2.0"
 description: 'Refresh old blog posts and outdated content with current statistics, new information, and freshness signals to restore search rankings. Use when the user asks to "update old content", "refresh content", "content is outdated", "improve declining rankings", "revive old blog posts", "traffic is declining on this page", "rankings dropped for this article", or "this post is outdated". For writing new content from scratch, see seo-content-writer. For auditing without rewriting, see on-page-seo-auditor.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.1.4"
+  version: "4.2.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -106,8 +106,9 @@ Ask the user to provide:
 2. Ranking screenshots or history for key pages
 3. Content publish dates and last update dates
 4. List of pages the user suspects need refreshing
+5. Competitor URLs, or their own dated notes on what the pages ranking above theirs cover — at Tier 1 the only competitor input there is, and what every "competitors now cover X" line rests on
 
-Proceed with the analysis using provided data. Note in the output which findings are from automated data vs. manual review.
+Proceed with the analysis using provided data. Note in the output which findings are from automated data vs. manual review. **An input nobody supplied is not filled in from a typical case**: name the missing input, leave the figure out, and say what supplying it would unlock (root `CLAUDE.md`, Tool Connector Pattern, resolution branch 3).
 
 ## Instructions
 
@@ -123,18 +124,25 @@ When a user requests content refresh help:
    **Content**: [title or URL]
    **Content Type**: [type]
 
-   Rapidly score each dimension (estimate 0-100):
+   Rapidly score each dimension (estimate 0-100) and print the derivation beside every score, so a
+   reader can recompute it: check at least 3 items of that dimension in the benchmark, grade each
+   Pass 10 / Partial 5 / Fail 0 (an unassessable item is N/A — out of the denominator, never a 0),
+   then `score = points ÷ (10 × items checked) × 100`. Under 3 checkable items the dimension reads
+   "not assessed", not a number. Refresh Priority follows the score, not a separate impression:
+   🔴 below 50 · 🟡 50-74 · 🟢 75 and above. A quick score is this skill's own estimate over the
+   items it checked, never a tool measurement; name any failing veto item (C01, R10, T04 where a
+   material connection exists) beside it — the quick pass flags, the full audit rules.
 
-   | Dimension | Quick Score | Key Weakness | Refresh Priority |
+   | Dimension | Quick Score (points ÷ items checked) | Key Weakness | Refresh Priority |
    |-----------|-----------|--------------|-----------------|
-   | C — Contextual Clarity | [X]/100 | [main issue] | 🔴/🟡/🟢 |
-   | O — Organization | [X]/100 | [main issue] | 🔴/🟡/🟢 |
-   | R — Referenceability | [X]/100 | [main issue] | 🔴/🟡/🟢 |
-   | E — Exclusivity | [X]/100 | [main issue] | 🔴/🟡/🟢 |
-   | Exp — Experience | [X]/100 | [main issue] | 🔴/🟡/🟢 |
-   | Ept — Expertise | [X]/100 | [main issue] | 🔴/🟡/🟢 |
-   | A — Authority | [X]/100 | [main issue] | 🔴/🟡/🟢 |
-   | T — Trust | [X]/100 | [main issue] | 🔴/🟡/🟢 |
+   | C — Contextual Clarity | [X]/100 — [P] pts over [n] items ([item IDs]) | [main issue] | 🔴/🟡/🟢 |
+   | O — Organization | [X]/100 — [P] pts over [n] items ([item IDs]) | [main issue] | 🔴/🟡/🟢 |
+   | R — Referenceability | [X]/100 — [P] pts over [n] items ([item IDs]) | [main issue] | 🔴/🟡/🟢 |
+   | E — Exclusivity | [X]/100 — [P] pts over [n] items ([item IDs]) | [main issue] | 🔴/🟡/🟢 |
+   | Exp — Experience | [X]/100 — [P] pts over [n] items ([item IDs]) | [main issue] | 🔴/🟡/🟢 |
+   | Ept — Expertise | [X]/100 — [P] pts over [n] items ([item IDs]) | [main issue] | 🔴/🟡/🟢 |
+   | A — Authority | [X]/100 — [P] pts over [n] items ([item IDs]) | [main issue] | 🔴/🟡/🟢 |
+   | T — Trust | [X]/100 — [P] pts over [n] items ([item IDs]) | [main issue] | 🔴/🟡/🟢 |
 
    **Weakest Dimensions** (focus refresh here):
    1. [Dimension] — [what needs fixing]
@@ -158,17 +166,18 @@ When a user requests content refresh help:
    - Declining traffic trend
    - Lost keyword rankings
    - Outdated references or broken links
-   - Missing topics competitors now cover
+   - Missing topics competitors now cover — assessable only where competitor pages were supplied or reviewed
    - No GEO optimization
    
    ### Content Audit Results
    
-   | Content | Published | Last Updated | Traffic Trend | Priority |
-   |---------|-----------|--------------|---------------|----------|
-   | [Title 1] | [date] | [date] | ↓ -45% | 🔴 High |
-   | [Title 2] | [date] | Never | ↓ -30% | 🔴 High |
-   | [Title 3] | [date] | [date] | ↓ -20% | 🟡 Medium |
-   | [Title 4] | [date] | [date] | → 0% | 🟡 Medium |
+   | Content | Published | Last Updated | Traffic Trend (periods compared) | Priority |
+   |---------|-----------|--------------|----------------------------------|----------|
+   | [Title 1] | [date] | [date] | [+/-X]% ([period A] vs [period B]) | [matrix cell below] |
+   | [Title 2] | [date] | [date or "never"] | [+/-X]% ([period A] vs [period B]) | [matrix cell below] |
+   | [Title 3] | [date] | [date] | [+/-X]% ([period A] vs [period B]) | [matrix cell below] |
+   
+   Every cell comes from the inventory supplied, and the trend cell names the two periods it compares. A page the data does not cover keeps its row and carries "not supplied" there — stated, never interpolated, never converted into a priority.
    
    ### Refresh Prioritization Matrix
    
@@ -178,6 +187,9 @@ When a user requests content refresh help:
    Low Traffic + High Decline = 🟡 Evaluate & Decide
    Low Traffic + Low Decline = 🟢 Low Priority
    ```
+   
+   High and low are relative to this batch: split the supplied traffic figures at their median, and
+   the declines likewise, then say which figures and which split produced each quadrant.
    ```
 
 3. **Analyze Individual Content for Refresh**
@@ -210,7 +222,7 @@ When a user requests content refresh help:
    ### Why This Content Needs Refresh
    
    1. **Outdated information**: [specific examples]
-   2. **Competitive gap**: [what competitors added]
+   2. **Competitive gap**: [what a dated SERP check or the user's competitor notes actually show, with that date and observer — if neither exists, this line reads "no competitor data was available" and carries no claim about what competitors have published]
    3. **Missing topics**: [new subtopics to cover]
    4. **SEO issues**: [current optimization problems]
    5. **GEO potential**: [AI citation opportunities]
@@ -232,16 +244,23 @@ When a user requests content refresh help:
    | Tool mentions | "[old tool]" | Add newer tools |
    | Links | [X] broken | Fix or replace |
    | Screenshots | Outdated UI | Recapture |
+   | SERP-feature claims | "[what the article promises Google shows]" | Correct only what is settled; open items are flagged for verification, never asserted either way — [refresh-templates.md](./references/refresh-templates.md) §"Correcting claims about SERP features" |
    
    ### Missing Information
    
-   **Topics competitors now cover that you don't**:
+   **Topics covered by the competitor pages reviewed in this session** — the denominator is the
+   number of pages actually read, named in the report; it is never a standing "out of 5":
    
-   | Topic | Competitor Coverage | Words Needed | Priority |
-   |-------|---------------------|--------------|----------|
-   | [Topic 1] | 3/5 competitors | ~300 words | High |
-   | [Topic 2] | 2/5 competitors | ~200 words | Medium |
-   | [Topic 3] | 4/5 competitors | ~400 words | High |
+   | Topic | Coverage | Words Needed | Priority |
+   |-------|----------|--------------|----------|
+   | [Topic 1] | [n] of [m] pages reviewed ([which ones]) | ~[X] words | [High/Med/Low] |
+   | [Topic 2] | [n] of [m] pages reviewed ([which ones]) | ~[X] words | [High/Med/Low] |
+   
+   **No competitor pages reviewed and none supplied?** The table is not produced. Write exactly that
+   — no competitor set was available, so missing-topic gaps are unassessed — say what two or three
+   URLs would unlock, and leave the rows out. A competitor's rank, publication date or coverage
+   reaches the report only as a dated observation with its observer ("checked in incognito, 10 Aug",
+   "from your note of 7 Aug") — never as bare fact, never as a count nobody counted.
    
    ### SEO Updates Needed
    
@@ -249,7 +268,7 @@ When a user requests content refresh help:
    - [ ] Refresh meta description
    - [ ] Add new H2 sections for [topics]
    - [ ] Update internal links to newer content
-   - [ ] Add FAQ section for featured snippets
+   - [ ] Add an FAQ section answering the query's real follow-ups — FAQ *content* is the deliverable; FAQPage markup only where the page passes the R2 both-things test, for AI-engine/GEO parsing (FAQ rich results retired 2026 — no SERP feature, ruling R3)
    - [ ] Refresh images and add new alt text
    
    ### GEO Updates Needed
@@ -287,13 +306,15 @@ When a user requests content refresh help:
 - [ ] Target content URL or title clearly identified
 - [ ] Historical performance data available (traffic trends, rankings)
 - [ ] Content publish/update dates known
-- [ ] If comparing to competitors, competitor URLs provided
+- [ ] If comparing to competitors, competitor URLs provided — or a dated SERP check the operator ran; with neither, competitive findings are reported as unassessed, not inferred
 
 ### Output Validation
 - [ ] Every recommendation cites specific data points (not generic advice)
 - [ ] Outdated elements identified with specific examples and replacement data
 - [ ] All suggested additions include word counts and section locations
 - [ ] Source of each data point stated in the report's own words — the resolved tool name (Google Analytics 4, Google Search Console, Ahrefs), "user-provided", or "estimated"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
+- [ ] Every score in the deliverable carries its derivation beside it — the inputs, the arithmetic, the weights — for all four this skill emits: CORE-EEAT quick scores (Step 1), the composite decay score, the refresh priority score, and any ROI figure. A signal or factor with no input is shown N/A with the missing input named and the remaining weights renormalised; it is never estimated into a number (ledger F9-r3, [references/content-decay-signals.md](./references/content-decay-signals.md) "When a signal has no input")
+- [ ] No third-party claim — a competitor's rank, publication date, coverage or "newer guide" — appears without the dated observation it came from
 
 ## Example
 

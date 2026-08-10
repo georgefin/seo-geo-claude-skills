@@ -44,10 +44,23 @@ These signals directly indicate content performance decline and should trigger i
 | Warning | CTR dropped 20%+ vs. baseline | With stable impressions | Rewrite title tag and meta description |
 | Critical | CTR dropped 40%+ vs. baseline | May indicate stale SERP appearance | Full refresh of title, description, and structured data |
 
-**Expected CTR by position** (organic, desktop, approximate):
+**Expected CTR by position — an illustrative shape, not a benchmark**
 
-| Position | Expected CTR Range | Below This = Investigate |
-|----------|--------------------|-------------------------|
+`[VERIFY]` **No source is on file for this curve.** The ranges below carry no publisher, year,
+methodology or sample size; a repository-wide grep on 2026-08-10 found no citation for them here
+or anywhere else in the library. They are the same class of unsourced position-CTR table already
+registered as **W14** (`docs/loop/WATCH-ITEMS.md`, opened 2026-08-10 against
+`build/meta-tags-optimizer/references/meta-tag-formulas.md`) — plausible, widely circulated, and
+exactly the kind of figure this library has found wrong in transit. Use them only as an internal
+sense of the curve's *shape*: **never quote a number from this table to a client, and never make
+one the baseline a client's CTR is judged against.** The honest baseline is the page's own
+position-versus-CTR history from its Search Console export, which carries that site's queries and
+SERP features. With no export and nothing supplied, say so and skip the comparison rather than
+borrowing a number from here (see "When a signal has no input" below). **Resolves when**: a named
+study with its year and sample replaces these ranges, or measured client data does.
+
+| Position | Illustrative CTR Range (unsourced) | Shape suggests investigating below |
+|----------|------------------------------------|------------------------------------|
 | 1 | 25-35% | <20% |
 | 2 | 12-18% | <10% |
 | 3 | 8-12% | <6% |
@@ -89,6 +102,14 @@ These signals suggest potential decay but may have other causes. Use them to cor
 | Competitor has more recent publication date displayed in SERP | SERP monitoring | Medium |
 | Featured snippet lost to competitor | SERP monitoring | High |
 | AI overview now answers query without click | SERP monitoring | High |
+
+"SERP monitoring" here means a tracker's history **or** one SERP check somebody ran and dated — an
+incognito check on a stated date, in the target market and language, is a legitimate detection
+method at Tier 1 and the only one available with no connector. What it cannot produce is *change*:
+one check shows today's SERP, not who ranked there before. Every row above is therefore reported as
+an observation with its date and observer, and "new" is claimed only against an earlier record
+somebody actually holds. No check and no supplied notes means this whole signal group is unassessed
+and the report says so — it does not become an inference about what competitors have published.
 
 ---
 
@@ -157,29 +178,96 @@ When multiple signals fire simultaneously, use this matrix to determine response
 
 ### Composite Decay Score
 
-Calculate a 0-100 decay severity score by summing weighted signal scores.
+Calculate a 0-100 decay severity score by summing weighted signal scores. Every figure in it is
+derived from an input you hold, and the derivation ships beside the score in the deliverable: a
+composite score printed without its signal scores, the observation behind each one and the weights
+used is not reportable (library derivation rule, ledger F9-r3).
 
-| Signal Category | Weight | Score Range |
-|----------------|--------|-------------|
-| Traffic decline | 30% | 0 = no decline, 100 = >60% decline |
-| Position drops | 25% | 0 = stable, 100 = dropped off page 1 |
-| CTR decline | 15% | 0 = stable, 100 = >40% decline |
-| Content freshness | 15% | 0 = updated this quarter, 100 = >2 years stale |
-| Competitive displacement | 15% | 0 = no new competitors, 100 = displaced from top 3 |
+**Step 1 — score each signal on the 0/25/50/75/100 ladder, from the input named in the last column.**
+
+| Signal (weight) | 0 | 25 | 50 | 75 | 100 | Input it needs |
+|---|---|---|---|---|---|---|
+| Traffic decline (30%) | no decline | 10-20% | 20-40% | 40-60% | >60% | two comparable traffic periods (same month year-over-year preferred) from an analytics export or the user's own figures |
+| Position drops (25%) | stable | 1-3 lost | 3-5 lost | 5-10 lost | off page 1 | a before/after position for the same keyword, from a rank export, a Search Console export, or the user's records |
+| CTR decline (15%) | stable | under 20% | 20-30% | 30-40% | over 40% | CTR for the same queries across two comparable windows — Search Console, or the user's own figures |
+| Content freshness (15%) | updated this quarter | updated 3-12 months ago | 12-24 months | over 24 months | over 24 months **and** the page states facts that have since changed | the CMS publish/update date plus a read of the page |
+| Competitive displacement (15%) | your page is the top organic result in the check | 1-2 results above it, none carrying material yours lacks | 1-2 above it carrying material yours lacks, or showing a more recent date | 3 or more above it, at least one carrying material yours lacks | your page is off the first screen of organic results for its own target query | **one dated SERP check for the target query** (incognito, market and language stated) plus a read of the pages returned above yours — or the user's own dated competitor notes |
+
+**Boundaries read upward**, so one input never yields two scores: a 20% traffic decline scores 50, a
+3-position loss scores 50, a page 24 months since its last update scores 75.
+
+The displacement row scores **what one dated check shows today**, not a change over time. Nobody can
+reconstruct who ranked above a page six months ago without a stored SERP record, so the criterion
+never asks for one: it asks who is above the page in a check somebody actually ran, and whether
+reading those pages shows material this one lacks. Every competitor fact that reaches the report —
+a rank, a publication date, a section they cover — travels with its observer and its date ("SERP
+checked in incognito, 10 Aug", "from your note of 7 Aug"), never as bare indicative fact.
+
+### When a signal has no input
+
+A signal you cannot observe is **N/A**, never a number. N/A is not zero: zero means "checked, no
+decay", so writing zero for an unchecked signal understates the score exactly as inventing a figure
+inflates it.
+
+1. **Mark the row N/A and name the missing input in the report** — "no SERP check was run for this
+   query and no competitor notes were supplied, so competitive displacement is unscored".
+2. **Renormalise the remaining weights over their own sum** and state the renormalisation beside the
+   score, so the reader can recompute it.
+3. **Fewer than three scored signals → no composite score is issued at all.** Report the signals you
+   could score, each with its input, and say plainly that the composite needs at least three.
+4. **Never fill an N/A row from an assumption, a typical case, or "the industry".** No tool and no
+   data means the figure stays out of the deliverable — the criterion is not softened into a guess
+   (root `CLAUDE.md`, Tool Connector Pattern, resolution branch 3).
+
+**Worked derivation** (illustrative figures): the owner supplied a GA4 export, a rank-tracker export
+and CMS dates — no Search Console access, and no SERP check was run.
+
+```
+Traffic decline    2,050 → 1,230 sessions/mo, comparable 30-day windows = −40%   → 75  (weight 30%)
+Position drops     rank export: primary keyword 6 → 10, 4 positions lost         → 50  (weight 25%)
+Content freshness  last updated 26 months ago; stated facts still accurate       → 75  (weight 15%)
+CTR decline        N/A — no Search Console export supplied
+Competitive displ. N/A — no dated SERP check, no competitor notes supplied
+
+Scored weight = 30 + 25 + 15 = 70%  → renormalised: 30/70 = 42.9%, 25/70 = 35.7%, 15/70 = 21.4%
+Composite = 75(0.429) + 50(0.357) + 75(0.214) = 32.1 + 17.9 + 16.1 = 66.1 / 100
+```
+
+Printed in the deliverable as: *"Composite decay score 66.1/100 — significant decay. Derived from 3
+of 5 signals: traffic −40% (75 × 42.9%), positions −4 (50 × 35.7%), freshness 26 months (75 ×
+21.4%). CTR decline and competitive displacement are unscored — no Search Console export and no
+dated SERP check were available — and the three remaining weights were renormalised over their own
+70% sum."*
 
 ### Score Interpretation
 
-| Composite Score | Decay Stage | Action |
-|----------------|-------------|--------|
+| Composite Score | Decay Stage | Urgency |
+|----------------|-------------|---------|
 | 0-20 | Healthy | Continue monitoring |
 | 21-40 | Early decay | Add to refresh queue (next month) |
 | 41-60 | Active decay | Schedule refresh (this week) |
-| 61-80 | Significant decay | Immediate refresh or rewrite decision |
-| 81-100 | Terminal decay | Rewrite, redirect, or retire |
+| 61-80 | Significant decay | Act now |
+| 81-100 | Terminal decay | Highest urgency — act this week |
+
+**The band sets urgency, never disposition.** How much a page has decayed does not decide whether it
+is refreshed, rewritten, redirected or retired: that comes from the Refresh vs. Rewrite Decision
+Framework and the Content Retirement Decision checklist below, both of which weigh backlinks,
+residual traffic and search intent — things this score does not measure. A page with earned
+backlinks that was once ranking is a REFRESH at any composite score, and a top score never orders a
+retirement on its own.
+
+Read the band against the renormalised score and say how many signals it rests on: a stage read off
+three signals is a narrower claim than one read off five, and the reader is entitled to know which
+they were given. A score landing on a band boundary is reported with both the figure and the band it
+was read into — the arithmetic decides, not the preference.
 
 ---
 
 ## Refresh Playbooks by Content Type
+
+Every time estimate below is a **house planning default**, not a measured figure — no timing study
+backs them. Each total is the sum of its own rows, so a changed row changes the total; a total that
+does not reconcile with the rows above it is a defect, not a rounding.
 
 ### Blog Post / Article Refresh Playbook
 
@@ -195,7 +283,7 @@ Calculate a 0-100 decay severity score by summing weighted signal scores.
 | 8 | Update meta description | 5 min |
 | 9 | Add/update schema markup | 10 min |
 | 10 | Update dateModified and republish | 5 min |
-| **Total** | | **3-4 hours** |
+| **Total** | | **205-265 min (3.5-4.5 hours)** |
 
 ### Product/Service Page Refresh Playbook
 
@@ -207,7 +295,7 @@ Calculate a 0-100 decay severity score by summing weighted signal scores.
 | 4 | Refresh comparison tables | 20 min |
 | 5 | Update internal links to related products | 15 min |
 | 6 | Verify and update schema markup | 10 min |
-| **Total** | | **2-2.5 hours** |
+| **Total** | | **125 min (about 2 hours)** |
 
 ### Statistics/Data Roundup Refresh Playbook
 
@@ -220,7 +308,7 @@ Calculate a 0-100 decay severity score by summing weighted signal scores.
 | 5 | Update year references throughout | 15 min |
 | 6 | Add new visualization if data changed significantly | 30 min |
 | 7 | Update title, meta description with year | 10 min |
-| **Total** | | **4-5 hours** |
+| **Total** | | **235-265 min (4-4.5 hours)** |
 
 ### How-To Guide Refresh Playbook
 
@@ -233,7 +321,7 @@ Calculate a 0-100 decay severity score by summing weighted signal scores.
 | 5 | Add troubleshooting section if missing | 20 min |
 | 6 | Update FAQ with new common questions | 15 min |
 | 7 | Test all links and embedded resources | 15 min |
-| **Total** | | **3-3.5 hours** |
+| **Total** | | **185 min (about 3 hours)** |
 
 ---
 
@@ -250,11 +338,18 @@ Calculate a 0-100 decay severity score by summing weighted signal scores.
 
 ### Traffic Recovery Benchmarks
 
-Based on industry data for content refreshes (not rewrites):
+`[VERIFY]` **"Industry data" names no publisher, year or sample, and none is on file.** These bands
+were carried here as an attribution without a source; a repository-wide grep on 2026-08-10 found no
+study behind them. They are **house planning defaults for internal sequencing only** — the same
+unsourced-figure class as W14. A recovery percentage from this table never reaches a client
+deliverable as an expectation, a target or an ROI input presented as fact; when a client asks what
+recovery to expect, the answer is that this skill carries no model that converts a refresh into a
+traffic figure, and the measurement comes after republishing. **Resolves when**: a named study with
+its year and sample replaces the bands, or the site's own before/after refresh history does.
 
-| Decay Stage at Refresh | Typical Traffic Recovery | Recovery Timeline |
-|------------------------|------------------------|-------------------|
-| Early decay | 90-110% of peak (often exceeds) | 2-4 weeks |
+| Decay Stage at Refresh | House planning band (unsourced) | Timeline (unsourced) |
+|------------------------|---------------------------------|----------------------|
+| Early decay | 90-110% of peak | 2-4 weeks |
 | Active decay | 70-90% of peak | 4-8 weeks |
 | Significant decay | 40-70% of peak | 6-12 weeks |
 | Terminal decay | 10-40% of peak (rewrite may be better) | 8-16 weeks |
@@ -274,7 +369,9 @@ Monthly Traffic Value (before decay):
   Peak monthly value: [N] x [X]% x $[Y] = $[V]
 
 Expected Recovery:
-  Projected recovery: [%] of peak = $[V x %] per month
+  Projected recovery: [%] of peak = $[V x %] per month   <- states its basis on the next line
+  Basis for that [%]: [this page's own recovery after its last refresh | the client's stated
+                       assumption | the unsourced house band above, named as unsourced]
   Current monthly value: $[current]
   Monthly value increase: $[V x % - current]
 
@@ -283,20 +380,38 @@ ROI:
   12-month ROI: ($[monthly value increase] x 12 - $[total cost]) / $[total cost] x 100 = [X]%
 ```
 
+The whole ROI block is an **input-conditional** calculation: every dollar figure in it descends from
+the recovery percentage, so a recovery percentage with no stated basis makes the ROI, the payback
+period and the 12-month figure unreportable. With no conversion rate and no order value supplied,
+the cost half still runs and the value half does not — publish the cost, say which inputs are
+missing, and leave the ROI line out rather than filling it from a typical case.
+
 ### Refresh Priority Scoring
 
-When choosing which content to refresh first, score each candidate:
+When choosing which content to refresh first, score each candidate 1-10 per factor. Each score is
+read off an input you hold, and the figure it came from is printed beside it.
 
-| Factor | Weight | Score (1-10) |
-|--------|--------|-------------|
-| Current traffic value | 25% | Higher traffic = higher score |
-| Decay severity | 20% | More decay = more urgency |
-| Competitive opportunity | 20% | Weaker competition = higher score |
-| Refresh difficulty | 15% | Easier refresh = higher score |
-| Strategic importance | 10% | Aligns with business goals = higher score |
-| Backlink equity | 10% | More backlinks = more worth preserving |
+| Factor | Weight | How the 1-10 score is read | Input it needs |
+|--------|--------|----------------------------|----------------|
+| Current traffic value | 25% | Rank the candidates in this batch on the traffic figure you hold: highest = 10, lowest = 1, the rest interpolated on the same figure | the traffic column of the inventory you were given |
+| Decay severity | 20% | Composite decay score ÷ 10, rounded to the nearest whole number (66.1 → 7) | a composite score that was actually issued (§Decay Severity Scoring) |
+| Competitive opportunity | 20% | 10 = the pages above yours are thinner or older than yours · 5 = comparable · 1 = materially stronger | the same dated SERP check the displacement signal needs, or the user's competitor notes |
+| Refresh difficulty | 15% | 10 = under 2 hours on the matching playbook · 5 = 3-4 hours · 1 = the decision framework says rewrite | the content type plus the playbook estimate above |
+| Strategic importance | 10% | 10 = the owner names it a priority page for a current goal · 5 = ordinary · 1 = no stated goal | the owner saying so; not inferable from traffic |
+| Backlink equity | 10% | Rank the candidates on referring domains: highest = 10, lowest = 1 | a supplied backlink figure |
 
-**Priority formula**: Weighted score total. Refresh highest-scoring content first.
+**Priority formula**: `priority = Σ (factor score × factor weight)`, on the same 1-10 scale. Print
+every factor score with the figure behind it, then the total. A factor with no input is **dropped,
+not guessed and not scored 5 as a middle**: renormalise the remaining weights over their own sum,
+name the dropped factor and why, exactly as the composite score does. Refresh highest-scoring
+content first.
+
+**Worked derivation** (illustrative figures): *"Priority 7.4/10 — traffic 8 (1,900 sessions/mo, the
+highest in this batch) × 25%, decay severity 7 (composite 66.1) × 20%, refresh difficulty 6
+(blog-post playbook, about 3.5 h) × 15%, strategic importance 9 (owner named it the lead page) ×
+10%. Competitive opportunity and backlink equity are unscored — no SERP check and no backlink data
+were supplied — so the four remaining weights were renormalised over their own 70% sum:
+8(0.357) + 7(0.286) + 6(0.214) + 9(0.143) = 7.4."*
 
 ---
 

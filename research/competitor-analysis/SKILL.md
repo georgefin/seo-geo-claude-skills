@@ -1,13 +1,13 @@
 ---
 name: competitor-analysis
-version: "4.1.0"
+version: "4.2.0"
 description: 'Analyze competitor SEO and GEO strategies including ranking keywords, content approaches, backlink profiles, and AI citation patterns. Use when the user asks to "analyze competitors", "competitive analysis", "what are my competitors doing", "why do they rank higher", "competitor keywords", "competitor backlinks", or "spy on competitor SEO". For content-focused gap analysis, see content-gap-analysis. For link profile specifics, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.1.0"
+  version: "4.2.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -233,7 +233,9 @@ When a user requests competitor analysis:
    eminence signals" — and never carries a framework **item ID** (`T03`, `I09`) or a skill slug,
    both family-8 failures on a surface the client reads (`anti-slop-ruleset.md` §6). Fill the
    section only from scores that exist; with no domain-level audit run, say so and name the
-   audit as the next step rather than filling the table.
+   audit as the next step rather than filling the table. Naming that next run is a handoff: it
+   goes in an operator block with the domains and their domain types, never in the client's
+   prose — [inter-skill-handoff.md](../../references/inter-skill-handoff.md).
 
    > **Reference**: See [references/analysis-templates.md](./references/analysis-templates.md) for detailed templates for each step.
 
@@ -336,6 +338,7 @@ How has [competitor]'s SEO strategy evolved over the past year?
 - [Battlecard Template](./references/battlecard-template.md) — Quick-reference competitive battlecard for sales and marketing teams
 - [Positioning Frameworks](./references/positioning-frameworks.md) — Positioning maps, messaging matrices, narrative analysis, and differentiation frameworks
 - [Example Report](./references/example-report.md) — Complete example analyzing an illustrative competitor's marketing keyword dominance (fictional `.example` subject, illustrative figures, evidence-bound weaknesses)
+- [Inter-Skill Handoff](../../references/inter-skill-handoff.md) — the payload the Synthesis Report's operator notes pass to a domain-level audit, the operator-block placement rule, and the drop-and-name rule for an unavailable field
 
 ## Related Skills
 

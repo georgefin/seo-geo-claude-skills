@@ -64,6 +64,10 @@ After specific events, update memory systematically:
 
 This skill coordinates with other SEO skills:
 
+> Store each producing run's handoff payload in its own notation — framework-labelled score
+> strings, prefixed item IDs, veto status, audit date — so a later run can read it without
+> re-parsing a summary: [inter-skill-handoff.md](../../../references/inter-skill-handoff.md).
+
 ### When keyword-research runs:
 - Add discovered keywords to memory/keywords/
 - Promote top opportunities to CLAUDE.md if high-value

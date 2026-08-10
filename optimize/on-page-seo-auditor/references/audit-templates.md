@@ -236,9 +236,26 @@ Content-relevant items from the 80-item benchmark:
 | T04 | Disclosure Statements | ✅/⚠️/❌/N/A | Material connections disclosed (conditional veto; N/A when none exist) |
 
 **CORE-EEAT Quick Score**: [X]/[Y] items passing ([Z] N/A or unverifiable, excluded)
-
-> For a complete 80-item audit with weighted scoring, use [content-quality-auditor](../../cross-cutting/content-quality-auditor/).
 ```
+
+The escalation to a full audit is a **handoff**, and the slug makes it operator-addressed — so it
+leaves the scan fence above and gets a fence of its own, with its label **inside** it. A model
+copies the fence, not the sentence beneath it (`CLAUDE.md` § The Value Rule, clause 2; handoff
+sub-rule: [inter-skill-handoff.md § 3.1](../../../references/inter-skill-handoff.md)).
+
+```markdown
+<!-- OPERATOR BLOCK — for the client's team, not part of the report above. Nothing in this fence
+     goes to the client as written. -->
+### Next steps for your team
+
+| Run | Why | Payload |
+|-----|-----|---------|
+| `content-quality-auditor` | Full 80-item audit with weighted scoring; this scan covers 17 on-page-visible items | [keyword] · [content type] · [URL] · quick-scan items that failed, as `CORE-EEAT-[ID]` |
+```
+
+**This quick scan is not a dimension score and never travels as one** — it is a pass count over 17
+items, so it goes into the payload as the failing item IDs, never as a `CORE-EEAT C:… O:…` string.
+Payload fields and the drop-and-name rule for a field you cannot source are in the same file.
 
 **Counting the quick score.** Only ✅ counts as passing; ⚠️ and ❌ do not. The denominator starts
 at 17 and shrinks: T04 is N/A when no material connection exists, and any item you could not

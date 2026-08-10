@@ -1,13 +1,13 @@
 ---
 name: internal-linking-optimizer
-version: "4.3.0"
+version: "4.4.0"
 description: 'Analyze and optimize internal link structure to improve site architecture, distribute page authority, and fix orphan pages. Use when the user asks to "fix internal links", "improve site architecture", "link structure", "distribute page authority", "internal linking strategy", "orphan pages", "site architecture is messy", or "pages have no links pointing to them". For a broader on-page audit, see on-page-seo-auditor. For external link analysis, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.0"
+  version: "4.4.0"
   geo-relevance: "low"
   tags:
     - seo
@@ -224,7 +224,7 @@ When a user requests internal linking optimization:
 
 3. **Analyze Anchor Text Distribution**
 
-   > **CORE-EEAT alignment**: Internal linking quality maps to R08 (Internal Link Graph) in the CORE-EEAT benchmark -- use descriptive anchors, ensure links support topical authority. See [content-quality-auditor](../../cross-cutting/content-quality-auditor/) for full audit.
+   > **CORE-EEAT alignment**: Internal linking quality maps to R08 (Internal Link Graph) in the CORE-EEAT benchmark -- use descriptive anchors, ensure links support topical authority. See [content-quality-auditor](../../cross-cutting/content-quality-auditor/) for full audit. That recommendation is a handoff: the slug and the item ID make it operator-addressed, so it goes in an operator block with the URLs and their content types, never in a client-read paragraph — [inter-skill-handoff.md](../../references/inter-skill-handoff.md).
 
    ```markdown
    ## Anchor Text Analysis
@@ -378,6 +378,7 @@ would produce one — baseline the affected pages now, re-measure 4-8 weeks afte
 - [Link Architecture Patterns](./references/link-architecture-patterns.md) — Architecture models (hub-and-spoke, silo, flat, pyramid, mesh) with their link rules, migration paths, the Key Metrics by Architecture Model targets the Structure Score is scored against, the Monthly Monitoring Checklist, the `[VERIFY]`-tagged ROI ranges, and the Implementation Priority Order
 - [Linking Templates](./references/linking-templates.md) — Detailed output templates for **steps 4-7**: topic cluster strategy (Step 4) and contextual opportunities (Step 5), both carrying the From Page / To Page / Anchor Text / Location columns, plus navigation optimization (Step 6), the implementation plan (Step 7) and the Anchor Text Guidelines bands
 - [Linking Example](./references/linking-example.md) — Full worked example for internal linking opportunities
+- [Inter-Skill Handoff](../../references/inter-skill-handoff.md) — what to pass when this analysis names a follow-up run (step 3's escalation to a content audit is the standing one), the operator-block placement rule, and the drop-and-name rule for an unavailable field
 
 ## Related Skills
 

@@ -214,6 +214,8 @@ block and position — [server-config-fixes.md](./server-config-fixes.md).
 ## Step 7: Audit Structured Data
 
 > **CORE-EEAT alignment**: Schema markup quality maps to O05 (Schema Markup) in the CORE-EEAT benchmark. See [content-quality-auditor](../../../cross-cutting/content-quality-auditor/) for full content quality audit.
+>
+> That recommendation is a handoff, and both the slug and the item ID make it operator-addressed — it belongs in the report's operator block, not in a client-read paragraph. Pass the URLs to audit and their content types. Payload format, placement and the drop-and-name rule for a field you cannot source: [inter-skill-handoff.md](../../../references/inter-skill-handoff.md).
 
 ```markdown
 ## Structured Data Analysis

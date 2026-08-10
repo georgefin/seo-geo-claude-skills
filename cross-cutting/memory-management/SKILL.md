@@ -6,7 +6,7 @@ compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, 
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.0.2"
+  version: "4.1.0"
   geo-relevance: "low"
   tags:
     - seo
@@ -217,6 +217,8 @@ Step 4: Update both CLAUDE.md and memory/keywords/historical-rankings.csv
 
 > **Reference**: See [references/update-triggers-integration.md](./references/update-triggers-integration.md) for the complete update procedures after ranking checks, competitor analyses, audits, and reports; monthly/quarterly archive routines; and integration points with all 8 connected skills (keyword-research, rank-tracker, competitor-analysis, content-gap-analysis, seo-content-writer, content-quality-auditor, domain-authority-auditor).
 
+Memory is where a handoff payload is stored and re-read, so store the payload's fields in the payload's own notation — the framework-labelled score strings (`CORE-EEAT C:… O:… R:…`, `CITE C:… I:… T:… E:…`), prefixed item IDs, veto status and audit date — rather than paraphrasing them into a summary the next run has to re-parse. Field list and notation: [inter-skill-handoff.md](../../references/inter-skill-handoff.md). Everything promoted to the hot cache is operator-read, so run handles are correct there and never in a client deliverable drawn from it.
+
 ## Validation Checkpoints
 
 ### Structure Validation
@@ -316,6 +318,7 @@ Identifies keyword overlaps, competitor intersections, and strategy similarities
 
 - [CORE-EEAT Content Benchmark](../../references/core-eeat-benchmark.md) — Content quality scoring stored in memory
 - [CITE Domain Rating](../../references/cite-domain-rating.md) — Domain authority scoring stored in memory
+- [Inter-Skill Handoff](../../references/inter-skill-handoff.md) — the payload fields and score-string notation to store verbatim, so a later run reads them without re-parsing
 
 ## Related Skills
 

@@ -1,13 +1,13 @@
 ---
 name: domain-authority-auditor
-version: "4.2.0"
+version: "4.3.0"
 description: 'Run the full 40-item CITE domain authority audit across 4 dimensions with domain-type weighting and veto checks. Use when the user asks to "audit domain authority", "domain trust score", "CITE audit", "how authoritative is my site", "domain credibility check", "is my domain trustworthy", "domain credibility score", "domain rating". For content-level assessment, see content-quality-auditor. For link profile details, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.2.0"
+  version: "4.3.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -45,7 +45,7 @@ This skill evaluates domain authority across 40 standardized criteria organized 
 
 **Sister skill**: [content-quality-auditor](../content-quality-auditor/) evaluates content at the page level (80 items). This skill evaluates the domain behind the content (40 items). Together they provide a complete 120-item assessment.
 
-> **Namespace note**: CITE uses C01-C10 for Citation items; CORE-EEAT uses C01-C10 for Contextual Clarity items. In combined 120-item assessments, prefix with the framework name (e.g., CITE-C01 vs CORE-C01) to avoid confusion.
+> **Namespace note**: CITE uses C01-C10 for Citation items; CORE-EEAT uses C01-C10 for Contextual Clarity items — and the two frameworks also share E and T. Every item ID carries its own hyphenated framework-first prefix, in a combined 120-item assessment and in any handoff payload alike: `CITE-C01` vs `CORE-EEAT-C01`, `CITE-T09`, `CORE-EEAT-R02`. One form, one prefix per framework — see [inter-skill-handoff.md § 2.3](../../references/inter-skill-handoff.md).
 
 ## When to Use This Skill
 
@@ -319,22 +319,16 @@ For a complete assessment, pair this CITE audit with a CORE-EEAT content audit:
 | Assessment | Score | Rating |
 |-----------|-------|--------|
 | CITE (Domain) | [X]/100 | [rating] |
-| CORE-EEAT (Content) | [Run content-quality-auditor on sample pages] | — |
+| CORE-EEAT (Content) | [X]/100 — or "Not yet evaluated" where no content audit has been run | [rating] |
 
 **Diagnosis Matrix**:
 - High CITE + High CORE-EEAT → Maintain and expand
 - High CITE + Low CORE-EEAT → Prioritize content quality
 - Low CITE + High CORE-EEAT → Build domain authority
 - Low CITE + Low CORE-EEAT → Start with content, then domain
-
-### Recommended Next Steps
-
-- For domain authority building: focus on top 5 priorities above
-- For content improvement: use [content-quality-auditor](../content-quality-auditor/) on key pages
-- For backlink strategy: use [backlink-analyzer](../../monitor/backlink-analyzer/) for detailed link analysis
-- For competitor benchmarking: use [competitor-analysis](../../research/competitor-analysis/) with CITE scores
-- For tracking progress: run `/seo:report` with CITE score trends
 ```
+
+The client's report ends there. Follow-up runs — a content audit on key pages, a backlink deep-dive, competitor benchmarking, trend tracking — go in a **separate fence of their own**, carrying the label **inside** the fence, because a model copies the fence and not the heading above it (`CLAUDE.md` § The Value Rule, clause 2). Block shape: [references/example-report.md](./references/example-report.md). Payload fields, the hyphenated framework-first ID form, and the drop-and-name rule for a field you cannot source: [inter-skill-handoff.md § 2–3](../../references/inter-skill-handoff.md). Each row carries the domain and its domain type, the `CITE C:… I:… T:… E:…` string with its veto status and audit date, the priority item IDs, and the pages to audit where the next run is page-level.
 
 ## Validation Checkpoints
 
@@ -354,6 +348,7 @@ For a complete assessment, pair this CITE audit with a CORE-EEAT content audit:
 - [ ] Every recommendation is specific and actionable (not generic advice)
 - [ ] Every finding carries a Confidence label (Confirmed / Likely / Hypothesis); Hypothesis findings name what would confirm them
 - [ ] Action plan includes concrete steps with effort estimates
+- [ ] The follow-up-run block is a separate fence carrying `<!-- OPERATOR BLOCK … -->` as its first line, and no skill slug, command slug or item ID appears inside the client report fence — a reader who copies only that fence must be able to tell it is not for the client
 
 ## Example
 
@@ -372,7 +367,8 @@ See [references/example-report.md](./references/example-report.md) for a complet
 - [CITE Domain Rating](../../references/cite-domain-rating.md) — Full 40-item benchmark with dimension definitions, scoring criteria, domain-type weight tables, and veto items
 - [references/score-arithmetic.md](./references/score-arithmetic.md) — How every derived figure is composed: dimension tallies, N/A rescaling, the weighted total and its rounding, veto-cap presentation, potential-gain and projection formulas, plus the pre-send recompute pass
 - [references/example-report.md](./references/example-report.md) — Complete CITE audit example with scored dimensions, top 5 improvements, action plan, and CORE-EEAT cross-reference
-- [references/greek-eshop-compliance.md](./references/greek-eshop-compliance.md) — Greek e-shop trust/compliance audit items mapped onto CITE T06/T08/T10 (stale ODR link, ΓΕΜΗ/ΑΦΜ transparency, withdrawal/returns and policy furniture) — audit signals, not legal advice
+- [references/greek-eshop-compliance.md](./references/greek-eshop-compliance.md) — Greek e-shop trust/compliance audit items mapped onto `CITE-T06` / `CITE-T08` / `CITE-T10` (stale ODR link, ΓΕΜΗ/ΑΦΜ transparency, withdrawal/returns and policy furniture) — audit signals, not legal advice
+- [Inter-Skill Handoff](../../references/inter-skill-handoff.md) — the payload every follow-up-run row passes to the run it names, the label-inside-the-fence rule for an operator block, the hyphenated framework-first item-ID form, and the drop-and-name rule for an unavailable field
 
 ## Related Skills
 

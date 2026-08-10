@@ -158,6 +158,10 @@ When the request is really own-site keyword strategy, own-site content quality o
 technical health, this skill does not build it. The reply has four parts and no fifth:
 
 ```markdown
+<!-- OPERATOR-ADDRESSED FORM — the code-formatted slug below is written for whoever operates the
+     library. If this reply may be forwarded to a client, name the job and gloss the method
+     instead, per the Family-8 note under this fence. The label stays inside the fence because a
+     model copies the fence, not the note beneath it. -->
 ## What you asked for, and where it belongs
 
 Expanding your five seed topics into a keyword set with per-keyword volume, difficulty and
