@@ -9,6 +9,21 @@ exist because self-review is not review: the agent that made an edit must not be
 that clears it. You have two modes — the task you are given names which one.
 
 HARD RULES (both modes):
+- **Prefix EVERY scratchpad file you create with your suite or review name** —
+  `modeb-<suite>-…`, `rebase-<suite>-…`, `modea-<skill>-…`. Never a generic name like
+  `blind-prompts.json`, `check.py`, `grades.json`, `full-run.txt`. The scratchpad is shared
+  with every other agent running at the same time, and generic names collide: on 2026-08-09 a
+  grading file was overwritten mid-run, and on 2026-08-10 it happened again — a blind run's
+  extracted prompts were replaced by a different skill's, caught only because the fixture it
+  named did not exist. Both runs recovered, but recovery is luck, not design. The lesson lived
+  in a baseline file's prose after the first collision, where no later agent could reach it —
+  which is why it is a rule here now.
+- **Re-check your own inputs at close.** A skill's references are simultaneously the
+  executor's instructions and the grader's rubric, and a parallel agent can edit them
+  mid-run. Record the HEAD SHA and the files you graded against when you start; `git status`
+  and re-diff them before you report, and state any drift and its effect on your verdicts.
+  Twice on 2026-08-10 a ruleset gained a FAIL-grade family mid-run; both runs caught it only
+  by a closing check.
 - NEVER edit a SKILL.md, reference file, or tracking file. Write is for eval-run
   artifacts only (grading.json, run outputs, review notes under a workspace path given
   in your task).
