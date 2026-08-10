@@ -1,13 +1,13 @@
 ---
 name: keyword-research
-version: "4.2.2"
+version: "4.3.0"
 description: 'Discover high-value SEO keywords with search intent analysis, difficulty scoring, topic clustering, and AI citation potential. Use when the user asks to "find keywords", "keyword research", "what should I write about", "keyword difficulty score", "identify ranking opportunities", "topic ideas", "what are people searching for", or "long-tail keyword suggestions". For competitor keyword gaps, see competitor-analysis. For topic coverage gaps, see content-gap-analysis.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.2.2"
+  version: "4.3.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -90,7 +90,7 @@ Identify question-based keywords for [topic] that AI systems might answer
 Research keywords for [topic] — my main competitors are [competitor A] and [competitor B]
 ```
 
-Competitor names are context for seed generation only. Full competitor keyword/gap analysis ("what does [competitor] rank for that I don't?") → hand off to [competitor-analysis](../competitor-analysis/), passing your domain, the competitor domains, and target keywords. Never present guessed competitor rankings, positions, or URLs as observed data — label any competitor-keyword guess explicitly as an assumption or estimate (hedging words like "likely" are not a label).
+Competitor names are context for seed generation only. Full competitor keyword/gap analysis ("what does [competitor] rank for that I don't?") → hand off to [competitor-analysis](../competitor-analysis/), passing your domain, the competitor domains, and target keywords. Never present guessed competitor rankings, positions, or URLs as observed data — label any competitor-keyword guess explicitly as an assumption or estimate (hedging words like "likely" are not a label). **A characterisation of the set is a claim about the set**: what a competitor's ranking set is mostly about, which topics or query families they own, how many keywords they rank for, or what they would *not* rank for, are all covered — not just the three artefacts an export would contain. The licensed form is a numbered entry in the report's own Assumptions block, so the claim has somewhere to live rather than only somewhere it is banned from. This applies hardest in the paragraph where you argue against the user's plan, because making that argument requires characterising the competitor.
 
 ## Data Sources
 
@@ -232,6 +232,10 @@ When a user requests keyword research:
    - Commercial = 2
    - Transactional = 3
 
+   **When an input is unavailable, do not compute the score.** With no tool connected and nothing supplied, Volume and Difficulty do not exist for this run, and inventing either produces a precise-looking ranking with nothing behind it. Instead: state the formula, name which inputs are unavailable and why, leave the Opportunity Score out, and rank on the factors you can actually score — the Priority Score in [references/keyword-prioritization-framework.md](./references/keyword-prioritization-framework.md), renormalised over the scoreable factors, with the rescaling stated (the denominator or the renormalised weights) and with the dropped factors named.
+
+   On a zero-data run that leaves Business Relevance + Search Intent Match (0.30 + 0.15 = 0.45 of the matrix); Search Volume, Keyword Difficulty and Trend Direction (0.55 together) are unscoreable. Never reweight silently, and never label a reduced-factor ranking an Opportunity Score. Where only some keywords have the inputs (a partial export), score those and leave the rest explicitly unscored — do not fill the gap with a guess to make the column look complete.
+
    ```markdown
    ### Opportunity Matrix
    
@@ -297,7 +301,7 @@ When a user requests keyword research:
 
     Local-intent keywords ("near me", [service] + city/neighborhood) map to more than website pages — map them to Google Business Profile surfaces too:
 
-    Every keyword referenced here must already carry metrics in an analysis table above; a new target surfacing at this step first gets an analysis row (explained N/A allowed).
+    Every keyword referenced here must already carry metrics in an analysis table above; a new target surfacing at this step first gets an analysis row (explained N/A allowed). A row naming a content topic or posting theme rather than a keyword target ("seasonal offers", "opening hours") is a content descriptor, not a new target, and needs no analysis row — but it must not be written as if it were a keyword you are targeting.
 
     | Keyword Type | Website Surface | GBP Surface |
     |---------------|-----------------|-------------|
@@ -312,7 +316,7 @@ When a user requests keyword research:
 
     Produce a report containing: Executive Summary, Top Keyword Opportunities (Quick Wins, Growth, GEO), Topic Clusters, Content Calendar, and Next Steps.
 
-    **Metrics columns are universal in analysis tables**: every keyword analysis table in the deliverable — including GEO/conversational-query tables — carries Volume / Difficulty / Intent columns. When a metric is not tool-reported (typical for GEO conversational queries and GBP-driven local terms), the cell shows an explained N/A (e.g., "N/A — not tool-reported") — never an invented number. Placement/crosswalk tables (like Step 10's GBP mapping) reference keywords already metricized in an analysis table; a keyword target may not appear for the first time in a crosswalk — give it an analysis row (explained N/A allowed) first.
+    **Metrics columns are universal in analysis tables**: every keyword analysis table in the deliverable — including GEO/conversational-query tables — carries Volume / Difficulty / Intent columns. When a metric is not tool-reported (typical for GEO conversational queries and GBP-driven local terms), the cell shows an explained N/A (e.g., "N/A — not tool-reported") — never an invented number. Placement/crosswalk tables (like Step 10's GBP mapping) reference keywords already metricized in an analysis table; a keyword target may not appear for the first time in a crosswalk — give it an analysis row (explained N/A allowed) first. "Estimated" is a source label only where the estimate has a stated basis (a range the user gave, a named proxy, a hand-check you describe); with no tool connected and nothing supplied there is nothing to estimate from — the cell carries the explained N/A and the report says so in plain words.
 
     > **Reference**: See [references/example-report.md](./references/example-report.md) for the full report template and example.
 
@@ -327,6 +331,8 @@ When a user requests keyword research:
 ### Output Validation
 - [ ] Every recommendation cites specific data points (not generic advice)
 - [ ] Every keyword analysis table (incl. GEO/conversational and local) carries volume / difficulty / intent columns — unreported metrics as explained N/A ("N/A — not tool-reported"), never invented; crosswalk tables only reference keywords already metricized above
+- [ ] Any score whose inputs are missing is withheld with the formula stated and the missing inputs named — never computed from invented numbers; a reduced-factor ranking states its rescaling (denominator or renormalised weights) and which factors dropped out
+- [ ] No unlabelled claim about what a competitor ranks for — including what their ranking set is mostly about, which topics they own, or what they would not rank for. Each such claim is a numbered entry in the Assumptions block, or it is cut
 - [ ] Keywords grouped by intent and mapped to content types
 - [ ] Topic clusters show clear pillar-to-cluster relationships
 - [ ] Greek-market keywords show accented, unaccented, Greeklish, and EN forms with placement noted (if applicable)
