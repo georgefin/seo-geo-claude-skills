@@ -60,8 +60,23 @@ verdict; ledgered failures must not be repeated — repeating one is an incident
    (ii) BEHAVIORAL: skills carrying an `evals/` suite (pilot 2026-08-08:
    schema-markup-generator, keyword-research, geo-content-optimizer) must pass their
    suite — `skill-reviewer` (Mode B) executes and grades per skill-creator conventions;
-   an eval regression is a do-not-merge finding. Greek-language outputs additionally go
-   to `greek-content-editor` for register/diacritics/Greeklish-placement judgment.
+   an eval regression is a do-not-merge finding.
+   **Frozen input manifest (Mode B, 2026-08-10)**: Mode A launches only against a frozen
+   target (F8); Mode B declares the same about its INPUTS, because a skill's references
+   are at once the executor's instructions and the grader's rubric, so an edit to either
+   mid-run changes what was graded. At launch the run records the HEAD SHA and the files
+   it grades against — target `SKILL.md`, the `references/` it cites, `evals/evals.json`
+   and its fixtures; at close it re-checks that list and reports any drift together with
+   the verdicts the drift touches. This is a reporting obligation, not a lock: parallel
+   authoring continues, and the failure is an UNREPORTED drift, not the drift. Founding
+   evidence, both 2026-08-10: two blind runs graded against an `anti-slop-ruleset.md`
+   that gained a FAIL-grade family and a `SKILL.md` that a parallel agent version-bumped
+   while they ran — each caught it only by a closing `git status`, and each proposed this
+   rule in its own words. Runner-side carrier: the input-recheck hard rule in
+   `.claude/agents/skill-reviewer.md` (agent definitions load at session start, so it
+   binds from the next session on).
+   Greek-language outputs additionally go to `greek-content-editor` for
+   register/diacritics/Greeklish-placement judgment.
    `scripts/check-freshness.sh` (advisory, non-blocking) flags dated baselines and
    snapshots older than their re-check window.
 5. **MONITOR** — `subscribe_pr_activity` on open PRs (webhook events wake the session)
