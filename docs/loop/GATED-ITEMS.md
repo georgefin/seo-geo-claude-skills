@@ -671,8 +671,15 @@ From the 08-08-2026 report's slow-loop lane; promote to gated only when concreti
 - **check (g) scope-extension question (covering-round advisory, 2026-08-09)**:
   PIPELINE's stage-3 `CLAUDE.md:49`/`:50` pointers had silently drifted to
   :53/:54 (grep-verified, corrected in the advisory's fix-forward) — check (g)
-  verifies `VERSIONS.md` targets only. Whether to extend it to CLAUDE.md-target
-  pointers in the registers: decide at the next scripts-touching wave.
+  verified `VERSIONS.md` targets only. **ANSWERED 2026-08-10 (`4a1d238`) — extended.**
+  Check (g) now verifies anchor-tagged pointers into ANY repo file on the same
+  contract: the token is authoritative and a line/token mismatch fails. Demonstrated
+  before wiring against five deliberate injections in a scratch copy, including this
+  advisory's own CLAUDE.md case and the E3 round's `SKILL.md:258` blank-line drift.
+  Two honest scope statements travel with it: 35 bare `file:line` pointers carry no
+  token, so the check counts and lists them per register but never fails them —
+  anchor-tagging those is queued, not assumed; and pointers using a multi-part line
+  list are WARNed as unverifiable rather than silently skipped.
 - **fork-manifest attribution (flagged 2026-08-09 as a Sani decision; DELEGATED to
   the coordinator 2026-08-10, twelfth verdict-log entry)**: both
   marketplace manifests' `owner`/`metadata.repository` fields and `VERSIONS.md:3`'s

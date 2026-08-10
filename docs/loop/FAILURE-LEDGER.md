@@ -517,3 +517,21 @@ regression rate · repeat-failure count · tool-correctness rate.
   register commits made while parallel agents are running may carry a stray
   correct-but-undeclared hunk. Consequence is record accuracy, never content loss,
   since every such hunk is itself a verified fix.
+- **Residual CLOSED 2026-08-10 (`4a1d238`)**: the lock protocol described above as "a
+  scripts-wave proposal" was built and wired the same day as pre-push check 5 —
+  `scripts/register-lock.sh`, an append-only gitignored journal of ACQUIRE / RELEASE /
+  BREAK tenures. Two legs, because one is not enough: **prevention** refuses an
+  `acquire` on a path another holder still has open, and **detection** fails an
+  outgoing commit that touched a locked path inside another holder's tenure without a
+  `Register-Lock: <holder>` trailer. Stale tenures are bounded by a 90-minute horizon,
+  reported rather than silently honoured, and overridable with the break recorded — a
+  crashed agent cannot deadlock the repo. Acceptance was demonstrated before wiring,
+  in a scratch repo, against this entry's own failure shape.
+  **What it still cannot answer, stated because the guard would otherwise overclaim**:
+  git carries no session identity in a shared worktree, so "was this commit made by
+  the holder?" is not decidable from the commit alone. Attribution therefore rests on
+  the declaration trailer — which means a commit made inside your OWN tenure without
+  the trailer also fails, and must declare itself. A writer that never calls `acquire`
+  is outside the ledger entirely; the mechanism is advisory at the write end and
+  enforcing only at the push end. Zero friction when nobody announced a path: no
+  journal covering a commit means nothing is asserted, so a solo session pays nothing.
