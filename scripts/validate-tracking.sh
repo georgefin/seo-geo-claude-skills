@@ -495,6 +495,94 @@ fi
 [ "$G_OK" -eq 1 ] && pass "(g) all $G_COUNT anchor-tagged \`<file>:<line>\` (\"<token>\") pointers in the live registers verified against their target lines ($G_VCOUNT into VERSIONS.md, $((G_COUNT - G_VCOUNT)) into other repo files)"
 
 # ---------------------------------------------------------------------------
+# (h) unsourced quotation-attribution sweep (F3 guard)
+# ---------------------------------------------------------------------------
+# F3 recurrence 1 (2026-08-10) put a verbatim quotation in the mouth of a named,
+# living industry figure, credited a tactical claim to a named Google employee,
+# and invented a "Dr. Jane Smith, AI Research Director at Stanford University"
+# credential to carry an invented quote — each one inside the GOOD half of a
+# before/after pair, praised by its own file's bullets and scored "Citation
+# likelihood: 9/10". A user following that guidance publishes a false statement
+# about a real, identifiable person under their own byline. That is the most
+# serious defect class this library has produced, so it gets a script.
+#
+# This is the QUOTATION half of the F3 redesign's "could a script catch this?"
+# answer, and deliberately only that half. It flags an attribution SHAPE
+# carrying no source link near it, in four forms:
+#   1. `"…," says|explains|notes <Name>`     (speech verb after a closing quote)
+#   2. `<First Last> says|explains|noted …`  (same defect, verb before the quote)
+#   3. `According to <Capitalised attributee>`
+#   4. `— <Name>, <Role> at <Organisation>`  (attribution line)
+# A match is EXEMPT when an http(s) URL sits on the same line or within +/-2
+# lines: a quotation whose source the reader can open is the shape this library
+# teaches, not the shape it forbids.
+#
+# Two further exemptions, both load-bearing, both verified against the tree:
+#   * Bracketed placeholders. `geo-optimization-techniques.md`'s corrected
+#     TEMPLATE — `"[Quote]," says [Name], [Role] at [Organisation] — [where and
+#     when they said it … with a link]` — teaches the right shape and must stay
+#     legal. Requiring a CAPITAL letter where the attributee goes keeps every
+#     `[Placeholder]` out of range without needing an allowlist.
+#   * The reserved `Example …` attributee (Example Search Institute, Example
+#     Marketing Council, Example Analyst Group) — the sanctioned correction from
+#     the same fix. Tested against the MATCHED TEXT, not the whole line and not
+#     the path, so a file named `example-report.md` is not blanket-exempted.
+# Greek copy needs no exemption of its own: it quotes with guillemets « », not
+# the ASCII " these patterns key on.
+#
+# Scope is check (f)'s live trees. `evals/` is excluded because expectations and
+# input fixtures legitimately carry these shapes on purpose (verified:
+# content-refresher's stale-article fixture opens a paragraph "According to
+# <Firm>'s 2022 SMB survey" as the defect the model is graded on finding).
+# `docs/loop/` and `VERSIONS.md` sit outside the swept trees by construction —
+# the registers and the changelog quote the fabricated text verbatim, which is
+# their job as the record.
+#
+# The library returns ZERO un-exempted hits as of 2026-08-10, so this check
+# starts GREEN: any future hit is a genuine regression, not a backlog. Verified
+# by fault injection against the four real historical instances (the industry-
+# figure quote, the Google-employee attribution, the invented Stanford
+# credential, the firm-credited DMA statistic) in a scratch copy of the tree.
+#
+# WHAT IT CANNOT CATCH, recorded beside the guard in FAILURE-LEDGER F3: the
+# statistics half (a figure credited to a real firm with no attribution verb —
+# its only practical form is a name deny-list, which flags a legitimate citation
+# exactly as loudly as a fabricated one), and any fabrication that carries a
+# plausible-looking link. Neither is a verdict this script can honestly reach.
+echo ""
+echo "[h] unsourced quotation-attribution sweep (F3 guard)"
+H_OK=1
+H_SEEN=0
+H_EX_URL=0
+H_EX_FICT=0
+QA_QUOTED='"[[:space:]]*(says|said|explains|explained|notes|noted|argues|argued|adds|added|observes|observed|writes|wrote|tells|told|comments|commented)[[:space:]]+((Dr|Mr|Mrs|Ms|Prof|Professor)\.?[[:space:]]+)?[A-Z][A-Za-z.-]*'
+QA_NAMED='[A-Z][a-z]+ [A-Z][a-z]+ (says|said|explains|explained|notes|noted|told|argues|argued)\b'
+QA_ACCORDING='[Aa]ccording to[[:space:]]+(the[[:space:]]+)?[A-Z][A-Za-z&.-]*'
+QA_DASHLINE='(—|–|--)[[:space:]]*[A-Z][A-Za-z.-]+([[:space:]]+[A-Z][A-Za-z.-]+)+,[^,]{2,60}[[:space:]]at[[:space:]]+[A-Z][A-Za-z&.-]*'
+QA_TOKENS="$QA_QUOTED|$QA_NAMED|$QA_ACCORDING|$QA_DASHLINE"
+while IFS= read -r hit; do
+    [ -n "$hit" ] || continue
+    h_file=${hit%%:*}; h_rest=${hit#*:}
+    h_line=${h_rest%%:*}; h_text=${h_rest#*:}
+    H_SEEN=$((H_SEEN + 1))
+    # Sanctioned fictional attributee, or a bracketed template placeholder.
+    case "$h_text" in
+        *Example*|*'['*) H_EX_FICT=$((H_EX_FICT + 1)); continue ;;
+    esac
+    h_lo=$((h_line - 2))
+    [ "$h_lo" -lt 1 ] && h_lo=1
+    if sed -n "${h_lo},$((h_line + 2))p" "$ROOT/$h_file" 2>/dev/null | grep -qE 'https?://'; then
+        H_EX_URL=$((H_EX_URL + 1))
+        continue
+    fi
+    fail "(h) attribution with no source link within +/-2 lines — $h_file:$h_line \`$h_text…\` — cite a real source you read and can link (put its http(s) URL beside the claim), use a clearly fictional \`Example …\` attribution, or drop the attribution"
+    H_OK=0
+done < <(cd "$ROOT" && grep -rnoE "$QA_TOKENS" \
+    research build optimize monitor cross-cutting commands references \
+    --include='*.md' 2>/dev/null | grep -v 'evals/' | awk -F: '!seen[$1":"$2]++')
+[ "$H_OK" -eq 1 ] && pass "(h) no unsourced quotation attribution in live skill, command, or framework files ($H_SEEN attribution shape(s) seen: $H_EX_URL carried a source URL within +/-2 lines, $H_EX_FICT used a fictional \`Example …\` attributee or a bracketed placeholder)"
+
+# ---------------------------------------------------------------------------
 # Summary
 # ---------------------------------------------------------------------------
 echo ""

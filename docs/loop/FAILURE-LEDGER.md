@@ -54,7 +54,9 @@ regression rate · repeat-failure count · tool-correctness rate.
   create an incentive to invent numbers when input data is thin.
 - **Guard**: statistics rule in the skill (sourced/cited/placeholder — never invented) +
   a no-fabrication expectation in EVERY eval of all three pilot suites + the zero-data
-  eval that rewards honest threshold misses.
+  eval that rewards honest threshold misses + `scripts/validate-tracking.sh` check (h),
+  the scripted quotation-attribution guard added 2026-08-10 (what it catches, and what it
+  explicitly does not, in the redesign below).
 - **Recurrence**: **1** (2026-08-10 — detailed below). **Status**: guard redesigned; the
   carrier now reaches the skill's reference files, not the skill body alone.
 - **Recurrence 1** (2026-08-10 — geo-content-optimizer, the entry's own skill, with the
@@ -111,6 +113,66 @@ regression rate · repeat-failure count · tool-correctness rate.
   precedent), and its list needs the same maintenance check (f)'s does. Neither is built
   here: `scripts/` sat outside this fix's scope, so both are recorded as a tooling gap
   with a known shape rather than an unknown, and proposed as a scripts-wave item.
+  **Guard built — `validate-tracking.sh` check (h), the quotation half, as a hard FAIL**
+  (2026-08-10, scripts wave; the paragraph above is the design it was built to, on the
+  check-(f) model). It sweeps the shipping skill, command and framework trees for four
+  attribution shapes — a speech verb after a closing quote (`"…," says|explains|notes
+  <Name>`), the same defect with the verb first (`<First Last> says|noted …`), `According
+  to <Capitalised attributee>`, and a `— <Name>, <Role> at <Organisation>` attribution
+  line — and FAILS any match with no `http(s)` URL on its line or within ±2 lines. The
+  failure message names the three ways out rather than only the offence: cite a real
+  source you read and can link, use a clearly fictional `Example …` attribution, or drop
+  the attribution. Three exemptions, each checked by running the finished check against the
+  current tree rather than assumed [obs:2026-08-10 `validate-tracking.sh` check (h): 1
+  attribution shape seen, 1 exempt, 0 failures]: a URL inside the window; the reserved
+  `Example …` attributee, tested against
+  the MATCHED TEXT and not the line or the path, so a file named `example-report.md` is
+  not blanket-exempted; and bracketed placeholders, which keep this skill's corrected
+  TEMPLATE (`"[Quote]," says [Name], [Role] at [Organisation] — [… with a link]`) legal by
+  requiring a capital letter where the attributee goes — the right shape stays teachable
+  with no allowlist to maintain. Greek copy needs no exemption of its own: it quotes with
+  guillemets « », not the ASCII `"` the patterns key on. `evals/` is excluded and that
+  exclusion is load-bearing rather than cosmetic — content-refresher's stale-article
+  fixture opens a paragraph "According to <Firm>'s 2022 SMB survey" as the defect the
+  model is graded on finding; `docs/loop/` and `VERSIONS.md` sit outside the swept trees
+  by construction, because the registers and the changelog quote the fabricated text
+  verbatim, which is their job as the record. The library returns ZERO un-exempted hits,
+  so the check starts GREEN and any future hit is a genuine regression, not a backlog —
+  that property is the whole reason it is worth having, and it is the reason the
+  statistics half below was not bolted on beside it. Fault-injection-tested in a scratch
+  copy (never the real tree) against all four real historical instances — the Fishkin
+  quotation, the Mueller attribution, the "Dr. Jane Smith … Stanford University"
+  credential and the DMA `$42 for every $1` statistic, each taken verbatim from the commit
+  diffs — with all four named individually, plus a correctly-linked quotation injected as
+  a control and correctly not flagged.
+  **What check (h) does NOT catch — stated plainly, so a green gate is never read as a
+  clean bill of health.** (i) *The statistics half is not built, and that is a decision,
+  not an omission.* Its only practical form is a vendor/analyst name deny-list, and run
+  across the current CLEAN tree it returns 37 hits in 16 files — nearly all of them
+  keyword-research examples where the firm name IS the subject matter ("Ahrefs vs SEMrush"
+  as a comparison keyword, "download Screaming Frog" as a transactional one), which are
+  not attributions at all. A permanent 37-line WARN on a green tree destroys the one
+  property that makes (h) trustworthy, and would sit beside check (g)'s existing standing
+  census; two large standing WARNs train a reader to skip the block, which costs more than
+  the deny-list buys. It also flags a legitimate, linked, actually-read citation exactly as
+  loudly as a fabricated one, so the only ways to quiet it are deleting correct content or
+  growing an allowlist — a check that punishes the behaviour the library is trying to
+  teach. Narrowing it to a firm name beside a numeric figure drops it to one hit today,
+  but that is a property of this week's tree rather than of the design, and tuning a
+  deny-list until the current sample goes quiet is fitting the guard to the sample. (That
+  single hit is real and is left for whoever sweeps the file:
+  `build/meta-tags-optimizer/references/meta-tag-formulas.md:49` ("Semrush Pricing") — an
+  unsourced price for a real vendor inside a formula example, the same family as the
+  `battlecard-template.md` sibling `5d9befb` named and left.) The statistics half
+  therefore stays where redesign leg (i) put it: the standing rule at the top of every
+  example-bearing reference file, the SKILL.md statistics rule, and the eval expectations —
+  carriers that can ask *did you read it?*, which is the actual question and one no regex
+  can ask. (ii) *Any fabrication carrying a plausible-looking link.* Check (h) tests only
+  that a URL is PRESENT within the window — never that it resolves, that the page says what
+  the sentence claims, or that the named person said the quoted words. An invented quote
+  published beside a real-looking link passes it silently. That residual belongs to the
+  reviewer and to skill-reviewer Mode A, not to the script, and the script's comment header
+  says so where a maintainer will read it.
 
 ## F4 — 2026-08-08 · State change recorded from the call, not the response
 
