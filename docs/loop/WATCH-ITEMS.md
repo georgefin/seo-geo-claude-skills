@@ -209,10 +209,12 @@ authoritative.
   Rich Results row and the How-To playbook rows ~:291),
   `research/content-gap-analysis/references/gap-analysis-frameworks.md:150`,
   `build/meta-tags-optimizer/references/ctr-and-social-reference.md:121` — all
-  still teach HowTo rich results as a live SERP feature. Surfaced 2026-08-09 by
+  still teach HowTo rich results as a current SERP feature. Surfaced 2026-08-09 by
   the R3-purge implementer as an out-of-scope observation: training-knowledge
-  signal that Google deprecated HowTo rich results in 2023. No ruling covers it
-  and no dated primary source is on file — signal only, not encodable.
+  signal that Google deprecated HowTo rich results in 2023.
+  **Historical, as recorded 2026-08-09 and superseded by the verification bullet
+  below**: at that point no ruling covered it and no dated primary source was on
+  file — **historical** "signal only, not encodable".
 - **Verification (2026-08-10 lane, ahead of the scheduled sweep)**: the signal is
   CORROBORATED at primary-domain snippet grade — the same grade W5/W7 were accepted
   on. Source: `https://developers.google.com/search/blog/2023/08/howto-faq-changes`
