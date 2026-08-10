@@ -1,13 +1,13 @@
 {
   "name": "seo-geo-claude-skills",
   "owner": {
-    "name": "Aaron He Zhu",
-    "url": "https://github.com/aaron-he-zhu"
+    "name": "Sani Hellas",
+    "url": "https://github.com/georgefin"
   },
   "metadata": {
     "description": "SEO & GEO agent tools for Claude Code and Cowork",
     "version": "4.4.1",
-    "repository": "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
+    "repository": "https://github.com/georgefin/seo-geo-claude-skills"
   },
   "plugins": [
     {

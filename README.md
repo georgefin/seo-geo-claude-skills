@@ -5,6 +5,8 @@
 [![License](https://img.shields.io/badge/license-Apache%202.0-green)](./LICENSE)
 [![Version](https://img.shields.io/badge/version-4.4.1-orange)](./VERSIONS.md)
 
+> **Fork notice.** This repository is a fork of [aaron-he-zhu/seo-geo-claude-skills](https://github.com/aaron-he-zhu/seo-geo-claude-skills) (Apache-2.0), maintained by Sani Hellas with an automated weekly review loop. The ClawHub and skills.sh badges above link to the upstream project's published listings; this fork installs from GitHub. The CORE-EEAT and CITE frameworks are separate upstream projects and keep their own attribution throughout.
+
 Claude Skills and Commands for Search Engine Optimization (SEO) and Generative Engine Optimization (GEO). 20 skills, 9 commands, tool-agnostic, works with or without integrations. Content quality powered by the [CORE-EEAT Content Benchmark](https://github.com/aaron-he-zhu/core-eeat-content-benchmark). Domain authority powered by the [CITE Domain Rating](https://github.com/aaron-he-zhu/cite-domain-rating).
 
 > **SEO** gets you ranked in search results. **GEO** gets you cited by AI systems (ChatGPT, Perplexity, Google AI Overviews). This library covers both.
@@ -18,7 +20,7 @@ Claude Skills and Commands for Search Engine Optimization (SEO) and Generative E
    | Your tool | Install command |
    |-----------|----------------|
    | **OpenClaw** | `clawhub install aaron-he-zhu/<skill-name>` â [browse all 20](https://clawhub.ai/u/aaron-he-zhu) |
-   | **Claude Code** | `/plugin marketplace add aaron-he-zhu/seo-geo-claude-skills` (all 20) |
+   | **Claude Code** | `/plugin marketplace add georgefin/seo-geo-claude-skills` (all 20) |
    | **Cursor / Windsurf / other** | `npx skills add aaron-he-zhu/seo-geo-claude-skills` (all 20) |
 
    > All installation methods remain available at all times. If any marketplace is temporarily unavailable, use an alternative method.
@@ -48,7 +50,7 @@ Claude Skills and Commands for Search Engine Optimization (SEO) and Generative E
    Add as a submodule for version-pinned updates within an existing project:
 
    ```bash
-   git submodule add https://github.com/aaron-he-zhu/seo-geo-claude-skills.git .claude/skills/seo-geo
+   git submodule add https://github.com/georgefin/seo-geo-claude-skills.git .claude/skills/seo-geo
    ```
 
    Update to the latest version:
@@ -85,7 +87,7 @@ Claude Skills and Commands for Search Engine Optimization (SEO) and Generative E
    <summary>Manual install (without CLI)</summary>
 
    ```bash
-   git clone https://github.com/aaron-he-zhu/seo-geo-claude-skills.git
+   git clone https://github.com/georgefin/seo-geo-claude-skills.git
    mkdir -p ~/.claude/skills/ && cp -r seo-geo-claude-skills/* ~/.claude/skills/
    ```
 
@@ -310,12 +312,12 @@ Not sure which skill to use? Search by what you're trying to do:
 |--------|---------|----------|
 | **ClawHub** | `clawhub install aaron-he-zhu/<skill-name>` | OpenClaw users, individual skills |
 | **Skills CLI** | `npx skills add aaron-he-zhu/seo-geo-claude-skills` | Most users, 35+ agents, all 20 at once |
-| **Claude Code Plugin** | `/plugin marketplace add aaron-he-zhu/seo-geo-claude-skills` | Claude Code plugin system |
+| **Claude Code Plugin** | `/plugin marketplace add georgefin/seo-geo-claude-skills` | Claude Code plugin system |
 | **Git Submodule** | `git submodule add ... .claude/skills/seo-geo` | Version-pinned team installs |
 | **Fork & Customize** | Fork + `npx skills add YOUR-ORG/...` | Teams with custom needs |
 | **Manual** | `git clone` + copy | No CLI needed |
 
-Browse all 20 skills: [GitHub](https://github.com/aaron-he-zhu/seo-geo-claude-skills) Â· [ClawHub](https://clawhub.ai/u/aaron-he-zhu) Â· [skills.sh](https://skills.sh/aaron-he-zhu/seo-geo-claude-skills)
+Browse all 20 skills: [GitHub](https://github.com/georgefin/seo-geo-claude-skills) Â· [ClawHub](https://clawhub.ai/u/aaron-he-zhu) Â· [skills.sh](https://skills.sh/aaron-he-zhu/seo-geo-claude-skills)
 
 ```bash
 # Install all skills (skills.sh)

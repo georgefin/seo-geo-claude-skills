@@ -1,6 +1,6 @@
 # SEO & GEO Skills Library — Versions
 
-Current versions of all skills. Agents can fetch this file from `https://raw.githubusercontent.com/aaron-he-zhu/seo-geo-claude-skills/main/VERSIONS.md` once per session to check for updates.
+Current versions of all skills. Agents can fetch this file from `https://raw.githubusercontent.com/georgefin/seo-geo-claude-skills/main/VERSIONS.md` once per session to check for updates.
 
 **Versioning**: Skill versions (`metadata.version` in SKILL.md) track skill content changes independently. Plugin version (in `plugin.json`) tracks manifest and infrastructure changes.
 
@@ -43,6 +43,8 @@ Master-directive wave (tenth/eleventh verdict-log entries): G5–G7 and G8's exe
 - **Baseline v3** (`eval-baselines/2026-08-09-v3.json`): schema 44/44, keyword 31/31, geo 29/29 through the three-iteration arc (r1 editor FAIL provenance → r2 editor FAIL totality calque/F13-r1 → r3 MINOR-EDITS, arc closed); zero structural regressions; three ledgered recurrences this window (F11-r6, F13-r1, F9-r2), each caught by a designed position and redesigned same-wave
 - **Pre-directive close-out riders (same release)**: content-quality-auditor 4.2.1 + performance-reporter 4.1.1 (`29e880c` — benchmark N/A-source clarification, emergency-brake Partial-by-design line, CWV bucket-label fix) and the core-eeat-benchmark C02 count-start alignment (`5cac3e9`); eval-suite v3 wording wave — the 11 backlog items applied as 13 in-place rewords across the three pilot suites (`b08253d`), touched indices re-baselined in `eval-baselines/2026-08-09-v3.json`
 - **Registers**: G5–G8 blocks + release flips; FAILURE-LEDGER F11-r6/F13+r1/F9-r2; WATCH-ITEMS W12 (HowTo rich-result status → 2026-08-15 DETECT lane)
+
+- **Fork identity (attribution decision, 2026-08-10)**: machine-readable identity moved to the fork — `plugin.json` author/homepage/repository, both marketplace manifests' `owner`/`metadata.repository`, this file's raw-fetch URL, and the CONTRIBUTING issue link now name `georgefin/seo-geo-claude-skills`; README carries an explicit fork notice crediting the upstream project and its author. The published ClawHub and skills.sh listings keep upstream paths (the fork does not own those listings, so rewriting them would hand users a dead install), and the CORE-EEAT/CITE framework links keep their own attribution as separate upstream projects. Delegated by Sani (twelfth verdict-log entry, `GATED-ITEMS.md`); the 20 `SKILL.md` frontmatter identity fields stay queued for their own wave so an identity change and a 20-skill version bump do not ride one commit. Plugin version held at 4.4.1 — this change rides the same unmerged accumulator.
 
 ### v4.4.0 (2026-08-09)
 
