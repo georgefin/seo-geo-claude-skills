@@ -1266,6 +1266,13 @@ that skill's other fixes. FLIP: F18-r1 -- none
   Both records are being labelled **primed, not blind** at the expectation level rather than
   discarded: a labelled run is evidence, an unlabelled one is contamination. geo-content-optimizer
   and content-gap-analysis are unaffected by this vector.
+  → **Both halves of that last sentence were later corrected, by two different mechanisms.** The
+  geo half is corrected in the CORRECTION block immediately below. The content-gap half is
+  corrected by `### F18 Recurrence 1`, which found the same skill compromised through a second
+  carrier — its worked example fitted to its own fixture. Neither correction is visible from the
+  other, which is why both are pointed at from here: **an entry that gets corrected twice needs one
+  place a reader can stand and see both.** Nothing on the clean list survived contact with a
+  grader; the honest reading is that "unaffected" meant "not yet checked for this vector".
 - **CORRECTION, 2026-08-10, same day, found by the geo grader and verified at source before
   amending**: the sentence above is **wrong about geo-content-optimizer**, and the error is mine.
   `§6`'s family-1 cell (`:168`) states its ruled form as «Όλα τα 18 μοντέλα συνοδεύονται…» →
@@ -1297,8 +1304,19 @@ that skill's other fixes. FLIP: F18-r1 -- none
   indexes suite-specific failure patterns that would function as expectations. Four for four, with
   no contact between them. They were right, and this entry is the proof: the ledger has exactly the
   property F18 describes, more so than the ruleset. The rule is now explicit rather than inferred.
-- **Recurrence**: 0 (founding). A new `§6` entry naming a suite, a run label or an occurrence count
-  in rule text, or any quoted expectation string appearing on an executor-read surface, increments
-  this.
-- **Status**: opened; restructure queued behind the in-flight graders, which are reading the file.
+- **Recurrence**: 1. A new `§6` entry naming a suite, a run label or an occurrence count in rule
+  text, or any quoted expectation string appearing on an executor-read surface, increments this —
+  as does a shared figure between a skill's worked example and its own suite's fixtures, which is
+  what the first recurrence was.
+- **Where the recurrence is written, and why that matters**: `### F18 Recurrence 1` sits ABOVE this
+  entry in the file, not below it — appended into the block that was open at the time rather than
+  at the end. So a reader arriving here reaches the counter before the instance, and for part of
+  2026-08-10 this line read `0` while the instance was already a hundred lines away in the same
+  file. It is corrected in place rather than relocated: moving an entry in an append-only register
+  is a worse defect than an out-of-order one, and the counter's job is to make the instance
+  findable, which a pointer does. **A recurrence count is only trustworthy if incrementing it is
+  part of writing the recurrence, not a separate step someone remembers.**
+- **Status**: opened; §6 restructure dispatched 2026-08-10 once the graders had finished reading
+  the file. The split ships with the family-8 reader-test ruling in the same edit, per F9's lesson
+  that a class fixed in halves is a class fixed nowhere.
   FLIP: F18 -- none
