@@ -1,13 +1,13 @@
 ---
 name: meta-tags-optimizer
-version: "4.1.2"
+version: "4.1.3"
 description: 'Create and optimize title tags, meta descriptions, Open Graph tags, and Twitter cards for maximum click-through rates. Use when the user asks to "optimize title tag", "write meta description", "improve CTR", "Open Graph tags", "social media preview", "fix my meta tags", or "OG tags not showing". Produces optimized meta tags with character counting, A/B test variations, and CTR analysis. For a broader on-page audit, see on-page-seo-auditor. For structured data markup, see schema-markup-generator.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.1.2"
+  version: "4.1.3"
   geo-relevance: "low"
   tags:
     - seo
@@ -205,6 +205,8 @@ When a user requests meta tag optimization:
 
    Generate OG tags (og:type, og:url, og:title, og:description, og:image), Twitter Card tags, canonical URL, robots, viewport, author, and article-specific tags. Then combine into a complete meta tag block.
 
+   **Placement rule (ledger F13)**: every tag you hand the user carries a resolved value. A value the input cannot support — an image asset that does not exist, an unknown social handle, a missing publish date — means that tag is **omitted** and the gap named in the report prose. Never put a bracket token, `TBD`, `XX`, or a note like "to supply" inside a `content=`/`href=` attribute or between `<title>` tags. In the reference file, the bracketed blocks are labelled skeletons (scaffolding); only the filled example is paste-ready.
+
    > **Reference**: See [references/meta-tag-code-templates.md](./references/meta-tag-code-templates.md) for OG type selection guide, Twitter card type selection, all HTML code templates, and the complete meta tag block template.
 
 5. **CORE-EEAT Alignment Check**
@@ -290,32 +292,35 @@ For EL/EN/DE (or any multi-language) page sets. Hreflang implementations commonl
 - [ ] Title length 50-60 characters (displays fully in SERP)
 - [ ] Meta description length 150-160 characters
 - [ ] Primary keyword appears in both title and description
-- [ ] Open Graph image specified (1200x630px recommended)
+- [ ] Open Graph image specified as a real absolute URL (1200x630px recommended) — if no asset exists, the tag is omitted and the gap noted in the report, never filled with a placeholder
+- [ ] No bracket token, `TBD`/`XX`, or data-needed note inside any delivered tag value (ledger F13 placement rule)
 - [ ] All HTML syntax valid (no unclosed quotes or tags)
 - [ ] Source of each data point clearly stated (~~search console CTR data, ~~SEO tool competitor data, user-provided, or estimated)
 
 ## Example
 
-**User**: "Create meta tags for a blog post about 'how to start a podcast in [current year]'"
+**User**: "Create meta tags for a blog post about 'how to start a podcast in 2026'"
+
+*(The year is resolved to the run's actual year — 2026 in this example. A year token never stays inside a tag value.)*
 
 **Output**:
 
 ```markdown
-## Meta Tags: How to Start a Podcast ([current year])
+## Meta Tags: How to Start a Podcast (2026)
 
 ### Title Tag
 ```html
-<title>How to Start a Podcast in [current year]: Complete Beginner's Guide</title>
+<title>How to Start a Podcast in 2026: Complete Beginner's Guide</title>
 ```
-**Length**: ~55 characters ✅
+**Length**: 57 characters ✅
 **Keyword**: "how to start a podcast" at front ✅
 **Power Words**: "Complete", "Beginner's" ✅
 
 ### Meta Description
 ```html
-<meta name="description" content="Learn how to start a podcast in [current year] with our step-by-step guide. Covers equipment, hosting, recording, and launching your first episode. Start podcasting today!">
+<meta name="description" content="Learn how to start a podcast in 2026 with our step-by-step guide: equipment, hosting, recording, and launching your first episode. Start podcasting today!">
 ```
-**Length**: ~163 characters ✅
+**Length**: 154 characters ✅
 **Keyword**: Included naturally ✅
 **CTA**: "Start podcasting today!" ✅
 
@@ -324,13 +329,13 @@ _Complete meta tag block (with OG, Twitter, Article tags) generated using templa
 ### A/B Test Variations
 
 **Title Variation B**:
-"Start a Podcast in [current year]: Step-by-Step Guide (+ Free Checklist)"
+"Start a Podcast in 2026: Step-by-Step Guide (+ Free Checklist)"
 
-**Title Variation C**:
-"How to Start a Podcast: [current year] Guide [Equipment + Software + Tips]"
+**Title Variation C** (the square brackets here are the literal CTR device from the power-words table — a shipped character, not a slot to fill):
+"How to Start a Podcast: 2026 Guide [Equipment + Software + Tips]"
 
 **Description Variation B**:
-"Want to start a podcast in [current year]? This guide covers everything: equipment ($100 budget option), best hosting platforms, recording tips, and how to get your first 1,000 listeners."
+"Want to start a podcast in 2026? This guide covers everything: equipment ($100 budget option), best hosting platforms, recording tips, and how to get your first 1,000 listeners."
 ```
 
 ## Tips for Success

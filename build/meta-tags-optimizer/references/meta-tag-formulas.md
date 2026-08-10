@@ -72,6 +72,8 @@ Extended title tag formulas, meta description templates, A/B testing methodology
 
 ## Meta Description Templates
 
+Patterns to fill, not text to ship: every `[slot]` below resolves to the page's own facts before the description is delivered — a bracket, `TBD`, or data-needed note surviving inside a shipped description fails this skill's output validation (ledger F13 placement rule). Where the page cannot support a slot (no price, no rating, no proof point), rewrite the description without that clause rather than leaving the marker in.
+
 ### By Content Type
 
 #### Blog Posts / Articles

@@ -457,6 +457,55 @@ regression rate · repeat-failure count · tool-correctness rate.
   unchanged 4.1.6 + ruled-families scan of the fresh output + editor re-judge;
   the v3 baseline records the full three-iteration arc.)
 
+- **Recurrence 2** (2026-08-10, blind Mode B run of the meta-tags-optimizer suite —
+  the placement class re-leaked, and this time the skill's own reference file taught
+  it). **Instance**: the deliverable shipped
+  `content="TO SUPPLY — absolute URL, 1200x630px JPG/PNG"` inside `og:image` and
+  `twitter:image` — the exact shape four expectations of that suite forbid ("no
+  bracketed tokens ('[Brand]', '[Number]', '[Year]'), no 'TBD'/'XX', and no
+  data-needed markers appear inside a proposed <title>, meta description, or social
+  tag value"). Matched on class, not string. Recorded from the blind run's grader
+  report (2026-08-10); that deliverable is not in the repo tree, so this entry states
+  the grader's finding, not a file this author read (F4 discipline).
+  **Root cause**: the grader traced the behaviour to the skill, not the model —
+  `build/meta-tags-optimizer/references/meta-tag-code-templates.md` introduced its
+  complete block with "Copy and paste this complete meta tag block:" and then put a
+  bracket token in every value, `content="[Image URL - 1200x630px recommended]"`
+  included, so a model with no image asset produced what the paste-ready example
+  modelled. F3's shape (a worked example modelling the behaviour the rule forbids)
+  applied to F13's placement class. The founding carrier never reached here: the
+  2026-08-09 fix put the rule in geo-content-optimizer's Statistics clause and in this
+  suite's expectations, i.e. on the grader's side, while meta-tags-optimizer's own
+  SKILL.md and references — the surfaces the executor reads — said nothing. An
+  expectation is a carrier for whoever grades, not for whoever writes.
+  **Redesign (rule 3)**: same-wave carriage now has to land on the surface the executor
+  reads, and specifically on every paste-ready worked example, not only in rules prose.
+  Applied as meta-tags-optimizer 4.1.3 — the reference file splits into a filled
+  illustrative block (every value resolved on the reserved `example.com` host, and the
+  only place the "copy and paste" framing sits) and a fill-in skeleton labelled NOT
+  ship-ready, with the value rule stated at the top of the file and an inline
+  `<!-- SKELETON ... -->` first line inside every bracketed fence so the marker travels
+  with the code when only the fence is copied; the filled example leaves out
+  `twitter:site` on purpose, demonstrating the drop-the-tag-and-name-the-gap remedy for
+  an unavailable value; SKILL.md step 4 gains the placement rule and Output Validation a
+  matching checkbox; the two sibling references get the same one-line rule; and the
+  skill's own worked example stopped putting `[current year]` inside a `<title>` and a
+  `content=` attribute (same F3 shape, one file over).
+  **Could a script catch this class?** Half of it, and the split is the useful part. On
+  the deliverable side, yes and cheaply: a scan for a `[`…`]` token, `TBD`, `XX`, or "to
+  supply" inside `content="…"` / `href="…"` / between `<title>` tags would have caught
+  this instance outright, because the offending text sits inside quoted attribute values
+  in a known syntax. What it cannot decide is intent — the CTR device
+  `[Equipment + Software + Tips]` is a legitimate shipped bracket in a title — so it is a
+  review trigger, not a verdict (§6 family-5 precedent). On the cause side it is weaker:
+  a deliverable scan flags the output and never names the template that taught it. That
+  needs a repo-side lint — paste-ready framing within a few lines above a fence whose tag
+  values carry bracket tokens — which is expressible as a grep pair and would have fired
+  on this file, but which also has to exempt files whose whole subject is skeletons.
+  Neither is bolted on inside this fix; both are proposed as a scripts-wave item, and
+  this note records the gap as a tooling gap rather than an unknown. Counter reading with
+  this entry: 2.
+
 ## F14 — 2026-08-10 · Parallel agents' untracked files swept into a coordinator commit by `git add -A`
 
 - **Failure**: the identity commit `67ecad7` ("chore(identity): re-attribute fork

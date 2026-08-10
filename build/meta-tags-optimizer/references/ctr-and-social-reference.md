@@ -6,9 +6,12 @@ Reference tables for click-through rate optimization, Open Graph best practices,
 
 ## Page-Type Meta Tag Templates
 
+Skeletons, not deliverables: `[bracket tokens]` are slots to fill from the page's own data. A delivered tag carries a resolved value or is omitted with the gap named in the report prose — never a bracket, `TBD`, or a data-needed note inside `content=` (ledger F13 placement rule; see `meta-tag-code-templates.md` for the filled example).
+
 ### Homepage
 
 ```html
+<!-- SKELETON — fill every [slot] from the page's data; never deliver a bracket -->
 <title>[Brand Name] - [Primary Value Proposition]</title>
 <meta name="description" content="[Brand] helps [audience] [achieve goal]. [Key feature/benefit]. [CTA]">
 ```
@@ -16,6 +19,7 @@ Reference tables for click-through rate optimization, Open Graph best practices,
 ### Product Page
 
 ```html
+<!-- SKELETON — fill every [slot] from the page's data; never deliver a bracket -->
 <title>[Product Name] - [Key Benefit] | [Brand]</title>
 <meta name="description" content="[Product] [key features]. [Price/offer if applicable]. [Social proof]. [CTA]">
 ```
@@ -23,6 +27,7 @@ Reference tables for click-through rate optimization, Open Graph best practices,
 ### Blog Post
 
 ```html
+<!-- SKELETON — fill every [slot] from the page's data; never deliver a bracket -->
 <title>[How to/What is/Number] [Keyword] [Benefit/Year]</title>
 <meta name="description" content="[What they'll learn]. [Key points covered]. [CTA]">
 ```
@@ -30,6 +35,7 @@ Reference tables for click-through rate optimization, Open Graph best practices,
 ### Service Page
 
 ```html
+<!-- SKELETON — fill every [slot] from the page's data; never deliver a bracket -->
 <title>[Service] in [Location] - [Brand] | [Differentiator]</title>
 <meta name="description" content="[Service description]. [Experience/credentials]. [Key benefit]. [CTA]">
 ```
