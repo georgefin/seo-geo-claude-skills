@@ -1,6 +1,6 @@
 ---
 name: on-page-seo-auditor
-version: "4.1.2"
+version: "4.1.3"
 description: 'Audit on-page HTML elements including title tags, headers, image alt text, and internal links with a scored SEO report. Use when the user asks to "audit page SEO", "on-page SEO check", "SEO score", "page optimization", "what SEO issues does this page have", "score my page", "why is this page not ranking", or "check my page". For server, speed, and crawl issues, see technical-seo-checker. For full EEAT content quality scoring, see content-quality-auditor.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.1.2"
+  version: "4.1.3"
   geo-relevance: "medium"
   tags:
     - seo
@@ -125,6 +125,16 @@ matters), and **Fix** (the specific change), plus a **Confidence** label:
 **Rule**: every Hypothesis finding must name what would confirm it (the specific check,
 tool, or data source). Use the labels in each step's "Issues Found" list and carry them
 into the Step 11 Priority Issues summary.
+
+**Quote discipline**: the E-E-A-T signals row and the "Expert quotes" element in Step 5, and
+the Ept01/R02 rows of the Step 10 quick scan, all push a Fix toward "add an expert quote".
+Recommend the quote; never write one. A quotation attributed to a named person or
+organisation ships only with a real, checkable source in the same breath — speaker, role,
+where and when they said it, and a link that opens. Without one, do not attribute it:
+paraphrase it unattributed, or drop it, and never invent a name, credential or institution to
+carry a line (statistics rule: sourced, cited, or placeholder, never invented). The audit's
+own Evidence follows the same rule: quote the page verbatim from the HTML or content in front
+of you, never from memory or reconstruction.
 
 1. **Gather Page Information**
 
@@ -271,6 +281,7 @@ into the Step 11 Priority Issues summary.
 - [ ] All suggested changes include specific locations (title tag, H2 #3, paragraph 5, etc.)
 - [ ] Source of each data point stated in the report's own words — the resolved tool name (Google Search Console, Ahrefs, Screaming Frog), "the HTML you provided", or "manual review"; where no tool was connected and nothing was supplied, the report says exactly that and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 - [ ] Every finding carries a Confidence label (Confirmed / Likely / Hypothesis); Hypothesis findings name what would confirm them
+- [ ] No quotation attributes words to a named person or organisation without a checkable source beside it; page quotes are verbatim from the audited HTML/content, and no Fix drafts an expert quote for the writer
 
 ## Example
 

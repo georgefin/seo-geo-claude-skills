@@ -31,7 +31,7 @@ Detailed output templates for on-page-seo-auditor steps 5-11. Referenced from [S
 - [ ] Images/visuals
 - [ ] Examples/case studies
 - [ ] Statistics with sources
-- [ ] Expert quotes
+- [ ] Expert quotes, each with a checkable source
 - [ ] FAQ section
 - [ ] Conclusion with CTA
 
@@ -45,6 +45,15 @@ Detailed output templates for on-page-seo-auditor steps 5-11. Referenced from [S
 1. [Specific improvement]
 2. [Specific improvement]
 ```
+
+**Quote discipline**: the two elements above are things to *observe* on the page, not things
+to write for the client. When a missing quote becomes a Recommendation, ask the writer to
+source one — never draft it. A quotation attributed to a named person or organisation needs a
+real, checkable source in the same breath: speaker, role, where and when they said it, and a
+link that opens. Without one, do not attribute it — paraphrase it unattributed, or drop it,
+and never invent a name, credential or institution to carry a line (statistics rule: sourced,
+cited, or placeholder, never invented). Applies again at the Step 10 Ept01/R02 rows and the
+Step 11 recommendations; same rule as SKILL.md "Finding Format & Confidence Labels".
 
 ---
 
