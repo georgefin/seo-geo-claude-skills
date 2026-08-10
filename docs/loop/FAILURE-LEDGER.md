@@ -535,3 +535,31 @@ regression rate · repeat-failure count · tool-correctness rate.
   is outside the ledger entirely; the mechanism is advisory at the write end and
   enforcing only at the push end. Zero friction when nobody announced a path: no
   journal covering a commit means nothing is asserted, so a solo session pays nothing.
+- **Third mechanism — and this one IS the guarded failure, by the guard's own author
+  (2026-08-10, `c1845e8`)**: the coordinator's register closures for F14 and the
+  check (g) question landed inside a commit whose message describes only an
+  agent-definition fix. Chain: commit, gate and push were issued as one compound
+  shell command; the push-guard hook refused the whole command before the commit ran;
+  the staged register files therefore stayed staged; a later `--amend` intended only
+  to reword one ledger line swept them into the preceding commit. Caught by reading
+  `git show --stat` after the push, not by any check.
+  **Unlike the second mechanism, this is not a scope-gap excuse.** Content landed in a
+  commit that does not declare it — the exact statement of this entry's failure — so
+  under rule 3 the guard needed redesign, and got one the same hour.
+  **Redesign**: `commit-scope-check.sh` gains a register leg. Its skill leg was
+  structurally blind here because a register file has no owning skill; the new leg
+  requires any commit touching `docs/loop/*.md` or `VERSIONS.md` to MENTION that
+  register somewhere in its message, by basename or by a documented alias. The rule is
+  deliberately weaker than the skill leg — mention, not declaration in the subject —
+  because registers legitimately ride along with the work they record, and a strict
+  rule would train the writer to split commits that belong together.
+  **Verified against this instance before wiring**: pointed at `c1845e8` it fails and
+  prints the undeclared register; pointed at the wave's legitimate register commits it
+  passes. **Stated limit**: the alias vocabulary can absorb an incidental word — this
+  very instance's message contained "verdict", which cleared `gated-items` while
+  `failure-ledger` was still caught. The leg therefore reduces the failure rate rather
+  than eliminating it, and a commit whose message happens to contain an alias for every
+  register it touches will pass undeclared. Two process lessons recorded with it, both
+  cheap: never compound commit with push in one command, since a hook that refuses the
+  command leaves the tree in a state the next command inherits; and never `--amend`
+  without reading `git show --stat` first.

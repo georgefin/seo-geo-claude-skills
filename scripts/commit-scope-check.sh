@@ -65,10 +65,67 @@ fi
 
 CATEGORIES='build|research|optimize|monitor|cross-cutting'
 
+# Alias vocabulary for the register leg. A commit that touches a shared register
+# must SAY SO somewhere in its message; these are the words that count as saying
+# so for each file, beyond the file's own basename.
+register_aliases() {
+  case "$1" in
+    failure-ledger)          echo "ledger f1 f2 f3 f4 f5 f6 f7 f8 f9 recurrence" ;;
+    gated-items)             echo "gated gate g1 g2 g3 g4 g5 g6 g7 g8 g9 verdict" ;;
+    watch-items)             echo "watch w1 w2 verify" ;;
+    settled-rulings)         echo "ruling settled r1 r2 r3 r4 r5 pointer anchor" ;;
+    pipeline)                echo "pipeline stage" ;;
+    versions)                echo "version changelog bump" ;;
+    kpi)                     echo "kpi metric" ;;
+    pilot)                   echo "pilot g8 input" ;;
+    adversarial-layer)       echo "adversarial protocol" ;;
+    master-improvement-plan) echo "directive plan phase" ;;
+    *)                       echo "" ;;
+  esac
+}
+
 for sha in $COMMITS; do
   subject=$(git log -1 --format=%s "$sha")
   subject_lc=$(printf '%s' "$subject" | tr '[:upper:]' '[:lower:]')
+  message_lc=$(git log -1 --format='%s%n%b' "$sha" | tr '[:upper:]' '[:lower:]')
   files=$(git diff-tree --no-commit-id --name-only -r "$sha")
+
+  # --- Register leg (added 2026-08-10 after this guard's own author committed
+  # register closures inside a commit whose message named only an agent fix).
+  # A register file has no owning skill, so the skill leg below is structurally
+  # blind to it — that blindness is what let the instance through. The rule here
+  # is deliberately weaker than the skill leg: a register need only be MENTIONED
+  # somewhere in the message, by basename or by one of its aliases, because
+  # registers legitimately ride along with the work they record.
+  registers=$(printf '%s\n' "$files" \
+    | grep -E '^(docs/loop/[^/]+\.md|VERSIONS\.md)$' \
+    | sed 's#.*/##; s#\.md$##' \
+    | tr '[:upper:]' '[:lower:]' \
+    | sort -u)
+
+  reg_missing=""
+  if [ -n "$registers" ]; then
+    while IFS= read -r reg; do
+      [ -z "$reg" ] && continue
+      hit=0
+      case "$message_lc" in *"$reg"*) hit=1 ;; esac
+      if [ "$hit" -eq 0 ]; then
+        for alias in $(register_aliases "$reg"); do
+          case "$message_lc" in *"$alias"*) hit=1; break ;; esac
+        done
+      fi
+      [ "$hit" -eq 0 ] && reg_missing="$reg_missing $reg"
+    done <<< "$registers"
+  fi
+
+  if [ -n "$reg_missing" ]; then
+    fail=$((fail+1))
+    echo "${RED}  FAIL${NC}: ${sha:0:7} touches register(s) its message never mentions:$reg_missing"
+    echo "        subject: $subject"
+    echo "        fix: name the register in the subject or body (or one of its"
+    echo "             aliases), or split the register change into its own commit."
+    continue
+  fi
 
   skills=$(printf '%s\n' "$files" \
     | grep -E "^($CATEGORIES)/[^/]+/" \
