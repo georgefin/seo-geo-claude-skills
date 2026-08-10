@@ -13,7 +13,7 @@
   "grader_produced_no_deliverable": true
  },
  "repo_head_at_open": "36d2f18814e1177e436cbe8949b5f1c8863e538b",
- "repo_head_at_close": "00487a583f7f6580f7ad38bc11ee64afde5eaf41",
+ "repo_head_at_close": "a6ca72749938d12d41fed35e3b64a5302f698d95",
  "PRIMED_NOT_BLIND": {
   "scope": "e3 only, and within e3 the anti-slop §6 family-5 and family-6 checks inside expectation e3.5. Every other expectation and every other eval is unaffected.",
   "verified_at_source_by_the_grader": "build/seo-content-writer/references/anti-slop-ruleset.md:177-181 reads: 'Families 5-6 provenance (2026-08-10): both come from ONE eight-word span of paste-ready customer copy — a FAQ answer under «Έτοιμα κείμενα για δημοσίευση» in the content-refresher E3 output, i.e. text the client is told to publish unchanged. The editor graded the span FAIL on the dropped negator and named the calque as its second defect.' The literal defect strings live one and two rows above, at :172 (family 5, the «δεν» rule) and :173 (family 6, «κοστίζει μηδέν»). The file is a REQUIRED READ on this executor's brief. Line numbers confirmed exact.",
@@ -147,6 +147,12 @@
    "evidence": "e1:L142 rules the HowTo sentence 'the same applies to HowTo' and e1:L379-380 puts it in customer-visible FAQ copy: 'Does structured data still get me a rich result? / Not for FAQ or how-to content — those SERP features were retired.' WATCH-ITEMS.md:206 still carries W12 as '[VERIFY]'; its 2026-08-10 verification bullet corroborates the retirement at primary-domain SNIPPET grade only, with the caveat that developers.google.com is egress-restricted and the September date is 'contextually 2023 but not independently pinned'.",
    "why_no_verdict_effect": "e1.2 rules the HowTo sentence ungraded in either direction, by name. So the suite cannot fail it, and I did not.",
    "why_it_is_worth_the_coordinator's_attention": "The substance is probably right; the epistemic status is not. A blind deliverable stated a [VERIFY]-tagged item as settled fact in copy the client is told to publish, and the suite's own abstention clause guarantees no expectation will ever notice."
+  },
+  "12_GRADER_FOUND_unsourced_CTR_curve_outside_W14_scope": {
+   "verdict": "REAL, and found by the closing input re-check rather than by the run — W14 was opened by a parallel agent DURING this grading (commit 8c35548).",
+   "evidence": "W14 tags `build/meta-tags-optimizer/references/meta-tag-formulas.md:210-219` — 'the position-by-CTR curve and the per-vertical CTR bands' — as [VERIFY], on the ground that they 'carry no citation here and none anywhere in the repository'. content-refresher carries a SIBLING of exactly that class at `content-decay-signals.md:47-55`, 'Expected CTR by position (organic, desktop, approximate)' — position 1 25-35%, 2 12-18%, 3 8-12%, 4-5 5-8%, 6-10 2-5% — unsourced and untagged. W14's 'Where' field names only meta-tags-optimizer, so this instance sits outside the register row that was written for its class.",
+   "ledger_class": "F9's per-skill-scoping signature applied to a [VERIFY] tag rather than to a deprecated token — the same motion F9 Recurrence 3 was ledgered for one hour earlier, in this same skill. Not asserted as an increment; reported so the coordinator can rule.",
+   "did_the_run_use_it": "Yes, and defensibly. e2:L88-92 'our generic expected-CTR band for position 2 is 12-18%, and your *pre-drop* CTRs were 4.8-7.4%... So **measure recovery against your own pre-drop numbers, not against a generic table**'. The figure is labelled as the house band, is used only to argue for preferring the client's own data, and shapes no target. No expectation is affected — e2.6 governs figures about this page from the export, and this is not one."
   }
  },
  "self_caught_defect_confirmed_fixed": {
@@ -199,7 +205,7 @@
  },
  "input_drift_during_the_run": {
   "detected": true,
-  "head_moved": "36d2f18 -> 00487a5 (two commits: 7b2539b F18, 00487a5 F9-r3)",
+  "head_moved": "36d2f18 -> a6ca727 (9 commits by parallel agents during grading)",
   "graded_inputs_rechecked_at_close": [
    "optimize/content-refresher/SKILL.md",
    "optimize/content-refresher/evals/evals.json",
@@ -207,8 +213,8 @@
    "optimize/content-refresher/evals/files/* (4 fixtures)",
    "build/seo-content-writer/references/anti-slop-ruleset.md"
   ],
-  "result": "ZERO drift in every graded input — `git diff 36d2f18..HEAD` over those paths is empty, and the only changed register file is docs/loop/FAILURE-LEDGER.md (+121 lines). anti-slop-ruleset.md is NOT among the four working-tree modifications (those are meta-tags-optimizer SKILL.md + ctr-and-social-reference.md, seo-content-writer content-structure-templates.md, content-quality-auditor SKILL.md — the F9-r3 fixes, none of them a graded input here).",
-  "effect_on_verdicts": "NONE. No expectation, skill line, reference line or fixture byte changed. The two new ledger entries add no FAIL-grade family. Their effect is evidential, not scoring: F18 independently confirms this record's priming disclosure at source, and F9-r3 independently confirms defect 4 and sharpens it with the non-monotonic worked-example finding.",
+  "result": "ZERO drift in every graded input: SKILL.md md5 fe171eea079e762f0922307aa3d59f7e, evals.json a4e1c7403fb8576040d494b1aa426e6d and anti-slop-ruleset.md 1e28a2c5a70f9ec2b9b379debfa20564 are identical at open and close, and `git diff 36d2f18..HEAD -- optimize/content-refresher/` is empty. Three register files moved: FAILURE-LEDGER.md (+F18, +F9-r3), SETTLED-RULINGS.md (VERSIONS.md pointer re-anchoring ONLY — 205->211, 209->215, 210->216; the R1/R2/R3/R4 ruling TEXT is byte-identical, verified line by line), and WATCH-ITEMS.md (+W14; W12 unchanged, verified).",
+  "effect_on_verdicts": "NONE. No expectation, skill line, reference line or fixture byte changed, and no new FAIL-grade family landed in the §6 rubric. The register additions are evidential, not scoring: F18 independently confirms this record's priming disclosure at source; F9-r3 independently confirms defect 4 and sharpens it; W14 produced finding 12 below.",
   "contrast_with_the_two_2026-08-10_incidents": "Both of those had a ruleset gain a FAIL-grade family mid-run. This one did not; the rubric surface (anti-slop-ruleset.md §6) is byte-identical at open and close, md5 1e28a2c5a70f9ec2b9b379debfa20564."
  },
  "eval_feedback": [

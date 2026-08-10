@@ -1084,6 +1084,56 @@ untouched increments this.
 
 **Status**: surveyed, three fixes dispatched, remainder queued. FLIP: F9-r3 -- none
 
+
+### F3 Recurrence — 2026-08-10 · a suite scored 100% on a run that shipped an unlabelled third-party ranking claim
+
+`content-refresher`'s founding blind record is **27/27 = 100.0%**, and the same grading found
+three defects no expectation reaches. The rate is accurate. It is also not a statement about
+the skill, and this entry exists so nobody later reads it as one.
+
+**The fabrication.** The e1 deliverable states *"2 newer competitor guides now outrank you"* and
+the Greek e3 states «Δύο νεότεροι οδηγοί … προηγούνται» — a third-party ranking asserted in the
+indicative, unlabelled, in a scored cell carrying 12.75 of e1's 89 points. Neither fixture
+supplies any competitor position.
+
+**The root cause is the skill, not the executor.** `content-decay-signals.md:168` scores
+displacement as *"displaced from top 3"* — a criterion that demands an input the fixtures cannot
+provide, so an executor scoring the item honestly has nowhere to go but invention. F13-r3's
+signature: the rule is stated, and following it produces the defect.
+
+**The grader declined to fail it, and was right to.** No expectation covers the class, and its
+reasoning is worth preserving verbatim in substance: manufacturing coverage at grading time is
+the F13/F17 defect committed from the grader's side. A grader that invents a bar to catch a
+defect it can see is no longer measuring the suite. It reported the finding first-class instead,
+which is how the defect reached this entry at all.
+
+**Two more the same grading surfaced and the suite structurally cannot see:**
+- e1 states the W12 HowTo retirement as **settled fact in client-facing FAQ copy**, while that
+  claim is an open `[VERIFY]` awaiting Sani's G9 verdict. Expectation e1.2 rules the topic
+  ungraded **by name** — so the suite is not merely silent here, it is designed to look away, and
+  a deliverable asserting an unresolved claim as fact passes by construction.
+- `content-decay-signals.md:47-55` carries an unsourced position-CTR curve of exactly the class
+  tagged as W14 in `meta-tags-optimizer` hours earlier. F9's signature again: the tag landed
+  where the defect was noticed and not in its sibling.
+
+**What this changes about reading rates.** The pooled blind corpus is quoted in two conventions
+already (F16-r1). This adds a third caveat that applies to every suite: **a pass rate is a lower
+bound on defects, never a measure of quality.** 100% here means every graded expectation passed,
+on a run carrying an unlabelled competitor claim, a `[VERIFY]` asserted as fact in client copy,
+and a rubric that maps a page earning 1,530 sessions a month to "retire". The blind method's
+claim was discrimination between skills; it does not and cannot discriminate between *graded* and
+*ungraded* defect classes. Only a reader does that, and on this suite a reader found three.
+
+**Guard**: a record whose rate is 100% carries an explicit `defects_found_outside_graded_set`
+field, populated or stated empty. An unqualified 100% is not reportable. The refresher record
+carries the three above.
+
+**Recurrence**: F3 → recurrence recorded. A deliverable asserting an unsourced third-party
+metric, or an expectation excluding an open `[VERIFY]` topic by name, increments this.
+
+**Status**: recorded; skill fix for `:168` queued, e1.2's exclusion routed to the suite owner.
+FLIP: F3-r-2026-08-10 -- none
+
 ---
 
 ## F17 — 2026-08-10 · A cross-skill rule was ruled in the coordination documents and given no carrier in any shipped skill
