@@ -2,6 +2,11 @@
 
 Referenced from [SKILL.md](../SKILL.md).
 
+The example below is **abridged**: it shows a few tables per section, not the full checklists.
+That is why its denominators are small — and why every score states its own denominator. The
+arithmetic behind each number is in [score-rubric.md](./score-rubric.md) §8, which recomputes
+this example line by line.
+
 ---
 
 ## Worked Example
@@ -29,7 +34,7 @@ Referenced from [SKILL.md](../SKILL.md).
 | File exists | ✅ | 200 response |
 | Valid syntax | ⚠️ | Wildcard pattern `Disallow: /*?` too aggressive — blocks faceted pages |
 | Sitemap declared | ❌ | No Sitemap directive in robots.txt |
-| Important pages blocked | ⚠️ | /pricing/ blocked by `Disallow: /pricing` rule |
+| Important pages blocked | ❌ | /pricing/ blocked by `Disallow: /pricing` rule — Critical, so ❌ not ⚠️ |
 | Assets blocked | ✅ | CSS/JS accessible |
 
 **Issues Found**:
@@ -47,7 +52,7 @@ Referenced from [SKILL.md](../SKILL.md).
 | Only indexable URLs | ❌ | 23 noindex URLs included |
 | Includes lastmod | ⚠️ | All dates set to 2023-01-01 — not accurate |
 
-**Crawlability Score**: 5/10
+**Crawlability Score**: 5/10 (4 pts ÷ 8 scored rows; 11 rows not checked — user-agent handling, AI-crawler stance and the crawl-budget table were not part of this pull) · highest severity: 🔴 Critical (/pricing/ blocked in robots.txt)
 
 ## Performance Analysis
 
@@ -74,7 +79,7 @@ Referenced from [SKILL.md](../SKILL.md).
 **CLS Issues**:
 - Ad banner at top of page injects without reserved height (0.18 shift contribution)
 
-**Performance Score**: 3/10
+**Performance Score**: 1/10 (0.5 pts ÷ 6 scored rows; 3 rows not checked — FCP, Speed Index and Total Blocking Time were not captured. Scored on the mobile verdict; desktop reported, not scored) · highest severity: 🔴 Critical
 
 ## Security Analysis
 
@@ -87,7 +92,7 @@ Referenced from [SKILL.md](../SKILL.md).
 | Mixed content | ❌ | 7 images loaded over HTTP on /features/ page |
 | HSTS enabled | ❌ | Header not present |
 
-**Security Score**: 5/10
+**Security Score**: 4/10 (1.5 pts ÷ 4 scored rows; 6 rows not checked — certificate chain and the five security headers were not pulled) · highest severity: 🟡 High (mixed content on /features/)
 
 ## Structured Data Analysis
 
@@ -100,31 +105,35 @@ Referenced from [SKILL.md](../SKILL.md).
 | Product | 0 | — | Missing on 5 plan pages |
 | FAQ | 0 | — | Missing on 12 pages with FAQ content |
 
-**Structured Data Score**: 3/10
+**Structured Data Score**: 2/10 (1 pt ÷ 4 types assessed: Organization ✅, Article ❌, Product ❌, FAQPage ❌) · highest severity: 🟢 Medium
 
-## Overall Technical Health: 42/100
+## Overall Technical Health: 30/100 (12 ÷ 40 — 4 sections scored; Indexability, Mobile and URL Structure not scored, their tables are outside this abridged example)
 
 ```
-Score Breakdown:
-█████░░░░░ Crawlability: 5/10
-██████░░░░ Indexability: 6/10
-███░░░░░░░ Performance: 3/10
-██████░░░░ Mobile: 6/10
-█████░░░░░ Security: 5/10
-██████░░░░ URL Structure: 6/10
-███░░░░░░░ Structured Data: 3/10
+Score Breakdown (✅1 · ⚠️0.5 · ❌0 per checked row; one █ per point):
+█████░░░░░ Crawlability: 5/10        (4 pts ÷ 8 rows)
+█░░░░░░░░░ Performance: 1/10         (0.5 pts ÷ 6 rows)
+████░░░░░░ Security: 4/10            (1.5 pts ÷ 4 rows)
+██░░░░░░░░ Structured Data: 2/10     (1 pt ÷ 4 types)
+           Indexability: not scored — no data in this extract
+           Mobile: not scored — no data in this extract
+           URL Structure: not scored — no data in this extract
 ```
 
 ## Priority Issues
 
+Priority follows severity, not the section score: Crawlability scores 5/10 — mid-table — and
+still leads the list, because one of its eight rows keeps a commercial page out of the index.
+
 ### 🔴 Critical (Fix Immediately)
-1. **Mobile LCP 4.8s (target ≤2.5s)** — Evidence: field LCP 4.8s, TTFB 1,240ms, hero image 2.3MB. Impact: fails the CWV Good threshold on the highest-traffic template. Fix: compress hero to WebP (est. save 1.9MB) and add a CDN to bring TTFB <400ms. Confidence: Confirmed.
+1. **/pricing/ blocked in robots.txt** — Evidence: `Disallow: /pricing` in the fetched robots.txt; the sitemap lists /pricing/ and 4 plan pages beneath it. Impact: prevents indexation of the highest-value commercial section (severity framework, Critical row). Fix: remove that line, or narrow it to the specific path that was meant to be private; re-request indexing in Search Console afterwards. Confidence: Confirmed.
+2. **Mobile LCP 4.8s (target ≤2.5s)** — Evidence: mobile LCP 4.8s from the PageSpeed Insights run, TTFB 1,240ms, hero image 2.4MB. Impact: fails the CWV Good threshold on the highest-traffic template. Fix: compress hero to WebP (est. save 1.9MB) and add a CDN to bring TTFB <400ms. Confidence: Confirmed.
 
 ### 🟡 Important (Fix Soon)
-2. **HTTP not redirecting to HTTPS** — Evidence: http:// URLs return 200 without redirect; 7 mixed-content images on /features/. Impact: split signals and browser trust warnings. Fix: 301 http→https, enable HSTS, update the 7 image URLs. Confidence: Confirmed.
+3. **HTTP not redirecting to HTTPS** — Evidence: http:// URLs return 200 without redirect; 7 mixed-content images on /features/. Impact: split signals and browser trust warnings. Fix: add the port-80 server block that 301s both hosts to the canonical HTTPS host, in /etc/nginx/sites-available/cloudhosting.com, above the existing HTTPS block — the canonical block itself gets no redirect (a catch-all there loops the whole site); then HSTS at server level inside the HTTPS block, and update the 7 image URLs. Verify with `nginx -t`, then `curl -sSIL http://cloudhosting.com/` expecting one 301 and a 200. Placement and the paste-ready blocks: [server-config-fixes.md](./server-config-fixes.md). Confidence: Confirmed.
 
 ### 🟢 Minor (Optimize)
-3. **No Article/FAQPage schema on blog posts** — Evidence: crawl found no structured data on 48 blog posts and 12 FAQ pages. Impact: missed Article rich-result eligibility and weaker AI-engine parsing. Fix: add Article schema to the blog posts; add FAQPage markup to the FAQ pages for AI-engine parsing (FAQ rich results retired 2026 — no SERP promise). Confidence: Confirmed.
+4. **No Article/FAQPage schema on blog posts** — Evidence: crawl found no structured data on 48 blog posts and 12 FAQ pages. Impact: missed Article rich-result eligibility and weaker AI-engine parsing. Fix: add Article schema to the blog posts; add FAQPage markup to the FAQ pages for AI-engine parsing (FAQ rich results retired 2026 — no SERP promise). Confidence: Confirmed.
 ```
 
 ---

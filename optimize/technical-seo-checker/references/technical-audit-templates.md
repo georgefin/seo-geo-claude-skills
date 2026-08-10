@@ -2,6 +2,14 @@
 
 Detailed output templates for technical-seo-checker steps 3-9. Referenced from [SKILL.md](../SKILL.md).
 
+**Every score in these templates is arithmetic over the rows above it** — ✅ 1 · ⚠️ 0.5 · ❌ 0,
+`round(10 × points ÷ rows scored)`, halves rounding down — and prints its own derivation. Rows
+you could not check are excluded from the denominator and counted in the derivation; a section
+with no checkable row is written `not scored — no data`, never `0/10`. The per-section row
+definitions, the count-row conversion and the overall /100 arithmetic are in
+[score-rubric.md](./score-rubric.md). **Config snippets** the report hands over carry their file,
+block and position — [server-config-fixes.md](./server-config-fixes.md).
+
 ---
 
 ## Step 3: Audit Site Speed & Core Web Vitals
@@ -55,8 +63,15 @@ Detailed output templates for technical-seo-checker steps 3-9. Referenced from [
 1. [Recommendation]
 2. [Recommendation]
 
-**Performance Score**: [X]/10
+**Performance Score**: [X]/10 ([points] ÷ [rows scored]; [N] rows not checked) · highest severity: [🔴 Critical / 🟡 High / 🟢 Medium-Low]
 ```
+
+> **How this number is derived** — the 3 Core Web Vitals rows (scored on the **mobile** verdict;
+> the desktop verdict is reported in the row, not scored separately) plus the 6 Additional
+> Performance Metrics rows: ✅ 1 · ⚠️ 0.5 · ❌ 0, then `round(10 × points ÷ rows scored)`, halves
+> down. The Resource Loading table is evidence, not scored rows. CWV targets are inclusive —
+> LCP ≤2.5s, INP ≤200ms, CLS ≤0.1 — so a value exactly at the threshold passes. Never mix field
+> and lab values in one row; label which you scored. Rules: [score-rubric.md](./score-rubric.md).
 
 ---
 
@@ -95,8 +110,13 @@ Detailed output templates for technical-seo-checker steps 3-9. Referenced from [
 | Mobile has same meta tags | ✅/⚠️/❌ | [notes] |
 | Mobile images have alt text | ✅/⚠️/❌ | [notes] |
 
-**Mobile Score**: [X]/10
+**Mobile Score**: [X]/10 ([points] ÷ [rows scored]; [N] rows not checked) · highest severity: [🔴 Critical / 🟡 High / 🟢 Medium-Low]
 ```
+
+> **How this number is derived** — the 6 Mobile-Friendly Test rows + the 4 Mobile-First Indexing
+> rows + the Responsive Design Check rows for elements you actually observed: ✅ 1 · ⚠️ 0.5 · ❌ 0,
+> then `round(10 × points ÷ rows scored)`, halves down. An element you did not view on a mobile
+> viewport is "not checked", not a pass. Rules: [score-rubric.md](./score-rubric.md).
 
 ---
 
@@ -125,8 +145,18 @@ Detailed output templates for technical-seo-checker steps 3-9. Referenced from [
 | X-XSS-Protection | ✅/❌ | [value] | 1; mode=block |
 | Referrer-Policy | ✅/❌ | [value] | [recommendation] |
 
-**Security Score**: [X]/10
+**Security Score**: [X]/10 ([points] ÷ [rows scored]; [N] rows not checked) · highest severity: [🔴 Critical / 🟡 High / 🟢 Medium-Low]
 ```
+
+> **How this number is derived** — the 5 HTTPS Status rows + the 5 Security Headers rows
+> (✅ present with the recommended value · ⚠️ present but weaker/partial · ❌ absent): ✅ 1 ·
+> ⚠️ 0.5 · ❌ 0, then `round(10 × points ÷ rows scored)`, halves down. Headers pulled for one URL
+> are scored for that URL and the scope is stated — a homepage header pull is not a site-wide
+> header state. Rules: [score-rubric.md](./score-rubric.md).
+>
+> **Header fixes**: any `add_header` block the report hands over names its file, its server block
+> and its position, and carries the HSTS and inheritance cautions —
+> [server-config-fixes.md](./server-config-fixes.md) §5.
 
 ---
 
@@ -166,14 +196,24 @@ Detailed output templates for technical-seo-checker steps 3-9. Referenced from [
 | 302 → 301 needed | [X] found | [URLs] |
 | Broken redirects | [X] found | [URLs] |
 
-**URL Score**: [X]/10
+**URL Score**: [X]/10 ([points] ÷ [rows scored]; [N] rows not checked) · highest severity: [🔴 Critical / 🟡 High / 🟢 Medium-Low]
 ```
+
+> **How this number is derived** — the 7 URL Pattern Review rows + the 5 URL Issues Found rows +
+> the 4 Redirect Analysis rows. The count rows convert by severity: 0 findings → ✅ 1 · highest
+> severity Low/Medium → ⚠️ 0.5 · highest severity High/Critical → ❌ 0. Then
+> `round(10 × points ÷ rows scored)`, halves down. Rules: [score-rubric.md](./score-rubric.md).
+>
+> **Redirect fixes**: every rule handed over states the file, the server block, its position
+> relative to the directives already there, and the `nginx -t` / `curl -sSIL` check that proves
+> it landed — [server-config-fixes.md](./server-config-fixes.md). A redirect pasted into the
+> wrong block either never fires or takes the site down (§3 there).
 
 ---
 
 ## Step 7: Audit Structured Data
 
-> **CORE-EEAT alignment**: Schema markup quality maps to O05 (Schema Markup) in the CORE-EEAT benchmark. See [content-quality-auditor](../../cross-cutting/content-quality-auditor/) for full content quality audit.
+> **CORE-EEAT alignment**: Schema markup quality maps to O05 (Schema Markup) in the CORE-EEAT benchmark. See [content-quality-auditor](../../../cross-cutting/content-quality-auditor/) for full content quality audit.
 
 ```markdown
 ## Structured Data Analysis
@@ -202,8 +242,14 @@ Detailed output templates for technical-seo-checker steps 3-9. Referenced from [
 | Products | [current] | Product + Review |
 | Homepage | [current] | Organization |
 
-**Structured Data Score**: [X]/10
+**Structured Data Score**: [X]/10 ([points] ÷ [types assessed]; types assessed: [list]) · highest severity: [🔴 Critical / 🟡 High / 🟢 Medium-Low]
 ```
+
+> **How this number is derived** — one row per schema type the site's page types call for:
+> ✅ 1 present and valid · ⚠️ 0.5 present with errors or warnings · ❌ 0 called for and absent.
+> Then `round(10 × points ÷ types assessed)`, halves down. Name the types in the derivation —
+> the denominator is a judgment about what the site needs, so it has to be visible for the
+> client to argue with. Rules: [score-rubric.md](./score-rubric.md).
 
 ---
 
@@ -229,12 +275,27 @@ Detailed output templates for technical-seo-checker steps 3-9. Referenced from [
 | [en-US] | [URL] | [tag] | ✅/⚠️/❌ |
 | [es-ES] | [URL] | [tag] | ✅/⚠️/❌ |
 
-**International Score**: [X]/10
+**International Score**: [X]/10 ([points] ÷ [rows scored]; [N] rows not checked) · highest severity: [🔴 Critical / 🟡 High / 🟢 Medium-Low]
 ```
+
+> **How this number is derived** — the 5 Hreflang Implementation rows + one row per
+> language/region pair checked: ✅ 1 · ⚠️ 0.5 · ❌ 0, then `round(10 × points ÷ rows scored)`,
+> halves down. A single-locale site does not score this section at all: leave it out and say so
+> under the breakdown — 0/10 would read as a failure the site cannot have.
+> Rules: [score-rubric.md](./score-rubric.md).
 
 ---
 
 ## Step 9: Generate Technical Audit Summary
+
+> **How the overall score is derived** — `round(100 × Σ section scores ÷ (10 × sections scored))`,
+> halves down. Unweighted: every scored section counts once. Sections that could not be scored
+> (no data) and sections that do not apply (International on a single-locale site) are excluded
+> from both sides and **named under the breakdown** — they are never entered as 0/10.
+> **If no section could be scored, the report carries no health score at all**: say which input
+> unlocks which section and stop. A health score for a site nothing was measured on is a
+> fabricated figure, whatever the requester says about who will check it.
+> Rules: [score-rubric.md](./score-rubric.md).
 
 ```markdown
 # Technical SEO Audit Report
@@ -243,17 +304,18 @@ Detailed output templates for technical-seo-checker steps 3-9. Referenced from [
 **Audit Date**: [date]
 **Pages Analyzed**: [X]
 
-## Overall Technical Health: [X]/100
+## Overall Technical Health: [X]/100 ([Σ section scores] ÷ [10 × sections scored] — [N] sections scored; [sections not scored, with the reason])
 
 ```
-Score Breakdown:
-████████░░ Crawlability: 8/10
-███████░░░ Indexability: 7/10
-█████░░░░░ Performance: 5/10
-████████░░ Mobile: 8/10
-█████████░ Security: 9/10
-██████░░░░ URL Structure: 6/10
-█████░░░░░ Structured Data: 5/10
+Score Breakdown (✅1 · ⚠️0.5 · ❌0 per checked row; one █ per point):
+[bar] Crawlability: [X]/10        ([points] ÷ [rows scored])
+[bar] Indexability: [X]/10        ([points] ÷ [rows scored])
+[bar] Performance: [X]/10         ([points] ÷ [rows scored])
+[bar] Mobile: [X]/10              ([points] ÷ [rows scored])
+[bar] Security: [X]/10            ([points] ÷ [rows scored])
+[bar] URL Structure: [X]/10       ([points] ÷ [rows scored])
+[bar] Structured Data: [X]/10     ([points] ÷ [types assessed])
+      International: [X]/10 or "not scored — [reason]"
 ```
 
 ## Critical Issues (Fix Immediately)

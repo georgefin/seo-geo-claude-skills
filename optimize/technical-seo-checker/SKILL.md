@@ -1,6 +1,6 @@
 ---
 name: technical-seo-checker
-version: "4.2.2"
+version: "4.3.0"
 description: 'Run technical SEO audits covering Core Web Vitals, crawlability, indexing, mobile-friendliness, and site architecture. Use when the user asks to "technical SEO audit", "check page speed", "Core Web Vitals", "crawl errors", "indexing problems", "site health check". For content element issues, see on-page-seo-auditor. For link architecture, see internal-linking-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.2.2"
+  version: "4.3.0"
   geo-relevance: "low"
   tags:
     - seo
@@ -206,7 +206,7 @@ Step 9 audit summary.
    | Redirect chains | [X] found | [Low/Med/High] |
    | Orphan pages | [X] found | [Low/Med/High] |
    
-   **Crawlability Score**: [X]/10
+   **Crawlability Score**: [X]/10 ([points] ÷ [rows scored]; [N] rows not checked) · highest severity: [🔴 Critical / 🟡 High / 🟢 Medium-Low]
    ```
 
 2. **Audit Indexability**
@@ -253,7 +253,7 @@ Step 9 audit summary.
    | WWW/non-WWW | [X] | [notes] |
    | HTTP/HTTPS | [X] | [notes] |
    
-   **Indexability Score**: [X]/10
+   **Indexability Score**: [X]/10 ([points] ÷ [rows scored]; [N] rows not checked) · highest severity: [🔴 Critical / 🟡 High / 🟢 Medium-Low]
    ```
 
 3. **Audit Site Speed & Core Web Vitals** — CWV metrics (LCP/CLS/INP), additional performance metrics (TTFB/FCP/Speed Index/TBT), resource loading breakdown, optimization recommendations
@@ -284,6 +284,36 @@ Step 9 audit summary.
 
    > **Reference**: See [references/technical-audit-templates.md](./references/technical-audit-templates.md) for the audit summary template (Step 9).
 
+## Scoring & Config-Snippet Rules
+
+Two rules that bind every step above.
+
+**Every score shows its working.** The eight section scores (/10) and the overall health score
+(/100) are arithmetic, not impression: ✅ 1 · ⚠️ 0.5 · ❌ 0 over the section's own checklist rows,
+`round(10 × points ÷ rows scored)` with an exact half rounding down; the overall is
+`round(100 × Σ section scores ÷ (10 × sections scored))`, unweighted. Each score prints its
+numerator, its denominator and the number of rows that could not be checked — a score the client
+cannot recompute from the tables above it is not deliverable, and two runs of the same data must
+land on the same number. A row you could not check is excluded from the denominator, never
+recorded as a pass or a fail. A section with no checkable row is written `not scored — no data`,
+never `0/10` (zero means measured and failing). **If no section could be scored, the report
+carries no health score at all** — name which input unlocks which section and stop; a health
+score for a site nothing was measured on is a fabricated figure, whatever the requester says
+about who will check it. Per-section row definitions, the count-row conversion, the CWV rule and
+the worked derivation: [references/score-rubric.md](./references/score-rubric.md). Priority
+follows severity, never the score — print each section's highest severity beside its number,
+because one Critical row among eighteen healthy ones still costs the site its indexation.
+
+**Paste-ready means placement-complete.** Every config artefact the report hands over — nginx or
+Apache rules, response headers, `robots.txt` — carries the file it goes in, the block it goes
+inside, its position relative to the directives already there, the audited site's real values
+(no bracketed placeholders, no data-needed slots, and no confidence or provenance annotations
+inside the code fence — those live in the prose around it), the command that verifies it, and
+the rollback. A rule without placement is not a fix: the same three lines can redirect one URL,
+never run at all, or take the whole site down, depending only on which file and which block they
+land in. Blocks, the four ways a pasted redirect breaks a site, and the verification commands:
+[references/server-config-fixes.md](./references/server-config-fixes.md).
+
 ## Validation Checkpoints
 
 ### Input Validation
@@ -297,6 +327,8 @@ Step 9 audit summary.
 - [ ] Performance metrics include actual numbers with units (seconds, KB, etc.)
 - [ ] Source of each data point stated in the report's own words — the resolved tool name (Screaming Frog, PageSpeed Insights), "user-provided", or "estimated"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 - [ ] Every finding carries a Confidence label (Confirmed / Likely / Hypothesis); Hypothesis findings name what would confirm them
+- [ ] Every score prints its derivation ([points] ÷ [rows scored], with the unchecked rows counted) and its section's highest severity; a section with nothing checkable reads "not scored — no data", never 0/10; nothing measured at all means no health score in the report
+- [ ] Every config snippet handed over states its file, its block and its position relative to the directives already there, uses the audited site's real values with no placeholders or provenance markers inside the fence, and names its verification command and rollback
 
 ## Example
 
@@ -317,6 +349,8 @@ Step 9 audit summary.
 - [robots.txt Reference](./references/robots-txt-reference.md) — Syntax guide, templates, common configurations, AI-crawler bot-role roster and the three access stances (open/closed/split)
 - [HTTP Status Codes](./references/http-status-codes.md) — SEO impact of each status code, redirect best practices
 - [Technical Audit Templates](./references/technical-audit-templates.md) — Detailed output templates for steps 3-9 (CWV, mobile, security, URL structure, structured data, international, audit summary)
+- [Score Rubric](./references/score-rubric.md) — How every /10 section score and the /100 overall are derived: scored rows per section, count-row conversion, CWV mobile rule, rounding, and when a score must be withheld
+- [Server-Config Fix Snippets](./references/server-config-fixes.md) — Placement-complete nginx/Apache redirect and header blocks, the four ways a pasted redirect takes a site down, verification and rollback
 - [Technical Audit Example & Checklist](./references/technical-audit-example.md) — Full worked example and comprehensive technical SEO checklist
 
 ## Related Skills
