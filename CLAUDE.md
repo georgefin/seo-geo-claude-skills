@@ -41,6 +41,8 @@ If `memory-management` is active, prior audit results load automatically from th
 
 State for the weekly self-improvement loop lives in `docs/loop/` — `PIPELINE.md` (the 5-stage loop), `SETTLED-RULINGS.md` (non-relitigable research rulings + pinned baselines), `WATCH-ITEMS.md` (the `[VERIFY]` queue), `GATED-ITEMS.md` (proposals awaiting Sani), plus `PILOT.md` (real-site pilot scope), `ADVERSARIAL-LAYER.md` (second-lane review protocols), and `KPI.md` (cold weekly KPI rows). Read them before research or skill edits. Before any `git push`, run `scripts/pre-push-gate.sh` (also enforced by a `PreToolUse` hook in `.claude/settings.json`).
 
+If the gate's `validate-tracking` check (g) reports anchored pointers whose target "lacks its token", run `scripts/reanchor-pointers.sh` (check-only) then `--fix`. Any insertion into `VERSIONS.md` shifts every pointer below it, and the anchor token — not the line number — is what the pointer means, so the new line is derivable. The fixer re-anchors an unambiguous token and **refuses** the two cases only a human can settle: a token that appears nowhere (its subject was deleted or reworded) and a token on several lines (ambiguous). It is deliberately not wired into the gate — a push must not rewrite the registers it is validating.
+
 ## Tool Connector Pattern
 
 Skills use `~~category` placeholders (e.g., `~~SEO tool`, `~~analytics`). Every skill works without any integrations (Tier 1). MCP servers in `.mcp.json` add Ahrefs, SimilarWeb, HubSpot, Amplitude, Notion, Slack.
