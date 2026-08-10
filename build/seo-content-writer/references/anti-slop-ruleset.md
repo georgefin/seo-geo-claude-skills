@@ -154,26 +154,69 @@ no new items, no framework changes.
 
 ## 6. Ruled Greek Regression Classes (binding-editor rulings)
 
-Provenance: binding greek-content-editor passes (v1/v2 2026-08-08; v3 2026-08-09). Each
-family below was ruled FAIL-grade on customer-visible surfaces; recurrence in any fresh
-Greek output is an automatic FAIL in Mode B and editor passes (ledger F13 — ruled lessons
-must live here as carriers, never as notes). Graders grep the patterns given; the editor
-judges the rest.
+Provenance: binding greek-content-editor passes (v1/v2 2026-08-08; v3 2026-08-09;
+E2/E3/E4 baseline wave 2026-08-10). Each family below was ruled FAIL-grade on
+customer-visible surfaces; recurrence in any fresh Greek output is an automatic FAIL in
+Mode B and editor passes (ledger F13 — ruled lessons must live here as carriers, never as
+notes). Graders grep the patterns given; the editor judges the rest.
 
 ### FAIL-grade families
 
 | # | Family | Ruled form → native form | Greppable pattern |
 |---|---|---|---|
-| 1 | Totality-with-numeral calque | «Όλα τα 18 μοντέλα συνοδεύονται…» → «Και τα 18 μοντέλα συνοδεύονται…» (or restructure: «Όλα τα μοντέλα — 18 συνολικά — …») | `Όλα τα [0-9]` |
+| 1 | Totality-with-numeral calque | «Όλα τα 18 μοντέλα συνοδεύονται…» → «Και τα 18 μοντέλα συνοδεύονται…» (or restructure: «Όλα τα μοντέλα — 18 συνολικά — …»). Carrier evidence, 2026-08-10 batch: the ruled native form was produced unprompted across the wave — «και τα 12 μοντέλα φέρουν πιστοποίηση Solar Keymark», «και οι 4 από τον host cdn-old», «συμπληρώστε και τα 3 πεδία» — i.e. avoidance plus correct production, with zero family-1 hits | `Όλα τα [0-9]` |
 | 2 | Agency provenance labels/placeholders in publishable copy or schema | «(απαιτούνται στοιχεία προϊόντος)» inside a FAQ answer or JSON-LD → gap note in the report's gap table only; customer-voice hedging stays legitimate | `απαιτούνται στοιχεία` outside report/gap sections; any `[CLIENT DATA` / `[SOURCE NEEDED` inside paste-ready copy or schema (structural carrier: geo-content-optimizer 4.1.6 Statistics-rule Placement clause) |
 | 3 | Mechanically translated UI/label terms | «Υποχρεωτικό εκκρεμές» as a form label → natural Greek labels («Πεδίο / Τιμή / Σημείωση») | — (editor judgment) |
 | 4 | Query-style article-less labels in visible copy | «παράδοση αεροδρόμιο» as page copy → «παράδοση στο αεροδρόμιο Ηρακλείου»; keyword-export strings on explicitly keyword-list surfaces are exempt | — (editor judgment) |
+| 5 | Negative-concord violation — an n-word in a finite clause with no preverbal «δεν» | «η εκτίμηση κοστίζει μηδέν και **δεσμεύει κανέναν**» → «η προσφορά είναι δωρεάν και **δεν σας δεσμεύει σε τίποτα**». Modern Greek is a strict negative-concord language: «κανέναν / κανένα / καμία / τίποτα / ποτέ / πουθενά» beside a finite verb REQUIRE a preverbal «δεν». Without it a Greek reader resolves the affirmative — here "it commits somebody" — and the commercial promise inverts. The telegraphic nominal parallel «Κόστος μηδέν, δέσμευση καμία.» licenses no finite verb, so it is no defence once a verb appears | n-word tokens `κανέν` · `καμί` · `τίποτ` · `πουθενά` · `ποτέ`, each hit hand-checked for «δεν» in its own clause (approximation — limits stated under the table) |
+| 6 | "Costs-zero" calque in publishable copy | «κοστίζει μηδέν» → «δεν κοστίζει τίποτα» / «είναι δωρεάν» | `κοστίζει μηδέν` |
+
+**Families 5–6 provenance (2026-08-10)**: both come from ONE eight-word span of paste-ready
+customer copy — a FAQ answer under «Έτοιμα κείμενα για δημοσίευση» in the content-refresher
+E3 output, i.e. text the client is told to publish unchanged. The editor graded the span
+FAIL on the dropped negator and named the calque as its second defect: a translation-shaped
+clause that also lost its «δεν», not a stray typo.
+
+**The family-5 grep is an approximation — a review trigger, not a verdict.** No plain-text
+pattern can decide "finite verb, no «δεν» earlier in the clause"; this one is the practical
+substitute. Two steps: (1) grep the five n-word tokens; (2) from the hits drop the lines
+that also carry a licenser — «δεν», «δε», «μην», «μη», «ούτε», «χωρίς», «πριν» — matched as
+WHOLE WORDS, and hand-check what is left. Its stated limits, each of which produces wrong
+answers if ignored: the licenser test must be word-bounded, because as substrings these
+strings misfire badly in both directions («δεσμεύει» contains `δε`, «μηδέν» contains `μη`,
+«μηδενικό» contains `δεν` — a substring filter would have exempted the founding instance
+itself), and Greek word boundaries are not reliably expressible in every grep; it is
+line-based, so a clause split across two lines, or one line holding two clauses with the
+«δεν» in the wrong one, both mislead it; verbless fragments are correct Greek and will be
+flagged («Κόστος μηδέν, δέσμευση καμία.», «Καμία χρέωση.»); questions and conditionals
+license the n-word with no «δεν» and are correct («Έχετε καμία απορία;», «αν χρειαστείτε
+τίποτα»). It proposes candidates; the editor rules.
 
 ### Advisory families (fix on touch; internal-report surfaces non-blocking)
 
-- «Γρήγορα κέρδη» for "quick wins" → «Άμεσες βελτιώσεις» / «Άμεσα οφέλη» (or keep EN "quick wins")
+- «Γρήγορα κέρδη» / «Γρήγορη νίκη» for "quick wins" → «Άμεσες βελτιώσεις» / «Άμεσα οφέλη» / «Άμεσο όφελος» (or keep EN "quick wins"). Not «Γρήγορες διορθώσεις», which is natural Greek for *quick fixes* — see the protected list below
 - «ετικέτα ενέργειας» → «ενεργειακή ετικέτα» · «βόρειο δωμάτιο» (orientation) → «βορινό δωμάτιο» · «πάνω μέρος του εύρους» → «άνω άκρο του εύρους»
 - «εξουσία domain» → «το κύρος του domain» · «AI-απάντηση» compounds → «απάντηση AI» / «μηχανές AI» · «χάρτης GBP» for "GBP surface mapping" → «αντιστοίχιση σε επιφάνειες GBP»
 - «σε φυσικό αναγνώστη» → «σε Έλληνα αναγνώστη» · «κάθε μοντέλο αναγράφει» → «σε κάθε μοντέλο αναγράφεται»
+- **English artefact names in Greek client-visible prose** (2026-08-10; 14 occurrences across 5 files) — «το skill» / «του skill», «το template» / «του template», «στη βιβλιοθήκη μας», «Εκτελέστε <skill-name>» → «η μεθοδολογία μας» / «η μεθοδολογία ελέγχου» / «το πρότυπο ελέγχου». A Greek reader sees an untranslated token with no referent («Ορισμός (από το skill)»). Fix it on ANY surface the client reads, report surfaces included — this is **not** family 2: the editor fixed report surfaces as family 2's sanctioned home, and this class is the internal artefact's NAME leaking, not a provenance marker sitting where it belongs. Greppable in Greek prose: `το skill` · `του skill` · `το template` · `του template` · `βιβλιοθήκη μας`
+- **English residue never finished into Greek** (2026-08-10) — (a) raw English rubric sentences quoted into Greek body copy where the same sentence is already glossed in Greek beside them: **delete the English**, do not translate it a second time; (b) untranslated framework labels used as client-facing headings («Απόφαση: REFRESH ή rewrite;»); (c) «έτοιμες για copy-paste» → «έτοιμες για αντιγραφή»; (d) «(user-provided)» → «(στοιχεία που παρείχατε εσείς)»; (e) English title-case and «&» inside Greek headings — Greek does not title-case content words, and «&» is written «και». **Exempt, keep verbatim** (flagging these is itself the error): configuration values and identifiers — «DENY or SAMEORIGIN», «1; mode=block», «nosniff», «strict-origin-when-cross-origin», «ERR_TOO_MANY_REDIRECTS» — nginx directives, URLs, and genuine brand names (Solar Keymark, BoxNow, Skroutz)
+- «τομέας» for *domain* → keep *domain* («Κύρος domain», «260 αναφέροντα domains», «Παλαιότητα domain»); «τομέας» is a sector, and the same reports use «κλάδοι» for sectors a screen later · «προμηθευτής» for a data provider → «πάροχος» (a supplier supplies goods) · «πάνελ» for a question set → «σετ» (a Greek «πάνελ» is a discussion panel) · «εφευρίσκω» for data → «επινοώ» (εφευρίσκω is for devices). Greppable but hand-checked, since each token has legitimate uses: `τομέα` · `προμηθευτ` · `πάνελ` · `εφευρ`
+- «απο-ευρετηρίαση» → «αποευρετηρίαση» — Greek prefixes attach without a hyphen, the same pseudo-compound shape ruled against in «AI-απάντηση» above · «μακριάς ουράς» → «μακράς ουράς» (μακρύς is physical length). Greppable: `απο-ευρετηρίαση`, and the general shape — a Greek prefix immediately followed by a hyphen · `μακριάς`
+
+### Not errors — do not "correct" (editor's protected list)
+
+A false positive is itself a defect: §6 must never require a banned phrasing and must never
+flag correct Greek. The forms below were checked by the binding editor and ruled correct as
+written — leave them alone.
+
+- Regional/administrative forms: «νομό Ηρακλείου»
+- Standard Greek vocabulary: «πλαφόν», «ελλείψει», «συναπτά έτη», «αυστηροποίηση»,
+  «διαστασιολόγηση», «ευρετηρίαση»
+- «Μη αυτόματες ενέργειες» — Search Console's own Greek UI string; reproduce it verbatim
+- «Γρήγορες διορθώσεις» — natural Greek for *quick fixes*, NOT the ruled quick-wins calque
+- Enclitic double accents («κατάστημά σας», «κείμενό της», «κτήματός μας») and synizesis
+  monosyllables (για, μια, πιο, ποιο) — both correct, and the double accent is correctly
+  withheld where the host word does not take one («κείμενο του site σας»)
+- Authentic quoted client speech in its own register («πόσο πρόστιμο τρώμε;»)
 
 New rulings append here in the same wave they are issued (ledger F13 guard).
