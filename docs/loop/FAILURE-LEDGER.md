@@ -495,3 +495,25 @@ regression rate · repeat-failure count · tool-correctness rate.
 - **Recurrence rule**: a second instance of another actor's files landing in a
   commit that does not declare them means this guard failed and needs redesign
   (ledger rule 3) — not a reminder to stage more carefully.
+
+- **Second mechanism, same failure family (2026-08-10, hours after the founding
+  instance)**: the §6-carrier agent's one-line pointer refresh in
+  `docs/loop/GATED-ITEMS.md` (`VERSIONS.md:173→175`) landed inside the coordinator's
+  G9/W12 register commits, which describe unrelated work. Reported by that agent, not
+  caught by any gate. **This is NOT a recurrence of the guarded failure**, and the
+  distinction is load-bearing rather than an excuse: the founding instance was
+  `git add -A` sweeping files the committer never looked at, and the guard closes
+  exactly that. Here the coordinator staged one explicitly named file it was
+  legitimately editing — the other workstream's change was already inside that file,
+  because both actors edit the shared registers. `commit-scope-check.sh` cannot see it:
+  its unit is the skill directory, and a register file has no owning skill.
+  **Why no bolt-on fix was attempted**: the honest mitigation is sequencing (hold
+  register commits while a register-writing agent is in flight), and sequencing is
+  vigilance, which the directive's own "no manual vigilance" principle rejects as a
+  guard. Converting it to code needs an advisory lock protocol — a writer records
+  its held register paths, and the gate refuses a commit touching a path another
+  holder had open — which is a scripts-wave proposal, not something to bolt on
+  mid-wave. Queued as such. Until it exists, this residual is ACCEPTED and named:
+  register commits made while parallel agents are running may carry a stray
+  correct-but-undeclared hunk. Consequence is record accuracy, never content loss,
+  since every such hunk is itself a verified fix.
