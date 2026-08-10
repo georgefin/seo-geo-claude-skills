@@ -641,6 +641,34 @@ transliteration of a Greek fixture name, and two client-prompt phrasings. The ex
 deliberately NOT tightened to suppress them: a screen that over-generates is recoverable, one
 that under-generates is F15 again.
 
+**F13 Recurrence 3 — 2026-08-10 · a carrier that passes informed and fails blind was never
+a working carrier.** `keyword-research` e5.2 (no fabricated competitor data) failed the blind
+run 29/31: the deliverable asserted in the indicative what monday.com and asana.com rank for
+— "Most of the keywords they rank for … will be marketing-team workflows, HR onboarding
+templates, software-sprint boards" — with no assumption label, in a document that states at
+L82 "Nothing here asserts what monday.com or asana.com rank for." It refutes itself.
+**What makes this a new mechanism rather than a plain repeat**: the carrier was already
+there. `SKILL.md:93` — *"label any competitor-keyword guess explicitly as an assumption or
+estimate (hedging words like 'likely' are not a label)"* — landed in `0ce67fc` at 4.2.0,
+BEFORE both of the informed runs that scored this suite 31/31. So the class stayed away
+while the executor could read the expectation, and returned the moment it could not. Two
+informed passes certified a carrier that does not hold on its own.
+**Consequence for how carriers are validated**: "the rule is now stated in the skill" is not
+evidence the rule works [obs:2026-08-10 blind run of research/keyword-research, e5.2 FAIL at
+29/31, against the same carrier `SKILL.md:93` that was present and unchanged during both
+prior informed runs recorded at 31/31 in eval-baselines/2026-08-08-v2.json and
+2026-08-09-v3.json]. An informed run cannot distinguish a carrier that guides the writer
+from an expectation the writer is reading anyway; only a blind run separates them. Any
+carrier added in response to a ledgered failure is unproven until a blind run exercises it,
+and this ledger's own guard lines should be read that way — as claims awaiting a blind test,
+not as closures. Related: F16(b), where the informed method's inability to discriminate was
+measured; this is the same blindness seen from the carrier's side rather than the score's.
+**Guard**: recorded here, and in the blind record at
+`docs/loop/eval-baselines/blind-2026-08-10b/keyword.json`. The strengthening of SKILL.md:93
+itself is deliberately held for a diagnosis-before-edit pass — whether it is weakly placed,
+weakly worded, or simply hard is the question, and guessing would repeat the mistake of
+declaring a carrier sound because it exists.
+
 ## F14 — 2026-08-10 · Parallel agents' untracked files swept into a coordinator commit by `git add -A`
 
 - **Failure**: the identity commit `67ecad7` ("chore(identity): re-attribute fork
