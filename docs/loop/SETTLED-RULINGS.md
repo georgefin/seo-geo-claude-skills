@@ -19,11 +19,21 @@ before 2026-07-18 are not recoverable from the current session transcript.
   confirmed honoring it.
 - **Decided**: on/before 2026-07-18 (in v1 routine prompt); re-affirmed 2026-08-08.
 - **Evidence**: No engine-official adoption found; absence re-confirmed each weekly sweep.
-- **Encoded in repo**: `build/geo-content-optimizer/SKILL.md:159`;
-  `build/geo-content-optimizer/references/ai-citation-patterns.md:478`; `VERSIONS.md:211` ("non-levers")
+- **Encoded in repo**: `build/geo-content-optimizer/SKILL.md:145` ("Not citation levers");
+  `build/geo-content-optimizer/references/ai-citation-patterns.md:493` ("Not citation levers");
+  `VERSIONS.md:219` ("non-levers")
   (pointers refreshed 2026-08-09 — 4.1.5 module insertion + v4.3.1 changelog shifted both;
   VERSIONS pointer re-refreshed 2026-08-10, +2 from the seo-content-writer 4.2.5 bullet,
-  then +2 again from the entity-optimizer 4.1.5 / backlink-analyzer 4.0.4 bullet).
+  then +2 again from the entity-optimizer 4.1.5 / backlink-analyzer 4.0.4 bullet.
+  **Skill pointers re-verified at source 2026-08-10 and both were wrong before this wave
+  touched anything** — `:159` had drifted into the step-2 score table and `:478` into
+  unrelated prose, so the ruling's own evidence pointed at text that did not carry it. Found
+  by the agent doing the R2/C09 work, which reported the true HEAD lines as `:142` and `:489`;
+  those then moved again under its own edits, and its follow-up figure of `:491` was **also
+  stale by two** when checked. Re-derived by grepping the token rather than trusting any
+  reported number — a line number in a report is a claim, and this pointer has now been wrong
+  three times from three different causes. Anchor tokens added so `reanchor-pointers.sh` can
+  carry these two the way it already carries the VERSIONS pointer.)
 - **Reopens on**: engine-official (Google/OpenAI/Perplexity) primary documentation of
   llms.txt ingestion.
 
@@ -43,10 +53,27 @@ before 2026-07-18 are not recoverable from the current session transcript.
   primaries) IS stacking and stays banned — unless the page genuinely is both things and
   each type is complete, accurate, and independently justified. Skill text and references
   must teach this boundary, not the pre-clarification "pile types" pattern.
-- **Encoded in repo**: `build/geo-content-optimizer/SKILL.md:159`;
-  `build/geo-content-optimizer/references/ai-citation-patterns.md:478`; `VERSIONS.md:211` ("non-levers")
+- **Encoded in repo**: `build/geo-content-optimizer/SKILL.md:145` ("Not citation levers");
+  `build/geo-content-optimizer/references/ai-citation-patterns.md:493` ("Not citation levers");
+  `VERSIONS.md:219` ("non-levers")
   (pointers refreshed 2026-08-09, same shift as R1; VERSIONS pointer re-refreshed twice on
-  2026-08-10, same two changelog insertions as R1);
+  2026-08-10, same two changelog insertions as R1; skill pointers re-derived at source
+  2026-08-10 — see R1's note, both were already wrong at HEAD before this wave began);
+- **Carried where it is scored, not only where it is stated (added 2026-08-10)**: the ruling
+  had a hole one level below every skill. `references/core-eeat-benchmark.md` item **C09**
+  read "Structured FAQ with FAQPage Schema" as its Pass criterion, so the shared framework
+  **required what this ruling bans**, and `geo-content-optimizer` was obeying its benchmark
+  when it mandated FAQPage in four places. C09 now passes on the visible on-page Q&A block,
+  with FAQPage markup creditable only where FAQPage is the page's one primary type. Fixing it
+  at the benchmark rather than per-skill is deliberate: a local precedence patch would need
+  repeating in every skill that scores C09 and in every skill written afterwards. Section 5 of
+  that same file had already been corrected to this boundary, so C09 was the last hold-out and
+  this finishes a supersession rather than opening one; it is now named in the file's
+  version-sync protection clause so an upstream v3.x sync cannot silently revert it.
+  Downstream sweep the same day: `commands/generate-schema.md` was advising the banned shape
+  outright ("Combine multiple schemas when appropriate (Article + FAQ, Product + Review)"),
+  and `schema-markup-generator` was aligned on the ban while four of its FAQPage entry points
+  authorised emitting the type with no primary-type test.
   boundary alignment in `build/schema-markup-generator/` v4.1.0 (2026-08-08 wave).
 - **Reopens on**: primary evidence (Google/engine docs or engine-published research) that
   multiple types per page raise citation odds.
@@ -57,7 +84,7 @@ before 2026-07-18 are not recoverable from the current session transcript.
   Enhancements appearance filter, and Rich Results Test support all cut) — but FAQPage
   generation stays in the library. Its value is AI-engine/GEO parsing, not SERP monitoring.
 - **Decided**: 2026-08-08 sweep (retirement reflected in schema-markup-generator 4.0.1).
-- **Encoded in repo**: `build/schema-markup-generator/SKILL.md:223`; `VERSIONS.md:215`
+- **Encoded in repo**: `build/schema-markup-generator/SKILL.md:223`; `VERSIONS.md:223`
   ("schema-markup-generator 4.0.1" — anchor-tagged per F12; on any line/token
   mismatch, grep the token — the token is authoritative; VERSIONS pointer refreshed
   2026-08-10, +2 from the entity-optimizer 4.1.5 / backlink-analyzer 4.0.4 bullet).
@@ -72,7 +99,7 @@ before 2026-07-18 are not recoverable from the current session transcript.
   (technical-seo-checker 4.0.1).
 - **Encoded in repo**: `monitor/performance-reporter/references/kpi-definitions.md:300-306`
   (pointer refreshed 2026-08-08 after the AI-referrals insertion shifted the table);
-  `VERSIONS.md:216` ("technical-seo-checker 4.0.1", anchor-tagged per F12 — token
+  `VERSIONS.md:224` ("technical-seo-checker 4.0.1", anchor-tagged per F12 — token
   authoritative on mismatch; refreshed 2026-08-10, +2 from the entity-optimizer 4.1.5 /
   backlink-analyzer 4.0.4 bullet); `optimize/technical-seo-checker/SKILL.md:259`
   (pointer refreshed 2026-08-09 — an E3 Mode A round found :258 resolving to a
@@ -103,7 +130,7 @@ no gate needed).
 |---|---|---|
 | schema.org release | v30.0 | 2026-03-19 |
 | Google Search Quality Rater Guidelines | last known active version dated 2025-09-11 | 2026-08-08 |
-| Google AI Mode in Greek | live since 2025-10-08 (`VERSIONS.md:211` ("non-levers")) | 2026-08-09 |
+| Google AI Mode in Greek | live since 2025-10-08 (`VERSIONS.md:219` ("non-levers")) | 2026-08-09 |
 | awesome-generative-engine-optimization (GitHub) | last commit 2026-04-14 (quiet) | 2026-08-08 |
 | RSI paper baseline | MetaSkill-Evolve arXiv 2607.05297 · RSI survey arXiv 2607.07663 · AREX arXiv 2607.21461 ("AREX: Towards a Recursively Self-Improving Agent for Deep Research", BAAI, v1/v2 — existence confirmed 2026-08-08, see W1) · PAST-Bench arXiv 2608.04003 | 2026-08-08 |
 | Skill-loop literature (2026-08-08 assessment additions) | GRASP arXiv 2605.29668 · SEA-Eval arXiv 2604.08988 · feedback-dynamics arXiv 2608.02636 · OpenSkillEval arXiv 2605.23657 (titles search-verified; contents beyond abstracts [VERIFY]) | 2026-08-08 |
