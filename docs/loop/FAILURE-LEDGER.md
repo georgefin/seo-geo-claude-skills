@@ -956,13 +956,71 @@ done-definition includes running it.
   subjects are in both groups before it states a difference; where the groups are not the
   same, the paired figure is the headline and the pooled figure is labelled confounded.
   Both carriers were corrected in the same commit that opened this entry.
-- **Recurrence**: 0 (founding). A rate quoted from an uncommitted record, or a pooled gap
+- **Recurrence**: **1** — see the recurrence block appended below this entry (2026-08-10,
+  the corpus is not comparable across itself). A rate quoted from an uncommitted record, or a pooled gap
   presented as a method effect without a pairing check, increments this.
 - **Status**: guards in `PIPELINE.md` VALIDATE (ii) and `2026-08-10-blind.json`
   [obs:2026-08-10T16:0Z audit — 10 blind records enumerated from the session scratchpad and
   copied programmatically to `docs/loop/eval-baselines/blind-2026-08-10/`; totals recomputed
   from those files reproduce the quoted rates exactly (252/286 pooled), and the pairing check
   that produced the 4.8-point figure is rerunnable from the two committed index files].
+
+
+### F16 Recurrence 1 — 2026-08-10 · the 16-record blind corpus is not comparable across itself
+
+Found by trying to recompute the pooled rate from the committed files rather than from the
+tally that produced it. The rate reproduces exactly — **427/476 = 0.8971** — and two things
+underneath it do not hold.
+
+**(c) Two record schemas in one day.** The ten wave-a records key their numbers under
+`totals.pass / totals.fail / totals.total`; the six wave-b records use
+`summary.passed / summary.failed / summary.total`. No single reader parses the corpus, and
+`blind-2026-08-10/metatags.json` carries no `pass_rate` field at all. The first extractor
+written against the corpus silently returned 209 of 476 expectations — it found only the
+wave-b schema and reported the rest as having no summary. A corpus that needs bespoke handling
+per file is one where the next pooled figure is computed by hand, which is how F16(b) happened.
+
+**(d) The editor-pending slot is counted two ways, and the wording does not explain it.**
+Five of sixteen suites — domain, metatags, technical, competitor, linking — record
+`passed + failed = total - 1`, leaving the Greek editor slot uncounted so the published rate
+treats it as not-passed. The other eleven count it. This is not a difference in what the
+expectations ask:
+
+- `internal-linking-optimizer` e3.4 — *"mechanically checkable layer only … fluency,
+  idiomatic naturalness, register … are NOT graded by this expectation"* → counted NOT-passed.
+- `performance-reporter` e5.3 — *"mechanically checkable layer only … fluency, idiomatic
+  naturalness, translation-ese, and register are judged by the binding greek-content-editor"*
+  → counted PASSED, on the ground that the mechanical layer was checked and was clean.
+
+The two texts are the same instruction. Linking's is the more explicit of the pair about
+grading only the mechanical layer, and it is the one counted more conservatively.
+
+**Effect.** Pooled, the corpus reads **427/476 = 89.71%** as recorded and **432/476 = 90.76%**
+if the five uncounted slots are counted the way the other eleven were — about one point. At
+suite level it is ~3.5 points, which is the number that matters: internal-linking-optimizer is
+published at 92.86% and would read 96.43%, moving it above alert-manager (93.10%) and
+keyword-research (93.50%). **The ranking is what the blind method exists to produce** — the
+finding that ten informed runs fit inside a 3.8-point band while ten blind runs spread over
+37.9 points is a claim about ordering skills by where the work is. A bookkeeping choice that
+reorders neighbouring suites degrades exactly the property being claimed.
+
+**Root cause**: no convention was ever stated for the editor slot, so each grader chose one and
+documented it. Every one of the five did so explicitly and several printed the alternative
+figure beside their own — the local records are honest and complete. That is precisely why
+nothing surfaced it: there was no disagreement to notice, because no two graders were ever
+compared. A convention that lives in each grader's judgement is not a convention.
+
+**Guard**: (c) one schema for eval records, and a reader in the repo that parses every
+committed record or fails loudly — a pooled figure may not be quoted from a hand tally again.
+(d) the editor slot stops being a special case: the binding editor's verdict becomes a scored
+expectation with a stated pass band, which is queue item #25 and now has this as its
+motivating evidence. Until that lands, a record stating a rate also states which convention it
+used, in the summary object rather than in prose.
+
+**Not claimed**: that any grader was careless, or that any published suite rate is wrong under
+its own stated convention. Each is correct as recorded. What fails is the set.
+
+**Status**: recorded, both guards queued under #25. FLIP: F16-r1 -- none
 
 ---
 
