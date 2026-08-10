@@ -57,6 +57,15 @@ Skills use `~~category` placeholders (e.g., `~~SEO tool`, `~~analytics`). Every 
 
 The rule resolves the **word**, never the workflow — Tier 1 operation with zero connectors is unaffected. **The test is the reader, not the section**: surfaces read only by the author or the operator keep the token (skill text and references, eval expectations, `CONNECTORS.md`, in-house gap tables and operator notes — the reader there holds the mapping). Anything handed to the client resolves it, including a client-read report's data-source column, gap table, and limitation notes. Carrier: `build/seo-content-writer/references/anti-slop-ruleset.md` §6, FAIL-grade family 7 (greppable `~~`).
 
+## The Value Rule (binding, ruled 2026-08-10)
+
+Ruled after a blind run exposed that two skills gave opposite instructions about the same thing: bracket tokens inside paste-ready values were a FAIL class in `meta-tags-optimizer` (ledger F13-r2) and simultaneously the *only* accepted marking in `schema-markup-generator`'s eval suite. Both surfaces are pasted by a client, so an executor working across both received contradictory rules.
+
+1. **Any block a user is told to paste carries resolved values only** — meta tags, JSON-LD, `robots.txt`, redirects, server config. A value that cannot be sourced means the property or tag is **dropped**, and the gap is named in the report prose: which property, what its absence costs, exactly what to send. A bracket token, `TBD`, `XX`, or a note shaped like a value never appears in a value position of a paste-ready block.
+2. **The skeleton exception** — bracket tokens are the correct notation inside a block explicitly labelled a skeleton. The label lives **inside the fence, in that fence's own syntax**: `<!-- SKELETON … -->` for HTML, `"_SKELETON": "…"` as the first member for JSON-LD, `# SKELETON …` for text formats. This is not a style preference: **a model copies the fence, not the heading above it** (the meta-tags-optimizer 4.1.3 finding). A skeleton is never introduced with paste-ready framing.
+
+Carriers: `build/schema-markup-generator/references/schema-templates.md` (12 JSON fences + the HTML array fence), `build/meta-tags-optimizer/references/meta-tag-code-templates.md` (the filled/skeleton split that solved this first).
+
 ## Contribution Rules
 
 - All `SKILL.md` files must include: `name`, `description`, `license`, `compatibility`, `metadata` frontmatter. `metadata.version` is the version authority (G1 pilot, 2026-08-08): a top-level `version` field is tolerated on legacy skills (must stay in lockstep with `metadata.version`) and absent on spec-aligned ones — full migration pending the pilot verdict (`docs/loop/GATED-ITEMS.md` G1)

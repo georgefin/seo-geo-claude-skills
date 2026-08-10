@@ -825,6 +825,31 @@ declaring a carrier sound because it exists.
 
 ---
 
+**F9 Recurrence 2 — 2026-08-10 · a carrier sweep rewrote skill text and left the eval suites
+quoting the old text.** The library-wide connector sweep (`df560ae`) resolved `~~category`
+tokens across 14 skills, rewriting an identical Output Validation line in each. Eval
+expectations that QUOTE that line were not in the sweep's scope and were not updated. Result,
+measured 2026-08-10: the string `Source of each data point clearly stated` appears in **seven**
+suites' `evals.json` and survives in exactly **one** skill's `SKILL.md` — 12 stale anchors
+across 6 suites (rank-tracker 3, content-refresher 3, internal-linking-optimizer 2,
+content-gap-analysis 2, geo-content-optimizer 1, backlink-analyzer 1).
+**Why it is F9 and not a new entry**: F9 is "deprecated-concept purges scoped per skill left
+sibling leftovers". Same shape, one level up — the sweep's scope was *skill text*, and the
+sibling it left behind was the *suite that quotes it*. A skill's evals are part of the skill's
+surface for any change to text an expectation cites verbatim.
+**How it was found, which matters**: not by review. `scripts/expectation-carrier-check.sh` was
+extended to extract single-quoted phrases (this repo's suites quote in single quotes as house
+style, and the tool had only read double quotes and backticks). The first run after that change
+surfaced the string in a suite nobody was looking at. Before the extension the tool reported 5
+candidates library-wide and called every affected suite clean — a guard's coverage hole hiding
+the very class it was built for, F15's shape applied to F15's own remedy.
+**Cost so far**: one confirmed unsatisfiable expectation (`keyword-research` e4.3, which no
+longer matched what the skill instructs and could not be satisfied without violating it) plus
+three stale quotes in the same suite, all fixed in 4.3.0. The remaining 12 are queued.
+**Guard**: any sweep that rewrites text an expectation may quote must grep the suites for the
+old string before it closes; the extended carrier check now surfaces this class, and a sweep's
+done-definition includes running it.
+
 ## F15 — 2026-08-10 · Pattern guards written from their founding instance passed by matching nothing
 
 - **Failure**: two `anti-slop-ruleset.md` §6 FAIL-grade families shipped with greppable

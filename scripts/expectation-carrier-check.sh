@@ -44,6 +44,11 @@
 #           no-fabrication guidance at all, and it scored 62.1%, the library's floor. This
 #           tool reports it CLEAN, and always will: the expectation demanded a BEHAVIOUR, not
 #           a phrase, so there is no quoted string to grep. 1 of 2 known instances.
+#   HOLE FOUND BY USE, 2026-08-10 — and closed: the extractor read only "double" and
+#           `backtick` quotes, while this repo's suites quote in 'single' quotes as house
+#           style. Three stale anchors in keyword-research went unseen for that reason.
+#           Single quotes are now extracted, word-boundary guarded so apostrophes inside
+#           words do not match. A guard's own coverage is itself a measured quantity.
 # So: a clean line here means "no uncarried VOCABULARY was found". It says nothing about an
 # uncarried behaviour, which is the more damaging half of the class and needs a human reading
 # the suite beside the skill. Reporting this as "the class is closed" would be F15 again with
@@ -116,8 +121,14 @@ for suite in suites:
     for ev in data.get("evals", []):
         for exp in ev.get("expectations", []):
             text = exp if isinstance(exp, str) else (exp.get("text") or "")
-            for phrase in re.findall(r'"([^"]{3,60})"|`([^`]{3,60})`', text):
-                ph = (phrase[0] or phrase[1]).strip()
+            # Single quotes are included because this repo's suites use them as house style.
+            # Omitting them was a measured coverage hole: three stale anchors in
+            # keyword-research (e1.6, e3.1, e4.4) quoting an Output Validation line that
+            # ceased to exist at df560ae were invisible to this check until 2026-08-10.
+            # Apostrophes inside words ("don't") are excluded by requiring the opening quote
+            # to follow a non-word character and the closing quote to precede one.
+            for phrase in re.findall(r'"([^"]{3,60})"|`([^`]{3,60})`|(?<![\w])\'([^\']{3,60})\'(?![\w])', text):
+                ph = (phrase[0] or phrase[1] or phrase[2]).strip()
                 if not ph or STOP.match(ph): continue
                 if len(ph.split()) < min_words: continue
                 low = ph.lower()
