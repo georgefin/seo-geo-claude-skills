@@ -1,13 +1,13 @@
 ---
 name: geo-content-optimizer
-version: "4.1.6"
+version: "4.2.0"
 description: 'Optimize content for AI citation across Google AI Mode (default search surface, incl. AI Overviews), ChatGPT, Perplexity, and Gemini with quotable statements and structured Q&A. Use when the user asks to "optimize for AI", "get cited by ChatGPT", "GEO optimization", "appear in AI answers", "make content AI-quotable", "Google AI Overview optimization", or "Google AI Mode optimization". Adds quotable statements, structured Q&A, precise statistics with sources, expert attribution, and FAQ schema. Uses CORE-EEAT GEO-First items as optimization targets. For SEO-focused writing, see seo-content-writer. For entity and brand AI presence, see entity-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.1.6"
+  version: "4.2.0"
   geo-relevance: "high"
   tags:
     - geo
@@ -182,10 +182,12 @@ When a user requests GEO optimization:
 
    > **Reference**: See [references/geo-optimization-techniques.md](./references/geo-optimization-techniques.md) for detailed before/after examples, templates, and checklists for each technique.
 
+   > **Reading the reference examples**: the sources, figures and experts in them are fictional stand-ins by design — they teach the *shape* of a cited sentence, not facts. Never carry a name, number or quotation out of a reference file into client copy, and never attribute anything to a real organisation or a real person without a source you have read and can link.
+
    Key principles:
    - **Definitions**: 25-50 words, standalone, starting with the term
    - **Quotable statements**: Specific statistics with sources, verifiable facts
-   - **Authority signals**: Expert quotes with credentials, proper source citations
+   - **Authority signals**: Expert quotes you can source (speaker, role, where and when they said it, link) — never one you cannot; proper source citations
    - **Structure**: Q&A format, comparison tables, numbered lists
    - **Factual density**: Replace vague claims with specific data points
    - **FAQ schema**: JSON-LD FAQPage markup matching visible content
@@ -279,7 +281,7 @@ When a user requests GEO optimization:
 - [ ] GEO score improvement of at least 50% from baseline
 - [ ] Source of each data point clearly stated (~~AI monitor data, user-provided, or estimated); no placeholder or provenance note inside schema, meta tags, or paste-ready copy
 
-**Statistics rule**: Every statistic must come from user-supplied data, a cited source, or be marked as a `[CLIENT DATA: …]` placeholder — never invented to satisfy a threshold. AI engines cite verifiable content; a fabricated number that gets cited is a liability. **Placement**: placeholders and provenance notes (bracketed or not — e.g. «απαιτούνται στοιχεία προϊόντος») belong in the report/gap-table sections only, never inside ship-ready surfaces: schema/JSON-LD, meta tags, or answer text presented as paste-ready. Write the customer-visible answer complete without the missing datum — honest hedging in customer voice is fine; an agency-perspective aside is not. Draft body copy may carry a bracketed placeholder only with an explicit resolve-before-publication flag.
+**Statistics rule**: Every statistic must come from user-supplied data, a cited source, or be marked as a `[CLIENT DATA: …]` placeholder — never invented to satisfy a threshold. **Attribution**: never put a statistic, a claim or a quotation in the name of a real organisation or a real person without a source you have read and can link. A fabricated quote from a named individual, or an invented credential at a named institution, is the most damaging output this skill can produce — it publishes a falsehood about an identifiable third party under the client's byline. AI engines cite verifiable content; a fabricated number that gets cited is a liability. **Placement**: placeholders and provenance notes (bracketed or not — e.g. «απαιτούνται στοιχεία προϊόντος») belong in the report/gap-table sections only, never inside ship-ready surfaces: schema/JSON-LD, meta tags, or answer text presented as paste-ready. Write the customer-visible answer complete without the missing datum — honest hedging in customer voice is fine; an agency-perspective aside is not. Draft body copy may carry a bracketed placeholder only with an explicit resolve-before-publication flag.
 
 ## Example
 
@@ -336,6 +338,8 @@ Changes: added clear definition, 2 stats used only from the client-provided data
 - [AI Citation Patterns](./references/ai-citation-patterns.md) - How Google AI Mode (incl. AI Overviews), ChatGPT, Perplexity, and Claude select and cite sources, plus per-engine overlap and community/UGC citation patterns
 - [GEO Optimization Techniques](./references/geo-optimization-techniques.md) - Detailed before/after examples, templates, and checklists for the six core optimization techniques
 - [Quotable Content Examples](./references/quotable-content-examples.md) - Before/after examples of content optimized for AI citation
+
+> All three files illustrate technique with **fictional sources** (the reserved `Example …` cast) and invented figures. That is demonstration material, not evidence: swap in a source you have read before anything ships, and never attribute data or a quotation to a real organisation or a real person on the strength of an example here.
 
 ## Related Skills
 

@@ -2,6 +2,30 @@
 
 Before/after examples of content optimized for AI citation. Each example shows the transformation from generic to quotable.
 
+> **Standing rule for every example in this file — read before copying anything out of it.**
+> An illustrative example never attributes data or a quotation to a real organisation or a
+> real person. Two routes are legal, and nothing else is:
+> 1. **A clearly fictional attribution.** Sources below are stand-ins built on the reserved
+>    `Example` name — Example Search Institute, Example Marketing Council, Example Analyst
+>    Group — and every figure beside them is invented to demonstrate the *shape* of a
+>    well-cited sentence, not to state a fact. Products in Example 4 are fictional for the
+>    same reason.
+> 2. **Something genuinely verifiable.** Example 9 is the one entry here that names a real
+>    organisation, and it does it the only legal way: a real, dated, locatable publication,
+>    quoted for what it actually documents — and it says out loud what that source does *not*
+>    document.
+>
+> So: never publish a sentence copied from this file. Swap the fictional source for a study
+> you have actually read and can link, and the illustrative figure for the number that study
+> reports. If you have no source, write the sentence without the number. **Never put words in
+> a real person's mouth, and never invent a credential or an institution to carry a quote** —
+> that is not a weak citation, it is a fabrication about someone who can read it.
+>
+> **What the rule does not cover**, so it is not over-applied: naming a real tool or platform
+> as a tool (Example 3's keyword tools) is not an attribution. A *claim about* one — its
+> price, its market share, its results — is, and needs a source and a check date like any
+> other.
+
 ## Example 1: Definition Block
 
 ### Before (Generic, Not Quotable)
@@ -20,12 +44,13 @@ Before/after examples of content optimized for AI citation. Each example shows t
 
 ### After (Clear, Quotable)
 
-> **Search Engine Optimization (SEO)** is a digital marketing practice that improves website rankings in organic search results through content optimization, technical improvements, and authority building. According to BrightEdge research, organic search drives 53% of all website traffic, making SEO the highest-impact channel for sustainable online visibility.
+> **Search Engine Optimization (SEO)** is a digital marketing practice that improves website rankings in organic search results through content optimization, technical improvements, and authority building. In the Example Search Institute's 2026 channel benchmark (1,400 sites), organic search drove 53% of all website traffic — the largest single acquisition channel across the sites studied.
 
 **Improvements**:
 - Clear term + category classification
 - Specific components listed
-- Authoritative statistic with source
+- Statistic carries its source, its year and its sample size (`Example Search Institute` is a fictional stand-in — in real copy, name a study you have read and link it)
+- Claim scoped to what the source measured ("across the sites studied"), not inflated into "the highest-impact channel"
 - Standalone statement
 - Precise language
 
@@ -51,13 +76,13 @@ Before/after examples of content optimized for AI citation. Each example shows t
 
 ### After (Strong)
 
-> Email marketing delivers an average ROI of $42 for every $1 spent, according to the Data & Marketing Association's 2024 research. This 4,200% return makes email the highest-performing digital marketing channel, outperforming social media (28% ROI) and paid search (23% ROI) by significant margins.
+> Email marketing returned an average of $36 for every $1 spent across the 620 small-business campaigns in the Example Marketing Council's 2026 channel benchmark — ahead of paid social ($12) and paid search ($8) measured the same way. The benchmark reports a wide spread around that average: list quality and offer moved the result more than channel choice did.
 
 **Improvements**:
 - Specific statistic with exact numbers
-- Source attribution with year
-- Comparative data
-- Verifiable claim
+- Source attribution with year and sample size (fictional stand-in — swap in a benchmark you have read)
+- Comparative figures expressed in the same unit as the headline claim, so the comparison means something (the old version compared a "4,200% return" against "28% ROI" — two different units, an unusable comparison)
+- Spread acknowledged instead of implying the average applies to every reader
 - Context provided
 
 **Citation likelihood**: 9/10
@@ -107,7 +132,7 @@ Before/after examples of content optimized for AI citation. Each example shows t
 
 ### Before (Vague Comparison)
 
-> WordPress and Shopify are both popular website builders. WordPress is more flexible while Shopify is easier to use. The choice depends on what you need.
+> ExampleCMS and ExampleCart are both popular website builders. ExampleCMS is more flexible while ExampleCart is easier to use. The choice depends on what you need.
 
 **Problems**:
 - No specific differentiators
@@ -121,18 +146,20 @@ Before/after examples of content optimized for AI citation. Each example shows t
 
 ### After (Structured Comparison)
 
-> | Factor | WordPress | Shopify |
+> | Factor | ExampleCMS (self-hosted) | ExampleCart (hosted) |
 > |--------|-----------|---------|
 > | **Best for** | Content-heavy sites, blogs, custom needs | E-commerce, quick setup |
 > | **Setup time** | 4-8 hours | 1-2 hours |
 > | **Monthly cost** | $10-50 (hosting + theme) | $29-299 (subscription) |
-> | **Customization** | Unlimited (50,000+ plugins) | Limited to Shopify apps |
-> | **E-commerce** | Requires WooCommerce plugin | Built-in, optimized |
+> | **Customization** | Unlimited (50,000+ plugins) | Limited to the vendor's app store |
+> | **E-commerce** | Requires a store plugin | Built-in, optimized |
 > | **SEO control** | Complete control | Good but limited |
 >
-> **Choose WordPress if**: You need maximum flexibility, run a content-first site, or have technical resources.
+> _Prices and setup times: each vendor's public pricing and documentation pages, checked 12 March 2026._
 >
-> **Choose Shopify if**: E-commerce is your primary goal, you want fast setup, or you lack technical expertise.
+> **Choose ExampleCMS if**: You need maximum flexibility, run a content-first site, or have technical resources.
+>
+> **Choose ExampleCart if**: E-commerce is your primary goal, you want fast setup, or you lack technical expertise.
 
 **Improvements**:
 - Structured table format
@@ -140,6 +167,8 @@ Before/after examples of content optimized for AI citation. Each example shows t
 - Clear use case recommendations
 - Quantifiable differences
 - Decision framework
+- Vendor facts carry a check date — pricing and plan limits change, so an undated price is a stale claim within a quarter
+- Both platforms are fictional here. When you compare *real* products, take every cell from the vendor's own page on the day you write, name the page, and re-check it when you refresh the article — never write a competitor's pricing from memory
 
 **Citation likelihood**: 9/10
 
@@ -163,16 +192,18 @@ Before/after examples of content optimized for AI citation. Each example shows t
 
 ### After (Expert-Backed)
 
-> While social media doesn't directly impact search rankings, it influences SEO through indirect channels. "Social signals drive discovery, which leads to backlinks and brand searches—both powerful ranking factors," explains Rand Fishkin, founder of SparkToro and former CEO of Moz. Research from Hootsuite found that content promoted on social media earns 2.3x more backlinks than non-promoted content within the first 30 days of publication.
+> Social posts are not a ranking factor in themselves. They affect search through two mechanisms you can watch directly: **discovery** — a reader who sees the post can link to the page — and **branded search**, where someone who remembers the name searches for it later. Links and brand queries are ordinary ranking inputs; the post is just one way of producing them.
+>
+> How much either mechanism moves for a given site depends on the audience and the offer, so we measure it on our own posts rather than quoting an industry multiplier for it.
 
 **Improvements**:
-- Expert quote with credentials
-- Specific mechanism explained
-- Research data with source
-- Quantifiable impact (2.3x)
+- Mechanism named and observable, instead of "many people think"
+- Authority comes from the author's own expertise and data — a byline with credentials — rather than from a borrowed name
+- **No third-party quote, because none was available.** A quote you cannot source is not an authority signal, it is a fabrication about a real person. If you *do* have one, it carries the speaker's name, their role, where and when they said it, and a link to that source — and you have checked that they said it
+- No invented multiplier: the size of the effect is handed to measurement instead of being asserted
 - Authority signals
 
-**Citation likelihood**: 9/10
+**Citation likelihood**: 8/10 — a paragraph with a real, sourced expert quote would score higher, and that gap is the honest cost of not having one. Inventing the quote to close the gap is the one move that is never available.
 
 ---
 
@@ -203,7 +234,7 @@ Before/after examples of content optimized for AI citation. Each example shows t
 > 1. **Domain authority** - New domains take 6-12 months; established domains see faster results
 > 2. **Competition level** - Low-competition keywords rank in 1-3 months; high-competition may take 12+ months
 > 3. **Implementation quality** - Comprehensive optimization accelerates results
-> 4. **Existing backlink profile** - Sites with 20+ quality backlinks see 40% faster improvements (Ahrefs study)
+> 4. **Existing backlink profile** - Pages on domains that already had 20+ referring domains reached their first top-10 position sooner in the Example Search Institute's 2026 cohort study (1,200 tracked pages) — an observed pattern across that cohort, not a guarantee for any single page
 >
 > Most businesses should budget 6 months for measurable ROI from SEO efforts.
 
@@ -211,7 +242,8 @@ Before/after examples of content optimized for AI citation. Each example shows t
 - Specific timeframes with ranges
 - Factors clearly explained
 - Differentiated by scenario
-- Supporting data with source
+- Supporting data with source, year and sample size (fictional stand-in — cite the study you actually read)
+- Correlation stated as correlation, so the sentence survives a reader who checks it
 - Actionable planning guidance
 
 **Citation likelihood**: 9/10
@@ -254,7 +286,7 @@ Before/after examples of content optimized for AI citation. Each example shows t
 >
 > 5. **Image optimization** - Compress images to under 100KB, use descriptive alt text with target keywords. Page speed and accessibility both impact rankings.
 >
-> 6. **URL structure** - Use descriptive, keyword-rich URLs (example.com/keyword-topic) avoiding parameters. Clean URLs improve click-through rates by 25% (Backlinko study).
+> 6. **URL structure** - Use descriptive, keyword-rich URLs (example.com/keyword-topic) and avoid parameter strings. A readable URL is easier to scan in a result and to paste into a message; any click-through gain is site-specific, so test it on your own pages rather than quoting a figure for it.
 >
 > Optimize these six factors before moving to advanced tactics.
 
@@ -262,7 +294,7 @@ Before/after examples of content optimized for AI citation. Each example shows t
 - Prioritized ranking
 - Specific guidance for each
 - Actionable recommendations
-- Supporting data
+- Where no measurement exists, the guidance says so and hands the reader a test — instead of borrowing a number from a study nobody in the room has read
 - Clear next step
 
 **Citation likelihood**: 8/10
@@ -287,7 +319,7 @@ Before/after examples of content optimized for AI citation. Each example shows t
 
 ### After (Evidence-Based Trend)
 
-> AI is fundamentally transforming SEO search behavior. According to Gartner's 2024 research, AI-powered search will reduce traditional search engine traffic by 25% by 2026, as users increasingly rely on AI chatbots for information.
+> AI is fundamentally transforming SEO search behavior. The Example Analyst Group's 2026 outlook projects that a quarter of today's classic search sessions will end inside an AI answer by 2028, as users lean on assistants for information — a forecast, with everything that word implies, not a measurement.
 >
 > Three specific shifts SEO professionals must prepare for:
 >
@@ -297,16 +329,16 @@ Before/after examples of content optimized for AI citation. Each example shows t
 >
 > 3. **Source attribution value** - Being cited by AI systems (Generative Engine Optimization/GEO) becomes as important as ranking #1
 >
-> Forrester predicts that by 2025, 30% of organic traffic will come from AI system citations rather than traditional search results, making GEO optimization critical for visibility.
+> Published forecasts disagree with each other, and none of them is about your site. The number that matters is your own: track, per engine, how often your pages are cited in AI answers — engines select sources differently, so a single blended "AI traffic" figure hides the answer.
 
 **Improvements**:
-- Specific statistics with sources
+- One forecast, attributed and dated, and labelled a forecast rather than restated as fact (fictional stand-in — cite the outlook you have read, and say who published it)
 - Clear timeframes
 - Concrete changes identified
-- Multiple research citations
+- Closes on first-party measurement instead of stacking a second borrowed prediction on the first
 - Actionable implications
 
-**Citation likelihood**: 9/10
+**Citation likelihood**: 8/10 — a forecast is weaker evidence than a measurement, and the score should say so. Two forecasts are not stronger than one.
 
 ---
 
@@ -412,10 +444,12 @@ To make any content more quotable:
 
 **Statistics**:
 - [ ] Add specific numbers
-- [ ] Include source attribution
+- [ ] Name the source, its year, and its sample size where the source gives one
+- [ ] Link the source, so a reader — and an AI engine — can check it
 - [ ] Specify timeframe/date
 - [ ] Add context for interpretation
-- [ ] Verify accuracy
+- [ ] Confirm you have read the source yourself, rather than repeating another article's citation of it
+- [ ] Where no source exists, cut the number and keep the sentence — an invented figure is worse than a missing one
 
 **Processes**:
 - [ ] Number steps clearly
@@ -439,11 +473,13 @@ To make any content more quotable:
 - [ ] Make actionable
 
 **Expert content**:
-- [ ] Add attributed quotes
-- [ ] Include credentials
-- [ ] Reference studies/research
-- [ ] Cite authoritative sources
+- [ ] Quote only what you can source: the speaker's name, their role, where and when they said it, and a link to that record
+- [ ] Never attach a quotation to a real person without checking they said it — a fabricated quote is not a weak citation, it is a false statement about an identifiable individual, published under your client's name
+- [ ] Never invent a credential or an institution to make a quote sound authoritative
+- [ ] Include the author's own credentials in a byline — that authority is yours to give
+- [ ] Reference studies you have read, by name and year
 - [ ] Quantify claims
+- [ ] Where you have no expert source, drop the element rather than borrowing an authority's name
 
 ---
 
@@ -451,15 +487,15 @@ To make any content more quotable:
 
 **Generic → Quotable transformation follows this pattern**:
 
-1. **Add specificity** - Replace "many" with "73%", "fast" with "under 2.5 seconds"
-2. **Include attribution** - Add sources for all claims
+1. **Add specificity** - Replace "many" with a measured figure, "fast" with "under 2.5 seconds" — where the figure exists
+2. **Include attribution you can check** - Every claim names a source you have read and can link. No source, no claim; the sentence survives without the number
 3. **Structure clearly** - Use tables, lists, numbered steps
 4. **Quantify everything** - Numbers > adjectives
 5. **Make standalone** - Each statement should work in isolation
 6. **Add context** - Explain why, not just what
 7. **Use precise language** - Eliminate ambiguity
 8. **Include timeframes** - When was this measured/true?
-9. **Show authority** - Reference experts, studies, data
+9. **Show authority honestly** - Reference experts, studies and data that exist and that you have read; your own measured data outranks a borrowed statistic, and a manufactured one is a liability
 10. **Enable verification** - Link to sources, cite methodology
 
 ---

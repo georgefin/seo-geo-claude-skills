@@ -2,6 +2,17 @@
 
 How different AI systems select and cite content. Understanding these patterns helps optimize content for AI visibility.
 
+> **Standing rule for every example in this file.** The engine-behaviour sections below
+> describe real systems and carry `[VERIFY]` tags where the evidence is weak — read those
+> tags as written. The **worked examples** are a different genre and follow a different rule:
+> an illustrative example never attributes data or a quotation to a real organisation or a
+> real person. Their sources are fictional stand-ins built on the reserved `Example` name,
+> and the figures beside them are invented to show the *shape* of a citable sentence. The
+> only alternative is to cite something genuinely verifiable — a named, dated, locatable
+> publication you have read. Never copy a source name, figure or quote out of an example into
+> client copy, and **never attribute a statement to a real named individual without a record
+> of them making it**.
+
 ## Google AI Mode (Default Surface, incl. AI Overviews)
 
 **Baseline shift**: AI Mode is now Google's default search surface (Google I/O 2026) — AI Overviews folded in, no longer a separate peer feature. Live for Greek-language queries since 08-10-2025. Organic CTR baselines shift accordingly: classic "10 blue links" click-through is no longer the default outcome, so optimize primarily for in-surface citation, not just ranking position.
@@ -202,9 +213,9 @@ According to [Source], [specific statistic] as of [timeframe].
 ```
 
 **Example**:
-> According to HubSpot's 2024 State of Marketing Report, 82% of marketers actively invest in content marketing, making it the most widely adopted digital marketing strategy.
+> According to the Example Marketing Council's 2026 State of Marketing survey (2,300 marketers), 82% of respondents actively invest in content marketing — the most widely adopted strategy in the sample.
 
-**Why it works**: Specific, attributed, recent, verifiable.
+**Why it works**: Specific, attributed, dated, scoped to what the survey actually measured, and checkable because the source is named. (`Example Marketing Council` is a fictional stand-in per the standing rule above — in real copy, name a survey you have read and link it.)
 
 ---
 
@@ -311,8 +322,8 @@ Concrete examples showing transformation.
 
 **Example**:
 > **Before**: "Email marketing is pretty effective."
-> **After**: "Email marketing delivers an average ROI of $42 for every $1 spent, according to the Data & Marketing Association."
-> **Why it's better**: Specific statistic, attributed source, quantifiable claim.
+> **After**: "Email marketing returned an average of $36 for every $1 spent across 620 small-business campaigns (Example Marketing Council, 2026 channel benchmark)."
+> **Why it's better**: Specific statistic, attributed source with a year and a sample size, quantifiable claim.
 
 **Why it works**: Shows concrete improvement, demonstrates principle.
 
@@ -328,9 +339,9 @@ Highlighted important points.
 ```
 
 **Example**:
-> **Key insight**: According to Google's John Mueller, internal linking is one of the most underutilized SEO tactics, with properly structured internal links often delivering faster ranking improvements than external link building.
+> **Key insight**: Internal linking is the authority lever you own outright — every page you publish can be linked, on the day it ships, from the pages that already rank, without asking anyone's permission.
 
-**Why it works**: Visually distinct, authoritative, quotable.
+**Why it works**: Visually distinct, quotable, and it needs no borrowed authority. A callout that opens "according to [well-known name]" without a link to where that person said it is a fabrication wearing a citation's clothes — and it is the shape this file used to model here.
 
 ---
 

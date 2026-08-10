@@ -55,7 +55,62 @@ regression rate · repeat-failure count · tool-correctness rate.
 - **Guard**: statistics rule in the skill (sourced/cited/placeholder — never invented) +
   a no-fabrication expectation in EVERY eval of all three pilot suites + the zero-data
   eval that rewards honest threshold misses.
-- **Recurrence**: 0. **Status**: guard live.
+- **Recurrence**: **1** (2026-08-10 — detailed below). **Status**: guard redesigned; the
+  carrier now reaches the skill's reference files, not the skill body alone.
+- **Recurrence 1** (2026-08-10 — geo-content-optimizer, the entry's own skill, with the
+  founding guard sitting in that skill's `SKILL.md` the whole time).
+  **Instance**: the skill's three reference files carried 13 statistics credited to real
+  named organisations (BrightEdge; the Data & Marketing Association ×3; Hootsuite;
+  Ahrefs; Backlinko; Gartner; Forrester; Wyzowl; Statista; HubSpot ×2) and three
+  attributions to a person — a verbatim quotation placed in the mouth of a named,
+  living industry figure (`quotable-content-examples.md:166`); a "Dr. Jane Smith, AI
+  Research Director at Stanford University" credential, an invented person in an
+  invented post at a real university, carrying an invented quote
+  (`geo-optimization-techniques.md:78-79`); and an unsourced tactical claim credited to
+  a named Google employee (`ai-citation-patterns.md:331`). Each sat in the GOOD half of
+  a before/after pair, was named as the improvement by the file's own bullets ("Expert
+  quote with credentials", "Research data with source"), and was scored "Citation
+  likelihood: 9/10". Surfaced by the library-wide "examples that teach what the rules
+  forbid" audit (findings C1/C2, 2026-08-10); the third file's two instances were found
+  by this fix's own grep sweep rather than by the audit, which is itself evidence for
+  the redesign below.
+  **Why this class is the most serious in the library**: the output is published web copy
+  under a client's byline, and two of the three personal attributions name real, living
+  individuals. A fabricated statistic is an unverifiable claim; a fabricated quotation is
+  a false statement about an identifiable person, published by someone who trusted this
+  library. The damage lands on the user and on the person quoted, not on us.
+  **Root cause**: the founding guard landed in `build/geo-content-optimizer/SKILL.md`
+  (the statistics rule) and in the eval expectations, and never reached the three
+  reference files the same `SKILL.md` routes the model into
+  (`SKILL.md:183/323/337/338`). F13-r2 states the general form — an expectation is a
+  carrier for whoever grades, not for whoever writes — and this is its sibling: a rule in
+  the skill BODY is not a carrier for an example in a reference FILE. F9's
+  per-skill-scoping signature, one level down, inside a single skill's own directory.
+  **Redesign (rule 3)**: the carriage obligation gains a file-scope leg. (i) A content
+  rule that governs examples is restated at the top of EVERY file that holds examples the
+  skill routes to — executed this wave: the standing rule (*an illustrative example never
+  attributes data or a quotation to a real organisation or a real person; use a clearly
+  fictional attribution, or cite something genuinely verifiable*) opens all three
+  reference files, with the executor-side clause added to the SKILL.md statistics rule,
+  the routing line into the references, and the Reference Materials index. (ii) A fix to
+  an example class sweeps the skill's whole `references/` directory in the same wave, by
+  grep, not by memory (F9's redesign shape applied to this class) — the sweep here was a
+  real-organisation and real-person name list run across the skill's four files, and it
+  is what found the two instances the audit had not listed.
+  **Could a script catch this class? Half of it, and the halves are worth separating.**
+  The quotation half is tractable and cheap: a pattern for `"…," says|explains` or
+  `according to <Capitalised Name>` inside a skill or reference file, with no URL on the
+  line or within ±2 lines, has near-zero legitimate hits in this library (after this fix,
+  zero), so it is buildable as a hard FAIL on the check-(f) model — a scripted token
+  sweep plus an exclusion rule, fault-injection-testable. The statistics half is weaker:
+  its practical form is a deny-list of real vendor/analyst/publisher names (Gartner,
+  Forrester, HubSpot, Ahrefs, Statista, Semrush, Moz, BrightEdge, …) scanned across skill
+  and reference files, which flags a legitimate citation exactly as loudly as a
+  fabricated one — it cannot decide whether the author read the source, or whether the
+  claim is true. That makes it a review trigger, not a verdict (§6 family-5 and F13-r2
+  precedent), and its list needs the same maintenance check (f)'s does. Neither is built
+  here: `scripts/` sat outside this fix's scope, so both are recorded as a tooling gap
+  with a known shape rather than an unknown, and proposed as a scripts-wave item.
 
 ## F4 — 2026-08-08 · State change recorded from the call, not the response
 

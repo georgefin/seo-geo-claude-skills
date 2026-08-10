@@ -2,6 +2,18 @@
 
 Detailed techniques for optimizing content for AI citation across Google AI Mode (incl. AI Overviews), ChatGPT, Perplexity AI, Claude, and Gemini.
 
+> **Standing rule for every example in this file.** An illustrative example never attributes
+> data or a quotation to a real organisation or a real person. Sources shown below are
+> fictional stand-ins built on the reserved `Example` name (Example Marketing Council,
+> Example Search Institute), and the figures beside them are invented to demonstrate the
+> *shape* of a well-cited sentence — they are not facts. The only alternative is to cite
+> something genuinely verifiable: a named, dated, locatable publication you have read and can
+> link. Never copy a source name or a figure from this file into client copy, **never put
+> words in a real person's mouth, and never invent a credential or an institution** — an
+> expert who does not exist, or a job title nobody holds, ships a falsehood about a real
+> university or company under your client's byline. Naming a real tool as a tool is fine; a
+> claim *about* one needs a source.
+
 ## Definition Optimization
 
 AI systems love clear, quotable definitions.
@@ -36,8 +48,9 @@ content into quotable facts.
 > Email marketing is pretty effective and lots of companies use it.
 
 **Strong (Quotable)**:
-> Email marketing delivers an average ROI of $42 for every $1 spent,
-> making it one of the highest-performing digital marketing channels.
+> Email marketing returned an average of $36 for every $1 spent across the
+> 620 small-business campaigns in the Example Marketing Council's 2026
+> channel benchmark — ahead of every other channel it measured.
 
 **Types of Quotable Statements**:
 
@@ -73,10 +86,25 @@ content into quotable facts.
 
 **Expert Attribution**
 
-Add expert quotes and credentials:
+An expert quote is an authority signal only when the reader can check it. Use one when you
+actually have one, in this shape:
 
-> "AI will transform how we search for information," says Dr. Jane Smith,
-> AI Research Director at Stanford University.
+```markdown
+"[Quote, verbatim as the person said or wrote it]," says [Name], [Role] at
+[Organisation] — [where and when they said it: interview, talk, or published
+article, with a link].
+```
+
+Four things that shape enforces, and each of them matters: the words are theirs, the
+credential is the one they hold, the reader can find the original, and the date lets them
+judge whether it still stands.
+
+**No quote is available? Then the paragraph has no quote.** Never attach words to a real
+person you have not verified said them, and never invent a person, a job title or an
+institution to carry a line you wanted to write — that publishes a false statement about a
+real, identifiable individual or organisation, under your client's name. The fallback is
+not a weaker version of the same move: it is your own byline, your own credentials, and your
+own data, which are yours to state.
 
 **Source Citations**
 
@@ -86,17 +114,17 @@ Before:
 > Studies show that most people prefer video content.
 
 After:
-> According to Wyzowl's 2024 Video Marketing Statistics report,
-> 91% of consumers want to see more online video content from brands.
+> In the Example Marketing Council's 2026 video survey (1,100 consumers),
+> 91% said they want more video from the brands they follow.
 
 **Authority Elements to Add**:
 - [ ] Author byline with credentials
-- [ ] Expert quotes with attribution
-- [ ] Citations to peer-reviewed research
+- [ ] Expert quotes with attribution you have checked — speaker, role, where and when, link
+- [ ] Citations to peer-reviewed research you have read
 - [ ] References to recognized authorities
 - [ ] Original data or research
-- [ ] Case studies with named companies
-- [ ] Industry statistics with sources
+- [ ] Case studies with named companies whose data you have permission to publish
+- [ ] Industry statistics with sources — named, dated, linkable
 
 ## Structure Optimization for GEO
 
@@ -152,19 +180,28 @@ AI systems prefer fact-rich content over opinion-heavy content.
 > use it and find it helpful for reaching customers.
 
 **High factual density**:
-> Social media marketing reaches 4.9 billion users globally (Statista, 2024).
-> Businesses using social media marketing report 66% higher lead generation
-> rates compared to non-users (HubSpot State of Marketing Report, 2024).
-> The most effective platforms for B2B marketing are LinkedIn (96% usage),
-> Twitter (82%), and Facebook (80%).
+> Social platforms reach 4.9 billion people worldwide (Example Marketing
+> Council, 2026 platform census). Businesses that post at least weekly
+> reported 66% higher lead volume than those that don't (Council 2026
+> operator survey, n=940) — self-reported and unaudited, as the survey states.
+> The same survey's B2B respondents named LinkedIn (96%), X (82%) and
+> Facebook (80%) as the platforms they use most; that is usage, not
+> effectiveness.
+
+Every sentence above carries its source, and the last two carry their limits — which is what
+separates factual density from a paragraph that merely sounds researched. Note that the
+third claim has a source at all: an unsourced figure sitting between two sourced ones is the
+easiest fabrication to miss, in your own draft and in a reviewer's read.
 
 **Factual Enhancement Checklist**:
-- [ ] Add specific statistics with sources
+- [ ] Add specific statistics with sources you have read
 - [ ] Include exact dates, numbers, percentages
 - [ ] Replace vague claims with verified facts
 - [ ] Add recent data (within last 2 years)
 - [ ] Include multiple data points per section
 - [ ] Cross-reference with authoritative sources
+- [ ] Check that EVERY figure has a source, not just the first one in the paragraph
+- [ ] Where no source exists, cut the claim — an invented figure is worse than a missing one
 
 ## FAQ Optimization for GEO
 
@@ -219,9 +256,10 @@ Use this checklist for any content:
 - [ ] Memorable statements created
 
 **Authority**
-- [ ] Expert quotes or credentials present
-- [ ] Authoritative sources cited
+- [ ] Expert quotes or credentials present — and checkable by the reader
+- [ ] Authoritative sources cited, with year and link
 - [ ] Original data or research included
+- [ ] No claim, figure or quotation is attributed to a person or organisation you have not verified
 
 **Structure**
 - [ ] Q&A format sections included
