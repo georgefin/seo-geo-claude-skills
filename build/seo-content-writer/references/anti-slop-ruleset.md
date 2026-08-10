@@ -266,6 +266,8 @@ absent tools mean absent numbers"). One template cause is on record and fixed in
 skill: an Output Validation line that offered `~~SEO tool data` as source-label vocabulary,
 i.e. the placeholder taught as the label a source column should carry (the
 meta-tags-optimizer 4.1.3 finding — cause in the template, not in the model).
+**Scope — family 8 is language-neutral too, and for the same reason.** It was promoted on Greek evidence and sits in a section headed "Greek", but a skill slug or a framework item ID has no client referent in any language: `domain-authority-auditor` and `CORE-EEAT O05` are as opaque to an English reader as to a Greek one. The blind competitor-analysis run made the point concretely — its Greek E3 carried 8 occurrences and its four English deliverables carried 5–7 lines each, and the executor noted that the English ones sat outside the family's literal reach as written. They do not. Read family 8 as *ruled here, enforced everywhere*, exactly as family 7 is. **Known cause, not yet fixed at time of writing**: `research/competitor-analysis` MANDATES the violation — `references/analysis-templates.md:224` puts "run the domain-authority-auditor … to get CITE scores" and a `CITE / C / I / T / E` table inside a *client-facing* Synthesis Report Template, and `SKILL.md:166` requires that section. A skill that orders the defect will keep producing it whatever this table says.
+
 **Scope — family 7 is language-neutral, ruled on Greek evidence.** It sits in a section
 headed "Greek" because that is where the editor found it and where its FAIL grade was ruled,
 but a `~~category` token has no client referent in any language; the library-wide sweep of
