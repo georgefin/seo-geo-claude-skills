@@ -1,0 +1,444 @@
+{
+  "suite": "content-gap-analysis",
+  "skill_path": "research/content-gap-analysis",
+  "skill_version": "4.1.0",
+  "date": "2026-08-10",
+  "method": "blind",
+  "founding_baseline": true,
+  "prior_baseline": "none — no prior record for this suite in docs/loop/eval-baselines/",
+  "head_sha_at_open": "7b2539b1637bb050fcff1ca1a12d0835fcf4de93",
+  "head_sha_at_close": "a6ca72749938d12d41fed35e3b64a5302f698d95",
+  "graded_inputs_drift": "ZERO on every graded input across the whole window. HEAD moved 7b2539b -> a6ca727 (8 commits by parallel agents) during this run; git diff 7b2539b..a6ca727 over research/content-gap-analysis/ and build/seo-content-writer/references/anti-slop-ruleset.md is empty, and the sha256 of SKILL.md, evals.json, gap-analysis-frameworks.md and anti-slop-ruleset.md are byte-identical at open and at close. docs/loop/SETTLED-RULINGS.md changed by F12 pointer re-anchoring only (VERSIONS.md:205->211, :210->216), no ruling text. docs/loop/FAILURE-LEDGER.md gained 77 lines (F9-r3 + an F18 correction); effect on verdicts assessed and nil - see ledger_drift_effect.",
+  "ledger_drift_effect": "F9 Recurrence 3 (added mid-run) names this skill: 'content-gap-analysis derives its Gap Priority Score fully and leaves the GEO Opportunity table with no scale, no rubric and no combination rule.' Both deliverables that reach step 7 (e1 §6, e4 §8) DECLINED to emit an unscored GEO number and produced a qualitative answerability table instead, so neither reintroduces the pattern; no expectation flips. F18's clean list was corrected for geo-content-optimizer and still lists content-gap-analysis as unaffected by the anti-slop-ruleset vector — true for that carrier, but this run finds the same mechanism operating through a different carrier (SKILL.md:164), recorded under fixture_example_fitting below.",
+  "executors": {
+    "A": {
+      "evals": [
+        1,
+        2,
+        3,
+        5
+      ],
+      "status": "blind with a named leak on e1/e2 (see contamination), clean on e3/e5",
+      "note": "Self-reported an unscoped `grep -rn -i \"handoff\"` over the skill directory during its e4 attempt, which printed eval 4's expected_output and four of six expectations. Its e4 deliverable (blind-gap-out-e4.md) was NOT opened by this grader and is not graded."
+    },
+    "B": {
+      "evals": [
+        4
+      ],
+      "status": "clean",
+      "note": "Re-ran e4 alone under a mandatory search guard; reports zero recursive greps against the skill directory, every read explicit and by filename. Verified: no sign of expectation-shaped fitting — see e4 per-expectation evidence."
+    }
+  },
+  "contamination_map": {
+    "e1": "leak-adjacent. Executor A's contaminating read named 'the waterproofing false positive' as a fixture design feature; that is cross-cutting to all three TrailKit evals. A had independently read the two fixture lines that support it beforehand and declined to claim priority. Expectation e1.2 is labelled leak-adjacent, not discarded.",
+    "e2": "leak-adjacent. Same vector; expectation e2.2 labelled leak-adjacent.",
+    "e3": "clean — different fixtures, different scenario, different language.",
+    "e4": "clean — executor B, mandatory search guard, no prior-run output read.",
+    "e5": "clean — different fixture set (zero-data scenario)."
+  },
+  "expectations": [
+    {
+      "eval": 1,
+      "id": "e1.1",
+      "text": "Traceable planted topic gaps: winter hiking, hiking with dogs, wild camping/UK access — each stated with BOTH sides.",
+      "passed": true,
+      "evidence": "§4 matrix rows: 'Winter skills & gear | 0 | 9 | 4 | **Yes — nothing at all**'; 'Hiking with dogs | 0 | 5 | 3'; 'Wild camping & access law | 0 | 0 | 4'. Counts verified against the fixtures (Summitline winter 9, dogs 5; PeakPath winter 4, dogs 3, wild camping 4) and against the own-site inventory, which contains no winter, dog or wild-camping page. Both sides also restated in prose: '13 articles across the two of them (Summitline 9, PeakPath 4), and zero on your site.'"
+    },
+    {
+      "eval": 1,
+      "id": "e1.2",
+      "text": "False-positive guard: boot waterproofing is NOT reported as missing content.",
+      "passed": true,
+      "leak_adjacent": true,
+      "evidence": "§4 L132: 'One item in their footwear cluster is not a gap … Summitline's \"How to Waterproof Hiking Boots (3 Methods)\" looks like a hole in your coverage, but /blog/boot-care-guide is titled \"Complete Boot Care: Cleaning, Conditioning and Re-Waterproofing\" … You cover it.' The recommendation is a split of the existing asset ('a split of an existing asset, not a new topic'), i.e. a depth play, which the expectation permits. LEAK-ADJACENT: executor A's contaminating read named this false positive."
+    },
+    {
+      "eval": 1,
+      "id": "e1.3",
+      "text": "Like-to-like comparison with a correctly-marked covered/no-gap row and navigation classed as a DEPTH gap.",
+      "passed": true,
+      "evidence": "§4 topic matrix, 13 rows, counts reconciled to the fixtures. No-gap rows present: 'Packing lists | 1 | 1 | 2 | On par' and 'Outdoor ethics | 1 | 0 | 0 | Yours alone'. Navigation: 'Navigation | 1 | 6 | 0 | Partial — depth only', expanded at §4 'The depth gaps'. Clothing/layering also marked 'Partial — depth only' (2 vs 5), not a missing topic."
+    },
+    {
+      "eval": 1,
+      "id": "e1.4",
+      "text": "At least two of three planted format gaps surfaced; GEO framed as opportunity with no asserted AI-citation data.",
+      "passed": true,
+      "evidence": "All three surfaced in §5: 'Glossary | Summitline, 60 pages'; 'Interactive tool | Summitline's rucksack calculator'; 'Video | PeakPath, 18 route guides'. §6 opens 'No AI-visibility monitor is connected, so I cannot report which of the three sites is actually being cited by AI assistants — that needs a monitoring tool and this analysis has none.' The table that follows scores content SHAPE ('Why an assistant would quote it'), not measured citations."
+    },
+    {
+      "eval": 1,
+      "id": "e1.5",
+      "text": "Prioritization follows the skill's scoring scheme with visible arithmetic; Search Demand handled by Step 9's unavailable-input rule.",
+      "passed": true,
+      "skill_fitted": true,
+      "evidence": "§7 states the five weights as decimals and publishes all five factor scores per gap. All 9 published totals recomputed independently and all 9 MATCH (modeb-gap-arith.py: Footwear 4.05, Winter 3.90, Glossary 3.60, Navigation 3.40, Calculator 3.10, Wild camping 2.95, Dogs 2.85, Safety 2.85, Video 2.80); the stated sensitivity (dogs at Relevance 5 → 3.35) also recomputes exactly. Search Demand: named proxy with its basis stated — 'Search Demand is scored from combined competitor cluster depth … (winter 9 + 4 = 13; dogs 5 + 3 = 8; wild camping 0 + 4 = 4). This is a coverage proxy, not a volume measurement.' No invented volume anywhere. CAVEAT — the expectation cannot discriminate here: SKILL.md:164 hands any executor this exact route, basis wording and arithmetic ('Search Demand scored from competitor cluster depth (9 + 4 articles across the two competitors); a coverage proxy, not a volume measurement'), and that example was written from this fixture (see fixture_example_fitting)."
+    },
+    {
+      "eval": 1,
+      "id": "e1.6",
+      "text": "No fabrication and clean source labels; fixture numbers attributed as user-provided.",
+      "passed": true,
+      "evidence": "Source table at head of report attributes every class: 'Your CMS export', 'Your GA4 organic sessions (your own analytics, supplied by you)', 'Your assistant's manual crawl', 'Free traffic-checker estimate, supplied by you and flagged rough'. Zero `~~category` tokens (screened, 0 hits). Zero volume/difficulty figures (screened: the only /month hits are the two competitor traffic estimates, both labelled the user's free-checker figure). Cluster counts, session totals (18,320), percentage claims (59%, 32%/17%, 47%) and all seven competitor-mean cells recomputed and correct. Proposed titles and calendar entries carry no workflow markers (screened: zero bracket tokens/TBD/XX). Minor framing looseness recorded, not failed: the glossary-term list ('col', 'bothy', 'denier', 'trig point') sits two sentences after 'Summitline's 60 definition pages' and is proposed for TrailKit, not attributed to Summitline — but the adjacency is loose."
+    },
+    {
+      "eval": 2,
+      "id": "e2.1",
+      "text": "Source discipline across the two data classes; labels name the source in the report's own words, never a ~~category token.",
+      "passed": true,
+      "evidence": "Sources table row 1: 'Volume, difficulty, competitor position, competitor URL | Your gap-keyword export, taken from the SEO tool during the 7-day trial | Real tool data, but a snapshot.' GA4 and CMS rows separately attributed. Zero `~~` tokens (screened). The tool is never named because the user never named it; the export is named in plain language, which is the Tool Connector Pattern's route (2). No metric is added beyond the export."
+    },
+    {
+      "eval": 2,
+      "id": "e2.2",
+      "text": "Export trap caught: 'how to waterproof hiking boots' flagged as ALREADY COVERED by /blog/boot-care-guide.",
+      "passed": true,
+      "leak_adjacent": true,
+      "evidence": "§1 verdict column: 'Already covered — optimise, do not write'. §3 heading: 'how to waterproof hiking boots — 1,600 searches, KD 24 — the false positive', with 'It is not a content gap. Your /blog/boot-care-guide is titled … You have the content; you do not have the ranking.' Recommendation is a split/strengthen play. LEAK-ADJACENT."
+    },
+    {
+      "eval": 2,
+      "id": "e2.3",
+      "text": "Keyword-gap categorization per SKILL.md Step 4, consistent with the export's numbers.",
+      "passed": true,
+      "evidence": "Three buckets present with the Step 4 names. 'best gps watch for hiking' (5,400 / KD 52) sits under 'Long-term — high volume, difficulty above the rest of the file', not quick wins. Quick wins contain three of the four KD ≤ 16 rows: dog hiking boots (KD 15), what is scrambling (KD 12), hiking first aid kit list (KD 16). The fourth, rucksack size calculator (KD 9), is deliberately excluded with an intent argument ('Someone typing \"rucksack size calculator\" wants a calculator'), which the expectation does not require to be in the bucket."
+    },
+    {
+      "eval": 2,
+      "id": "e2.4",
+      "text": "Business-relevance filter applied: 'campervan insurance uk' excluded or explicitly deprioritized with reasoning.",
+      "passed": true,
+      "evidence": "§3: 'campervan insurance uk — 8,100 searches, the largest number in the file … It is the largest volume in the export and it is the clearest discard. You sell hiking and trekking gear to UK day-hikers … there is no path from that page to a rucksack.' Listed under 'Discarded' in the §4 bucket table; absent from §5 order of work."
+    },
+    {
+      "eval": 2,
+      "id": "e2.5",
+      "text": "Prioritization arithmetic shown on export numbers: order justified by the skill's documented scoring, factor scores visible, at least one computation written out and arithmetically correct.",
+      "passed": false,
+      "evidence": "FAIL — no scoring model is applied anywhere in the deliverable. Scripted screen for the scoring vocabulary (Gap Priority / Quick Win Score / weighted / Business Relevance / Creation Effort / Competitive Density / Conversion Potential / 0.25 / 0.20 / 0.15 / 25% / 20% / 15% / Score) returned ONE hit across 157 lines, and it is not a score: L87 '… whatever its difficulty score says.' Raw output inspected at the flagged location per F7. §5 'Order of work' justifies the sequence qualitatively — 'It runs cheapest-proven-asset first, then the cluster with the strongest commercial fit, then the highest-volume chaseable keyword once its review time can be budgeted' — with no factor scores and no computation. NOT excusable on defect 1 (the broken Quick Win Score): the expectation offers the 5-factor weighted score as an alternative, that model is sound, e1/e3/e4 all applied it, and this is the ONE eval where Search Demand has a real input (the CSV volumes), so the weighted model was more available here than anywhere else in the suite."
+    },
+    {
+      "eval": 2,
+      "id": "e2.6",
+      "text": "No fabrication: every keyword-gap claim traces to a CSV row; no invented position, URL or keyword.",
+      "passed": true,
+      "evidence": "All 11 rows of §1 checked cell-by-cell against gap-export-trailkit.csv — keyword, volume, KD, competitor and position all correct in all 11. Derived totals recomputed and correct: export total 26,970; new-content 11,390; plan acts on 13,470; not pursued 13,500; the two dog keywords 2,780; the 8,100/45 = 180 searches-per-KD-point claim, and that it is the file's maximum. Coverage claims trace to the own-site inventory. Two DERIVED-FIGURE ERRORS found and reported outside this expectation (they invent nothing, they miscount the export): L22 calls 'best gps watch for hiking' (5,400) 'the third largest in the file' when it is second; L83 calls KD 52 'the hardest keyword in the file by 19 KD points' when the file's next hardest is 45 (a 7-point margin) and 19 is the margin over the next CHASEABLE keyword."
+    },
+    {
+      "eval": 3,
+      "id": "e3.1",
+      "text": "Native-Greek deliverable — diacritics, final-sigma and untranslated-boilerplate graded structurally at Mode B; fluency, register and title-naturalness flagged for the binding greek-content-editor.",
+      "passed": true,
+      "graded_layer": "mechanical only",
+      "editor_referral": true,
+      "evidence": "Mechanical layer clean: zero medial ς, zero word-final σ, zero unaccented forms on the screened word list, zero untranslated boilerplate headings (all 11 section headings are Greek). Latin-script tokens are all URLs, brands or glossed acronyms (GA4, CMS, YouTube, SEO, and 'AI' glossed on first use as «συστήματα τεχνητής νοημοσύνης»). One item for the editor rather than the grader: the header field label '**Site**:' at L4, where §1 uses «Ο ιστότοπός σας» for the same thing. FLAGGED FOR greek-content-editor: fluency, register, and above all title naturalness/originality — see the ungraded finding on §9's titles."
+    },
+    {
+      "eval": 3,
+      "id": "e3.2",
+      "text": "Traceable planted gaps, both sides cited: πρόληψη πτώσεων/τρίτη ηλικία, αθλητικές κακώσεις δρομέων, πελματογράφημα/ορθωτικά.",
+      "passed": true,
+      "evidence": "§4 matrix: «Τρίτη ηλικία και πρόληψη πτώσεων | 0 | 4 | 2»; «Αθλητικές κακώσεις δρομέων | 0 | 0 | 5»; «Πελματογράφημα και ορθωτικά πέλματα | 0 | 3 | 0». Counts match the fixture exactly (Ανάπλαση 4/3, Κίνηση 5/2). Own-site absence carried in the 0 column and restated in prose: «6 άρθρα ανάμεσα στα δύο κέντρα (4 και 2) και καμία σελίδα δική σας». The service page is carried at §3: «Πελματογράφημα και ορθωτικά πέλματα | 3 (+ σελίδα υπηρεσίας)»."
+    },
+    {
+      "eval": 3,
+      "id": "e3.3",
+      "text": "Greek false-positive guard: «ασκήσεις για τον αυχένα» not claimed missing.",
+      "passed": true,
+      "evidence": "§4: «Ένα «κενό» που δεν είναι κενό … Το άρθρο τους «Ασκήσεις για τον αυχένα στο γραφείο» μοιάζει με θέμα που σας λείπει. Δεν σας λείπει: η σελίδα /ypiresies/afheniko-syndromo καλύπτει το πρόγραμμα ασκήσεων για τον αυχένα και η /blog/ergonomia-grafeiou καλύπτει τη στάση στο γραφείο.» The recommended action is explicitly not a new article: «η σωστή κίνηση δεν είναι νέο άρθρο αλλά σύνδεση των δύο σελίδων». The text-neck angle appears later only as a proposed title, which the expectation names as acceptable."
+    },
+    {
+      "eval": 3,
+      "id": "e3.4",
+      "text": "Format gaps with honest GEO framing: FAQ hub and video surfaced; no measured AI-citation data asserted.",
+      "passed": true,
+      "evidence": "§4 matrix rows «Συχνές ερωτήσεις | 0 | 0 | 12 | Ναι — κενό μορφής» and «Βίντεο ασκήσεων | 0 | 25 | 0 | Ναι — κενό μορφής», counts matching the fixture. §6 opens «Δεν υπάρχει συνδεδεμένο εργαλείο παρακολούθησης, άρα δεν μπορούμε να δούμε ποιος αναφέρεται σήμερα στις απαντήσεις των συστημάτων AI» and then assesses content SHAPE only. No FAQ rich-result claim anywhere (post-R3 clean)."
+    },
+    {
+      "eval": 3,
+      "id": "e3.5",
+      "text": "Placement-aware labeling: workflow markers stay out of proposed Greek titles and calendar entries.",
+      "passed": true,
+      "evidence": "Scripted screen for bracket tokens / TBD / XX / data-needed markers over the whole file: zero hits. All 14 §9 proposed titles and all 12 §10 calendar entries are clean reusable Greek strings. Estimation language («χονδρική εκτίμηση») is confined to the source table at §head and to §1-§7 prose."
+    },
+    {
+      "eval": 3,
+      "id": "e3.6",
+      "text": "Prioritization per the skill's scheme with at least one computation written out and arithmetically correct; Search Demand handled by Step 9's unavailable-input rule.",
+      "passed": true,
+      "evidence": "Route taken is the DROP route, with the rescaling written out in full: «αφαιρέσαμε τον παράγοντα της ζήτησης και αναπροσαρμόσαμε τα βάρη … πάνω στο δικό τους άθροισμα, δηλαδή στο 0,75. Έτσι η ένταση ανταγωνισμού γίνεται 0,267, η επιχειρηματική συνάφεια 0,333, το κόστος παραγωγής 0,20 και η δυναμική μετατροπής 0,20 — αθροίζουν ξανά στο 1,00». Both the rescaling AND the dropped factor are named. All 9 published four-factor totals recomputed independently and all 9 MATCH (4,60 / 4,07 / 4,07 / 3,93 / 3,73 / 3,53 / 3,53 / 2,93 / 2,67), as does the stated sensitivity (πελματογράφημα at συνάφεια 5 → 3,67). No volume or difficulty figure appears at all and the absence is stated; GA4 and crawl numbers attributed «δικά σας στοιχεία» / «Η χειροκίνητη καταγραφή της συνεργάτιδάς σας»."
+    },
+    {
+      "eval": 3,
+      "id": "e3.7",
+      "text": "No fabrication: no Greek competitor topic, article, count, URL or traffic figure beyond the two fixtures; no invented clinical statistics.",
+      "passed": true,
+      "evidence": "Every competitor count in §3/§4/§5 reconciled to the fixture (Ανάπλαση 3+3+4+2=12 articles, 25 videos; Κίνηση 5+2+3=10 articles, 12 FAQ). All named sub-topics trace to fixture titles (πτώσεις στο σπίτι, ασκήσεις ισορροπίας, κάταγμα ισχίου, σαρκοπενία, ασφαλές σπίτι / περιοστίτιδα, απονευρωσίτιδα, λαγονοκνημιαία, αχίλλειος, επιστροφή στο τρέξιμο). Own-site session total 11.880 and the 61% top-three claim recompute exactly. Traffic ~9.000 / ~4.500 quoted with the fixture's own «χονδρική εκτίμηση» caveat. No clinical-demand or patient-behaviour statistic anywhere; §'Κλινικός έλεγχος' explicitly refuses outcome promises."
+    },
+    {
+      "eval": 4,
+      "id": "e4.1",
+      "text": "Routing to keyword-research for demand validation, with a handoff context block carrying target keyword(s)/topic, content type and site/URL context.",
+      "passed": true,
+      "evidence": "Six handover blocks, each 'Run handle: keyword-research' (L260, L290, L318, L345, L373, L401), each preceded by a plain-language 'Job:' line. Handover 1 carries all three required fields: 'Site: trailkit.co.uk — UK online shop, hiking and trekking gear, with a blog'; 'Seed topics: hiking socks; breaking in new boots; boot lacing techniques; when to resole hiking boots'; 'Content type intended: how-to guides and one buying guide'; plus the ranking URLs and their GA4 sessions. Ordering is stated: 'Every writable gap goes to demand validation first and to a writer second.'"
+    },
+    {
+      "eval": 4,
+      "id": "e4.2",
+      "text": "Routing to seo-content-writer for the build, with its own handoff context (target keyword, content type, where the content will live).",
+      "passed": false,
+      "evidence": "FAIL as written — the skill is never named anywhere in the deliverable. Scripted search for 'seo-content-writer' returns zero; the only build-side routing is the plain-language 'writing job' at L282 ('Then, once volumes come back, the writing job takes over. Pass it the validated keyword, the intended format, and one instruction specific to this cluster: link every new footwear page into Hiking Boots vs Trail Runners and Complete Boot Care') and L310 ('then the writing job, one piece at a time'). Five of the six handovers stop at demand validation with no build routing at all. THE SWING, stated: under a reading where naming the job in plain language counts as routing, L282 carries the keyword, the format and the linking destination and this would PASS, taking e4 to 6/6 and the suite to 29/30 (96.7%). I do not take that reading, and the reason is executor B's own choice rather than the family-8 tension: having decided its operator section may carry slugs, B named keyword-research six times, competitor-analysis once and memory-management once in exactly that section — so family 8 does not explain why seo-content-writer, the structured-data skill and the internal-linking skill were left as unhandled job names. The omission is an execution inconsistency, not a principled exemption. Related but distinct: this expectation and anti-slop family 8 pull in opposite directions on the same string (see ledger F13-r4's second finding), which is flagged for eval improvement."
+    },
+    {
+      "eval": 4,
+      "id": "e4.3",
+      "text": "Handoff payload honesty: audit-derived fields marked not yet available rather than filled in.",
+      "passed": true,
+      "evidence": "L252: 'No content quality audit has been run against your existing pages, so there are no quality scores to pass forward with any of these. That is worth doing separately before the writing step touches your top three pages.' §9 intro states the general policy: 'where a value does not exist (search volume, difficulty, quality scores) the line is absent and the gap is named in words, because a placeholder in a value slot is worse than no line at all.' Scripted screen for dimension-score payloads (C:75 / O:60 shapes and CITE numbers): zero hits. Zero bracket tokens in any of the eight fenced blocks — the Value Rule holds."
+    },
+    {
+      "eval": 4,
+      "id": "e4.4",
+      "text": "Boundary kept — the downstream skills' jobs are not performed inline.",
+      "passed": true,
+      "evidence": "No keyword deliverable: scripted screen for monthly-volume and KD figures returns zero hits across 483 lines, and §4 states 'There is no keyword-level gap list in this report, and inventing one would be the fastest way to waste your writer's two slots a month.' Every seed list is framed as input to be validated ('Needed back: UK monthly volume and difficulty per seed topic'). No drafted copy: §10 carries working titles only ('The Hiking Sock Guide', 'Crampons vs Microspikes: Which Do You Actually Need?'), which SKILL.md Step 9's Content Calendar requires."
+    },
+    {
+      "eval": 4,
+      "id": "e4.5",
+      "text": "Routed gaps traceable to the fixtures; the boot-waterproofing false positive not handed off as net-new.",
+      "passed": true,
+      "evidence": "Six routed gaps, each with fixture evidence intact in its block ('Competitor evidence: summitline-outdoors.co.uk 9 articles, peakpath-hiking.co.uk 4 articles — 13 combined'). The waterproofing false positive is NOT routed: Handover 1's seed topics are 'hiking socks; breaking in new boots; boot lacing techniques; when to resole hiking boots' — precisely Summitline's footwear cluster minus its two waterproofing articles, which TrailKit's /blog/boot-care-guide covers. Waterproofing appears once in the whole document, at L156, as a note about double-counting formats. AMBIGUITY FLAGGED: two of the six routed gaps (footwear sub-topics, trail safety) are outside the expectation's parenthetical list, but both are equally planted in the fixtures and both carry their evidence, so the enumeration reads as non-exhaustive rather than as a boundary."
+    },
+    {
+      "eval": 4,
+      "id": "e4.6",
+      "text": "No fabrication: no competitor data beyond the fixtures; any volume/difficulty figure labeled estimated; no memory-management history claimed.",
+      "passed": true,
+      "evidence": "Every competitor count reconciled: cluster totals 38 and 17, glossary 60, calculator 1, videos 18; 38+60+1 = 99 and 17+18 = 35 both correct. All 11 scoring rows recomputed and correct; all seven competitor-mean cells and both funnel tables (counts and shares) recomputed and correct. Zero volume/difficulty figures, with the absence stated in the source table: 'Monthly search volume, keyword difficulty | **Not available.**' No prior audit or hot-cache claim; memory-management appears only as a forward proposal ('Storing this run as a baseline means the next pass reports movement'). ONE DERIVED-FIGURE ERROR reported outside this expectation: L91's 'around 40% and 60% of each site' — 41/140 is 29%, not 40% (the 41 and 50 counts themselves are right, and the 60% is right)."
+    },
+    {
+      "eval": 5,
+      "id": "e5.1",
+      "text": "The response asks for the skill's manual-mode inputs instead of delivering a gap list.",
+      "passed": true,
+      "evidence": "The input table requests all five documented manual-mode inputs plus the Step 3 competitor content data: 'Your content inventory (a list of your published pages) | **No**'; 'Competitor content inventories | **No**'; 'Your traffic and keyword performance | **No**'; 'Your known content strengths and weaknesses | **No**'; 'Business context and goals | **Partly**'. It also cites the Input Validation checkpoint by name: 'the first checkpoint of this workflow is \"your content inventory is complete or a representative sample is provided\", and it is not met.'"
+    },
+    {
+      "eval": 5,
+      "id": "e5.2",
+      "text": "No observed-coverage claims for the three named competitor domains.",
+      "passed": true,
+      "evidence": "Nothing is attributed to sedumline.co.uk, greenlid-roofs.co.uk or urbancanopy-living.co.uk. The one topic list in the document is labelled at the point of use, not hedged: 'This list is a sorting aid built from your own description of the business, not a claim about what any competitor publishes.' The opening states the refusal in the same terms: 'Anything I wrote in the shape you asked for … would be invented.'"
+    },
+    {
+      "eval": 5,
+      "id": "e5.3",
+      "text": "No invented metrics for any of the four named sites.",
+      "passed": true,
+      "evidence": "No traffic figure, keyword count, volume, difficulty score, ranking or gap total appears anywhere. The only numbers are input-table counts ('Two of seven') and collection instructions ('the last 90 days of organic sessions per page'). Explicitly refused: 'A competitor's traffic is not observable from outside their own analytics — anyone who quotes you one is quoting a model's estimate, not a measurement.'"
+    },
+    {
+      "eval": 5,
+      "id": "e5.4",
+      "text": "Everything delivered is process-framed.",
+      "passed": true,
+      "evidence": "Both templates ship as empty header rows ('| URL | Title | Topic | Format | Published or updated |' with no data row). The outcome table is conditional throughout ('| What you send | What the analysis can produce |', first row 'Nothing further | Nothing. A gap list with no inputs would be fabricated'). No section reads as a completed analysis."
+    },
+    {
+      "eval": 5,
+      "id": "e5.5",
+      "text": "The refusal is constructive: WHY plus a concrete path to proceed.",
+      "passed": true,
+      "evidence": "WHY: 'A content gap analysis compares one list of content against another; in this run neither list exists' and 'an invented gap list gets acted on: it becomes an editorial calendar, and someone spends three months writing against topics nobody checked.' PATH: four numbered collection steps with the form named ('If your content management system exports a page list, that export is the fastest route'), plus a lower-effort option: 'Send the three competitor blog or resources index pages, and your own. Four page lists, pasted or screenshotted.'"
+    }
+  ],
+  "summary": {
+    "passed": 28,
+    "failed": 2,
+    "total": 30,
+    "pass_rate": 0.9333,
+    "editor_slot_convention": "COUNTED AS PASSED. e3.1 is the binding-editor slot. Its own wording scopes Mode B to a mechanical layer ('only the diacritics, final-sigma, and untranslated-boilerplate checks are graded structurally at Mode B'); that layer was checked with a script, is clean, and is therefore counted PASSED, matching the performance-reporter e5.3 precedent in F16-r1(d). Under the conservative convention (leave the editor slot uncounted, published rate treats it as not-passed) this suite reads 27/30 = 90.00% with passed+failed = total-1. Both figures are stated so the corpus can be re-pooled either way.",
+    "failed_expectations": [
+      "e2.5",
+      "e4.2"
+    ],
+    "regressions": "none — no prior baseline exists for this suite",
+    "per_eval": {
+      "e1": {
+        "passed": 6,
+        "total": 6,
+        "executor": "A",
+        "provenance": "blind, leak-adjacent on e1.2"
+      },
+      "e2": {
+        "passed": 5,
+        "total": 6,
+        "executor": "A",
+        "provenance": "blind, leak-adjacent on e2.2"
+      },
+      "e3": {
+        "passed": 7,
+        "total": 7,
+        "executor": "A",
+        "provenance": "blind, clean"
+      },
+      "e4": {
+        "passed": 5,
+        "total": 6,
+        "executor": "B",
+        "provenance": "blind, clean, mandatory search guard"
+      },
+      "e5": {
+        "passed": 5,
+        "total": 5,
+        "executor": "A",
+        "provenance": "blind, clean"
+      }
+    }
+  },
+  "fixture_example_fitting": {
+    "question": "Was SKILL.md:164's named-proxy example written from this fixture, or the fixture from the example?",
+    "verdict": "The EXAMPLE was written FROM the fixture. Confirmed at source, not inferred.",
+    "evidence": [
+      "Fixtures landed in 5559474, 2026-08-09 16:53:10Z, already carrying Summitline 'Winter skills & gear | 9' and PeakPath 'Winter hiking | 4' (git show 5559474:<fixture> verified).",
+      "SKILL.md Step 9 at that same commit contained NO unavailable-input rule and no proxy example at all — it ended at 'Produce a final report with: Executive Summary, Prioritized Gap List …'.",
+      "The string 'competitor cluster depth' first enters SKILL.md and gap-analysis-frameworks.md in 3e63967, 2026-08-10 17:02:47Z, a day later (git log -S).",
+      "3e63967's own commit message states the motive: 'evals 1 and 3 state no tool is connected, and not one of the five fixtures carries a volume field' — the fix was authored while reading these fixtures."
+    ],
+    "consequence": "This is ledger F18's mechanism operating through a new carrier: not the anti-slop ruleset but the skill body itself. SKILL.md:164 hands any executor of eval 1 (a) the proxy route, (b) the basis wording ('a coverage proxy, not a volume measurement') and (c) the exact arithmetic for this fixture's headline gap ('9 + 4 articles across the two competitors'). Executor A's e1 §7 reproduces all three: 'Search Demand is scored from combined competitor cluster depth … (winter 9 + 4 = 13 …). This is a coverage proxy, not a volume measurement.' Expectation e1.5's Search-Demand clause therefore cannot discriminate — a cold executor is told the answer by a required read. Executor B's e4 took the same route but built its own 5-band mapping of counts to scores, which is independent construction the skill does not supply, so e4 retains some discriminating power on this clause. The fix is F18's own: state the rule with a neutral illustration and move the fixture-derived arithmetic off the executor's required-read surface. Note that F18's clean list still names content-gap-analysis as unaffected; that is true of the ruleset vector only.",
+    "recommendation": "Increment F18 and record content-gap-analysis as a sixth known-affected suite via the skill-body carrier."
+  },
+  "defect_verdicts": [
+    {
+      "id": 1,
+      "claim": "Quick Win Score is mathematically backwards",
+      "verdict": "CONFIRMED",
+      "evidence": "gap-analysis-frameworks.md:235 'Creation Effort | 15% | Score 1 (Low) Requires new capabilities | … | Score 5 (High) Quick to create' and :233 'Competitive Density | 20% | … | Score 5 (High) No competitor covers it' — higher is better on both — while :258 computes '(Search Demand + Business Relevance) - (Creation Effort + Competitive Density)'. Both executors refused it and said why. Neither is failed for the refusal: no expectation was graded on the Quick Win Score, and the 5-factor weighted score satisfied every scoring clause."
+    },
+    {
+      "id": 2,
+      "claim": "SKILL.md:164's named-proxy example may be fitted to this fixture",
+      "verdict": "CONFIRMED — the example was written from the fixture",
+      "evidence": "See fixture_example_fitting: fixture 2026-08-09 16:53Z, example 2026-08-10 17:02Z, git log -S and git show at both commits."
+    },
+    {
+      "id": 3,
+      "claim": "Priority tiers leave a hole between 2.90 and 3.00",
+      "verdict": "CONFIRMED and exercised by a real run",
+      "evidence": "gap-analysis-frameworks.md:250-251 bands P2 at '2.0-2.9' and P1 at '3.0-3.9' with no rounding convention. e1's wild-camping gap computes to exactly 2.95 and the executor flagged the hole in the deliverable: 'The published tier bands … leave a value between 2.90 and 3.00 in no band at all; the wild-camping cluster lands on 2.95 and is read into P1 by rounding up, which is a judgement call and is flagged here rather than hidden.' Not failed — the skill defines no convention to violate."
+    },
+    {
+      "id": 4,
+      "claim": "Dropping Search Demand renormalises for the weighted score but not for the quick-win path",
+      "verdict": "CONFIRMED",
+      "evidence": "gap-analysis-frameworks.md:242 gives the renormalisation for the weighted score in full and states 'the Quick Win Score below consumes the same factor' — then gives that path no instruction whatever. e3 took the drop route and had to abandon the quick-win formula separately, on its own reasoning."
+    },
+    {
+      "id": 5,
+      "claim": "No output-format section; step 9 names four sections while steps 1-8 point at nine templates",
+      "verdict": "CONFIRMED, and the measured spread supports it",
+      "evidence": "SKILL.md:162 names 'Executive Summary, Prioritized Gap List …, Content Calendar, and Success Metrics'; steps 1-8 route to analysis-templates.md for eight further templates. The three full TrailKit runs came out at 283, 157 and 483 lines with different section counts and different section sets (e1 has an 'Answerability by AI assistants' section, e4 has a funnel section with two tables, e2 has neither). Two compliant runs do differ wildly in shape."
+    },
+    {
+      "id": 6,
+      "claim": "Two template cells have no honest source with no tool connected",
+      "verdict": "CONFIRMED at source",
+      "evidence": "analysis-templates.md GEO gap table carries 'Estimated traffic opportunity: [X]/month' and the Success Metrics template carries current-value cells. All three executors silently declined to fill them and substituted honest alternatives (e1 §11 'No traffic projection appears here'; e4 §11 'Traffic and ranking targets are deliberately absent'; e3 §11 «Δεν υπάρχει πρόβλεψη επισκεψιμότητας»). The prose fix reached SKILL.md:164 and Output Validation and did not reach the fences — F13-r2's exact shape."
+    },
+    {
+      "id": 7,
+      "claim": "Step 7 is unperformable with no AI-visibility monitor and carries no 'cannot be scored' clause",
+      "verdict": "CONFIRMED, and now doubly ledgered",
+      "evidence": "SKILL.md:154 'Identify topics where competitors get AI citations but you do not … Score each by traditional SEO value and GEO value', with no unavailable-input clause of the kind Step 9 gained at :164. F9 Recurrence 3, added to the ledger DURING this run, independently names the same table: 'content-gap-analysis derives its Gap Priority Score fully and leaves the GEO Opportunity table with no scale, no rubric and no combination rule.' All three executors refused the citation half explicitly and replaced it with a content-shape assessment; none emitted an unscored GEO number, so the ledgered pattern is not reintroduced in any deliverable."
+    },
+    {
+      "id": 8,
+      "claim": "Funnel stage count differs between references (4 vs 7)",
+      "verdict": "CONFIRMED",
+      "evidence": "SKILL.md:158 'Compare funnel stage coverage (Awareness, Consideration, Decision, Retention)' vs gap-analysis-frameworks.md:179-185, a seven-row table (Awareness, Interest, Consideration, Intent, Purchase, Retention, Advocacy). Executor B hit it and resolved it silently to the four-stage set in its §8 tables; executor A avoided funnel analysis altogether, which is itself evidence the instruction is unusable as written. No expectation grades funnel coverage, so the divergence costs nothing in the score and everything in comparability between runs."
+    },
+    {
+      "id": 9,
+      "claim": "Creation Effort's 15% weight under-penalises a missing capability; Tips #2 points the other way",
+      "verdict": "CONFIRMED, and both executors patched it by hand",
+      "evidence": "gap-analysis-frameworks.md:235 weights Creation Effort at 15%; SKILL.md:210 Tips #2 'Consider your resources - Prioritize based on ability to execute'. Executor B stated the conflict and overrode the model in the deliverable: 'The model weights Creation Effort at only 15%, so it barely penalises work you cannot currently do … Prioritising by ability to execute overrides the arithmetic here' (route guides, 3.05 → Tier 3). Executor A did the same for the rucksack calculator (3.10 → Tier 3, 'it needs a developer, not the writer'). Two independent executors patching the same weight the same way is the strongest available evidence the weight is wrong."
+    }
+  ],
+  "family_8_read_e4": {
+    "question": "Is executor B's family-8 position defensible as written, independently of the coordinator's forthcoming ruling?",
+    "read": "DEFENSIBLE, with one internal inconsistency that is the real defect.",
+    "for": [
+      "Family 8's harm model is stated as 'a skill slug, which names a tool in a library they do not have'. This prompt asserts the opposite twice — 'what happens next in your skills library' and 'so we can run that skill without re-explaining everything' — so the reader named by the prompt holds the library and asked for the handle. The harm the family names cannot arise for this reader.",
+      "Family 7, the sibling family, states the boundary as 'the test is the reader, not the section', and exempts 'surfaces read only by author or operator'. Family 8's exemption paragraph applies the same distinction ('whether the string denotes something the client can hold').",
+      "Every one of the eight occurrences is preceded by a plain-language 'Job:' line ('Job: validate search demand for four footwear sub-topics before any is written'), so family 8's prescribed remedy — name the job, never the artefact — is satisfied IN ADDITION to the handle, not instead of it. A reader without the library still has an actionable instruction.",
+      "The suite itself mandates the string: e4.1 requires the response to 'explicitly name keyword-research'. A slug-free deliverable fails e4.1. This is ledger F13-r4's second finding — a suite enforcing what a ruleset forbids — recurring on a second suite."
+    ],
+    "against": [
+      "The section heading 'written for whoever runs the toolkit, not for the shop floor' is a section-level declaration, and family 7's wording says the section is precisely what does not decide the question. B's argument survives only because the PROMPT establishes the reader, not because the heading does — B should be read as resting on the prompt, and its own text does rest there.",
+      "The decisive weakness is inconsistency, not principle: having ruled its operator section may carry handles, B gave handles to three skills and withheld them from three others ('the writing job', 'the structured data job', 'the internal linking job'). The same operator gets a runnable handle for competitor-analysis and none for the writer skill they will need first. That inconsistency is what costs e4.2."
+    ]
+  },
+  "ungraded_defects": [
+    {
+      "severity": "high",
+      "eval": 3,
+      "finding": "e3 L214 states «Οι τίτλοι είναι προτάσεις προς επεξεργασία από τους φυσικοθεραπευτές σας. Κανένας δεν αντιγράφει τίτλο ανταγωνιστή.» (none copies a competitor title). Mechanically checked against the fixture: 9 of the 14 proposed titles open with a competitor article title verbatim and append a colon-subtitle — «Ρήξη μηνίσκου: συντηρητική αντιμετώπιση» + «χωρίς χειρουργείο»; «Πρόληψη πτώσεων στο σπίτι» + «τι αλλάζουμε σε κάθε δωμάτιο»; «Αυχενικός πόνος από το κινητό» + «γιατί εμφανίζεται…»; «Φυσικοθεραπεία μετά από κάταγμα ισχίου», «Ασκήσεις ισορροπίας για ηλικιωμένους», «Χονδροπάθεια επιγονατίδας», «Αποκατάσταση πρόσθιου χιαστού», «Επιστροφή στο τρέξιμο μετά από τραυματισμό», «Περιοστίτιδα κνήμης». The titles themselves are defensible — those are the natural Greek names of the conditions — so the defect is the false self-verification sentence, F11's class landing in a client deliverable rather than a register. No expectation in the suite guards title originality, although the eval prompt explicitly asks for «προτεινόμενους ελληνικούς τίτλους». Referred to greek-content-editor alongside the register pass.",
+      "checker": "modeb-gap-titles.py"
+    },
+    {
+      "severity": "medium",
+      "eval": 2,
+      "finding": "Two derived-figure errors about the export's own contents. L22: 'they are the largest and the third largest in the file' — 5,400 is the SECOND largest of the eleven volumes (8,100 > 5,400 > 3,600). L83: 'the hardest keyword in the file by 19 KD points' — the file's next hardest is KD 45 (a 7-point margin); 19 is the margin over the next CHASEABLE keyword at KD 33. Nothing is invented; both are miscounts of supplied data, the class F16 records as 'recompute every figure you compute'. No expectation in this suite grades prose-derived figures.",
+      "checker": "modeb-gap-arith.py"
+    },
+    {
+      "severity": "low",
+      "eval": 4,
+      "finding": "L91: 'around 40% and 60% of each site' for the uncatalogued remainders. 41/140 = 29%, not 40%; the PeakPath 50/85 = 59% ≈ 60% is right, and both raw counts are right. Same derived-figure class as above.",
+      "checker": "modeb-gap-arith.py"
+    },
+    {
+      "severity": "low",
+      "eval": 1,
+      "finding": "e1 §4 marks packing lists PeakPath = 2 while §5 marks checklists/kit lists PeakPath = 3. Both are classifications of the same fixture titles under two different category names, and §5 flags its classification basis explicitly ('my classification of the titles your assistant recorded, which is a weaker basis'); §4 does not carry the same flag."
+    }
+  ],
+  "tool_correctness": {
+    "tool_errors": 1,
+    "detail": "One scripted screen produced a false hit that was caught by hand-inspection before it reached a verdict (F7 discipline, F15's screen-not-verdict rule): the family-5 n-word net matched «ποτέ» inside «αποτέλεσμα» at e3 L283. All 17 family-5 screen hits were hand-checked for a preverbal δεν in their own clause; 16 are licensed, 1 is a verbless nominal predicate («και καμία σελίδα δική σας», L120) which family 5's own text exempts, and 1 is this substring artefact. Zero family-5 defects. One script (modeb-gap-arith.py) crashed at its title-comparison stage on an index error and was split out to modeb-gap-titles.py; no verdict depended on the crashed stage.",
+    "expectations_not_gradable_as_written": [
+      "e1.5 / e2.5 / e3.6 'at least one computation written out so a grader can re-run it' — no deliverable shows an explicit multiplication line; all three publish every factor score and every weight, and this grader re-ran all 29 rows from what is on the page, so the clause's stated purpose is met while its literal wording is not. Graded on the purpose, flagged for rewording.",
+      "e4.2 — see the swing recorded in its evidence.",
+      "e4.5 — the parenthetical list of 'planted gaps' is not exhaustive of the fixtures' planted gaps."
+    ],
+    "scope_drift": "none. No deliverable was produced by this grader; no skill, reference, tracking or eval file was edited. Files written: this record, the scratchpad grading copy, and three modeb-gap-* checkers."
+  },
+  "greek_editor_referral": {
+    "eval": 3,
+    "file": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-gap-out-e3.md",
+    "mechanical_layer": "clean — zero medial ς, zero word-final σ, zero unaccented screened forms, zero untranslated boilerplate headings, zero family-5 defects (17 screen hits hand-checked), zero family-6 hits, zero family-7 tokens, zero family-8 tokens.",
+    "for_the_editor": [
+      "Fluency, register and translation-ese across the whole document — not eyeballed here.",
+      "Naturalness of the 14 proposed article titles in §9 and the 12 calendar entries in §10.",
+      "PRIORITY: the title-originality finding above — 9 of 14 titles open with a competitor's article title verbatim while the document claims none does. Whether the titles are acceptable as Greek health-content titles is the editor's call; the false claim about them is not.",
+      "The field label '**Site**:' at L4 where «Ο ιστότοπός σας» is used at L31 for the same thing.",
+      "Executor A reports that it pre-emptively rewrote two family-5 candidates before delivery and named the originals in its own report. The shipped text is what was graded here."
+    ]
+  },
+  "artifacts": {
+    "deliverables_graded": [
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-gap-out-e1.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-gap-out-e2.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-gap-out-e3.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-gap-rerun-out-e4.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-gap-out-e5.md"
+    ],
+    "not_opened": "/tmp/.../scratchpad/blind-gap-out-e4.md — executor A's contaminated e4. Not opened, not graded, not compared against, per the task's instruction.",
+    "checkers": [
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-gap-checks.py",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-gap-arith.py",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-gap-titles.py"
+    ]
+  }
+}

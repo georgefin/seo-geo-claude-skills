@@ -1134,6 +1134,47 @@ metric, or an expectation excluding an open `[VERIFY]` topic by name, increments
 **Status**: recorded; skill fix for `:168` queued, e1.2's exclusion routed to the suite owner.
 FLIP: F3-r-2026-08-10 -- none
 
+
+### F18 Recurrence 1 — 2026-08-10 · a skill's own worked example was written from the eval fixture
+
+F18's founding entry named the anti-slop ruleset as the leak surface and listed
+`content-gap-analysis` among the suites unaffected. That is true of the ruleset vector and false
+of the skill, and the second carrier is worse than the first.
+
+**Established by commit archaeology, not inference.** `SKILL.md:164` states its named-proxy
+example as *"Search Demand scored from competitor cluster depth (9 + 4 articles across the two
+competitors)"*. The e1 fixtures give Summitline's winter cluster as **9** articles and PeakPath's
+as **4**. The order of events settles it: the fixtures land in `5559474` (2026-08-09 16:53Z)
+already carrying those counts; Step 9 at that commit carried no unavailable-input rule at all;
+the phrase *"competitor cluster depth"* first appears in `3e63967` (2026-08-10 17:02Z), whose own
+commit message records that the fix was authored while reading these fixtures. The example was
+written **from** the test.
+
+**Why this is worse than the ruleset vector.** A provenance sentence in `§6` tells an executor
+which defect classes a prior run was marked down for — a hint. A worked example fitted to the
+fixture hands every executor of that eval the route, the basis wording **and** the arithmetic for
+the fixture's headline gap. The e1 deliverable reproduces all three. The eval retains no power to
+discriminate on that clause: `e1.5`'s Search-Demand requirement can be satisfied by copying the
+skill, which is what the skill is for. Executor B's independently constructed band table still
+discriminates; that clause does not.
+
+**Not a reason to stop grounding examples in real data.** An example built from a plausible
+scenario is what makes a rule followable, and the 2026-08-10 fix it belongs to was a genuine
+improvement. The defect is the **coincidence of surfaces**: the same numbers serve as the skill's
+teaching example and as the eval's ground truth, so the test measures recall of the example
+rather than application of the rule. Two artefacts, one number, opposite purposes.
+
+**Guard**: an eval fixture and its skill's worked examples do not share figures. When a rule needs
+a worked example, the example uses numbers that appear in no fixture for that skill; when a
+fixture needs a scenario, it is not the one the skill walks through. Cheap to check at authoring
+time and invisible afterwards — which is why it is a rule and not a habit.
+
+**Recurrence**: F18 → 1. A shared figure between a skill's example and its own suite's fixtures
+increments this.
+
+**Status**: recorded; the content-gap-analysis example and fixture are queued for divergence with
+that skill's other fixes. FLIP: F18-r1 -- none
+
 ---
 
 ## F17 — 2026-08-10 · A cross-skill rule was ruled in the coordination documents and given no carrier in any shipped skill
