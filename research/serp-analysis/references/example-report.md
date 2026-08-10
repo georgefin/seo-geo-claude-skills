@@ -2,6 +2,15 @@
 
 This is a complete example output showing the expected format for SERP analysis deliverables.
 
+> **Illustrative example — the figures below are not measurements.** Every domain uses the
+> reserved `.example` TLD so no real business is described, and every DA, word count and
+> backlink count is a made-up value chosen to show the output shape. In real output each of
+> them comes from ~~SEO tool, a user-supplied export, or direct observation of the live SERP,
+> and is reported with that source and the date it was pulled — never assigned to a domain you
+> have no data for (statistics rule: sourced, cited, or placeholder, never invented). Note
+> where the `~~` token sits: on this side of the code fence, where the reader is the operator.
+> Inside the deliverable it resolves to the tool's real name or to the source in plain language.
+
 ## Prompt
 
 **User**: "Analyze the SERP for 'how to start a podcast'"
@@ -16,40 +25,45 @@ This is a complete example output showing the expected format for SERP analysis 
 **Intent**: Informational (100%)
 **Difficulty**: 72/100 (High)
 **AI Overview**: Yes - comprehensive guide format
+**SERP captured**: desktop, EN/US, 3 August 2026
 
 ### SERP Features Present
 
 | Feature | Present | Analysis |
 |---------|---------|----------|
 | AI Overview | ✅ | Lists steps, cites 3 sources |
-| Featured Snippet | ✅ | Step-by-step list from Buzzsprout |
+| Featured Snippet | ✅ | Step-by-step list from podcasthost.example |
 | People Also Ask | ✅ | 4 questions visible, expandable |
-| Video Results | ✅ | 3 YouTube videos mid-page |
+| Video Results | ✅ | 3 videos mid-page |
 | Image Pack | ❌ | |
 
 ### Top 5 Results Analysis
 
 | Pos | Domain | DA | Word Count | Format | Backlinks |
 |-----|--------|-----|------------|--------|-----------|
-| 1 | Buzzsprout | 71 | 8,500 | Ultimate Guide | 2,400 |
-| 2 | Spotify | 93 | 3,200 | How-to Guide | 890 |
-| 3 | Podcastinsights | 58 | 12,000 | Mega Guide | 1,800 |
-| 4 | Transistor | 62 | 5,500 | Tutorial | 720 |
-| 5 | HubSpot | 91 | 6,200 | Complete Guide | 1,100 |
+| 1 | podcasthost.example | 71 | 8,500 | Ultimate Guide | 2,400 |
+| 2 | musicstreamer.example | 93 | 3,200 | How-to Guide | 890 |
+| 3 | podcastblog.example | 58 | 12,000 | Mega Guide | 1,800 |
+| 4 | audiotools.example | 62 | 5,500 | Tutorial | 720 |
+| 5 | marketingblog.example | 91 | 6,200 | Complete Guide | 1,100 |
 
 ### Why #1 Ranks First
 
-Buzzsprout's guide succeeds because:
+podcasthost.example's guide succeeds because:
 1. **Comprehensive** - Covers every step in detail
 2. **Updated** - Current year in title, recent updates
 3. **Structured** - Clear numbered steps (owns featured snippet)
-4. **Authoritative** - Podcast hosting company (topical authority)
+4. **Topically focused** - A podcast hosting company writing about podcasting
 5. **Supporting content** - Links to detailed sub-guides
+
+What the table does *not* support: DA does not order this SERP. #1 sits at DA 71 while #2 and
+#5 sit at 93 and 91, so domain strength is not what separates them here — do not report it as
+the reason.
 
 ### Featured Snippet Opportunity
 
 **Current format**: Ordered list (steps)
-**Current holder**: Buzzsprout
+**Current holder**: podcasthost.example (also the #1 organic result)
 
 **To win snippet**:
 - Create cleaner, more scannable list format
@@ -59,25 +73,30 @@ Buzzsprout's guide succeeds because:
 
 ### AI Overview Analysis
 
-**Sources cited**:
-1. Buzzsprout - "Choose your podcast topic"
-2. Spotify for Podcasters - "Record and edit"
-3. Wikipedia - Definition of podcasting
+**Sources cited** (3, matching the feature table above):
+1. podcasthost.example - "Choose your podcast topic"
+2. musicstreamer.example - "Record and edit"
+3. encyclopedia.example - Definition of podcasting
 
-**Pattern**: AI pulls step-by-step instructions from guides with clear structure
+**Pattern**: AI pulls step-by-step instructions from guides with clear structure. Two of the
+three citations are in the organic top 5 and the third is not, so the citation set and the
+ranking set overlap without being the same list.
 
 ### Content Requirements
 
-To rank on page 1:
-- **Word count**: 5,000+ words minimum
-- **Format**: Step-by-step ultimate guide
-- **Backlinks**: 500+ from relevant domains
-- **Updates**: Must show current year
+What the current top 5 show — read off the table above, thresholds rather than guarantees:
+- **Word count**: 3,200-12,000, median 6,200. The #2 result is the shortest page on the SERP,
+  so length is not the gate; match the coverage the top results show rather than a word target.
+- **Format**: Step-by-step guide - all five results use one
+- **Backlinks**: 720 is the lowest count in the top 5, 2,400 the highest. Treat ~700 as the
+  floor observed on this SERP, not a number to reach before publishing.
+- **Freshness**: the #1 result carries the current year in its title; check the other four on
+  the live SERP rather than assuming
 - **Unique angle**: Equipment comparisons, cost breakdowns, or specific niche focus
 
 ### Recommended Strategy
 
-Given high difficulty, consider:
+Given high difficulty (72/100), consider:
 1. Target long-tail: "how to start a podcast for free" (Difficulty: 45)
 2. Target niche: "how to start a podcast about [topic]" (Difficulty: 30)
 3. Create supporting video content for video carousel

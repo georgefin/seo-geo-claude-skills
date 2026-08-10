@@ -1,13 +1,13 @@
 ---
 name: competitor-analysis
-version: "4.0.2"
+version: "4.0.3"
 description: 'Analyze competitor SEO and GEO strategies including ranking keywords, content approaches, backlink profiles, and AI citation patterns. Use when the user asks to "analyze competitors", "competitive analysis", "what are my competitors doing", "why do they rank higher", "competitor keywords", "competitor backlinks", or "spy on competitor SEO". For content-focused gap analysis, see content-gap-analysis. For link profile specifics, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.0.2"
+  version: "4.0.3"
   geo-relevance: "medium"
   tags:
     - seo
@@ -184,7 +184,7 @@ When a user requests competitor analysis:
 
 ## Example
 
-> **Reference**: See [references/example-report.md](./references/example-report.md) for a complete example analyzing HubSpot's marketing keyword dominance.
+> **Reference**: See [references/example-report.md](./references/example-report.md) for a complete example analyzing an illustrative competitor's marketing keyword dominance — fictional subject on the `.example` TLD, figures illustrative rather than measured, and every "weakness" tied to the observation it rests on.
 
 ## Advanced Analysis Types
 
@@ -227,7 +227,7 @@ How has [competitor]'s SEO strategy evolved over the past year?
 - [Analysis Templates](./references/analysis-templates.md) — Detailed templates for each analysis step (profile, keywords, content, backlinks, technical, GEO, synthesis)
 - [Battlecard Template](./references/battlecard-template.md) — Quick-reference competitive battlecard for sales and marketing teams
 - [Positioning Frameworks](./references/positioning-frameworks.md) — Positioning maps, messaging matrices, narrative analysis, and differentiation frameworks
-- [Example Report](./references/example-report.md) — Complete example analyzing HubSpot's marketing keyword dominance
+- [Example Report](./references/example-report.md) — Complete example analyzing an illustrative competitor's marketing keyword dominance (fictional `.example` subject, illustrative figures, evidence-bound weaknesses)
 
 ## Related Skills
 
