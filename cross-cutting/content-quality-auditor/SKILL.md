@@ -1,6 +1,6 @@
 ---
 name: content-quality-auditor
-version: "4.2.2"
+version: "4.3.0"
 description: 'Run the full 80-item CORE-EEAT audit across 8 dimensions with content-type weighted scoring, veto checks, and prioritized fix plans. Use when the user asks to "audit content quality", "EEAT score", "CORE-EEAT audit", "content quality check", "how good is my content", "content improvement plan", "is my content AI-citation worthy", "GEO quality score". For SEO page element audits, see on-page-seo-auditor. For domain-level authority, see domain-authority-auditor.'
 license: Apache-2.0
 allowed-tools: WebFetch
@@ -8,7 +8,7 @@ compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, 
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.2.2"
+  version: "4.3.0"
   geo-relevance: "high"
   tags:
     - seo
@@ -237,10 +237,20 @@ When an item cannot be evaluated (e.g., A01 Backlink Profile requires site-level
 4. If more than 50% of a dimension's items are N/A, flag the dimension as "Insufficient Data" and exclude it from the weighted total
 5. Recalculate weighted total using only dimensions with sufficient data, re-normalizing weights to sum to 100%
 
-**Example**: Authority dimension with 8 N/A items and 2 scored items (A05=8, A07=5):
-- Dimension score = (8+5) / (2 x 10) x 100 = 65
+**Example**: Authority dimension with 8 N/A items and 2 scored items (A05 = Pass = 10, A07 = Partial = 5):
+- Dimension score = (10 + 5) / (2 x 10) x 100 = 75
 - But 8/10 items are N/A (>50%), so flag as "Insufficient Data -- Authority"
 - Exclude A dimension from weighted total; redistribute its weight proportionally to remaining dimensions
+
+**Attainable dimension scores — check before printing.** Every scored item earns 10, 5, or 0, so a dimension score is always an exact multiple of `50 / (number of scored items)`. No value between two of those steps can be produced by any tally.
+
+| Scored items | Score is a multiple of | Attainable set |
+|---|---|---|
+| 10 (none N/A) | 5 | 0, 5, 10 … 100 |
+| 5 | 10 | 0, 10, 20 … 100 |
+| 2 | 25 | 0, 25, 50, 75, 100 |
+
+Reverse check on a printed score: `score x scored items / 50` must be a whole number, and that number equals (2 x Passes) + Partials. The example above checks out — 75 x 2 / 50 = 3 = (2 x 1 Pass) + 1 Partial. A fractional result means the tally slipped: 65 over 2 scored items gives 2.6, so 65 is not a score this scale can produce. Rounding is the one legitimate exception (50 / scored items does not always give a terminating decimal — 9, 7, 6 and 3 scored items do not), and the full derivation, the same check for GEO/SEO and weighted figures, and the veto outcomes that sit outside the arithmetic are in [references/score-arithmetic.md](./references/score-arithmetic.md).
 
 ### Per-Item Scores
 
@@ -303,7 +313,7 @@ Sorted by: weight × points lost (highest impact first). Every entry carries all
 
 ### Output Validation
 - [ ] All 80 items scored (or marked N/A with reason)
-- [ ] All 8 dimension scores calculated correctly
+- [ ] All 8 dimension scores calculated correctly, and each is an attainable value for its scored-item count (an exact multiple of 50 / scored items — see N/A Item Handling)
 - [ ] Weighted total matches content-type weight configuration
 - [ ] Veto items checked and flagged if triggered; consequence applied (one veto = cap at 59, two+ = BLOCK, unassessable = no final score); T04 marked N/A when no material connection exists
 - [ ] Top 5 improvements sorted by weighted impact, not arbitrary
@@ -335,6 +345,7 @@ See [references/item-reference.md](./references/item-reference.md) for a complet
 - [CORE-EEAT Content Benchmark](../../references/core-eeat-benchmark.md) — Full 80-item benchmark with dimension definitions, scoring criteria, and GEO-First item markers
 - [references/item-reference.md](./references/item-reference.md) — All 80 item IDs in a compact lookup table + site-level item handling notes + scored example report
 - [references/anti-slop-audit-checks.md](./references/anti-slop-audit-checks.md) — AS-1 to AS-4 scan procedures, EN + EL ban lists, thresholds, and item mappings (O09, O06, C02, E06, E08, R01, R02, R04, Ept03)
+- [references/score-arithmetic.md](./references/score-arithmetic.md) — which dimension, GEO/SEO and weighted figures the 10/5/0 scale can produce, the N/A denominator, rounding, and the veto outcomes that override the arithmetic
 
 ## Related Skills
 
