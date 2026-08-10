@@ -195,6 +195,15 @@ Consequence for reviewers: report a grep result as *"screened, nothing surfaced"
 words. A FAIL or a clean sheet on any Greek family is the binding editor's call on
 hand-checked evidence, and a pattern's silence is not evidence.
 
+**Requirement for adding or amending a family here (ledger F15).** A pattern may not ship
+on the strength of matching the instance that motivated it. Before a family lands, write
+three to six *constructed variants of its own defect* — inflect the verb, move the accent,
+capitalise the first word, insert an adverb, swap the digit for the word — run the pattern
+against them, and record the hit rate in the entry. A pattern that catches its founding
+instance and nothing else is the failure mode this rule exists to prevent, and re-reading it
+will never reveal that, because it still matches the example it was born from. Both of this
+table's measured holes would have been caught by five minutes of this before shipping.
+
 **Family 5 in detail — the hardest screen of the seven.** No plain-text
 pattern can decide "finite verb, no «δεν» earlier in the clause"; this one is the practical
 substitute. Two steps: (1) grep the six n-word tokens, case-insensitively; (2) from the

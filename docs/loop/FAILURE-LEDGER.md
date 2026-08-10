@@ -776,3 +776,45 @@ regression rate · repeat-failure count · tool-correctness rate.
   writes it is the next agent-definition wave. Recorded as the open item; until it lands,
   the prevention leg protects only actors that opt in, which is the honest description of
   its reach.
+
+---
+
+## F15 — 2026-08-10 · Pattern guards written from their founding instance passed by matching nothing
+
+- **Failure**: two `anti-slop-ruleset.md` §6 FAIL-grade families shipped with greppable
+  patterns that could not catch their own ruled defect. (1) **Family 5** (negative concord)
+  shipped a five-token, all-lowercase list with no case rule; two independent blind Mode B
+  runs hit the hole within hours — capitalised «Κανένα» and the licenser «Δεν» never
+  matched, so correct Greek passed unseen and each run's own lowercase-only licenser test
+  read the correct sentence «Δεν έγινε καμία νέα μέτρηση» as unlicensed, one line short of a
+  false Greek FAIL in both; the nominative «κανείς» was absent from the token list outright.
+  (2) **Family 6** ("costs-zero" calque) shipped the literal string `κοστίζει μηδέν` —
+  measured against constructed variants of its own defect it matched **1 of 5** (2 of 5 with
+  `-i`), missing the derivational accent shift «κοστίζει μηδενικά ευρώ», the inflected verb
+  «κοστίζουν μηδέν», and an intervening adverb «κοστίζει απολύτως μηδέν».
+- **Root cause**: a pattern authored from the one example that motivated it encodes **that
+  example, not the class**. Re-reading it later confirms nothing, because it still matches
+  the instance it was born from — which is why both holes survived review and were found
+  only by running the check. Greek sharpens it three ways at once: `grep -i` case-folds Greek
+  only under a UTF-8 locale, the tonos moves under inflection and derivation, and the surface
+  form varies (verbs inflect, adverbs intervene, digits substitute for words).
+- **Direction, and why F7's guard does not cover this**: F7 governs scripted checks producing
+  false FAILs, and its guard is "inspect the raw output before reporting a failure" — a
+  discipline that fires only when there is a hit to inspect. This entry is the opposite
+  direction: a **false PASS**, where the pattern matches nothing and the silence is read as
+  a clean sheet. Nothing in the pipeline was watching that direction. Siblings F5 (freshness
+  checker counted future dates), F6 (designated egress mirrors were themselves blocked) and
+  F7 make this the fourth entry whose subject is **the instrument rather than the
+  deliverable** — the single most common failure class in this ledger.
+- **Guard**: (a) `anti-slop-ruleset.md` §6 governing note over the whole pattern column —
+  every pattern is a screen, never a verdict; a reviewer reports "screened, nothing
+  surfaced" in those words, and a FAIL or clean sheet on any Greek family is the binding
+  editor's call on hand-checked evidence. (b) **Ship-with-a-probe rule**, same section: a
+  family may not land until 3–6 constructed variants of its own defect have been run against
+  the pattern and the hit rate recorded in the entry. Both instances above would have been
+  caught by five minutes of this. (c) Family 6's replacement splits net (`μηδ[εέ]ν`) from
+  rank (`κοστίζ`) so no single spelling carries the family, and names the digit-zero escape
+  as hand-checked rather than pretending to cover it.
+- **Recurrence**: 0 (two instances in one day counted as the founding pattern, per F7's
+  precedent; a future pattern shipping without its probe increments this).
+- **Status**: guard live in `build/seo-content-writer/references/anti-slop-ruleset.md` §6.
