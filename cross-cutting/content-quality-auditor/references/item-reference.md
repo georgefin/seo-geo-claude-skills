@@ -100,5 +100,8 @@ Quick reference for all 80 CORE-EEAT audit items. Full scoring criteria in [core
 
 [... remaining 7 dimensions (O, R, E, Exp, Ept, A, T) follow the same per-item format ...]
 [... anti-slop scan hits (AS-1 to AS-4) are recorded in the notes of the items they evidence: O09, O06, C02, E06, E08, R01, R02, R04, Ept03 ...]
-[... then: Dimension Scores table, Top 5 Priority Improvements (Finding / Evidence / Impact / Fix + confidence label), Action Plan, Recommended Next Steps ...]
+[... then: Dimension Scores table, Top 5 Priority Improvements (Finding / Evidence / Impact / Fix + confidence label), Action Plan ...]
+
+The follow-up runs are not part of that report — they go in a separate operator block whose
+label sits inside its own fence (SKILL.md, after the report template).
 ```
