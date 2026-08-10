@@ -50,12 +50,18 @@ reported as unavailable rather than estimated
 | Organic Sessions | 285,000 | 261,000 | +9.2% | +28% | 270,000 | On track |
 | Keywords in Top 10 | 187 | 172 | +15 | +62 | 180 | On track |
 | AI Citations | 34 | 28 | +21.4% | N/A | 30 | On track |
-| Domain Rating | 52 | 51 | +1 | +8 | 55 | In progress |
+| Domain Rating | 52 | 51 | +1 | +8 | 55 | Watch (94.5% of target) |
 | Organic CVR | 2.8% | 2.6% | +0.2pp | +0.5pp | 2.5% | On track |
 
 ## Competitive Position
 
 **Share of Voice Ranking:** #2 of 5 tracked competitors (up from #3 in Q3)
+
+Visibility Share below is each site's share of the tracked visibility across **these five sites on
+the 240 tracked keywords** — the rank tracker's own visibility metric, named with its pull date in
+the sources line. It is not share of a market: adding a sixth competitor changes every row. The
+five shares sum to 100% by construction, so a rise for one site is a fall for another and neither
+half of that means growth on its own.
 
 | Rank | Competitor | Visibility Share |
 |------|-----------|-----------------|
@@ -68,7 +74,7 @@ reported as unavailable rather than estimated
 ## Key Wins
 
 1. **Achieved #1 ranking for "project management software"** — $18K/month traffic value, which is the rank-tracking tool's modelled estimate for this keyword at position 1, not booked revenue
-2. **AI citations rose from 28 to 34** (+21% MoM) — 34 of the 78 tracked queries returning an AI Overview cited us, a citation rate of 43.6%, up from 38.9% in December
+2. **AI citations rose from 28 to 34** (+21% MoM) — 34 of the 78 tracked queries returning an AI Overview cited us, a citation rate of 43.6%, up from 28 of 72 (38.9%) in December: **+4.7 percentage points**, on a query set that grew by six
 3. **Published research report generated 45 backlinks** — including industrynews.example (DR 94) and businessmagazine.example (DR 95); see the link table for how each DR was sourced
 
 ## Risks & Mitigation

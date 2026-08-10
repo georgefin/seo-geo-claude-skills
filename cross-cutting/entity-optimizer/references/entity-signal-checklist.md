@@ -126,6 +126,47 @@ These signals provide marginal gains but demonstrate thoroughness and maturity.
 
 Work through signals by priority tier. For each signal, mark status as ✅ (present and correct), ⚠️ (present but incomplete), or ❌ (absent). Focus on completing each priority tier before moving to the next.
 
+## From 47 signals to the report's 7 category statuses
+
+The tiers above are the working order — what to fix first. The report summarises the same signals
+in the seven categories of SKILL.md Step 2, which is a different cut of one list. Each signal
+belongs to exactly one category:
+
+| Report category | Signals | Count |
+|-----------------|---------|-------|
+| 1. Structured Data | 1, 2, 3, 47 | 4 |
+| 2. Knowledge Base | 6, 8, 9, 10, 14, 15, 16, 17, 18, 38, 39, 40, 41 | 13 |
+| 3. Consistency (NAP+E) | 5, 35, 42, 43 | 4 |
+| 4. Content-Based | 4, 11, 24, 25, 26, 27, 45, 46 | 8 |
+| 5. Third-Party | 13, 19, 20, 21, 22, 23, 44 | 7 |
+| 6. AI-Specific | 12, 28, 29, 30, 31, 32, 33, 34, 36, 37 | 10 |
+| 7. Google Business Profile | signal 7, plus the six GBP checks named in SKILL.md Step 2 (completeness, category accuracy, Posts/Q&A/Products activity, photo freshness, review velocity, review response rate) | 7 |
+
+4 + 13 + 4 + 8 + 7 + 10 + 7 = 53 rows: the 47 numbered signals plus the six GBP checks that live
+in SKILL.md rather than in this list.
+
+### Deriving each category's status
+
+**✅ 1 · ⚠️ 0.5 · ❌ 0**, then `points ÷ signals scored`, printed as a percentage to one decimal,
+half up.
+
+| Status | Share of the category's scored signals |
+|--------|----------------------------------------|
+| ✅ Strong | 80% or more |
+| ⚠️ Gaps | 40% up to 80% |
+| ❌ Missing | below 40% — nothing there, or so little the category does not function |
+
+A boundary value takes the higher status: exactly 80.0% is Strong, exactly 40.0% is Gaps. A signal
+that cannot apply to this entity (ISNI for an organisation, a Google Business Profile for a
+company with no public premises) or that nothing in the inputs can settle is **excluded from both
+sides and named** — never scored ❌, which claims you looked and it was absent. Where **no** signal
+in a category could be scored, the row reads `Not applicable` or `Not assessed` with the reason,
+never a status.
+
+Print the working in the report, beside the status: `⚠️ Gaps — 3.0 of 6 scored signals = 50.0%;
+signals 45, 46 excluded (no backlink data)`. Two audits of the same inputs then land on the same
+seven words, and the client can see which signal moves which status.
+
 ### Priority Action Matrix
 
 | Current State | Focus Area | Expected Timeline |

@@ -108,14 +108,16 @@ Templates for each step of the SERP analysis workflow. Use these to structure yo
 | HTTPS | [X]% | High/Med/Low |
 | Mobile Optimized | [X]% | High/Med/Low |
 
-**Content Format Distribution**:
+**Content Format Distribution** (denominator = organic results you actually classified; if you
+captured 8, write /8 — every result falls in exactly one bucket and the buckets sum to the
+denominator):
 - How-to guides: [X]/10
 - Listicles: [X]/10
 - In-depth articles: [X]/10
 - Product pages: [X]/10
 - Other: [X]/10
 
-**Domain Type Distribution**:
+**Domain Type Distribution** (same denominator, same one-bucket-each rule):
 - Brand/Company sites: [X]/10
 - Media/News sites: [X]/10
 - Niche blogs: [X]/10
@@ -193,10 +195,17 @@ Templates for each step of the SERP analysis workflow. Use these to structure yo
 - Top results are: [content types]
 - User likely wants: [description]
 
-**Intent Breakdown**:
-- Informational signals: [X]%
-- Commercial signals: [X]%
-- Transactional signals: [X]%
+**Intent Breakdown** — count the SERP elements you classified, do not estimate the split. List
+every element on the page (each organic result, each feature, the ad block if present), give each
+one intent, then print counts before percentages:
+- Informational signals: [X] of [N] elements = [X/N]%
+- Commercial signals: [X] of [N] elements = [X/N]%
+- Transactional signals: [X] of [N] elements = [X/N]%
+
+The three lines add to the element count and to 100%. An element you cannot classify is listed as
+unclassified and stays in the denominator — dropping it inflates whichever intent you were already
+leaning towards. 100% for one intent is a legitimate result on a uniform SERP; it just has to be
+9 of 9, not a feeling.
 
 **Content Format Implication**:
 Based on intent, your content should:
@@ -207,20 +216,55 @@ Based on intent, your content should:
 
 ## Difficulty Assessment Template
 
+### How the difficulty score is built
+
+Five factors, each converted to the **same 1-100 scale** before anything is weighted — a mean DA,
+a link count and a judged quality bar cannot be added together in their own units. Convert first,
+then weight.
+
+| Factor | Weight | Sub-score on 1-100 |
+|--------|--------|--------------------|
+| Top 10 Domain Authority | 25% | the mean DA of the results you captured (already 0-100 — name the tool it came from) |
+| Top 10 Page Authority | 20% | the mean page-level authority of the same results |
+| Backlinks Required | 20% | median link count of those results, banded: 0-9 → **10** · 10-49 → **30** · 50-199 → **50** · 200-999 → **70** · 1,000+ → **90**. Say which count you used (referring domains or page backlinks) — they are not interchangeable |
+| Content Quality Bar | 20% | what the top 5 pages actually show, 1-5 then × 20: **1** thin or outdated · **2** ordinary blog depth · **3** thorough coverage, nothing original · **4** thorough plus original data, media or tooling · **5** category-defining, cited by others |
+| SERP Stability | 15% | share of top-10 URLs unchanged since your previous pull, as a percentage. Needs two pulls; with one pull it is not scored |
+
+**Difficulty** = Σ(sub-score × weight) ÷ Σ(weights of the factors you could score), rounded to a
+whole number with a half rounding up. The division renormalises: when a factor has no data, drop
+it and divide by what is left — never score it 0, which claims the SERP is easy on that axis.
+State the renormalisation beside the number, with the dropped factors named.
+
+**Bands** — the same cut `keyword-research` Step 6 uses, so one number means one thing across the
+library: **70-100 High · 40-69 Medium · 1-39 Low**. Read the band off the rounded score, so the
+bands stay contiguous. The scale starts at 1: a live SERP with ten results in it never scores 0.
+
+Worked, on a single pull of five captured results with no page-authority pull and no history:
+
+```
+DA        mean 75          weight 0.25 → renormalised 0.25/0.65 = 0.385
+Links     median 1,100 → 90  weight 0.20 → renormalised 0.20/0.65 = 0.308
+Bar       3 → 60           weight 0.20 → renormalised 0.20/0.65 = 0.308
+Page authority and SERP stability not scored (no PA pull, single snapshot) — 0.35 dropped
+
+(75 × 5 + 90 × 4 + 60 × 4) ÷ 13 = 975 ÷ 13 = 75 → High
+```
+
 ```markdown
 ### Difficulty Assessment
 
-**Overall Difficulty Score**: [X]/100
+**Overall Difficulty Score**: [X]/100 ([band]) — [weights and sub-scores substituted, e.g.
+"(75×5 + 90×4 + 60×4) ÷ 13"; name any factor not scored and the weight renormalised away]
 
 **Difficulty Factors**:
 
-| Factor | Score | Weight | Impact |
-|--------|-------|--------|--------|
-| Top 10 Domain Authority | [avg] | 25% | [High/Med/Low] |
-| Top 10 Page Authority | [avg] | 20% | [High/Med/Low] |
-| Backlinks Required | [est.] | 20% | [High/Med/Low] |
-| Content Quality Bar | [rating] | 20% | [High/Med/Low] |
-| SERP Stability | [rating] | 15% | [High/Med/Low] |
+| Factor | Measured value | Sub-score /100 | Weight | Weight used |
+|--------|----------------|----------------|--------|-------------|
+| Top 10 Domain Authority | [mean DA, source] | [X] | 25% | [renormalised or 25%] |
+| Top 10 Page Authority | [mean PA, source] | [X] | 20% | [or "not scored — no PA data"] |
+| Backlinks Required | [median count, which count] | [X] | 20% | [ ] |
+| Content Quality Bar | [1-5 with the one-line reason] | [X] | 20% | [ ] |
+| SERP Stability | [% URLs unchanged, vs which pull] | [X] | 15% | [or "not scored — single pull"] |
 
 **Realistic Assessment**:
 
@@ -230,8 +274,9 @@ Based on intent, your content should:
 
 **Easier Alternatives**:
 If too difficult, consider:
-- [Alternative keyword 1] - Difficulty: [X]
-- [Alternative keyword 2] - Difficulty: [X]
+- [Alternative keyword 1] - [tool-reported Keyword Difficulty, tool named — a different
+  instrument from the SERP score above, so do not rank the two in one list]
+- [Alternative keyword 2] - [same, or "not scored — needs its own SERP pull"]
 ```
 
 ## Recommendations Template

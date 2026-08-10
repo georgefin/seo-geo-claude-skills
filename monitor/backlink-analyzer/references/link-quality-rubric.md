@@ -8,12 +8,27 @@ Comprehensive reference for evaluating backlink quality. Use this rubric to asse
 
 ### Scoring Methodology
 
-Evaluate each link across six factors. Multiply score (1-5) by factor weight to produce a weighted score. Sum all weighted scores for a final Link Quality Score (LQS).
+Evaluate each link across six factors. Score each factor 1-5, multiply by that factor's weight as
+a decimal (0.25 · 0.25 · 0.15 · 0.15 · 0.10 · 0.10), and sum the six products for the Link Quality
+Score (LQS). The weights already total 1.00, so **there is no further divisor** and the LQS lands
+in 1.00-5.00. Print the six factor scores beside the LQS — a link graded 3.4 with no factor row
+behind it cannot be argued with, improved, or reproduced by the next analyst.
 
-**Rating Scale:**
-- **LQS 4.0-5.0**: Premium link — high authority, topically relevant, editorial placement
-- **LQS 2.5-3.9**: Acceptable link — provides value, typical of healthy profiles
-- **LQS 1.0-2.4**: Low quality — minimal value, review for potential risk
+Round to one decimal, half up, and read the band off the rounded figure. That rounding step is
+what makes the bands contiguous: the weights make x.x5 results reachable — a 5 on authority and a
+4 on traffic with 1s on the other four factors gives exactly 2.45 — and an unrounded 2.45 sits in
+no band below, while 2.45 rounded is 2.5, Acceptable.
+
+**Rating Scale** (rounded LQS):
+- **4.0-5.0**: Premium link — high authority, topically relevant, editorial placement
+- **2.5-3.9**: Acceptable link — provides value, typical of healthy profiles
+- **1.0-2.4**: Low quality — minimal value, review for potential risk
+
+Worked: authority 5, relevance 4, traffic 3, position 5, anchor 3, follow 5 →
+`0.25×5 + 0.25×4 + 0.15×3 + 0.15×5 + 0.10×3 + 0.10×5` = `1.25 + 1.00 + 0.45 + 0.75 + 0.30 + 0.50`
+= **4.25 → 4.3, Premium**. A factor you could not check is dropped and the remaining weights are
+renormalised over their own sum (state which, and the sum) — scoring it 1 asserts "poor", which is
+a claim you do not have.
 
 ### Factor 1: Domain Authority (25% weight)
 

@@ -22,8 +22,12 @@ This is a complete example output showing the expected format for SERP analysis 
 
 ## SERP Overview
 
-**Intent**: Informational (100%)
-**Difficulty**: 72/100 (High)
+**Intent**: Informational — 9 of the 9 elements classified (AI Overview, featured snippet, PAA
+block, video carousel, and all five organic results in the top 5) point informational; 0 commercial,
+0 transactional
+**Difficulty**: 75/100 (High) — DA 75 ×5, links 90 ×4, content bar 60 ×4, ÷13 = 75. Page authority
+and SERP stability not scored (no page-level pull; single snapshot, so nothing to compare), so
+0.35 of the matrix was renormalised away; the working is under Difficulty below
 **AI Overview**: Yes - comprehensive guide format
 **SERP captured**: desktop, EN/US, 3 August 2026
 
@@ -94,11 +98,25 @@ What the current top 5 show — read off the table above, thresholds rather than
   the live SERP rather than assuming
 - **Unique angle**: Equipment comparisons, cost breakdowns, or specific niche focus
 
+### Difficulty
+
+| Factor | Measured value | Sub-score /100 | Weight | Weight used |
+|--------|----------------|----------------|--------|-------------|
+| Domain Authority | mean DA of the five captured results: (71+93+58+62+91) ÷ 5 = 75 | 75 | 25% | 0.25/0.65 |
+| Page Authority | not pulled | — | 20% | not scored |
+| Backlinks Required | median page backlinks of the five: 720, 890, **1,100**, 1,800, 2,400 → 1,000+ band | 90 | 20% | 0.20/0.65 |
+| Content Quality Bar | 3 — thorough coverage across all five, no original data or tooling on any of them | 60 | 20% | 0.20/0.65 |
+| SERP Stability | single pull, nothing to compare against | — | 15% | not scored |
+
+`(75 × 5 + 90 × 4 + 60 × 4) ÷ 13 = 975 ÷ 13 = **75** → High (70-100)`. The population is the five
+results captured, not ten — a top-10 pull would move the mean DA and could move the score.
+
 ### Recommended Strategy
 
-Given high difficulty (72/100), consider:
-1. Target long-tail: "how to start a podcast for free" (Difficulty: 45)
-2. Target niche: "how to start a podcast about [topic]" (Difficulty: 30)
+Given high difficulty (75/100), consider:
+1. Target long-tail: "how to start a podcast for free" — Ahrefs KD 45; not SERP-scored here, and
+   KD is a different instrument from the 75 above, so the two do not belong in one ranking
+2. Target niche: "how to start a podcast about [topic]" — Ahrefs KD 30, same caveat
 3. Create supporting video content for video carousel
 4. Focus on PAA optimization for quick wins
 ```

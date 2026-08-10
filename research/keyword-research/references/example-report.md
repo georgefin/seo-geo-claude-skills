@@ -25,9 +25,9 @@ This is a complete example output showing the expected format for keyword resear
 
 ## Executive Summary
 
-- Total keywords analyzed: 150+
-- High-priority opportunities: 23
-- Estimated traffic potential: 45,000/month
+- Total keywords screened: 150+
+- Opportunities scored below: 8 (5 quick wins + 3 growth), plus 5 GEO candidates carried without an Opportunity score because Ahrefs reports no difficulty for them
+- Combined monthly search volume of those 8: 44,190 — the sum of the Volume column below (5,690 quick wins + 38,500 growth), not a traffic forecast: turning volume into sessions needs a position and a click-share assumption this report does not make
 - Recommended focus areas:
   - Task management workflows
   - Team collaboration
@@ -35,33 +35,47 @@ This is a complete example output showing the expected format for keyword resear
 
 ## Top Keyword Opportunities
 
+**Opportunity = (Volume × Intent Value) ÷ Difficulty**, with Intent Value 1 informational and
+navigational, 2 commercial, 3 transactional (Step 7). Volume and difficulty are the Ahrefs figures
+in each row, so every score below reproduces from its own line — the top one is
+(2,400 × 2) ÷ 35 = 137.1. It is a **ratio, not a mark out of 100**: it has no ceiling, and 137.1
+means "better return per unit of difficulty than 85.7", nothing more. One decimal, half up.
+
+The two sections group by how soon a site can realistically rank, which is not the same ordering
+as the score: the formula is driven by volume, so the head terms in Growth score far higher than
+the Quick Wins above them. Read the score within a section.
+
 ### Quick Wins (Priority: Immediate)
 
-| Keyword | Volume | Difficulty | Intent | Score |
-|---------|--------|------------|--------|-------|
-| project management for small teams | 1,200 | 28 | Commercial | 92 |
-| simple task management software | 890 | 25 | Commercial | 89 |
-| best free project management tool | 2,400 | 35 | Commercial | 85 |
-| how to manage remote team projects | 720 | 22 | Informational | 82 |
-| project tracking spreadsheet alternative | 480 | 18 | Commercial | 80 |
+| Keyword | Volume | Difficulty | Intent | Opportunity |
+|---------|--------|------------|--------|-------------|
+| best free project management tool | 2,400 | 35 | Commercial | 137.1 |
+| project management for small teams | 1,200 | 28 | Commercial | 85.7 |
+| simple task management software | 890 | 25 | Commercial | 71.2 |
+| project tracking spreadsheet alternative | 480 | 18 | Commercial | 53.3 |
+| how to manage remote team projects | 720 | 22 | Informational | 32.7 |
 
 ### Growth Keywords (Priority: 3-6 months)
 
-| Keyword | Volume | Difficulty | Intent | Score |
-|---------|--------|------------|--------|-------|
-| project management software | 18,000 | 72 | Commercial | 65 |
-| best project management tools [current year] | 8,500 | 65 | Commercial | 62 |
-| project management app | 12,000 | 68 | Commercial | 58 |
+| Keyword | Volume | Difficulty | Intent | Opportunity |
+|---------|--------|------------|--------|-------------|
+| project management software | 18,000 | 72 | Commercial | 500.0 |
+| project management app | 12,000 | 68 | Commercial | 352.9 |
+| best project management tools [current year] | 8,500 | 65 | Commercial | 261.5 |
 
 ### GEO Opportunities (AI-citation potential)
 
+AI Potential is 1 star for matching a high-GEO query format plus 1 star for each of the four AI
+answer indicators the keyword meets (Step 8) — 5 stars maximum, and the count and the missing
+indicator are printed so the rating can be argued with.
+
 | Keyword | Type | Volume | Difficulty | Intent | AI Potential | Recommended Format |
 |---------|------|--------|------------|--------|--------------|-------------------|
-| what is project management | Definition | 2,200 | N/A — not tool-reported | Informational | ⭐⭐⭐⭐⭐ | Clear definition + methodology |
-| agile vs waterfall | Comparison | N/A — not tool-reported | N/A — not tool-reported | Informational | ⭐⭐⭐⭐⭐ | Side-by-side comparison table |
-| project management methodologies | List | N/A — not tool-reported | N/A — not tool-reported | Informational | ⭐⭐⭐⭐ | Comprehensive list with pros/cons |
-| how to create a project plan | How-to | 1,400 | N/A — not tool-reported | Informational | ⭐⭐⭐⭐ | Step-by-step guide |
-| project management best practices | List | 1,200 | N/A — not tool-reported | Informational | ⭐⭐⭐⭐ | Numbered best practices |
+| what is project management | Definition | 2,200 | N/A — not tool-reported | Informational | ⭐⭐⭐⭐⭐ 5/5 | Clear definition + methodology |
+| agile vs waterfall | Comparison | N/A — not tool-reported | N/A — not tool-reported | Informational | ⭐⭐⭐⭐⭐ 5/5 | Side-by-side comparison table |
+| project management methodologies | List | N/A — not tool-reported | N/A — not tool-reported | Informational | ⭐⭐⭐⭐ 4/5 — the answer is a long list, not a concise one | Comprehensive list with pros/cons |
+| how to create a project plan | How-to | 1,400 | N/A — not tool-reported | Informational | ⭐⭐⭐⭐ 4/5 — procedural, not factual/definitional | Step-by-step guide |
+| project management best practices | List | 1,200 | N/A — not tool-reported | Informational | ⭐⭐⭐⭐ 4/5 — the answer is a long list, not a concise one | Numbered best practices |
 
 *GEO/conversational tables keep the Volume / Difficulty / Intent columns. Tool-reported metrics are shown where they exist (these volumes match the cluster data below); unreported metrics — typical for conversational phrasings, and true of difficulty for these question-format keywords in this example — get an explained N/A, never an invented number.*
 

@@ -1,6 +1,6 @@
 ---
 name: serp-analysis
-version: "4.2.6"
+version: "4.3.0"
 description: 'Analyze search engine results pages to understand ranking factors, SERP features, user intent patterns, and AI overview triggers. Use when the user asks to "analyze search results", "SERP analysis", "what ranks for", "SERP features", "why does this page rank", "featured snippets", "AI overviews", or "what does Google show for". For tracking rankings over time, see rank-tracker. For keyword discovery, see keyword-research.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ allowed-tools: WebFetch
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.2.6"
+  version: "4.3.0"
   geo-relevance: "high"
   tags:
     - seo
@@ -148,7 +148,9 @@ When a user requests SERP analysis:
 
 7. **Calculate True Difficulty**
 
-   Score overall difficulty (1-100) based on: top 10 domain authority, page authority, backlinks required, content quality bar, and SERP stability. Provide realistic assessments for new, growing, and established sites, plus easier alternatives.
+   Score overall difficulty (1-100) from five factors — top 10 domain authority (25%), page authority (20%), backlinks required (20%), content quality bar (20%), SERP stability (15%). Each factor is converted to the same 1-100 sub-scale *before* it is weighted; the score is the weighted mean, rounded to a whole number, halves up. **A factor you cannot measure is dropped and the remaining weights are renormalised over their own sum — never scored 0**, which would claim the SERP is easy on that axis. Bands are `keyword-research` Step 6's: 70-100 High · 40-69 Medium · 1-39 Low.
+
+   **Print the arithmetic beside the score**, in the deliverable: the sub-scores, the weights actually used, and any factor dropped with its reason (`75/100 (High) — DA 75 ×5, links 90 ×4, content bar 60 ×4, ÷13; page authority and stability not scored: no PA pull, single snapshot`). A difficulty a reader cannot recompute from the table above it is an opinion with a decimal point, and the next pull will not reproduce it. Conversion ladders, the quality-bar rubric and a worked renormalisation: [references/analysis-templates.md](./references/analysis-templates.md) → "How the difficulty score is built". Provide realistic assessments for new, growing, and established sites, plus easier alternatives — a tool's own Keyword Difficulty may stand in for an unanalysed alternative only if the tool is named and the figure is not ranked against this score, which is a different instrument.
 
 8. **Generate Recommendations**
 
@@ -169,6 +171,8 @@ When a user requests SERP analysis:
 - [ ] SERP composition mapped with all features documented
 - [ ] Ranking factors identified from actual top 10 analysis (not assumptions)
 - [ ] Content requirements based on observed patterns in current SERP
+- [ ] Difficulty score prints its sub-scores, the weights used and any dropped factor with its reason; the band is read off the rounded score; no factor is scored 0 for want of data
+- [ ] Every share or distribution states its denominator — the intent breakdown counts classified SERP elements (`9 of 9`), the format and domain-type distributions use the number of results actually classified, and each set sums to its own denominator
 - [ ] Source of each data point stated in the report's own words — the resolved tool name (Ahrefs, Otterly), "user-provided", or "manual observation"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 
 ## Greek Comparison-Shopping Surfaces (Skroutz, BestPrice, Google Shopping)

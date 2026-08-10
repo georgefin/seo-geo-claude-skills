@@ -1,13 +1,13 @@
 ---
 name: keyword-research
-version: "4.3.0"
+version: "4.4.0"
 description: 'Discover high-value SEO keywords with search intent analysis, difficulty scoring, topic clustering, and AI citation potential. Use when the user asks to "find keywords", "keyword research", "what should I write about", "keyword difficulty score", "identify ranking opportunities", "topic ideas", "what are people searching for", or "long-tail keyword suggestions". For competitor keyword gaps, see competitor-analysis. For topic coverage gaps, see content-gap-analysis.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.0"
+  version: "4.4.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -268,6 +268,8 @@ When a user requests keyword research:
    - Low commercial intent
    ```
 
+   **AI Potential stars are counted, not felt**: 1 star for the format match above, +1 per indicator met (1-5), printed as `⭐⭐⭐⭐ 4/5 — <the indicator that failed>` so the rating says what to write. Rules: [references/keyword-prioritization-framework.md](./references/keyword-prioritization-framework.md) → AI Potential Rating.
+
 9. **Create Topic Clusters**
 
    Group keywords into content clusters:
@@ -332,6 +334,7 @@ When a user requests keyword research:
 - [ ] Every recommendation cites specific data points (not generic advice)
 - [ ] Every keyword analysis table (incl. GEO/conversational and local) carries volume / difficulty / intent columns — unreported metrics as explained N/A ("N/A — not tool-reported"), never invented; crosswalk tables only reference keywords already metricized above
 - [ ] Any score whose inputs are missing is withheld with the formula stated and the missing inputs named — never computed from invented numbers; a reduced-factor ranking states its rescaling (denominator or renormalised weights) and which factors dropped out
+- [ ] Every score, star rating and headline total in the report reproduces from the row or column printed beside it — the Opportunity Score from its own Volume/Difficulty/Intent cells, an AI Potential star count from its indicators, a summary total from the column it sums — and any figure that would need an assumption the report has not stated (volume converted to sessions, traffic potential) is either withheld or shipped with that assumption named
 - [ ] No unlabelled claim about what a competitor ranks for — including what their ranking set is mostly about, which topics they own, or what they would not rank for. Each such claim is a numbered entry in the Assumptions block, or it is cut
 - [ ] Keywords grouped by intent and mapped to content types
 - [ ] Topic clusters show clear pillar-to-cluster relationships

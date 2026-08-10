@@ -1,13 +1,13 @@
 ---
 name: entity-optimizer
-version: "4.1.6"
+version: "4.2.0"
 description: 'Audit and build entity presence across Google Knowledge Graph, Wikidata, and AI systems for brand recognition and AI citations. Use when the user asks to "optimize entity presence", "build knowledge graph", "improve knowledge panel", "entity audit", "establish brand entity", "Google doesn''t know my brand", "no knowledge panel", "establish my brand as an entity". For structured data implementation, see schema-markup-generator. For content-level AI optimization, see geo-content-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.1.6"
+  version: "4.2.0"
   geo-relevance: "high"
   tags:
     - seo
@@ -170,9 +170,9 @@ Test how AI systems identify this entity by querying:
 
 ### Step 2: Entity Signal Audit
 
-Evaluate entity signals across 7 categories. For the detailed 47-signal checklist covering categories 1-6, see [references/entity-signal-checklist.md](./references/entity-signal-checklist.md); Google Business Profile (category 7) is audited directly below.
+Evaluate entity signals across 7 categories. The detailed 47-signal checklist is in [references/entity-signal-checklist.md](./references/entity-signal-checklist.md), which also maps every signal to one of these 7 categories; the Google Business Profile category is the one signal there plus the six checks named below, so a GBP audit does not fall between the two files.
 
-Evaluate each signal as Pass / Fail / Partial with a specific action for each gap. The 7 categories are:
+Evaluate each signal as Pass ✅ / Partial ⚠️ / Fail ❌ — the same three marks the category status is counted from — with a specific action for each gap, and exclude rather than fail a signal no input can settle. The 7 categories are:
 
 1. **Structured Data Signals** -- Organization/Person schema, sameAs links, @id consistency, author schema
 2. **Knowledge Base Signals** -- Wikidata, Wikipedia, CrunchBase, industry directories
@@ -207,15 +207,24 @@ Two rules apply to every claim the report below will carry. Apply them while wri
 
 ### Signal Category Summary
 
-| Category | Status | Key Findings |
-|----------|--------|-------------|
-| Structured Data | ✅ Strong / ⚠️ Gaps / ❌ Missing | [key findings] |
-| Knowledge Base | ✅ Strong / ⚠️ Gaps / ❌ Missing | [key findings] |
-| Consistency (NAP+E) | ✅ Strong / ⚠️ Gaps / ❌ Missing | [key findings] |
-| Content-Based | ✅ Strong / ⚠️ Gaps / ❌ Missing | [key findings] |
-| Third-Party | ✅ Strong / ⚠️ Gaps / ❌ Missing | [key findings] |
-| AI-Specific | ✅ Strong / ⚠️ Gaps / ❌ Missing | [key findings] |
-| Google Business Profile | ✅ Strong / ⚠️ Gaps / ❌ Missing | [key findings] |
+Three statuses, and each one shows the count it came from: ✅ 1 · ⚠️ 0.5 · ❌ 0 over the category's
+own signals, `points ÷ signals scored` — **Strong** at 80% or more, **Gaps** from 40% to 80%,
+**Missing** below 40%, with a boundary value taking the higher status. A signal that cannot apply
+to this entity, or that no input can settle, is excluded from both sides and named; a category
+where nothing could be scored reads `Not applicable` or `Not assessed` with the reason, never a
+status. Which of the 47 signals belongs to which category, and the worked derivation:
+[references/entity-signal-checklist.md](./references/entity-signal-checklist.md) → "From 47
+signals to the report's 7 category statuses".
+
+| Category | Status (points ÷ scored = %) | Key Findings |
+|----------|------------------------------|-------------|
+| Structured Data | ✅ Strong / ⚠️ Gaps / ❌ Missing — [X] of [N] = [Y]% | [key findings] |
+| Knowledge Base | ✅ / ⚠️ / ❌ — [X] of [N] = [Y]% | [key findings] |
+| Consistency (NAP+E) | ✅ / ⚠️ / ❌ — [X] of [N] = [Y]% | [key findings] |
+| Content-Based | ✅ / ⚠️ / ❌ — [X] of [N] = [Y]% | [key findings] |
+| Third-Party | ✅ / ⚠️ / ❌ — [X] of [N] = [Y]% | [key findings] |
+| AI-Specific | ✅ / ⚠️ / ❌ — [X] of [N] = [Y]% | [key findings] |
+| Google Business Profile | ✅ / ⚠️ / ❌ — [X] of [N] = [Y]% | [key findings] |
 
 ### Critical Issues
 
@@ -223,7 +232,11 @@ Two rules apply to every claim the report below will carry. Apply them while wri
 
 ### Top 5 Priority Actions
 
-Sorted by: impact on entity recognition × effort required
+Ordering rule, so the list reproduces: **impact on entity recognition first, then ascending
+effort** — every High-impact action before every Medium, and within one impact level the Low-effort
+one first. Effort breaks ties; it never outranks impact, and it is never multiplied by it (that
+arithmetic would put the most expensive action on top). Where two actions tie on both, the one
+unblocking the other goes first and says so.
 
 1. **[Signal]** — [specific action]
    - Impact: [High/Medium] | Effort: [Low/Medium/High]
@@ -279,7 +292,9 @@ Sorted by: impact on entity recognition × effort required
 - [ ] Disambiguation context provided (if entity name is common)
 
 ### Output Validation
-- [ ] All 7 signal categories evaluated
+- [ ] All 7 signal categories evaluated, each under its own name from Step 2 — a category nothing could be scored in still appears, marked Not applicable or Not assessed with the reason
+- [ ] Every category status prints the count behind it (points ÷ signals scored = %), uses only the three statuses Strong / Gaps / Missing, and excludes rather than fails the signals no input can settle
+- [ ] Priority actions are ordered impact first, then ascending effort, and the order matches the labels printed on them
 - [ ] NAP (Name/Address/Phone) checked in exact-matching format across site, GBP, and Greek directories (vrisko.gr, xo.gr), including Greek/Latin script variants
 - [ ] Google Business Profile audited as its own category (completeness, categories, Posts/Q&A/Products, photo freshness, review velocity/response rate)
 - [ ] AI entity resolution tested with at least 3 queries

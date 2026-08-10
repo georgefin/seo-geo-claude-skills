@@ -29,16 +29,23 @@ Queries tested with results reported by user:
 
 ### Entity Health Summary
 
+Seven categories, each scored over its own signals (✅ 1 · ⚠️ 0.5 · ❌ 0) with the count printed:
+Strong at 80%+, Gaps from 40%, Missing below 40%. Signals nothing in the inputs can settle are
+excluded and named rather than failed.
+
 | Signal Category | Status | Key Findings |
 |-----------------|--------|--------------|
-| Knowledge Graph | Missing | No Wikidata entry exists; no Google Knowledge Panel triggers for branded queries |
-| Structured Data | Partial | Organization schema present on homepage with name, url, and logo; missing Person schema for CEO and leadership team; no sameAs links to external profiles |
-| Web Presence | Strong | Consistent NAP across LinkedIn, Twitter/X, G2, and Crunchbase; social profiles link back to cloudmetrics.io; branded search returns owned properties in top 5 |
-| Content-Based | Partial | About page exists but opens with marketing copy rather than an entity-defining statement; no dedicated author pages for leadership |
-| Third-Party | Partial | Listed on G2 and Crunchbase; 2 industry publication mentions found; no awards or analyst coverage |
-| AI-Specific | Weak | AI systems have only surface-level awareness; entity definition is not quotable from any authoritative source |
+| Structured Data | ⚠️ Gaps — 1.5 of 3 = 50.0% | Organization schema on the homepage carries name, url and logo but no description (⚠️); no sameAs links to any external profile (❌); the same @id on all five pages checked (✅). Signal 47 excluded — no subdomains |
+| Knowledge Base | ❌ Missing — 3 of 8 = 37.5% | No Wikidata entry and no Knowledge Panel for any branded query (❌); LinkedIn, Crunchbase and the G2 industry listing complete (✅ ×3); no Wikipedia article and only 2 independent sources, short of the 3 the notability path needs (❌); no DBpedia entry, no Knowledge Graph ID (❌). Five signals excluded — Knowledge Panel attributes and image, Wikidata property depth and language labels (no entry to review), ISNI/VIAF (organisation, not person) |
+| Consistency (NAP+E) | ✅ Strong — 3.5 of 4 = 87.5% | Contact details match across LinkedIn, Twitter/X, G2 and Crunchbase (✅); one name format everywhere (✅); the same bio on every platform (✅); links run from the social profiles to cloudmetrics.io but not back from the site (⚠️) |
+| Content-Based | ⚠️ Gaps — 3 of 6 = 50.0% | Site is in the branded top 5 but owns no Knowledge Panel (⚠️); About page opens with marketing copy, not an entity-defining sentence (⚠️); 14 pages of depth on the three target topics (✅); the entity is named contextually through the content, not only in the chrome (✅); no author or leadership pages (❌); no original research or data (❌). Backlink profile and branded anchor text excluded — no link data supplied |
+| Third-Party | ⚠️ Gaps — 2.0 of 5 = 40.0% | G2 reviews exist with usable volume (✅); AI answers place the entity beside Datadog but the inputs show no published "X vs Y" page, so co-citation is partial (⚠️); 2 press mentions against the 3 the signal asks for (⚠️); no awards, no speaking or contributed publications (❌ ×2). Branded search volume and social engagement excluded — neither was measured. 40.0% sits exactly on a boundary and takes the higher status |
+| AI-Specific | ⚠️ Gaps — 3 of 7 = 42.9% | No competing entity dominates the branded query (✅); robots.txt allows the AI crawlers (✅); ChatGPT returns a generic "analytics tool" description (⚠️); topic association is right but thin (⚠️); the Datadog comparison contained factual errors (❌); no quotable definition on the About page (❌); key entity pages last updated 8 months ago, past the 6-month line (❌). Perplexity, AI Overview and claim verification excluded — not tested in this round |
+| Google Business Profile | Not applicable | Fully remote B2B SaaS with no public premises; all 7 GBP checks fall away. Recorded so the category is not silently dropped |
 
 ### Top 3 Priority Actions
+
+Ordered impact first, then ascending effort — the two High/Low actions precede the High/High one.
 
 1. **Create Wikidata entry** with key properties: instance of (P31: business intelligence software company), official website (P856: cloudmetrics.io), inception (P571), country (P17)
    - Impact: High | Effort: Low

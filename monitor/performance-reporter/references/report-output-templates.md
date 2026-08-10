@@ -21,6 +21,26 @@ Detailed output templates for each step of the performance reporting workflow. U
 
 ## 2. Executive Summary Template
 
+**Three figures in this block are computed, not judged — print the working beside each.**
+
+- **Status**, per KPI row: compare the period's value with that row's target. **On track** = at or
+  above target · **Watch** = below target but at least 90% of it · **Off track** = below 90% of
+  target. Exactly at target is On track; exactly 90% is Watch. For a metric where lower is better
+  (bounce rate, average position, cost per lead) invert the ratio — target ÷ actual — before
+  reading the bands. A row with no target agreed reads "no target set" and is left out of the
+  Status column and out of the rating tally below.
+- **Overall Performance**, one rating for the pack, is a tally of those statuses and nothing else:
+  **Excellent** = every scored row On track · **Good** = no row Off track · **Needs Attention** =
+  at least one Off track, but fewer than half the scored rows · **Critical** = half or more of the
+  scored rows Off track. Print the tally next to the word: `Overall Performance: Good — 5 KPIs
+  scored: 1 on track, 4 watch, 0 off track`. A rating with no tally beside it is an impression,
+  and the next report will not reproduce it.
+- **ROI** uses the kpi-definitions formula and shows it: `(organic revenue − investment) ÷
+  investment × 100`. Print the substituted numbers, because revenue ÷ investment on the same
+  figures lands 100 points higher and both are called "ROI" in the wild. Round to the nearest
+  whole percent, half up. Same period on both sides, and if attribution covers only part of the
+  revenue, say which part.
+
 ```markdown
 # SEO Performance Report
 
@@ -32,7 +52,7 @@ Detailed output templates for each step of the performance reporting workflow. U
 
 ## Executive Summary
 
-### Overall Performance: [Excellent/Good/Needs Attention/Critical]
+### Overall Performance: [Excellent/Good/Needs Attention/Critical] — [N] KPIs scored: [X] on track, [Y] watch, [Z] off track
 
 **Key Highlights**:
 
@@ -50,19 +70,19 @@ Action Required:
 
 ### Key Metrics at a Glance
 
-| Metric | This Period | Last Period | Change | Target | Status |
-|--------|-------------|-------------|--------|--------|--------|
-| Organic Traffic | [X] | [Y] | [+/-Z%] | [T] | [status] |
-| Keyword Rankings (Top 10) | [X] | [Y] | [+/-Z] | [T] | [status] |
-| Organic Conversions | [X] | [Y] | [+/-Z%] | [T] | [status] |
-| Domain Authority | [X] | [Y] | [+/-Z] | [T] | [status] |
-| AI Citations | [X] | [Y] | [+/-Z%] | [T] | [status] |
+| Metric | This Period | Last Period | Change | Target | % of target | Status |
+|--------|-------------|-------------|--------|--------|-------------|--------|
+| Organic Traffic | [X] | [Y] | [+/-Z%] | [T] | [X÷T as %] | [On track / Watch / Off track] |
+| Keyword Rankings (Top 10) | [X] | [Y] | [+/-Z] | [T] | [X÷T as %] | [status] |
+| Organic Conversions | [X] | [Y] | [+/-Z%] | [T] | [X÷T as %] | [status] |
+| Domain Authority | [X] | [Y] | [+/-Z] | [T] | [X÷T as %] | [status] |
+| AI Citations | [X] | [Y] | [+/-Z%] | [T] | [X÷T as %] | [status] |
 
 ### SEO ROI
 
 **Investment**: $[X] (content, tools, effort)
 **Organic Revenue**: $[Y]
-**ROI**: [Z]%
+**ROI**: ($[Y] − $[X]) ÷ $[X] = [Z]%
 ```
 
 ---
@@ -189,14 +209,25 @@ does not answer this question.
 |--------|-------------|-------------|--------|
 | Keywords with AI Overview | [X]/[Y] | [X]/[Y] | [+/-Z] |
 | Your AI Citations | [X] | [Y] | [+/-Z%] |
-| Citation Rate | [X]% | [Y]% | [+/-Z%] |
+| Citation Rate | [citations] ÷ [queries with an AI answer] = [X]% | [same, last period] | [+/-Z pp] |
 | Avg Citation Position | [X] | [Y] | [+/-Z] |
+
+Citation Rate carries both counts in both periods, because its denominator moves on its own: a
+rate that rose while the query set shrank is a different story from one that rose on citations
+won, and only the two fractions side by side tell them apart. The denominator is queries that
+returned an AI answer, not all monitored queries (kpi-definitions, AI Citation Rate). Report the
+period-over-period move in **percentage points**, not as a percentage of a percentage. Avg
+Citation Position is the mean of the positions of the citations counted above — state how many
+citations it averages, and withhold it below three rather than publishing a mean of one.
 
 ### AI Citation by Topic
 
 | Topic Cluster | Opportunities | Citations | Rate |
 |---------------|---------------|-----------|------|
-| [Topic 1] | [X] | [Y] | [Z]% |
+| [Topic 1] | [X] | [Y] | [Y÷X as %] |
+
+Rate here is the same arithmetic on one cluster's rows; the cluster rates do not average to the
+site-wide rate — recompute that one from its own totals.
 
 ### GEO Wins This Period
 
@@ -225,7 +256,11 @@ Use inside the GEO/AI section when AI-referral data exists. Sources: ~~analytics
 | Metric | This Period | Last Period | Change |
 |--------|-------------|-------------|--------|
 | AI referral sessions | [X] | [Y] | [+/-Z%] |
-| AI share of total sessions | [X]% | [Y]% | [+/-Z pp] |
+| AI share of total sessions | [X] ÷ [total sessions] = [S]% | [same, last period] | [+/-Z pp] |
+
+Share prints its denominator in both periods: total sessions, all channels, same property and
+window as the numerator. A share change is stated in percentage points; the sessions change beside
+it is a percentage — the two lines are not the same number said twice.
 
 ### Sessions by Assistant
 
@@ -328,10 +363,21 @@ engines weigh. Scored out of 100.
 | Metric | Value |
 |--------|-------|
 | Pages Audited | [count] |
-| Average CORE-EEAT Score | [score]/100 ([rating]) |
-| Average score on the AI-visibility half (CORE) | [score]/100 |
-| Average score on the search-trust half (EEAT) | [score]/100 |
+| Average CORE-EEAT Score | [score]/100 — unweighted mean of the [count] page scores — [rating] |
+| Average score on the AI-visibility half (CORE) | [score]/100 — mean of the same pages' CORE scores |
+| Average score on the search-trust half (EEAT) | [score]/100 — mean of the same pages' EEAT scores |
 | Blocking issues found | [count] ([name each in plain words — never the internal item code]) |
+
+Every average here is a plain mean over the pages audited **in this period**, each page counting
+once whatever its traffic — say so, because a traffic-weighted average of the same pages is a
+different number and a reader will assume whichever one flatters. A page whose audit was blocked
+(a veto fired, so it carries no final score) is excluded from the mean and named; averaging in a
+capped or absent score misstates both. Two pages is not an average worth printing: below three
+audited pages, list the page scores instead. Where a previous period's average is shown for
+comparison, it has to cover the same page set or the comparison says which pages entered and left.
+The `[rating]` word is read off the content-quality-auditor scale this library already publishes —
+90-100 Excellent · 75-89 Good · 60-74 Medium · 40-59 Low · 0-39 Poor — quoted, not re-cut, and
+applied to the average exactly as it applies to a page score.
 
 ### Dimension Averages Across Audited Pages
 
@@ -428,7 +474,14 @@ Your referring domains rank #[X] of [Y] competitors.
 
 | Content Piece | Investment | Traffic Value | ROI |
 |---------------|------------|---------------|-----|
-| [Title 1] | $[X] | $[Y] | [Z]% |
+| [Title 1] | $[X] | $[Y] | ($[Y] − $[X]) ÷ $[X] = [Z]% |
+
+Same formula as the executive block, and the same warning: this ROI runs on **traffic value**, a
+modelled figure (organic clicks × CPC, from the tool that models it — name it), not on booked
+revenue. Two rows measured on different bases never share a column; if only some pieces have
+revenue attached, split the table rather than blending the two. Content published inside the
+reporting period has not had time to earn its traffic — say so beside its row instead of printing
+a negative ROI as a verdict.
 ```
 
 ---

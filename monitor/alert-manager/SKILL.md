@@ -1,13 +1,13 @@
 ---
 name: alert-manager
-version: "4.1.2"
+version: "4.2.0"
 description: 'Set up automated monitoring and notifications for SEO ranking drops, traffic changes, technical issues, and competitor movements. Use when the user asks to "set up SEO alerts", "notify me when rankings drop", "traffic alerts", "watch competitor changes", "alert me if rankings drop", "notify me of traffic changes", "monitor rankings", or "watch my keywords for changes". For detailed rank analysis, see rank-tracker. For comprehensive reporting, see performance-reporter.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.1.2"
+  version: "4.2.0"
   geo-relevance: "low"
   tags:
     - seo
@@ -60,7 +60,7 @@ Sets up proactive monitoring alerts for critical SEO and GEO metrics. Triggers n
 1. **Alert Configuration**: Sets up custom alert thresholds
 2. **Multi-Metric Monitoring**: Tracks rankings, traffic, technical issues
 3. **Threshold Management**: Defines when alerts trigger
-4. **Priority Classification**: Categorizes alerts by severity
+4. **Priority Classification**: Gives every alert a threshold band (how far the metric moved) and a response priority P0-P3 (who is notified, how fast)
 5. **Notification Setup**: Configures how alerts are delivered
 6. **Alert Response Plans**: Creates action plans for each alert type
 7. **Alert History**: Tracks alert patterns over time
@@ -126,26 +126,41 @@ When a user requests alert setup:
    
    ### Alert Categories
    
-   | Category | Description | Typical Urgency |
-   |----------|-------------|-----------------|
-   | Ranking Alerts | Keyword position changes | Medium-High |
-   | Traffic Alerts | Organic traffic fluctuations | High |
-   | Technical Alerts | Site health issues | Critical |
-   | Backlink Alerts | Link profile changes | Medium |
-   | Competitor Alerts | Competitor movements | Low-Medium |
-   | GEO Alerts | AI visibility changes | Medium |
-   | Brand Alerts | Brand mentions and reputation | Medium |
+   | Category | Description | Typical Priority |
+   |----------|-------------|------------------|
+   | Ranking Alerts | Keyword position changes | P1-P2 |
+   | Traffic Alerts | Organic traffic fluctuations | P1 |
+   | Technical Alerts | Site health issues | P0 |
+   | Backlink Alerts | Link profile changes | P2 |
+   | Competitor Alerts | Competitor movements | P2-P3 |
+   | GEO Alerts | AI visibility changes | P2 |
+   | Brand Alerts | Brand mentions and reputation | P2 |
    ```
+   
+   Typical, not automatic: each individual alert gets its own priority in step 2, and the
+   category row is only where to start.
 
 2. **Configure Alert Rules by Category**
 
-   For each relevant category (Rankings, Traffic, Technical, Backlinks, Competitors, GEO/AI, Brand), define alert name, trigger condition, threshold, and priority level.
+   For each relevant category (Rankings, Traffic, Technical, Backlinks, Competitors, GEO/AI, Brand), define alert name, trigger condition, threshold, band, and priority.
+
+   **Two labels per alert, and they are different axes.** The **threshold band** — Info ·
+   Warning · Critical · Emergency — says how far the metric moved from its own baseline, and
+   comes from the data (1 / 1.5 / 2 / 3 standard deviations, or the percentage and absolute
+   tables in the threshold guide). The **response priority** — P0 · P1 · P2 · P3 — says who is
+   notified, through which channel, how fast, and comes from the business. Default map:
+   Emergency → P0 · Critical → P1 · Warning → P2 · Info → P3; an alert placed above or below its
+   default names the reason in the same line ("P1 — raised from P2: priority-1 query set").
+   Standing overrides: security issues and manual actions are P0 on any detection, and alerts on
+   the priority-1 / Tier-1 keyword set rise one level. Do not grade alerts "High / Medium / Low" —
+   that was a third name for the P-axis whose "Critical" collided with the Critical band, one word
+   grading a metric in one table and a pager rota in the next.
 
    > **Reference**: See [references/alert-configuration-templates.md](./references/alert-configuration-templates.md) for complete alert tables, threshold examples, and response plan templates for all 7 categories.
 
 3. **Define Alert Response Plans**
 
-   Map each priority level (Critical, High, Medium, Low) to a response time and immediate action steps.
+   Map each priority (P0 Emergency, P1 Urgent, P2 Important, P3 Monitor) to its response clock and immediate action steps — one clock per priority, never per band.
 
 4. **Set Up Alert Delivery**
 
@@ -158,23 +173,30 @@ When a user requests alert setup:
     
     **Domain**: [domain]
     **Configured**: [date]
-    **Total Active Alerts**: [X]
+    **Total Active Alerts**: [X] — the bottom-right cell of the table below, not a separately
+    kept number
     
     ## Alert Count by Category
     
-    | Category | Critical | High | Medium | Low | Total |
-    |----------|----------|------|--------|-----|-------|
+    | Category | P0 | P1 | P2 | P3 | Total |
+    |----------|----|----|----|----|-------|
     | Rankings | [X] | [X] | [X] | [X] | [X] |
     | Traffic | [X] | [X] | [X] | [X] | [X] |
     | Technical | [X] | [X] | [X] | [X] | [X] |
     | Backlinks | [X] | [X] | [X] | [X] | [X] |
     | Competitors | [X] | [X] | [X] | [X] | [X] |
     | GEO | [X] | [X] | [X] | [X] | [X] |
+    | Brand | [X] | [X] | [X] | [X] | [X] |
     | **Total** | **[X]** | **[X]** | **[X]** | **[X]** | **[X]** |
+    
+    Every alert is counted once, in exactly one cell: each row's Total is the sum of its four
+    priority cells, each column's Total is the sum of its seven category cells, and both totals
+    meet at the same bottom-right figure. Recount the table against the alert definitions above
+    it before sending — a summary that does not add up is the first thing a client checks.
     
     ## Quick Reference
     
-    ### If You Get a Critical Alert
+    ### If You Get a P0 Alert
     
     1. Don't panic
     2. Check alert details
@@ -195,14 +217,19 @@ When a user requests alert setup:
 
 ### Input Validation
 - [ ] Alert thresholds are based on realistic baseline data
-- [ ] Critical keywords and pages clearly identified
-- [ ] Response plans defined for each alert priority level
+- [ ] Priority-1 keywords and pages clearly identified (one list, shared with the Tier-1 ranking set)
+- [ ] Response plans defined for each priority P0-P3
 - [ ] Notification channels configured with appropriate recipients
 
 ### Output Validation
 - [ ] Every metric cites its data source and collection date
 - [ ] Alert thresholds account for normal metric fluctuations
 - [ ] Response plans are specific and time-bound
+- [ ] Every alert carries both labels — the threshold band it fires at (Info / Warning / Critical / Emergency, or "no band — boundary alert") and its response priority (P0-P3) — with no third vocabulary anywhere in the configuration
+- [ ] Any priority above or below the band's default map states its reason in the same line
+- [ ] Any threshold derived from a baseline shows the arithmetic: the mean, the standard deviation, the multiple used, and the resulting value (e.g. `8,800 = 10,000 − 1.5 × 800`)
+- [ ] The alert-count table adds up both ways and its bottom-right cell equals the stated Total Active Alerts
+- [ ] Any alert-effectiveness figure (false-positive rate, MTTA, MTTR) prints its two counts and its window, reported per priority rather than pooled
 - [ ] Source of each alert trigger stated in the configuration's own words — the resolved tool name (an Ahrefs API alert, a Search Console notification, a Screaming Frog alert) or "manual user check"; where no tool is connected, the configuration says exactly that and the alert is not written up as automated. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 
 ## Example
@@ -214,24 +241,33 @@ When a user requests alert setup:
 ```markdown
 ## Ranking Alert Configuration
 
-### Critical Keywords (Immediate Alert)
+### Priority-1 Keywords (P1 — same day)
 
-| Keyword | Current | Alert If | Priority |
-|---------|---------|----------|----------|
-| best project management software | 2 | Drops to 5+ | 🔴 Critical |
-| project management tools | 4 | Drops to 8+ | 🔴 Critical |
-| team collaboration software | 1 | Any drop | 🔴 Critical |
+| Keyword | Current | Alert If | Band reached | Priority |
+|---------|---------|----------|--------------|----------|
+| best project management software | 2 | Drops to 5+ (drop >=3) | Warning — Tier 1 warns at >=3 | 🟠 P1 |
+| project management tools | 4 | Drops to 8+ (drop >=4) | Warning — Tier 1 warns at >=3 | 🟠 P1 |
+| team collaboration software | 1 | Any drop from #1 | Warning — brand/#1 rule | 🟠 P1 |
 
-### Important Keywords (Same-Day Alert)
+Warning band defaults to P2; all three are raised one level because they are priority-1 money
+terms. A drop of 5+ on any of them reaches the **Critical** band, which under the same override
+fires as **P0** — page, do not queue.
 
-| Keyword | Current | Alert If | Priority |
-|---------|---------|----------|----------|
-| agile project management | 7 | Drops out of top 10 | 🔴 High |
-| kanban software | 9 | Drops out of top 10 | 🔴 High |
+### Wider Tracked Set (P2 — 48 hours)
+
+| Keyword | Current | Alert If | Band reached | Priority |
+|---------|---------|----------|--------------|----------|
+| agile project management | 7 | Drops out of top 10 (drop >=4) | none — page-1 boundary | 🟡 P2 |
+| kanban software | 9 | Drops out of top 10 (drop >=2) | none — page-1 boundary | 🟡 P2 |
+
+These two fire on losing page 1, not on a variance move: a 2-position slip from #9 reaches no
+Tier-2 band (that table warns at >=5), so the Band column says so rather than borrowing a band the
+trigger never reaches. Colour follows the priority, one marker per level — 🔴 P0 · 🟠 P1 · 🟡 P2 ·
+🟢 P3 — because two levels sharing a red dot is a legend nobody can read.
 
 ### Alert Response Plan
 
-**If Critical Keyword Drops**:
+**If a priority-1 keyword drops (P1 — acknowledge within 4 h, resolved same day)**:
 1. Check if page is still indexed (site:url)
 2. Look for algorithm update announcements
 3. Analyze what changed in SERP
@@ -253,8 +289,13 @@ When a user requests alert setup:
 
 ## Alert Threshold Quick Reference
 
-| Metric | Warning | Critical | Frequency |
-|--------|---------|----------|-----------|
+Both columns are **threshold bands** — how far the metric moved — not priorities. Read the priority
+off the default map (Emergency → P0 · Critical → P1 · Warning → P2 · Info → P3) plus any override
+the alert definition states, and remember these are generic defaults: a site whose own measured
+variance is tighter than -15% WoW should be alerting sooner than this table says.
+
+| Metric | Warning band | Critical band | Frequency |
+|--------|--------------|---------------|-----------|
 | Organic traffic | -15% WoW | -30% WoW | Daily |
 | Keyword positions | >3 position drop | >5 position drop | Daily |
 | Pages indexed | -5% change | -20% change | Weekly |
@@ -266,7 +307,7 @@ When a user requests alert setup:
 | AI citation position | Worsens by 2+ slots within the answer | Dropped from the answer entirely | Weekly |
 | Security issues | Any detected | Any detected | Daily |
 
-**AI citation event alerts** (same weekly window): a citation **won** on a tracked query is logged as a positive, informational alert; an **AI Overview appearing or disappearing** on a tracked query is a Medium-severity event — either direction reshapes the click landscape for that query.
+**AI citation event alerts** (same weekly window): a citation **won** on a tracked query is logged as a positive, informational alert (Info band, P3); an **AI Overview appearing or disappearing** on a tracked query is a Warning-band event at **P2** — either direction reshapes the click landscape for that query.
 
 **Priority-1 queries** are the client-critical keywords captured during alert setup (the critical-keywords intake, Data Sources item 2): money terms, brand terms, and top-converting queries. This is the same set the threshold guide calls "Tier 1" — maintain one list, not two.
 

@@ -1,13 +1,13 @@
 ---
 name: backlink-analyzer
-version: "4.0.7"
+version: "4.1.0"
 description: 'Analyze backlink profiles to assess link authority, identify toxic links, discover link building opportunities, and monitor competitors. Use when the user asks to "analyze backlinks", "check link profile", "find toxic links", "link building opportunities", "who links to me", "how do I get more backlinks", "disavow links", or "off-page SEO". For internal link analysis, see internal-linking-optimizer. For competitor link profiles, see competitor-analysis.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.0.7"
+  version: "4.1.0"
   geo-relevance: "low"
   tags:
     - seo
@@ -120,6 +120,8 @@ When a user requests backlink analysis:
 
 1. **Generate Profile Overview** -- Key metrics (total backlinks, referring domains, DA/DR, dofollow ratio), link velocity (30d/90d/year), authority distribution chart, profile health score.
 
+   **Every score in this analysis prints its arithmetic next to itself, in the client's copy.** The Profile Health Score is a tally of the eight benchmark rows in [link-quality-rubric.md](./references/link-quality-rubric.md) §5 — Healthy 1 · Warning 0.5 · Critical 0, `round(100 × points ÷ rows scored)`, halves down — with any unscoreable row left out of both sides and named. The Toxic Score is a counted share (toxic referring domains ÷ domains reviewed), not an index of this skill's own. The per-link Link Quality Score is the six weighted factors, printed with the factor scores. Two rules hold across all three: a figure you could not measure is **dropped and renormalised, never scored 0** — zero means measured and failing — and a score whose derivation is not beside it is not deliverable, because the client cannot check it and the next audit will not reproduce it.
+
 2. **Analyze Link Quality** -- Top quality backlinks table, link type distribution, anchor text analysis (brand/exact/partial/URL/generic), geographic distribution.
 
 3. **Identify Toxic Links** -- Toxic score, risk indicators by type (spam, PBN, link farms, irrelevant), high-risk links to review, disavow recommendations (domain-level and URL-level).
@@ -161,6 +163,8 @@ When running `domain-authority-auditor` after this analysis, the following data 
 ### Output Validation
 - [ ] Every metric cites its data source and collection date
 - [ ] Toxic link assessments include risk justification
+- [ ] Every emitted score shows its derivation beside it — Profile Health Score as points ÷ rows scored with the unscored rows named, Toxic Score as its two counts over a named population, Link Quality Score with its six factor scores — and no unmeasurable input is scored 0
+- [ ] Any tool-reported score (a link index's spam or toxicity number, a DR) is printed as that tool's figure with its name and pull date, never merged with a score counted here
 - [ ] Every disavow recommendation carries the unnecessary-disavow-can-hurt-rankings warning and the full §4 sequence, including the two-week response window, with no step dropped or made optional for a deadline
 - [ ] Any disavow file handed over before removal outreach has run states that no outreach has been attempted
 - [ ] Link opportunity recommendations are specific and actionable

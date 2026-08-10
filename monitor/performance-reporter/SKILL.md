@@ -1,13 +1,13 @@
 ---
 name: performance-reporter
-version: "4.2.0"
+version: "4.3.0"
 description: 'Generate consolidated SEO and GEO performance dashboards combining rankings, traffic, backlinks, and AI visibility metrics for stakeholders. Use when the user asks to "generate SEO report", "performance report", "SEO dashboard", "report to stakeholders", "show me the numbers", "monthly SEO report", "traffic report", or "present SEO results to my boss". For detailed rank tracking, see rank-tracker. For link-specific analysis, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.2.0"
+  version: "4.3.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -145,9 +145,10 @@ When a user requests a performance report:
 
 ### Figure Discipline
 
-Two rules that bind every step above. Both come from defects found in this skill's own
-graded output, and both describe a number that is *traceable* but wrong about where it
-came from — the reader can redo the arithmetic and still be misled about what it means.
+Three rules that bind every step above. The first two come from defects found in this
+skill's own graded output, and both describe a number that is *traceable* but wrong about
+where it came from — the reader can redo the arithmetic and still be misled about what it
+means.
 
 - **A benchmark is reproduced verbatim.** Any band, range or threshold attributed to this
   skill's references is quoted exactly as that reference states it -- re-read the line
@@ -164,6 +165,16 @@ came from — the reader can redo the arithmetic and still be misled about what 
   which gives +25.0% or +42.9% -- not "+20% or +47%", which is 3/15 and 7/15, a *two*-session
   move with the base frozen. If the named perturbation and the printed number do not
   reconcile, the number is not printed.
+- **Every rate, ratio and rating shows its working where it is printed.** A percentage carries
+  both counts (`34 of 78 queries = 43.6%`), a mean names what it averages and over how many
+  items, an ROI prints its subtraction, and a word-rating -- Overall Performance, a status,
+  a content-quality band -- prints the tally or the comparison that produced it. The rule is
+  the placement as much as the arithmetic: a formula living in a reference file the client
+  never opens does not make the figure in the report checkable. Two derivations that need
+  saying out loud because both are routinely guessed wrong: **ROI** is
+  `(revenue − investment) ÷ investment`, not revenue ÷ investment, which reads 100 points
+  higher; and a **share** moves in percentage points, while the underlying count moves in
+  percent -- 43.6% from 38.9% is +4.7 pp, not +12%.
 
 ## Validation Checkpoints
 
@@ -179,6 +190,7 @@ came from — the reader can redo the arithmetic and still be misled about what 
 - [ ] Recommendations are specific, prioritized, and actionable
 - [ ] Every band, range or threshold quoted from the references matches that reference exactly (checked against the line, not from memory), and every figure derived from one shows its multiplier
 - [ ] Every sensitivity or counterfactual figure names the exact perturbation it assumes and reconciles with it
+- [ ] Every rate, mean, ROI and word-rating in the report prints its derivation beside itself — both counts for a rate, the population for a mean, the subtraction for an ROI, the status tally for the Overall Performance rating — and each status follows the stated target bands (at or above target = On track · 90-99% = Watch · below 90% = Off track)
 - [ ] Any aggregate that moved against its own segments (site-wide CTR, average position) is explained as a mix effect, with the impression-share shift stated in percentage points
 - [ ] Sections included match the audience's row in report-templates.md §4 — a board pack is the executive template alone
 - [ ] Source of each data point stated in the report's own words — the resolved tool name (Google Analytics 4, Google Search Console, Ahrefs), "user-provided", or "estimated"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
@@ -193,16 +205,17 @@ came from — the reader can redo the arithmetic and still be misled about what 
 # CloudHosting SEO & GEO Performance Report — January 2025
 
 ## Executive Summary — Overall Performance: Good
+_5 KPIs scored: 1 on track, 4 watch, 0 off track — no metric fell below 90% of its target._
 
-| Metric | Jan 2025 | Dec 2024 | Change | Target | Status |
-|--------|----------|----------|--------|--------|--------|
-| Organic Traffic | 52,100 | 45,200 | +15.3% | 50,000 | On track |
-| Keywords Top 10 | 87 | 79 | +8 | 90 | Watch |
-| Organic Conversions | 684 | 612 | +11.8% | 700 | Watch |
-| Domain Rating | 54 | 53 | +1 | 55 | Watch |
-| AI Citations | 18 | 12 | +50.0% | 20 | Watch |
+| Metric | Jan 2025 | Dec 2024 | Change | Target | % of target | Status |
+|--------|----------|----------|--------|--------|-------------|--------|
+| Organic Traffic | 52,100 | 45,200 | +15.3% | 50,000 | 104.2% | On track |
+| Keywords Top 10 | 87 | 79 | +8 | 90 | 96.7% | Watch |
+| Organic Conversions | 684 | 612 | +11.8% | 700 | 97.7% | Watch |
+| Domain Rating | 54 | 53 | +1 | 55 | 98.2% | Watch |
+| AI Citations | 18 | 12 | +50.0% | 20 | 90.0% | Watch |
 
-**SEO ROI**: $8,200 invested / $41,040 organic revenue = 400%
+**SEO ROI**: ($41,000 organic revenue − $8,200 invested) ÷ $8,200 = **400%** for January
 
 **Immediate**: Fix 37 crawl errors on /pricing/ pages
 **This Month**: Optimize mobile LCP; publish 3 AI Overview comparison pages

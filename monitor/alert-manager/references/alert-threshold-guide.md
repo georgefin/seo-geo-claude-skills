@@ -52,27 +52,44 @@ Before setting any alert thresholds, you must establish a baseline that represen
 
 ### The Standard Deviation Method
 
-For most metrics, set thresholds based on standard deviations from your baseline mean.
+For most metrics, set thresholds based on standard deviations from your baseline mean. These four
+names are the **threshold band** — a statement about the metric, not about who gets woken up. The
+people-side label is the response priority (P0-P3, Section 4), and the two are not the same axis:
+see "Two axes, two vocabularies" below.
 
-| Threshold Level | Formula | Meaning |
+| Threshold band | Trigger | Meaning |
 |----------------|---------|---------|
-| **Info** | Mean +/- 1 standard deviation | Normal fluctuation range; log but do not alert |
-| **Warning** | Mean +/- 1.5 standard deviations | Unusual but not necessarily problematic |
-| **Critical** | Mean +/- 2 standard deviations | Statistically significant anomaly; investigate |
-| **Emergency** | Mean +/- 3 standard deviations | Extreme anomaly; immediate action required |
+| **Info** | Deviation reaches 1 standard deviation | Normal fluctuation range; log but do not alert |
+| **Warning** | Deviation reaches 1.5 standard deviations | Unusual but not necessarily problematic |
+| **Critical** | Deviation reaches 2 standard deviations | Statistically significant anomaly; investigate |
+| **Emergency** | Deviation reaches 3 standard deviations | Extreme anomaly; immediate action required |
 
-**Example calculation:**
+**Reading a value into a band.** Write the deviation as `z = (value - mean) / standard deviation`
+and take its size, ignoring direction. A value carries the band of the highest trigger it reaches,
+so the bands are contiguous and nothing falls between two of them: `|z| < 1` inside the everyday
+range · `1 <= |z| < 1.5` Info · `1.5 <= |z| < 2` Warning · `2 <= |z| < 3` Critical · `|z| >= 3`
+Emergency. **A value exactly on a trigger takes the higher band** — z = 2.00 is Critical, not
+Warning. Print the z beside the figure so the band can be checked: `8,600 sessions (z = -1.75) —
+Warning`.
+
+**Example calculation** — mean and standard deviation from 28 clean days (Section 1, steps 1-6):
 
 ```
 Metric: Daily organic sessions
-Baseline mean: 10,000 sessions/day
-Standard deviation: 800 sessions/day
+Baseline mean:      10,000 sessions/day
+Standard deviation:    800 sessions/day   → 1 sd = 800, 1.5 sd = 1,200, 2 sd = 1,600, 3 sd = 2,400
 
-Info range:      8,200 - 11,800 (normal)
-Warning:         < 8,800 or > 11,200
-Critical:        < 8,400 or > 11,600
-Emergency:       < 7,600 or > 12,400
+Everyday range   9,200 - 10,800   |z| < 1     10,000 -/+ 800     no alert, no log entry
+Info             8,800 - 9,200 or 10,800 - 11,200   log only, do not alert
+Warning          8,400 - 8,800 or 11,200 - 11,600
+Critical         7,600 - 8,400 or 11,600 - 12,400
+Emergency        <= 7,600 or >= 12,400
 ```
+
+Each bound is the mean plus or minus its own multiple of 800 — 8,800 is 10,000 - 1.5 x 800, 11,600
+is 10,000 + 2 x 800 — and where two rows share a bound the higher band takes it. An earlier
+revision of this file printed the Info range as 8,200 - 11,800, which is 2.25 standard deviations
+and reachable from no line in the table above it.
 
 ### The Percentage Method
 
@@ -171,10 +188,16 @@ All GEO/AI thresholds run on a **weekly check window**. The values below are tun
 
 **Event alerts (same weekly window):**
 
-| Event | Severity | Handling |
-|-------|----------|----------|
-| Citation won on a tracked query | Informational (positive) | Log the win and note which page earned it — replicable patterns matter |
-| AI Overview appears or disappears on a tracked query | Medium | Re-assess expected CTR for that query; both directions shift the click landscape |
+| Event | Band | Priority | Handling |
+|-------|------|----------|----------|
+| Citation won on a tracked query | Info (positive) | P3 | Log the win and note which page earned it — replicable patterns matter |
+| AI Overview appears or disappears on a tracked query | Warning | P2 | Re-assess expected CTR for that query; both directions shift the click landscape |
+
+The two GEO alerts that carry the priority-1 query set are raised one level above their band's
+default, and say so where they are defined: a single priority-1 citation loss is **P1** (band
+Warning) and a 3-or-more cluster is **P0** (band Critical), because that keyword set is the
+client's money, brand and top-converting terms. Every other row in this section takes the default
+map in Section 4.
 
 **Optional statistical ladder:** once enough weekly citation history exists for a stable mean and standard deviation (8+ weeks — see the Section 1 baseline periods), the Section 2 standard-deviation method may replace the fixed defaults for citation metrics: deviations from the baseline mean at 1 / 1.5 / 2 / 3 standard deviations map to Info / Warning / Critical / Emergency. This is a statistical option that requires sufficient history, not a requirement — with thin history the fixed defaults above are safer.
 
@@ -183,6 +206,37 @@ All GEO/AI thresholds run on a **weekly check window**. The values below are tun
 ---
 
 ## 4. Alert Routing Configuration
+
+### Two axes, two vocabularies — keep them apart
+
+An alert carries two labels, and they answer different questions. Writing one where the other
+belongs is how a metric that moved 1.6 standard deviations ends up on someone's phone at 02:00.
+
+| Axis | Vocabulary | Answers | Set by |
+|------|-----------|---------|--------|
+| **Threshold band** | Info · Warning · Critical · Emergency | How far did the metric move from its own baseline? | Sections 2-3, from the data |
+| **Response priority** | P0 · P1 · P2 · P3 | Who is notified, through which channel, how fast? | This section, from the business |
+
+**Default map** — band to priority, used unless the alert definition says otherwise:
+
+| Band | Default priority | Response clock |
+|------|-----------------|----------------|
+| Emergency | **P0** — Emergency | Acknowledge <15 min, first action within 1 hour |
+| Critical | **P1** — Urgent | Acknowledge <4 h, resolved same day |
+| Warning | **P2** — Important | Within 48 hours |
+| Info | **P3** — Monitor | Weekly review / digest |
+
+An alert may sit above or below its default, and then the definition states the reason in one
+clause: *"P0 — raised from P1: any security detection is paged regardless of magnitude"*,
+*"P1 — raised from P2: priority-1 query set"*. Two standing overrides: **security issues and
+manual actions are P0 on any detection** (there is no small manual action), and **alerts on the
+priority-1 / Tier-1 keyword set rise one level**.
+
+The words "High", "Medium" and "Low" are not priority labels in this skill. They were a third
+name for the P0-P3 axis, and their "Critical" collided with the Critical *band* — the same word
+grading a metric in one table and a pager rota in the next. Positive and opportunity alerts still
+carry a priority, because a priority is what decides delivery: they are P3 unless someone has
+asked to hear about wins sooner.
 
 ### Routing Matrix
 
@@ -383,10 +437,16 @@ Every alert notification should include:
 
 Track these metrics about your alerting system itself:
 
-| Metric | Target | Meaning |
-|--------|--------|---------|
-| False positive rate | <30% | % of alerts that were not actionable |
-| Mean time to acknowledge (MTTA) | P0: <15min, P1: <4h | Time from alert to first human response |
-| Mean time to resolve (MTTR) | P0: <2h, P1: <24h | Time from alert to resolution |
-| Missed incident rate | 0% | Real problems that were not alerted |
-| Alert volume per week | Manageable for team size | If overwhelming, thresholds need tuning |
+| Metric | How it is computed | Target |
+|--------|--------------------|--------|
+| False positive rate | alerts closed with no action taken ÷ alerts fired in the window × 100 | <30% |
+| Mean time to acknowledge (MTTA) | Σ (first human response − fire time) ÷ alerts acknowledged, per priority | P0: <15min, P1: <4h |
+| Mean time to resolve (MTTR) | Σ (resolution − fire time) ÷ alerts resolved, per priority | P0: <2h, P1: <24h |
+| Missed incident rate | incidents found by other means ÷ (those + alerted incidents) × 100 | 0% |
+| Alert volume per week | count of alerts fired ÷ weeks in the window | Manageable for team size |
+
+Each of these is reported with its two counts, not as a bare percentage: `false positive rate 22%
+(7 of 32 alerts in October)`. An alert still open at the end of the window is excluded from MTTR
+and named — averaging it in as if it resolved at the window edge flatters the number. Report MTTA
+and MTTR per priority, never pooled: one P0 in a month of P3s moves a pooled mean far more than it
+means anything.

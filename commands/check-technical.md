@@ -28,8 +28,8 @@ A focused **technical SEO health check** covering infrastructure, performance, a
 ## Workflow
 
 1. **Determine Scope** -- Single page vs site-wide check based on input (full URL vs bare domain).
-2. **Run Technical SEO Audit** -- Invoke `technical-seo-checker`. Audits all areas: crawlability, HTTPS/security, page speed/Core Web Vitals, mobile responsiveness, URL/redirect health, infrastructure.
-3. **Compile Output** -- Format results with weighted overall score and prioritized action list.
+2. **Run Technical SEO Audit** -- Invoke `technical-seo-checker`. It scores eight sections: Crawlability, Indexability, Performance (page speed / Core Web Vitals), Mobile, Security (HTTPS), URL Structure, Structured Data, International.
+3. **Compile Output** -- Report all eight section scores plus the overall health score, each printing its own arithmetic, and a prioritized action list ordered by severity, not by score.
 
 ## Output Format
 
@@ -38,13 +38,16 @@ A focused **technical SEO health check** covering infrastructure, performance, a
 TECHNICAL SEO CHECK: [URL or Domain]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-OVERALL TECHNICAL SCORE: XX/100
+OVERALL TECHNICAL SCORE: 63/100 (44 ÷ 70 — 7 sections scored; International
+not scored: single-language site)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 SECTION SCORES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-[6 area scores: Crawlability, HTTPS, Page Speed, Mobile, URL Health, Infrastructure]
+[8 section scores, each /10 with its own derivation: Crawlability, Indexability,
+Performance, Mobile, Security, URL Structure, Structured Data, International —
+e.g. "Security: 4/10 (1.5 pts ÷ 4 scored rows; 6 rows not checked)"]
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 CORE WEB VITALS
@@ -68,6 +71,10 @@ ACTION CHECKLIST
 NOTE: For content quality + on-page SEO, run: /seo:audit-page
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
+
+## Scoring
+
+Both figures are arithmetic, taken straight from `technical-seo-checker`'s rubric — this command defines no scale of its own. Rows: ✅ 1 · ⚠️ 0.5 · ❌ 0. Section = `round(10 × points ÷ rows scored)`, exact half rounds down. Overall = `round(100 × Σ section scores ÷ (10 × sections scored))`, unweighted. A row that could not be checked leaves both sides of its section's fraction; a section with no checkable row reads `not scored — no data`, never `0/10`. With International SEO out of scope the denominator is 7 sections, not 8 — say which sections it covers. **If nothing could be scored, print no overall score**: name the input that unlocks each section instead. Full rules: [score-rubric.md](../optimize/technical-seo-checker/references/score-rubric.md).
 
 ## Tips
 

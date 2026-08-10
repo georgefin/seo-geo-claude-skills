@@ -59,6 +59,23 @@ The renormalised weights sum to 1.00, so the score still lands in 1.0-5.0 and th
 - **Renormalise once for the whole run**, not per keyword, so the rows stay comparable. If a factor is scoreable for only some keywords — a partial export, say — either score the whole set without it, or say plainly which rows used which denominator.
 - **Never fill an unscoreable factor with a guess** to keep the matrix whole. That is the invented number SKILL.md's Output Validation forbids, one level of arithmetic down.
 
+## AI Potential Rating (the stars on GEO rows)
+
+GEO/conversational tables carry an AI Potential rating instead of an Opportunity Score, because
+the tools usually report no difficulty for question-shaped queries and the formula's denominator
+is missing. A star rating still has to be countable, so it is:
+
+**1 star** for matching one of Step 8's high-GEO query formats (question, definition, comparison,
+list, how-to) — every row in a GEO table has this by construction — **plus 1 star for each of
+Step 8's four AI answer indicators the keyword meets**: the query is factual or definitional · the
+answer can be summarised concisely · the topic is well documented online · commercial intent is
+low. Range 1-5, every value reachable.
+
+Print the count and the indicator that failed, beside the stars: `⭐⭐⭐⭐ 4/5 — the answer is a long
+list, not a concise one`. Five identical five-star rows tell a client nothing; the failing
+indicator is the part that says what to write. The rating orders GEO candidates against each other
+only — it is not on the Opportunity Score's scale, and the two never share a ranking.
+
 ## Seasonal Keyword Patterns
 
 ### Seasonal Analysis Framework
