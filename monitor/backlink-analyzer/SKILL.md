@@ -1,13 +1,13 @@
 ---
 name: backlink-analyzer
-version: "4.0.1"
+version: "4.0.2"
 description: 'Analyze backlink profiles to assess link authority, identify toxic links, discover link building opportunities, and monitor competitors. Use when the user asks to "analyze backlinks", "check link profile", "find toxic links", "link building opportunities", "who links to me", "how do I get more backlinks", "disavow links", or "off-page SEO". For internal link analysis, see internal-linking-optimizer. For competitor link profiles, see competitor-analysis.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.0.1"
+  version: "4.0.2"
   geo-relevance: "low"
   tags:
     - seo
@@ -164,7 +164,14 @@ When running `domain-authority-auditor` after this analysis, the following data 
 
 ## Example
 
-**User**: "Find link building opportunities by analyzing HubSpot, Salesforce, and Mailchimp"
+**User**: "Find link building opportunities by analyzing my three main competitors"
+
+> **Illustrative example — the figures below are not measurements.** Prospect domains use
+> the reserved `.example` TLD so no real business is described, and their DA values are
+> made-up numbers chosen to show the output shape. In real output every DA comes from
+> ~~link database or a user-supplied export and is reported with that source; never assign
+> an authority score to a domain you have no data for (statistics rule — sourced, cited, or
+> placeholder, never invented).
 
 **Output**:
 
@@ -173,36 +180,39 @@ When running `domain-authority-auditor` after this analysis, the following data 
 
 ### Sites linking to 2+ competitors (not you)
 
-| Domain | DA | HubSpot | Salesforce | Mailchimp | Opportunity |
-|--------|-----|---------|------------|-----------|-------------|
-| g2.com | 91 | ✅ | ✅ | ✅ | Get listed/reviewed |
-| capterra.com | 89 | ✅ | ✅ | ✅ | Submit for review |
-| entrepreneur.com | 92 | ✅ | ✅ | ❌ | Pitch guest post |
-| techcrunch.com | 94 | ✅ | ❌ | ✅ | PR/news pitch |
+| Domain | DA | Comp 1 | Comp 2 | Comp 3 | Opportunity |
+|--------|-----|--------|--------|--------|-------------|
+| reviewdirectory.example | 91 | ✅ | ✅ | ✅ | Get listed/reviewed |
+| softwaredirectory.example | 89 | ✅ | ✅ | ✅ | Submit for review |
+| businessmagazine.example | 92 | ✅ | ✅ | ❌ | Pitch guest post |
+| industrynews.example | 94 | ✅ | ❌ | ✅ | PR/news pitch |
 
-### Top 5 Immediate Opportunities
+### Top 3 Immediate Opportunities
 
-1. **G2.com** (DA 91) - All competitors listed
-   - Action: Create detailed G2 profile
+1. **reviewdirectory.example** (DA 91) - All 3 competitors listed
+   - Action: Create a detailed profile/listing
    - Effort: Low
    - Impact: High authority + referral traffic
 
-2. **Entrepreneur.com** (DA 92) - 2 competitors have links
+2. **businessmagazine.example** (DA 92) - 2 competitors have links
    - Action: Pitch contributed article
    - Effort: High
    - Impact: High authority + brand exposure
 
-3. **MarketingProfs** (DA 75) - All competitors featured
-   - Action: Apply for expert contribution
+3. **industrynews.example** (DA 94) - 2 competitors covered
+   - Action: Pitch a newsworthy launch or data release
    - Effort: Medium
    - Impact: Relevant audience + quality link
 
 ### Estimated Impact
 
-If you acquire links from top 10 opportunities:
-- New referring domains: +10
-- Average DA of new links: 82
-- Estimated ranking impact: +2-5 positions for competitive keywords
+If you acquire links from the four prospects above:
+- New referring domains: +4
+- Average DA of new links: 91.5 — arithmetic mean of the four DA values in the table above,
+  not a separate estimate
+- Ranking impact: not projected. Position movement does not follow from referring-domain
+  counts or average DA, and this skill has no model that converts one into the other —
+  measure the outcome with rank-tracker rather than promising a delta
 ```
 
 ## Tips for Success

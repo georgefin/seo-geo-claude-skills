@@ -21,7 +21,7 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 | internal-linking-optimizer | optimize | 4.0.1 | 2026-08-08 |
 | content-refresher | optimize | 4.1.1 | 2026-08-09 |
 | rank-tracker | monitor | 4.1.1 | 2026-08-09 |
-| backlink-analyzer | monitor | 4.0.1 | 2026-08-08 |
+| backlink-analyzer | monitor | 4.0.2 | 2026-08-10 |
 | performance-reporter | monitor | 4.1.1 | 2026-08-09 |
 | alert-manager | monitor | 4.1.1 | 2026-08-08 |
 | content-quality-auditor | cross-cutting | 4.2.1 | 2026-08-09 |
@@ -45,6 +45,8 @@ Master-directive wave (tenth/eleventh verdict-log entries): G5–G7 and G8's exe
 - **Registers**: G5–G8 blocks + release flips; FAILURE-LEDGER F11-r6/F13+r1/F9-r2; WATCH-ITEMS W12 (HowTo rich-result status → 2026-08-15 DETECT lane)
 
 - **Fork identity (attribution decision, 2026-08-10)**: machine-readable identity moved to the fork — `plugin.json` author/homepage/repository, both marketplace manifests' `owner`/`metadata.repository`, this file's raw-fetch URL, and the CONTRIBUTING issue link now name `georgefin/seo-geo-claude-skills`; README carries an explicit fork notice crediting the upstream project and its author. The published ClawHub and skills.sh listings keep upstream paths (the fork does not own those listings, so rewriting them would hand users a dead install), and the CORE-EEAT/CITE framework links keep their own attribution as separate upstream projects. Delegated by Sani (twelfth verdict-log entry, `GATED-ITEMS.md`); the 20 `SKILL.md` frontmatter identity fields stay queued for their own wave so an identity change and a 20-skill version bump do not ride one commit. Plugin version held at 4.4.1 — this change rides the same unmerged accumulator.
+
+- **backlink-analyzer 4.0.2 (F3 class, 2026-08-10)**: the link-intersection worked example assigned Domain Authority figures to real named companies (g2.com 91, capterra.com 89, entrepreneur.com 92, techcrunch.com 94, MarketingProfs 75) and averaged them into "82" — quantitative claims about third-party businesses that nobody measured, carrying F3's unlabeled-figure signature. Prospect domains re-cast to the reserved `.example` TLD under an explicit illustrative-figures label restating the statistics rule; the impact block's basis-free "+2-5 positions for competitive keywords" projection replaced by a stated non-projection that hands the measurement to rank-tracker, and the average DA now names its arithmetic. Sibling in `references/analysis-templates.md`: the three literal Risk Scores (95/85/72 per 100) turned into `[score]` placeholders with a tool-provenance note; the "Industry Avg" column ruled out — its cells are already bracket placeholders, so there was no figure to remove.
 
 ### v4.4.0 (2026-08-09)
 

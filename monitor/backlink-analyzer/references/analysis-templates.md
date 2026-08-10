@@ -123,9 +123,9 @@ DA 0-19:   [X]%
 
 | Source Domain | Risk Score | Issue | Recommendation |
 |---------------|------------|-------|----------------|
-| [domain 1] | 95/100 | Link farm | Disavow |
-| [domain 2] | 85/100 | Spam site | Disavow |
-| [domain 3] | 72/100 | PBN | Investigate |
+| [domain 1] | [score]/100 | Link farm | Disavow |
+| [domain 2] | [score]/100 | Spam site | Disavow |
+| [domain 3] | [score]/100 | PBN | Investigate |
 
 ### Disavow Recommendations
 
@@ -142,6 +142,12 @@ domain:[link-farm.com]
 [specific-url-2]
 ```
 ```
+
+**Risk Score provenance**: `[score]` is filled from the toxicity/spam score reported by
+~~link database or the user's export, with that tool named beside it. This skill defines no
+risk-score scale of its own, so a link with no tool-reported score gets "N/A — not
+tool-reported" plus a written justification in the Issue column — never a number assigned
+to fit the recommendation.
 
 ---
 
