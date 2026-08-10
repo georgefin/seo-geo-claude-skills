@@ -118,18 +118,29 @@ Categorize all your published content:
 
 #### Step 2: Benchmark Against Competitors
 
-| Format | You | Comp A | Comp B | Comp C | Industry Benchmark |
-|--------|-----|--------|--------|--------|-------------------|
-| Blog posts | [X] | [X] | [X] | [X] | Table stakes |
-| Long-form guides | [X] | [X] | [X] | [X] | Expected for authority |
-| How-to tutorials | [X] | [X] | [X] | [X] | Expected for SEO |
-| Comparison pages | [X] | [X] | [X] | [X] | Required for commercial |
-| Case studies | [X] | [X] | [X] | [X] | Expected for B2B |
-| Templates | [X] | [X] | [X] | [X] | Lead gen standard |
-| Interactive tools | [X] | [X] | [X] | [X] | Differentiator |
-| Video | [X] | [X] | [X] | [X] | Growing expectation |
-| Original research | [X] | [X] | [X] | [X] | Linkbait standard |
-| Glossary | [X] | [X] | [X] | [X] | GEO opportunity |
+| Format | You | Comp A | Comp B | Comp C | Competitor Avg | Why the format earns a slot |
+|--------|-----|--------|--------|--------|----------------|-----------------------------|
+| Blog posts | [X] | [X] | [X] | [X] | [X] | Table stakes |
+| Long-form guides | [X] | [X] | [X] | [X] | [X] | Expected for authority |
+| How-to tutorials | [X] | [X] | [X] | [X] | [X] | Expected for SEO |
+| Comparison pages | [X] | [X] | [X] | [X] | [X] | Required for commercial |
+| Case studies | [X] | [X] | [X] | [X] | [X] | Expected for B2B |
+| Templates | [X] | [X] | [X] | [X] | [X] | Lead gen standard |
+| Interactive tools | [X] | [X] | [X] | [X] | [X] | Differentiator |
+| Video | [X] | [X] | [X] | [X] | [X] | Growing expectation |
+| Original research | [X] | [X] | [X] | [X] | [X] | Linkbait standard |
+| Glossary | [X] | [X] | [X] | [X] | [X] | GEO opportunity |
+
+**Last two columns**: `Competitor Avg` is the mean of the Comp A-C counts on that row — the quantity
+this step's own heading names, computable from what you just counted, and reported with its basis
+beside it ("mean of the 3 competitor columns"). The right-hand column is this skill's editorial
+reason a format earns a slot; it carries no number and is not a measurement, which is why it is no
+longer headed "Industry Benchmark". This workflow counts the competitors you named, never an
+industry, so an industry column has nothing behind it — and a benchmark cell with nothing behind it
+gets filled anyway, because the cell exists (statistics rule: sourced, cited, or placeholder, never
+invented). A published industry benchmark may be added as a further column only when you have read
+it: name the publisher, the year and the sample, and link it. Same basis, same wording, as the
+`Competitor Avg` column in `analysis-templates.md`.
 
 #### Step 3: Identify Format Gaps
 

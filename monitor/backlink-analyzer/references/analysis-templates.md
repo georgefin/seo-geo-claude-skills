@@ -14,14 +14,14 @@ Detailed output templates for each step of the backlink analysis workflow. Use t
 
 ### Key Metrics
 
-| Metric | Value | Industry Avg | Status |
-|--------|-------|--------------|--------|
-| Total Backlinks | [X] | [Y] | [Above/Below avg] |
-| Referring Domains | [X] | [Y] | [status] |
-| Domain Authority | [X] | [Y] | [status] |
-| Domain Rating | [X] | [Y] | [status] |
-| Dofollow Links | [X] ([Y]%) | [Z]% | [status] |
-| Nofollow Links | [X] ([Y]%) | [Z]% | [status] |
+| Metric | Value | Reference band (source) | Status |
+|--------|-------|------------------------|--------|
+| Total Backlinks | [X] | no band in this library | Not benchmarked |
+| Referring Domains | [X] | [typical range for your vertical, rubric §5] | [inside / below / above band] |
+| Domain Authority | [X] | no band — §5's ranges are DR, not DA | Not benchmarked |
+| Domain Rating | [X] | [typical DR range, rubric §5 — top-10 sites] | [inside / below / above band] |
+| Dofollow Links | [X] ([Y]%) | 60-80% healthy, >90% warning (rubric §5) | [healthy / warning / critical] |
+| Nofollow Links | [X] ([Y]%) | derived from the dofollow row, no separate band | Read with the row above |
 
 ### Link Velocity
 
@@ -43,6 +43,24 @@ DA 0-19:   [X]%
 
 **Profile Health Score**: [X]/100
 ```
+
+**Third-column provenance**: it is a band you look up and cite, not an average you supply. Every
+filled cell names its source — `references/link-quality-rubric.md` §5, this library's own general
+ranges — and you carry the band's population into the reading: §5's DR and referring-domain ranges
+describe the **top 10 sites** in a vertical, so a site under them is behind that vertical's leaders,
+not "below average". Where §5 has no band, the cell says so and Status reads "Not benchmarked":
+that is the finished answer, not a cell awaiting a number. Domain Authority is the standing example
+— §5 bands DR, and borrowing a DR band for a DA figure compares two vendors' scales.
+
+The column was headed "Industry Avg" until 2026-08-10. Nothing this skill collects, and nothing in
+this library, supplies a single industry mean for backlink counts, referring domains or DA/DR — so
+the only way to fill that cell was to invent the number, and a benchmark cell with nothing behind it
+gets filled anyway, because the cell exists (statistics rule: sourced, cited, or placeholder, never
+invented). Renaming keeps the comparison the table is for and removes the invitation: a band cannot
+be filled without naming where it came from. A published third-party benchmark may replace a band
+only when you have read it — name the publisher, the year and the sample, and link it. The same
+discipline governs the competitive template in §4: those columns are measured per named competitor,
+so their mean is a competitor mean, never an industry one.
 
 ---
 

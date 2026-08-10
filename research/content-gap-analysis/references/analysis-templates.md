@@ -160,8 +160,8 @@ Gap: Keywords they all have, you don't: [X]
 
 ### Format Distribution Comparison
 
-| Format | You | Comp 1 | Comp 2 | Industry Avg |
-|--------|-----|--------|--------|--------------|
+| Format | You | Comp 1 | Comp 2 | Competitor Avg |
+|--------|-----|--------|--------|----------------|
 | Long-form guides | [X] | [X] | [X] | [X] |
 | Tutorials | [X] | [X] | [X] | [X] |
 | Comparison posts | [X] | [X] | [X] | [X] |
@@ -185,6 +185,16 @@ Gap: Keywords they all have, you don't: [X]
 **Recommended first project**:
 [Specific content idea]
 ```
+
+**Last-column provenance**: it is the mean of the competitor columns counted in this table —
+the same quantity the Audience Journey template calls "Competitor Avg" and the Format Gaps
+block calls "competitors average" — and the deliverable states that basis beside it ("mean of
+the competitor columns shown, n=2"). It is deliberately not an industry average: this analysis
+counts the competitors you named, not an industry, and a benchmark column with nothing behind
+it gets filled anyway, because the cell exists. A published industry benchmark may be added as
+an extra column only when you have read it — name the publisher, the year and the sample, and
+link it. With no such source, the competitor mean stands alone (statistics rule: sourced,
+cited, or placeholder, never invented).
 
 ## GEO Content Gap Template
 

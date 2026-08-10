@@ -1,13 +1,13 @@
 ---
 name: content-gap-analysis
-version: "4.0.4"
+version: "4.0.5"
 description: 'Find content opportunities by identifying topics and keywords your competitors cover that you don''t. Use when the user asks to "find content gaps", "what am I missing", "topics to cover", "content opportunities", "what topics am I missing", "where are my content blind spots", "untapped topics", or "content strategy gaps". For broader competitive intelligence, see competitor-analysis. For general keyword discovery, see keyword-research.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.0.4"
+  version: "4.0.5"
   geo-relevance: "medium"
   tags:
     - seo
@@ -147,7 +147,7 @@ When a user requests content gap analysis:
 
 6. **Identify Content Format Gaps**
 
-   Compare format distribution (guides, tutorials, comparisons, case studies, tools, templates, video, infographics, research) against competitors and industry averages. For each gap, assess effort and expected impact.
+   Compare format distribution (guides, tutorials, comparisons, case studies, tools, templates, video, infographics, research) against each competitor and against the competitor mean — the average of the competitors you counted. Not against an industry average: this workflow counts the competitors you named and collects no industry population, so that number would have to be invented (statistics rule: sourced, cited, or placeholder, never invented). A published benchmark may sit beside the competitor mean only when you have read it — publisher, year, sample, link. For each gap, assess effort and expected impact.
 
 7. **Analyze GEO/AI Gaps**
 
