@@ -2,6 +2,12 @@
 
 This is a complete example output showing the expected format for keyword research deliverables.
 
+> **Note on the source label below**: the example names Ahrefs because a deliverable names the
+> tool its figures actually came from. Substitute whichever tool was connected, or the export
+> or hand-check the numbers came from; where nothing supplied them, say so and leave the figure
+> out. A `~~category` token addresses the operator and never appears inside the report (root
+> `CLAUDE.md` Tool Connector Pattern; anti-slop-ruleset.md §6 family 7).
+
 ## Prompt
 
 **User**: "Research keywords for a project management software company targeting small businesses"
@@ -15,7 +21,7 @@ This is a complete example output showing the expected format for keyword resear
 **Target Audience**: Small business owners and teams
 **Business Goal**: Software signups and trials
 **Assumptions (stated up front — single-turn rule)**: EN/US market assumed; business goal assumed to be signups/trials (not stated in the prompt); no site-maturity data provided
-**Data sources**: volume and difficulty figures are ~~SEO tool estimates; intent is analyst-classified; metrics the tool does not report appear as "N/A — not tool-reported"
+**Data sources**: volume and difficulty figures are Ahrefs estimates; intent is analyst-classified; metrics the tool does not report appear as "N/A — not tool-reported"
 
 ## Executive Summary
 

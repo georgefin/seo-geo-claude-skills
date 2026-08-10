@@ -1,13 +1,13 @@
 ---
 name: geo-content-optimizer
-version: "4.2.0"
+version: "4.2.1"
 description: 'Optimize content for AI citation across Google AI Mode (default search surface, incl. AI Overviews), ChatGPT, Perplexity, and Gemini with quotable statements and structured Q&A. Use when the user asks to "optimize for AI", "get cited by ChatGPT", "GEO optimization", "appear in AI answers", "make content AI-quotable", "Google AI Overview optimization", or "Google AI Mode optimization". Adds quotable statements, structured Q&A, precise statistics with sources, expert attribution, and FAQ schema. Uses CORE-EEAT GEO-First items as optimization targets. For SEO-focused writing, see seo-content-writer. For entity and brand AI presence, see entity-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.2.0"
+  version: "4.2.1"
   geo-relevance: "high"
   tags:
     - geo
@@ -279,7 +279,7 @@ When a user requests GEO optimization:
 - [ ] All claims have source citations from authoritative sources
 - [ ] Q&A format sections cover top 5 user queries
 - [ ] GEO score improvement of at least 50% from baseline
-- [ ] Source of each data point clearly stated (~~AI monitor data, user-provided, or estimated); no placeholder or provenance note inside schema, meta tags, or paste-ready copy
+- [ ] Source of each data point stated in the deliverable's own words — the resolved tool name (Otterly, Profound), "user-provided", or "estimated"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7), and no placeholder or provenance note inside schema, meta tags, or paste-ready copy
 
 **Statistics rule**: Every statistic must come from user-supplied data, a cited source, or be marked as a `[CLIENT DATA: …]` placeholder — never invented to satisfy a threshold. **Attribution**: never put a statistic, a claim or a quotation in the name of a real organisation or a real person without a source you have read and can link. A fabricated quote from a named individual, or an invented credential at a named institution, is the most damaging output this skill can produce — it publishes a falsehood about an identifiable third party under the client's byline. AI engines cite verifiable content; a fabricated number that gets cited is a liability. **Placement**: placeholders and provenance notes (bracketed or not — e.g. «απαιτούνται στοιχεία προϊόντος») belong in the report/gap-table sections only, never inside ship-ready surfaces: schema/JSON-LD, meta tags, or answer text presented as paste-ready. Write the customer-visible answer complete without the missing datum — honest hedging in customer voice is fine; an agency-perspective aside is not. Draft body copy may carry a bracketed placeholder only with an explicit resolve-before-publication flag.
 

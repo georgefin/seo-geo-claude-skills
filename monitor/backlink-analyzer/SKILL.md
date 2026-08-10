@@ -1,13 +1,13 @@
 ---
 name: backlink-analyzer
-version: "4.0.4"
+version: "4.0.5"
 description: 'Analyze backlink profiles to assess link authority, identify toxic links, discover link building opportunities, and monitor competitors. Use when the user asks to "analyze backlinks", "check link profile", "find toxic links", "link building opportunities", "who links to me", "how do I get more backlinks", "disavow links", or "off-page SEO". For internal link analysis, see internal-linking-optimizer. For competitor link profiles, see competitor-analysis.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.0.4"
+  version: "4.0.5"
   geo-relevance: "low"
   tags:
     - seo
@@ -164,7 +164,7 @@ When running `domain-authority-auditor` after this analysis, the following data 
 - [ ] Every disavow recommendation carries the unnecessary-disavow-can-hurt-rankings warning and the full §4 sequence, including the two-week response window, with no step dropped or made optional for a deadline
 - [ ] Any disavow file handed over before removal outreach has run states that no outreach has been attempted
 - [ ] Link opportunity recommendations are specific and actionable
-- [ ] Source of each data point clearly stated (~~link database data, ~~SEO tool data, user-provided, or estimated)
+- [ ] Source of each data point stated in the report's own words — the resolved tool name (Ahrefs, Majestic), "user-provided", or "estimated"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 
 ## Example
 
@@ -172,10 +172,11 @@ When running `domain-authority-auditor` after this analysis, the following data 
 
 > **Illustrative example — the figures below are not measurements.** Prospect domains use
 > the reserved `.example` TLD so no real business is described, and their DA values are
-> made-up numbers chosen to show the output shape. In real output every DA comes from
-> ~~link database or a user-supplied export and is reported with that source; never assign
-> an authority score to a domain you have no data for (statistics rule — sourced, cited, or
-> placeholder, never invented).
+> made-up numbers chosen to show the output shape. In real output every DA comes from the
+> backlink index actually used — named in the report as Ahrefs or Majestic, never as a
+> `~~category` token — or from a user-supplied export, and is reported with that source;
+> never assign an authority score to a domain you have no data for (statistics rule —
+> sourced, cited, or placeholder, never invented).
 
 **Output**:
 

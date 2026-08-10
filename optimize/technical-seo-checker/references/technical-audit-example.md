@@ -134,8 +134,8 @@ Score Breakdown:
 ```markdown
 ### Crawlability
 - [ ] robots.txt is valid and not blocking important content
-- [ ] XML sitemap exists and is submitted to ~~search console
-- [ ] No crawl errors in ~~search console
+- [ ] XML sitemap exists and is submitted to Search Console
+- [ ] No crawl errors in Search Console
 - [ ] No redirect chains or loops
 
 ### Indexability

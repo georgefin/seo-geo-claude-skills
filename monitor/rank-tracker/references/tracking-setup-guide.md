@@ -342,7 +342,7 @@ Queries at average positions ~5-20 (page-one tail plus page two) combine two pro
 
 | Aspect | Practice |
 |--------|----------|
-| Source | ~~search console Search Analytics (API or UI export) for the tracked property only |
+| Source | Search Console Search Analytics (API or UI export) for the tracked property only — named by its real name wherever a report repeats it, never as a `~~category` token |
 | Ordering | GSC-first: when the connector or an export is available, mine this list before consulting third-party rank data |
 | API behavior | The Search Analytics API returns rows sorted by clicks and exposes no position filter — request a high rowLimit and apply the 5-20 position window client-side |
 | Manual path | No connector: ask the user for a GSC Performance export (queries + position + impressions + clicks) and apply the same window |

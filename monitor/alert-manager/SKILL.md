@@ -1,13 +1,13 @@
 ---
 name: alert-manager
-version: "4.1.1"
+version: "4.1.2"
 description: 'Set up automated monitoring and notifications for SEO ranking drops, traffic changes, technical issues, and competitor movements. Use when the user asks to "set up SEO alerts", "notify me when rankings drop", "traffic alerts", "watch competitor changes", "alert me if rankings drop", "notify me of traffic changes", "monitor rankings", or "watch my keywords for changes". For detailed rank analysis, see rank-tracker. For comprehensive reporting, see performance-reporter.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.1.1"
+  version: "4.1.2"
   geo-relevance: "low"
   tags:
     - seo
@@ -203,7 +203,7 @@ When a user requests alert setup:
 - [ ] Every metric cites its data source and collection date
 - [ ] Alert thresholds account for normal metric fluctuations
 - [ ] Response plans are specific and time-bound
-- [ ] Source of each alert trigger clearly stated (~~SEO tool API alert, ~~search console notification, ~~web crawler alert, or manual user check)
+- [ ] Source of each alert trigger stated in the configuration's own words — the resolved tool name (an Ahrefs API alert, a Search Console notification, a Screaming Frog alert) or "manual user check"; where no tool is connected, the configuration says exactly that and the alert is not written up as automated. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 
 ## Example
 

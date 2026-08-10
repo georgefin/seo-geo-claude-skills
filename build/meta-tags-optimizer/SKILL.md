@@ -1,13 +1,13 @@
 ---
 name: meta-tags-optimizer
-version: "4.1.3"
+version: "4.1.4"
 description: 'Create and optimize title tags, meta descriptions, Open Graph tags, and Twitter cards for maximum click-through rates. Use when the user asks to "optimize title tag", "write meta description", "improve CTR", "Open Graph tags", "social media preview", "fix my meta tags", or "OG tags not showing". Produces optimized meta tags with character counting, A/B test variations, and CTR analysis. For a broader on-page audit, see on-page-seo-auditor. For structured data markup, see schema-markup-generator.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.1.3"
+  version: "4.1.4"
   geo-relevance: "low"
   tags:
     - seo
@@ -295,7 +295,7 @@ For EL/EN/DE (or any multi-language) page sets. Hreflang implementations commonl
 - [ ] Open Graph image specified as a real absolute URL (1200x630px recommended) — if no asset exists, the tag is omitted and the gap noted in the report, never filled with a placeholder
 - [ ] No bracket token, `TBD`/`XX`, or data-needed note inside any delivered tag value (ledger F13 placement rule)
 - [ ] All HTML syntax valid (no unclosed quotes or tags)
-- [ ] Source of each data point clearly stated (~~search console CTR data, ~~SEO tool competitor data, user-provided, or estimated)
+- [ ] Source of each data point stated in the deliverable's own words — the resolved tool name (Google Search Console CTR data, Ahrefs competitor data), "user-provided", or "estimated"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 
 ## Example
 

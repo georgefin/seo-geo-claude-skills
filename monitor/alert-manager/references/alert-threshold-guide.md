@@ -297,7 +297,7 @@ Every alert notification should include:
 |------|------|--------|------|
 | 1 | 0 min | Verify site is accessible from multiple locations | Manual browser check, uptime monitor |
 | 2 | 5 min | Check Google Search Status Dashboard for outages | Google Status Dashboard |
-| 3 | 10 min | Check Search Console for manual actions or security issues | ~~search console |
+| 3 | 10 min | Check Search Console for manual actions or security issues | Search Console |
 | 4 | 15 min | Check robots.txt for accidental blocking | Direct URL check |
 | 5 | 20 min | Check for noindex tags added to key pages | Crawl or manual page inspection |
 | 6 | 30 min | Review recent deployments or CMS changes | Deploy log, git history |
@@ -340,7 +340,7 @@ Every alert notification should include:
 
 | Step | Time | Action |
 |------|------|--------|
-| 1 | Day 0 | Verify the spike in ~~link database |
+| 1 | Day 0 | Verify the spike in the backlink index (name the tool used) |
 | 2 | Day 0 | Identify the pattern (same anchor text? same link network? same country?) |
 | 3 | Day 1 | Export all new toxic links |
 | 4 | Day 1 | Create disavow file with identified spam domains |

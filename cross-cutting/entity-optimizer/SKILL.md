@@ -1,13 +1,13 @@
 ---
 name: entity-optimizer
-version: "4.1.5"
+version: "4.1.6"
 description: 'Audit and build entity presence across Google Knowledge Graph, Wikidata, and AI systems for brand recognition and AI citations. Use when the user asks to "optimize entity presence", "build knowledge graph", "improve knowledge panel", "entity audit", "establish brand entity", "Google doesn''t know my brand", "no knowledge panel", "establish my brand as an entity". For structured data implementation, see schema-markup-generator. For content-level AI optimization, see geo-content-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.1.5"
+  version: "4.1.6"
   geo-relevance: "high"
   tags:
     - seo

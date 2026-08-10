@@ -539,7 +539,7 @@ Do not send further emails. Add to a "re-engage in 3-6 months" list. When you re
 | Recent article they wrote | Their blog, Google "[name] + [site]" | Reference in opening line |
 | Their social media | Twitter/X, LinkedIn | Mention a recent post or shared interest |
 | Their publication's audience | About page, media kit | Tailor your value proposition |
-| Content they have linked to before | ~~link database, their recent articles | Match the type of content they prefer |
+| Content they have linked to before | Backlink index (name the tool used), their recent articles | Match the type of content they prefer |
 | How they prefer to be contacted | Website contact page, social bio | Some prefer Twitter DMs over email |
 
 ### Personalization Levels

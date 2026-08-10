@@ -34,7 +34,7 @@ These signals form the minimum viable entity identity. Without them, search engi
 |---|--------|-------------------|---------------|
 | 11 | Branded search returns correct entity | Google "[entity name]" | Entity's website is #1; Knowledge Panel appears or SERP clearly identifies entity |
 | 12 | No disambiguation confusion | Google "[entity name]" | No other prominent entity dominates results for the same name |
-| 13 | Branded search volume exists | Check ~~SEO tool | Measurable branded search volume (any amount > 0) |
+| 13 | Branded search volume exists | Keyword-volume check (name the tool used) | Measurable branded search volume (any amount > 0) |
 
 ## Priority 2: Authority Signals (Should-Have)
 
@@ -118,7 +118,7 @@ These signals provide marginal gains but demonstrate thoroughness and maturity.
 
 | # | Signal | Verification Method | Pass Criteria |
 |---|--------|-------------------|---------------|
-| 45 | Entity homepage has strong backlink profile | Check ~~link database | Homepage DR/DA above industry median |
+| 45 | Entity homepage has strong backlink profile | Backlink-profile check (name the tool used) | Homepage DR/DA above industry median |
 | 46 | Branded anchor text in backlinks | Analyze anchor text distribution | Entity name appears naturally in inbound link anchor text |
 | 47 | Entity subdomain consistency | Check all subdomains | Same entity schema and branding across all subdomains |
 

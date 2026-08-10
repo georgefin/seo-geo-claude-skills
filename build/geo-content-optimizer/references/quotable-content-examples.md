@@ -370,7 +370,7 @@ Before/after examples of content optimized for AI citation. Each example shows t
 >
 > Google's Chrome research (2020) found that sites meeting all three thresholds saw 24% lower page-abandonment rates; Google documents no specific ranking or CTR uplift for passing them. Core Web Vitals became part of Google's ranking systems with the June 2021 Page Experience update — treat them as a page-experience baseline, not a rankings lever.
 >
-> Test your Core Web Vitals with ~~page speed tool.
+> Test your Core Web Vitals with PageSpeed Insights.
 
 **Improvements**:
 - Three specific metrics defined

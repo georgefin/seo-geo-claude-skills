@@ -1,13 +1,13 @@
 ---
 name: keyword-research
-version: "4.2.1"
+version: "4.2.2"
 description: 'Discover high-value SEO keywords with search intent analysis, difficulty scoring, topic clustering, and AI citation potential. Use when the user asks to "find keywords", "keyword research", "what should I write about", "keyword difficulty score", "identify ranking opportunities", "topic ideas", "what are people searching for", or "long-tail keyword suggestions". For competitor keyword gaps, see competitor-analysis. For topic coverage gaps, see content-gap-analysis.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.2.1"
+  version: "4.2.2"
   geo-relevance: "medium"
   tags:
     - seo
@@ -331,7 +331,7 @@ When a user requests keyword research:
 - [ ] Topic clusters show clear pillar-to-cluster relationships
 - [ ] Greek-market keywords show accented, unaccented, Greeklish, and EN forms with placement noted (if applicable)
 - [ ] Local-intent keywords mapped to GBP surfaces, not just website pages (if applicable)
-- [ ] Source of each data point clearly stated (~~SEO tool data, user-provided, or estimated)
+- [ ] Source of each data point stated in the report's own words — the resolved tool name (Ahrefs, Semrush), "user-provided", or "estimated"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 
 ## Example
 

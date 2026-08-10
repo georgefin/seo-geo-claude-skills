@@ -2,6 +2,8 @@
 
 Complete glossary of SEO and GEO key performance indicators with calculation formulas, data sources, benchmark ranges by industry, and interpretation guidance.
 
+**Reading the Data Source rows**: they name a tool *category* (`~~analytics`, `~~search console`, …), because which product measures a KPI differs by organisation — see [CONNECTORS.md](../../../CONNECTORS.md). The category is for you, not for the reader of a report: when a Data Source row is carried into a deliverable, it resolves to the tool actually used, by name, or to the export or hand-check the figure came from, or to a plain statement that nothing supplied it and the figure is absent. A report's own source column is where this defect was first found (root `CLAUDE.md` Tool Connector Pattern; anti-slop-ruleset.md §6 family 7).
+
 ---
 
 ## 1. Organic Search KPIs

@@ -1,13 +1,13 @@
 ---
 name: competitor-analysis
-version: "4.0.3"
+version: "4.0.4"
 description: 'Analyze competitor SEO and GEO strategies including ranking keywords, content approaches, backlink profiles, and AI citation patterns. Use when the user asks to "analyze competitors", "competitive analysis", "what are my competitors doing", "why do they rank higher", "competitor keywords", "competitor backlinks", or "spy on competitor SEO". For content-focused gap analysis, see content-gap-analysis. For link profile specifics, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.0.3"
+  version: "4.0.4"
   geo-relevance: "medium"
   tags:
     - seo
@@ -180,7 +180,7 @@ When a user requests competitor analysis:
 - [ ] Competitor strengths backed by measurable evidence (metrics, rankings)
 - [ ] Opportunities based on identifiable gaps, not assumptions
 - [ ] Action plan items are specific and actionable (not vague strategies)
-- [ ] Source of each data point clearly stated (~~SEO tool data, ~~analytics data, ~~AI monitor data, user-provided, or estimated)
+- [ ] Source of each data point stated in the report's own words — the resolved tool name (Ahrefs, Google Analytics 4, Otterly), "user-provided", or "estimated"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 
 ## Example
 

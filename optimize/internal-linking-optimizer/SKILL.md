@@ -1,13 +1,13 @@
 ---
 name: internal-linking-optimizer
-version: "4.0.1"
+version: "4.0.2"
 description: 'Analyze and optimize internal link structure to improve site architecture, distribute page authority, and fix orphan pages. Use when the user asks to "fix internal links", "improve site architecture", "link structure", "distribute page authority", "internal linking strategy", "orphan pages", "site architecture is messy", or "pages have no links pointing to them". For a broader on-page audit, see on-page-seo-auditor. For external link analysis, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.0.1"
+  version: "4.0.2"
   geo-relevance: "low"
   tags:
     - seo
@@ -264,7 +264,7 @@ When a user requests internal linking optimization:
 - [ ] Every recommendation cites specific data points (not generic advice)
 - [ ] All link suggestions include source page, target page, and recommended anchor text
 - [ ] Orphan page lists include URLs and recommended actions
-- [ ] Source of each data point clearly stated (~~web crawler data, ~~analytics, user-provided, or manual analysis)
+- [ ] Source of each data point stated in the report's own words — the resolved tool name (Screaming Frog, Google Analytics 4), "user-provided", or "manual analysis"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 
 ## Example
 

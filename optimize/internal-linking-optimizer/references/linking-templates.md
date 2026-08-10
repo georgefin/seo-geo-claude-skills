@@ -214,6 +214,6 @@ Best practices:
 Monitor these metrics weekly:
 - [ ] Rankings for target keywords
 - [ ] Traffic to previously orphan pages
-- [ ] Crawl stats in ~~search console
+- [ ] Crawl stats in Search Console
 - [ ] Internal link distribution changes
 ```

@@ -228,7 +228,7 @@ Use inside the GEO/AI section when AI-referral data exists. Sources: ~~analytics
 
 ### GSC AI-Surface Corroboration
 
-[What ~~search console AI-surface data shows for the same pages/queries, or "not exposed for this property"]
+[What Search Console AI-surface data shows for the same pages/queries, or "not exposed for this property"]
 
 ### Control Comparison (required for any attribution claim)
 
@@ -421,6 +421,13 @@ Your referring domains rank #[X] of [Y] competitors.
 
 ## 11. Full Report Compilation Template
 
+The Appendix's Data Sources list is the report's own provenance record, so each entry is
+resolved before the report leaves: the connected tool's real name, the export or hand-check
+the figures actually came from, or a plain statement that the category was unavailable and
+its figures are therefore absent. Never a `~~category` token — that token addresses the
+operator, and the founding instance of this defect was a report's own source column (root
+`CLAUDE.md` Tool Connector Pattern; anti-slop-ruleset.md §6 family 7).
+
 ```markdown
 # [Company] SEO & GEO Performance Report
 
@@ -452,10 +459,10 @@ Your referring domains rank #[X] of [Y] competitors.
 ## Appendix
 
 ### Data Sources
-- ~~analytics (traffic and conversion data)
-- ~~search console (search performance)
-- ~~SEO tool (rankings and backlinks)
-- ~~AI monitor (GEO metrics)
+- [analytics platform used, by name] (traffic and conversion data)
+- [search console property used, by name] (search performance)
+- [SEO platform used, by name] (rankings and backlinks)
+- [AI visibility tool used, by name — or "none connected; GEO metrics unavailable this period"]
 
 ### Methodology
 [Explain how metrics were calculated]

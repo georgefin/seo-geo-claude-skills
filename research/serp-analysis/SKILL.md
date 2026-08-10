@@ -1,6 +1,6 @@
 ---
 name: serp-analysis
-version: "4.2.5"
+version: "4.2.6"
 description: 'Analyze search engine results pages to understand ranking factors, SERP features, user intent patterns, and AI overview triggers. Use when the user asks to "analyze search results", "SERP analysis", "what ranks for", "SERP features", "why does this page rank", "featured snippets", "AI overviews", or "what does Google show for". For tracking rankings over time, see rank-tracker. For keyword discovery, see keyword-research.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ allowed-tools: WebFetch
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.2.5"
+  version: "4.2.6"
   geo-relevance: "high"
   tags:
     - seo
@@ -169,7 +169,7 @@ When a user requests SERP analysis:
 - [ ] SERP composition mapped with all features documented
 - [ ] Ranking factors identified from actual top 10 analysis (not assumptions)
 - [ ] Content requirements based on observed patterns in current SERP
-- [ ] Source of each data point clearly stated (~~SEO tool data, ~~AI monitor data, user-provided, or manual observation)
+- [ ] Source of each data point stated in the report's own words — the resolved tool name (Ahrefs, Otterly), "user-provided", or "manual observation"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 
 ## Greek Comparison-Shopping Surfaces (Skroutz, BestPrice, Google Shopping)
 

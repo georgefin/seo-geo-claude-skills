@@ -369,11 +369,11 @@ This creates a consistent entity graph that search engines can confidently map t
 | Metric | Tool | Target |
 |--------|------|--------|
 | Knowledge Panel presence | Google Search | Present and accurate |
-| Branded search CTR | ~~search console | > 50% for exact brand name |
+| Branded search CTR | Search Console | > 50% for exact brand name |
 | AI recognition rate | Manual testing | Recognized by 3/3 major AI systems |
 | Wikidata completeness | Wikidata | 15+ properties with references |
 | Schema.org error count | Google Search Console | 0 errors |
-| Brand mention volume | ~~brand monitor | Stable or growing trend |
+| Brand mention volume | Brand-monitoring tool (name the one used) | Stable or growing trend |
 
 Mention volume is tracked as a count with its window and its source named, split into linked and unlinked. Do not turn it into a rate against money: dividing a retainer, fee, or budget by the mention count yields a cost-per-mention, ROI, or payback figure that prices whatever the alert feed caught rather than the entity work, and it becomes the client's target the moment they see it. Same rule, executor side: SKILL.md Step 2.
 

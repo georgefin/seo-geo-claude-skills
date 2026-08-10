@@ -1,6 +1,6 @@
 ---
 name: technical-seo-checker
-version: "4.2.1"
+version: "4.2.2"
 description: 'Run technical SEO audits covering Core Web Vitals, crawlability, indexing, mobile-friendliness, and site architecture. Use when the user asks to "technical SEO audit", "check page speed", "Core Web Vitals", "crawl errors", "indexing problems", "site health check". For content element issues, see on-page-seo-auditor. For link architecture, see internal-linking-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.2.1"
+  version: "4.2.2"
   geo-relevance: "low"
   tags:
     - seo
@@ -185,7 +185,7 @@ Step 9 audit summary.
    | Sitemap exists | ✅/❌ | [notes] |
    | Valid XML format | ✅/⚠️/❌ | [errors] |
    | In robots.txt | ✅/❌ | [notes] |
-   | Submitted to ~~search console | ✅/⚠️/❌ | [notes] |
+   | Submitted to Search Console | ✅/⚠️/❌ | [notes] |
    | URLs count | [X] | [appropriate?] |
    | Only indexable URLs | ✅/⚠️/❌ | [notes] |
    | Includes priority | ✅/⚠️ | [notes] |
@@ -295,7 +295,7 @@ Step 9 audit summary.
 - [ ] Every recommendation cites specific data points (not generic advice)
 - [ ] All issues include affected URLs or page counts
 - [ ] Performance metrics include actual numbers with units (seconds, KB, etc.)
-- [ ] Source of each data point clearly stated (~~web crawler data, ~~page speed tool, user-provided, or estimated)
+- [ ] Source of each data point stated in the report's own words — the resolved tool name (Screaming Frog, PageSpeed Insights), "user-provided", or "estimated"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 - [ ] Every finding carries a Confidence label (Confirmed / Likely / Hypothesis); Hypothesis findings name what would confirm them
 
 ## Example

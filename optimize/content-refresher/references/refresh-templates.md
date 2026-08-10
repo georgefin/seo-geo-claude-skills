@@ -203,7 +203,7 @@ Structure content with questions AI might answer:
 - [ ] Update `dateModified` in schema
 - [ ] Update sitemap lastmod
 - [ ] Clear cache after publishing
-- [ ] Resubmit to ~~search console
+- [ ] Resubmit to Search Console
 
 ### Promotion Strategy
 

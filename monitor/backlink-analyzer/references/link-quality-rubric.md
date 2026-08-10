@@ -245,7 +245,7 @@ domain:spam-directory.net
 
 | Step | Action | Tool |
 |------|--------|------|
-| 1 | Export full backlink profile | ~~link database |
+| 1 | Export full backlink profile | Backlink index (name the tool used) |
 | 2 | Filter for known toxic patterns | Spam score, DR <10, foreign spam |
 | 3 | Manual review of flagged links | Visit each flagged domain |
 | 4 | Attempt removal via email first | Contact webmasters |
