@@ -669,6 +669,29 @@ itself is deliberately held for a diagnosis-before-edit pass — whether it is w
 weakly worded, or simply hard is the question, and guessing would repeat the mistake of
 declaring a carrier sound because it exists.
 
+**F13 Recurrence 4 — 2026-08-10 · three expectations graded a convention the skill never names, and the
+informed run passed all three.** `research/competitor-analysis` e1.5, e2.6 and e3.5 each require the
+Confirmed / Likely / Hypothesis confidence convention. The strings appear **zero times** in that
+skill's `SKILL.md` and zero times anywhere in its `references/`, in English or Greek
+(`[εΕ]πιβεβαιωμ` · `[πΠ]ιθαν` · `[υΥ]πόθεσ` all zero, checked in both cases because `grep -i` does
+not fold Greek). The convention is defined in a different skill — `cross-cutting/content-quality-auditor`
+— and this skill carries **no routing link to it**. The informed baseline passed all three; the blind
+run failed all three, and they are 3 of its 7 failures.
+**Why this is the sharpest instance yet**: the other recorded instances left the rule unstated. Here the
+rule exists, is written down, and lives in a skill the executor was never pointed at — so the expectation
+is not merely uncarried, it is carried somewhere the writer cannot reach. An informed executor reads the
+convention out of the expectation itself and complies; a cold session cannot, because nothing in its
+loaded context contains it.
+**Second finding in the same run, recorded because it inverts the usual shape**: expectation e2.5 actively
+**rewards** a family-8 violation — it passes a response that recommends running `domain-authority-auditor`
+per the report template's own note. The suite requires on one surface what `anti-slop-ruleset.md` §6 now
+forbids on another, and both compliant deliverables produced family-8 occurrences by doing exactly what
+e2.5 asks. A suite can enforce a defect, not only fail to carry a rule.
+**Guard**: the carrier fix (state the convention in the skill, or route to where it lives) is queued behind
+this suite's grading rather than applied under it. `scripts/expectation-carrier-check.sh` did NOT surface
+this class — the convention words appear in the expectations as ordinary prose, not as quoted phrases —
+which is the behaviour-shaped half its own header already declares it cannot see.
+
 ## F14 — 2026-08-10 · Parallel agents' untracked files swept into a coordinator commit by `git add -A`
 
 - **Failure**: the identity commit `67ecad7` ("chore(identity): re-attribute fork

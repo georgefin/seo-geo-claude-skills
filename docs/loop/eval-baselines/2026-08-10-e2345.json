@@ -268,7 +268,8 @@
         "e5.3's blanket 'no numeric SEO metric … no content-inventory counts' can collide with e5.5's explicitly permitted empty-template table: template metric labels ('Keywords in Top 10', 'Content Pages') contain a numeral/inventory noun by construction. Graded labels as non-attributions; a clarifying phrase ('template metric labels are not attributions') would make the two expectations mechanically consistent.",
         "e2.5's 'cite specific export rows' reads as keyword-table rows but its second example (Authority Score 42 vs 18) is a domain-overview citation — 'export rows/cells' would cover both files unambiguously. No grading impact this run.",
         "e1.1 example list embeds an elided quote ('A standing desk is a height-adjustable work surface...') — graders must read the ellipsis as elision, not literal fixture text; harmless but worth a [sic]-style note."
-      ]
+      ],
+      "denominator_defect_found_2026_08_10": "THIS RECORD'S DENOMINATOR IS WRONG AND ITS PASS RATE OVERSTATES. It records eval 2 at 5/5; eval 2 has SIX expectations and always has — verified at every commit that ever touched research/competitor-analysis/evals/evals.json (591acfd, whose own subject reads '5 evals / 29 expectations', 4310d7c, df560ae, and HEAD) — so the suite is [6,6,6,5,6] = 29, not 28. One eval-2 expectation was never graded in this informed run and this record does not say which. The stated 27/28 = 96.43% is therefore computed on a denominator two short of the suite, and cannot be compared with any run that grades all 29. Found by the blind grader of 2026-08-10, not by review. Same class as the domain suite's denominator note, and the second denominator defect found in this file in one day."
     },
     {
       "skill": "content-gap-analysis",
