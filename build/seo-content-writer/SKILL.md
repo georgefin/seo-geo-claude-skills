@@ -1,13 +1,13 @@
 ---
 name: seo-content-writer
-version: "4.3.1"
+version: "4.3.2"
 description: 'Write search-engine-optimized blog posts, landing pages, and articles with keyword integration, header hierarchy, and featured snippet targeting. Use when the user asks to "write SEO content", "create a blog post", "write an article", "draft optimized content", "write a landing page", or "SEO copywriting". Creates keyword-optimized content using a 12-step workflow with CORE-EEAT checklist, title optimization, meta description, H1/H2/H3 hierarchy, and internal/external linking. For AI-citation optimization, see geo-content-optimizer. For updating existing content, see content-refresher.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.1"
+  version: "4.3.2"
   geo-relevance: "medium"
   tags:
     - seo
