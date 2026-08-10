@@ -7,7 +7,7 @@ part of what it is demonstrating.
 
 ## Example
 
-**User**: "Audit domain authority for cloudhosting.com as a content publisher"
+**User**: "Audit domain authority for cloudhosting.example as a content publisher"
 
 **Output**:
 
@@ -16,7 +16,7 @@ part of what it is demonstrating.
 
 ### Overview
 
-- **Domain**: cloudhosting.com
+- **Domain**: cloudhosting.example
 - **Domain Type**: Content Publisher
 - **Audit Date**: 2025-02-03
 - **CITE Score**: 68.5/100 (Medium)
@@ -125,9 +125,9 @@ example:
 
 | Run | Why | Payload |
 |-----|-----|---------|
-| `content-quality-auditor` | Settles the diagnosis above — domain authority is mid-range and content is unmeasured | cloudhosting.com, Content Publisher · the 5 landing pages, one row each · `CITE C:70 I:55 T:80 E:65` · vetoes `CITE-T03` pass, `CITE-T05` pass, `CITE-T09` pass · audited 2025-02-03 |
-| `entity-optimizer` | Identity is the weakest dimension (55/100) and carries three of the top 5 priorities | cloudhosting.com, Content Publisher · priority `CITE-I01, CITE-I03, CITE-I04` · `CITE C:70 I:55 T:80 E:65` · audited 2025-02-03 |
-| `/seo:report` | Quarterly trend tracking against this baseline | cloudhosting.com · baseline `CITE C:70 I:55 T:80 E:65`, audited 2025-02-03 |
+| `content-quality-auditor` | Settles the diagnosis above — domain authority is mid-range and content is unmeasured | cloudhosting.example, Content Publisher · the 5 landing pages, one row each · `CITE C:70 I:55 T:80 E:65` · vetoes `CITE-T03` pass, `CITE-T05` pass, `CITE-T09` pass · audited 2025-02-03 |
+| `entity-optimizer` | Identity is the weakest dimension (55/100) and carries three of the top 5 priorities | cloudhosting.example, Content Publisher · priority `CITE-I01, CITE-I03, CITE-I04` · `CITE C:70 I:55 T:80 E:65` · audited 2025-02-03 |
+| `/seo:report` | Quarterly trend tracking against this baseline | cloudhosting.example · baseline `CITE C:70 I:55 T:80 E:65`, audited 2025-02-03 |
 ```
 
 The CORE-EEAT field is absent from every row because no content audit exists yet — that absence is

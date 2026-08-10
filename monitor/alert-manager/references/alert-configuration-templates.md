@@ -19,10 +19,20 @@ because the priority is what decides delivery.
 
 | Alert Name | Condition | Threshold | Priority | Action |
 |------------|-----------|-----------|----------|--------|
-| Critical Drop | Any top 3 keyword drops 5+ positions | Position change >=5 | P0 | Immediate investigation |
+| Critical Drop | Any top 3 keyword drops 5+ positions | Position change >=5 | P1 | Same-day investigation |
 | Major Drop | Top 10 keyword drops out of top 10 | Position >10 | P1 | Same-day review |
 | Moderate Drop | Any keyword drops 10+ positions | Position change >=10 | P2 | Weekly review |
 | Competitor Overtake | Competitor passes you for key term | Comp position < yours | P2 | Analysis needed |
+
+Critical Drop takes the Critical band's default, **P1** — a drop of >=5 is Tier 1's Critical
+trigger in the threshold guide's Ranking Thresholds table. Ranking in the top 3 is a *position*,
+not a priority: it does not by itself put a keyword in the priority-1 / Tier-1 set. Where it does,
+the standing override raises this same alert one level to **P0**, which is the "Top-3 Keyword Drop
+(priority-1 set)" row in the P0 response plan below — it needs no separate line here. The other
+three rows fire on a boundary or a count rather than on a band: Major Drop and Competitor Overtake
+have no band to sit above or below, and Moderate Drop's >=10 is Tier 3's Warning trigger, so P2 is
+that band's default. On a Tier-1 or Tier-2 keyword a drop of 10+ is already Critical — price it
+from the tier table, not from this row.
 
 ### Position Improvement Alerts
 
@@ -42,11 +52,17 @@ because the priority is what decides delivery.
 
 ### Keywords to Monitor
 
-| Keyword | Current Rank | Alert Threshold | Priority |
-|---------|--------------|-----------------|----------|
-| [keyword 1] | [X] | Drop >=3 | P0 |
-| [keyword 2] | [X] | Drop >=5 | P1 |
-| [keyword 3] | [X] | Drop >=10 | P2 |
+| Keyword | Current Rank | Alert Threshold | Band reached | Priority |
+|---------|--------------|-----------------|--------------|----------|
+| [keyword 1] | [X] | Drop >=3 | Warning — Tier 1 warns at >=3 | P1 — raised from P2: Tier-1 / priority-1 set |
+| [keyword 2] | [X] | Drop >=5 | Warning — Tier 2 warns at >=5 | P2 |
+| [keyword 3] | [X] | Drop >=10 | Warning — Tier 3 warns at >=10 | P2 |
+
+Each threshold above is that tier's own Warning trigger, so all three rows are Warning band and
+take **P2** by default. Only row 1 moves, by the standing Tier-1 / priority-1 override, and it says
+so in its own cell — the reason has to travel when the row is copied. Set a threshold at the tier's
+Critical trigger instead (Tier 1 >=5, Tier 2 >=10, Tier 3 off page 3) and the row becomes **P1** —
+or **P0** on the Tier-1 line, under the same override.
 
 ---
 
@@ -78,12 +94,27 @@ because the priority is what decides delivery.
 | Conversion pages | Any 25%+ decline | P1 |
 | Blog posts | Any 40%+ decline | P2 |
 
+All four are priced by **page importance**, not off the default map, and each move has its reason:
+the homepage is raised because its decline is read as a site-level symptom rather than a page one,
+the top-10 pages because they carry most of the traffic, conversion pages because they carry the
+revenue; a single blog post is lowered because one post decaying is not an incident. None of these
+rows states a comparison period, so no band can be read off them as written — set the period when
+you configure them (the guide's page-level traffic bands run week over week: Warning -25%,
+Critical -40%, Emergency -60%), and carry the reason clause with the row.
+
 ### Conversion Alerts
 
 | Alert Name | Condition | Priority |
 |------------|-----------|----------|
 | Conversion Drop | Organic conversions down 30%+ | P0 |
 | CVR Decline | Conversion rate drops 20%+ | P1 |
+
+Both sit above the default map, and the reason is the same: a conversion metric is the money line.
+Read against the guide's bands (organic conversions WoW: Warning -20%, Critical -40%, Emergency
+-60%; conversion rate: Warning -20%, Critical -40%) a 30% conversion drop and a 20% rate drop are
+both **Warning**, whose default is P2 — so Conversion Drop is two levels up and CVR Decline one.
+Keep the priority the business actually wants and keep this clause beside it; a two-level move is
+worth re-checking against your own baseline before it goes into production.
 
 ---
 
@@ -110,7 +141,7 @@ other three rows take the default map unchanged.
 | New 404 Pages | 404 errors on important pages | P2 |
 | Redirect Chains | 3+ redirect hops detected | P2 |
 | Duplicate Content | New duplicates detected | P2 |
-| Index Coverage Drop | Indexed pages decline 10%+ | P1 |
+| Index Coverage Drop | Indexed pages decline 10%+ | P1 — raised from P2: a 10% drop is the Warning band, but pages out of the index earn nothing while it is investigated |
 
 ### Performance Alerts
 
@@ -128,6 +159,9 @@ other three rows take the default map unchanged.
 | Manual Action | Google manual action | P0 |
 | Malware Detected | Site flagged for malware | P0 |
 
+All three are P0 under the standing override — security issues and manual actions are paged on any
+detection, whatever band the magnitude would give them, because there is no small manual action.
+
 ---
 
 ## Backlink Alerts
@@ -136,7 +170,7 @@ other three rows take the default map unchanged.
 
 | Alert Name | Condition | Priority |
 |------------|-----------|----------|
-| High-Value Link Lost | DA 70+ link removed | P1 |
+| High-Value Link Lost | DA 70+ link removed | P1 — raised from P2: a single loss is the Warning band, but recovery outreach is time-limited (the P1 response plan's "Backlink Loss" row) |
 | Multiple Links Lost | 10+ links lost in a day | P2 |
 | Referring Domain Lost | Lost entire domain's links | P2 |
 
@@ -153,7 +187,7 @@ other three rows take the default map unchanged.
 | Alert Name | Condition | Priority |
 |------------|-----------|----------|
 | Toxic Score Increase | Toxic score up 20%+ | P1 |
-| Anchor Over-Optimization | Exact match anchors >30% | P2 |
+| Anchor Over-Optimization | Exact match anchors >30% | P2 — lowered from P1: >30% is the Critical band, but an anchor ratio moves slowly and the fix is a link plan, not a same-day action |
 
 ---
 

@@ -48,7 +48,7 @@ The six fields below are the convention as stated in root `CLAUDE.md`.
 | **CORE-EEAT dimension scores** | Labelled score string — Section 2.2 | **Conditional**: present when a CORE-EEAT audit has actually been run. Never estimated from a partial scan | `CORE-EEAT C:70 O:85 R:40 E:30 Exp:60 Ept:55 A:30 T:75` |
 | **CITE scores** | Labelled score string — Section 2.2 | **Conditional**: present when a CITE domain audit has actually been run | `CITE C:62 I:45 T:80 E:55` |
 | **Priority item IDs** | Hyphenated framework-first IDs, comma-separated, highest impact first — Section 2.3 | **Conditional**: present when either audit produced a ranked fix list. Send the ones that motivated *this* handoff, not the whole failing set | `CORE-EEAT-R02, CORE-EEAT-R03, CORE-EEAT-E01` |
-| **Content URL** | One absolute URL, scheme included. Domain-level handoffs send the bare domain instead, labelled as such | **Required** — a handoff naming no subject is not actionable. Several pages go as an explicit list, one per row | `https://northfield-tools.com/guides/bandsaw-blade-selection` |
+| **Content URL** | One absolute URL, scheme included. Domain-level handoffs send the bare domain instead, labelled as such | **Required** — a handoff naming no subject is not actionable. Several pages go as an explicit list, one per row | `https://northfield-tools.example/guides/bandsaw-blade-selection` |
 
 ### 2.2 Score-string notation
 
@@ -195,10 +195,10 @@ in it is invented for this file.
 
 | # | Run | Why | Payload |
 |---|-----|-----|---------|
-| 1 | `geo-content-optimizer` | R and E are the two failing CORE dimensions and both are GEO-First heavy | `"bandsaw blade selection"` · How-to Guide · `CORE-EEAT C:70 O:85 R:40 E:30 Exp:60 Ept:55 A:30 T:75` · priority `CORE-EEAT-R02, CORE-EEAT-R03, CORE-EEAT-E01` · `https://northfield-tools.com/guides/bandsaw-blade-selection` · vetoes `CORE-EEAT-C01` pass, `CORE-EEAT-R10` pass, `CORE-EEAT-T04` N/A · audited 2026-08-10 |
+| 1 | `geo-content-optimizer` | R and E are the two failing CORE dimensions and both are GEO-First heavy | `"bandsaw blade selection"` · How-to Guide · `CORE-EEAT C:70 O:85 R:40 E:30 Exp:60 Ept:55 A:30 T:75` · priority `CORE-EEAT-R02, CORE-EEAT-R03, CORE-EEAT-E01` · `https://northfield-tools.example/guides/bandsaw-blade-selection` · vetoes `CORE-EEAT-C01` pass, `CORE-EEAT-R10` pass, `CORE-EEAT-T04` N/A · audited 2026-08-10 |
 | 2 | `content-quality-auditor` (re-run) | Confirms the R/E gain and catches regressions in the dimensions we are not touching | Same URL and content type; compare against `CORE-EEAT C:70 O:85 R:40 E:30 Exp:60 Ept:55 A:30 T:75`, audited 2026-08-10 |
 
-**Field not sent — CITE scores.** No domain audit exists for northfield-tools.com, so both rows
+**Field not sent — CITE scores.** No domain audit exists for northfield-tools.example, so both rows
 omit the CITE field rather than estimating it. Run `domain-authority-auditor` on the domain if you
 want the combined 120-item picture; without it, "great content, invisible domain" can be neither
 ruled in nor out.

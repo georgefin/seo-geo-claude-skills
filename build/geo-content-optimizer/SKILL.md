@@ -1,13 +1,13 @@
 ---
 name: geo-content-optimizer
-version: "4.3.0"
+version: "4.3.1"
 description: 'Optimize content for AI citation across Google AI Mode (default search surface, incl. AI Overviews), ChatGPT, Perplexity, and Gemini with quotable statements and structured Q&A. Use when the user asks to "optimize for AI", "get cited by ChatGPT", "GEO optimization", "appear in AI answers", "make content AI-quotable", "Google AI Overview optimization", or "Google AI Mode optimization". Adds quotable statements, structured Q&A, precise statistics with sources, expert attribution, and a structured FAQ. Uses CORE-EEAT GEO-First items as optimization targets. For SEO-focused writing, see seo-content-writer. For entity and brand AI presence, see entity-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.0"
+  version: "4.3.1"
   geo-relevance: "high"
   tags:
     - geo
@@ -147,7 +147,7 @@ When a user requests GEO optimization:
    - **One PRIMARY content type per page** (O05), chosen by what the page is.
    - **Documented auxiliaries are not stacking**: BreadcrumbList where a real trail exists, Organization/Person nested as publisher or author, WebSite on the homepage. Each has its own engine-documented, non-citation job.
    - **A second full content type is stacking and stays banned** — FAQPage bolted onto a service or product page, Article and Product both as primaries — unless the page genuinely is both things and each type is complete, accurate and independently justified.
-   - **FAQ precedence** (the collision this skill used to mandate both sides of): add the visible Q&A whenever the queries warrant it, always. Add FAQPage markup only where FAQPage is the page's one primary type — never bolted onto a page that already carries an accurate type. C09 passes on the visible Q&A block; markup is not required for it (CORE-EEAT C09, Pass criterion). Where a page therefore gets the FAQ but no FAQPage object, say so in the report — the item is not downgraded for it.
+   - **FAQ precedence** (the collision this skill used to mandate both sides of): add the visible Q&A whenever the queries warrant it, always. Add FAQPage markup only where FAQPage is the page's one primary type — never bolted onto a page that already carries an accurate type. The bullet above is the only door out of that, and it is a narrow one: a page that genuinely *is* both things, with each type complete, accurate and independently justified. Carrying an FAQ section does not make a page an FAQ page, so on the ordinary page the door stays shut. C09 passes on the visible Q&A block; markup is not required for it (CORE-EEAT C09, Pass criterion). Where a page therefore gets the FAQ but no FAQPage object, say so in the report — the item is not downgraded for it.
    - Type selection and emission belong to [schema-markup-generator](../schema-markup-generator/), which carries the same boundary. Hand it the page's primary type when in doubt.
 
    _Full benchmark: [references/core-eeat-benchmark.md](../../references/core-eeat-benchmark.md)_

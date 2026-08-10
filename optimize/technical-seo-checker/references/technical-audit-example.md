@@ -11,14 +11,14 @@ this example line by line.
 
 ## Worked Example
 
-**User**: "Check the technical SEO of cloudhosting.com"
+**User**: "Check the technical SEO of cloudhosting.example"
 
 **Output**:
 
 ```markdown
 # Technical SEO Audit Report
 
-**Domain**: cloudhosting.com
+**Domain**: cloudhosting.example
 **Audit Date**: 2024-09-15
 **Pages Analyzed**: 312
 
@@ -26,7 +26,7 @@ this example line by line.
 
 ### Robots.txt Review
 
-**URL**: cloudhosting.com/robots.txt
+**URL**: cloudhosting.example/robots.txt
 **Status**: Found
 
 | Check | Status | Notes |
@@ -43,7 +43,7 @@ this example line by line.
 
 ### XML Sitemap Review
 
-**Sitemap URL**: cloudhosting.com/sitemap.xml
+**Sitemap URL**: cloudhosting.example/sitemap.xml
 **Status**: Found (not referenced in robots.txt)
 
 | Check | Status | Notes |
@@ -88,7 +88,7 @@ this example line by line.
 | Check | Status | Notes |
 |-------|--------|-------|
 | SSL certificate valid | ✅ | Expires: 2025-03-22 |
-| HTTPS enforced | ⚠️ | http://cloudhosting.com returns 200 instead of 301 redirect |
+| HTTPS enforced | ⚠️ | http://cloudhosting.example returns 200 instead of 301 redirect |
 | Mixed content | ❌ | 7 images loaded over HTTP on /features/ page |
 | HSTS enabled | ❌ | Header not present |
 
@@ -130,7 +130,7 @@ still leads the list, because one of its eight rows keeps a commercial page out 
 2. **Mobile LCP 4.8s (target ≤2.5s)** — Evidence: mobile LCP 4.8s from the PageSpeed Insights run, TTFB 1,240ms, hero image 2.4MB. Impact: fails the CWV Good threshold on the highest-traffic template. Fix: compress hero to WebP (est. save 1.9MB) and add a CDN to bring TTFB <400ms. Confidence: Confirmed.
 
 ### 🟡 Important (Fix Soon)
-3. **HTTP not redirecting to HTTPS** — Evidence: http:// URLs return 200 without redirect; 7 mixed-content images on /features/. Impact: split signals and browser trust warnings. Fix: add the port-80 server block that 301s both hosts to the canonical HTTPS host, in /etc/nginx/sites-available/cloudhosting.com, above the existing HTTPS block — the canonical block itself gets no redirect (a catch-all there loops the whole site); then HSTS at server level inside the HTTPS block, and update the 7 image URLs. Verify with `nginx -t`, then `curl -sSIL http://cloudhosting.com/` expecting one 301 and a 200. Placement and the paste-ready blocks: [server-config-fixes.md](./server-config-fixes.md). Confidence: Confirmed.
+3. **HTTP not redirecting to HTTPS** — Evidence: http:// URLs return 200 without redirect; 7 mixed-content images on /features/. Impact: split signals and browser trust warnings. Fix: add the port-80 server block that 301s both hosts to the canonical HTTPS host, in /etc/nginx/sites-available/cloudhosting.example, above the existing HTTPS block — the canonical block itself gets no redirect (a catch-all there loops the whole site); then HSTS at server level inside the HTTPS block, and update the 7 image URLs. Verify with `nginx -t`, then `curl -sSIL http://cloudhosting.example/` expecting one 301 and a 200. Placement and the paste-ready blocks: [server-config-fixes.md](./server-config-fixes.md). Confidence: Confirmed.
 
 ### 🟢 Minor (Optimize)
 4. **No Article/FAQPage schema on blog posts** — Evidence: crawl found no structured data on 48 blog posts and 12 FAQ pages. Impact: missed Article rich-result eligibility and weaker AI-engine parsing. Fix: add Article schema to the blog posts; add FAQPage markup to the FAQ pages for AI-engine parsing (FAQ rich results retired 2026 — no SERP promise). Confidence: Confirmed.

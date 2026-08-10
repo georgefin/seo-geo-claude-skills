@@ -1,6 +1,6 @@
 ---
 name: technical-seo-checker
-version: "4.4.0"
+version: "4.4.1"
 description: 'Run technical SEO audits covering Core Web Vitals, crawlability, indexing, mobile-friendliness, and site architecture. Use when the user asks to "technical SEO audit", "check page speed", "Core Web Vitals", "crawl errors", "indexing problems", "site health check". For content element issues, see on-page-seo-auditor. For link architecture, see internal-linking-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.4.0"
+  version: "4.4.1"
   geo-relevance: "low"
   tags:
     - seo
@@ -332,7 +332,7 @@ land in. Blocks, the four ways a pasted redirect breaks a site, and the verifica
 
 ## Example
 
-> **Reference**: See [references/technical-audit-example.md](./references/technical-audit-example.md) for a full worked example (cloudhosting.com technical audit) and the comprehensive technical SEO checklist.
+> **Reference**: See [references/technical-audit-example.md](./references/technical-audit-example.md) for a full worked example (cloudhosting.example technical audit) and the comprehensive technical SEO checklist.
 
 ## Tips for Success
 

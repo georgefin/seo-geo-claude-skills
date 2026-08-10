@@ -244,7 +244,7 @@ Google retired FAQ rich results in 2026: Search Console reporting, the API, the 
 
 FAQPage stays in the library (settled ruling R3): its value is AI-engine/GEO parsing — answer engines extract clean Q&A pairs from it. The quality bar that still applies:
 
-- FAQPage is the page's ONE primary type — a dedicated FAQ page, not an FAQ block bolted onto a page that already carries an accurate type (settled ruling R2). The visible Q&A earns CORE-EEAT C09 on its own, so a page that keeps the Q&A and drops the markup loses nothing on that item
+- FAQPage is the page's ONE primary type — a dedicated FAQ page, not an FAQ block bolted onto a page that already carries an accurate type (settled ruling R2), unless the page genuinely is both things and each type is complete, accurate, and independently justified. That carve-out is the same one the pre-launch check below applies to every type, and it is narrow: having an FAQ section does not make a page an FAQ page, so the ordinary case is still the ban. The visible Q&A earns CORE-EEAT C09 on its own, so a page that keeps the Q&A and drops the markup loses nothing on that item
 - Q&A pairs match the visible page content exactly (general structured-data content-match policy)
 - Questions are actual questions; answers are complete
 - Neutral, informational wording — not promotional copy

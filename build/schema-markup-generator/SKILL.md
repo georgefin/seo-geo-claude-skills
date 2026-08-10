@@ -1,6 +1,6 @@
 ---
 name: schema-markup-generator
-version: "4.2.1"
+version: "4.2.2"
 description: 'Generate Schema.org JSON-LD structured data — one accurate primary type per page (FAQPage, HowTo, Article, Product, LocalBusiness, and 6 other types) plus documented auxiliaries only where warranted. Use when the user asks to "add schema markup", "generate structured data", "JSON-LD", "FAQ schema", "rich snippets", "I want star ratings in Google", or "structured data validation errors". Produces validated markup for Google rich results where still offered (FAQ rich results retired 2026 — FAQPage is kept for AI-engine/GEO parsing), Bing structured data, and AI system understanding. Validates via the Schema.org validator, plus Rich Results Test for non-FAQ types. For broader technical SEO, see technical-seo-checker. For meta tag optimization, see meta-tags-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.2.1"
+  version: "4.2.2"
   geo-relevance: "medium"
   tags:
     - seo

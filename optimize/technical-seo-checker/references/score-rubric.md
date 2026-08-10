@@ -120,7 +120,7 @@ Priority order in the report follows severity, never the score.
 
 ---
 
-## 8. Worked derivation (the cloudhosting.com example)
+## 8. Worked derivation (the cloudhosting.example example)
 
 From [technical-audit-example.md](./technical-audit-example.md), whose tables are abridged —
 which is exactly why the denominators are small and stated:
