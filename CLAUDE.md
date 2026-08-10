@@ -43,6 +43,8 @@ State for the weekly self-improvement loop lives in `docs/loop/` — `PIPELINE.m
 
 If the gate's `validate-tracking` check (g) reports anchored pointers whose target "lacks its token", run `scripts/reanchor-pointers.sh` (check-only) then `--fix`. Any insertion into `VERSIONS.md` shifts every pointer below it, and the anchor token — not the line number — is what the pointer means, so the new line is derivable. The fixer re-anchors an unambiguous token and **refuses** the two cases only a human can settle: a token that appears nowhere (its subject was deleted or reworded) and a token on several lines (ambiguous). It is deliberately not wired into the gate — a push must not rewrite the registers it is validating.
 
+`scripts/expectation-carrier-check.sh` (advisory, also not wired into the gate) finds the opposite problem: an eval expectation that grades a rule the skill never states, so the skill fails a test it was never told about. It greps each suite's quoted expectation phrases against the skill's own text. **Read its footer before trusting a clean line** — it sees uncarried *vocabulary* only, and misses an uncarried *behaviour* (its measured coverage is 1 of the 2 known instances).
+
 ## Tool Connector Pattern
 
 Skills use `~~category` placeholders (e.g., `~~SEO tool`, `~~analytics`). Every skill works without any integrations (Tier 1). MCP servers in `.mcp.json` add Ahrefs, SimilarWeb, HubSpot, Amplitude, Notion, Slack.
