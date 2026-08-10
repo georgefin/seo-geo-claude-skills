@@ -963,3 +963,57 @@ done-definition includes running it.
   copied programmatically to `docs/loop/eval-baselines/blind-2026-08-10/`; totals recomputed
   from those files reproduce the quoted rates exactly (252/286 pooled), and the pairing check
   that produced the 4.8-point figure is rerunnable from the two committed index files].
+
+---
+
+## F17 — 2026-08-10 · A cross-skill rule was ruled in the coordination documents and given no carrier in any shipped skill
+
+- **What happened**: four eval suites grade the library's **inter-skill handoff convention** —
+  `cross-cutting/memory-management` e1, `research/competitor-analysis` e4,
+  `research/content-gap-analysis` e4 (three expectations), `research/keyword-research` e5.
+  Three of them name the source in the expectation text: *"per the library's inter-skill
+  handoff convention (CLAUDE.md)"*. The convention's only statement in the repository is in
+  the three coordination documents — root `CLAUDE.md:36`, `README.md:244`, `AGENTS.md:218`.
+  A sweep of all 20 `SKILL.md` files for any handoff convention returns **2**:
+  `content-quality-auditor` and `domain-authority-auditor`. The 18 others, including all four
+  whose suites grade it, state none.
+- **Why it is not F13**: F13 is a rule stored where the writer never meets it. Here the rule
+  IS met by the writer — every session in this repository auto-loads `CLAUDE.md`, so an
+  in-repo executor, blind or informed, reads the convention before it writes. The defect is
+  not that the executor cannot see the rule. It is that **the rule is carried by the
+  repository rather than by the product**, and no measurement the pipeline owns can tell the
+  two apart, because every measurement runs inside the repository.
+- **The blind method's residual blind spot, stated plainly**: splitting executor from grader
+  removed the grader's knowledge of the expectations. It did not remove the executor's access
+  to the coordination documents. For this one class of rule — anything ruled in `CLAUDE.md`
+  and not restated in a skill — a blind run scores it as carried and cannot do otherwise.
+  The 20-suite blind sweep is therefore evidence about skills-as-run-here, and is silent on
+  skills-as-installed for this class. That is not a defect in the runs; it is a boundary on
+  what they measure, and it was not stated anywhere until now.
+- **The repository already knows the fix and applied it twice.** `CLAUDE.md`'s other two
+  standing rulings each name skill-side carriers in the ruling itself: the `~~category`
+  resolution rule carries at `build/seo-content-writer/references/anti-slop-ruleset.md` §6
+  family 7, and the Value Rule at `schema-templates.md` plus `meta-tag-code-templates.md`.
+  Both were ruled the same day as this entry. The handoff convention is the one standing
+  cross-skill ruling that names no carrier — so this is a gap in applying an existing
+  convention, not a missing convention.
+- **Root cause**: a rule written into the document that coordinates the work reads as
+  delivered, because the coordinator can see it from where the coordinator sits. Naming a
+  carrier is the step that converts a ruling into something a user receives, and it is
+  invisible to skip — nothing fails, and in-repo tests keep passing.
+- **Guard**: a ruling recorded in `CLAUDE.md` names its shipped carrier **in the ruling**, in
+  the form the other two already use ("Carrier: `<path>` §<n>"). A ruling with no carrier line
+  is incomplete. Applying this to the handoff convention is queued, not done in this entry —
+  two of the four affected skills are under edit by other agents as this is written, and
+  editing a skill during another agent's run is ledger F8.
+- **Recurrence**: 0 (founding). A standing ruling landing in `CLAUDE.md` without a carrier
+  line, or another suite found grading a convention no shipped skill states, increments this.
+- **[VERIFY] — the amplifier, deliberately not asserted**: whether an installed user's
+  session loads a plugin's root `CLAUDE.md` at all. The repo records a strict-validator
+  **root-CLAUDE.md packaging warning** as an accepted residual (`GATED-ITEMS.md` G1, :284),
+  which is why this is worth asking; but the entry above stands without it, on the carrier
+  convention alone. If the warning does mean the file is not delivered, the convention is
+  carried for no installed user whatsoever and the four suites grade a rule the product never
+  states. **Resolves when**: a probe installs the plugin from a directory source and reports
+  whether the handoff convention is in the session's context. Not probed here.
+- **Status**: opened, carrier fix queued, amplifier unprobed. FLIP: F17 -- none

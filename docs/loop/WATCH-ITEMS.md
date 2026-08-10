@@ -240,6 +240,26 @@ authoritative.
 - **Cadence**: next weekly research sweep (2026-08-15 solo fire) — DETECT lane, if
   G9 has not been decided by then.
 
+## W13 — Does an installed plugin carry root `CLAUDE.md`? [VERIFY]
+
+- **Where**: root `CLAUDE.md:36` — the inter-skill handoff convention, and by the same
+  mechanism every other standing ruling recorded there. Opened by ledger **F17**
+  (2026-08-10), which stands on its own without this question: the convention names no
+  shipped carrier, while `CLAUDE.md`'s two other standing rulings both do.
+- **The question**: whether a session that installs this plugin from a marketplace or a
+  directory source has root `CLAUDE.md` in its context. The repo records a strict-validator
+  **root-CLAUDE.md packaging warning** as an accepted residual (`GATED-ITEMS.md` G1, :284),
+  which is the reason to ask; that warning is recorded fact, the inference from it is not.
+- **Why it cannot be settled by the eval sweep**: every run in the 20-suite blind wave
+  executed inside this repository, where `CLAUDE.md` auto-loads. For any rule stated only
+  there, a blind run scores it carried and cannot do otherwise. The method's coverage of
+  this class is zero, in both directions.
+- **Status**: unprobed, asserted nowhere. FLIP: W13 -- none
+- **Resolves when**: someone installs the plugin from a directory source into a scratch
+  session and reports whether the handoff convention text is present in that session's
+  context. One probe, one answer, no research lane needed.
+- **Cadence**: next weekly sweep (2026-08-15 solo fire) if not answered before.
+
 ---
 
 **Standing weekly discipline (not a register item)**: Google core/spam "update" chatter is
