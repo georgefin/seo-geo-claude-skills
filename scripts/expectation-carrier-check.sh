@@ -104,7 +104,12 @@ for suite in suites:
         if p.is_file():
             try: corpus.append(p.read_text(encoding="utf-8").lower())
             except Exception: pass
-    blob = "\n".join(corpus)
+    # Strip markdown emphasis and backticks before comparing. A rule written as
+    # "Decide access **per role**, never per vendor name alone" does not literally contain
+    # the phrase an expectation quotes without the asterisks — that produced a false
+    # "uncarried rule" for technical-seo-checker on 2026-08-10. Normalise both sides.
+    def norm(x): return re.sub(r"[*_`]", "", x)
+    blob = norm("\n".join(corpus))
     if not blob:
         print(f"{RED}NO SKILL TEXT{OFF} {rel}"); continue
 
@@ -132,8 +137,8 @@ for suite in suites:
                 if not ph or STOP.match(ph): continue
                 if len(ph.split()) < min_words: continue
                 low = ph.lower()
-                if low in blob: continue
-                where = "in fixture" if low in fixblob else "NOWHERE"
+                if norm(low) in blob: continue
+                where = "in fixture" if norm(low) in norm(fixblob) else "NOWHERE"
                 misses.append((ev.get("id"), ph, where))
 
     if not misses:
