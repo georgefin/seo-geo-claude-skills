@@ -9,8 +9,12 @@
 #   3. scripts/claims-gate.sh — F11 drafting-integrity rules on the outgoing
 #      register diff (per-push @{upstream} scope; wired 2026-08-09, G5);
 #   4. scripts/commit-scope-check.sh — F14 declared-scope integrity: no commit
-#      may carry skill files its subject does not name (same per-push scope).
-# Push only when all four pass. With Actions disabled on this fork, this gate
+#      may carry skill files its subject does not name (same per-push scope);
+#   5. scripts/register-lock.sh gate-check — F14 second mechanism: no commit may
+#      touch a path another writer had open in the register write-lock ledger
+#      without declaring that holder (same per-push scope; silent when nobody
+#      announced a path).
+# Push only when all five pass. With Actions disabled on this fork, this gate
 # is the effective CI (docs/loop/PIPELINE.md stage 4).
 #
 # Usage: ./scripts/pre-push-gate.sh [base-ref]   (default: origin/main)
@@ -64,6 +68,17 @@ echo "== commit-scope-check (F14 declared-scope integrity)"
 # outgoing — which is the honest treatment: the guard cannot testify about
 # staging decisions it never observed.
 bash "$ROOT/scripts/commit-scope-check.sh" || overall=1
+
+echo "== register-lock gate-check (F14 second mechanism: shared-register write collisions)"
+# Scope decision: same per-push @{upstream} scope as checks 3 and 4, for the
+# same reason — the question is about THIS push's new commits, and the
+# .register-locks journal is gitignored session state that can say nothing about
+# history pushed before it existed. Second scope decision, specific to this
+# check: its unit is the paths writers actually announced, not a hardcoded
+# register list. With no journal (or none covering an outgoing commit) it has
+# nothing to assert and passes, so a solo session pays zero friction; it only
+# speaks when two workstreams overlapped on one file.
+bash "$ROOT/scripts/register-lock.sh" gate-check || overall=1
 
 echo ""
 if [ "$overall" -ne 0 ]; then

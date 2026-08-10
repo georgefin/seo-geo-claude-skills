@@ -22,3 +22,8 @@ docs/plans/
 
 # Node (if any tooling added later)
 node_modules/
+
+# Register write-lock journal (scripts/register-lock.sh) — live session state,
+# never committed: it records who had which shared register path open, and a
+# committed copy would be another actor's stale state in your tree.
+.register-locks*

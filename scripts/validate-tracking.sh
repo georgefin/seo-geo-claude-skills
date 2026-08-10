@@ -339,29 +339,48 @@ fi
 [ "$F_OK" -eq 1 ] && pass "(f) no deprecated tokens (FID / First Input Delay / affiliate-only T04) and no un-acknowledged FAQ rich-result claims (R3) in live skill, command, or framework files"
 
 # ---------------------------------------------------------------------------
-# (g) settled-pointer anchor check (F12 guard)
+# (g) anchor-tagged pointer check (F12 guard)
 # ---------------------------------------------------------------------------
 # F12 (2026-08-09, recurrence 1): bare VERSIONS.md line-number pointers in the
 # loop registers break on every changelog insertion, so every live pointer is
-# anchor-tagged — `VERSIONS.md:<N>` ("<token>") — and the TOKEN is
-# authoritative. This check parses each anchor-tagged pointer in the four LIVE
-# registers and fails the gate when VERSIONS.md line N no longer CONTAINS its
-# token as a fixed substring (grep -F semantics, not regex).
-# Scope (F12 rationale): scan ONLY the live registers — SETTLED-RULINGS.md,
-# GATED-ITEMS.md, WATCH-ITEMS.md, PIPELINE.md. FAILURE-LEDGER.md is EXCLUDED:
-# it is an append-only ledger that legitimately quotes historical pointer
-# examples (its F12 entry keeps `VERSIONS.md:93` ("non-levers") as a worked
-# example that was correct at writing time) and must never trip the gate.
-# docs/loop/archive/ (frozen snapshots) and docs/loop/eval-baselines/ are
-# excluded likewise. GATED-ITEMS' format TEMPLATE (literal <line>/<token>
-# placeholders) never matches the digit-requiring pattern below, and bare
-# un-anchored refs (e.g. PIPELINE.md's `VERSIONS.md:3`) are ignored by design.
+# anchor-tagged — `<file>:<N>` ("<token>") — and the TOKEN is authoritative.
+# This check parses each anchor-tagged pointer in the four LIVE registers and
+# fails the gate when the target line no longer CONTAINS its token as a fixed
+# substring (grep -F semantics, not regex).
+#
+# TARGET EXTENSION (2026-08-10 — the "check (g) scope-extension question"
+# GATED-ITEMS held for the next scripts-touching wave): the target may be ANY
+# repo file, not just VERSIONS.md; same contract, same message, same authority
+# on the token. The class is not hypothetical — an E3 Mode A round found
+# `optimize/technical-seo-checker/SKILL.md:258` resolving to a BLANK line (fixed
+# by hand to :259), and PIPELINE's stage-3 `CLAUDE.md` pointers had silently
+# drifted before being corrected to :53/:54. Both were invisible to the
+# VERSIONS-only parser. A range target (`file.md:309-310`) passes when the token
+# appears anywhere inside the span.
+#
+# Scope (F12 rationale, unchanged): scan ONLY the live registers —
+# SETTLED-RULINGS.md, GATED-ITEMS.md, WATCH-ITEMS.md, PIPELINE.md.
+# FAILURE-LEDGER.md is EXCLUDED: it is an append-only ledger that legitimately
+# quotes historical pointer examples (its F12 entry keeps `VERSIONS.md:93`
+# ("non-levers") as a worked example that was correct at writing time) and must
+# never trip the gate. docs/loop/archive/ (frozen snapshots) and
+# docs/loop/eval-baselines/ are excluded likewise. GATED-ITEMS' format TEMPLATE
+# (literal <line>/<token> placeholders) never matches the digit-requiring
+# pattern below.
+#
+# UN-ANCHORED pointers (bare `file.md:123` with no ("token")) are COUNTED and
+# LISTED but never failed: failing pointers whose authors never opted into the
+# anchor contract would make the check assert more than it can verify (ledger
+# F11), and the fix for them is a tagging pass, not a red gate. The census is
+# the standing proposal for that pass.
 echo ""
-echo "[g] settled-pointer anchor check (F12 guard)"
+echo "[g] anchor-tagged pointer check (F12 guard; any repo-file target)"
 G_OK=1
 G_COUNT=0
+G_VCOUNT=0
+G_UNTAG_N=0
+G_UNTAG_LIST=""
 G_REGISTERS="SETTLED-RULINGS.md GATED-ITEMS.md WATCH-ITEMS.md PIPELINE.md"
-G_VLINES=$(awk 'END { print NR }' "$VERSIONS")
 for reg in $G_REGISTERS; do
     reg_file="$ROOT/docs/loop/$reg"
     if [ ! -f "$reg_file" ]; then
@@ -369,50 +388,111 @@ for reg in $G_REGISTERS; do
         continue
     fi
     # Flatten the register to one string first so a pointer whose ("token")
-    # wraps onto the next line (R3's does) still parses; emit "N<TAB>token".
-    while IFS=$'\t' read -r ptr_line ptr_token; do
-        [ -n "$ptr_line" ] || continue
-        if [ "$ptr_line" = "PARSE-ERR" ]; then
-            fail "(g) docs/loop/$reg: malformed pointer \`VERSIONS.md:$ptr_token\` — no closing double quote after its (\" token opener"
+    # wraps onto the next line (R3's does) still parses; emit
+    # "path<TAB>start<TAB>end<TAB>token" (end == start for a single line).
+    while IFS=$'\t' read -r ptr_path ptr_start ptr_end ptr_token; do
+        [ -n "$ptr_path" ] || continue
+        if [ "$ptr_path" = "PARSE-ERR" ]; then
+            fail "(g) docs/loop/$reg: malformed pointer \`$ptr_start\` — no closing double quote after its (\" token opener"
             G_OK=0
             continue
         fi
         G_COUNT=$((G_COUNT + 1))
+        [ "$ptr_path" = "VERSIONS.md" ] && G_VCOUNT=$((G_VCOUNT + 1))
+        span="$ptr_start"
+        [ "$ptr_end" != "$ptr_start" ] && span="$ptr_start-$ptr_end"
         if [ -z "$ptr_token" ]; then
-            fail "(g) docs/loop/$reg pointer \`VERSIONS.md:$ptr_line\` (\"\") — empty anchor token would match any line; token is authoritative and must be non-empty"
+            fail "(g) docs/loop/$reg pointer \`$ptr_path:$span\` (\"\") — empty anchor token would match any line; token is authoritative and must be non-empty"
             G_OK=0
             continue
         fi
-        if [ "$ptr_line" -lt 1 ] || [ "$ptr_line" -gt "$G_VLINES" ]; then
-            fail "(g) docs/loop/$reg pointer \`VERSIONS.md:$ptr_line\` (\"$ptr_token\") — VERSIONS.md line $ptr_line does not exist (file has $G_VLINES lines); grep the token to refresh"
+        target="$ROOT/$ptr_path"
+        if [ ! -f "$target" ]; then
+            fail "(g) docs/loop/$reg pointer \`$ptr_path:$span\` (\"$ptr_token\") — target file does not exist (pointer paths are repo-root-relative); grep the token to refresh"
             G_OK=0
             continue
         fi
-        actual=$(sed -n "${ptr_line}p" "$VERSIONS")
-        if ! printf '%s\n' "$actual" | grep -qF -- "$ptr_token"; then
-            fail "(g) docs/loop/$reg pointer \`VERSIONS.md:$ptr_line\` (\"$ptr_token\") — target line lacks its token (token is authoritative; grep it to refresh)"
-            printf '      actual VERSIONS.md:%s: %s\n' "$ptr_line" "$actual"
+        tgt_lines=$(awk 'END { print NR }' "$target")
+        if [ "$ptr_start" -lt 1 ] || [ "$ptr_end" -gt "$tgt_lines" ] || [ "$ptr_end" -lt "$ptr_start" ]; then
+            fail "(g) docs/loop/$reg pointer \`$ptr_path:$span\` (\"$ptr_token\") — $ptr_path line $span does not exist (file has $tgt_lines lines); grep the token to refresh"
+            G_OK=0
+            continue
+        fi
+        if ! sed -n "${ptr_start},${ptr_end}p" "$target" | grep -qF -- "$ptr_token"; then
+            fail "(g) docs/loop/$reg pointer \`$ptr_path:$span\` (\"$ptr_token\") — target lacks its token (token is authoritative; grep it to refresh)"
+            sed -n "${ptr_start},${ptr_end}p" "$target" | head -6 \
+                | awk -v s="$ptr_start" -v p="$ptr_path" '{ printf "      actual %s:%d: %s\n", p, s + NR - 1, $0 }'
             G_OK=0
         fi
     done < <(awk '
+        function lastcolon(s,   i) {
+            for (i = length(s); i >= 1; i--) if (substr(s, i, 1) == ":") return i
+            return 0
+        }
         { buf = buf $0 " " }
         END {
-            while (match(buf, /`VERSIONS\.md:[0-9]+`[ \t\r]*\("/)) {
+            while (match(buf, /`[A-Za-z0-9_][A-Za-z0-9_.\/-]*\.[A-Za-z0-9]+:[0-9]+(-[0-9]+)?`[ \t\r]*\("/)) {
                 head = substr(buf, RSTART, RLENGTH)
                 buf  = substr(buf, RSTART + RLENGTH)
-                n = head; gsub(/[^0-9]/, "", n)
+                core = head; sub(/^`/, "", core); sub(/`.*$/, "", core)
+                c = lastcolon(core)
+                path = substr(core, 1, c - 1); sp = substr(core, c + 1)
+                st = sp; en = sp
+                if (index(sp, "-") > 0) {
+                    st = substr(sp, 1, index(sp, "-") - 1)
+                    en = substr(sp, index(sp, "-") + 1)
+                }
                 q = index(buf, "\"")
-                if (q == 0) { printf "PARSE-ERR\t%s\n", n; break }
-                printf "%s\t%s\n", n, substr(buf, 1, q - 1)
+                if (q == 0) { printf "PARSE-ERR\t%s\t\t\n", core; break }
+                printf "%s\t%s\t%s\t%s\n", path, st, en, substr(buf, 1, q - 1)
                 buf = substr(buf, q + 1)
             }
         }' "$reg_file")
+
+    # Census of pointers this check CANNOT verify. Line-based (the reader needs
+    # a line number to grep), reading each line together with the next so a
+    # wrapped ("token") is still recognised as an anchor.
+    G_CENSUS=$(awk '
+        { lines[NR] = $0 }
+        END {
+            for (i = 1; i <= NR; i++) {
+                s = lines[i] " " lines[i + 1]
+                rest = s; off = 0
+                while (match(rest, /`[A-Za-z0-9_][A-Za-z0-9_.\/-]*\.[A-Za-z0-9]+:[0-9]+[0-9,-]*`/)) {
+                    abs  = off + RSTART
+                    m    = substr(rest, RSTART, RLENGTH)
+                    tail = substr(rest, RSTART + RLENGTH)
+                    off  = off + RSTART + RLENGTH - 1
+                    rest = tail
+                    if (abs > length(lines[i])) break        # belongs to line i+1
+                    if (tail ~ /^[ \t]*\("/) {
+                        # anchored: supported forms are :N and :N-M
+                        if (m !~ /^`[^`]*:[0-9]+(-[0-9]+)?`$/)
+                            printf "UNSUPPORTED\t%d\t%s\n", i, m
+                    } else printf "UNTAGGED\t%d\t%s\n", i, m
+                }
+            }
+        }' "$reg_file")
+    while IFS=$'\t' read -r kind lno match; do
+        [ "$kind" = "UNSUPPORTED" ] || continue
+        warn "(g) docs/loop/$reg:$lno anchored pointer $match uses a multi-part line list — this check verifies \`file:N\` and \`file:N-M\` only, so its token goes unverified; split it or rewrite it as a range"
+    done <<< "$G_CENSUS"
+    n_untag=$(printf '%s\n' "$G_CENSUS" | grep -c '^UNTAGGED' || true)
+    if [ "$n_untag" -gt 0 ]; then
+        G_UNTAG_N=$((G_UNTAG_N + n_untag))
+        G_UNTAG_LIST="${G_UNTAG_LIST}      docs/loop/$reg: $n_untag on line(s) $(printf '%s\n' "$G_CENSUS" | awk -F'\t' '$1 == "UNTAGGED" { printf "%s%s", sep, $2; sep = "," }')
+"
+    fi
 done
 if [ "$G_COUNT" -eq 0 ]; then
-    fail "(g) parsed ZERO anchor-tagged pointers across the live registers — parser or format drift (at least the six known live pointers should match)"
+    fail "(g) parsed ZERO anchor-tagged pointers across the live registers — parser or format drift (at least the six known live \`VERSIONS.md\` pointers should match)"
     G_OK=0
 fi
-[ "$G_OK" -eq 1 ] && pass "(g) all $G_COUNT anchor-tagged \`VERSIONS.md:<line>\` (\"<token>\") pointers in the live registers verified against their target lines"
+if [ "$G_UNTAG_N" -gt 0 ]; then
+    warn "(g) $G_UNTAG_N un-anchored \`file:line\` pointer(s) in the live registers — no (\"token\") anchor, so this check cannot verify them and does NOT fail them; anchor-tag them to bring them under the check"
+    printf '%s' "$G_UNTAG_LIST"
+fi
+[ "$G_OK" -eq 1 ] && pass "(g) all $G_COUNT anchor-tagged \`<file>:<line>\` (\"<token>\") pointers in the live registers verified against their target lines ($G_VCOUNT into VERSIONS.md, $((G_COUNT - G_VCOUNT)) into other repo files)"
 
 # ---------------------------------------------------------------------------
 # Summary
