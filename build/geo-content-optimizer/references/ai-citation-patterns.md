@@ -47,7 +47,7 @@ How different AI systems select and cite content. Understanding these patterns h
 - Author credentials visible
 - Citations to other authoritative sources
 
-**Citation frequency**: Typically cites 3-8 sources per AI Overview
+**Citation frequency**: Typically cites 3-8 sources per AI Overview [VERIFY — no engine-published figure; an observed range with no stated methodology, unverified as of 2026-08-10]
 
 ---
 
@@ -82,7 +82,7 @@ How different AI systems select and cite content. Understanding these patterns h
 - Combines information from multiple sources
 - Attributes specific claims to sources
 
-**Citation frequency**: 1-6 sources per response depending on complexity
+**Citation frequency**: 1-6 sources per response depending on complexity [VERIFY — same status as the AI Mode figure above: observed, no published source, unverified as of 2026-08-10]
 
 ---
 
@@ -118,7 +118,7 @@ How different AI systems select and cite content. Understanding these patterns h
 - Recency of content
 - Depth of coverage
 
-**Citation frequency**: Typically 5-10 sources per response (more than others)
+**Citation frequency**: Typically 5-10 sources per response (more than others) [VERIFY — observed, no published source, unverified as of 2026-08-10]
 
 **Unique behavior**: Often shows "Follow-up Questions" that can reveal additional citation opportunities
 
@@ -238,6 +238,8 @@ Question-answer formats match AI query patterns.
 > SEO typically takes 3-6 months to show significant results for new websites, though this varies based on competition, domain authority, and strategy. Established sites may see improvements in 1-3 months for less competitive keywords.
 
 **Why it works**: Matches query format, provides concise answer, includes qualifiers.
+
+**On the 40-60 words**: 40 is a floor, not an average. A shorter answer is a fragment an engine cannot lift on its own — count the words.
 
 ---
 
@@ -471,6 +473,8 @@ Highlighted important points.
 | **Domain trust** | Very high | High | Medium | High |
 | **Factual density** | High | High | Very high | Very high |
 
+**Source note** [VERIFY — 2026-08-10]: every cell above is an observational summary, not an engine-published metric. No engine documents how it weights freshness, authority, structure or domain trust, and none publishes its citation counts — the numbers repeat the ranges tagged in the sections above and inherit their status. Treat the whole table as a directional prior to test per engine on your own pages, never as a specification to quote to a client.
+
 ---
 
 ## Per-Engine Overlap & Community Citations
@@ -486,7 +490,12 @@ Engines don't share sources as much as "AI traffic" framing assumes. [VERIFY –
 
 **AIO/AI Mode quote-preview module** (Google-announced 2026-05-06, blog.google "How AI Mode and AI Overviews help you explore the web"): AI responses can include a section — labeled "Expert Advice", "Community Perspectives", or similar depending on the query — that previews verbatim quotes from forum/social UGC (Reddit, niche forums, blogs) with the creator's name/handle/community and a link to the source thread. Being the quoted voice in a relevant thread is therefore a direct AIO/AI Mode surface, not just a background citation signal. [VERIFY – rollout scope: US/English first (2026-05-06/07, vendor-reported); el-GR availability unconfirmed; Google post full text unread from cloud (blog.google egress-blocked). Resolves when: local read of the blog.google post confirms wording/scope AND/OR first el-GR SERP sighting of the module.]
 
-**Not citation levers**: llms.txt is a dead lever — do not add one expecting citation gains. Schema stacking (piling on multiple schema types per page) is not a citation lever either — one accurate JSON-LD type (O05) is enough; more schema for its own sake adds no citation signal.
+**Not citation levers**: llms.txt is a dead lever — do not add one expecting citation gains (settled ruling R1). Schema stacking is not a citation lever either (settled ruling R2): adding types on the theory that more types raise citation odds buys nothing, and no engine documents a gain from extra markup. The boundary that ruling draws — teach it, not "pile on types" and not "one object, never two":
+
+- **One PRIMARY content type per page** (O05), chosen by what the page is.
+- **Documented auxiliaries are not stacking**: BreadcrumbList where a real breadcrumb trail exists (a Google-documented site-structure feature), Organization/Person nested as publisher or author, WebSite on the homepage. Each has its own engine-documented, non-citation job — none of them is added for citations, which is why the ruling permits them.
+- **A second full content type is stacking and stays banned**: FAQPage bolted onto a service or product page, Article and Product both as primaries. The one exception is narrow — the page genuinely is both things and each type is complete, accurate and independently justified.
+- **FAQ**: the visible Q&A block is a citation surface in its own right; engines parse the text, with or without markup. FAQPage markup is emitted only where FAQPage is the page's one primary type. Type selection and emission live in `build/schema-markup-generator/`, which carries the same boundary — hand the decision there.
 
 ---
 

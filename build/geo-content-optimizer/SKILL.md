@@ -1,13 +1,13 @@
 ---
 name: geo-content-optimizer
-version: "4.2.2"
-description: 'Optimize content for AI citation across Google AI Mode (default search surface, incl. AI Overviews), ChatGPT, Perplexity, and Gemini with quotable statements and structured Q&A. Use when the user asks to "optimize for AI", "get cited by ChatGPT", "GEO optimization", "appear in AI answers", "make content AI-quotable", "Google AI Overview optimization", or "Google AI Mode optimization". Adds quotable statements, structured Q&A, precise statistics with sources, expert attribution, and FAQ schema. Uses CORE-EEAT GEO-First items as optimization targets. For SEO-focused writing, see seo-content-writer. For entity and brand AI presence, see entity-optimizer.'
+version: "4.3.0"
+description: 'Optimize content for AI citation across Google AI Mode (default search surface, incl. AI Overviews), ChatGPT, Perplexity, and Gemini with quotable statements and structured Q&A. Use when the user asks to "optimize for AI", "get cited by ChatGPT", "GEO optimization", "appear in AI answers", "make content AI-quotable", "Google AI Overview optimization", or "Google AI Mode optimization". Adds quotable statements, structured Q&A, precise statistics with sources, expert attribution, and a structured FAQ. Uses CORE-EEAT GEO-First items as optimization targets. For SEO-focused writing, see seo-content-writer. For entity and brand AI presence, see entity-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.2.2"
+  version: "4.3.0"
   geo-relevance: "high"
   tags:
     - geo
@@ -96,6 +96,9 @@ Ask the user to provide:
 1. Target queries where they want AI citations
 2. Current content URL or full content text
 3. Any known instances where competitors are being cited by AI
+4. The page's publish/update date, and how old the data on it is — the freshness factor is scored in step 2 and cannot be scored without them
+5. What the byline can carry: author name and credentials, and whether a quotable expert is available with a sourceable quote — the authority factor asks for what this client actually has, not for all four elements by default
+6. Any structured data already on the page, and which type — the one-primary-type decision (step 1) is made on fact, not assumption
 
 Proceed with the full workflow using provided data. Note in the output which metrics are from automated collection vs. user-provided data.
 
@@ -116,9 +119,9 @@ When a user requests GEO optimization:
    | Rank | ID | Standard | Why It Matters |
    |------|----|----------|---------------|
    | 1 | C02 | Direct Answer in first 150 words | All engines extract from first paragraph |
-   | 2 | C09 | Structured FAQ with Schema | Directly matches AI follow-up queries |
+   | 2 | C09 | Structured FAQ (visible Q&A) | Directly matches AI follow-up queries; the visible block carries the citation value, markup is conditional — see schema below |
    | 3 | O03 | Data in tables, not prose | Most extractable structured format |
-   | 4 | O05 | JSON-LD Schema Markup | Helps AI understand content type |
+   | 4 | O05 | JSON-LD: one accurate primary type | Helps AI understand content type; extra types add nothing (R2) |
    | 5 | E01 | Original first-party data | AI prefers exclusive, verifiable sources |
    | 6 | O02 | Key Takeaways / Summary Box | First choice for AI summary citations |
 
@@ -139,7 +142,13 @@ When a user requests GEO optimization:
 
    **Per-Engine Reality Check** [VERIFY – 2026 industry studies]: ~11% ChatGPT↔Perplexity domain overlap; community/UGC content (Reddit-type) ≈40% of citations, cross-engine. Optimize and track citation presence **per engine**, not as one "AI traffic" bucket — community threads (Reddit, niche forums; Greece: insomnia.gr-type where topically relevant) are a first-class AIO/AI Mode quote surface (Google-announced quote-preview module, 2026-05-06; rollout scope [VERIFY] — see ai-citation-patterns.md); the overlap/share magnitudes stay directional.
 
-   **Not citation levers**: llms.txt (dead — do not add it); schema-stacking (not a signal — one accurate JSON-LD type per O05 is enough).
+   **Not citation levers**: llms.txt (dead — do not add it); schema-stacking — piling types onto a page raises no citation odds, and one accurate JSON-LD type per O05 is enough (settled ruling R2). What that ruling does and does not ban:
+
+   - **One PRIMARY content type per page** (O05), chosen by what the page is.
+   - **Documented auxiliaries are not stacking**: BreadcrumbList where a real trail exists, Organization/Person nested as publisher or author, WebSite on the homepage. Each has its own engine-documented, non-citation job.
+   - **A second full content type is stacking and stays banned** — FAQPage bolted onto a service or product page, Article and Product both as primaries — unless the page genuinely is both things and each type is complete, accurate and independently justified.
+   - **FAQ precedence** (the collision this skill used to mandate both sides of): add the visible Q&A whenever the queries warrant it, always. Add FAQPage markup only where FAQPage is the page's one primary type — never bolted onto a page that already carries an accurate type. C09 passes on the visible Q&A block; markup is not required for it (CORE-EEAT C09, Pass criterion). Where a page therefore gets the FAQ but no FAQPage object, say so in the report — the item is not downgraded for it.
+   - Type selection and emission belong to [schema-markup-generator](../schema-markup-generator/), which carries the same boundary. Hand it the page's primary type when in doubt.
 
    _Full benchmark: [references/core-eeat-benchmark.md](../../references/core-eeat-benchmark.md)_
    _Engine behavior detail: [references/ai-citation-patterns.md](./references/ai-citation-patterns.md)_
@@ -152,17 +161,17 @@ When a user requests GEO optimization:
    
    ### Current State Assessment
    
-   | GEO Factor | Current Score (1-10) | Notes |
-   |------------|---------------------|-------|
-   | Clear definitions | [X] | [notes] |
-   | Quotable statements | [X] | [notes] |
-   | Factual density | [X] | [notes] |
-   | Source citations | [X] | [notes] |
-   | Q&A format | [X] | [notes] |
-   | Authority signals | [X] | [notes] |
-   | Content freshness | [X] | [notes] |
-   | Structure clarity | [X] | [notes] |
-   | **GEO Readiness** | **[avg]/10** | **Average across factors** |
+   | GEO Factor | Score (1-10) | What was counted |
+   |------------|--------------|------------------|
+   | Clear definitions | [X] | [met] of [asked] key terms defined standalone |
+   | Quotable statements | [X] | [met] of [asked] sections carry a liftable statement |
+   | Factual density | [X] | [met] of 5 precise data points with units |
+   | Source citations | [X] | [met] of [asked] claims name a checkable source |
+   | Q&A format | [X] | [met] of [asked] target queries answered directly |
+   | Authority signals | [X] | [met] of [asked] available authority elements |
+   | Content freshness | [X] | [met] of 2: visible date <12 months, no datum >24 months |
+   | Structure clarity | [X] | [met] of [asked] structure elements present |
+   | **GEO Readiness** | **[avg]/10** | **[sum] points ÷ [n] factors scored; N/A: [factors with nothing to count, or none]** |
    
    **Primary Weaknesses**:
    1. [Weakness 1]
@@ -174,11 +183,13 @@ When a user requests GEO optimization:
    2. [Quick improvement 2]
    ```
 
+   **Every score prints the count it came from, in its own row** — `score = 1 + 9 × (met ÷ asked)`, rounded half up, floor 1. Set each factor's `asked` here, once, and reuse it unchanged in step 4 so the two tables stay comparable. A factor with nothing to count (no comparison on the page, no expert the client can supply) is **N/A** — named, excluded from the sum and the divisor, never scored 1. Scale bands, the reverse check, N/A handling and the pre-send recompute pass: [references/geo-score-arithmetic.md](./references/geo-score-arithmetic.md).
+
 3. **Apply GEO Optimization Techniques**
 
    > **GEO fundamentals**: AI systems prioritize content that is authoritative (expert credentials, proper citations), accurate (verifiable, up-to-date), clear (well-structured, unambiguous), and quotable (standalone answers, specific data). See [references/geo-optimization-techniques.md](./references/geo-optimization-techniques.md) for details.
 
-   Apply the six core optimization techniques: definition optimization, quotable statement creation, authority signal enhancement, structure optimization, factual density improvement, and FAQ schema implementation.
+   Apply the six core optimization techniques: definition optimization, quotable statement creation, authority signal enhancement, structure optimization, factual density improvement, and FAQ implementation (visible Q&A always; markup only under the one-primary-type rule in step 1).
 
    > **Reference**: See [references/geo-optimization-techniques.md](./references/geo-optimization-techniques.md) for detailed before/after examples, templates, and checklists for each technique.
 
@@ -190,7 +201,8 @@ When a user requests GEO optimization:
    - **Authority signals**: Expert quotes you can source (speaker, role, where and when they said it, link) — never one you cannot; proper source citations
    - **Structure**: Q&A format, comparison tables, numbered lists
    - **Factual density**: Replace vague claims with specific data points
-   - **FAQ schema**: JSON-LD FAQPage markup matching visible content
+   - **FAQ**: Visible Q&A whenever the queries warrant it; FAQPage markup only where FAQPage is the page's one primary type (settled ruling R2, step 1) — and then mirroring the visible text exactly
+   - **Claims the page already publishes**: an unsourced claim already on the page is not yours to keep by default — source it, convert it to a first-party statement the client can stand behind and say you did, or hedge/cut it. Never leave a borrowed authority ("most manufacturers recommend…") standing as if verified, and never invent the source. Where the page and the data the client just gave you disagree, the supplied data governs the deliverable and the conflict is named in the report. Detail: [references/geo-optimization-techniques.md](./references/geo-optimization-techniques.md)
 
 4. **Generate GEO-Optimized Output**
 
@@ -217,24 +229,27 @@ When a user requests GEO optimization:
 
    ### Before/After GEO Score
 
-   | GEO Factor | Before (1-10) | After (1-10) | Change |
-   |------------|---------------|--------------|--------|
-   | Clear definitions | [X] | [X] | +[X] |
-   | Quotable statements | [X] | [X] | +[X] |
-   | Factual density | [X] | [X] | +[X] |
-   | Source citations | [X] | [X] | +[X] |
-   | Q&A format | [X] | [X] | +[X] |
-   | Authority signals | [X] | [X] | +[X] |
-   | **Overall GEO Score** | **[avg]/10** | **[avg]/10** | **+[X]** |
+   | GEO Factor | Before | After | Change | Count behind the after score |
+   |------------|--------|-------|--------|------------------------------|
+   | Clear definitions | [X] | [X] | +[X] | [met] of [asked] |
+   | Quotable statements | [X] | [X] | +[X] | [met] of [asked] |
+   | Factual density | [X] | [X] | +[X] | [met] of 5 |
+   | Source citations | [X] | [X] | +[X] | [met] of [asked] |
+   | Q&A format | [X] | [X] | +[X] | [met] of [asked] |
+   | Authority signals | [X] | [X] | +[X] | [met] of [asked] |
+   | Content freshness | [X] | [X] | +[X] | [met] of 2 |
+   | Structure clarity | [X] | [X] | +[X] | [met] of [asked] |
+   | **GEO Readiness** | **[avg]/10** | **[avg]/10** | **+[X]** | **[sum] ÷ [n] factors scored** |
+
+   **Lift**: ([after] − [before]) ÷ [before] × 100 = [X]%
 
    ### AI Query Coverage
 
-   This content is now optimized to answer:
-   - "What is [topic]?" ✅
-   - "How does [topic] work?" ✅
-   - "Why is [topic] important?" ✅
-   - "[Topic] vs [alternative]" ✅
-   - "Best [topic] for [use case]" ✅
+   One row per target query from step 1 — the queries the user named, not a generic set:
+   - "[target query]" ✅ answered by [heading]
+   - "[target query]" ⚠️ [what is still missing]
+
+   Patterns worth covering where the topic fits them: "What is [topic]?", "How does [topic] work?", "Why is [topic] important?", "[Topic] vs [alternative]", "Best [topic] for [use case]".
    ```
 
 5. **CORE-EEAT GEO Self-Check**
@@ -242,29 +257,29 @@ When a user requests GEO optimization:
     After optimization, verify GEO-First items:
 
     ```markdown
-    ### CORE-EEAT GEO Post-Optimization Check
+    ### GEO Post-Optimization Check
 
-    | ID | Standard | Status | Notes |
-    |----|----------|--------|-------|
-    | C02 | Direct Answer in first 150 words | ✅/⚠️/❌ | [notes] |
-    | C04 | Key terms defined on first use | ✅/⚠️/❌ | [notes] |
-    | C09 | Structured FAQ with Schema | ✅/⚠️/❌ | [notes] |
-    | O02 | Summary Box / Key Takeaways | ✅/⚠️/❌ | [notes] |
-    | O03 | Comparisons in tables | ✅/⚠️/❌ | [notes] |
-    | O05 | JSON-LD Schema Markup | ✅/⚠️/❌ | [notes] |
-    | O06 | Section chunking (3–5 sentences) | ✅/⚠️/❌ | [notes] |
-    | R01 | ≥5 precise data points with units | ✅/⚠️/❌ | [notes] |
-    | R02 | ≥1 citation per 500 words | ✅/⚠️/❌ | [notes] |
-    | R04 | Claims backed by evidence | ✅/⚠️/❌ | [notes] |
-    | R07 | Full entity names | ✅/⚠️/❌ | [notes] |
-    | E01 | Original first-party data | ✅/⚠️/❌ | [notes] |
-    | Exp10 | Limitations acknowledged | ✅/⚠️/❌ | [notes] |
-    | Ept08 | Reasoning transparency | ✅/⚠️/❌ | [notes] |
+    | What was checked | Status | Notes |
+    |------------------|--------|-------|
+    | Core answer within the first 150 words | ✅/⚠️/❌ | [notes] |
+    | Key terms defined on first use | ✅/⚠️/❌ | [notes] |
+    | Structured FAQ covering follow-up questions | ✅/⚠️/❌ | [notes] |
+    | Key-takeaways summary box | ✅/⚠️/❌ | [notes] |
+    | Comparisons presented as tables | ✅/⚠️/❌ | [notes] |
+    | Structured data: one accurate type for this page | ✅/⚠️/❌ | [type emitted, or why none] |
+    | One topic per section, paragraphs of 3–5 sentences | ✅/⚠️/❌ | [notes] |
+    | At least 5 precise data points with units | ✅/⚠️/❌ | [count reached, and what data would close the gap] |
+    | At least one citation per 500 words | ✅/⚠️/❌ | [notes] |
+    | Every claim backed by evidence | ✅/⚠️/❌ | [notes] |
+    | Full names for people, companies and products | ✅/⚠️/❌ | [notes] |
+    | First-party data used | ✅/⚠️/❌ | [notes] |
+    | Limitations acknowledged | ✅/⚠️/❌ | [notes] |
+    | Reasoning shown, not just conclusions | ✅/⚠️/❌ | [notes] |
 
-    **Items Needing Attention**: [list any ⚠️/❌ items]
-
-    _For full 80-item audit, use [content-quality-auditor](../../cross-cutting/content-quality-auditor/)_
+    **Items Needing Attention**: [list every ⚠️/❌ row and what would close it]
     ```
+
+    **Framework item IDs stay off the client's copy.** The rows above are the CORE-EEAT GEO-First items in plain language. An item ID (C02, C09, O05) is a coordinate in a document the client has never seen — never exempt on a client-read surface (`anti-slop-ruleset.md` §6 family 8, ruled on Greek evidence, enforced in every language). Keep the IDs where the reader is the operator: internal audit notes, and the handoff to [content-quality-auditor](../../cross-cutting/content-quality-auditor/), which needs them. The test is the reader, not the section — the ID list itself is in step 1.
 
 ## Validation Checkpoints
 
@@ -272,16 +287,22 @@ When a user requests GEO optimization:
 - [ ] Content source identified (URL, full text, or content draft)
 - [ ] Target AI queries or topics clearly defined
 - [ ] Current GEO baseline assessed (if optimizing existing content)
+- [ ] Publish/update date and data ages known — or confirmed unavailable, in which case the freshness factor is N/A, not 1
+- [ ] Byline, credentials and expert availability known — or confirmed unavailable, which sets what the authority factor asks for
+- [ ] Structured data already on the page identified (which type, or none)
 
 ### Output Validation
 - [ ] At least 3 clear, quotable definitions added
 - [ ] Factual density improved with at least 5 verifiable statistics
 - [ ] All claims have source citations from authoritative sources
 - [ ] Q&A format sections cover top 5 user queries
-- [ ] GEO score improvement of at least 50% from baseline
-- [ ] Source of each data point stated in the deliverable's own words — the resolved tool name (Otterly, Profound), "user-provided", or "estimated"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7), and no placeholder or provenance note inside schema, meta tags, or paste-ready copy
+- [ ] GEO score improvement of at least 50% from baseline — "baseline" is the step 2 GEO Readiness figure, the single baseline in the deliverable — with its arithmetic printed beside it: (after − before) ÷ before × 100
+- [ ] Every score carries the count behind it, in the same row or the next sentence ([references/geo-score-arithmetic.md](./references/geo-score-arithmetic.md)); scores stay in the report, never inside schema or paste-ready copy
+- [ ] Source of each data point stated in the deliverable's own words — the resolved tool name (Otterly, Profound), "user-provided", or "estimated" **only where the client estimated the figure and told you so** (this skill never estimates a number on the client's behalf); where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7), and no placeholder or provenance note inside schema, meta tags, or paste-ready copy
 
-**Statistics rule**: Every statistic must come from user-supplied data, a cited source, or be marked as a `[CLIENT DATA: …]` placeholder — never invented to satisfy a threshold. **Attribution**: never put a statistic, a claim or a quotation in the name of a real organisation or a real person without a source you have read and can link. A fabricated quote from a named individual, or an invented credential at a named institution, is the most damaging output this skill can produce — it publishes a falsehood about an identifiable third party under the client's byline. AI engines cite verifiable content; a fabricated number that gets cited is a liability. **Placement**: placeholders and provenance notes (bracketed or not — e.g. «απαιτούνται στοιχεία προϊόντος») belong in the report/gap-table sections only, never inside ship-ready surfaces: schema/JSON-LD, meta tags, or answer text presented as paste-ready. Write the customer-visible answer complete without the missing datum — honest hedging in customer voice is fine; an agency-perspective aside is not. Draft body copy may carry a bracketed placeholder only with an explicit resolve-before-publication flag.
+**When a threshold and the Statistics rule collide, the threshold loses.** The counts above describe what well-sourced content looks like; they are not quotas to fill. If the page and the supplied data yield three precise data points, ship three: mark the item ❌ with the count actually reached and name the data that would close it. Never a fourth number the skill invented to clear a checkbox — and that includes the 50% lift, which is a false report if any factor behind it was scored on invented content.
+
+**Statistics rule**: Every statistic must come from user-supplied data, a cited source, or be marked as a `[CLIENT DATA: …]` placeholder — never invented to satisfy a threshold. **Attribution**: never put a statistic, a claim or a quotation in the name of a real organisation or a real person without a source you have read and can link. A fabricated quote from a named individual, or an invented credential at a named institution, is the most damaging output this skill can produce — it publishes a falsehood about an identifiable third party under the client's byline. AI engines cite verifiable content; a fabricated number that gets cited is a liability. **Placement**: placeholders and provenance notes (bracketed or not — e.g. «απαιτούνται στοιχεία προϊόντος») belong in the report/gap-table sections only, never inside ship-ready surfaces: schema/JSON-LD, meta tags, or answer text presented as paste-ready. Write the customer-visible answer complete without the missing datum — honest hedging in customer voice is fine; an agency-perspective aside is not. Draft body copy may carry a bracketed placeholder only when the resolve-before-publication flag sits **inside the same block, in that block's own syntax** — `<!-- SKELETON … -->` for HTML, `"_SKELETON": "…"` as the first member for JSON-LD, `# SKELETON …` for text (root `CLAUDE.md`, the Value Rule). A model copies the fence, not the heading above it, so a note outside the block does not travel with it, and a block introduced as paste-ready is never a skeleton.
 
 ## Example
 
@@ -297,10 +318,8 @@ Client-provided data:
 ## GEO-Optimized Version
 
 **Solar water heater servicing** is the scheduled inspection of a solar 
-thermal system's collector, tank, anode rod, and safety valve. In Greece — 
-where solar water heaters are installed in [CLIENT DATA: share of Greek 
-households — no source provided] of homes — the average service visit costs 
-€85 (client 2025 service records, 1,240 jobs).
+thermal system's collector, tank, anode rod, and safety valve. Across the 
+1,240 services we completed in 2025, the average visit cost €85.
 
 ### A standard annual service includes:
 
@@ -310,15 +329,25 @@ households — no source provided] of homes — the average service visit costs
    concentration, and loop pressure
 3. **Safety valve test**: Confirms overpressure protection works correctly
 
-> **Key statistic**: The average solar water heater service visit in Greece 
-> costs €85 (client 2025 service records, n=1,240).
+> **Key statistic**: The average solar water heater service visit costs €85 
+> (our 2025 service records, n=1,240).
 
 ---
 
-### Changes Made:
+### Changes Made
 
-Changes: added clear definition, 2 stats used only from the client-provided data block, 1 explicit `[CLIENT DATA]` placeholder where no figure was supplied (no number invented), structured list, 2 quotable facts. **GEO Score**: 1/10 → 7/10 (8/10 once the placeholder is filled with a sourced figure).
+Standalone definition, numbered service list, two quotable facts. Both figures come from the client-provided data block; nothing else was added. The published copy above carries no bracket token — it reads complete without the datum it does not have.
+
+**Claim dropped, not dressed up**: the original sentence "solar water heaters are very common in Greece" carries no source, so it stayed out rather than acquiring an invented percentage.
+
+**Data still needed**: how common solar water heaters are in Greek homes. It is the one sentence that would place this service in a national context for an AI answer about Greek households. Send a sourced figure with its year — a national statistics or energy-agency publication, or your own installed-base count — and the sentence goes back in.
+
+**Structured data**: no extra type was added. The page needs one accurate structured-data type for what it actually is; piling on more types buys no AI citations, and the answers above earn their citations as visible text.
+
+**GEO Readiness**: 1.3/10 → 8.0/10 — 10 points ÷ 8 factors scored before, 64 ÷ 8 after; lift (8.0 − 1.3) ÷ 1.3 × 100 = 515%. The per-factor rows and the count behind each one ship in the step 4 table.
 ```
+
+> Two things the deliverable above deliberately does not say: the name of a skill, and the ID of a ruling or a benchmark item. The schema decision is routed to [schema-markup-generator](../schema-markup-generator/) under ruling R2, and the checks come from CORE-EEAT — but that vocabulary is yours and the operator's, not the client's.
 
 ## GEO Optimization Checklist
 
@@ -338,8 +367,9 @@ Changes: added clear definition, 2 stats used only from the client-provided data
 - [AI Citation Patterns](./references/ai-citation-patterns.md) - How Google AI Mode (incl. AI Overviews), ChatGPT, Perplexity, and Claude select and cite sources, plus per-engine overlap and community/UGC citation patterns
 - [GEO Optimization Techniques](./references/geo-optimization-techniques.md) - Detailed before/after examples, templates, and checklists for the six core optimization techniques
 - [Quotable Content Examples](./references/quotable-content-examples.md) - Before/after examples of content optimized for AI citation
+- [GEO Score Arithmetic](./references/geo-score-arithmetic.md) - What every printed number is made of: the 1-10 scale as a ratio, what each factor counts, N/A handling, the lift, and the pre-send recompute pass
 
-> All three files illustrate technique with **fictional sources** (the reserved `Example …` cast) and invented figures. That is demonstration material, not evidence: swap in a source you have read before anything ships, and never attribute data or a quotation to a real organisation or a real person on the strength of an example here.
+> The first three files illustrate technique with **fictional sources** (the reserved `Example …` cast) and invented figures. That is demonstration material, not evidence: swap in a source you have read before anything ships, and never attribute data or a quotation to a real organisation or a real person on the strength of an example here.
 
 ## Related Skills
 

@@ -4,7 +4,7 @@
 >
 > This file is a reference adaptation for the SEO & GEO Skills Library. For the full benchmark with detailed examples, see the source repository.
 >
-> **Version sync**: When the source spec updates, check: item count references in README (currently "80 items"), skill validation checkpoints, and Sections 2, 3, 7 below. Library-governed refinements — the R10/T04 veto semantics and veto scoring consequences (Sections 2, 3, 7) and the Section 5 single-primary schema mapping — supersede the v3.0 source wording where they differ; do not revert them on a sync.
+> **Version sync**: When the source spec updates, check: item count references in README (currently "80 items"), skill validation checkpoints, and Sections 2, 3, 7 below. Library-governed refinements — the R10/T04 veto semantics and veto scoring consequences (Sections 2, 3, 7), the Section 5 single-primary schema mapping, and the C09 Pass criterion (Section 7 — the visible Q&A block earns the Pass; FAQPage markup is conditional on FAQPage being the page's one primary type, per Section 5) — supersede the v3.0 source wording where they differ; do not revert them on a sync.
 
 **8 dimensions × 10 items = 80 evaluation criteria** for optimizing content visibility across AI engines (GEO) and search engines (SEO).
 
@@ -301,7 +301,7 @@ What is the primary goal?
 - **Fail**: No use case guidance.
 
 **C09: FAQ Coverage** | GEO 🎯
-- **Pass**: Structured FAQ with FAQPage Schema covering long-tail follow-ups.
+- **Pass**: Structured FAQ covering long-tail follow-ups, present as a visible on-page Q&A block. **Markup is not required for the Pass** — engines parse the visible Q&A either way. FAQPage JSON-LD is creditable only where FAQPage is the page's ONE primary type (Section 5); bolting it onto a page that already carries an accurate primary type is stacking and is not allowed, so such a page earns its C09 Pass on the visible FAQ alone and is scored for O05 on the primary type the page actually needs.
 - **Partial**: Q&A content but not structured.
 - **Fail**: No FAQ or Q&A.
 

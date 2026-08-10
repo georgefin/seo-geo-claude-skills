@@ -25,6 +25,12 @@ Before/after examples of content optimized for AI citation. Each example shows t
 > as a tool (Example 3's keyword tools) is not an attribution. A *claim about* one — its
 > price, its market share, its results — is, and needs a source and a check date like any
 > other.
+>
+> **The `Citation likelihood: X/10` labels below are teaching devices, not deliverable
+> scores.** They rate example text to make a contrast visible and carry no derivation. Any
+> score printed in a client deliverable shows the count behind it, in the same row or the next
+> sentence — see [geo-score-arithmetic.md](./geo-score-arithmetic.md), which also states how a
+> citation-likelihood rating is derived when a report prints one.
 
 ## Example 1: Definition Block
 

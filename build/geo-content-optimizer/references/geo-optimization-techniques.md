@@ -135,6 +135,8 @@ AI systems parse structured content more effectively.
 Transform content into question-answer pairs:
 
 ```html
+<!-- SKELETON — structure only, not paste-ready. Replace every bracket token with the
+     page's own text before this reaches a client. -->
 <h2>What is [Topic]?</h2>
 <p>[Direct answer in 40-60 words]</p>
 
@@ -203,14 +205,55 @@ easiest fabrication to miss, in your own draft and in a reviewer's read.
 - [ ] Check that EVERY figure has a source, not just the first one in the paragraph
 - [ ] Where no source exists, cut the claim — an invented figure is worse than a missing one
 
+## Claims the Page Already Publishes
+
+Optimization inherits everything the page already says, and an existing claim earns no
+exemption for having been published first. Four cases, in the order to try them:
+
+1. **Sourceable** — the client can say where it came from. Keep it and add the source: name,
+   year, link.
+2. **Theirs to state** — it is really the client's own practice or experience. "Most
+   manufacturers recommend an annual service" is usually "we service these annually, and here
+   is why". Convert it to first-party voice **and say in the report that you converted it** —
+   a silent conversion hides a changed claim from the person whose name is on it.
+3. **Hedgeable** — broadly true, not measurable. Keep it explicitly unquantified, and never
+   attach a number nobody measured.
+4. **None of the above** — cut it. A claim with no owner and no source is exactly the sentence
+   an AI engine will quote back at the client under their own byline.
+
+Never available: inventing the source, or leaving a borrowed authority ("studies show", "most
+manufacturers recommend") standing as though it had been checked.
+
+**When the page and the supplied data disagree**, the data the client has just given you
+governs the deliverable — it is their more recent statement of what they know. Name the
+conflict in the report with both versions and ask which is current. Do not pick silently, and
+do not average them.
+
 ## FAQ Optimization for GEO
 
 FAQ sections are highly effective for GEO because:
 - They match question-based AI queries
 - They provide concise, structured answers
-- FAQ schema helps AI understand Q&A pairs
+- The Q&A text is parsed as written — the visible block is the citation surface, with or without markup
 
-**FAQ Structure**:
+**Markup boundary (settled ruling R2) — read before emitting any JSON-LD.** Piling schema
+types onto a page raises no citation odds. One PRIMARY content type per page; documented
+auxiliaries (BreadcrumbList for a real trail, Organization/Person nested as publisher or
+author, WebSite on the homepage) are not stacking, because each has its own
+engine-documented, non-citation job. A **second full content type is stacking and stays
+banned** — FAQPage bolted onto a service or product page is the named case.
+
+So: **add the visible FAQ whenever the queries warrant it, always. Emit the FAQPage object
+only where FAQPage is the page's one primary type.** On a page that already carries an
+accurate type, the FAQ ships as visible content and the report says why no second type was
+added — do not quietly drop the FAQ instead, and do not quietly add the type. CORE-EEAT C09
+passes on the visible Q&A block and does not require markup, so a page that legitimately gets
+no FAQPage object is not marked down for it. Type selection belongs to
+`build/schema-markup-generator/`, which carries the same boundary.
+
+**FAQ Structure** — 40-60 words per answer, where **40 is a floor, not an average**. An
+answer under 40 words is usually a fragment that cannot stand alone in an AI response, which
+is the whole point of the format; count the words rather than eyeballing them.
 
 ## Frequently Asked Questions
 
@@ -224,10 +267,11 @@ FAQ sections are highly effective for GEO because:
 [Direct answer: 40-60 words]
 [Supporting detail or example]
 
-**FAQ Schema (JSON-LD)**:
+**FAQ Schema (JSON-LD)** — the skeleton, for a page whose one primary type IS FAQPage:
 
 ```json
 {
+  "_SKELETON": "Structure only — not paste-ready. Replace every bracket token with the visible question and answer text, then delete this member. Emit only where FAQPage is the page's one primary type (ruling R2).",
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [{
@@ -240,6 +284,11 @@ FAQ sections are highly effective for GEO because:
   }]
 }
 ```
+
+The label lives inside the fence because a model copies the fence, not the heading above it
+(root `CLAUDE.md`, the Value Rule). What a client is told to paste carries resolved values
+only: every question and answer mirrors the visible page text, and a Q&A pair you cannot
+fill is dropped from both surfaces rather than shipped as a bracket token.
 
 ## GEO Readiness Checklist
 
@@ -268,6 +317,7 @@ Use this checklist for any content:
 - [ ] Numbered lists for processes
 
 **Technical**
-- [ ] FAQ schema markup added
+- [ ] Structured data: ONE accurate primary type for the page; documented auxiliaries only where the page data warrants them (ruling R2)
+- [ ] FAQPage markup added only where FAQPage is the page's one primary type — never bolted onto a page that already carries an accurate type
 - [ ] Content freshness indicated
 - [ ] Sources are verifiable
