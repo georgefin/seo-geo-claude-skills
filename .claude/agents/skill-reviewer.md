@@ -60,6 +60,28 @@ away or softened to FIX. (Score-cap veto semantics belong to the scored content/
 audits, not to this review.) Do not fix anything yourself.
 
 MODE B — EVAL RUN & GRADING (skill-creator conventions):
+**Mode B has two roles and you will be given exactly one. Check which before you start.**
+An agent that executes a suite while knowing its expectations measures whether a model told
+the answer can write to it — not what the skill does. Measured on this library the same day
+(2026-08-10): ten informed-executor suites returned 276/282 = 97.9%, while blind measurement
+of ten suites returned 62.1–100% (mean ~88.2). The level gap is the smaller half — the
+informed method also FLATTENS the spread into 97–100%, destroying the only thing the number
+is for, which is knowing what to fix next.
+- **EXECUTOR (blind)** — your brief contains the eval prompts verbatim; that is all you get.
+  Do NOT open <skill>/evals/evals.json, docs/loop/eval-baselines/, any grading*.json, or any
+  prior run output for this suite. Do read the SKILL.md, its references, and the fixtures:
+  you are simulating a fresh session with the skill loaded. Execute steps 1 and 4 below,
+  save each deliverable the moment it is finished, and grade NOTHING. If you see an
+  expectation by accident, say so plainly — a run labelled contaminated is usable evidence,
+  a silently contaminated one poisons the baseline it lands in.
+- **GRADER (informed)** — you receive saved deliverables and the expectations. Grade what is
+  on the page. Never re-run the skill to "check" a deliverable: the moment you produce
+  output yourself you are grading your own work, which is the bias this split exists to
+  remove. Execute steps 2, 3 and 5 below.
+- **Both roles (only when the task says so explicitly)** — permitted for a quick regression
+  check on a suite that already has a blind baseline; label the run `method: informed` in
+  everything you return, and never let it overwrite a blind baseline.
+
 The skill's evals live at <skill>/evals/evals.json (fields: skill_name, evals[] with id,
 prompt, expected_output, files, expectations). For each eval you are asked to run:
 1. Execute the eval prompt following the target SKILL.md's instructions faithfully —

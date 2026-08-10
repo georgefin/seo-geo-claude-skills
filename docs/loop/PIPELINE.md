@@ -75,6 +75,31 @@ verdict; ledgered failures must not be repeated — repeating one is an incident
    rule in its own words. Runner-side carrier: the input-recheck hard rule in
    `.claude/agents/skill-reviewer.md` (agent definitions load at session start, so it
    binds from the next session on).
+   **Split executor from grader (Mode B method, binding from 2026-08-10).** One agent that
+   executes a suite *while knowing its expectations* is not measuring the skill; it is
+   measuring whether a model that has been told the answer can write to it. Both roles stay
+   in Mode B, but they must be two agents:
+   - **EXECUTOR (blind).** Receives the skill name, the eval prompts *verbatim*, the fixture
+     paths, and a workspace path — nothing else. Forbidden from reading `evals/evals.json`,
+     `docs/loop/eval-baselines/`, any `grading*.json`, and any prior run output for the
+     suite. Blindness is established **by construction, not by instruction**: the
+     coordinator extracts the prompts and pastes them into the brief, so the expectations
+     are never on a path the executor has a reason to open. It saves each deliverable the
+     moment it is finished and grades nothing.
+   - **GRADER (informed).** Receives the saved deliverables and the expectations, and never
+     re-runs the skill. Its per-expectation evidence quotes the deliverable as written.
+   A run that sees an expectation is **labelled contaminated, not discarded quietly** — a
+   labelled contaminated run is usable evidence; a silently contaminated one poisons the
+   baseline it lands in.
+   Founding measurement (2026-08-10, the same library in the same window): ten
+   informed-executor suites returned **276/282 = 97.9%**; blind measurement of ten suites
+   returned **62.1 / 82.8 / 85.7 / 86.2 / 89.3 / 90.0 / 92.3 / 96.6 / 96.7 / 100%**
+   (mean ≈ 88.2). The level gap is the smaller half of the finding: **the informed method
+   also flattens the spread**, compressing every skill into 97–100% and so destroying the
+   only thing the number is for — knowing which skill to fix next. The blind spread named
+   `entity-optimizer` at 62.1% as the library's floor, and inspecting why found that it
+   carried no no-fabrication guidance at all while its own suite graded fabrication. No
+   informed run had ever surfaced it.
    Greek-language outputs additionally go to `greek-content-editor` for
    register/diacritics/Greeklish-placement judgment.
    `scripts/check-freshness.sh` (advisory, non-blocking) flags dated baselines and
