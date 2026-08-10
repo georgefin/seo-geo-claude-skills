@@ -1,6 +1,6 @@
 ---
 name: schema-markup-generator
-version: "4.1.1"
+version: "4.2.0"
 description: 'Generate Schema.org JSON-LD structured data — one accurate primary type per page (FAQPage, HowTo, Article, Product, LocalBusiness, and 6 other types) plus documented auxiliaries only where warranted. Use when the user asks to "add schema markup", "generate structured data", "JSON-LD", "FAQ schema", "rich snippets", "I want star ratings in Google", or "structured data validation errors". Produces validated markup for Google rich results where still offered (FAQ rich results retired 2026 — FAQPage is kept for AI-engine/GEO parsing), Bing structured data, and AI system understanding. Validates via the Schema.org validator, plus Rich Results Test for non-FAQ types. For broader technical SEO, see technical-seo-checker. For meta tag optimization, see meta-tags-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.1.1"
+  version: "4.2.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -95,14 +95,18 @@ Review and improve this schema markup: [existing schema]
 **With ~~web crawler connected:**
 Automatically crawl and extract page content (visible text, headings, lists, tables), existing schema markup, page metadata, and structured content elements that map to schema properties.
 
-**With manual data only:**
-Ask the user to provide:
+**With manual data only — generate first, ask second.**
+Whatever the user supplied on turn one (pasted copy, an attached file, a URL, existing JSON-LD) is the input: produce the markup that data supports, then name what is missing under the **Missing data** rule in step 2. Opening with a checklist against data already in front of you is a stall. A question is the right first move only when the page's subject is genuinely unknown — no content, no URL, no type.
+
+What the workflow needs, in priority order:
 1. Page URL or full HTML content
 2. Page type (article, product, FAQ, how-to, local business, etc.)
 3. Specific data needed for schema (prices, dates, author info, Q&A pairs, etc.)
 4. Current schema markup (if optimizing existing)
 
-Proceed with the full workflow using provided data. Note in the output which data is from automated extraction vs. user-provided data.
+**When to fetch** (WebFetch — declared in this skill's `allowed-tools`): fetch when the user gives a URL and no page copy, because the content-match rule can only be checked against text actually read. Do not fetch when the copy is supplied, and do not fetch a URL that is merely where the markup will be installed. If the fetch fails, is blocked, or returns something that is not the page, say so and ask for pasted copy or HTML — never generate schema from an assumption about what the page says.
+
+Note in the output which data is from automated extraction, from a fetch, or user-provided.
 
 ## Instructions
 
@@ -140,23 +144,30 @@ When a user requests schema markup:
    | Rich Result Type | Eligibility | Impact |
    |------------------|-------------|--------|
    | FAQ | ❌ (retired 2026) | AI-engine/GEO parsing only — no SERP result |
-   | How-To | ✅/❌ | Medium - Shows steps in SERP |
+   | How-To | Unconfirmed — no appearance claimed | HowTo still generated for step-by-step content |
    | Product | ✅/❌ | High - Shows price, availability |
    | Review | ✅/❌ | High - Shows star ratings |
    | Article | ✅/❌ | Medium - Shows publish date, author |
+   | LocalBusiness | Supports the business entity | Corroborates name, address, phone and hours; placement is not promised from page markup |
+   | Event | ✅/❌ | Medium - Shows date, venue, ticket price |
    | Breadcrumb | ✅/❌ | Medium - Shows navigation path |
    | Video | ✅/❌ | High - Shows video thumbnail |
-   
+
    **Recommended Schema**:
    - **Primary type (ONE per page)**: [type] — [why it matches the content]
    - **Auxiliaries (only if page data warrants)**: [e.g., BreadcrumbList — real trail provided | none]
    ```
 
+   Keep only the rows that bear on this page and add a row for any other type you emit — LocalBusiness and Event are as common here as Article. Every row reports an *eligibility*, never an appearance: Google decides per query whether to show anything. The two rows below are worded the way they are for reasons that stay in this file; `[VERIFY]` is an in-repo tag and never appears in a deliverable.
+
+   - `[VERIFY]` **How-To rich results** — a 2023-08-08 Google Search Central post (title: "Changes to HowTo and FAQ rich results"; its FAQ half is superseded here by ruling R3, which has FAQ retired outright) is quoted as taking How-to results desktop-only and then dropping them "as of September 13", with the How-to report and Rich Results Test support withdrawn. Read at search-snippet grade over the primary domain (2026-08-10), not owner-read, and no ruling has issued (WATCH-ITEMS W12 → gated item G9). Until it resolves: still generate HowTo for genuinely step-by-step pages, and promise no How-to SERP appearance either way.
+   - `[VERIFY]` **LocalBusiness SERP effect** — unsettled here. Local-pack placement is widely attributed to the business's Google Business Profile rather than to page JSON-LD, and no Google-primary source is on file that either supports or refutes the "Local pack, knowledge panel" line this library has carried (searched 2026-08-10, none found). Asserting the opposite would be the same unsourced move in reverse. Say what the markup demonstrably does — corroborates NAP and hours for entity understanding — and promise no placement.
+
 2. **Generate Schema Markup**
 
    Generate JSON-LD for the ONE primary type selected in step 1. Supported types: FAQPage, HowTo, Article/BlogPosting/NewsArticle, Product, LocalBusiness, Organization, BreadcrumbList, Event, Recipe, SoftwareApplication.
 
-   > **Reference**: See [references/schema-templates.md](./references/schema-templates.md) for complete, copy-ready JSON-LD templates for all schema types with required and optional properties.
+   > **Reference**: See [references/schema-templates.md](./references/schema-templates.md) for JSON-LD skeletons of every supported type, with required and optional properties marked. They are skeletons, not deliverables: every `[SLOT]` is filled from the page's own data or the property is dropped.
 
    **One primary type per page (settled ruling R2).** Default output is a single JSON-LD object. Supporting entities belong NESTED inside it as properties (`offers`, `author`, `publisher`, `organizer`, `provider`, `location`) — not as separate top-level objects.
 
@@ -166,8 +177,16 @@ When a user requests schema markup:
 
    For each schema generated, include:
    - All required properties for the chosen type
-   - Rich result preview where the type still has one (FAQ: none — state the AI-engine/GEO parsing value instead)
+   - A **rich-result eligibility note** — three sentences in a fixed shape, never a SERP mock-up: which rich result the type is eligible for (FAQ: none, retired 2026 — give the AI-engine/GEO parsing value instead); which of the emitted properties feed it; and the standing caveat that eligibility is not an appearance, because Google decides per query and per device. Shape, worked examples and the no-mock-up reasoning: [validation-guide.md → Rich-result eligibility note](./references/validation-guide.md#rich-result-eligibility-note). Do not draw a mock SERP listing: a picture of the result reads as a promise of the result, which this skill does not make.
    - Notes on which properties are required vs. optional
+
+   **Missing data — the value rule.** The JSON-LD you hand over is paste-ready, so every value inside it is a real value taken from the page or from what the user supplied. When a required or recommended property has no value available:
+
+   1. **Omit the property and name the gap in prose** — preferred, and what a finished deliverable does. Name the property, say what leaving it out costs, and state exactly what to send back: "`publisher.logo` is missing — send the absolute URL of a logo no wider than 600px and it becomes one more line in the block." An illustrative URL belongs in that prose; it never goes inside the emitted block.
+   2. **Or leave the slot visible as a bracketed placeholder** — `[LATITUDE]`, `[PRICE-RANGE]`, `[IMAGE-URL]`, `[EVENT-IMAGE-URL]`, `[PUBLISHER-LOGO-URL]`: SCREAMING-KEBAB inside square brackets, never any other stand-in shape. Use this when the user asked for a fill-in template, or when a slot is genuinely more useful kept visible than dropped — and then say on the block that it is not ready to paste until the slot is filled (`"_SKELETON"` as its first member is the standing form; see schema-templates.md). A bracket token anywhere in a block means that block is not ship-ready.
+   3. **Never invent a value, and never use an unbracketed stand-in** — no plausible-looking coordinates, no `TBD`/`XX`, no `your-logo.png` or `your latitude here`, no note shaped like a value. An invented value is a content-mismatch (spam-policy) risk; an unbracketed stand-in hides the gap from the one person who could close it.
+
+   Same rule one skill over: meta-tags-optimizer applies it to `content=` attributes and `<title>` (ledger F13). Paste-ready values are resolved values, brackets belong only in a labelled skeleton, and the remedy for missing data is drop-it-and-name-the-gap in both.
 
    When a documented auxiliary legitimately accompanies the primary (e.g., BreadcrumbList), wrap the objects in a JSON array inside a single `<script type="application/ld+json">` tag — only then.
 
@@ -215,7 +234,7 @@ When a user requests schema markup:
     - [ ] JSON syntax is valid (no trailing commas)
     - [ ] All required properties present
     - [ ] URLs are absolute, not relative
-    - [ ] Dates are in ISO 8601 format
+    - [ ] Dates are ISO 8601 at the precision the page states
     - [ ] Content matches visible page content
     - [ ] No policy violations
     ```
@@ -233,7 +252,8 @@ When a user requests schema markup:
 - [ ] JSON syntax validates (no trailing commas, proper quotes)
 - [ ] All required properties present for chosen schema type
 - [ ] URLs are absolute, not relative
-- [ ] Dates in ISO 8601 format (YYYY-MM-DDTHH:MM:SS+00:00)
+- [ ] Dates in ISO 8601 **at the precision the page states** — date-only `2025-03-12` when the page shows no time (reduced precision is valid ISO 8601 and correct here); `2025-03-12T09:00:00+02:00` only when the page states a time, and a zone offset only when the page or the client supplies one. Never invent a time, a zone, or a day to reach a longer form
+- [ ] No unfilled slot survives in the emitted JSON-LD: no `[BRACKET]` token, no `_SKELETON` marker, no `TBD`/`XX`, no invented value — a value that cannot be sourced means the property is dropped and the gap is named in prose (missing-data rule, step 2)
 - [ ] Schema content matches visible page content exactly
 - [ ] Passes ~~schema validator with no errors
 - [ ] Source of each data point stated in the deliverable's own words — the resolved tool name (a Screaming Frog extraction), "user-provided", or "manual entry"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
@@ -284,9 +304,9 @@ When a user requests schema markup:
 
 _Implementation: Wrap the above JSON-LD in `<script type="application/ld+json">...</script>` and place in `<head>` or before `</body>`. Validate syntax with Schema.org Validator — Google's Rich Results Test dropped FAQ support in 2026._
 
-### SERP Status
+### Rich-Result Eligibility
 
-FAQ rich results are retired — Google pulled Search Console reporting/API, the Enhancements appearance filter, and Rich Results Test support for FAQ in 2026. This markup no longer produces a SERP accordion. Still generated for AI-engine/GEO parsing: answer engines can extract clean Q&A pairs from it regardless.
+**Eligible for**: nothing in Google Search. FAQ rich results are retired — Google pulled Search Console reporting/API, the Enhancements appearance filter, and Rich Results Test support for FAQ in 2026, so this markup no longer produces a SERP accordion. **What the emitted properties do instead**: each `Question`/`acceptedAnswer` pair gives answer engines a clean, unambiguous Q&A to lift, which is why the markup is still worth shipping. **Caveat**: no engine promises to use it — this is machine-readable input, not a placement.
 ```
 
 ## Schema Type Quick Reference
@@ -319,9 +339,9 @@ FAQ rich results are retired — Google pulled Search Console reporting/API, the
 
 ## Reference Materials
 
-- [Schema Templates](./references/schema-templates.md) - Copy-ready JSON-LD templates for all schema types, plus the primary + auxiliary array form
+- [Schema Templates](./references/schema-templates.md) - JSON-LD skeletons for every supported type (fill each `[SLOT]` or drop the property), plus the primary + auxiliary array form
 - [Schema Decision Tree](./references/schema-decision-tree.md) - Primary-type selection, nested-vs-auxiliary boundary, industry starting points, priority tiers (P0-P4)
-- [Validation Guide](./references/validation-guide.md) - Common errors, required properties, testing workflow (FAQPage: Schema.org validator only)
+- [Validation Guide](./references/validation-guide.md) - Common errors, required properties, the rich-result eligibility note (FAQ: none — retired 2026), testing workflow (FAQPage: Schema.org validator only)
 
 ## Related Skills
 

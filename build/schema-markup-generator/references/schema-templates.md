@@ -1,6 +1,22 @@
 # Schema.org JSON-LD Templates
 
-Complete, copy-ready structured data templates for all major schema types. Customize the bracketed values to match your content.
+Structured-data **skeletons** for all major schema types. Nothing in this file is a deliverable.
+
+---
+
+## How to read this file (the value rule)
+
+Every JSON block below is a skeleton: `[BRACKET SLOTS]` mark values you fill from the page's own data. Each one opens with a `"_SKELETON"` member so the marker travels with the code when only the fence is copied — a JSON-LD processor ignores an unmapped term, so it stays valid JSON, and if a validator ever flags `_SKELETON` on a live page, that is the marker doing its job: the block shipped unfilled. Delete that line when you fill the template.
+
+**What a deliverable looks like instead**: every value resolved from the page or the supplied data, and no bracket token anywhere in it. When a value cannot be sourced — the image asset does not exist yet, no coordinates were supplied, the logo URL is unknown — **drop that property from the block and name the gap in the report prose**, where the person who can fix it will read it: which property, what it costs, and exactly what to send. What never goes inside a JSON-LD value in a deliverable: a bracket token, `TBD`, `XX`, a note shaped like a value (`"your-logo.png"`), or a plausible-looking invented number.
+
+**The one exception**: when the user asked for a fill-in template rather than finished markup, brackets are correct — and then the block keeps its `"_SKELETON"` line, so it is unmistakably not ship-ready. Bracket notation is SCREAMING-KEBAB inside square brackets: `[LATITUDE]`, `[PRICE-RANGE]`, `[IMAGE-URL]`, `[EVENT-IMAGE-URL]`, `[PUBLISHER-LOGO-URL]`.
+
+**Dates**: ISO 8601 at the precision the page states — `2025-03-12` where the page shows a date and no time, `2025-03-12T09:00:00+02:00` where it states a time. Never invent a time to reach the longer form.
+
+Provenance: SKILL.md step 2 (*Missing data — the value rule*), ledger F13 (placement class), and `build/seo-content-writer/references/anti-slop-ruleset.md` §6. The same split is applied to HTML tags in meta-tags-optimizer.
+
+---
 
 ## FAQPage Schema
 
@@ -8,6 +24,7 @@ For pages with frequently asked questions — one Question object per visible Q&
 
 ```json
 {
+  "_SKELETON": "not ship-ready — fill every [SLOT] from the page's own data, drop any property you cannot fill, then delete this line",
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
@@ -49,6 +66,7 @@ For step-by-step instructional content.
 
 ```json
 {
+  "_SKELETON": "not ship-ready — fill every [SLOT] from the page's own data, drop any property you cannot fill, then delete this line",
   "@context": "https://schema.org",
   "@type": "HowTo",
   "name": "[How-to title - what will users learn]",
@@ -124,6 +142,7 @@ For blog posts, articles, and news content.
 
 ```json
 {
+  "_SKELETON": "not ship-ready — fill every [SLOT] from the page's own data, drop any property you cannot fill, then delete this line",
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": "[Article title - max 110 characters for best display]",
@@ -133,8 +152,8 @@ For blog posts, articles, and news content.
     "[Alternative image URL - 4:3 ratio]",
     "[Alternative image URL - 16:9 ratio]"
   ],
-  "datePublished": "[ISO 8601 date: 2024-01-15T08:00:00+00:00]",
-  "dateModified": "[ISO 8601 date - same as published if never modified]",
+  "datePublished": "[ISO 8601 at the page's own precision: 2024-01-15, or 2024-01-15T08:00:00+00:00 only if the page states a time]",
+  "dateModified": "[ISO 8601, same precision rule - same value as published if never modified]",
   "author": {
     "@type": "Person",
     "name": "[Author Full Name]",
@@ -170,6 +189,7 @@ For e-commerce product pages.
 
 ```json
 {
+  "_SKELETON": "not ship-ready — fill every [SLOT] from the page's own data, drop any property you cannot fill, then delete this line",
   "@context": "https://schema.org",
   "@type": "Product",
   "name": "[Product Name]",
@@ -245,6 +265,7 @@ For local business pages with physical locations.
 
 ```json
 {
+  "_SKELETON": "not ship-ready — fill every [SLOT] from the page's own data, drop any property you cannot fill, then delete this line",
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "[Business Name]",
@@ -289,7 +310,11 @@ For local business pages with physical locations.
 }
 ```
 
-**Type variants**: Use more specific types when applicable: `Restaurant`, `Store`, `AutoRepair`, `HealthAndBeautyBusiness`, `LegalService`, etc.
+**Type variants**: Use more specific types when applicable: `Restaurant`, `Store`, `AutoRepair`, `HealthAndBeautyBusiness`, `HomeAndConstructionBusiness`, `HVACBusiness`, `LegalService`, etc.
+
+**Country and currency codes**: `addressCountry` takes the ISO 3166-1 alpha-2 code (`GR`, `GB`, `US`, `DE`) — not a country name, and not `UK`, which is not an alpha-2 code. `priceCurrency` takes the ISO 4217 code (`EUR`, `GBP`, `USD`), never the symbol.
+
+**`aggregateRating` and `review`**: include only where the page itself shows genuine ratings or reviews. No ratings on the page means the property is dropped, not filled — a rating that is not visible is a content-mismatch violation, and it puts rich results across the site at risk.
 
 ---
 
@@ -299,6 +324,7 @@ For brand/company homepage.
 
 ```json
 {
+  "_SKELETON": "not ship-ready — fill every [SLOT] from the page's own data, drop any property you cannot fill, then delete this line",
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "[Organization Name]",
@@ -344,6 +370,7 @@ For navigation breadcrumbs.
 
 ```json
 {
+  "_SKELETON": "not ship-ready — fill every [SLOT] from the page's own data, drop any property you cannot fill, then delete this line",
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
@@ -385,12 +412,13 @@ For video content.
 
 ```json
 {
+  "_SKELETON": "not ship-ready — fill every [SLOT] from the page's own data, drop any property you cannot fill, then delete this line",
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "[Video title]",
   "description": "[Video description]",
   "thumbnailUrl": "[Video thumbnail URL - minimum 160x90px]",
-  "uploadDate": "[ISO 8601 date: 2024-01-15T08:00:00+00:00]",
+  "uploadDate": "[ISO 8601 at the source's own precision: 2024-01-15, or 2024-01-15T08:00:00+00:00 if a time is stated]",
   "duration": "PT[X]M[Y]S",
   "contentUrl": "[Video file URL]",
   "embedUrl": "[Video embed URL]",
@@ -412,13 +440,14 @@ For events, conferences, concerts, etc.
 
 ```json
 {
+  "_SKELETON": "not ship-ready — fill every [SLOT] from the page's own data, drop any property you cannot fill, then delete this line",
   "@context": "https://schema.org",
   "@type": "Event",
   "name": "[Event Name]",
   "description": "[Event description]",
   "image": "[Event image URL]",
-  "startDate": "[ISO 8601 date: 2024-06-15T19:00:00-05:00]",
-  "endDate": "[ISO 8601 date: 2024-06-15T22:00:00-05:00]",
+  "startDate": "[ISO 8601: 2024-06-15T19:00:00-05:00 when a start time is stated; 2024-06-15 for an all-day event]",
+  "endDate": "[ISO 8601, same form as startDate; drop this property if the page states no end]",
   "eventStatus": "https://schema.org/EventScheduled",
   "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
   "location": {
@@ -461,6 +490,7 @@ For online courses and educational content.
 
 ```json
 {
+  "_SKELETON": "not ship-ready — fill every [SLOT] from the page's own data, drop any property you cannot fill, then delete this line",
   "@context": "https://schema.org",
   "@type": "Course",
   "name": "[Course Name]",
@@ -496,6 +526,7 @@ For cooking recipes.
 
 ```json
 {
+  "_SKELETON": "not ship-ready — fill every [SLOT] from the page's own data, drop any property you cannot fill, then delete this line",
   "@context": "https://schema.org",
   "@type": "Recipe",
   "name": "[Recipe name]",
@@ -504,7 +535,7 @@ For cooking recipes.
     "@type": "Person",
     "name": "[Author name]"
   },
-  "datePublished": "[ISO 8601 date]",
+  "datePublished": "[ISO 8601 at the page's own precision]",
   "description": "[Recipe description]",
   "prepTime": "PT[X]M",
   "cookTime": "PT[X]M",
@@ -548,6 +579,7 @@ For software, apps, and tools.
 
 ```json
 {
+  "_SKELETON": "not ship-ready — fill every [SLOT] from the page's own data, drop any property you cannot fill, then delete this line",
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "[Software name]",
@@ -578,6 +610,7 @@ For software, apps, and tools.
 Default output is ONE primary type per page (settled ruling R2). Use the array form only when a documented auxiliary legitimately accompanies the primary — e.g., BreadcrumbList for a real breadcrumb trail:
 
 ```html
+<!-- SKELETON — fill every [slot] from the page's own data; drop any property you cannot fill and name the gap in the report -->
 <script type="application/ld+json">
 [
   {
@@ -613,8 +646,8 @@ Do NOT use the array form to stack a second full content type onto the page (e.g
 
 - ONE primary type per page; nest supporting entities inside it — see the array note above (settled ruling R2)
 - Always validate at https://validator.schema.org/; additionally test non-FAQ types at https://search.google.com/test/rich-results (FAQ support was cut in 2026)
-- Remove bracketed placeholders and replace with actual content
+- Fill every bracketed slot from the page's own data and delete the `"_SKELETON"` line; a property whose value cannot be sourced is DROPPED from the block and named in the report prose, never stood in for (see *How to read this file*)
 - Use absolute URLs, not relative paths
-- Dates must be in ISO 8601 format
+- Dates in ISO 8601 at the precision the page states — date-only where no time is shown; never invent a time to reach the longer form
 - Schema must match visible page content (Google policy requirement)
 - No trailing commas in JSON (invalid syntax)
