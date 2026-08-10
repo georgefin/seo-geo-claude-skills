@@ -5,19 +5,46 @@ Lifecycle: `proposed → gated (awaiting verdict) → approved | rejected → ap
 validated`. Record every verdict here with date and wording. A gated item excluded from a
 PR must be named in that PR's body as a separate decision (as done in PR #1, 2026-08-08).
 
-**Currently gated: G8 live-site deployment only (blocked on Sani's three inputs —
-named target cluster, data access, publication workflow). G5–G7 and G8's executable
-scope RELEASED 2026-08-09 (eleventh verdict-log entry): G5 delivered and wired
-into `pre-push-gate.sh` (integration commit, 2026-08-09), G6 delivered
-(`69c5f7e`), G7 in execution (E1–E3 suites committed, all 11 reviews returned and
-fixes applied), G8 preparables delivered
-(`9c6adb4`). Sani decisions also flagged in the queued list (fork-manifest
-attribution).
+**Gated as of 2026-08-10: G8 deployment to a real property only (gated on Sani's
+three inputs — named target cluster, data access, publication workflow; per-input
+status in `PILOT.md` §0.1, where inputs 1 and 2 carry partial words recorded
+2026-08-10 and input 3 has none). G5–G7 and G8's executable scope RELEASED
+2026-08-09 (eleventh verdict-log entry): G5 delivered and wired into
+`pre-push-gate.sh` (integration commit, 2026-08-09), G6 delivered (`69c5f7e`),
+G7 in execution (E1–E4 suites committed; E1–E3 reviews returned with fixes
+applied), G8 preparables delivered (`9c6adb4`). The fork-manifest attribution
+question was DELEGATED back to the coordinator 2026-08-10 (twelfth verdict-log
+entry); the queued list records what was chosen.
 G1–G4 resolved: G1 pilot merged (PR #4) + continuation merged (PR #8), G2 EXECUTED
 2026-08-09 (Issues enabled by Sani; queue issue #6 live; STEP 6 amendment applied —
 prompt v4.2), G3 RETIRED 2026-08-09 (option c — the local loop owns WP vuln
 watching), G4 harvest merged (PR #4).**
 
+> **Verdict log — 2026-08-10 (twelfth entry, logged 03:18:04Z clock-read)**: Sani, in
+> one message, four clauses, verbatim: "I'll follow your suggestion and My suggestion:
+> the natural merge point is when the current waves finish and all 20 skills have
+> evaluated suites." / "I pick the nobo and Atlantic real pages on a Sani Hellas site
+> as a start." / "With your guidance I will authorize the analytics connectors in my
+> claude.ai settings." / "3. Fork-manifest attribution: Team choose the best, latest
+> and most effective practice". **Decision readings, one per clause (recorded)**:
+> (1) **PR #9 merge point AGREED — not an order to merge.** Sani adopts the
+> coordinator's proposed timing (waves finished + 20/20 suites carrying evaluated
+> suites). The standing rule that only Sani's explicit word merges PR #9 is NOT
+> relaxed by an agreed condition: a condition whose satisfaction the coordinator
+> itself judges would be self-authorization by the back door. Herbert reports
+> "condition met" when it is, and asks for the one-word order then.
+> (2) **G8 input 1 — PART-SUPPLIED**, recorded verbatim in `PILOT.md` §0.1 with the
+> URL-list gap named; the coordinator does not infer the page list.
+> (3) **G8 input 2 — IN PROGRESS**, recorded in §0.1 together with the finding that
+> none of this repo's six declared MCP servers is a Google Search Console or GA4
+> server, so the export path stays the primary measurement route and connector auth
+> complements it on the SEO-tool lanes.
+> (4) **Fork-manifest attribution — DELEGATED to the coordinator.** "Team choose the
+> best…practice" hands back a decision previously held for Sani precisely because it
+> is outward-facing publication class. Herbert takes it under that delegation, records
+> the chosen practice and its reasoning in the queued list below, and keeps the change
+> to a single revertible commit so Sani can overturn it on sight.
+>
 > **Verdict log — 2026-08-09 (eleventh entry, logged 16:13:33Z clock-read)**: Sani,
 > verbatim: "Herbert did you assign the am to execute in the best possible manner,
 > following the best possible practice phase 1, phase 2, phase 3, phase 4?" ("the am"
@@ -460,8 +487,10 @@ watching), G4 harvest merged (PR #4).**
 ## G8 — Real-site outcome pilot (execution)
 
 - **Status**: executable scope **RELEASED 2026-08-09** (eleventh verdict-log
-  entry) **+ DELIVERED** — `PILOT.md` committed (`9c6adb4`); live-site deployment
-  remains blocked on the three Sani inputs below. Scoping was AUTHORIZED by the
+  entry) **+ DELIVERED** — `PILOT.md` committed (`9c6adb4`); deployment to a real
+  property stays gated on the three Sani inputs below, whose per-input status lives
+  in `PILOT.md` §0.1 (inputs 1 and 2 carry partial words recorded 2026-08-10;
+  input 3 has none). Scoping was AUTHORIZED by the
   directive (tenth verdict-log entry) and delivered as `MASTER-IMPROVEMENT-PLAN.md`
   §3.
 - **Proposal**: matched-pair (control pages held) or before/after pilot on a
@@ -473,12 +502,17 @@ watching), G4 harvest merged (PR #4).**
   before publication** (HITL); byte-exact pre-change copies for rollback; quarterly
   cold HITL review rides this gate (first ~2026-11, reminder Routine armed on
   approval).
-- **Blocked on (Sani, all three)**: named target cluster; data access (GSC/GA4
+- **Gated on (Sani, all three; §0.1 of `PILOT.md` holds the per-input status and the
+  verbatim words received 2026-08-10)**: named target cluster; data access (GSC/GA4
   exports, or connector auth — the session's ahrefs/similarweb MCP servers are
   unauthenticated as of 2026-08-09 and OAuth cannot run in this non-interactive
   session: authorize in claude.ai connector settings or an interactive `/mcp`
   session; CSV exports are a full substitute); publication workflow (who applies
-  changes).
+  changes). Finding recorded 2026-08-10 while answering input 2: none of the six MCP
+  servers this repo declares (ahrefs, similarweb, hubspot, amplitude, notion, slack)
+  is a Google Search Console or GA4 server, so connector authorization alone does not
+  satisfy input 2 — the export drop stays the primary measurement route (`PILOT.md`
+  §0.1).
 - **Risk**: outward-facing changes on a live property — bounded by non-core cluster
   choice, HITL on every publish, stored rollback copies; a null result is reported
   as a finding (pre-registration forecloses curve-fitting).
@@ -572,7 +606,8 @@ From the 08-08-2026 report's slow-loop lane; promote to gated only when concreti
   :53/:54 (grep-verified, corrected in the advisory's fix-forward) — check (g)
   verifies `VERSIONS.md` targets only. Whether to extend it to CLAUDE.md-target
   pointers in the registers: decide at the next scripts-touching wave.
-- **NEW — fork-manifest attribution (Sani decision, flagged 2026-08-09)**: both
+- **fork-manifest attribution (flagged 2026-08-09 as a Sani decision; DELEGATED to
+  the coordinator 2026-08-10, twelfth verdict-log entry)**: both
   marketplace manifests' `owner`/`metadata.repository` fields and `VERSIONS.md:3`'s
   raw-fetch URL still carry the upstream identity (aaron-he-zhu) — fork
   inheritance, surfaced when the marketplace-discovery shim landed. No functional
@@ -580,6 +615,25 @@ From the 08-08-2026 report's slow-loop lane; promote to gated only when concreti
   upstream-attributed manifests; installs were blocked separately by the W8
   manifest shapes at flag time (historical as of the PR #8 merge, 2026-08-09
   ~10:47Z — installs from main now succeed, ninth verdict-log entry); see the
-  G1 continuation note). Whether to re-attribute the fork's outward-facing
-  identity (and which fields) is Sani's call — outward-facing publication class,
-  never a coordinator default.
+  G1 continuation note). **DECIDED 2026-08-10 under Sani's delegation** (twelfth
+  verdict-log entry: "Team choose the best, latest and most effective practice").
+  Practice chosen, and the principle behind it: machine-readable identity points at
+  the artifact people install and file issues against; human-readable credit names
+  the upstream project permanently and prominently. Applied in this scope —
+  (a) both manifests' `owner` + `metadata.repository` and `VERSIONS.md:3`'s
+  raw-fetch URL move to `georgefin/seo-geo-claude-skills`, because those fields
+  drive update checks and marketplace resolution, and pointing them upstream means
+  a fork user silently reads upstream's files instead of the ones this loop
+  maintains; (b) README gains an explicit fork-credit line naming the upstream
+  repository and its author, and LICENSE is untouched; (c) the CORE-EEAT and CITE
+  framework links keep pointing at their own upstream repositories — separate
+  projects, not this fork's content, so re-attributing them would be
+  misappropriation rather than a rebrand; (d) the ClawHub and skills.sh install
+  commands keep the upstream path, since those resolve published listings this fork
+  does not own and rewriting them to `georgefin/...` would hand users a dead
+  install, while the Claude Code `/plugin marketplace add` command moves to the
+  fork because it resolves straight from GitHub. Deliberately OUT of this scope and
+  queued: the 20 `SKILL.md` frontmatter `homepage`/`metadata.author` fields, which
+  carry the same upstream identity but would touch every skill and every tracking
+  file — its own wave, so an identity change and a 20-skill version bump do not
+  ride one commit. Reversal stays cheap: the applied scope is a single commit.

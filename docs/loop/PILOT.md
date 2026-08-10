@@ -16,19 +16,45 @@ claim so far is process-internal (plan §0). This pilot closes exactly that.
 
 ---
 
-## 0. Status — preparables COMPLETE, three Sani inputs OPEN
+## 0. Status — preparables COMPLETE; input 1 PART-SUPPLIED, input 2 IN PROGRESS, input 3 OPEN
 
 Preparables (this protocol: design tree, baseline checklist, sampling protocol,
 pre-registration template, deployment/rollback rules) are complete as of 2026-08-09.
-The three inputs below are OPEN; each is supplied only by Sani's explicit recorded
-words (standing gate rule — a general "proceed" never decides one). Record each verbatim
-in this table's Status column when it lands, with date.
+Each input is supplied only by Sani's explicit recorded words (standing gate rule — a
+general "proceed" never decides one). Recorded words land verbatim in §0.1 below with
+date and per-input status; §0.1 is append-only. Day-0 starts when all three clear their
+bar in §0.1 — partial receipt does not start it.
 
-| # | Input (Status: OPEN) | What good looks like |
+| # | Input (per-input status in §0.1) | What good looks like |
 |---|---|---|
 | 1 | **Named target cluster** | One property — a section of a Sani Hellas site or one consenting client site: a named URL list of 5–15 pages forming one topical service/content cluster, with existing traffic (nonzero GSC impressions on most pages over the trailing 12 weeks) and NOT the revenue-critical core (bounded risk). Matched-pair becomes viable when ≥3 comparable pairs form (§1) — prefer such a cluster when choosing. |
 | 2 | **Data access** | GSC (query- and page-level clicks / impressions / average position) + GA4 (sessions) covering the cluster, supporting BOTH the 12-week lookback pull and per-checkpoint pulls. Either connector auth — the session's ahrefs / similarweb / analytics MCP servers are unauthenticated as of 2026-08-09 and OAuth cannot run in a non-interactive session; authorize in claude.ai connector settings or an interactive `/mcp` session — or CSV/export files dropped per checkpoint into `docs/loop/pilot/data/` (a full substitute, plan §3). |
 | 3 | **Publication workflow with per-change HITL approval** | A named human publisher (Sani or his webmaster) with CMS access; an approval channel where Sani's per-change wording is recorded (in-session message or issue comment) — an approval must NAME the page(s) it covers (a list of named pages in one message counts per-page; an unnamed blanket "publish" does not satisfy per-change HITL); the pre-change capture method agreed (CMS source export and/or rendered-HTML fetch, §5); an approval→publish turnaround expectation (target ≤3 working days, so deployment stays inside week 1–2). |
+
+### 0.1 Recorded input words (append-only)
+
+**2026-08-10 — input 1, PART-SUPPLIED.** Sani, verbatim: "I pick the nobo and Atlantic
+real pages on a Sani Hellas site as a start." Reading: two brand families (Nobo,
+Atlantic) on a Sani Hellas property are named as the pilot's subject matter — the
+substantive half of input 1. Still needed against §0's input-1 bar: the property's
+domain, and the explicit list of 5–15 page URLs in that cluster. The coordinator does
+not infer those URLs — a cluster Herbert guessed would not be Sani's named target, and
+§1's matched-pair design turns on exactly which pages are treatment and which are held
+out. A trailing-12-week GSC impression check per page (§0 bar) runs once the list lands.
+
+**2026-08-10 — input 2, IN PROGRESS.** Sani, verbatim: "With your guidance I will
+authorize the analytics connectors in my claude.ai settings." Guidance issued the same
+day. Material finding recorded alongside it: the six MCP servers this repo declares
+(`.mcp.json` — ahrefs, similarweb, hubspot, amplitude, notion, slack) include no Google
+Search Console server and no GA4 server, so authorizing all six would not by itself
+deliver the GSC/GA4 fields input 2 names. Consequence for the design: the CSV/export
+path (plan §3, already a full substitute) is the primary measurement route, and
+connector auth complements it on the SEO-tool lanes (Ahrefs/SimilarWeb) rather than
+replacing the export drop. Input 2 clears its bar when either the exports land in
+`docs/loop/pilot/data/` or a GSC/GA4 access route is established.
+
+**Input 3 — OPEN.** No publication-workflow words recorded yet: named human publisher,
+approval channel, pre-change capture method, and turnaround expectation all pending.
 
 **Day-0 checklist (on receipt of all three inputs — run top to bottom):**
 
