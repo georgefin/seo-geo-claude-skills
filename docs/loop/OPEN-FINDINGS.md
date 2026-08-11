@@ -26,6 +26,35 @@ decision rather than an edit, it says so and names who decides.
 
 ## B. Confirmed defects with a known fix
 
+> ✅ **ALL 15 CLOSED 2026-08-11**, branch `claude/section-b-fixes-2026-08-11`. Section A is
+> untouched by design — those need rulings, not edits.
+>
+> **Three findings were larger than recorded, and the revised count is stated against the
+> number it revises (R317):** **#69** was 1 defect, actually **13** (all fixed; new finding
+> #80). **#75** recorded 12 contradictions, actually **15** — 12 fixed, **4 refused** as
+> threshold decisions rather than typos and left with both sides in place. **#66** recorded 4
+> surfaces, actually **5** — the prescribed guard grep *structurally could not see* the fifth,
+> because the phrase wraps a newline and the check is line-based (R319: coverage = surface ×
+> detector).
+>
+> **Two fixes went against the finding's own framing, deliberately:** **#67** was fixed by
+> gating Demand rather than dropping the equivalence sentence, because the conjunctive intent
+> is stated in five places and the score is compensatory — dropping it would have deleted a
+> true statement of intent and left the mechanism wrong (R238). **#61** concluded the *rule*
+> over-reached rather than the template, on four independent lines of evidence, and says so in
+> the file.
+>
+> **Owner rulings opened by this wave, none invented:** #75's four threshold decisions;
+> #72's "which state is O05 scored against when the optimisation changes the type"; and the
+> content-refresher eval reconciliation (8 fossilized clauses that would have graded a
+> *correct* run as a failure) — reconciled in place, flagged as the commit to split if a
+> deliberate re-baseline is preferred.
+>
+> **A defect in the verification tooling itself, found by an agent and not by its author:**
+> `scripts/check-template-fences.py` printed GREEN having scanned **zero files** when given a
+> directory argument (`IsADirectoryError` caught as `OSError` and skipped). R-0222. It now
+> fails closed on an empty scan set and prints the file count every run.
+
 | # | Finding |
 |---|---|
 | 67 | **content-gap: a false equivalence claim introduced by this wave's own fix.** Step 4 says the demand rule "is the same condition the Quick Win Score enforces, stated in words". It is not: `1+4+4+5−12 = +2` clears the bar with Demand at its floor. Either gate Demand before scoring, or drop the equivalence sentence. |
