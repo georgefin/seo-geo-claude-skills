@@ -1464,3 +1464,79 @@ increments this.
 **Status**: recorded; six of the ten surfaces fixed in the same commit, four in
 `content-refresher` deferred with a named reason — a blind executor was reading that skill and
 editing it mid-run is F8. FLIP: R3 -- 9a applied downstream
+
+---
+
+### F19 — 2026-08-11 · the abstention overshoot: a rule against asserting the unsourced, applied one step past where the library already holds the answer
+
+**Found by the grader of two suites at once, as a cross-suite observation neither suite could
+have produced alone.** Both skills had been ledgered for the opposite defect — F3, asserting
+what no input supplied — and both were fixed. This is what the fix produced next.
+
+**The two instances.**
+- `content-refresher` e1 routes Core Web Vitals thresholds back to the client as something
+  *"we have not checked in this session and will not assert"*, and never prints them. **The
+  library settled those thresholds — ruling R4** (LCP ≤2.5s, INP ≤200ms, CLS 0.1). The client
+  republishes an unresolved section that the skill's own repo could have closed.
+- `monitor/alert-manager` e5 declines to ask the client who should be notified — Data Sources
+  item 3 — **while assigning thirteen priorities itself**. It abstained on the input it was
+  told to collect and did not abstain on the judgement built from it.
+
+**Why this is not F3 inverted, and not merely caution.** Both deliverables are arithmetically
+immaculate: across ten deliverables and 27 scored expectations of arithmetic and provenance,
+**not one fabricated figure**. The executors learned "do not assert what you cannot source"
+completely. The defect is that **the rule has no stopping condition**: it does not say *"unless
+the library has settled it"*, so a settled ruling and an unknown look identical at the point of
+writing. Refusing to state R4 is not epistemic caution — R4 IS the source.
+
+**The cost is asymmetric and that is why it needs a guard.** A fabricated figure is visible and
+gets caught. An unnecessary abstention looks like rigour, reads as thoroughness, and passes
+every fabrication net in the library. Nothing in the eval suites could see either instance.
+
+**Guard.** A refusal to state a figure must first check the settled registers. Where
+`SETTLED-RULINGS.md` holds the answer, the answer is stated and cited to the ruling — abstention
+there is a defect, not diligence. Skills that instruct hedging carry the carve-out at the point
+of the instruction, not in a distant reference.
+
+**Recurrence**: 0 (founding). A deliverable that declines to state something a settled ruling
+establishes, or that abstains on an input while acting on the judgement drawn from it,
+increments this.
+
+**Status**: recorded. FLIP: F19 -- none
+
+
+### F13 Recurrence 5 — 2026-08-11 · an expectation rewarded the fabrication its own suite was ledgered for
+
+**`optimize/content-refresher` e2.6 requires the paste-ready deliverables to "ship complete — no
+bracketed placeholders". The e2 fixture supplies no answer to fill them with** — only a
+transcriber's note that the timing answer "first appears in the fifth paragraph", with the
+paragraph itself withheld. The only way to satisfy the expectation literally is to invent
+horticultural advice and hand it to a client to publish.
+
+**The prior blind run did exactly that, and e2.6 passed it.** That run's deliverable published
+*"Aerate a UK lawn in early autumn, September to October, while the soil is damp and the grass
+is still growing"* plus six specific 40-60 word answers, none of it in the fixture. **That is
+the 27/27 record.** e2.6's own fabrication clause is scoped to "no statistic attributed to a
+named source" and cannot see invented domain advice, so the suite scored the invention as a
+pass and would have again.
+
+**This run failed e2.6 by obeying the Value Rule.** It shipped both blocks as skeletons with
+`<!-- SKELETON -->` inside the fence and the blocker named in prose — which root `CLAUDE.md`
+explicitly sanctions: *"bracket tokens are the correct notation inside a block explicitly
+labelled a skeleton."* **The one regression in this suite is the skill behaving correctly.**
+
+**Why it belongs to F13 rather than F3.** F3 is a deliverable asserting the unsupported. Here
+the *expectation* requires it: the suite is the carrier of the defect, and the skill's own
+governing rule contradicts it. That is F13's shape — a rule stated in one place and enforced
+against in another.
+
+**Guard.** An expectation demanding complete paste-ready output must be satisfiable from its own
+fixture. Where it is not, either the fixture supplies the missing input or the expectation
+carries the Value Rule's skeleton carve-out. **A pass rate that can only be earned by inventing
+client-facing content is measuring the wrong thing**, and a suite cannot be trusted to notice
+this about itself — both instances here were found by comparing two runs, not by reading either.
+
+**Recurrence**: F13 → 5.
+
+**Status**: recorded; e2.6 needs the carve-out or the fixture needs paragraph 5 — coordinator
+ruling, suite not edited. FLIP: F13-r5 -- none
