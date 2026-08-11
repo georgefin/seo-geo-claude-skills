@@ -10,26 +10,44 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 |-------|----------|---------|--------------|
 | keyword-research | research | 4.4.1 | 2026-08-10 |
 | competitor-analysis | research | 4.2.0 | 2026-08-10 |
-| serp-analysis | research | 4.3.2 | 2026-08-11 |
-| content-gap-analysis | research | 4.2.2 | 2026-08-10 |
+| serp-analysis | research | 4.4.0 | 2026-08-11 |
+| content-gap-analysis | research | 4.3.0 | 2026-08-11 |
 | seo-content-writer | build | 4.5.2 | 2026-08-11 |
-| geo-content-optimizer | build | 4.3.1 | 2026-08-10 |
+| geo-content-optimizer | build | 4.4.0 | 2026-08-11 |
 | meta-tags-optimizer | build | 4.2.0 | 2026-08-10 |
-| schema-markup-generator | build | 4.2.3 | 2026-08-11 |
-| on-page-seo-auditor | optimize | 4.3.1 | 2026-08-10 |
-| technical-seo-checker | optimize | 4.4.2 | 2026-08-11 |
-| internal-linking-optimizer | optimize | 4.4.0 | 2026-08-10 |
-| content-refresher | optimize | 4.2.1 | 2026-08-10 |
+| schema-markup-generator | build | 4.2.4 | 2026-08-11 |
+| on-page-seo-auditor | optimize | 4.4.0 | 2026-08-11 |
+| technical-seo-checker | optimize | 4.5.0 | 2026-08-11 |
+| internal-linking-optimizer | optimize | 4.5.0 | 2026-08-11 |
+| content-refresher | optimize | 4.3.0 | 2026-08-11 |
 | rank-tracker | monitor | 4.2.0 | 2026-08-10 |
-| backlink-analyzer | monitor | 4.1.0 | 2026-08-10 |
-| performance-reporter | monitor | 4.4.1 | 2026-08-10 |
-| alert-manager | monitor | 4.2.1 | 2026-08-10 |
+| backlink-analyzer | monitor | 4.2.0 | 2026-08-11 |
+| performance-reporter | monitor | 4.5.0 | 2026-08-11 |
+| alert-manager | monitor | 4.3.0 | 2026-08-11 |
 | content-quality-auditor | cross-cutting | 4.4.0 | 2026-08-10 |
 | domain-authority-auditor | cross-cutting | 4.3.2 | 2026-08-10 |
 | entity-optimizer | cross-cutting | 4.2.0 | 2026-08-10 |
 | memory-management | cross-cutting | 4.1.0 | 2026-08-10 |
 
 ## Changelog
+
+### v4.5.0 (2026-08-11)
+
+Open-findings wave — `docs/loop/OPEN-FINDINGS.md` section B. Twelve of fifteen findings closed, and **three of them turned out to be larger than recorded**: #69 was thirteen defects rather than one, #75 fifteen contradictions rather than twelve, #66 five surfaces rather than four. Every count is stated against the finding it revises (R317).
+
+- **Template-fence truncation, 13 instances across 10 files (#69, #80)**: a `` ```markdown `` template block containing a nested 3-backtick block — CommonMark closes a fence at the first fence with at least as many backticks, so the **nested opener closed the template** and the remainder fell outside the block a model copies. Worst case `technical-seo-checker` step 1: **9 lines instead of 70**, losing the entire crawlability checklist and its score line. Outer fences promoted to 4 backticks; intended closes identified by reading each fence run, never by pattern. New `scripts/check-template-fences.py`.
+- **`check-template-fences.py` fabricated greens, found and fixed the same day**: given a directory argument `open()` raised `IsADirectoryError`, caught as `OSError` and skipped, and the script printed "GREEN" having scanned **zero files** — R-0222, and the same shape as the skill-scanner that reported "all clean" for seven weeks. Now fails closed on an empty scan set, errors on unresolvable targets, and prints the file count on every run.
+- **geo-content-optimizer 4.4.0 (#70, #78)**: the Source Citations factor counted sourced *survivors* against a denominator frozen at step 2, so removing an unsourceable claim — which the skill **mandates** — did not move the score. In the mixed case it was **actively perverse: keeping the claims scored 14, complying scored 10.** Now comply 16, keep 14. Content Freshness passed vacuously on a page with zero data points (its "no data point older than 24 months" check is trivially true of nothing), and scored 6/10 — an attainable value for n=2, so the file's own reverse check and recompute pass both cleared it. e1.5 gained the placement clause its sibling e2.5 already had.
+- **alert-manager 4.3.0 (#75)**: twelve contradictions resolved toward a defensible authority, four **refused** as threshold decisions rather than typos. The 5xx conflict had §2's hourly Critical sitting **6× above §3's Emergency**; the `>3` vs `>=3` boundary left a drop of exactly 3 firing nothing while Tier 1 is defined to warn at `>=3`.
+- **content-refresher 4.3.0 (#73, #74, #66)**: the displacement criterion's five rungs were all rank-worded while its input column accepted rank-free coverage notes — the commonest real input, per the skill's own fixtures — so 15% of the composite went N/A. Notes now have their own reading path, **capped at 75** because the top rung asserts something notes cannot establish. Item IDs removed from two client surfaces into labelled operator blocks. #66's guard grep **structurally could not see** its fifth surface: the phrase wraps a newline and the check is line-based.
+- **content-gap-analysis 4.3.0 (#67)**: the skill claimed its demand rule "is the same condition the Quick Win Score enforces". Enumerating all 625 tuples found **ten** sub-floor tuples reaching Tier 1. Demand is now gated before scoring, because the conjunctive intent is stated in five places and the score is compensatory.
+- **core-eeat-benchmark (#72)**: §5 gained the missing e-commerce category row — the first case this library's stated market hits. Nested `ItemList` settled from R2's boundary as payload, not a second identity claim; **which state O05 is scored against** when an optimisation changes the type is flagged for an owner ruling, not invented.
+- **schema-markup-generator 4.2.4 (#63)**: Output Validation banned the `_SKELETON` marker outright while step 2 *requires* it on the bracket route. Ban scoped to markup offered as finished.
+- **content-gap-analysis (#62)**: the suite graded a handoff convention the skill never stated — `grep -i handoff` returned 0 across the skill and all four references. Pointer and routing rules added.
+- **performance-reporter 4.5.0 (#60)**: §3's template lacked the in-fence ILLUSTRATIVE FILL marker its two siblings carry, so a model copied invented figures with nothing marking them illustrative.
+- **Version bookkeeping**: 11 skills bumped in G1 lockstep (frontmatter `version` where present, `metadata.version`, and the registry row). All 20 verified in lockstep.
+
+Not in this wave: section A (#77, #65, #79, #68) needs rulings, not edits; #61, #71 and #64 were still in flight at the time of writing.
 
 ### v4.4.1 (2026-08-09)
 
