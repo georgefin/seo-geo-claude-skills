@@ -1,13 +1,13 @@
 ---
 name: domain-authority-auditor
-version: "4.3.2"
+version: "4.4.0"
 description: 'Run the full 40-item CITE domain authority audit across 4 dimensions with domain-type weighting and veto checks. Use when the user asks to "audit domain authority", "domain trust score", "CITE audit", "how authoritative is my site", "domain credibility check", "is my domain trustworthy", "domain credibility score", "domain rating". For content-level assessment, see content-quality-auditor. For link profile details, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.2"
+  version: "4.4.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -182,10 +182,10 @@ right and the sentence is wrong: recount before publishing.
 
 | ID | Check Item | Score | Notes |
 |----|-----------|-------|-------|
-| C01 | Referring Domains Volume | Pass/Partial/Fail | [specific observation] |
-| C02 | Referring Domains Quality | Pass/Partial/Fail | [specific observation] |
+| C01 | Referring Domains Volume | Pass/Partial/Fail | [specific observation] — [Confirmed / Likely / Hypothesis] |
+| C02 | Referring Domains Quality | Pass/Partial/Fail | [specific observation] — [Confirmed / Likely / Hypothesis] |
 | ... | ... | ... | ... |
-| C10 | Link Source Diversity | Pass/Partial/Fail | [specific observation] |
+| C10 | Link Source Diversity | Pass/Partial/Fail | [specific observation] — [Confirmed / Likely / Hypothesis] |
 
 **C Score**: [X]/100 — [p] Pass + [q] Partial + [r] Fail = [p]×10 + [q]×5 (p + q + r = 10)
 
@@ -285,10 +285,10 @@ Calculate scores and generate the final report:
 
 | ID | Check Item | Score | Notes |
 |----|-----------|-------|-------|
-| C01 | Referring Domains Volume | [Pass/Partial/Fail] | [observation] |
-| C02 | Referring Domains Quality | [Pass/Partial/Fail] | [observation] |
+| C01 | Referring Domains Volume | [Pass/Partial/Fail] | [observation] — [Confirmed / Likely / Hypothesis; a Hypothesis names what would confirm it] |
+| C02 | Referring Domains Quality | [Pass/Partial/Fail] | [observation] — [Confirmed / Likely / Hypothesis; a Hypothesis names what would confirm it] |
 | ... | ... | ... | ... |
-| E10 | Industry Share of Voice | [Pass/Partial/Fail] | [observation] |
+| E10 | Industry Share of Voice | [Pass/Partial/Fail] | [observation] — [Confirmed / Likely / Hypothesis; a Hypothesis names what would confirm it] |
 
 ### Top 5 Priority Improvements
 
@@ -353,7 +353,8 @@ The client's report ends there. Follow-up runs — a content audit on key pages,
 - [ ] Every recommendation is specific and actionable (not generic advice)
 - [ ] Every finding carries a Confidence label (Confirmed / Likely / Hypothesis); Hypothesis findings name what would confirm them
 - [ ] Action plan includes concrete steps with effort estimates
-- [ ] The follow-up-run block is a separate fence carrying `<!-- OPERATOR BLOCK … -->` as its first line, and no skill slug, command slug or item ID appears inside the client report fence — a reader who copies only that fence must be able to tell it is not for the client
+- [ ] The follow-up-run block is a separate fence carrying `<!-- OPERATOR BLOCK … -->` as its first line, and no skill slug, command slug, internal file path or scoring-method instruction appears inside the client report fence — a reader who copies only a fence must be able to tell whose it is
+- [ ] No framework item ID stands as a bare coordinate in the report's prose: findings, recommendations, action steps and any explanatory sentence name the check in words ([inter-skill-handoff.md § 3.4](../../references/inter-skill-handoff.md)). An ID appears only as a row label in the per-item score table, or as the leading label of a ranked improvement, and always beside its own item name — the scorecard is item-keyed by design, and the first checkbox above requires every one of the 40 shown scored
 
 ## Example
 

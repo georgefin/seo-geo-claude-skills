@@ -1,6 +1,6 @@
 ---
 name: content-quality-auditor
-version: "4.4.0"
+version: "4.5.0"
 description: 'Run the full 80-item CORE-EEAT audit across 8 dimensions with content-type weighted scoring, veto checks, and prioritized fix plans. Use when the user asks to "audit content quality", "EEAT score", "CORE-EEAT audit", "content quality check", "how good is my content", "content improvement plan", "is my content AI-citation worthy", "GEO quality score". For SEO page element audits, see on-page-seo-auditor. For domain-level authority, see domain-authority-auditor.'
 license: Apache-2.0
 allowed-tools: WebFetch
@@ -8,7 +8,7 @@ compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, 
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.4.0"
+  version: "4.5.0"
   geo-relevance: "high"
   tags:
     - seo
@@ -148,10 +148,10 @@ Score each item:
 
 | ID | Check Item | Score | Notes |
 |----|-----------|-------|-------|
-| C01 | Intent Alignment | Pass/Partial/Fail | [specific observation] |
-| C02 | Direct Answer | Pass/Partial/Fail | [specific observation] |
+| C01 | Intent Alignment | Pass/Partial/Fail | [specific observation] — [Confirmed / Likely / Hypothesis on Partial/Fail] |
+| C02 | Direct Answer | Pass/Partial/Fail | [specific observation] — [Confirmed / Likely / Hypothesis on Partial/Fail] |
 | ... | ... | ... | ... |
-| C10 | Semantic Closure | Pass/Partial/Fail | [specific observation] |
+| C10 | Semantic Closure | Pass/Partial/Fail | [specific observation] — [Confirmed / Likely / Hypothesis on Partial/Fail] |
 
 **C Score**: [X]/100
 ```
@@ -194,6 +194,33 @@ Calculate scores and generate the final report. Every finding — each Partial/F
 
 **Quote discipline** — R02 and R03 (citation density, source hierarchy) and the Ept/A items (Ept01 Author Identity, Ept02 Credentials Display, A06 Social Proof) are where this report asks for citations, credentials and expert quotes, and the count thresholds (≥1 citation per 500 words; ≥3 Tier 1–2 sources) are exactly the pressure that invents one. A quotation attributed to a named person or organisation needs a real, checkable source in the same breath: speaker, role, where and when they said it, and a link that opens. Without one, do not attribute it — paraphrase it unattributed, or drop it. This governs both quote surfaces below. The **Evidence** field quotes the audited content verbatim (copied from the content, never reconstructed). A **Fix** or Action Plan step tells the writer to *source* a quote — it never drafts one, and never invents a name, credential or institution to carry it (statistics rule: sourced, cited, or placeholder, never invented). A fabricated statistic is an unverifiable claim; a fabricated quotation is a false statement about an identifiable person, published under the client's byline.
 
+#### N/A item handling — how the score is computed, before any of it is printed
+
+When an item cannot be evaluated (e.g., A01 Backlink Profile requires site-level data not available):
+
+1. Mark the item as "N/A" with reason
+2. Exclude N/A items from the dimension score calculation
+3. Dimension Score = (sum of scored items) / (number of scored items x 10) x 100
+4. If more than 50% of a dimension's items are N/A, flag the dimension as "Insufficient Data" and exclude it from the weighted total
+5. Recalculate weighted total using only dimensions with sufficient data, re-normalizing weights to sum to 100%
+
+**Example**: Authority dimension with 8 N/A items and 2 scored items (A05 = Pass = 10, A07 = Partial = 5):
+- Dimension score = (10 + 5) / (2 x 10) x 100 = 75
+- But 8/10 items are N/A (>50%), so flag as "Insufficient Data -- Authority"
+- Exclude A dimension from weighted total; redistribute its weight proportionally to remaining dimensions
+
+**Attainable dimension scores — check before printing.** Every scored item earns 10, 5, or 0, so a dimension score is always an exact multiple of `50 / (number of scored items)`. No value between two of those steps can be produced by any tally.
+
+| Scored items | Score is a multiple of | Attainable set |
+|---|---|---|
+| 10 (none N/A) | 5 | 0, 5, 10 … 100 |
+| 5 | 10 | 0, 10, 20 … 100 |
+| 2 | 25 | 0, 25, 50, 75, 100 |
+
+Reverse check on a printed score: `score x scored items / 50` must be a whole number, and that number equals (2 x Passes) + Partials. The example above checks out — 75 x 2 / 50 = 3 = (2 x 1 Pass) + 1 Partial. A fractional result means the tally slipped: 65 over 2 scored items gives 2.6, so 65 is not a score this scale can produce. Rounding is the one legitimate exception (50 / scored items does not always give a terminating decimal — 9, 7, 6 and 3 scored items do not), and the full derivation, the same check for GEO/SEO and weighted figures, and the veto outcomes that sit outside the arithmetic are in [references/score-arithmetic.md](./references/score-arithmetic.md).
+
+This block is method, not report copy: it names item IDs in prose and links an internal reference, so it stays **outside** the report fence below. The client's report shows the N/A marking and the "Insufficient Data" flag — not the derivation that produced them.
+
 ```markdown
 ## CORE-EEAT Audit Report
 
@@ -227,46 +254,21 @@ Calculate scores and generate the final report. Every finding — each Partial/F
 
 **Rating Scale**: 90-100 Excellent | 75-89 Good | 60-74 Medium | 40-59 Low | 0-39 Poor
 
-### N/A Item Handling
-
-When an item cannot be evaluated (e.g., A01 Backlink Profile requires site-level data not available):
-
-1. Mark the item as "N/A" with reason
-2. Exclude N/A items from the dimension score calculation
-3. Dimension Score = (sum of scored items) / (number of scored items x 10) x 100
-4. If more than 50% of a dimension's items are N/A, flag the dimension as "Insufficient Data" and exclude it from the weighted total
-5. Recalculate weighted total using only dimensions with sufficient data, re-normalizing weights to sum to 100%
-
-**Example**: Authority dimension with 8 N/A items and 2 scored items (A05 = Pass = 10, A07 = Partial = 5):
-- Dimension score = (10 + 5) / (2 x 10) x 100 = 75
-- But 8/10 items are N/A (>50%), so flag as "Insufficient Data -- Authority"
-- Exclude A dimension from weighted total; redistribute its weight proportionally to remaining dimensions
-
-**Attainable dimension scores — check before printing.** Every scored item earns 10, 5, or 0, so a dimension score is always an exact multiple of `50 / (number of scored items)`. No value between two of those steps can be produced by any tally.
-
-| Scored items | Score is a multiple of | Attainable set |
-|---|---|---|
-| 10 (none N/A) | 5 | 0, 5, 10 … 100 |
-| 5 | 10 | 0, 10, 20 … 100 |
-| 2 | 25 | 0, 25, 50, 75, 100 |
-
-Reverse check on a printed score: `score x scored items / 50` must be a whole number, and that number equals (2 x Passes) + Partials. The example above checks out — 75 x 2 / 50 = 3 = (2 x 1 Pass) + 1 Partial. A fractional result means the tally slipped: 65 over 2 scored items gives 2.6, so 65 is not a score this scale can produce. Rounding is the one legitimate exception (50 / scored items does not always give a terminating decimal — 9, 7, 6 and 3 scored items do not), and the full derivation, the same check for GEO/SEO and weighted figures, and the veto outcomes that sit outside the arithmetic are in [references/score-arithmetic.md](./references/score-arithmetic.md).
-
 ### Per-Item Scores
 
 #### CORE — Content Body (40 Items)
 
 | ID | Check Item | Score | Notes |
 |----|-----------|-------|-------|
-| C01 | Intent Alignment | [Pass/Partial/Fail] | [observation] |
-| C02 | Direct Answer | [Pass/Partial/Fail] | [observation] |
+| C01 | Intent Alignment | [Pass/Partial/Fail] | [observation] — [Confirmed / Likely / Hypothesis, required on every Partial and Fail] |
+| C02 | Direct Answer | [Pass/Partial/Fail] | [observation] — [Confirmed / Likely / Hypothesis, required on every Partial and Fail] |
 | ... | ... | ... | ... |
 
 #### EEAT — Source Credibility (40 Items)
 
 | ID | Check Item | Score | Notes |
 |----|-----------|-------|-------|
-| Exp01 | First-Person Narrative | [Pass/Partial/Fail] | [observation] |
+| Exp01 | First-Person Narrative | [Pass/Partial/Fail] | [observation] — [Confirmed / Likely / Hypothesis, required on every Partial and Fail] |
 | ... | ... | ... | ... |
 
 ### Top 5 Priority Improvements
@@ -323,7 +325,7 @@ Drop any row whose run this audit did not actually motivate; a standing list of 
 
 ### Output Validation
 - [ ] All 80 items scored (or marked N/A with reason)
-- [ ] All 8 dimension scores calculated correctly, and each is an attainable value for its scored-item count (an exact multiple of 50 / scored items — see N/A Item Handling)
+- [ ] All 8 dimension scores calculated correctly, and each is an attainable value for its scored-item count (an exact multiple of 50 / scored items — see "N/A item handling" in Step 4)
 - [ ] Weighted total matches content-type weight configuration
 - [ ] Veto items checked and flagged if triggered; consequence applied (one veto = cap at 59, two+ = BLOCK, unassessable = no final score); T04 marked N/A when no material connection exists
 - [ ] Top 5 improvements sorted by weighted impact, not arbitrary
@@ -332,7 +334,8 @@ Drop any row whose run this audit did not actually motivate; a standing list of 
 - [ ] Every Partial/Fail note and every priority improvement carries a confidence label (Confirmed / Likely / Hypothesis); each Hypothesis names its verification step
 - [ ] No quotation in the report attributes words to a named person or organisation without a checkable source beside it; Evidence quotes are verbatim from the audited content, and no Fix or Action Plan step drafts a quote in a real person's name
 - [ ] Anti-slop scans (AS-1 to AS-4) run, with hits recorded in the evidenced items' notes (O09, O06, C02, E06, E08, R01, R02, R04, Ept03)
-- [ ] The follow-up-run block is a separate fence carrying `<!-- OPERATOR BLOCK … -->` as its first line, and no skill slug, command slug or item ID appears inside the client report fence — a reader who copies only that fence must be able to tell it is not for the client
+- [ ] The follow-up-run block is a separate fence carrying `<!-- OPERATOR BLOCK … -->` as its first line, and no skill slug, command slug, internal file path or scoring-method instruction appears inside the client report fence — a reader who copies only a fence must be able to tell whose it is
+- [ ] No framework item ID stands as a bare coordinate in the report's prose: findings, recommendations, action steps and any explanatory sentence name the check in words ([inter-skill-handoff.md § 3.4](../../references/inter-skill-handoff.md)). An ID appears only as a row label in the per-item score table, or as the leading label of a ranked improvement, and always beside its own item name — the scorecard is item-keyed by design, and the first checkbox above requires every one of the 80 shown scored
 
 ## Example
 

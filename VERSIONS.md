@@ -12,7 +12,7 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 | competitor-analysis | research | 4.2.0 | 2026-08-10 |
 | serp-analysis | research | 4.4.0 | 2026-08-11 |
 | content-gap-analysis | research | 4.3.0 | 2026-08-11 |
-| seo-content-writer | build | 4.5.2 | 2026-08-11 |
+| seo-content-writer | build | 4.5.3 | 2026-08-11 |
 | geo-content-optimizer | build | 4.4.0 | 2026-08-11 |
 | meta-tags-optimizer | build | 4.2.0 | 2026-08-10 |
 | schema-markup-generator | build | 4.2.4 | 2026-08-11 |
@@ -24,8 +24,8 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 | backlink-analyzer | monitor | 4.2.0 | 2026-08-11 |
 | performance-reporter | monitor | 4.5.0 | 2026-08-11 |
 | alert-manager | monitor | 4.3.0 | 2026-08-11 |
-| content-quality-auditor | cross-cutting | 4.4.0 | 2026-08-10 |
-| domain-authority-auditor | cross-cutting | 4.3.2 | 2026-08-10 |
+| content-quality-auditor | cross-cutting | 4.5.0 | 2026-08-11 |
+| domain-authority-auditor | cross-cutting | 4.4.0 | 2026-08-11 |
 | entity-optimizer | cross-cutting | 4.2.0 | 2026-08-10 |
 | memory-management | cross-cutting | 4.1.0 | 2026-08-10 |
 

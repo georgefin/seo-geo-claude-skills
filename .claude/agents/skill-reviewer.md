@@ -87,14 +87,21 @@ points. A measurement that cannot separate its subjects cannot tell you what to 
   repo-wide search reaches straight into the expectations you are avoiding. Scope every
   search to the skill's own non-eval surface: pass `path` explicitly and exclude the test
   material, e.g. `Grep(pattern, path="<skill>/", glob="!evals/**")`, and never run an
-  unscoped search across the repo root. Two whole classes of leak have been found by
-  accident this way, not by opening evals.json.
+  unscoped search across the repo root. **That glob is not the whole guard.** It excludes
+  `evals/` only, and provenance records live in `references/` — inside the very path you
+  were told to scope to, so a correctly-scoped search still returns them. Drop every hit
+  whose file name ends `-provenance.md` before you read the results. Two whole classes of
+  leak have been found by accident this way, not by opening evals.json.
   **PROVENANCE IS EXPECTATION TEXT.** A reference file's rules are yours to read; its
   provenance — the blocks naming which suite or ledger entry a rule came from, and quoting
-  what that suite expects — is not. Where a file separates the two (build/seo-content-writer/
-  references/anti-slop-ruleset.md does), read the rules and stop at the provenance heading.
-  Where it does not, and you find yourself reading a quoted eval expectation, stop and report
-  it: that is a live finding about the file, not a failure on your part.
+  what that suite expects — is not. A file may separate the two by a heading or by a
+  companion file, and the companion case is the one the guard above would otherwise miss:
+  `build/seo-content-writer/references/anti-slop-ruleset.md` is rule text end to end and safe
+  to read whole, because its evidence was moved out to `anti-slop-provenance.md` beside it.
+  Read the ruleset; do not open the provenance file. Any `*-provenance.md`, and any block
+  marked `PROVENANCE — not a rule`, is that class. Where a file separates them neither way,
+  and you find yourself reading a quoted eval expectation, stop and report it: that is a live
+  finding about the file, not a failure on your part.
 - **GRADER (informed)** — you receive saved deliverables and the expectations. Grade what is
   on the page. Never re-run the skill to "check" a deliverable: the moment you produce
   output yourself you are grading your own work, which is the bias this split exists to
@@ -117,21 +124,35 @@ prompt, expected_output, files, expectations). For each eval you are asked to ru
    the flagged location and quote it (ledger F7: two checker false-verdicts were caught
    only by this step).
 3. Write grading.json per run: {"expectations": [...], "summary": {"passed": N,
-   "failed": N, "total": N, "pass_rate": X}}. Three requirements on that object, each from a
-   ledgered failure:
+   "failed": N, "ungraded": N, "ungraded_reasons": [...], "total": N, "pass_rate": X}}. Four
+   requirements on that object, each from a ledgered failure:
    a. **This schema, not another.** Wave-a records keyed their numbers under
       `totals.pass/fail/total`; wave-b under `summary.passed/failed/total`. One corpus, two
       shapes — the first reader written against it silently returned 209 of 476 expectations
-      and looked like an answer (F16 recurrence 1). Use `summary`. Verify with
-      `scripts/eval-corpus-report.sh` before you report.
+      and looked like an answer (F16 recurrence 1). Use `summary`. The three keys the corpus
+      reader resolves by name — `passed`, `failed`, `total` — keep those names and those
+      meanings; `ungraded` and `ungraded_reasons` are additions it ignores, not a third shape.
+      Verify with `scripts/eval-corpus-report.sh` before you report.
    b. **State your editor-slot convention inside the summary object.** Where an expectation
       is answerable only by the greek-content-editor, say in the record whether you counted
       that slot in `total` and how you scored it. Five suites of twenty left it uncounted and
       fifteen counted it, on identically-worded expectations — so the corpus is not comparable
       to itself and the reader now refuses to print a single pooled figure. Do not leave the
       next reader inferring it from arithmetic.
-   c. **`passed + failed` must equal `total`,** or the gap must be explained in (b). An
-      unexplained gap is an uncounted expectation wearing a pass rate.
+   c. **`failed` means graded FAIL against evidence, and nothing else.** An expectation you
+      did not grade never goes there to make the arithmetic close. A pending editor slot, an
+      expectation you could not grade as written (step 5), a tool error, or one of step 7's
+      unsatisfiable pairs, parked in `failed`, produces a record that balances and lies — and
+      the corpus reader, which reads a zero gap as a cleanly-counted suite, will pool it with
+      the suites that counted honestly.
+   d. **`passed + failed + ungraded` must equal `total`, every time.** Every expectation lands
+      in exactly one of the three. `ungraded` is the count of those in neither of the first
+      two, and `ungraded_reasons` names each one — eval id and reason, one entry per
+      expectation, the editor slot included and described per (b). `pass_rate` stays
+      `passed / total`, so the published figure means the same thing across the corpus; a
+      graded-only rate, if you want one, goes in its own key beside it. The identity is what
+      makes both sides checkable: an unexplained gap is an uncounted expectation wearing a
+      pass rate, and an unexplained *zero* gap is the same expectation hidden inside `failed`.
 4. Greek-language outputs: grade structure and thresholds yourself, but flag register/
    naturalness judgments for the greek-content-editor agent rather than guessing.
 5. REGRESSION CHECK: if docs/loop/eval-baselines/ holds a prior record for this suite,

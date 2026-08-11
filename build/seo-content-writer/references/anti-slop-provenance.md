@@ -131,6 +131,47 @@ adds a requirement, a pattern, or a protected form.
 > recorded in the ruleset (`references/analysis-templates.md:224`, `SKILL.md:166`) no longer
 > point at anything and are kept only as a record of where the defect was.
 
+> **PROVENANCE — not a rule. The shell checks behind §6's grep advice, moved out of the rule
+> text on 2026-08-11.** §6 states what each tool does and what to write instead; the dated
+> transcripts that established those statements are here. All five were run **2026-08-10 in
+> this repo's environment, GNU grep 3.11**, and §6 kept none of them because a writer needs
+> the prescription and only an auditor needs the measurement.
+> (i) **Greek case-folding.** `grep -i 'δεν'` silently missed «Δεν» in a default
+> `LC_CTYPE=POSIX` shell and matched it under `LC_ALL=C.UTF-8`, on the line
+> «Δεν χρεώνουμε καμία προμήθεια.»
+> (ii) **Greek ranges.** `[α-ω]` aborted the grep with `Invalid collation character` and exit
+> status 2, same environment — checked at the shell alongside (i).
+> (iii) **`ποτέ` as a substring.** Proven at the shell to match inside «αποτέλεσμα» /
+> «αποτελέσματα», which is why family 5 over-generates on any reporting deliverable.
+> (iv) **`CITE` case sensitivity.** On a line set containing all four ordinary English words
+> — *cited*, *citation*, *cite*, *excite* — plus «CITE score is 72», `grep -i CITE` returned
+> every line and `grep "\bCITE\b"` returned only the framework name.
+> (v) **The `νίκη` guard.** `grep -P "(?<!Θεσσαλο)νίκη"` returned «Η νίκη ήταν εύκολη» and
+> «η πιο γρήγορη νίκη» and dropped both Θεσσαλονίκη lines under `LC_ALL=POSIX` *and* under
+> `LC_ALL=C.UTF-8` — the one form measured working in both. `grep -w` did the right thing
+> under `LC_ALL=C.UTF-8` and silently returned the Θεσσαλονίκη lines under `LC_ALL=POSIX`,
+> where Greek letters are not word characters; measured in the same session.
+> Also here rather than in §6: **the unescaped pipe did split a table row.** Families 6 and 8
+> write their patterns as separate pipe-free strings rather than one alternation because a
+> single-alternation cell broke the row it sat in; the two-pattern form is that break's fix.
+
+> **PROVENANCE — not a rule. Two claims the §6 amendment requirement used to carry.** (a) Both
+> of the table's measured holes — family 5's lowercase-only token list, family 6's fixed
+> two-word string — would have been caught by five minutes of constructed-variant probing
+> before shipping; that counterfactual is the argument for the requirement, not part of it.
+> (b) The requirement now says the hit rate is recorded **in this file** under the family,
+> never in the §6 entry. Before 2026-08-11 it said "record the hit rate in the entry", i.e.
+> §6's own amendment rule ordered measurement history into rule cells — the mechanism behind
+> finding #71.
+
+> **PROVENANCE — not a rule. The protected-list pair, ruled 2026-08-10 on family 6's widened
+> net.** «δείχνει μηδέν» and «Ο στόχος είναι μηδέν» both surfaced on the widened net and both
+> were ruled correct Greek by the binding editor — the net proposing and the editor ruling,
+> as designed. The first still earned an unrelated edit in its own document, where «δείχνει»
+> is used ~8 times as *points to*, so the heading parsed as "although it points to zero": a
+> local ambiguity, never a family-6 defect. §6 keeps the caution and drops the occurrence
+> count.
+
 ---
 
 ## §1.3 — Greek calque patterns
