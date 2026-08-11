@@ -191,17 +191,33 @@ used is not reportable (library derivation rule, ledger F9-r3).
 | Position drops (25%) | stable | 1-3 lost | 3-5 lost | 5-10 lost | off page 1 | a before/after position for the same keyword, from a rank export, a Search Console export, or the user's records |
 | CTR decline (15%) | stable | under 20% | 20-30% | 30-40% | over 40% | CTR for the same queries across two comparable windows — Search Console, or the user's own figures |
 | Content freshness (15%) | updated this quarter | updated 3-12 months ago | 12-24 months | over 24 months | over 24 months **and** the page states facts that have since changed | the CMS publish/update date plus a read of the page |
-| Competitive displacement (15%) | your page is the top organic result in the check | 1-2 results above it, none carrying material yours lacks | 1-2 above it carrying material yours lacks, or showing a more recent date | 3 or more above it, at least one carrying material yours lacks | your page is off the first screen of organic results for its own target query | **one dated SERP check for the target query** (incognito, market and language stated) plus a read of the pages returned above yours — or the user's own dated competitor notes |
+| Competitive displacement (15%) | *check*: your page is the top organic result · *notes*: no competitor page in the notes carries material yours lacks | *check*: 1-2 results above it, none carrying material yours lacks · *notes*: one page in the notes carries material yours lacks, and it is peripheral to the query | *check*: 1-2 above it carrying material yours lacks, or showing a more recent date · *notes*: one to two pages in the notes carry material yours lacks, or carry a visibly more recent date | *check*: 3 or more above it, at least one carrying material yours lacks · *notes*: three or more pages in the notes carry material yours lacks, or every page read covers a section yours does not | *check*: your page is off the first screen of organic results for its own target query · *notes*: **not reachable** — this rung is a rank fact, so a notes-only reading caps at 75 and says so | **either** one dated SERP check for the target query (incognito, market and language stated) plus a read of the pages returned above yours, **or** the user's own dated competitor coverage notes — which pages they read, and what those pages cover |
 
 **Boundaries read upward**, so one input never yields two scores: a 20% traffic decline scores 50, a
 3-position loss scores 50, a page 24 months since its last update scores 75.
 
-The displacement row scores **what one dated check shows today**, not a change over time. Nobody can
-reconstruct who ranked above a page six months ago without a stored SERP record, so the criterion
-never asks for one: it asks who is above the page in a check somebody actually ran, and whether
-reading those pages shows material this one lacks. Every competitor fact that reaches the report —
-a rank, a publication date, a section they cover — travels with its observer and its date ("SERP
-checked in incognito, 10 Aug", "from your note of 7 Aug"), never as bare indicative fact.
+The displacement row scores **what one dated observation shows today**, not a change over time.
+Nobody can reconstruct who ranked above a page six months ago without a stored SERP record, so the
+criterion never asks for one.
+
+**Two reading paths, because two different inputs are real.** The row is scored from whichever the
+operator actually holds, and the report names which one produced the score:
+
+- **The check path** — a dated SERP check for the target query. It carries rank, so it reads the
+  full 0-100 ladder.
+- **The notes path** — dated competitor coverage notes: which pages somebody read, and what those
+  pages cover. This is the commonest Tier 1 input and often the only one, and it carries **no rank
+  fact**. It reads the coverage half of each rung and **caps at 75**: the 100 rung asserts the page
+  is off the first screen, which notes cannot establish. A capped score is reported as capped —
+  "75, the notes-path ceiling; rank was not observed" — never rounded up to 100 and never dropped
+  to N/A because the top rung was out of reach.
+
+Neither path is a fallback for the other, and holding both is not required. What is never allowed is
+scoring a rank rung from notes: a note saying a competitor covers a section yours does not says
+nothing about who ranks above you. Every competitor fact that reaches the report — a rank, a
+publication date, a section they cover — travels with its observer and its date ("SERP checked in
+incognito, 10 Aug", "from your note of 7 Aug"), never as bare indicative fact. With neither a check
+nor notes, the signal is N/A under the rule below — but notes alone are an input, not an absence.
 
 ### When a signal has no input
 
@@ -420,7 +436,7 @@ read off an input you hold, and the figure it came from is printed beside it.
 |--------|--------|----------------------------|----------------|
 | Current traffic value | 25% | Rank the candidates in this batch on the traffic figure you hold: highest = 10, lowest = 1, the rest interpolated on the same figure | the traffic column of the inventory you were given |
 | Decay severity | 20% | Composite decay score ÷ 10, rounded to the nearest whole number (66.1 → 7) | a composite score that was actually issued (§Decay Severity Scoring) |
-| Competitive opportunity | 20% | 10 = the pages above yours are thinner or older than yours · 5 = comparable · 1 = materially stronger | the same dated SERP check the displacement signal needs, or the user's competitor notes |
+| Competitive opportunity | 20% | 10 = the competitor pages you actually hold — those above yours in the check, or those your dated notes describe — are thinner or older than yours · 5 = comparable · 1 = materially stronger | the same dated SERP check the displacement signal needs, or the user's dated competitor coverage notes; name which path scored it, as the displacement row does |
 | Refresh difficulty | 15% | 10 = under 2 hours on the matching playbook · 5 = 3-4 hours · 1 = the decision framework says rewrite | the content type plus the playbook estimate above |
 | Strategic importance | 10% | 10 = the owner names it a priority page for a current goal · 5 = ordinary · 1 = no stated goal | the owner saying so; not inferable from traffic |
 | Backlink equity | 10% | Rank the candidates on referring domains: highest = 10, lowest = 1 | a supplied backlink figure |

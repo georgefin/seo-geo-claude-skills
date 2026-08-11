@@ -59,8 +59,12 @@ Work top to bottom; re-measure between stages rather than shipping everything at
    here. FAQPage *markup* is added ONLY if the page genuinely passes the R2 both-things
    test — the page truly is both its primary type and an FAQ resource, and each type is
    complete, accurate, and independently justified. Otherwise: add the FAQ content and
-   change no schema. (Per R3, FAQPage markup — where justified — serves AI-engine
-   parsing only; Google's FAQ rich results are retired, so promise no SERP feature.)
+   change no schema. (Per R3, FAQPage markup — where justified — is kept only because it
+   is valid schema.org and there is no need to remove it. Claim no AI-parsing benefit:
+   none is established either way, and Google states structured data is not required for
+   its generative AI surfaces. Google's FAQ rich results are retired, so promise no SERP
+   feature. On this playbook in particular, adding markup is not a recovery lever — the
+   remediation that moves an Overview is the answer-first rewrite in step 1.)
 4. **Structured data check.** Existing markup must state only genuine claims and keep one
    primary content type per page (R2). This step never adds types to chase citations.
 
@@ -91,4 +95,7 @@ Stop iterating (or reroute the effort) when any of these hold:
   [entity-optimizer](../../../cross-cutting/entity-optimizer/).
 
 Handoff payload (library convention): target queries, the four-case segmentation result,
-CORE-EEAT quick scores if available, and the page URL.
+the page URL, and — where a quick assessment was run — its weak dimensions as a focus set,
+labelled as the partial-scan estimate they are. **A quick score is not a CORE-EEAT dimension
+score and never travels as one**: with no 80-item audit on the page, the payload says exactly
+that ([inter-skill-handoff.md](../../../references/inter-skill-handoff.md) §2.1, §4.3).

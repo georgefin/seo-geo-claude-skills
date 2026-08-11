@@ -130,7 +130,11 @@ publishes, where an unresolved claim reads as fact:
 
 - **FAQ rich results retired 2026 — no SERP feature** (settled ruling R3). An article promising them
   is wrong, and the line is rewritten. FAQPage markup, where a page justifies it under R2, is kept
-  for AI-engine/GEO parsing and promises nothing on the SERP.
+  because it is valid schema.org and there is no need to remove it. It promises nothing on the SERP,
+  and **no AI-parsing or AI-citation benefit is claimed for it either** — no primary source
+  establishes one in either direction, and Google states structured data is not required for its
+  generative AI surfaces (R3, amendment 9a). Replacing a retired SERP promise with an unsourced AI
+  promise is the same defect in a new coat.
 - **Every other feature's status is open until this library settles it.** HowTo rich results are the
   live case: that question is an open `[VERIFY]` item in the watch register (W12,
   `docs/loop/WATCH-ITEMS.md`), so refreshed copy asserts nothing about them in either direction —
@@ -294,8 +298,10 @@ Schedule next refresh review: [Date - 6 months from now]
 **On the FAQPage line** (author's rule, not report copy): the box is ticked only where the page
 passes ruling R2's both-things test — it genuinely is both its primary type and an FAQ resource,
 each complete and independently justified. Otherwise the FAQ content ships and the schema is left
-alone, and the report says so. Either way the value claimed is AI-engine/GEO parsing: FAQ rich
-results retired 2026 — no SERP feature (ruling R3).
+alone, and the report says so. Either way the report claims no benefit for the markup beyond what is
+established: it is valid schema.org and there is no need to remove it. No SERP feature — FAQ rich
+results retired 2026 — and no AI-parsing benefit, which has no primary source either way (ruling R3,
+amendment 9a).
 
 **On every score this report prints** — a CORE-EEAT quick score, the composite decay score, the
 refresh priority score, an ROI figure: the derivation sits beside the number, and a signal or factor

@@ -106,7 +106,7 @@ Ask the user to provide:
 2. Ranking screenshots or history for key pages
 3. Content publish dates and last update dates
 4. List of pages the user suspects need refreshing
-5. Competitor URLs, or their own dated notes on what the pages ranking above theirs cover — at Tier 1 the only competitor input there is, and what every "competitors now cover X" line rests on
+5. Competitor URLs, or their own dated coverage notes — which competitor pages they read and what those pages cover. At Tier 1 this is usually the only competitor input there is, and it is what every "competitors now cover X" line rests on. Coverage notes carry no rank: they score the notes path of the competitive-displacement signal, capped at 75 ([references/content-decay-signals.md](./references/content-decay-signals.md), "Two reading paths")
 
 Proceed with the analysis using provided data. Note in the output which findings are from automated data vs. manual review. **An input nobody supplied is not filled in from a typical case**: name the missing input, leave the figure out, and say what supplying it would unlock (root `CLAUDE.md`, Tool Connector Pattern, resolution branch 3).
 
@@ -118,8 +118,16 @@ When a user requests content refresh help:
 
    Before refreshing, run a quick CORE-EEAT assessment to focus effort on the weakest areas. Reference: [CORE-EEAT Benchmark](../../references/core-eeat-benchmark.md)
 
+   **A quick score is a partial scan, so it is not a CORE-EEAT dimension score and never becomes one.** It exists to aim the refresh, nothing else. It does not travel in a handoff payload under the dimension-scores field: a handoff says "no 80-item audit has been run on this page" and sends the weak dimensions as a focus set ([references/inter-skill-handoff.md](../../references/inter-skill-handoff.md) §2.1 and §4.3). Where a real 80-item audit exists, send that instead — never this.
+
+   **Framework item IDs (`C01`, `O05`, `T04`) are a coordinate in a document the client has never seen**, so they stay out of client prose and live in the labelled operator block at the foot of the template (anti-slop-ruleset.md §6 family 8, which has no gloss exemption for item IDs). The client-read table names the problem in the client's own words; the operator block carries the IDs that make the score recomputable.
+
    ```markdown
    ### CORE-EEAT Quick Assessment
+
+   CORE-EEAT is our content-quality framework: it rates eight things that decide whether a page
+   does its job — clarity, organisation, referenceability, exclusivity, experience, expertise,
+   authority and trust. This is the quick pass, not the full review.
 
    **Content**: [title or URL]
    **Content Type**: [type]
@@ -130,19 +138,21 @@ When a user requests content refresh help:
    then `score = points ÷ (10 × items checked) × 100`. Under 3 checkable items the dimension reads
    "not assessed", not a number. Refresh Priority follows the score, not a separate impression:
    🔴 below 50 · 🟡 50-74 · 🟢 75 and above. A quick score is this skill's own estimate over the
-   items it checked, never a tool measurement; name any failing veto item (C01, R10, T04 where a
-   material connection exists) beside it — the quick pass flags, the full audit rules.
+   items it checked, never a tool measurement and never a CORE-EEAT dimension score. Where a failing
+   veto is found, say what is wrong in the client's own words beside the score — "affiliate links
+   with no disclosure" — and record which item it was in the operator block. The quick pass flags,
+   the full audit rules.
 
    | Dimension | Quick Score (points ÷ items checked) | Key Weakness | Refresh Priority |
    |-----------|-----------|--------------|-----------------|
-   | C — Contextual Clarity | [X]/100 — [P] pts over [n] items ([item IDs]) | [main issue] | 🔴/🟡/🟢 |
-   | O — Organization | [X]/100 — [P] pts over [n] items ([item IDs]) | [main issue] | 🔴/🟡/🟢 |
-   | R — Referenceability | [X]/100 — [P] pts over [n] items ([item IDs]) | [main issue] | 🔴/🟡/🟢 |
-   | E — Exclusivity | [X]/100 — [P] pts over [n] items ([item IDs]) | [main issue] | 🔴/🟡/🟢 |
-   | Exp — Experience | [X]/100 — [P] pts over [n] items ([item IDs]) | [main issue] | 🔴/🟡/🟢 |
-   | Ept — Expertise | [X]/100 — [P] pts over [n] items ([item IDs]) | [main issue] | 🔴/🟡/🟢 |
-   | A — Authority | [X]/100 — [P] pts over [n] items ([item IDs]) | [main issue] | 🔴/🟡/🟢 |
-   | T — Trust | [X]/100 — [P] pts over [n] items ([item IDs]) | [main issue] | 🔴/🟡/🟢 |
+   | C — Contextual Clarity | [X]/100 — [P] pts over [n] items checked | [main issue, in the client's words] | 🔴/🟡/🟢 |
+   | O — Organization | [X]/100 — [P] pts over [n] items checked | [main issue, in the client's words] | 🔴/🟡/🟢 |
+   | R — Referenceability | [X]/100 — [P] pts over [n] items checked | [main issue, in the client's words] | 🔴/🟡/🟢 |
+   | E — Exclusivity | [X]/100 — [P] pts over [n] items checked | [main issue, in the client's words] | 🔴/🟡/🟢 |
+   | Exp — Experience | [X]/100 — [P] pts over [n] items checked | [main issue, in the client's words] | 🔴/🟡/🟢 |
+   | Ept — Expertise | [X]/100 — [P] pts over [n] items checked | [main issue, in the client's words] | 🔴/🟡/🟢 |
+   | A — Authority | [X]/100 — [P] pts over [n] items checked | [main issue, in the client's words] | 🔴/🟡/🟢 |
+   | T — Trust | [X]/100 — [P] pts over [n] items checked | [main issue, in the client's words] | 🔴/🟡/🟢 |
 
    **Weakest Dimensions** (focus refresh here):
    1. [Dimension] — [what needs fixing]
@@ -150,12 +160,22 @@ When a user requests content refresh help:
 
    **Refresh Strategy**: Focus on 🔴 dimensions first, then 🟡.
 
-   _For full 80-item audit, use [content-quality-auditor](../../cross-cutting/content-quality-auditor/)_
+   ---
+   **Operator block — for your team, not client prose.** The item-level record behind the table
+   above, so any score here can be recomputed, plus the run handle for the follow-up work:
+
+   - Items checked and graded, by dimension: C [IDs + Pass/Partial/Fail] · O [...] · R [...] ·
+     E [...] · Exp [...] · Ept [...] · A [...] · T [...]
+   - Failing veto items, by ID: [IDs, or "none found"]
+   - These are quick estimates over a partial scan — not CORE-EEAT dimension scores, and not a
+     handoff payload field
+   - Full 80-item content-quality audit (the complete quality review of this page): run
+     `content-quality-auditor`
    ```
 
 2. **Identify Content Refresh Candidates**
 
-   ```markdown
+   ````markdown
    ## Content Refresh Analysis
    
    ### Refresh Candidate Identification
@@ -190,7 +210,7 @@ When a user requests content refresh help:
    
    High and low are relative to this batch: split the supplied traffic figures at their median, and
    the declines likewise, then say which figures and which split produced each quadrant.
-   ```
+   ````
 
 3. **Analyze Individual Content for Refresh**
 
@@ -268,7 +288,7 @@ When a user requests content refresh help:
    - [ ] Refresh meta description
    - [ ] Add new H2 sections for [topics]
    - [ ] Update internal links to newer content
-   - [ ] Add an FAQ section answering the query's real follow-ups — FAQ *content* is the deliverable; FAQPage markup only where the page passes the R2 both-things test, for AI-engine/GEO parsing (FAQ rich results retired 2026 — no SERP feature, ruling R3)
+   - [ ] Add an FAQ section answering the query's real follow-ups — FAQ *content* is the deliverable; FAQPage markup only where the page passes the R2 both-things test, and then it is kept for one stated reason only: it is valid schema.org and there is no need to remove it. **Claim no AI-parsing or AI-citation benefit** — no primary source establishes one either way, and Google states structured data is not required for its generative AI surfaces (ruling R3, amendment 9a). Promise no SERP feature: FAQ rich results retired 2026
    - [ ] Refresh images and add new alt text
    
    ### GEO Updates Needed

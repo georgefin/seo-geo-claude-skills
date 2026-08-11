@@ -28,28 +28,32 @@ one date, and say so.
 ```markdown
 ### CORE-EEAT Quick Assessment
 
+CORE-EEAT is our content-quality framework: it rates eight things that decide whether a page does
+its job — clarity, organisation, referenceability, exclusivity, experience, expertise, authority
+and trust. This is the quick pass, not the full review.
+
 **Content**: "Best Cloud Hosting Providers 2023"
 **Content Type**: Commercial comparison / listicle
-**Method**: 5 items checked per dimension, graded Pass 10 / Partial 5 / Fail 0 — this skill's own
-quick estimate from reading the page, not a tool measurement. Priority follows the score
-(🔴 <50 · 🟡 50-74 · 🟢 ≥75).
+**Method**: 5 quality items checked per dimension, graded Pass 10 / Partial 5 / Fail 0 — this
+skill's own quick estimate from reading the page, not a tool measurement and not a full audit
+score. Priority follows the score (🔴 <50 · 🟡 50-74 · 🟢 ≥75).
 
 | Dimension | Quick Score (points ÷ items checked) | Key Weakness | Refresh Priority |
 |-----------|-----------|--------------|-----------------|
-| C — Contextual Clarity | 70/100 — 35 pts over 5 (C02, C03, C05 Pass; C01 Partial; C09 Fail) | Title still promises 2023; no FAQ coverage | 🟡 |
-| O — Organization | 80/100 — 40 pts over 5 (O01, O03, O04, O06 Pass; O02 Fail) | Good comparison tables, no summary box | 🟢 |
-| R — Referenceability | 10/100 — 5 pts over 5 (R01 Partial; R02, R03, R06, R10 Fail) | Pricing dated Q1 2023; 3 cited links do not resolve | 🔴 |
-| E — Exclusivity | 30/100 — 15 pts over 5 (E06, E08, E09 Partial; E01, E05 Fail) | No original benchmarks or test data | 🔴 |
-| Exp — Experience | 10/100 — 5 pts over 5 (Exp10 Partial; Exp01, Exp04, Exp05, Exp08 Fail) | No first-person testing narrative | 🔴 |
-| Ept — Expertise | 60/100 — 30 pts over 5 (Ept03, Ept04 Pass; Ept01, Ept08 Partial; Ept02 Fail) | Author bio present but lacks credentials | 🟡 |
-| A — Authority | 60/100 — 30 pts over 5 (A05, A08 Pass; A01, A06 Partial; A02 Fail) | Thin backlink profile (12 referring domains — partner figure, 8 Aug); no media mentions | 🟡 |
-| T — Trust | 30/100 — 15 pts over 5 (T01 Pass; T02 Partial; T04, T05, T06 Fail) | Affiliate links present, no disclosure | 🔴 |
+| C — Contextual Clarity | 70/100 — 35 pts over 5 items checked | Title still promises 2023; no FAQ coverage | 🟡 |
+| O — Organization | 80/100 — 40 pts over 5 items checked | Good comparison tables, no summary box | 🟢 |
+| R — Referenceability | 10/100 — 5 pts over 5 items checked | Pricing dated Q1 2023; 3 cited links do not resolve | 🔴 |
+| E — Exclusivity | 30/100 — 15 pts over 5 items checked | No original benchmarks or test data | 🔴 |
+| Exp — Experience | 10/100 — 5 pts over 5 items checked | No first-person testing narrative | 🔴 |
+| Ept — Expertise | 60/100 — 30 pts over 5 items checked | Author bio present but lacks credentials | 🟡 |
+| A — Authority | 60/100 — 30 pts over 5 items checked | Thin backlink profile (12 referring domains — partner figure, 8 Aug); no media mentions | 🟡 |
+| T — Trust | 30/100 — 15 pts over 5 items checked | Affiliate links present, no disclosure | 🔴 |
 
-**Veto flagged — T04**: affiliate links are present with no disclosure, so a material connection
-exists and T04's conditional veto applies. The quick pass records it; the full 80-item audit rules
-on it and applies the score cap. Disclosure is therefore a publish-blocker for this refresh, not a
-nice-to-have. R10 is a Fail here on unresolving cited links; that is not the R10 veto trigger,
-which is material self-contradiction.
+**Publish-blocker found — affiliate links with no disclosure.** Where money changes hands and the
+reader is not told, our quality standard blocks publication regardless of the rest of the score, so
+disclosure ships **with** this refresh, not after it. The quick pass flags it; the full audit rules
+on it and applies the score cap. Separately, three cited links no longer resolve — a sourcing
+problem to fix, not a publish-blocker.
 
 **Weakest Dimensions** (focus refresh here):
 1. **Experience — 10/100** — Add hands-on testing results ("We migrated a test site to each provider")
@@ -128,11 +132,13 @@ rewrite framework below, and it is REFRESH.
    - Write intro paragraph: "We deployed a WordPress benchmark site to each provider and measured TTFB, uptime, and support response times over 30 days"
 
 3. **Add affiliate disclosure and FAQ section** (~200 words)
-   - Add disclosure statement below introduction: "This post contains affiliate links. See our editorial policy." — this clears the T04 veto and ships with the refresh, not after it
+   - Add disclosure statement below introduction: "This post contains affiliate links. See our editorial policy." — this clears the publish-blocker above and ships with the refresh, not after it
    - Add FAQ with 4 questions the article's own queries raise (e.g., "What is the cheapest cloud hosting?", "Is cloud hosting faster than shared hosting?"), 40-60 words each
    - FAQ *content* ships. FAQPage markup does **not**: this page is a commercial comparison, not
      also an FAQ resource, so a second full content type would be stacking (ruling R2). Where a page
-     does pass that test, the markup is kept for AI-engine/GEO parsing (FAQ rich results retired 2026 — no SERP feature) and claims nothing else (ruling R3)
+     does pass that test, the markup is kept only because it is valid schema.org and there is no
+     need to remove it — no AI-parsing benefit is claimed for it, and no SERP feature is promised
+     (FAQ rich results retired 2026, ruling R3)
 
 4. **Fix dead links and update internal links** (~15 min)
    - Replace the 3 dead outbound links with live sources
@@ -156,6 +162,24 @@ schema, resubmit the URL in Search Console, and share on social as "Updated for 
 This skill carries no model that converts a refresh into a position or a traffic figure, so nothing
 above is projected. What is committed to is the measurement: re-pull the same two exports at T+30
 and T+90 and compare them against the "Current" column.
+
+---
+**Operator block — for your team, not client prose.** The item-level record behind the quick
+assessment, so every score above can be recomputed, plus the run handle for the follow-up work:
+
+- Items checked and graded: C02/C03/C05 Pass, C01 Partial, C09 Fail · O01/O03/O04/O06 Pass,
+  O02 Fail · R01 Partial, R02/R03/R06/R10 Fail · E06/E08/E09 Partial, E01/E05 Fail ·
+  Exp10 Partial, Exp01/Exp04/Exp05/Exp08 Fail · Ept03/Ept04 Pass, Ept01/Ept08 Partial,
+  Ept02 Fail · A05/A08 Pass, A01/A06 Partial, A02 Fail · T01 Pass, T02 Partial,
+  T04/T05/T06 Fail
+- Failing veto items, by ID: T04 (conditional — a material connection exists, so it applies).
+  R10 is a Fail here on unresolving cited links, which is **not** the R10 veto trigger; that
+  trigger is material self-contradiction
+- A quick score is an estimate over 5 items per dimension — a partial scan. It is therefore
+  **not a CORE-EEAT dimension score** and not a handoff payload field. A handoff for this page
+  says "no 80-item audit has been run" and sends the weak dimensions as the focus set
+- Full 80-item content-quality audit (the complete quality review of this page): run
+  `content-quality-auditor`
 ```
 
 ---
