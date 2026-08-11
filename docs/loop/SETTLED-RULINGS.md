@@ -81,10 +81,45 @@ before 2026-07-18 are not recoverable from the current session transcript.
 
 ## R3 — FAQPage schema is KEPT despite Google rich-result retirement
 
-- **Statement**: Google retired FAQ rich results in 2026 (Search Console reporting, API,
-  Enhancements appearance filter, and Rich Results Test support all cut) — but FAQPage
-  generation stays in the library. Its value is AI-engine/GEO parsing, not SERP monitoring.
-- **Decided**: 2026-08-08 sweep (retirement reflected in schema-markup-generator 4.0.1).
+- **Statement**: Google ended FAQ rich results in 2026 — the search appearance, the rich
+  result report and Rich Results Test support were dropped June 2026, and Search Console API
+  support is **scheduled for August 2026** — but FAQPage generation stays in the library.
+- **Provenance amendment 9a (Sani-accepted 2026-08-11; proposed 2026-08-10)**. Three
+  corrections, all of which make this ruling claim *less* than it did:
+  - **Two distinct events had been conflated into one.** `2023-08-08` narrowed FAQ
+    rich-result **eligibility** to well-known government and health sites. `2026-05-07` ended
+    the **display** entirely. Both are real; neither contradicts the other; and this ruling's
+    original one-line "retired in 2026" hid the earlier change. Origin of the catch: the
+    binding Greek editor, judging an unrelated Greek deliverable, flagged out of remit that
+    "retired in 2026" disagreed with its understanding that the deprecation dated to 2023. It
+    was right that something was wrong, and wrong about which date was the error — the useful
+    shape of an out-of-remit flag.
+  - **The API cut is scheduled, not observed.** Softened from "cut" above. Today is
+    2026-08-11, so an August 2026 cut is in-month; asserting it as done would be a claim about
+    the present tense that nobody here has checked.
+  - **This ruling's own rationale has no primary source either way.** The original statement
+    ended "Its value is AI-engine/GEO parsing, not SERP monitoring." **No primary source
+    supports that clause, and none refutes it** — and Google's 2026 AI-optimization guide
+    states that no special structured data is needed for its own AI surfaces. That does not
+    overturn the keep-decision, which stands on schema.org validity plus non-Google engines,
+    but it does constrain how confidently any skill may phrase the benefit. **A skill may say
+    FAQPage is valid and cheap to keep. It may not say it earns AI citations.**
+  - Newly-found primary support for the keep-decision, previously uncited: Google's own
+    guidance that there is **no need to proactively remove** existing FAQPage markup.
+- **Evidence grade, stated rather than implied**: snippet-grade from domain-restricted
+  queries against Google's own domain, **not owner-read**. `developers.google.com` is refused
+  by this environment's network egress policy — re-tested 2026-08-11 through both the HTTP
+  client and WebFetch, both refused at the gateway. The two source URLs are
+  `developers.google.com/search/blog/2023/08/howto-faq-changes` and
+  `.../2026/05/a-new-resource-for-optimizing`; an owner read of those two would upgrade this
+  grade in about two minutes in a browser.
+- **What 9a deliberately does NOT do**: proposal 9b — ruling on HowTo and purging the four
+  library loci that still teach it as a current SERP feature — is **held**, per Sani's
+  2026-08-11 decision, until that owner read happens. 9a is text in one register and reverts
+  in one commit; 9b changes four reference files across three skills on evidence nobody here
+  could read directly.
+- **Decided**: 2026-08-08 sweep (retirement reflected in schema-markup-generator 4.0.1);
+  provenance amended 2026-08-11.
 - **Encoded in repo**: `build/schema-markup-generator/SKILL.md:223`; `VERSIONS.md:228`
   ("schema-markup-generator 4.0.1" — anchor-tagged per F12; on any line/token
   mismatch, grep the token — the token is authoritative; VERSIONS pointer refreshed
