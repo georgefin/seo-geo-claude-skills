@@ -1,13 +1,13 @@
 ---
 name: geo-content-optimizer
-version: "4.3.1"
+version: "4.4.0"
 description: 'Optimize content for AI citation across Google AI Mode (default search surface, incl. AI Overviews), ChatGPT, Perplexity, and Gemini with quotable statements and structured Q&A. Use when the user asks to "optimize for AI", "get cited by ChatGPT", "GEO optimization", "appear in AI answers", "make content AI-quotable", "Google AI Overview optimization", or "Google AI Mode optimization". Adds quotable statements, structured Q&A, precise statistics with sources, expert attribution, and a structured FAQ. Uses CORE-EEAT GEO-First items as optimization targets. For SEO-focused writing, see seo-content-writer. For entity and brand AI presence, see entity-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.1"
+  version: "4.4.0"
   geo-relevance: "high"
   tags:
     - geo
@@ -166,10 +166,10 @@ When a user requests GEO optimization:
    | Clear definitions | [X] | [met] of [asked] key terms defined standalone |
    | Quotable statements | [X] | [met] of [asked] sections carry a liftable statement |
    | Factual density | [X] | [met] of 5 precise data points with units |
-   | Source citations | [X] | [met] of [asked] claims name a checkable source |
+   | Source citations | [X] | [met] of [asked] claims resolved — sourced, first-party, hedged, or removed |
    | Q&A format | [X] | [met] of [asked] target queries answered directly |
    | Authority signals | [X] | [met] of [asked] available authority elements |
-   | Content freshness | [X] | [met] of 2: visible date <12 months, no datum >24 months |
+   | Content freshness | [X] | [met] of [asked]: visible date <12 months · no datum >24 months, minus any check the page gives nothing to measure |
    | Structure clarity | [X] | [met] of [asked] structure elements present |
    | **GEO Readiness** | **[avg]/10** | **[sum] points ÷ [n] factors scored; N/A: [factors with nothing to count, or none]** |
    
@@ -184,6 +184,8 @@ When a user requests GEO optimization:
    ```
 
    **Every score prints the count it came from, in its own row** — `score = 1 + 9 × (met ÷ asked)`, rounded half up, floor 1. Set each factor's `asked` here, once, and reuse it unchanged in step 4 so the two tables stay comparable. A factor with nothing to count (no comparison on the page, no expert the client can supply) is **N/A** — named, excluded from the sum and the divisor, never scored 1. Scale bands, the reverse check, N/A handling and the pre-send recompute pass: [references/geo-score-arithmetic.md](./references/geo-score-arithmetic.md).
+
+   **Two factors carry a rule of their own, because the obvious count scores the wrong thing.** *Source citations* counts a claim as met once it is **resolved** — sourced, converted to first-party, hedged, or **removed** — so doing what the claims rule in step 3 requires raises this score instead of leaving it flat; counting only the sourced survivors pays nothing for a removal and hands the higher score to whoever kept the unsourceable claim. *Content freshness* drops the data-age check out of its denominator on a page carrying no dated data point, rather than passing it by default: "no datum older than 24 months" is trivially true where there are no data, and a page must not collect a mark for recency it never demonstrated. Both, with worked checks: [references/geo-score-arithmetic.md](./references/geo-score-arithmetic.md) §3a–§3b.
 
 3. **Apply GEO Optimization Techniques**
 
@@ -237,7 +239,7 @@ When a user requests GEO optimization:
    | Source citations | [X] | [X] | +[X] | [met] of [asked] |
    | Q&A format | [X] | [X] | +[X] | [met] of [asked] |
    | Authority signals | [X] | [X] | +[X] | [met] of [asked] |
-   | Content freshness | [X] | [X] | +[X] | [met] of 2 |
+   | Content freshness | [X] | [X] | +[X] | [met] of [asked] |
    | Structure clarity | [X] | [X] | +[X] | [met] of [asked] |
    | **GEO Readiness** | **[avg]/10** | **[avg]/10** | **+[X]** | **[sum] ÷ [n] factors scored** |
 
@@ -287,7 +289,7 @@ When a user requests GEO optimization:
 - [ ] Content source identified (URL, full text, or content draft)
 - [ ] Target AI queries or topics clearly defined
 - [ ] Current GEO baseline assessed (if optimizing existing content)
-- [ ] Publish/update date and data ages known — or confirmed unavailable, in which case the freshness factor is N/A, not 1
+- [ ] Publish/update date and data ages known — or confirmed unavailable, in which case that check leaves the freshness denominator (never scored 1 by default, and never passed by default either); the factor is N/A in full only where the page also carries no dated data point
 - [ ] Byline, credentials and expert availability known — or confirmed unavailable, which sets what the authority factor asks for
 - [ ] Structured data already on the page identified (which type, or none)
 
@@ -338,7 +340,7 @@ thermal system's collector, tank, anode rod, and safety valve. Across the
 
 Standalone definition, numbered service list, two quotable facts. Both figures come from the client-provided data block; nothing else was added. The published copy above carries no bracket token — it reads complete without the datum it does not have.
 
-**Claim dropped, not dressed up**: the original sentence "solar water heaters are very common in Greece" carries no source, so it stayed out rather than acquiring an invented percentage.
+**Claim dropped, not dressed up**: the original sentence "solar water heaters are very common in Greece" carries no source, so it stayed out rather than acquiring an invented percentage. In the step 4 table that claim counts as **resolved** — removal is one of the four ways a claim leaves the unsourced column — so the Source citations row records it as met, not as a gap.
 
 **Data still needed**: how common solar water heaters are in Greek homes. It is the one sentence that would place this service in a national context for an AI answer about Greek households. Send a sourced figure with its year — a national statistics or energy-agency publication, or your own installed-base count — and the sentence goes back in.
 

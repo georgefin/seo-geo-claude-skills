@@ -65,16 +65,68 @@ the content and the brief — and reused unchanged at step 4, so the two columns
 | Clear definitions | key terms carrying a standalone 25–50-word definition that starts with the term | key terms the content actually uses |
 | Quotable statements | statements a reader could lift unchanged — specific, self-contained, no "as mentioned above" | main sections (one per section is the target) |
 | Factual density | precise data points with units | 5 — the Output Validation floor; a page with more than 5 caps the ratio at 1 |
-| Source citations | claims carrying a named, dated, checkable source | claims that need one (your own claim inventory) |
+| Source citations | claims from the inventory that no longer publish unsourced authority — sourced, converted to first-party, hedged, or removed (§3a) | claims that needed a source at step 2 (your own claim inventory) |
 | Q&A format | target queries answered by a matching heading plus a direct standalone answer | target queries from step 1, capped at 5 |
 | Authority signals | authority elements actually present: byline with credentials · sourced expert quote · first-party data · named methodology | the ones this client can genuinely supply — not all four by default |
-| Content freshness | visible publish/update date within 12 months · no data point older than 24 months | 2 |
+| Content freshness | visible publish/update date within 12 months · no data point older than 24 months | 2, minus either check the page gives nothing to measure (§3b) |
 | Structure clarity | headings matching query phrasing · 3–5-sentence chunks · a table wherever a comparison exists · a numbered list for any process · a summary box | 5, minus any element the page has no occasion for (see N/A below) |
 
 **A factor with nothing to count is N/A, not a 1.** If `asked` would be 0 — the page makes no
 comparison, so no table is owed; the client has no first-party data and no expert to quote —
 mark the factor N/A, name the reason in the row, and exclude it from both the sum and the
 divisor. Scoring an inapplicable factor 1 understates the page and inflates the lift.
+
+### 3a. Source citations counts resolutions, not survivors
+
+SKILL.md step 3 makes this mandatory: an unsourced claim already on the page "is not yours to
+keep by default — source it, convert it to a first-party statement the client can stand behind
+and say you did, or hedge/cut it." The factor scores the claim inventory against that mandate.
+A claim is **resolved** when the text being scored does one of those four things:
+
+- it carries a named, dated, checkable source;
+- it is stated as first-party fact with the basis named ("across the 1,240 services we
+  completed in 2025");
+- it is hedged so it no longer asserts what it cannot support, borrowing no authority it
+  cannot name;
+- or it does not appear at all.
+
+`met` is the count of resolved claims. `asked` is the step-2 inventory, frozen for both columns
+so they stay comparable. **Removing an unsourceable claim moves it from unresolved to resolved,
+so compliance can only raise this score, never leave it flat and never lower it.** Counting only
+the sourced survivors pays nothing for the removal the skill requires, and hands the higher
+score to whoever kept the claim — a scoring model arguing against its own rule.
+
+The same test runs on the before column: at step 2 nothing has been sourced, converted, hedged
+or cut yet, so a page of flat unsourced assertions scores `met = 0` there.
+
+**Worked check.** Three claims need a source; the client can source none of them. Baseline
+`met = 0 of 3` → `1 + 9 × (0 ÷ 3) = 1`. Cut all three, and the page publishes no unsourced
+claim: `met = 3 of 3` → `1 + 9 × (3 ÷ 3) = 10`, printed as "3 of 3 claims resolved — none
+sourceable, all three removed". Keep them and the score stays 1, which is the whole point.
+
+Hedging is a resolution, not an escape hatch. "Most manufacturers recommend…" softened to "many
+manufacturers appear to recommend…" still borrows an authority it cannot name: unresolved.
+
+### 3b. Content freshness scores only what the page gives it to measure
+
+The two checks are independent, and either can be inapplicable:
+
+- **No visible publish/update date, and the client cannot supply one** → the date check leaves
+  the denominator (SKILL.md Input Validation already treats an unavailable date this way).
+- **The page carries no dated data point at all** → the data-age check leaves the denominator.
+  "No data point older than 24 months" is otherwise trivially true of a page with no data
+  points, and the page collects a mark for recency it never demonstrated.
+
+`asked` is 2 minus the excluded checks, and the row names the exclusion. Excluded on both sides
+→ the whole factor is N/A and leaves the divisor, per the rule above.
+
+**Worked check.** A page whose visible date is 18 months old and which carries no data point at
+all. Score both checks and the data-age half passes on absence: `met = 1 of 2` →
+`1 + 9 × (1 ÷ 2) = 5.5 → 6`. That is an attainable value for `n = 2`, so §2's reverse check
+clears it and a stale page with no data keeps a mid-scale mark. Exclude the data-age check and
+`met = 0 of 1` → `1 + 9 × (0 ÷ 1) = 1`, which is what the page has earned. A page whose date
+*is* fresh scores `1 of 1` → 10 on the strength of the date alone, with the exclusion printed
+beside it — full marks for one measured check, never for an unmeasured one.
 
 ## 4. The averages
 
@@ -150,8 +202,13 @@ Run this against the finished deliverable, not the working notes:
    that `asked`.
 3. Sum of the printed factor scores ÷ the printed divisor = the printed average, to one decimal.
 4. Factors scored + factors N/A = 8; the prose N/A list matches the N/A rows.
-5. Before and after use the same factor set, the same `asked` values and the same divisor.
-6. The lift reproduces from the two printed averages.
-7. Any claimed threshold ("at least 50% from baseline") is stated against the one baseline in
+5. Any factor whose `asked` sits below its stated default names the check it excluded and why
+   (§3b). A denominator that shrank silently is a score the reader cannot reproduce.
+6. Source citations counts resolved claims, not sourced ones (§3a) — a claim the optimisation
+   removed is resolved, and the row says so. A `met` that dropped because correct content was
+   cut is the defect this check exists to catch.
+7. Before and after use the same factor set, the same `asked` values and the same divisor.
+8. The lift reproduces from the two printed averages.
+9. Any claimed threshold ("at least 50% from baseline") is stated against the one baseline in
    the deliverable, with the arithmetic that produces it.
-8. Where a sentence and a table disagree, the table wins — fix the sentence.
+10. Where a sentence and a table disagree, the table wins — fix the sentence.
