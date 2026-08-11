@@ -98,9 +98,9 @@ For metrics where standard deviation is not practical, use percentage-based thre
 | Metric | Warning Threshold | Critical Threshold | Comparison Period |
 |--------|------------------|-------------------|-------------------|
 | Organic traffic | -15% vs. comparison | -30% vs. comparison | Week over week |
-| Keyword positions | >3 position average drop | >5 position average drop | Week over week |
-| Pages indexed | -5% change | -20% change | Week over week |
-| Referring domains | -5% loss | -15% loss | Month over month |
+| Keyword positions | >=3 position average drop | >=5 position average drop | Week over week |
+| Pages indexed | -5% change | -15% change | Week over week |
+| Referring domains | -5% loss | -15% loss | Week over week |
 | Crawl error rate | >2x baseline rate | >5x baseline rate | Day over day |
 | Conversion rate | -20% drop | -40% drop | Week over week |
 
@@ -111,11 +111,18 @@ For binary or count-based metrics, use absolute thresholds.
 | Metric | Warning Threshold | Critical Threshold |
 |--------|------------------|-------------------|
 | New crawl errors | >10 new errors/day | >50 new errors/day |
-| Server 5xx errors | Any occurrence | >5 occurrences/hour |
+| Server 5xx errors | >1/day | >5/day |
 | Security issues | N/A | Any detection |
 | Manual penalties | N/A | Any notification |
 | SSL certificate expiry | <30 days to expiry | <7 days to expiry |
 | Robots.txt changes | Any unexpected change | Key pages blocked |
+
+**Where a metric also appears in Section 3, Section 3 is the definition and these two tables are
+the restatement.** Section 3 carries the full ladder including Emergency, so a value here that
+Section 3 contradicts is the copy that drifted, not a second opinion — read the band off Section 3
+and fix the copy. (The 5xx row above once carried an **hourly** Critical while Section 3 banded the
+same metric **per day**: six errors in a day graded Critical on one table and Warning on the other,
+a 24-fold disagreement inside one guide.)
 
 ---
 
@@ -285,7 +292,7 @@ Every alert notification should include:
 | Metric affected | Yes | "Position for 'project management software'" |
 | Current value | Yes | "Position 12" |
 | Previous value | Yes | "Position 3 (yesterday)" |
-| Threshold breached | Yes | "Dropped >5 positions" |
+| Threshold breached | Yes | "Dropped >=5 positions" |
 | Timestamp | Yes | "2025-01-15 09:00 UTC" |
 | Affected URL | Yes (if applicable) | "yoursite.com/blog/pm-guide" |
 | Quick action link | Yes | Link to relevant tool/dashboard |
@@ -345,7 +352,7 @@ Every alert notification should include:
 
 ### Playbook: Organic Traffic Emergency (P0)
 
-**Trigger:** Organic traffic drops >50% day-over-day
+**Trigger:** Organic traffic drops >=50% day-over-day
 
 | Step | Time | Action | Tool |
 |------|------|--------|------|
@@ -403,9 +410,14 @@ Every alert notification should include:
 | 7 | Day 7 | Re-check for continued spam link activity |
 | 8 | Day 14 | Verify disavow processed, monitor rankings for impact |
 
-### Playbook: Core Web Vitals Degradation (P2)
+### Playbook: Core Web Vitals Degradation (P1-P2)
 
 **Trigger:** Any CWV metric moves from "Good" to "Needs Improvement" or "Poor"
+
+**Priority:** the trigger spans two bands, so it spans two clocks. A move to "Needs Improvement" is
+the Warning band — **P2**, within 48 hours. A move to "Poor" is the Critical band — **P1**,
+acknowledged within 4 hours and resolved the same day, which is the templates' "Core Web Vitals
+Fail" row. The steps below are the same either way; only the clock changes.
 
 | Step | Time | Action |
 |------|------|--------|

@@ -1,4 +1,4 @@
-import re,sys
+import re,sys,os,glob
 def blocks(text):
     """CommonMark fence walk -> list of (open_line, label, content_lines)."""
     L=text.split('\n');out=[];i=0
@@ -46,15 +46,56 @@ def confirm(text):
             out.append((st,last[:60]))
     return out
 
-targets=sys.argv[1:] or [p for p in sorted(glob.glob('**/*.md',recursive=True))
-                         if '.git' not in p and not p.startswith('docs/')]
-fail=0
-for p in targets:
-    try: txt=open(p,encoding='utf-8').read()
-    except OSError: continue
-    bad=confirm(txt)
-    if bad:
-        fail+=len(bad)
-        for st,l in bad: print("RED  %s: template block opened L%s truncates, ends on %r"%(p,st,l))
-print(("\n%d truncated template block(s)"%fail) if fail else "GREEN - no truncated template blocks")
+def expand(args):
+    """Directory -> its .md files. Missing/unreadable path is an ERROR, never a skip."""
+    out, missing = [], []
+    for a in args:
+        if os.path.isdir(a):
+            found = sorted(glob.glob(os.path.join(a, '**', '*.md'), recursive=True))
+            if not found: missing.append("%s (directory contains no .md)" % a)
+            out += found
+        elif os.path.isfile(a):
+            out.append(a)
+        else:
+            missing.append("%s (not found)" % a)
+    return out, missing
+
+if len(sys.argv) > 1:
+    targets, missing = expand(sys.argv[1:])
+else:
+    targets = [q for q in sorted(glob.glob('**/*.md', recursive=True))
+               if '.git' not in q and not q.startswith('docs/')]
+    missing = []
+
+if missing:
+    for m in missing: print("ERROR  unresolvable target: %s" % m, file=sys.stderr)
+    sys.exit(2)
+
+fail = 0
+scanned = 0
+errors = 0
+for q in targets:
+    try:
+        txt = open(q, encoding='utf-8').read()
+    except OSError as e:
+        print("ERROR  unreadable: %s (%s)" % (q, e.__class__.__name__), file=sys.stderr)
+        errors += 1
+        continue
+    scanned += 1
+    for st, l in confirm(txt):
+        fail += 1
+        print("RED  %s: template block opened L%s truncates, ends on %r" % (q, st, l))
+
+# R-0222: a checker MUST fail closed on an empty scan set. Zero files scanned is
+# an ERROR, never a pass — this script printed GREEN on a directory argument
+# before this guard existed, having read nothing.
+if errors:
+    print("\nERROR - %d target(s) unreadable; scanned %d" % (errors, scanned), file=sys.stderr)
+    sys.exit(2)
+if scanned == 0:
+    print("ERROR - scanned 0 files. A checker that scans nothing does not pass (R-0222).",
+          file=sys.stderr)
+    sys.exit(2)
+print(("\n%d truncated template block(s) in %d file(s) scanned" % (fail, scanned)) if fail
+      else "GREEN - no truncated template blocks (%d file(s) scanned)" % scanned)
 sys.exit(1 if fail else 0)

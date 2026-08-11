@@ -297,8 +297,8 @@ variance is tighter than -15% WoW should be alerting sooner than this table says
 | Metric | Warning band | Critical band | Frequency |
 |--------|--------------|---------------|-----------|
 | Organic traffic | -15% WoW | -30% WoW | Daily |
-| Keyword positions | >3 position drop | >5 position drop | Daily |
-| Pages indexed | -5% change | -20% change | Weekly |
+| Keyword positions | >=3 position drop | >=5 position drop | Daily |
+| Pages indexed | -5% change | -15% change | Weekly |
 | Crawl errors | >10 new/day | >50 new/day | Daily |
 | Core Web Vitals | "Needs Improvement" | "Poor" | Weekly |
 | Backlinks lost | >5% in 1 week | >15% in 1 week | Weekly |

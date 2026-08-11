@@ -46,9 +46,15 @@ from the tier table, not from this row.
 
 | Alert Name | Condition | Priority |
 |------------|-----------|----------|
-| Snippet Lost | Lost featured snippet ownership | P1 |
+| Snippet Lost | Lost featured snippet ownership | P2 |
 | Snippet Won | Won new featured snippet | P3 (positive) |
 | AI Overview Change | Appeared/disappeared in AI Overview | P2 |
+
+Snippet Lost takes its band's default. The threshold guide bands **any single** featured-snippet
+loss as Warning, whose default is **P2**; a loss of **3+ snippets** is Critical and fires as
+**P1**, and on the priority-1 / Tier-1 set the standing override raises each one level. It was
+priced P1 with no reason beside it, which is the one thing this file's own rule forbids — and no
+true reason existed, so the row was brought to its default rather than given an invented one.
 
 ### Keywords to Monitor
 
@@ -72,7 +78,7 @@ or **P0** on the Tier-1 line, under the same override.
 
 | Alert Name | Condition | Threshold | Priority |
 |------------|-----------|-----------|----------|
-| Traffic Crash | Day-over-day decline | >=50% drop | P0 |
+| Traffic Crash | Day-over-day decline | >=50% drop | P0 — the guide's "Organic Traffic Emergency (P0)" playbook fires at exactly this figure; the DoD row of the traffic band table ends in a qualitative Emergency cell ("Site appears down"), so no band can be read off it |
 | Significant Drop | Week-over-week decline | >=30% drop | P1 |
 | Moderate Decline | Month-over-month decline | >=20% drop | P2 |
 | Trend Warning | 3 consecutive weeks decline | Any decline | P2 |
@@ -187,7 +193,7 @@ detection, whatever band the magnitude would give them, because there is no smal
 | Alert Name | Condition | Priority |
 |------------|-----------|----------|
 | Toxic Score Increase | Toxic score up 20%+ | P1 |
-| Anchor Over-Optimization | Exact match anchors >30% | P2 — lowered from P1: >30% is the Critical band, but an anchor ratio moves slowly and the fix is a link plan, not a same-day action |
+| Anchor Over-Optimization | Exact match anchors >=30% | P2 — lowered from P1: >=30% is the Critical band, but an anchor ratio moves slowly and the fix is a link plan, not a same-day action |
 
 ---
 
@@ -238,15 +244,20 @@ All GEO alerts use a weekly check window; thresholds are tunable operational def
 
 | Alert Name | Condition | Priority |
 |------------|-----------|----------|
-| Citation Rate Slide | Citation rate down 10+ percentage points vs. baseline | P1 |
-| Citation Rate Floor | Citation rate below 10% absolute | P0 |
+| Citation Rate Slide | Citation rate down 10+ percentage points vs. baseline | P2 |
+| Citation Rate Floor | Citation rate below 10% absolute | P1 |
 | GEO Competitor | Competitor cited where you're not | P2 |
 
-**Priorities above the default, with their reason**: the four rows on the priority-1 query set —
-Citation Lost (P1, band Warning), Loss Cluster (P0, band Critical), Rate Slide (P1, band Warning)
-and Rate Floor (P0, band Critical) — each sit one level above the default map because that set is
-the client's money, brand and top-converting terms. Position Slip, AI Overview Change and GEO
-Competitor take the default.
+**Priorities above the default, with their reason**: the **two** rows scoped to the priority-1
+query set — Citation Lost (P1, band Warning) and Loss Cluster (P0, band Critical) — sit one level
+above the default map, because that set is the client's money, brand and top-converting terms.
+Every other row here takes the default map: Rate Slide (Warning → P2), Rate Floor (Critical → P1),
+Position Slip (Warning → P2), Dropped From Answer (Critical → P1), AI Overview Change
+(Warning → P2), GEO Competitor (Warning → P2). The two rate rows read the citation rate **across
+the tracked set**, not the priority-1 list — their own conditions say so — so the priority-1
+standing override does not reach them; they were priced P1 and P0 on a claim this table refutes.
+A client whose tracked set *is* the priority-1 list may raise them, and then the reason goes in the
+cell.
 
 **Response plan**: citation-loss alerts (loss, position, rate) hand the affected query and page to content-refresher's AI Overview recovery playbook. Priority-1 = the client-critical keywords from alert setup (money, brand, top-converting terms).
 
