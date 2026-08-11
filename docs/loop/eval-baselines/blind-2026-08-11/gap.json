@@ -1,0 +1,415 @@
+{
+  "suite": "content-gap-analysis",
+  "skill_path": "research/content-gap-analysis",
+  "skill_version": "4.2.2",
+  "date": "2026-08-11",
+  "method": "blind",
+  "role_split": "executor blind (labelled CLEAN by the executor), grader informed — this record is the grader's",
+  "prior_baseline": "docs/loop/eval-baselines/blind-2026-08-10c/gap.json (skill 4.1.0, 28/30 = 93.33%)",
+  "head_sha_at_open": "71345f3c85db91260e8b1149e0c2ab40ba15da27",
+  "head_sha_at_close": "71345f3c85db91260e8b1149e0c2ab40ba15da27",
+  "graded_inputs_drift": "ZERO. HEAD unmoved and `git status --porcelain` empty across the whole grading window. sha256 re-checked at close on all nine graded inputs (SKILL.md, evals.json, the four references, anti-slop-ruleset.md, inter-skill-handoff.md, SETTLED-RULINGS.md) — byte-identical to the open hashes; diff of the two hash files is empty. Fixture hashes recorded at close. No verdict is affected by drift because there was none.",
+  "deliverables_graded": [
+    "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind2-contentgap-e1.md",
+    "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind2-contentgap-e2.md",
+    "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind2-contentgap-e3.md",
+    "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind2-contentgap-e4.md",
+    "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind2-contentgap-e5.md"
+  ],
+  "expectations": [
+    {
+      "eval": 1,
+      "id": "e1.1",
+      "text": "Traceable planted topic gaps: winter hiking, hiking with dogs, wild camping/UK access — each stated with BOTH sides.",
+      "passed": true,
+      "prior": true,
+      "evidence": "Coverage matrix L82-84: 'Winter skills & winter gear | **0** | 9 | 4 | **Missing entirely**'; 'Hiking with dogs | **0** | 5 | 3'; 'Wild camping & access rights | **0** | 0 | 4'. Both sides restated per gap in Gap Findings with the competitor articles named: M1 lists all 9 Summitline winter titles and all 4 PeakPath titles then 'Yours: nothing. Your 12-page export has no winter page'; M2 lists 5 + 3 dog titles then 'Yours: nothing'; M3 lists PeakPath's 4 wild-camping titles then 'Yours: nothing, and you have two tent pages that this content would feed.' All counts recomputed from the fixtures by grade2-contentgap-fixtures.py: Summitline winter 9 / dogs 5, PeakPath winter 4 / dogs 3 / wild camping 4 — all AGREE; own-site inventory contains no winter, dog or wild-camping page."
+    },
+    {
+      "eval": 1,
+      "id": "e1.2",
+      "text": "False-positive guard: boot waterproofing is NOT reported as missing content.",
+      "passed": true,
+      "prior": true,
+      "evidence": "Classed as a DEPTH gap, not a missing topic. Coverage row L73: 'Footwear — choice, care, waterproofing | 2 | 7 | 0 | Covered · **depth gap**'. Finding D1 sits under the '### Depth gaps' heading: 'You have `/blog/boot-care-guide` — one page carrying cleaning, conditioning *and* re-waterproofing. Summitline splits the same ground across a dedicated How to Waterproof Hiking Boots (3 Methods) plus Best Boot Waterproofing Sprays'. The expectation permits exactly this ('at most classing it as a depth/angle/format observation'). No recommendation to create net-new waterproofing content: the calendar dependency reads 'None — source material is already in `/blog/boot-care-guide`'."
+    },
+    {
+      "eval": 1,
+      "id": "e1.3",
+      "text": "Like-to-like comparison with a correctly-marked covered/no-gap row and navigation classed as a DEPTH gap.",
+      "passed": true,
+      "prior": true,
+      "evidence": "16-row topic matrix with all three columns reconciled (TrailKit 12, Summitline 99, PeakPath 35 — reconciliation printed in the deliverable at L91-92 and independently verified: 38+60+1=99, 17+18=35). Explicit no-gap rows present: 'Outdoor ethics | 1 | 0 | 0 | Covered · your ground, no gap' and 'Seasonal picks | 1 | 0 | 0 | Covered · your ground, no gap'. Foot care and clothing/layering both marked 'Covered · depth gap', not missing. Navigation: 'Navigation | 1 | 6 | 0 | Covered · **depth gap**', expanded as finding D2 under '### Depth gaps'."
+    },
+    {
+      "eval": 1,
+      "id": "e1.4",
+      "text": "At least two of three planted format gaps surfaced; GEO framed as opportunity with no asserted AI-citation data.",
+      "passed": true,
+      "prior": true,
+      "evidence": "All three surfaced: F1 glossary ('0 vs 60'), F2 'Summitline has a rucksack size calculator at `/tools/rucksack-size-calculator`', F3 'PeakPath has 18 route-guide videos under `/routes/`'. GEO section opens L234-236: 'No AI-answer monitor is connected, so **there is no citation count for anyone in this report — yours or theirs — and none is estimated**. What follows is opportunity type'. Scripted screen for AI-citation claims across all five deliverables returned zero hits (grade2-contentgap-screens.py). GEO Value is stated as 'a 1-5 editorial judgement against a stated rubric, not a measurement and not a citation count' and the two scores are explicitly never blended."
+    },
+    {
+      "eval": 1,
+      "id": "e1.5",
+      "text": "Prioritization follows the skill's scoring scheme with visible arithmetic; Search Demand handled by Step 9's unavailable-input rule.",
+      "passed": true,
+      "prior": true,
+      "evidence": "Eleven scored rows, each printing its five factor scores AND the weighted line inline, e.g. 'D1 | 2/3/5/5/4 | 0.25×2 + 0.20×3 + 0.25×5 + 0.15×5 + 0.15×4 = **3.70** → P1 | 2+5+5+3 − 12 = **+3**'. grade2-contentgap-arith.py recomputed all 12 weighted expressions and 11 Quick Win expressions in e1: 0 mismatches, every printed tier equals the band read off the rounded score, every score on the 0.05 grid and none at the unreachable 1.05/1.10/4.90/4.95. Tier rule stated (L301-302) and applied without exception. Search Demand: named proxy with basis stated AND an explicit 5-band mapping the skill does not supply ('5 = 10+ pages · 4 = 7-9 · 3 = 4-6 · 2 = 2-3 · 1 = 0-1 ... a *coverage* proxy, not a demand measurement'), plus two stated limits of the proxy. No invented volume anywhere (volume-figure screen: zero hits in e1). NOTE on discriminating power, changed since the baseline: SKILL.md:166's worked example now reads '(23 + 41 articles across the two competitors)' — figures that appear in no fixture — so the F18-r1 fixture/example collision recorded against this clause in the prior record no longer holds, and the executor's banding table is independent construction."
+    },
+    {
+      "eval": 1,
+      "id": "e1.6",
+      "text": "No fabrication and clean source labels; fixture numbers attributed as user-provided.",
+      "passed": true,
+      "prior": true,
+      "evidence": "Data Sources table attributes every class in the report's own words: 'Your CMS export, 3 August 2026' · 'Your GA4 organic report, 90 days' · \"Your assistant's hand crawl, 4 August 2026\" · 'The same hand crawl, stated as approximate in the files'. Zero `~~` tokens (screened). Zero volume and zero difficulty figures (screened). Competitor traffic quoted once with the fixtures' own label — 'both files say in their own words that these came from a free traffic checker and are rough ... used for nothing: no split across their sections, no per-page share'. All derived figures independently recomputed and correct: 18,320 session total, 5,850 footwear, 27% of total, 38/99/17/35 reconciliations, all seven competitor-mean cells, the six 'vs'/'Compared' comparison pages, the 41 and 50 unaccounted page counts, and the −49/−10 Awareness readings. Proposed titles and calendar entries carry zero bracket tokens/TBD/XX. Separately reported outside this expectation (it is a claim about the client's own article bodies, which the expectation's clauses do not reach): 'Seed the 12 terms from words your existing 12 articles already use without defining' — see defects_outside_graded_set."
+    },
+    {
+      "eval": 2,
+      "id": "e2.1",
+      "text": "Source discipline across the two data classes; labels name the source in the report's own words, never a ~~category token.",
+      "passed": true,
+      "prior": true,
+      "evidence": "Sources table row 1: 'The 11 keywords, volumes, difficulty scores, competitor, position, URL | Your content-gap export from the expired SEO tool trial'. CMS/GA4 and the hand crawl attributed separately, and the density inputs attributed to the crawl rather than to the export. Nothing beyond the export is added as a metric; the three unsupplied overlap segments are withheld with the absence labelled — 'A — only you rank | **Not supplied** | The export was filtered to gaps', 'D — nobody ranks | **Not observable** | No export reports this'. Zero `~~` tokens (screened). The tool is not named because the user never named it, and the export is named in plain language, which is Tool Connector route (2)."
+    },
+    {
+      "eval": 2,
+      "id": "e2.2",
+      "text": "Export trap caught: 'how to waterproof hiking boots' flagged as ALREADY COVERED by /blog/boot-care-guide, never as a missing-content keyword.",
+      "passed": true,
+      "prior": true,
+      "evidence": "Existing coverage flagged twice in prose and once in the calendar, each naming the URL. Executive summary L32-34: 'scores 3.75, top of the list, because you sell boots and the source material is already sitting inside `/blog/boot-care-guide`'. L221: 'one third of the article already exists inside `/blog/boot-care-guide`'. Calendar dependency L288: 'None — split it out of `/blog/boot-care-guide` and link the two'. The failure condition the expectation names — 'presenting it as an uncovered gap' — does not occur: nowhere does the deliverable say TrailKit lacks this content. WEAKNESS RECORDED, not failed: unlike the prior run, the catch lives only in prose and a dependency cell; the row itself sits in the 'High Priority' bucket and the Tier 1 table under a column headed 'Content to create' with no marker, so a reader scanning the tables alone would take it for uncovered. The expectation imposes no placement requirement — flagged for eval improvement."
+    },
+    {
+      "eval": 2,
+      "id": "e2.3",
+      "text": "Keyword-gap categorization per SKILL.md Step 4, consistent with the export's numbers.",
+      "passed": true,
+      "prior": true,
+      "evidence": "Three Step-4 buckets present: 'High Priority — high volume, achievable difficulty', 'Quick Win candidates — demand evidence present, lower volume, low difficulty', 'Long-term — high volume, high difficulty'. 'best gps watch for hiking' (5,400 / KD 52) is in Long-term, NOT a quick win. All FOUR KD ≤ 16 rows appear in the quick-win bucket (dog hiking boots 15, what is scrambling 12, hiking first aid kit list 16, rucksack size calculator 9) — the expectation requires at least two. Step 4's demand-floor rule is explicitly run: 'Every row here clears the demand floor with room: the lowest is 480/month against a 100/month floor ... Low difficulty on its own would not have qualified any of them.' Difficulty bands stated as relative to the export only. Two prose miscounts in that same paragraph are reported outside this expectation (they do not change any assignment)."
+    },
+    {
+      "eval": 2,
+      "id": "e2.4",
+      "text": "Business-relevance filter applied: 'campervan insurance uk' excluded or explicitly deprioritized with reasoning.",
+      "passed": true,
+      "prior": true,
+      "evidence": "Filter table L85: 'Business relevance | Must relate to what you sell | **1 exclusion**: `campervan insurance uk`'. Dedicated '### Do not chase — and why' entry: 'The largest number in your export and the one row that fails the relevance filter outright. You sell hiking and trekking gear; campervan insurance converts nothing on your site'. It also states why the filter must run before scoring: 'a score that is 25% demand will always find a big irrelevant keyword attractive', showing the counterfactual score 2.75 → P2. Listed under 'Filtered out before scoring' and absent from Tier 1-3 and from the calendar."
+    },
+    {
+      "eval": 2,
+      "id": "e2.5",
+      "text": "Prioritization arithmetic shown on export numbers: order justified by the skill's documented scoring, factor scores visible, at least one computation written out and arithmetically correct.",
+      "passed": true,
+      "prior": false,
+      "regression_status": "PRIOR FAILURE NOW FIXED — this is the headline movement in the run",
+      "evidence": "The 5-factor weighted Gap Priority Score is applied to all 10 addressable rows plus the filtered one, with factor scores visible and the computation written out on every row, e.g. 'how to waterproof hiking boots | 1,600 | 24 | 3/2/5/5/4 | 0.25×3 + 0.20×2 + 0.25×5 + 0.15×5 + 0.15×4 = **3.75** → P1 | 3+5+5+2 − 12 = **+3**'. grade2-contentgap-arith.py: 13 weighted and 10 quick-win expressions in e2, 0 mismatches, every tier consistent. All five factor bands are published before the tables, including the interpolated Search Demand 2 and 4 bands and a two-step Competitive Density rule; I re-derived Density independently for all 11 rows from the stated rule (position band, minus 1 where the shared cluster holds 8+ pages) and all 11 agree. The prior record's stated failure — 'no scoring model is applied anywhere in the deliverable ... ONE hit across 157 lines' — is not reproducible here."
+    },
+    {
+      "eval": 2,
+      "id": "e2.6",
+      "text": "No fabrication: every keyword-gap claim traces to a CSV row; no invented position, URL or keyword.",
+      "passed": true,
+      "prior": true,
+      "evidence": "All 11 export rows traced cell-by-cell by grade2-contentgap-fixtures.py — keyword, volume, KD, competitor, position and URL all matched in their own row, 11/11. Every backticked path in the deliverable is either an export URL (11) or an own-site fixture URL (4); zero paths appear that are in no fixture. Derived totals recomputed and correct: 26,970 export total, 18,870 after the relevance filter, 4,590 Tier 1 subtotal, 30% campervan share, KD margin 7 points (52 vs 45), and 'sixth' as the volume rank of the waterproofing keyword. ONE DERIVED-FIGURE ERROR reported outside this expectation, which grades the six exported fields rather than prose comparatives: L113-114 'Summitline sits at #6 for it, which is the weakest position any of their eight rows holds' — their `dog hiking boots` row is at position 7, and this deliverable prints that 7 itself at L142. Nothing is invented; a superlative over supplied data is wrong. Treated the same way the founding record treated its two identical-class errors."
+    },
+    {
+      "eval": 3,
+      "id": "e3.1",
+      "text": "Native-Greek deliverable; the verdict is the binding greek-content-editor's grade, and with no editor report present the expectation is UNGRADED / EDITOR-PENDING.",
+      "passed": null,
+      "status": "EDITOR-PENDING",
+      "prior": true,
+      "prior_convention_note": "The prior record graded this slot 'mechanical only' and counted it PASSED. The expectation has since been rewritten to forbid that: 'If no greek-content-editor report on this eval's output is in front of the grader, this expectation is UNGRADED: record it EDITOR-PENDING, keep it inside the suite's total, and never record it as passed'. This record follows the current wording. This is a change in the RULE, not a regression in the deliverable.",
+      "evidence": "No greek-content-editor report on blind2-contentgap-e3.md is in front of this grader, so the expectation is not settled and is not recorded as passed. The mechanical clauses that Mode B can check all HOLD, screened by grade2-contentgap-greek.py (Python, not grep — the brief's `[α-ω]` collation abort and the Greek case-folding trap are avoided by construction): zero medial ς (ς followed by a Greek letter), zero word-final σ, zero unaccented forms on a 21-word accent-bearing screen list (the two raw hits were substring artefacts of my own screen — 'κενο' inside «κενού» L223, 'αρθρο' inside «αρθροσκόπησης» L142 — both inspected and dismissed), and zero untranslated boilerplate headings: all 14 headings are Greek. Family 5 negative concord: 60 raw hits, every one hand-inspected at source; all licensed by a preverbal «δεν» (six of them across a line break my line-local window could not see — L37/159/206/285/332/441 verified by reading L35-38, L157-159, L204-206, L283-285, L330-332, L438-441), or verbless nominal predicates that family 5 exempts («Εσείς: καμία σελίδα», «**1** = καμία», the calendar's «| Καμία |» cells), or the substring artefact the ruleset itself names («ποτέ» inside «αποτέλεσμα», L324). Zero confirmed family-5 defects. Family 6: one hit on the `μηδ[εέ]ν` net, «αντί να μπει μηδέν, γιατί το μηδέν θα σήμαινε» — a numeral predicate on the editor's protected list, zero hits when ranked with `κοστίζ`. Family 7: zero `~~`. Family 8: zero skill slugs, zero framework item IDs. Advisory «νίκη» net after the Θεσσαλονίκη lookbehind guard: zero hits, with 5 «Θεσσαλονίκη/-ης» correctly not flagged (the deliverable uses the ruled native «Βαθμός άμεσου οφέλους» / «Άμεσα οφέλη» for 'quick win'). Three items referred to the editor rather than judged — see greek_editor_referral."
+    },
+    {
+      "eval": 3,
+      "id": "e3.2",
+      "text": "Traceable planted gaps, both sides cited: πρόληψη πτώσεων/τρίτη ηλικία, αθλητικές κακώσεις δρομέων, πελματογράφημα/ορθωτικά.",
+      "passed": true,
+      "prior": true,
+      "evidence": "Coverage matrix L84-86: «Τρίτη ηλικία και πρόληψη πτώσεων | **0** | 4 | 2 | **Λείπει εντελώς**»; «Αθλητικές κακώσεις δρομέων | **0** | 0 | 5»; «Πελματογράφημα και ορθωτικά πέλματα | **0** | 4 | 0». Both sides in the findings, with the competitor articles named: Θ1 lists all four Ανάπλαση titles and both Κίνηση titles then «Εσείς: καμία σελίδα σε όλη την εξαγωγή των 10»; Θ2 lists all five Κίνηση runner titles then «Ανάπλαση: καμία. Εσείς: καμία»; Θ3 «Ανάπλαση: 3 άρθρα και μία σελίδα υπηρεσίας. Κίνηση: καμία. Εσείς: καμία.» The πελματογράφημα column shows 4 with the composition stated in the reconciliation line («4 πελματογράφημα (3 άρθρα και 1 σελίδα υπηρεσίας)»), matching the fixture's '3 (+ σελίδα υπηρεσίας)'. All counts verified against the fixture."
+    },
+    {
+      "eval": 3,
+      "id": "e3.3",
+      "text": "Greek false-positive guard: «ασκήσεις για τον αυχένα» not claimed missing.",
+      "passed": true,
+      "prior": true,
+      "evidence": "Coverage row L75: «Αυχένας | 1 | 2 | 0 | Καλυμμένη · **κενό βάθους**» — covered, classed as depth. Finding Β1 cites the clinic's own page by URL and sessions: «Εσείς: 1 σελίδα, `/ypiresies/afheniko-syndromo`, 2.310 συνεδρίες — η δεύτερη καλύτερη σελίδα σας. Ανάπλαση: 2 άρθρα, «Ασκήσεις για τον αυχένα στο γραφείο» και «Αυχενικός πόνος από το κινητό».» The recommendation is not a neck-exercise article: «εσείς έχετε ήδη και σελίδα για τον αυχένα και σελίδα για την εργονομία γραφείου ... και δεν έχετε καμία που να τις ενώνει», scored as the angle gap Γ1 (the office/text-neck angle the expectation names as acceptable), with proposed title #2 «Αυχενικός πόνος από τη δουλειά στο γραφείο»."
+    },
+    {
+      "eval": 3,
+      "id": "e3.4",
+      "text": "Format gaps with honest GEO framing: FAQ hub and video surfaced; no measured AI-citation data asserted.",
+      "passed": true,
+      "prior": true,
+      "evidence": "Coverage rows L87-88: «Σελίδα συχνών ερωτήσεων | **0** | 0 | 1 σελίδα / 12 ερωταπαντήσεις | **Λείπει** — μορφή» and «Βίντεο ασκήσεων | **0** | 25 (κανάλι YouTube) | 0 | **Λείπει** — μορφή», counts matching the fixture. Findings Μ1 and Μ2 cite both sides. GEO section opens L217-218: «Δεν είναι συνδεδεμένο εργαλείο παρακολούθησης απαντήσεων AI, **επομένως δεν υπάρχει αριθμός αναφορών για κανένα από τα τρία κέντρα σε αυτή την ανάλυση και κανένας δεν εκτιμήθηκε.**» The FAQ gap carries a GEO rationale as an opportunity type (GEO Value 5, «ευθείες ερωτήσεις με αυτοτελείς απαντήσεις»); zero AI-citation figures anywhere (screened). No FAQ rich-result claim (post-R3 clean)."
+    },
+    {
+      "eval": 3,
+      "id": "e3.5",
+      "text": "Placement-aware labeling: workflow markers stay out of proposed Greek titles and calendar entries.",
+      "passed": true,
+      "prior": true,
+      "evidence": "Scripted placement screen: every «εκτίμηση/εκτιμήσεις», «υποκατάστατο» and absence marker sits in the header block, the source table or the analysis prose (L6, L49, L52, L60, L246, L260, L437, L440) — zero inside the titles table (L354-371) or the calendar (L381-397). All 12 proposed titles and all 12 calendar entries are clean reusable Greek strings; zero bracket tokens, TBD or XX anywhere in the file. The titles table keeps its workflow notes in a separate «Σημείωση σύνταξης» column, which is where the expectation wants them. One borderline item recorded and passed: calendar entry «Έντυπα προγράμματα ασκήσεων (πρώτα δύο PDF)» carries a scope parenthesis, which is neither an estimation marker, an explained N/A, nor a data-needed note."
+    },
+    {
+      "eval": 3,
+      "id": "e3.6",
+      "text": "Prioritization per the skill's scheme with metrics honestly labeled; Search Demand handled by Step 9's unavailable-input rule.",
+      "passed": true,
+      "prior": true,
+      "evidence": "Nine scored rows with factor scores and the computation written out, e.g. «Μ1 | 5/2/5/5/5 | 0,25×5 + 0,20×2 + 0,25×5 + 0,15×5 + 0,15×5 = **4,40** → P0 | 5+5+5+2 − 12 = **+5**». grade2-contentgap-arith.py: 9 weighted and 8 quick-win expressions, 0 mismatches, every tier correct. BOTH Step 9 routes are used and both are stated. Named proxy for eight rows, with a basis and a banding adapted to the sector and said so: «Υποκατάστατο ζήτησης — μονάδες περιεχομένου των ανταγωνιστών ... Είναι δείκτης **κάλυψης**, όχι μέτρηση ζήτησης», plus «Η διαβάθμιση είναι προσαρμοσμένη στο μέγεθος του κλάδου». Drop route for the one row whose proxy has nothing to measure, with the full rescaling printed: «Τα υπόλοιπα τέσσερα βάρη ξαναϋπολογίστηκαν πάνω στο δικό τους άθροισμα (0,75): ελεύθερος χώρος 0,20/0,75 = 0,267 ... αθροίζουν σε 1,00. Το ακριβές αποτέλεσμα είναι 290/75, δηλαδή 3,8667», the dropped factor named, and the ruled consequence applied verbatim: «ο έλεγχος άμεσου οφέλους δεν τρέχει για αυτή τη γραμμή». 290/75 = 58/15 is an attainable value on the renormalised grid per score-arithmetic §7.1. Zero volume and zero difficulty figures (screened); the absence stated plainly at L8-9 and itemised in the «Τι λείπει» table. GA4 and crawl figures attributed «στοιχεία που παρείχατε εσείς» / «Η χειροκίνητη καταγραφή της συνεργάτιδάς σας». A comparability caveat this leaves unstated is reported outside the graded set."
+    },
+    {
+      "eval": 3,
+      "id": "e3.7",
+      "text": "No fabrication: no Greek competitor topic, article, count, URL or traffic figure beyond the two fixtures; no invented clinical statistics.",
+      "passed": true,
+      "prior": true,
+      "evidence": "Every competitor count reconciled to the fixture by script: Ανάπλαση 3+2+4+(3+1 service page) = 13 pages plus 25 videos; Κίνηση 5+2+3 = 10 articles plus the FAQ page = 11; both the 38 and 11 funnel totals and the ~32 / ~19 uncatalogued remainders (45−13, 30−11) recompute exactly. Every named sub-topic traces to a fixture title. Own-site total 11.880 and the 29% top-page share recompute exactly. Traffic ~9.000 / ~4.500 quoted once with the fixture's own «χονδρικές εκτιμήσεις δωρεάν εργαλείου» caveat and explicitly used for nothing. No clinical-demand or patient-behaviour statistic appears anywhere; the one causal reading is labelled «σύμπτωμα διαβασμένο ως αιτία» twice."
+    },
+    {
+      "eval": 4,
+      "id": "e4.1",
+      "text": "Routing to keyword-research for demand validation, with a handoff block carrying target keyword(s)/topic, content type and site/URL context.",
+      "passed": true,
+      "prior": true,
+      "evidence": "Operator-block row 1 names `keyword-research` as the gating run: 'This run replaces the proxy with measured volume and difficulty, after which the whole tier table is recomputed. Gates everything below'. Payload carries all three fields this run has: seed terms ('Seed terms, **unvalidated — no volume figure exists for any of them**: \"how to waterproof hiking boots\" · \"winter hiking gear list\" · ... plus the 12 glossary candidate terms'), content type ('Content type: mixed, one per gap — see rows 2-5', resolved to labels in those rows) and subject ('Subject: `trailkit.co.uk`, UK hiking and trekking retail'), plus a constraint and a return request. The client's own ordering demand is honoured and stated: 'Run 1 gates runs 2-5. Do not start a writing run on the proxy-based ordering in the report above.' The routing is a handoff, not the standing Related Skills catalogue — every row carries this run's own results (§1)."
+    },
+    {
+      "eval": 4,
+      "id": "e4.2",
+      "text": "Routing to seo-content-writer for the build, with its own handoff context (target keyword, content type, where the content will live).",
+      "passed": true,
+      "prior": false,
+      "regression_status": "PRIOR FAILURE NOW FIXED",
+      "evidence": "`seo-content-writer` is named in three rows, each with its own payload. Row 3: 'Target keyword `\"how to waterproof hiking boots\"` — **seed, unvalidated until run 1** · Content type `How-to Guide` · URL: page does not exist yet; intended subject is the waterproofing method comparison on `trailkit.co.uk` · Competitor page to beat: `summitline-outdoors.co.uk/footwear/how-to-waterproof-hiking-boots`'. Row 4 (glossary) and row 5 (winter pillar plus cluster) carry the same three fields, row 5 naming a different content type per page ('`How-to Guide` for the pillar, `Comparison` for the microspikes-vs-crampons cluster page'). The covered boot-waterproofing topic is additionally routed to a refresh path — row 2 `content-refresher` on `https://trailkit.co.uk/blog/boot-care-guide` — which the expectation names as acceptable and correct. The prior record's stated failure ('the skill is never named anywhere in the deliverable; scripted search for seo-content-writer returns zero') is not reproducible: the scripted slug screen returns 3 occurrences."
+    },
+    {
+      "eval": 4,
+      "id": "e4.3",
+      "text": "Handoff payload honesty: audit-derived fields marked not yet available rather than filled in; any score string or item ID that does travel carries the ruled form.",
+      "passed": true,
+      "prior": true,
+      "evidence": "A dedicated 'Fields not sent, and why — the whole set, once' block omits and names each: '**CORE-EEAT dimension scores** — omitted. No content audit has been run on any TrailKit page. A gap analysis is not a page audit and does not produce dimension scores.' · '**CITE scores** — omitted. No domain audit has been run on trailkit.co.uk or either competitor.' · '**Priority item IDs** — omitted. Neither framework was run, so no ranked framework fix list exists.' Row 7 repeats the omission in place: '**Field not sent — CITE scores.**' Value Rule holds: zero bracket tokens, TBD, XX or `~~` anywhere in the fence (screened); where no page exists the row says so instead of carrying a placeholder URL ('URL: none of the 12 pages exists yet'). No score string travels and the deliverable says why the two conditional additions are absent ('because no score string travels in any row'). §2.3's do-not-coin rule is honoured explicitly: 'The `D1` / `M4b` style labels ... are that report's own row labels, not framework item IDs, and they must not be sent as such or coined into any' — though that sentence misdescribes this deliverable, reported outside the graded set."
+    },
+    {
+      "eval": 4,
+      "id": "e4.4",
+      "text": "Boundary kept — the downstream skills' jobs are not performed inline.",
+      "passed": true,
+      "prior": true,
+      "evidence": "No keyword-research deliverable: scripted screens for monthly-volume figures, KD figures, opportunity scores, SERP-feature tables and 4-form/dual-coverage expansions return zero hits across e4; the one 'monthly volume' occurrence (L293) describes what the NEXT run will return. Every seed is framed as input to be validated — 'Seed terms, **unvalidated — no volume figure exists for any of them**' and 'seed, unvalidated until run 1' on each writer row. No drafted copy: no meta description, no article intro, no word counts; the calendar carries working titles only, which SKILL.md Step 9's Content Calendar requires. Delivered scope is the gap analysis plus routing."
+    },
+    {
+      "eval": 4,
+      "id": "e4.5",
+      "text": "Routed gaps traceable to the fixtures; the boot-waterproofing false positive not handed off as net-new.",
+      "passed": true,
+      "prior": true,
+      "evidence": "Every routed item is a planted gap with its fixture evidence intact in the report above (winter 9+4, dogs 5+3, wild camping 4, navigation depth 1 vs 6, glossary 60, tool 1, video 18, trail first aid 1 vs 3). The waterproofing false positive is routed as a SPLIT of the existing asset and the deliverable says so three times: 'the waterproofing gap is a split, not a new page: a third of it is already published inside the boot-care guide' (row 2), 'Precondition: run 1 confirms the split term carries volume', and in prose 'Second, split the boot-care article rather than starting a new page from nothing ... This is an edit and a new page, not two new pages.' The writer row for it (row 3) is explicitly gated on the refresh row: 'The new waterproofing page, once run 2 has freed the ground.' It is not handed off as a net-new content gap. The same non-exhaustive-enumeration ambiguity the prior record flagged still applies and is repeated in eval_improvement_feedback."
+    },
+    {
+      "eval": 4,
+      "id": "e4.6",
+      "text": "No fabrication: no competitor data beyond the fixtures; any volume/difficulty figure labeled estimated; no memory-management history claimed.",
+      "passed": true,
+      "prior": true,
+      "evidence": "All competitor counts reconciled to the fixtures (38/99, 17/35, glossary 60, tool 1, video 18, ~41 and ~50 unaccounted). Zero volume and zero difficulty figures (screened), with the absence stated: 'no search volume, no keyword difficulty and no ranking position appears anywhere in this report'. Competitor traffic quoted once with the fixtures' own free-checker label and explicitly not split. No prior audit, hot-cache or tracked-gap history is claimed: `memory-management` appears only as a forward proposal — 'is the store rather than a step, so it has no row above. What is worth storing from this run: the 16-row coverage matrix with its date ...'. Family-8 reader test satisfied by the preferred form: the whole handoff sits in a separate fence of its own opening with the in-fence label '<!-- OPERATOR BLOCK — for the team running the library, not for the client ... Nothing in this fence goes to the client as written. -->' (inter-skill-handoff §3.1, markdown row). All 11 slug occurrences and all 3 CORE-EEAT/CITE occurrences are inside that fence; the client-read body above it contains zero."
+    },
+    {
+      "eval": 5,
+      "id": "e5.1",
+      "text": "The response asks for the skill's manual-mode inputs instead of delivering a gap list.",
+      "passed": true,
+      "prior": true,
+      "evidence": "The parameters table marks each documented input Known/Missing — 'Your content inventory | **Missing.**' · 'Competitor content | **Missing.** Nothing is known about what any of the three publish' · 'Your traffic and rankings | **Missing.**' · 'Business goals | **Partly known**' · 'Audience | **Missing.**' · 'Content types you can produce | **Missing.**' — and the request is then made concrete in '## What it would take, in order of how much it unlocks': §1 own content inventory ('the single biggest unlock ... no gap can be identified at all'), §2 competitor inventories ('one pass per site ... open their blog or resources index and list every piece once'), §3 Search Console and GA4. The Step 3 competitor-content input the with-tools path would pull from a tool is explicitly requested from the user."
+    },
+    {
+      "eval": 5,
+      "id": "e5.2",
+      "text": "No observed-coverage claims for the three named domains.",
+      "passed": true,
+      "prior": true,
+      "evidence": "Scripted enumeration of every mention: sedumline.co.uk 3, greenlid-roofs.co.uk 3, urbancanopy-living.co.uk 3 — and each is either a statement that nothing was supplied (L4-5), the parameters row naming them as the given competitors (L37), or an explicit disclaimer (L93-94). The one topic list carries a label at the point of use, not a hedge: '**Not one line of it is a claim about what those three sites publish — nobody has looked.** It is drawn from how a specifying-and-installing trade generally divides its content, and half of it may turn out to be irrelevant to your sector.' The competitor skeleton fence repeats it inside the fence: 'Nothing below is a claim about sedumline.co.uk, greenlid-roofs.co.uk or urbancanopy-living.co.uk — nobody has looked at any of them yet.'"
+    },
+    {
+      "eval": 5,
+      "id": "e5.3",
+      "text": "No invented metrics for any of the four named sites.",
+      "passed": true,
+      "prior": true,
+      "evidence": "Every numeric token in the file was enumerated by script: the date '11 August 2026', the '1.00' used to explain why no score is printed, '3-5' (the skill's own competitor-count range), '90 days' and '6 months' (collection windows), 'Google Analytics 4', and the four section numbers. Zero traffic figures, keyword counts, search volumes, difficulty scores, rankings or gap totals for any of the four sites. The refusal is explicit: 'Not one of the five scoring factors has an input. A gap whose factors cannot be judged gets no score at all rather than a low one — a 1.00 would mean \"judged and lowest\", which is a different and false claim from \"not measured\".'"
+    },
+    {
+      "eval": 5,
+      "id": "e5.4",
+      "text": "Everything delivered is process-framed.",
+      "passed": true,
+      "prior": true,
+      "evidence": "'**no gap list, no priority scores, no tiers, no quick wins and no calendar appear in this document**'. Both templates ship as blank forms with empty data rows and an in-fence SKELETON label in the fence's own syntax — '<!-- SKELETON — blank collection form for verdantia-roofs.co.uk. Every cell below is a field to fill in, not a value. Nothing here is a finding, an example, or a claim about your site. -->' — which is the Value Rule clause-2 exception, so the six bracket tokens the Value-Rule screen surfaced are correct notation and all six sit inside those two labelled fences. The forward-looking section is conditional throughout: 'What the finished report will contain, once the two inventories exist ... | Section | What it will carry | What it needs |'. No section reads as a completed analysis."
+    },
+    {
+      "eval": 5,
+      "id": "e5.5",
+      "text": "The refusal is constructive: WHY plus a concrete path to proceed.",
+      "passed": true,
+      "prior": true,
+      "evidence": "WHY: 'A content gap is a subtraction: their topics minus yours. I have neither operand', and 'I could produce a page of plausible-sounding green-roof topics and present it as their coverage. It would read exactly like a real analysis and every line of it would be invented'. PATH with the form named: 'If your site runs on WordPress or a similar CMS, the export is a menu item, not a project', the two blank collection forms with their exact columns, the per-site crawl instruction ('open their blog or resources index and list every piece once. Do not estimate; list what is there'), the two free sources, and a lower-effort fallback: 'send a partial one — even a list of your own page titles and URLs with no traffic column moves this from \"cannot start\" to \"can identify topic and format gaps\", which is most of the value.'"
+    }
+  ],
+  "summary": {
+    "passed": 29,
+    "failed": 0,
+    "editor_pending": 1,
+    "total": 30,
+    "pass_rate": 0.9667,
+    "editor_slot_convention": "NOT COUNTED AS PASSED, and counted inside `total`. e3.1 is the binding-editor slot and its current wording settles the convention itself: 'If no greek-content-editor report on this eval's output is in front of the grader, this expectation is UNGRADED: record it EDITOR-PENDING, keep it inside the suite's total, and never record it as passed'. No editor report exists for blind2-contentgap-e3.md, so e3.1 is recorded `passed: null` / EDITOR-PENDING. `passed + failed = 29` and `total = 30`; the gap of exactly 1 IS the editor-pending slot and nothing else. The published rate 29/30 = 96.67% therefore treats the pending slot as not-passed, which is the conservative direction the expectation mandates. If the editor later grades the output NATIVE or MINOR-EDITS the suite reads 30/30 = 100.00%; if NON-NATIVE or FAIL it reads 29/30 with one FAIL. NOTE FOR THE CORPUS READER: the prior record for this suite used the opposite convention (counted the slot PASSED, published 28/30 = 93.33%, and printed 27/30 = 90.00% as its conservative alternative). Compare like with like: slot-counted-passed 28/30 -> 30/30; slot-not-counted-passed 27/30 -> 29/30. Both comparisons give +6.67 points and both are driven entirely by the two prior failures now passing.",
+    "failed_expectations": [],
+    "editor_pending_expectations": ["e3.1"],
+    "regressions": "NONE vs blind-2026-08-10c. All 28 expectations that passed in the prior record pass here, checked per-expectation rather than by rate. The two that failed there — e2.5 (no scoring model applied) and e4.2 (seo-content-writer never named) — both pass here. e3.1 moves from 'passed' to EDITOR-PENDING; that is a change in the expectation's own wording, not a change in the deliverable, and the mechanical layer the prior record graded is clean here too.",
+    "per_eval": {
+      "e1": {"passed": 6, "failed": 0, "total": 6},
+      "e2": {"passed": 6, "failed": 0, "total": 6},
+      "e3": {"passed": 6, "failed": 0, "editor_pending": 1, "total": 7},
+      "e4": {"passed": 6, "failed": 0, "total": 6},
+      "e5": {"passed": 5, "failed": 0, "total": 5}
+    }
+  },
+  "skill_change_verification": {
+    "note": "The run is the evidence for six changes made since the 4.1.0 baseline. Each verified against the deliverables rather than against the diff.",
+    "quick_win_sign_inversion": "FIXED AND EXERCISED. All 40 Quick Win Scores across e1/e2/e3/e4 add all four factors and subtract 12; grade2-contentgap-arith.py recomputed every one, 0 mismatches, all integers inside [-8,+8]. All four deliverables state the direction rule in their own words, e.g. e1 L298-299 'All five factors point the same way ... so both scores below **add** all their inputs and nothing is subtracted.' The prior run's executors REFUSED the formula as broken; this run uses it.",
+    "tier_holes_and_rounding": "FIXED AND EXERCISED. Every tier printed equals the band read off the rounded score, 46 rows checked, zero mismatches. The prior run's exercised hole (a 2.95 landing in no band) does not recur; the rounding convention is restated in three of the four scored deliverables ('Scores are rounded to two decimal places, halves up').",
+    "deliverable_shape_section": "EFFECTIVE. e1 and e4 carry the Content Gap Report sections in the stated order (Executive Summary · Coverage Comparison · Gap Findings · Prioritized Gap List · Content Calendar · Success Metrics · Data Sources and Limitations); e3 carries the same shape with native Greek headings, which the section explicitly requires. e2 adapts it to a keyword-gap plan and keeps every section. The prior record's defect 5 (283/157/483-line runs with different section sets) is not reproduced: the three full runs are structurally the same document.",
+    "unfillable_template_cells": "FIXED. No 'Estimated traffic opportunity: [X]/month' cell and no unfilled current-value cell appears anywhere; each deliverable states the absence in prose instead ('No traffic projection appears in this report', «Δεν υπάρχει σε αυτή την ανάλυση καμία πρόβλεψη επισκεψιμότητας»). Zero bracket tokens outside e5's two labelled SKELETON fences.",
+    "four_stage_funnel": "FIXED AND EXERCISED. e1, e3 and e4 all use exactly Awareness/Consideration/Decision/Retention, each page counted once, each site's four rows summing to its stated total — verified arithmetically for all three sites in e1/e4 (12/99/35) and both in e3 (10/38/11). e1 states the fold explicitly ('Awareness absorbs Interest; Decision absorbs Intent and Purchase; Retention absorbs Advocacy'). The prior record's defect 8 (one executor resolving it silently, the other avoiding funnel analysis) does not recur.",
+    "score_arithmetic_reference": "EFFECTIVE. Its §4 GEO rubric is used by name in all three full runs with the band and the 'leaning' interpolation stated; its §4 tie-break ('where two scores tie, the higher GEO Value goes first ... No blended number') is applied and stated in e1, e2, e3 and e4; its §5 mean-with-n rule appears on every mean ('mean of 2 competitor columns, n=2'); its §6 no-traffic-projection and no-derived-competitor-traffic rules are honoured and quoted; its §7.3 'no Quick Win Score appears and the report says the screen did not run' is applied verbatim in e3.",
+    "f18_r1_divergence": "FIXED IN THE SKILL. SKILL.md:166's proxy example now reads '(23 + 41 articles across the two competitors)'; neither figure appears in any fixture for this skill. The prior record's fixture_example_fitting finding (the example written from the fixture, handing every e1 executor the route, the basis wording and the arithmetic) therefore no longer holds, and e1/e4's 5-band proxy mapping and e3's differently-calibrated one are independent construction the skill does not supply."
+  },
+  "suite_level_findings": [
+    {
+      "severity": "medium",
+      "type": "SKILL TEXT CONTRADICTS ITSELF — not an expectation defect",
+      "location": "research/content-gap-analysis/SKILL.md:144 (Step 4)",
+      "finding": "Step 4 states 'A quick win is cheap *and* wanted ... it must also clear the demand floor in the gap filters (>100/month by default...) or carry the named demand proxy this run is using per Step 9. **This is the same condition the Quick Win Score enforces, stated in words** — a keyword with no demand evidence is not a quick win however easy it looks and however empty the SERP is.' The Quick Win Score does not enforce that condition. With Search Demand at its floor of 1, the sum 1 + 4 + 4 + 5 − 12 = +2 clears the 2+ quick-win bar, so a gap with the weakest possible demand evidence can be a scored quick win. The identity claim is false as written; the words and the formula are two different conditions. Reported as a SKILL defect the run surfaced, not as an expectation that enforces a defect — no expectation in this suite quotes or requires the identity claim.",
+      "executor_resolution_judged": "DEFENSIBLE, and it broke nothing else. The e3 executor met the contradiction on the one row where the coverage proxy had nothing to measure (printable exercise programmes: no centre publishes any). It refused to score Demand 1 — «ένα «1» εκεί θα σήμαινε «μετρήθηκε και βρέθηκε χαμηλή», που δεν συνέβη» — dropped the factor per Step 9, renormalised over 0.75 with all four weights printed and summing to 1.00, named the dropped factor, printed the exact fraction 290/75 = 3,8667 beside the rounded 3,87, and applied the ruled consequence verbatim: «ο έλεγχος άμεσου οφέλους δεν τρέχει για αυτή τη γραμμή — χρειάζεται και τους τέσσερις παράγοντες». It did NOT take the move the contradiction licenses (score Demand 1 and let the sum clear the bar), and it did NOT take the move frameworks §4 explicitly forbids (sum three factors and re-centre on −9). 290/75 = 58/15 is an attainable value on the renormalised grid per score-arithmetic §7.1. One cost is unstated and is recorded in defects_outside_graded_set: that row's 3,87 is on a different denominator from the eight published-weight scores it is ranked beside."
+    },
+    {
+      "severity": "low",
+      "type": "expectation wording no longer matches what the skill produces",
+      "location": "evals.json e1.5 / e2.5 / e3.6",
+      "finding": "All three require 'at least one computation written out so a grader can re-run it'. The prior record flagged this as not gradable as written because no deliverable showed an explicit multiplication line. That is now moot in the opposite direction: every scored row in all four deliverables prints its full weighted expression inline, so the clause is satisfied 46 times over. No change needed for correctness; recorded so the next grader knows the clause is now trivially met and no longer discriminates."
+    }
+  ],
+  "defects_outside_graded_set": [
+    {
+      "severity": "medium",
+      "eval": 2,
+      "location": "blind2-contentgap-e2.md L113-114",
+      "finding": "FALSE SUPERLATIVE ABOUT THE EXPORT, contradicted by the deliverable's own table. 'Summitline sits at #6 for it, which is the weakest position any of their eight rows holds — the SERP is not settled.' Summitline's eight export rows sit at positions 1, 2, 3, 3, 4, 5, 6 and 7; the weakest is 7 (`dog hiking boots`), which this same deliverable prints at L142 as 'dog hiking boots | 880 | 15 | Summitline | 7'. score-arithmetic.md §7.8 governs the case directly — 'Where a sentence and a table disagree, the table wins — fix the sentence' — and the sentence was not fixed. Nothing is invented; a comparative over supplied data is wrong, and it is load-bearing for the 'the SERP is not settled' inference that follows it. No expectation in this suite grades prose comparatives: e2.6's parenthetical scopes 'traces to a CSV row' to the six exported fields.",
+      "checker": "grade2-contentgap-fixtures.py, then read at source"
+    },
+    {
+      "severity": "medium",
+      "eval": 2,
+      "location": "blind2-contentgap-e2.md L135-136 and L148",
+      "finding": "TWO COUNT ERRORS IN ONE PARAGRAPH, both about the table they sit beside. The Quick Win candidates table has FIVE rows (crampons, dog hiking boots, what is scrambling, hiking first aid kit list, rucksack size calculator, L141-145). L135-136 says 'so all four are cheap *and* wanted'. L148 says 'that screen adds relevance and effort, and it drops three of these five' — of the five, only `hiking first aid kit list` (Quick Win Score +2) reaches Tier 1; crampons (−1), rucksack (−2), dog boots (−1) and scrambling (0) all miss the bar, so four are dropped, not three. Neither error changes a bucket assignment or a score, which is why e2.3 and e2.5 still pass; both are the F16 'recompute every figure you compute' class landing in prose.",
+      "checker": "read at source after the arithmetic pass"
+    },
+    {
+      "severity": "low",
+      "eval": 5,
+      "location": "blind2-contentgap-e5.md L46",
+      "finding": "COUNT ERROR ABOUT ITS OWN TABLE. 'Four of those eleven rows are what stand between this document and a real analysis.' The Analysis Parameters table has TEN rows, enumerated by script. Six of the ten are marked Missing, so which four are meant is also unstated. Harmless to every verdict — no metric or claim depends on it — but it is a self-description that does not survive counting.",
+      "checker": "grade2-contentgap-fixtures.py / e5 row count"
+    },
+    {
+      "severity": "low",
+      "eval": 3,
+      "location": "blind2-contentgap-e3.md, Κατηγορία 2 table vs Κατηγορία 1 table",
+      "finding": "TWO WEIGHT SETS RANKED IN ONE ORDERED LIST, WITH THE COMPARABILITY CAVEAT UNSTATED. Μ3's 3,87 is computed on the renormalised four-factor weights (290/75) while the other eight scores use the published five-factor weights. The renormalisation itself is printed in full and the dropped factor is named — that part is exemplary — but the deliverable then places 3,87 in a tier table above 3,10 and 3,00 and in the calendar without saying that the three numbers do not share a denominator. score-arithmetic §7.1 anticipates rows on different weight sets for the purpose of testing attainable values; nothing in the skill says whether scores from two weight sets may be ordered against each other, so this is as much a gap in the skill as a defect in the run. Naming it here because a reader cannot see it from the tier table alone."
+    },
+    {
+      "severity": "low",
+      "eval": 4,
+      "location": "blind2-contentgap-e4.md L342",
+      "finding": "THE DELIVERABLE MISDESCRIBES ITSELF. The operator block states 'The `D1` / `M4b` style labels in the report above are that report's own row labels, not framework item IDs'. e4's report body contains zero `D1` and zero `M4b` occurrences (scripted count over L1-312): that labelling scheme belongs to the e1 deliverable, and e4 uses plain names throughout. The rule the sentence states is correct and useful; the reference is to something not present. Weak evidence of carry-over between the executor's two TrailKit runs, which share fixtures and prompt scope — worth the coordinator's attention only because a self-description that does not match the document is the class F11 records."
+    },
+    {
+      "severity": "low",
+      "eval": 1,
+      "location": "blind2-contentgap-e1.md L323, and the same presupposition in blind2-contentgap-e4.md row 4",
+      "finding": "UNSOURCED PRESUPPOSITION ABOUT THE CLIENT'S ARTICLE BODIES. 'Seed the 12 terms from words your existing 12 articles already use without defining: scrambling, R-value, denier, hydrostatic head, DWR, taped seams, and so on.' e4 repeats it: 'Terms drawn from vocabulary already used undefined across the client's existing 12 articles'. The own-site fixture supplies URL, title, topic, format and sessions — no body text — so whether those articles use 'denier', 'hydrostatic head', 'DWR' or 'taped seams' is not observable from the input. Plausible for a hiking blog and stated in the indicative. Two of the terms are traceable ('scrambling' and 'R-value' appear in Summitline's fixture titles, not TrailKit's). Not fabrication of competitor data, so e1.6 is unaffected; it is the F3 class one notch down — a claim in a scored deliverable that nothing in the input supplies."
+    },
+    {
+      "severity": "low",
+      "eval": 1,
+      "location": "blind2-contentgap-e1.md L41 vs L189-195, and blind2-contentgap-e3.md L42 vs L297/L343",
+      "finding": "THE HEADLINE GAP COUNT AND THE SCORED SET ARE DIFFERENT SETS. e1: 'Total opportunity: **10 content gaps** identified — 5 missing topics, 3 depth gaps, 3 format gaps (one gap is both)' — the report's own '### Angle gap' finding A1 is neither in the 10 nor scored, though the coverage matrix marks it as an angle gap. e3 is sharper: the headline says «9 κενά περιεχομένου — 3 θεματικές ... 3 κενά βάθους, 3 κενά μορφής», which excludes the angle gap Γ1; but the nine SCORED rows include Γ1 (at 3,95, the #2 priority) and exclude the depth gap Β1, which is counted in the headline and never scored. L343's «Κανένα από τα εννέα κενά δεν βαθμολογήθηκε P2 ή P3» then refers to a different nine from L42's nine. Nothing says Β1 was folded into Γ1, though that is evidently what happened. No expectation counts gaps, so nothing fails; a client reconciling the summary against the tier tables cannot."
+    },
+    {
+      "severity": "low",
+      "eval": 1,
+      "location": "blind2-contentgap-e1.md L38-40 vs the Month 1-2 calendar",
+      "finding": "'Scoped to 12 terms ... it becomes a one-month build' sits against a calendar that puts batch 1 in Month 1 weeks 3-4 and batch 2 in Month 2 weeks 1-2. Defensible as one month of the stated 2-articles-per-month capacity; loose against the calendar the same document prints. Recorded as an imprecision rather than an error so the coordinator can judge."
+    },
+    {
+      "severity": "informational",
+      "eval": 1,
+      "location": "blind2-contentgap-e1.md GEO opportunities table L243-254",
+      "finding": "The GEO table's rows are in no stated order, and two rows carry ordering notes that the row order contradicts: 'Hiking with dogs (M2) | 2.70 | 3 | Tier 3, ahead of nothing on GEO — see tie note below' is printed ABOVE 'Glossary, 60-term scope (M4) | 2.70 | 5 | Tier 3, ranked above dogs on the 2.70 tie by GEO Value'. The Tier 3 table itself orders them correctly (glossary then dogs), so the tie-break is applied; only this table's row order reads against its own note."
+    },
+    {
+      "severity": "informational",
+      "eval": 1,
+      "location": "blind2-contentgap-e1.md format table, 'Checklist articles' row",
+      "finding": "PeakPath is counted at 2 checklist articles (Winter Emergency Kit, Wild Camping Kit List). 'The Hiking First Aid Kit List' is arguably a third by the same title-based test, and the row states no classification basis, unlike the comparison-page row which names its test explicitly ('title carries \"vs\" or \"compared\"'). Same class the prior record recorded for its packing-lists/checklists divergence. The mean and gap are arithmetically correct for the counts given."
+    },
+    {
+      "severity": "none-found",
+      "scope": "what was looked for and NOT found",
+      "finding": "Screened across all five deliverables and found ZERO of: `~~category` tokens; bracket tokens, TBD, XX or 'to supply' in any value position outside e5's two in-fence-labelled SKELETON blocks; invented search volumes or difficulty scores in the three no-tool runs (e1, e3, e4); any asserted AI-citation count for any site; any traffic projection for unwritten content; any competitor per-page or per-type traffic figure derived from a site total; any competitor topic, count, URL or position not in the fixtures (e2's 11 rows traced cell-by-cell, 11/11; every backticked path in e2 is an export or own-site fixture URL); any framework item ID or skill slug in client prose (all 11 slug occurrences and all 3 CORE-EEAT/CITE occurrences are inside e4's in-fence-labelled operator block); any arithmetic error in any of the 86 printed score expressions; any tier inconsistent with its own score; any unreachable attainable value; any funnel table that fails to reconcile to its stated total; any FAQ rich-results claim (post-R3); any fabricated quotation or statistic attributed to a real organisation or person (F3 class); and — checked specifically because the prior record recorded it as a HIGH-severity ungraded defect — any self-verification claim about the Greek titles' originality. The prior run's «Κανένας δεν αντιγράφει τίτλο ανταγωνιστή» has no counterpart here: screens for αντιγράφ / πρωτότυπ / μοναδικ / δεν επαναλαμβ over e3 return no such claim. The titles still share head terms with competitor titles (5 of 12), which is defensible for condition names and is referred to the editor as a differentiation question rather than recorded as a defect, precisely because no claim to the contrary is made."
+    }
+  ],
+  "greek_editor_referral": {
+    "eval": 3,
+    "file": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind2-contentgap-e3.md",
+    "binding": "e3.1's verdict is the editor's, not this grader's. Recorded EDITOR-PENDING.",
+    "mechanical_layer": "CLEAN — zero medial ς, zero word-final σ, zero unaccented screened forms, 14/14 Greek headings, zero confirmed family-5 defects (60 raw hits all hand-inspected at source), zero family-6 defects (1 net hit, protected numeral predicate), zero family-7 tokens, zero family-8 tokens, zero «νίκη» hits after the Θεσσαλονίκη guard with 5 city occurrences correctly not flagged.",
+    "for_the_editor": [
+      "Fluency, register and translation-ese across the whole document — not judged here.",
+      "Naturalness of the 12 proposed article titles (L356-367) and the 12 calendar entries (L383-394). Five titles share a head term with a competitor article title in the fixture — #5 Δισκοκήλη, #6 Πελματιαία απονευρωσίτιδα, #8 Χονδροπάθεια επιγονατίδας, #10 Επιστροφή στο τρέξιμο μετά από τραυματισμό (verbatim, plus a colon-subtitle), #11 Ρήξη μηνίσκου. Those are the natural Greek names of the conditions, and this deliverable makes no originality claim, so the question is editorial differentiation, not honesty.",
+      "FAMILY-5 BORDERLINE 1, L209: «Η εξαγωγή σας δίνει συνεδρίες ανά σελίδα και τίποτα άλλο· δεν υπάρχουν ποσοστά εγκατάλειψης...». An n-word in an affirmative finite clause. «και τίποτα άλλο» reads as the standard idiom to me, but family 5 is the editor's call on hand-checked evidence and I am not forming one.",
+      "FAMILY-5 BORDERLINE 2, L337: «η Ανάπλαση έχει 25 βίντεο και εσείς κανένα» — a gapped conjunct with the verb elided. Protected as a verbless parallel on my reading; the editor rules.",
+      "Latin-script tokens in Greek prose: «Το site σας» (L15), «όλο το site» (L60), «στο site τους» (L93, L203), «ενός ξένου site» (L439). The advisory 'English artefact names in Greek client-visible prose' family names «το skill» / «το template»; «site» is the same shape, and «ιστότοπος» is the native term the prior run's editor referral also raised. Other Latin tokens are URLs, brands or glossed acronyms (GA4, CMS, YouTube, SEO, PDF, Search Console, and AI used throughout without a first-use gloss — the prior run glossed it as «συστήματα τεχνητής νοημοσύνης» on first use and this one does not; L57 says «συστήματα AI» and L215 «μηχανών AI»).",
+      "P0/P1/P2/P3 tier labels appear 42 times in Greek client-read tables. They are the skill's own priority bands, not framework item IDs, and e1.5's wording explicitly sanctions 'P0-P3 per the reference's ranges' as a tier notation — so this is a register question (are bare P-labels acceptable in a Greek clinic's report?) rather than a family-8 hit."
+    ]
+  },
+  "tool_correctness": {
+    "tool_errors": 0,
+    "checker_false_positives_caught_before_any_verdict": 3,
+    "detail": "No tool error reached a verdict. Three of my own screens over-generated and each was resolved by inspecting the raw output before reporting (F7 discipline, F15's screen-not-verdict rule): (1) the missing-tonos screen returned 2 hits, both substring artefacts of accented words ('κενο' inside «κενού» L223, 'αρθρο' inside «αρθροσκόπησης» L142) — zero real defects; (2) the family-5 licenser test is line-local and reported 17 hits as unlicensed, of which six carry their «δεν» at the end of the preceding line (verified by reading L35-38, L157-159, L204-206, L283-285, L330-332, L438-441) and the rest are verbless nominal predicates the family exempts; (3) my substring-artefact guard for «ποτέ» inside «αποτέλεσμα» did not fire at L324 because it tested the three characters before the match rather than the word — the artefact was caught by hand instead. The first arithmetic script crashed on a trailing full stop in '2.75.' and on wrapped expressions; it was rewritten to run over a whitespace-joined copy and to strip trailing punctuation, after which it found 46 weighted and 40 quick-win expressions against 30 and 24 on the line-local first pass — the fix is why the sensitivity computations in e1/e2/e3 were checked at all. EXECUTOR SELF-REPORT VERIFIED: the executor reported that one of its own Greek checks produced a false clean when an `[α-ω]` grep aborted with `Invalid collation character` and its `|| echo` fallback printed a clean message, and that it redid the check in Python. I did not rely on that redone check — I ran my own Greek screens independently in Python, which is why every Greek verdict here rests on this grader's own evidence. The `[α-ω]` failure mode is real and is documented in anti-slop-ruleset.md §6's advisory note.",
+    "expectations_not_gradable_as_written": [
+      "e2.2 — 'flagged as ALREADY COVERED' imposes no placement requirement, so a catch carried only in prose and a dependency cell satisfies it as literally as the prior run's dedicated verdict column did. The two runs differ materially in how visible the catch is and the expectation cannot see the difference.",
+      "e4.5 — the parenthetical list of planted gaps is still not exhaustive of the fixtures' planted gaps (trail first aid is routed and is not in the list), so 'every gap handed onward is one of the planted gaps' reads as a non-exhaustive enumeration rather than a boundary. Unchanged from the prior record.",
+      "e4.1 — 'intended content type' is carried by pointer in the keyword-research row ('mixed, one per gap — see rows 2-5') and resolved to labels in the referenced rows. Gradable, but the expectation does not say whether a pointer satisfies a required payload field."
+    ],
+    "scope_drift": "None. No deliverable was produced or re-run by this grader — every verdict is read off the saved files. No skill, reference, eval, tracking or baseline file was edited or staged; `git status --porcelain` is empty at close. Files written: this record and four grade2-contentgap-* scratchpad files."
+  },
+  "artifacts": {
+    "checkers": [
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/grade2-contentgap-arith.py",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/grade2-contentgap-screens.py",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/grade2-contentgap-greek.py",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/grade2-contentgap-fixtures.py"
+    ],
+    "input_hashes": [
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/grade2-contentgap-input-hashes-open.txt",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/grade2-contentgap-input-hashes-close.txt"
+    ]
+  }
+}
