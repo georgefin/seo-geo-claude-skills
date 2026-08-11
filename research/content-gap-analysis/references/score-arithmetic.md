@@ -18,7 +18,7 @@ reproduce from the rows above it is an assertion wearing a decimal point.
 | 1 | Factor score (1-5) | One judgement per factor against its own band row, five per gap | frameworks §4 table |
 | 2 | Gap Priority Score (1.00-5.00) | Σ (weight × factor score) over the five factors | frameworks §4 |
 | 3 | Priority tier (P0-P3) | Read off figure 2, rounded to 2 dp | frameworks §4 |
-| 4 | Quick Win Score (-8 to +8) | Demand + Relevance + Effort + Density − 12 | frameworks §4 |
+| 4 | Quick Win Score (-8 to +8) | Demand + Relevance + Effort + Density − 12, computed only for gaps that passed the demand gate first | frameworks §4 |
 | 5 | Competitor mean | Sum of the competitor columns ÷ number of competitor columns | frameworks §2/§3, templates |
 | 6 | Gap Size | Your count − figure 5 | frameworks §3 |
 | 7 | GEO Opportunity row | Figure 2, plus a GEO Value band, plus a tie-broken tier | §4 below |
@@ -129,7 +129,9 @@ pretend to do.
   9) are read from figures 3 and 4 together, and each tier states the rule it used: Tier 1 = P0 or
   P1 with a Quick Win Score of 2+; Tier 2 = P0 or P1 that missed the quick-win bar; Tier 3 = P2
   and P3. Where the quick-win screen did not run (Search Demand dropped), say so and read the
-  tiers from the priority score alone.
+  tiers from the priority score alone. A gap that failed the demand gate never entered the screen
+  either (frameworks §4), so it carries no Quick Win Score and cannot be Tier 1 — it is read on
+  its Gap Priority Score alone, like the screen-not-run case.
 
 ## 6. Figures this skill cannot produce
 
@@ -179,7 +181,11 @@ Run this against the finished report, not the working notes.
    tier its score does not support.
 3. Every Quick Win Score is an integer in -8 to +8 and equals the sum of its four factors minus
    12; where Search Demand was dropped rather than proxied, no Quick Win Score appears and the
-   report says the screen did not run.
+   report says the screen did not run. **And no Quick Win Score appears on a sub-floor row.** At
+   the default >100/month floor that is any row scoring Search Demand 1 — the band defined as
+   "<100 monthly searches" — so a printed Quick Win Score beside a Search Demand of 1 means the
+   demand gate was skipped and the row is not deliverable. Where the run moved the floor for its
+   niche, the report says where it moved to and this test is read against the moved floor.
 4. Where a factor was dropped, the renormalised weights are printed, they sum to 1.00, and the
    dropped factor is named. Where a factor was proxied, the proxy's basis is named.
 5. Every mean states its n; every Gap Size shows both inputs; the funnel stage counts sum to the

@@ -338,8 +338,11 @@ Tier 2 = P0 or P1 below that bar · Tier 3 = P2 and P3.
 | [Title idea] | [keyword] | [vol] | [diff] | [5/4/5/4/3] | [0.25×5 + 0.20×4 + 0.25×5 + 0.15×4 + 0.15×3 = 4.35 → P0] | [5+5+4+4−12 = +6] |
 | [Title idea] | [keyword] | [vol] | [diff] | [scores] | [arithmetic → tier] | [arithmetic] |
 
-**Why prioritize**: wanted, relevant, cheap and uncontested — the four inputs of the Quick Win
-Score, all of them above midpoint
+**Why prioritize**: wanted, relevant, cheap and uncontested — the gap cleared the demand gate
+first, then its four Quick Win Score inputs, printed on the row, summed to 14 or more (a score of
++2 or better). Not "all four above midpoint": only 16 of the 180 qualifying factor combinations
+score every input 4 or 5, so a Tier 1 row is a strong *total* after a passed demand gate, not
+four strong factors
 
 ### Tier 2: Strategic Builds (This Quarter)
 

@@ -141,7 +141,7 @@ When a user requests content gap analysis:
 
    Find keywords competitors rank for that you do not. Categorize into High Priority (high volume, achievable difficulty), Quick Wins (lower volume, low difficulty), and Long-term (high volume, high difficulty). Include keyword overlap analysis.
 
-   **A quick win is cheap *and* wanted.** Low difficulty alone does not qualify a keyword for the Quick Wins bucket: it must also clear the demand floor in the gap filters (>100/month by default, adjusted for the niche) or carry the named demand proxy this run is using per Step 9. This is the same condition the Quick Win Score enforces, stated in words — a keyword with no demand evidence is not a quick win however easy it looks and however empty the SERP is.
+   **A quick win is cheap *and* wanted.** Low difficulty alone does not qualify a keyword for the Quick Wins bucket: it must also clear the demand floor in the gap filters (>100/month by default, adjusted for the niche) or carry the named demand proxy this run is using per Step 9. **Screen demand first, then score.** The Quick Win Score does not enforce that condition — it adds its four factors, so three strong ones outvote a failing Search Demand: `1 + 4 + 4 + 5 - 12 = +2` clears the 2+ bar with Search Demand at 1, the band that *is* "<100 monthly searches". So a keyword below the floor, carrying no named proxy, leaves the bucket before any Quick Win Score is computed for it, and none is printed on its row (gap-analysis-frameworks.md §4). A keyword with no demand evidence is not a quick win however easy it looks and however empty the SERP is.
 
 5. **Map Topic Gaps**
 

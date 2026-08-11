@@ -233,10 +233,17 @@ One primary content type per page (item O05). Documented auxiliaries are legitim
 | Blog (insights) | Article | BreadcrumbList; author/publisher nested |
 | Alternative | Article (comparison editorial) | BreadcrumbList |
 | Best-of | ItemList | BreadcrumbList |
+| E-commerce category | ItemList — CollectionPage instead where the page itself is marked as the collection and the list hangs off it | BreadcrumbList (real trail); the listed products nested as the list's members, never as second primaries |
 | Use-case | WebPage | BreadcrumbList |
 | FAQ | FAQPage | BreadcrumbList |
 | Landing | SoftwareApplication (or the accurate Product/Service type) | BreadcrumbList |
 | Testimonial | Review | BreadcrumbList; reviewed item + reviewer nested inside the Review |
+
+**Nesting is not stacking — the test is the job, not the indentation.** The rule above bans a *second full content type*: two types each asserting what the page is (FAQPage bolted onto a service page; Article and Product both as primaries). A nested `ItemList` asserts nothing about what the page is — the primary already did that — it carries the primary's own payload, the items the collection consists of. That is the shape this table already licenses at Testimonial, where the reviewed item and the reviewer sit nested inside the one `Review`. So `CollectionPage` with its products as a nested `ItemList`, or `ItemList` with `Product` members, is **one primary type**, and the page is scored for O05 on that one type. Flattening the nesting into a `@graph` and referencing the list by `@id` does not change the answer: the discriminator is whether the extra type is doing the page-identity job, not whether it is written inline. Two nodes both claiming page identity — `CollectionPage` **and** `FAQPage` — is stacking however it is written.
+
+None of this is a citation play. Google's AI-optimization guide states that "Structured data isn't required for generative AI search", adds that no special schema.org markup needs to be added for it, and recommends keeping structured data as part of overall SEO because it supports rich-result eligibility on Google Search (`developers.google.com/search/docs/fundamentals/ai-optimization-guide`, "Mythbusting generative AI search" — read 2026-08-11). Markup earns its place by describing the page accurately and by rich-result eligibility, never by an expected lift in AI citations.
+
+**When the optimisation changes what the page is, the primary type is replaced, not added to.** A category page that acquires a genuine buying guide, or a listing rebuilt as a comparison, may need a different primary than it started with. Swap it. Keeping the old primary and adding the new one is exactly the "both as primaries" case the rule bans, and it is how stacking usually arrives — by accretion during an optimisation, not by a decision to pile types on. **Not settled here**: which state O05 is scored against when a recommended change would move the type — the page as audited, or the page as it will be. Until an owner ruling sets that convention, score the markup that is actually on the page and record the type change as a recommendation; do not invent a convention, and do not report a score for markup that does not exist yet.
 
 ---
 
@@ -247,6 +254,7 @@ What is the primary goal?
 ├── Teach users how to do something         → Blog (guides)
 ├── Your product vs one competitor           → Alternative
 ├── Objective comparison of 3+ products      → Best-of
+├── List the products in a shop category     → E-commerce category
 ├── Show product fits a persona              → Use-case
 ├── Show verified customer results           → Testimonial
 ├── Answer common questions                  → FAQ

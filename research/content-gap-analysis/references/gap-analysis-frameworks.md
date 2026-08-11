@@ -298,9 +298,10 @@ conservative direction: a gap is never promoted a tier on a rounding artefact.
 ### Quick-Win Identification
 
 A "quick win" is a gap that is wanted, relevant, cheap and uncontested — high on all four of
-Search Demand, Business Relevance, Creation Effort (ease) and Competitive Density (room). All
-four already point that way on the factor table above, so the score adds all four and re-centres
-on the midpoint:
+Search Demand, Business Relevance, Creation Effort (ease) and Competitive Density (room), with
+Search Demand acting as a **gate on entry** as well as a term in the sum (screening rule below).
+All four already point that way on the factor table above, so the score adds all four and
+re-centres on the midpoint:
 
 ```
 Quick Win Score = Search Demand + Business Relevance + Creation Effort + Competitive Density - 12
@@ -318,6 +319,19 @@ gap between them either.
 | 2-3 | Moderate quick win -- include in next content sprint |
 | 0-1 | Not a quick win -- may still be strategically important |
 | Negative | Avoid -- high effort/competition relative to demand |
+
+**The demand floor is screened before the score, not enforced by it.** The formula adds its four
+inputs, so three strong ones outvote a failing fourth: `1 + 4 + 4 + 5 - 12 = +2` clears the 2+
+bar with Search Demand at 1 — the band that *is* "<100 monthly searches", i.e. below the
+>100/month minimum-volume filter in §2 Step 4. Ten of the 625 integer factor combinations do it
+(Search Demand 1 with the other three summing to 13 or more); every one of them can carry a Gap
+Priority Score of 3.00 or better, so they reach report Tier 1 as well as the "moderate quick win"
+band. So apply the demand condition **first**: a gap that fails the demand floor and carries no
+named demand proxy is not screened for quick wins at all — no Quick Win Score is computed for it,
+none is printed on its row, and it takes its place on the Gap Priority Score alone. The score
+then ranks what already passed the gate, and the bands above are read only on those rows. Score
+the whole list and read the bands afterwards and you re-admit exactly the ten combinations the
+gate exists to exclude.
 
 **All four inputs are required, and Search Demand is the one that goes missing.** The screen is a
 demand test as much as a cost test: drop Search Demand and the remaining three would crown a gap
