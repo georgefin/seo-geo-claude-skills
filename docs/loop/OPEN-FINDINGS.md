@@ -37,12 +37,14 @@ decision rather than an edit, it says so and names who decides.
 > because the phrase wraps a newline and the check is line-based (R319: coverage = surface ×
 > detector).
 >
-> **Two fixes went against the finding's own framing, deliberately:** **#67** was fixed by
-> gating Demand rather than dropping the equivalence sentence, because the conjunctive intent
-> is stated in five places and the score is compensatory — dropping it would have deleted a
-> true statement of intent and left the mechanism wrong (R238). **#61** concluded the *rule*
-> over-reached rather than the template, on four independent lines of evidence, and says so in
-> the file.
+> **#67 — corrected record.** An earlier version of this note said the fix "gated Demand
+> **rather than** dropping the equivalence sentence". That was false about this wave's own
+> change, and Mode A caught it: the sentence is present at base and **absent at HEAD**, replaced
+> by its explicit negation. What actually happened is **both** — the false equivalence claim was
+> removed *and* Demand was gated. The R238 concern was never about that sentence (it was false,
+> and a false sentence is deleted, not protected); it was about the **five other statements of
+> conjunctive intent**, which were kept. #61 separately concluded the *rule* over-reached rather
+> than the template — see F5 below on how much of that justification reaches a reader.
 >
 > **Owner rulings opened by this wave, none invented:** #75's four threshold decisions;
 > #72's "which state is O05 scored against when the optimisation changes the type"; and the
@@ -72,7 +74,7 @@ decision rather than an edit, it says so and names who decides.
 | 61 | Both auditors' report templates violate their own Output Validation. |
 | 60 | `report-templates.md` §3 fence lacks the in-fence label its two siblings carry. |
 | 64 | Mode A advisories A3 and A4 — provenance reachable by a correctly-scoped executor grep; the editor slot leaves `passed + failed ≠ total` unexplained on the `failed` side. |
-| 80 | **RESOLVED 2026-08-11 except one. #69 is not one defect, it is thirteen; twelve are fixed, one remains** (`optimize/content-refresher/SKILL.md`, held only because an agent was mid-edit in that file). Original text follows. **#69 is not one defect, it is thirteen — ten are still open.** Same mechanism throughout: a `` ```markdown `` template block containing a nested 3-backtick block, so the nested *opener* closes the template and everything after it falls outside the fence a model copies. Detector shipped: `scripts/check-template-fences.py` (R297-validated, RED on the pre-fix files via `git stash`, GREEN after). Three fixed 2026-08-11; **ten remain** in 8 files — `performance-reporter/references/report-output-templates.md:92`, `content-refresher/SKILL.md:158`, `internal-linking-optimizer/references/linking-templates.md:19`, `on-page-seo-auditor/SKILL.md:228`, `on-page-seo-auditor/references/audit-templates.md:285`, `technical-seo-checker/SKILL.md:139`, `technical-seo-checker/references/technical-audit-example.md:18`, `technical-seo-checker/references/technical-audit-templates.md:302`, `serp-analysis/references/analysis-templates.md:7` and `:285`. Worst is `technical-seo-checker/SKILL.md:139`, where the copied template stops at `**Current Content**:` and loses the entire crawlability checklist. **Not batch-fixed deliberately**: an auto-fixer was written and rejected at dry-run — it resolved three separate openers in `geo-content-optimizer` to one close at L280, because these SKILL.md templates sit inside numbered list items that match neither of its section-break signals, and applying it would have corrupted 10 files. Each needs its intended close identified by reading. |
+| 80 | **RESOLVED 2026-08-11 — all 13 fixed** [obs: `scripts/check-template-fences.py` GREEN, 205 files scanned, exit 0]. #69 is not one defect, it is thirteen. Original text follows. **#69 is not one defect, it is thirteen — ten are still open.** Same mechanism throughout: a `` ```markdown `` template block containing a nested 3-backtick block, so the nested *opener* closes the template and everything after it falls outside the fence a model copies. Detector shipped: `scripts/check-template-fences.py` (R297-validated, RED on the pre-fix files via `git stash`, GREEN after). Three fixed 2026-08-11; **ten remain** in 8 files — `performance-reporter/references/report-output-templates.md:92`, `content-refresher/SKILL.md:158`, `internal-linking-optimizer/references/linking-templates.md:19`, `on-page-seo-auditor/SKILL.md:228`, `on-page-seo-auditor/references/audit-templates.md:285`, `technical-seo-checker/SKILL.md:139`, `technical-seo-checker/references/technical-audit-example.md:18`, `technical-seo-checker/references/technical-audit-templates.md:302`, `serp-analysis/references/analysis-templates.md:7` and `:285`. Worst is `technical-seo-checker/SKILL.md:139`, where the copied template stops at `**Current Content**:` and loses the entire crawlability checklist. **Not batch-fixed deliberately**: an auto-fixer was written and rejected at dry-run — it resolved three separate openers in `geo-content-optimizer` to one close at L280, because these SKILL.md templates sit inside numbered list items that match neither of its section-break signals, and applying it would have corrupted 10 files. Each needs its intended close identified by reading. |
 
 ## C. Process, not defects
 

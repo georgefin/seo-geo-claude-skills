@@ -45,9 +45,9 @@ Open-findings wave — `docs/loop/OPEN-FINDINGS.md` section B. Twelve of fifteen
 - **schema-markup-generator 4.2.4 (#63)**: Output Validation banned the `_SKELETON` marker outright while step 2 *requires* it on the bracket route. Ban scoped to markup offered as finished.
 - **content-gap-analysis (#62)**: the suite graded a handoff convention the skill never stated — `grep -i handoff` returned 0 across the skill and all four references. Pointer and routing rules added.
 - **performance-reporter 4.5.0 (#60)**: §3's template lacked the in-fence ILLUSTRATIVE FILL marker its two siblings carry, so a model copied invented figures with nothing marking them illustrative.
-- **Version bookkeeping**: 11 skills bumped in G1 lockstep (frontmatter `version` where present, `metadata.version`, and the registry row). All 20 verified in lockstep.
+- **Version bookkeeping**: 14 skills bumped in G1 lockstep (frontmatter `version` where present, `metadata.version`, and the registry row). All 20 verified in lockstep.
 
-Not in this wave: section A (#77, #65, #79, #68) needs rulings, not edits; #61, #71 and #64 were still in flight at the time of writing.
+Not in this wave: section A (#77, #65, #79, #68) needs rulings, not edits. #61, #71 and #64 were in flight when this entry was first drafted and closed before the wave shipped — all 15 section-B findings are closed.
 
 ### v4.4.1 (2026-08-09)
 

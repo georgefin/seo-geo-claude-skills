@@ -252,7 +252,7 @@ authoritative.
 - **Status**: resolve-condition MET **and owner read COMPLETE**. The ruling draft +
   purge is still routed to Sani as **G9** rather than applied here — creating a ruling
   is gate-class, and a library-wide purge is Sani's call regardless of evidence grade.
-  The evidence objection that held 9b is now gone; the gate remains.
+  The evidence objection that held 9b is now gone; the gate itself is still Sani's [obs: G9 unresolved in `docs/loop/GATED-ITEMS.md` as of 2026-08-11].
   The E2–E5 eval suites are unaffected: every one was authored to assert nothing
   about HowTo either way, which is what the [VERIFY] tag was for.
 - **Resolves when**: Sani's verdict on G9. If retirement is ruled: ruling drafted,
