@@ -1,19 +1,4 @@
 import re,sys,os,glob
-def blocks(text):
-    """CommonMark fence walk -> list of (open_line, label, content_lines)."""
-    L=text.split('\n');out=[];i=0
-    while i<len(L):
-        m=re.match(r'^\s*(`{3,}|~{3,})\s*(\S*)',L[i])
-        if m:
-            t,lbl=m.group(1),m.group(2);n=len(t);ch=t[0];start=i+1;body=[]
-            i+=1
-            while i<len(L):
-                c=re.match(r'^\s*(%s{%d,})\s*$'%(re.escape(ch),n),L[i])
-                if c: break
-                body.append(L[i]);i+=1
-            out.append((start,lbl,body))
-        i+=1
-    return out
 def confirm(text):
     """DETECTION SCOPE — read this before quoting a green.
 

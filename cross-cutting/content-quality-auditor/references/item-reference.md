@@ -89,13 +89,13 @@ Quick reference for all 80 CORE-EEAT audit items. Full scoring criteria in [core
 1. **C09 FAQ Coverage** -- Confirmed
    - **Finding**: No FAQ section despite clear long-tail potential
    - **Evidence**: no FAQ/Q&A block anywhere on the page; uncovered long-tail queries such as "free PM tools for small remote teams"
-   - **Impact**: Fail (0) -> potential gain of 2.5 weighted points
+   - **Impact**: Fail (0) -> potential gain of +2.5 points on the overall score
    - **Fix**: Add FAQ with "Are there free PM tools for small remote teams?", "How to migrate between PM tools?", etc.
 
 2. **C02 Direct Answer** -- Confirmed
    - **Finding**: Core answer not delivered in the first 150 words
    - **Evidence**: answer first appears in the first 300 words; no summary box above the fold
-   - **Impact**: Partial (5) -> potential gain of 1.25 weighted points
+   - **Impact**: Partial (5) -> potential gain of +1.25 points on the overall score
    - **Fix**: Insert a "Top 3 Picks" callout box in the first 150 words
 
 [... remaining 7 dimensions (O, R, E, Exp, Ept, A, T) follow the same per-item format ...]

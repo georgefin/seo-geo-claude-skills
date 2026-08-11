@@ -1,4 +1,4 @@
-# Open Findings — verified, unfixed, as of 2026-08-11
+# Open Findings — as of 2026-08-11 (section B closed; A and C open)
 
 **Why this file exists.** These lived only in a session-local task list, which no other session
 and no file could read. A Mac Studio session asked which set "the 18 open findings" meant, could
@@ -10,7 +10,8 @@ can reach it. Fixed here.
 A count quoted from a live list is a timestamp, not a fact — this file supersedes any number
 quoted in conversation.
 
-**Status vocabulary**: every row below is OPEN. Nothing here is applied. Where a row needs a
+**Status vocabulary**: rows are OPEN unless a section header says otherwise. **Section B is now
+CLOSED (2026-08-11) — see its header.** Sections A and C remain open. Where a row needs a
 decision rather than an edit, it says so and names who decides.
 
 ---
@@ -22,11 +23,13 @@ decision rather than an edit, it says so and names who decides.
 | 77 | **The benchmark asserts the mirror of what R3-9a retracted.** 9a removed "FAQPage's value is AI-engine parsing" because no primary source establishes it either way. `references/core-eeat-benchmark.md:304` asserts the symmetric claim as fact — "engines parse the visible Q&A either way" — and it reached **client prose in 3 of 5 blind deliverables**, both languages. Retracting one and leaving its twin in the shared framework is indefensible. | Coordinator |
 | 65 | **alert-manager: 6 rows need a threshold decision, not a doc fix.** Includes a row banding **DA 70+** where the guide bands **DR 60+** — different vendors' instruments, not interchangeable; a P1 on a trigger that reaches no band; and four page-level rows with no comparison period stated, so their band is underivable. | Sani / operator |
 | 79 | **Derived-figure class, third appearance.** Prose restating a table and disagreeing with it. The skill's own rule already governs it ("where a sentence and a table disagree, the table wins"), so this is a rule breached, not missing. Whether it increments a ledger entry is a separate call. | Coordinator |
+| 81 | 🔴 **A skill-local relaxation of a cross-skill FAIL-grade rule, authored inside the wave that then cited it.** `f7c7610` split `domain-authority-auditor/SKILL.md:356`'s flat ban on item IDs in the client fence into a permissive pair; `a9fbd7c` then cited that pair as proof the example was compliant. It contradicts **`references/inter-skill-handoff.md:241`** — *"A framework **item ID** and a **skill slug** are never exempt, in any language"* — and anti-slop family 8, whose handle carve-out requires a **labelled operator block**, which `example-report.md:105` places *outside* the client fence. Caught by Mode A's second pass. **The relaxation stands in the tree pending this ruling and should be reverted if the ruling goes the other way.** | Coordinator / Sani |
+| 82 | **Is a client entitled to the derivation of their own score?** `domain-authority-auditor/references/example-report.md:43-46` prints the full CITE computation (`70 × 0.40 + 55 × 0.15 + … = 68.5`) inside the client fence, which the same skill's first Output Validation checkbox bans as a "scoring-method instruction". Transparency argues for keeping it; the checkbox as written forbids it. Not resolved here, because the resolution is either "move it to the operator block" or "the checkbox is over-broad", and picking the second would be relaxing a rule to fit an artifact. | Coordinator |
 | 68 | **content-gap: the recommended proxy cancels itself.** Scoring Search Demand from competitor cluster depth forces Competitive Density from the same evidence; at 25% and 20% weight they largely cancel, so five factors behave as three. Needs a judgement about the framework, not a patch. | Coordinator |
 
 ## B. Confirmed defects with a known fix
 
-> ✅ **ALL 15 CLOSED 2026-08-11**, branch `claude/section-b-fixes-2026-08-11`. Section A is
+> ✅ **ALL 15 CLOSED 2026-08-11**, local branch `section-b`, pushed as `claude/section-b-fixes-2026-08-11`. Section A is
 > untouched by design — those need rulings, not edits.
 >
 > **Three findings were larger than recorded, and the revised count is stated against the
@@ -48,13 +51,21 @@ decision rather than an edit, it says so and names who decides.
 > removed *and* Demand was gated. The R238 concern was never about that sentence (it was false,
 > and a false sentence is deleted, not protected); it was about the **five other statements of
 > conjunctive intent**, which were kept. #61 separately concluded the *rule* over-reached rather
-> than the template — see F5 below on how much of that justification reaches a reader.
+> than the template. **That relaxation is now itself an open ruling — see #81.**
 >
 > **Owner rulings opened by this wave, none invented:** #75's four threshold decisions;
 > #72's "which state is O05 scored against when the optimisation changes the type"; and the
 > content-refresher eval reconciliation (8 fossilized clauses that would have graded a
 > *correct* run as a failure) — reconciled in place, flagged as the commit to split if a
 > deliberate re-baseline is preferred.
+>
+> ⚠️ **#75's verification is UNREPRODUCIBLE and the claim is downgraded accordingly.** Commit
+> `a877786` claims "a PAIRED gate — must_absent AND must_present … 15/15 FAIL against pre-fix
+> blobs, 15/15 PASS after". `grep -rl must_absent` over the repo returns **zero files** — the
+> harness lived in an agent scratchpad and is gone. The twelve fixes are individually
+> inspectable in the diff and the four refusals are now marked in-file, but **the 16→15
+> reconciliation rests on a check nobody can re-run** (R297). Treat it as author-asserted, not
+> verified, until a committed gate reproduces it.
 >
 > **A defect in the verification tooling itself, found by an agent and not by its author:**
 > `scripts/check-template-fences.py` printed GREEN having scanned **zero files** when given a

@@ -49,8 +49,7 @@ part of what it is demonstrating.
 
 ### Top 5 Priority Improvements
 
-Sorted by: weight × points lost (highest impact first). Potential gain = recoverable points
-(10 from Fail, 5 from Partial) × that dimension's weight.
+Sorted by impact on the CITE score, highest first.
 
 1. **C05 AI Citation Frequency** — Increase citations in AI-generated answers
    - Current: Partial | Potential gain: +2.0 points on the CITE score | Evidence: graded Partial in the dimension table above | Confidence: Likely (sampled AI answers, not exhaustive)
@@ -72,7 +71,7 @@ Sorted by: weight × points lost (highest impact first). Potential gain = recove
    - Current: Partial | Potential gain: +0.75 points on the CITE score | Evidence: markup crawl, properties absent from Organization schema | Confidence: Confirmed
    - Action: Add complete Organization schema with sameAs links to Wikidata, LinkedIn, CrunchBase
 
-These five together are worth 2.0 + 1.5 + 1.0 + 0.75 + 0.75 = **6.0 weighted points** — the sum of the individual gains, no more.
+These five together are worth **+6.0 points on the CITE score** — the sum of the individual gains above, no more.
 
 ### Action Plan
 

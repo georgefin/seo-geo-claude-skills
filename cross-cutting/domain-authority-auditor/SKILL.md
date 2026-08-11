@@ -293,14 +293,16 @@ Calculate scores and generate the final report:
 ### Top 5 Priority Improvements
 
 Sorted by: weight × points lost (highest impact first). Potential gain = recoverable points
-(10 from Fail, 5 from Partial) × that dimension's weight — show the multiplication.
+(10 from Fail, 5 from Partial) weighted by that dimension's share. Print the RESULT only —
+the multiplication is scoring method and belongs in the operator block, never in the client
+fence (Output Validation, first checkbox).
 
 1. **[ID] [Name]** — [specific modification suggestion]
-   - Current: [Fail/Partial] | Potential gain: [10 or 5] × [dim weight] = [X] weighted points
+   - Current: [Fail/Partial] | Potential gain: +[X] points on the CITE score
    - Evidence: [observed data behind the score] | Confidence: [Confirmed/Likely/Hypothesis — if Hypothesis, name what would confirm it]
    - Action: [concrete step]
 2. **[ID] [Name]** — [specific modification suggestion]
-   - Current: [Fail/Partial] | Potential gain: [10 or 5] × [dim weight] = [X] weighted points
+   - Current: [Fail/Partial] | Potential gain: +[X] points on the CITE score
    - Evidence: [observed data behind the score] | Confidence: [Confirmed/Likely/Hypothesis — if Hypothesis, name what would confirm it]
    - Action: [concrete step]
 3–5. [Same format]

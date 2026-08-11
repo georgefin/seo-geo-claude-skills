@@ -278,7 +278,7 @@ Sorted by: weight × points lost (highest impact first). Every entry carries all
 1. **[ID] [Name]** — [Confirmed / Likely / Hypothesis]
    - **Finding**: [what is wrong, one sentence]
    - **Evidence**: [verbatim quote or measurement from the content; for Likely/Hypothesis, the indirect signal plus the step that would confirm it]
-   - **Impact**: [Fail/Partial] → potential gain of [X] weighted points
+   - **Impact**: [Fail/Partial] → potential gain of +[X] points on the overall score
    - **Fix**: [concrete step]
 
 2–5. [Same format]
