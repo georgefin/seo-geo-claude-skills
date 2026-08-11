@@ -203,7 +203,7 @@ authoritative.
   ΓΕΜΗ statutory question goes to the client's lawyer, never resolved in-repo.
 - **Cadence**: on-use — before the first client deliverable that relies on them.
 
-## W12 — HowTo rich results: current Google support [VERIFY]
+## W12 — HowTo rich results: current Google support — RESOLVED-PRIMARY 2026-08-11 (owner read)
 
 - **Where**: `research/serp-analysis/references/serp-feature-taxonomy.md` (:30
   Rich Results row and the How-To playbook rows ~:291),
@@ -229,11 +229,32 @@ authoritative.
   verbatim; the year on the "As of September 13" note is contextually 2023 but not
   independently pinned. Full lane record: the coordinator's 2026-08-10 research
   transcription (scratchpad `research-r3-faq-timeline.md`).
-- **Status**: resolve-condition MET pending owner read. The ruling draft + purge is
-  routed to Sani as **G9** rather than applied here — creating a ruling is
-  gate-class, and a library-wide purge on snippet-grade evidence is Sani's call.
+- **OWNER READ — 2026-08-11, grade caveat DISCHARGED, `[VERIFY]` tag dropped per the
+  W5/W10 pattern.** Fetched from `GIORGOSs-Mac-Studio` (no egress proxy),
+  `HTTP 200`, 619,516 B. Both caveats above are answered: the quotes are now
+  **owner-read verbatim**, not search-index returns, and **the year is pinned by the
+  page itself** — the update is headed *"Update on September 14, 2023"*. Full
+  verbatim passage, its raw-HTML container, and the effect on 9b:
+  `docs/loop/pilot/g9-owner-read-CORRECTION-2026-08-11.md`. The operative sentence,
+  owner-read: *"As of September 13, Google Search no longer shows How-to rich results
+  on desktop, **which means this result type is now deprecated.**"*
+- **⚠️ W12 was right and two owner reads regressed against it.** This entry recorded
+  the September update at snippet grade on 2026-08-10. Two later reads of the same URL
+  — one from the "Custom 1" cloud environment, one from a local machine, different
+  networks and clients — **both missed it** and both concluded that 2023 only
+  restricted HowTo to desktop. Cause: both extracted the article *body* and dropped
+  `<aside>`, and the update lives in `<aside class="important">`. Convergence between
+  independent readers is not corroboration when they share a method — it re-measures
+  the method's blind spot. Proposed rule (unnumbered, for the coordinator) in §4 of
+  the correction file: when establishing current/deprecated/withdrawn status, never
+  strip `aside`/`callout`/`banner`/`admonition`/`note` containers, and grep raw HTML
+  for `update|deprecat|no longer|sunset|retired` before concluding.
+- **Status**: resolve-condition MET **and owner read COMPLETE**. The ruling draft +
+  purge is still routed to Sani as **G9** rather than applied here — creating a ruling
+  is gate-class, and a library-wide purge is Sani's call regardless of evidence grade.
+  The evidence objection that held 9b is now gone; the gate remains.
   The E2–E5 eval suites are unaffected: every one was authored to assert nothing
-  about HowTo either way, which is what the [VERIFY] tag is for.
+  about HowTo either way, which is what the [VERIFY] tag was for.
 - **Resolves when**: Sani's verdict on G9. If retirement is ruled: ruling drafted,
   purge executed, and the check (f) token row ships in the same wave (F9-r2
   backfill rule).
