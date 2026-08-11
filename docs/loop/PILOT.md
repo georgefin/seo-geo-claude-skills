@@ -56,6 +56,59 @@ replacing the export drop. Input 2 clears its bar when either the exports land i
 **Input 3 — OPEN.** No publication-workflow words recorded yet: named human publisher,
 approval channel, pre-change capture method, and turnaround expectation all pending.
 
+**2026-08-11 — input 1, ADVANCED but still PART-SUPPLIED.** Sani, verbatim: "I was thinking
+to test the θερμοπομποί keyword [Dropbox folder link] I thought we could test all the NOBO &
+ATLANTIC webpages in www.sanihellas.gr."
+
+What this settles, and what it does not:
+
+- **Property: `www.sanihellas.gr`** — settled. The domain input 1 was missing.
+- **Cluster rule: every NOBO and ATLANTIC page on that property** — this is a *derivation
+  rule*, not the URL list the §0 bar asks for, and the distinction is load-bearing rather
+  than pedantic. A rule the coordinator resolves by crawling produces a list nobody has
+  approved; §0's bar exists because §1's matched-pair design turns on which specific pages
+  are treatment and which are held out. The rule is a large step toward input 1 and does not
+  complete it.
+- **Seed keyword: `θερμοπομποί`** — recorded. Note it is the plural nominative; the fixed
+  query set (§2) must carry the inflected forms too, which is exactly W10's open inflection
+  leg riding this pilot.
+- **The count is unknown and matters.** §0 asks for 5–15 pages. Nobody here knows how many
+  NOBO and ATLANTIC pages exist. If the real number exceeds 15, a selection rule is needed
+  and it is Sani's to give, not the coordinator's to invent.
+
+**BLOCKER — this environment cannot reach the property**
+[obs:2026-08-11T03:40:00Z curl + WebFetch from this session, both refused at the gateway].
+`https://www.sanihellas.gr/` returns `curl: (56) CONNECT tunnel failed, response 403` — the
+network egress proxy refuses the host at the gateway, before any request reaches the site.
+`/robots.txt` and `/sitemap.xml` fail identically. The Dropbox folder link fails the same way.
+So does `developers.google.com` (the G9 evidence-upgrade route, re-tested the same day through
+both the HTTP client and WebFetch). This is the environment's allowlist, **not** a fault of the
+site, the link, or the credentials — the proxy's own status endpoint shows the same
+`connect_rejected` treatment applied to every declared MCP host.
+
+**Consequence, stated plainly**: the coordinator cannot crawl the cluster, cannot enumerate the
+NOBO/ATLANTIC pages, cannot capture pre-change copies, cannot audit a single published page,
+and cannot sample AI citations. **Every §2 baseline step that reads the property is unexecutable
+from here.** This is not a scheduling problem that more agent time solves.
+
+**Resolution, Sani-chosen 2026-08-11 ("Unblock the site")**: add `www.sanihellas.gr` to the
+allowed-hosts list of the Claude Code environment this session runs in — an environment
+setting, changed by whoever created it, documented at
+`https://code.claude.com/docs/en/claude-code-on-the-web`. Worth adding in the same pass, since
+each is a separate host and each unlocks a distinct capability:
+
+| Host | What it unlocks |
+|---|---|
+| `www.sanihellas.gr` | the cluster crawl, page audits, pre-change capture, on-page scoring |
+| `sanihellas.gr` (apex, if it serves separately) | redirect and canonical checks |
+| `www.dropbox.com` + `dl.dropboxusercontent.com` | the θερμοπομποί folder Sani shared |
+| `developers.google.com` | upgrades G9's evidence from snippet-grade to owner-read, unblocking 9b |
+| `www.google.com` | AI-citation and SERP sampling under §3 — **the sampling protocol is unexecutable without it** |
+
+Until then: input 1 stays PART-SUPPLIED, day-0 does not start, and no §2 baseline step that
+touches the property can run. Skill-library work (Phases 1–3) is unaffected — it reads nothing
+outside this repository.
+
 **Day-0 checklist (on receipt of all three inputs — run top to bottom):**
 
 1. [ ] Record all three inputs verbatim above (date + wording reference).
