@@ -82,7 +82,7 @@ bracket token, a guess or a "n/a" that reappears as a range later on.
 
 ## Keyword Gap Analysis Template
 
-```markdown
+````markdown
 ## Keyword Gap Analysis
 
 ### Keywords Competitors Rank For (You Don't)
@@ -137,7 +137,7 @@ Gap: Keywords they all have, you don't: [X]
 | Keyword | Your Position | Volume |
 |---------|---------------|--------|
 | [kw] | [pos] | [vol] |
-```
+````
 
 ## Topic Gap Analysis Template
 
@@ -182,6 +182,7 @@ Gap: Keywords they all have, you don't: [X]
 | Format | You | Comp 1 | Comp 2 | Competitor Avg |
 |--------|-----|--------|--------|----------------|
 | Long-form guides | [X] | [X] | [X] | [X] |
+| Definition/glossary pages | [X] | [X] | [X] | [X] |
 | Tutorials | [X] | [X] | [X] | [X] |
 | Comparison posts | [X] | [X] | [X] | [X] |
 | Case studies | [X] | [X] | [X] | [X] |

@@ -6,7 +6,7 @@ Detailed output templates for each step of the backlink analysis workflow. Use t
 
 ## 1. Profile Overview Template
 
-```markdown
+````markdown
 ## Backlink Profile Overview
 
 **Domain**: [domain]
@@ -42,7 +42,7 @@ DA 0-19:   [X]%
 ```
 
 **Profile Health Score**: [X]/100 ([points] ÷ [rows scored] × 100; [N] rows not scored: [which and why])
-```
+````
 
 **How the Profile Health Score is computed** — it is a tally of the eight benchmark rows in
 [link-quality-rubric.md](./link-quality-rubric.md) §5, not a judgement about the profile. Score
@@ -128,7 +128,7 @@ so their mean is a competitor mean, never an industry one.
 
 ## 3. Toxic Link Analysis Template
 
-```markdown
+````markdown
 ## Toxic Link Analysis
 
 ### Risk Summary
@@ -171,7 +171,7 @@ domain:[link-farm.com]
 [specific-url-1]
 [specific-url-2]
 ```
-```
+````
 
 **Risk Score provenance**: `[score]` is filled from the toxicity/spam score reported by
 ~~link database or the user's export, with that tool named beside it. This skill defines no
