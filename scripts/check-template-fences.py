@@ -14,19 +14,22 @@ def blocks(text):
             out.append((start,lbl,body))
         i+=1
     return out
-def check(text):
-    bad=[]
-    for start,lbl,body in blocks(text):
-        if lbl!='markdown': continue
-        tail=[b for b in body if b.strip()]
-        if not tail: continue
-        last=tail[-1].strip()
-        # A finished template does not end on a colon, a heading, or a bare label.
-        if last.endswith(':') or re.match(r'^#{1,6}\s',last):
-            bad.append((start,last[:70]))
-    return bad
-import glob
 def confirm(text):
+    """DETECTION SCOPE — read this before quoting a green.
+
+    This finds ONE signature and is not a general fence linter. It reports a block only when
+    BOTH hold:
+      (a) the block is labelled ```markdown, and its last non-blank line ends with ':' or is a
+          heading — i.e. it visibly stops mid-template; AND
+      (b) the NEXT block in the file is unlabelled — the nested block that escaped.
+
+    What it therefore MISSES: a truncated template whose last surviving line is ordinary prose
+    (no colon, no heading). Two files with the identical defect, one ending on a colon and one
+    on prose, produce one RED and one GREEN. A green from this script means "no block matched
+    this signature", never "no truncated templates". Widening (a) raises false positives on
+    templates that legitimately end on a heading, which is why it is narrow — but the narrowness
+    must be quoted with the result (F15-r1: an undocumented scope gets read as total).
+    """
     L=text.split('\n');out=[];i=0;bl=[]
     while i<len(L):
         m=re.match(r'^\s*(`{3,}|~{3,})\s*(\S*)',L[i])

@@ -31,8 +31,12 @@ decision rather than an edit, it says so and names who decides.
 >
 > **Three findings were larger than recorded, and the revised count is stated against the
 > number it revises (R317):** **#69** was 1 defect, actually **13** (all fixed; new finding
-> #80). **#75** recorded 12 contradictions, actually **15** — 12 fixed, **4 refused** as
-> threshold decisions rather than typos and left with both sides in place. **#66** recorded 4
+> #80). **#75** recorded 12 contradictions, actually **16 enumerated items = 15 distinct
+> contradictions** — the two GEO citation-rate rows share one root cause and count as one.
+> 12 fixed, **4 refused** as threshold decisions rather than typos. The four refusals now carry
+> **in-file `⚠️ UNRESOLVED — owner ruling owed` markers at the point of use** (#75-A crawl-errors
+> vs 4xx · #75-B toxic-link spike vs playbook · #75-C SSL 14 vs 30 days · #75-D Major Drop P1 vs
+> P2), because leaving both sides present and unmarked lets a model pick one silently [obs: `grep -c "UNRESOLVED — owner ruling owed"` = 3 in alert-threshold-guide.md, 1 in alert-configuration-templates.md, 2026-08-11]. **#66** recorded 4
 > surfaces, actually **5** — the prescribed guard grep *structurally could not see* the fifth,
 > because the phrase wraps a newline and the check is line-based (R319: coverage = surface ×
 > detector).
@@ -56,6 +60,13 @@ decision rather than an edit, it says so and names who decides.
 > `scripts/check-template-fences.py` printed GREEN having scanned **zero files** when given a
 > directory argument (`IsADirectoryError` caught as `OSError` and skipped). R-0222. It now
 > fails closed on an empty scan set and prints the file count every run.
+>
+> **Its detection scope is narrow and is now documented in the file (F15-r1).** It fires only
+> when a `markdown` block's last line ends on `:` or a heading AND the next block is unlabelled.
+> A truncated template ending on ordinary prose is **missed**. A green means "nothing matched
+> this signature", never "no truncated templates" — quote it that way. A dead `check()` function
+> carrying a stale description of a different heuristic has been removed, and the file is 755
+> like its siblings. **No gate runs it yet** — that is still owed.
 
 | # | Finding |
 |---|---|

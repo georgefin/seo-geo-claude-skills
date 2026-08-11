@@ -24,6 +24,11 @@ because the priority is what decides delivery.
 | Moderate Drop | Any keyword drops 10+ positions | Position change >=10 | P2 | Weekly review |
 | Competitor Overtake | Competitor passes you for key term | Comp position < yours | P2 | Analysis needed |
 
+> ⚠️ **UNRESOLVED — owner ruling owed (open finding #75-D).** `SKILL.md` grades this same event
+> P2 ("none — page-1 boundary"); this row grades it P1. Neither side is authoritative — both are
+> templates, neither states a tier, and no band exists to default to.
+> **Until it is ruled, cite the row you used.**
+
 Critical Drop takes the Critical band's default, **P1** — a drop of >=5 is Tier 1's Critical
 trigger in the threshold guide's Ranking Thresholds table. Ranking in the top 3 is a *position*,
 not a priority: it does not by itself put a keyword in the priority-1 / Tier-1 set. Where it does,

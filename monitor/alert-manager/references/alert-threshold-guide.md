@@ -117,6 +117,11 @@ For binary or count-based metrics, use absolute thresholds.
 | SSL certificate expiry | <30 days to expiry | <7 days to expiry |
 | Robots.txt changes | Any unexpected change | Key pages blocked |
 
+> ⚠️ **UNRESOLVED — owner ruling owed (open finding #75-C).** The template at
+> `alert-configuration-templates.md:134` fires SSL expiry at 14 days; this row opens Warning at
+> <30 days. The template's band LABEL is right for 14 days but it fires 16 days late.
+> **Until it is ruled, cite the row you used.**
+
 **Where a metric also appears in Section 3, Section 3 is the definition and these two tables are
 the restatement.** Section 3 carries the full ladder including Emergency, so a value here that
 Section 3 contradicts is the copy that drifted, not a second opinion — read the band off Section 3
@@ -170,6 +175,11 @@ a 24-fold disagreement inside one guide.)
 | Robots.txt change | Any unexpected edit | Pages blocked | Entire site blocked |
 | Sitemap errors | New errors | Sitemap inaccessible | Sitemap returning 5xx |
 
+> ⚠️ **UNRESOLVED — owner ruling owed (open finding #75-A).** This row and the `New crawl errors`
+> row at :113 disagree: 8 new 4xx in a day is Warning here and reaches no band there. They may be
+> two deliberate sensors — "crawl errors" is a superset of 4xx — so reconciling them is a
+> threshold decision, not a typo fix. **Until it is ruled, cite the row you used.**
+
 ### Backlink Thresholds
 
 | Metric | Warning | Critical |
@@ -179,6 +189,11 @@ a 24-fold disagreement inside one guide.)
 | Toxic link spike | >10 new toxic links/week | >50 new toxic links/week |
 | Anchor text over-optimization | Exact match reaches 20% | Exact match reaches 30% |
 | Negative SEO pattern | Unusual link velocity from low-DR sites | Massive spam link spike |
+
+> ⚠️ **UNRESOLVED — owner ruling owed (open finding #75-B).** The Critical band here (>50 new
+> toxic links/week) has no playbook between 50 and 100/week; the playbook at :400 triggers at
+> >100 new links from spam domains. "Toxic links" (score-classified) and "links from spam
+> domains" may be different populations. **Until it is ruled, cite the row you used.**
 
 ### GEO / AI Visibility Thresholds
 
