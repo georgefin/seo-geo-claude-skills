@@ -1423,7 +1423,8 @@ hold costs. Whichever is written second cites the first. `Last review` updates i
 `SETTLED-RULINGS.md` edit that leaves `Last review` stale, increments this.
 
 **Status**: recorded; both registers reconciled in the same commit that records this.
-FLIP: G9 -- 9a accepted, 9b held
+FLIP: G9 -- none (this entry records the desync, not the verdict; the verdict flip is
+declared where it belongs — `GATED-ITEMS.md`, thirteenth verdict entry, 2026-08-11)
 
 
 ### F9 Recurrence 4 — 2026-08-11 · a ruling was softened in the register and asserted unchanged in ten shipped surfaces

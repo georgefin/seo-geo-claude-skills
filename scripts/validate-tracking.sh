@@ -360,17 +360,33 @@ if [ -n "$F_HITS" ]; then
     done <<< "$F_HITS"
     F_OK=0
 fi
-# R3 token class (added 2026-08-09; settled ruling R3): Google retired FAQ rich
-# results in 2026 — FAQPage markup stays ONLY for AI-engine/GEO parsing. Live
-# files may mention FAQ near "rich result"/"eligibility"/the accordion visual
-# ONLY when the same line acknowledges the retirement (a marker in R3_LEGAL,
-# e.g. "FAQ rich results retired 2026", "non-FAQ types", "FAQ: none"); a line
-# without such a marker is a retired SERP-eligibility claim taught as live.
+# R3 token class (added 2026-08-09; settled ruling R3): Google ended FAQ rich
+# results in 2026 — FAQPage markup stays because it is valid and Google advises
+# against removing it. Live files may mention FAQ near "rich
+# result"/"eligibility"/the accordion visual ONLY when the same line acknowledges
+# the ending (a marker in R3_LEGAL, e.g. "FAQ rich results ended 2026",
+# "non-FAQ types", "FAQ: none"); a line without such a marker is a dead
+# SERP-eligibility claim taught as current.
 # Case-insensitive (tables write "Rich Results (FAQ)"). Same scope as the
-# tokens above: live trees only — docs/loop legitimately quotes the retired
+# tokens above: live trees only — docs/loop legitimately quotes the ended
 # state (SETTLED-RULINGS R3 itself) and stays out of the sweep.
+#
+# 2026-08-11 — WHY THIS ALLOWLIST GREW, and the lesson is about guard design.
+# G9 amendment 9a rewrote nine surfaces from "retired" to the more precise
+# "ended" (2023 narrowed eligibility; 2026 ended the display — two events this
+# library had conflated). Every one of those nine then FAILED check (f),
+# because the allowlist tested for the WORD "retired" rather than for the
+# CLAIM being denied. The nine most accurate lines in the repository were the
+# only ones the guard rejected. **A guard keyed to one vocabulary punishes the
+# author who improves the vocabulary**, and the cheap escape — reverting to the
+# word the guard likes — is the failure mode that matters, because it teaches
+# authors to write for the checker instead of the reader. Markers added for
+# "ended", "ceased", "discontinued", "no evidenced citation benefit" and
+# "advises against removing", so a line that denies the eligibility claim in
+# any of the natural ways passes. If a future rewording fails here again, widen
+# this list — do not narrow the prose.
 R3_TOKENS='faq.*rich[- ]?(result|snippet)|rich[- ]?(result|snippet)s?.*faq|eligib[^.|]*faq|faq[^.|]*eligib|expandable q&a below|faq (accordion|dropdown|drop-down)|serp accordion'
-R3_LEGAL='retired|retirement|no longer|non-faq|no faq (support|eligibility)|faq(:| has) none|dropped faq support|do not run it through|"add faq rich results"'
+R3_LEGAL='retired|retirement|ended|ceased|discontinued|no longer|non-faq|no faq (support|eligibility)|faq(:| has) none|dropped faq support|do not run it through|"add faq rich results"|no evidenced citation benefit|advises against (proactively )?removing|scheduled for august 2026|has none since'
 R3_HITS=$(grep -rniE "$R3_TOKENS" \
     research build optimize monitor cross-cutting commands references \
     --include='*.md' 2>/dev/null | grep -v 'evals/' | grep -viE "$R3_LEGAL" || true)

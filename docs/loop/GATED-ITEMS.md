@@ -20,6 +20,33 @@ G1–G4 resolved: G1 pilot merged (PR #4) + continuation merged (PR #8), G2 EXEC
 prompt v4.2), G3 RETIRED 2026-08-09 (option c — the local loop owns WP vuln
 watching), G4 harvest merged (PR #4).**
 
+> **Verdict log — 2026-08-11 (thirteenth entry)**: Sani answered four drafted questions by
+> explicit selection. **Decisions, one per question (recorded)**:
+> (1) **PR #9 — CONDITIONAL MERGE AUTHORIZED.** Sani selected "Merge after checks pass",
+> whose drafted text reads: *"I run the verification tests and a second independent review.
+> If both come back clean, I merge it — keeping the full history… If anything fails, I fix it
+> and don't merge."* **This supersedes the twelfth entry's "not an order to merge" reading**,
+> and the supersession is deliberate rather than inferred: the alternative option "Verify but
+> don't merge — leave the merge for you to trigger" was drafted, offered alongside it, and not
+> chosen. Sani delegated the trigger knowingly. **The condition is strict and is NOT met as of
+> this entry**: the second Mode A pass returned **BLOCK** (F11 recurrence + F9 recurrence 4,
+> both in the coordinator's own G9 commit). No merge. The blind re-runs are still in flight and
+> Mode A must re-run against the repairs before the condition can be read as satisfied. A
+> partial pass is not a pass.
+> (2) **G9 — SPLIT VERDICT**: 9a accepted and applied, 9b held pending an owner read. See G9's
+> Status line above.
+> (3) **G8 input 1 — ADVANCED**, verbatim in `PILOT.md` §0.1: property named
+> (`www.sanihellas.gr`), cluster rule given (every NOBO and ATLANTIC page), seed keyword
+> `θερμοπομποί`. The URL list itself is still not supplied and the coordinator does not infer
+> it. **New blocker recorded the same day**: the environment's egress proxy refuses the
+> property, the shared Dropbox folder and `developers.google.com`
+> [obs:2026-08-11T03:40:00Z curl + WebFetch, both refused at the gateway]. Sani selected
+> "Unblock the site" — an environment allowlist change, his to make, with four other hosts
+> named in `PILOT.md` §0.1 for the same pass.
+> (4) **Pilot control-page design — DEFERRED by Sani** to "decide once I see the page list",
+> which is the correct order: the matched-pair split cannot be proposed before the cluster is
+> enumerable, and the cluster is not enumerable until (3) clears.
+>
 > **Verdict log — 2026-08-10 (twelfth entry, logged 03:18:04Z clock-read)**: Sani, in
 > one message, four clauses, verbatim: "I'll follow your suggestion and My suggestion:
 > the natural merge point is when the current waves finish and all 20 skills have
@@ -239,7 +266,7 @@ watching), G4 harvest merged (PR #4).**
     schema has **no `schemaVersion`/`id`** (only `name` required), and `commands`/`skills`
     are documented as path strings/arrays, not `{name, description, path}` objects — repo
     mandates the opposite (`CLAUDE.md:59`; fields present at `.claude-plugin/plugin.json:2-3`;
-    added deliberately in v3.0.0, `VERSIONS.md:258` ("### v3.0.0" section —
+    added deliberately in v3.0.0, `VERSIONS.md:259` ("### v3.0.0" section —
     pointer anchor-tagged per F12, token authoritative on mismatch; had silently
     drifted from :79-88; refreshed 2026-08-10, +2 from the entity-optimizer 4.1.5 /
     backlink-analyzer 4.0.4 bullet)).
