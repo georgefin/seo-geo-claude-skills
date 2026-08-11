@@ -306,6 +306,27 @@ Find gaps in our [commercial/informational] intent content
 - [Gap Analysis Frameworks](./references/gap-analysis-frameworks.md) — Content audit matrices, four-stage funnel mapping, and gap prioritization scoring methodologies
 - [Score Arithmetic](./references/score-arithmetic.md) — Which figures the scoring model can and cannot produce: attainable values, the rounding convention, the GEO Value rubric, and the pre-send recompute pass
 - [Example Report](./references/example-report.md) — Complete example analyzing SaaS marketing blog gaps vs. two illustrative `.example` competitors (illustrative figures; competitor traffic labelled as a tool estimate)
+- [Inter-Skill Handoff](../../references/inter-skill-handoff.md) — the payload each routed gap carries to the run it names, the label-inside-the-fence rule for an operator block, the hyphenated framework-first item-ID form, and the drop-and-name rule for a field you cannot source
+
+## Routing the gaps onward
+
+A gap analysis ends in routing, and routing uses the library's inter-skill handoff convention
+(root `CLAUDE.md`; shipped carrier [inter-skill-handoff.md](../../references/inter-skill-handoff.md)) —
+gap keywords to keyword-research for demand validation, chosen builds to seo-content-writer, a
+covered-but-weak topic to content-refresher. Each routed item gets its own **handoff block**
+carrying the payload fields §2.1 requires as far as this run has them: target keyword(s)/topic,
+intended content type, and the site/content URL.
+
+Two rules bite here and are graded:
+
+- **The Related Skills list below is a see-also catalogue, not a handoff** (§1). Naming a skill
+  there does not route anything to it.
+- **A field this run cannot supply is omitted and NAMED, never filled** (§4.3/§4.4). CORE-EEAT
+  and CITE dimension scores and priority item IDs do not exist unless an audit has run, so the
+  honest form is "no 80-item audit has been run on this page" — not `[SCORE]`, not TBD, not a
+  value-shaped stand-in. Where a score string does travel it carries its framework label
+  (`CORE-EEAT C:75 O:60 R:80 E:45`), because C, E and T collide across the two frameworks
+  (§2.2), and item IDs are hyphenated framework-first, one prefix per ID (§2.3).
 
 ## Related Skills
 

@@ -316,6 +316,11 @@ Neither is a priority and neither becomes a P-level.
 ---
 
 ```markdown
+<!-- ILLUSTRATIVE FILL — every number, domain and date below is invented to show the
+     shape of the report. Replace all of them with measured figures before this goes to
+     anyone, and delete this comment. A figure you cannot source comes out of the
+     report and is named as unavailable rather than carried over from this template. -->
+
 # Technical SEO Health Report
 
 **Domain:** yoursite.com
