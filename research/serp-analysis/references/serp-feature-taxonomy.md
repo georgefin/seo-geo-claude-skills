@@ -287,7 +287,7 @@ These features depend on specific structured data markup:
 
 | Rich Result | Schema Required | Content Type | Visual Impact |
 |------------|----------------|-------------|--------------|
-| FAQ | FAQPage | Pages that ARE a FAQ, where FAQPage is the one primary type — never a FAQ section bolted onto an Article/Product page (ruling R2) | None — FAQ rich results retired 2026; markup kept for AI-engine/GEO parsing (ruling R3) |
+| FAQ | FAQPage | Pages that ARE a FAQ, where FAQPage is the one primary type — never a FAQ section bolted onto an Article/Product page (ruling R2) | None — FAQ rich results ended 2026; markup kept because it stays valid and Google advises against removing it (ruling R3 + amendment 9a — no evidenced citation benefit either way) |
 | How-To | HowTo | Step-by-step instructions | Steps with optional images |
 | Review Stars | Review / AggregateRating | Product/service reviews | Star rating in snippet |
 | Recipe | Recipe | Food/cooking content | Image, cook time, calories |

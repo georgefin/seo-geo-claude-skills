@@ -133,7 +133,7 @@ still leads the list, because one of its eight rows keeps a commercial page out 
 3. **HTTP not redirecting to HTTPS** — Evidence: http:// URLs return 200 without redirect; 7 mixed-content images on /features/. Impact: split signals and browser trust warnings. Fix: add the port-80 server block that 301s both hosts to the canonical HTTPS host, in /etc/nginx/sites-available/cloudhosting.example, above the existing HTTPS block — the canonical block itself gets no redirect (a catch-all there loops the whole site); then HSTS at server level inside the HTTPS block, and update the 7 image URLs. Verify with `nginx -t`, then `curl -sSIL http://cloudhosting.example/` expecting one 301 and a 200. Placement and the paste-ready blocks: [server-config-fixes.md](./server-config-fixes.md). Confidence: Confirmed.
 
 ### 🟢 Minor (Optimize)
-4. **No Article/FAQPage schema on blog posts** — Evidence: crawl found no structured data on 48 blog posts and 12 FAQ pages. Impact: missed Article rich-result eligibility and weaker AI-engine parsing. Fix: add Article schema to the blog posts; add FAQPage markup to the FAQ pages for AI-engine parsing (FAQ rich results retired 2026 — no SERP promise). Confidence: Confirmed.
+4. **No Article/FAQPage schema on blog posts** — Evidence: crawl found no structured data on 48 blog posts and 12 FAQ pages. Impact: missed Article rich-result eligibility. Fix: add Article schema to the blog posts; add FAQPage markup to the FAQ pages because it is valid and Google advises against removing it (FAQ rich results ended 2026 — no SERP promise, and ruling R3 amendment 9a records no evidenced citation benefit either way, so claim none). Confidence: Confirmed.
 ```
 
 ---

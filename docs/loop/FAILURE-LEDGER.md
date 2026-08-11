@@ -1388,3 +1388,78 @@ scanned file increments this.
 
 **Status**: recorded; the check (f) scope note is queued. No regex change proposed.
 FLIP: F15-r1 -- none
+
+---
+
+### F11 Recurrence — 2026-08-11 · a gate was closed in one register and left open in the other
+
+**What happened.** Sani accepted G9 proposal 9a and held 9b. The acceptance was written into
+`SETTLED-RULINGS.md` R3 — which now reads "Sani-accepted 2026-08-11" — while `GATED-ITEMS.md`
+G9 still read `**Status**: GATED, proposed 2026-08-10` and still carried a
+`**What Sani decides**` list asking him to decide a thing he had decided. **Half the entry
+moved.** A reader arriving at either register would have been correctly informed and
+incorrectly informed at the same time, with no way to tell which half was current. Separately,
+`SETTLED-RULINGS.md`'s own change protocol mandates that *"each edit updates 'Last review'"*,
+and the amendment did not: that line still read 2026-08-08 after two rulings had changed.
+
+**Why no gate caught it.** `claims-gate` rule 2 sweeps for flips by keying on `Status:` and
+`Verdict:` **field syntax**, and neither register writes its status that way — `GATED-ITEMS.md`
+uses a bolded markdown list item. So a half-moved gate entry is not a case the sweep misses by
+accident; it is structurally outside what the sweep can see. Recorded as a scope gap rather
+than patched, because widening the pattern to bolded prose would fire on ordinary sentences and
+teach authors to route around it.
+
+**Root cause, and it is not forgetfulness.** The coordinator wrote the amendment while holding
+the ruling text in view and the gate record out of view. A register pair where one side is the
+*decision* and the other is the *ledger of decisions* has exactly this failure mode built in,
+and the protocol line that would have caught it lives at the bottom of the file the author was
+already editing.
+
+**Guard.** A gate verdict is not applied until **both** registers name it: the ruling carries
+the amended text, and the gate entry carries the verdict, the date, what was held, and what the
+hold costs. Whichever is written second cites the first. `Last review` updates in the same edit.
+
+**Recurrence**: F11 → increments. A ruling amended without its gate entry moving, or a
+`SETTLED-RULINGS.md` edit that leaves `Last review` stale, increments this.
+
+**Status**: recorded; both registers reconciled in the same commit that records this.
+FLIP: G9 -- 9a accepted, 9b held
+
+
+### F9 Recurrence 4 — 2026-08-11 · a ruling was softened in the register and asserted unchanged in ten shipped surfaces
+
+**What happened.** G9 9a recorded two retractions: the Search Console API cut is *scheduled*
+rather than observed, and R3's rationale — that FAQPage's value is AI-engine parsing — has **no
+primary source either way**. Both landed in `SETTLED-RULINGS.md` and in no skill. The second
+Mode A pass found seven surfaces in `schema-markup-generator` still asserting the retracted
+text and cited two of them **to R3 by name** — a skill citing a ruling for a claim that ruling
+had just disowned.
+
+**The count was worse than the review's.** A residual grep after the named fixes found **ten
+surfaces across six skills**: `schema-markup-generator` (5), `content-refresher` (4),
+`seo-content-writer`, `technical-seo-checker`, `serp-analysis`, and `commands/generate-schema.md`
+(2). Two were surfaces no reviewer had named and only a whole-repo residual sweep reaches —
+**the skill's own `description` frontmatter**, which is the first text a model reads and the
+basis on which the skill is selected at all, and a decision-tree table cell. The command file
+was the sharpest: it instructed the operator that "the payoff is AI-engine/GEO parsing", which
+is a claim made to a client.
+
+**Why this is F9 and not a new mechanism.** F9's whole content is that a class fixed where it
+was noticed is a class not fixed. The novelty is only the direction: previous recurrences
+swept skills and left the register behind, this one amended the register and left the skills
+behind. **The lesson is symmetric and was not stated symmetrically before** — a retraction
+propagates exactly as far as an assertion does, and needs the same hit list.
+
+**Why check (f) cannot catch it.** Its `R3_LEGAL` allowlist passes any line containing
+"retired", which is precisely the vocabulary every stale surface used.
+
+**Guard.** When a ruling is amended, the amending commit carries a grep of the retracted
+claim's own vocabulary across the whole repository, and every hit is fixed or explicitly
+queued with its reason. The grep goes in the commit message so the next author can re-run it.
+
+**Recurrence**: F9 → 4. A ruling amended without a residual sweep of the retracted wording
+increments this.
+
+**Status**: recorded; six of the ten surfaces fixed in the same commit, four in
+`content-refresher` deferred with a named reason — a blind executor was reading that skill and
+editing it mid-run is F8. FLIP: R3 -- 9a applied downstream

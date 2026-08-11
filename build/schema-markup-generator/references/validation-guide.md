@@ -28,7 +28,7 @@ Complete reference for validating, testing, and troubleshooting structured data.
 - **Location**: Search Console → Enhancements section
 - **Purpose**: Monitor rich results performance and errors at scale
 - **Reports**: Rich results status, coverage, issues over time
-- **FAQ exception**: FAQ reporting, the API, and the Enhancements appearance filter were cut in 2026 — there is nothing to monitor here for FAQPage
+- **FAQ exception**: FAQ reporting and the Enhancements appearance filter were dropped in 2026 and API support is scheduled for August 2026 — there is nothing to monitor here for FAQPage either way
 
 ---
 
@@ -133,7 +133,7 @@ Add time and offset only when the page (or the CMS) actually states them — `"d
 | Question.name | Required | The question text |
 | Answer.text | Required | The answer text |
 
-**Status note**: FAQPage produces no Google rich result (retired 2026). It is still generated for AI-engine/GEO parsing (settled ruling R3) and validates against Schema.org semantics only.
+**Status note**: FAQPage produces no Google rich result (ended 2026). It is still generated because it is valid, cheap to keep, and Google advises against proactively removing it (settled ruling R3 + amendment 9a — which also records that no primary source establishes a citation benefit either way). It validates against Schema.org semantics only.
 
 ### HowTo Schema
 
@@ -228,7 +228,7 @@ The per-schema element SKILL.md step 2 requires in every deliverable. It is a **
 
 **Worked example — FAQPage (retired feature)**
 
-> **Eligible for**: nothing in Google Search — FAQ rich results were retired in 2026, and reporting, the API, the appearance filter and Rich Results Test support went with them. **What feeds it**: the four `Question`/`acceptedAnswer` pairs instead hand answer engines clean Q&A to lift, which is why the markup still ships. **Caveat**: no engine promises to use it — this is machine-readable input, not a placement.
+> **Eligible for**: nothing in Google Search — FAQ rich results ended in 2026; reporting, the appearance filter and Rich Results Test support went with them, and API support is scheduled for August 2026. **What feeds it**: the four `Question`/`acceptedAnswer` pairs are valid schema.org and machine-readable by any consumer that chooses to read them. **Caveat**: no engine promises to use it and no primary source establishes a citation benefit either way (ruling R3, amendment 9a) — this is machine-readable input, not a placement and not a lever.
 
 **Worked example — LocalBusiness (no result of its own)**
 
@@ -240,9 +240,9 @@ The per-schema element SKILL.md step 2 requires in every deliverable. It is a **
 
 ### FAQPage — No Rich Result (Retired 2026)
 
-Google retired FAQ rich results in 2026: Search Console reporting, the API, the Enhancements appearance filter, and Rich Results Test support were all cut. There is no FAQ eligibility to test and no SERP accordion to earn — promise neither.
+Google ended FAQ rich results in 2026: the search appearance, Search Console reporting, the Enhancements appearance filter and Rich Results Test support were dropped, and Search Console API support is scheduled for August 2026 (ruling R3 amendment 9a — scheduled, not observed; do not write it as done). There is no FAQ eligibility to test and no SERP accordion to earn — promise neither.
 
-FAQPage stays in the library (settled ruling R3): its value is AI-engine/GEO parsing — answer engines extract clean Q&A pairs from it. The quality bar that still applies:
+FAQPage stays in the library (settled ruling R3) because it is valid schema.org, costs nothing to keep, and Google's own guidance is that there is no need to proactively remove it. **State that basis and no more.** R3 amendment 9a records that its former rationale — that the value is AI-engine parsing — has **no primary source either way**, and that Google's 2026 AI-optimization guide says no special structured data is needed for its own AI surfaces. So a deliverable may say the markup is valid and cheap to keep; it may not say it earns AI citations. The quality bar that still applies:
 
 - FAQPage is the page's ONE primary type — a dedicated FAQ page, not an FAQ block bolted onto a page that already carries an accurate type (settled ruling R2), unless the page genuinely is both things and each type is complete, accurate, and independently justified. That carve-out is the same one the pre-launch check below applies to every type, and it is narrow: having an FAQ section does not make a page an FAQ page, so the ordinary case is still the ban. The visible Q&A earns CORE-EEAT C09 on its own, so a page that keeps the Q&A and drops the markup loses nothing on that item
 - Q&A pairs match the visible page content exactly (general structured-data content-match policy)

@@ -893,7 +893,7 @@ This is the most comprehensive guide to [topic] on the web. You'll learn everyth
 [Contact information or link to contact page]
 ```
 
-**Schema markup**: A dedicated FAQ page's one primary type IS FAQPage, so emit it here — no rich result, the value is AI-engine/GEO parsing (FAQ rich results retired 2026, ruling R3). The line does not travel with the FAQ block: an FAQ *section* inside a blog post, comparison, how-to or landing page already carries its own primary type, and FAQPage on top of that is stacking (ruling R2). The visible Q&A earns CORE-EEAT C09 either way — markup is not required for the Pass, so a page that gets the FAQ but no FAQPage object is not downgraded for it.
+**Schema markup**: A dedicated FAQ page's one primary type IS FAQPage, so emit it here — no rich result; it is kept because it stays valid and Google advises against removing it (FAQ rich results ended 2026, ruling R3 + amendment 9a, which records that no primary source establishes a citation benefit either way — so do not claim one). The line does not travel with the FAQ block: an FAQ *section* inside a blog post, comparison, how-to or landing page already carries its own primary type, and FAQPage on top of that is stacking (ruling R2). The visible Q&A earns CORE-EEAT C09 either way — markup is not required for the Pass, so a page that gets the FAQ but no FAQPage object is not downgraded for it.
 **Internal links**: Link to detailed guides for complex answers
 **Keywords**: Include question keywords naturally
 

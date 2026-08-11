@@ -540,7 +540,23 @@ watching), G4 harvest merged (PR #4).**
 
 ## G9 — FAQ/HowTo rich-result provenance: R3 amendment + a HowTo ruling with library purge
 
-- **Status**: GATED, proposed 2026-08-10. Two related changes, both gate-class because
+- **Status**: **SPLIT VERDICT, 2026-08-11 — 9a ACCEPTED and applied; 9b HELD.** Sani's
+  decision, given as an explicit selection between drafted options: accept the provenance
+  amendment, hold the HowTo ruling and its four-file purge until an owner read of the two
+  Google URLs upgrades the evidence grade. 9a landed in `SETTLED-RULINGS.md` R3 (commit
+  `f4c9bcf`) with the downstream skill-surface sweep following in the same wave; 9b is
+  untouched and its four loci still teach HowTo as a current SERP feature, which is the
+  known cost of the hold and is recorded rather than smoothed. The blocker on 9b is
+  unchanged and now re-tested: `developers.google.com` is refused by this environment's
+  egress proxy [obs:2026-08-11T03:40:00Z curl + WebFetch, both refused at the gateway], so
+  the upgrade cannot be done from here — it needs either a browser read or the host added to
+  the environment allowlist (`PILOT.md` §0.1 carries the same request for four other hosts).
+  **This Status line was itself an F11 recurrence**: 9a was applied to the ruling register
+  while this entry still read "GATED, proposed" and still asked Sani to decide something he
+  had decided. Caught by the second Mode A pass, not by any gate — the claims-gate's flip
+  sweep keys on `Status:`/`Verdict:` field syntax that neither register uses, so a half-moved
+  gate entry is structurally invisible to it.
+- Originally proposed 2026-08-10. Two related changes, both gate-class because
   they touch settled rulings. Origin: the binding Greek editor, judging an unrelated
   Greek output, flagged out-of-remit that the deliverable's "FAQ rich results were
   retired in 2026" disagreed with its understanding that the deprecation dates to

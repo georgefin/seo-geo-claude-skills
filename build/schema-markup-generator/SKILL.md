@@ -1,14 +1,14 @@
 ---
 name: schema-markup-generator
-version: "4.2.2"
-description: 'Generate Schema.org JSON-LD structured data — one accurate primary type per page (FAQPage, HowTo, Article, Product, LocalBusiness, and 6 other types) plus documented auxiliaries only where warranted. Use when the user asks to "add schema markup", "generate structured data", "JSON-LD", "FAQ schema", "rich snippets", "I want star ratings in Google", or "structured data validation errors". Produces validated markup for Google rich results where still offered (FAQ rich results retired 2026 — FAQPage is kept for AI-engine/GEO parsing), Bing structured data, and AI system understanding. Validates via the Schema.org validator, plus Rich Results Test for non-FAQ types. For broader technical SEO, see technical-seo-checker. For meta tag optimization, see meta-tags-optimizer.'
+version: "4.2.3"
+description: 'Generate Schema.org JSON-LD structured data — one accurate primary type per page (FAQPage, HowTo, Article, Product, LocalBusiness, and 6 other types) plus documented auxiliaries only where warranted. Use when the user asks to "add schema markup", "generate structured data", "JSON-LD", "FAQ schema", "rich snippets", "I want star ratings in Google", or "structured data validation errors". Produces validated markup for Google rich results where still offered (FAQ rich results ended 2026 — FAQPage is kept because it stays valid and Google advises against removing it), Bing structured data, and machine-readable input for any consumer that reads it. Validates via the Schema.org validator, plus Rich Results Test for non-FAQ types. For broader technical SEO, see technical-seo-checker. For meta tag optimization, see meta-tags-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.2.2"
+  version: "4.2.3"
   geo-relevance: "medium"
   tags:
     - seo
@@ -42,7 +42,7 @@ This skill creates Schema.org structured data markup in JSON-LD format — ONE a
 
 ## When to Use This Skill
 
-- Adding FAQ schema where FAQPage is the page's one primary type — for AI-engine/GEO parsing value
+- Adding FAQ schema where FAQPage is the page's one primary type — valid markup, kept because it costs nothing and Google advises against removing it (ruling R3 + 9a); not claimed as a citation lever
 - Creating How-To schema for step-by-step content
 - Adding Product schema for e-commerce pages
 - Implementing Article schema for blog posts
@@ -143,7 +143,7 @@ When a user requests schema markup:
    
    | Rich Result Type | Eligibility | Impact |
    |------------------|-------------|--------|
-   | FAQ | ❌ (retired 2026) | AI-engine/GEO parsing only — no SERP result |
+   | FAQ | ❌ (ended 2026) | No SERP result. Valid markup, no evidenced citation benefit (R3 + 9a) |
    | How-To | Unconfirmed — no appearance claimed | HowTo still generated for step-by-step content |
    | Product | ✅/❌ | High - Shows price, availability |
    | Review | ✅/❌ | High - Shows star ratings |
@@ -177,7 +177,7 @@ When a user requests schema markup:
 
    For each schema generated, include:
    - All required properties for the chosen type
-   - A **rich-result eligibility note** — three sentences in a fixed shape, never a SERP mock-up: which rich result the type is eligible for (FAQ: none, retired 2026 — give the AI-engine/GEO parsing value instead); which of the emitted properties feed it; and the standing caveat that eligibility is not an appearance, because Google decides per query and per device. Shape, worked examples and the no-mock-up reasoning: [validation-guide.md → Rich-result eligibility note](./references/validation-guide.md#rich-result-eligibility-note). Do not draw a mock SERP listing: a picture of the result reads as a promise of the result, which this skill does not make.
+   - A **rich-result eligibility note** — three sentences in a fixed shape, never a SERP mock-up: which rich result the type is eligible for (FAQ: none, ended 2026 — say the markup is valid and kept, and do not substitute a citation-benefit claim, which R3 amendment 9a records as unsourced either way); which of the emitted properties feed it; and the standing caveat that eligibility is not an appearance, because Google decides per query and per device. Shape, worked examples and the no-mock-up reasoning: [validation-guide.md → Rich-result eligibility note](./references/validation-guide.md#rich-result-eligibility-note). Do not draw a mock SERP listing: a picture of the result reads as a promise of the result, which this skill does not make.
    - Notes on which properties are required vs. optional
 
    **Missing data — the value rule.** The JSON-LD you hand over is paste-ready, so every value inside it is a real value taken from the page or from what the user supplied. When a required or recommended property has no value available:
@@ -227,7 +227,7 @@ When a user requests schema markup:
     3. **Search Console**
        - Monitor rich results in Search Console
        - Check Enhancements reports for issues
-       - FAQ exception: Google retired FAQ rich results in 2026 — reporting, API, appearance filter, and Rich Results Test support all cut. FAQPage still generates; value is AI-engine/GEO parsing, not SERP monitoring.
+       - FAQ exception: Google ended FAQ rich results in 2026 — the search appearance, the rich result report and Rich Results Test support were dropped June 2026, and Search Console API support is scheduled for August 2026 (settled ruling R3 amendment 9a: scheduled, not observed). FAQPage still generates. State its basis as schema.org validity, not a citation benefit — R3 records that no primary source establishes one either way.
 
     ### Validation Checklist
 

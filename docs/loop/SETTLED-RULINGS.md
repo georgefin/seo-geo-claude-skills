@@ -9,7 +9,9 @@ All five rulings were baked into the v1 routine prompt (created 2026-07-18) and 
 the 2026-08-08 sweep ("no new evidence found this cycle — all stand"). Origin decision dates
 before 2026-07-18 are not recoverable from the current session transcript.
 
-**Last review: 2026-08-08** (weekly sweep, all rulings stand)
+**Last review: 2026-08-11** — R2 gained its "carried where it is scored" clause (C09 corrected
+at the benchmark) and R3 gained provenance amendment 9a. R1, R4, R5 unchanged and standing.
+Prior full sweep 2026-08-08 (all rulings stood).
 
 ---
 

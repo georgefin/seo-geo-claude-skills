@@ -18,7 +18,7 @@ Pick the ONE row that matches the page. The "Nest Inside It" column lists entiti
 | Product page | Product | offers (Offer), brand, aggregateRating, review | Price/rating snippet |
 | Service page | Service | provider (Organization/LocalBusiness), areaServed, offers | No dedicated rich result; accurate type still aids entity understanding |
 | How-to guide | HowTo | step, totalTime, supply, tool | Unconfirmed — see the [VERIFY] note below; claim no How-to appearance |
-| FAQ page | FAQPage | mainEntity (Question → acceptedAnswer) | None — FAQ rich results retired 2026; type kept for AI-engine/GEO parsing (ruling R3) |
+| FAQ page | FAQPage | mainEntity (Question → acceptedAnswer) | None — FAQ rich results ended 2026; type kept because it stays valid and Google advises against removing it (ruling R3 + amendment 9a; no evidenced citation benefit either way) |
 | Recipe | Recipe | recipeIngredient, recipeInstructions, nutrition, aggregateRating | Recipe carousel |
 | Event | Event | location (Place + PostalAddress), offers, organizer (Organization) | Event snippet with date/location |
 | Video page | VideoObject | thumbnailUrl, duration, interactionStatistic | Video carousel, key moments |
