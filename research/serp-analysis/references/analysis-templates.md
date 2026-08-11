@@ -4,7 +4,7 @@ Templates for each step of the SERP analysis workflow. Use these to structure yo
 
 ## SERP Composition Template
 
-```markdown
+````markdown
 ## SERP Analysis: "[keyword]"
 
 **Search Details**
@@ -47,7 +47,7 @@ Templates for each step of the SERP analysis workflow. Use these to structure yo
 | Shopping Results | Yes/No | [pos] | [analysis] |
 | News Results | Yes/No | [pos] | [analysis] |
 | Sitelinks | Yes/No | [pos] | [analysis] |
-```
+````
 
 ## Top Results Analysis Template
 
@@ -282,7 +282,7 @@ If too difficult, consider:
 
 ## Recommendations Template
 
-```markdown
+````markdown
 ## SERP Analysis Summary & Recommendations
 
 ### Key Findings
@@ -340,4 +340,4 @@ H2: [Section based on PAA/top results]
 1. [Immediate action]
 2. [Content creation action]
 3. [Optimization action]
-```
+````

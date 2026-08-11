@@ -299,7 +299,7 @@ block and position — [server-config-fixes.md](./server-config-fixes.md).
 > fabricated figure, whatever the requester says about who will check it.
 > Rules: [score-rubric.md](./score-rubric.md).
 
-```markdown
+````markdown
 # Technical SEO Audit Report
 
 **Domain**: [domain]
@@ -377,4 +377,4 @@ Set up alerts for:
 - Crawl error spikes
 - Index coverage changes
 - Security issues
-```
+````

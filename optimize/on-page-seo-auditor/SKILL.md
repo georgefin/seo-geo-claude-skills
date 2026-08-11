@@ -225,7 +225,7 @@ unverified-criterion worked case and the grade bands:
 
 4. **Audit Header Structure**
 
-   ```markdown
+   ````markdown
    ## Header Structure Analysis
    
    ### Current Header Hierarchy
@@ -258,7 +258,7 @@ unverified-criterion worked case and the grade bands:
    **Recommended Changes**:
    - H1: [suggestion]
    - H2s: [suggestions]
-   ```
+   ````
 
 5. **Audit Content Quality** — Word count, reading level, comprehensiveness, formatting, E-E-A-T signals, content elements checklist, gap identification
 

@@ -16,7 +16,7 @@ is named in the report prose, never shipped as `"[anchor TBD]"`.
 
 ## Step 4: Create Topic Cluster Link Strategy
 
-```markdown
+````markdown
 ## Topic Cluster Internal Linking
 
 ### Cluster: [Main Topic]
@@ -63,7 +63,7 @@ One row per missing link — every pillar→cluster and cluster→pillar gap the
 its own row here, so "the cluster is incomplete" never travels as a summary. The Anchor Text cell
 holds the exact words that will appear on the source page; if the source page's own wording is
 not in front of you, leave the row out and say which page's text you need.
-```
+````
 
 ---
 

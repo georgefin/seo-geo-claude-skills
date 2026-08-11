@@ -282,7 +282,7 @@ score is a separate count from the eight section scores — it never enters the 
 
 ## Step 11: Generate Audit Summary
 
-```markdown
+````markdown
 # On-Page SEO Audit Report
 
 **Page**: [URL]
@@ -388,7 +388,7 @@ After implementing these changes, re-measure — this audit predicts no numbers:
   changes and leaving every other criterion where it is
 - What to re-measure, and when: impressions, average position and CTR for this page in Search
   Console, 4-8 weeks after the changes ship, against the 28 days before them
-```
+````
 
 **No ranking, CTR or traffic forecast appears here.** A "+18% traffic" or "+4 positions" figure
 for a named page needs a baseline plus a counterfactual, and an on-page audit has neither — the

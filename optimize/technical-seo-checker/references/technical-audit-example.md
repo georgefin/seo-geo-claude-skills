@@ -15,7 +15,7 @@ this example line by line.
 
 **Output**:
 
-```markdown
+````markdown
 # Technical SEO Audit Report
 
 **Domain**: cloudhosting.example
@@ -134,7 +134,7 @@ still leads the list, because one of its eight rows keeps a commercial page out 
 
 ### 🟢 Minor (Optimize)
 4. **No Article/FAQPage schema on blog posts** — Evidence: crawl found no structured data on 48 blog posts and 12 FAQ pages. Impact: missed Article rich-result eligibility. Fix: add Article schema to the blog posts; add FAQPage markup to the FAQ pages because it is valid and Google advises against removing it (FAQ rich results ended 2026 — no SERP promise, and ruling R3 amendment 9a records no evidenced citation benefit either way, so claim none). Confidence: Confirmed.
-```
+````
 
 ---
 

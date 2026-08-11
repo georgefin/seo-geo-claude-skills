@@ -136,7 +136,7 @@ Step 9 audit summary.
 
 1. **Audit Crawlability**
 
-   ```markdown
+   ````markdown
    ## Crawlability Analysis
    
    ### Robots.txt Review
@@ -207,7 +207,7 @@ Step 9 audit summary.
    | Orphan pages | [X] found | [Low/Med/High] |
    
    **Crawlability Score**: [X]/10 ([points] ÷ [rows scored]; [N] rows not checked) · highest severity: [🔴 Critical / 🟡 High / 🟢 Medium-Low]
-   ```
+   ````
 
 2. **Audit Indexability**
 
