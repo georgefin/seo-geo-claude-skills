@@ -4,6 +4,20 @@
 
 Comprehensive playbook for establishing and maintaining entity presence across Google Knowledge Graph, Wikidata, Wikipedia, and other knowledge bases.
 
+> **No timelines and no rankings in this file (rule, applied 2026-08-12).** Two claim shapes are
+> banned here because nothing measures either and both travel into client deliverables as
+> commitments: **(a) a timescale for something another party decides** — when Google creates,
+> restores or corrects a panel, when an AI system refreshes — and **(b) a ranking or superlative
+> among entity signals** ("most direct path", "strongest single signal", "most impactful"). A
+> timescale for work *you* perform is a different thing and is allowed, labelled as effort.
+> What Google actually documents: panels are "created automatically by Google Search Algorithm
+> when there is enough information available on the open web", the sources are described no more
+> precisely than public sources, licensed data and submissions from claimants, **Wikidata and
+> Wikipedia are not named, no timeframe is stated**, and display "isn't something we can or would
+> influence" (primary: support.google.com/knowledgepanel/answer/9787176 — live-page read
+> 2026-08-12; re-check if Google republishes the page). Sequence advice — do Wikidata first
+> because you can edit it directly — survives all of this; the numbers and the rankings do not.
+
 ## How Knowledge Graphs Work
 
 ### The Entity Web
@@ -27,7 +41,7 @@ Your Entity
 |----------------|-------------|--------|
 | **Google Knowledge Graph** | Google Search, Google AI | Powers Knowledge Panels, rich results, entity understanding in search |
 | **Wikidata** | Google, Bing, Apple, Amazon, AI systems | Open data feeds multiple knowledge graphs; primary structured data source |
-| **Wikipedia** | Google, all AI systems | Training data for every major LLM; Knowledge Panel descriptions often sourced here |
+| **Wikipedia** | Widely reused by search and AI systems | Openly licensed and heavily reused as reference text; its role in panel descriptions is not documented by Google and is not assertable |
 | **Bing Satori** | Bing, Copilot | Powers Bing's entity understanding and Microsoft Copilot |
 | **Schema.org (your site)** | All search engines, AI crawlers | First-party structured data you control directly |
 | **DBpedia** | Research, some AI systems | Auto-extracted from Wikipedia; relevant for academic/research entities |
@@ -49,13 +63,13 @@ Understanding this flow is key: you influence the Knowledge Graph by controlling
 
 ### Getting Into the Knowledge Graph
 
-There is no "submit to Knowledge Graph" form. Google builds its Knowledge Graph from multiple sources. To get included:
+There is no "submit to Knowledge Graph" form, and Google states that panel display is not something it influences on request. Google describes its sources only in the abstract, so the list below is **not ranked** — nothing published supports an ordering, and any "strongest signal" claim is invented. Work them in the order of what you can control:
 
-1. **Have a Wikidata entry** — This is the most direct path
-2. **Earn a Wikipedia article** — Strongest single signal
-3. **Implement Schema.org markup** — Provides structured self-description
-4. **Get mentioned on authoritative sites** — Third-party validation
-5. **Build branded search demand** — Signals that users look for your entity
+1. **Have a Wikidata entry** — openly editable by you, so it is the fastest to act on
+2. **Earn a Wikipedia article** — not directly actionable; reached only through independent coverage (see COI policy below)
+3. **Implement Schema.org markup** — first-party structured self-description you control outright
+4. **Get mentioned on authoritative sites** — third-party validation you can influence but not author
+5. **Build branded search demand** — evidence that people look for the entity by name
 
 ### Checking Your Knowledge Graph Status
 
@@ -71,7 +85,7 @@ Response includes:
 - `@id`: Your Knowledge Graph ID (e.g., `kg:/m/0wrt4g`)
 - `name`: Entity name as Google understands it
 - `description`: Short entity description
-- `detailedDescription`: Longer description (usually from Wikipedia)
+- `detailedDescription`: Longer description — read its own `url` and `license` sub-fields to see where that text came from, rather than assuming a source
 - `resultScore`: Confidence score (higher = more established entity)
 
 **Method 3: ~~knowledge graph**
@@ -88,7 +102,7 @@ If connected, query directly for entity status and attributes.
 
 | Problem | Solution |
 |---------|----------|
-| **No Knowledge Panel** | Build Wikidata entry + Schema.org + authoritative mentions. Timeline: 2-6 months. |
+| **No Knowledge Panel** | Build Wikidata entry + Schema.org + authoritative mentions. **No timeline** — creation is Google's automated decision, it publishes no expected window, and any date you give a client is invented. Report the work done and the signals now in place, never an ETA. |
 | **Wrong image** | Update preferred image on: Wikidata (P18), About page, social profiles. Claim panel and suggest preferred image. |
 | **Wrong description** | Edit Wikidata description. Update first paragraph of About page and Wikipedia article. |
 | **Missing attributes** | Add properties to Wikidata and Schema.org. Claim panel and suggest additions. |
@@ -99,17 +113,15 @@ If connected, query directly for entity status and attributes.
 
 ### Why Wikidata Is Critical
 
-Wikidata is the **single most influential editable knowledge base** for entity optimization:
-- Google uses it as a primary source for Knowledge Panels
-- Bing uses it for Satori knowledge graph
-- AI systems reference it during entity resolution
-- It's open and you can edit it (within their guidelines)
+Wikidata earns first place in the work order for one checkable reason: **it is openly editable and CC0-licensed, so it is the entity surface you can correct directly rather than petition.** Everything else on the list is someone else's property.
+
+What is *not* established, and must not be written into a deliverable: that Google, Bing or any assistant uses Wikidata as a panel or answer source, in what weight, or with what effect. Google names no sources beyond "public sources" plus licensed data plus claimant submissions, and names Wikidata nowhere. Reuse of Wikidata dumps is real and public, but no published measurement connects an item to a panel — so the honest framing is that a complete, referenced item makes the entity machine-resolvable, with what any engine then does with it left unclaimed.
 
 ### Creating a Wikidata Entry
 
 #### Step 1: Check Eligibility
 
-Wikidata requires "notability" — the entity must be referenced in at least one external source. Unlike Wikipedia, the notability bar is lower: a company mentioned in a news article, a product with reviews, or a person with published work typically qualifies.
+Wikidata has its own notability policy, and it is a different and looser test than Wikipedia's — read the current text at wikidata.org/wiki/Wikidata:Notability before advising, since it is a community policy that can change. In outline it turns on the item being identifiable by at least one serious, publicly available reference. Do not predict the outcome for a given entity: whether a particular company, product or person clears it is a call editors make on the item, and a client told they "typically qualify" will treat a deletion as your error.
 
 #### Step 2: Create the Item
 
@@ -207,15 +219,20 @@ If the entity doesn't have a Wikipedia article yet:
 2. **Identify gaps**: What kinds of coverage are missing?
 3. **Build coverage first, then article**: The article is the last step, not the first
 
-Coverage-building strategies:
-| Strategy | Timeline | Notability Impact |
-|----------|----------|-------------------|
-| Industry report mentions | 3-6 months | Medium — depends on report authority |
-| News article coverage | 1-3 months | High — especially from recognized publications |
-| Conference speaking + coverage | 3-12 months | Medium — needs post-event coverage |
-| Academic paper citations | 6-12+ months | High — very strong for GNG |
-| Award recognition | Variable | Medium — depends on award authority |
-| Book publication or feature | 6-12+ months | High — strong independent source |
+Coverage-building strategies. The old version of this table carried a lead time and a notability
+grade for each row; both were invented, so they are gone. What a strategy is worth against GNG
+depends on the specific piece that results — its independence, its depth, and the publication —
+which is knowable only once it exists. Assess each piece against GNG when it lands; forecast
+neither its arrival date nor its grade.
+
+| Strategy | What GNG will actually turn on |
+|----------|-------------------------------|
+| Industry report mentions | Whether the report is independent of the entity, and whether the entity gets substantive treatment rather than a listing |
+| News article coverage | Whether it is genuinely independent — not a press release, not a contributed piece — and whether coverage is non-trivial |
+| Conference speaking + coverage | Only the third-party write-ups count; the speaking slot itself is not independent coverage |
+| Academic paper citations | Independence is normally straightforward to establish; depth of treatment of the entity is the open question |
+| Award recognition | Who confers it and whether independent sources reported it |
+| Book publication or feature | Whether the entity is the subject rather than a passing reference, and whether the publisher is independent |
 
 ### Wikipedia Article Best Practices
 
@@ -235,13 +252,7 @@ Coverage-building strategies:
 
 ### Wikipedia's Impact on AI
 
-Wikipedia is disproportionately important for AI systems because:
-- It's in the training data of every major LLM
-- AI systems treat it as a high-trust source
-- Wikipedia's structured format makes it easy for AI to extract and cite
-- The first paragraph of a Wikipedia article often becomes the AI's entity definition
-
-This makes Wikipedia presence one of the highest-impact entity optimization actions for GEO.
+Wikipedia is openly licensed, heavily mirrored, and structured in a way that makes entity facts easy to extract — which is why it is worth pursuing where notability genuinely exists. Beyond that, be careful what you assert: which corpora a given model trained on, how it weights a source, and whether a lead paragraph becomes an assistant's definition are not published by the model vendors and are not measurable from outside. State the reason to pursue Wikipedia as access and structure, not as a quantified effect on any assistant, and never grade it against other actions — no published measurement ranks entity-optimization actions by impact.
 
 ## Schema.org Entity Markup
 
@@ -302,11 +313,12 @@ Every entity should have at minimum this markup on the homepage:
 
 The `sameAs` property is the **primary entity disambiguation signal** in Schema.org. It tells search engines "this is the same entity as the one on these other platforms."
 
-**Must include (when available):**
-1. Wikidata URL (most important for Knowledge Graph)
-2. Wikipedia URL
-3. LinkedIn URL
-4. Official social media profiles
+**Include only profiles that exist right now, each one opened and confirmed to resolve to this entity.** `sameAs` is an assertion of identity, so a URL for a profile that is planned, was never registered, or 404s is a false statement in structured data — and a URL pointing at a *different* entity that happens to share the name is worse, because it actively merges the two. Creating a missing profile is a roadmap action; nothing enters `sameAs` until it exists. The list below is unordered — no published measurement ranks these by effect:
+
+- Wikidata URL
+- Wikipedia URL
+- LinkedIn URL
+- Official social media profiles
 
 **Include when relevant:**
 5. CrunchBase URL
@@ -317,8 +329,8 @@ The `sameAs` property is the **primary entity disambiguation signal** in Schema.
 **Common mistakes:**
 - Linking to generic pages instead of entity-specific URLs
 - Inconsistent: Schema says "Example Corp" but LinkedIn says "Example Corporation"
-- Missing Wikidata link (this is the single most impactful sameAs)
-- Including dead or redirecting URLs
+- Missing the Wikidata link when an item exists
+- Including dead, redirecting, or never-registered URLs — or one that resolves to a same-named but different entity
 
 ### Cross-Page Entity Consistency
 
@@ -369,9 +381,9 @@ This creates a consistent entity graph that search engines can confidently map t
 | Metric | Tool | Target |
 |--------|------|--------|
 | Knowledge Panel presence | Google Search | Present and accurate |
-| Branded search CTR | Search Console | > 50% for exact brand name |
-| AI recognition rate | Manual testing | Recognized by 3/3 major AI systems |
-| Wikidata completeness | Wikidata | 15+ properties with references |
+| Branded search CTR | Search Console | Your own trend against your own first reading — no external benchmark is published for this, so a fixed target figure would be invented |
+| AI recognition | Manual testing | Recognised, with the correct description, by every system you actually tested — name them and date the run; the count of systems is whatever you ran, not a fixed roster |
+| Wikidata completeness | Wikidata | Per signal 18 in [entity-signal-checklist.md](./entity-signal-checklist.md), the single authority for this threshold — do not restate a number here, where it drifted out of step once already |
 | Schema.org error count | Google Search Console | 0 errors |
 | Brand mention volume | Brand-monitoring tool (name the one used) | Stable or growing trend |
 
@@ -384,18 +396,18 @@ Mention volume is tracked as a count with its window and its source named, split
 2. Verify Schema.org markup hasn't changed
 3. Look for major algorithm updates that might have affected entity recognition
 4. Rebuild signals: start with Wikidata, then Schema.org, then external mentions
-5. Timeline: 2-8 weeks for recovery
+5. No recovery timeline — restoration is Google's automated decision and it publishes no window. Report what you rebuilt and when, and re-check on a stated cadence
 
 **AI systems giving incorrect entity info:**
 1. Identify which sources have incorrect information
 2. Correct information at source (Wikidata, Wikipedia, About page)
 3. AI systems will update over time (training data refresh + live search)
 4. For urgent issues, some AI systems have feedback mechanisms
-5. Timeline: weeks to months depending on AI system update cycles
+5. No timeline — vendors do not publish refresh or retraining schedules. Fix the source, record the date you fixed it, and re-test on a stated cadence
 
 **Knowledge Panel showing wrong entity:**
 1. Claim the Knowledge Panel (if you haven't already)
 2. Strengthen disambiguation signals (see SKILL.md Disambiguation Strategy)
 3. Add qualifier to entity name if needed
 4. Build more unique entity signals (original content, specific topic associations)
-5. Timeline: 1-3 months
+5. No timeline — which entity a query resolves to is Google's call, and no window is published. Track the branded SERP on a stated cadence and report what changed, not when it will

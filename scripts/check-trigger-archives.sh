@@ -1,6 +1,17 @@
 #!/usr/bin/env bash
-# check-trigger-archives.sh — F10 archive-on-write verification (gate check (h)
-# candidate).
+# check-trigger-archives.sh — F10 archive-on-write verification.
+#
+# CHECK ID: (F10). It was `(h)` until 2026-08-12, which was DOUBLE-BOOKED:
+# `validate-tracking.sh:613` already owns check (h), the F3 unsourced
+# quotation-attribution sweep, and that one is gate-wired (pre-push check 2).
+# Two different guards answering to one id is how `MASTER-IMPROVEMENT-PLAN.md`
+# came to record F10's conversion as "check (h)" when the thing at check (h) is
+# F3 — the id collision was load-bearing in a false conversion claim.
+# The fix is not the next free letter. a–i and s are `validate-tracking.sh`'s
+# INTERNAL namespace and this is a sibling script, not a check inside it;
+# taking (j) would reserve a letter in a namespace this file does not own and
+# set up the same collision one letter along. The ledger entry it implements is
+# already unique repo-wide, so the ledger entry is the id.
 #
 # Ledger entry: FAILURE-LEDGER.md F10 (live trigger prompt existed nowhere but
 # the trigger store: v2->v4.1 weekly prompts were applied via update_trigger
@@ -56,7 +67,7 @@ pass() { printf 'PASS: %s\n' "$1"; PASS_N=$((PASS_N + 1)); }
 fail() { printf 'FAIL: %s\n' "$1"; FAIL_N=$((FAIL_N + 1)); }
 warn() { printf 'WARN: %s\n' "$1"; WARN_N=$((WARN_N + 1)); }
 
-echo "check-trigger-archives: (h) durable trigger rows -> docs/loop/archive/ files (F10 guard)"
+echo "check-trigger-archives: (F10) durable trigger rows -> docs/loop/archive/ files (F10 guard)"
 echo "Repo root: $ROOT | Table: docs/loop/PIPELINE.md '## Trigger registry'"
 echo "=============================================="
 
@@ -78,7 +89,7 @@ ROWS=$(awk -F'|' '
 
 NROWS=$(printf '%s\n' "$ROWS" | grep -c . || true)
 if [ "$NROWS" -eq 0 ]; then
-    fail "(h) parsed ZERO data rows from the '## Trigger registry' table — parser or format drift (the registry held 6 rows when this check shipped)"
+    fail "(F10) parsed ZERO data rows from the '## Trigger registry' table — parser or format drift (the registry held 6 rows when this check shipped)"
     echo ""
     echo "=============================================="
     echo "Results: $PASS_N passed, $WARN_N warnings, $FAIL_N failed"
@@ -93,7 +104,7 @@ while IFS=$'\t' read -r routine id state; do
     # F10 scope-precision exemption: send_later cursor rows
     case "$lowid" in
         *send_later*)
-            pass "(h) row '$routine' — send_later cursor chain: EXEMPT per F10 scope-precision (wholesale-replaced stage-5 derivations, never amended)"
+            pass "(F10) row '$routine' — send_later cursor chain: EXEMPT per F10 scope-precision (wholesale-replaced stage-5 derivations, never amended)"
             continue ;;
     esac
 
@@ -108,20 +119,20 @@ while IFS=$'\t' read -r routine id state; do
         while IFS= read -r ref; do
             [ -n "$ref" ] || continue
             if [ -f "$ROOT/$ref" ]; then
-                pass "(h) row '$routine' -> $ref exists ($(wc -c < "$ROOT/$ref") bytes)"
+                pass "(F10) row '$routine' -> $ref exists ($(wc -c < "$ROOT/$ref") bytes)"
             else
-                fail "(h) row '$routine' references $ref but the file does not exist — archive the prompt in the same wave (F10 guard)"
+                fail "(F10) row '$routine' references $ref but the file does not exist — archive the prompt in the same wave (F10 guard)"
                 printf '      row State: %s\n' "$state"
             fi
         done <<< "$REFS"
     else
         case "$lowid" in
             *deleted*)
-                warn "(h) row '$routine' — no archive reference, but State says deleted (no amendable prompt left in the store; pre-guard legacy — archive if the prompt ever becomes recoverable)"
+                warn "(F10) row '$routine' — no archive reference, but State says deleted (no amendable prompt left in the store; pre-guard legacy — archive if the prompt ever becomes recoverable)"
                 printf '      row State: %s\n' "$state"
                 ;;
             *)
-                fail "(h) row '$routine' — durable trigger with NO docs/loop/archive/ prompt file referenced: the F10 failure itself (prompt would exist nowhere but the trigger store)"
+                fail "(F10) row '$routine' — durable trigger with NO docs/loop/archive/ prompt file referenced: the F10 failure itself (prompt would exist nowhere but the trigger store)"
                 printf '      row State: %s\n' "$state"
                 ;;
         esac
@@ -130,6 +141,10 @@ done <<< "$ROWS"
 
 echo ""
 echo "=============================================="
+# Scanned count on every run, including the green one: a verdict whose scope is
+# not printed cannot be told apart from a verdict over an empty table, and the
+# zero-row case above is a FAIL precisely because that distinction matters.
+echo "SCANNED $NROWS data row(s) from docs/loop/PIPELINE.md '## Trigger registry'"
 echo "Results: $PASS_N passed, $WARN_N warnings, $FAIL_N failed"
 if [ "$FAIL_N" -gt 0 ]; then
     echo "check-trigger-archives FAILED — a durable trigger prompt is not archived (F10)"

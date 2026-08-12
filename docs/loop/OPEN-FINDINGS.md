@@ -13,16 +13,21 @@ minutes later, making it **31**. The line went stale inside one editing session,
 whole point: a count quoted from a live list is a timestamp, not a fact (R317 — a count is
 evidence about the *report*, never about the objects it summarises). This file supersedes any
 number quoted in conversation, **including this one the moment a row is added.** Current:
-**34 rows — 6 in A, 16 in B, 1 in C, 9 in D, 2 in E**, 34 distinct ids (60–93 contiguous), no
+**36 rows — 6 in A, 16 in B, 1 in C, 9 in D, 4 in E**, 36 distinct ids (60–95 contiguous), no
 duplicates; #80 is resolved.
-[obs: `grep -cE '^\| [0-9]+ \|' docs/loop/OPEN-FINDINGS.md` = 34 · `grep -oE '^\| [0-9]+ \|' docs/loop/OPEN-FINDINGS.md | grep -oE '[0-9]+' | sort -un | wc -l` = 34 · A=6 B=16 C=1 D=9 E=2 · range 60–93, 2026-08-12 — measured AFTER the last row was added, then written]
+[obs: `grep -cE '^\| [0-9]+ \|' docs/loop/OPEN-FINDINGS.md` = 36 · `grep -oE '^\| [0-9]+ \|' docs/loop/OPEN-FINDINGS.md | grep -oE '[0-9]+' | sort -un | wc -l` = 36 · A=6 B=16 C=1 D=9 E=4 · range 60–95, 2026-08-12]
 
-> **This number has now gone stale three times in one session** (20→23→31→32→34), each time
-> because a row was added after the count was written. The pattern is not carelessness, it is
-> **a derived figure kept in prose next to the thing it derives from**. Two of the three were
-> caught by review rather than by the author. Until a gate re-runs the anchor's own command
-> (in build — see #92), treat every count in this header as a timestamp and re-measure before
-> quoting it anywhere.
+> **This number went stale FOUR times in one session** — 20→23→31→32→34→36 — every time because
+> a row was added after the count was written. Not carelessness: **a derived figure kept in prose
+> beside the thing it derives from**, which is a structure that fails on schedule.
+>
+> ✅ **The fourth was the first one a MACHINE caught.** `scripts/obs-anchor-check.py`, built the
+> same day for exactly this, re-ran the anchor's own command and exited 1 on `asserted 34 /
+> observed 36` before any human looked. Of the four: one shipped and was caught by Mode A review
+> (the `ceddc85` BLOCK), two were caught by the author on re-measure, and this one by the gate.
+> **That is the intended end state of #92 arriving in miniature** — the class moved from
+> human-caught to machine-caught in one day. It does not close #92: the checker is **not yet wired
+> into any gate**, so it caught this only because it was run by hand.
 
 > 🔴 **This paragraph shipped FALSE in `ceddc85` and Mode A pass 4 BLOCKed on it**
 > [obs:2026-08-12 `modea-p4-report.md` finding B1, verdict BLOCK]. It claimed
@@ -162,6 +167,7 @@ the tier-split working as designed, not redundancy.
 | 93 | **The review loop has no terminating condition, and that is now load-bearing.** Each pass BLOCKed, each repair was reviewed, each review found something new — a 4-for-4 base rate. Round 5 on `95ba7d6` was **not run**, by a stopping rule stated before round 4 began (*"if it BLOCKs again, the pattern is the report, not something to grind on"*). That rule was a judgement call made under time pressure by the party it judges, which is exactly the shape R71 warns about. **`95ba7d6` is therefore unreviewed and should be described that way** — it is not clean, it is unexamined. A defensible loop needs a stated exit criterion decided in advance by someone other than the author: N clean rounds, a severity floor, or a bounded budget with the residual declared. [obs:2026-08-12 no pass-5 report exists for 95ba7d6] | OPEN — **Sani**: set the exit criterion |
 | 94 | 🔴 **`scripts/check-freshness.sh` ENDS IN UNCONDITIONAL `exit 0` — it is counted as a converted guard and cannot fail.** `MASTER-IMPROVEMENT-PLAN.md` §1a lists ledger **F5** as class *scripted*, disposition *"Done"*. The script's last line is `exit 0`, reached on every path [obs:2026-08-12 `tail -1 scripts/check-freshness.sh` = `exit 0`]. R-0222/R-0297: a check that cannot FAIL is not a check, and a guard counted as scripted while structurally incapable of going red is worse than an acknowledged procedural one — it retires the concern. **Found by the T1 guard re-audit, not by any gate.** Sibling findings from the same audit: **6 scripts exist that nothing calls**, of which **4 are wiring debt against guards the plan records as converted (F7, F10, F13, F16)**; **F10's §1a row is factually wrong** (it cites check (h), which is the F3 sweep — "archive" appears once in `validate-tracking.sh`, at `:435`, in an exclusion comment); F9 "Done" has recurred 5× and F13 "structural-by-rule" 5×. | OPEN — the F5 fix is a one-line exit-code change; the wiring debt is a decision about which 4 to wire first |
 | 95 | **A machine-checkable claim was silently downgraded to prose by the coordinator, in the same header the `ceddc85` defect lived in.** Rewriting the count anchor, I replaced a runnable second command with the detached gloss `` `sort -un` over the ids = 34 `` — **byte-for-byte the shape that carried the false anchor Mode A pass 4 BLOCKed on**. The register lost one verifiable claim and neither `claims-gate` nor any review caught it; the new `obs-anchor-check.py` classified it UNCHECKABLE, which is how it surfaced. Restored to a full runnable pipeline; checkable claims 5 → 6. **The general lesson is the finding: an anchor's VALUE is its runnability, and prose that merely looks like an anchor passes `claims-gate` (form) while proving nothing.** Anchor-form degradation is currently invisible to every gate. | OPEN — should `claims-gate` require anchors to be runnable, or is UNCHECKABLE an acceptable majority (47 of 55 today)? |
+| 96 | 🔴 **Two eval expectations now quote skill text that no longer exists — created by the COORDINATOR dispatching a skill-editor and an eval-editor at the same skill in parallel.** `cross-cutting/entity-optimizer/evals/evals.json` e4.2 quotes «*10 platforms beats*» and «*perfect profile on just 2*»; both return **0 hits** in `SKILL.md` and all references, because the skill-editor correctly cut that unsourced quantified comparison (R64) while the eval-editor was independently rewriting the expectation that cites it. Neither agent erred — **the territory split did.** Files were disjoint; the *citation dependency between them* was not, and nothing in the brief modelled it. A third string, «*often triggers Knowledge Panel*», is also 0/1 but that one is **intended** — e3.2 exists to ban it and the ban outlives the claim. **This is the class a full sweep found ZERO of earlier the same day** [obs:2026-08-12 `grep -c "10 platforms beats"` evals=1 skill=0], so it is newly created, not pre-existing. Substance survives on both sides — the skill still teaches one consistent name, which is what e4.2 grades — so this is a stale *citation*, not a wrong expectation. **Fix: re-quote e4.2 against current skill text, then re-run the quote-existence sweep across all 20 suites, since any other parallel skill+eval dispatch this session could have done the same.** | OPEN — Coordinator; the general lesson (disjoint files ≠ disjoint dependencies) belongs in the team-structure work with #92 |
 
 ## C. Process, not defects
 

@@ -77,8 +77,12 @@
 #
 # Env: REGISTER_LOCK_FILE (journal path, default <root>/.register-locks — the
 #      override is how the acceptance scenarios run without touching the real
-#      ledger), REGISTER_LOCK_TTL_MIN (staleness horizon, default 90).
-# Exit: 0 = ok/pass, 1 = refused/FAIL, 2 = usage error. No network access.
+#      ledger), REGISTER_LOCK_TTL_MIN (staleness horizon, default 90),
+#      REGISTER_LOCK_REQUIRE_SCOPE=1 (gate-check only: an empty scope — no
+#      outgoing commits, or no announced path — becomes a FAILURE, exit 2,
+#      instead of the default NOT RUN. See the block above do_gate_check).
+# Exit: 0 = ok/pass, 1 = refused/FAIL, 2 = usage error or (with
+#       REGISTER_LOCK_REQUIRE_SCOPE=1) an empty scope. No network access.
 # Dependencies: bash, git (gate-check only), awk, date; flock(1) when available.
 
 set -uo pipefail
@@ -318,6 +322,40 @@ do_status() {
 # ---------------------------------------------------------------------------
 # gate-check — outgoing commits vs the tenure ledger
 # ---------------------------------------------------------------------------
+#
+# EVALUATED SCOPE IS PRINTED ON EVERY EXIT (added 2026-08-12; R-0222/R-0297).
+# Four of this check's early returns used to be silent about having judged
+# nothing, and two of them announced a PASS for work never done:
+#   * the no-journal path printed `Results: 1 passed` — a STRING LITERAL, the
+#     identical defect `commit-scope-check.sh` was fixed for the same day;
+#   * the no-outgoing-commits path printed `$((pass + 1)) passed`, the same
+#     fabricated +1 written as arithmetic;
+#   * the unresolvable-base path returned 0 printing no Results line at all;
+#   * the no-upstream path printed honest zeros but never said what it judged.
+# A green from a check that evaluated nothing is a fabricated verification, so
+# every zero-work return now states the commit and tenure counts it judged and
+# none of them calls itself a PASS.
+#
+# Exit policy on an empty scope: 0 by default. "Nobody announced a path" and
+# "nothing is outgoing" are legitimate, common states — zero friction for a solo
+# session is this guard's stated design (see WHAT THE GATE CAN AND CANNOT PROVE
+# above), and failing them would make the pre-push gate unrunnable. They are
+# reported as NOT RUN, never as passed. REGISTER_LOCK_REQUIRE_SCOPE=1 fails
+# closed (exit 2) instead: the mode for a caller that believes there IS
+# something to attribute, and the mode these paths are proved RED with.
+empty_scope_return() {   # $1 = why; $2 = commits judged; $3 = tenures seen
+    echo "${YELLOW}  EMPTY SCOPE${NC}: $1"
+    echo "=============================================="
+    echo "Scope: $2 outgoing commit(s) against $3 tenure(s) — this run judged NOTHING"
+    echo "Results: ${GREEN}0 passed${NC}, ${YELLOW}1 warning${NC}, ${RED}0 failed${NC}"
+    if [ "${REGISTER_LOCK_REQUIRE_SCOPE:-0}" = "1" ]; then
+        echo "${RED}register-lock gate-check FAILED${NC} (REGISTER_LOCK_REQUIRE_SCOPE=1 — an empty scope is not a pass)"
+        return 2
+    fi
+    echo "${YELLOW}register-lock gate-check NOT RUN${NC} — an empty scope is not a pass; re-run against a base with outgoing commits and an announced path to get a verdict"
+    return 0
+}
+
 do_gate_check() {
     local base="${1:-}"
     local pass=0 fail=0 warn=0
@@ -329,24 +367,25 @@ do_gate_check() {
 
     if [ -z "$base" ]; then
         if ! base=$(git rev-parse --abbrev-ref --symbolic-full-name '@{upstream}' 2>/dev/null); then
-            echo "${YELLOW}  SKIP${NC}: no base ref and no upstream — nothing outgoing to check"
-            echo "=============================================="
-            echo "Results: ${GREEN}0 passed${NC}, ${YELLOW}1 warning${NC}, ${RED}0 failed${NC}"
-            return 0
+            empty_scope_return "no base ref given and no upstream configured — nothing outgoing to check" "0" "0"
+            return $?
         fi
     fi
     if ! git rev-parse --verify --quiet "$base" >/dev/null; then
-        echo "${YELLOW}  SKIP${NC}: base ref '$base' does not resolve"
-        return 0
+        empty_scope_return "base ref '$base' does not resolve" "0" "0"
+        return $?
     fi
 
-    local tenures
+    # Counted before the early returns so every zero-work message can state the
+    # two numbers that make it zero-work, rather than asserting emptiness.
+    local n_commits n_tenures tenures
+    n_commits=$(git rev-list --count "$base..HEAD" 2>/dev/null || echo 0)
     tenures=$(intervals)
+    n_tenures=$(printf '%s\n' "$tenures" | grep -c . || true)
+
     if [ -z "$tenures" ]; then
-        echo "${GREEN}  PASS${NC}: no lock ledger entries — no writer announced a path, nothing to attribute"
-        echo "=============================================="
-        echo "Results: ${GREEN}1 passed${NC}, ${YELLOW}0 warnings${NC}, ${RED}0 failed${NC}"
-        return 0
+        empty_scope_return "no lock ledger entries — no writer announced a path, so no collision is expressible (this is the zero-friction solo case, not a verdict on the $n_commits outgoing commit(s))" "$n_commits" "0"
+        return $?
     fi
 
     # Stale open tenures are reported at every push: never silently honoured.
@@ -361,14 +400,12 @@ do_gate_check() {
     local commits
     commits=$(git rev-list "$base..HEAD" 2>/dev/null)
     if [ -z "$commits" ]; then
-        echo "${GREEN}  PASS${NC}: no outgoing commits — nothing to check"
-        echo "=============================================="
-        echo "Results: ${GREEN}$((pass + 1)) passed${NC}, ${YELLOW}${warn} warnings${NC}, ${RED}0 failed${NC}"
-        return 0
+        empty_scope_return "0 commits in $base..HEAD (HEAD is contained in the base — nothing is outgoing), so the $n_tenures tenure(s) in the ledger were compared against nothing" "0" "$n_tenures"
+        return $?
     fi
 
     local ntenure
-    ntenure=$(printf '%s\n' "$tenures" | grep -c . || true)
+    ntenure="$n_tenures"
     # A declaration may vouch for OTHER commits by naming their short SHAs:
     #   Register-Lock: none -- covers 5d9befb d7abfb8: <why you know>
     # Why this exists (2026-08-10): per-commit self-declaration is the stronger form,
@@ -449,6 +486,9 @@ do_gate_check() {
 
     [ "$fail" -eq 0 ] && echo "${GREEN}  PASS${NC}: $pass outgoing commit(s) checked against $ntenure recorded tenure(s) — none landed inside another holder's tenure undeclared"
     echo "=============================================="
+    # Printed on the worked path too, so a reader never has to infer the scope
+    # from a bare verdict — same reason the zero-work returns state theirs.
+    echo "Scope: $n_commits outgoing commit(s) against $ntenure tenure(s) evaluated"
     if [ "$fail" -gt 0 ]; then
         echo "Results: ${GREEN}${pass} passed${NC}, ${YELLOW}${warn} warnings${NC}, ${RED}${fail} failed${NC}"
         echo "${RED}register-lock gate-check FAILED${NC}"

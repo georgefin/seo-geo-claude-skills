@@ -6,9 +6,11 @@ Detailed instructions for Knowledge Panel optimization, Wikidata entry managemen
 
 ### Claiming and Editing
 
-1. **Google Knowledge Panel**: Claim via Google's verification process (search for entity -> click "Claim this knowledge panel")
-2. **Bing Knowledge Panel**: Driven by Wikidata and LinkedIn -- update those sources
-3. **AI Knowledge**: Driven by training data -- ensure authoritative sources describe entity correctly
+1. **Google Knowledge Panel**: Claim via Google's verification process (search for entity -> click "Claim this knowledge panel"). Only an existing panel can be claimed — there is no claim route to creating one, and a company cannot claim a panel belonging to a different entity that shares its name
+2. **Bing Knowledge Panel**: Microsoft does not publish which sources feed it, so update the surfaces you control and claim no mechanism
+3. **AI Knowledge**: vendors do not publish their corpora or weighting, so the actionable form is to make authoritative sources describe the entity correctly — not to assert how any model consumes them
+
+None of the three accepts a request to *create* a panel, and none publishes a timeframe. Report the signals you put in place and the date, never an expected arrival.
 
 ### Common Knowledge Panel Issues
 
@@ -51,11 +53,16 @@ Detailed instructions for Knowledge Panel optimization, Wikidata entry managemen
 
 ### How AI Systems Resolve Entities
 
+> **This is a working model, not documented behaviour.** No major assistant publishes its
+> resolution pipeline, its training corpora, or how it weights a source. The sketch below is
+> useful for deciding where to put effort, and it is not evidence: never present it to a client
+> as how a named system works, and never derive a probability, a rate or a timeline from it.
+
 ```
 User query -> Entity extraction -> Entity resolution -> Knowledge retrieval -> Answer generation
 ```
 
-AI systems follow this pipeline:
+Modelled as a pipeline:
 1. **Extract** entity mentions from the query
 2. **Resolve** each mention to a known entity (or fail -> "I'm not sure")
 3. **Retrieve** associated knowledge about the entity

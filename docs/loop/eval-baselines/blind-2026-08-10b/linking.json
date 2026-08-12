@@ -67,19 +67,23 @@
     "recorded_as": "New founding datum for internal-linking-optimizer under blind-execute."
   },
   "summary": {
-    "passed": 26,
+    "passed": 27,
     "failed": 1,
-    "editor_pending": 1,
+    "ungraded": 0,
+    "ungraded_reasons": [],
+    "editor_pending": 0,
     "total": 28,
-    "pass_rate": 0.9286,
-    "pass_rate_note": "Counted the way the baseline counted: the editor-pending expectation (e3.4) is excluded from 'passed'. Its mechanically-checkable layer — the only layer that expectation grades — verified clean; counting it as a pass gives 27/28 = 0.9643. The lower figure is the headline so the two runs are compared on the same convention.",
+    "pass_rate": 0.9643,
+    "pass_rate_note": "RESOLVED 2026-08-12 from committed evidence, not from a new measurement. e3.4 was recorded EDITOR-PENDING because no editor report was in front of the grader at run time. The binding pass exists and was committed: docs/loop/greek-editor-records/2026-08-10-blindwave.md line 25 and line 671 grade blind-linking-out-e3.md MINOR-EDITS, and the sweep rule (commit 3a8d62c) is 'PASS = NATIVE or MINOR-EDITS. FAIL = NON-NATIVE or FAIL.' e3.4 therefore resolves to PASS: 27/28 = 0.9643. Identity holds: passed 27 + failed 1 + ungraded 0 = total 28. No other expectation was re-graded and no deliverable was re-read.",
+    "editor_slot_convention": "COUNTED IN THE TOTAL AND NOW COUNTED AS PASSED, because the editor's report is in front of the record. Before this resolution the slot sat inside `total` and outside both `passed` and `failed` (gap=1 to scripts/eval-corpus-report.sh). The verdict is the editor's, quoted verbatim in the e3.4 expectation entry and in editor_referral; the grader formed no second opinion on fluency.",
+    "prior_recorded_figures": {"passed": 26, "failed": 1, "editor_pending": 1, "total": 28, "pass_rate": 0.9286},
     "baseline_pass_rate": 0.9643,
-    "delta": "-3.57 points, informed -> blind, one expectation"
+    "delta": "0.00 points, informed -> blind. The -3.57 previously recorded here was the editor slot being uncounted, not a behavioural regression; with the binding verdict applied the blind run matches the informed baseline at 27/28."
   },
   "per_eval": {
     "1": {"passed": 5, "failed": 1, "total": 6},
     "2": {"passed": 6, "failed": 0, "total": 6},
-    "3": {"passed": 5, "failed": 0, "editor_pending": 1, "total": 6},
+    "3": {"passed": 6, "failed": 0, "editor_pending": 0, "total": 6},
     "4": {"passed": 6, "failed": 0, "total": 6},
     "5": {"passed": 4, "failed": 0, "total": 4}
   },
@@ -194,7 +198,11 @@
       "id": "e3.4",
       "text": "Greek output quality, mechanically checkable layer only: diacritics, final sigma, no untranslated English boilerplate headings — fluency/register/naturalness explicitly NOT graded here",
       "passed": true,
-      "editor_pending": true,
+      "editor_pending": false,
+      "editor_verdict": "MINOR-EDITS",
+      "editor_verdict_source": "docs/loop/greek-editor-records/2026-08-10-blindwave.md — HEADLINE table line 25, verdict section line 119, paste-ready one-liner line 671",
+      "editor_verdict_verbatim": "MINOR-EDITS (blocking ×1): native voice and correct Greek number/date conventions throughout, but §6 paste-ready sentence 3 «δείτε [η σωστή φύλαξη του λαδιού]» breaks case government in copy the client is told to publish; plus «αλληλοκαλύπτεται με», «ο κανόνας που δουλεύουμε», coined «ανακαλύψιμη», ambiguous «κατασκευαστής», and §8's premise «χωρίς άρθρο» under-diagnoses a noun-stack the section then prescribes; both family-6 net hits ruled clean as Greek («δείχνει μηδέν» needs an unrelated disambiguation edit).",
+      "editor_verdict_applied": "RESOLVED 2026-08-12. Rule (commit 3a8d62c): PASS = NATIVE or MINOR-EDITS. FAIL = NON-NATIVE or FAIL. MINOR-EDITS therefore = PASS, and the slot moves from EDITOR-PENDING into `passed`. The editor's own line 119 heading reads «Verdict: MINOR-EDITS — with one blocking item. Do not let the client paste §6 sentence 3 as written.»; the blocking item is a required fix on the deliverable, not a FAIL grade on the slot, and this record does not restate it as one. The two family-6 net hits this expectation referred out (e3:143, e3:199) were both ruled NOT family-6 by the editor (record lines 42-79), so the referral closes clean in both directions. This is committed evidence being applied — no deliverable was re-read and no new measurement was taken.",
       "evidence": "MECHANICAL LAYER CLEAN. Final-sigma screen over 2,451 Greek word tokens: zero word-final σ and zero word-internal ς. Mixed Latin/Greek inside one word: none. Corrected tonos screen (first attempt mis-tokenized and was discarded before reporting, per F7): the only unaccented multisyllabic tokens are ΝΑΙ / ΟΧΙ / ΠΥΛΩΝΑΣ (all-caps, where Greek drops the tonos) and Ποια / Ποιες / ποιο / πια / πιο / τρεις / βρει / ζει / πει / μπουν, all correctly unaccented in monotonic orthography. All section headings are Greek; Latin-script survivals are the permitted terms of art and names — SEO, GA4, newsletter, crawler, backlinks, domain, footer, blog, Search Console, Google, ladikritis.gr. COUNTED AS EDITOR-PENDING RATHER THAN PASSED, mirroring the baseline's treatment of this same expectation, so the two runs are compared on one convention. REFERRED TO greek-content-editor: register and naturalness of the 12 proposed anchors and 12 paste-ready sentences; and specifically «Δεν είναι ορφανή, παρότι δείχνει μηδέν» (e3:143) and «Ο στόχος είναι μηδέν» (e3:199), the two hits the family-6 net surfaced — see mechanical_screens."
     },
     {
@@ -333,6 +341,17 @@
       "«Δεν είναι ορφανή, παρότι δείχνει μηδέν» (e3:143) and «Ο στόχος είναι μηδέν» (e3:199) — the two hits the family-6 net surfaced. Neither is the ruled costs-zero shape and neither is ranked by `κοστίζ`, but per the section-6 governing note the clean-sheet call on a Greek family is the editor's, not the grader's.",
       "Section 8's four-reason decline of «ελαιόλαδο κρήτης προσφορά», especially reason 2 (e3:338-342), which makes a claim about Greek itself: that the phrase is a search query rather than Greek prose, article-less and with a lowercase «κ» on a proper noun. The grader can confirm the string is never recommended; whether the linguistic argument is correct and well-put is the editor's."
     ],
-    "status": "PENDING"
+    "status": "RETURNED — MINOR-EDITS (= PASS). Closed 2026-08-12 against docs/loop/greek-editor-records/2026-08-10-blindwave.md (record dated 2026-08-10; the verdict existed before this record's own run date and was simply never applied).",
+    "returned_verdict": "MINOR-EDITS",
+    "returned_verdict_verbatim": "MINOR-EDITS (blocking ×1): native voice and correct Greek number/date conventions throughout, but §6 paste-ready sentence 3 «δείτε [η σωστή φύλαξη του λαδιού]» breaks case government in copy the client is told to publish; plus «αλληλοκαλύπτεται με», «ο κανόνας που δουλεύουμε», coined «ανακαλύψιμη», ambiguous «κατασκευαστής», and §8's premise «χωρίς άρθρο» under-diagnoses a noun-stack the section then prescribes; both family-6 net hits ruled clean as Greek («δείχνει μηδέν» needs an unrelated disambiguation edit).",
+    "returned_verdict_citation": "docs/loop/greek-editor-records/2026-08-10-blindwave.md:671 (paste-ready one-liner); same verdict at :25 (HEADLINE table) and :119 (FILE 1 verdict heading)",
+    "specific_items_disposition": [
+      "Item 1 (12 anchors + 12 paste-ready sentences) — ANSWERED. Editor at :119 «Verdict: MINOR-EDITS — with one blocking item. Do not let the client paste §6 sentence 3 as written.» One blocking item on that surface; six required fixes in total on this file (:25). Not a FAIL grade.",
+      "Item 2 (the two family-6 net hits, e3:143 and e3:199) — ANSWERED, both NOT family-6. Ruling 1 (:41-62) on «δείχνει μηδέν»: «NOT a family-6 defect.» — but it requires an unrelated edit for a document-internal term collision, replacement «Δεν είναι ορφανή, παρότι ο πίνακας γράφει μηδέν». Ruling 2 (:64-79) on «Ο στόχος είναι μηδέν»: «NOT a family-6 defect. Clean; no edit required.»",
+      "Item 3 (§8's four-reason decline of «ελαιόλαδο κρήτης προσφορά») — ANSWERED. The editor's one-liner records that «§8's premise «χωρίς άρθρο» under-diagnoses a noun-stack the section then prescribes», i.e. the linguistic argument is criticised but the decline itself is not overturned; it is one of the file's six required fixes, inside a MINOR-EDITS verdict.",
+      "Not requested but volunteered by the editor (:104-112): family 5 hand-checked across all three files — «file 1 has 14 n-word clauses, every one with a preverbal «δεν» in its own clause» — «Family 5: clean sheet, ruled on hand-checked evidence.»"
+    ],
+    "effect_on_grade": "e3.4 EDITOR-PENDING -> PASS. summary.passed 26 -> 27; summary.editor_pending 1 -> 0; summary.pass_rate 0.9286 -> 0.9643; per_eval.3 5/0/1 -> 6/0/0. failed and total unchanged. No other expectation touched.",
+    "what_this_still_does_not_measure": "The six required fixes the editor lists for this file are NOT graded anywhere in this suite. MINOR-EDITS is a pass, so a deliverable can carry a blocking un-pasteable Greek sentence (§6 sentence 3) and still score 27/28. The pass rate is a lower bound on defects: the editor found six here and the suite records none."
   }
 }

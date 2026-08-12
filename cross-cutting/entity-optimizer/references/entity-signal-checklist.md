@@ -167,9 +167,58 @@ Print the working in the report, beside the status: `⚠️ Gaps — 3.0 of 6 sc
 signals 45, 46 excluded (no backlink data)`. Two audits of the same inputs then land on the same
 seven words, and the client can see which signal moves which status.
 
+### Counting from a supplied file
+
+The derivation above governs the category statuses. This one governs every other number in the
+report — the counts read off whatever the client handed over (inventory sheets, mention logs,
+SERP captures). SKILL.md Step 3 states the rule; here is the method, because the failure this
+prevents is not carelessness — it is a competent reader scanning instead of enumerating.
+
+**Enumerate, then count. Never state a count you did not just list out.**
+
+1. **Fix the population and write it down** — the exact set, and where it lives. "The company
+   surfaces in the inventory" and "the third-party mentions in the log" are different populations
+   even when the same name strings appear in both.
+2. **List the row identifiers under each value, then count the list.** Not a mental tally — write
+   `<value>: <row>, <row>, <row> → <n>` for each distinct value. The written-out identifiers are
+   what a second reader can check, and what makes your own second pass a check rather than a
+   repeat of the first scan.
+3. **Sweep every table the population spans.** This is where the undercount comes from. A value
+   whose rows sit together gets counted correctly; a value whose rows are scattered across two
+   tables loses its stragglers, because scanning locks onto the cluster. If the population spans
+   Table A and Table B, every value's enumeration must show identifiers from both wherever they
+   occur.
+4. **Reconcile to the total.** The per-value counts must sum to the population size, and the
+   report shows that sum. A tally that does not reconcile has a missing row in it — find it before
+   publishing, do not adjust the total to fit.
+5. **Show exclusions as a chain, never as one subtraction.** Start, then each removal with its own
+   rule and the subtotal it leaves, then the end figure — `<start>; −<n> <rule> → <subtotal>;
+   −<n> <rule> → <final>`. One combined subtraction hides two different rules behind one number,
+   and a client who disputes one of them cannot see which figure to argue with. Each rule gets its
+   own step even when two removals happen to be the same size.
+6. **Keep populations apart in the output.** Report each count under its own population heading.
+   Linked and unlinked mentions are two figures, never one total; company-surface name strings and
+   third-party-mention name forms are two figures, never one "name variants" count.
+
+**Where a value can be folded**, state the folding rule and either count passes — an all-caps and
+a title-case rendering of the same string may be one name written two ways or two distinct
+strings, but the report must say which convention it used before giving the number.
+
+**Arithmetic stays inside the population.** A count may be divided only by another figure from the
+same population — a share of a total, a per-value proportion. Money, headcount and dates from the
+brief are not in the population and never enter a quotient: a retainer divided by a mention count
+is the named instance banned in SKILL.md Step 2, and the rule generalises to every per-unit figure
+built the same way.
+
 ### Priority Action Matrix
 
-| Current State | Focus Area | Expected Timeline |
+The right-hand column is **how long the work takes you** — an effort estimate for scoping and
+sequencing, and the only kind of timescale this skill states. It is not a time-to-result: nothing
+here predicts when Google, Bing or any assistant will respond, because none of them publishes a
+window and no such figure is assertable. Never let this column be read back to a client as a date
+by which a panel, a ranking or a citation will exist.
+
+| Current State | Focus Area | Effort (your work, not time-to-result) |
 |--------------|-----------|-------------------|
 | Most Priority 1 signals ❌ | Priority 1 foundation signals only | 2-4 weeks |
 | Priority 1 mostly ✅, Priority 2 mixed | Priority 2 authority signals | 1-2 months |

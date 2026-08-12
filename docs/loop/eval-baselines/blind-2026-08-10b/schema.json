@@ -536,8 +536,12 @@
   "summary": {
     "passed": 44,
     "failed": 0,
+    "ungraded": 0,
+    "ungraded_reasons": [],
     "total": 44,
-    "pass_rate": 1.0
+    "pass_rate": 1.0,
+    "editor_slot_convention": "THIS SUITE HAS NO SEPARATE EDITOR SLOT. All 44 expectations landed in `passed` or `failed`; 44 + 0 = 44, so `ungraded` is 0 — consistent with this record's own `ungradeable_expectations: 0`. Register and naturalness of the E2 Greek prose were referred out (see greek_handling_e2) but no expectation here grades the editor's verdict. The `ungraded` key was added 2026-08-12 to state that explicitly rather than leave it inferred from arithmetic (charter 3(d)).",
+    "editor_verdict_effect_2026_08_12": "NONE — numbers unchanged at 44/0/0/44 = 1.0. The binding pass was returned MINOR-EDITS (= PASS under commit 3a8d62c) and applied to the referral block only; there was no pending slot to resolve. NOTE ON THIS 1.0: the editor found one blocking item and six required fixes in blind-schema-out-e2.md, none of which this suite scores. A 44/44 here means 44 structural expectations held, not that the deliverable was clean."
   },
   "regression_check": {
     "priors_consulted": [
@@ -565,6 +569,15 @@
   "greek_handling_e2": {
     "graded_here": "structure and thresholds only",
     "referred_to_greek_content_editor": "register and naturalness of the Greek report prose in blind-schema-out-e2.md",
+    "referral_returned": {
+      "status": "RETURNED — MINOR-EDITS (= PASS). Returned 2026-08-10; applied to this record 2026-08-12. No figure in this record changes.",
+      "verdict": "MINOR-EDITS",
+      "citation": "docs/loop/greek-editor-records/2026-08-10-blindwave.md:673 (paste-ready one-liner); same verdict at :27 (HEADLINE table) and :441 (FILE 3 verdict heading)",
+      "verbatim": "MINOR-EDITS (blocking ×1): Greek prose is clean and culturally exact (ΠΟΠ, ΦΠΑ, Ι.Κ.Ε., 12,90 €→12.90, «διαδρομή πλοήγησης»), but «(ρύθμιση R2 / CORE-EEAT O05)» puts an internal framework ID on a client-read surface and mistranslates \"ruling\" as «ρύθμιση»; plus «τιμή» used for JSON value ×3 in a price document, fronted negative-existential, «EUR … που γράφει η σελίδα», ambiguous «σε αγορές», «εκκρεμεί από εσάς».",
+      "grade_effect": "NONE. Under the sweep rule (commit 3a8d62c) MINOR-EDITS = PASS, but eval 2 was already recorded 9/9 with no editor slot, so there was nothing to resolve.",
+      "family_5_note": "The editor hand-checked family 5 independently across all three files, closing this record's own open clause at greek_handling_e2.section6_screen.family_5 («the FAIL/clean call on any Greek family remains the binding editor's»). Editor at :104-112: «file 3 has 6, all licensed» — «Family 5: clean sheet, ruled on hand-checked evidence.»",
+      "what_this_suite_still_does_not_measure": "Six required fixes in this deliverable, one of them blocking, are graded by no expectation in this suite: an internal framework ID («ρύθμιση R2 / CORE-EEAT O05») printed on a client-read surface, and «τιμή» used to mean JSON *value* three times inside a document about *price*. The editor's proportionate home for the «τιμή» class (:648-652) is a skill-local note in schema-markup-generator, not a §6 family — not written here, and outside this record."
+    },
     "section6_screen": {
       "ruleset": "build/seo-content-writer/references/anti-slop-ruleset.md §6, read at grading time (post-drift text: family 6 net μηδ[εέ]ν ranked by κοστίζ; family 7 language-neutral)",
       "locale": "LC_ALL=C.UTF-8; verified -i folds Greek in this environment (grep -i 'δεν' matched «Δεν έγινε καμία νέα μέτρηση.»)",
