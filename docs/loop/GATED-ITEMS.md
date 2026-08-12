@@ -260,13 +260,18 @@ watching), G4 harvest merged (PR #4).**
   v4.4.0 on main — see Continuation notes below).
 - **Proposal**: The current spec diverges from this repo's own rules:
   - agentskills.io/specification.md (checked 2026-08-08): SKILL.md frontmatter defines
-    **no top-level `version` field** (6 fields only) — repo mandates it (`CLAUDE.md:58`,
-    `CONTRIBUTING.md:40`).
+    **no top-level `version` field** (6 fields only) — repo mandates it
+    (`CLAUDE.md:85` ("tolerated on legacy skills"), `CONTRIBUTING.md:44-46`
+    ("metadata:") — anchor-tagged per F12, token authoritative on mismatch;
+    re-resolved 2026-08-12 from :58 / :40, which had drifted onto a Tool-Connector
+    rule and onto the frontmatter template's `description:` line).
   - code.claude.com/docs/en/skills plugin docs (fetched 2026-08-08): documented plugin.json
     schema has **no `schemaVersion`/`id`** (only `name` required), and `commands`/`skills`
     are documented as path strings/arrays, not `{name, description, path}` objects — repo
-    mandates the opposite (`CLAUDE.md:59`; fields present at `.claude-plugin/plugin.json:2-3`;
-    added deliberately in v3.0.0, `VERSIONS.md:277` ("### v3.0.0" section —
+    mandates the opposite (`CLAUDE.md:86` ("bare path strings") — anchor-tagged per F12,
+    re-resolved 2026-08-12 from :59, a blank line after the restructure; fields then
+    present at `.claude-plugin/plugin.json:2-3`;
+    added deliberately in v3.0.0, `VERSIONS.md:292` ("### v3.0.0" section —
     pointer anchor-tagged per F12, token authoritative on mismatch; had silently
     drifted from :79-88; refreshed 2026-08-10, +2 from the entity-optimizer 4.1.5 /
     backlink-analyzer 4.0.4 bullet)).
@@ -274,7 +279,8 @@ watching), G4 harvest merged (PR #4).**
     non-spec plugin.json fields, run `claude plugin validate --strict` (watch-item W8).
 - **Risk**: could break ClawHub / skills.sh marketplace listings (their tolerance of the
   spec-pure format is unproven); contradicts the repo's published contribution contract,
-  so `CLAUDE.md:58-59` + the `CONTRIBUTING.md` template must change in the same PR.
+  so `CLAUDE.md:85-86` ("tolerated on legacy skills") + the `CONTRIBUTING.md` template
+  must change in the same PR (anchor-tagged per F12, re-resolved 2026-08-12 from :58-59).
 - **Plan**: pilot on **one** skill first; single commit so **rollback = one `git revert`**.
 - **Rollback triggers**: validator errors post-merge; marketplace listing breakage; CI red;
   contradiction reported by the next weekly run.
@@ -609,11 +615,17 @@ watching), G4 harvest merged (PR #4).**
   keep-decision (schema.org validity plus non-Google engines carry it) but it does
   constrain how confidently the library may phrase the benefit.
 - **Proposal 9b — HowTo ruling + purge (W12)**: rule that HowTo rich results ended in
-  2023 and purge the four library loci still teaching them as a current SERP feature
-  (`research/serp-analysis/references/serp-feature-taxonomy.md:30` and `~:291`,
-  `research/content-gap-analysis/references/gap-analysis-frameworks.md:150`,
-  `build/meta-tags-optimizer/references/ctr-and-social-reference.md:121`), shipping the
-  check (f) token row in the same wave per the F9-r2 backfill rule.
+  2023 and purge the four library loci still teaching them as a current SERP feature —
+  `research/serp-analysis/references/serp-feature-taxonomy.md:30`
+  ("How-To, Review Stars, Recipe") and `~:291`,
+  `research/content-gap-analysis/references/gap-analysis-frameworks.md:161`
+  ("Step-by-step tutorials"),
+  `build/meta-tags-optimizer/references/ctr-and-social-reference.md:155`
+  ("promise no How-to appearance"); all three anchor-tagged per F12, the last two
+  re-resolved 2026-08-12 from :150 (a table separator) and :121 (a blank line — and
+  the 4.2.0 rewrite has since hedged that locus to `[VERIFY]`, so it no longer states
+  HowTo as current). Ship the check (f) token row in the same wave per the F9-r2
+  backfill rule.
 - **Why gated rather than applied**: creating a ruling is gate-class by the loop's own
   protocol, and the evidence — while consistent across independent
   domain-restricted queries against Google's own domain — is snippet grade, not
@@ -713,21 +725,27 @@ From the 08-08-2026 report's slow-loop lane; promote to gated only when concreti
   boundary phrasing nuance (R4 uses ≤; several references use `<`) into the same pass.
   Shared framework files — small, deliberate, own wave.
 - **check (g) scope-extension question (covering-round advisory, 2026-08-09)**:
-  PIPELINE's stage-3 `CLAUDE.md:49`/`:50` pointers had silently drifted to
-  :53/:54 (grep-verified, corrected in the advisory's fix-forward) — check (g)
+  PIPELINE's two stage-3 pointers into `CLAUDE.md:88-89` ("Branch naming") — written
+  :49/:50 at the time — had silently drifted to :53/:54 (grep-verified, corrected in
+  the advisory's fix-forward; anchor-tagged and re-resolved again 2026-08-12, the
+  CLAUDE.md restructure having moved them a second time) — check (g)
   verified `VERSIONS.md` targets only. **ANSWERED 2026-08-10 (`4a1d238`) — extended.**
   Check (g) now verifies anchor-tagged pointers into ANY repo file on the same
   contract: the token is authoritative and a line/token mismatch fails. Demonstrated
   before wiring against five deliberate injections in a scratch copy, including this
-  advisory's own CLAUDE.md case and the E3 round's `SKILL.md:258` blank-line drift.
+  advisory's own CLAUDE.md case and the E3 round's blank-line drift on
+  `optimize/technical-seo-checker/SKILL.md:259` ("Audit Site Speed & Core Web Vitals"),
+  written `:258` at the time. That bare basename was resolved to its repo path and
+  anchor-tagged 2026-08-12 against SETTLED-RULINGS R4, which carries the same pointer.
   Two honest scope statements travel with it: 35 bare `file:line` pointers carry no
   token, so the check counts and lists them per register but never fails them —
   anchor-tagging those is queued, not assumed; and pointers using a multi-part line
   list are WARNed as unverifiable rather than silently skipped.
 - **fork-manifest attribution (flagged 2026-08-09 as a Sani decision; DELEGATED to
   the coordinator 2026-08-10, twelfth verdict-log entry)**: both
-  marketplace manifests' `owner`/`metadata.repository` fields and `VERSIONS.md:3`'s
-  raw-fetch URL still carry the upstream identity (aaron-he-zhu) — fork
+  marketplace manifests' `owner`/`metadata.repository` fields and the raw-fetch URL at
+  `VERSIONS.md:3` ("once per session to check for updates")
+  still carried the upstream identity (aaron-he-zhu) at flag time — fork
   inheritance, surfaced when the marketplace-discovery shim landed. No functional
   impact on marketplace discovery (probed: the add succeeds with the
   upstream-attributed manifests; installs were blocked separately by the W8
@@ -738,8 +756,9 @@ From the 08-08-2026 report's slow-loop lane; promote to gated only when concreti
   Practice chosen, and the principle behind it: machine-readable identity points at
   the artifact people install and file issues against; human-readable credit names
   the upstream project permanently and prominently. Applied in this scope —
-  (a) both manifests' `owner` + `metadata.repository` and `VERSIONS.md:3`'s
-  raw-fetch URL move to `georgefin/seo-geo-claude-skills`, because those fields
+  (a) both manifests' `owner` + `metadata.repository` and the raw-fetch URL at
+  `VERSIONS.md:3` ("once per session to check for updates")
+  move to `georgefin/seo-geo-claude-skills`, because those fields
   drive update checks and marketplace resolution, and pointing them upstream means
   a fork user silently reads upstream's files instead of the ones this loop
   maintains; (b) README gains an explicit fork-credit line naming the upstream

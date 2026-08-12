@@ -240,6 +240,13 @@ A **framework name** the client is actually buying (CORE-EEAT, CITE, a named aud
 appear on a client surface **if it is glossed on first use** — the family-8 exemption. A framework
 **item ID** and a **skill slug** are never exempt, in any language.
 
+> ⚠️ **UNRESOLVED — owner ruling owed (open finding #81).** `domain-authority-auditor`'s last Output
+> Validation checkbox (`cross-cutting/domain-authority-auditor/SKILL.md:354`, "An ID appears only as
+> a row label in the per-item score table, or as the leading label of a ranked improvement") exempts
+> an item ID inside the client report fence, and cites this section in the same sentence. An
+> item-keyed scorecard may be a different surface from client-read prose, so this is a scope
+> decision, not a typo fix. **Until it is ruled, cite the side you used.**
+
 ---
 
 ## 4. When a Field Is Unavailable

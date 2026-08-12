@@ -1,13 +1,13 @@
 ---
 name: domain-authority-auditor
-version: "4.4.0"
+version: "4.5.0"
 description: 'Run the full 40-item CITE domain authority audit across 4 dimensions with domain-type weighting and veto checks. Use when the user asks to "audit domain authority", "domain trust score", "CITE audit", "how authoritative is my site", "domain credibility check", "is my domain trustworthy", "domain credibility score", "domain rating". For content-level assessment, see content-quality-auditor. For link profile details, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.4.0"
+  version: "4.5.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -119,10 +119,9 @@ When a user requests a domain authority audit:
 
 ### Finding Format & Confidence Labels
 
-Findings surface in two places — per-item **Notes** and the **Top 5 Priority
-Improvements**. Report each with **Finding** (the item and what falls short), **Evidence**
-(the observed data behind the score), **Impact** (weighted points at stake), and **Fix**
-(the concrete action), plus a **Confidence** label:
+Findings surface in two places — per-item **Notes** and the **Top 5 Priority Improvements**. A Notes
+cell carries the observation; a Top 5 entry names the item and the change to make, then its
+**Current** grade, **Potential gain**, **Evidence**, and **Action**. Both carry a **Confidence** label:
 
 - **Confirmed** — directly observed in provided data or crawl output
 - **Likely** — strong indirect evidence (e.g., a consistent pattern across sampled pages or tool exports)
@@ -237,7 +236,7 @@ points earned ÷ (10 × scored items) × 100**. State the denominator beside the
 **Derived figures — recompute every one before you publish.** Any number not copied from the
 input is derived from the report's own per-item grades and stated weights: dimension scores,
 the weighted CITE Score, item tallies, points-scored/points-lost sums, Top 5 potential gains,
-and any "what the score would be if X" projection. Three rules carry most of the defects:
+and any "what the score would be if X" projection. Four rules carry most of the defects:
 
 1. **A count matches the list it names** — "the four C Partials (C04, C05, C06, C07, C09)"
    is wrong: five IDs, called four. Count the IDs you just typed.
@@ -251,8 +250,7 @@ and any "what the score would be if X" projection. Three rules carry most of the
    (Trust), not `E04` (Technical Crawlability), and those two weights differ, so a mis-attributed
    item prices the fix wrongly even when the grade behind it is right.
 
-Formulas, N/A rescaling, veto-cap handling, and worked gain/projection examples:
-[references/score-arithmetic.md](./references/score-arithmetic.md).
+Formulas, N/A rescaling, veto-cap handling, and worked gain/projection examples: [references/score-arithmetic.md](./references/score-arithmetic.md) — § 5 carries the potential-gain operands. In the Top 5 block of the report below, publish each gain as the finished figure alone: the multiplication that produced it is scoring method, and scoring method stays out of the client report fence (Output Validation, the fence checkbox).
 
 Calculate scores and generate the final report:
 
@@ -292,10 +290,7 @@ Calculate scores and generate the final report:
 
 ### Top 5 Priority Improvements
 
-Sorted by: weight × points lost (highest impact first). Potential gain = recoverable points
-(10 from Fail, 5 from Partial) weighted by that dimension's share. Print the RESULT only —
-the multiplication is scoring method and belongs in the operator block, never in the client
-fence (Output Validation, first checkbox).
+Sorted by impact on the CITE score, highest first.
 
 1. **[ID] [Name]** — [specific modification suggestion]
    - Current: [Fail/Partial] | Potential gain: +[X] points on the CITE score
@@ -357,6 +352,11 @@ The client's report ends there. Follow-up runs — a content audit on key pages,
 - [ ] Action plan includes concrete steps with effort estimates
 - [ ] The follow-up-run block is a separate fence carrying `<!-- OPERATOR BLOCK … -->` as its first line, and no skill slug, command slug, internal file path or scoring-method instruction appears inside the client report fence — a reader who copies only a fence must be able to tell whose it is
 - [ ] No framework item ID stands as a bare coordinate in the report's prose: findings, recommendations, action steps and any explanatory sentence name the check in words ([inter-skill-handoff.md § 3.4](../../references/inter-skill-handoff.md)). An ID appears only as a row label in the per-item score table, or as the leading label of a ranked improvement, and always beside its own item name — the scorecard is item-keyed by design, and the first checkbox above requires every one of the 40 shown scored
+
+> ⚠️ **UNRESOLVED — owner ruling owed (open finding #81).** The checkbox above exempts an item ID
+> as a score-table row label or a ranked-improvement label, and cites `inter-skill-handoff.md` in
+> the same sentence; that file's § 3.4 (:241) holds an item ID "never exempt, in any language". An
+> item-keyed scorecard may be a different surface from client-read prose. **Until it is ruled, cite the side you used.**
 
 ## Example
 

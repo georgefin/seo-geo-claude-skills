@@ -40,11 +40,6 @@ part of what it is demonstrating.
 | E — Eminence | 65/100 | 5/3/2 | Medium | 25% | 16.25 |
 | **CITE Score** | | | | | **68.5/100** |
 
-**Score Calculation**:
-- Dimensions from their item tallies (all 40 items scored, no N/A): C = 4×10 + 6×5 = 70 · I = 3×10 + 5×5 = 55 · T = 6×10 + 4×5 = 80 · E = 5×10 + 3×5 = 65
-- CITE Score = 70 × 0.40 + 55 × 0.15 + 80 × 0.20 + 65 × 0.25 = 28.0 + 8.25 + 16.0 + 16.25 = 68.5 → **68.5/100 (Medium)**
-- Points on the table: 400 raw points available, 270 scored, 130 lost — 18 Pass + 18 Partial + 4 Fail = 40 items, so lost = 18×5 + 4×10 = 130
-
 **Rating Scale**: 90-100 Excellent | 75-89 Good | 60-74 Medium | 40-59 Low | 0-39 Poor
 
 ### Top 5 Priority Improvements
@@ -101,7 +96,10 @@ yet, so we cannot say which of the two is holding the site back. A content revie
 landing pages settles it, and is the cheaper of the two to run first.
 ```
 
-The client's report ends at that fence.
+The client's report ends at that fence. The score derivation is deliberately not inside it: a
+derivation is scoring method, which the client report fence excludes ([SKILL.md](../SKILL.md),
+Output Validation, the fence checkbox). It is carried instead in the operator block below, which is
+labelled *for the client's team* — so the derivation still reaches them, only the fence changes.
 
 **Why row 3 of the Top 5 is worth 1.0 and not 1.25** — a note for whoever runs this audit, not
 part of the report above. Each potential gain takes the weight of the dimension its item belongs
@@ -127,6 +125,12 @@ example:
 | `content-quality-auditor` | Settles the diagnosis above — domain authority is mid-range and content is unmeasured | cloudhosting.example, Content Publisher · the 5 landing pages, one row each · `CITE C:70 I:55 T:80 E:65` · vetoes `CITE-T03` pass, `CITE-T05` pass, `CITE-T09` pass · audited 2025-02-03 |
 | `entity-optimizer` | Identity is the weakest dimension (55/100) and carries three of the top 5 priorities | cloudhosting.example, Content Publisher · priority `CITE-I01, CITE-I03, CITE-I04` · `CITE C:70 I:55 T:80 E:65` · audited 2025-02-03 |
 | `/seo:report` | Quarterly trend tracking against this baseline | cloudhosting.example · baseline `CITE C:70 I:55 T:80 E:65`, audited 2025-02-03 |
+
+### How the score above was derived
+
+- Dimensions from their item tallies (all 40 items scored, no N/A): C = 4×10 + 6×5 = 70 · I = 3×10 + 5×5 = 55 · T = 6×10 + 4×5 = 80 · E = 5×10 + 3×5 = 65
+- CITE Score = 70 × 0.40 + 55 × 0.15 + 80 × 0.20 + 65 × 0.25 = 28.0 + 8.25 + 16.0 + 16.25 = 68.5 → **68.5/100 (Medium)**
+- Points on the table: 400 raw points available, 270 scored, 130 lost — 18 Pass + 18 Partial + 4 Fail = 40 items, so lost = 18×5 + 4×10 = 130
 ```
 
 The CORE-EEAT field is absent from every row because no content audit exists yet — that absence is

@@ -74,6 +74,20 @@ register_aliases() {
     gated-items)             echo "gated gate g1 g2 g3 g4 g5 g6 g7 g8 g9 verdict" ;;
     watch-items)             echo "watch w1 w2 verify" ;;
     settled-rulings)         echo "ruling settled r1 r2 r3 r4 r5 pointer anchor" ;;
+    # open-findings fell through to the empty default until 2026-08-12, so a commit whose
+    # subject was transparently about this register — `fix(#80): …` — was structurally
+    # invisible to the guard and failed. Its items have no letter-prefixed IDs like the
+    # siblings' f1/g1/w1/r1; they are bare numbers, and this branch's own convention for
+    # citing one is the conventional-commit scope: `fix(#80)`, `fix(#63,#62,#60)`. Eight
+    # subjects use that form, six of them on commits that fix a finding without touching
+    # the register at all — so `(#` is this register's real item-ID vocabulary, measured
+    # rather than assumed, and `finding` (which also covers "findings") is its noun.
+    # Deliberately NOT included: a bare `#`, which matches almost any message and would
+    # blanket-pass the leg; `f#`-shaped tokens, which are the FAILURE-LEDGER's vocabulary
+    # (F9, F14) and would cross-pass a different register's mentions; and `section a|b|c`,
+    # which are this register's own headings but too generic to tell a real reference from
+    # prose about any document's sections.
+    open-findings)           echo "finding (#" ;;
     pipeline)                echo "pipeline stage" ;;
     versions)                echo "version changelog bump" ;;
     kpi)                     echo "kpi metric" ;;

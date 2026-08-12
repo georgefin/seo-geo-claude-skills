@@ -1,6 +1,6 @@
 ---
 name: content-quality-auditor
-version: "4.5.0"
+version: "4.6.0"
 description: 'Run the full 80-item CORE-EEAT audit across 8 dimensions with content-type weighted scoring, veto checks, and prioritized fix plans. Use when the user asks to "audit content quality", "EEAT score", "CORE-EEAT audit", "content quality check", "how good is my content", "content improvement plan", "is my content AI-citation worthy", "GEO quality score". For SEO page element audits, see on-page-seo-auditor. For domain-level authority, see domain-authority-auditor.'
 license: Apache-2.0
 allowed-tools: WebFetch
@@ -8,7 +8,7 @@ compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, 
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.5.0"
+  version: "4.6.0"
   geo-relevance: "high"
   tags:
     - seo
@@ -273,7 +273,7 @@ This block is method, not report copy: it names item IDs in prose and links an i
 
 ### Top 5 Priority Improvements
 
-Sorted by: weight × points lost (highest impact first). Every entry carries all four parts plus its confidence label — **Confirmed** (directly observed in the provided content/data) · **Likely** (strong indirect evidence) · **Hypothesis** (plausible, needs verification).
+Sorted by impact on the overall score, highest first. Every entry carries all four parts plus its confidence label — **Confirmed** (directly observed in the provided content/data) · **Likely** (strong indirect evidence) · **Hypothesis** (plausible, needs verification).
 
 1. **[ID] [Name]** — [Confirmed / Likely / Hypothesis]
    - **Finding**: [what is wrong, one sentence]

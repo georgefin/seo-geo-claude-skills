@@ -26,3 +26,10 @@ live-state claim
 # R-ruling pinned row (SETTLED-RULINGS baselines table): settled fact, re-added
 # on every F12 pointer re-anchor — decided 2026-08-09, reopens per its row.
 live since 2025-10-08
+
+# R317's own meta-vocabulary, added 2026-08-12: "a count quoted from a live list
+# is a timestamp, not a fact" names a CLASS OF SOURCE, not the state of anything:
+live list
+# Named measurement window from the F14 upstream analysis (commits after the
+# guard landed at cb1b798), added 2026-08-12 — a window name, not a state claim:
+live-rule window

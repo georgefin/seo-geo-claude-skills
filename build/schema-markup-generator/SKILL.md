@@ -1,6 +1,6 @@
 ---
 name: schema-markup-generator
-version: "4.2.4"
+version: "4.3.0"
 description: 'Generate Schema.org JSON-LD structured data — one accurate primary type per page (FAQPage, HowTo, Article, Product, LocalBusiness, and 6 other types) plus documented auxiliaries only where warranted. Use when the user asks to "add schema markup", "generate structured data", "JSON-LD", "FAQ schema", "rich snippets", "I want star ratings in Google", or "structured data validation errors". Produces validated markup for Google rich results where still offered (FAQ rich results ended 2026 — FAQPage is kept because it stays valid and Google advises against removing it), Bing structured data, and machine-readable input for any consumer that reads it. Validates via the Schema.org validator, plus Rich Results Test for non-FAQ types. For broader technical SEO, see technical-seo-checker. For meta tag optimization, see meta-tags-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.2.4"
+  version: "4.3.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -49,7 +49,7 @@ This skill creates Schema.org structured data markup in JSON-LD format — ONE a
 - Adding Local Business schema for location pages
 - Creating Review/Rating schema
 - Implementing Organization schema for brand presence
-- Any page where rich results (non-FAQ) or AI-engine parsing would improve visibility
+- Any page where rich results (non-FAQ) would improve visibility
 
 ## What This Skill Does
 
@@ -308,7 +308,7 @@ _Implementation: Wrap the above JSON-LD in `<script type="application/ld+json">.
 
 ### Rich-Result Eligibility
 
-**Eligible for**: nothing in Google Search. FAQ rich results are retired — Google pulled Search Console reporting/API, the Enhancements appearance filter, and Rich Results Test support for FAQ in 2026, so this markup no longer produces a SERP accordion. **What the emitted properties do instead**: each `Question`/`acceptedAnswer` pair gives answer engines a clean, unambiguous Q&A to lift, which is why the markup is still worth shipping. **Caveat**: no engine promises to use it — this is machine-readable input, not a placement.
+**Eligible for**: nothing in Google Search. FAQ rich results are retired — Google pulled Search Console reporting/API, the Enhancements appearance filter, and Rich Results Test support for FAQ in 2026, so this markup no longer produces a SERP accordion. **Why the markup is still shipped**: it is valid schema.org, costs nothing to keep, and Google's own guidance is that there is no need to proactively remove it. **State that basis and no more.** R3 amendment 9a retracted the former rationale — that the value is AI-engine parsing — as having **no primary source either way**, so no AI-citation or answer-engine-extraction benefit may be claimed for it. Google's 2026 AI-optimization guide states "Structured data isn't required for generative AI search, and there's no special schema.org markup you need to add"; that supports only the not-required half and is **not** evidence that engines parse the pairs.
 ```
 
 ## Schema Type Quick Reference

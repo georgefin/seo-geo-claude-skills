@@ -1540,3 +1540,109 @@ this about itself — both instances here were found by comparing two runs, not 
 
 **Status**: recorded; e2.6 needs the carve-out or the fixture needs paragraph 5 — coordinator
 ruling, suite not edited. FLIP: F13-r5 -- none
+
+---
+
+### F9 Recurrence 5 — 2026-08-12 · the sweep that fixed a partial sweep was itself partial, and its repair text was the banned construct
+
+**Failure.** `06b9a52`, whose entire subject is *"F9 sweep my own F5 repair skipped"*, closed with
+*"All seven now swept. Only SKILL.md:124 remains — a field DESCRIPTION … not an instruction to [obs:2026-08-12 `git log -1 06b9a52`]
+compute."* The residual was **at minimum three**, and two of the three sat inside a client report
+fence:
+
+- `cross-cutting/domain-authority-auditor/SKILL.md:295-296` — the operands (`10 from Fail, 5 from
+  Partial`) and the operation (`weighted by that dimension's share`) survived **in the very
+  sentence the commit was editing**. Because the dimension weights are printed in the report's own
+  table, every `+[X] points` cell the commit sanitised stayed fully reconstructible — which is the
+  identical test the same commit had just applied, two paragraphs earlier in its own message, to
+  condemn `example-report.md:52-53`.
+- `cross-cutting/content-quality-auditor/SKILL.md:276` — the same caption, in a fence whose line
+  `:281` **was** edited by that commit. Six lines apart.
+- `cross-cutting/domain-authority-auditor/references/example-report.md:44-47` — the per-grade point
+  values and all four dimension weights, inside the client fence, ten lines above the Top 5 the
+  earlier commit had sanitised. Known to the author, raised as open finding #82, and then
+  **excluded from the residual count without being declared**. F9's guard requires the hit list
+  *"resolved or explicitly queued"*; queuing in #82 is legitimate, omitting it from *"only :124
+  remains"* is not. [obs:2026-08-12 `git log -1 06b9a52`]
+
+**Aggravating, and the reason this recurrence is worth its space.** The two lines `06b9a52` *added*
+at `SKILL.md:297-298` read *"the multiplication is scoring method and belongs in the operator
+block, never in the client fence (Output Validation, first checkbox)."* That sentence is itself a
+scoring-method instruction plus an internal apparatus pointer, **placed inside the client report
+fence** — which is precisely what the checkbox it cites forbids (`SKILL.md:358`). The repair
+breached the rule it quoted, in the fence it named, in the act of quoting it.
+
+**Root cause — and it is NOT "grep harder".** F9's own Recurrence-2 redesign already ruled that
+*"sweep completeness is therefore a SCRIPT'S job"* (`scripts/validate-tracking.sh:344-345`) and made
+a `DEPRECATED_TOKENS` row mandatory for every retired cross-skill concept, backfilled to prior
+ones. **No row was added; `validate-tracking.sh` was untouched across the whole range.** The author
+performed a manual repo-wide grep — the exact mechanism the redesign retired — and it under-counted
+for the third time on the same concept.
+
+**But the mandated mechanism does not fit this concept, and that is a finding about the guard.**
+A flat `DEPRECATED_TOKENS` row cannot express this retirement. Measured: `grep -rn "weight × points
+lost"` over the guard's own scan set returns **three** hits — the two client-fence violations **and
+`references/inter-skill-handoff.md:117`, which is the operator-to-operator handoff payload spec and
+is entirely legitimate**. A flat row would fail a correct line. The F9 token mechanism assumes a
+**globally** banned concept; this one is **context-scoped** — banned inside a client report fence,
+legal in an operator spec — and a repo-wide grep has no way to say so (R319: coverage = surface ×
+detector, and here the detector's expressive power is the binding limit).
+
+**Guard.** Where a retired concept is context-scoped rather than globally banned, a
+`DEPRECATED_TOKENS` row is insufficient **and saying so is mandatory** — the retirement ships with a
+scope-aware detector instead, or it ships with the gap named in the commit. Never silently narrow a
+guard to fit the concept. The client-fence convention is mechanically checkable and the detector is
+specified: a ```markdown fence whose first content line is not `<!-- OPERATOR BLOCK` is
+client-facing. **Building it is blocked on open finding #82**, because the rule it would enforce is [obs:2026-08-12 OPEN-FINDINGS.md #82 unresolved]
+the thing #82 disputes — `SKILL.md:176` *instructs* publishing the tally while `:358` bans it, and a
+detector shipped now would silently pick a side.
+
+**Recurrence**: F9 → 5. A sweep whose residual count omits a known hit, or a context-scoped
+retirement shipped with a flat token row, increments this.
+
+**Status**: recorded. Caught by **two independent lanes on the same frozen SHA** — Mode A pass 3 and
+the Protocol A contrastive lane, working from different token families, each finding loci the other
+did not phrase the same way. Neither the author's own sweep nor any gate saw any of it.
+
+---
+
+### F20 — 2026-08-12 · three consecutive commit messages were false about their own diffs, and no ledger entry covered the class
+
+**Failure.** Three commits in one wave each made a factual claim about their own change that the
+diff refutes. Each was caught by review, none by a gate, and **the class had no ledger entry**, so
+each was handled as a one-off and the fourth instance was free to happen.
+
+1. `f2c6b10` — the record claimed #67 was fixed *"rather than dropping the equivalence sentence"*,
+   citing R238. The sentence is present at base and absent at HEAD. (Mode A pass 1, BLOCK.)
+2. `a9fbd7c` — *"The client simply stops being handed the method."* The commit removed the method's
+   **outputs** and left the **method** two lines above them. (Mode A pass 2, BLOCK.)
+3. `06b9a52` — offered *"`grep -rl must_absent` -> zero files"* as the reproducible evidence for an
+   absence claim. Re-run at HEAD it returns **one** file, `docs/loop/OPEN-FINDINGS.md` — because the
+   same commit's own diff wrote the token there. **The measurement was already false at the moment
+   it was written.** (Mode A pass 3.)
+
+**Root cause.** A commit message is drafted from the author's *intent* while the diff records the
+*act*, and nothing in the pipeline compares them. The three instances are not carelessness of the
+same kind: (1) misdescribes which of two things was done, (2) describes a partial act as complete,
+(3) quotes a command whose output the commit itself changed. What unites them is that each was
+**checkable in seconds by running the claim against the commit** and nobody ran it — least of all
+the author, for whom the sentence was true when drafted.
+
+**Distinct from its neighbours, which is why it needs its own entry.** F16 is about a record weaker
+than the claim built on it; here the records are durable and the claim is simply false. F11 is
+frame overreach — an inference stretched inside a verified frame; here there is no frame, just a
+wrong statement of fact. F9 is scope; this is truth.
+
+**Guard.** Any commit message asserting a *measurement* (a count, a grep result, a file state)
+carries the command in a form that reproduces **after** the commit lands, not before — a
+`git log -S`/`git grep <rev>` form rather than a working-tree grep, since a working-tree grep run
+pre-commit measures a tree that no longer exists once the commit adds to it. Any message asserting
+that something was *removed* names the surviving neighbours it checked. Both are cheap; neither is
+automated yet, and that gap is on record rather than closed.
+
+**Recurrence**: 0 (three instances in one wave counted as the founding pattern, per the F13
+convention). A fourth commit message falsified by its own diff increments this.
+
+**Status**: recorded. Founding instances all caught by Mode A across three passes on one branch;
+the third was caught only because the reviewer re-ran the quoted command instead of reading it.
+FLIP: F9-r5 + F20 -- none

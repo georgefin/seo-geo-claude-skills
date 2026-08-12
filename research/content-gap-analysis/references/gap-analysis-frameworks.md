@@ -341,6 +341,15 @@ above bites, take one of two routes and name it in the report:
 - **Named proxy** — score Search Demand from something the supplied data actually contains
   (competitor cluster depth, own-site sessions on adjacent pages), state that basis, and compute
   the Quick Win Score as normal with the proxy named beside it.
+  ⚠️ **The proxy must be independent of Competitive Density's evidence (ruled 2026-08-12, open
+  finding #68).** Competitive Density is scored from competitor presence and is **inverted** —
+  5 means "no competition". So scoring Search Demand from **competitor cluster depth** feeds one
+  body of evidence into both factors in opposite directions, at 0.25 and 0.20: a deep cluster
+  scores `25·5 + 20·1 = 145`, a shallow one `25·1 + 20·5 = 125`, a 20-point swing where those two
+  factors alone span 180. They largely cancel, and five factors behave as three. **Where
+  Competitive Density is scored from the same competitor data, cluster depth is not an admissible
+  Demand proxy** — take the *Screen not run* route below and renormalise. Own-site sessions on
+  adjacent pages are independent of competitor data and remain admissible.
 - **Screen not run** — if Search Demand is dropped rather than proxied, no Quick Win Score is
   produced. Write "quick-win screen not run — Search Demand unavailable", order the gaps on the
   renormalised Gap Priority Score, and let the P0 tier do the "start here" job. Do **not** sum the

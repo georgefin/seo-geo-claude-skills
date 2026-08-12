@@ -11,11 +11,11 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 | keyword-research | research | 4.4.1 | 2026-08-10 |
 | competitor-analysis | research | 4.2.0 | 2026-08-10 |
 | serp-analysis | research | 4.4.0 | 2026-08-11 |
-| content-gap-analysis | research | 4.3.0 | 2026-08-11 |
+| content-gap-analysis | research | 4.4.0 | 2026-08-12 |
 | seo-content-writer | build | 4.5.3 | 2026-08-11 |
 | geo-content-optimizer | build | 4.4.0 | 2026-08-11 |
 | meta-tags-optimizer | build | 4.2.0 | 2026-08-10 |
-| schema-markup-generator | build | 4.2.4 | 2026-08-11 |
+| schema-markup-generator | build | 4.3.0 | 2026-08-12 |
 | on-page-seo-auditor | optimize | 4.4.0 | 2026-08-11 |
 | technical-seo-checker | optimize | 4.5.0 | 2026-08-11 |
 | internal-linking-optimizer | optimize | 4.5.0 | 2026-08-11 |
@@ -24,12 +24,27 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 | backlink-analyzer | monitor | 4.2.0 | 2026-08-11 |
 | performance-reporter | monitor | 4.5.0 | 2026-08-11 |
 | alert-manager | monitor | 4.3.0 | 2026-08-11 |
-| content-quality-auditor | cross-cutting | 4.5.0 | 2026-08-11 |
-| domain-authority-auditor | cross-cutting | 4.4.0 | 2026-08-11 |
+| content-quality-auditor | cross-cutting | 4.6.0 | 2026-08-12 |
+| domain-authority-auditor | cross-cutting | 4.5.0 | 2026-08-12 |
 | entity-optimizer | cross-cutting | 4.2.0 | 2026-08-10 |
 | memory-management | cross-cutting | 4.1.0 | 2026-08-10 |
 
 ## Changelog
+
+### v4.6.0 (2026-08-12)
+
+**Double-gate round on `06b9a52` — Mode A pass 3 (Opus-class) + Protocol A contrastive lane (Sonnet-class), run separately against one frozen SHA. Mode A returned BLOCK; the lane returned CONTESTED with 5 findings. They converged on the same defect from different search terms, which is the tier split working as designed.**
+
+- **F9 recurrence 5 — the sweep that fixed a partial sweep was itself partial.** `06b9a52` claimed "all seven now swept, only `SKILL.md:124` remains"; the residual was at least three, two inside client report fences. Worse, the two lines it *added* — "the multiplication is scoring method and belongs in the operator block, never in the client fence" — were themselves a scoring-method instruction **inside the fence that bans them**, breaching the checkbox they quoted. Fixed: `domain-authority-auditor/SKILL.md:295-298` → `Sorted by impact on the CITE score, highest first.`; `content-quality-auditor/SKILL.md:276` likewise; `example-report.md:43-47` moved into the existing operator fence. R238 discharged first — the operands survive in their canonical home at `references/score-arithmetic.md:91-92`, so nothing true was deleted.
+- **The mandated F9 remedy does not fit this concept, and that gap is now on record rather than skipped.** F9 Recurrence-2 makes a `DEPRECATED_TOKENS` row mandatory for a retired cross-skill concept. A flat row cannot work here: `grep -rn "weight × points lost"` returns three hits, and the third — `references/inter-skill-handoff.md:117` — is legitimate operator text. The mechanism assumes a *globally* banned concept; this one is banned in a client fence and legal in an operator spec (R319). **Root cause, newly identified: the rule says "the client report fence" and never defines which fences it governs** — which is why three consecutive sweeps under-counted, each defensibly. Detector specified, blocked on #82. [obs:2026-08-12 OPEN-FINDINGS.md #82 unresolved]
+- **F20 opened — three consecutive commit messages false about their own diffs, a class with no ledger entry.** `f2c6b10` misdescribed which of two things it did; `a9fbd7c` described a partial act as complete; `06b9a52` cited `grep -rl must_absent → zero files` as evidence for an absence claim when **the same commit's diff had written the token into `OPEN-FINDINGS.md`** — the measurement was false when written. Guard: a message asserting a measurement carries a command that reproduces *after* the commit lands (`git log -S`), not a working-tree grep of a tree that ceases to exist.
+- **schema-markup-generator 4.2.4 → 4.3.0 (#77 partial, intra-skill only).** `SKILL.md:52` and `:311` still asserted the retracted R3 rationale — `:311` in prose ("gives answer engines a clean, unambiguous Q&A to lift, which is why the markup is still worth shipping") — while the skill's own `references/validation-guide.md:245` already forbids exactly that ("it may not say it earns AI citations"). Both rewritten to the licensed basis. The skill is now internally consistent across SKILL, reference and suite. **The 5 rule surfaces in other skills are NOT touched — they need the R3 gate.**
+- **Four eval expectations were grading executors on asserting the retracted rationale**, rewarding it on every future run. `schema-markup-generator` eval-3 `expected_output` + e3.8, `alert-manager` e2.3, `technical-seo-checker` e5.4. Sharpest was e2.3, attributing the rationale "per the house ruling" **to the ruling that disowned it**. All four rewritten with paired MUST-APPEAR / MUST-NOT-APPEAR legs (R297 — a rule that only bans something is satisfied by a deliverable that says nothing). Expectation counts unchanged: 45 / 29 / 28. e5.4 also had a vacuous must-appear leg (`if FAQPage markup is recommended…`) satisfiable by dropping the recommendation; `/faq` must now be addressed either way.
+- **New primary source recovered for the R3 question** — `developers.google.com/search/docs/fundamentals/ai-optimization-guide`, read from raw HTML with `<aside>` content preserved, negative control captured first (a fake URL on the same host returns a true 404, so the 200 is meaningful): *"Structured data isn't required for generative AI search, and there's no special schema.org markup you need to add."* It supports **only** the not-required half. It is silent on whether engines parse visible Q&A — **absence of a markup requirement is not evidence of a parsing mechanism** — and the suites now fail a deliverable that cites it in that direction.
+- **content-gap-analysis 4.3.0 → 4.4.0 (#68 ruled + applied).** Competitor cluster depth was a named Search Demand proxy while Competitive Density is scored from the same competitor data and is inverted, so one body of evidence drove both factors in opposite directions at 0.25 vs 0.20 — a 20-point swing across a 180-point span. They largely cancelled and five factors behaved as three. Cluster depth is now barred as the Demand proxy wherever Density shares its evidence, routed to the drop-and-renormalise path the framework already specified. No weight changed and nothing was invented.
+- **`check-template-fences.py` is now RUN BY THE GATE** — it existed since 2026-08-11 and **nothing invoked it**. Wired into `pre-push-gate.sh` as check 3 (now six checks). Its corpus scope is also documented for the first time: 224 `.md` files, 205 scanned, 19 excluded — and measured, all 19 contain zero ```markdown blocks today, so the exclusion hides a scope and not a defect. The unanchored `'.git' not in q` substring test replaced by an anchored directory-component test (R297: a substring match against a namespace you don't own is not a test); it had bitten nothing only because `glob` never yielded a dot-dir, i.e. it read as a working guard while being one. Corpus proven unchanged: 205 vs 205, symmetric difference empty.
+- **`commit-scope-check.sh` gained the `open-findings` alias family** — every sibling register had one and this, the most-touched register in the wave, had none, so a subject like `fix(#80):` was structurally invisible to the guard (R319). The tally did not move, and the reason is worth recording: **the missing alias was masking a second defect.** The register leg `continue`s on failure, so two commits never reached the skill leg; with the alias they pass the register leg and fail the skill leg instead. Failures reclassified from a wrong reason to a right one, zero commits flipped to green.
+- **Registers.** 18 of 35 `file:line` pointers resolved to the wrong line — more than half, with the gate green throughout because check (g) only warns. Every pointer into root `CLAUDE.md` was wrong (6 of 6). Repaired and anchored so `reanchor-pointers.sh` can maintain them; `SETTLED-RULINGS.md` deliberately untouched (owner-reserved), so **2 wrong pointers remain there by choice**. `OPEN-FINDINGS.md` count corrected 20 → measured; #77 rescoped from 1 surface to 12; #79 marked not-actionable (it names a class and gives no locus); #82 rescoped to 5 loci across both auditors.
 
 ### v4.5.0 (2026-08-11)
 

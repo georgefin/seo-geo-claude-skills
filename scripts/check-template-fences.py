@@ -1,3 +1,33 @@
+"""check-template-fences.py — truncated ```markdown template detector.
+
+CORPUS SCOPE — read this before quoting a green (the sibling of the detection-scope
+note on confirm() below; that one documents WHICH DEFECT is looked for, this one
+documents WHICH FILES are looked at, and an undocumented scope of either kind gets
+read as total — F15-r1).
+
+With no arguments the run scans the repo's `**/*.md`, MINUS two exclusions, and both
+are printed with every result rather than left to be inferred:
+
+  1. `docs/` — the loop registers, ledgers and pilot notes. These are the project's
+     own bookkeeping, not skill deliverables: nothing there is a template a model
+     copies, which is the only thing this detector is about. Measured 2026-08-12:
+     14 files, and the whole tree contains ZERO ```markdown-labelled blocks (3 bare
+     fences, 2 ```text, 1 ```html), so the exclusion currently hides no finding it
+     could ever produce. It is a scope decision, not a green.
+  2. Anything inside a dot-directory — `.claude/agents/*.md` and
+     `.github/PULL_REQUEST_TEMPLATE.md`, 5 files. These are not excluded by choice;
+     Python's `glob` does not match dot-directories, so they never entered the
+     candidate set at all. They are walked separately here PURELY so the run can name
+     them. Measured 2026-08-12: zero ```markdown blocks between them.
+
+224 .md files exist; the default run scans 205 and reports the other 19. Passing an
+explicit path or directory argument bypasses both exclusions — an argument means the
+caller has chosen the corpus, so nothing is filtered and nothing is reported as
+excluded.
+
+Widening the corpus is deliberately NOT done here: it is a scope change, it belongs to
+whoever owns the gate wiring, and on today's measurements it would alter no result.
+"""
 import re,sys,os,glob
 def confirm(text):
     """DETECTION SCOPE — read this before quoting a green.
@@ -48,11 +78,59 @@ def expand(args):
             missing.append("%s (not found)" % a)
     return out, missing
 
+DOCS_ROOT = 'docs'   # excluded corpus root — rationale in the module docstring
+
+def components(q):
+    """Path split into components on either separator.
+
+    Membership tests run against THIS, never against the raw path: `'.git' in q` is an
+    unanchored substring test on a namespace we do not own, and a substring match
+    against someone else's namespace is not a test (R297). It happens to bite nothing
+    today only because glob never yields a dot-directory in the first place, so the
+    old form was a latent trap that read as a working guard.
+    """
+    return q.replace('\\', '/').split('/')
+
+def default_targets():
+    """The no-argument corpus AND the exclusions applied to it — returned, never hidden.
+
+    Returns (targets, excluded) where excluded maps a reason to the sorted paths dropped
+    for it, so the caller can print the scope alongside the verdict.
+    """
+    targets, docs_excluded = [], []
+    for q in sorted(glob.glob('**/*.md', recursive=True)):
+        parts = components(q)
+        if '.git' in parts[:-1]:
+            continue                      # anchored on the directory component itself
+        if parts[0] == DOCS_ROOT:
+            docs_excluded.append(q)
+            continue
+        targets.append(q)
+
+    # glob(recursive=True) never matches dot-directories, so these were absent from the
+    # candidate set above rather than filtered out of it. Walked here only to NAME them:
+    # they are reported, not scanned. Silently missing files are the failure this whole
+    # note exists to prevent.
+    dot_excluded = []
+    for root, dirs, files in os.walk('.'):
+        dirs[:] = [d for d in dirs if d != '.git']
+        for fn in files:
+            if not fn.endswith('.md'):
+                continue
+            rel = os.path.relpath(os.path.join(root, fn), '.')
+            if any(c.startswith('.') for c in components(rel)[:-1]):
+                dot_excluded.append(rel)
+
+    return targets, {
+        'under %s/ (project bookkeeping, not skill templates)' % DOCS_ROOT: sorted(docs_excluded),
+        'inside a dot-directory (glob does not match these)': sorted(dot_excluded),
+    }
+
 if len(sys.argv) > 1:
     targets, missing = expand(sys.argv[1:])
+    excluded = {}                          # an explicit argument IS the chosen corpus
 else:
-    targets = [q for q in sorted(glob.glob('**/*.md', recursive=True))
-               if '.git' not in q and not q.startswith('docs/')]
+    targets, excluded = default_targets()
     missing = []
 
 if missing:
@@ -84,6 +162,23 @@ if scanned == 0:
     print("ERROR - scanned 0 files. A checker that scans nothing does not pass (R-0222).",
           file=sys.stderr)
     sys.exit(2)
-print(("\n%d truncated template block(s) in %d file(s) scanned" % (fail, scanned)) if fail
-      else "GREEN - no truncated template blocks (%d file(s) scanned)" % scanned)
+# Scope goes out WITH the result, both on RED and on GREEN. A run that prints only what
+# it scanned invites the reader to supply "…and that was everything", which is the same
+# undocumented-scope failure the module docstring names one level up.
+n_excluded = sum(len(v) for v in excluded.values())
+if n_excluded:
+    print("\nCORPUS EXCLUSIONS - %d of %d .md file(s) NOT scanned:" % (n_excluded, scanned + n_excluded))
+    for reason in sorted(excluded):
+        paths = excluded[reason]
+        if not paths:
+            continue
+        print("  %d %s" % (len(paths), reason))
+        for p in paths:
+            print("      %s" % p)
+
+scope = "%d file(s) scanned" % scanned
+if n_excluded:
+    scope += ", %d excluded (listed above)" % n_excluded
+print(("\n%d truncated template block(s) in %s" % (fail, scope)) if fail
+      else "GREEN - no truncated template blocks (%s)" % scope)
 sys.exit(1 if fail else 0)
