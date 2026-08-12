@@ -13,11 +13,11 @@ minutes later, making it **31**. The line went stale inside one editing session,
 whole point: a count quoted from a live list is a timestamp, not a fact (R317 — a count is
 evidence about the *report*, never about the objects it summarises). This file supersedes any
 number quoted in conversation, **including this one the moment a row is added.** Current:
-**36 rows — 6 in A, 16 in B, 1 in C, 9 in D, 4 in E**, 36 distinct ids (60–95 contiguous), no
+**37 rows — 6 in A, 16 in B, 1 in C, 9 in D, 5 in E**, 37 distinct ids (60–96 contiguous), no
 duplicates; #80 is resolved.
-[obs: `grep -cE '^\| [0-9]+ \|' docs/loop/OPEN-FINDINGS.md` = 36 · `grep -oE '^\| [0-9]+ \|' docs/loop/OPEN-FINDINGS.md | grep -oE '[0-9]+' | sort -un | wc -l` = 36 · A=6 B=16 C=1 D=9 E=4 · range 60–95, 2026-08-12]
+[obs: `grep -cE '^\| [0-9]+ \|' docs/loop/OPEN-FINDINGS.md` = 37 · `grep -oE '^\| [0-9]+ \|' docs/loop/OPEN-FINDINGS.md | grep -oE '[0-9]+' | sort -un | wc -l` = 37 · A=6 B=16 C=1 D=9 E=5 · range 60–96, 2026-08-12]
 
-> **This number went stale FOUR times in one session** — 20→23→31→32→34→36 — every time because
+> **This number went stale FIVE times in one session** — 20→23→31→32→34→36→37 — every time because
 > a row was added after the count was written. Not carelessness: **a derived figure kept in prose
 > beside the thing it derives from**, which is a structure that fails on schedule.
 >
