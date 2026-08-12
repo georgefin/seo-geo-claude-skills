@@ -3,9 +3,9 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Audit the on-page SEO of our blog post targeting 'cast iron skillet seasoning'. The saved page source is in evals/files/blog-post-multi-defect-en.md — no SEO tools or crawler are connected, so that HTML file is everything there is. Run the full audit with the priority-issues summary.",
+      "prompt": "Audit the on-page SEO of our blog post targeting 'cast iron skillet seasoning'. The saved page source is in evals/files/blog-post-en.md — no SEO tools or crawler are connected, so that HTML file is everything there is. Run the full audit with the priority-issues summary.",
       "expected_output": "A full 8-section audit that finds every planted defect with verbatim evidence and Confirmed labels: the 96-character keyword-less title, the missing meta description, the two H1s, the H2→H4 heading skip, the two defective images, and the 'Click here' anchor. Every priority issue follows the Finding/Evidence/Impact/Fix + Confidence format, and no metric that cannot be read from the HTML (speed, traffic, rankings, site-wide uniqueness) is asserted as measured fact.",
-      "files": ["evals/files/blog-post-multi-defect-en.md"],
+      "files": ["evals/files/blog-post-en.md"],
       "expectations": [
         "Title-tag defects are found and evidenced: the title 'Our Blog | Everything You Ever Wanted To Know About Cookware, Pans, Pots, Kitchen Tools And More' is quoted and reported (a) as far exceeding the 'Length (50-60 chars)' criterion — fixture ground truth is 96 characters; a stated count within 86-106 passes, while reporting it as inside 50-60 fails — and (b) as containing no part of the target keyword 'cast iron skillet seasoning'; the recommended replacement title contains the keyword.",
         "The absent meta description is reported as missing (playbook: 'Missing description | Medium') with a recommended replacement supplied; the audit never quotes or scores a 'current' meta description text, because none exists in the fixture to quote.",
@@ -18,9 +18,9 @@
     },
     {
       "id": 2,
-      "prompt": "Run the full on-page SEO audit on our emergency-plumbing landing page, target keyword 'emergency plumber bristol'. The page source is saved in evals/files/service-page-clean-en.md; no SEO tools are connected, so audit from the HTML. We reworked this page in-house last month — tell me honestly where it stands, including what is already fine.",
+      "prompt": "Run the full on-page SEO audit on our emergency-plumbing landing page, target keyword 'emergency plumber bristol'. The page source is saved in evals/files/service-page-en.md; no SEO tools are connected, so audit from the HTML. We reworked this page in-house last month — tell me honestly where it stands, including what is already fine.",
       "expected_output": "An audit that correctly recognizes a strong page: the single real defect (the alt-less /images/fairview-team-bristol.jpg image) is found and fixed, the clean title/meta/H1/hierarchy/canonical/schema are recognized as passing, the overall score lands at 70/100 or higher, and everything unverifiable from static HTML (speed, mobile rendering, site-wide uniqueness, link status) is marked unverified or Hypothesis rather than asserted. No defects are invented to fill the report.",
-      "files": ["evals/files/service-page-clean-en.md"],
+      "files": ["evals/files/service-page-en.md"],
       "expectations": [
         "The one planted defect is found: /images/fairview-team-bristol.jpg is identified by filename as missing its alt attribute (the fixture's other two images both carry descriptive alts), labeled Confirmed, with a descriptive replacement alt proposed.",
         "No invented element defects — the audit does NOT claim any of the following, each of which would contradict the fixture: a missing or duplicate H1 (exactly one exists), a title-length violation (ground truth 56 characters, inside 50-60), a missing meta description or a meta-length violation (ground truth 153 characters, inside 150-160), a skipped heading level (the sequence is a clean H1→H2→H3), the target keyword absent from the title tag or H1 (the title contains 'Emergency Plumber Bristol' verbatim; the H1 is 'Emergency Plumber in Bristol — On Site Within the Hour'), or keyword stuffing (usage is natural, roughly 1%).",
@@ -32,9 +32,9 @@
     },
     {
       "id": 3,
-      "prompt": "Κάνε πλήρη on-page SEO έλεγχο στη σελίδα υπηρεσιών του φυσικοθεραπευτηρίου μας, με λέξη-κλειδί στόχο «φυσικοθεραπεία Περιστέρι». Ο αποθηκευμένος κώδικας της σελίδας είναι στο evals/files/physio-page-defects-el.md — δεν υπάρχουν συνδεδεμένα εργαλεία SEO, μόνο το HTML. Θέλουμε τα ευρήματα, τη λίστα προτεραιοτήτων και τις προτεινόμενες διορθώσεις στα ελληνικά.",
+      "prompt": "Κάνε πλήρη on-page SEO έλεγχο στη σελίδα υπηρεσιών του φυσικοθεραπευτηρίου μας, με λέξη-κλειδί στόχο «φυσικοθεραπεία Περιστέρι». Ο αποθηκευμένος κώδικας της σελίδας είναι στο evals/files/physio-page-el.md — δεν υπάρχουν συνδεδεμένα εργαλεία SEO, μόνο το HTML. Θέλουμε τα ευρήματα, τη λίστα προτεραιοτήτων και τις προτεινόμενες διορθώσεις στα ελληνικά.",
       "expected_output": "A Greek-language audit that finds the planted defects with verbatim Greek evidence: both H1s quoted, the 144-character title and 238-character meta description flagged as over-length (lengths counted in Greek characters), the H1→H3 heading skip, the «πατήστε εδώ» anchor, and both image issues — diacritics surviving every quote intact. Fresh Greek prose the audit itself writes (recommended titles, metas, alt texts) is judged for language quality by the binding greek-content-editor pass at Mode B, whose grade this suite scores as its own expectation alongside structure and evidence fidelity.",
-      "files": ["evals/files/physio-page-defects-el.md"],
+      "files": ["evals/files/physio-page-el.md"],
       "expectations": [
         "Both H1 texts are quoted verbatim in Greek — «Καλώς ήρθατε στο ιατρείο μας» and «Φυσικοθεραπεία στο Περιστέρι με Εξατομικευμένο Πρόγραμμα» — with the duplicate-H1 defect labeled Confirmed and placed Critical or Important (playbook: 'Multiple H1s | High'), never Minor; the fix keeps the keyword-bearing second H1 (the first is generic and contains no keyword).",
         "The title tag is quoted and reported far over the 50-60-character guidance — fixture ground truth is 144 characters, counted as characters of the Greek text; a stated count within 124-164 passes, a count of 60 or less fails; the recommended replacement title is Greek and contains «φυσικοθεραπεία» and «Περιστέρι».",
@@ -60,9 +60,9 @@
     },
     {
       "id": 5,
-      "prompt": "Why isn't this page ranking for 'solar panel cleaning'? It has been live for months. Full audit please — the saved page source is in evals/files/thin-stuffed-page-en.md. No rank tracker, analytics, or SEO tools are connected; the HTML file is all we have. Include the CORE-EEAT quick scan.",
+      "prompt": "Why isn't this page ranking for 'solar panel cleaning'? It has been live for months. Full audit please — the saved page source is in evals/files/solar-cleaning-page-en.md. No rank tracker, analytics, or SEO tools are connected; the HTML file is all we have. Include the CORE-EEAT quick scan.",
       "expected_output": "An audit that pins the page's real problems: keyword stuffing (15 visible occurrences of the exact phrase in 229 visible words — above 3% by any counting method) with a stuffed sentence quoted verbatim, thin content far below the informational benchmark rated Critical, the verbatim-duplicated paragraph quoted with both locations, and a CORE-EEAT quick scan honestly failing R01/R02/Ept01. The ranking question is answered from on-page evidence only — no invented positions, volumes, or traffic.",
-      "files": ["evals/files/thin-stuffed-page-en.md"],
+      "files": ["evals/files/solar-cleaning-page-en.md"],
       "expectations": [
         "Keyword stuffing is found and evidenced: usage of 'solar panel cleaning' is classified as stuffing/over-optimization above the skill's threshold (rubric: '>3.0% … Keyword stuffing, immediate fix needed') — fixture ground truth is 15 occurrences of the exact phrase in the visible text (12 in paragraphs, 15 including headings) out of 229 visible words, so a stated occurrence count within 11-18 passes and any stated density figure exceeds 3%; Evidence quotes at least one stuffed sentence verbatim (e.g. 'Solar panel cleaning is one of the most searched services right now, and solar panel cleaning is what we do best.'); the Fix follows 'Reduce usage, use synonyms and related terms'; severity Critical or Important (playbook: 'Keyword stuffing (>3%) | High'), never Minor; Confidence Confirmed.",
         "Thin content is found: the reported word count falls within 190-270 (fixture ground truth: 229 visible words) and the length is classified far below the informational benchmark ('Informational (guides) … Recommended Minimum 1,500 words'); the issue appears in the Critical tier per the playbook row 'Thin content (<300 words) | Critical'; the fix expands genuine coverage (subtopics, FAQ, examples) rather than adding more keyword repetitions.",
