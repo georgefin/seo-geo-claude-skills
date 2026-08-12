@@ -350,7 +350,16 @@ done <<< "$DISK_SORTED"
 echo ""
 echo "[f] deprecated-token sweep (F9 guard)"
 F_OK=1
-DEPRECATED_TOKENS='\bFID\b|First Input Delay|Affiliate links disclosed'
+# 2026-08-12 — client-fence scoring-method arithmetic (F9 recurrence 5, ruled retired
+# in the two CITE/CORE-EEAT auditors). The same-wave commit claimed a flat row could
+# not express this because `weight × points lost` also matches
+# references/inter-skill-handoff.md:117, which is LEGITIMATE operator text. That was
+# false: it generalised from the first token tried. Each alternative below is pinned
+# narrowly enough to miss :117 and score-arithmetic.md:91-92, and each is proven able
+# to fire — alt 1 RED at 06b9a52 (2 hits), alts 2-3 RED at f2c6b10/f7c7610/82d9db7,
+# all GREEN at ceddc85. If a future rewording escapes these, widen the alternation;
+# do NOT conclude the concept is unguardable.
+DEPRECATED_TOKENS='\bFID\b|First Input Delay|Affiliate links disclosed|weight × points lost \(highest impact|[0-9]+ × [0-9]+% = [0-9.]+ weighted points|gain of \[[A-Za-z]\] weighted points'
 F_HITS=$(grep -rnE "$DEPRECATED_TOKENS" \
     research build optimize monitor cross-cutting commands references \
     --include='*.md' 2>/dev/null | grep -v 'evals/' || true)
@@ -396,7 +405,7 @@ if [ -n "$R3_HITS" ]; then
     done <<< "$R3_HITS"
     F_OK=0
 fi
-[ "$F_OK" -eq 1 ] && pass "(f) no deprecated tokens (FID / First Input Delay / affiliate-only T04) and no un-acknowledged FAQ rich-result claims (R3) in live skill, command, or framework files"
+[ "$F_OK" -eq 1 ] && pass "(f) no deprecated tokens (FID / First Input Delay / affiliate-only T04 / client-fence scoring arithmetic) and no un-acknowledged FAQ rich-result claims (R3) in live skill, command, or framework files"
 
 # ---------------------------------------------------------------------------
 # (g) anchor-tagged pointer check (F12 guard)

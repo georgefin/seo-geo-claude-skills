@@ -1579,19 +1579,30 @@ ones. **No row was added; `validate-tracking.sh` was untouched across the whole 
 performed a manual repo-wide grep — the exact mechanism the redesign retired — and it under-counted
 for the third time on the same concept.
 
-**But the mandated mechanism does not fit this concept, and that is a finding about the guard.**
-A flat `DEPRECATED_TOKENS` row cannot express this retirement. Measured: `grep -rn "weight × points
-lost"` over the guard's own scan set returns **three** hits — the two client-fence violations **and
-`references/inter-skill-handoff.md:117`, which is the operator-to-operator handoff payload spec and
-is entirely legitimate**. A flat row would fail a correct line. The F9 token mechanism assumes a
+**~~But the mandated mechanism does not fit this concept~~ — RETRACTED 2026-08-12, same day, by the contrastive lane. The claim was false and the row has now been added.**
+I claimed a flat `DEPRECATED_TOKENS` row could not express this retirement, because
+`grep -rn "weight × points lost"` returns three hits and the third —
+`references/inter-skill-handoff.md:117` — is legitimate operator text. **That reasoning was wrong in
+two independent ways, both found by the contrastive lane within the hour.** (a) I generalised
+"impossible" from **the first token I happened to try**. A token 18 characters longer —
+`weight × points lost \(highest impact` — gives 2 hits at base, 0 at HEAD, and does **not** match
+`:117`, whose clause order differs ("Order by the producing run's own ranking (weight × points
+lost), highest first"). (b) The mechanism I said could not exist **already ships in the same file**:
+`validate-tracking.sh:389-390` pairs `R3_TOKENS` with `R3_LEGAL` — banned unless a legalising marker
+appears on the line — added 2026-08-11, one section below the very lines I quoted as proof it was
+impossible. The F9 token mechanism assumes a
 **globally** banned concept; this one is **context-scoped** — banned inside a client report fence,
 legal in an operator spec — and a repo-wide grep has no way to say so (R319: coverage = surface ×
 detector, and here the detector's expressive power is the binding limit).
 
-**Guard.** Where a retired concept is context-scoped rather than globally banned, a
-`DEPRECATED_TOKENS` row is insufficient **and saying so is mandatory** — the retirement ships with a
-scope-aware detector instead, or it ships with the gap named in the commit. Never silently narrow a
-guard to fit the concept. The client-fence convention is mechanically checkable and the detector is
+**Guard (rewritten 2026-08-12 after the retraction above).** A token row is presumed POSSIBLE
+until a **narrower token has actually been tried and shown to collide**; "my first grep hit a
+legitimate line" is not evidence of impossibility, it is evidence about that grep. Where a concept
+really is context-scoped, the repo already has the pattern — token + same-line legaliser, as
+`R3_TOKENS`/`R3_LEGAL` do. **Declaring a mandated guard inapplicable is itself a claim requiring
+proof, and the proof is a demonstrated collision under the narrowest token you can construct.**
+R319 says a coverage gap is a reason to build a better detector; using it to argue detection is
+impossible inverts it. The client-fence convention is mechanically checkable and the detector is
 specified: a ```markdown fence whose first content line is not `<!-- OPERATOR BLOCK` is
 client-facing. **Building it is blocked on open finding #82**, because the rule it would enforce is [obs:2026-08-12 OPEN-FINDINGS.md #82 unresolved]
 the thing #82 disputes — `SKILL.md:176` *instructs* publishing the tally while `:358` bans it, and a
