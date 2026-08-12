@@ -27,3 +27,7 @@ node_modules/
 # never committed: it records who had which shared register path open, and a
 # committed copy would be another actor's stale state in your tree.
 .register-locks*
+
+# Python bytecode from scripts/ (F14: keeps stray files out of sibling commits)
+__pycache__/
+*.pyc

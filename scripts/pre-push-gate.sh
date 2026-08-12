@@ -24,10 +24,30 @@
 #      touch a path another writer had open in the register write-lock ledger
 #      without declaring that holder (same per-push scope; silent when nobody
 #      announced a path).
-# Push only when all six pass. With Actions disabled on this fork, this gate
-# is the effective CI (docs/loop/PIPELINE.md stage 4).
+# Push only when all six pass AND all six had something to evaluate. Those are two
+# different statements and this gate used to make only the first — the sentence here
+# read "Push only when all six pass", which a reader converts into "six checks
+# examined this push". Measured 2026-08-12 on branch section-b: `@{upstream}`
+# resolved to HEAD itself, so `rev-list @{upstream}..HEAD` was EMPTY and checks 5 and
+# 6 returned early passes having judged zero commits, while the summary line printed
+# an unqualified PASSED. Checks 1-3 are whole-tree and were unaffected; check 4 has a
+# second, worktree-side diff source and so was only partly affected. That is R-0222 /
+# R-0297: a check that cannot fail is not a check, and a green from a check that
+# evaluated nothing is a fabricated verification. The scope block below measures the
+# per-push scope BEFORE the legs run and re-states any empty leg with the verdict, so
+# a reduced-scope green can never be read as a six-check green.
+#
+# With Actions disabled on this fork, this gate is the effective CI
+# (docs/loop/PIPELINE.md stage 4).
 #
 # Usage: ./scripts/pre-push-gate.sh [base-ref]   (default: origin/main)
+#        base-ref governs check 1 ONLY. Checks 4-6 take no base argument by design
+#        (see the notes at each call) and resolve @{upstream} themselves, so passing
+#        a base here does NOT widen them — a fact the scope block prints rather than
+#        leaving to be inferred.
+# Env:   PREPUSH_REQUIRE_SCOPE=1 — treat a reduced scope as a FAILURE (exit 1)
+#        instead of a qualified pass. For a caller that believes there IS outgoing
+#        work and wants the gate to say so when there is not.
 # Exit:  0 = gate passed, 1 = gate failed
 
 set -u
@@ -35,8 +55,81 @@ set -u
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 BASE="${1:-origin/main}"
 overall=0
+REQUIRE_SCOPE="${PREPUSH_REQUIRE_SCOPE:-0}"
 
 skill_dirs_from() { grep -oE '^(research|build|optimize|monitor|cross-cutting)/[^/]+' | sort -u; }
+
+# ---------------------------------------------------------------------------
+# Per-push scope measurement (R-0222/R-0297) — runs BEFORE the legs.
+#
+# What is measured here is a git fact (a commit count, a diff line count), never a
+# sibling script's prose. Detecting "this leg was vacuous" by grepping its output
+# for a phrase would be a check that stops firing the moment someone rewords the
+# phrase, i.e. a check that cannot fail. The cost of using git facts is that this
+# block encodes a little knowledge of each leg's own scope resolution; each such
+# assumption is named below against the line that establishes it, so a drift is
+# findable rather than silent.
+#
+#   check 4 claims-gate.sh          base: $1 -> @{upstream} -> origin/main -> skip
+#                                   sources: committed <base>...HEAD  PLUS the
+#                                   staged+worktree diff (its header, "DIFF BASE")
+#   check 5 commit-scope-check.sh   base: @{upstream} only (":41-51"), commits only
+#   check 6 register-lock.sh        base: @{upstream} only (":330-337"), commits only,
+#                                   and silent with no journal (":344-350")
+# ---------------------------------------------------------------------------
+REGISTER_RE='^(docs/loop/[^/]+\.md|VERSIONS\.md)$'
+register_adds() {   # $* = git diff args; prints the added-line count over register files
+    local files
+    files=$(git -C "$ROOT" diff --name-only "$@" 2>/dev/null | grep -E "$REGISTER_RE" || true)
+    [ -n "$files" ] || { echo 0; return; }
+    # shellcheck disable=SC2086
+    git -C "$ROOT" diff "$@" -- $files 2>/dev/null | grep -c '^+[^+]' || true
+}
+
+PUSH_BASE=$(git -C "$ROOT" rev-parse --abbrev-ref --symbolic-full-name '@{upstream}' 2>/dev/null || true)
+if [ -n "$PUSH_BASE" ]; then
+    OUTGOING=$(git -C "$ROOT" rev-list --count "$PUSH_BASE..HEAD" 2>/dev/null || echo 0)
+    CG_BASE="$PUSH_BASE"
+else
+    OUTGOING=0
+    CG_BASE="origin/main"
+fi
+if git -C "$ROOT" rev-parse --verify --quiet "$CG_BASE" >/dev/null; then
+    CG_COMMITTED=$(register_adds "$CG_BASE...HEAD")
+else
+    CG_COMMITTED=0
+fi
+CG_WORKTREE=$(register_adds HEAD)
+LOCK_JOURNAL="${REGISTER_LOCK_FILE:-$ROOT/.register-locks}"
+
+echo "== per-push scope (checks 4-6 resolve their own base; check 1 uses '$BASE')"
+if [ -n "$PUSH_BASE" ]; then
+    echo "   upstream: $PUSH_BASE ($(git -C "$ROOT" rev-parse --short "$PUSH_BASE" 2>/dev/null || echo '?')) | HEAD: $(git -C "$ROOT" rev-parse --short HEAD) | outgoing commits: $OUTGOING"
+else
+    echo "   upstream: NONE configured | HEAD: $(git -C "$ROOT" rev-parse --short HEAD) | outgoing commits: n/a"
+fi
+echo "   register added-lines — committed ($CG_BASE...HEAD): $CG_COMMITTED | staged+worktree: $CG_WORKTREE"
+
+EMPTY_LEGS=""
+add_empty() { EMPTY_LEGS="${EMPTY_LEGS}   - $1
+"; }
+[ "$((CG_COMMITTED + CG_WORKTREE))" -eq 0 ] && \
+    add_empty "check 4 claims-gate: 0 added register lines in either source — no claim was examined"
+if [ -z "$PUSH_BASE" ]; then
+    add_empty "check 5 commit-scope-check: no upstream — the check skips outright"
+    add_empty "check 6 register-lock gate-check: no upstream — the check skips outright"
+elif [ "$OUTGOING" -eq 0 ]; then
+    add_empty "check 5 commit-scope-check: 0 outgoing commits — no commit's declared scope was judged"
+    add_empty "check 6 register-lock gate-check: 0 outgoing commits — no commit was attributed"
+elif [ ! -s "$LOCK_JOURNAL" ]; then
+    add_empty "check 6 register-lock gate-check: no lock journal at ${LOCK_JOURNAL#"$ROOT"/} — nothing was announced, so nothing can collide"
+fi
+if [ -n "$EMPTY_LEGS" ]; then
+    echo "   REDUCED SCOPE — the following leg(s) will evaluate NOTHING:"
+    printf '%s' "$EMPTY_LEGS"
+else
+    echo "   full scope: every per-push leg has something to evaluate"
+fi
 
 if git -C "$ROOT" rev-parse --verify --quiet "$BASE" >/dev/null; then
     committed=$(git -C "$ROOT" diff --name-only "$BASE"...HEAD 2>/dev/null | skill_dirs_from || true)
@@ -104,5 +197,16 @@ if [ "$overall" -ne 0 ]; then
     echo "PRE-PUSH GATE: FAILED — fix the FAILs above before pushing."
     exit 1
 fi
-echo "PRE-PUSH GATE: PASSED"
+if [ -n "$EMPTY_LEGS" ]; then
+    n_empty=$(printf '%s' "$EMPTY_LEGS" | grep -c '^   - ' || true)
+    echo "PRE-PUSH GATE: PASSED WITH REDUCED SCOPE — $n_empty of 6 checks evaluated an EMPTY scope:"
+    printf '%s' "$EMPTY_LEGS"
+    echo "This is NOT a six-check green. Quote it as \"$((6 - n_empty)) of 6 checks evaluated, all passed\"."
+    if [ "$REQUIRE_SCOPE" = "1" ]; then
+        echo "PREPUSH_REQUIRE_SCOPE=1 — a reduced scope is a failure in this mode."
+        exit 1
+    fi
+    exit 0
+fi
+echo "PRE-PUSH GATE: PASSED — all 6 checks evaluated a non-empty scope and passed."
 exit 0

@@ -437,11 +437,36 @@ fi
 # (literal <line>/<token> placeholders) never matches the digit-requiring
 # pattern below.
 #
-# UN-ANCHORED pointers (bare `file.md:123` with no ("token")) are COUNTED and
-# LISTED but never failed: failing pointers whose authors never opted into the
-# anchor contract would make the check assert more than it can verify (ledger
-# F11), and the fix for them is a tagging pass, not a red gate. The census is
-# the standing proposal for that pass.
+# UN-ANCHORED pointers (bare `file.md:123` with no ("token")) — RATCHETED
+# 2026-08-12, previously an unconditional WARN.
+#
+# The original reasoning was that failing a pointer whose author never opted into
+# the anchor contract would make the check assert more than it can verify (F11).
+# That reasoning holds for the claim "this pointer is broken" and only for that
+# claim. It does not hold for the claim the gate actually needs to make, which is
+# "this pointer is UNVERIFIABLE" — a statement about the check's own reach, true by
+# construction, and exactly the kind of thing a gate is for.
+#
+# The WARN tier was hiding a live instance of the defect check (g) exists to catch.
+# Measured 2026-08-12: SETTLED-RULINGS.md:156 carries
+# `references/cite-domain-rating.md:447` labelled "(I09 measurement)"; line 447 is
+# the **I07** row and I09's measurement row is at 449. Un-anchored, so the gate was
+# green over it — the F12 class, undetected, for as long as the pointer has existed.
+#
+# Why a ratchet and not a flat FAIL. All five surviving un-anchored pointers live in
+# SETTLED-RULINGS.md, which is owner-reserved: a flat FAIL turns the whole pre-push
+# gate red over a file nobody in a working session may edit, which converts a real
+# finding into a blocked repo. The ratchet makes the count monotonic instead — the
+# census is the allowance, a SIXTH un-anchored pointer FAILs immediately, and
+# clearing one WARNs that the allowance is now stale and must be lowered. It is
+# strictly stronger than the old behaviour (which could not fail at all) and it does
+# not depend on anyone being able to edit the reserved file first.
+#
+# The allowance is PER-REGISTER, not a total: a per-total budget would let a new
+# un-anchored pointer in PIPELINE.md be paid for by clearing one in
+# SETTLED-RULINGS.md, which is not the same repo. Any register absent from the map
+# has an allowance of 0. Override with TRACKING_UNANCHORED_ALLOWANCE (space-separated
+# `<register>:<n>`); TRACKING_UNANCHORED_ALLOWANCE="" demands zero everywhere.
 echo ""
 echo "[g] anchor-tagged pointer check (F12 guard; any repo-file target)"
 G_OK=1
@@ -450,6 +475,16 @@ G_VCOUNT=0
 G_UNTAG_N=0
 G_UNTAG_LIST=""
 G_REGISTERS="SETTLED-RULINGS.md GATED-ITEMS.md WATCH-ITEMS.md PIPELINE.md"
+# Census measured 2026-08-12 (SETTLED-RULINGS.md lines 125,138,142,155,156). Lower
+# this the moment the count drops — the stale-allowance branch below says so by name.
+G_UNTAG_ALLOWANCE="${TRACKING_UNANCHORED_ALLOWANCE-SETTLED-RULINGS.md:5}"
+g_allowance_for() {   # $1 = register basename -> its allowance (0 when unlisted)
+    local entry
+    for entry in $G_UNTAG_ALLOWANCE; do
+        case "$entry" in "$1":*) echo "${entry##*:}"; return ;; esac
+    done
+    echo 0
+}
 for reg in $G_REGISTERS; do
     reg_file="$ROOT/docs/loop/$reg"
     if [ ! -f "$reg_file" ]; then
@@ -547,10 +582,21 @@ for reg in $G_REGISTERS; do
         warn "(g) docs/loop/$reg:$lno anchored pointer $match uses a multi-part line list — this check verifies \`file:N\` and \`file:N-M\` only, so its token goes unverified; split it or rewrite it as a range"
     done <<< "$G_CENSUS"
     n_untag=$(printf '%s\n' "$G_CENSUS" | grep -c '^UNTAGGED' || true)
+    allow=$(g_allowance_for "$reg")
     if [ "$n_untag" -gt 0 ]; then
         G_UNTAG_N=$((G_UNTAG_N + n_untag))
-        G_UNTAG_LIST="${G_UNTAG_LIST}      docs/loop/$reg: $n_untag on line(s) $(printf '%s\n' "$G_CENSUS" | awk -F'\t' '$1 == "UNTAGGED" { printf "%s%s", sep, $2; sep = "," }')
+        untag_lines=$(printf '%s\n' "$G_CENSUS" | awk -F'\t' '$1 == "UNTAGGED" { printf "%s%s", sep, $2; sep = "," }')
+        G_UNTAG_LIST="${G_UNTAG_LIST}      docs/loop/$reg: $n_untag on line(s) $untag_lines
 "
+    fi
+    if [ "$n_untag" -gt "$allow" ]; then
+        fail "(g) docs/loop/$reg has $n_untag un-anchored \`file:line\` pointer(s), allowance $allow — a pointer with no (\"token\") anchor cannot be verified by this check, and the count may not grow; anchor-tag the new one(s) on line(s) ${untag_lines:-?}, or raise the allowance in TRACKING_UNANCHORED_ALLOWANCE with the reason"
+        G_OK=0
+    elif [ "$n_untag" -lt "$allow" ]; then
+        # Paired counter-test to the FAIL above: without this branch the allowance
+        # could sit permanently above the real count and the ratchet would silently
+        # stop ratcheting — a budget nobody spends is not a budget.
+        warn "(g) docs/loop/$reg has $n_untag un-anchored pointer(s) but its allowance is still $allow — the debt shrank; lower it to $n_untag (TRACKING_UNANCHORED_ALLOWANCE default in this script) so the ratchet keeps holding at the new level"
     fi
 done
 if [ "$G_COUNT" -eq 0 ]; then
@@ -558,7 +604,7 @@ if [ "$G_COUNT" -eq 0 ]; then
     G_OK=0
 fi
 if [ "$G_UNTAG_N" -gt 0 ]; then
-    warn "(g) $G_UNTAG_N un-anchored \`file:line\` pointer(s) in the live registers — no (\"token\") anchor, so this check cannot verify them and does NOT fail them; anchor-tag them to bring them under the check"
+    warn "(g) $G_UNTAG_N un-anchored \`file:line\` pointer(s) in the live registers — no (\"token\") anchor, so this check cannot verify them; they are held at a per-register allowance (ratchet: the count may shrink, never grow) and each is listed below so the census is never implicit. This is UNVERIFIED, not verified-clean: at least one of them is known to be wrong (SETTLED-RULINGS.md:156 -> cite-domain-rating.md:447 is labelled \"(I09 measurement)\" and resolves to the I07 row; I09's is :449)"
     printf '%s' "$G_UNTAG_LIST"
 fi
 [ "$G_OK" -eq 1 ] && pass "(g) all $G_COUNT anchor-tagged \`<file>:<line>\` (\"<token>\") pointers in the live registers verified against their target lines ($G_VCOUNT into VERSIONS.md, $((G_COUNT - G_VCOUNT)) into other repo files)"
@@ -650,6 +696,134 @@ done < <(cd "$ROOT" && grep -rnoE "$QA_TOKENS" \
     research build optimize monitor cross-cutting commands references \
     --include='*.md' 2>/dev/null | grep -v 'evals/' | awk -F: '!seen[$1":"$2]++')
 [ "$H_OK" -eq 1 ] && pass "(h) no unsourced quotation attribution in live skill, command, or framework files ($H_SEEN attribution shape(s) seen: $H_EX_URL carried a source URL within +/-2 lines, $H_EX_FICT used a fictional \`Example …\` attributee or a bracketed placeholder)"
+
+# ---------------------------------------------------------------------------
+# (i) version-bump detector — did a changed skill actually get bumped?
+# ---------------------------------------------------------------------------
+# The structural gap this closes (found 2026-08-12). Check (c) verifies that the
+# three version carriers AGREE WITH EACH OTHER — SKILL.md metadata.version, the
+# VERSIONS.md row, and (via check (a)) the plugin/marketplace/README triple. It has
+# no opinion on whether a bump HAPPENED. Edit a skill's normative text, leave the
+# version alone, and all three carriers still agree perfectly: check (c) passes, the
+# gate is green, and the released artifact silently changed under a version that
+# claims it did not. A consistency check cannot detect a change it was never shown.
+#
+# So this check is a different KIND of question and needs a different input: not the
+# working tree alone but the working tree AGAINST A BASE. It is the only check in
+# this script that reads git.
+#
+# SCOPE — stated, per F15-r1 (an undocumented scope gets read as total):
+#   * Trigger surface: the SHIPPED surface of a skill — its SKILL.md and its
+#     references/ — across both the committed diff <base>...HEAD and the
+#     staged+worktree diff, so an uncommitted edit counts. A skill absent from the
+#     base is NEW and demands no bump.
+#   * Rule: any change at all on that surface requires metadata.version !=
+#     metadata.version at the base. Deliberately not "any change except cosmetic
+#     ones" — nothing here can tell a whitespace fix from a rule rewrite, and a check
+#     that guesses at significance fails open on exactly the edit that matters. A
+#     bump is cheap; the ambiguity is not.
+#   * evals/ is EXCLUDED, and that is a measurement rather than a preference. This
+#     repo's settled practice is that an eval-only change does not bump: 3a8d62c
+#     ("library-wide sweep … all 20 suites") and 1a1b55d ("reconciliation sweep")
+#     each touched only evals/ files — 20 and 9 skills respectively — and neither
+#     touched a single SKILL.md or VERSIONS.md. An eval is the grader, not the
+#     artifact. Including it would have made this check disagree with a deliberate
+#     convention on its first run, which is a finding to raise, not a rule to smuggle
+#     in through a bug fix. If the convention changes, delete the exclusion.
+#   * NOT covered: repo-root references/, commands/, the loop registers, and anything
+#     else outside a skill directory. Those have no per-skill version to bump, so
+#     this check is silent about them by construction, not by oversight.
+#   * Base: TRACKING_BUMP_BASE, else origin/main, else @{upstream}. origin/main is
+#     the default deliberately — a version is a released artifact, so the question
+#     is what this BRANCH did to it, not what the last push did. @{upstream} would
+#     have made this check vacuous the day it was written: on branch section-b it
+#     resolved to HEAD, giving an empty diff and a green over zero skills.
+#   * Empty scope is never a PASS. Zero touched skills, an unresolvable base, or no
+#     git at all is reported as NOT EVALUATED; set TRACKING_BUMP_REQUIRE_SCOPE=1 to
+#     make any of those a hard failure (R-0222).
+echo ""
+echo "[i] version-bump detector (skill changed vs base => metadata.version must change)"
+
+I_BASE="${TRACKING_BUMP_BASE:-}"
+I_REASON=""
+if ! git -C "$ROOT" rev-parse --git-dir >/dev/null 2>&1; then
+    I_REASON="not a git working tree"
+elif [ -z "$I_BASE" ]; then
+    if git -C "$ROOT" rev-parse --verify --quiet origin/main >/dev/null; then
+        I_BASE="origin/main"
+    elif I_BASE=$(git -C "$ROOT" rev-parse --abbrev-ref --symbolic-full-name '@{upstream}' 2>/dev/null); then
+        :
+    else
+        I_BASE=""
+        I_REASON="no TRACKING_BUMP_BASE, no origin/main, no upstream"
+    fi
+fi
+if [ -z "$I_REASON" ] && ! git -C "$ROOT" rev-parse --verify --quiet "$I_BASE" >/dev/null; then
+    I_REASON="base ref '$I_BASE' does not resolve"
+fi
+
+metadata_version_of() {   # $1 = SKILL.md text on stdin-free path form; reads a file
+    awk 'n<2 && /^---[[:space:]]*$/{n++; next} n==1 && /^[[:space:]]+version:/{sub(/^[[:space:]]+version:[[:space:]]*/,""); gsub(/["'"'"'\r]/,""); print; exit}' "$1"
+}
+
+if [ -n "$I_REASON" ]; then
+    if [ "${TRACKING_BUMP_REQUIRE_SCOPE:-0}" = "1" ]; then
+        fail "(i) NOT EVALUATED — $I_REASON (TRACKING_BUMP_REQUIRE_SCOPE=1: a check that cannot run is not a pass)"
+    else
+        warn "(i) NOT EVALUATED — $I_REASON; no skill was compared against any base, so nothing here says a bump happened. Set TRACKING_BUMP_BASE=<ref> to run it"
+    fi
+else
+    I_OK=1
+    I_TOUCHED=0
+    I_BUMPED=0
+    I_NEW=0
+    # One diff for the whole repo, then bucketed — cheaper and less drift-prone than
+    # a per-skill invocation, and it picks up references/ inside a skill directory.
+    # evals/ filtered out here, for the measured reason in the scope note above.
+    I_CHANGED=$( { git -C "$ROOT" diff --name-only "$I_BASE...HEAD" 2>/dev/null
+                   git -C "$ROOT" diff --name-only HEAD 2>/dev/null; } \
+                 | grep -vE '^[^/]+/[^/]+/evals/' | sort -u )
+    I_TMP_BASE=""
+    while IFS= read -r rel; do
+        [ -n "$rel" ] || continue
+        sk="${rel#./}"                       # e.g. build/schema-markup-generator
+        printf '%s\n' "$I_CHANGED" | grep -q "^$sk/" || continue
+        I_TOUCHED=$((I_TOUCHED + 1))
+        # Read-only history access; nothing is written into the tree.
+        if ! base_txt=$(git -C "$ROOT" show "$I_BASE:$sk/SKILL.md" 2>/dev/null); then
+            I_NEW=$((I_NEW + 1))
+            continue
+        fi
+        I_TMP_BASE=$(mktemp -t vt-bump.XXXXXX) || { fail "(i) mktemp failed — cannot compare"; I_OK=0; break; }
+        printf '%s\n' "$base_txt" > "$I_TMP_BASE"
+        base_ver=$(metadata_version_of "$I_TMP_BASE")
+        rm -f "$I_TMP_BASE"
+        now_ver=$(metadata_version_of "$ROOT/$sk/SKILL.md")
+        if [ -z "$base_ver" ]; then
+            warn "(i) $sk changed vs $I_BASE but the base copy has no metadata.version to compare — bump unverifiable for this skill"
+            continue
+        fi
+        if [ -z "$now_ver" ]; then
+            continue                          # check (c) already FAILs a missing metadata.version
+        fi
+        if [ "$base_ver" = "$now_ver" ]; then
+            fail "(i) $sk changed vs $I_BASE but metadata.version is still '$now_ver' — a changed skill must carry a new version (files: $(printf '%s\n' "$I_CHANGED" | grep "^$sk/" | tr '\n' ' '))"
+            I_OK=0
+        else
+            I_BUMPED=$((I_BUMPED + 1))
+        fi
+    done <<< "$DISK_SORTED"
+
+    if [ "$I_TOUCHED" -eq 0 ]; then
+        if [ "${TRACKING_BUMP_REQUIRE_SCOPE:-0}" = "1" ]; then
+            fail "(i) NOT EVALUATED — 0 skill directories changed vs $I_BASE (TRACKING_BUMP_REQUIRE_SCOPE=1: an empty scope is not a pass)"
+        else
+            warn "(i) NOT EVALUATED — 0 skill directories changed vs $I_BASE, so no bump was checked; this is an empty scope, not a clean one"
+        fi
+    elif [ "$I_OK" -eq 1 ]; then
+        pass "(i) $I_TOUCHED skill(s) changed vs $I_BASE: $I_BUMPED carry a new metadata.version, $I_NEW are new since the base (no bump required), 0 changed without a bump"
+    fi
+fi
 
 # ---------------------------------------------------------------------------
 # Summary

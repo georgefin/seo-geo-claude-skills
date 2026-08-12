@@ -26,6 +26,23 @@
 #
 # Usage: commit-scope-check.sh [<base-ref>]
 #   no arg -> @{upstream} if it resolves, else nothing to check.
+#
+# EVALUATED SCOPE IS PRINTED ON EVERY EXIT (added 2026-08-12; R-0222/R-0297).
+# The three early exits below each used to print a Results line whose counts were
+# STRING LITERALS rather than evaluations — the no-outgoing branch printed
+# `Results: 1 passed` having judged nothing at all. Measured on this branch the
+# same day: `@{upstream}` resolved to HEAD itself, so `rev-list @{upstream}..HEAD`
+# was empty and that literal `1` was the only thing pre-push-gate's "all six pass"
+# summary had to go on. A green from a check that evaluated nothing is a
+# fabricated verification, so every exit now states the commit count it judged and
+# no zero-work exit is allowed to call itself a PASS.
+#
+# Exit policy on an empty scope: 0 by default. "Nothing outgoing" is a legitimate
+# and common state — a branch level with its upstream — and failing it would make
+# the gate unrunnable in the minutes after a push. It is reported as NOT RUN, never
+# as passed. Set COMMIT_SCOPE_REQUIRE_COMMITS=1 to fail closed instead (exit 2):
+# that is the mode for a caller that believes there IS outgoing work, and it is the
+# mode this guard's own empty-scope path is proved RED with.
 
 set -uo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -33,6 +50,24 @@ cd "$ROOT" || exit 1
 
 RED=$'\033[0;31m'; GREEN=$'\033[0;32m'; YELLOW=$'\033[1;33m'; NC=$'\033[0m'
 pass=0; fail=0; warn=0
+evaluated=0
+STRICT="${COMMIT_SCOPE_REQUIRE_COMMITS:-0}"
+
+# Single exit path for "this run judged no commits". Never prints PASS and never
+# prints a nonzero count: the two things that made the old literals readable as a
+# clean result.
+empty_scope_exit() {   # $1 = why the scope is empty
+    echo "${YELLOW}  EMPTY SCOPE${NC}: $1"
+    echo "=============================================="
+    echo "Scope: 0 commit(s) evaluated — this run judged NOTHING"
+    echo "Results: ${GREEN}0 passed${NC}, ${YELLOW}1 warning${NC}, ${RED}0 failed${NC}"
+    if [ "$STRICT" = "1" ]; then
+        echo "${RED}commit-scope-check FAILED${NC} (COMMIT_SCOPE_REQUIRE_COMMITS=1 — an empty scope is not a pass)"
+        exit 2
+    fi
+    echo "${YELLOW}commit-scope-check NOT RUN${NC} — empty scope is not a pass; re-run against a base with outgoing commits to get a verdict"
+    exit 0
+}
 
 echo "commit-scope-check: F14 declared-scope check on outgoing commits"
 echo "Repo root: $ROOT"
@@ -43,24 +78,21 @@ if [ -z "$BASE" ]; then
   if BASE=$(git rev-parse --abbrev-ref --symbolic-full-name '@{upstream}' 2>/dev/null); then
     :
   else
-    echo "${YELLOW}  SKIP${NC}: no base ref and no upstream — nothing outgoing to check"
-    echo "=============================================="
-    echo "Results: ${GREEN}0 passed${NC}, ${YELLOW}1 warning${NC}, ${RED}0 failed${NC}"
-    exit 0
+    empty_scope_exit "no base ref given and no upstream configured — nothing outgoing to check"
   fi
 fi
 
 if ! git rev-parse --verify --quiet "$BASE" >/dev/null; then
-  echo "${YELLOW}  SKIP${NC}: base ref '$BASE' does not resolve"
-  exit 0
+  empty_scope_exit "base ref '$BASE' does not resolve"
 fi
+
+echo "Base: $BASE ($(git rev-parse --short "$BASE")) | HEAD: $(git rev-parse --short HEAD)"
 
 COMMITS=$(git rev-list "$BASE..HEAD" 2>/dev/null)
 if [ -z "$COMMITS" ]; then
-  echo "${GREEN}  PASS${NC}: no outgoing commits — nothing to check"
-  echo "=============================================="
-  echo "Results: ${GREEN}1 passed${NC}, ${YELLOW}0 warnings${NC}, ${RED}0 failed${NC}"
-  exit 0
+  # Reached whenever HEAD is an ancestor of the base — including the case that
+  # produced this rewrite, an @{upstream} that resolves to HEAD itself.
+  empty_scope_exit "0 commits in $BASE..HEAD (HEAD is contained in the base — nothing is outgoing)"
 fi
 
 CATEGORIES='build|research|optimize|monitor|cross-cutting'
@@ -99,6 +131,9 @@ register_aliases() {
 }
 
 for sha in $COMMITS; do
+  # Counted before any branch of the body so that every `continue` below is still
+  # represented in the scope line. The count is what was JUDGED, not what passed.
+  evaluated=$((evaluated+1))
   subject=$(git log -1 --format=%s "$sha")
   subject_lc=$(printf '%s' "$subject" | tr '[:upper:]' '[:lower:]')
   message_lc=$(git log -1 --format='%s%n%b' "$sha" | tr '[:upper:]' '[:lower:]')
@@ -186,8 +221,19 @@ for sha in $COMMITS; do
 done
 
 echo "=============================================="
+echo "Scope: ${evaluated} commit(s) evaluated in $BASE..HEAD"
 if [ "$fail" -gt 0 ]; then
   echo "Results: ${GREEN}${pass} passed${NC}, ${YELLOW}${warn} warnings${NC}, ${RED}${fail} failed${NC}"
+  echo "${RED}commit-scope-check FAILED${NC}"
+  exit 1
+fi
+# Internal consistency: the per-commit legs are exhaustive (every commit either
+# increments pass or increments fail), so pass+fail must equal the count judged.
+# If they ever diverge, a branch was added that silently drops a commit — the
+# report would then be about a subset while reading as about the whole scope.
+if [ "$((pass + fail))" -ne "$evaluated" ]; then
+  echo "${RED}  FAIL${NC}: internal accounting error — ${pass} passed + ${fail} failed != ${evaluated} evaluated"
+  echo "        a commit was judged by no leg; the verdict does not cover the scope"
   echo "${RED}commit-scope-check FAILED${NC}"
   exit 1
 fi

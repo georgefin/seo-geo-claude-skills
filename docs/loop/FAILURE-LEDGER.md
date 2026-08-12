@@ -309,8 +309,23 @@ regression rate · repeat-failure count · tool-correctness rate.
   Sani pastes it from the Routines UI (claude.ai → Routines → weekly skill-update
   check), or the 2026-08-15 fired session is asked to archive its own opening prompt;
   whichever lands first unblocks the amendment.
+- **Guard binding, audited 2026-08-12**: a script implementing this rule EXISTS —
+  `scripts/check-trigger-archives.sh`, which maps every durable PIPELINE.md trigger
+  row to a `docs/loop/archive/` file — and it passes today (6 passed, 1 warning,
+  0 failed, exit 0, verified read-only). But it is **wired into nothing**: a
+  repo-wide grep for its name finds only the file itself. Its own header calls it a
+  "gate check (h) candidate". So the enforcement is PROCEDURAL in practice — the
+  Guard binds only when somebody remembers to run it, which is the state this ledger
+  distinguishes from a scripted guard. Wiring it into `pre-push-gate.sh` is a
+  one-line change that would fail nothing today; deliberately not done in this pass
+  because a second workstream is concurrently adding gate scripts and two agents
+  renumbering the same check list would collide.
 - **Status**: gap **CLOSED 2026-08-09** (same day — resolution below); guard remains
-  live, adopted from this entry forward.
+  live, adopted from this entry forward. **Enforcement re-graded 2026-08-12:
+  procedural, not scripted** — see the guard-binding audit above
+  [obs:2026-08-12T07:00Z `bash scripts/check-trigger-archives.sh .` exit 0, "6 passed,
+  1 warnings, 0 failed"; `grep -rn check-trigger-archives` over the repo returned only
+  lines inside that script itself, so no gate and no hook invokes it].
 - **Resolution (2026-08-09, supersedes the recovery plan above)**: a prompt-read path
   EXISTS after all — `list_triggers` returns each trigger's full stored prompt at the
   undocumented nested field `job_config.ccr.events[].data.message.content`. The
@@ -366,6 +381,18 @@ regression rate · repeat-failure count · tool-correctness rate.
   verdict-log timestamps from `date -u` at drafting time, never estimate; claims
   inside an attribution frame ("per the paste/response") must be quote-traceable —
   inferences move outside the frame with their real basis named.
+  **Scripted leg, named here 2026-08-12** (it was already running but this Guard
+  field did not say so, so the entry read as wholly procedural)
+  [obs:2026-08-12T06:50Z `bash scripts/claims-gate.sh` exit 1 then exit 0 on the same
+  tree as the worktree changed under it — it evaluates, it is not inert]:
+  `scripts/claims-gate.sh`, check 4
+  of `pre-push-gate.sh`, enforcing rule (1) anchored claims, (2) the flip-manifest
+  sweep and (3) timestamp sanity over added register lines. Its scope is broader
+  than its siblings' and does NOT collapse when `@{upstream}` resolves to HEAD: it
+  reads the committed diff **plus** the staged/worktree diff, so it kept evaluating
+  while checks 5 and 6 were empty (measured 2026-08-12: 0 committed added register
+  lines, 17 in the worktree, gate ran and passed on those 17). Legs (1) and (2) of
+  the Guard above remain procedural — Mode A review and a drafting checklist.
 - **Recurrence**: **1** (2026-08-09, same day — the W5 close-out placed "graduated"
   enforcement inside BOTH owner-verified frames while the pasted page contains no
   gradation language at all ("may be subject to certain restrictions" + a flat
@@ -499,6 +526,22 @@ regression rate · repeat-failure count · tool-correctness rate.
   check that greps each anchor-tagged pointer's target line for its token,
   fault-injection-tested per the F2/F9 precedent — until it ships, the anchor
   format + Mode A's pointer checks are the live guard.
+- **Guard strengthened 2026-08-12 — the un-anchored tier now ratchets.** Check (g)
+  verified 43 anchored pointers and merely WARNed on 5 un-anchored ones, so a
+  pointer could evade the guard permanently by never opting into the anchor format.
+  It was not a hypothetical evasion: `SETTLED-RULINGS.md:156` points at
+  `references/cite-domain-rating.md:447` labelled "(I09 measurement)", and :447 is
+  the **I07** row — I09's is :449
+  [obs:2026-08-12T06:55Z `grep -n I09 references/cite-domain-rating.md` -> 74, 309,
+  449, 498; `sed -n 447p` -> the I07 Cross-Platform Consistency row]. The F12 class,
+  undetected under a green gate. The count is now a
+  per-register allowance (`SETTLED-RULINGS.md:5`, every other register 0): a new
+  un-anchored pointer FAILs, and clearing one WARNs that the allowance must be
+  lowered. Proved both ways in a scratch clone — a 6th pointer in the allowed
+  register exits 1, one pointer in a zero-allowance register exits 1,
+  `TRACKING_UNANCHORED_ALLOWANCE=""` exits 1 on today's 5. A flat FAIL was rejected
+  only because all five sit in owner-reserved `SETTLED-RULINGS.md`; clearing them
+  drops the allowance to 0 and the two behaviours converge.
 - **Recurrence**: **1** (2026-08-09, same wave — the founding commit itself shipped
   all six pointers stale at birth: the wave's own v4.3.3 changelog insertion
   (+8 lines) re-shifted every target AFTER the coordinates were grepped and BEFORE
@@ -710,8 +753,11 @@ which is the behaviour-shaped half its own header already declares it cannot see
   `git add .` stage by tree state, not by intent, and the committer never sees what
   it swept. Every prior wave got away with it only because the timing never
   overlapped a commit.
-- **Guard**: `scripts/commit-scope-check.sh`, wired as check 4 of
-  `pre-push-gate.sh` (same per-push `@{upstream}` scope as claims-gate). Per
+- **Guard**: `scripts/commit-scope-check.sh`, wired as check **5** of
+  `pre-push-gate.sh` — corrected 2026-08-12 from "check 4", which is claims-gate;
+  read against `pre-push-gate.sh:19-26`, where the numbering is authoritative. A
+  Guard that cites the wrong check id sends its next reader to the wrong script
+  (same per-push `@{upstream}` scope as claims-gate). Per
   outgoing commit it collects the skill directories touched under
   `build|research|optimize|monitor|cross-cutting/<skill>/` and FAILs when the
   subject line does not name them; a genuine multi-skill commit declares breadth
@@ -721,6 +767,17 @@ which is the behaviour-shaped half its own header already declares it cannot see
   pushed before the guard existed is grandfathered by construction — it is no
   longer outgoing — which is the honest treatment, since the guard cannot testify
   about staging decisions it never observed.
+- **Guard scope caveat (measured 2026-08-12)**: "same per-push `@{upstream}` scope"
+  is also this guard's failure mode. On branch `section-b` at `95ba7d6` the branch's
+  `@{upstream}` resolved to HEAD itself, so `rev-list @{upstream}..HEAD` was empty
+  and the guard took its no-outgoing early exit — printing `Results: 1 passed`, a
+  string literal, having judged zero commits. Counterfactual on the same tree: base
+  `origin/main` -> 189 commits evaluated, 15 FAIL, exit 1, so the guard's teeth were
+  never in question; the branch's base was. Repaired the same day — every exit now
+  prints the commit count it judged, no zero-work exit calls itself a PASS, and
+  `COMMIT_SCOPE_REQUIRE_COMMITS=1` makes an empty scope exit 2. `pre-push-gate.sh`
+  measures the same scope up front and refuses to print an unqualified six-check
+  green when any per-push leg had nothing to evaluate.
 - **Not repaired by history rewrite**: `67ecad7` is already pushed to an open PR
   branch. Force-pushing to correct a provenance label would trade a small
   documented inaccuracy for a rewritten shared history, and the ledger entry plus

@@ -61,6 +61,23 @@ def read_record(d):
 records = sorted(base.glob("blind-*/*.json"))
 indexes = sorted(p for p in base.glob("*.json"))
 
+# SUPERSESSION (added 2026-08-12). A suite that is re-run gets a SECOND record under a later
+# blind-*/ directory. Pooling both counts that suite twice: before this guard the reader
+# pooled 24 records for 20 suites and published a 705-expectation denominator in which
+# alertmanager, gap, geo and refresher each appeared twice — once from the run and once from
+# the run that replaced it. That is the mirror image of the F16-r1 failure this script was
+# written to stop: not a silently SMALLER corpus, a silently LARGER one, and it looked like
+# an answer too. The newest record per suite wins; the superseded one is still read (so an
+# unreadable record anywhere under blind-*/ still fails the run) and is still listed, because
+# a record dropped without being named is how the first defect survived.
+# Recency is directory order, which is chronological for the blind-YYYY-MM-DD[suffix] naming
+# and is printed below so the ordering can be checked rather than trusted.
+_by_suite = {}
+for _p in records:
+    _by_suite.setdefault(_p.stem, []).append(_p)
+current = {sorted(v, key=lambda q: q.parent.name)[-1] for v in _by_suite.values()}
+superseded = [p for p in records if p not in current]
+
 if not records:
     print(f"{RED}FAIL{OFF}: no per-suite records found under {base}/blind-*/ — "
           f"this reader cannot confirm anything (F15: never pass by matching nothing)")
@@ -82,10 +99,12 @@ for p in records:
         unreadable.append((p, "no known schema — expected totals.total or summary.total (int)"))
         continue
     gap = tot - (pas + fail) if isinstance(pas, int) and isinstance(fail, int) else None
-    rows.append((name, key, pas, fail, tot, gap, rate))
+    live = p in current
+    rows.append((name, key, pas, fail, tot, gap, rate, live, p))
     flag = f"{YEL}{gap}{OFF}" if gap else str(gap)
+    mark = "" if live else f"  {DIM}<- superseded by a later run, NOT pooled{OFF}"
     print(f"{name:16s} {key:8s} {str(pas):>5} {str(fail):>5} {str(tot):>6} {flag:>19}  "
-          f"{rate if rate is not None else YEL+'(absent)'+OFF}")
+          f"{rate if rate is not None else YEL+'(absent)'+OFF}{mark}")
 
 for p, why in unreadable:
     print(f"{RED}UNREADABLE{OFF} {p.relative_to(root)}: {why}")
@@ -98,9 +117,21 @@ if indexes:
         print(f"{DIM}  {p.relative_to(root)}{OFF}")
     print()
 
-P = sum(r[2] for r in rows); T = sum(r[4] for r in rows)
-mixed = [r[0] for r in rows if r[5]]
-counted = [r[0] for r in rows if r[5] == 0]
+if superseded:
+    print(f"{DIM}not pooled — superseded by a later run of the same suite (newest per suite "
+          f"wins; both are read, neither is hidden):{OFF}")
+    for p in superseded:
+        newer = sorted(_by_suite[p.stem], key=lambda q: q.parent.name)[-1]
+        print(f"{DIM}  {p.relative_to(root)}  ->  replaced by {newer.parent.name}/"
+              f"{newer.name}{OFF}")
+    print()
+
+live_rows = [r for r in rows if r[7]]
+P = sum(r[2] for r in live_rows); T = sum(r[4] for r in live_rows)
+mixed = [r[0] for r in live_rows if r[5]]
+counted = [r[0] for r in live_rows if r[5] == 0]
+print(f"pooling {len(live_rows)} current record(s) for {len(_by_suite)} suite(s); "
+      f"{len(superseded)} superseded record(s) excluded.")
 
 if unreadable:
     print(f"{RED}{len(unreadable)} record(s) unreadable — every figure below is computed over "
@@ -112,14 +143,19 @@ if mixed and counted:
     print(f"  {len(mixed)} suite(s) leave the editor slot uncounted (rate treats it as "
           f"not-passed): {', '.join(mixed)}")
     print(f"  {len(counted)} suite(s) count it.")
+    # Add the UNCOUNTED EXPECTATIONS, not the number of suites. A suite can leave more than
+    # one slot uncounted — geo leaves two — so `len(mixed)` understated this figure by one
+    # for every extra slot and published 648 where the corpus says 649.
+    slack = sum(r[5] for r in live_rows if r[5])
     print(f"  as recorded, slot not-passed : {P}/{T} = {P/T:.4f}")
-    print(f"  slot counted passed throughout: {P+len(mixed)}/{T} = {(P+len(mixed))/T:.4f}")
+    print(f"  slot counted passed throughout: {P+slack}/{T} = {(P+slack)/T:.4f}"
+          f"{DIM}  ({slack} uncounted slot(s) across {len(mixed)} suite(s)){OFF}")
     print(f"{DIM}  Both are true of this corpus; neither is 'the' rate. Quote the pair or "
           f"quote a suite.{OFF}")
 else:
-    print(f"pooled {P}/{T} = {P/T:.4f} over {len(rows)} suite(s), one convention throughout")
+    print(f"pooled {P}/{T} = {P/T:.4f} over {len(live_rows)} suite(s), one convention throughout")
 
-rates = sorted((r[2] / r[4], r[0]) for r in rows if r[4])
+rates = sorted((r[2] / r[4], r[0]) for r in live_rows if r[4])
 if rates:
     print(f"range: {rates[0][0]:.4f} ({rates[0][1]}) – {rates[-1][0]:.4f} ({rates[-1][1]})")
 
