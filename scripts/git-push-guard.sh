@@ -9,14 +9,19 @@
 # or the gate script is absent (older checkout) — the guard must never brick
 # unrelated Bash calls. A benign false-positive match only costs one gate run.
 #
-# THREE of those are `exit 0` allow-decisions (tagged FAIL-OPEN [no-command],
+# THREE of those WERE `exit 0` allow-decisions (tagged FAIL-OPEN [no-command],
 # [unrecognized-push], [gate-missing] below) and a FOURTH construct degrades
 # silently without being an allow-decision itself (tagged DEGRADED
-# [root-fallback]). Every one of them now ANNOUNCES ON STDERR before it lets the
-# call through, because a silent fail-open is indistinguishable from a pass: the
-# transcript of a guard that allowed everything and a guard that checked
-# everything used to look identical. Behaviour is unchanged — open stays open,
-# every exit code is what it was; only the silence is gone.
+# [root-fallback]). Every one of them now ANNOUNCES ON STDERR, because a silent
+# fail-open is indistinguishable from a pass: the transcript of a guard that
+# allowed everything and a guard that checked everything used to look identical.
+#
+# TWO still allow. [no-command] and [unrecognized-push] stand in front of EVERY
+# Bash call, so failing closed there would brick unrelated work.
+# [gate-missing] no longer allows — ruled 2026-08-12, it now BLOCKS (exit 2).
+# By that line the command has already been identified as a git push, so the
+# "don't brick unrelated calls" justification does not reach it; allowing there
+# was allowing a push with zero validation, scoped to pushes alone.
 #
 # NOTE on where the announcements land: a PreToolUse hook that exits 0 is
 # non-blocking, so its stderr surfaces in transcript mode rather than in the
@@ -85,13 +90,17 @@ if [ -z "$root" ]; then
 fi
 gate="$root/scripts/pre-push-gate.sh"
 
-# FAIL-OPEN [gate-missing] — the loudest of the three, because unlike the two
-# above the command HAS been identified as a git push, so "don't brick unrelated
-# Bash calls" no longer applies here and this allows a push with zero validation.
-# Left open per instruction; flagged for a ruling on whether it should block.
+# FAIL-CLOSED [gate-missing] — ruled 2026-08-12. Unlike the two allow-decisions
+# above, the command HAS been identified as a git push by this line, so "don't
+# brick unrelated Bash calls" does not reach it: blocking here blocks pushes and
+# nothing else. Allowing was allowing a push with zero validation, and the
+# .githooks/pre-push hook fails closed in the identical situation — a guard that
+# allowed what its own git-side counterpart blocks was the inconsistency.
+# If this fires on a repo that HAS a gate, read the DEGRADED [root-fallback] line
+# above it first: a bad root is the usual cause, not a missing gate.
 if [ ! -f "$gate" ]; then
-    echo "git-push-guard: FAIL-OPEN [gate-missing] — recognized a git push but found no gate at '$gate'; the push proceeds WITH NO VALIDATION." >&2
-    exit 0
+    echo "git-push-guard: FAIL-CLOSED [gate-missing] — recognized a git push but found no gate at '$gate'; BLOCKING rather than letting an unvalidated push through." >&2
+    exit 2
 fi
 
 if bash "$gate"; then
