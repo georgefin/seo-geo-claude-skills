@@ -31,3 +31,4 @@ node_modules/
 # Python bytecode from scripts/ (F14: keeps stray files out of sibling commits)
 __pycache__/
 *.pyc
+docs/loop/pilot/data/*.csv

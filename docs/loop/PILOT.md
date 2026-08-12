@@ -18,6 +18,14 @@ claim so far is process-internal (plan §0). This pilot closes exactly that.
 
 ## 0. Status — preparables COMPLETE; input 1 PART-SUPPLIED, input 2 IN PROGRESS, input 3 OPEN
 
+> **Companion files added 2026-08-12** (all DRAFTED, none applied, nothing published):
+> `pilot/SANI-DECISION-BRIEF-2026-08-12.md` — the seven open decisions, one question each ·
+> `pilot/PRE-REGISTRATION-2026-08-12.md` — §4 in full, with definitions and the decision rule ·
+> `pilot/DESIGN-ANALYSIS-2026-08-12.md` — what 2 pairs licenses, widening priced, escape designs,
+> the honest ceiling and the calendar · `pilot/PRIOR-INTERVENTIONS-2026-08-12.md` — dated prior
+> work on the candidate pages and the change freeze the pilot needs. Execution tree now exists:
+> `pilot/baseline/`, `pilot/pre-change/`, `pilot/data/`, `pilot/citations/`, `pilot/approvals.md`.
+
 Preparables (this protocol: design tree, baseline checklist, sampling protocol,
 pre-registration template, deployment/rollback rules) are complete as of 2026-08-09.
 Each input is supplied only by Sani's explicit recorded words (standing gate rule — a
@@ -109,19 +117,98 @@ Until then: input 1 stays PART-SUPPLIED, day-0 does not start, and no §2 baseli
 touches the property can run. Skill-library work (Phases 1–3) is unaffected — it reads nothing
 outside this repository.
 
+**2026-08-12 — input 1, still PART-SUPPLIED; the gap has CHANGED SHAPE. No new Sani words.**
+The 2026-08-11 entry above says "the count is unknown and matters". **That sentence is now
+stale and is superseded here rather than edited** (this section is append-only): the cluster was
+enumerated the same day from an unblocked machine — **17 GR surfaces, 0 errors**, every count
+reconciled against the site's own «αποτελέσματα» figure (`pilot/crawl-2026-08-11-macstudio.md`,
+branch `pilot-crawl`): 14 products + 2 categories + 1 blog. So the count is known, and it exceeds
+§0's 5–15 bar at the product level. What input 1 still lacks is different and smaller:
+
+- **Nobody has NAMED the pilot set.** `pilot/pair-analysis-2026-08-11.md` narrows to 4 eligible
+  pages "after the exclusions Sani upheld", but **no verbatim record of that exclusion ruling
+  exists** in this section or in `GATED-ITEMS.md`'s verdict log. Under the standing rule that an
+  input is supplied only by recorded words, a ruling that exists only as a reference is not on
+  the record. It needs either a verbatim entry or a re-confirmation.
+- **The 4-page pool yields 2 matched pairs against a floor of 3.** Sani's ruling stands: two is a
+  finding, not a failure; do not manufacture a third. The widening choice is costed in
+  `pilot/DESIGN-ANALYSIS-2026-08-12.md` §2 and drafted as a selection in the decision brief.
+- 🔴 **New, and it changes the pairing inputs**: three of the four eligible pages carry dated
+  content interventions from 2026-07-12, -18 and -26, **differing page by page**, and 823277
+  received substantially the pilot's own treatment on 18-07 (audited GEO 77 → 88). Read strictly,
+  the number of pairs free of a documented recent intervention on either member is **zero**.
+  Register, sources and the required change freeze: `pilot/PRIOR-INTERVENTIONS-2026-08-12.md`.
+
+**2026-08-12 — input 2, still IN PROGRESS. No new Sani words. Delivery, not authorisation, is
+the binding gap.** Zero rows of GSC data exist in the repository. The finding that none of the six
+declared MCP servers is a GSC or GA4 server is unchanged, so connector authorisation alone will
+not clear this input; the export drop is the route, and the plan already treats it as a full
+substitute. The *access* is not in question — the service account was re-verified 2026-07-30 and
+returned 8 properties [obs:2026-08-12T06:40:00Z `pilot/pair-analysis-2026-08-11.md` §2a, which
+records that re-verification; not independently re-run from here]. **The exact export specification is now written** and is a copy-paste
+instruction: `pilot/data/README.md` (six GSC exports over the full 16-month retention window, one
+GA4 export, and the Peec exclusion filter applied at query-set construction as well as at pull —
+the second application is new and is load-bearing, since a Peec-probed query is precisely the
+high-impression zero-click kind that would otherwise sort into the frozen set and stay there).
+**One consequence worth stating separately**: the same export also enables a zero-risk
+retrospective read of three content deploys this cluster received on 2026-07-12, -18 and -26,
+each recorded as "LIVE-VERIFIED" in its own dated deploy manifest with a byte-level before-state
+captured [obs:2026-08-12T06:55:00Z read of `products/atlantic/F119/_deploy-log/DEPLOY-MANIFEST_safe-subset_18-07-2026.md`,
+`products/atlantic/F120-WiFi/_deploy-log/DEPLOY-MANIFEST_18-07-2026.md`,
+`_backups/products/capsule-deploy-12-07-2026/MANIFEST.md` — the manifests are the evidence; the
+current public state of those pages was not re-checked from here]. That yields real outcome
+numbers for this property weeks before any pilot could produce them, with no publication and no
+approval (`pilot/PRIOR-INTERVENTIONS-2026-08-12.md` §4).
+
+**2026-08-12 — input 3, still OPEN. No words recorded.** The four sub-parts remain unsupplied.
+Narrowing recorded so the ask is one line rather than a design exercise: a publication workflow
+already exists in practice on this property — Sani pastes into the eShopKey admin himself after
+his own per-page "save it", and the deploy records show pre-write backups being captured — it has
+simply never been written against these four sub-parts. A **proposed default** is drafted in
+`pilot/SANI-DECISION-BRIEF-2026-08-12.md` Question 3 for confirmation or correction; it is
+labelled a proposal drawn from standing practice and is **not** a Sani word about the pilot.
+Two platform facts belong inside whatever answer arrives, because they change the measurement:
+**W0 must be the `live-render` confirmation, not the CMS save** — the public page can lag behind a
+save, per locale, with no purge and no republish control — and **a 200 response proves nothing on
+this property**, since a URL that does not exist returns 200 with the homepage
+[obs:2026-08-12T06:50:00Z `pilot/crawl-2026-08-11-macstudio.md` §0 negative control: fake URL →
+`200`, `81,006 B`, homepage `<title>`; same signature recorded independently against four nonsense
+URLs in the 26-07 deploy record]. Both are now written into §5 and §7 below.
+
 **Day-0 checklist (on receipt of all three inputs — run top to bottom):**
 
 1. [ ] Record all three inputs verbatim above (date + wording reference).
-2. [ ] Create the execution tree alongside this file: `docs/loop/pilot/` with
-       `baseline/`, `pre-change/`, `data/`, `citations/`, `approvals.md`.
+2. [x] ~~Create the execution tree~~ — **DONE 2026-08-12**: `pilot/baseline/`, `pilot/pre-change/`,
+       `pilot/data/`, `pilot/citations/`, `pilot/approvals.md` all exist, each with its template
+       and its rules. Nothing in them has been executed.
 3. [ ] Resolve the public-repo question (below) — anonymized IDs is the default.
-4. [ ] Run the §1 decision tree; record design choice + page/pair assignment table here.
-5. [ ] Execute the §2 baseline (week 0–1), including the week-0 §3 citation sample.
-6. [ ] Fill §4's TBD slots from baseline data → Sani signs → LOCK §4.
-7. [ ] Deploy per §5 (week 1–2); anchor W0 = first treatment publication date.
-8. [ ] Measure per §6 at +2/+4/+8/+12 weeks; §7 governs rollback/halt throughout.
-9. [ ] Arm the Phase 4.2 quarterly cold-review reminder Routine (rides G8; first
+4. [ ] Settle the change freeze (`pilot/PRIOR-INTERVENTIONS-2026-08-12.md` §3) **before** the
+       baseline window opens — the staged NOBO pack and the C1 slug fix both touch the cluster,
+       and the disposition changes the baseline window's start date.
+5. [ ] Run the §1 decision tree; record design choice + page/pair assignment table here. Include
+       the **dated-intervention audit** of the chosen pool as a pairing axis (`baseline/README.md`
+       step 3) — matching on type and word count alone was shown insufficient on 2026-08-12.
+6. [ ] Execute the §2 baseline (week 0–1) per `pilot/baseline/README.md`, including **two**
+       pre-deployment §3 citation sessions on different calendar weeks.
+7. [ ] Fill §4's parameters from baseline data (`pilot/PRE-REGISTRATION-2026-08-12.md` §10 is the
+       one-table ask) → Sani signs → LOCK §4.
+8. [ ] Deploy per §5 (week 1–2); anchor W0 = the first confirmed `live-render` timestamp.
+9. [ ] Measure per §6 at +2/+4/+8/+12 weeks; §7 governs rollback/halt throughout. Reporting runs
+       on **two clocks**: the AI-citation read is interpretable at CP2 (labelled interim); rank
+       and traffic carry no reportable verdict before CP4
+       (`pilot/DESIGN-ANALYSIS-2026-08-12.md` §5.4).
+10. [ ] Arm the Phase 4.2 quarterly cold-review reminder Routine (rides G8; first
        ~2026-11, plan §3).
+
+**Runnable before D0, and worth running first** (needs input 2 only — no publication, no approval,
+no write of any kind against the property): the **retrospective read** of the three dated July
+interventions on this cluster, whose before-states are captured on disk and whose deploy manifests
+each record a `LIVE-VERIFIED` result [obs:2026-08-12T06:55:00Z read of the three manifests named in
+§0.1's input-2 entry]. It yields this property's first real
+outcome numbers weeks earlier than the pilot can, and calibrates §4's thresholds against this
+property instead of leaving them chosen in the dark. It is observational and is labelled so
+permanently — it does not replace the pilot and is never reported as its result.
+`pilot/PRIOR-INTERVENTIONS-2026-08-12.md` §4.
 
 **Public-repo caution**: this fork is PUBLIC (G2 risk note, `GATED-ITEMS.md`). The
 named target's URLs, traffic figures, and baseline scores are client/property data —
@@ -153,14 +240,34 @@ assignment table in this section before §4 lock.
    - Edge case — exactly 1–2 pairs formable: run before/after as the pre-registered
      primary design; keep the formable pairs as a SUPPLEMENTARY internal-control read,
      labeled supplementary in every report, never promoted to primary after the fact.
+   - 🔴 **The edge-case rule inverts for a strongly seasonal cluster, and this cluster is one**
+     (contradiction found and resolved 2026-08-12). Demoting the pairs to supplementary and
+     promoting before/after to primary assumes the uncontrolled comparator is the safer default.
+     For θερμοπομποί it is the opposite: a baseline in the summer trough against an evaluation
+     window on the autumn ramp produces a large positive number no matter what we do, so
+     before/after would return a **confident wrong answer** rather than a weak one
+     (`pilot/pair-analysis-2026-08-11.md` §0). **Rule for a cluster whose demand is
+     season-concentrated: keep the formable pairs as PRIMARY, label the verdict by pair count
+     per `pilot/PRE-REGISTRATION-2026-08-12.md` §8.5, and run before/after only in the
+     deseasonalised form of that file's §5 — never raw.** The generic edge-case rule above still
+     governs clusters with flat demand.
 
-2. **"Comparable" means all three, operationally:**
+2. **"Comparable" means all four, operationally** (a fourth axis was added 2026-08-12 after the
+   first three passed two pairs that a prior-work check then disqualified —
+   `pilot/PRIOR-INTERVENTIONS-2026-08-12.md`):
    - **Topic class**: both pages target the same intent family within the cluster's
      topic (same service/topic sub-family in the §2 query-set mapping).
    - **Traffic band**: 12-week GSC clicks within 2× of each other, or both under 10
      clicks (low-traffic band); both with nonzero impressions.
    - **Template**: same page type (service page vs article vs category/listing)
      rendered from the same CMS template.
+   - 🆕 **Prior-intervention record** — both members carry comparable recent content history.
+     Run a dated-intervention audit over the deploy records for every candidate page
+     (`pilot/baseline/README.md` step 3) and record, per page, what was changed and when. A page
+     optimised in the last ~8 weeks has depleted headroom and is still settling; pairing one
+     against an untouched page measures the earlier deploy, not the pilot. Where the pool cannot
+     supply a match on this axis, say so — it is a **finding about the pool**, exactly as the
+     pair count was, and it is not fixed by ignoring the axis.
 
 3. **Assignment rule (deterministic, no cherry-picking)**: sort pairs by combined
    12-week clicks, descending. Pair 1: higher-traffic member → treatment. Pair 2:
@@ -281,16 +388,44 @@ pilot result is a finding, not a failure to bury. Success criteria are pre-regis
 before deployment … precisely so the result cannot be curve-fit afterward." A null or
 negative result is reported with the same prominence a positive one would get.
 
+**Criteria DRAFTED IN FULL 2026-08-12 — `pilot/PRE-REGISTRATION-2026-08-12.md`.** That file
+carries the operational definitions, the four outcome states, the data-sufficiency preconditions,
+the decision rule and the eleven free parameters with defaults. The table below is the summary
+and is the lock surface. **Every threshold shown is DRAFTED, not locked**; Sani fixes or
+overrides each one before the first publication (`PRE-REGISTRATION` §10 is the one-table form of
+that ask). No figure below is a forecast: `CHOSEN` marks a decision boundary someone picked,
+`MEASURED` a value the pilot's own data will compute from a formula fixed now.
+
+**Four outcome states, not two** — SUCCESS · NULL · HARM · **INCONCLUSIVE**. The fourth is
+load-bearing: without it an underpowered measurement gets reported as NULL, and "we could not
+measure it" silently becomes "there was no effect".
+
 | Metric | Definition (fixed) | Success criterion | Null band | Harm criterion |
 |---|---|---|---|---|
-| Median rank delta | Median position across the fixed set's queries mapped to T pages vs C pages; matched-pair reads delta-of-deltas: (T_now − T_base) − (C_now − C_base); before/after reads T_now − T_base. Evaluated at week 12. | [AWAITING SANI + BASELINE DATA] | [AWAITING SANI + BASELINE DATA] | [AWAITING SANI + BASELINE DATA] |
-| GSC clicks / impressions delta | Full 12-week deployment window vs the 12-week baseline lookback, T vs C (before/after: vs lookback only). | [AWAITING SANI + BASELINE DATA] | [AWAITING SANI + BASELINE DATA] | [AWAITING SANI + BASELINE DATA] |
-| AI-citation appearance rate | §3 metric, pooled + per-engine; trailing 4 weeks at week 12 vs the week-0 baseline rate. | [AWAITING SANI + BASELINE DATA] | [AWAITING SANI + BASELINE DATA] | [AWAITING SANI + BASELINE DATA] |
+| **1. Median rank delta** *(PRIMARY)* | Per query, `d_q = position_base − position_eval` (positive = better). Page delta = median over that page's queries with data at both endpoints. Pair `Δ_i = D_T − D_C`. Study statistic `Δ` = median of `Δ_i`. Before/after reads `median(D_T)`. Evaluated once, at CP4. | `Δ ≥ FLOOR` **and** every pair's `Δ_i > 0`, where **`FLOOR = max(3.0 positions [CHOSEN], IQR of control-arm query deltas [MEASURED])`** | `−1.0 ≤ Δ ≤ +1.0` positions [CHOSEN] | `Δ ≤ −FLOOR`, or any treated page's `D_p ≤ −5.0` [CHOSEN] |
+| **2. GSC impressions / clicks** *(secondary)* | Impressions primary, clicks always reported beside them. `r = (eval − base)/base` per arm; `DiD = r_T − r_C` in pp. Raw `r_T` may **never** be reported alone — see the seasonality warning in `PRE-REGISTRATION` §4.3. | `DiD ≥ +15 pp` **and** absolute T lift ≥ +100 impressions [both CHOSEN] | `\|DiD\| ≤ 10 pp` [CHOSEN] | `DiD ≤ −25 pp` [CHOSEN] |
+| **3. AI-citation appearance rate** *(secondary, fastest)* | **Linked** citations only (L); unlinked mentions (M) counted separately and never merged. Trailing 4 weeks at CP4 vs the pooled pre-W0 baseline (**≥2 sessions, different weeks**). Clopper–Pearson exact intervals. | CP4 rate exceeds the one-sided 95% upper bound on the baseline rate [MEASURED] **and** ≥5 L events across ≥2 engines and ≥3 calendar weeks [CHOSEN] | CP4 rate inside the two-sided 95% interval on the baseline [MEASURED] | CP4 rate below its lower bound — we were de-cited |
+
+**INCONCLUSIVE conditions** (per metric, `PRE-REGISTRATION` §3.4 / §4.4 / §7.4): rank — <60% of
+either arm's queries have data at both endpoints; impressions — T-arm baseline <100 impressions;
+citations — <60 unflagged rows in the trailing 4 weeks, or an engine-mix change on >25% of rows.
+
+**Decision rule** (`PRE-REGISTRATION` §8, in force from lock): the headline verdict **is** Metric
+1's state; **if Metric 1 is INCONCLUSIVE the headline is INCONCLUSIVE**, whatever Metrics 2 and 3
+show — no secondary is ever promoted after the primary fails to resolve. All three states are
+reported in fixed order every time, including when they disagree.
+
+**Verdict labelling is mechanical, by pair count**: n ≥ 6 → stated plainly · 3–5 → *directional* ·
+n ≤ 2 → *directional, single-cluster, not generalisable* · no control arm → *uncontrolled;
+seasonality not separated*. The arithmetic behind that ladder: with `n` pairs the best one-sided
+p an exact sign test can return is `0.5^n`, so **n = 2 tops out at p = 0.25 and n = 3 at 0.125 —
+the three-pair floor buys comparability, not significance**, and n = 6 is the first design that
+can clear a two-sided 0.05.
 
 - The harm criterion doubles as a §7 rollback trigger (sustained for 2 consecutive
   checkpoints).
-- Lock record: **[UNLOCKED — awaiting Sani + baseline data]** (replace with date +
-  Sani's wording reference at lock).
+- Lock record: **[UNLOCKED — criteria DRAFTED 2026-08-12; awaiting Sani's parameter ruling +
+  baseline data]** (replace with date + Sani's wording reference at lock).
 
 ---
 
@@ -306,17 +441,32 @@ negative result is reported with the same prominence a positive one would get.
    `content-refresher`, `geo-content-optimizer`, `meta-tags-optimizer`,
    `schema-markup-generator` as applicable) — the pilot tests the library, so no
    off-library shortcuts.
-3. **Per-page gates, all three BEFORE publication, in order:**
+3. **Per-page gates — FOUR, not three (a cp1253 pre-flight was added 2026-08-12), all BEFORE
+   publication, in order:**
    - CORE-EEAT at the agreed threshold — threshold [TBD — AWAITING SANI; proposed
      default: GEO Score ≥75 AND SEO Score ≥75 with zero verified veto items — note the
      framework math already forecloses vetoes at any threshold ≥60: one verified veto
      caps the final score at 59, two or more = BLOCK].
    - Binding `greek-content-editor` pass for EL pages (register/diacritics/Greeklish
      judgment — the VALIDATE-leg discipline applied to live copy).
+   - 🆕 **cp1253 pre-flight** — a codepoint scan on the **new** text, scoped to the fields that
+     round-trip through Windows-1253 on this platform: product `Description_1/2`, the specs slot
+     and `JSON_SCHEMA`. Any non-cp1253 character corrupts silently to `?` **on save** — it renders
+     correctly in a UTF-8 preview and shows the corruption only on the public page, so a treatment
+     page can ship degraded and nobody sees it until the measurement is already running. **Scope discipline matters**: the
+     same property's measurements show `Categorytext_1/2` behaving as a UTF-8 path and a metadata
+     write preserving an emoji intact, so this is a field-scoped rule, not a site-wide one — apply
+     it where it bites and nowhere else. **Entity escaping is not a shield**: `&rarr;` was observed
+     decoding back to a literal `→` on save. Character substitution is the only working defence.
    - **Sani's explicit per-change approval**, naming the page — recorded (date +
      wording) in `docs/loop/pilot/approvals.md`. No approval, no publication. TBD
      markers are fine in this internal doc; they are NOT fine in customer copy — no
      page ships with placeholder or TBD text.
+   - 🆕 **After publication, before the clock starts**: confirm the change **rendered** on the
+     public page with a fresh GET, and record that timestamp — it, not the CMS save, is the page's
+     W0 (§6). Discriminate the fetch against the soft-404 signature: a non-existent URL on this
+     property returns **HTTP 200 with the homepage** (~81,006 B), so capture a fake-URL probe in
+     the same session and compare byte size and `<title>`. A bare 200 proves nothing here.
 4. **Byte-exact pre-change copies BEFORE any edit ships**, stored in
    `docs/loop/pilot/pre-change/` (created at execution time, day-0 checklist): per
    page, the CMS source export and/or a dated rendered-HTML fetch — whichever the
@@ -327,13 +477,28 @@ negative result is reported with the same prominence a positive one would get.
 5. **Control pages are untouchable** for the full window — no edits, no targeted
    promotion; anything that happens to them anyway goes in the §6 confound log.
 6. **Single intervention window**: treatment edits land in week 1–2, then hands off.
-   Post-window fixes only via the same three gates, logged as deviations in §6.
+   Post-window fixes only via the same gates, logged as deviations in §6.
+7. 🆕 **A change freeze covers more than the treatment and control pages** (added 2026-08-12).
+   Non-pilot work already staged against this cluster would contaminate it: the NOBO
+   spec-defect fix pack awaiting Sani's "save it" references exactly **823327** (a candidate
+   pilot page), **965262**, and the pool's parent categories **132676** and **132671**; the C1
+   slug fix would land a 301 next to two candidate pages. The freeze list, the three
+   dispositions and their costs are in `pilot/PRIOR-INTERVENTIONS-2026-08-12.md` §3 — **Sani's
+   ruling, not the coordinator's.** If the §5 seasonality index of
+   `pilot/PRE-REGISTRATION-2026-08-12.md` is used, its member surfaces join the freeze: an index
+   that gets optimised is not an index.
 
 ---
 
 ## 6. Measurement checkpoints (append-only)
 
-Anchor: **W0 = date of first treatment publication** [TBD at execution]. Checkpoints at
+Anchor: **W0 = the date the first treatment change is confirmed RENDERED on the public page**
+[TBD at execution] — *not* the CMS save date (precision added 2026-08-12; the earlier wording,
+"date of first treatment publication", was ambiguous between the two and the gap between them is
+hours on this platform, per locale, with no purge and no republish control). Anchoring to the
+save date opens the evaluation window before the change exists to be crawled, so CP1 would
+measure a page Google has not seen. Per-page render timestamps are recorded in
+`pilot/approvals.md`; W0 for the pilot is the earliest of them. Checkpoints at
 +2 / +4 / +8 / +12 weeks. Rows are appended at each checkpoint and never edited
 afterward; corrections append a new row referencing the corrected one. Per-checkpoint
 windows: CP1 covers W0→+2w, CP2 +2→+4, CP3 +4→+8, CP4 +8→+12; the §4 criteria read the
@@ -384,6 +549,13 @@ Classes:
 - **Full rollback**: restore all treatment pages from the store; verify live state
   against the manifest (re-fetch hash where rendering allows, else CMS-source
   comparison); record date + trigger here.
+- 🆕 **Verification order and a wait-and-retry rule** (added 2026-08-12, because the naive form of
+  the line above produces false failures on this platform): verify the **admin/DB read-back
+  immediately** — that is authoritative and instant — then re-fetch the public page at **+30 min,
+  +2 h and +6 h**, and escalate only if the +6 h fetch still disagrees. Check **both locales**; the
+  cache is per-locale and a single-locale check gives the wrong answer in either direction.
+  **Do not re-save to chase the cache** (standing platform rule). Every re-fetch is discriminated
+  against the soft-404 signature — a 200 on this property proves nothing on its own.
 - **Triggers**: (a) Sani's directive — immediate, no debate; (b) a factual, legal, or
   compliance defect discovered in a published page — single-page, same day;
   (c) sustained material harm — the §4 harm criterion breached for 2 consecutive
