@@ -1,0 +1,120 @@
+#!/usr/bin/env bash
+# .githooks/pre-push — the real, git-side push guard.
+#
+# WHY THIS EXISTS. `scripts/git-push-guard.sh` (wired as a PreToolUse[Bash] hook
+# in .claude/settings.json) is not a push guard, it is a *Bash-tool* guard. It
+# only ever sees commands issued through one agent harness's Bash tool; a push
+# typed into a terminal, made from an IDE, or issued by any other tool never
+# reaches it. It also decides BEFORE the command runs, so in a compound command
+# (`git commit ... ; ./scripts/pre-push-gate.sh ; git push`) it renders its
+# verdict on a tree that the earlier stages have not yet changed — the verdict
+# describes a state that no longer exists by the time the push goes out. And it
+# has three fail-open exits, tagged in that file as FAIL-OPEN [no-command],
+# [unrecognized-push] and [gate-missing] (referenced by tag, not by line number,
+# which would go stale the first time that file is edited).
+#
+# This hook runs inside git, at push time, on every push from this clone.
+# githooks(5), "pre-push": "If this hook exits with a non-zero status, git push
+# will abort without pushing anything."
+#
+# CONTRACT WITH THE GATE — the only thing assumed about scripts/pre-push-gate.sh
+# is: it exits 0 iff all its legs pass, non-zero otherwise. Its leg count, its
+# output text and its check names are deliberately not referenced anywhere in
+# this file. The gate gains and loses legs; a hook that knew how many would go
+# stale silently, which is the class of defect this repo keeps finding.
+# Its stdout/stderr are NOT captured — they stream straight to the user.
+#
+# NO ARGUMENTS ARE FORWARDED TO THE GATE. git calls this hook with $1 = remote
+# name and $2 = remote URL. The gate's own $1 is a base-ref governing ONE leg,
+# so handing it "origin" would silently re-scope that leg — and "origin" usually
+# resolves as a ref, so it would not even error. The gate is invoked bare,
+# exactly as an interactive run invokes it.
+#
+# FAIL CLOSED. If the gate cannot be located, this hook BLOCKS. That is the
+# opposite of git-push-guard.sh's policy, on purpose: that guard stands in front
+# of every Bash call and must not brick unrelated work, whereas this hook runs
+# only when a push is already under way, so "I could not check" must never be
+# delivered as "checked, fine".
+#
+# BYPASS. `git push --no-verify` skips this hook. That is git's own escape
+# hatch and is named here so nobody mistakes this for an unbypassable control.
+
+set -u
+
+GATE_REL="scripts/pre-push-gate.sh"
+me="pre-push"
+
+# --- stdin ------------------------------------------------------------------
+# DECISION: drain it, summarise it, do NOT gate on it.
+#
+#  * Draining is not optional. git holds the ref list open on this hook's stdin
+#    and every child inherits that descriptor. The gate spawns many sub-scripts;
+#    one that reads stdin would silently eat the ref list, and one that blocks on
+#    stdin would stall the push with no output and no timeout. Reading to EOF
+#    here, then handing the gate </dev/null, removes both.
+#
+#  * Not parsing it is a scope decision, not laziness. The gate's legs are
+#    whole-tree or resolve @{upstream} themselves; none of them accepts ref/sha
+#    input. Refs on stdin cannot narrow or widen what it evaluates, and the only
+#    way to feed them in would be as that base-ref argument, which re-scopes one
+#    leg and misrepresents the rest. Examining refs would only be right if the
+#    gate's verdict varied per ref. It does not — it judges the working tree and
+#    the outgoing commit range as a whole, which is what a push publishes.
+#
+#  * Emptiness is NOT treated as "nothing to push, skip the gate". Inferring a
+#    skip from an empty read would recreate exactly the silent fail-open this
+#    hook exists to remove.
+refs=$(cat 2>/dev/null || true)
+n_refs=$(printf '%s\n' "$refs" | grep -c '[^[:space:]]' || true)
+echo "$me: running the gate for remote '${1:-<none>}' — $n_refs ref update(s) announced on stdin" >&2
+
+# --- repo root ---------------------------------------------------------------
+# githooks(5): "Before Git invokes a hook, it changes its working directory to
+# ... the root of the working tree in a non-bare repository", and pre-push is NOT
+# one of the push-side hooks excepted into $GIT_DIR. So a bare relative path
+# would usually work. "Usually" is not a contract worth a push, and this file is
+# also invoked directly during testing, so the root is resolved and then VERIFIED
+# by the presence of the gate itself.
+root=$(git rev-parse --show-toplevel 2>/dev/null || true)
+if [ -z "$root" ] || [ ! -f "$root/$GATE_REL" ]; then
+    # Fallback: this file lives at <root>/.githooks/pre-push. Used when git
+    # cannot answer (direct invocation outside a repo) or answers a root that
+    # holds no gate.
+    alt=$(cd -- "$(dirname -- "$0")/.." 2>/dev/null && pwd -P) || alt=""
+    if [ -n "$alt" ] && [ -f "$alt/$GATE_REL" ]; then
+        echo "$me: note — root resolved from this hook's own path ($alt), not from 'git rev-parse --show-toplevel'." >&2
+        root="$alt"
+    fi
+fi
+if [ -z "$root" ] || [ ! -f "$root/$GATE_REL" ]; then
+    echo "$me: BLOCKED — cannot locate $GATE_REL (tried 'git rev-parse --show-toplevel' and \$0/..)." >&2
+    echo "$me: refusing the push rather than letting it through unchecked. Fix the checkout, or bypass deliberately with 'git push --no-verify'." >&2
+    exit 1
+fi
+
+cd "$root" || { echo "$me: BLOCKED — cannot cd to '$root'." >&2; exit 1; }
+
+# githooks(5) exports GIT_DIR / GIT_WORK_TREE / GIT_INDEX_FILE / GIT_PREFIX and
+# friends into the hook, and documents the idiom for clearing them so a git
+# command discovers the repository for itself. The gate and its legs are plain
+# git callers written and tested against an interactive environment; clearing
+# gives them exactly that, so the verdict here cannot differ from the verdict a
+# human gets running the same script by hand. The variable list is asked of git
+# rather than copied here, so it cannot drift.
+# shellcheck disable=SC2046
+unset $(git rev-parse --local-env-vars 2>/dev/null) 2>/dev/null || true
+
+bash "$root/$GATE_REL" </dev/null
+rc=$?   # direct status of the gate — deliberately not read through a pipe (R-0297)
+
+if [ "$rc" -ne 0 ]; then
+    {
+        echo ""
+        echo "$me: BLOCKED — $GATE_REL exited $rc. NOTHING WAS PUSHED."
+        echo "$me: fix the FAILs printed above, re-run ./$GATE_REL until it exits 0, then push again."
+    } >&2
+    exit "$rc"
+fi
+
+echo "$me: gate exited 0 — allowing the push." >&2
+exit 0
