@@ -61,11 +61,11 @@ authoritative.
   ≈40% of citations cross-engine (transcript also carried a 46x brand-citation-rate gap,
   0.59% vs 13.05% — not encoded in repo).
 - **Where**: `build/geo-content-optimizer/SKILL.md:143` ("Per-Engine Reality Check");
-  `build/geo-content-optimizer/references/ai-citation-patterns.md:482-485`
+  `build/geo-content-optimizer/references/ai-citation-patterns.md:512-515`
   ("Perplexity domain overlap") — the two magnitudes themselves;
-  `build/geo-content-optimizer/references/ai-citation-patterns.md:489`
+  `build/geo-content-optimizer/references/ai-citation-patterns.md:517`
   ("Community channel");
-  `build/geo-content-optimizer/references/ai-citation-patterns.md:511`
+  `build/geo-content-optimizer/references/ai-citation-patterns.md:539`
   ("Community threads (Reddit, niche forums) that engines cite").
   All anchor-tagged per F12 — token authoritative on mismatch. The 2026-08-09 refresh
   was correct as of `6033c39`; re-resolved 2026-08-12 after the block shifted again
@@ -75,7 +75,7 @@ authoritative.
   old multi-part list because check (g) verifies `file:N` and `file:N-M` only.
 - **Partial corroboration 2026-08-09 (W7 lane)**: the community-citation CHANNEL is now
   Google-primary — the 2026-05-06 quote-preview module announcement, encoded at
-  `build/geo-content-optimizer/references/ai-citation-patterns.md:491`
+  `build/geo-content-optimizer/references/ai-citation-patterns.md:519`
   ("AIO/AI Mode quote-preview module"). Bare basename given its repo path,
   anchor-tagged and re-resolved from :476 on 2026-08-12. The ~11% overlap and ≈40%
   share MAGNITUDES remain the open claims; their tags are unchanged and this item
@@ -146,7 +146,7 @@ authoritative.
   2026-05-06; snippet-verified, direct fetch egress-blocked) + 4 independent same-day
   outlets (TechCrunch, Engadget, MacRumors, TechRadar) describing identical behavior.
   Production rollout, not a Labs test; no retirement coverage through 2026-08-09.
-- **Where**: encoded at `build/geo-content-optimizer/references/ai-citation-patterns.md:491`
+- **Where**: encoded at `build/geo-content-optimizer/references/ai-citation-patterns.md:519`
   ("AIO/AI Mode quote-preview module") with the label-variability precision
   (geo-content-optimizer 4.1.5). Anchor-tagged per F12 and re-resolved 2026-08-12 from
   :476, which post-4.1.5 insertions turned into the comparison table's source note.

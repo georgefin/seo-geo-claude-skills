@@ -22,7 +22,7 @@ Prior full sweep 2026-08-08 (all rulings stood).
 - **Decided**: on/before 2026-07-18 (in v1 routine prompt); re-affirmed 2026-08-08.
 - **Evidence**: No engine-official adoption found; absence re-confirmed each weekly sweep.
 - **Encoded in repo**: `build/geo-content-optimizer/SKILL.md:145` ("Not citation levers");
-  `build/geo-content-optimizer/references/ai-citation-patterns.md:493` ("Not citation levers");
+  `build/geo-content-optimizer/references/ai-citation-patterns.md:521` ("Not citation levers");
   `VERSIONS.md:258` ("non-levers")
   (pointers refreshed 2026-08-09 — 4.1.5 module insertion + v4.3.1 changelog shifted both;
   VERSIONS pointer re-refreshed 2026-08-10, +2 from the seo-content-writer 4.2.5 bullet,
@@ -56,7 +56,7 @@ Prior full sweep 2026-08-08 (all rulings stood).
   each type is complete, accurate, and independently justified. Skill text and references
   must teach this boundary, not the pre-clarification "pile types" pattern.
 - **Encoded in repo**: `build/geo-content-optimizer/SKILL.md:145` ("Not citation levers");
-  `build/geo-content-optimizer/references/ai-citation-patterns.md:493` ("Not citation levers");
+  `build/geo-content-optimizer/references/ai-citation-patterns.md:521` ("Not citation levers");
   `VERSIONS.md:258` ("non-levers")
   (pointers refreshed 2026-08-09, same shift as R1; VERSIONS pointer re-refreshed twice on
   2026-08-10, same two changelog insertions as R1; skill pointers re-derived at source
