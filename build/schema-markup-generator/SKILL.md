@@ -1,14 +1,14 @@
 ---
 name: schema-markup-generator
-version: "4.2.4"
-description: 'Generate Schema.org JSON-LD structured data — one accurate primary type per page (FAQPage, HowTo, Article, Product, LocalBusiness, and 6 other types) plus documented auxiliaries only where warranted. Use when the user asks to "add schema markup", "generate structured data", "JSON-LD", "FAQ schema", "rich snippets", "I want star ratings in Google", or "structured data validation errors". Produces validated markup for Google rich results where still offered (FAQ rich results ended 2026 — FAQPage is kept because it stays valid and Google says there is no need to proactively remove it), Bing structured data, and machine-readable input for any consumer that reads it. Validates via the Schema.org validator, plus Rich Results Test for non-FAQ types. For broader technical SEO, see technical-seo-checker. For meta tag optimization, see meta-tags-optimizer.'
+version: "4.2.5"
+description: 'Generate Schema.org JSON-LD structured data — one accurate primary type per page (FAQPage, HowTo, Article, Product, LocalBusiness, and 6 other types) plus documented auxiliaries only where warranted. Use when the user asks to "add schema markup", "generate structured data", "JSON-LD", "FAQ schema", "rich snippets", "I want star ratings in Google", or "structured data validation errors". Produces validated markup for Google rich results where still offered (no FAQ rich result for ordinary sites — government/health only, Aug 2023 — FAQPage is kept because it stays valid and Google says there is no need to proactively remove it), Bing structured data, and machine-readable input for any consumer that reads it. Validates via the Schema.org validator, plus Rich Results Test for non-FAQ types. For broader technical SEO, see technical-seo-checker. For meta tag optimization, see meta-tags-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.2.4"
+  version: "4.2.5"
   geo-relevance: "medium"
   tags:
     - seo
@@ -49,7 +49,7 @@ This skill creates Schema.org structured data markup in JSON-LD format — ONE a
 - Adding Local Business schema for location pages
 - Creating Review/Rating schema
 - Implementing Organization schema for brand presence
-- Any page where rich results (non-FAQ) or AI-engine parsing would improve visibility
+- Any page where a non-FAQ rich result is available, or where stating the page's type and entities unambiguously is worth doing on its own
 
 ## What This Skill Does
 
@@ -58,7 +58,7 @@ This skill creates Schema.org structured data markup in JSON-LD format — ONE a
 3. **Property Mapping**: Maps your content to schema properties
 4. **Validation Guidance**: Ensures schema meets requirements
 5. **Nested Entities**: Nests supporting entities (Offer, author, publisher, organizer, provider) inside the primary type instead of emitting extra top-level objects
-6. **Rich Result Eligibility**: Flags which rich results still exist for the chosen type (FAQ retired 2026)
+6. **Rich Result Eligibility**: Flags which rich results still exist for the chosen type (no FAQ rich result for ordinary sites — Aug 2023)
 
 ## How to Use
 
@@ -143,7 +143,7 @@ When a user requests schema markup:
    
    | Rich Result Type | Eligibility | Impact |
    |------------------|-------------|--------|
-   | FAQ | ❌ (ended 2026) | No SERP result. Valid markup, no evidenced citation benefit (R3 + 9a) |
+   | FAQ | ❌ (none for an ordinary site — government/health only since Aug 2023) | No SERP result. Valid markup, no evidenced citation benefit (R3 + 9a) |
    | How-To | Unconfirmed — no appearance claimed | HowTo still generated for step-by-step content |
    | Product | ✅/❌ | High - Shows price, availability |
    | Review | ✅/❌ | High - Shows star ratings |
@@ -177,7 +177,7 @@ When a user requests schema markup:
 
    For each schema generated, include:
    - All required properties for the chosen type
-   - A **rich-result eligibility note** — three sentences in a fixed shape, never a SERP mock-up: which rich result the type is eligible for (FAQ: none, ended 2026 — say the markup is valid and kept, and do not substitute a citation-benefit claim, which R3 amendment 9a records as unsourced either way); which of the emitted properties feed it; and the standing caveat that eligibility is not an appearance, because Google decides per query and per device. Shape, worked examples and the no-mock-up reasoning: [validation-guide.md → Rich-result eligibility note](./references/validation-guide.md#rich-result-eligibility-note). Do not draw a mock SERP listing: a picture of the result reads as a promise of the result, which this skill does not make.
+   - A **rich-result eligibility note** — three sentences in a fixed shape, never a SERP mock-up: which rich result the type is eligible for (FAQ: none for an ordinary site — government/health only since Aug 2023 — say the markup is valid and kept, and do not substitute a citation-benefit claim, which R3 amendment 9a records as unsourced either way); which of the emitted properties feed it; and the standing caveat that eligibility is not an appearance, because Google decides per query and per device. Shape, worked examples and the no-mock-up reasoning: [validation-guide.md → Rich-result eligibility note](./references/validation-guide.md#rich-result-eligibility-note). Do not draw a mock SERP listing: a picture of the result reads as a promise of the result, which this skill does not make.
    - Notes on which properties are required vs. optional
 
    **Missing data — the value rule.** The JSON-LD you hand over is paste-ready, so every value inside it is a real value taken from the page or from what the user supplied. When a required or recommended property has no value available:
@@ -227,7 +227,7 @@ When a user requests schema markup:
     3. **Search Console**
        - Monitor rich results in Search Console
        - Check Enhancements reports for issues
-       - FAQ exception: Google ended FAQ rich results in 2026 — the search appearance, the rich result report and Rich Results Test support were dropped June 2026, and Search Console API support is scheduled for August 2026 (settled ruling R3 amendment 9a: scheduled, not observed). FAQPage still generates. State its basis as schema.org validity, not a citation benefit — R3 records that no primary source establishes one either way.
+       - FAQ exception: **sourced** — Google restricted FAQ rich results to well-known government and health websites on 2023-08-08, so an ordinary site gets no FAQ rich result and there is nothing to monitor. **Unverified, do not state as fact** — this library also carried a set of 2026 dates (appearance, report and Rich Results Test dropped June 2026; API cut scheduled August 2026). The two URLs settled ruling R3 cites do not contain them, and the page they actually came from has never been read. Pending an owner check (`docs/loop/r3-decision-brief.md`), say only the 2023 restriction. FAQPage still generates: basis is schema.org validity, not a citation benefit — no primary source establishes one either way.
 
     ### Validation Checklist
 
@@ -245,7 +245,7 @@ When a user requests schema markup:
 - [ ] Page URL or content provided
 - [ ] Schema type appropriate for content (Article for blog, Product for e-commerce, etc.)
 - [ ] All required data available (author, dates, prices, etc. depending on schema type)
-- [ ] Rich-result expectations honest for the type (FAQ has none — retired 2026)
+- [ ] Rich-result expectations honest for the type (FAQ has none for an ordinary site — government/health only since Aug 2023)
 
 ### Output Validation
 - [ ] Exactly ONE primary type emitted; any auxiliary has a documented job and real page data behind it (R2)
@@ -304,11 +304,11 @@ When a user requests schema markup:
 }
 ```
 
-_Implementation: Wrap the above JSON-LD in `<script type="application/ld+json">...</script>` and place in `<head>` or before `</body>`. Validate syntax with Schema.org Validator — Google's Rich Results Test dropped FAQ support in 2026._
+_Implementation: Wrap the above JSON-LD in `<script type="application/ld+json">...</script>` and place in `<head>` or before `</body>`. Validate syntax with Schema.org Validator — Google's Rich Results Test does not support FAQPage._
 
 ### Rich-Result Eligibility
 
-**Eligible for**: nothing in Google Search. FAQ rich results are retired — Google pulled Search Console reporting/API, the Enhancements appearance filter, and Rich Results Test support for FAQ in 2026, so this markup no longer produces a SERP accordion. **What the emitted properties do instead**: each `Question`/`acceptedAnswer` pair gives answer engines a clean, unambiguous Q&A to lift, which is why the markup is still worth shipping. **Caveat**: no engine promises to use it — this is machine-readable input, not a placement.
+**Eligible for**: nothing in Google Search for an ordinary site. Google restricted FAQ rich results to well-known, authoritative government and health websites on 2023-08-08; for every other site the rich result "will no longer be shown regularly" (Google's words). So this markup produces no SERP accordion here. **What the emitted properties do**: state each question and its answer in a machine-readable form alongside the visible text. **What they do not do**: earn a citation anywhere — no primary source establishes that in either direction, so promise nothing (settled ruling R3 + amendment 9a). The markup ships because it is valid, costs nothing, and Google says there is no need to proactively remove it — not because it is a lever.
 ```
 
 ## Schema Type Quick Reference
@@ -343,7 +343,7 @@ _Implementation: Wrap the above JSON-LD in `<script type="application/ld+json">.
 
 - [Schema Templates](./references/schema-templates.md) - JSON-LD skeletons for every supported type (fill each `[SLOT]` or drop the property), plus the primary + auxiliary array form
 - [Schema Decision Tree](./references/schema-decision-tree.md) - Primary-type selection, nested-vs-auxiliary boundary, industry starting points, priority tiers (P0-P4)
-- [Validation Guide](./references/validation-guide.md) - Common errors, required properties, the rich-result eligibility note (FAQ: none — retired 2026), testing workflow (FAQPage: Schema.org validator only)
+- [Validation Guide](./references/validation-guide.md) - Common errors, required properties, the rich-result eligibility note (FAQ: none for an ordinary site — government/health only since Aug 2023), testing workflow (FAQPage: Schema.org validator only)
 
 ## Related Skills
 

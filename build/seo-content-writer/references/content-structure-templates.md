@@ -805,7 +805,7 @@ This is the most comprehensive guide to [topic] on the web. You'll learn everyth
 ## FAQ Page
 
 **Target word count**: 1,000-1,500 words
-**Primary goal**: Answer common questions, rank for question queries, supply clean Q&A pairs for AI-engine/GEO extraction (FAQ rich results retired 2026)
+**Primary goal**: Answer common questions, rank for question queries, and give a reader a clean self-contained Q&A pair per question — readable on the page without any markup (no FAQ rich result for ordinary sites; restricted to government/health sites, Aug 2023)
 
 ```markdown
 # [Topic]: Frequently Asked Questions
@@ -893,7 +893,7 @@ This is the most comprehensive guide to [topic] on the web. You'll learn everyth
 [Contact information or link to contact page]
 ```
 
-**Schema markup**: A dedicated FAQ page's one primary type IS FAQPage, so emit it here — no rich result; it is kept because it stays valid and Google says there is no need to proactively remove it (FAQ rich results ended 2026, ruling R3 + amendment 9a; that is a permission to leave existing markup alone, *not* Google advising anyone to keep it, and 9a records that no primary source establishes a citation benefit either way — so do not claim one). The line does not travel with the FAQ block: an FAQ *section* inside a blog post, comparison, how-to or landing page already carries its own primary type, and FAQPage on top of that is stacking (ruling R2). The visible Q&A earns CORE-EEAT C09 either way — markup is not required for the Pass, so a page that gets the FAQ but no FAQPage object is not downgraded for it.
+**Schema markup**: A dedicated FAQ page's one primary type IS FAQPage, so emit it here — no rich result; it is kept because it stays valid and Google says there is no need to proactively remove it (no FAQ rich result for ordinary sites — government/health only, Aug 2023, ruling R3 + amendment 9a; that is a permission to leave existing markup alone, *not* Google advising anyone to keep it, and 9a records that no primary source establishes a citation benefit either way — so do not claim one). The line does not travel with the FAQ block: an FAQ *section* inside a blog post, comparison, how-to or landing page already carries its own primary type, and FAQPage on top of that is stacking (ruling R2). The visible Q&A earns CORE-EEAT C09 either way — markup is not required for the Pass, so a page that gets the FAQ but no FAQPage object is not downgraded for it.
 **Internal links**: Link to detailed guides for complex answers
 **Keywords**: Include question keywords naturally
 

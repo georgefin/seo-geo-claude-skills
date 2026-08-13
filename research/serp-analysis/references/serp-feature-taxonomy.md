@@ -27,7 +27,7 @@ SERP features fall into five broad categories:
 |----------|---------|--------------|
 | **Knowledge Features** | Knowledge Panel, AI Overview, Featured Snippet | Content quality + structured data |
 | **Engagement Features** | People Also Ask, Related Searches, Things to Know | Content relevance + question coverage |
-| **Rich Results** | How-To, Review Stars, Recipe, Event, Product (FAQ retired 2026) | Schema markup + content format |
+| **Rich Results** | How-To, Review Stars, Recipe, Event, Product (no FAQ rich result for ordinary sites — Aug 2023) | Schema markup + content format |
 | **Media Features** | Image Pack, Video Carousel, Web Stories | Media optimization + hosting platform |
 | **Commerce Features** | Shopping Results, Local Pack, Ads | Merchant feeds + Google Business Profile + ad spend |
 
@@ -80,7 +80,7 @@ SERP features fall into five broad categories:
 1. **Mine PAA questions for content ideas** -- Each PAA question is a validated search query
 2. **Answer PAA questions within your content** -- Use the exact question as an H2 or H3
 3. **Keep answers concise (40-60 words)** -- PAA answers are short excerpts
-4. **Use FAQ schema markup -- only where FAQPage is the page's ONE primary type** -- Not a SERP-feature play either way (FAQ rich results retired 2026, ruling R3). A real FAQ section is the precondition, not the permission: bolting FAQPage onto a page whose accurate type is Article, Product or LocalBusiness is schema stacking and adds no citation signal (ruling R2). That page keeps its visible Q&A block -- readable text that any consumer reaches without markup, and it earns CORE-EEAT C09 on its own
+4. **Use FAQ schema markup -- only where FAQPage is the page's ONE primary type** -- Not a SERP-feature play either way (no FAQ rich result for ordinary sites — government/health only, Aug 2023, ruling R3). A real FAQ section is the precondition, not the permission: bolting FAQPage onto a page whose accurate type is Article, Product or LocalBusiness is schema stacking and adds no citation signal (ruling R2). That page keeps its visible Q&A block -- readable text that any consumer reaches without markup, and it earns CORE-EEAT C09 on its own
 5. **Create dedicated FAQ sections** -- Group 5-10 related questions at the end of articles
 6. **Target the cascade** -- When users click one PAA, new questions appear; cover those too
 
@@ -292,7 +292,7 @@ These features depend on specific structured data markup:
 
 | Rich Result | Schema Required | Content Type | Visual Impact |
 |------------|----------------|-------------|--------------|
-| FAQ | FAQPage | Pages that ARE a FAQ, where FAQPage is the one primary type — never a FAQ section bolted onto an Article/Product page (ruling R2) | None — FAQ rich results ended 2026; markup kept because it stays valid and Google says there is no need to proactively remove it (ruling R3 + amendment 9a — a permission to leave it, not advice to keep it; no evidenced citation benefit either way) |
+| FAQ | FAQPage | Pages that ARE a FAQ, where FAQPage is the one primary type — never a FAQ section bolted onto an Article/Product page (ruling R2) | None — no FAQ rich result for ordinary sites — government/health only, Aug 2023; markup kept because it stays valid and Google says there is no need to proactively remove it (ruling R3 + amendment 9a — a permission to leave it, not advice to keep it; no evidenced citation benefit either way) |
 | How-To | HowTo | Step-by-step instructions | Steps with optional images |
 | Review Stars | Review / AggregateRating | Product/service reviews | Star rating in snippet |
 | Recipe | Recipe | Food/cooking content | Image, cook time, calories |
@@ -303,10 +303,10 @@ These features depend on specific structured data markup:
 
 **General Rich Result Optimization:**
 
-1. **Validate before publishing** -- Rich Results Test for the types it still covers; Schema.org Validator for syntax, and for FAQPage that validator is the only check left (Rich Results Test dropped FAQ support in 2026, ruling R3)
+1. **Validate before publishing** -- Rich Results Test for the types it still covers; Schema.org Validator for syntax, and for FAQPage that validator is the only check left (Rich Results Test does not support FAQPage, ruling R3)
 2. **Follow Google's structured data guidelines** -- No cloaking or misleading markup
 3. **Keep markup accurate** -- Schema content must match visible page content
-4. **Monitor in Search Console** -- Check Enhancement reports for errors (FAQ reporting was cut in 2026 -- nothing to monitor there)
+4. **Monitor in Search Console** -- Check Enhancement reports for errors (an ordinary site has no FAQ rich result to report on -- nothing to monitor there)
 5. **Don't over-mark** -- Only add schema for content types genuinely on the page, and only ONE primary content type per page: extra content types add no citation signal (ruling R2). Documented auxiliaries alongside it are fine where the page data warrants them -- BreadcrumbList for a real trail, Organization or Person as publisher/author identity, WebSite on the homepage
 
 ---

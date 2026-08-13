@@ -15,20 +15,20 @@ Complete reference for validating, testing, and troubleshooting structured data.
 - **Purpose**: Check if your schema is eligible for Google rich results
 - **Tests**: Live URL or code snippet
 - **Output**: Errors, warnings, eligible rich result types
-- **FAQ exception**: FAQ support was cut in 2026 — do not use this tool for FAQPage; validate FAQPage with the Schema.org Validator instead
+- **FAQ exception**: this tool does not test FAQPage — validate FAQPage with the Schema.org Validator instead. *(The library dates that cut to 2026; that date is unverified, the 2023-08-08 eligibility restriction is not. Either way the tool is not the route for FAQPage.)*
 
 ### Schema.org Validator
 - **URL**: https://validator.schema.org/
 - **Purpose**: Validate against official Schema.org specification
 - **Tests**: URL, code snippet, or microdata
 - **Output**: Technical validation errors
-- **Note**: The primary (and only) validator for FAQPage since the 2026 FAQ rich-result retirement
+- **Note**: The primary (and only) validator this library uses for FAQPage
 
 ### Google Search Console
 - **Location**: Search Console → Enhancements section
 - **Purpose**: Monitor rich results performance and errors at scale
 - **Reports**: Rich results status, coverage, issues over time
-- **FAQ exception**: FAQ reporting and the Enhancements appearance filter were dropped in 2026 and API support is scheduled for August 2026 — there is nothing to monitor here for FAQPage either way
+- **FAQ exception**: an ordinary site has no FAQ rich result to monitor — Google restricted them to well-known government and health websites on 2023-08-08. *(This library also carried a set of 2026 dates for reporting, the appearance filter and an August 2026 API cut. Those are **unverified**: the two URLs ruling R3 cites do not contain them. Do not state them — see `docs/loop/r3-decision-brief.md`.)*
 
 ---
 
@@ -133,7 +133,7 @@ Add time and offset only when the page (or the CMS) actually states them — `"d
 | Question.name | Required | The question text |
 | Answer.text | Required | The answer text |
 
-**Status note**: FAQPage produces no Google rich result (ended 2026). It is still generated because it is valid, cheap to keep, and Google's own guidance is that you *can* drop it but there is no need to proactively remove it (settled ruling R3 + amendment 9a — which also records that no primary source establishes a citation benefit either way). That is a permission to leave existing markup alone, not advice to keep it; do not report it to a client as a Google recommendation. It validates against Schema.org semantics only.
+**Status note**: FAQPage produces no Google rich result (none for an ordinary site — government/health only since Aug 2023). It is still generated because it is valid, cheap to keep, and Google's own guidance is that you *can* drop it but there is no need to proactively remove it (settled ruling R3 + amendment 9a — which also records that no primary source establishes a citation benefit either way). That is a permission to leave existing markup alone, not advice to keep it; do not report it to a client as a Google recommendation. It validates against Schema.org semantics only.
 
 ### HowTo Schema
 
@@ -228,7 +228,7 @@ The per-schema element SKILL.md step 2 requires in every deliverable. It is a **
 
 **Worked example — FAQPage (retired feature)**
 
-> **Eligible for**: nothing in Google Search — FAQ rich results ended in 2026; reporting, the appearance filter and Rich Results Test support went with them, and API support is scheduled for August 2026. **What feeds it**: the four `Question`/`acceptedAnswer` pairs are valid schema.org and machine-readable by any consumer that chooses to read them. **Caveat**: no engine promises to use it and no primary source establishes a citation benefit either way (ruling R3, amendment 9a) — this is machine-readable input, not a placement and not a lever.
+> **Eligible for**: nothing in Google Search for an ordinary site — Google restricted FAQ rich results to well-known, authoritative government and health websites on 2023-08-08, and for everyone else the result "will no longer be shown regularly" (Google's words). **What feeds it**: the four `Question`/`acceptedAnswer` pairs are valid schema.org and machine-readable by any consumer that chooses to read them. **Caveat**: no engine promises to use it and no primary source establishes a citation benefit either way (ruling R3, amendment 9a) — this is machine-readable input, not a placement and not a lever.
 
 **Worked example — LocalBusiness (no result of its own)**
 
@@ -238,9 +238,11 @@ The per-schema element SKILL.md step 2 requires in every deliverable. It is a **
 
 ## Google Rich Result Eligibility Requirements
 
-### FAQPage — No Rich Result (Retired 2026)
+### FAQPage — No Rich Result for an Ordinary Site (government/health only since Aug 2023)
 
-Google ended FAQ rich results in 2026: the search appearance, Search Console reporting, the Enhancements appearance filter and Rich Results Test support were dropped, and Search Console API support is scheduled for August 2026 (ruling R3 amendment 9a — scheduled, not observed; do not write it as done). There is no FAQ eligibility to test and no SERP accordion to earn — promise neither.
+**What is sourced**: on 2023-08-08 Google restricted FAQ rich results to well-known, authoritative government and health websites; for all other sites *"this rich result will no longer be shown regularly."* So for an ordinary client there is no FAQ eligibility to test and no SERP accordion to earn — promise neither.
+
+**What is not sourced, and must not be written as fact**: a further set of 2026 events — search appearance, Search Console reporting, the Enhancements appearance filter and Rich Results Test support all dropped, plus an August 2026 API cut. Ruling R3 asserts these, but the two URLs it cites as its sources were read in a browser on 2026-08-11 and contain none of them; the page they actually came from has never been read by anyone. They may well be true. Until an owner check settles it (`docs/loop/r3-decision-brief.md`), state the 2023 restriction and stop there.
 
 FAQPage stays in the library (settled ruling R3) because it is valid schema.org, costs nothing to keep, and Google's own guidance is that there is no need to proactively remove it. **State that basis and no more.** R3 amendment 9a records that its former rationale — that the value is AI-engine parsing — has **no primary source either way**, and that Google's 2026 AI-optimization guide says no special structured data is needed for its own AI surfaces. So a deliverable may say the markup is valid and cheap to keep; it may not say it earns AI citations. The quality bar that still applies:
 
@@ -310,7 +312,7 @@ Validate FAQPage at https://validator.schema.org/ (syntax + Schema.org semantics
 3. **Test at Google Rich Results Test (non-FAQ types only)**
    - Check for Google-specific issues
    - Verify eligible rich result types
-   - FAQPage: skip this step — FAQ support was cut in 2026; the Schema.org validation in step 2 is the whole check
+   - FAQPage: skip this step — this tool does not test FAQPage; the Schema.org validation in step 2 is the whole check
 4. **Visual inspection**
    - View page source to confirm schema is present
    - Check JSON formatting in browser
@@ -327,7 +329,7 @@ Validate FAQPage at https://validator.schema.org/ (syntax + Schema.org semantics
 ### Post-Launch Monitoring
 
 1. **Submit sitemap to Google Search Console**
-2. **Monitor Enhancements reports** (non-FAQ types — FAQ reporting was cut in 2026)
+2. **Monitor Enhancements reports** (non-FAQ types — an ordinary site has no FAQ rich result to report on since the 2023-08-08 restriction)
    - Check for validation errors
    - Watch for policy violations
    - Track rich result impressions
@@ -400,7 +402,7 @@ Validate FAQPage at https://validator.schema.org/ (syntax + Schema.org semantics
 ### Rich Results Not Showing in Search
 
 **Possible causes**:
-- The type no longer has a rich result (FAQ retired in 2026 — nothing will show; that is expected, not a bug)
+- The type no longer has a rich result (no FAQ rich result for ordinary sites since Aug 2023 — nothing will show; that is expected, not a bug)
 - Schema is new (can take days/weeks to appear)
 - Page not indexed by Google
 - Schema has errors in Search Console

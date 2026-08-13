@@ -152,7 +152,7 @@ The rule that replaces them binds every surface of this skill:
 | Brackets/parentheses | Adds a second, visually separated information unit without lengthening the main clause | "[Guide]", "(With Examples)" |
 | Question in title | Mirrors the query's own wording when the query is itself a question | Start with How, What, Why |
 | Power words / emotional words | Tone only — differentiates a title otherwise interchangeable with its neighbours | "Proven", "Essential", "Mistake"; see Power Words table above |
-| Rich results (schema) | Changes the listing's size and visual weight rather than its wording | Review stars. FAQ rich results were retired in 2026, and whether How-to results are still offered is `[VERIFY]`-tagged in `schema-markup-generator` — promise no How-to appearance |
+| Rich results (schema) | Changes the listing's size and visual weight rather than its wording | Review stars. Google restricted FAQ rich results to government and health sites in Aug 2023, and whether How-to results are still offered is `[VERIFY]`-tagged in `schema-markup-generator` — promise no How-to appearance |
 
 **The order is this skill's judgement, not a measured ranking**: intent match first because it is the
 only structural change in the list; then the elements that change what the entry promises (number,

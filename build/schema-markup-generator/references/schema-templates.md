@@ -20,7 +20,7 @@ Provenance: SKILL.md step 2 (*Missing data — the value rule*), ledger F13 (pla
 
 ## FAQPage Schema
 
-For a page whose one primary type is FAQPage — a dedicated FAQ or Q&A page, not an FAQ section inside a page that already carries an accurate type (that is stacking, settled ruling R2). One Question object per visible Q&A pair. No Google rich result (FAQ rich results retired 2026); still generated because it is valid schema.org, costs nothing to keep, and Google says there is no need to proactively remove it (settled ruling R3 + amendment 9a). **Not** because engines extract from it — 9a records that no primary source establishes a citation benefit in either direction, so never sell it as one. Validate with the Schema.org validator — the Rich Results Test no longer supports FAQ.
+For a page whose one primary type is FAQPage — a dedicated FAQ or Q&A page, not an FAQ section inside a page that already carries an accurate type (that is stacking, settled ruling R2). One Question object per visible Q&A pair. No Google rich result (no FAQ rich result for ordinary sites — government/health only, Aug 2023); still generated because it is valid schema.org, costs nothing to keep, and Google says there is no need to proactively remove it (settled ruling R3 + amendment 9a). **Not** because engines extract from it — 9a records that no primary source establishes a citation benefit in either direction, so never sell it as one. Validate with the Schema.org validator — the Rich Results Test no longer supports FAQ.
 
 ```json
 {
@@ -645,7 +645,7 @@ Do NOT use the array form to stack a second full content type onto the page (e.g
 ## Implementation Notes
 
 - ONE primary type per page; nest supporting entities inside it — see the array note above (settled ruling R2)
-- Always validate at https://validator.schema.org/; additionally test non-FAQ types at https://search.google.com/test/rich-results (FAQ support was cut in 2026)
+- Always validate at https://validator.schema.org/; additionally test non-FAQ types at https://search.google.com/test/rich-results (this tool does not test FAQPage)
 - Fill every bracketed slot from the page's own data and delete the `"_SKELETON"` line; a property whose value cannot be sourced is DROPPED from the block and named in the report prose, never stood in for (see *How to read this file*)
 - Use absolute URLs, not relative paths
 - Dates in ISO 8601 at the precision the page states — date-only where no time is shown; never invent a time to reach the longer form

@@ -51,8 +51,9 @@ SCHEMA.ORG MARKUP GENERATOR
 PRIMARY TYPE (ONE per page): [SchemaType]
 AUXILIARIES: [BreadcrumbList -- real trail | none]
 RICH RESULT ELIGIBILITY: [prose per type emitted -- what Google is eligible to show, never
-  Yes/No, never an appearance promise. FAQPage: none, retired 2026; value is AI-engine/GEO
-  parsing (settled ruling R3)]
+  Yes/No, never an appearance promise. FAQPage: none for an ordinary site (Google restricted
+  FAQ rich results to government and health sites, Aug 2023). State no citation benefit:
+  no primary source establishes one either way (settled ruling R3 + amendment 9a)]
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 GENERATED MARKUP

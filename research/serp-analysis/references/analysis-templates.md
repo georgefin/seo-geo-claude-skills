@@ -159,7 +159,7 @@ denominator):
 - Include these questions as H2/H3 headings
 - Provide direct, concise answers (40-60 words)
 - Answer them in a visible on-page Q&A block — readable text any consumer reaches without markup, so markup is not required for it
-- Add FAQPage markup only where FAQPage is the page's one primary type. On a page that already carries an accurate type (Article, Product, LocalBusiness), a second content type is schema stacking and adds no citation signal — and FAQ rich results were retired in 2026, so there is no SERP result to win either
+- Add FAQPage markup only where FAQPage is the page's one primary type. On a page that already carries an accurate type (Article, Product, LocalBusiness), a second content type is schema stacking and adds no citation signal — and Google restricted FAQ rich results to government and health sites in Aug 2023, so there is no SERP result to win either
 
 ---
 

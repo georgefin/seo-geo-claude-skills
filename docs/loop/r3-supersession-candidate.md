@@ -1,5 +1,56 @@
 # R3 — supersession candidate for Sani's gate
 
+> # ⛔ DO NOT RULE ON THIS DOCUMENT AS DRAFTED
+>
+> **Adversarial review, 2026-08-13: BLOCK.** The audit's method is sound and its central finding
+> (row 19) is real and important. The problem is the **replacement text it proposes to write into
+> `SETTLED-RULINGS.md`** at §2, which reintroduces a falsehood this library removed from thirteen
+> shipped surfaces earlier the same day:
+>
+> > *"a skill may say FAQPage is valid and cheap to keep, **and that Google advises against
+> > proactively removing it**"* — §2, and labelled *"carried unchanged from 9a"*.
+>
+> Three things make this worse than an ordinary drafting slip:
+>
+> 1. **Google never said it.** Its words are *"While you can drop this structured data from your
+>    site, there's no need to proactively remove it"* — a permission, and an explicit permission to
+>    drop. Ledger **F11 recurrence 6** records this exact rewrite as instance 1 of three.
+> 2. **The guard cannot catch it here.** `validate-tracking.sh` now hard-fails that phrase, but
+>    scopes the scan to the shipped skill trees; `docs/loop/` is deliberately exempt so the registers
+>    can quote retired states. Written into R3, it ships silently — and becomes the source every
+>    future downstream sweep copies from.
+> 3. **It is mislabelled as a carry-forward.** 9a's actual clause is *"A skill may say FAQPage is
+>    valid and cheap to keep. It may not say it earns AI citations."* The removal half is an
+>    **addition** presented as unchanged, which is the one shape a gate cannot catch by diffing.
+>
+> The faithful sentence is three lines above the defective paraphrase, in this same file (rows 6
+> and 16 quote Google correctly). **Fix before this reaches the gate**: replace with *"…and that
+> Google's own guidance is that there is no need to proactively remove it — a permission to leave
+> existing markup alone, not advice to keep it"*, and either drop "carried unchanged" or state
+> what was added.
+>
+> **Seven further FIX items** are recorded in the review, and two are worth the owner knowing
+> before reading anything below:
+>
+> - **The verdict counts understate the case for supersession.** Applied strictly to this
+>   document's own vocabulary, four rows graded SUPPORTED are `[repo]` or normative claims that no
+>   Google quote could carry, and row 13 concedes in its own basis cell that it cannot be
+>   established. The honest split is closer to **2 SUPPORTED / 10 UNSUPPORTED / 4 CONSISTENT /
+>   2 CONTRADICTED**. The error runs in R3's favour — the case against R3 is *stronger* than the
+>   table says.
+> - **§6's collateral list is wrong in both directions.** It undercounts the extent (see
+>   `r3-decision-brief.md`: 28 lines across 14 files, not ~14), misses three shipped surfaces
+>   asserting the retracted rationale, carries two pointers that no longer resolve, and its
+>   `content-refresher` line is stale — that skill was swept on 2026-08-13. What it misses there
+>   matters most: **`optimize/content-refresher/evals/evals.json` requires the retracted rationale
+>   as a pass condition** in three expectations, and check (f) excludes `evals/`, so no guard sees
+>   them.
+>
+> Full review: the Mode A report for this document, 2026-08-13. **Everything below this banner is
+> unchanged from the original draft** — it has not been silently repaired, so the review's line
+> references still resolve.
+
+
 > **PROPOSED, NOT APPLIED.** This file is a draft placed in front of the gate. Nothing in it
 > has been written into `SETTLED-RULINGS.md`, `GATED-ITEMS.md`, `WATCH-ITEMS.md` or any skill.
 > `SETTLED-RULINGS.md:5-6` requires exactly this: *"If superseding primary evidence appears, do

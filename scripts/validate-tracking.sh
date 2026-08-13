@@ -386,6 +386,20 @@ fi
 # any of the natural ways passes. If a future rewording fails here again, widen
 # this list — do not narrow the prose.
 #
+# 2026-08-13, THIRD WIDENING, and the same lesson a third time. Option C of the
+# R3 decision brief moved the library off the *unsourced* 2026 dates and onto the
+# *sourced* 2023-08-08 restriction — "no FAQ rich result for ordinary sites,
+# government/health only since Aug 2023". Every one of those corrected lines then
+# failed here, because the allowlist tested for the vocabulary of the claim being
+# retired rather than for the claim being denied. **Three times now the most
+# accurate lines in the repository have been the only ones this guard rejected.**
+# Markers added for the sourced phrasing, the date in both forms, the
+# tool-does-not-support form, and `unverified` (a line that labels the 2026 dates
+# unverified is denying the eligibility claim as firmly as one that calls them
+# ended). Vetted per the B2 rule three hours earlier — an allowlist marker is an
+# assertion the guard endorses, so each new marker here is a statement this
+# library can source, which is exactly why they were chosen over the old ones.
+#
 # 2026-08-13 — AND THE COST OF THAT WIDENING, which is the other half of the
 # lesson. "advises against (proactively )?removing" was added above as a
 # convenient marker. It is not a true statement. Google's words are: "While you
@@ -399,7 +413,7 @@ fi
 # vet it like shipped prose.** Marker replaced with the faithful phrasing, and
 # the overstatement is now a hard fail below.
 R3_TOKENS='faq.*rich[- ]?(result|snippet)|rich[- ]?(result|snippet)s?.*faq|eligib[^.|]*faq|faq[^.|]*eligib|expandable q&a below|faq (accordion|dropdown|drop-down)|serp accordion'
-R3_LEGAL='retired|retirement|ended|ceased|discontinued|no longer|non-faq|no faq (support|eligibility)|faq(:| has) none|dropped faq support|do not run it through|"add faq rich results"|no evidenced citation benefit|no need to (proactively )?remove|scheduled for august 2026|has none since'
+R3_LEGAL='retired|retirement|ended|ceased|discontinued|no longer|non-faq|no faq (support|eligibility)|faq(:| has) none|dropped faq support|do not run it through|"add faq rich results"|no evidenced citation benefit|no need to (proactively )?remove|scheduled for august 2026|has none since|no faq rich result|government (and|/)ted?health|government and health|government/health|restricted (them )?to|2023-08-08|aug 2023|does not (support|test) faqpage|not (the route|supported) for faqpage|unverified'
 R3_HITS=$(grep -rniE "$R3_TOKENS" \
     research build optimize monitor cross-cutting commands references \
     --include='*.md' 2>/dev/null | grep -v 'evals/' | grep -viE "$R3_LEGAL" || true)
