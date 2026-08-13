@@ -1,13 +1,13 @@
 ---
 name: alert-manager
-version: "4.2.1"
+version: "4.3.0"
 description: 'Set up automated monitoring and notifications for SEO ranking drops, traffic changes, technical issues, and competitor movements. Use when the user asks to "set up SEO alerts", "notify me when rankings drop", "traffic alerts", "watch competitor changes", "alert me if rankings drop", "notify me of traffic changes", "monitor rankings", or "watch my keywords for changes". For detailed rank analysis, see rank-tracker. For comprehensive reporting, see performance-reporter.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.2.1"
+  version: "4.3.0"
   geo-relevance: "low"
   tags:
     - seo
@@ -154,7 +154,9 @@ When a user requests alert setup:
    Standing overrides: security issues and manual actions are P0 on any detection, and alerts on
    the priority-1 / Tier-1 keyword set rise one level. Do not grade alerts "High / Medium / Low" —
    that was a third name for the P-axis whose "Critical" collided with the Critical band, one word
-   grading a metric in one table and a pager rota in the next.
+   grading a metric in one table and a pager rota in the next. **One observation is graded once**:
+   where two rows could fire on the same event, grade it on the row that names it most specifically
+   and say which — two rows firing on one event is how a whole band becomes unreachable.
 
    > **Reference**: See [references/alert-configuration-templates.md](./references/alert-configuration-templates.md) for complete alert tables, threshold examples, and response plan templates for all 7 categories.
 
@@ -226,7 +228,8 @@ When a user requests alert setup:
 - [ ] Alert thresholds account for normal metric fluctuations
 - [ ] Response plans are specific and time-bound
 - [ ] Every alert carries both labels — the threshold band it fires at (Info / Warning / Critical / Emergency, or "no band — boundary alert") and its response priority (P0-P3) — with no third vocabulary anywhere in the configuration
-- [ ] Any priority above or below the band's default map states its reason in the same line
+- [ ] Any priority above or below the band's default map states its reason in the same line. Where the threshold guide defines no ladder for the metric (all brand rows, all competitor-activity rows), "no band — boundary alert" is the correct Band entry and no reason clause is owed — with no band there is no default to depart from, and the Band cell is what says so
+- [ ] Roles are drawn from the one role list (threshold guide Section 4) and each is mapped to a named person; no role in a live routing table is unfilled
 - [ ] Any threshold derived from a baseline shows the arithmetic: the mean, the standard deviation, the multiple used, and the resulting value (e.g. `8,800 = 10,000 − 1.5 × 800`)
 - [ ] The alert-count table adds up both ways and its bottom-right cell equals the stated Total Active Alerts
 - [ ] Any alert-effectiveness figure (false-positive rate, MTTA, MTTR) prints its two counts and its window, reported per priority rather than pooled
@@ -296,22 +299,56 @@ variance is tighter than -15% WoW should be alerting sooner than this table says
 
 | Metric | Warning band | Critical band | Frequency |
 |--------|--------------|---------------|-----------|
-| Organic traffic | -15% WoW | -30% WoW | Daily |
-| Keyword positions | >3 position drop | >5 position drop | Daily |
-| Pages indexed | -5% change | -20% change | Weekly |
+| Organic traffic (WoW) | -15% | -30% (Emergency -50%) | Daily |
+| Organic CTR | 1.5 sd below the site's own CTR mean | 2 sd below | Weekly |
+| Keyword positions (Tier 1) | Drop >=3 | Drop >=5 | Daily |
+| Pages indexed (index coverage) | -5% change | -15% change | Weekly |
 | Crawl errors | >10 new/day | >50 new/day | Daily |
+| Server 5xx errors | >1/day | >5/day (Emergency >20/day) | Daily |
 | Core Web Vitals | "Needs Improvement" | "Poor" | Weekly |
 | Backlinks lost | >5% in 1 week | >15% in 1 week | Weekly |
 | AI citation rate | Down 10+ pp vs. baseline | Below 10% absolute floor | Weekly |
-| AI citation loss (priority-1) | Any priority-1 query loses its citation | 3+ priority-1 queries lose citations | Weekly |
-| AI citation position | Worsens by 2+ slots within the answer | Dropped from the answer entirely | Weekly |
+| AI citation loss (priority-1) | 1 priority-1 query loses its citation, i.e. is dropped from the answer entirely | 3+ priority-1 queries lose citations | Weekly |
+| AI citation position | Worsens by 2+ slots, citation retained | not graded here — a citation that leaves the answer is a loss, graded on the row above | Weekly |
 | Security issues | Any detected | Any detected | Daily |
+
+Tier 2 keywords warn at a drop >=5 and turn Critical at >=10; Tier 3 warns at >=10. Day-over-day
+traffic runs on its own ladder, not the weekly one above (-25% weekday Warning, -40% Critical, -50%
+Emergency). The full tier table, the Emergency column, and the ladders for every metric not listed
+here are in the threshold guide, which holds **one ladder per metric** — this table quotes that
+ladder and never sets a different value, a different unit, or a different comparison period.
 
 **AI citation event alerts** (same weekly window): a citation **won** on a tracked query is logged as a positive, informational alert (Info band, P3); an **AI Overview appearing or disappearing** on a tracked query is a Warning-band event at **P2** — either direction reshapes the click landscape for that query.
 
 **Priority-1 queries** are the client-critical keywords captured during alert setup (the critical-keywords intake, Data Sources item 2): money terms, brand terms, and top-converting queries. This is the same set the threshold guide calls "Tier 1" — maintain one list, not two.
 
 **Response path**: when any citation-loss alert fires (rate, priority-1, or position), hand the affected query and its source page to [content-refresher](../../optimize/content-refresher/) and run its AI Overview recovery playbook. All AI-citation thresholds above are tunable operational defaults, not measured constants — calibrate them against the site's own baseline per the threshold guide.
+
+### Three defaults, so two runs on the same data land on the same numbers
+
+"Calculate the standard deviation" leaves choices open that move every threshold built on it. These
+are the defaults; depart from one only with a reason in the same line, and either way say which you
+used. Full working in the threshold guide, §1 "Three method choices".
+
+1. **Sample standard deviation (n − 1)** — a spreadsheet's `STDEV` / `STDEV.S`. A baseline is a
+   sample of an ongoing process, not a closed population, so this is the estimator; it is also the
+   larger of the two, erring towards wider bands rather than false positives. The two forms differ
+   by √(n/(n−1)) — about 12% at n = 5, 2% at n = 28 — so the choice moves every bound most on the
+   short baselines a new configuration has. Use the population form only where the recorded values
+   really are the whole population, and say so.
+2. **Split weekday and weekend baselines** before pooling them, for any daily metric with a weekly
+   cycle. Pooled, the standard deviation carries the weekday/weekend gap as if it were noise — it
+   measures the calendar rather than the variance — so every band widens with it: a genuinely bad
+   Tuesday sits inside the everyday range while an ordinary Saturday grades as an anomaly. Pool only
+   if the weekend mean falls inside the weekday baseline's `|z| < 1` range. Name the population
+   beside every mean and every standard deviation.
+3. **CTR has no benchmark in this skill.** Its bands come from the site's own CTR baseline on the
+   same standard-deviation ladder. There is no industry, vertical or "typical e-commerce" CTR figure
+   anywhere in this library, and none may be supplied from memory when a client asks whether their
+   CTR is normal: say there is no baseline yet, say what would supply it, and leave the number out.
+   Read every CTR alert with its clicks and impressions beside it — CTR can rise while clicks fall,
+   when impressions fall faster — and segment brand from non-brand before alerting on a site-wide
+   mean.
 
 > **Reference**: See [references/alert-threshold-guide.md](./references/alert-threshold-guide.md) for baseline establishment, threshold setting methodology, fatigue prevention, escalation paths, and response playbooks.
 

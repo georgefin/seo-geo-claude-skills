@@ -11,18 +11,37 @@ Info → P3, and an alert placed above or below its default carries the reason b
 informational and opportunity alerts are P3 with the kind in brackets — they still need a priority,
 because the priority is what decides delivery.
 
+**Both labels ship on every row.** These tables can only fix the priority in advance; the **band**
+depends on a baseline this file has never seen, so it is filled in when the alert is configured. The
+tables below that already show both columns are the finished shape. **When you copy any other table
+into a configuration, add a Band column and fill every row** with one of two things:
+
+- the band from the threshold guide's Section 2-3 ladder for that metric, or
+- **"none — boundary alert"**, where the trigger is an event or a boundary rather than a distance
+  from a baseline (losing page 1, a certificate expiring, a brand mention) — including every metric
+  for which the guide defines no ladder at all, which is all of the brand rows and all of the
+  competitor-activity rows.
+
+The two are not interchangeable notes. Where there **is** a band, the default map fixes the
+priority and any departure from it names its reason in the same line. Where there is **no** band,
+there is no default to depart from: the priority is set directly from the business and owes no
+"raised from" clause, and the Band cell saying "none — boundary alert" is what tells the next
+reader why none follows. A row that reaches no band and still carries an unexplained off-default
+priority is exactly the defect this rule exists to catch — SKILL.md's Output Validation checklist
+fails a configuration that ships one.
+
 ---
 
 ## Ranking Alerts
 
 ### Position Drop Alerts
 
-| Alert Name | Condition | Threshold | Priority | Action |
-|------------|-----------|-----------|----------|--------|
-| Critical Drop | Any top 3 keyword drops 5+ positions | Position change >=5 | P1 | Same-day investigation |
-| Major Drop | Top 10 keyword drops out of top 10 | Position >10 | P1 | Same-day review |
-| Moderate Drop | Any keyword drops 10+ positions | Position change >=10 | P2 | Weekly review |
-| Competitor Overtake | Competitor passes you for key term | Comp position < yours | P2 | Analysis needed |
+| Alert Name | Condition | Threshold | Band | Priority | Action |
+|------------|-----------|-----------|------|----------|--------|
+| Critical Drop | Any top 3 keyword drops 5+ positions | Position change >=5 | Critical (Tier 1) | P1 | Same-day investigation |
+| Major Drop | Top 10 keyword drops out of top 10 | Position >10 | none — page-1 boundary | P1 | Same-day review |
+| Moderate Drop | Any keyword drops 10+ positions | Position change >=10 | Warning (Tier 3) — Critical on a Tier-1 or Tier-2 keyword | P2 | Weekly review |
+| Competitor Overtake | Competitor passes you for key term | Comp position < yours | none — boundary alert | P2 | Analysis needed |
 
 Critical Drop takes the Critical band's default, **P1** — a drop of >=5 is Tier 1's Critical
 trigger in the threshold guide's Ranking Thresholds table. Ranking in the top 3 is a *position*,
@@ -36,19 +55,28 @@ from the tier table, not from this row.
 
 ### Position Improvement Alerts
 
-| Alert Name | Condition | Threshold | Priority |
-|------------|-----------|-----------|----------|
-| New Top 3 | Keyword enters top 3 | Position <=3 | P3 (positive) |
-| Page 1 Entry | Keyword enters top 10 | Position <=10 | P3 (positive) |
-| Significant Climb | Keyword improves 10+ positions | Change >=+10 | P3 (positive) |
+| Alert Name | Condition | Threshold | Band | Priority |
+|------------|-----------|-----------|------|----------|
+| New Top 3 | Keyword enters top 3 | Position <=3 | none — boundary alert | P3 (positive) |
+| Page 1 Entry | Keyword enters top 10 | Position <=10 | none — boundary alert | P3 (positive) |
+| Significant Climb | Keyword improves 10+ positions | Change >=+10 | none — the guide's tier ladders grade drops, not gains | P3 (positive) |
 
 ### SERP Feature Alerts
 
-| Alert Name | Condition | Priority |
-|------------|-----------|----------|
-| Snippet Lost | Lost featured snippet ownership | P1 |
-| Snippet Won | Won new featured snippet | P3 (positive) |
-| AI Overview Change | Appeared/disappeared in AI Overview | P2 |
+| Alert Name | Condition | Band | Priority |
+|------------|-----------|------|----------|
+| Snippet Lost (priority-1 query) | Featured snippet ownership lost on a priority-1 / Tier-1 query | Warning | P1 — raised from P2: priority-1 / Tier-1 set |
+| Snippet Lost (other tracked query) | Featured snippet ownership lost | Warning | P2 |
+| Snippet Lost (cluster) | 3 or more featured snippets lost | Critical | P1 |
+| Snippet Won | Won new featured snippet | Info (positive) | P3 (positive) |
+| AI Overview Change | Appeared/disappeared in AI Overview | Warning | P2 |
+
+The inherited table had one **Snippet Lost** row at P1 with no band and no reason. The guide bands
+this metric (any loss = Warning, loss of 3+ = Critical), so a single loss defaults to **P2** and the
+only thing that lifted it was the standing priority-1 / Tier-1 override — which covers some tracked
+queries and not others. Splitting the row by query set keeps the override where it belongs instead
+of applying it to every query silently; the cluster row is the guide's Critical trigger, taking that
+band's default.
 
 ### Keywords to Monitor
 
@@ -70,29 +98,36 @@ or **P0** on the Tier-1 line, under the same override.
 
 ### Traffic Decline Alerts
 
-| Alert Name | Condition | Threshold | Priority |
-|------------|-----------|-----------|----------|
-| Traffic Crash | Day-over-day decline | >=50% drop | P0 |
-| Significant Drop | Week-over-week decline | >=30% drop | P1 |
-| Moderate Decline | Month-over-month decline | >=20% drop | P2 |
-| Trend Warning | 3 consecutive weeks decline | Any decline | P2 |
+| Alert Name | Condition | Threshold | Band | Priority |
+|------------|-----------|-----------|------|----------|
+| Traffic Crash | Day-over-day decline | >=50% drop | Emergency | P0 |
+| Significant Drop | Week-over-week decline | >=30% drop | Critical | P1 |
+| Moderate Decline | Month-over-month decline | >=20% drop | none — the guide has no month-over-month traffic ladder | P2 |
+| Trend Warning | 3 consecutive weeks decline | Any decline | none — boundary alert (a pattern over time, not a distance from a baseline) | P2 |
+
+Traffic Crash's **P0 is the Emergency band's default, not an override**. The guide's day-over-day
+Emergency trigger is a -50% drop — the same figure that fires its P0 organic-traffic-emergency
+playbook. That cell used to read "site appears down", a description where the rest of the table
+holds thresholds, so this row appeared to carry a P0 the band table could not produce. Significant
+Drop's -30% week-over-week is that table's Critical trigger, so P1 is also a default. The bottom two
+rows reach no band and their priority is therefore set directly, with nothing to be "raised from".
 
 ### Traffic Anomaly Alerts
 
-| Alert Name | Condition | Priority |
-|------------|-----------|----------|
-| Traffic Spike | Unusual increase | P2 |
-| Zero Traffic | Page receiving 0 visits | P1 |
-| Bot Traffic | Unusual traffic pattern | P2 |
+| Alert Name | Condition | Band | Priority |
+|------------|-----------|------|----------|
+| Traffic Spike | Unusual increase | from the standard-deviation ladder — deviation is unsigned, so a spike bands exactly like a drop | P2 |
+| Zero Traffic | Page receiving 0 visits | none — boundary alert (an absolute floor, not a distance from a baseline) | P1 |
+| Bot Traffic | Unusual traffic pattern | none — boundary alert | P2 |
 
 ### Page-Level Alerts
 
-| Page Type | Alert Condition | Priority |
-|-----------|-----------------|----------|
-| Homepage | Any 20%+ decline | P0 |
-| Top 10 pages | Any 30%+ decline | P1 |
-| Conversion pages | Any 25%+ decline | P1 |
-| Blog posts | Any 40%+ decline | P2 |
+| Page Type | Alert Condition | Band | Priority |
+|-----------|-----------------|------|----------|
+| Homepage | Any 20%+ decline | none — comparison period unset (open decision) | P0 |
+| Top 10 pages | Any 30%+ decline | none — comparison period unset (open decision) | P1 |
+| Conversion pages | Any 25%+ decline | none — comparison period unset (open decision) | P1 |
+| Blog posts | Any 40%+ decline | none — comparison period unset (open decision) | P2 |
 
 All four are priced by **page importance**, not off the default map, and each move has its reason:
 the homepage is raised because its decline is read as a site-level symptom rather than a page one,
@@ -100,14 +135,17 @@ the top-10 pages because they carry most of the traffic, conversion pages becaus
 revenue; a single blog post is lowered because one post decaying is not an incident. None of these
 rows states a comparison period, so no band can be read off them as written — set the period when
 you configure them (the guide's page-level traffic bands run week over week: Warning -25%,
-Critical -40%, Emergency -60%), and carry the reason clause with the row.
+Critical -40%, Emergency -60%), and carry the reason clause with the row. Until the period is set,
+these four rows are Band "none — boundary alert"; they are rows 3-6 of the guide's **Open threshold
+decisions** list, which is where they stay until an operator picks the period rather than a
+documentation pass picking one for them.
 
 ### Conversion Alerts
 
-| Alert Name | Condition | Priority |
-|------------|-----------|----------|
-| Conversion Drop | Organic conversions down 30%+ | P0 |
-| CVR Decline | Conversion rate drops 20%+ | P1 |
+| Alert Name | Condition | Band | Priority |
+|------------|-----------|------|----------|
+| Conversion Drop | Organic conversions down 30%+ (WoW) | Warning (guide: -20% Warning, -40% Critical) | P0 — raised two levels from P2: the money line, see the note |
+| CVR Decline | Conversion rate drops 20%+ (WoW) | Warning (guide: -20% Warning, -40% Critical) | P1 — raised from P2: the money line, see the note |
 
 Both sit above the default map, and the reason is the same: a conversion metric is the money line.
 Read against the guide's bands (organic conversions WoW: Warning -20%, Critical -40%, Emergency
@@ -124,40 +162,61 @@ worth re-checking against your own baseline before it goes into production.
 
 | Alert Name | Condition | Band | Priority | Response Time |
 |------------|-----------|------|----------|---------------|
-| Site Down | HTTP 5xx errors | Emergency | P0 | Acknowledge <15 min, action within 1 h |
+| Site Down | Site unreachable, or 5xx at the guide's Emergency trigger (>20/day) | Emergency | P0 | Acknowledge <15 min, action within 1 h |
 | SSL Expiry | Certificate expiring in 14 days | Warning | P1 | Same day |
 | Robots.txt Block | Important pages blocked | Critical | P1 | Same day |
 | Index Dropped | Pages dropping from index | Critical | P1 | Same day |
 
 SSL Expiry sits one level above its band's default (P2), and the reason travels with it: a
 certificate that lapses takes every page down at once, and the fix needs a same-day human. The
-other three rows take the default map unchanged.
+other three rows take the default map unchanged. **Site Down's condition** used to read "HTTP 5xx
+errors", which a single 5xx satisfies; the 5xx ladder lives in the threshold guide (Warning >1/day,
+Critical >5/day, Emergency >20/day) and this row is its Emergency end.
 
 ### Crawl & Index Alerts
 
-| Alert Name | Condition | Priority |
-|------------|-----------|----------|
-| Crawl Errors Spike | Errors increase 50%+ | P1 |
-| New 404 Pages | 404 errors on important pages | P2 |
-| Redirect Chains | 3+ redirect hops detected | P2 |
-| Duplicate Content | New duplicates detected | P2 |
-| Index Coverage Drop | Indexed pages decline 10%+ | P1 — raised from P2: a 10% drop is the Warning band, but pages out of the index earn nothing while it is investigated |
+| Alert Name | Condition | Band | Priority |
+|------------|-----------|------|----------|
+| Crawl Errors Spike | Errors increase 50%+ over baseline | none — 50% is 1.5× baseline, below the guide's Warning trigger of >2× | **unresolved — see the note below** |
+| New 404 Pages | 404 errors on important pages | none — boundary alert (which pages, not how many) | P2 |
+| Redirect Chains | 3+ redirect hops detected | none — boundary alert | P2 |
+| Duplicate Content | New duplicates detected | none — boundary alert | P2 |
+| Index Coverage Drop | Indexed pages decline 10%+ | Warning (guide: -5% Warning, -15% Critical) | P1 — raised from P2: a 10% drop is the Warning band, but pages out of the index earn nothing while it is investigated |
+
+**Crawl Errors Spike is an open threshold decision, not a documentation fix** (threshold guide,
+"Open threshold decisions", row 2). Its trigger reaches no band — the guide's crawl-error-rate
+ladder starts at **>2× baseline** for Warning and >5× for Critical, and 50%+ is 1.5× — while the row
+was inherited carrying **P1**: a priority with no band under it and no reason beside it. Two ways to
+close it, and the operator picks:
+
+1. Move the trigger to >2× baseline. The row becomes Warning band → **P2** by the default map.
+2. Keep 50% deliberately, as an early boundary alert that fires before the band does, and write the
+   priority with its reason in the cell ("P2 — early boundary alert, no band").
+
+Do not ship the unexplained P1. The guide's absolute-count row (>10 new errors/day Warning, >50
+Critical) is unaffected by this and is a working alternative trigger for the same alert.
 
 ### Performance Alerts
 
-| Alert Name | Condition | Priority |
-|------------|-----------|----------|
-| Core Web Vitals Fail | CWV drops to "Poor" | P1 |
-| Page Speed Drop | Load time increases 50%+ | P2 |
-| Mobile Issues | Mobile usability errors | P1 |
+| Alert Name | Condition | Band | Priority |
+|------------|-----------|------|----------|
+| Core Web Vitals Warn | A CWV metric drops to "Needs Improvement" | Warning | P2 |
+| Core Web Vitals Fail | A CWV metric drops to "Poor" | Critical | P1 |
+| Page Speed Drop | Load time increases 50%+ | none — boundary alert (relative change; the guide's ladder is absolute response time: >500ms / >1000ms / >2000ms) | P2 |
+| Mobile Issues | Mobile usability errors | none — boundary alert | P1 |
+
+The two CWV rows are one playbook with two entry priorities — the guide's *Core Web Vitals
+Degradation* playbook, whose trigger spans both bands. The header there used to read P2 for the
+whole span while this table priced the Poor end at P1; both bands are now named on both surfaces,
+and the response clock follows the priority, not the band.
 
 ### Security Alerts
 
-| Alert Name | Condition | Priority |
-|------------|-----------|----------|
-| Security Issue | GSC security warning | P0 |
-| Manual Action | Google manual action | P0 |
-| Malware Detected | Site flagged for malware | P0 |
+| Alert Name | Condition | Band | Priority |
+|------------|-----------|------|----------|
+| Security Issue | GSC security warning | Critical (guide: any detection) | P0 — raised from P1: standing override, any detection is paged |
+| Manual Action | Google manual action | Critical (guide: any notification) | P0 — raised from P1: standing override, any detection is paged |
+| Malware Detected | Site flagged for malware | Critical (guide: any detection) | P0 — raised from P1: standing override, any detection is paged |
 
 All three are P0 under the standing override — security issues and manual actions are paged on any
 detection, whatever band the magnitude would give them, because there is no small manual action.
@@ -168,54 +227,82 @@ detection, whatever band the magnitude would give them, because there is no smal
 
 ### Link Loss Alerts
 
-| Alert Name | Condition | Priority |
-|------------|-----------|----------|
-| High-Value Link Lost | DA 70+ link removed | P1 — raised from P2: a single loss is the Warning band, but recovery outreach is time-limited (the P1 response plan's "Backlink Loss" row) |
-| Multiple Links Lost | 10+ links lost in a day | P2 |
-| Referring Domain Lost | Lost entire domain's links | P2 |
+| Alert Name | Condition | Band | Priority |
+|------------|-----------|------|----------|
+| High-Value Link Lost | A link from a high-authority domain is removed — threshold written in the connected tool's own scale, tool named (see the scale note) | Warning | P1 — raised from P2: a single loss is the Warning band, but recovery outreach is time-limited (the P1 response plan's "Backlink Loss" row) |
+| Multiple Links Lost | 10+ links lost in a day | none — boundary alert (a count with no ladder; the guide's ladder is % of referring domains) | P2 |
+| Referring Domain Lost | Lost entire domain's links | none — boundary alert | P2 |
+
+**The authority scale is not a detail — name the tool and do not convert.** This row used to read
+"DA 70+" while the threshold guide's matching row read "DR 60+". **DA is Moz's Domain Authority and
+DR is Ahrefs' Domain Rating**: different vendors, different crawls, different models, both scored
+0-100, and **no conversion between them is established anywhere in this repository**. Neither number
+is written here as the answer, because picking one silently would hand two clients on two different
+tools the same threshold on incomparable scales. Write the cut-off in the scale of whichever
+backlink tool feeds the alert, name that tool in the same line ("DR 60+, Ahrefs" / "DA 70+, Moz"),
+and if the tool changes, re-derive the number from the new tool's own distribution instead of
+translating the old one. Which cut-off suits a given client is row 1 of the guide's **Open threshold
+decisions** — an operator's call.
 
 ### Link Gain Alerts
 
-| Alert Name | Condition | Priority |
-|------------|-----------|----------|
-| High-Value Link | New DA 70+ link | P3 (positive) |
-| Suspicious Links | Many low-quality links | P2 |
-| Negative SEO | Spam link attack pattern | P1 |
+| Alert Name | Condition | Band | Priority |
+|------------|-----------|------|----------|
+| High-Value Link | New link from a high-authority domain — same scale and same tool as the loss row above | Info (positive) | P3 (positive) |
+| Suspicious Links | Many low-quality links | none — boundary alert until the guide's toxic-link ladder is used (>10/week Warning, >50/week Critical) | P2 |
+| Negative SEO | Spam link attack pattern | Critical (the guide's "massive spam link spike") | P1 |
 
 ### Link Profile Alerts
 
-| Alert Name | Condition | Priority |
-|------------|-----------|----------|
-| Toxic Score Increase | Toxic score up 20%+ | P1 |
-| Anchor Over-Optimization | Exact match anchors >30% | P2 — lowered from P1: >30% is the Critical band, but an anchor ratio moves slowly and the fix is a link plan, not a same-day action |
+| Alert Name | Condition | Band | Priority |
+|------------|-----------|------|----------|
+| Toxic Score Increase | Toxic score up 20%+ | none — boundary alert (a vendor score with no ladder here; the guide's ladder counts new toxic links) | P1 |
+| Anchor Over-Optimization | Exact match anchors >30% | Critical (guide: 20% Warning, 30% Critical) | P2 — lowered from P1: >30% is the Critical band, but an anchor ratio moves slowly and the fix is a link plan, not a same-day action |
 
 ---
 
 ## Competitor Monitoring Alerts
 
+Every row in this category is a **boundary alert — no band**: the threshold guide defines no
+competitor ladder, and these fire on an event (a competitor passing you, publishing, gaining a link)
+rather than on a distance from a baseline. With no band there is no default map, so each priority is
+set directly and owes no "raised from" clause. The one exception lives in the GEO section below —
+"competitor cited where you're not" *is* banded by the guide.
+
 ### Ranking Alerts
 
-| Alert Name | Condition | Priority |
-|------------|-----------|----------|
-| Competitor Overtake | Competitor passes you | P2 |
-| Competitor Top 3 | Competitor enters top 3 on key term | P2 |
-| Competitor Content | Competitor publishes on your topic | P3 (info) |
+| Alert Name | Condition | Band | Priority |
+|------------|-----------|------|----------|
+| Competitor Overtake | Competitor passes you | none — boundary alert | P2 |
+| Competitor Top 3 | Competitor enters top 3 on key term | none — boundary alert | P2 |
+| Competitor Content | Competitor publishes on your topic | none — boundary alert | P3 (info) |
 
 ### Activity Alerts
 
-| Alert Name | Condition | Priority |
-|------------|-----------|----------|
-| New Backlinks | Competitor gains high-DA link | P3 (info) |
-| Content Update | Competitor updates ranking content | P3 (info) |
-| New Content | Competitor publishes new content | P3 (info) |
+| Alert Name | Condition | Band | Priority |
+|------------|-----------|------|----------|
+| New Backlinks | Competitor gains a link from a high-authority domain (same scale and tool as the backlink rows above) | none — boundary alert | P3 (info) |
+| Content Update | Competitor updates ranking content | none — boundary alert | P3 (info) |
+| New Content | Competitor publishes new content | none — boundary alert | P3 (info) |
 
 ### Competitors to Monitor
 
-| Competitor | Domain | Monitor Keywords | Alert Priority |
-|------------|--------|------------------|----------------|
-| [Competitor 1] | [domain] | [X] keywords | P1 |
-| [Competitor 2] | [domain] | [X] keywords | P2 |
-| [Competitor 3] | [domain] | [X] keywords | P3 |
+This is the monitoring **roster** — who is watched, on which keywords, and why. It is not an alert
+and it carries no priority of its own: the priority comes from the two tables above (ranking
+movements P2, activity P3 (info)), and the band from the same place (none — boundary alerts). The
+inherited version graded Competitor 1 at P1, Competitor 2 at P2 and Competitor 3 at P3 with no band
+and no reason given — three different response clocks assigned by row order, in a skill whose own
+rule requires an off-default priority to name its reason in the same line.
+
+| Competitor | Domain | Monitor Keywords | Why monitored | Priority, if not the category default |
+|------------|--------|------------------|---------------|----------------------------------------|
+| [Competitor 1] | [domain] | [X] keywords | [overlap with the priority-1 set / same commercial intent / recent SERP gains] | [leave blank for the default — or state the priority and its reason in one clause] |
+| [Competitor 2] | [domain] | [X] keywords | [why this one is on the list] | [blank = default] |
+| [Competitor 3] | [domain] | [X] keywords | [why this one is on the list] | [blank = default] |
+
+A competitor whose alerts genuinely need a faster clock than the category default writes it the way
+every other raised row in this file does — "P1 — raised from P2: competes on four of the five
+priority-1 terms" — so the reason travels when the row is copied.
 
 ---
 
@@ -225,28 +312,50 @@ All GEO alerts use a weekly check window; thresholds are tunable operational def
 
 ### AI Citation Alerts
 
-| Alert Name | Condition | Priority |
-|------------|-----------|----------|
-| Priority-1 Citation Lost | Any priority-1 query loses its citation | P1 |
-| Priority-1 Loss Cluster | 3+ priority-1 queries lose citations in one window | P0 |
-| Citation Position Slip | Position within the AI answer worsens by 2+ slots | P2 |
-| Dropped From Answer | Removed from the AI answer entirely | P1 |
-| Citation Won | New citation gained on a tracked query | P3 (positive) |
-| AI Overview Change | AI Overview appears or disappears on a tracked query | P2 |
+| Alert Name | Condition | Band | Priority |
+|------------|-----------|------|----------|
+| Priority-1 Citation Lost | A priority-1 query loses its citation — i.e. is dropped from the answer entirely | Warning | P1 — raised from P2: priority-1 / Tier-1 set |
+| Priority-1 Loss Cluster | 3+ priority-1 queries lose citations in one window | Critical | P0 — raised from P1: priority-1 / Tier-1 set |
+| Dropped From Answer | A tracked query that is **not** on the priority-1 list loses its citation | Warning | P2 |
+| Citation Position Slip | Position within the AI answer worsens by 2+ slots, citation retained | Warning | P2 |
+| Citation Won | New citation gained on a tracked query | Info (positive) | P3 (positive) |
+| AI Overview Change | AI Overview appears or disappears on a tracked query | Warning | P2 |
 
 ### GEO Trend Alerts
 
-| Alert Name | Condition | Priority |
-|------------|-----------|----------|
-| Citation Rate Slide | Citation rate down 10+ percentage points vs. baseline | P1 |
-| Citation Rate Floor | Citation rate below 10% absolute | P0 |
-| GEO Competitor | Competitor cited where you're not | P2 |
+| Alert Name | Condition | Band | Priority |
+|------------|-----------|------|----------|
+| Citation Rate Slide | Citation rate down 10+ percentage points vs. baseline | Warning | P1 — raised from P2: inherited business call on the site-wide citation-rate line; confirm or drop to P2 (see the note) |
+| Citation Rate Floor | Citation rate below 10% absolute | Critical | P0 — raised from P1: same inherited call; confirm or drop to P1 (see the note) |
+| GEO Competitor | Competitor cited where you're not | Warning | P2 |
 
-**Priorities above the default, with their reason**: the four rows on the priority-1 query set —
-Citation Lost (P1, band Warning), Loss Cluster (P0, band Critical), Rate Slide (P1, band Warning)
-and Rate Floor (P0, band Critical) — each sit one level above the default map because that set is
-the client's money, brand and top-converting terms. Position Slip, AI Overview Change and GEO
-Competitor take the default.
+**All nine rows, and where each priority comes from.** Four sit one level above the default map, but
+not for the same reason, and the difference matters. **Priority-1 Citation Lost (P1, band Warning)**
+and **Priority-1 Loss Cluster (P0, band Critical)** are lifted by the standing priority-1 / Tier-1
+override — that query set is the client's money, brand and top-converting terms. **Citation Rate
+Slide** (P1, band Warning) and **Citation Rate Floor** (P0, band Critical) are *not*: the citation rate is a
+site-wide line across all tracked queries, so the query-level override cannot reach it, and their
+lift is an inherited business call that nothing here measures. Confirm it with the operator or drop
+both to their band's default — a reason that names the wrong mechanism is worse than a default.
+The other five take the default map unchanged: **Dropped From Answer** (Warning → P2), **Citation
+Position Slip** (Warning → P2), **AI Overview Change** (Warning → P2), **GEO Competitor** (Warning →
+P2) and **Citation Won** (Info → P3, positive). Nothing in this section is unbanded — the guide's
+GEO table gives a ladder for every one of these. The earlier version of this paragraph named seven
+of the nine; the two it skipped were Dropped From Answer and Citation Won, and a row absent from the
+list reads as a row nobody priced.
+
+**One event, one row** (threshold guide, GEO section). Three of these rows once fired together on a
+single observation, and the corrections are visible above:
+
+- **Dropped From Answer** is the same event as **Priority-1 Citation Lost** — losing the citation
+  entirely — so it is now scoped to the tracked queries the priority-1 override does *not* cover,
+  and takes the Warning band's default P2. It carried P1 with no reason, which had the effect of
+  applying the priority-1 override to every query, priority-1 or not.
+- **Citation Position Slip** grades slot movement *while the citation is retained*. Leaving the
+  answer is not a bigger slot move; it is a loss, graded on the two loss rows by how many queries
+  lost citations in the window.
+- Without that split, one priority-1 loss reached Critical through the position row, became P0 under
+  the override, and made the 3-or-more cluster row unreachable — there is nothing above P0.
 
 **Response plan**: citation-loss alerts (loss, position, rate) hand the affected query and page to content-refresher's AI Overview recovery playbook. Priority-1 = the client-critical keywords from alert setup (money, brand, top-converting terms).
 
@@ -254,22 +363,31 @@ Competitor take the default.
 
 ## Brand Monitoring Alerts
 
+**Every row in this category is a boundary alert — no band.** The threshold guide defines no ladder
+for brand and reputation metrics: Sections 2-3 have no brand table, so there is no baseline, no
+standard deviation and no percentage step to read these against. They fire on an event. With no band
+there is no default map to sit above or below, so each priority below is set directly from the
+business and owes no "raised from" clause — the Band cell is what tells the next reader why. Two of
+them could carry a ladder once a baseline exists (average review rating and monthly mention volume
+are both numbers with a mean); no numbers are invented for them here, and an operator holding that
+history can build the ladder with the guide's Section 2 method.
+
 ### Mention Alerts
 
-| Alert Name | Condition | Priority |
-|------------|-----------|----------|
-| Brand Mention | New brand mention online | P3 (info) |
-| Negative Mention | Negative sentiment mention | P1 |
-| Review Alert | New review on key platforms | P2 |
-| Unlinked Mention | Brand mention without link | P3 (opportunity) |
+| Alert Name | Condition | Band | Priority |
+|------------|-----------|------|----------|
+| Brand Mention | New brand mention online | none — boundary alert | P3 (info) |
+| Negative Mention | Negative sentiment mention | none — boundary alert | P1 |
+| Review Alert | New review on key platforms | none — boundary alert | P2 |
+| Unlinked Mention | Brand mention without link | none — boundary alert | P3 (opportunity) |
 
 ### Reputation Alerts
 
-| Alert Name | Condition | Priority |
-|------------|-----------|----------|
-| Review Rating Drop | Average rating drops | P1 |
-| Negative Press | Negative news article | P1 |
-| Competitor Comparison | Named in competitor comparison | P2 |
+| Alert Name | Condition | Band | Priority |
+|------------|-----------|------|----------|
+| Review Rating Drop | Average rating drops | none — boundary alert (a ladder is buildable once a rating baseline exists) | P1 |
+| Negative Press | Negative news article | none — boundary alert | P1 |
+| Competitor Comparison | Named in competitor comparison | none — boundary alert | P2 |
 
 ---
 
@@ -337,12 +455,27 @@ Same channel ladder as the threshold guide Section 5 — one statement, not two.
 
 ### Alert Recipients
 
+Same role vocabulary as the threshold guide Section 4 — one list, not two. This table used to run a
+second, shorter one (SEO Manager / Dev Team / Marketing Lead / Executive), so a configuration built
+from these templates and a routing matrix built from the guide named different recipients for the
+same alert, and neither list said which was authoritative. Rows below are read off the guide's
+routing matrix.
+
+These are **roles, not people**: on a small team one person wears several hats. Map every role to a
+named person before the configuration goes live, and delete a role nobody holds rather than leaving
+it in the table — a role with nobody behind it is not a route.
+
 | Role | P0 | P1 | P2 | P3 |
 |------|----|----|----|----|
-| SEO Manager | Yes | Yes | Yes | Digest |
-| Dev Team | Yes | Yes (tech only) | No | No |
-| Marketing Lead | Yes | Yes | No | No |
-| Executive | Yes | No | No | Digest |
+| SEO Lead | Yes | Yes | Yes | Digest |
+| SEO Team (incl. SEO Analyst) | Escalation only | Yes | Yes | Digest |
+| Content Lead | Ranking + GEO only | No | No | Digest |
+| Engineering Lead | Technical, traffic, security | No | No | No |
+| Engineering Team | No | Technical only | Technical only | No |
+| DevOps | Technical + security only | No | No | No |
+| Marketing Manager | No | Traffic only | No | Digest |
+| Marketing VP | Yes | No | No | Weekly summary |
+| Legal | Security only | No | No | No |
 
 ### Alert Suppression
 
@@ -352,8 +485,13 @@ Same channel ladder as the threshold guide Section 5 — one statement, not two.
 
 ### Alert Escalation
 
+Escalation targets come from the same role list as everything else — the guide's Section 4 vocabulary
+(SEO Lead · SEO Analyst · SEO Team · Content Lead · Engineering Lead · Engineering Team · DevOps ·
+Marketing Manager · Marketing VP · Legal). "Director" and "Manager" appeared here and in no routing
+table in the skill, which left the last hop of every escalation pointing at nobody.
+
 | If No Response In | Escalate To |
 |-------------------|-------------|
-| 15 min (P0) | SEO Manager -> Director |
-| 4 hours (P1) | Team Lead -> Manager |
-| 48 hours (P2) | Team -> Lead |
+| 15 min (P0) | The rest of that category's P0 route, then Marketing VP |
+| 4 hours (P1) | SEO Lead — and Engineering Lead as well, on technical alerts |
+| 48 hours (P2) | SEO Lead (the channel table's auto-escalation to P1 after one week still applies) |

@@ -46,6 +46,41 @@ Before setting any alert thresholds, you must establish a baseline that represen
 | Pages indexed | N/A | Record weekly count | Calculate monthly change |
 | Server response time | Record | Calculate weekly average | Calculate monthly average |
 
+### Three method choices, fixed here so two runs on the same data agree
+
+"Calculate standard deviation" (step 3 above) does not by itself determine a number. Three
+choices sit under it, each of which moves every threshold that follows. Each has a default below;
+use it unless you have a reason, and state which you used either way.
+
+**1. Sample standard deviation (n − 1) is the default.** A baseline period is a *sample* of an
+ongoing process, not a closed population — you are estimating how much the metric varies in
+general from the days you happened to record. Bessel's correction (dividing by n − 1) is the
+estimator for that, it is what a spreadsheet gives you by default (`STDEV`, `STDEV.S`), and it is
+the slightly larger of the two, so it errs towards wider bands and fewer false positives. The two
+forms differ by the factor √(n/(n−1)) — about **12% at n = 5, 2% at n = 28, under 1% at n = 60** —
+so the choice moves every bound most on exactly the short baselines a new configuration has. Use
+the population form (`STDEVP`, `STDEV.P`) only where the recorded values genuinely are the whole
+population of interest, and say so in the line.
+
+**2. Split weekday and weekend baselines before pooling them.** For any daily metric with a weekly
+cycle (sessions, clicks, conversions), compute the mean and standard deviation for weekdays and
+for weekend days separately, and grade each day against its own baseline. Pooled, the standard
+deviation carries the gap between the two groups as if it were day-to-day noise — total variance
+is within-group plus between-group — so on a site with a real weekend dip the pooled figure runs
+several times the true variation. Every band widens with it: a genuinely bad Tuesday sits inside
+the 1-sigma "everyday range" while an ordinary Saturday grades as an anomaly. The deviation then
+measures the calendar rather than the variance, which makes every threshold built on it wrong.
+**The test for pooling**, using this guide's own everyday range: pool only if the weekend mean
+falls inside the weekday baseline's `|z| < 1` band. If it falls outside, split — the cycle is
+bigger than the noise. The same test governs any other structural split you can see (a country, a
+device class, a page group with its own cadence). Name the population beside every mean and every
+standard deviation: "weekday baseline, Mon-Fri, 29 clean days".
+
+**3. Comparison stays like-for-like.** With split baselines a day-over-day comparison compares
+Monday to Monday, not Monday to Sunday (Section 3's traffic note). The Section 5 weekend
+adjustment is an *alternative* to splitting, not a second correction stacked on top of it — apply
+one of the two and name which.
+
 ---
 
 ## 2. Threshold Setting Methodology
@@ -98,8 +133,8 @@ For metrics where standard deviation is not practical, use percentage-based thre
 | Metric | Warning Threshold | Critical Threshold | Comparison Period |
 |--------|------------------|-------------------|-------------------|
 | Organic traffic | -15% vs. comparison | -30% vs. comparison | Week over week |
-| Keyword positions | >3 position average drop | >5 position average drop | Week over week |
-| Pages indexed | -5% change | -20% change | Week over week |
+| Keyword positions (Tier 1, individual keyword) | Drop >= 3 | Drop >= 5 | Week over week |
+| Pages indexed (index coverage) | -5% change | -15% change | Week over week |
 | Referring domains | -5% loss | -15% loss | Month over month |
 | Crawl error rate | >2x baseline rate | >5x baseline rate | Day over day |
 | Conversion rate | -20% drop | -40% drop | Week over week |
@@ -111,11 +146,35 @@ For binary or count-based metrics, use absolute thresholds.
 | Metric | Warning Threshold | Critical Threshold |
 |--------|------------------|-------------------|
 | New crawl errors | >10 new errors/day | >50 new errors/day |
-| Server 5xx errors | Any occurrence | >5 occurrences/hour |
+| Server 5xx errors | >1/day | >5/day |
 | Security issues | N/A | Any detection |
 | Manual penalties | N/A | Any notification |
 | SSL certificate expiry | <30 days to expiry | <7 days to expiry |
 | Robots.txt changes | Any unexpected change | Key pages blocked |
+
+### Precedence: one ladder per metric
+
+Sections 2 and 3 both carry thresholds, and where they disagreed a run picked whichever unit
+matched the data in front of it — which is how the same day's data graded Warning on one table and
+Critical on another. They no longer disagree, and the rule that keeps them in line is: **the
+Section 3 per-category ladder is the one ladder for its metric.** Section 3 is the complete one —
+it carries the Emergency band, which no Section 2 table has — and it is what the templates and the
+SKILL.md quick reference quote. Section 2's tables teach the three methods and repeat Section 3's
+Warning/Critical values for the metrics they name; they never set a different value, a different
+unit, or a different comparison period.
+
+Three rows were corrected to this rule. The values in the two tables above are the corrected ones:
+
+| Metric | Was, in Section 2 | Now, from Section 3 | Why it mattered |
+|--------|-------------------|---------------------|-----------------|
+| Server 5xx errors | Warning "any occurrence", Critical ">5 occurrences/hour" | Warning >1/day, Critical >5/day (Emergency >20/day) | >5 per hour is 120 per day — **24×** the daily Critical trigger. A day showing 6 responses read as Warning on the daily ladder and Critical on the hourly one. There is one 5xx ladder and its unit is per day. |
+| Pages indexed | Critical -20% | Critical -15% (Emergency -30%) | A 17% drop was Critical on one table and Warning on the other. |
+| Keyword positions | ">3 position average drop" / ">5 …" | Drop >= 3 / >= 5 (Tier 1, individual keyword) | `>3` excludes a drop of exactly 3, which Section 3's tier table and this skill's own worked example both grade Warning. "Average" also read as the aggregate metric, which has its own row in Section 3 (+2.0 / +5.0 worsening) on different numbers — that row, not this one, is the aggregate. |
+
+In each case the retained value is also the tighter of the two, so nothing alerts later than it did
+before the correction. **If you want a signal on the very first 5xx of the day**, configure it as a
+boundary alert — no band, priority stated with its reason — not as the Warning band: "any
+occurrence" is an event, not a distance from a baseline, and never was one.
 
 ---
 
@@ -126,14 +185,33 @@ For binary or count-based metrics, use absolute thresholds.
 | Metric | Comparison | Warning | Critical | Emergency |
 |--------|-----------|---------|----------|-----------|
 | Total organic sessions | WoW | -15% | -30% | -50% |
-| Total organic sessions | DoD | -25% (weekday) | -40% | Site appears down |
+| Total organic sessions | DoD | -25% (weekday) | -40% | -50% (site-down class) |
 | Non-brand sessions | WoW | -20% | -35% | -50% |
 | Organic conversions | WoW | -20% | -40% | -60% |
 | Organic revenue | WoW | -15% | -30% | -50% |
 | Bounce rate | WoW | +10pp | +20pp | +30pp |
 | Page-level traffic (top 10 pages) | WoW | -25% | -40% | -60% |
+| Organic CTR (site or query group) | WoW | 1.5 sd below the site's own CTR mean | 2 sd below | 3 sd below |
 
 **Note:** Day-over-day traffic thresholds need day-of-week adjustment. Monday traffic typically differs from Saturday traffic. Compare Monday to Monday, not Monday to Sunday.
+
+**The DoD Emergency cell is a number now.** It read "Site appears down" — a description, where every
+other cell in the table is a threshold — so a template row triggering at a -50% day-over-day drop
+appeared to carry a P0 that this band table could not produce. -50% DoD is the trigger Section 7's
+**P0 Organic Traffic Emergency playbook** already states; the cell now says so. "Site-down class"
+names what that magnitude usually means, and the playbook's step 1 is to check whether the site is
+in fact down.
+
+**CTR carries no benchmark in this skill, by design.** Its bands come from the site's own CTR
+baseline on the Section 2 ladder, like any other measured series — there is no industry, vertical
+or "typical e-commerce" CTR figure anywhere in this library, and one must not be supplied from
+memory when a client asks whether their CTR is normal. If no CTR baseline exists yet, say that, say
+what would supply it (the same 4-8 week collection as any other metric), and leave the number out.
+Two further rules, because CTR is a ratio and its components move independently: read every CTR
+alert with its clicks and its impressions beside it — CTR can *rise* on falling clicks when
+impressions fall faster — and segment before alerting, since a site-wide CTR mean pools branded and
+non-branded queries whose normal levels are nothing like each other (the Section 1 splitting test
+applies to query groups exactly as it does to weekdays).
 
 ### Ranking Thresholds
 
@@ -163,15 +241,31 @@ For binary or count-based metrics, use absolute thresholds.
 | Robots.txt change | Any unexpected edit | Pages blocked | Entire site blocked |
 | Sitemap errors | New errors | Sitemap inaccessible | Sitemap returning 5xx |
 
+**The 5xx and index-coverage rows above are the single ladder for each of those metrics** — Section
+2 quotes them, it does not set them (see "Precedence: one ladder per metric"). A whole-site outage
+is graded by the traffic DoD Emergency row and Section 7's P0 playbook, not by counting 5xx
+responses; the count ladder here is for the errors a crawl or a log review turns up.
+
 ### Backlink Thresholds
 
 | Metric | Warning | Critical |
 |--------|---------|----------|
 | Referring domains lost (weekly) | >5% of total | >15% of total |
-| High-authority link lost (DR 60+) | Any loss | Loss of 3+ in one week |
+| High-authority link lost (authority scale set by the connected tool — see the note) | Any loss | Loss of 3+ in one week |
 | Toxic link spike | >10 new toxic links/week | >50 new toxic links/week |
 | Anchor text over-optimization | Exact match reaches 20% | Exact match reaches 30% |
-| Negative SEO pattern | Unusual link velocity from low-DR sites | Massive spam link spike |
+| Negative SEO pattern | Unusual link velocity from low-authority sites | Massive spam link spike |
+
+**Which authority scale — name the tool, do not convert between them.** The rows above and the
+templates' backlink rows have carried two different instruments: **DR 60+** (Ahrefs Domain Rating)
+here and **DA 70+** (Moz Domain Authority) there. Both run 0-100, both are vendor models built on
+that vendor's own crawl, and **nothing in this repository establishes a conversion between them** —
+no "DR 60 ≈ DA 70" equivalence is asserted here, because nobody here has verified one, and the two
+numbers were never calibrated against each other. So this alert is conditional on the tool that
+feeds it: write the threshold in the scale of whichever backlink tool is connected, name that tool
+in the same line ("DR 60+, Ahrefs"), and if the tool changes, re-set the number from the new tool's
+own distribution rather than translating the old one. Which cut-off is right for a given client is
+an operator decision, not a documentation fix — see "Open threshold decisions" below.
 
 ### GEO / AI Visibility Thresholds
 
@@ -180,9 +274,27 @@ All GEO/AI thresholds run on a **weekly check window**. The values below are tun
 | Metric | Warning | Critical |
 |--------|---------|----------|
 | AI citation rate | Down 10+ percentage points vs. baseline | Below a 10% absolute floor |
-| Priority-1 citation loss | Any priority-1 query loses its citation | 3+ priority-1 queries lose citations in one window |
-| Citation position (within the answer) | Worsens by 2+ slots | Dropped from the answer entirely |
+| Priority-1 citation loss (count in the window) | 1 priority-1 query loses its citation — i.e. is dropped from the answer entirely | 3+ priority-1 queries lose citations in one window |
+| Citation position, citation retained (slots moved) | Worsens by 2+ slots | not graded here — see the one-event rule below |
 | Competitor gains citation you lost | 1 instance | Pattern across queries |
+
+**One event, one row.** These two rows used to grade a single observation twice. A priority-1 query
+that lost its citation fired the loss row (Warning) *and* the position row's Critical, which read
+"dropped from the answer entirely" — the same event. Under Section 2's "highest trigger wins"
+reading, every single loss then became Critical, and therefore **P0** under the standing priority-1
+override, which left the 3-or-more cluster row unreachable: there is nothing above P0 to escalate
+to. The rows are now disjoint, and each grades a different quantity:
+
+- **The loss rows count queries.** How many tracked priority-1 queries lost their citation in this
+  window — 1 = Warning, 3+ = Critical. "Dropped from the answer entirely" *is* one query losing its
+  citation, so it is graded here, not as a position move.
+- **The position row measures slots**, and only while the citation is retained: how far a citation
+  the site still holds has moved inside the answer. It has a Warning trigger and no Critical.
+  Leaving the answer is not a larger slot move, it is a different event; and a Critical trigger for
+  slot movement would need a number nobody here has measured, so none is invented.
+
+Where two rows still look like they describe one observation, grade it on the row that names it
+most specifically, and say in the alert which row you graded it on.
 
 **Priority-1 definition:** the client-critical keywords collected at alert setup — money terms, brand terms, and top-converting queries. Identical to "Tier 1" in the keyword-tier tables above; keep a single list so ranking alerts and citation alerts fire on the same queries.
 
@@ -199,9 +311,41 @@ Warning) and a 3-or-more cluster is **P0** (band Critical), because that keyword
 client's money, brand and top-converting terms. Every other row in this section takes the default
 map in Section 4.
 
+**One caveat on the two citation-*rate* rows**, which the templates file also ships one level above
+default (Rate Slide P1, Rate Floor P0): the standing override is not what lifts them. It covers the
+priority-1 query set, and the citation *rate* is a site-wide line across all tracked queries, not a
+query-level row — so the override cannot reach it. Their raised priority is an inherited business
+call about how much a falling citation rate matters, which no measurement here establishes.
+Confirm it with the operator or drop both rows to their band's default (P2 / P1); either way, the
+reason written beside them must be the real one.
+
 **Optional statistical ladder:** once enough weekly citation history exists for a stable mean and standard deviation (8+ weeks — see the Section 1 baseline periods), the Section 2 standard-deviation method may replace the fixed defaults for citation metrics: deviations from the baseline mean at 1 / 1.5 / 2 / 3 standard deviations map to Info / Warning / Critical / Emergency. This is a statistical option that requires sufficient history, not a requirement — with thin history the fixed defaults above are safer.
 
 **Response path:** every citation-loss alert (rate, priority-1, or position) hands the affected query and its source page to content-refresher's AI Overview recovery playbook.
+
+### Metrics with no ladder — these are boundary alerts
+
+Sections 2-3 define no ladder for **brand and reputation metrics** (mentions, sentiment, reviews,
+press) and none for **competitor activity** (a competitor publishing, updating a page, or gaining a
+link). That is not a gap to be filled by inventing one: those alerts fire on an event, and an event
+has no distance from a baseline. Every alert on them carries **"none — boundary alert"** in its Band
+column, and — because with no band there is no default map to sit above or below — its priority is
+set directly from the business and owes no "raised from" clause. Two of them could carry a ladder
+once a baseline exists (average review rating and monthly mention volume are both numbers with a
+mean); this file sets no numbers for them, and an operator holding that history can build the ladder
+with the Section 2 method.
+
+### Open threshold decisions — six rows, for the operator
+
+Each of these needs a business judgement about the right *value*. They are deliberately left open
+rather than filled with a number nobody chose; a configuration that ships one of them states the
+choice it made.
+
+| # | Row | The decision |
+|---|-----|--------------|
+| 1 | High-value link lost / gained | Which authority scale feeds it (DR from Ahrefs, DA from Moz, or another) and the cut-off on that scale. The scales are different instruments and are not converted here. |
+| 2 | Crawl Errors Spike, "errors increase 50%+" | 50% is 1.5× baseline, below this guide's Warning trigger of >2×, so the trigger reaches no band at all — while the templates give the row P1. Either move the trigger to >2× baseline (then Warning → P2 by the default map) or keep 50% as a deliberate early boundary alert and state the priority's reason in the row. |
+| 3-6 | The four page-level traffic rows — homepage 20%+, top-10 pages 30%+, conversion pages 25%+, blog posts 40%+ | Each states a percentage with no comparison period, so no band can be read off it. Setting the period (DoD / WoW / MoM) settles the band; this guide's page-level bands run week over week (Warning -25%, Critical -40%, Emergency -60%). |
 
 ---
 
@@ -238,28 +382,56 @@ grading a metric in one table and a pager rota in the next. Positive and opportu
 carry a priority, because a priority is what decides delivery: they are P3 unless someone has
 asked to hear about wins sooner.
 
+### Roles — one vocabulary, and they are hats, not headcount
+
+Every route in this skill names a role from this list, and no other name is used anywhere — here or
+in the templates file:
+
+**SEO Lead · SEO Analyst · SEO Team · Content Lead · Engineering Lead · Engineering Team · DevOps ·
+Marketing Manager · Marketing VP · Legal**
+
+"SEO Team" and "Engineering Team" are the group forms — the analysts and the engineers — not extra
+people. Two spellings of one role ("Eng Lead" / "Engineering Lead", "VP" / "Marketing VP") are one
+role, and the canonical spelling above is the one to write.
+
+A role is a hat. On a small team one person wears several, so the configuration **maps every role
+to a named person before it goes live**, and a role nobody holds is deleted from the routing table
+rather than left in it: a role with nobody behind it is not a route, and an inherited template
+listing staff the client does not employ is the commonest way an escalation path fails on the night
+it is needed. The templates file previously ran a second, shorter list (SEO Manager / Dev Team /
+Marketing Lead / Executive), so a configuration built from the templates and a routing matrix built
+from this guide named different recipients for the same alert. There is one list, and it is this
+one.
+
 ### Routing Matrix
 
 | Alert Category | P0 (Emergency) | P1 (Urgent) | P2 (Important) | P3 (Monitor) |
 |---------------|----------------|-------------|----------------|--------------|
-| **Traffic** | SEO Lead + Eng Manager + VP | SEO Lead + Marketing Mgr | SEO Team | Weekly digest |
+| **Traffic** | SEO Lead + Engineering Lead + Marketing VP | SEO Lead + Marketing Manager | SEO Team | Weekly digest |
 | **Rankings** | SEO Lead + Content Lead | SEO Team | SEO Team | Weekly digest |
-| **Technical** | SEO Lead + Eng Lead + DevOps | SEO Lead + Eng Team | SEO Team + Eng | Weekly digest |
+| **Technical** | SEO Lead + Engineering Lead + DevOps | SEO Lead + Engineering Team | SEO Team + Engineering Team | Weekly digest |
 | **Backlinks** | SEO Lead | SEO Team | SEO Team | Weekly digest |
 | **Competitor** | N/A | SEO Lead | SEO Team | Weekly digest |
 | **GEO/AI** | SEO Lead + Content Lead | SEO Team | SEO Team | Weekly digest |
-| **Security** | SEO Lead + Eng Manager + VP + Legal | All above | N/A | N/A |
+| **Security** | SEO Lead + Engineering Lead + Marketing VP + Legal | All above | N/A | N/A |
 
 ### Role-Based Alert Filtering
 
+One row per role in the list above, and each row is **read off the routing matrix** rather than set
+separately — if you change a cell in the matrix, this table changes with it.
+
 | Role | Receives | Does Not Receive |
 |------|---------|-----------------|
-| SEO Lead | All P0, P1, P2 alerts | P3 (weekly digest only) |
-| SEO Analyst | P1, P2 in their area | P0 (escalation only), other areas |
-| Content Lead | P0-P1 ranking + GEO alerts | Technical alerts, backlink alerts |
-| Engineering Lead | P0-P1 technical alerts | Ranking, content, backlink alerts |
-| Marketing VP | P0 only | P1-P3 (receives weekly summary) |
+| SEO Lead | Every P0 and P1; P2 through the team queue | P3 (weekly digest only) |
+| SEO Analyst | P1, P2 in their area (as part of SEO Team) | P0 (escalation only), other areas |
+| SEO Team | P1 and P2 in every category | P0 (routed to the named leads), P3 beyond the digest |
+| Content Lead | P0 ranking + GEO alerts | Technical, traffic, backlink alerts |
+| Engineering Lead | P0 technical, traffic and security | Ranking, content, backlink alerts |
+| Engineering Team | P1 and P2 technical | Every non-technical category |
 | DevOps | P0 technical + security | All non-infrastructure alerts |
+| Marketing Manager | P1 traffic | Everything else — traffic P0 goes to the VP |
+| Marketing VP | P0 traffic + security only | P1-P3 (receives weekly summary) |
+| Legal | P0 security only | Everything else |
 
 ---
 
@@ -285,7 +457,7 @@ Every alert notification should include:
 | Metric affected | Yes | "Position for 'project management software'" |
 | Current value | Yes | "Position 12" |
 | Previous value | Yes | "Position 3 (yesterday)" |
-| Threshold breached | Yes | "Dropped >5 positions" |
+| Threshold breached | Yes | "Dropped 9 positions — Tier 1 Critical trigger is a drop >= 5" |
 | Timestamp | Yes | "2025-01-15 09:00 UTC" |
 | Affected URL | Yes (if applicable) | "yoursite.com/blog/pm-guide" |
 | Quick action link | Yes | Link to relevant tool/dashboard |
@@ -403,9 +575,18 @@ Every alert notification should include:
 | 7 | Day 7 | Re-check for continued spam link activity |
 | 8 | Day 14 | Verify disavow processed, monitor rankings for impact |
 
-### Playbook: Core Web Vitals Degradation (P2)
+### Playbook: Core Web Vitals Degradation (P2 at "Needs Improvement" · P1 at "Poor")
 
-**Trigger:** Any CWV metric moves from "Good" to "Needs Improvement" or "Poor"
+**Trigger:** a CWV metric moves out of "Good" — either to **"Needs Improvement"** (Warning band →
+**P2**, the default map) or straight to **"Poor"** (Critical band → **P1**, the default map, and the
+templates' "Core Web Vitals Fail" row). The header used to say P2 for a trigger that spans both
+bands, while the templates priced the Poor end at P1.
+
+One playbook, two entry priorities: the steps below are the same either way, but the clock belongs
+to the priority, never to the band — P2 is within 48 hours, P1 is acknowledged within 4 hours and
+resolved the same day. The day numbers in the table are the P2 pace; compress them for a P1 entry.
+Only the last step is fixed by physics rather than by priority: field data (CrUX) is a 28-day
+rolling window and will not confirm a fix sooner.
 
 | Step | Time | Action |
 |------|------|--------|
