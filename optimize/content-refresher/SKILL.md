@@ -1,13 +1,13 @@
 ---
 name: content-refresher
-version: "4.2.1"
+version: "4.3.0"
 description: 'Refresh old blog posts and outdated content with current statistics, new information, and freshness signals to restore search rankings. Use when the user asks to "update old content", "refresh content", "content is outdated", "improve declining rankings", "revive old blog posts", "traffic is declining on this page", "rankings dropped for this article", or "this post is outdated". For writing new content from scratch, see seo-content-writer. For auditing without rewriting, see on-page-seo-auditor.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.2.1"
+  version: "4.3.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -130,28 +130,53 @@ When a user requests content refresh help:
    then `score = points ÷ (10 × items checked) × 100`. Under 3 checkable items the dimension reads
    "not assessed", not a number. Refresh Priority follows the score, not a separate impression:
    🔴 below 50 · 🟡 50-74 · 🟢 75 and above. A quick score is this skill's own estimate over the
-   items it checked, never a tool measurement; name any failing veto item (C01, R10, T04 where a
-   material connection exists) beside it — the quick pass flags, the full audit rules.
+   items it checked, never a tool measurement.
 
    | Dimension | Quick Score (points ÷ items checked) | Key Weakness | Refresh Priority |
    |-----------|-----------|--------------|-----------------|
-   | C — Contextual Clarity | [X]/100 — [P] pts over [n] items ([item IDs]) | [main issue] | 🔴/🟡/🟢 |
-   | O — Organization | [X]/100 — [P] pts over [n] items ([item IDs]) | [main issue] | 🔴/🟡/🟢 |
-   | R — Referenceability | [X]/100 — [P] pts over [n] items ([item IDs]) | [main issue] | 🔴/🟡/🟢 |
-   | E — Exclusivity | [X]/100 — [P] pts over [n] items ([item IDs]) | [main issue] | 🔴/🟡/🟢 |
-   | Exp — Experience | [X]/100 — [P] pts over [n] items ([item IDs]) | [main issue] | 🔴/🟡/🟢 |
-   | Ept — Expertise | [X]/100 — [P] pts over [n] items ([item IDs]) | [main issue] | 🔴/🟡/🟢 |
-   | A — Authority | [X]/100 — [P] pts over [n] items ([item IDs]) | [main issue] | 🔴/🟡/🟢 |
-   | T — Trust | [X]/100 — [P] pts over [n] items ([item IDs]) | [main issue] | 🔴/🟡/🟢 |
+   | C — Contextual Clarity | [X]/100 — [P] pts over [n] items | [main issue] | 🔴/🟡/🟢 |
+   | O — Organization | [X]/100 — [P] pts over [n] items | [main issue] | 🔴/🟡/🟢 |
+   | R — Referenceability | [X]/100 — [P] pts over [n] items | [main issue] | 🔴/🟡/🟢 |
+   | E — Exclusivity | [X]/100 — [P] pts over [n] items | [main issue] | 🔴/🟡/🟢 |
+   | Exp — Experience | [X]/100 — [P] pts over [n] items | [main issue] | 🔴/🟡/🟢 |
+   | Ept — Expertise | [X]/100 — [P] pts over [n] items | [main issue] | 🔴/🟡/🟢 |
+   | A — Authority | [X]/100 — [P] pts over [n] items | [main issue] | 🔴/🟡/🟢 |
+   | T — Trust | [X]/100 — [P] pts over [n] items | [main issue] | 🔴/🟡/🟢 |
 
    **Weakest Dimensions** (focus refresh here):
    1. [Dimension] — [what needs fixing]
    2. [Dimension] — [what needs fixing]
 
    **Refresh Strategy**: Focus on 🔴 dimensions first, then 🟡.
-
-   _For full 80-item audit, use [content-quality-auditor](../../cross-cutting/content-quality-auditor/)_
    ```
+
+   **The item IDs do not go in that table.** It is client-read, and a framework item ID is a
+   coordinate in a document the client has never opened (anti-slop family 8; root `CLAUDE.md`
+   § The Reader Test). The client column stays recomputable without them — points over items
+   checked — and the IDs, the per-item grades and any failing veto travel in a fence of their own,
+   labelled **inside** it, because a model copies the fence and not the heading above it:
+
+   ```markdown
+   <!-- OPERATOR BLOCK — for whoever runs this refresh, not part of the client report above. The
+        ID column is a coordinate into the 80-item benchmark and is what a handoff carries.
+        Nothing in this fence goes to the client as written. -->
+   ### CORE-EEAT quick scan — operator triage
+
+   | Dimension | Score | Items graded (Pass 10 / Partial 5 / Fail 0 · N/A held out of the denominator) |
+   |---|---|---|
+   | [dimension] | [X]/100 — [P] pts over [n] | [IDs with their grades, e.g. C02, C03 Pass; C01 Partial; C09 Fail] |
+
+   **Veto flagged**: [`CORE-EEAT-C01` / `CORE-EEAT-R10` / `CORE-EEAT-T04` where a material
+   connection exists — or "none"]. The quick pass flags; the full 80-item audit rules and
+   applies the score cap.
+   ```
+
+   One row per dimension scored. **This scan is not a dimension score and never becomes one**: it is
+   an estimate over the handful of items it checked, so it never travels to another run as a
+   `CORE-EEAT C:… O:…` string — what travels is the failing item IDs and how many items were checked
+   ([inter-skill-handoff.md §4.3](../../references/inter-skill-handoff.md)). What the client gets
+   from the scan is the plain-language weakness column above. For the full 80-item audit, hand off to
+   [content-quality-auditor](../../cross-cutting/content-quality-auditor/).
 
 2. **Identify Content Refresh Candidates**
 
@@ -222,7 +247,7 @@ When a user requests content refresh help:
    ### Why This Content Needs Refresh
    
    1. **Outdated information**: [specific examples]
-   2. **Competitive gap**: [what a dated SERP check or the user's competitor notes actually show, with that date and observer — if neither exists, this line reads "no competitor data was available" and carries no claim about what competitors have published]
+   2. **Competitive gap**: [what a dated SERP check or the user's competitor notes actually show, with that date and observer — notes carry coverage, a rank claim needs the check; if neither exists, this line reads "no competitor data was available" and carries no claim about what competitors have published]
    3. **Missing topics**: [new subtopics to cover]
    4. **SEO issues**: [current optimization problems]
    5. **GEO potential**: [AI citation opportunities]
@@ -268,7 +293,7 @@ When a user requests content refresh help:
    - [ ] Refresh meta description
    - [ ] Add new H2 sections for [topics]
    - [ ] Update internal links to newer content
-   - [ ] Add an FAQ section answering the query's real follow-ups — FAQ *content* is the deliverable; FAQPage markup only where the page passes the R2 both-things test, for AI-engine/GEO parsing (FAQ rich results retired 2026 — no SERP feature, ruling R3)
+   - [ ] Add an FAQ section answering the query's real follow-ups — FAQ *content* is the deliverable; FAQPage markup only where the page passes the R2 both-things test, and then on the basis the ruling actually supports: it is valid schema.org, costs nothing to keep, and Google advises against proactively removing it. Not that it earns AI citations — no primary source establishes that either way, and FAQ rich results retired 2026, so no SERP feature either (ruling R3 + amendment 9a)
    - [ ] Refresh images and add new alt text
    
    ### GEO Updates Needed
@@ -315,6 +340,7 @@ When a user requests content refresh help:
 - [ ] Source of each data point stated in the report's own words — the resolved tool name (Google Analytics 4, Google Search Console, Ahrefs), "user-provided", or "estimated"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 - [ ] Every score in the deliverable carries its derivation beside it — the inputs, the arithmetic, the weights — for all four this skill emits: CORE-EEAT quick scores (Step 1), the composite decay score, the refresh priority score, and any ROI figure. A signal or factor with no input is shown N/A with the missing input named and the remaining weights renormalised; it is never estimated into a number (ledger F9-r3, [references/content-decay-signals.md](./references/content-decay-signals.md) "When a signal has no input")
 - [ ] No third-party claim — a competitor's rank, publication date, coverage or "newer guide" — appears without the dated observation it came from
+- [ ] No framework item ID inside the client report fence: the quick-score IDs and the veto flags sit in their own fence whose first line is `<!-- OPERATOR BLOCK … -->`, and a reader who copies only a fence can tell who it is for (anti-slop family 8; root `CLAUDE.md` § The Reader Test)
 
 ## Example
 

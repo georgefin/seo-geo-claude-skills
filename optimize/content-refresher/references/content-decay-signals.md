@@ -111,6 +111,11 @@ an observation with its date and observer, and "new" is claimed only against an 
 somebody actually holds. No check and no supplied notes means this whole signal group is unassessed
 and the report says so — it does not become an inference about what competitors have published.
 
+**Which rows supplied notes can carry**: the one whose detection method is a manual comparison —
+competitor content longer or more comprehensive than yours. The four SERP-monitoring rows need the
+check itself, because a note on what a page *covers* says nothing about where it *ranks*. Same
+division governs the weighted Competitive displacement signal below.
+
 ---
 
 ### Tertiary Signals (Low Reliability, Supporting Evidence)
@@ -188,13 +193,23 @@ used is not reportable (library derivation rule, ledger F9-r3).
 | Signal (weight) | 0 | 25 | 50 | 75 | 100 | Input it needs |
 |---|---|---|---|---|---|---|
 | Traffic decline (30%) | no decline | 10-20% | 20-40% | 40-60% | >60% | two comparable traffic periods (same month year-over-year preferred) from an analytics export or the user's own figures |
-| Position drops (25%) | stable | 1-3 lost | 3-5 lost | 5-10 lost | off page 1 | a before/after position for the same keyword, from a rank export, a Search Console export, or the user's records |
+| Position drops (25%) | stable | 1-3 lost | 3-5 lost | 5-10 lost | now off page 1 — a state, not a delta; it overrides | a before/after position for the same keyword, from a rank export, a Search Console export, or the user's records |
 | CTR decline (15%) | stable | under 20% | 20-30% | 30-40% | over 40% | CTR for the same queries across two comparable windows — Search Console, or the user's own figures |
 | Content freshness (15%) | updated this quarter | updated 3-12 months ago | 12-24 months | over 24 months | over 24 months **and** the page states facts that have since changed | the CMS publish/update date plus a read of the page |
-| Competitive displacement (15%) | your page is the top organic result in the check | 1-2 results above it, none carrying material yours lacks | 1-2 above it carrying material yours lacks, or showing a more recent date | 3 or more above it, at least one carrying material yours lacks | your page is off the first screen of organic results for its own target query | **one dated SERP check for the target query** (incognito, market and language stated) plus a read of the pages returned above yours — or the user's own dated competitor notes |
+| Competitive displacement (15%) | your page is the top organic result in the check | 1-2 results above it, none carrying material yours lacks | 1-2 above it carrying material yours lacks, or showing a more recent date | 3 or more above it, at least one carrying material yours lacks | your page is off the first screen of organic results for its own target query | **one dated SERP check for the target query** (incognito, market and language stated) plus a read of the pages returned above yours. Competitor *coverage* notes are not a substitute — see "Coverage notes cannot score displacement" below |
 
 **Boundaries read upward**, so one input never yields two scores: a 20% traffic decline scores 50, a
 3-position loss scores 50, a page 24 months since its last update scores 75.
+
+**Position drops mixes a delta with a state, and the state wins.** Rungs 25 / 50 / 75 count
+positions lost between two records of the same keyword; rung 100 is a state — the page's current
+average position is off page 1. Where both apply the row scores **100**: a page now sitting at
+average position 12 after losing 8 scores 100, not the 75 its delta alone reads. Leaving page 1 is a
+step change in clicks that a count of positions does not capture, and "boundaries read upward"
+settles band edges within one measurement, not a collision between two different ones. A page still
+on page 1 is scored on its delta alone. The state rung reads only where a drop is on file at all:
+with no earlier position for the keyword, the row is **N/A**, because a page that has always sat on
+page 2 has not dropped there.
 
 The displacement row scores **what one dated check shows today**, not a change over time. Nobody can
 reconstruct who ranked above a page six months ago without a stored SERP record, so the criterion
@@ -203,6 +218,16 @@ reading those pages shows material this one lacks. Every competitor fact that re
 a rank, a publication date, a section they cover — travels with its observer and its date ("SERP
 checked in incognito, 10 Aug", "from your note of 7 Aug"), never as bare indicative fact.
 
+**Coverage notes cannot score displacement.** Every rung above is a position relative to your page —
+who is above it, and how many. Dated notes on what two competitor guides cover establish that the
+material exists, not that those pages outrank yours, so no rung is satisfiable from them and this
+row is **N/A** in a session holding coverage notes alone: mark it N/A, name the missing input, and
+renormalise, exactly as the worked example in [refresh-example.md](./refresh-example.md) does. That
+is the commonest Tier 1 case and it is not a failure of the input — the unlock is one incognito SERP
+check for the target query, dated, which needs no connector. The notes are not wasted either: they
+score **Competitive opportunity** in Refresh Priority Scoring and fill the missing-topics table in
+[SKILL.md](../SKILL.md) Step 4, both of which measure coverage rather than rank.
+
 ### When a signal has no input
 
 A signal you cannot observe is **N/A**, never a number. N/A is not zero: zero means "checked, no
@@ -210,7 +235,8 @@ decay", so writing zero for an unchecked signal understates the score exactly as
 inflates it.
 
 1. **Mark the row N/A and name the missing input in the report** — "no SERP check was run for this
-   query and no competitor notes were supplied, so competitive displacement is unscored".
+   query, so competitive displacement is unscored; the coverage notes supplied establish what those
+   pages cover, not what outranks this one".
 2. **Renormalise the remaining weights over their own sum** and state the renormalisation beside the
    score, so the reader can recompute it.
 3. **Fewer than three scored signals → no composite score is issued at all.** Report the signals you
@@ -224,10 +250,10 @@ and CMS dates — no Search Console access, and no SERP check was run.
 
 ```
 Traffic decline    2,050 → 1,230 sessions/mo, comparable 30-day windows = −40%   → 75  (weight 30%)
-Position drops     rank export: primary keyword 6 → 10, 4 positions lost         → 50  (weight 25%)
+Position drops     rank export: keyword 6 → 10, 4 lost, still on page 1          → 50  (weight 25%)
 Content freshness  last updated 26 months ago; stated facts still accurate       → 75  (weight 15%)
 CTR decline        N/A — no Search Console export supplied
-Competitive displ. N/A — no dated SERP check, no competitor notes supplied
+Competitive displ. N/A — no dated SERP check was run (coverage notes cannot score this row)
 
 Scored weight = 30 + 25 + 15 = 70%  → renormalised weights 30/70, 25/70, 15/70 (42.9%, 35.7%, 21.4%)
 Composite = 75(30/70) + 50(25/70) + 75(15/70) = 32.1 + 17.9 + 16.1 = 66.1 / 100  → band read at 66
@@ -420,7 +446,7 @@ read off an input you hold, and the figure it came from is printed beside it.
 |--------|--------|----------------------------|----------------|
 | Current traffic value | 25% | Rank the candidates in this batch on the traffic figure you hold: highest = 10, lowest = 1, the rest interpolated on the same figure | the traffic column of the inventory you were given |
 | Decay severity | 20% | Composite decay score ÷ 10, rounded to the nearest whole number (66.1 → 7) | a composite score that was actually issued (§Decay Severity Scoring) |
-| Competitive opportunity | 20% | 10 = the pages above yours are thinner or older than yours · 5 = comparable · 1 = materially stronger | the same dated SERP check the displacement signal needs, or the user's competitor notes |
+| Competitive opportunity | 20% | Read against the competitor pages actually compared, named with the date they were read: 10 = they are thinner or older than yours · 5 = comparable · 1 = materially stronger. This factor scores **content strength, not rank** — so unlike displacement it is scoreable from coverage notes, and it claims no ranking relationship they do not carry | the dated SERP check the displacement signal needs, **or** the user's own dated competitor notes — either one supplies pages to compare |
 | Refresh difficulty | 15% | 10 = under 2 hours on the matching playbook · 5 = 3-4 hours · 1 = the decision framework says rewrite | the content type plus the playbook estimate above |
 | Strategic importance | 10% | 10 = the owner names it a priority page for a current goal · 5 = ordinary · 1 = no stated goal | the owner saying so; not inferable from traffic |
 | Backlink equity | 10% | Rank the candidates on referring domains: highest = 10, lowest = 1 | a supplied backlink figure |

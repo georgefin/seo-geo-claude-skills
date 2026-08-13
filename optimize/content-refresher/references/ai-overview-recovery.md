@@ -59,8 +59,11 @@ Work top to bottom; re-measure between stages rather than shipping everything at
    here. FAQPage *markup* is added ONLY if the page genuinely passes the R2 both-things
    test — the page truly is both its primary type and an FAQ resource, and each type is
    complete, accurate, and independently justified. Otherwise: add the FAQ content and
-   change no schema. (Per R3, FAQPage markup — where justified — serves AI-engine
-   parsing only; Google's FAQ rich results are retired, so promise no SERP feature.)
+   change no schema. (Per R3 and amendment 9a, FAQPage markup — where justified — is kept
+   because it is valid schema.org, costs nothing to keep, and Google advises against
+   proactively removing it. Google's FAQ rich results are retired, so promise no SERP
+   feature; and no primary source establishes an AI-citation benefit either way, so never
+   sell the markup as a citation lever — least of all in a playbook about lost citations.)
 4. **Structured data check.** Existing markup must state only genuine claims and keep one
    primary content type per page (R2). This step never adds types to chase citations.
 

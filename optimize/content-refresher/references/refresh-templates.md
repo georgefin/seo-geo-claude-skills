@@ -130,7 +130,9 @@ publishes, where an unresolved claim reads as fact:
 
 - **FAQ rich results retired 2026 — no SERP feature** (settled ruling R3). An article promising them
   is wrong, and the line is rewritten. FAQPage markup, where a page justifies it under R2, is kept
-  for AI-engine/GEO parsing and promises nothing on the SERP.
+  because it is valid schema.org, costs nothing to keep, and Google advises against proactively
+  removing it. It promises nothing on the SERP, and the refreshed copy does not claim it earns AI
+  citations either: no primary source establishes that in either direction (R3 amendment 9a).
 - **Every other feature's status is open until this library settles it.** HowTo rich results are the
   live case: that question is an open `[VERIFY]` item in the watch register (W12,
   `docs/loop/WATCH-ITEMS.md`), so refreshed copy asserts nothing about them in either direction —
@@ -294,8 +296,11 @@ Schedule next refresh review: [Date - 6 months from now]
 **On the FAQPage line** (author's rule, not report copy): the box is ticked only where the page
 passes ruling R2's both-things test — it genuinely is both its primary type and an FAQ resource,
 each complete and independently justified. Otherwise the FAQ content ships and the schema is left
-alone, and the report says so. Either way the value claimed is AI-engine/GEO parsing: FAQ rich
-results retired 2026 — no SERP feature (ruling R3).
+alone, and the report says so. Either way, what may be claimed for the markup is the basis the
+ruling supports and no more: it is valid schema.org, it costs nothing to keep, and Google advises
+against proactively removing it. FAQ rich results retired 2026, so no SERP feature is promised —
+and no primary source establishes an AI-citation benefit either way, so the markup is never sold as
+earning AI citations (ruling R3 + amendment 9a).
 
 **On every score this report prints** — a CORE-EEAT quick score, the composite decay score, the
 refresh priority score, an ROI figure: the derivation sits beside the number, and a signal or factor
