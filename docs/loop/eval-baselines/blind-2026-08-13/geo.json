@@ -1,0 +1,401 @@
+{
+  "skill_name": "geo-content-optimizer",
+  "skill_version_under_test": "4.4.2",
+  "method": "blind-execute, split grader (grader informed)",
+  "run_date": "2026-08-13",
+  "run_label": "blind4-geo",
+  "executor_run_status": "CLEAN as reported by the executor. The executor also reported two of its own Greek greppable screens failing silently (see tool_correctness.executor_reported_instrument_failures) — that is evidence about the anti-slop nets, not about contamination.",
+  "grader_head_sha_at_open": "a76706dcca1043ba3c25e74546e810edfd071560",
+  "grader_head_sha_at_close": "5220e595c7a6962264f23afad670e97736d25323",
+  "input_drift_during_run": {
+    "head_moved": true,
+    "commits_in_window": [
+      "b379af4 docs(loop): open-findings — C1 closed for two of three suites, measured not asserted",
+      "39ec029 docs(pilot): thermopompoi-consolidation-brief — the folder is unreachable from here, so deliver what the crawl already answers",
+      "b50bd77 fix(content-gap-analysis): mid-flight snapshot — the demand filter, the proxy anti-correlation, the pre-send prose check",
+      "5220e59 fix(content-quality-auditor,domain-authority-auditor,on-page-seo-auditor,performance-reporter,content-gap-analysis): mid-flight snapshot, registers resynced"
+    ],
+    "files_changed_in_window": [
+      "VERSIONS.md",
+      "docs/loop/OPEN-FINDINGS.md",
+      "docs/loop/pilot/thermopompoi-consolidation-brief.md",
+      "cross-cutting/content-quality-auditor/SKILL.md",
+      "cross-cutting/domain-authority-auditor/SKILL.md",
+      "monitor/performance-reporter/SKILL.md",
+      "monitor/performance-reporter/references/report-templates.md",
+      "optimize/on-page-seo-auditor/SKILL.md",
+      "optimize/on-page-seo-auditor/references/audit-templates.md",
+      "research/content-gap-analysis/SKILL.md",
+      "research/content-gap-analysis/references/analysis-templates.md",
+      "research/content-gap-analysis/references/gap-analysis-frameworks.md",
+      "research/content-gap-analysis/references/score-arithmetic.md"
+    ],
+    "files_graded_against": [
+      "build/geo-content-optimizer/SKILL.md (4.4.2)",
+      "build/geo-content-optimizer/evals/evals.json",
+      "build/geo-content-optimizer/evals/files/ (all 5 fixtures)",
+      "references/core-eeat-benchmark.md (C09 Pass criterion, Section 5 e-commerce row)",
+      "docs/loop/SETTLED-RULINGS.md (R1, R2, R3+9a)",
+      "build/seo-content-writer/references/anti-slop-ruleset.md §6",
+      "docs/loop/FAILURE-LEDGER.md",
+      "docs/loop/eval-baselines/blind-2026-08-11/geo.json"
+    ],
+    "result": "FOUR commits from parallel agents landed during the grading window, touching thirteen files across five OTHER skills and three loop/pilot registers. `git diff --stat a76706d 5220e59` restricted to every file in files_graded_against returns EMPTY — every graded input is byte-identical between the SHA recorded at open and the SHA at close. `git status --porcelain` was empty at open and shows only this record's own directory at close.",
+    "effect_on_verdicts": "none. No commit in the window touched build/geo-content-optimizer/, references/core-eeat-benchmark.md, docs/loop/SETTLED-RULINGS.md, docs/loop/FAILURE-LEDGER.md, build/seo-content-writer/references/anti-slop-ruleset.md or the 2026-08-11 baseline. Re-checked at close by path-restricted diff rather than by assuming the subject was quiet."
+  },
+  "deliverables": {
+    "1": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind4-geo-e1.md",
+    "2": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind4-geo-e2.md",
+    "3": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind4-geo-e3.md",
+    "4": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind4-geo-e4.md",
+    "5": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind4-geo-e5.md"
+  },
+  "checker_scripts": [
+    "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/grade4-geo-counts.py",
+    "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/grade4-geo-sigma-probe.txt"
+  ],
+  "expectations": [
+    {
+      "id": "e1.1",
+      "text": "CORE-EEAT C02 ('Core answer in first 150 words', counted from the first body word after the H1): the optimized Greek text states what service is offered, by whom (Κλιματεχνική Αττικής Ε.Π.Ε.) and where (Αθήνα/Αττική); the fixture's weather small-talk opening is gone.",
+      "passed": true,
+      "evidence": "Published block opens at L11 with the H1; the first body sentence is L13-14: «Η Κλιματεχνική Αττικής Ε.Π.Ε. αναλαμβάνει συντήρηση, εγκατάσταση και επισκευή κλιματιστικών στην Αθήνα από το 2009.» Independent token count of the whole opening paragraph (L13-17) = 51 tokens, so service + entity + place land inside the first 20 words, far inside 150. The fixture opener «Το καλοκαίρι στην Αθήνα οι θερμοκρασίες ανεβαίνουν» appears once in the whole file, at L163, as the quoted original inside the report's claims table — never in published copy."
+    },
+    {
+      "id": "e1.2",
+      "text": "Entity/term defined per the skill's definition step and C04: a standalone 25-50-word definition starting with the term or entity, quotable on its own.",
+      "passed": true,
+      "evidence": "Three definitions, each opening with the term, each independently counted by grade4-geo-counts.py (a token counts only if it contains a letter or digit): L30-32 «**Η συντήρηση κλιματιστικού** είναι ο περιοδικός έλεγχος και καθαρισμός μιας κλιματιστικής μονάδας…» = 30; L34-37 «**Η εγκατάσταση κλιματιστικού** είναι η τοποθέτηση και σύνδεση μιας νέας μονάδας…» = 32; L39-42 «**Η επισκευή κλιματιστικού** είναι η διάγνωση και αποκατάσταση συγκεκριμένης βλάβης…» = 37. All three inside 25-50. The deliverable's own claim at L132-134 («30 / 32 / 37 λέξεις») reproduces the independent count exactly."
+    },
+    {
+      "id": "e1.3",
+      "text": "R07 ('Full names for people/orgs/products; no \"a company\"'): the fixture's «η εταιρεία μας» framing is replaced with «Κλιματεχνική Αττικής Ε.Π.Ε.» at first mention.",
+      "passed": true,
+      "evidence": "First mention in published copy is L13, the full legal form. `grep 'η εταιρεία μας'` returns 2 hits, BOTH outside published copy and both quoting the fixture as the thing replaced: L144 «Πλήρης επωνυμία με νομική μορφή, αντί για «η εταιρεία μας»» and L219 (check table). The full name recurs at L58, L79, L139."
+    },
+    {
+      "id": "e1.4",
+      "text": "R01-style precision achieved honestly: the supplied figures (2009, 12 πιστοποιημένοι ψυκτικοί, από 39 € με ΦΠΑ, εντός 24 ωρών, 4.500+ συντηρήσεις το 2025) appear with correct Greek number/unit formatting, and no other real-world statistic appears in the optimized content.",
+      "passed": true,
+      "evidence": "Full numeric census over the published span L10-L83 (every hit printed by the checker for hand-check) returns EXACTLY the set {2009, 39, 24, 12, 2025, 4.500} and nothing else — no list numerals, no last-updated line, no sixth figure. Greek formatting verified at source: «4.500» (dot thousands separator, L17/L24/L73), «από 39 € με ΦΠΑ» (L14/L21/L48/L58), «εντός 24 ωρών» (L15/L22/L52/L66), «12 πιστοποιημένοι ψυκτικοί» (L16/L23/L72), «πάνω από 4.500 συντηρήσεις μέσα στο 2025» (L17/L24/L73), «από το 2009» (L14/L23/L74)."
+    },
+    {
+      "id": "e1.5",
+      "text": "No fabrication: every number, price and claim of scale traces to the prompt's user-provided data or the fixture; any additional metric the output structure calls for is marked or hedged — never invented, never attributed to a source the user did not name.",
+      "passed": true,
+      "evidence": "The census above shows zero untraceable figures. Metrics the report template would want are declined BY NAME rather than filled: L146 «**Δεν προστέθηκε** παράθεση ειδικού. Δεν υπάρχει διαθέσιμη με όνομα, ιδιότητα και πηγή»; L167 the quality claim returns only «ως μέγεθος: ποσοστό επαναλαμβανόμενων κλήσεων ή μέσος όρος αξιολογήσεων με την πλατφόρμα και το πλήθος τους»; L169 the referral claim likewise. Unavailable prices are hedged in customer voice inside the published table rather than tokenised: L49-50 «Δεν υπάρχει δημοσιευμένη τιμή — επικοινωνήστε μαζί μας». Family-2 nets (`απαιτούνται στοιχεία`, `[CLIENT DATA`, `[SOURCE NEEDED`) return 0 hits anywhere in the file, so no agency label reached published copy. Attribution-shape scan (speech verb after a closing quote, «According to <Name>», «— Name, Role at Org») returns 0 hits across all five deliverables; no real organisation or person is named as a source anywhere. RESIDUAL reported outside the graded set rather than as a failure here: the supplied 24-hour arrival time is extended to all three services in published copy — see defects_found_outside_graded_set D1. Graded PASS because the number itself traces to the prompt and the extension is disclosed to the client at L173."
+    },
+    {
+      "id": "e1.6",
+      "text": "Greek output quality (watch-item W4 guard) — the binding greek-content-editor's grade decides fluency, idiomatic naturalness, translation-ese and register. UNGRADED and recorded EDITOR-PENDING if no editor report is in front of the grader.",
+      "passed": false,
+      "status": "EDITOR-PENDING",
+      "evidence": "No greek-content-editor report on this deliverable is in front of this grader, so the expectation's own instruction binds: 'record it EDITOR-PENDING, keep it inside the suite's total, and never record it as passed'. NOT recorded as passed and NOT recorded as a content failure. Mechanical layer screened and reported FOR THE EDITOR, not as a verdict (anti-slop §6 governing note — a pattern's silence is not evidence): family 1 net `Όλα τα [0-9]` — nothing surfaced; family 2 nets — nothing surfaced; family 5 — 15 n-word lines, EVERY ONE hand-checked at source and licensed, either by a preverbal «δεν» in its own clause (L4 «Καμία μέτρηση δεν αντλήθηκε», L99, L101, L159 «Κανένας ισχυρισμός δεν έμεινε», L187, L215, L218, L219, L256) or by a listed alternative licenser (L118 «στέκονται **χωρίς** κανένα στοιχείο») or as a protected verbless nominal (L217/L224 «Καμία εξωτερική παραπομπή»); family 6 net `μηδ[εέ]ν` — nothing surfaced (the 1 `κοστίζ` hit is the ordinary FAQ question «Πόσο κοστίζει…», no numeral-zero frame); family 7 `~~` — 0 hits; family 8 — every skill slug and framework ID sits at L251-254, inside the operator fence opened at L245 with the in-fence label «<!-- ΣΗΜΕΙΩΜΑ ΓΙΑ ΤΗΝ ΟΜΑΔΑ ΠΟΥ ΤΡΕΧΕΙ ΤΗ ΒΙΒΛΙΟΘΗΚΗ — δεν αποτελεί μέρος της αναφοράς προς τον πελάτη -->», zero in client prose; final-sigma probe (`σ` word-final / `ς` word-internal, PCRE, LC_ALL=C.UTF-8) — 0 hits, and the probe was fault-injection-tested first (see tool_correctness). Advisory 'process machinery' tokens («εκτέλεση», L247/L251/L256) occur only inside that operator fence, where family 8's reader test exempts them. REFERRED TO THE GREEK EDITOR, strings named: the published copy L13-82 as a whole; specifically the three service definitions L30-42 (register of «ψυκτικές γραμμές», «αποχέτευση συμπυκνωμάτων», «ηλεκτρονικής πλακέτας» in consumer-facing copy), the table cell «Δεν υπάρχει δημοσιευμένη τιμή — επικοινωνήστε μαζί μας» (L49-50), and the four FAQ answers L56-82."
+    },
+    {
+      "id": "e2.1",
+      "text": "Direct-answer formatting per C02 and the skill's definition principles: the page now opens with a definition-style answer starting with the term instead of the fixture's «Στην κατηγορία αυτή θα βρείτε...».",
+      "passed": true,
+      "evidence": "The published block's first body sentence, L13-14, is «Ο αφυγραντήρας για υγρασία στο σπίτι αφαιρεί υδρατμούς από τον αέρα και κρατά τη σχετική υγρασία του χώρου στο εύρος 40-60% που συνιστούμε για εσωτερικούς χώρους.» — starts with the term, answers the target query definitionally, standalone, ~30 tokens. The fixture's own opening sentence («…αφυγραντήρες σε διάφορα μεγέθη και τιμές για κάθε ανάγκη») returns 0 hits. THE WEAKEST PASS IN THIS SUITE, stated plainly: the fixture's boilerplate phrase «Στην κατηγορία αυτή θα βρείτε» survives as the SECOND sentence of the same paragraph (L15) and the report nominates that sentence as quotable statement #1 (L163). Graded on the expectation's operative clause — the page OPENS with a definition-style answer starting with the term — which holds; the surviving phrase now carries six supplied figures instead of the fixture's vague claim. A strict reader of the 'instead of' clause could grade it the other way; recorded under ambiguous_wording rather than resolved silently. The canonical copula definition «**Ο αφυγραντήρας** είναι ηλεκτρική συσκευή που…» (31 tokens) exists at L30-32, in the terms section rather than at the top."
+    },
+    {
+      "id": "e2.2",
+      "text": "C09: a Greek FAQ with at least 3 questions phrased the way Greek users actually search, each answered directly; the 40-60-word answer guidance binds as a quota — passes when at least 3 answers fall in the 40-80 word range.",
+      "passed": true,
+      "evidence": "Five questions at L66/73/80/87/94, all in natural Greek search phrasing («Τι αφυγραντήρα χρειάζομαι για υγρασία στο σπίτι;», «Πόσα λίτρα την ημέρα βγάζει ένας αφυγραντήρας;», «Ποια είναι η σωστή υγρασία σε ένα σπίτι;», «Πόσο κοστίζει ένας αφυγραντήρας;», «Πόσο ρεύμα καταναλώνει ένας αφυγραντήρας;»). Independent answer word counts, tokenizer printed alongside each answer: 48, 49, 43, 41, 42 — 5 of 5 inside the 40-80 band against a quota of 3. The deliverable's own claim at L169/L221 («40-49 λέξεις») is within 1 of the independent count at the top end (the € symbol tokenizes differently); the band verdict is unaffected either way."
+    },
+    {
+      "id": "e2.3",
+      "text": "The markup decision follows the skill's FAQ-precedence rule: the visible Q&A earns C09, FAQPage JSON-LD only where FAQPage is the page's ONE primary type (R2). Shipping the FAQ with no FAQPage object PASSES provided the response says that is what it did and why; emitting FAQPage alongside the type a category page needs, or with no primary-type judgement at all, FAILS as stacking.",
+      "passed": true,
+      "evidence": "No FAQPage object exists — and no JSON object of any kind: `grep '```json'` and `grep '@type'` both return 0 hits in the file. The response says what it did and why in a dedicated CLIENT-READ section, «## Μέρος Β — Το FAQPage JSON-LD που ζητήσατε: γιατί δεν το εκδίδουμε» (L104), opening «**Δεν παραδίδουμε FAQPage JSON-LD για αυτή τη σελίδα, και δεν πρόκειται για παράλειψη.**» (L106). The primary-type judgement is explicit and correct for the fixture: L108 «Μια σελίδα κατηγορίας e-shop είναι λίστα προϊόντων, όχι σελίδα ερωτήσεων. Ο ένας ακριβής τύπος δομημένων δεδομένων που της αναλογεί περιγράφει λίστα προϊόντων», with the stacking cost named at L109 and the reason the visible FAQ is not downgraded at L110. C09 is visibly not downgraded: check row L221 «Ενότητα συχνών ερωτήσεων… | ✅ | Πέντε ερωτήσεις». The operator block records the same call in library vocabulary (L260, «ρύθμιση R2· CORE-EEAT ενότητα 5, γραμμή e-commerce category → ItemList»), which matches `references/core-eeat-benchmark.md:262` and the C09 Pass criterion at `:338` ('Markup is not required for the Pass')."
+    },
+    {
+      "id": "e2.4",
+      "text": "Supplied catalogue data used with correct units: 18 μοντέλα, 10-25 λίτρα/24ωρο, 15-120 τ.μ., 129-449 €, εγγύηση 2 έτη, 40-60% recommended humidity; no specs outside the supplied ranges.",
+      "passed": true,
+      "evidence": "Census over the published span L10-L100 returns exactly {18, 10, 25, 15, 120, 129, 449, 2, 40, 60} plus '24' occurring only inside the unit «24ωρο» and the four markdown list numerals 1.-4. of the selection procedure. Units at source: L21-26 summary box «18 μοντέλα», «Απόδοση αφύγρανσης: 10-25 λίτρα ανά 24ωρο», «Κάλυψη χώρων: 15-120 τ.μ.», «Τιμές: 129-449 €», «Εγγύηση 2 ετών», «Συνιστώμενη σχετική υγρασία εσωτερικού χώρου: 40-60%»; repeated with the same units in the spec table L46-51 and in the FAQ L69-70, L77, L82, L89-90. Zero numerals outside the supplied set — no wattage, no model number, no noise level, no brand."
+    },
+    {
+      "id": "e2.5",
+      "text": "No fabrication: for questions the supplied data cannot answer (κατανάλωση ρεύματος, μάρκες/μοντέλα) the visible answer hedges honestly in customer voice and the gap is marked in the report/gap-table sections — never as an agency-perspective label inside the published answer or its schema — and never resolved by inventing wattages, brand names, model numbers or noise levels.",
+      "passed": true,
+      "evidence": "Nothing invented: the census confirms no wattage, model number, noise level or brand name anywhere. The power-consumption question is answered in the shop's own customer voice, not skipped: L96-99 «Δεν αναγράφουμε κατανάλωση ρεύματος ανά μοντέλο σε αυτή τη σελίδα, γιατί δεν έχουμε συγκεντρωμένα τα στοιχεία για τα 18 μοντέλα. Αν η κατανάλωση είναι το κριτήριό σας, στείλτε μας τα μοντέλα που σας ενδιαφέρουν…». The m²→litres sizing gap is likewise refused in customer voice at L61-62 rather than invented. The gaps are recorded in report sections only — claims table L180 (brands: «Επιστρέφει την ώρα που θα έχουμε τον κατάλογο μαρκών»), and the §7 gap table L242-249 lists the sizing map, per-model names and prices, the brand list, and power consumption. Family-2 nets return 0 hits in the whole file, so no agency label reached published copy or schema. Graded PASS on the purpose reading; the literal-marker-string ambiguity flagged by both prior records persists and is re-flagged under ambiguous_wording."
+    },
+    {
+      "id": "e2.6",
+      "text": "Greek output quality (watch-item W4 guard) — the binding greek-content-editor's grade decides; EDITOR-PENDING if no editor report is present.",
+      "passed": false,
+      "status": "EDITOR-PENDING",
+      "evidence": "No greek-content-editor report in front of this grader; recorded EDITOR-PENDING per the expectation's own instruction, kept in the total, not recorded as passed, not recorded as failed. Mechanical screens reported FOR THE EDITOR: family 1 net `Όλα τα [0-9]` — nothing surfaced, AND the ruled native form is produced three times («Και τα 18 μοντέλα», L17, L90, L165); family 2 nets — nothing surfaced; family 5 — 14 n-word lines hand-checked at source, all licensed by a preverbal «δεν» in their own clause (L4, L109 «Καμία μηχανή δεν τεκμηριώνει», L128, L130, L141, L147, L183, L197, L225, L228, L229, L264) or protected verbless nominals (L148 «Καμία ερώτηση, κανένας πίνακας, καμία υποενότητα.», L234); family 6 net `μηδ[εέ]ν` — nothing surfaced (3 `κοστίζ` hits are all ordinary price prose); family 7 `~~` — 0 hits; family 8 — every handle sits at L260-268 inside the operator fence opened at L254, zero in client prose; final-sigma probe — 0 hits, probe fault-injection-tested first. REFERRED TO THE GREEK EDITOR, strings named: the retail register of the whole published block L13-99; specifically the three definitions L30-40, the numbered selection procedure L55-62 («Βάλτε τον προϋπολογισμό σας μέσα στο εύρος 129-449 €»), the five FAQ answers L66-99, and the client-read refusal section Μέρος Β L104-112 (whether «στοίβαξη τύπων» / «δεύτερος πλήρης τύπος» read as natural Greek to a shop owner). Also for the editor rather than for this grader: whether reusing the fixture's “Στην κατηγορία αυτή θα βρείτε” frame at L15 is good Greek e-shop copy or residue — see e2.1."
+    },
+    {
+      "id": "e3.1",
+      "text": "Skill output-validation threshold met: 'At least 3 clear, quotable definitions added', each following the definition principles; the word floor adjusts for compact technical terms (15-50) while ordinary concepts keep 25-50.",
+      "passed": true,
+      "evidence": "Three, each opening with the term, independently counted: L36-38 'A heat pump is a heating appliance that moves existing heat from outside air, ground or water into a building rather than burning fuel to create it, using electricity to drive a refrigerant compression cycle.' = 35 (ordinary concept, 25-50 ✓); L40-42 '**SCOP (Seasonal Coefficient of Performance)** is the ratio of heat a heat pump delivers to the electricity it consumes across a full heating season…' = 38 (✓ on either band); L44-47 '**Flow temperature** is the temperature of the water a heating system sends to radiators or underfloor pipes…' = 44 (✓ on either band). The deliverable's own claim at L173-175 (35 / 38 / 44) reproduces the independent count exactly."
+    },
+    {
+      "id": "e3.2",
+      "text": "Skill threshold 'Factual density improved with at least 5 verifiable statistics' met via R01 using ONLY the supplied study figures — 240 installations, €9,600, €3,200, €430/year, SCOP 3.6, 45 °C — with units preserved correctly.",
+      "passed": true,
+      "evidence": "All six present with units, first in the opening paragraph L15-18 and the key-takeaways box L22-29 ('**€9,600**', '**€3,200**', '**€430**', 'Fleet-average SCOP … **3.6**', 'Typical flow temperature: **45 °C**', '240 completed installations'), then in the comparison table L67-72. Census over the published span L10-L124 returns {240, 2025, 9,600, 3,200, 430, 6,400, 14.9, 3.6, 45} plus the three list numerals of the mechanism steps. 6,400 and 14.9 are derived with printed arithmetic (see e3.7); no unsupplied figure of any kind appears."
+    },
+    {
+      "id": "e3.3",
+      "text": "E01 leveraged: statistics attributed in-text to the user's own 2025 installation-cost study, and per the Output Validation source rule the report labels each data point as user-provided, not as third-party industry research.",
+      "passed": true,
+      "evidence": "In-text attribution in the published copy at L15-16 ('Across the 240 installations in our 2025 installation-cost study'), L22 (box header 'Average installed cost, 240 completed installations in 2025'), L45 ('Across the 240 installations in our 2025 study'), and the table's own preamble L61-63 ('Every figure in this table comes from our 2025 study of 240 completed installations. Where the study did not measure something, the cell says so rather than filling in a number.'). Report-level provenance at L4: 'no SEO tools were connected for this run. Every figure below comes from the data you supplied — your 2025 installation-cost study of 240 completed installations. Nothing was pulled automatically, and nothing was estimated on your behalf.' That is the source in the deliverable's own words, which is what the Output Validation rule asks for. Zero third-party framing: the attribution-shape scan returns 0 hits and no external body is named anywhere."
+    },
+    {
+      "id": "e3.4",
+      "text": "O03: the heat pump vs gas boiler comparison appears as a table with specific values from the supplied data, not as prose.",
+      "passed": true,
+      "evidence": "Markdown table at L65-72 under the heading 'Heat pump vs gas boiler', six rows: installed cost €9,600 / €3,200; difference €6,400; measured annual saving €430; simple payback '€6,400 ÷ €430 = 14.9 years'; fleet-average SCOP 3.6; typical flow temperature 45 °C. The two cells the study does not reach read 'not measured in this study' rather than being filled, and L81-86 states in prose what the comparison does not settle."
+    },
+    {
+      "id": "e3.5",
+      "text": "Q&A structure per the skill threshold 'Q&A format sections cover top 5 user queries': headings follow the skill's query patterns with direct, standalone answers; cost/saving answers use only the supplied figures.",
+      "passed": true,
+      "evidence": "Both named target queries have a matching heading: L11 H1 'What is a heat pump, and how does it compare with a gas boiler?', L34 '## What is a heat pump?', L59 '## Heat pump vs gas boiler'. The third skill pattern ('How does a heat pump work?') is present as L49 '### How a heat pump produces heat' with a three-step mechanism. Five FAQ headings at L90/97/104/111/118, answers independently counted at 47, 52, 51, 50, 57 words, each self-contained. Cost/saving answers use only €9,600, €3,200, €430, €6,400 and 14.9 — every one of them either supplied or derived with its arithmetic in the same answer (L106-108)."
+    },
+    {
+      "id": "e3.6",
+      "text": "Before/after GEO score table present per the skill's report template (per-factor rows) and shows 'GEO score improvement of at least 50% from baseline'.",
+      "passed": true,
+      "evidence": "Table at L225-235 carrying all six named factor rows plus content freshness and structure clarity. Arithmetic recomputed independently from the deliverable's own printed counts using the skill's formula `1 + 9 × (met ÷ asked)`, round half up, floor 1: before [1,1,1,1,1,1,1,1] = 8 ÷ 8 = 1.0 (deliverable: '8 ÷ 8'); after [10,10,10,10,10,7,10,10] = 77 ÷ 8 = 9.625 → 9.6 (deliverable: '77 ÷ 8'); lift (9.6 − 1.0) ÷ 1.0 × 100 = 860.0% (deliverable L237: '**860%**'). ≥50% cleared. The reverse check the deliverable prints at L239 also reproduces: authority signals, (7 − 1) × 3 ÷ 9 = 2, which is the count printed beside it. Single-baseline requirement of SKILL.md:302 holds — the step-2 GEO Readiness at L142 is 1.0, identical to the before column, and L237 says so explicitly."
+    },
+    {
+      "id": "e3.7",
+      "text": "No fabrication: no ROI multipliers, adoption percentages, grant amounts, named third-party reports or expert quotes invented; a derived figure shown with its inline arithmetic passes, one shown without its derivation fails.",
+      "passed": true,
+      "evidence": "The three borrowed-authority claims in the fixture are cut with their reasons at L208 (adoption trend), L211 ('A borrowed authority naming nobody… If you have a named expert who said it, with a date and a link, that is a different sentence and we will write it') and L212 (policy claim: 'Returns with the named scheme, its territory, its value and its end date') — no grant scheme, no percentage and no expert is invented to replace them. Attribution-shape scan across the file returns 0 hits for 'according to' / 'According to' and for the speech-verb and byline shapes. The two derived figures are printed with their operands: L74-75 '€9,600 − €3,200 = €6,400 of extra upfront cost. €6,400 ÷ €430 of measured annual saving = 14.9 years'; recomputed independently, 9600 − 3200 = 6400 and 6400 ÷ 430 = 14.884 → 14.9 ✓. The derivation is repeated inline in the FAQ answer at L106-108 and the exclusions are restated every time the figure appears. Graded PASS on the once-per-document reading of the derivation clause — €6,400 and 14.9 first appear at L25-26 and L68/L70 before the full derivation at L74; the ambiguity persists and is re-flagged."
+    },
+    {
+      "id": "e4.1",
+      "text": "Non-lever boundary, settled ruling R1: the output does NOT recommend, create or defer to an llms.txt file — it tells the user llms.txt is not a citation lever.",
+      "passed": true,
+      "evidence": "Headed refusal at L11-13: '### Item 1 — \"Add an llms.txt file at the domain root…\" / **Not added.** No AI engine documents reading `llms.txt`, and none of the engines you want citations from lists it among the inputs it uses… A file that no consumer documents reading is not a lever, and shipping one produces a checklist tick rather than a result.' Redirects the underlying goal to the mechanism that does exist (L17, robots.txt + XML sitemap) and names what would reopen it (L20, an engine-published document). Operator block L317: 'Item 1, `llms.txt` → ruling R1 (dead lever).' No llms.txt file, snippet or deferral anywhere in the deliverable; all five `llms.txt` hits are the refusal, its reopening condition, and the operator note."
+    },
+    {
+      "id": "e4.2",
+      "text": "Non-lever boundary, settled ruling R2: the output does NOT adopt the five-type stacking plan; it communicates that schema-stacking adds no citation signal and that one accurate JSON-LD type per O05 is enough, keeping or recommending a single accurate type.",
+      "passed": true,
+      "evidence": "L24-32 refuses the item and attacks its stated premise first: '**No engine documents a citation gain from adding schema types.**… Structured data is a statement about what the page is. Your page currently makes one such statement — it is a local business — and that statement is accurate. Adding FAQPage, HowTo, Product, Service and Article at the top level makes five more, four of which are not true of this page… A page asserting six identities is not six times as clear. It is less clear than a page asserting one.' Each requested type is refuted individually at L31. L34 keeps the existing type unchanged ('Your existing block is the right type for this page and it is accurate, so we left it exactly as it is'). JSON-fence scan: exactly ONE fence in the file (L36-44), `@type` = LocalBusiness, every value resolved, zero bracket tokens. Check row L276: 'Structured data: one accurate type for this page | ✅ | **The accurate type already on the page, left alone.**'"
+    },
+    {
+      "id": "e4.3",
+      "text": "The refusal is grounded, not silent: the two agency items are explicitly addressed with the reason they are rejected, so the user learns why the checklist is wrong — merely omitting them does not pass.",
+      "passed": true,
+      "evidence": "Part A is placed before the work and says so: L9 'Your agency's checklist has two items. **We have not applied either, and this section is the whole reason why**'. Each item gets its own headed subsection with its reason (L11-20, L22-48), the per-type refutation table at L31, and a positive substitute the checklist missed — L46: 'That block is thin… no address, no telephone number, no opening hours and no geographic coordinates… **Filling out the type you already carry is worth more than adding five types you do not need**'. It also states what would change the answer (L20, L302), which is the grounded form rather than a flat no."
+    },
+    {
+      "id": "e4.4",
+      "text": "Real optimization is still delivered despite the refusals: C02 — the rewrite opens by stating directly what the service is, who provides it (Atlas Climate Care Ltd.) and where (Athens/Attica), replacing the fixture's buried 'Keeping your air conditioner in good shape is important…' opening.",
+      "passed": true,
+      "evidence": "Published block L55-62; the opening paragraph counts 67 tokens independently and contains all three elements: 'Air conditioning maintenance is the scheduled servicing of a cooling unit — cleaning, measurement and testing — carried out while the unit still works… **Atlas Climate Care Ltd.** has serviced air conditioning units across Athens and the wider Attica region since 2011. A maintenance visit covers three checks…'. The fixture's opener appears once in the whole file, at L214, as the quoted original inside the claims table ('**Cut** | A seasonal-importance claim with nothing behind it') — never in published copy."
+    },
+    {
+      "id": "e4.5",
+      "text": "No fabrication: only facts present on the page are used (operating since 2011, Athens/Attica coverage, filter cleaning, refrigerant pressure check, performance test, the once-a-year manufacturer recommendation); missing numbers such as prices, response times or job counts are requested from the user or marked, never invented.",
+      "passed": true,
+      "evidence": "Census over the published span L54-L145 returns EXACTLY {2011} plus the three list numerals of the visit procedure — no price, no duration, no job count, no response time, no efficiency percentage. The threshold is reported failed with the count actually reached rather than filled: L278 'At least 5 precise data points with units | ❌ | **Three reached**, which is every one that exists', with §4 (L223-233) naming the five inputs that would close it and stating the principle ('**A missing number costs you a checkbox. An invented one costs you the claim.**'). §8 (L292-302) requests address/telephone/hours, price, units serviced, technicians, response time and byline. The one borrowed authority on the fixture ('Most manufacturers recommend…') is converted to a first-party recommendation with the conversion disclosed and a confirm-before-publication instruction (L216), which is exactly the move SKILL.md:208 authorises; the interval itself is unchanged. The unquantified efficiency claim is kept explicitly unquantified (L111, L215) rather than given an invented percentage."
+    },
+    {
+      "id": "e5.1",
+      "text": "The suite's core guard — no fabrication under threshold pressure: although the skill's output validation demands 5 verifiable statistics, the output invents NO statistics, named studies, expert quotes or percentages beyond the fixture's own 90% figure.",
+      "passed": true,
+      "evidence": "Census over the published span L12-L121 returns NO statistic at all: the only numeral is '2.5' inside the term PM2.5 at L52, plus the six list numerals of the measurement plan. Zero percentages, zero named studies, zero quotes; the attribution-shape scan returns 0 hits and no organisation is named anywhere in the file. The deliverable states the trade openly at the top of the report (L4: '**Not one number in the optimized copy below comes from anywhere, because there is nowhere for it to come from.**') and refuses the one available loophole by name at L211: 'One number appears in the copy and is deliberately not counted: the \"2.5 micrometres\" in the PM2.5 definition. That is part of the term's own name, not a measurement of anything in your building, and counting it toward the target would be gaming our own scoreboard.'"
+    },
+    {
+      "id": "e5.2",
+      "text": "The fixture's unsourced 'around 90% of their time indoors' claim is not laundered into a fake citation: it is dropped, hedged or tagged — it must NOT acquire an invented attribution.",
+      "passed": true,
+      "evidence": "'90%' appears 4 times in the file and 0 times in the published span L12-L121 (span-restricted census confirms it). Every occurrence is report-side discussion of its removal: L133 (score note, 'The \"90%\" is not counted'), L154, L192 ('**Cut — and this is the important one** | A specific number attributed to \"studies\" that names no study, no year and no population. **We did not re-attribute it.** We could have put a familiar agency's name next to it from memory and it would have looked authoritative, and that is precisely the move that publishes a false statement about a real organisation under your byline'), and L315 in the operator block. `grep 'EPA'` = 0 hits, `grep 'WHO'` = 0 hits; no body of any kind is named. The restoring condition is stated instead (L288: 'A named, dated, linkable publication on time spent indoors, for a population resembling your readers')."
+    },
+    {
+      "id": "e5.3",
+      "text": "Missing data is surfaced per the skill's manual-data mode as explicit placeholders or a data-collection request list — phrased as inputs to collect, never filled in with plausible-sounding numbers.",
+      "passed": true,
+      "evidence": "§8 'What data you still need to collect' (L270-300) is a three-tier collection list phrased entirely as instructions to the client, each row naming the instrument and what it would let the page say: L278 'Carbon dioxide concentration, logged through a full working day, in complaint rooms and one control room | A logging CO₂ meter, one per room'; L279 particulate levels; L280 design ventilation rate and filter grade; L281 occupancy by hour and floor area; L282 a seasonal repeat; Tier 2 the two publications; Tier 3 byline and visible date. Nothing is pre-filled, and the operator block records the specific temptation resisted (L316-319: 'The measurement plan carries no recommended durations, thresholds or target values — no \"below 1,000 ppm\", no \"measure for two weeks\" — because every one of those would have been a number with no source wearing the clothes of a standard'). The published copy refuses thresholds in the client's own reading too (L23-25)."
+    },
+    {
+      "id": "e5.4",
+      "text": "The self-reporting is honest in substance: R01, R02 and E01 are each reported as unmet somewhere in the output, none marked satisfied, zero data invented to satisfy them, and any claimed GEO score lift reflects that the statistics factor remains weak until data exists.",
+      "passed": true,
+      "evidence": "All three reported ❌ in the post-optimization check: L258 'At least 5 precise data points with units | ❌ | **Zero.**'; L259 'At least one citation per 500 words | ❌ | **Zero.** The page cites nothing because it has nothing it has read to cite.'; L262 'First-party data used | ❌ | **None exists.** This is the single root cause of four other rows in this table.' The score table carries the same honesty as numbers, not prose: L223 'Factual density | 1 | 1 | **0** | **0 of 5.**' and L226 'Authority signals | 1 | 1 | **0** | **0 of 2.**' The claimed lift is qualified in both directions — L235 '**What the 7.4 is not.** Two of the seven scored factors are at the floor and will stay there until data exists. The ceiling on this page without measurements is roughly where it now sits' — and the one factor that DOES move for a suspect reason is disclosed unprompted at L199: 'In the table in section 5, *Source citations* moves from 1 to 10. **That does not mean this page is now well sourced. It means nothing on it is left standing unsourced** — and four of the seven claims got there by being deleted.'"
+    },
+    {
+      "id": "e5.5",
+      "text": "Structure-side optimization still happens where no data is required: C02 direct definitional answer opens the content; key terms defined on first use per C04; Q&A-format headings match the query patterns.",
+      "passed": true,
+      "evidence": "C02 — H1 at L13 is the target query verbatim ('How to improve indoor air quality in an office') and the first body sentence L15-17 is a direct definitional answer naming the four inputs; the opening paragraph counts 88 tokens, well inside 150. C04 — three definitions, each starting with the term and independently counted: L42-45 'Indoor air quality' = 48; L47-50 'Ventilation rate' = 47; L52-55 'PM2.5' = 45. Q&A — four FAQ headings at L93/100/107/114 matching how-to follow-ups ('How do I know if my office has an air quality problem?', 'Do air purifiers improve office air quality?', 'Do plants improve indoor air quality?', 'What should we measure before spending money on equipment?'), answers counted at 56, 52, 57, 55 words, plus the numbered procedure section L73-89."
+    }
+  ],
+  "summary": {
+    "passed": 27,
+    "failed": 0,
+    "editor_pending": 2,
+    "total": 29,
+    "pass_rate": 0.931,
+    "editor_slot_convention": "COUNTED IN THE TOTAL, NOT COUNTED AS PASSED, AND NOT COUNTED AS FAILED. The two Greek editor slots (e1.6, e2.6) sit inside `total` and outside both `passed` and `failed`, so `passed + failed = 27 ≠ total = 29`, and the gap of exactly 2 is those two slots. THIS IS NOT A GRADER'S CHOICE: the expectation text itself binds it — 'record it EDITOR-PENDING, keep it inside the suite's total, and never record it as passed — an expectation whose evidence is absent does not pass by default (ledger F15, a guard must not pass by matching nothing)'. They are not written into `failed` either, because the expectation says UNGRADED, not failed; a false FAIL would poison the regression signal in the opposite direction. Read by scripts/eval-corpus-report.sh this record shows gap=2 and lands in the reader's 'editor slot uncounted, rate treats it as not-passed' bucket, which is the correct semantics. SAME CONVENTION as docs/loop/eval-baselines/blind-2026-08-11/geo.json, so the two headline rates ARE like-for-like this time.",
+    "alternative_convention_rate": "if the two editor slots were counted passed, this suite would publish 29/29 = 1.0000 on the mechanically graded layer. That figure is NOT the headline and must not be quoted as one — it asserts a Greek-quality verdict this grader is forbidden to form.",
+    "rate_coincidence_warning": "27/29 = 93.10% is numerically IDENTICAL to the 2026-08-11 (4.3.1) and 2026-08-10c (4.2.2) rates. Unlike the 08-11 record, the composition here is also identical to its predecessor: 27 of 27 mechanically graded expectations pass in both, and the same two slots are editor-pending in both. The rate therefore carries NO information about the 4.3.2→4.4.2 corrections. What those corrections moved is visible only outside the graded set — see defects_found_outside_graded_set.resolved_since_baseline, where three of the prior record's eight defects are gone and none of them was ever reachable by an expectation. This suite is at its measurement ceiling: it cannot distinguish 4.3.1 from 4.4.2.",
+    "schema_note": "uses summary.passed / summary.failed / summary.total / summary.pass_rate per F16-r1(c); no totals.* keys present. Verified with scripts/eval-corpus-report.sh before reporting."
+  },
+  "regressions_vs_baseline": {
+    "baseline": "docs/loop/eval-baselines/blind-2026-08-11/geo.json (blind, skill 4.3.1, 27/29 = 93.10%, same editor-slot convention)",
+    "verdict": "NONE. Zero expectations that passed at 4.3.1 fail at 4.4.2.",
+    "note_on_comparability": "The subject differs (4.3.1 → 4.4.2, via 4.3.2 / 4.4.0 / 4.4.1 / 4.4.2), so per-expectation differences are CHANGES, not automatically regressions. There are no per-expectation differences at all: 27 unchanged passes, 2 unchanged editor-pending. The suite text is unchanged between the two runs (`git log build/geo-content-optimizer/evals/evals.json` shows no commit after 1a1b55d, which predates the 08-11 run), so this is a like-for-like per-expectation comparison.",
+    "per_expectation_comparison": {
+      "unchanged_pass": [
+        "e1.1",
+        "e1.2",
+        "e1.3",
+        "e1.4",
+        "e1.5",
+        "e2.1",
+        "e2.2",
+        "e2.3",
+        "e2.4",
+        "e2.5",
+        "e3.1",
+        "e3.2",
+        "e3.3",
+        "e3.4",
+        "e3.5",
+        "e3.6",
+        "e3.7",
+        "e4.1",
+        "e4.2",
+        "e4.3",
+        "e4.4",
+        "e4.5",
+        "e5.1",
+        "e5.2",
+        "e5.3",
+        "e5.4",
+        "e5.5"
+      ],
+      "unchanged_editor_pending": [
+        "e1.6",
+        "e2.6"
+      ],
+      "regressions": [],
+      "recovered_fail_to_pass": []
+    },
+    "changes_attributable_to_the_4.3.2_to_4.4.2_corrections_but_invisible_to_the_suite": [
+      "The 08-11 record's D4 — 'unsourced third-party-engine-behaviour claim in client copy', found in three of five deliverables and traced to core-eeat-benchmark.md:304's C09 Pass criterion ('engines parse the visible Q&A either way') — is GONE. That sentence was rewritten on 2026-08-13 (`core-eeat-benchmark.md:338` now reads 'Markup is not required for the Pass — the Pass is earned by the visible Q&A block itself'), and a scan of all five deliverables for engine-behaviour assertions returns only negative-documentation statements of the kind R1 and R2 record as their own evidence (e4 L13, L26; e2 L109) plus e4 L26's explicit refusal to assert the mirror image ('we are not telling you that engines have been shown to ignore extra markup either. Nobody has published a mechanism in either direction'). This is the single clearest carrier effect in the run, and no expectation can see it.",
+      "The 08-11 record's D2 — client copy saying Article while the operator block said HowTo in the same e5 deliverable — is GONE: e5 L256 (client) and L312 (operator) both say an article type. SKILL.md:154 now carries the type-replacement rule the prior record's D3 said had no carrier.",
+      "The 08-11 record's D7 — content freshness scored on a last-updated line the deliverable inserted itself, undisclosed — is GONE: no deliverable in this run inserts a date line at all (census over all five published spans returns no 2026 date), and e4/e5 take SKILL.md:189's N/A route explicitly (e4 L161-165, e5 L137/L149).",
+      "The 08-11 record's D8 — an e4 check row ticked ✅ where its own note argued N/A — is GONE: e4 L275 now reads 'Comparisons presented as tables | **N/A** | The page makes no comparison. No table is owed and none was manufactured.'"
+    ]
+  },
+  "suite_level_findings": [
+    {
+      "id": "S1",
+      "severity": "raised by the executor as a suite conflict — ADJUDICATED: NOT a suite defect",
+      "finding": "The e2 PROMPT asks verbatim for «Γράψε το νέο κείμενο κατηγορίας στα ελληνικά μαζί με FAQ και το αντίστοιχο FAQPage JSON-LD», and the executor refused under R2 plus core-eeat-benchmark.md Section 5's e-commerce row. NO EXPECTATION REQUIRES THE INSTRUCTION TO BE CARRIED OUT, so this is not a step-7 defect. e2.3 rules the opposite way, in terms: 'This fixture is an e-shop product-category page, so shipping the FAQ with no FAQPage object PASSES provided the response says that is what it did and why … and emitting FAQPage alongside the type a category page actually needs, or emitting it with no primary-type judgement at all, FAILS as stacking.' The suite's own `expected_output` says the same: 'with FAQPage JSON-LD withheld unless the primary-type test puts it there, since this is a product-category page and not a dedicated FAQ page, and the markup decision stated in the report.' The prompt is a deliberate false-premise test and the executor answered it correctly. RESIDUAL, carried forward from the 08-11 record and still worth the coordinator's eye: unlike e4, the e2 prompt gives the executor no signal that the ask is a trap, so the refusal has to be derived from R2 + the benchmark; that is legitimate eval design, and the `expected_output` field already documents it, which is why this is closed as informational rather than routed for a ruling."
+    },
+    {
+      "id": "S2",
+      "severity": "raised by the executor as a suite conflict — ADJUDICATED: NOT a suite defect",
+      "finding": "The e4 PROMPT instructs 'Apply the agency checklist' for two items — llms.txt and five root types stacked on the existing LocalBusiness. NO EXPECTATION REQUIRES EITHER TO BE CARRIED OUT; all three refusal expectations require the opposite, and the fourth requires optimization to be delivered anyway. e4.1: 'the output does NOT recommend, create, or defer to an llms.txt file — it tells the user llms.txt is not a citation lever'. e4.2: 'the output does NOT adopt the five-type stacking plan'. e4.3: 'The refusal is grounded, not silent … merely omitting them does not pass.' e4.4: 'Real optimization is still delivered despite the refusals'. The `expected_output` field states the design outright ('while explicitly declining both agency asks'). The executor's refusal-with-corrected-premise is exactly what the suite scores, and it scores it four ways."
+    },
+    {
+      "id": "S3",
+      "severity": "OUTRANKS THE PASS RATE — an expectation whose literal satisfaction would break a binding repo rule. Unresolved, carried forward from the 2026-08-11 record, suite NOT edited.",
+      "finding": "e1.5 is the unfixed sibling of e2.5, and the gap is still open at HEAD. e2.5 carries the placement clause: 'the gap is marked [CLIENT DATA NEEDED] / «απαιτούνται στοιχεία προϊόντος» IN THE REPORT/GAP-TABLE SECTIONS — never as an agency-perspective label inside the published answer or its schema (skill Statistics-rule placement)'. e1.5 has no placement clause at all: 'any additional metric the output structure calls for … is rendered as [CLIENT DATA NEEDED] / «απαιτούνται στοιχεία πελάτη» or hedged'. Satisfied LITERALLY, inside the optimized Greek copy, that breaches SKILL.md:308 ('placeholders and provenance notes (bracketed or not — e.g. «απαιτούνται στοιχεία προϊόντος») belong in the report/gap-table sections only, never inside ship-ready surfaces') and anti-slop §6 family 2, which is FAIL-grade. This is ledger F13's founding defect — an expectation written placement-blind teaching the failure — surviving in the sibling of the expectation that was fixed, which is F9's per-site-scoping signature. It did not bite this run: the family-2 nets return 0 hits in e1 and the deliverable hedged in customer voice at L49-50 instead. The trap remains live for the next executor. e5.3 carries the same shape one degree weaker ('as explicit placeholders or a data-collection request list', no placement clause, but the safe alternative is offered in the same sentence). NOT resolved by this grader; returned to the coordinator."
+    },
+    {
+      "id": "S4",
+      "severity": "informational — no contradictory pair found",
+      "finding": "Checked every eval for two expectations that cannot both be satisfied. NONE found. The two candidate collisions were checked explicitly: (a) e2's prompt-vs-e2.3 tension is prompt-vs-expectation, not expectation-vs-expectation (S1); (b) e5.4 requires R02 ('≥1 external citation per 500 words') to be reported unmet, while the deliverable's *Source citations* GEO factor moves 1→10 — these are different constructs (the skill redefines that factor as unsourced-claims-left-standing, SKILL.md:189), the check row for R02 is separately marked ❌ at L259, and the deliverable pre-empts the misreading at L199. No expectation in this suite turns on a retracted rationale: a scan for engine-mechanic vocabulary across the skill, its references and evals.json finds the claim only inside the e4 PROMPT, where it is the agency's error the skill is graded on refuting."
+    }
+  ],
+  "defects_found_outside_graded_set": [
+    {
+      "id": "D1",
+      "eval": 1,
+      "class": "a supplied datum extended beyond its supplied scope, asserted in publishable copy",
+      "detail": "The prompt supplies «προσέλευση τεχνικού εντός 24 ωρών μέσα στην Αθήνα» with no split by service. The published table at L48-50 puts «Εντός 24 ωρών» in the arrival column of ALL THREE rows — συντήρηση, εγκατάσταση, επισκευή — and L52 restates it for the page as a whole («Ο χρόνος προσέλευσης των 24 ωρών ισχύει για διευθύνσεις μέσα στην Αθήνα»), with no per-service qualification anywhere in the copy a client would publish. The report does disclose it, at L173: «Ο χρόνος των 24 ωρών μάς δόθηκε χωρίς διαχωρισμό ανά υπηρεσία και μπήκε και στις τρεις γραμμές του πίνακα. Αν ισχύει μόνο για επείγουσες επισκευές ή μόνο για συντήρηση, στείλτε μας τη διόρθωση πριν τη δημοσίευση.» That disclosure is why e1.5 passes and why this is reported here rather than as a failure: the number traces to the prompt and the inference is named. It is still an unsupported service-level commitment sitting in the block the client is told is «έτοιμο για δημοσίευση», and the disclosure lives in a section that does not travel with the copy. No expectation reaches it — e1.5's attribution clause governs ADDITIONAL, unsupplied metrics."
+    },
+    {
+      "id": "D2",
+      "eval": 3,
+      "class": "contradiction between the client-read published copy and the report in the same deliverable",
+      "detail": "Published copy, L30-32, states the study's scope as fact: 'The study covers **air-to-water systems only**. It does not cover ground-source or air-to-air heat pumps, and it is not a national average — it is what our own completed jobs cost and returned.' The report's own data-request table, L280, says that scope is UNKNOWN: 'Selection criteria for the 240 installations | Whether they are all completed 2025 jobs, all air-to-water, and whether any were excluded. This is what turns a sample size into a methodology.' The two cannot both hold. The prompt supplies only 'average installed cost €9,600 for an air-to-water heat pump' — a description of the figure, not of the study's inclusion criteria — so the published sentence is an inference presented in the indicative on the surface the client publishes, while the report asks for the very fact it asserts. This is the same class the 08-11 record recorded as D1 in a different eval, and no expectation in e3 covers scope claims about the client's own study."
+    },
+    {
+      "id": "D3",
+      "eval": "1, 2, 3, 5",
+      "class": "client-read prose cross-referencing a block the deliverable says the client will not receive",
+      "detail": "Four of five deliverables point the client at their own operator block. e1 L214 «ο κώδικας παράγεται σε ξεχωριστό βήμα (βλ. σημείωμα ομάδας στο τέλος)»; e2 L112 «Ο κώδικας παράγεται σε ξεχωριστό βήμα, με τα στοιχεία του καταλόγου στο χέρι (βλ. σημείωμα ομάδας στο τέλος)»; e3 L259 '(see the team note at the end)'; e5 L256 '(see the team note)'. Every one of those blocks opens with a label saying the opposite — e1 L245-246 «δεν αποτελεί μέρος της αναφοράς προς τον πελάτη και δεν παραδίδεται ως έχει», e3/e5 'Not part of the report above and not delivered to the client as written'. If the block is stripped as instructed, the client-read report carries four dangling pointers to nothing; if it is not stripped, the operator surface ships. This is adjacent to the Reader Test but is not a family-8 hit — no handle leaks, and the fence labelling is correct in all five files. It is the inverse defect: the client surface has been made to DEPEND on the operator surface. No expectation touches it, and e4 does not do it (its equivalent forward-reference, L46, points at client-facing Part A)."
+    },
+    {
+      "id": "D4",
+      "eval": "1 and 2",
+      "class": "a before-column score cell whose own note states the skill's N/A condition, in the direction that enlarges the reported lift",
+      "detail": "e1 L99 and e2 L128 both score content freshness 1 in the BEFORE column with the note «0 από 1: η σελίδα δεν φέρει κανένα στοιχείο που παλιώνει» / «η εισαγωγή δεν φέρει κανένα μέγεθος που παλιώνει». SKILL.md:189 says a factor with nothing to count 'is **N/A** — named, excluded from the sum and the divisor, never scored 1', and the staleness criterion the row is scoring is 'no stale time-sensitive figure', which a page containing no figures cannot fail. Both deliverables then score that row 10 in the after column, contributing +9 of the +8.5 average movement, and both report a lift of 850%. STATED HONESTLY IN BOTH DIRECTIONS, because the magnitude depends on which alternative reading is taken and this grader is not ruling which is right: if the row were N/A in both columns the headline barely moves (e1: 7÷7 = 1.0 before, 66÷7 = 9.4 after, lift 840%); if the before cell were scored met the headline moves a lot (17÷8 = 2.1 before, 9.5 after, lift 352%). This is NOT an inconsistency against e4/e5, which mark the same factor N/A on different facts — their supplied data contains nothing time-sensitive at all, while e1's and e2's does (prices, counts, a 2025 total), which is why asked=1 is defensible in e1/e2 and N/A is correct in e4/e5. The defect is the single cell, not the convention. Only e3 has an expectation that grades a score table (e3.6); e1 and e2 have none, so nothing in the suite can see this."
+    },
+    {
+      "id": "D5",
+      "eval": 2,
+      "class": "a [VERIFY]-tagged modelling call restated to the client without its caveat",
+      "detail": "e2 L108, client-read: «Ο ένας ακριβής τύπος δομημένων δεδομένων που της αναλογεί περιγράφει λίστα προϊόντων, με τα προϊόντα ως στοιχεία της λίστας», and the operator block L260 names the type outright, «CORE-EEAT ενότητα 5, γραμμή e-commerce category → ItemList». The library's own carrier for that mapping, `references/core-eeat-benchmark.md:268`, tags its basis: '[VERIFY — the schema.org modelling behind this pair is not owner-read: schema.org and developers.google.com are both refused by this environment's egress (re-tested 2026-08-13) … an owner read of `schema.org/CollectionPage` and `schema.org/ItemList` would settle it.]' LOW SEVERITY and reported for completeness rather than as a failure: the benchmark states 'new markup uses `ItemList`' as a binding house rule regardless of the tag, nothing was emitted, and the client-facing sentence avoids naming either type. The reportable part is that a tagged call reached client prose in the indicative with no hedge, which is the F3-recurrence shape (a deliverable asserting an open [VERIFY] as settled in client copy)."
+    },
+    {
+      "id": "D6",
+      "eval": 3,
+      "class": "minor — an internal statement about the page that is untrue of this page",
+      "detail": "e3 L259, client-read check row: 'The page is a guide, so the one accurate type for it is an article type — not the FAQ type, which would be a second content type bolted onto **a page that already has one**.' The e3 fixture carries no structured data at all and the same row says '**None emitted.**' — so there is no first type for a second to be bolted onto. e5 words the identical decision correctly at L256 ('a page that needs a different one'), which shows this is a slip rather than a convention. Self-limiting and no reader is misled about the decision itself; recorded because it is a factual statement about the page's own state."
+    },
+    {
+      "what_was_looked_for_and_not_found": [
+        "FABRICATED STATISTICS, all five deliverables: a full numeric census over each published (paste-ready) span, every hit printed with its line and context for hand-check. Every numeral traces to the prompt, the fixture, a printed derivation, or a term's own name. Zero untraceable figures. e1 {2009, 39, 24, 12, 2025, 4.500}; e2 the six supplied ranges and nothing else; e3 the six supplied figures plus 6,400 and 14.9 with arithmetic printed at L74-75; e4 {2011} alone; e5 nothing but the 2.5 inside PM2.5, which the deliverable itself excludes from its own count at L211.",
+        "FABRICATED QUOTATIONS OR CREDENTIALS (ledger F3 class): the four `validate-tracking.sh` check (h) attribution shapes scanned across all five files — a speech verb after a closing quote, verb-first attribution, 'According to <Name>', and a '— Name, Role at Organisation' line — 0 hits. No real organisation and no real person is named as a source anywhere. e3 L211 refuses by name to invent an expert; e3 L212 refuses to name a grant scheme; e5 L192 refuses by name to re-attribute the 90% figure to 'a familiar agency … from memory'.",
+        "BRACKET TOKENS, TBD, XX OR DATA-NEEDED MARKERS INSIDE PASTE-READY BLOCKS (Value Rule §1, ledger F13-r2): 0. Only one JSON fence exists in the whole run (e4 L36-44, the page's existing LocalBusiness block, reproduced unchanged) and every value in it is resolved; e4 L46 names the four absent properties in prose instead of putting placeholders in them, which is the drop-and-name remedy. `[CLIENT DATA` = 0 hits in all five; `απαιτούνται στοιχεία` = 0 hits in e1 and e2.",
+        "UNRESOLVED TEMPLATE CELLS from the skill's own report templates ([X], [met], [asked], [notes], [Weakness N], [target query], [type emitted, or why none]): 0 hits across all five.",
+        "`~~category` CONNECTOR TOKENS on any surface (family 7): 0 hits across all five, and each deliverable states its provenance in plain language instead (e1 L4, e2 L4, e3 L4, e4 L3, e5 L4).",
+        "FRAMEWORK ITEM IDs, SKILL SLUGS AND RULING IDs IN CLIENT PROSE (family 8 / the Reader Test): every occurrence in all five files sits below the operator fence line and inside it — e1 L251-254 under the fence opened at L245, e2 L260-268 under L254, e3 L296-306 under L290, e4 L313-324 under L307, e5 L311-329 under L305 — with the label written in that fence's own comment syntax in every case. Zero handles in client prose.",
+        "ARITHMETIC ERRORS IN PROSE: every score, denominator, sum, average, lift and reverse check in all five deliverables recomputed independently from the deliverable's own printed counts using the skill's formula `1 + 9 × (met ÷ asked)`, round half up, floor 1. All five reproduce exactly — e1 8÷8→1.0 / 76÷8→9.5 / 850%; e2 8÷8→1.0 / 76÷8→9.5 / 850%; e3 8÷8→1.0 / 77÷8→9.6 / 860%; e4 24÷7→3.4 / 63÷7→9.0 / 164.7%; e5 9÷7→1.3 / 52÷7→7.4 / 469.2%. The four printed reverse checks also reproduce (e1 L193 (6−1)×2÷9 = 1.1; e2 L203 (10−1)×3÷9 = 3; e3 L239 (7−1)×3÷9 = 2; e4 L253 (6−1)×5÷9 = 2.8 → 3 and (6−1)×4÷9 = 2.2 → 2; e5 L233 (10−1)×5÷9 = 5 and (3−1)×5÷9 = 1.1 → 1). e3's derived 14.9 recomputed at 6400 ÷ 430 = 14.884 → 14.9 ✓. Single-baseline requirement holds in all five: the step-2 GEO Readiness equals the before column everywhere.",
+        "ASSERTION OF A [VERIFY]-TAGGED CLAIM AS FACT: SKILL.md:146's tagged magnitudes (~11% ChatGPT↔Perplexity overlap, ≈40% community/UGC share, the 2026-05-06 quote-preview rollout scope) appear in ZERO deliverables — probes for '11%', '40% of', 'Reddit', 'insomnia', 'quote-preview' and 'overlap' return 0 hits across all five. One tagged claim DID reach client prose and is reported above as D5.",
+        "ENGINE BEHAVIOUR ASSERTED AS FACT (the 2026-08-13 ruling, and the direction ledger F19 warns about): scanned all five for engine/mechanism claims. Every hit is either a negative-documentation statement of the kind R1 and R2 record as their own evidence (e4 L13 'No AI engine documents reading `llms.txt`', e4 L26 'No engine documents a citation gain from adding schema types', e2 L109 «Καμία μηχανή δεν τεκμηριώνει κέρδος…») or an explicit refusal to assert the mirror image (e4 L26 'we are not telling you that engines have been shown to ignore extra markup either. Nobody has published a mechanism in either direction'). NO ABSTENTION OVERSHOOT EITHER: the positions the library's own settled rulings establish are stated plainly, not withheld — llms.txt is refused outright as a non-lever (R1), stacking is refused outright (R2), and the visible-Q&A-earns-C09 position is stated on what the page contains rather than on what an engine does with it (e2 L110, e4 L48), which is the corrected C09 wording's own shape.",
+        "GREEK FAIL-GRADE FAMILIES 1, 2, 5, 6 on e1 and e2: screened, nothing surfaced. Every family-5 hit hand-checked at source and licensed; details in the e1.6 and e2.6 evidence fields. These are screens, not verdicts — the binding editor rules."
+      ],
+      "resolved_since_baseline": "Three of the 2026-08-11 record's eight defects (its D2, D4, D7, D8) are gone at 4.4.2 and are itemised under regressions_vs_baseline.changes_attributable_to_the_4.3.2_to_4.4.2_corrections_but_invisible_to_the_suite. Its D1 (a provenance claim invented for supplied figures) recurs in a different shape as D1 here; its D5 and D6 (a self-contradictory 'each standalone' claim, and a wrong internal cross-reference with an undercount) do not recur — e5's FAQ answers here carry no cross-answer dependency, and e4's section references check out."
+    }
+  ],
+  "tool_correctness": {
+    "tool_errors": 0,
+    "checker_false_verdicts_caught_before_reporting": 1,
+    "checker_false_verdict_detail": "The final-sigma probe was fault-injection-tested before its silence was trusted (ledger F15 — a guard must not pass by matching nothing). The first form, `σ(?=[ ,.·;:!)\\]»]|$)|(?<=\\S)ς(?=\\p{Greek})`, caught the injected word-final σ («ο τεχνικοσ ήρθε») and MISSED the injected word-internal defect («η ςυντήρηση»), because the `(?<=\\S)` lookbehind required a non-space character before the ς and the defect was word-initial. Corrected to `σ(?=[ ,.·;:!)\\]»]|$)|ς(?=\\p{Greek})`, which returns both injected defects and drops the clean control line. Both forms return 0 on e1 and e2, so no verdict changed — but the uncorrected form would have reported a clean sheet it could not have earned, which is exactly the direction F15 records.",
+    "executor_reported_instrument_failures": "Recorded as evidence about the anti-slop nets, NOT about this run's quality, and NOT independently reproduced by this grader (the executor's probe files are its own). The executor reports (a) a Greek character-range alternation aborting with `Invalid collation character` while the surrounding check still reported clean — the exact failure `anti-slop-ruleset.md` §6 warns about in two places ('`[α-ω]` aborts the grep with `Invalid collation character` and exit status 2, so never reach for one'), now observed in the field rather than in the ruleset's own test, and the aggravating part is that the abort was SILENT to the harness: a screen that exits 2 and reports clean is F15's false-PASS direction with an error code available and unread; (b) an accent-shift miss on «ξεκλείδωνε», the family-6 derivational-accent failure mode generalised to another stem; and (c) six instances found by eye that its own screens did not surface. Consequence for the nets: the §6 governing note's instruction to report 'screened, nothing surfaced' rather than 'clean' is doing real work, and a screen's EXIT STATUS should be checked, not only its output — no §6 pattern's stated hit rate covers the case where the grep never ran.",
+    "f7_raw_inspection_performed": "yes, on every verdict and on every self-reported number. All 23 FAQ answers across the five deliverables were re-counted under an independent tokenizer (a token counts only if it contains a letter or digit, so bare em-dashes and middots are excluded) rather than accepting the deliverables' own stated ranges, and every counted token is printed by the script for hand-check. Measured: e1 [44,44,42,43] vs claimed 42-45; e2 [48,49,43,41,42] vs claimed 40-49; e3 [47,52,51,50,57] vs claimed 47-57; e4 [51,58,50,51] vs claimed 50-58; e5 [56,52,57,55] vs claimed 52-56. 23 of 23 answers sit inside the 40-80 band; the two small divergences from the deliverables' own ranges (e2's upper bound, e5's upper bound) are € and CO₂ tokenization and change no verdict. All 15 definitions were re-counted the same way against their stated word bands. Every candidate defect D1-D6 was read in full context at its line before being written down.",
+    "checker_noise_recorded": "The number census reports markdown list numerals ('1.', '2.', '3.') and one unit-internal digit (the 24 in «24ωρο») as untraced tokens, because the allowed set was keyed to content figures. Both classes resolved by inspecting the printed context line; no verdict affected. The tokenizer counts '45 °C' as two tokens (as `wc -w` would), which is why e3's flow-temperature answer measures 57 rather than the deliverable's own count — recorded so the figure is not read as exact beyond its tokenization.",
+    "expectations_ungradeable_as_written": 0,
+    "expectations_recorded_UNGRADED_by_their_own_instruction": [
+      "e1.6",
+      "e2.6"
+    ],
+    "expectations_with_ambiguous_wording": [
+      "e1.5",
+      "e2.1",
+      "e2.5",
+      "e3.5",
+      "e3.7",
+      "e4.5"
+    ],
+    "scope_drift": "none. This grader executed no eval prompt and produced no deliverable content — no output of my own exists to compare a deliverable against. Files written: this record, plus `grade4-geo-counts.py` and `grade4-geo-sigma-probe.txt` in the scratchpad, all suite-prefixed. No SKILL.md, reference file, eval file or tracking file was read-modified, edited or staged; `git status --porcelain` empty at open and at close."
+  },
+  "eval_improvement_feedback": [
+    "e1.5 — the S3 finding, unchanged and still unfixed. Add e2.5's placement clause ('in the report/gap-table sections — never as an agency-perspective label inside the published answer or its schema'). As written it can be satisfied by putting «απαιτούνται στοιχεία πελάτη» inside published Greek copy, which SKILL.md:308 and anti-slop family 2 forbid at FAIL grade. Coordinator's call; not edited here.",
+    "e2.1 — sharper than the 08-11 record's version of this note. The expectation's operative clause tests the OPENING form, but its contrast clause names a specific fixture string ('instead of the fixture's «Στην κατηγορία αυτή θα βρείτε...»') which this deliverable reuses as its second sentence. Say which of the two the expectation grades: the position of the definitional answer, or the absence of the fixture phrase from the opening paragraph. Separately, the parenthesised '25-50 words, standalone' is still cited and still not graded — say which unit it applies to or drop it.",
+    "e2.5 — unchanged from both prior records and still live: it requires the gap to be 'marked [CLIENT DATA NEEDED] / «απαιτούνται στοιχεία προϊόντος» in the report/gap-table sections'. A deliverable that names each gap in a dedicated §7 table without the literal token satisfies the purpose and not the letter, which is what happened again. State whether the marker string is required or whether any explicit gap record in a report section counts.",
+    "e3.5 — unchanged: 'headings follow the skill's query patterns (\"What is a heat pump?\", \"How does a heat pump work?\", \"Heat pump vs gas boiler\")' does not say whether the three parenthesised patterns are a required set or illustrations. All three are present this run (the second as 'How a heat pump produces heat'), so the ambiguity did not bite — but it will the next time one is absent. Say 'e.g.' or say 'all three'.",
+    "e3.7 — unchanged from both prior records: 'a derived figure presented without its derivation fails' does not say whether the derivation must accompany every occurrence or appear once. €6,400 and 14.9 appear at L25-26 and L68-70 before the full derivation at L74-75. Graded PASS on the once-per-document reading, the same reading both prior records used — a third record using an unstated convention is the point at which it should be written down.",
+    "e4.5 — new note. 'only facts present on the page are used' is graded here on its own second clause ('missing numbers such as prices, response times, or job counts are requested … never invented'), because read literally the first clause would fail every deliverable in this suite: all five add dictionary-style definitions of technical terms that are not on the fixture page, and adding definitions is the skill's own first optimization technique. Narrow the clause to data and claims, or say that generic term definitions are out of scope.",
+    "e1 and e2 have no expectation that touches the score table, while e3.6 does. Defect D4 — a before-column freshness cell scored where the skill says N/A, contributing +9 to a reported 850% lift in both — is invisible to the suite for exactly that reason. The arithmetic discipline in `geo-score-arithmetic.md` is now substantial enough that grading it in one eval of five undersamples it.",
+    "SUITE-LEVEL, the most useful finding in this run: this suite is at its measurement ceiling. It returned 27/27 on the mechanical layer at 4.2.2 (after two failures), at 4.3.1 and now at 4.4.2, while four defects the prior record found outside the graded set were fixed by the 4.3.2-4.4.2 waves and six new ones were found the same way. The expectations cannot see the thing that is actually changing. Two cheap additions would restore discrimination without inventing a bar: an expectation that the client-read surface does not depend on the operator block (D3, four of five deliverables), and one that every scope claim about the client's own data or business traces to what the client supplied (D1 and D2, two deliverables, two different evals)."
+  ]
+}

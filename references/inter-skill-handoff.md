@@ -318,6 +318,13 @@ Derived 2026-08-10 by grepping all 20 skill directories (`SKILL.md` plus `refere
 This is what the grep found, not a target state. Re-derive it after any skill edit that adds or
 removes a follow-up recommendation.
 
+**Re-derived 2026-08-13** after `content-gap-analysis` 4.2.4 gained a *Handoff to the Next Run*
+section (finding 62 — its eval graded a convention the skill never stated). It is now a producer and
+was in neither table. **This is the maintenance obligation working as designed and it only worked
+because the implementer flagged it** — nothing in the gate re-derives these tables, so a skill that
+gains a follow-up recommendation silently falsifies both. Recorded as a guard candidate rather than
+patched: the check is a grep, and this file already states the exact grep.
+
 ### 5.1 Producers — a skill whose own output names a follow-up run
 
 | Producer | Where the handoff is emitted | Runs it names |
@@ -329,6 +336,7 @@ removes a follow-up recommendation.
 | `internal-linking-optimizer` | SKILL.md → Step 3, anchor-text analysis | `content-quality-auditor` |
 | `competitor-analysis` | `references/analysis-templates.md` → Synthesis Report operator notes; SKILL.md → Step 8 | `domain-authority-auditor` |
 | `performance-reporter` | `references/report-output-templates.md` → § 6 and § 7 operator notes | `domain-authority-auditor` (`/seo:audit-domain`), `/seo:audit-page` |
+| `content-gap-analysis` | SKILL.md → *Handoff to the Next Run*; `references/analysis-templates.md` → Handoff Block Template | `keyword-research` (demand validation on the gap keywords), `seo-content-writer`, `content-refresher` |
 
 ### 5.2 Consumers — a skill named as somebody's follow-up run
 
@@ -336,11 +344,12 @@ removes a follow-up recommendation.
 |----------|----------|--------------------------|
 | `content-quality-auditor` | `domain-authority-auditor`, `on-page-seo-auditor`, `technical-seo-checker`, `internal-linking-optimizer`, `performance-reporter` | Content URL (or page list), content type. Prior CORE-EEAT string when re-auditing |
 | `geo-content-optimizer` | `content-quality-auditor` | Target keyword, content type, CORE-EEAT string, failed GEO-First item IDs, URL |
-| `seo-content-writer` | `content-quality-auditor` | Target keyword, content type, the CORE-EEAT constraints to write against |
-| `content-refresher` | `content-quality-auditor` | URL, content type, weak dimensions as the focus set |
+| `content-refresher` | `content-quality-auditor`, `content-gap-analysis` | URL, content type, weak dimensions as the focus set |
 | `domain-authority-auditor` | `competitor-analysis`, `performance-reporter` | The domain (or domain list) and the domain type — see 5.3 |
 | `backlink-analyzer` | `domain-authority-auditor` | Domain; the CITE `C` dimension score that motivated the run |
 | `competitor-analysis` | `domain-authority-auditor` | Your domain plus competitor domains; CITE scores where they exist |
+| `keyword-research` | `content-gap-analysis` | The gap keyword set, and the market/language — it validates demand before anything is written |
+| `seo-content-writer` | `content-quality-auditor`, `content-gap-analysis` | Target keyword, content type, the CORE-EEAT constraints to write against |
 | `memory-management` | Not named as a next run — it is the store, not a step | See 5.3 |
 
 ### 5.3 Follow-up recommendations the convention does not cover
