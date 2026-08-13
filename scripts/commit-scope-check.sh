@@ -127,6 +127,48 @@ for sha in $COMMITS; do
     continue
   fi
 
+  # --- Gate leg (added 2026-08-13, Mode A finding F9). Same blindness, one
+  # directory over and with worse consequences. `71345f3` carried the subject
+  # "docs(loop): thirteenth verdict entry" and the body "Registers touched:
+  # gated-items, settled-rulings" — and also edited `scripts/validate-tracking.sh`,
+  # widening check (f)'s allowlist. Neither leg above could see it: `scripts/` is
+  # not a skill directory and not a register. **A commit that changes what the gates
+  # accept, while declaring only what it recorded, is the most consequential
+  # undeclared scope there is** — the guard's own behaviour changed and its own
+  # scope check was structurally unable to say so. One of the tokens added in that
+  # commit was the B2 overstatement, which then passed the gate for two days
+  # because the gate had been taught to accept it.
+  #
+  # Same weak form as the register leg — the message need only SAY it touched the
+  # code — but it must name **the file**, by basename. The first draft of this leg
+  # accepted a vocabulary list including "gate"/"gates", and the probe against
+  # `71345f3` (the very commit that motivated the leg) came back clean: its message
+  # says "gate" all over, because it is about **G**ATED-ITEMS. The guard would have
+  # passed by matching a word that meant something else — F15's exact failure shape,
+  # reproduced inside the fix for a different instance of it, and caught only
+  # because the probe is mandatory. Basenames cannot collide that way: a commit
+  # editing `scripts/validate-tracking.sh` has to write `validate-tracking`.
+  gate_files=$(printf '%s\n' "$files" | grep -E '^(scripts/.*\.(sh|py)|\.claude/settings\.json)$' || true)
+  gate_missing=""
+  if [ -n "$gate_files" ]; then
+    while IFS= read -r gf; do
+      [ -z "$gf" ] && continue
+      base=$(printf '%s' "$gf" | sed 's#.*/##; s#\.\(sh\|py\|json\)$##' | tr '[:upper:]' '[:lower:]')
+      case "$message_lc" in *"$base"*) : ;; *) gate_missing="$gate_missing $gf" ;; esac
+    done <<< "$gate_files"
+  fi
+  if [ -n "$gate_missing" ]; then
+    fail=$((fail+1))
+    echo "${RED}  FAIL${NC}: ${sha:0:7} changes gate/guard code its message never names:"
+    printf '        %s\n' $gate_missing
+    echo "        subject: $subject"
+    echo "        fix: name the file by basename in the subject or body (e.g."
+    echo "             'validate-tracking'), or split the code change into its own"
+    echo "             commit. A commit that changes what the gates accept must be"
+    echo "             visible as one in the log."
+    continue
+  fi
+
   skills=$(printf '%s\n' "$files" \
     | grep -E "^($CATEGORIES)/[^/]+/" \
     | cut -d/ -f2 \

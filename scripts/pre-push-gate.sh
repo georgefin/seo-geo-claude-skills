@@ -85,5 +85,28 @@ if [ "$overall" -ne 0 ]; then
     echo "PRE-PUSH GATE: FAILED — fix the FAILs above before pushing."
     exit 1
 fi
-echo "PRE-PUSH GATE: PASSED"
+
+# Null-scope disclosure (added 2026-08-13, Mode A finding F8). Checks 3-5 are
+# scoped to @{upstream}..HEAD. When everything is already pushed that range is
+# empty, they each report "nothing to check" and pass, and the gate printed a
+# bare PASSED — a clean bill of health from three checks that read nothing.
+# That is F15's shape at the summary line: a guard reporting success for
+# matching nothing. The checks are right to be scoped this way; the summary was
+# wrong to hide it. State what was actually scanned.
+outgoing_n=0
+if up=$(git rev-parse --abbrev-ref --symbolic-full-name '@{upstream}' 2>/dev/null); then
+    outgoing_n=$(git rev-list --count "$up..HEAD" 2>/dev/null || echo 0)
+fi
+dirty_n=$(git status --porcelain 2>/dev/null | wc -l | tr -d ' ')
+
+if [ "$outgoing_n" -eq 0 ] && [ "$dirty_n" -eq 0 ]; then
+    echo "PRE-PUSH GATE: PASSED — but NOTHING WAS OUTGOING."
+    echo "  The commit-scope, register-lock and claims legs are scoped to"
+    echo "  @{upstream}..HEAD, which is empty, so they scanned no commits. This is"
+    echo "  not evidence about any commit; it is the absence of a subject. Re-run"
+    echo "  against an explicit base to judge already-pushed work, e.g."
+    echo "    bash scripts/claims-gate.sh <base>   bash scripts/commit-scope-check.sh <base>"
+    exit 0
+fi
+echo "PRE-PUSH GATE: PASSED — scanned $outgoing_n outgoing commit(s), $dirty_n changed path(s) in the worktree"
 exit 0
