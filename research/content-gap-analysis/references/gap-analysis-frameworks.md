@@ -158,7 +158,7 @@ Certain formats unlock specific SERP features:
 | Content Format | Unlocks SERP Feature | Schema Required |
 |---------------|---------------------|----------------|
 | FAQ sections | PAA eligibility, AI-engine Q&A extraction (FAQ rich results retired 2026) | FAQPage (GEO parsing only, ruling R3) |
-| Step-by-step tutorials | How-To rich results, Featured Snippet (list) | HowTo |
+| Step-by-step tutorials | Featured Snippet (list). How-To rich results **unconfirmed — claim no How-to appearance** (`[VERIFY]`, WATCH-ITEMS W12 → G9) | HowTo — keep generating it for genuinely step-by-step pages |
 | Review/comparison content | Review stars, AI Overview citations | Review, AggregateRating |
 | Video content | Video carousel, Video rich result | VideoObject |
 | Product pages | Shopping results, Product rich results | Product |

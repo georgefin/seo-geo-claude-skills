@@ -69,12 +69,21 @@ How different AI systems select and cite content. Understanding these patterns h
 - Authoritative domain content
 - Well-structured, scannable content
 
-**Source selection patterns**:
-- Favors .edu, .gov, .org domains
+**Source selection patterns** [VERIFY — observational. OpenAI publishes no ranking or
+source-selection methodology; checked against its own bot documentation 2026-08-12]:
 - Prioritizes recognized brands/publishers
 - Values comprehensive content over thin pages
 - Prefers content with clear attribution
 - Looks for consensus across multiple sources
+
+**What OpenAI actually documents is inclusion, not preference.** `OAI-SearchBot` is the agent that
+surfaces sites in ChatGPT search, and sites opted out of it "will not be shown in ChatGPT search
+answers, though can still appear as navigational links". Access is therefore the one lever here
+that is documented rather than inferred — check it before optimizing anything else.
+**No domain-class preference — `.edu`, `.gov`, `.org` or any other TLD — appears anywhere in
+OpenAI's published documentation.** The widely repeated claim that ChatGPT favours those TLDs has
+no primary source behind it and is not asserted by this skill; it was removed from this list on
+2026-08-12. Source: OpenAI, "Bots", `developers.openai.com/api/docs/bots`, read 2026-08-12.
 
 **Quoting behavior**:
 - Pulls exact quotes when information is distinctive
@@ -124,11 +133,24 @@ How different AI systems select and cite content. Understanding these patterns h
 
 ---
 
-## Claude (Knowledge-Based Responses)
+## Claude
 
 ### Citation Behavior
 
-**Note**: Claude typically relies on training data rather than live web access, but understanding preferences helps create citeable content.
+**Note**: Claude fetches live web content — treat it as a search-and-cite surface, not a
+training-data-only one. Anthropic documents `Claude-SearchBot`, which "navigates the web to improve
+search result quality for users", and `Claude-User`, which accesses websites when an individual's
+question requires it. Both are distinct from `ClaudeBot`, the training crawler, and each is
+separately blockable in `robots.txt` — so **a page disallowed to `Claude-SearchBot` or `Claude-User`
+is unreachable for citation no matter how well it is written**, and blocking `ClaudeBot` alone does
+not have that effect. All four Anthropic tokens are listed in this library's crawler table:
+[robots-txt-reference.md](../../../optimize/technical-seo-checker/references/robots-txt-reference.md).
+Source: Anthropic Help Center, "Does Anthropic crawl data from the web, and how can site owners
+block the crawler?", read 2026-08-12.
+
+*Corrected 2026-08-12*: this note previously read "Claude typically relies on training data rather
+than live web access". That was false on Anthropic's own published documentation and contradicted
+this library's own crawler reference, which has listed `Claude-SearchBot` throughout.
 
 **Format preferences**:
 - When citing, uses clear attribution phrases
@@ -136,7 +158,7 @@ How different AI systems select and cite content. Understanding these patterns h
 - "Research from [source] shows..."
 - May reference general knowledge without specific citations
 
-**What gets remembered/prioritized**:
+**What gets cited/prioritized**:
 - Clear, authoritative definitions
 - Widely-accepted facts and statistics
 - Well-established methodologies
@@ -465,15 +487,21 @@ Highlighted important points.
 
 | Factor | Google AI Mode | ChatGPT | Perplexity | Claude |
 |--------|---------------------|---------|------------|--------|
-| **Freshness bias** | High | Medium | Very high | N/A (training data) |
+| **Freshness bias** | High | Medium | Very high | Not established |
 | **Authority weight** | Very high | High | High | High |
 | **Structure importance** | High | Medium | Very high | Medium |
-| **Citation count** | 3-8 | 1-6 | 5-10 | N/A |
+| **Citation count** | 3-8 | 1-6 | 5-10 | Not established |
 | **Quotable focus** | High | Medium | Very high | High |
 | **Domain trust** | Very high | High | Medium | High |
 | **Factual density** | High | High | Very high | Very high |
 
 **Source note** [VERIFY — 2026-08-10]: every cell above is an observational summary, not an engine-published metric. No engine documents how it weights freshness, authority, structure or domain trust, and none publishes its citation counts — the numbers repeat the ranges tagged in the sections above and inherit their status. Treat the whole table as a directional prior to test per engine on your own pages, never as a specification to quote to a client.
+
+*Corrected 2026-08-12*: the Claude column's freshness and citation-count cells read `N/A (training
+data)` and `N/A`. Both rested on the refuted premise that Claude has no live web access (see the
+Claude section above) and are now **Not established** — this library has no observation of Claude's
+search-surface behaviour on either axis, and "not established" is the honest cell. Do not fill
+either with a figure carried over from another engine.
 
 ---
 

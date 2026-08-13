@@ -16,7 +16,6 @@ Proven title structures that drive clicks and rankings. All formulas target 50-6
 **Why it works**: Numbers promise specific value, create curiosity, set clear expectations.
 
 **Best practices**:
-- Odd numbers (7, 9, 15) often outperform even numbers
 - Use specific numbers (13 vs "over 10")
 - Keep total under 30 for credibility
 - Match number to actual content sections
@@ -112,7 +111,7 @@ Proven title structures that drive clicks and rankings. All formulas target 50-6
 
 **Authority words**:
 - Proven, Tested, Verified, Certified, Official
-- Example: "Proven Strategies to Double Your Organic Traffic"
+- Example: "Proven Strategies to Grow Your Organic Traffic"
 
 **Urgency words**:
 - Now, Today, Fast, Quick, Instantly, Immediately
@@ -139,7 +138,7 @@ Proven title structures that drive clicks and rankings. All formulas target 50-6
 - "From Page 5 to Position 1: How We Ranked a Competitive Keyword"
 
 **Pattern 2**: How I/We [Achieved Result] in [Timeframe]
-- "How I Increased Organic Traffic by 300% in 6 Months"
+- "How I Increased Organic Traffic by [CLIENT DATA: measured lift] in 6 Months"
 - "How We Built 100 Backlinks in 30 Days"
 
 **Pattern 3**: [Bad State] → [Good State]: [Method]
@@ -196,7 +195,7 @@ Proven title structures that drive clicks and rankings. All formulas target 50-6
 ## Benefit-Driven Formulas
 
 **Pattern 1**: [Action] to [Specific Benefit]
-- "Optimize Your Title Tags to Double Your CTR"
+- "Optimize Your Title Tags to Win More Clicks"
 - "Write Better Meta Descriptions to Increase Organic Traffic"
 
 **Pattern 2**: [Action] for [Outcome] Without [Objection]
@@ -219,7 +218,15 @@ Proven title structures that drive clicks and rankings. All formulas target 50-6
 
 ## CTR Optimization Patterns
 
-### Elements That Increase CTR
+> **No effect size appears in this section, and none may be added.** These elements are listed by
+> what they do to a SERP entry, never by how much they lift click-through — magnitude depends on the
+> query, the position, and what the other nine results look like. The library's rule and its
+> reasoning live in
+> [ctr-and-social-reference.md](../../meta-tags-optimizer/references/ctr-and-social-reference.md)
+> ("Why no percentage appears below"); this file follows it rather than restating it. A CTR
+> percentage is quotable only with its publisher, year, and what was measured.
+
+### Elements Associated With Higher CTR
 
 **Year/Timeframe** (signals freshness):
 - "SEO Trends for 2024"
@@ -238,7 +245,7 @@ Proven title structures that drive clicks and rankings. All formulas target 50-6
 **Target audience** (relevance signal):
 - "...for Beginners", "...for Small Businesses", "...for B2B"
 
-### Elements That Decrease CTR
+### Elements Associated With Lower CTR
 
 - All caps (looks spammy)
 - Excessive punctuation (!!!, ???)
@@ -273,8 +280,10 @@ Proven title structures that drive clicks and rankings. All formulas target 50-6
 ### Generic → Optimized
 
 **Before**: "SEO Tips"
-**After**: "7 SEO Tips That Increased Our Traffic by 300%"
-- Added: Number, specificity, proof
+**After**: "7 SEO Tips That Increased Our Traffic by [CLIENT DATA: measured lift]"
+- Added: Number, specificity, proof — and the proof slot stays a placeholder until the client
+  supplies the measured figure. A result title is only as good as the measurement behind it;
+  filling that bracket from imagination is the one edit that turns this pattern into a false claim.
 
 **Before**: "How to Do Keyword Research"
 **After**: "How to Do Keyword Research (Free Tools & 5-Step Process)"
@@ -332,8 +341,15 @@ Before finalizing any title, check:
 - Bounce rate (relevance indicator)
 
 ### When to Rewrite Titles
-- CTR below 2% for top 3 positions
-- CTR below 5% for positions 4-10
+- CTR materially below **the site's own** average for that position band, read off its Search
+  Console export. **No position→CTR benchmark in this library is sourced**, so none of them is a
+  rewrite trigger: the position curve in
+  [meta-tag-formulas.md](../../meta-tags-optimizer/references/meta-tag-formulas.md) is
+  `[VERIFY]`-quarantined as unsourced round numbers and must not be quoted as a threshold to
+  anyone. The site's own curve reflects its actual queries and SERP features, which is exactly what
+  a fixed published band cannot. (This file previously printed flat thresholds of 2% for the top 3
+  and 5% for positions 4-10 — unsourced, and inverted besides, since they demanded *more* CTR at
+  *worse* positions. Removed 2026-08-12.)
 - Content is updated (add [Updated 2024])
 - Competitors have better titles
 - Ranking but not getting clicks

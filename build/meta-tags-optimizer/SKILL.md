@@ -1,13 +1,13 @@
 ---
 name: meta-tags-optimizer
-version: "4.2.0"
+version: "4.3.0"
 description: 'Create and optimize title tags, meta descriptions, Open Graph tags, and Twitter cards for maximum click-through rates. Use when the user asks to "optimize title tag", "write meta description", "improve CTR", "Open Graph tags", "social media preview", "fix my meta tags", or "OG tags not showing". Produces optimized meta tags with character counting, A/B test variations, and CTR analysis. For a broader on-page audit, see on-page-seo-auditor. For structured data markup, see schema-markup-generator.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.2.0"
+  version: "4.3.0"
   geo-relevance: "low"
   tags:
     - seo
@@ -348,7 +348,7 @@ _Complete meta tag block (with OG, Twitter, Article tags) generated using templa
 1. **Front-load keywords** - Put important terms at the beginning
 2. **Match intent** - Description should preview what page delivers
 3. **Be specific** - Vague descriptions get ignored
-4. **Test variations** - Small changes can significantly impact CTR
+4. **Test variations** - Change one element, wait for the re-crawl, then compare 30 days of CTR against the 30 before it at a comparable average position. How much a change is worth is what the test tells you; this skill quotes no effect size for any element (step 9 and `ctr-and-social-reference.md`)
 5. **Update regularly** - Add current year, refresh messaging
 6. **Check competitors** - See what's working in your SERP
 

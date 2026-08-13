@@ -288,7 +288,7 @@ These features depend on specific structured data markup:
 | Rich Result | Schema Required | Content Type | Visual Impact |
 |------------|----------------|-------------|--------------|
 | FAQ | FAQPage | Pages that ARE a FAQ, where FAQPage is the one primary type — never a FAQ section bolted onto an Article/Product page (ruling R2) | None — FAQ rich results ended 2026; markup kept because it stays valid and Google advises against removing it (ruling R3 + amendment 9a — no evidenced citation benefit either way) |
-| How-To | HowTo | Step-by-step instructions | Steps with optional images |
+| How-To | HowTo | Step-by-step instructions | **Unconfirmed — promise no How-to appearance.** Whether this rich result is still offered is `[VERIFY]`-tagged in `schema-markup-generator` (WATCH-ITEMS W12 → G9); a 2023-08-08 Google post is quoted as dropping How-to results, but no ruling has issued. Keep generating HowTo for genuinely step-by-step pages |
 | Review Stars | Review / AggregateRating | Product/service reviews | Star rating in snippet |
 | Recipe | Recipe | Food/cooking content | Image, cook time, calories |
 | Event | Event | Event listings | Date, location, price |

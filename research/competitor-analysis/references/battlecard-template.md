@@ -184,7 +184,17 @@ Questions to ask prospects early in the sales process that highlight your advant
 | Top-performing content | [URL + topic] | [Your equivalent or gap] |
 | Content publishing cadence | [Posts/month] | [Posts/month] |
 | Backlink count | [Count] | [Count] |
-| AI citation frequency | [High/Medium/Low] | [High/Medium/Low] |
+| AI citation frequency | [High/Medium/Low] — [Confirmed / Likely / Hypothesis + the check] | [High/Medium/Low] — [Confirmed / Likely / Hypothesis + the check] |
+
+**How to fill the AI citation frequency row.** High/Medium/Low is a reading, not a measurement, so
+the confidence label is a required field here exactly as it is everywhere else in this skill — see
+[confidence-and-evidence-rules.md](./confidence-and-evidence-rules.md). The method that earns a
+label is a **fixed prompt set run across the AI engines you care about, same prompts for both
+columns, counted and dated** — state the prompt count and the run date beside the rating
+(`Medium — 4/12 prompts, ChatGPT + Perplexity, 2026-08-12 — Confirmed`). Without that run the cell
+is a **Hypothesis** naming the run as its check, never a rating presented bare. Per this skill's
+own output checklist an *explanation* of why a competitor is cited more is **never Confirmed**,
+whatever the count shows.
 
 **Content Strategy Observations:**
 - [What content themes drive their traffic]
