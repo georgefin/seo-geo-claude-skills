@@ -82,7 +82,12 @@ bracket token, a guess or a "n/a" that reappears as a range later on.
 
 ## Keyword Gap Analysis Template
 
-```markdown
+This template contains a nested fence (the overlap diagram), so its outer fence is opened with
+**four** backticks and closed with four. Three would be closed early by the inner block, and
+everything after the diagram — the overlap counts and the Unique Keywords table — would fall
+outside the template a model copies.
+
+````markdown
 ## Keyword Gap Analysis
 
 ### Keywords Competitors Rank For (You Don't)
@@ -137,7 +142,7 @@ Gap: Keywords they all have, you don't: [X]
 | Keyword | Your Position | Volume |
 |---------|---------------|--------|
 | [kw] | [pos] | [vol] |
-```
+````
 
 ## Topic Gap Analysis Template
 
@@ -190,6 +195,7 @@ Gap: Keywords they all have, you don't: [X]
 | Video content | [X] | [X] | [X] | [X] |
 | Infographics | [X] | [X] | [X] | [X] |
 | Original research | [X] | [X] | [X] | [X] |
+| Glossary/definitions | [X] | [X] | [X] | [X] |
 
 ### Format Gaps to Fill
 
@@ -407,3 +413,36 @@ counterfactual behind it — the same reason no traffic projection appears in To
 Commit to the measurement date instead, and set the number from real rank and CTR data. *AI
 citations* is filled only when an AI monitor supplied a count; with no monitor connected the row
 is dropped and its absence noted, never carried as a zero — zero means measured and none found.
+
+## Handoff Block Template
+
+The runs that act on this analysis. The convention and its six payload fields are in
+[../../../references/inter-skill-handoff.md](../../../references/inter-skill-handoff.md); this is
+the shape the block takes when a gap analysis is the producing run.
+
+**Emit it as its own fence, after the client report's fence has closed** (handoff §3.1, form 1),
+because a model copies the fence and not the heading above it. The label below lives inside the
+fence for the same reason.
+
+````markdown
+<!-- SKELETON · OPERATOR BLOCK — for whoever operates the library, not part of the client report
+     above. Replace every bracket with a real value before this block is used; a field this run
+     cannot source is deleted from the row and named in the note beneath, never left bracketed. -->
+### Next runs
+
+| # | Run | Why | Payload |
+|---|-----|-----|---------|
+| 1 | `keyword-research` | Demand is unvalidated — this run scored it from [the named proxy] | `"[head term]"` (+ [n] cluster members) · [content type] · `[https://site.example/section-it-would-live-in]` |
+| 2 | `seo-content-writer` | Tier 1 build, cleared for writing once demand is confirmed | `"[head term]"` · [content type] · `[https://site.example/section-it-would-live-in]` |
+| 3 | `content-refresher` | Depth gap on a page that already exists, not a net-new build | `"[head term]"` · [content type] · `[https://site.example/existing-page]` |
+
+**Fields not sent — CORE-EEAT dimension scores, CITE scores, priority item IDs.** No content audit
+and no domain audit has been run on this site, so all three are omitted rather than estimated. Run
+`content-quality-auditor` on the pages once they publish if the next run needs them.
+````
+
+**Two things this block must not do.** It must not carry a bracket token, `TBD` or a
+`~~category` token in a payload value position once it is filled — an unsourceable field is deleted
+from the row and named in the note (handoff §4.2, §4.4). And no line of it belongs in client prose:
+skill slugs and framework item IDs are operator handles, and the client-facing version of the same
+recommendation names the *work* in the client's own language (handoff §3.3).

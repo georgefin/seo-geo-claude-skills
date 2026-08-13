@@ -1,13 +1,13 @@
 ---
 name: content-gap-analysis
-version: "4.2.3"
+version: "4.2.4"
 description: 'Find content opportunities by identifying topics and keywords your competitors cover that you don''t. Use when the user asks to "find content gaps", "what am I missing", "topics to cover", "content opportunities", "what topics am I missing", "where are my content blind spots", "untapped topics", or "content strategy gaps". For broader competitive intelligence, see competitor-analysis. For general keyword discovery, see keyword-research.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.2.3"
+  version: "4.2.4"
   geo-relevance: "medium"
   tags:
     - seo
@@ -141,7 +141,7 @@ When a user requests content gap analysis:
 
    Find keywords competitors rank for that you do not. Categorize into High Priority (high volume, achievable difficulty), Quick Wins (lower volume, low difficulty), and Long-term (high volume, high difficulty). Include keyword overlap analysis.
 
-   **A quick win is cheap *and* wanted.** Low difficulty alone does not qualify a keyword for the Quick Wins bucket: it must also clear the demand floor in the gap filters (>100/month by default, adjusted for the niche) or carry the named demand proxy this run is using per Step 9. This is the same condition the Quick Win Score enforces, stated in words — a keyword with no demand evidence is not a quick win however easy it looks and however empty the SERP is.
+   **A quick win is cheap *and* wanted.** Low difficulty alone does not qualify a keyword for the Quick Wins bucket: it must also clear the demand floor in the gap filters (>100/month by default, adjusted for the niche) or carry the named demand proxy this run is using per Step 9. **That condition is a filter, applied before scoring, and the Quick Win Score does not re-apply it**: Demand is one of four added inputs, so a gap sitting at the bottom Demand band still clears the quick-win bar — `1 + 4 + 4 + 5 − 12 = +2`. So filter first, then score. A keyword with no demand evidence is not a quick win however easy it looks and however empty the SERP is, and the screen will not catch it for you (gap-analysis-frameworks.md §1 Step 4 filter table, §4 Quick-Win Identification).
 
 5. **Map Topic Gaps**
 
@@ -163,7 +163,7 @@ When a user requests content gap analysis:
 
    Produce a final report in the shape set out under **Content Gap Report** below. The three tiers are read from the two scores, and each tier states the rule it used: **Tier 1** = P0 or P1 with a Quick Win Score of 2+; **Tier 2** = P0 or P1 that missed the quick-win bar; **Tier 3** = P2 and P3.
 
-   **When a factor cannot be scored, do not invent its input.** The Gap Priority Score bands Search Demand in monthly search volume, and Step 4's categories need difficulty. With no SEO tool connected and nothing supplied, neither figure exists for this run — and guessing one produces a precise-looking ranking with nothing behind it. Two routes are honest, and the report states which it took. **Named proxy**: score the factor from something the supplied data actually contains and name that basis in the report — e.g. "Search Demand scored from competitor cluster depth (23 + 41 articles across the two competitors); a coverage proxy, not a volume measurement". **Drop it**: leave the factor unscored, renormalise the remaining weights over their own sum, and state the rescaling — the denominator or the renormalised weights — together with which factor dropped out and why. Read the P0-P3 tiers against the renormalised score; see [references/gap-analysis-frameworks.md](./references/gap-analysis-frameworks.md) §4. **Dropping Search Demand also stops the quick-win screen**: the Quick Win Score needs all four of its inputs, so write "quick-win screen not run — Search Demand unavailable", order the gaps on the renormalised priority score, and let P0 carry the "start here" job. Score Search Demand from a named proxy instead and the screen runs as normal, labelled with that proxy. The same discipline governs the label: "estimated" is a source label only where the estimate has a stated basis — a range the user gave, a named proxy, a hand-check you describe. With no tool and nothing supplied there is nothing to estimate from, so the cell carries an explained N/A and the report says so in plain words.
+   **When a factor cannot be scored, do not invent its input.** The Gap Priority Score bands Search Demand in monthly search volume, and Step 4's categories need difficulty. With no SEO tool connected and nothing supplied, neither figure exists for this run — and guessing one produces a precise-looking ranking with nothing behind it. Two routes are honest, and the report states which it took. **Named proxy**: score the factor from something the supplied data actually contains and name that basis in the report — e.g. "Search Demand scored from competitor cluster depth (23 + 41 articles across the two competitors); a coverage proxy, not a volume measurement". **When cluster depth is the Demand proxy, say on that row that Competitive Density is not independent evidence.** Both factors are then read off the same count in opposite directions — deep coverage raises Demand and lowers Density — so at 25% and 20% they largely cancel and the row behaves as if it had three factors, not five. The weights do not change: re-weighting would make the proxy path and the published-weight path score the same gap differently, and would invalidate every attainable value in [references/score-arithmetic.md](./references/score-arithmetic.md) §3. Disclose the dependency instead, on every row that uses the proxy. **Drop it**: leave the factor unscored, renormalise the remaining weights over their own sum, and state the rescaling — the denominator or the renormalised weights — together with which factor dropped out and why. Read the P0-P3 tiers against the renormalised score; see [references/gap-analysis-frameworks.md](./references/gap-analysis-frameworks.md) §4. **Dropping Search Demand also stops the quick-win screen**: the Quick Win Score needs all four of its inputs, so write "quick-win screen not run — Search Demand unavailable", order the gaps on the renormalised priority score, and let P0 carry the "start here" job. Score Search Demand from a named proxy instead and the screen runs as normal, labelled with that proxy. The same discipline governs the label: "estimated" is a source label only where the estimate has a stated basis — a range the user gave, a named proxy, a hand-check you describe. With no tool and nothing supplied there is nothing to estimate from, so the cell carries an explained N/A and the report says so in plain words.
 
    > **Reference**: See [references/analysis-templates.md](./references/analysis-templates.md) for detailed templates for each step.
 
@@ -220,6 +220,13 @@ Every figure's source, and every figure that is missing, named with what would s
 
 Greek and other non-English engagements carry this same shape with native headings — the
 structure is the deliverable's, the language is the client's.
+
+**Pre-send check on the prose: where a sentence and a table disagree, the table wins — fix the
+sentence.** Read every summary line, tier rationale and "why prioritize" note against the table it
+describes, and correct the sentence to the table rather than the other way round. This is item 8 of
+the recompute pass in [references/score-arithmetic.md](./references/score-arithmetic.md) §7,
+repeated here because that pass runs while the scores are computed and this breach happens later,
+while the prose about them is written.
 
 ## Scoring & Derivation Rules
 
@@ -302,10 +309,34 @@ Find gaps in our [commercial/informational] intent content
 
 ## Reference Materials
 
-- [Analysis Templates](./references/analysis-templates.md) — Detailed templates for each analysis step (inventory, competitor content, keyword gaps, topic gaps, format gaps, GEO gaps, journey, prioritized report)
+- [Analysis Templates](./references/analysis-templates.md) — Detailed templates for each analysis step (inventory, competitor content, keyword gaps, topic gaps, format gaps, GEO gaps, journey, prioritized report, handoff block)
 - [Gap Analysis Frameworks](./references/gap-analysis-frameworks.md) — Content audit matrices, four-stage funnel mapping, and gap prioritization scoring methodologies
 - [Score Arithmetic](./references/score-arithmetic.md) — Which figures the scoring model can and cannot produce: attainable values, the rounding convention, the GEO Value rubric, and the pre-send recompute pass
 - [Example Report](./references/example-report.md) — Complete example analyzing SaaS marketing blog gaps vs. two illustrative `.example` competitors (illustrative figures; competitor traffic labelled as a tool estimate)
+
+## Handoff to the Next Run
+
+A gap analysis ends by naming the runs that act on it — typically `keyword-research` to validate
+demand on the gap keywords before anything is written, `seo-content-writer` for the builds, and
+`content-refresher` where the gap is depth on a page that already exists. That routing is a
+**handoff**, not the standing *Related Skills* catalogue below: a handoff carries this run's own
+results. The library convention and its payload fields are in
+[../../references/inter-skill-handoff.md](../../references/inter-skill-handoff.md); the block
+template is in [references/analysis-templates.md](./references/analysis-templates.md). Three points
+bind here:
+
+- **This skill runs no audit, so three payload fields do not exist.** CORE-EEAT dimension scores,
+  CITE scores and priority item IDs are **omitted and named** — "no 80-item content audit has been
+  run on this page" — never filled with a figure, `TBD`, `[SCORE]` or a `~~category` token
+  (handoff §4.3, §4.4). What this run does have: the target keyword or topic, the intended content
+  type, and the URL (or the inventory line, where no page exists yet).
+- **If a score or an item ID does travel from an earlier run, it keeps its ruled form.** Item IDs
+  are hyphenated and framework-first, one prefix per ID — `CORE-EEAT-R02, CITE-C01` — because a
+  bare `C01` names a different item in each framework. A score string carries the framework as one
+  leading token: `CORE-EEAT C:75 O:60 R:80 E:45` (handoff §2.2, §2.3).
+- **The block is an operator surface and is labelled inside its own fence.** Lift it out of the
+  client report's fence and open it with `<!-- OPERATOR BLOCK — … -->`; a skill slug or an item ID
+  never appears in client prose in any language (handoff §3.1).
 
 ## Related Skills
 
