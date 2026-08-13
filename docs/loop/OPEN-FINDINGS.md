@@ -140,12 +140,24 @@ The merge gate ran both lanes. **Mode A returned BLOCK.** The contrastive lane i
 verdict, by design, and additionally declared its own lack of independence — same agent, same
 tier, same context as Mode A — which is itself a finding about the layer, not about PR #9.
 
+**As of 2026-08-13 every finding Mode A raised has been fixed except the three contrastive ones,
+and those cannot be fixed by editing anything.** C1/C2/C4 are about *measurements*, not defects:
+the blind records describe skill versions the tree has moved past. Retaking them needs a **fresh,
+uncontaminated executor** — an agent that has not read these skills, this file, or the ledger.
+This session cannot supply one, and cannot be one: it wrote the fixes. **A re-run by a contaminated
+reader is not a blind run**, and recording one as if it were would poison the baseline every later
+comparison rests on. So C1 stays open by construction until a clean session runs it.
+
+**Mode A itself has not re-reviewed the fixes.** Its BLOCK was answered, not withdrawn — a verdict
+belongs to the reviewer, and the author of a fix cannot clear it. That is a second thing a fresh
+session owes this PR.
+
 | ID | Finding | State |
 |---|---|---|
 | **B2** | **A permission shipped as a recommendation.** Google's words: *"While you can drop this structured data from your site, there's no need to proactively remove it."* Thirteen shipped surfaces across six skills and one command said "Google **advises against** removing it" — advice never given, in text a client reads. `validate-tracking.sh`'s `R3_LEGAL` allowlist had gained the same phrase as a marker, so the guard could not fail the claim: it *was* the pass condition. | **FIXED** 2026-08-13. All 13 surfaces rewritten; allowlist marker replaced with the faithful phrasing; the overstatement is now a hard fail in check (f), narrowed to lines also mentioning FAQ/schema/markup. Guard probed at the shell per F15 — fires on the old wording, passes the corrected tree. |
 | **B1** | **The 9a retraction was applied in one direction only.** 9a retracted "FAQPage earns AI citations" because *no primary source establishes it either way*, and the mirror claim stayed asserted throughout — both scoring frameworks' Top-6 tables, both frameworks' per-engine tables, and a numbered list in `serp-feature-taxonomy.md`. The finding named 6 sites. | **FIXED** 2026-08-13. The sweep found **17 across 9 files**. Not deleted (F19 overshoot): relabelled as this library's prioritisation model, each reason restated as what the item puts on the page — checkable by opening it. Both frameworks carry an explicit evidence-grade note. |
 | **B3** | **"Nothing now alerts later than before" is false.** The 5xx Warning band moved `Any occurrence` → `>1/day`, so a single daily 5xx now raises nothing. Third false superlative found in one day. | **FIXED** 2026-08-13 (the claim). The paragraph now states the loss plainly and quotes the old sentence as the example. **The band decision itself is row 8 of the skill's own *Open threshold decisions* table** — it needs a measurement of this site's 5xx floor, which nobody here has. Fixing it surfaced a second defect: that table was headed "seven rows" over six, the seventh having been written up in prose and never carried into the list. Now eight rows, heading counted from the table. |
-| **F1–F9** | Nine Mode A FIX items, incl. `Referring domains` compared across two different periods, crawl errors on three ladders, geo's before-table carrying the after-definition, Content Freshness penalising the Statistics rule, a position ladder that still overlaps (25→26 scores 100), and `claims-gate.sh` failing on this file's own line 33. | **OPEN.** |
+| **F1–F9** | Nine Mode A FIX items, incl. `Referring domains` compared across two different periods, crawl errors on three ladders, geo's before-table carrying the after-definition, Content Freshness penalising the Statistics rule, a position ladder that still overlaps (25→26 scores 100), and `claims-gate.sh` failing on this file's own line 33. | **ALL NINE FIXED** 2026-08-13. F1/F6 in alert-manager 4.3.2; F2/F3/F4 in geo 4.4.2; F5 in content-refresher 4.3.2; F7/F8 here and in `pre-push-gate.sh`; F9 in `commit-scope-check.sh`. Ledger: **F9 → 5, F11 → 6, F15 → 2**. F15-r2 was caught **in flight** — the first draft of F9's own fix would have passed `71345f3`, the commit it was written to catch, because that message says "gate" (about **G**ATED-ITEMS). |
 | **C1** | **The blind records test skill versions that no longer ship.** geo 4.3.1 (now 4.4.1), content-refresher 4.2.1 (now 4.3.1), alert-manager 4.2.1 (now 4.3.0). Only `gap` matches its subject. | **OPEN, and decisive** — see the merge gate below. |
 | **C2** | `alertmanager.json` misstates its own subject version. | **OPEN.** |
 | **C4** | An expectation was rewritten between runs in the FAIL→PASS direction, on 3 of 29. | **OPEN.** |

@@ -1540,3 +1540,88 @@ this about itself — both instances here were found by comparing two runs, not 
 
 **Status**: recorded; e2.6 needs the carve-out or the fixture needs paragraph 5 — coordinator
 ruling, suite not edited. FLIP: F13-r5 -- none
+
+---
+
+## F9 — Recurrence 5 (2026-08-13) · A closure note written from the instance, not from a sweep
+
+Finding 77 was ruled and applied: `references/core-eeat-benchmark.md` C09 stopped asserting
+"engines parse the visible Q&A either way". The register then recorded the closure as **"The
+benchmark no longer asserts engine behaviour."** That sentence was false at the moment it was
+written. §4 of the same file, seventy lines above the fix, was headed *AI Engine Citation
+Preferences* and stated *"All engines extract from first paragraph"*; `references/cite-domain-rating.md`
+§5 tabled per-engine *"Preferred Domain Signals"*; **seventeen instances stood across nine files**,
+including the Top-6 tables of both scoring frameworks — the surfaces every skill scores against.
+
+**The signature is F9's exactly, in prose rather than in a purge**: the class was declared closed
+on the evidence of the one member somebody had just touched. What makes it a distinct recurrence
+worth counting is *where* it happened — not in a skill, but in the **closure note**, which is the
+artefact a later reader trusts instead of re-checking. A purge that misses siblings leaves the
+siblings findable. A closure note that misses siblings tells the next reader not to look.
+
+**Rule added**: *a closure note is a claim about a class, and it is written from the sweep's output,
+never from the fix.* If no sweep was run, the note says what was fixed — "C09 no longer asserts
+engine behaviour" — and not what the class now is.
+
+- **Found by**: the PR #9 merge gate (Mode A), as BLOCKING finding B1.
+- **Recurrence**: F9 → 5.
+- **Status**: all 17 instances rewritten as this library's prioritisation model, each reason
+  restated as what the item puts on the page. The register sentence is corrected in place, quoted,
+  so the next reader sees what it claimed. FLIP: F9-r5 -- none
+
+---
+
+## F11 — Recurrence 6 (2026-08-13) · Three false superlatives in one day, all written after good work
+
+Three closing sentences shipped on 2026-08-12/13, each summarising a change the same author had
+just made correctly, and each overstating it:
+
+1. *"Google **advises against** removing it"* — 13 shipped surfaces. Google's words are *"While you
+   can drop this structured data from your site, there's no need to proactively remove it."* A
+   permission rewritten as a recommendation.
+2. *"The benchmark **no longer asserts** engine behaviour"* — F9-r5 above; 17 instances stood.
+3. *"**Nothing alerts later** than it did before the correction"* — two of three rows were tighter;
+   the third moved 5xx Warning from "any occurrence" to `>1/day`, so a single daily 5xx now raises
+   nothing.
+
+**The common shape is worth more than the three instances.** None is a fabrication, none is
+careless, and all three were written by someone who had just done the work well. **A change
+touching several items in two directions rarely improves all of them, and a tidy closing sentence
+claiming it did is the writer's wish rather than the artefact's content.** The three also share a
+tell: each is a *superlative or universal* ("nothing", "no longer", "advises against") standing
+where a *count* belongs. The fix in all three cases was to state the count and name the exception.
+
+- **Found by**: the PR #9 merge gate (Mode A), as BLOCKING findings B1, B2, B3.
+- **Recurrence**: F11 → 6.
+- **Status**: all three corrected; in each case the old sentence is quoted where it stood rather
+  than deleted. B2 additionally hardened at the guard: the overstatement was in
+  `validate-tracking.sh`'s own allowlist, so the gate could not fail the claim because the claim
+  was its own pass condition. Marker replaced, overstatement now a hard fail, probed per F15.
+  **Transferable rule recorded with it: an allowlist marker is an assertion the guard endorses, and
+  it needs vetting exactly like shipped prose.** FLIP: F11-r6 -- none
+
+---
+
+## F15 — Recurrence 2 (2026-08-13) · Caught in flight, inside the fix for a different failure
+
+Mode A's F9 asked for a new leg on `commit-scope-check.sh`: a commit that edits `scripts/` must say
+so, because `71345f3` changed check (f)'s allowlist while declaring only registers. The first draft
+of that leg accepted a vocabulary list — `scripts script gate gates guard checker hook pre-push
+validator validate`.
+
+**The mandatory probe was run against `71345f3` itself, and came back clean.** That message says
+"gate" throughout — because it is about **G**ATED-ITEMS. The new guard would have passed the exact
+commit it was written to catch, by matching a word that meant something else entirely.
+
+Rewritten to require the **file's own basename**, which cannot collide that way, then probed twice:
+against `71345f3` (fires) and against a synthetic silent commit touching
+`scripts/eval-corpus-report.sh` (fires). This is the second time this library has written a pattern
+guard that passed by matching nothing useful, and the first time the probe caught it **before** the
+guard shipped rather than after.
+
+**Recorded as a recurrence and not as a save**, deliberately: the draft was wrong, and counting only
+the failures that escape teaches the loop that in-flight catches are free. They are not — this one
+cost a probe cycle and would have cost a whole class of undetected scope drift.
+
+- **Recurrence**: F15 → 2.
+- **Status**: shipped with both probes recorded in the commit message. FLIP: F15-r2 -- none
