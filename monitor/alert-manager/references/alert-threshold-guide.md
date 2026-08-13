@@ -171,10 +171,24 @@ Three rows were corrected to this rule. The values in the two tables above are t
 | Pages indexed | Critical -20% | Critical -15% (Emergency -30%) | A 17% drop was Critical on one table and Warning on the other. |
 | Keyword positions | ">3 position average drop" / ">5 …" | Drop >= 3 / >= 5 (Tier 1, individual keyword) | `>3` excludes a drop of exactly 3, which Section 3's tier table and this skill's own worked example both grade Warning. "Average" also read as the aggregate metric, which has its own row in Section 3 (+2.0 / +5.0 worsening) on different numbers — that row, not this one, is the aggregate. |
 
-In each case the retained value is also the tighter of the two, so nothing alerts later than it did
-before the correction. **If you want a signal on the very first 5xx of the day**, configure it as a
-boundary alert — no band, priority stated with its reason — not as the Warning band: "any
-occurrence" is an event, not a distance from a baseline, and never was one.
+**Two of the three retained values are the tighter of their pair**, so a 15% index drop and a
+3-position drop now raise what they previously did not.
+
+**The 5xx row is the exception, and it is a real loss of coverage — say so rather than round it
+off.** Section 2's Warning was "any occurrence": one 5xx in a day raised a Warning. The Section 3
+ladder starts at `>1/day`, so **a single 5xx in a day now raises nothing.** That is what having
+one ladder in one unit costs here, and it is not free. An earlier draft of this paragraph claimed
+"nothing alerts later than it did before the correction" — false in exactly this row, and the kind
+of tidy summary that is worth distrusting on sight: a change touching three rows in two directions
+rarely improves all of them, and a sentence saying it did is usually the writer's wish rather than
+the table's content.
+
+**If you want a signal on the very first 5xx of the day**, configure it as a boundary alert — no
+band, priority stated with its reason — not as the Warning band: "any occurrence" is an event, not
+a distance from a baseline, and never was one. Whether that boundary alert should be on by default
+is an operator decision, not a documentation one — it turns on how noisy this specific site's 5xx
+floor is, which nobody here has measured. It is listed with the others in **"Open threshold
+decisions"** below.
 
 ---
 
@@ -335,17 +349,24 @@ once a baseline exists (average review rating and monthly mention volume are bot
 mean); this file sets no numbers for them, and an operator holding that history can build the ladder
 with the Section 2 method.
 
-### Open threshold decisions — seven rows, for the operator
+### Open threshold decisions — eight rows, for the operator
 
 Each of these needs a business judgement about the right *value*. They are deliberately left open
 rather than filled with a number nobody chose; a configuration that ships one of them states the
 choice it made.
+
+**The count is the table.** This heading previously read "seven" over six rows, because the seventh
+— the citation-*rate* pair — was written up in prose two sections above and never carried down
+here. A decision an operator cannot find in the list of decisions is not open, it is lost; so every
+row now sits in this table, and anything added to the list moves this number with it.
 
 | # | Row | The decision |
 |---|-----|--------------|
 | 1 | High-value link lost / gained | Which authority scale feeds it (DR from Ahrefs, DA from Moz, or another) and the cut-off on that scale. The scales are different instruments and are not converted here. |
 | 2 | Crawl Errors Spike, "errors increase 50%+" | 50% is 1.5× baseline, below this guide's Warning trigger of >2×, so the trigger reaches no band at all — while the templates give the row P1. Either move the trigger to >2× baseline (then Warning → P2 by the default map) or keep 50% as a deliberate early boundary alert and state the priority's reason in the row. |
 | 3-6 | The four page-level traffic rows — homepage 20%+, top-10 pages 30%+, conversion pages 25%+, blog posts 40%+ | Each states a percentage with no comparison period, so no band can be read off it. Setting the period (DoD / WoW / MoM) settles the band; this guide's page-level bands run week over week (Warning -25%, Critical -40%, Emergency -60%). |
+| 7 | The two citation-*rate* rows — Rate Slide (P1) and Rate Floor (P0) | Both ship one level above their band's default, and the standing priority-1 override does **not** reach them: that override covers a query set, and citation rate is a site-wide line across all tracked queries. Confirm the raised priorities as a deliberate business call, or drop both to their band defaults (P2 / P1). Either way the reason written beside them has to be the real one. Full statement in the citation-metrics section above. |
+| 8 | A single 5xx in a day — boundary alert, or nothing? | Consolidating onto the Section 3 per-day ladder moved the 5xx Warning from "any occurrence" to `>1/day`, so one 5xx in a day now raises nothing. Restoring it means a boundary alert (no band, priority stated with its reason), and whether that is worth its noise depends on this site's 5xx floor, which nobody here has measured. Default off, deliberately, until someone measures it. |
 
 ---
 
