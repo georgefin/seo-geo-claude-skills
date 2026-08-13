@@ -1,13 +1,13 @@
 ---
 name: domain-authority-auditor
-version: "4.3.2"
+version: "4.3.3"
 description: 'Run the full 40-item CITE domain authority audit across 4 dimensions with domain-type weighting and veto checks. Use when the user asks to "audit domain authority", "domain trust score", "CITE audit", "how authoritative is my site", "domain credibility check", "is my domain trustworthy", "domain credibility score", "domain rating". For content-level assessment, see content-quality-auditor. For link profile details, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.2"
+  version: "4.3.3"
   geo-relevance: "medium"
   tags:
     - seo
@@ -182,10 +182,10 @@ right and the sentence is wrong: recount before publishing.
 
 | ID | Check Item | Score | Notes |
 |----|-----------|-------|-------|
-| C01 | Referring Domains Volume | Pass/Partial/Fail | [specific observation] |
-| C02 | Referring Domains Quality | Pass/Partial/Fail | [specific observation] |
+| C01 | Referring Domains Volume | Pass/Partial/Fail | [observation — on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
+| C02 | Referring Domains Quality | Pass/Partial/Fail | [observation — on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
 | ... | ... | ... | ... |
-| C10 | Link Source Diversity | Pass/Partial/Fail | [specific observation] |
+| C10 | Link Source Diversity | Pass/Partial/Fail | [observation — on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
 
 **C Score**: [X]/100 — [p] Pass + [q] Partial + [r] Fail = [p]×10 + [q]×5 (p + q + r = 10)
 
@@ -193,7 +193,7 @@ right and the sentence is wrong: recount before publishing.
 
 | ID | Check Item | Score | Notes |
 |----|-----------|-------|-------|
-| I01 | Knowledge Graph Presence | Pass/Partial/Fail | [specific observation] |
+| I01 | Knowledge Graph Presence | Pass/Partial/Fail | [observation — on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
 | ... | ... | ... | ... |
 
 **I Score**: [X]/100 — [p] Pass + [q] Partial + [r] Fail = [p]×10 + [q]×5 (p + q + r = 10)
@@ -208,7 +208,7 @@ Same format for Trust and Eminence dimensions.
 
 | ID | Check Item | Score | Notes |
 |----|-----------|-------|-------|
-| T01 | Link Profile Naturalness | Pass/Partial/Fail | [specific observation] |
+| T01 | Link Profile Naturalness | Pass/Partial/Fail | [observation — on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
 | ... | ... | ... | ... |
 
 **T Score**: [X]/100 — [p] Pass + [q] Partial + [r] Fail = [p]×10 + [q]×5 (p + q + r = 10)
@@ -217,7 +217,7 @@ Same format for Trust and Eminence dimensions.
 
 | ID | Check Item | Score | Notes |
 |----|-----------|-------|-------|
-| E01 | Organic Search Visibility | Pass/Partial/Fail | [specific observation] |
+| E01 | Organic Search Visibility | Pass/Partial/Fail | [observation — on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
 | ... | ... | ... | ... |
 
 **E Score**: [X]/100 — [p] Pass + [q] Partial + [r] Fail = [p]×10 + [q]×5 (p + q + r = 10)
@@ -285,10 +285,10 @@ Calculate scores and generate the final report:
 
 | ID | Check Item | Score | Notes |
 |----|-----------|-------|-------|
-| C01 | Referring Domains Volume | [Pass/Partial/Fail] | [observation] |
-| C02 | Referring Domains Quality | [Pass/Partial/Fail] | [observation] |
+| C01 | Referring Domains Volume | [Pass/Partial/Fail] | [observation — on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
+| C02 | Referring Domains Quality | [Pass/Partial/Fail] | [observation — on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
 | ... | ... | ... | ... |
-| E10 | Industry Share of Voice | [Pass/Partial/Fail] | [observation] |
+| E10 | Industry Share of Voice | [Pass/Partial/Fail] | [observation — on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
 
 ### Top 5 Priority Improvements
 

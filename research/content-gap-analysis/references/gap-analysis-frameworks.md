@@ -272,6 +272,17 @@ each one is composed of, and the pre-send recompute pass:
 
 **When a factor cannot be scored.** Search Demand is banded in monthly search volume, so with no SEO tool connected and nothing supplied it has no input; the Quick Win Score below consumes the same factor. Do not guess it. Either score it from a **named proxy** and state that basis in the report (competitor cluster depth, the site's own analytics sessions on adjacent pages), or **drop the factor** and renormalise the remaining weights over their own sum. Dropping Search Demand leaves 0.75, so Competitive Density becomes 0.20/0.75 = 0.267, Business Relevance 0.25/0.75 = 0.333, Creation Effort 0.15/0.75 = 0.20 and Conversion Potential 0.15/0.75 = 0.20 — which still sum to 1.00, so the tiers below stay readable. State the rescaling (the denominator or the renormalised weights) and name the dropped factor in the report. A Search Demand score resting on an invented volume figure is not a scored factor; it is a guess wearing a weight.
 
+**Competitor cluster depth is not an independent proxy, and the report says so on every row that
+uses it.** Competitive Density is read off the same competitor counts in the opposite direction: a
+topic with a deep competitor cluster scores Demand *up* and Density *down*. At 25% and 20% the two
+movements largely cancel, so a row scored that way behaves as though it had three factors rather
+than five, and the spread between rows narrows. **Do not re-weight to compensate.** A re-weighted
+proxy path would score the same gap differently from the published-weight path, and would
+invalidate every attainable-value set derived in [score-arithmetic.md](./score-arithmetic.md) §3
+and §7. Disclose instead: name the proxy, and state on the row that Density is not independent
+evidence there. A reader who knows the two cells came from one count can discount them correctly;
+a reader who does not, cannot.
+
 ### Priority Tiers
 
 **Rounding convention: round the Gap Priority Score to two decimal places, halves up, and read
@@ -318,6 +329,13 @@ gap between them either.
 | 2-3 | Moderate quick win -- include in next content sprint |
 | 0-1 | Not a quick win -- may still be strategically important |
 | Negative | Avoid -- high effort/competition relative to demand |
+
+**This score does not enforce the demand filter — the filter does.** Search Demand is one added
+input of four, so a gap in the bottom Demand band still reaches the "moderate quick win" band on
+the strength of the other three: `1 + 4 + 4 + 5 - 12 = +2`. The demand condition is enforced
+earlier and only there — the minimum-volume filter in §1 Step 4, or the named proxy where this run
+has no volumes. Filter Segment C first, then score what survives. SKILL.md Step 4's Quick Wins
+bucket states the same condition in words; it is a filter restated, not a reading of this formula.
 
 **All four inputs are required, and Search Demand is the one that goes missing.** The screen is a
 demand test as much as a cost test: drop Search Demand and the remaining three would crown a gap

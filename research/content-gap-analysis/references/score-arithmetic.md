@@ -187,4 +187,7 @@ Run this against the finished report, not the working notes.
 6. Every GEO Value carries the rubric band it was scored against and is labelled a judgement; no
    blended SEO+GEO number appears.
 7. No traffic projection and no competitor per-page or per-type traffic figure appears anywhere.
-8. Where a sentence and a table disagree, the table wins — fix the sentence.
+8. Where a sentence and a table disagree, the table wins — fix the sentence. This one is repeated
+   in SKILL.md → **Content Gap Report** as a pre-send check on the prose, deliberately: this pass
+   runs while the scores are computed, and the breach happens later, while the prose about them is
+   written. Both copies are the same rule; change them together.

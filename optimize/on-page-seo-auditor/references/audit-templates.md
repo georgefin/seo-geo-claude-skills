@@ -102,7 +102,7 @@ Step 11 recommendations; same rule as SKILL.md "Finding Format & Confidence Labe
 **Keyword Score**: [X]/15 ([awarded] ÷ [points scored]; [N] criteria unverified and excluded)
 
 **Issues**:
-- [Issue 1]
+- [Issue 1] — Confidence: [Confirmed/Likely/Hypothesis; a Hypothesis names what would confirm it]
 
 **Recommendations**:
 - [Suggestion 1]
@@ -340,12 +340,12 @@ These changes will have immediate impact:
 ### Title Tag
 - **Current**: [current title]
 - **Recommended**: [new title]
-- **Impact**: [expected improvement]
+- **Impact**: [which criteria this converts and the points they return — no ranking, CTR or traffic forecast]
 
 ### Meta Description
 - **Current**: [current description]
 - **Recommended**: [new description]
-- **Impact**: [expected improvement]
+- **Impact**: [which criteria this converts and the points they return — no ranking, CTR or traffic forecast]
 
 ### Content Improvements
 1. [Specific content change with location]

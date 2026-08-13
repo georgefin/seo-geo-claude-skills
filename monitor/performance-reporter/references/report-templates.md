@@ -316,6 +316,11 @@ Neither is a priority and neither becomes a P-level.
 ---
 
 ```markdown
+<!-- ILLUSTRATIVE FILL — every number, domain and date below is invented to show the
+     shape of the report. Replace all of them with measured figures before this goes to
+     anyone, and delete this comment. Each Status word keeps the comparison that produced
+     it in its own cell; a metric with no baseline and no published band gets
+     "no baseline — first measurement" rather than a Status word. -->
 # Technical SEO Health Report
 
 **Domain:** yoursite.com

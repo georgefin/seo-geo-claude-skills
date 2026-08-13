@@ -266,6 +266,7 @@ means judged and lowest.
 - [ ] Gap analysis compares like-to-like content (topic clusters to topic clusters)
 - [ ] Priority scoring based on measurable criteria (volume, difficulty, business fit) — and where an input is unavailable, on the factors that can be scored, with the named proxy or the renormalisation stated per Step 9 rather than a guessed volume
 - [ ] Every score prints its derivation beside it — factor scores, the weighted line, the rounded total, the tier read from it; every mean states its n and every difference shows both inputs
+- [ ] Where Search Demand was proxied from competitor cluster depth, the row says Competitive Density is not independent evidence there — both are read off the same count, in opposite directions (Step 9)
 - [ ] No score subtracts a factor: Creation Effort and Competitive Density are added like the rest, because 5 is the favourable value in both
 - [ ] Every gap in Tier 1 / the Quick Wins bucket clears the demand condition as well as the difficulty one, or the report says the quick-win screen did not run
 - [ ] Funnel coverage uses the four stages (Awareness, Consideration, Decision, Retention), each page counted once, and the stage counts sum to the stated total

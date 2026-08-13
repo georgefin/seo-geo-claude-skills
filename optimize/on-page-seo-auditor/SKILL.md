@@ -1,6 +1,6 @@
 ---
 name: on-page-seo-auditor
-version: "4.3.1"
+version: "4.3.2"
 description: 'Audit on-page HTML elements including title tags, headers, image alt text, and internal links with a scored SEO report. Use when the user asks to "audit page SEO", "on-page SEO check", "SEO score", "page optimization", "what SEO issues does this page have", "score my page", "why is this page not ranking", or "check my page". For server, speed, and crawl issues, see technical-seo-checker. For full EEAT content quality scoring, see content-quality-auditor.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.3.1"
+  version: "4.3.2"
   geo-relevance: "medium"
   tags:
     - seo
@@ -188,8 +188,8 @@ unverified-criterion worked case and the grade bands:
    **Title Score**: [X]/15 ([awarded] ÷ [points scored]; [N] criteria unverified and excluded)
    
    **Issues Found**:
-   - [Issue 1]
-   - [Issue 2]
+   - [Issue 1] — Confidence: [Confirmed/Likely/Hypothesis; a Hypothesis names what would confirm it]
+   - [Issue 2] — Confidence: [Confirmed/Likely/Hypothesis; a Hypothesis names what would confirm it]
    
    **Recommended Title**:
    "[Optimized title suggestion]"
@@ -217,7 +217,7 @@ unverified-criterion worked case and the grade bands:
    **Description Score**: [X]/5 ([awarded] ÷ [points scored]; [N] criteria unverified and excluded)
    
    **Issues Found**:
-   - [Issue 1]
+   - [Issue 1] — Confidence: [Confirmed/Likely/Hypothesis; a Hypothesis names what would confirm it]
    
    **Recommended Description**:
    "[Optimized description suggestion]" ([X] chars)
@@ -252,8 +252,8 @@ unverified-criterion worked case and the grade bands:
    **Header Score**: [X]/10 ([awarded] ÷ [points scored]; [N] criteria unverified and excluded)
    
    **Issues Found**:
-   - [Issue 1]
-   - [Issue 2]
+   - [Issue 1] — Confidence: [Confirmed/Likely/Hypothesis; a Hypothesis names what would confirm it]
+   - [Issue 2] — Confidence: [Confirmed/Likely/Hypothesis; a Hypothesis names what would confirm it]
    
    **Recommended Changes**:
    - H1: [suggestion]

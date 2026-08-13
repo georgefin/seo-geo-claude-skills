@@ -1,6 +1,6 @@
 ---
 name: content-quality-auditor
-version: "4.4.0"
+version: "4.4.1"
 description: 'Run the full 80-item CORE-EEAT audit across 8 dimensions with content-type weighted scoring, veto checks, and prioritized fix plans. Use when the user asks to "audit content quality", "EEAT score", "CORE-EEAT audit", "content quality check", "how good is my content", "content improvement plan", "is my content AI-citation worthy", "GEO quality score". For SEO page element audits, see on-page-seo-auditor. For domain-level authority, see domain-authority-auditor.'
 license: Apache-2.0
 allowed-tools: WebFetch
@@ -8,7 +8,7 @@ compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, 
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.4.0"
+  version: "4.4.1"
   geo-relevance: "high"
   tags:
     - seo
@@ -148,10 +148,10 @@ Score each item:
 
 | ID | Check Item | Score | Notes |
 |----|-----------|-------|-------|
-| C01 | Intent Alignment | Pass/Partial/Fail | [specific observation] |
-| C02 | Direct Answer | Pass/Partial/Fail | [specific observation] |
+| C01 | Intent Alignment | Pass/Partial/Fail | [observation — on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
+| C02 | Direct Answer | Pass/Partial/Fail | [observation — on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
 | ... | ... | ... | ... |
-| C10 | Semantic Closure | Pass/Partial/Fail | [specific observation] |
+| C10 | Semantic Closure | Pass/Partial/Fail | [observation — on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
 
 **C Score**: [X]/100
 ```
@@ -165,7 +165,7 @@ Repeat the same table format for **O** (Organization), **R** (Referenceability),
 
 | ID | Check Item | Score | Notes |
 |----|-----------|-------|-------|
-| Exp01 | First-Person Narrative | Pass/Partial/Fail | [specific observation] |
+| Exp01 | First-Person Narrative | Pass/Partial/Fail | [observation — on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
 | ... | ... | ... | ... |
 
 **Exp Score**: [X]/100
@@ -258,15 +258,15 @@ Reverse check on a printed score: `score x scored items / 50` must be a whole nu
 
 | ID | Check Item | Score | Notes |
 |----|-----------|-------|-------|
-| C01 | Intent Alignment | [Pass/Partial/Fail] | [observation] |
-| C02 | Direct Answer | [Pass/Partial/Fail] | [observation] |
+| C01 | Intent Alignment | [Pass/Partial/Fail] | [observation — on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
+| C02 | Direct Answer | [Pass/Partial/Fail] | [observation — on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
 | ... | ... | ... | ... |
 
 #### EEAT — Source Credibility (40 Items)
 
 | ID | Check Item | Score | Notes |
 |----|-----------|-------|-------|
-| Exp01 | First-Person Narrative | [Pass/Partial/Fail] | [observation] |
+| Exp01 | First-Person Narrative | [Pass/Partial/Fail] | [observation — on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
 | ... | ... | ... | ... |
 
 ### Top 5 Priority Improvements
