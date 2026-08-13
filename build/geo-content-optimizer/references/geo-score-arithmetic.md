@@ -116,9 +116,24 @@ Two guards, and the factor does not work without them:
 
 The factor is now **indifferent between sourcing a claim and disposing of it properly** — both
 are compliant outcomes, and the indifference is the whole point: an operator optimising the
-number gains nothing by keeping a claim alive in search of a weak source. The counter-pressure
-against gutting the page lives where it belongs — cut too much and factual density, quotable
-statements, clear definitions and Q&A coverage all fall.
+number gains nothing by keeping a claim alive in search of a weak source.
+
+**What bounds the gutting incentive, stated accurately.** An earlier version of this paragraph
+said the counter-pressure lives in the other factors — *"cut too much and factual density,
+quotable statements, clear definitions and Q&A coverage all fall."* **That is true of some claims
+and false of the ones most likely to be cut.** Take "our service is the market leader": factual
+density counts *precise data points with units* and this has none; clear definitions counts *key
+terms the content actually uses*; Q&A counts *target queries from step 1*. Deleting every claim of
+that shape can take Source citations from 1 to 10 and move nothing else — **+1.125 on the
+eight-factor average, for removing content.** The denominator genuinely cannot shrink (`asked` is
+fixed at the step-2 inventory, here and in `SKILL.md`), so the arithmetic is bounded, but the
+incentive is real and no scoring rule inside this factor removes it.
+
+What actually bounds it is **the naming guard, read by a human**: every cut must appear in the
+report with the claim, the route, and the data that would put it back. A page optimised by
+deletion produces a report that is mostly "cut — needs X", which is a conversation with the client
+about what their page no longer says. **The bound is disclosure, not arithmetic** — and an
+operator who would rather not have that conversation should source or convert the claim instead.
 
 If the page makes no claim needing a source at all, `asked` is 0 and the factor is N/A per the
 rule above.
@@ -152,12 +167,30 @@ the fact. Only time-sensitive figures are checked for staleness.
 At `asked = 1` the factor is pass/fail: 1 or 10, nothing between (§2). That is honest — one
 signal can only tell you one thing.
 
-**Counting the staleness half, per column.** It is met when the version being scored carries at
-least one time-sensitive figure **and** none of them is older than 24 months. A version
-carrying none does **not** meet it — that is the second place the old vacuity hid. The half is
-only ever in scope because figures exist or are about to; "no figures yet" is the gap the
+**Counting the staleness half, per column.** It is met when **every time-sensitive figure in
+scope is either current — no older than 24 months — or was disposed of with the disposition
+named**, exactly as §3.1 counts a claim. A version that simply has no figures and never had any
+does **not** meet it: that is where the old vacuity hid, and "no figures yet" is the gap the
 optimization closes, not a pass. Where the page genuinely has nothing that can go stale, the
 scope table above has already taken the half out.
+
+**Why the disposition clause is there** *(added 2026-08-13; the rule previously read "met when the
+version being scored carries at least one time-sensitive figure and none of them is older than 24
+months")*. Worked case: a page arrives with a visible in-date stamp and exactly one time-sensitive
+statistic, unsourceable. `asked = 2`, both halves met, score `1 + 9×(2/2)` = **10**. The claims
+rule in `SKILL.md` then mandates the cut — *an unsourced claim already on the page is not yours to
+keep by default*. Under the old wording the after version carried no time-sensitive figure, the
+staleness half went unmet, `met = 1`, and the score fell to `1 + 9×(1/2)` = **6**. **Content
+Freshness dropped four points for obeying the rule Source Citations had just been rewritten to
+reward** — the same defect §3.1 exists to remove, reappearing in the sibling factor. Worse than the
+arithmetic: the printed freshness row would have told the client their page got less fresh because
+a claim nobody could source was removed. A cut recorded under §3.1's naming guard is a disposition,
+not a disappearance, and it counts here the same way.
+
+**The two factors are now consistent, and that consistency is the invariant to protect.** Both
+count a properly-recorded disposition as met; both fix `asked` at the step-2 inventory; both refuse
+to reward a quiet deletion. If a future edit changes one, check the other in the same pass — these
+two have now diverged once.
 
 **`asked` is still fixed once.** The scope test reads the inbound page **and** the data block
 the client supplied, both of which are known at step 2, so a time-sensitive figure the

@@ -119,6 +119,10 @@ they cannot score that row. The four remaining weights were therefore renormalis
 content-decay-signals.md): 26.47 + 29.41 + 17.65 + 17.65 = 91.18 → 91.2/100, and the band is read
 off 91.
 
+**Both gates on the position state rung are met here** — a drop is on file, *and* the earlier
+position (4.2) was itself on page 1. Without the second gate a keyword going 25 → 26 would score
+the same 100 as this one, which is why the rung carries two conditions and not one.
+
 Band: terminal decay — **urgency, not disposition**. The disposition comes from the refresh-vs-
 rewrite framework below, and it is REFRESH.
 

@@ -207,9 +207,19 @@ average position is off page 1. Where both apply the row scores **100**: a page 
 average position 12 after losing 8 scores 100, not the 75 its delta alone reads. Leaving page 1 is a
 step change in clicks that a count of positions does not capture, and "boundaries read upward"
 settles band edges within one measurement, not a collision between two different ones. A page still
-on page 1 is scored on its delta alone. The state rung reads only where a drop is on file at all:
-with no earlier position for the keyword, the row is **N/A**, because a page that has always sat on
-page 2 has not dropped there.
+on page 1 is scored on its delta alone.
+
+**Two conditions gate the state rung, and the second was added 2026-08-13 after the first proved
+insufficient.** The rung reads only where (a) a drop is on file at all — with no earlier position
+for the keyword the row is **N/A**, because a page that has always sat on page 2 has not dropped
+there — **and (b) that earlier position was itself on page 1.** Without (b) the rule mis-scores the
+case it was written for: a keyword going **25 → 26** has a drop on file and is now off page 1, so
+it scored **100**, maximum decay at 15% weight, identical to a page falling **2 → 40**. Meanwhile a
+page falling **1 → 9** — eight positions lost, and by far the larger real click loss of the three —
+scored 75. The rung's own justification does not reach the 25 → 26 case: *leaving page 1 is a step
+change in clicks*, and that page never left page 1 in the window because it was never on it. With
+(b) in force, 25 → 26 scores on its delta alone (rung 25), 1 → 9 keeps its 100, and the rung means
+what it says.
 
 The displacement row scores **what one dated check shows today**, not a change over time. Nobody can
 reconstruct who ranked above a page six months ago without a stored SERP record, so the criterion

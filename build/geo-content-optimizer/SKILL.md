@@ -1,13 +1,13 @@
 ---
 name: geo-content-optimizer
-version: "4.4.1"
+version: "4.4.2"
 description: 'Optimize content for AI citation across Google AI Mode (default search surface, incl. AI Overviews), ChatGPT, Perplexity, and Gemini with quotable statements and structured Q&A. Use when the user asks to "optimize for AI", "get cited by ChatGPT", "GEO optimization", "appear in AI answers", "make content AI-quotable", "Google AI Overview optimization", or "Google AI Mode optimization". Adds quotable statements, structured Q&A, precise statistics with sources, expert attribution, and a structured FAQ. Uses CORE-EEAT GEO-First items as optimization targets. For SEO-focused writing, see seo-content-writer. For entity and brand AI presence, see entity-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.4.1"
+  version: "4.4.2"
   geo-relevance: "high"
   tags:
     - geo
@@ -169,7 +169,7 @@ When a user requests GEO optimization:
    | Clear definitions | [X] | [met] of [asked] key terms defined standalone |
    | Quotable statements | [X] | [met] of [asked] sections carry a liftable statement |
    | Factual density | [X] | [met] of 5 precise data points with units |
-   | Source citations | [X] | [met] of [asked] claims sourced, or removed/hedged with the reason given |
+   | Source citations | [X] | [met] of [asked] claims carrying a checkable source — **before counts sourcing only**; the other three dispositions count in the after table |
    | Q&A format | [X] | [met] of [asked] target queries answered directly |
    | Authority signals | [X] | [met] of [asked] available authority elements |
    | Content freshness | [X] | [met] of [asked]: visible date <12 months · no stale time-sensitive figure |
@@ -237,7 +237,7 @@ When a user requests GEO optimization:
    | Clear definitions | [X] | [X] | +[X] | [met] of [asked] |
    | Quotable statements | [X] | [X] | +[X] | [met] of [asked] |
    | Factual density | [X] | [X] | +[X] | [met] of 5 |
-   | Source citations | [X] | [X] | +[X] | [met] of [asked] |
+   | Source citations | [X] | [X] | +[X] | [met] of [asked] — sourced, converted to first-party, hedged or cut; each disposition named |
    | Q&A format | [X] | [X] | +[X] | [met] of [asked] |
    | Authority signals | [X] | [X] | +[X] | [met] of [asked] |
    | Content freshness | [X] | [X] | +[X] | [met] of [asked] |
