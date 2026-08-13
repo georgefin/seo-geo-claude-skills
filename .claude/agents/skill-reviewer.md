@@ -90,11 +90,23 @@ points. A measurement that cannot separate its subjects cannot tell you what to 
   unscoped search across the repo root. Two whole classes of leak have been found by
   accident this way, not by opening evals.json.
   **PROVENANCE IS EXPECTATION TEXT.** A reference file's rules are yours to read; its
-  provenance — the blocks naming which suite or ledger entry a rule came from, and quoting
-  what that suite expects — is not. Where a file separates the two (build/seo-content-writer/
-  references/anti-slop-ruleset.md does), read the rules and stop at the provenance heading.
-  Where it does not, and you find yourself reading a quoted eval expectation, stop and report
-  it: that is a live finding about the file, not a failure on your part.
+  provenance — the record naming which suite or ledger entry a rule came from, and quoting
+  what that suite expects — is not. **The separation is a FILE boundary, not a heading**
+  (corrected 2026-08-13; it was a heading until `seo-content-writer` 4.5.0, and this
+  instruction still said "stop at the provenance heading" after the split, which would have
+  sent an executor looking for a landmark that no longer exists). Concretely:
+  `build/seo-content-writer/references/anti-slop-ruleset.md` is yours;
+  `build/seo-content-writer/references/anti-slop-provenance.md` is **not** — do not open it.
+  Its lines each carry a `[PROVENANCE — not a rule]` marker so an accidental grep hit
+  identifies itself with no filename and no heading in view; **seeing one in search output is
+  not contamination, opening the file is.**
+  A ruleset carrying its screens' measured hit rates ("catching 1 of 5 constructed
+  instances") is rule text, not provenance: that figure tells you how far to trust a clean
+  grep, which is part of using the rule. What is never rule text is the **run** — a suite
+  name, a deliverable label, a quoted expectation, or a count tied to any of them.
+  Where a file does not separate the two, and you find yourself reading a quoted eval
+  expectation, stop and report it: that is a finding about the file, not a failure on your
+  part.
 - **GRADER (informed)** — you receive saved deliverables and the expectations. Grade what is
   on the page. Never re-run the skill to "check" a deliverable: the moment you produce
   output yourself you are grading your own work, which is the bias this split exists to

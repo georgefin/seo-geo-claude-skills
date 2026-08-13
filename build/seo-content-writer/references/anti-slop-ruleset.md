@@ -160,10 +160,19 @@ surfaces; recurrence in any fresh Greek output is an automatic FAIL in Mode B an
 passes — a ruled lesson lives here as a carrier, never as a note somewhere else. Graders
 grep the patterns given; the editor judges the rest.
 
-**This section is rule text, and rule text is all it is.** Which pass ruled a family, which
-run surfaced it, and how many times it occurred are recorded elsewhere, and deliberately not
-here: that record is evidence for whoever audits a rule, never instruction for whoever is
-writing one. **If you are writing a deliverable, you are finished at the end of §6.**
+**This section is rule text plus the measured reach of the screens it hands you** — and the
+second half is deliberate, not leftover. *"Measured catching 1 of 5 constructed instances"* and
+*"90/90, zero false positives"* tell you how far to trust a clean grep, which is part of using
+the rule rather than evidence about it; the amendment requirement below obliges every new
+family to record that hit rate **in its own entry**, so a measurement cannot be filed elsewhere
+without contradicting the rule that demands it. Ruling dates and shell-check dates stay with
+them — a date is what makes a measurement re-runnable.
+
+**What is never here: the run a rule came from.** No suite name, no eval or deliverable label,
+no quoted expectation, no count tied to any of them. That record is evidence for whoever audits
+a rule, never instruction for whoever is writing one, and it lives in
+[anti-slop-provenance.md](anti-slop-provenance.md). **If you are writing a deliverable, you are
+finished at the end of §6.**
 
 ### FAIL-grade families
 
@@ -299,9 +308,16 @@ written — leave them alone.
 
 New rulings append here in the same wave they are issued.
 
-**End of rule text.** Everything in this file is a rule. Nothing in it is evidence *about* a
-rule — the two were separated on 2026-08-10 so that a required read stays safe to read.
+**End of rule text.** Everything in this file is a rule, the reasoning that makes one
+followable, the measured reach of one — how far a screen was proven to catch and what defeats
+it — or the date that makes any of those three re-checkable.
+What was separated out on 2026-08-10, and stays out, is the evidence a rule was ruled *on*:
+which suite, which run, which deliverable, how many times a class hit one of them, in whose
+words. That is the separation that keeps a required read safe to read, and a calibration figure
+is not that evidence.
 
 Provenance for the rules above — the evidence each one was ruled on — is kept in
 [anti-slop-provenance.md](anti-slop-provenance.md). That file is for graders and rule authors
 and is **not** an executor's read: if you are writing a deliverable, you are finished here.
+**Every line there carries a `[PROVENANCE — not a rule]` marker**, so a search that reaches into
+it announces itself even when the hit arrives as one line with no heading in view.

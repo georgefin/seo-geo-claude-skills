@@ -335,7 +335,7 @@ once a baseline exists (average review rating and monthly mention volume are bot
 mean); this file sets no numbers for them, and an operator holding that history can build the ladder
 with the Section 2 method.
 
-### Open threshold decisions — six rows, for the operator
+### Open threshold decisions — seven rows, for the operator
 
 Each of these needs a business judgement about the right *value*. They are deliberately left open
 rather than filled with a number nobody chose; a configuration that ships one of them states the
