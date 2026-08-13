@@ -173,7 +173,7 @@ rewrite framework below, and it is REFRESH.
      also an FAQ resource, so a second full content type would be stacking (ruling R2). Where a page
      does pass that test, the markup is kept because it is valid schema.org, costs nothing to keep,
      and Google says there is no need to proactively remove it (a permission to leave it, not advice
-     to keep it) — FAQ rich results retired 2026, so no SERP feature is promised, and no primary
+     to keep it) — an ordinary site gets no FAQ rich result (government/health only since Aug 2023), so no SERP feature is promised, and no primary
      source establishes an AI-citation benefit either way, so none is claimed (ruling R3 +
      amendment 9a)
 

@@ -1,13 +1,13 @@
 ---
 name: content-refresher
-version: "4.3.2"
+version: "4.3.3"
 description: 'Refresh old blog posts and outdated content with current statistics, new information, and freshness signals to restore search rankings. Use when the user asks to "update old content", "refresh content", "content is outdated", "improve declining rankings", "revive old blog posts", "traffic is declining on this page", "rankings dropped for this article", or "this post is outdated". For writing new content from scratch, see seo-content-writer. For auditing without rewriting, see on-page-seo-auditor.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.2"
+  version: "4.3.3"
   geo-relevance: "medium"
   tags:
     - seo
@@ -293,7 +293,7 @@ When a user requests content refresh help:
    - [ ] Refresh meta description
    - [ ] Add new H2 sections for [topics]
    - [ ] Update internal links to newer content
-   - [ ] Add an FAQ section answering the query's real follow-ups — FAQ *content* is the deliverable; FAQPage markup only where the page passes the R2 both-things test, and then on the basis the ruling actually supports: it is valid schema.org, costs nothing to keep, and Google says there is no need to proactively remove it — a permission to leave existing markup alone, not Google advising anyone to keep it. Not that it earns AI citations — no primary source establishes that either way, and FAQ rich results retired 2026, so no SERP feature either (ruling R3 + amendment 9a)
+   - [ ] Add an FAQ section answering the query's real follow-ups — FAQ *content* is the deliverable; FAQPage markup only where the page passes the R2 both-things test, and then on the basis the ruling actually supports: it is valid schema.org, costs nothing to keep, and Google says there is no need to proactively remove it — a permission to leave existing markup alone, not Google advising anyone to keep it. Not that it earns AI citations — no primary source establishes that either way; and an ordinary site gets no FAQ rich result (Google restricted them to government/health sites, Aug 2023), so no SERP feature either (ruling R3 + amendment 9a)
    - [ ] Refresh images and add new alt text
    
    ### GEO Updates Needed

@@ -128,7 +128,7 @@ An old article often states what Google *shows* — rich results, snippets, pane
 this library has settled, and only that far. The rule governs the refreshed copy the client
 publishes, where an unresolved claim reads as fact:
 
-- **FAQ rich results retired 2026 — no SERP feature** (settled ruling R3). An article promising them
+- **No FAQ rich result for an ordinary site — no SERP feature to promise** (settled ruling R3). What is *sourced*: Google restricted FAQ rich results to well-known government and health websites on 2023-08-08. What is **not** sourced and must not be written into copy: this library's further claim of a full 2026 end (`docs/loop/r3-decision-brief.md`). An article promising them
   is wrong, and the line is rewritten. FAQPage markup, where a page justifies it under R2, is kept
   because it is valid schema.org, costs nothing to keep, and Google says there is no need to
   proactively remove it — a permission to leave existing markup alone, never written up as Google
@@ -300,7 +300,7 @@ passes ruling R2's both-things test — it genuinely is both its primary type an
 each complete and independently justified. Otherwise the FAQ content ships and the schema is left
 alone, and the report says so. Either way, what may be claimed for the markup is the basis the
 ruling supports and no more: it is valid schema.org, it costs nothing to keep, and Google advises
-against proactively removing it. FAQ rich results retired 2026, so no SERP feature is promised —
+against proactively removing it. An ordinary site gets no FAQ rich result (government/health only since Aug 2023), so no SERP feature is promised —
 and no primary source establishes an AI-citation benefit either way, so the markup is never sold as
 earning AI citations (ruling R3 + amendment 9a).
 
