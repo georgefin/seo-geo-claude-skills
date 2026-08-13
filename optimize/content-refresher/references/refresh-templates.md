@@ -130,9 +130,11 @@ publishes, where an unresolved claim reads as fact:
 
 - **FAQ rich results retired 2026 — no SERP feature** (settled ruling R3). An article promising them
   is wrong, and the line is rewritten. FAQPage markup, where a page justifies it under R2, is kept
-  because it is valid schema.org, costs nothing to keep, and Google advises against proactively
-  removing it. It promises nothing on the SERP, and the refreshed copy does not claim it earns AI
-  citations either: no primary source establishes that in either direction (R3 amendment 9a).
+  because it is valid schema.org, costs nothing to keep, and Google says there is no need to
+  proactively remove it — a permission to leave existing markup alone, never written up as Google
+  advising anyone to keep it. It promises nothing on the SERP, and the refreshed copy does not claim
+  it earns AI citations either: no primary source establishes that in either direction (R3
+  amendment 9a).
 - **Every other feature's status is open until this library settles it.** HowTo rich results are the
   live case: that question is an open `[VERIFY]` item in the watch register (W12,
   `docs/loop/WATCH-ITEMS.md`), so refreshed copy asserts nothing about them in either direction —

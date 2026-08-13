@@ -20,7 +20,7 @@ Provenance: SKILL.md step 2 (*Missing data — the value rule*), ledger F13 (pla
 
 ## FAQPage Schema
 
-For a page whose one primary type is FAQPage — a dedicated FAQ or Q&A page, not an FAQ section inside a page that already carries an accurate type (that is stacking, settled ruling R2). One Question object per visible Q&A pair. No Google rich result (FAQ rich results retired 2026); still generated because AI engines extract clean Q&A pairs from it (settled ruling R3). Validate with the Schema.org validator — the Rich Results Test no longer supports FAQ.
+For a page whose one primary type is FAQPage — a dedicated FAQ or Q&A page, not an FAQ section inside a page that already carries an accurate type (that is stacking, settled ruling R2). One Question object per visible Q&A pair. No Google rich result (FAQ rich results retired 2026); still generated because it is valid schema.org, costs nothing to keep, and Google says there is no need to proactively remove it (settled ruling R3 + amendment 9a). **Not** because engines extract from it — 9a records that no primary source establishes a citation benefit in either direction, so never sell it as one. Validate with the Schema.org validator — the Rich Results Test no longer supports FAQ.
 
 ```json
 {

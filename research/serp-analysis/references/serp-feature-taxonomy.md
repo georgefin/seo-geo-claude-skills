@@ -80,7 +80,7 @@ SERP features fall into five broad categories:
 1. **Mine PAA questions for content ideas** -- Each PAA question is a validated search query
 2. **Answer PAA questions within your content** -- Use the exact question as an H2 or H3
 3. **Keep answers concise (40-60 words)** -- PAA answers are short excerpts
-4. **Use FAQ schema markup -- only where FAQPage is the page's ONE primary type** -- Not a SERP-feature play either way (FAQ rich results retired 2026, ruling R3). A real FAQ section is the precondition, not the permission: bolting FAQPage onto a page whose accurate type is Article, Product or LocalBusiness is schema stacking and adds no citation signal (ruling R2). That page keeps its visible Q&A block -- that is what AI engines extract clean Q&A pairs from, and it earns CORE-EEAT C09 with no markup at all
+4. **Use FAQ schema markup -- only where FAQPage is the page's ONE primary type** -- Not a SERP-feature play either way (FAQ rich results retired 2026, ruling R3). A real FAQ section is the precondition, not the permission: bolting FAQPage onto a page whose accurate type is Article, Product or LocalBusiness is schema stacking and adds no citation signal (ruling R2). That page keeps its visible Q&A block -- readable text that any consumer reaches without markup, and it earns CORE-EEAT C09 on its own
 5. **Create dedicated FAQ sections** -- Group 5-10 related questions at the end of articles
 6. **Target the cascade** -- When users click one PAA, new questions appear; cover those too
 
@@ -117,12 +117,17 @@ SERP features fall into five broad categories:
 
 **Optimization Playbook:**
 
-1. **Write clear, citable sentences** -- AI systems extract well-formed statements of fact
+These are **this library's working bets on what to do first**, not published engine behaviour;
+no engine documents its selection rule (ruling R3 amendment 9a, on a claim of the same shape).
+Each reason states what the tactic puts on the page, which is checkable by opening it -- write
+the recommendation that way in a client report, never as an engine mechanic.
+
+1. **Write clear, citable sentences** -- A well-formed statement of fact can be lifted and quoted intact; a hedged compound sentence cannot
 2. **Front-load key information** -- Place the most important answer in the first 1-2 sentences of each section
-3. **Use structured data** -- One accurate primary type per page helps AI systems understand what the page is; piling on extra types adds no citation signal (ruling R2)
-4. **Establish topical authority** -- AI overviews prefer citing authoritative sources on a topic
-5. **Include original data and statistics** -- Unique data points are highly citable
-6. **Create comparison content** -- AI loves to cite well-structured comparison tables
+3. **Use structured data** -- One accurate primary type per page states what the page is, unambiguously; piling on extra types adds no citation signal (ruling R2)
+4. **Establish topical authority** -- Coverage across the topic that a generalist page does not have
+5. **Include original data and statistics** -- Unique data points exist nowhere else, so no competing source can supply them either
+6. **Create comparison content** -- A structured comparison table turns values into addressable cells instead of prose a reader has to reassemble
 7. **Update content regularly** -- Recency signals influence AI source selection
 8. **Use clear section headings** -- AI systems use headings to understand content structure
 
@@ -287,7 +292,7 @@ These features depend on specific structured data markup:
 
 | Rich Result | Schema Required | Content Type | Visual Impact |
 |------------|----------------|-------------|--------------|
-| FAQ | FAQPage | Pages that ARE a FAQ, where FAQPage is the one primary type — never a FAQ section bolted onto an Article/Product page (ruling R2) | None — FAQ rich results ended 2026; markup kept because it stays valid and Google advises against removing it (ruling R3 + amendment 9a — no evidenced citation benefit either way) |
+| FAQ | FAQPage | Pages that ARE a FAQ, where FAQPage is the one primary type — never a FAQ section bolted onto an Article/Product page (ruling R2) | None — FAQ rich results ended 2026; markup kept because it stays valid and Google says there is no need to proactively remove it (ruling R3 + amendment 9a — a permission to leave it, not advice to keep it; no evidenced citation benefit either way) |
 | How-To | HowTo | Step-by-step instructions | Steps with optional images |
 | Review Stars | Review / AggregateRating | Product/service reviews | Star rating in snippet |
 | Recipe | Recipe | Food/cooking content | Image, cook time, calories |
@@ -407,14 +412,14 @@ The rise of AI Overviews changes how to prioritize SERP features:
 | Scenario | Traditional Strategy | AI-Era Strategy |
 |---------|---------------------|----------------|
 | Informational query | Win featured snippet | Win AI Overview citation AND featured snippet |
-| Comparison query | Create comparison content | Create structured comparison tables (AI prefers these) |
+| Comparison query | Create comparison content | Create structured comparison tables (values become addressable cells, not prose to reassemble) |
 | Definition query | Write clear definition for snippet | Write authoritative, citable definition with evidence |
 | How-to query | Create step-by-step list | Create steps with unique insights AI can synthesize |
 | List query | Create comprehensive ranked list | Create list with original data/reasoning AI can cite |
 
 ### Key Difference
 
-- **Traditional SERP features** reward **format optimization** (structure your content to match the feature)
-- **AI Overviews** reward **authority and uniqueness** (be the source AI trusts for accurate, original information)
+- **Traditional SERP features** have **documented format requirements** — Google publishes what each one needs, so structure the content to match the feature
+- **AI Overviews** publish nothing comparable, so this library plays **authority and uniqueness** instead: be the most substantive and least replaceable source on the topic. That is a working bet, not a documented mechanic — do not report it to a client as one
 
 Optimizing for both requires content that is both structurally sound AND substantively authoritative.

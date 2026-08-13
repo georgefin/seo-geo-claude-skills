@@ -60,8 +60,9 @@ Work top to bottom; re-measure between stages rather than shipping everything at
    test — the page truly is both its primary type and an FAQ resource, and each type is
    complete, accurate, and independently justified. Otherwise: add the FAQ content and
    change no schema. (Per R3 and amendment 9a, FAQPage markup — where justified — is kept
-   because it is valid schema.org, costs nothing to keep, and Google advises against
-   proactively removing it. Google's FAQ rich results are retired, so promise no SERP
+   because it is valid schema.org, costs nothing to keep, and Google says there is no need
+   to proactively remove it — a permission to leave existing markup alone, not Google
+   advising anyone to keep it. Google's FAQ rich results are retired, so promise no SERP
    feature; and no primary source establishes an AI-citation benefit either way, so never
    sell the markup as a citation lever — least of all in a playbook about lost citations.)
 4. **Structured data check.** Existing markup must state only genuine claims and keep one

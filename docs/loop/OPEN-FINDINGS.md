@@ -1,4 +1,4 @@
-# Open Findings — verified, unfixed, as of 2026-08-11
+# Open Findings — verified, unfixed, as of 2026-08-13
 
 > ## ⚠ WORK CLAIM — two sessions are working this list. Read before editing anything.
 >
@@ -44,7 +44,17 @@ These were section A. Each is now decided. Where the file to change belongs to t
 session, the ruling says so — **a ruling and its application are different jobs, and the second
 one belongs to whoever holds the file.**
 
-### 77 — RULED, and applied. The benchmark no longer asserts engine behaviour.
+### 77 — RULED, and applied to C09. **The heading below was wrong when written — see B1.**
+
+> **Correction, 2026-08-13.** This section originally read *"The benchmark no longer asserts
+> engine behaviour."* That was false at the moment it was written. C09 had been fixed; §4 of
+> the same file still stated "All engines extract from first paragraph", and sixteen more
+> instances stood across eight other files. The merge gate found it. **A closure note is a
+> claim, and one written from the instance you just fixed rather than from a sweep is the F9
+> shape in prose** — the register said the class was closed on the evidence of one member.
+> Finding **B1** below records the sweep and its result; the sentence here is left in place,
+> corrected rather than deleted, so the next reader sees what it used to claim.
+
 `references/core-eeat-benchmark.md` C09 read *"Markup is not required for the Pass — **engines
 parse the visible Q&A either way**"*. That is an engine-behaviour claim asserted as fact, and it
 is the exact mirror of the one R3 amendment 9a retracted this week for having **no primary source
@@ -108,6 +118,22 @@ text, and to each skill's holder for the residue.
 
 ---
 
+## A1. Merge-gate findings, 2026-08-13 — what the gate returned and what has been done
+
+The merge gate ran both lanes. **Mode A returned BLOCK.** The contrastive lane issued no
+verdict, by design, and additionally declared its own lack of independence — same agent, same
+tier, same context as Mode A — which is itself a finding about the layer, not about PR #9.
+
+| ID | Finding | State |
+|---|---|---|
+| **B2** | **A permission shipped as a recommendation.** Google's words: *"While you can drop this structured data from your site, there's no need to proactively remove it."* Thirteen shipped surfaces across six skills and one command said "Google **advises against** removing it" — advice never given, in text a client reads. `validate-tracking.sh`'s `R3_LEGAL` allowlist had gained the same phrase as a marker, so the guard could not fail the claim: it *was* the pass condition. | **FIXED** 2026-08-13. All 13 surfaces rewritten; allowlist marker replaced with the faithful phrasing; the overstatement is now a hard fail in check (f), narrowed to lines also mentioning FAQ/schema/markup. Guard probed at the shell per F15 — fires on the old wording, passes the corrected tree. |
+| **B1** | **The 9a retraction was applied in one direction only.** 9a retracted "FAQPage earns AI citations" because *no primary source establishes it either way*, and the mirror claim stayed asserted throughout — both scoring frameworks' Top-6 tables, both frameworks' per-engine tables, and a numbered list in `serp-feature-taxonomy.md`. The finding named 6 sites. | **FIXED** 2026-08-13. The sweep found **17 across 9 files**. Not deleted (F19 overshoot): relabelled as this library's prioritisation model, each reason restated as what the item puts on the page — checkable by opening it. Both frameworks carry an explicit evidence-grade note. |
+| **B3** | **"Nothing now alerts later than before" is false.** The 5xx Warning band moved `Any occurrence` → `>1/day`, so a single daily 5xx now raises nothing. Third false superlative found in one day. | **OPEN.** Needs the claim corrected at its carrier and the band decision taken with finding 65's six thresholds — a number decision, not a doc fix. |
+| **F1–F9** | Nine Mode A FIX items, incl. `Referring domains` compared across two different periods, crawl errors on three ladders, geo's before-table carrying the after-definition, Content Freshness penalising the Statistics rule, a position ladder that still overlaps (25→26 scores 100), and `claims-gate.sh` failing on this file's own line 33. | **OPEN.** |
+| **C1** | **The blind records test skill versions that no longer ship.** geo 4.3.1 (now 4.4.1), content-refresher 4.2.1 (now 4.3.1), alert-manager 4.2.1 (now 4.3.0). Only `gap` matches its subject. | **OPEN, and decisive** — see the merge gate below. |
+| **C2** | `alertmanager.json` misstates its own subject version. | **OPEN.** |
+| **C4** | An expectation was rewritten between runs in the FAIL→PASS direction, on 3 of 29. | **OPEN.** |
+
 ## A. Needs a ruling, not an edit — coordinator or Sani
 
 | # | Finding | Who decides |
@@ -151,13 +177,25 @@ Sani authorised a **conditional** merge on 2026-08-11 (thirteenth verdict entry)
 both** the blind re-runs and an independent review come back clean; fix and do not merge if
 anything fails.
 
-**The condition is NOT met.** Three independent blockers, and they are not interchangeable:
+**The condition is NOT met.** Four independent reasons, and they are not interchangeable:
 
 1. **Mode A's second pass returned BLOCK** — F11 recurrence and F9 recurrence 4, both in the
    coordinator's own commit. The repairs landed afterwards and **have never been reviewed**.
 2. **Two suites carry a contested regression** (content-refresher e2.6, alert-manager e2.5),
    each with both readings stated rather than resolved.
 3. **PR #9 is a draft.** It must be marked ready before GitHub will merge it.
+4. **The re-runs are evidence about skills that no longer exist** (finding C1, 2026-08-13).
+   Sani's condition names *"the blind re-runs"* as one of its two legs. Three of the four blind
+   records were taken against versions the tree has since moved past — and this commit moves
+   two of them again. **A clean run against a superseded version cannot satisfy a condition
+   about the current one**, so the verification leg is unmet no matter how the FIX list
+   resolves. This is the reason the merge cannot proceed even on a day when everything else
+   clears: it is not a defect to fix but a measurement to retake.
+
+**And the standing constraint above all of these**: the merge needs **Sani's explicit order**.
+A condition the coordinator itself judges satisfied is self-authorization, not authorization.
+Even with all four reasons above cleared, the correct action is to report that they are cleared
+and wait.
 
 **On which gate re-runs**: `docs/loop/ADVERSARIAL-LAYER.md` separates **Mode A** — rule
 checklist, holds verdict authority SHIP/FIX/BLOCK/UNDECIDED — from the **contrastive lane**,

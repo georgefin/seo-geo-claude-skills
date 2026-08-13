@@ -16,7 +16,7 @@ parameters:
 
 # Generate Schema Command
 
-Generates valid **Schema.org JSON-LD** structured data markup so search and answer engines can parse the page's entities. Rich-result eligibility depends on the type -- FAQPage has none since Google's 2026 change and is generated because it stays valid and Google advises against removing it (settled ruling R3 + amendment 9a; no evidenced citation benefit either way, so claim none).
+Generates valid **Schema.org JSON-LD** structured data markup so search and answer engines can parse the page's entities. Rich-result eligibility depends on the type -- FAQPage has none since Google's 2026 change and is generated because it stays valid and Google says there is no need to proactively remove it — a permission to leave existing markup alone, not Google advising anyone to keep it (settled ruling R3 + amendment 9a; no evidenced citation benefit either way, so claim none).
 
 ## Usage
 
@@ -79,9 +79,11 @@ IMPLEMENTATION INSTRUCTIONS
 4. FAQPage: stop after step 2. Google ended FAQ rich results in 2026 -- Rich Results Test
    support and Search Console reporting are both gone (API support scheduled August 2026,
    not yet observed), so there is nothing to test and nothing to wait for. Keep the markup
-   because it stays valid and Google advises against proactively removing it. Do NOT tell
-   the user it earns AI citations: ruling R3 amendment 9a records that no primary source
-   establishes that either way (settled ruling R3)
+   because it stays valid and Google says there is no need to proactively remove it. Do NOT
+   report that as Google advising anyone to keep it -- Google's words permit dropping it and
+   say only that removing it is not worth doing on purpose. Do NOT tell the user it earns AI
+   citations: ruling R3 amendment 9a records that no primary source establishes that either
+   way (settled ruling R3)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```

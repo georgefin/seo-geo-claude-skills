@@ -1,13 +1,13 @@
 ---
 name: geo-content-optimizer
-version: "4.4.0"
+version: "4.4.1"
 description: 'Optimize content for AI citation across Google AI Mode (default search surface, incl. AI Overviews), ChatGPT, Perplexity, and Gemini with quotable statements and structured Q&A. Use when the user asks to "optimize for AI", "get cited by ChatGPT", "GEO optimization", "appear in AI answers", "make content AI-quotable", "Google AI Overview optimization", or "Google AI Mode optimization". Adds quotable statements, structured Q&A, precise statistics with sources, expert attribution, and a structured FAQ. Uses CORE-EEAT GEO-First items as optimization targets. For SEO-focused writing, see seo-content-writer. For entity and brand AI presence, see entity-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.4.0"
+  version: "4.4.1"
   geo-relevance: "high"
   tags:
     - geo
@@ -113,25 +113,28 @@ When a user requests GEO optimization:
    ```markdown
    ### CORE-EEAT GEO-First Targets
 
-   These items have the highest impact on AI engine citation. Use as optimization checklist:
+   This library's do-first order (`references/core-eeat-benchmark.md` §4) — a prioritisation
+   model, **not documented engine behaviour**. Each reason states what the item puts on the
+   page, which is checkable by opening it. Never write an engine mechanic into a deliverable:
+   no primary source establishes one in either direction (ruling R3 amendment 9a).
 
    **Top 6 Priority Items**:
-   | Rank | ID | Standard | Why It Matters |
+   | Rank | ID | Standard | Why this library ranks it here |
    |------|----|----------|---------------|
-   | 1 | C02 | Direct Answer in first 150 words | All engines extract from first paragraph |
-   | 2 | C09 | Structured FAQ (visible Q&A) | Directly matches AI follow-up queries; the visible block carries the citation value, markup is conditional — see schema below |
-   | 3 | O03 | Data in tables, not prose | Most extractable structured format |
-   | 4 | O05 | JSON-LD: one accurate primary type | Helps AI understand content type; extra types add nothing (R2) |
-   | 5 | E01 | Original first-party data | AI prefers exclusive, verifiable sources |
-   | 6 | O02 | Key Takeaways / Summary Box | First choice for AI summary citations |
+   | 1 | C02 | Direct Answer in first 150 words | The answer sits where a reader reaches it without scrolling |
+   | 2 | C09 | Structured FAQ (visible Q&A) | Answers the follow-ups the query itself raises; the visible block is the deliverable, markup is conditional — see schema below |
+   | 3 | O03 | Data in tables, not prose | Comparison values become addressable cells, not sentences to reassemble |
+   | 4 | O05 | JSON-LD: one accurate primary type | States page type and entities unambiguously; extra types add nothing (R2) |
+   | 5 | E01 | Original first-party data | Content that exists nowhere else — the one thing a competitor cannot also supply |
+   | 6 | O02 | Key Takeaways / Summary Box | A self-contained précis, quotable without the surrounding article |
 
    **All GEO-First Items** (optimize for all when possible):
    C02, C04, C05, C07, C08, C09 | O02, O03, O04, O05, O06, O09
    R01, R02, R03, R04, R05, R07, R09 | E01, E02, E03, E04, E06, E08, E09, E10
    Exp10 | Ept05, Ept08 | A08
 
-   **AI Engine Preferences**:
-   | Engine | Priority Items |
+   **Per-engine item map** — what this library optimises for when that engine is the named target. The library's judgement; no engine publishes its selection rule, so never report a row as one:
+   | Engine | Items this library prioritises |
    |--------|----------------|
    | Google AI Mode (default) | C02, O03, O05, C09 |
    | ChatGPT Browse | C02, R01, R02, E01 |
@@ -302,7 +305,7 @@ When a user requests GEO optimization:
 
 **When a threshold and the Statistics rule collide, the threshold loses.** The counts above describe what well-sourced content looks like; they are not quotas to fill. If the page and the supplied data yield three precise data points, ship three: mark the item ❌ with the count actually reached and name the data that would close it. Never a fourth number the skill invented to clear a checkbox — and that includes the 50% lift, which is a false report if any factor behind it was scored on invented content.
 
-**Statistics rule**: Every statistic must come from user-supplied data, a cited source, or be marked as a `[CLIENT DATA: …]` placeholder — never invented to satisfy a threshold. **Attribution**: never put a statistic, a claim or a quotation in the name of a real organisation or a real person without a source you have read and can link. A fabricated quote from a named individual, or an invented credential at a named institution, is the most damaging output this skill can produce — it publishes a falsehood about an identifiable third party under the client's byline. AI engines cite verifiable content; a fabricated number that gets cited is a liability. **Placement**: placeholders and provenance notes (bracketed or not — e.g. «απαιτούνται στοιχεία προϊόντος») belong in the report/gap-table sections only, never inside ship-ready surfaces: schema/JSON-LD, meta tags, or answer text presented as paste-ready. Write the customer-visible answer complete without the missing datum — honest hedging in customer voice is fine; an agency-perspective aside is not. Draft body copy may carry a bracketed placeholder only when the resolve-before-publication flag sits **inside the same block, in that block's own syntax** — `<!-- SKELETON … -->` for HTML, `"_SKELETON": "…"` as the first member for JSON-LD, `# SKELETON …` for text (root `CLAUDE.md`, the Value Rule). A model copies the fence, not the heading above it, so a note outside the block does not travel with it, and a block introduced as paste-ready is never a skeleton.
+**Statistics rule**: Every statistic must come from user-supplied data, a cited source, or be marked as a `[CLIENT DATA: …]` placeholder — never invented to satisfy a threshold. **Attribution**: never put a statistic, a claim or a quotation in the name of a real organisation or a real person without a source you have read and can link. A fabricated quote from a named individual, or an invented credential at a named institution, is the most damaging output this skill can produce — it publishes a falsehood about an identifiable third party under the client's byline. A fabricated number that gets repeated anywhere — quoted back by a reader, lifted into a client's own deck, picked up by any consumer — is a liability that outlives the page. **Placement**: placeholders and provenance notes (bracketed or not — e.g. «απαιτούνται στοιχεία προϊόντος») belong in the report/gap-table sections only, never inside ship-ready surfaces: schema/JSON-LD, meta tags, or answer text presented as paste-ready. Write the customer-visible answer complete without the missing datum — honest hedging in customer voice is fine; an agency-perspective aside is not. Draft body copy may carry a bracketed placeholder only when the resolve-before-publication flag sits **inside the same block, in that block's own syntax** — `<!-- SKELETON … -->` for HTML, `"_SKELETON": "…"` as the first member for JSON-LD, `# SKELETON …` for text (root `CLAUDE.md`, the Value Rule). A model copies the fence, not the heading above it, so a note outside the block does not travel with it, and a block introduced as paste-ready is never a skeleton.
 
 ## Example
 

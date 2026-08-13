@@ -200,27 +200,51 @@ Three items act as vetoes — trust failures that override the arithmetic regard
 
 ---
 
-## 4. AI Engine Citation Preferences
+## 4. GEO Prioritisation Model
 
-### Engine-Specific Priorities
+> **Evidence grade — read before quoting anything in this section.** What follows is
+> **this library's working model of which items to do first**, not documented engine
+> behaviour. No engine publishes its citation-selection mechanics, and nothing here has
+> a primary source. Ruling R3 amendment 9a retracted a claim of exactly this shape — that
+> FAQPage markup earns AI citations — on the ground that **no primary source establishes
+> it in either direction**; that absence is not narrower for the rows below. So this
+> section ranks work, and states the library's reason for each rank. It does not report
+> what an engine does.
+>
+> **In a deliverable**: use these ranks to order recommendations, and justify each one by
+> what it puts on the page — a direct answer a reader gets in the first 150 words, a
+> comparison a reader can scan. Never by an asserted engine mechanic. "Engines extract
+> from the first paragraph" is not a sentence this library can source; "the answer is in
+> the first 150 words, where a reader and any extractive consumer both reach it without
+> scrolling" is.
 
-| Engine | Citation Style | Priority Items |
-|--------|---------------|----------------|
-| Google AI Overview | Snippet extraction from paragraphs, lists, tables, FAQs | C02, O03, O05, C09 |
-| ChatGPT Browse | Conversational with links | C02, R01, R02, E01 |
-| Perplexity AI | Multi-source synthesis + inline citations | E01, R03, R05, Ept05 |
-| Claude | Precision-first with nuanced arguments | R04, Ept08, Exp10, R03 |
+### Engine-Specific Priorities — the library's working map
+
+Each row is **the item set this library optimises for when that engine is the named
+target**, paired with the citation style its published output visibly takes. The
+*styles* are observable in the products themselves; the *item mappings* are this
+library's judgement and carry no source.
+
+| Engine | Citation style (observable in its output) | Items this library prioritises |
+|--------|-------------------------------------------|--------------------------------|
+| Google AI Overview | Short synthesised answer above the results, with links out | C02, O03, O05, C09 |
+| ChatGPT Browse | Conversational answer with inline links | C02, R01, R02, E01 |
+| Perplexity AI | Multi-source synthesis with numbered inline citations | E01, R03, R05, Ept05 |
+| Claude | Prose answer, sources named where browsing is used | R04, Ept08, Exp10, R03 |
 
 ### Top 6 GEO-First Priority Items
 
-| Rank | ID | Name | Why It Matters |
-|------|----|------|----------------|
-| 1 | C02 | Direct Answer | All engines extract from first paragraph |
-| 2 | C09 | FAQ Coverage | FAQ structure directly matches user follow-ups |
-| 3 | O03 | Data Tables | Comparison data is most extractable format |
-| 4 | O05 | Schema Markup | JSON-LD helps AI understand content type |
-| 5 | E01 | Original Data | AI prefers citing exclusive sources |
-| 6 | O02 | Summary Box | Key Takeaways often first choice for AI summary |
+Ranked by this library. The reason column states **what the item puts on the page** —
+which is checkable by opening the page — not what an engine is claimed to do with it.
+
+| Rank | ID | Name | Why this library ranks it here |
+|------|----|------|--------------------------------|
+| 1 | C02 | Direct Answer | Puts the answer where a reader reaches it without scrolling, and where any extractive consumer meets it first |
+| 2 | C09 | FAQ Coverage | Answers the follow-up questions the query itself raises, in the querent's own words |
+| 3 | O03 | Data Tables | Comparison values become addressable cells instead of sentences a reader has to reassemble |
+| 4 | O05 | Schema Markup | States the page's type and key entities in a machine-readable form, unambiguously |
+| 5 | E01 | Original Data | Content that exists nowhere else; the one thing a competitor cannot also supply |
+| 6 | O02 | Summary Box | A self-contained précis of the page, quotable without the surrounding article |
 
 ---
 

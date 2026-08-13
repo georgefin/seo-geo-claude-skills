@@ -495,7 +495,7 @@ Engines don't share sources as much as "AI traffic" framing assumes. [VERIFY –
 - **One PRIMARY content type per page** (O05), chosen by what the page is.
 - **Documented auxiliaries are not stacking**: BreadcrumbList where a real breadcrumb trail exists (a Google-documented site-structure feature), Organization/Person nested as publisher or author, WebSite on the homepage. Each has its own engine-documented, non-citation job — none of them is added for citations, which is why the ruling permits them.
 - **A second full content type is stacking and stays banned**: FAQPage bolted onto a service or product page, Article and Product both as primaries. The one exception is narrow — the page genuinely is both things and each type is complete, accurate and independently justified.
-- **FAQ**: the visible Q&A block is a citation surface in its own right; engines parse the text, with or without markup. FAQPage markup is emitted only where FAQPage is the page's one primary type. Type selection and emission live in `build/schema-markup-generator/`, which carries the same boundary — hand the decision there.
+- **FAQ**: the visible Q&A block stands on its own — it is readable text on the page, reachable by any consumer with or without markup, and the markup adds no wording a reader or a parser cannot already see. (Not "engines parse it": no primary source establishes what any engine does with either form — ruling R3 amendment 9a.) FAQPage markup is emitted only where FAQPage is the page's one primary type. Type selection and emission live in `build/schema-markup-generator/`, which carries the same boundary — hand the decision there.
 
 ---
 

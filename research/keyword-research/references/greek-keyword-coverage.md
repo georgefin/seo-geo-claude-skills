@@ -114,7 +114,7 @@ Extends Step 10. Local-intent keywords should map to a GBP surface in addition t
 | Time-sensitive / offers | ανοιχτά Κυριακή (open Sunday) | Posts | Homepage banner |
 | Brand + Greeklish | [brand] kataskevi | Business name / alternate spelling field | Domain, meta title |
 
-The website-side FAQ section for question queries is content, not markup: the visible Q&A block is what AI engines parse and what earns CORE-EEAT C09, with no markup at all. Add FAQPage JSON-LD only where FAQPage is that page's one primary type — on a service or location page whose accurate type is LocalBusiness, FAQPage on top is schema stacking and adds no citation signal (settled ruling R2).
+The website-side FAQ section for question queries is content, not markup: the visible Q&A block is what the reader gets, what any consumer can read without markup, and what earns CORE-EEAT C09 on its own. Add FAQPage JSON-LD only where FAQPage is that page's one primary type — on a service or location page whose accurate type is LocalBusiness, FAQPage on top is schema stacking and adds no citation signal (settled ruling R2).
 
 ### GBP Content Cadence
 

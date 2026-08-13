@@ -165,11 +165,18 @@ What is the domain's primary function?
 
 ---
 
-## 5. AI Engine Citation Preferences (Domain Signals)
+## 5. Per-Engine Prioritisation Map (Domain Signals)
 
-| Engine | Preferred Domain Signals | Priority CITE Items |
-|--------|-------------------------|---------------------|
-| Google AI Overview | High organic rankings, Schema.org, SERP features | E01, E03, I04, C01 |
+> **Evidence grade.** No engine publishes the domain signals it weights. Every row below is
+> **this library's judgement about where to spend effort** when that engine is the named
+> target — not a preference any engine has stated. Ruling R3 amendment 9a retracted a claim of
+> this shape on the ground that no primary source establishes it in either direction. Use the
+> rows to order work; justify each recommendation in a client report by what it does for the
+> domain, never by an asserted engine preference.
+
+| Engine | Domain signals this library emphasises | Priority CITE Items |
+|--------|----------------------------------------|---------------------|
+| Google AI Overview | High organic rankings, Schema.org coverage, SERP features | E01, E03, I04, C01 |
 | ChatGPT Browse | Original data, authoritative sources, clear conclusions | C05, C06, I01, E06 |
 | Perplexity AI | Research-grade content, methodology transparency, tiered sources | C09, C10, E07, I05 |
 | Google Gemini | Knowledge graph presence, brand recognition, topical authority | I01, I02, E07, E08 |
@@ -177,14 +184,20 @@ What is the domain's primary function?
 
 ### Top 6 CITE Priority Items for AI Visibility
 
-| Rank | ID | Name | Why It Matters |
-|------|----|------|----------------|
-| 1 | C05 | AI Citation Frequency | Direct measurement of AI engine citation |
-| 2 | I01 | Knowledge Graph Presence | AI engines use KG to verify entity identity |
+Ranked by this library — a do-first order, **not documented engine behaviour**. No engine
+publishes how it selects sources, so each reason below states what the item *is* or what it
+puts in front of a reader, which is checkable. Ruling R3 amendment 9a retracted a claim of
+this shape on the ground that no primary source establishes it in either direction; that
+absence is not narrower here. Do not write an engine mechanic into a client report.
+
+| Rank | ID | Name | Why this library ranks it here |
+|------|----|------|--------------------------------|
+| 1 | C05 | AI Citation Frequency | The outcome itself, counted directly — not a proxy for it |
+| 2 | I01 | Knowledge Graph Presence | The entity is resolvable to one identity across sources, instead of ambiguous |
 | 3 | T03 | Link-Traffic Coherence | Veto item that invalidates all other scores |
-| 4 | E07 | Topical Authority Depth | AI prefers deep niche experts over generalists |
-| 5 | C01 | Referring Domains Volume | Foundation signal — links remain the backbone |
-| 6 | I04 | Schema.org Coverage | Structured data helps AI parse your content |
+| 4 | E07 | Topical Authority Depth | Depth a generalist site does not have, on the topic being asked about |
+| 5 | C01 | Referring Domains Volume | The most-corroborated third-party signal available, and the cheapest to verify |
+| 6 | I04 | Schema.org Coverage | States the site's entities and page types in a machine-readable form, unambiguously |
 
 ---
 

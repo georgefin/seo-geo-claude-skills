@@ -168,9 +168,10 @@ rewrite framework below, and it is REFRESH.
    - FAQ *content* ships. FAQPage markup does **not**: this page is a commercial comparison, not
      also an FAQ resource, so a second full content type would be stacking (ruling R2). Where a page
      does pass that test, the markup is kept because it is valid schema.org, costs nothing to keep,
-     and Google advises against proactively removing it — FAQ rich results retired 2026, so no SERP
-     feature is promised, and no primary source establishes an AI-citation benefit either way, so
-     none is claimed (ruling R3 + amendment 9a)
+     and Google says there is no need to proactively remove it (a permission to leave it, not advice
+     to keep it) — FAQ rich results retired 2026, so no SERP feature is promised, and no primary
+     source establishes an AI-citation benefit either way, so none is claimed (ruling R3 +
+     amendment 9a)
 
 4. **Fix dead links and update internal links** (~15 min)
    - Replace the 3 dead outbound links with live sources

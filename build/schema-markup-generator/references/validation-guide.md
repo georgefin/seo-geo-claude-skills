@@ -133,7 +133,7 @@ Add time and offset only when the page (or the CMS) actually states them — `"d
 | Question.name | Required | The question text |
 | Answer.text | Required | The answer text |
 
-**Status note**: FAQPage produces no Google rich result (ended 2026). It is still generated because it is valid, cheap to keep, and Google advises against proactively removing it (settled ruling R3 + amendment 9a — which also records that no primary source establishes a citation benefit either way). It validates against Schema.org semantics only.
+**Status note**: FAQPage produces no Google rich result (ended 2026). It is still generated because it is valid, cheap to keep, and Google's own guidance is that you *can* drop it but there is no need to proactively remove it (settled ruling R3 + amendment 9a — which also records that no primary source establishes a citation benefit either way). That is a permission to leave existing markup alone, not advice to keep it; do not report it to a client as a Google recommendation. It validates against Schema.org semantics only.
 
 ### HowTo Schema
 

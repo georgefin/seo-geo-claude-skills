@@ -361,8 +361,8 @@ if [ -n "$F_HITS" ]; then
     F_OK=0
 fi
 # R3 token class (added 2026-08-09; settled ruling R3): Google ended FAQ rich
-# results in 2026 — FAQPage markup stays because it is valid and Google advises
-# against removing it. Live files may mention FAQ near "rich
+# results in 2026 — FAQPage markup stays because it is valid and Google says
+# there is no need to proactively remove it. Live files may mention FAQ near "rich
 # result"/"eligibility"/the accordion visual ONLY when the same line acknowledges
 # the ending (a marker in R3_LEGAL, e.g. "FAQ rich results ended 2026",
 # "non-FAQ types", "FAQ: none"); a line without such a marker is a dead
@@ -385,8 +385,21 @@ fi
 # "advises against removing", so a line that denies the eligibility claim in
 # any of the natural ways passes. If a future rewording fails here again, widen
 # this list — do not narrow the prose.
+#
+# 2026-08-13 — AND THE COST OF THAT WIDENING, which is the other half of the
+# lesson. "advises against (proactively )?removing" was added above as a
+# convenient marker. It is not a true statement. Google's words are: "While you
+# can drop this structured data from your site, there's no need to proactively
+# remove it" — a PERMISSION to leave existing markup alone, and an explicit
+# permission to drop it. Thirteen shipped surfaces across six skills and one
+# command rewrote that as "Google advises against removing it", a
+# RECOMMENDATION Google never made, and this allowlist blessed the rewrite for
+# two days: the guard could not fail the claim because the claim was its own
+# pass condition. **An allowlist marker is an assertion the guard now endorses;
+# vet it like shipped prose.** Marker replaced with the faithful phrasing, and
+# the overstatement is now a hard fail below.
 R3_TOKENS='faq.*rich[- ]?(result|snippet)|rich[- ]?(result|snippet)s?.*faq|eligib[^.|]*faq|faq[^.|]*eligib|expandable q&a below|faq (accordion|dropdown|drop-down)|serp accordion'
-R3_LEGAL='retired|retirement|ended|ceased|discontinued|no longer|non-faq|no faq (support|eligibility)|faq(:| has) none|dropped faq support|do not run it through|"add faq rich results"|no evidenced citation benefit|advises against (proactively )?removing|scheduled for august 2026|has none since'
+R3_LEGAL='retired|retirement|ended|ceased|discontinued|no longer|non-faq|no faq (support|eligibility)|faq(:| has) none|dropped faq support|do not run it through|"add faq rich results"|no evidenced citation benefit|no need to (proactively )?remove|scheduled for august 2026|has none since'
 R3_HITS=$(grep -rniE "$R3_TOKENS" \
     research build optimize monitor cross-cutting commands references \
     --include='*.md' 2>/dev/null | grep -v 'evals/' | grep -viE "$R3_LEGAL" || true)
@@ -394,6 +407,25 @@ if [ -n "$R3_HITS" ]; then
     while IFS= read -r hit; do
         fail "(f) FAQ rich-result eligibility claim (FAQ rich results retired 2026, ruling R3): $hit"
     done <<< "$R3_HITS"
+    F_OK=0
+fi
+# R3 overstatement class (added 2026-08-13, same commit that fixed the thirteen
+# surfaces). A permission shipped as a recommendation is a claim about Google's
+# position that Google did not make, and it reached client-facing skill text.
+# Deliberately narrowed to lines ALSO about FAQ/schema/markup: "advises against
+# removing" can be true of something else entirely (redirects, canonical tags),
+# and a guard that fails a correct sentence about a different subject is the
+# same design error the note above is about. The check is grep-AND by pipe —
+# grep -E has no conjunction.
+R3_OVERSTATE='advises against ([a-z]+ )?remov'
+R3_OVER_HITS=$(grep -rniE "$R3_OVERSTATE" \
+    research build optimize monitor cross-cutting commands references \
+    --include='*.md' 2>/dev/null | grep -v 'evals/' \
+    | grep -iE 'faq|schema|structured data|markup' || true)
+if [ -n "$R3_OVER_HITS" ]; then
+    while IFS= read -r hit; do
+        fail "(f) R3 overstatement — Google permits dropping FAQPage markup and says only that there is no need to proactively remove it; it never advised against removal. Write the permission, not a recommendation: $hit"
+    done <<< "$R3_OVER_HITS"
     F_OK=0
 fi
 [ "$F_OK" -eq 1 ] && pass "(f) no deprecated tokens (FID / First Input Delay / affiliate-only T04) and no un-acknowledged FAQ rich-result claims (R3) in live skill, command, or framework files"
