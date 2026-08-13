@@ -38,6 +38,76 @@ decision rather than an edit, it says so and names who decides.
 
 ---
 
+## A0. RULED 2026-08-13 — decisions made, application named
+
+These were section A. Each is now decided. Where the file to change belongs to the other
+session, the ruling says so — **a ruling and its application are different jobs, and the second
+one belongs to whoever holds the file.**
+
+### 77 — RULED, and applied. The benchmark no longer asserts engine behaviour.
+`references/core-eeat-benchmark.md` C09 read *"Markup is not required for the Pass — **engines
+parse the visible Q&A either way**"*. That is an engine-behaviour claim asserted as fact, and it
+is the exact mirror of the one R3 amendment 9a retracted this week for having **no primary source
+in either direction**. It had also reached client-facing prose in three of five blind
+deliverables, in both languages, because the benchmark carried it.
+
+**Ruling: the criterion rests on what the page contains, not on what an engine does with it.**
+The Pass is earned by the visible Q&A block — which is what a reader gets and what any consumer
+can read without markup. That is true without needing to know how any engine behaves. Applied in
+the same commit as this ruling; the correction is dated in place rather than rewritten, so the
+next reader sees what it used to say.
+
+**Why not simply source it**: nobody here can. `developers.google.com` and `schema.org` are both
+refused by this environment's egress. Sourcing it would be the better fix and stays available to
+anyone who can read those pages.
+
+### 68 — RULED. State the anti-correlation; do not re-weight.
+Scoring Search Demand from competitor cluster depth forces Competitive Density from the same
+evidence, so at 25% and 20% the two largely cancel and five factors behave as three.
+
+**Ruling: warn at the proxy site, and require the report to say so — do not change the weights.**
+Re-weighting would make the published-weight and proxy paths score differently for the same gap,
+which is a worse defect than the one being fixed, and it would invalidate every attainable-value
+set already derived. When cluster depth is the Demand proxy, the report states that Density is
+not independent evidence on that row. **A named limitation the reader can see beats a silent
+correction they cannot.**
+
+**Application belongs to the session holding `research/content-gap-analysis/`.**
+
+### 79 — RULED. The rule exists; make it reachable where prose is written.
+Three deliverables in one suite carried prose contradicting their own tables — a superlative
+against a figure printed twenty lines below it, and two count errors in one paragraph. The rule
+already exists: *where a sentence and a table disagree, the table wins — fix the sentence.*
+
+**Ruling: this is a placement failure, not a missing rule, and it is fixed by placement, not by
+adding an expectation per instance.** The rule sits in a derivation reference that a writer
+consults while computing, and is breached later while writing prose about the result. It must
+appear where the prose is written — in the output-format section, as a pre-send check.
+**No ledger increment**: the existing entry is scoped to the loop's own reporting, and stretching
+it to cover deliverable prose would make the counter mean two things.
+
+**Application belongs to the session holding `research/content-gap-analysis/`.**
+
+### 80 — RULED. A ruling ID is a run handle. The reason it carries is not.
+`ruling R2`, `ruling R3 + amendment 9a` and cross-file pointers sit inside client report fences,
+uncaught by §6's pattern.
+
+**Ruling: the ID is a handle and goes; the substantive statement stays, in the client's own
+terms.** "One accurate schema type per page, so the markup describes what the page is" says
+everything a client needs. "(ruling R2)" adds nothing they can act on and names a register they
+cannot read. This is the same test family 8 already applies to framework item IDs, and the
+gloss-on-first-use exemption does not reach it: that exemption covers framework **names**, which
+a client may meet again in their own analytics, not internal register IDs.
+
+**The cross-file pointer is the same class** — a path into this repository is meaningless on a
+client surface. It moves to the operator block with the handles.
+
+**Carrier**: §6 family 8, extended to name ruling IDs and repo paths alongside item IDs and
+slugs. **Application belongs to the session holding `build/seo-content-writer/`** for the rule
+text, and to each skill's holder for the residue.
+
+---
+
 ## A. Needs a ruling, not an edit — coordinator or Sani
 
 | # | Finding | Who decides |
