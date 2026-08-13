@@ -135,8 +135,8 @@ For metrics where standard deviation is not practical, use percentage-based thre
 | Organic traffic | -15% vs. comparison | -30% vs. comparison | Week over week |
 | Keyword positions (Tier 1, individual keyword) | Drop >= 3 | Drop >= 5 | Week over week |
 | Pages indexed (index coverage) | -5% change | -15% change | Week over week |
-| Referring domains | -5% loss | -15% loss | Month over month |
-| Crawl error rate | >2x baseline rate | >5x baseline rate | Day over day |
+| Referring domains | >5% of total lost | >15% of total lost | Week over week |
+| Crawl error rate (relative to baseline — not a count) | >2x baseline rate | >5x baseline rate | Day over day |
 | Conversion rate | -20% drop | -40% drop | Week over week |
 
 ### The Absolute Value Method
@@ -145,7 +145,7 @@ For binary or count-based metrics, use absolute thresholds.
 
 | Metric | Warning Threshold | Critical Threshold |
 |--------|------------------|-------------------|
-| New crawl errors | >10 new errors/day | >50 new errors/day |
+| New crawl errors, **excluding 4xx and 5xx** (soft 404s, redirect chains, DNS/connectivity failures, robots-blocked URLs) | >10 new errors/day | >50 new errors/day |
 | Server 5xx errors | >1/day | >5/day |
 | Security issues | N/A | Any detection |
 | Manual penalties | N/A | Any notification |
@@ -163,13 +163,22 @@ SKILL.md quick reference quote. Section 2's tables teach the three methods and r
 Warning/Critical values for the metrics they name; they never set a different value, a different
 unit, or a different comparison period.
 
-Three rows were corrected to this rule. The values in the two tables above are the corrected ones:
+**Five rows were corrected to this rule** — three on 2026-08-12, two more on 2026-08-13 after an
+adversarial pass read the rule's own sentence back against the tables and found survivors. The
+sentence above says Section 2 never sets *"a different value, a different unit, or a different
+comparison period"*; the first sweep checked values and units and did not systematically check
+periods. **A rule that names three tests is not applied until all three have been run**, which is
+the transferable lesson here — the two survivors were both period conflicts.
+
+The values in the two tables above are the corrected ones:
 
 | Metric | Was, in Section 2 | Now, from Section 3 | Why it mattered |
 |--------|-------------------|---------------------|-----------------|
 | Server 5xx errors | Warning "any occurrence", Critical ">5 occurrences/hour" | Warning >1/day, Critical >5/day (Emergency >20/day) | >5 per hour is 120 per day — **24×** the daily Critical trigger. A day showing 6 responses read as Warning on the daily ladder and Critical on the hourly one. There is one 5xx ladder and its unit is per day. |
 | Pages indexed | Critical -20% | Critical -15% (Emergency -30%) | A 17% drop was Critical on one table and Warning on the other. |
 | Keyword positions | ">3 position average drop" / ">5 …" | Drop >= 3 / >= 5 (Tier 1, individual keyword) | `>3` excludes a drop of exactly 3, which Section 3's tier table and this skill's own worked example both grade Warning. "Average" also read as the aggregate metric, which has its own row in Section 3 (+2.0 / +5.0 worsening) on different numbers — that row, not this one, is the aggregate. |
+| **Referring domains** (2026-08-13) | "-5% / -15% loss, **Month over month**" | ">5% / >15% of total lost, **Week over week**" (Section 3, Backlink Thresholds) | Same two numbers, different window — the exact form the rule forbids, missed because the first sweep compared values and not periods. 5% lost in a week is roughly 20% lost in a month: the two rows fire on materially different events, and a run picked whichever window its export happened to cover. |
+| **New crawl errors** (2026-08-13) | "New crawl errors >10/day / >50/day", covering every error type | "New crawl errors **other than 4xx and 5xx** >10/day / >50/day" | 4xx and 5xx each have their own Section 3 count ladder (`>5/day` and `>1/day` Warning), so the old row was a superset with a looser trigger: a day with 8 new 4xx errors was Warning on the 4xx ladder and below any band on this one. Scoping it to the remainder — soft 404s, redirect chains, DNS and connectivity failures, robots-blocked URLs — makes it one metric instead of an overlapping second opinion on two others. |
 
 **Two of the three retained values are the tighter of their pair**, so a 15% index drop and a
 3-position drop now raise what they previously did not.
@@ -189,6 +198,15 @@ a distance from a baseline, and never was one. Whether that boundary alert shoul
 is an operator decision, not a documentation one — it turns on how noisy this specific site's 5xx
 floor is, which nobody here has measured. It is listed with the others in **"Open threshold
 decisions"** below.
+
+**Referring domains has the same shape, and is named here rather than discovered later.** The
+retired Section 2 row fired on 5% lost *month over month*; the Section 3 ladder fires on 5% lost
+*week over week*. A site shedding 1.5% of its referring domains every week for a month loses ~6%
+and raises nothing, where the monthly row would have raised a Warning. **Consolidating on the
+weekly ladder trades slow-erosion coverage for a single unit.** That is the right default — a
+weekly window is what the backlink section reports on and what an export supplies — but whether a
+monthly erosion row should sit beside it is a business call about how much slow link decay costs
+this client. Row 9 of the open decisions.
 
 ---
 
@@ -285,10 +303,12 @@ an operator decision, not a documentation fix — see "Open threshold decisions"
 
 All GEO/AI thresholds run on a **weekly check window**. The values below are tunable operational defaults, not measured constants — start here, then calibrate against the site's own citation baseline (Section 1).
 
+**Every count band here states both ends.** The priority-1 loss row used to read "1" against "3+", which left **2** in neither label — the count this skill's own eval turns on. Section 2's "boundaries read upward" convention would have resolved it, but this section never cited that convention and a reader following the rungs literally had nothing to apply. **A band that needs a convention stated in another section to be readable is not a band**, so the rungs are written closed here instead of leaning on it.
+
 | Metric | Warning | Critical |
 |--------|---------|----------|
 | AI citation rate | Down 10+ percentage points vs. baseline | Below a 10% absolute floor |
-| Priority-1 citation loss (count in the window) | 1 priority-1 query loses its citation — i.e. is dropped from the answer entirely | 3+ priority-1 queries lose citations in one window |
+| Priority-1 citation loss (count in the window) | **1 or 2** priority-1 queries lose their citation — i.e. are dropped from the answer entirely | **3 or more** priority-1 queries lose citations in one window |
 | Citation position, citation retained (slots moved) | Worsens by 2+ slots | not graded here — see the one-event rule below |
 | Competitor gains citation you lost | 1 instance | Pattern across queries |
 
@@ -349,7 +369,7 @@ once a baseline exists (average review rating and monthly mention volume are bot
 mean); this file sets no numbers for them, and an operator holding that history can build the ladder
 with the Section 2 method.
 
-### Open threshold decisions — eight rows, for the operator
+### Open threshold decisions — nine rows, for the operator
 
 Each of these needs a business judgement about the right *value*. They are deliberately left open
 rather than filled with a number nobody chose; a configuration that ships one of them states the
@@ -367,6 +387,7 @@ row now sits in this table, and anything added to the list moves this number wit
 | 3-6 | The four page-level traffic rows — homepage 20%+, top-10 pages 30%+, conversion pages 25%+, blog posts 40%+ | Each states a percentage with no comparison period, so no band can be read off it. Setting the period (DoD / WoW / MoM) settles the band; this guide's page-level bands run week over week (Warning -25%, Critical -40%, Emergency -60%). |
 | 7 | The two citation-*rate* rows — Rate Slide (P1) and Rate Floor (P0) | Both ship one level above their band's default, and the standing priority-1 override does **not** reach them: that override covers a query set, and citation rate is a site-wide line across all tracked queries. Confirm the raised priorities as a deliberate business call, or drop both to their band defaults (P2 / P1). Either way the reason written beside them has to be the real one. Full statement in the citation-metrics section above. |
 | 8 | A single 5xx in a day — boundary alert, or nothing? | Consolidating onto the Section 3 per-day ladder moved the 5xx Warning from "any occurrence" to `>1/day`, so one 5xx in a day now raises nothing. Restoring it means a boundary alert (no band, priority stated with its reason), and whether that is worth its noise depends on this site's 5xx floor, which nobody here has measured. Default off, deliberately, until someone measures it. |
+| 9 | Slow referring-domain erosion — a monthly row beside the weekly one? | The weekly ladder (>5% / >15% of total) does not see 1.5%/week sustained for a month. Adding a month-over-month row restores that coverage and doubles the rows watching one metric, which is what the precedence rule exists to prevent — so it is only worth it if slow link decay is a real cost for this client. Default: weekly only. |
 
 ---
 

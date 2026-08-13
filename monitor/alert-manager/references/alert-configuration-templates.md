@@ -165,11 +165,21 @@ worth re-checking against your own baseline before it goes into production.
 | Site Down | Site unreachable, or 5xx at the guide's Emergency trigger (>20/day) | Emergency | P0 | Acknowledge <15 min, action within 1 h |
 | SSL Expiry | Certificate expiring in 14 days | Warning | P1 | Same day |
 | Robots.txt Block | Important pages blocked | Critical | P1 | Same day |
-| Index Dropped | Pages dropping from index | Critical | P1 | Same day |
+| Index Dropped | **A named important page** leaves the index — the money, brand or top-converting URLs, not a count | none — boundary alert (which page, not how many) | P1 — a specific important page out of the index needs a same-day human; stated here because a boundary alert has no band to inherit from | Same day |
 
 SSL Expiry sits one level above its band's default (P2), and the reason travels with it: a
-certificate that lapses takes every page down at once, and the fix needs a same-day human. The
-other three rows take the default map unchanged. **Site Down's condition** used to read "HTTP 5xx
+certificate that lapses takes every page down at once, and the fix needs a same-day human.
+Robots.txt Block takes the default map unchanged.
+
+**Index Dropped was rewritten 2026-08-13, and the reason is the rule it was breaking.** It read
+"Pages dropping from index → Critical", while *Index Coverage Drop* below reads "Indexed pages
+decline 10%+ → Warning". **The same observation was graded at two bands**, which `SKILL.md`'s own
+line — *one observation is graded once* — forbids, and the old condition carried no quantity at
+all, so a single unimportant URL falling out satisfied a Critical. The two rows now measure
+different things, in the idiom this file already uses for *New 404 Pages*: **this row is a boundary
+alert about *which* page; the coverage row is the count ladder about *how many*.** A drop that is
+both — an important page among a 10% decline — raises the coverage alert on its band and this one
+on its named page, which is two observations, not one graded twice. **Site Down's condition** used to read "HTTP 5xx
 errors", which a single 5xx satisfies; the 5xx ladder lives in the threshold guide (Warning >1/day,
 Critical >5/day, Emergency >20/day) and this row is its Emergency end.
 
@@ -193,8 +203,15 @@ close it, and the operator picks:
 2. Keep 50% deliberately, as an early boundary alert that fires before the band does, and write the
    priority with its reason in the cell ("P2 — early boundary alert, no band").
 
-Do not ship the unexplained P1. The guide's absolute-count row (>10 new errors/day Warning, >50
-Critical) is unaffected by this and is a working alternative trigger for the same alert.
+Do not ship the unexplained P1.
+
+**What this paragraph used to say, and why it is gone**: *"The guide's absolute-count row (>10 new
+errors/day Warning, >50 Critical) … is a working alternative trigger for the same alert."* That
+offered a second ladder for one metric on purpose — the exact thing the guide's precedence rule
+exists to stop — and it is no longer even accurate: that row is now scoped to crawl errors **other
+than 4xx and 5xx** (soft 404s, redirect chains, DNS/connectivity failures, robots-blocked URLs),
+because 4xx and 5xx each carry their own count ladder. It is a different metric, not an alternative
+trigger for this one. Choose between the two closures above; do not add a parallel ladder.
 
 ### Performance Alerts
 

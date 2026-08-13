@@ -30,19 +30,35 @@ is the same defect class as ledger **F17** — a thing that governs work, carrie
 can reach it. Fixed here.
 
 **The count moved.** "18" was accurate when said and is **20** now; three were opened after.
-A count quoted from a live list is a timestamp, not a fact — this file supersedes any number
+A count quoted from a running list is a timestamp, not a fact — this file supersedes any number
 quoted in conversation.
 
-**Status vocabulary**: every row below is OPEN. Nothing here is applied. Where a row needs a
-decision rather than an edit, it says so and names who decides.
+**Status vocabulary — corrected 2026-08-13, and the correction is the point.** This read
+*"every row below is OPEN. Nothing here is applied."* It was falsified four sections down by
+`## A0. RULED` and by finding 77's *"RULED, and applied"* — a stale sibling left standing when a
+status flipped, which is ledger **F11**'s founding class. **The rule F11 recurrence 5 widened the
+guard to is that a recorded flip triggers a re-scan of the whole register**, not just the row that
+flipped; this header was the row nobody re-read. What is true now:
+
+- **Section A0** — ruled, and where the ruling could be applied here, applied. Each says which.
+- **Section A1** — the merge gate's findings, each marked FIXED or OPEN in its own row.
+- **Sections A, B, C** — open. Where a row needs a decision rather than an edit, it says so and
+  names who decides.
+
+Rows that have moved between sections are **not** left behind in their old one: a finding
+appearing twice is a finding that can be closed once and stay open elsewhere.
 
 ---
 
 ## A0. RULED 2026-08-13 — decisions made, application named
 
-These were section A. Each is now decided. Where the file to change belongs to the other
-session, the ruling says so — **a ruling and its application are different jobs, and the second
-one belongs to whoever holds the file.**
+**77, 79 and 68 were section A rows; 80 was opened straight into this section** and never sat in
+A — stated because the previous wording ("These were section A") was false for it, and a reader
+checking A for 80's history would have found nothing and doubted the record rather than the
+sentence. All four are now decided, and their rows have been **removed from section A** rather
+than duplicated there. Where the file to change belongs to the other session, the ruling says
+so — **a ruling and its application are different jobs, and the second one belongs to whoever
+holds the file.**
 
 ### 77 — RULED, and applied to C09. **The heading below was wrong when written — see B1.**
 
@@ -136,12 +152,12 @@ tier, same context as Mode A — which is itself a finding about the layer, not 
 
 ## A. Needs a ruling, not an edit — coordinator or Sani
 
+**77, 79 and 68 have moved to A0 (ruled).** They are not repeated here. One row is left, and it
+is the one nobody in this repository can settle:
+
 | # | Finding | Who decides |
 |---|---|---|
-| 77 | **The benchmark asserts the mirror of what R3-9a retracted.** 9a removed "FAQPage's value is AI-engine parsing" because no primary source establishes it either way. `references/core-eeat-benchmark.md:304` asserts the symmetric claim as fact — "engines parse the visible Q&A either way" — and it reached **client prose in 3 of 5 blind deliverables**, both languages. Retracting one and leaving its twin in the shared framework is indefensible. | Coordinator |
-| 65 | **alert-manager: 6 rows need a threshold decision, not a doc fix.** Includes a row banding **DA 70+** where the guide bands **DR 60+** — different vendors' instruments, not interchangeable; a P1 on a trigger that reaches no band; and four page-level rows with no comparison period stated, so their band is underivable. | Sani / operator |
-| 79 | **Derived-figure class, third appearance.** Prose restating a table and disagreeing with it. The skill's own rule already governs it ("where a sentence and a table disagree, the table wins"), so this is a rule breached, not missing. Whether it increments a ledger entry is a separate call. | Coordinator |
-| 68 | **content-gap: the recommended proxy cancels itself.** Scoring Search Demand from competitor cluster depth forces Competitive Density from the same evidence; at 25% and 20% weight they largely cancel, so five factors behave as three. Needs a judgement about the framework, not a patch. | Coordinator |
+| 65 | **alert-manager: eight rows need a threshold decision, not a doc fix.** Includes a row banding **DA 70+** where the guide bands **DR 60+** — different vendors' instruments, not interchangeable; a P1 on a trigger that reaches no band; four page-level rows with no comparison period stated, so their band is underivable; the two citation-*rate* rows shipping one priority above their band default on an override that cannot structurally reach them; and (new, 2026-08-13) whether a single daily 5xx should raise a boundary alert. **All eight are carried in the skill itself**, in `alert-threshold-guide.md` → *Open threshold decisions*, which is a better home than this file: an operator configuring alerts reads the guide, not the loop register. This row exists to say the decision is outstanding, not to hold it. | Sani / operator |
 
 ## B. Confirmed defects with a known fix
 
