@@ -60,10 +60,26 @@ Replace R3 with a version carrying only the three certain facts, and mark the 20
 *Cost*: if the 2026 events did happen, we have weakened a true ruling and will restore it later.
 
 ### Option B — Check first, then rule once
-A verification pack is being written for you now: open a page, use Ctrl-F, write down what you
-see. About ten minutes, one check does most of the work.
+The verification pack is written and waiting: `r3-owner-verification-pack.md`. Five checks, about
+ten minutes, and it names the single one worth doing if you only have three. Open a page, press
+Ctrl-F, write down what you see.
 
 *Cost*: the unsourced dates stay in client-facing skill text until you get to it.
+
+### How much text this actually touches
+
+Measured at the shell on 2026-08-13, because the forensic document's own estimate ("~14 places
+across 6 skills") turned out to be **about half the real figure**, and a decision sized off a
+stale count is a bad decision:
+
+| Tier | Extent | What it says | If the check comes back empty |
+|---|---|---|---|
+| **Broad claim** | **28 lines, 14 files** | some form of "FAQ rich results ended in 2026" | Softens to the sourced fact — restricted to government and health sites since August 2023 |
+| **Dated events** | **5 lines, 3 files** | the appearance dropped, the report dropped, the testing tool dropped, the API cut scheduled August 2026 | These come out. They are the load-bearing unsourced claims |
+
+The concentration is the useful part: the sharp edges sit in three files
+(`schema-markup-generator`'s validation guide and SKILL.md, and `commands/generate-schema.md`),
+not spread across fourteen. **A "not there" answer is a morning's work, not a week's.**
 
 ### Option C — Split it *(recommended)*
 
