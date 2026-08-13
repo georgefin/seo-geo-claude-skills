@@ -1,5 +1,28 @@
 # Open Findings — verified, unfixed, as of 2026-08-11
 
+> ## ⚠ WORK CLAIM — two sessions are working this list. Read before editing anything.
+>
+> **A local (Mac Studio) session and this cloud session are both working.** Neither can see the
+> other's context, and editing a file another session is mid-way through is ledger **F8** —
+> which cost a reviewer its entire pass earlier today. The split below is the whole
+> coordination mechanism; there is no other channel.
+>
+> **CLOUD SESSION HAS CLAIMED (2026-08-11, do not edit these):**
+> `optimize/content-refresher/**` · `monitor/alert-manager/**` · `build/geo-content-optimizer/**` ·
+> `references/core-eeat-benchmark.md` · `docs/loop/SETTLED-RULINGS.md` ·
+> `docs/loop/FAILURE-LEDGER.md` · `docs/loop/OPEN-FINDINGS.md`
+> — covering findings **66, 70, 71, 72, 73, 74, 75**, plus the section-A rulings.
+>
+> **LOCAL SESSION HOLDS:** everything else in section B, the pilot tree
+> (`docs/loop/pilot/**`), the R3 supersession candidate, and the two gates. Findings
+> **60, 62, 63, 69** are reported done by it.
+>
+> **If you are the local session**: pull before you start, take from section B outside the
+> claimed paths, and add your own claim line here in the same commit that starts the work —
+> not the one that finishes it. A claim written afterwards protects nobody.
+>
+> **Neither session merges PR #9.** The condition is unmet and the gates are unrun.
+
 **Why this file exists.** These lived only in a session-local task list, which no other session
 and no file could read. A Mac Studio session asked which set "the 18 open findings" meant, could
 not find them anywhere in the repository, and was right: they had never been written down. That
