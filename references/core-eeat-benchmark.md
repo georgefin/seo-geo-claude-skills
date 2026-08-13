@@ -4,7 +4,7 @@
 >
 > This file is a reference adaptation for the SEO & GEO Skills Library. For the full benchmark with detailed examples, see the source repository.
 >
-> **Version sync**: When the source spec updates, check: item count references in README (currently "80 items"), skill validation checkpoints, and Sections 2, 3, 7 below. Library-governed refinements — the R10/T04 veto semantics and veto scoring consequences (Sections 2, 3, 7), the Section 5 single-primary schema mapping, and the C09 Pass criterion (Section 7 — the visible Q&A block earns the Pass; FAQPage markup is conditional on FAQPage being the page's one primary type, per Section 5) — supersede the v3.0 source wording where they differ; do not revert them on a sync.
+> **Version sync**: When the source spec updates, check: item count references in README (currently "80 items"), skill validation checkpoints, and Sections 2, 3, 7 below. Library-governed refinements — the R10/T04 veto semantics and veto scoring consequences (Sections 2, 3, 7), the Section 5 single-primary schema mapping (including its e-commerce category row, the nesting-is-not-stacking test, and the type-replacement rule), and the C09 Pass criterion (Section 7 — the visible Q&A block earns the Pass; FAQPage markup is conditional on FAQPage being the page's one primary type, per Section 5) — supersede the v3.0 source wording where they differ; do not revert them on a sync.
 
 **8 dimensions × 10 items = 80 evaluation criteria** for optimizing content visibility across AI engines (GEO) and search engines (SEO).
 
@@ -170,6 +170,8 @@ Rubric-granted conditionality (currently T04 only) is the sole rubric-level sour
 | A | 5% | 5% | 5% | 25% | 5% | 5% | 5% | 5% | 5% |
 | T | 15% | 15% | 10% | 25% | 10% | 10% | 20% | 10% | 20% |
 
+A content type with no column here — an e-commerce category page (Section 5) is the current case — has **no library-set weight profile**. Score it with the unweighted **Total Score** and say in the report that no weight profile exists for the type. Never improvise a column: a weight invented per audit makes two audits of the same page incomparable, which is the one thing a weighted score is for.
+
 ### Rating Scale
 
 | Score Range | Rating |
@@ -233,10 +235,17 @@ One primary content type per page (item O05). Documented auxiliaries are legitim
 | Blog (insights) | Article | BreadcrumbList; author/publisher nested |
 | Alternative | Article (comparison editorial) | BreadcrumbList |
 | Best-of | ItemList | BreadcrumbList |
+| E-commerce category (product listing) | ItemList — the products as `itemListElement` entries | BreadcrumbList (real trail); seller/publisher Organization nested; each product described *inside* the list, never a separate top-level `Product` per item |
 | Use-case | WebPage | BreadcrumbList |
 | FAQ | FAQPage | BreadcrumbList |
 | Landing | SoftwareApplication (or the accurate Product/Service type) | BreadcrumbList |
 | Testimonial | Review | BreadcrumbList; reviewed item + reviewer nested inside the Review |
+
+**The e-commerce category row, and `CollectionPage`.** A catalogue listing page is the same shape as Best-of — a page whose content *is* the list — so it takes the same primary type, and the library's schema skill already maps it that way (`build/schema-markup-generator/references/schema-decision-tree.md`, E-commerce row: "category/list pages → ItemList"). `CollectionPage` is also a valid schema.org page type for such a page, and is what an unaided derivation tends to reach for. Rule: **new markup uses `ItemList`**, so that two skills scoring the same page produce the same answer; where a page **already** carries `CollectionPage` as its root with the listing nested as its `mainEntity`, that is one accurate object graph — leave it, do not rewrite it, and never emit both as top-level objects. [VERIFY — the schema.org modelling behind this pair is not owner-read: schema.org and developers.google.com are both refused by this environment's egress (re-tested 2026-08-13). No engine documents a category-page rich result, so this is a type-accuracy call, not a feature call; an owner read of `schema.org/CollectionPage` and `schema.org/ItemList` would settle it.]
+
+**Nesting is not stacking.** A type that appears only as the value of a property of the primary object — `mainEntity`, `itemListElement`, `publisher`, `author`, `about`, `itemReviewed` — describes part of that object. It makes no second claim about what the page *is*, so it is not a second content type and it is not stacking. That is the shape settled ruling R2 already sanctions when it nests Organization as publisher. Stacking is a second content type at the **root** of the graph: two top-level objects, or a second `@type` on the root node, each asserting the page is something. The test in one question: **could this node stand alone as a claim about the page?** A `CollectionPage` whose `mainEntity` is an `ItemList` makes one claim. A page emitting `ItemList` and `FAQPage` side by side makes two. (This states how R2 applies to nesting, which R2 does not mention; it changes no Pass criterion here.)
+
+**When the correct type changes because of the edit.** R2 bans *adding* a second type; it does not freeze the first one. If an optimisation genuinely changes what the page is — a guide rewritten into a step-by-step procedure moves from Article to HowTo under the Blog (guides) row above — the primary type is **replaced** in the same change: the old object goes out as the new one goes in, the page still carries exactly one primary type, and no stacking occurs. R2's "never bolted onto a page that already carries an accurate type" turns on *accurate*, and a type the edit has made wrong is no longer that. Two guards on it. First, the change is reported, naming what in the content moved it, and the replacement is routed through the library's schema skill rather than emitted on a hunch. Second, the bar is what the page now **is**, not how it now looks: a page that gained a numbered list of tips is not a procedure; a page whose purpose is to walk the reader through an ordered process, where the order is load-bearing, is. O05 scores type accuracy, so the only question is ever which type is true of the page.
 
 ---
 
@@ -247,6 +256,7 @@ What is the primary goal?
 ├── Teach users how to do something         → Blog (guides)
 ├── Your product vs one competitor           → Alternative
 ├── Objective comparison of 3+ products      → Best-of
+├── List the products in a catalogue section → E-commerce category
 ├── Show product fits a persona              → Use-case
 ├── Show verified customer results           → Testimonial
 ├── Answer common questions                  → FAQ

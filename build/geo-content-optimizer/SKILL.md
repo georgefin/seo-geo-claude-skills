@@ -1,13 +1,13 @@
 ---
 name: geo-content-optimizer
-version: "4.3.1"
+version: "4.4.0"
 description: 'Optimize content for AI citation across Google AI Mode (default search surface, incl. AI Overviews), ChatGPT, Perplexity, and Gemini with quotable statements and structured Q&A. Use when the user asks to "optimize for AI", "get cited by ChatGPT", "GEO optimization", "appear in AI answers", "make content AI-quotable", "Google AI Overview optimization", or "Google AI Mode optimization". Adds quotable statements, structured Q&A, precise statistics with sources, expert attribution, and a structured FAQ. Uses CORE-EEAT GEO-First items as optimization targets. For SEO-focused writing, see seo-content-writer. For entity and brand AI presence, see entity-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.1"
+  version: "4.4.0"
   geo-relevance: "high"
   tags:
     - geo
@@ -148,7 +148,7 @@ When a user requests GEO optimization:
    - **Documented auxiliaries are not stacking**: BreadcrumbList where a real trail exists, Organization/Person nested as publisher or author, WebSite on the homepage. Each has its own engine-documented, non-citation job.
    - **A second full content type is stacking and stays banned** — FAQPage bolted onto a service or product page, Article and Product both as primaries — unless the page genuinely is both things and each type is complete, accurate and independently justified.
    - **FAQ precedence** (the collision this skill used to mandate both sides of): add the visible Q&A whenever the queries warrant it, always. Add FAQPage markup only where FAQPage is the page's one primary type — never bolted onto a page that already carries an accurate type. The bullet above is the only door out of that, and it is a narrow one: a page that genuinely *is* both things, with each type complete, accurate and independently justified. Carrying an FAQ section does not make a page an FAQ page, so on the ordinary page the door stays shut. C09 passes on the visible Q&A block; markup is not required for it (CORE-EEAT C09, Pass criterion). Where a page therefore gets the FAQ but no FAQPage object, say so in the report — the item is not downgraded for it.
-   - Type selection and emission belong to [schema-markup-generator](../schema-markup-generator/), which carries the same boundary. Hand it the page's primary type when in doubt.
+   - **What this skill may emit** — the boundary three signals in this repo used to blur. It emits JSON-LD for the page's **one primary type only**, only once that type is settled and named in the report, and only to carry content it just wrote; the FAQPage skeleton in [geo-optimization-techniques.md](./references/geo-optimization-techniques.md) is that case and the only one shipped here. It never emits a second content type, never an auxiliary (BreadcrumbList, publisher/author, WebSite), and never a type it had to guess. Everything else — property completeness, validation, auxiliaries, cross-page consistency, and every uncertain or contested type call — belongs to [schema-markup-generator](../schema-markup-generator/), which carries the same boundary: hand it the page's facts, not a guess. Step 5's `[type emitted, or why none]` row takes exactly three answers: the type this skill emitted, the accurate type already on the page and left alone, or none — routed on, with the type the page needs and why. **A type that moves under the edit is a replacement, not an addition**: if the optimization genuinely changes what the page is, the old object goes out as the new one goes in and the page still carries one primary type (CORE-EEAT benchmark §5, "when the correct type changes because of the edit").
 
    _Full benchmark: [references/core-eeat-benchmark.md](../../references/core-eeat-benchmark.md)_
    _Engine behavior detail: [references/ai-citation-patterns.md](./references/ai-citation-patterns.md)_
@@ -166,10 +166,10 @@ When a user requests GEO optimization:
    | Clear definitions | [X] | [met] of [asked] key terms defined standalone |
    | Quotable statements | [X] | [met] of [asked] sections carry a liftable statement |
    | Factual density | [X] | [met] of 5 precise data points with units |
-   | Source citations | [X] | [met] of [asked] claims name a checkable source |
+   | Source citations | [X] | [met] of [asked] claims sourced, or removed/hedged with the reason given |
    | Q&A format | [X] | [met] of [asked] target queries answered directly |
    | Authority signals | [X] | [met] of [asked] available authority elements |
-   | Content freshness | [X] | [met] of 2: visible date <12 months, no datum >24 months |
+   | Content freshness | [X] | [met] of [asked]: visible date <12 months · no stale time-sensitive figure |
    | Structure clarity | [X] | [met] of [asked] structure elements present |
    | **GEO Readiness** | **[avg]/10** | **[sum] points ÷ [n] factors scored; N/A: [factors with nothing to count, or none]** |
    
@@ -183,7 +183,7 @@ When a user requests GEO optimization:
    2. [Quick improvement 2]
    ```
 
-   **Every score prints the count it came from, in its own row** — `score = 1 + 9 × (met ÷ asked)`, rounded half up, floor 1. Set each factor's `asked` here, once, and reuse it unchanged in step 4 so the two tables stay comparable. A factor with nothing to count (no comparison on the page, no expert the client can supply) is **N/A** — named, excluded from the sum and the divisor, never scored 1. Scale bands, the reverse check, N/A handling and the pre-send recompute pass: [references/geo-score-arithmetic.md](./references/geo-score-arithmetic.md).
+   **Every score prints the count it came from, in its own row** — `score = 1 + 9 × (met ÷ asked)`, rounded half up, floor 1. Set each factor's `asked` here, once, and reuse it unchanged in step 4 so the two tables stay comparable. A factor with nothing to count (no comparison on the page, no expert the client can supply) is **N/A** — named, excluded from the sum and the divisor, never scored 1. Scale bands, the reverse check, N/A handling and the pre-send recompute pass: [references/geo-score-arithmetic.md](./references/geo-score-arithmetic.md). **Two of the eight are defined rather than obvious, and counting them by their name gets them wrong.** *Source citations* measures unsourced claims left standing, so a claim counts as met when it carries a checkable source **or** when it was removed, converted to first-party, or hedged — with that disposition named in the report. Obeying the rule that bans an unsourceable claim therefore raises the score instead of leaving it flat, and nobody gains by keeping a claim alive in search of a weak source; `asked` stays the step-2 claim inventory in both columns, so the denominator never shrinks. *Content freshness* scores its staleness half only where the page or the supplied data carries a **time-sensitive** figure — one that could read differently if re-measured today. A founding year is a fact fixed to its date, not stale data. So `asked` is 2, 1 or N/A, and a page with nothing that can go stale no longer collects a meaningless half-mark. Both in full, with the scope table: [geo-score-arithmetic.md](./references/geo-score-arithmetic.md) §3.1–3.2.
 
 3. **Apply GEO Optimization Techniques**
 
@@ -237,7 +237,7 @@ When a user requests GEO optimization:
    | Source citations | [X] | [X] | +[X] | [met] of [asked] |
    | Q&A format | [X] | [X] | +[X] | [met] of [asked] |
    | Authority signals | [X] | [X] | +[X] | [met] of [asked] |
-   | Content freshness | [X] | [X] | +[X] | [met] of 2 |
+   | Content freshness | [X] | [X] | +[X] | [met] of [asked] |
    | Structure clarity | [X] | [X] | +[X] | [met] of [asked] |
    | **GEO Readiness** | **[avg]/10** | **[avg]/10** | **+[X]** | **[sum] ÷ [n] factors scored** |
 
@@ -287,7 +287,7 @@ When a user requests GEO optimization:
 - [ ] Content source identified (URL, full text, or content draft)
 - [ ] Target AI queries or topics clearly defined
 - [ ] Current GEO baseline assessed (if optimizing existing content)
-- [ ] Publish/update date and data ages known — or confirmed unavailable, in which case the freshness factor is N/A, not 1
+- [ ] Publish/update date and data ages known — or confirmed unavailable, in which case freshness scores on its other half alone, and is N/A where neither half is in scope; never 1
 - [ ] Byline, credentials and expert availability known — or confirmed unavailable, which sets what the authority factor asks for
 - [ ] Structured data already on the page identified (which type, or none)
 

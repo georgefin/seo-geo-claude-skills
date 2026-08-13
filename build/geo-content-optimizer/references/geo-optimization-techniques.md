@@ -248,8 +248,28 @@ only where FAQPage is the page's one primary type.** On a page that already carr
 accurate type, the FAQ ships as visible content and the report says why no second type was
 added — do not quietly drop the FAQ instead, and do not quietly add the type. CORE-EEAT C09
 passes on the visible Q&A block and does not require markup, so a page that legitimately gets
-no FAQPage object is not marked down for it. Type selection belongs to
-`build/schema-markup-generator/`, which carries the same boundary.
+no FAQPage object is not marked down for it.
+
+**Where this skill's emission stops.** It may emit JSON-LD for the page's one primary type,
+once that type is settled and named in the report — the FAQPage skeleton below is that case,
+and is the only object this file ships. It never emits a second content type, never an
+auxiliary (BreadcrumbList, publisher/author, WebSite), and never a type it had to guess.
+Property completeness, validation, auxiliaries, cross-page consistency and every uncertain
+type call belong to `build/schema-markup-generator/`, which carries the same boundary.
+
+Three cases this rule is regularly asked about, all settled in the shared benchmark's
+Section 5 rather than here — read it before emitting anything unusual:
+
+- **An e-shop category / product-listing page** has a primary type: `ItemList`, the products
+  as `itemListElement` entries. It is not an FAQ page, so an FAQ on it ships visible and
+  unmarked.
+- **Nesting is not stacking.** A type appearing only as the value of a property —
+  `mainEntity`, `itemListElement`, `publisher`, `author` — describes part of the primary
+  object and is not a second content type. Stacking is a second content type at the root.
+- **A type that moves under the edit is a replacement, not an addition.** Where the
+  optimization genuinely changes what the page is, the old object goes out as the new one
+  goes in; the page still carries exactly one primary type. Report the change and route the
+  replacement.
 
 **FAQ Structure** — 40-60 words per answer, where **40 is a floor, not an average**. An
 answer under 40 words is usually a fragment that cannot stand alone in an AI response, which
