@@ -432,6 +432,32 @@ exactly why the report has to say how many there were.
 | 50-59 | D | Below average — major issues present |
 | <50 | F | Poor — comprehensive overhaul required |
 
+**Round the score to a whole number, half up, and read the grade off the rounded figure.** Every
+endpoint above is a whole number and this instrument routinely produces figures that are not: ⚠️ is
+half a criterion's points, so 11.5/15 is a correct section score (How to Use, rule 2) and the sum of
+eight of them lands on a half as often as not. Unrounded, four windows per hundred have no grade at
+all — anything strictly between 59 and 60, 69 and 70, 79 and 80, or 89 and 90. Rounding closes them
+**without moving a single endpoint**: 89.5 reads 90, A+. Four and not five, because the bottom band
+is open — `<50` already covers 49.5, which is why F needs no rounding to reach it.
+
+**Round once, from the computed figure.** `round(100 × awarded ÷ points scored)` above *is* that
+step, and it is half up. Never round a second time off a figure already rounded for presentation:
+79.46 → 79 is a B, but via 79.5 it becomes 80 and an A.
+
+**Both figures appear, and neither replaces the other.** Print the computed total with its
+derivation — that is what a client re-adds from the eight section scores — and print the rounded
+figure carrying the grade: `Overall Score: 90/100 (89.5 awarded ÷ 100 points scored — every
+criterion checkable; 89.5 rounds to 90)`. The rounded number is the grade's input only; the
+arithmetic is still checked against the computed one.
+
+**Precision follows this scale's own endpoints — do not harmonise the scales.** Whole-number
+endpoints here, so a whole number. The same rule at the same precision governs the 80-item benchmark
+([core-eeat-benchmark.md](../../../references/core-eeat-benchmark.md) §3, Rating Scale), and at
+**one decimal** the Link Quality Score in `monitor/backlink-analyzer`, whose bands have one-decimal
+endpoints. One rule, three scales, each read at the precision its own bands are written in: rounding
+a one-decimal scale to a whole number collapses its bands, and reading this one to a decimal leaves
+89.5 exactly where it was — in no band.
+
 ## Calibration Guidance
 
 ### Avoiding Common Scoring Errors
@@ -495,6 +521,18 @@ That keeps one scale across sections whose maxima differ (25/25 and 5/5 are both
 | 40-69% (e.g. 7/15, 2/5, 12/25) | Needs work — notable issues | Fix within this week |
 | 1-39% (e.g. 3/15, 1/5, 6/25) | Poor — significant problems | Fix immediately (Critical) |
 | 0% | Missing or broken | Fix immediately (Blocking) |
+
+**Round the share to a whole number, half up, and read the row off the rounded percentage.** A share
+is `awarded ÷ that section's scored maximum`, and it lands on a whole number only by accident —
+11/15 is 73.33% and reads "Good" off the 70-99 row. It matters most once the denominator has shrunk:
+the worked case above excludes Title "Uniqueness" and leaves a maximum of 13, so 9/13 is 69.23%,
+which as written belongs to no row, and rounds to 69, "Needs work". No endpoint moves.
+
+**The 100% and 0% rows are read off the identity, never off a rounded share** — awarded equals the
+scored maximum, or awarded is zero. Rounding may not promote a section that lost points into
+"follows all best practices", nor demote a section that scored something into "Missing or broken".
+Nothing on these maxima comes close in any case: the largest sub-maximum share the instrument can
+produce is 24.5/25 = 98%.
 
 Never convert a section to /10 to read this table. Title 11/15 is 73% and reads "Good" straight
 off the row; rescaling it to "7/10" both loses a third of a point and, for the 5-point Meta

@@ -1,6 +1,6 @@
 ---
 name: on-page-seo-auditor
-version: "4.4.2"
+version: "4.5.0"
 description: 'Audit on-page HTML elements including title tags, headers, image alt text, and internal links with a scored SEO report. Use when the user asks to "audit page SEO", "on-page SEO check", "SEO score", "page optimization", "what SEO issues does this page have", "score my page", "why is this page not ranking", or "check my page". For server, speed, and crawl issues, see technical-seo-checker. For full EEAT content quality scoring, see content-quality-auditor.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.4.2"
+  version: "4.5.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -134,7 +134,14 @@ where and when they said it, and a link that opens. Without one, do not attribut
 paraphrase it unattributed, or drop it, and never invent a name, credential or institution to
 carry a line (statistics rule: sourced, cited, or placeholder, never invented). The audit's
 own Evidence follows the same rule: quote the page verbatim from the HTML or content in front
-of you, never from memory or reconstruction.
+of you, never from memory or reconstruction — **and where the finding is about particular words on the page,
+those words are the Evidence**: a count describes the defect, the quote shows it, so take the shortest span that
+does and elide the rest. **The ban is on inventing a fact, not on making a proposal**: a recommended title,
+description, anchor or **alt text** is drafted from what the page itself establishes, names nothing it does not
+support, and carries "confirm before publishing" on the string itself — withholding it leaves a defect found and
+unfixed (ledger F19: a hedging rule carries its carve-out at the instruction). Worked form, the evidence a draft
+is built from, and the one case where none is possible:
+[references/audit-templates.md](./references/audit-templates.md) § Step 8.
 
 ### Recommended Actions — the Seven Fields
 
@@ -181,13 +188,13 @@ drift, and a client can check it by adding the eight numbers the report already 
 criterion: ✅ full points · ⚠️ half · ❌ 0. **A criterion you could not verify is excluded from
 both the numerator and the section maximum** — never scored 0, never guessed (the rubric's own
 rule: "note it as unverified rather than guessing"), because zero means measured and failing
-while blank means unmeasured. The overall is then `round(100 × awarded ÷ points scored)`, and
-every score prints its numerator, its denominator, and how many criteria were excluded. **If no
-section could be scored, the report carries no overall score at all** — name which input unlocks
-which section and stop; a score for a page nobody has seen is a fabricated figure, whatever the
-requester says about the deadline. Criterion point tables, calibration examples, the
-unverified-criterion worked case and the grade bands:
-[references/scoring-rubric.md](./references/scoring-rubric.md).
+while blank means unmeasured. The overall is then `round(100 × awarded ÷ points scored)` — **half up, once, with
+the grade band read off that rounded figure** (⚠️ is half a criterion's points; the A-to-F endpoints are whole
+numbers). Every score prints its numerator, its denominator, and how many criteria were excluded. **If no
+section could be scored, the report carries no overall score at all** — name which input unlocks which section
+and stop; a score for a page nobody has seen is a fabricated figure, whatever the requester says about the
+deadline. Criterion point tables, calibration examples, the unverified-criterion worked case and the grade
+bands: [references/scoring-rubric.md](./references/scoring-rubric.md).
 
 1. **Gather Page Information**
 
@@ -342,7 +349,7 @@ unverified-criterion worked case and the grade bands:
 - [ ] Every recommended action carries all seven fields — action, owner, acceptance criterion, expected impact, effort, dependencies, risk if done wrong — with a stated-absence value wherever an answer does not exist (`not estimated — no baseline data`, `none`, `low — reversible, no downstream effect`); no action ships without an owner-role and an acceptance criterion, and the owner is a role from the closed list (`Client decision` and `unassigned — needs an owner` both count, the second being itself a finding)
 - [ ] Every acceptance criterion is observable, binary at the moment of checking, attached to a named artefact or measurement, and dated or triggered — checkable by someone who was not part of this engagement, six weeks on, without asking what was meant. **None of them requires an engine to do something**: an AI-surface action is accepted on the work shipped plus the measurement re-run and recorded beside its dated baseline, never on an appearance in a generated answer
 - [ ] The ordering rule is stated once in the report, and actions run by expected impact ÷ effort with dependencies respected inside the existing Critical / Important / Minor severity bands — no second priority vocabulary appears beside them
-- [ ] No quotation attributes words to a named person or organisation without a checkable source beside it; page quotes are verbatim from the audited HTML/content, and no Fix drafts an expert quote for the writer
+- [ ] No quotation attributes words to a named person or organisation without a checkable source beside it; page quotes are verbatim from the audited HTML/content, and no Fix drafts an expert quote for the writer. A finding about particular words on the page quotes those words in its Evidence, and every image with a missing, empty or non-descriptive alt carries a drafted replacement string with its confirm-before-publishing condition attached to it — a per-image "cannot be drafted" is a last resort and names who writes it
 - [ ] The Step 10 quick scan and the follow-up-run block are each their own fence carrying **both** labels — `<!-- OPERATOR BLOCK … -->` as the first line inside it **and** a visible *operator block; not part of the client report* line directly under it, because a comment alone renders to nothing in the delivered report and a heading alone is lost when a model copies the fence — and no framework item ID or skill slug appears in the client report: a reader who copies only a fence, and a reader handed only the rendered report, must each be able to tell who it is for
 - [ ] Schema recommendations name **one primary type** for the page; no second content type is recommended or scored as extra credit, and FAQ credit rests on the visible on-page Q&A block rather than on FAQPage markup
 

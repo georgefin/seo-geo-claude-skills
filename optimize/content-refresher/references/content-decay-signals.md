@@ -93,6 +93,17 @@ These signals suggest potential decay but may have other causes. Use them to cor
 | Screenshots of outdated UI | Medium | Manual visual review |
 | References to discontinued products/tools | High | Manual review |
 
+**The last row is a finding the run must be able to act on.** A product's status — renamed,
+replaced, discontinued, no longer processing data — is a checkable fact published by its own
+vendor, not a claim about what a search engine does, so the engine stopping condition in
+[refresh-templates.md](./refresh-templates.md) §"Correcting stale technical claims" does not
+govern it and `docs/loop/SETTLED-RULINGS.md` does not settle it — that register holds engine and
+method rulings, and as measured on 2026-08-17 not one of its five is about a product or a tool.
+Name the product, name the
+line that depends on it, give the successor the vendor names, and cite the vendor's own notice as
+the thing the client can open. Flagging the finding and then deleting the product from the copy
+leaves the section with no subject and the reader with nothing to do.
+
 #### 6. Competitive Displacement Signals
 
 | Signal | Detection Method | Severity |

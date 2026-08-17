@@ -234,10 +234,34 @@ percentage is unusable: the same page yields wildly different figures under diff
 **Image Score**: [X]/10 ([awarded] ÷ [points scored]; [N] criteria unverified and excluded)
 
 **Recommendations**:
-1. Add alt text to image [X]: "[suggested alt text]"
+1. Image [X]: set `alt="[the drafted description]"` — drafted from [what on the page it came from]; whoever can open the file confirms or corrects it before publishing
 2. Compress image [Y]: Currently [X]KB, should be under [Y]KB
 3. Rename [filename] to [better-filename]
 ```
+
+**Alt text is drafted, not withheld** (author's rule, not report copy). Recommendation 1 ships a
+*string*, not an instruction to go and write one. The file itself is not the only evidence about
+what an image shows: the section it sits in, the sentence beside it, a caption, a descriptive
+filename and the article's subject all say something, and a description drawn from those is a
+proposal grounded in the page — not the invented fact the Quote-discipline rule bans
+([SKILL.md](../SKILL.md) § Finding Format & Confidence Labels). Three conditions make it safe:
+
+- **Draft only what the page establishes.** No brand, model, person, place, colour, count or
+  activity the page does not support. A true general description beats a specific invented one.
+- **The confirm-condition rides on the string, not beside it.** The recommendation is copied into
+  a CMS on its own and the report frame stays behind on somebody's screen, so a caveat living in
+  the surrounding prose is missing at the moment somebody pastes the alt (Value Rule clause 3,
+  root `CLAUDE.md`). Both carriage points, and neither instead of the other: the condition is also
+  stated in the recommendation prose.
+- **One drafted string per image, named by file**, so nothing is applied to the wrong picture.
+
+**The one case where no draft is possible** is a page that establishes nothing at all about the
+image — no caption, no adjacent copy, nothing in the subject matter. Then the recommendation names
+that image, says exactly what is missing, and assigns the draft to whoever can open the file, with
+an acceptance criterion. It is a **per-image** finding and a last resort: "this audit cannot see
+the photograph" is the reason the confirm-condition exists, never a reason to skip the draft. An
+audit that finds a missing alt and leaves the page with no proposed text has moved the whole job
+back to the client and scored the page down for it.
 
 ---
 
@@ -370,6 +394,12 @@ there is no Overall Score line in the report.
 Each issue carries Finding / Evidence / Impact / Fix plus a Confidence label
 (Confirmed = directly observed in provided data or crawl · Likely = strong indirect
 evidence · Hypothesis = plausible, needs verification — name what would confirm it).
+**Where the finding is about particular words on the page — a repeated phrase, a vague
+heading, a claim with no source, a promise the content does not keep — those words are
+quoted verbatim in Evidence**, from the source in front of you. A count and a paraphrase
+describe the defect to a reader who already believes it; the quote is what lets the client
+see it and find it on their own page. Take the shortest span that shows it and elide the
+rest with an ellipsis.
 The Fix is the action and the Impact is its expected impact; each issue adds the owner,
 the acceptance criterion, the effort, the dependencies and the risk of getting it wrong,
 so it can be picked up and proved done by somebody who was not in the room.
@@ -377,7 +407,7 @@ Issues are ordered inside each severity band by expected impact ÷ effort with d
 respected — an action whose dependency is unmet sits below the thing it waits on.
 
 ### 🔴 Critical (Fix Immediately)
-1. **[Finding]** — Evidence: [observed data] · Impact: [effect] · Fix: [one imperative sentence naming the element and the change] · Confidence: [Confirmed/Likely/Hypothesis]
+1. **[Finding]** — Evidence: [observed data; where the finding is about page text, the offending words quoted verbatim] · Impact: [effect] · Fix: [one imperative sentence naming the element and the change] · Confidence: [Confirmed/Likely/Hypothesis]
    - Owner: [role] · Effort: [S / M / L] · Depends on: [named blocker, or "none"]
    - Done when: [observable, binary, attached to a named artefact or measurement, dated or triggered]
    - Risk if done wrong: [realistic failure mode and its cost, or "low — reversible, no downstream effect"]

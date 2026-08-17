@@ -294,9 +294,43 @@ wrong.
   written down, and withholding them is the abstention overshoot this skill's own case founded
   (ledger F19). Where a client asks where the numbers come from, send them to Google's Core Web
   Vitals documentation — not to this register, whose handles are operator vocabulary.
-- **Anything not in the register stays open** and the SERP-feature rule above governs it: flag it for
-  verification, assert nothing in either direction. The register is the stopping condition, not a
-  licence to correct by memory.
+- **Anything not in the register stays open — and this stopping condition is about engines.** It
+  governs claims about **what a search engine does, shows or measures**: its SERP features, the
+  thresholds it publishes, how it treats a page. Where the register does not settle one, the
+  SERP-feature rule above applies — flag it for verification, assert nothing in either direction.
+  The register is the stopping condition for **that** class, not a licence to correct by memory.
+- **A third-party product's status is not an engine claim, and this rule was never its stopping
+  condition** (scoped 2026-08-17, after a blind run read the bullet above as governing a
+  discontinued analytics product and shipped a measurement-setup section naming no analytics
+  product at all). Whether a tool has been renamed, replaced, discontinued or has stopped
+  processing data is a checkable fact about the world, published by its own vendor. Nothing about
+  any vendor's product is in `docs/loop/SETTLED-RULINGS.md` — measured 2026-08-17, five rulings and
+  none of them about a product or a tool — and that register is not an instrument that would settle
+  one: it records what this library has decided about engines and about its own method, not what a
+  third party does with its products. So treating it as the stopping condition here makes the run
+  silent about a signal
+  this skill grades **High** risk ([content-decay-signals.md](./content-decay-signals.md) § Content
+  Freshness Indicators, "References to discontinued products/tools") and instructs it to fix
+  (SKILL.md Step 4, the Tool mentions row). Ordering the finding and forbidding the fix is not
+  caution: it republishes a page that still tells the reader to use something that no longer works.
+- **How a product-status correction ships.** Name the product and the line that depends on it.
+  State the status at the confidence you actually have, and say where it comes from — the vendor's
+  own announcement or status page, which the client can open and check. Name the successor **the
+  vendor names**, and nothing beyond it: no migration steps, no dates, no version numbers, no
+  feature comparison nobody here performed. Where you cannot establish the status, that is the open
+  case and it is still a finding — flag the line for confirmation against the vendor before
+  publication and say so in the plan. What is never an option is deleting the subject: a
+  measurement-setup section that names no measurement product has not been made safe, it has been
+  emptied, and the client cannot act on an absence.
+- **What that bullet does not license, and this boundary is the whole of it.** It covers the
+  **identity and availability** of a named tool or product — renamed, replaced, discontinued,
+  withdrawn, no longer processing data — and nothing else. Every *quantity* stays exactly where it
+  was: prices, dates, deadlines, subsidy amounts, eligibility rules, tiers and thresholds ship
+  sourced, cited, or as an open slot, never from memory (the statistics rule). A programme whose
+  published deadline has passed is flagged as expired **and its current phase is not asserted** —
+  same rule, not an exception to it. "This product no longer exists under that name" and "the
+  current price is €X" are different kinds of claim and only the first one is settled by knowing
+  the product.
 
 ---
 
@@ -355,22 +389,24 @@ Structure content with questions AI might answer:
 
 ### Date Strategy
 
-**Options**:
+**Options** — each stated as what the reader sees and what the record loses, which is the half
+anyone here can actually observe:
 
 1. **Update Published Date**
    - Use when: Major overhaul (50%+ new content)
-   - Pros: Signals freshness to Google
-   - Cons: Loses "original" authority
+   - Gains: the date on the page matches the content now on it
+   - Costs: the original publication date is gone from the page, and with it the record of how
+     long this has been covered here
 
 2. **Add "Last Updated" Date**
    - Use when: Moderate updates (20-50% new)
-   - Pros: Shows both original and fresh
-   - Cons: Original date visible
+   - Gains: both dates are visible — when it first appeared and when it was revised
+   - Costs: on an old page, the original date stays on display
 
 3. **Keep Original Date**
    - Use when: Minor updates (<20% new)
-   - Pros: Maintains authority
-   - Cons: Doesn't signal update
+   - Gains: the publication record is left exactly as it was
+   - Costs: nothing on the page tells a returning reader that anything changed
 
 **Recommendation**: [Option X] because [reason]
 
@@ -395,6 +431,15 @@ Structure content with questions AI might answer:
 - [ ] Watch for featured snippet capture
 - [ ] Check AI citation improvements
 ```
+
+**No line in this section says what a search engine does with a date (author's rule, not report
+copy).** Whether changing a published date, adding a revision date, or leaving both alone moves
+anything in a search result is not documented by any engine and is settled nowhere in this library,
+so the copy handed to a client states the observable half — what the reader sees, what the record
+loses — and stops. *"Signals freshness to Google"*, *"loses original authority"* and *"maintains
+authority"* are the three forms this block carried until 2026-08-17, and each is an assertion about
+an engine's internal accounting: ruling R3 amendment 9a, anti-slop FAIL-grade family 9, inside copy
+a run pastes. The ban is language-neutral, so the Greek form of any of them fails identically.
 
 **Which date option applies is computed, not judged (author's rule, not report copy).** The three
 options are bands of one fraction — `(new + rewritten words) ÷ post-refresh total`, both figures
@@ -461,8 +506,12 @@ Schedule next refresh review: [Date - 6 months from now]
 passes ruling R2's both-things test — it genuinely is both its primary type and an FAQ resource,
 each complete and independently justified. Otherwise the FAQ content ships and the schema is left
 alone, and the report says so. Either way, what may be claimed for the markup is the basis the
-ruling supports and no more: it is valid schema.org, it costs nothing to keep, and Google advises
-against proactively removing it. An ordinary site gets no FAQ rich result — since 2023-08-08 Google
+ruling supports and no more: it is valid schema.org and it costs nothing to keep, and
+**Google says there is no need to proactively remove it** — a permission to leave existing markup
+alone, never advice to keep it. Keep that clause on one line wherever it is restated: the
+overstatement it replaces survived a repo-wide closure sweep for four days by straddling a line
+break, which is a property of the wrapping and never of the claim (ledger F15-r5, instance 1).
+An ordinary site gets no FAQ rich result — since 2023-08-08 Google
 shows those only for well-known, authoritative government and health websites
 (`https://developers.google.com/search/blog/2023/08/howto-faq-changes`, 2023-08-08) — so no SERP
 feature is promised; and no primary source establishes an AI-citation benefit either way, so the

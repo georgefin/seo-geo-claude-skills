@@ -1,13 +1,13 @@
 ---
 name: content-refresher
-version: "4.3.8"
+version: "4.4.0"
 description: 'Refresh old blog posts and outdated content with current statistics, new information, and freshness signals to restore search rankings. Use when the user asks to "update old content", "refresh content", "content is outdated", "improve declining rankings", "revive old blog posts", "traffic is declining on this page", "rankings dropped for this article", or "this post is outdated". For writing new content from scratch, see seo-content-writer. For auditing without rewriting, see on-page-seo-auditor.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.8"
+  version: "4.4.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -277,7 +277,7 @@ When a user requests content refresh help:
    |---------|---------|---------------|
    | Year references | "[old year]" | Update to [current year] |
    | Statistics | "[old stat]" | Find current data |
-   | Tool mentions | "[old tool]" | Add newer tools |
+   | Tool mentions | "[old tool]" | Name the tool's current status, the vendor notice that establishes it, and the replacement the vendor names; where the status cannot be established, flag the line for confirmation rather than dropping the tool and leaving the section with no product in it |
    | Links | [X] broken | Fix or replace |
    | Screenshots | Outdated UI | Recapture |
    | SERP-feature claims | "[what the article promises Google shows]" | Correct only what is settled; open items are flagged for verification, never asserted either way — [refresh-templates.md](./references/refresh-templates.md) §"Correcting claims about SERP features" |
@@ -317,7 +317,7 @@ When a user requests content refresh help:
    - [ ] Create standalone factual statements
    ```
 
-   > **On the two claim rows** (author's rule, not report copy): correct what `docs/loop/SETTLED-RULINGS.md` settles — the Core Web Vitals thresholds above are ruling R4, and the FAQ checkbox is ruling R2's both-things test plus R3 amendment 9a — and flag for verification only what it does not. **Ruling handles are operator vocabulary**: cite R2/R3/R4 in working notes, and give the client the figure and, where one is on file, the source (root `CLAUDE.md` § The Reader Test). Declining to state a figure the register already holds is the abstention overshoot (ledger F19). The rules, their stopping condition, and how far each one's backing actually goes are in [refresh-templates.md](./references/refresh-templates.md) §"Correcting claims about SERP features" and §"Correcting stale technical claims".
+   > **On the three claim rows** — SERP-feature claims, Core Web Vitals figures, Tool mentions (author's rule, not report copy). The first two are engine claims: correct what `docs/loop/SETTLED-RULINGS.md` settles — the Core Web Vitals thresholds above are ruling R4, and the FAQ checkbox is ruling R2's both-things test plus R3 amendment 9a — and flag for verification only what it does not. **Ruling handles are operator vocabulary**: cite R2/R3/R4 in working notes, and give the client the figure and, where one is on file, the source (root `CLAUDE.md` § The Reader Test). Declining to state a figure the register already holds is the abstention overshoot (ledger F19). **The third row is not an engine claim and the register is not its stopping condition** — a vendor's product status is settled by that vendor, never by `SETTLED-RULINGS.md`, so reading the engine rule onto it silences the run permanently on a decay signal this skill grades High risk. The rules, their stopping conditions, how far each one's backing actually goes, and how a product-status correction ships are in [refresh-templates.md](./references/refresh-templates.md) §"Correcting claims about SERP features" and §"Correcting stale technical claims".
 
 5. **Create Refresh Plan** — Structural changes, content additions, statistics/links/images to update
 
