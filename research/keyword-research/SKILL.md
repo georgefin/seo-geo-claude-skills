@@ -1,13 +1,13 @@
 ---
 name: keyword-research
-version: "4.4.3"
+version: "4.5.0"
 description: 'Discover high-value SEO keywords with search intent analysis, difficulty scoring, topic clustering, and AI citation potential. Use when the user asks to "find keywords", "keyword research", "what should I write about", "keyword difficulty score", "identify ranking opportunities", "topic ideas", "what are people searching for", or "long-tail keyword suggestions". For competitor keyword gaps, see competitor-analysis. For topic coverage gaps, see content-gap-analysis.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.4.3"
+  version: "4.5.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -59,7 +59,7 @@ Discovers, analyzes, and prioritizes keywords for SEO and GEO content strategies
 2. **Intent Classification**: Categorizes keywords by user intent (informational, navigational, commercial, transactional)
 3. **Difficulty Assessment**: Evaluates competition level and ranking difficulty
 4. **Opportunity Scoring**: Prioritizes keywords by potential ROI
-5. **Clustering**: Groups related keywords into topic clusters
+5. **Clustering**: Groups related keywords into topic clusters, and assigns each cluster one owning property and one owning URL
 6. **GEO Relevance**: Identifies keywords likely to trigger AI responses
 
 ## How to Use
@@ -270,34 +270,29 @@ When a user requests keyword research:
 
    **AI Potential stars are counted, not felt**: 1 star for the format match above, +1 per indicator met (1-5), printed as `⭐⭐⭐⭐ 4/5 — <the indicator that failed>` so the rating says what to write. Rules: [references/keyword-prioritization-framework.md](./references/keyword-prioritization-framework.md) → AI Potential Rating.
 
-9. **Create Topic Clusters**
+9. **Create Topic Clusters — and Assign Each One an Owner**
 
-   Group keywords into content clusters:
+   Group keywords into content clusters, and finish each cluster by naming the property and the URL that will own it. Where the business runs one site that is a one-line answer; where it runs a main site plus other properties, two of its own URLs targeting one cluster is a collision, not coverage. **A cluster nobody has been assigned reads `no owner assigned` — a value and a finding to name in the prose, never a blank cell.** You propose the assignment and the reasoning; the client decides, and a row carrying no decision date is a proposal, not a decision. The owner is the property with the commercial conversion path for that intent, not whichever page currently ranks — tie-breakers, in order: existing authority for the cluster, then audience fit, then which property will actually be kept current.
 
    ```markdown
    ## Topic Cluster: [Main Topic]
-   
-   **Pillar Content**: [Primary keyword]
-   - Search volume: [X]
-   - Difficulty: [X]
-   - Content type: Comprehensive guide
-   
-   **Cluster Content**:
-   
-   ### Sub-topic 1: [Secondary keyword]
-   - Volume: [X]
-   - Difficulty: [X]
-   - Links to: Pillar
-   - Content type: [Blog post/Tutorial/etc.]
-   
-   ### Sub-topic 2: [Secondary keyword]
-   - Volume: [X]
-   - Difficulty: [X]
-   - Links to: Pillar + Sub-topic 1
-   - Content type: [Blog post/Tutorial/etc.]
-   
-   [Continue for all cluster keywords...]
+
+   **Owning property**: [one domain] · **Owning URL**: [one absolute URL, or "to be created" with a date]
+   **Language**: [el / en / both] · **Status**: [assigned / contested / no owner assigned]
+   **Decided**: [date and who decided — empty means this is still a proposal]
+   **Supporting properties**: [domain — the angle it takes], each linking to the owning URL
+
+   **Pillar Content**: [Primary keyword] — volume [X], difficulty [X], comprehensive guide
+
+   **Cluster Content**
+
+   | Sub-topic | Volume | Difficulty | Intent | Links to | Content type |
+   |-----------|--------|------------|--------|----------|--------------|
+   | [Secondary keyword] | [X] | [X] | [intent] | Pillar | [Blog post / Tutorial] |
+   | [Secondary keyword] | [X] | [X] | [intent] | Pillar + sub-topic 1 | [Blog post / Tutorial] |
    ```
+
+   **A bilingual cluster is two rows or one, and the owning URL decides which.** Forms (a)-(c) of the Greek pattern in Step 4 are three ways of typing one demand in one language: they take one owner between them, and none of them justifies a second page or a second row. Form (d), the EN equivalent, serves a different audience — Greek-speaking users on one side, English-speaking residents, visitors, investors and international buyers on the other. Where the two audiences resolve to different URLs that is two rows with two owners; where one URL serves both, it is one row reading `Language: both`. Register columns, how to decide an owner, what to do when this run cannot, and worked bilingual examples: [references/cluster-ownership.md](./references/cluster-ownership.md).
 
 10. **Map Local-Intent Keywords to GBP Surfaces**
 
@@ -338,6 +333,8 @@ When a user requests keyword research:
 - [ ] No unlabelled claim about what a competitor ranks for — including what their ranking set is mostly about, which topics they own, or what they would not rank for. Each such claim is a numbered entry in the Assumptions block, or it is cut
 - [ ] Keywords grouped by intent and mapped to content types
 - [ ] Topic clusters show clear pillar-to-cluster relationships
+- [ ] Every cluster names its owning property and its owning URL, or states `no owner assigned` — and every `no owner assigned` is named in the prose as a finding with what would settle it, never left as a blank cell
+- [ ] Every assignment this run proposes states its reasoning (the conversion path for that intent, then the tie-breaker if one was needed) and is described as a proposal until it carries a decision date; a bilingual cluster is one row where one URL serves both audiences and two rows where the URLs differ
 - [ ] Greek-market keywords show accented, unaccented, Greeklish, and EN forms with placement noted (if applicable)
 - [ ] Local-intent keywords mapped to GBP surfaces, not just website pages (if applicable)
 - [ ] Source of each data point stated in the report's own words — the resolved tool name (Ahrefs, Semrush), "user-provided", or "estimated"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
@@ -371,6 +368,7 @@ When a user requests keyword research:
 - [Keyword Prioritization Framework](./references/keyword-prioritization-framework.md) — Priority scoring matrix, categories, and seasonal keyword patterns
 - [Example Report](./references/example-report.md) — Complete example keyword research report for project management software
 - [Greek Keyword Coverage](./references/greek-keyword-coverage.md) — Diacritics/Greeklish dual-coverage patterns, inflection-set clustering (case/number), transliteration reference, and GBP surface mapping
+- [Cluster Ownership](./references/cluster-ownership.md) — The ownership register's columns, how the owning property is decided (conversion path first, then the three tie-breakers), what to write when this run cannot decide, and how bilingual clusters become one row or two
 
 ## Related Skills
 

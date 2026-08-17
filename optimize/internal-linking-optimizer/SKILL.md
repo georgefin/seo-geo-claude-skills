@@ -1,13 +1,13 @@
 ---
 name: internal-linking-optimizer
-version: "4.4.0"
+version: "4.5.0"
 description: 'Analyze and optimize internal link structure to improve site architecture, distribute page authority, and fix orphan pages. Use when the user asks to "fix internal links", "improve site architecture", "link structure", "distribute page authority", "internal linking strategy", "orphan pages", "site architecture is messy", or "pages have no links pointing to them". For a broader on-page audit, see on-page-seo-auditor. For external link analysis, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.4.0"
+  version: "4.5.0"
   geo-relevance: "low"
   tags:
     - seo
@@ -42,7 +42,6 @@ metadata:
 
 # Internal Linking Optimizer
 
-
 This skill analyzes your site's internal link structure and provides recommendations to improve SEO through strategic internal linking. It helps distribute authority, establish topical relevance, and improve crawlability.
 
 ## When to Use This Skill
@@ -61,7 +60,7 @@ This skill analyzes your site's internal link structure and provides recommendat
 2. **Authority Flow Mapping**: Shows how PageRank flows through site
 3. **Orphan Page Detection**: Finds pages with no internal links
 4. **Anchor Text Optimization**: Improves anchor text diversity
-5. **Topic Cluster Linking**: Creates pillar-cluster link strategies
+5. **Topic Cluster Linking**: Creates pillar-cluster link strategies, and cross-property support links across a multi-site portfolio
 6. **Link Opportunity Finding**: Identifies where to add links
 7. **Navigation Optimization**: Improves site-wide link elements
 
@@ -217,9 +216,7 @@ When a user requests internal linking optimization:
    | [URL] | Medium | [category or tag page] | "[anchor]" | [listing or section] |
    
    **Low Priority Orphans** (consider removing) — a redirect or a deletion is not a link
-   suggestion, so no anchor is required:
-   1. [URL] - Redirect to [better page]
-   2. [URL] - Delete or noindex
+   suggestion, so no anchor is required: [URL] redirect to [better page] · [URL] delete or noindex
    ```
 
 3. **Analyze Anchor Text Distribution**
@@ -251,10 +248,7 @@ When a user requests internal linking optimization:
    | "[anchor 1]" | [source URL] | ✅/⚠️/❌ |
    | "[anchor 2]" | [source URL] | ✅/⚠️/❌ |
    
-   **Issues Found**:
-   - Over-optimized anchors: [X] instances
-   - Generic anchors: [X] instances
-   - Same anchor to multiple pages: [X] instances
+   **Issues Found**: over-optimized anchors [X] instances · generic anchors [X] instances · same anchor to multiple pages [X] instances
    
    ### Anchor Text Recommendations
    
@@ -291,7 +285,9 @@ When a user requests internal linking optimization:
 
 4. **Create Topic Cluster Link Strategy** — Map current pillar/cluster links, recommend link structure, list specific links to add
 
-   > **Reference**: See [references/linking-templates.md](./references/linking-templates.md) for the topic cluster link strategy template (Step 4) — its Links to Add table carries the From Page / To Page / Anchor Text / Location columns every suggestion needs.
+   **Linking follows ownership.** A cluster has one owning URL, and that URL is where the cluster's links point — not whichever page currently ranks, not the newest one. The pillar of a cluster is its owning URL unless the ownership register says otherwise; where a plan's pillar and the register's owner differ, that is a finding to raise, not a preference to split links across. A page that does not own the cluster supports it only when **all three** hold: it takes a different angle or intent, it carries an in-body link to the owning URL with descriptive anchor text, and it does not target the owner's head query in its title, H1 or schema. Fail any one and that page is competing with the owner, not supporting it — report it as a collision with a proposed resolution, never as a linking opportunity, because more links into a competing page deepen the split. Where a cluster has no settled owner, say so and plan no cluster links for it: choosing a destination silently makes an ownership decision inside a linking deliverable, where nobody will look for it later. Orphan fixes are not blocked by this — reachability is repaired regardless, and the open assignment is named. **In a portfolio the same rule crosses domains**: a supporting page on one property links to the owning URL on another, one way (supporter to owner, never reciprocal on the same head query), in body copy rather than a site-wide footer, and worth clicking for the reader who is on the supporting page. Each cross-property row names both properties and who can implement it, since it needs edit access to the source site — often a different team or CMS. Such links are external in HTML terms and third-party tools report them that way, so they are counted on their own line and never folded into a property's internal-link total or into any earned-link count.
+
+   > **Reference**: See [references/linking-templates.md](./references/linking-templates.md) for the topic cluster link strategy template (Step 4) — its Links to Add table carries the From Page / To Page / Anchor Text / Location columns every suggestion needs. The support test as a checklist, the cross-property row's two extra fields, anchor rules for owner-directed links and the collision finding's shape: [references/ownership-linking.md](./references/ownership-linking.md).
 
 5. **Find Contextual Link Opportunities** — Analyze each page for topic-relevant link opportunities, prioritize high-impact additions
 
@@ -353,6 +349,8 @@ would produce one — baseline the affected pages now, re-measure 4-8 weeks afte
 - [ ] All link suggestions include source page, target page, and recommended anchor text — orphan fixes included, since a fix for an orphan is a link suggestion (Step 2's Fix Strategy table carries the same four fields as Step 4's)
 - [ ] Orphan page lists include URLs and recommended actions, and list only pages with no inbound link of any kind; a page reachable through template/nav links only is reported as template-only inbound, not as an orphan
 - [ ] No recommended anchor is content-free ("click here", "read more", "this article", "learn more", a bare URL) — the Natural band means conversational *and* descriptive
+- [ ] Every cluster in the plan names its owning URL (or says the owner is unassigned, and plans no cluster links for it), and every cluster link points at that URL; a supporting page is checked against all three conditions with the check shown, and one failed condition makes it a collision finding with a proposed resolution rather than a linking opportunity
+- [ ] Every cross-property link names both properties and who can implement it, runs one way from supporter to owner, sits in body copy, and is counted on its own line — never folded into a property's internal-link total and never presented as an earned link
 - [ ] Every paste-ready string — a recommended anchor, the sentence carrying it, any link markup — is final copy: no bracket token, no `TBD`/`XX`, no provenance note ("client data needed", "per the export") and no agency-workflow marker inside it. Gaps, assumptions and source labels live in the report and recommendation-table frame around it, never in the string the client copies
 - [ ] Every projected or after-state figure is re-derivable from the changes this report itself proposes, with the addition shown; a model-produced figure prints its model, parameters and input graph
 - [ ] Source of each data point stated in the report's own words — the resolved tool name (Screaming Frog, Google Analytics 4), "user-provided", or "manual analysis"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
@@ -378,6 +376,7 @@ would produce one — baseline the affected pages now, re-measure 4-8 weeks afte
 - [Link Architecture Patterns](./references/link-architecture-patterns.md) — Architecture models (hub-and-spoke, silo, flat, pyramid, mesh) with their link rules, migration paths, the Key Metrics by Architecture Model targets the Structure Score is scored against, the Monthly Monitoring Checklist, the `[VERIFY]`-tagged ROI ranges, and the Implementation Priority Order
 - [Linking Templates](./references/linking-templates.md) — Detailed output templates for **steps 4-7**: topic cluster strategy (Step 4) and contextual opportunities (Step 5), both carrying the From Page / To Page / Anchor Text / Location columns, plus navigation optimization (Step 6), the implementation plan (Step 7) and the Anchor Text Guidelines bands
 - [Linking Example](./references/linking-example.md) — Full worked example for internal linking opportunities
+- [Ownership Linking](./references/ownership-linking.md) — Why the owning URL is the link target, the three-condition support test and what a failed condition becomes, the cross-property link pattern with its extra fields and counting rule, what to do when a cluster has no settled owner, and how a collision found in the link graph is reported
 - [Inter-Skill Handoff](../../references/inter-skill-handoff.md) — what to pass when this analysis names a follow-up run (step 3's escalation to a content audit is the standing one), the operator-block placement rule, and the drop-and-name rule for an unavailable field
 
 ## Related Skills

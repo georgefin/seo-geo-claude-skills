@@ -1,13 +1,13 @@
 ---
 name: content-gap-analysis
-version: "4.2.7"
+version: "4.3.0"
 description: 'Find content opportunities by identifying topics and keywords your competitors cover that you don''t. Use when the user asks to "find content gaps", "what am I missing", "topics to cover", "content opportunities", "what topics am I missing", "where are my content blind spots", "untapped topics", or "content strategy gaps". For broader competitive intelligence, see competitor-analysis. For general keyword discovery, see keyword-research.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.2.7"
+  version: "4.3.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -56,7 +56,7 @@ Identifies content opportunities by analyzing gaps between a site's content and 
 ## What This Skill Does
 
 1. **Keyword Gap Analysis**: Finds keywords competitors rank for that you don't
-2. **Topic Coverage Mapping**: Identifies topic areas needing more content
+2. **Topic Coverage Mapping**: Identifies topic areas needing more content, and screens each against which of the client's URLs already owns it
 3. **Content Format Gaps**: Reveals missing content types (videos, tools, guides)
 4. **Audience Need Mapping**: Matches gaps to audience journey stages
 5. **GEO Opportunity Detection**: Finds AI-answerable topics you're missing
@@ -147,6 +147,10 @@ When a user requests content gap analysis:
 
    Create a topic coverage comparison matrix across all competitors. For each missing topic cluster, document business relevance, competitor coverage, opportunity size, sub-topics, and recommended pillar/cluster approach.
 
+   **A gap is only a gap if nobody of the client's already owns it.** Before a missing topic becomes a recommendation to create a page, run the screen: name the cluster that page would own, and confirm that cluster is unowned — or that it is being *deliberately reassigned*, with the current owner, the proposed owner, what happens to the current owner, and the fact that the client decides. A recommendation to build a page for a cluster an existing URL already owns is not a gap finding; it is a proposal to put two of the client's own URLs on one demand, and it ships as a collision finding with a proposed resolution instead. Where an existing URL owns the cluster and covers it thinly, the honest and commonest outcome is a **depth gap** — a brief for the owning URL, not a new page. Where no ownership register was supplied, say so and make the smaller claim: the gap is *unverified against ownership*, not *missing*, and the report names what would settle it (the property list, and a page-and-cluster list per property). Name any properties the analysis did not look at — a gap found in one site of six is a gap in that site's coverage, not in the client's.
+
+   **Six collision signals, cheapest first — none is conclusive alone, two together are**: two of the client's URLs returned for one query · one query drawing impressions for two of their pages in Search Console · duplicate or near-duplicate titles across properties · the recorded ranking URL flipping between two of their pages across dates · an AI answer citing a property that does not own the cluster · two properties carrying the same cluster in their content plans, which is the cheapest catch of all because neither page exists yet and this analysis reads the plans. Each is an observation from the client's own data or a check anyone can repeat; none is a claim about why anything ranked. Adjacent clusters with genuinely different intent and different conversion paths, one linking to the other, are a working portfolio and are not a collision. The screen in full, the reassignment write-up, and the resolution ladder a collision finding proposes: [references/ownership-screen.md](./references/ownership-screen.md).
+
 6. **Identify Content Format Gaps**
 
    Compare format distribution (guides, tutorials, comparisons, case studies, tools, templates, video, infographics, research) against each competitor and against the competitor mean — the average of the competitors you counted. Not against an industry average: this workflow counts the competitors you named and collects no industry population, so that number would have to be invented (statistics rule: sourced, cited, or placeholder, never invented). A published benchmark may sit beside the competitor mean only when you have read it — publisher, year, sample, link. For each gap, assess effort and expected impact.
@@ -196,13 +200,17 @@ Depth gaps and angle gaps distinguished from wholly missing topics.
 
 Grouped as: missing topics · depth gaps · format gaps · funnel gaps (four stages) · GEO
 opportunities. Each finding cites both sides — the competitor coverage as observed and the
-absence from your own inventory — and names where it was counted.
+absence from your own inventory — and names where it was counted. Each also names the cluster
+it belongs to and which of your URLs owns that cluster today — or that no owner is assigned, or
+that ownership could not be checked and why. Collisions found, where two of your own pages are
+on one demand, are reported here as findings with a proposed resolution, not as opportunities.
 
 ## Prioritized Gap List
 
 Tier 1 Quick Wins · Tier 2 Strategic Builds · Tier 3 Long-term, with the tier rule stated
 (Step 9). Every row shows its five factor scores, the weighted arithmetic, the resulting Gap
-Priority Score and tier, and the Quick Win Score where the screen ran.
+Priority Score and tier, and the Quick Win Score where the screen ran. Every row proposing a
+new page names the cluster that page will own and the ownership outcome it passed on.
 
 ## Content Calendar
 
@@ -274,6 +282,9 @@ means judged and lowest.
 - [ ] Every gap in Tier 1 / the Quick Wins bucket clears the demand condition as well as the difficulty one, or the report says the quick-win screen did not run
 - [ ] Funnel coverage uses the four stages (Awareness, Consideration, Decision, Retention), each page counted once, and the stage counts sum to the stated total
 - [ ] No traffic projection for unwritten content, and no competitor traffic figure that was derived rather than read — a tool's own estimate may be quoted as an estimate, but a site total is never split across their content types or pages
+- [ ] Every recommendation to create a page names the cluster that page will own, and confirms that cluster is unowned or is being deliberately reassigned — a new page proposed for a cluster an existing URL of the client's already owns ships as a collision finding with a proposed resolution, not as a gap
+- [ ] Every gap row carries who owns its cluster today, `no owner assigned`, or `unverified — no ownership register supplied` with what would settle it; where an owning URL exists and is thin, the finding is a depth gap on that URL rather than a new page
+- [ ] No collision is claimed on one signal alone — two of the six independent signals are named, and adjacent clusters with different intent and different conversion paths are not reported as a collision
 - [ ] Content calendar maps gaps to realistic timeframes
 - [ ] Source of each data point stated in the report's own words — the resolved tool name (Ahrefs, Google Analytics 4, Otterly), "user-provided", or "estimated"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 
@@ -316,6 +327,7 @@ Find gaps in our [commercial/informational] intent content
 - [Analysis Templates](./references/analysis-templates.md) — Detailed templates for each analysis step (inventory, competitor content, keyword gaps, topic gaps, format gaps, GEO gaps, journey, prioritized report, handoff block)
 - [Gap Analysis Frameworks](./references/gap-analysis-frameworks.md) — Content audit matrices, four-stage funnel mapping, and gap prioritization scoring methodologies
 - [Score Arithmetic](./references/score-arithmetic.md) — Which figures the scoring model can and cannot produce: attainable values, the rounding convention, the GEO Value rubric, and the pre-send recompute pass
+- [Ownership Screen](./references/ownership-screen.md) — Whether a gap is a gap: the three-question screen and its five outcomes, the six collision signals and what is not one, how a deliberate reassignment is written up, and what to report when no ownership register exists
 - [Example Report](./references/example-report.md) — Complete example analyzing SaaS marketing blog gaps vs. two illustrative `.example` competitors (illustrative figures; competitor traffic labelled as a tool estimate)
 
 ## Handoff to the Next Run
