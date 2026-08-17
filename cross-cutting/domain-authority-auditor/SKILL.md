@@ -1,13 +1,13 @@
 ---
 name: domain-authority-auditor
-version: "4.3.7"
+version: "4.3.8"
 description: 'Run the full 40-item CITE domain authority audit across 4 dimensions with domain-type weighting and veto checks. Use when the user asks to "audit domain authority", "domain trust score", "CITE audit", "how authoritative is my site", "domain credibility check", "is my domain trustworthy", "domain credibility score", "domain rating". For content-level assessment, see content-quality-auditor. For link profile details, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.7"
+  version: "4.3.8"
   geo-relevance: "medium"
   tags:
     - seo
@@ -244,7 +244,9 @@ Calculate scores and generate the final report:
 <!-- SKELETON — the client's report. Every [bracket] is a slot: fill it from this audit's own
      tables, or drop the line and name the gap. No bracket, no "TBD", and nothing addressed to
      whoever ran the audit survives in what the client is handed. Delete this line when filled. -->
-## CITE Domain Authority Report
+## Domain Authority Audit
+
+*Scored against CITE — our 40-item domain-authority benchmark, covering citations and links, the domain's identity signals, its trust signals, and its expertise footprint.*
 
 ### Overview
 
@@ -354,7 +356,7 @@ Drop any row whose run this audit did not actually motivate; a standing list of 
 - [ ] Every recommendation is specific and actionable (not generic advice)
 - [ ] Every finding carries a Confidence label (Confirmed / Likely / Hypothesis); Hypothesis findings name what would confirm them
 - [ ] Action plan includes concrete steps with effort estimates
-- [ ] The follow-up-run block is a separate fence carrying `<!-- OPERATOR BLOCK … -->` as its first line; **no skill slug or command slug appears anywhere inside the client report fence**, and **no framework item ID appears in the client-facing prose** — a reader who copies only that fence must be able to tell it is not for the client. **The scored per-item table keeps its ID column** (ruled 2026-08-13): there the ID is a row label sitting beside the item's plain-language name, so the client reads "Intent Alignment" and the ID is only a stable handle for the row. In prose the ID *is* the referent — "Items R02 and R03 failed" tells a client nothing — and that is the form the rule bans. **A bare list of IDs inside a cell does not qualify either**: "C02, C03 Pass; C01 Partial" is the referent form wearing a table's clothes, because no plain-language name sits against any of them. The earlier fence-wide wording was unsatisfiable: the checkbox above it requires every item scored, and the per-item table is the instrument the client bought.
+- [ ] The client report fence carries its own label as its FIRST line — `<!-- SKELETON … -->` while slots are unfilled, `<!-- ILLUSTRATIVE FILL … -->` once demo numbers are in — and the follow-up-run block is a separate fence carrying `<!-- OPERATOR BLOCK … -->` as its first line; **no skill slug or command slug appears anywhere inside the client report fence**, and **no framework item ID appears in the client-facing prose** — a reader who copies only that fence must be able to tell it is not for the client. **The scored per-item table keeps its ID column** (ruled 2026-08-13): there the ID is a row label sitting beside the item's plain-language name, so the client reads "Intent Alignment" and the ID is only a stable handle for the row. In prose the ID *is* the referent — "Items R02 and R03 failed" tells a client nothing — and that is the form the rule bans. **A bare list of IDs inside a cell does not qualify either**: "C02, C03 Pass; C01 Partial" is the referent form wearing a table's clothes, because no plain-language name sits against any of them. The earlier fence-wide wording was unsatisfiable: the checkbox above it requires every item scored, and the per-item table is the instrument the client bought.
 
 ## Example
 

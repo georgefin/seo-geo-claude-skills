@@ -15,7 +15,7 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 | seo-content-writer | build | 4.6.0 | 2026-08-17 |
 | geo-content-optimizer | build | 4.4.11 | 2026-08-17 |
 | meta-tags-optimizer | build | 4.2.2 | 2026-08-17 |
-| schema-markup-generator | build | 4.2.9 | 2026-08-17 |
+| schema-markup-generator | build | 4.2.10 | 2026-08-17 |
 | on-page-seo-auditor | optimize | 4.3.2 | 2026-08-13 |
 | technical-seo-checker | optimize | 4.4.6 | 2026-08-17 |
 | internal-linking-optimizer | optimize | 4.4.0 | 2026-08-10 |
@@ -24,9 +24,9 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 | backlink-analyzer | monitor | 4.1.1 | 2026-08-17 |
 | performance-reporter | monitor | 4.4.3 | 2026-08-17 |
 | alert-manager | monitor | 4.3.4 | 2026-08-13 |
-| content-quality-auditor | cross-cutting | 4.4.4 | 2026-08-17 |
-| domain-authority-auditor | cross-cutting | 4.3.7 | 2026-08-17 |
-| entity-optimizer | cross-cutting | 4.2.2 | 2026-08-17 |
+| content-quality-auditor | cross-cutting | 4.4.5 | 2026-08-17 |
+| domain-authority-auditor | cross-cutting | 4.3.8 | 2026-08-17 |
+| entity-optimizer | cross-cutting | 4.2.3 | 2026-08-17 |
 | memory-management | cross-cutting | 4.1.0 | 2026-08-10 |
 
 ## Changelog
@@ -334,3 +334,5 @@ Consolidates all post-2.0.0 changes into a single major release aligned with plu
 - Basic SEO and GEO content optimization workflows
 
 - **The seventh engine-claim family, ruled three ways — seo-content-writer 4.6.0 · content-gap-analysis 4.2.7 · `scripts/engine-claim-sweep.sh` (finding 102, F15-r4 closed, F11-r8; 2026-08-17)**: a review reported that a seventh shape family escaped all six in the engine-claim sweep, on 18 of 19 constructed shapes. Re-derived before ruling, the figure is **16 of 19** — two of the review's own examples are caught by P1, whose verb list carries `rewards` and `cites`. The 16 split three ways and got three different answers. The prepositional adjunct ships as **P7** (*"According to Google, definition blocks matter most"* — no engine verb anywhere), narrowed to a comma-closed adjunct after the first draft returned 75 raw hits on ordinary "optimized for AI citation" prose; final measurement **raw +2, residual +0, 6 of 6 constructed shapes caught**. The copular family is **declined on measurement**: its regex caught 2 of 3 genuine escapes and contributed one real-tree line, a false positive on ruling-R2 guidance, while a broader form fired on the definition of SEO — 0:4 true-to-false. **Greek is routed to `anti-slop-ruleset.md` §6 as FAIL-grade family 9**, not added to the sweep: the sweep scans repository text, which holds 7 Greek-carrying files and zero Greek engine-claims, because Greek deliverables are produced at run time and never enter the repo. Its net uses fixed literals only — measured here, `grep -P '[\x{0370}-\x{03FF}]'` exits 2 under C, POSIX **and** `en_US.UTF-8`, while `[α-ω]` fails in the complementary set, so **no locale runs both**; the first Greek census for this ruling reported "0 files carry Greek" when 30 do. F15-r4 closed with both halves fault-injected: 17 AG tokens and P6's 3 named alternatives each get an exclusive canary, families are rebuilt by `build_families()` rather than restated, and the probe now prints what it does **not** protect. content-gap-analysis 4.2.7 closes findings 67, 68 and 79 — the demand floor was satisfiable by the *run* rather than the *keyword*, shipping a 2-article cluster as Tier 1 "do now"; the Density anti-correlation is **total** in the unweighted Quick Win Score (`D + (6−D) = 6`), not merely "largely cancelling" as the ruling assumed.
+
+- **In-fence label sweep — schema-markup-generator 4.2.10 · content-quality-auditor 4.4.5 · domain-authority-auditor 4.3.8 · entity-optimizer 4.2.3 · meta-tags-optimizer 4.2.2 (findings 106, 109-114; F9-r11; 2026-08-17)**: finding 61's class was closed in the two auditors by a per-file lane, and the library-wide sweep that should have gone with it was not dispatched. Running it afterwards found a third instance — entity-optimizer's client report fence ended with an unlabelled Cross-Reference block carrying framework item IDs as prose referents, which Reader Test clause 3 bans — and also **misreported a compliant block**, because `rank-tracker` labels its in-fence operator block `OPERATOR HANDOFF`, a fourth label vocabulary the two ruled tables do not enumerate. A checker cannot verify a rule whose vocabulary is open (finding 112, needs a ruling). Separately, a fence-nesting scan of all 230 markdown files found the defect filed as finding 69 standing in **two SKILL.md files**: schema-markup-generator lost its Output Validation checklist, Validation Checkpoints and Example to literal preformatted text, and meta-tags-optimizer had an unclosed fence swallowing `## Tips for Success`, `## Reference Materials` and `## Related Skills` to EOF. Both passed `validate-skill.sh` at 15/15 — the defect exists only in the render. New gate leg `scripts/fence-nesting-check.sh`. Both auditors' Output Validation now enforces the report fence's own label by extending the existing operator-block checkbox rather than adding a line, and both report headings name the job in the client's words with the framework glossed on first use — folded into the Overview list because the paragraph form put content-quality-auditor at 351 against a 350 cap.

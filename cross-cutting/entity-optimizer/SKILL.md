@@ -1,13 +1,13 @@
 ---
 name: entity-optimizer
-version: "4.2.2"
+version: "4.2.3"
 description: 'Audit and build entity presence across Google Knowledge Graph, Wikidata, and AI systems for brand recognition and AI citations. Use when the user asks to "optimize entity presence", "build knowledge graph", "improve knowledge panel", "entity audit", "establish brand entity", "Google doesn''t know my brand", "no knowledge panel", "establish my brand as an entity". For structured data implementation, see schema-markup-generator. For content-level AI optimization, see geo-content-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.2.2"
+  version: "4.2.3"
   geo-relevance: "high"
   tags:
     - seo
@@ -275,13 +275,19 @@ unblocking the other goes first and says so.
 - [ ] Monitor AI systems for incorrect entity information
 - [ ] Ensure new content reinforces entity identity signals
 
-### Cross-Reference
-
-- **CORE-EEAT relevance**: Items A07 (Knowledge Graph Presence) and A08 (Entity Consistency) directly overlap — entity optimization strengthens Authority dimension
-- **CITE relevance**: CITE I01-I10 (Identity dimension) measures entity signals at domain level — entity optimization feeds these scores
-- For content-level audit: [content-quality-auditor](../content-quality-auditor/)
-- For domain-level audit: [domain-authority-auditor](../domain-authority-auditor/)
 ```
+
+<!-- OPERATOR BLOCK — lifted OUT of the client fence above, deliberately. Framework item IDs
+     and skill slugs are run handles: they name coordinates in registers the client has never
+     opened. Keeping this outside the report fence is the preferred form, because a model
+     copies the fence and not the prose around it. -->
+
+**Cross-reference — for whoever runs the skill library, not part of the client report**
+
+- **CORE-EEAT**: A07 (Knowledge Graph Presence) and A08 (Entity Consistency) overlap this audit — entity work strengthens the Authority dimension.
+- **CITE**: the Identity dimension (I01–I10) measures these same signals at domain level.
+- Content-level audit: [content-quality-auditor](../content-quality-auditor/)
+- Domain-level audit: [domain-authority-auditor](../domain-authority-auditor/)
 
 ## Validation Checkpoints
 

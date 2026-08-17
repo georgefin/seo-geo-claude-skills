@@ -59,7 +59,9 @@ Quick reference for all 80 CORE-EEAT audit items. Full scoring criteria in [core
 <!-- ILLUSTRATIVE FILL — the page, the scores and every note below are invented, and the
      report is abridged to one dimension of eight. It shows the shape, not a result. Replace
      all of it with the audited page's own findings, and delete this comment. -->
-## CORE-EEAT Audit Report
+## Content Quality Audit
+
+*Scored against CORE-EEAT — our 80-item content-quality benchmark. Gloss it on first use like this; the bare acronym names a document the client has never seen.*
 
 ### Overview
 

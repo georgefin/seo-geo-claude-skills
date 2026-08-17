@@ -2096,3 +2096,39 @@ reached by summarising rather than by ageing.
   does not summarise the commit**. A partial landing is recorded per finding, never per wave.
 - **Status**: rows 62 and 67 rewritten with what is actually at HEAD; the pattern recorded as
   finding 103. FLIP: F11-r8 -- none
+
+---
+
+## F9 — Recurrence 11 (2026-08-17) · The lane fixed the class inside its brief; sweeping the other 18 skills was the coordinator's job and was not scheduled
+
+Finding 61 closed a real class: an operator block sitting inside a client report fence with its
+framing in prose *outside* the fence, which is worthless because a model copies the fence and not
+the heading above it. The implementing lane fixed it in both auditors — correctly, and its brief
+named exactly those files.
+
+Nobody swept the other eighteen skills. A scan for fences carrying a run handle with no in-fence
+label, run after the lane reported, found `cross-cutting/entity-optimizer/SKILL.md` ending its
+client report fence with an unlabelled `### Cross-Reference` block: framework item IDs as prose
+referents (*"Items A07 (Knowledge Graph Presence) and A08 (Entity Consistency) directly
+overlap"*), `CITE I01-I10`, and two skill-slug links. Reader Test clause 3 bans exactly that.
+
+**The novelty is whose miss it is.** Earlier F9 recurrences were an author fixing where they
+noticed. Here the lane's scope was correct and stated; the sweep across the rest of the library
+is not something a scoped lane can do, and the coordinator who scopes the lanes did not schedule
+it. **A per-file brief cannot close a library-wide class, and dispatching one is a decision to
+leave the class open unless the sweep is dispatched with it.**
+
+Also recorded: the sweep that found this **misreported a compliant block** at the same time —
+`rank-tracker/SKILL.md:209` carries `<!-- OPERATOR HANDOFF … -->` inside its client fence, which
+satisfies the rule, and the scanner flagged it because that label word is not one of the two the
+ruled tables enumerate. Recorded as finding 112: the label vocabulary is open, and a checker
+cannot verify a rule whose vocabulary is open.
+
+- **Found by**: the coordinator, running the class sweep the lane briefs did not cover.
+- **Recurrence**: F9 → 11.
+- **Rule added**: when a finding names a class and a lane is dispatched per-file to fix it, the
+  library-wide sweep for that class is dispatched **in the same wave**, or the finding stays open
+  with the un-swept scope named. A closed finding whose class was never swept is a false closure
+  regardless of how well the named files were fixed.
+- **Status**: entity-optimizer 4.2.3 fixes the third instance; the full fence scan is recorded
+  with its numbers under finding 113 and its false positive under 112. FLIP: F9-r11 -- none

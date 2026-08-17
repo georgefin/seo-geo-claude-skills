@@ -1,6 +1,6 @@
 ---
 name: schema-markup-generator
-version: "4.2.9"
+version: "4.2.10"
 description: 'Generate Schema.org JSON-LD structured data — one accurate primary type per page (FAQPage, HowTo, Article, Product, LocalBusiness, and 6 other types) plus documented auxiliaries only where warranted. Use when the user asks to "add schema markup", "generate structured data", "JSON-LD", "FAQ schema", "rich snippets", "I want star ratings in Google", or "structured data validation errors". Produces validated markup for Google rich results where still offered (no FAQ rich result for ordinary sites — government/health only, Aug 2023 — FAQPage is kept because it stays valid and Google says there is no need to proactively remove it), Bing structured data, and machine-readable input for any consumer that reads it. Validates via the Schema.org validator, plus Rich Results Test for non-FAQ types. For broader technical SEO, see technical-seo-checker. For meta tag optimization, see meta-tags-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.2.9"
+  version: "4.2.10"
   geo-relevance: "medium"
   tags:
     - seo
@@ -117,6 +117,9 @@ When a user requests schema markup:
    Reference the [CORE-EEAT Benchmark](../../references/core-eeat-benchmark.md) item **O05 (Schema Markup)** — its Pass criterion is *correct JSON-LD matching the content type*: one accurate primary type per page. The benchmark's Section 5 table and settled ruling R2 (`docs/loop/SETTLED-RULINGS.md`) state one boundary, not two, so a page mapped here maps the same way there. The table below is that boundary on this skill's supported types, plus the homepage row Section 5 does not carry:
 
    ```markdown
+   <!-- OPERATOR BLOCK — a lookup table you read to pick the primary type. It is NOT emitted:
+        nothing here goes into the deliverable, and the framework item ID below is a run handle
+        that must not reach the client. The emitted block is the next fence down. -->
    ### CORE-EEAT Schema Mapping (O05, single-primary form)
 
    | Content Type | Primary Type (pick ONE) | Documented Auxiliaries (only if page data warrants) |

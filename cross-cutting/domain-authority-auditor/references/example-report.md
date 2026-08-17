@@ -16,7 +16,9 @@ part of what it is demonstrating.
      measured any of it. It is here to show the shape of a finished report and what each
      derived number has to recompute from. Replace all of it with the audited domain's own
      measured data, and delete this comment. -->
-## CITE Domain Authority Report
+## Domain Authority Audit
+
+*Scored against CITE — our 40-item domain-authority benchmark. Gloss it on first use like this; the bare acronym names a document the client has never seen.*
 
 ### Overview
 
