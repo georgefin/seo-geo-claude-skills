@@ -8,28 +8,39 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 
 | Skill | Category | Version | Last Updated |
 |-------|----------|---------|--------------|
-| keyword-research | research | 4.4.3 | 2026-08-17 |
-| competitor-analysis | research | 4.2.0 | 2026-08-10 |
+| keyword-research | research | 4.5.0 | 2026-08-17 |
+| competitor-analysis | research | 4.2.1 | 2026-08-17 |
 | serp-analysis | research | 4.3.7 | 2026-08-17 |
-| content-gap-analysis | research | 4.2.7 | 2026-08-17 |
-| seo-content-writer | build | 4.6.0 | 2026-08-17 |
-| geo-content-optimizer | build | 4.4.11 | 2026-08-17 |
+| content-gap-analysis | research | 4.3.0 | 2026-08-17 |
+| seo-content-writer | build | 4.7.0 | 2026-08-17 |
+| geo-content-optimizer | build | 4.5.0 | 2026-08-17 |
 | meta-tags-optimizer | build | 4.2.2 | 2026-08-17 |
 | schema-markup-generator | build | 4.2.10 | 2026-08-17 |
-| on-page-seo-auditor | optimize | 4.3.2 | 2026-08-13 |
-| technical-seo-checker | optimize | 4.4.6 | 2026-08-17 |
-| internal-linking-optimizer | optimize | 4.4.0 | 2026-08-10 |
+| on-page-seo-auditor | optimize | 4.4.0 | 2026-08-17 |
+| technical-seo-checker | optimize | 4.5.0 | 2026-08-17 |
+| internal-linking-optimizer | optimize | 4.5.0 | 2026-08-17 |
 | content-refresher | optimize | 4.3.7 | 2026-08-17 |
-| rank-tracker | monitor | 4.2.1 | 2026-08-17 |
-| backlink-analyzer | monitor | 4.1.1 | 2026-08-17 |
-| performance-reporter | monitor | 4.4.3 | 2026-08-17 |
-| alert-manager | monitor | 4.3.4 | 2026-08-13 |
-| content-quality-auditor | cross-cutting | 4.4.5 | 2026-08-17 |
-| domain-authority-auditor | cross-cutting | 4.3.8 | 2026-08-17 |
-| entity-optimizer | cross-cutting | 4.2.3 | 2026-08-17 |
+| rank-tracker | monitor | 4.3.0 | 2026-08-17 |
+| backlink-analyzer | monitor | 4.2.0 | 2026-08-17 |
+| performance-reporter | monitor | 4.5.0 | 2026-08-17 |
+| alert-manager | monitor | 4.4.0 | 2026-08-17 |
+| content-quality-auditor | cross-cutting | 4.5.0 | 2026-08-17 |
+| domain-authority-auditor | cross-cutting | 4.4.0 | 2026-08-17 |
+| entity-optimizer | cross-cutting | 4.3.0 | 2026-08-17 |
 | memory-management | cross-cutting | 4.1.0 | 2026-08-10 |
 
 ## Changelog
+
+### v4.5.0 (2026-08-17)
+
+Client-mandate wave: the ten items a coverage audit measured absent from the library, encoded at the binding level and propagated into 15 skills by six lanes.
+
+- **Four new shared references** (`references/`): `ai-visibility-measurement.md` — AI visibility is measured at the **prompt**, not the keyword (twelve recorded fields; mentioned / cited / recommended kept as three facts; cited URLs verbatim not domains; N>=3 repeats with `k of N` reporting; engine precedence with Google organic at rank 4 flagged a *different instrument, not a lower priority*; no composite visibility score). `query-cluster-ownership.md` — one owning property and one owning URL per cluster, five property roles, six collision signals, resolution ladder. `action-output-contract.md` — the seven fields every action carries, with owner and acceptance criterion required. `prohibited-tactics.md` — ten tactics no skill proposes, each with the legitimate practice it is confused with
+- **Four binding rules in `CLAUDE.md`** with carriers; `CLIENT-MANDATE.md` records the mandate, the measured coverage audit (what was already encoded and must not be re-specified) and what only Sani can settle
+- **anti-slop `§6` family 10 (new)** — guaranteed-outcome promises about a search or AI surface, distinct from family 9 (which bans asserting what an engine *does*). Measured 10/10 constructed variants, 0/8 negative controls. Found a real defect on its first run: a worked positioning example teaching *"ensures every article ranks on page one"*
+- **anti-slop `§6` family 9 stem fix** — the rank step was catching 3 of 6 constructed variants; all three escapes were normalisation claims. Five stems added, 6 of 6, noise cost one file
+- **15 skills** (see the table above): prompt-level tracking and reporting, per-engine metrics with N, prompt-level alerting that never fires on one capture, cluster ownership in clustering / gap analysis / internal linking, the seven-field action contract in all four auditors, and the prohibition floor in link acquisition and entity work
+- **Also**: an R3-9a engine-disposition claim withdrawn from `entity-optimizer`'s knowledge-graph guide, a run handle removed from a client report fence in `technical-seo-checker`, `content-quality-auditor` brought five lines below the 350 cap by single-sourcing two duplicated tables (finding 114), and `PILOT.md` §3's sampling protocol reconciled with the new reference
 
 ### v4.4.1 (2026-08-09)
 
