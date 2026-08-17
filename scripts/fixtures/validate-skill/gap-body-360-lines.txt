@@ -1,0 +1,31 @@
+# CASE: gap-body-360-lines
+# ROLE: known-gap
+# DIR: probe-body-360
+# PAD-BODY: 360
+# ADD-FILE: references/probe-notes.md
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: Skill body length OK
+# EXPECT-ABSENT: recommended: <350 lines
+# GAP: this check WARNS at >400 body lines while its own message says "recommended:
+#      <350 lines", and `validate-tracking.sh` check (d) FAILS at >350. A skill body
+#      between 351 and 400 lines is therefore reported CLEAN here and FAILED there.
+#      The two instruments disagree by 50 lines; this case measures the disagreement
+#      rather than describing it.
+# WHY THIS IS A KNOWN-GAP CASE AND NOT A FIX: moving the threshold to 350 would turn a
+#      silent pass into a warning for any skill in that band, which is a policy change
+#      to a gated leg and belongs to whoever owns the 350-line contract, not to a
+#      fault-injection lane.
+# ---8<--- SKILL.md
+---
+name: probe-body-360
+description: 'Probe fixture whose body sits between the two thresholds. Use when the user asks to "check the body line cap" or "compare the two body checks".'
+license: Apache-2.0
+compatibility: "Claude Code >=1.0."
+metadata:
+  author: probe-fixture
+  version: "1.0.0"
+---
+
+# Probe Body 360
+
+Body content follows, padded at materialisation time.

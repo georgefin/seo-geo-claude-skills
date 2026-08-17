@@ -1,0 +1,9 @@
+# CASE: fail-no-skill-file
+# ROLE: positive
+# DIR: probe-empty-dir
+# NO-SKILL-FILE
+# EXPECT-EXIT: 1
+# EXPECT-MATCH: SKILL.md not found at
+# WHY: the pre-check that runs before any counted check. It exits 1 without ever
+#      printing a Results line, so a probe grading only on the tally would miss it.
+# ---8<--- SKILL.md

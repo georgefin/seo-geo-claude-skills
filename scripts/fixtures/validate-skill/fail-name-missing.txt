@@ -1,0 +1,18 @@
+# CASE: fail-name-missing
+# ROLE: positive
+# DIR: probe-name-missing
+# EXPECT-EXIT: 1
+# EXPECT-MATCH: Missing required field: name
+# ---8<--- SKILL.md
+---
+description: 'Probe fixture with no name field. Use when the user asks to "validate a skill missing its name".'
+license: Apache-2.0
+compatibility: "Claude Code >=1.0."
+metadata:
+  author: probe-fixture
+  version: "1.0.0"
+---
+
+# Probe Name Missing
+
+Body content.

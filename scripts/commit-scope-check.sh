@@ -26,10 +26,260 @@
 #
 # Usage: commit-scope-check.sh [<base-ref>]
 #   no arg -> @{upstream} if it resolves, else nothing to check.
+#        commit-scope-check.sh --probe
+#   fault injection over scripts/fixtures/commit-scope-check/ (see below).
+#
+# ── FAULT INJECTION (--probe), added for G3-C5 ────────────────────────────────
+# This leg reads COMMIT MESSAGES AND CHANGED PATHS, not file contents, so its
+# fixtures cannot be files on disk — they have to be commits. `--probe` builds a
+# throwaway git repository under $TMPDIR, SYMLINKS this script into its scripts/
+# directory, and runs it there. The symlink is the whole mechanism: `ROOT` is
+# derived from `${BASH_SOURCE[0]}`, which bash reports as the path used to invoke
+# the script, so the symlinked run resolves its root to the temp repo. Nothing is
+# copied (a copy is the drift defect this repo has already paid for three times),
+# no history is rewritten, and the real repository is never touched.
+#
+# The probe asserts `Repo root:` names the temp repo before grading anything. If
+# root resolution is ever changed to `readlink -f`, the probe would silently start
+# measuring the REAL repo and report whatever today's branch happens to contain —
+# a guard reporting on the wrong subject, which is F15 wearing a rosette.
+#
+# WHAT THIS PROBE DOES NOT PROVE:
+#   1. Anything about the DEFAULT invocation. The gate calls this with no base ref,
+#      so it resolves `@{upstream}`; every probe case passes an explicit base,
+#      because a temp repo has no upstream. The `@{upstream}` branch is exercised
+#      by the gate itself, never here.
+#   2. That the alias vocabulary is right — only that each of the ten registers is
+#      reachable through it. Per-WORD coverage of ~40 alias words does not exist;
+#      one alias per register is asserted, and gap-alias-substring.txt records what
+#      that vocabulary lets through.
+#   3. That the leg sees every file that should be declared. Three measured blind
+#      spots are carried as `known-gap` cases (scripts/*.txt, docs/loop
+#      subdirectories, substring alias matching). The probe measures them; it does
+#      not claim they are the only ones.
+#   4. Anything about staging. The guard judges what landed, and so does the probe;
+#      neither can testify about the `git add -A` that put it there.
+# ──────────────────────────────────────────────────────────────────────────────
 
 set -uo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT" || exit 1
+
+if [ "${1:-}" = "--probe" ]; then
+    SELF="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
+    FIXDIR="$ROOT/scripts/fixtures/commit-scope-check"
+    [ -d "$FIXDIR" ] || { echo "PROBE ERROR: fixture directory missing: $FIXDIR" >&2; exit 2; }
+    command -v git >/dev/null 2>&1 || { echo "PROBE ERROR: git is required" >&2; exit 2; }
+
+    shopt -s nullglob
+    CASES=("$FIXDIR"/*.txt)
+    shopt -u nullglob
+    # Scope control (F15-r3: a probe that scans nothing must fail, not pass).
+    if [ "${#CASES[@]}" -eq 0 ]; then
+        echo "PROBE ERROR: no cases in $FIXDIR — a probe with an empty corpus measures nothing" >&2
+        exit 2
+    fi
+
+    probe_fail=0; n_pos=0; n_neg=0; n_gap=0; GAPS=""
+    head_of() { awk '/^# ---8<---/{exit} {print}' "$1"; }
+    body_of() { awk 'f{print} /^# ---8<---/{f=1}' "$1"; }
+    dvals()   { head_of "$2" | sed -n "s/^# $1:[[:space:]]*//p"; }
+
+    TR="$(mktemp -d)"; MSGD="$(mktemp -d)"; trap 'rm -rf "$TR" "$MSGD"' EXIT
+    # The message file lives OUTSIDE the repo: `git clean -qfd` runs between cases and
+    # ate it on the first run, so every commit silently failed and every case then
+    # "passed" against an empty range. That is the failure this whole file guards.
+    mkdir -p "$TR/scripts"
+    ln -s "$SELF" "$TR/scripts/commit-scope-check.sh"
+    git -C "$TR" init -q
+    git -C "$TR" config user.email "probe@invalid.example"
+    git -C "$TR" config user.name  "probe"
+    git -C "$TR" config commit.gpgsign false
+    git -C "$TR" config core.hooksPath "$TR/.no-hooks"
+    # The symlink must never enter a commit: it is the instrument, not a subject.
+    printf 'scripts/commit-scope-check.sh\n' > "$TR/.git/info/exclude"
+    printf 'probe fixture root\n' > "$TR/README-BASE.md"
+    git -C "$TR" add README-BASE.md
+    git -C "$TR" commit -q -m "base: probe fixture root"
+    BASESHA="$(git -C "$TR" rev-parse HEAD)"
+
+    echo "commit-scope-check --probe : fault injection on synthetic commits"
+    echo "Fixture: $FIXDIR"
+    echo "Temp repo: $TR (symlinked script, no history rewritten, real repo untouched)"
+    echo "=============================================="
+
+    # run_commit <base-ref> <message-file> <path...> -> sets RC and OUT
+    run_commit() {
+        local base="$1" msgfile="$2"; shift 2
+        git -C "$TR" checkout -q -B probecase "$BASESHA"
+        git -C "$TR" clean -qfd
+        local p
+        for p in "$@"; do
+            mkdir -p "$TR/$(dirname "$p")"
+            printf 'probe fixture content\n' > "$TR/$p"
+        done
+        if [ "$#" -gt 0 ]; then
+            git -C "$TR" add -A
+            git -C "$TR" commit -q -F "$msgfile"
+        fi
+        OUT="$(bash "$TR/scripts/commit-scope-check.sh" "$base" 2>&1)"; RC=$?
+        NCOMMIT="$#"
+    }
+
+    for f in "${CASES[@]}"; do
+        base_name="$(basename "$f" .txt)"
+        while IFS= read -r line; do
+            case "$line" in
+                '# CASE:'*|'# ROLE:'*|'# EXPECT-EXIT:'*|'# EXPECT-MATCH:'*) ;;
+                '# EXPECT-ABSENT:'*|'# FILE:'*|'# BASE:'*|'# GAP:'*) ;;
+                '# WHY:'*|'# WHY '*) ;;
+                '# '[A-Z]*:*) echo "  PROBE FAIL  $base_name — unknown directive: $line"; probe_fail=1 ;;
+                '#'*|'') ;;
+                *) echo "  PROBE FAIL  $base_name — non-comment line before the message separator"
+                   probe_fail=1 ;;
+            esac
+        done < <(head_of "$f")
+
+        role="$(dvals ROLE "$f" | head -1)"
+        want="$(dvals EXPECT-EXIT "$f" | head -1)"
+        if [ -z "$role" ] || [ -z "$want" ] || [ -z "$(dvals EXPECT-MATCH "$f")" ]; then
+            echo "  PROBE FAIL  $base_name — needs ROLE, EXPECT-EXIT and at least one EXPECT-MATCH"
+            echo "              (an exit code alone is a right answer for a possibly wrong reason)"
+            probe_fail=1; continue
+        fi
+        case "$role" in
+            positive)  n_pos=$((n_pos + 1)) ;;
+            negative)  n_neg=$((n_neg + 1)) ;;
+            known-gap) n_gap=$((n_gap + 1)); GAPS="$GAPS  [$base_name] $(dvals GAP "$f" | head -1)
+" ;;
+            *) echo "  PROBE FAIL  $base_name — ROLE must be positive|negative|known-gap"; probe_fail=1; continue ;;
+        esac
+
+        body_of "$f" > "$MSGD/msg"
+        casebase="$(dvals BASE "$f" | head -1)"; [ -n "$casebase" ] || casebase="$BASESHA"
+        [ "$casebase" = "HEAD" ] && casebase="$BASESHA"
+        mapfile -t files < <(dvals FILE "$f")
+        run_commit "$casebase" "$MSGD/msg" ${files[@]+"${files[@]}"}
+
+        # The instrument must be pointed at the temp repo. Checked before the verdict
+        # is read, so a probe can never grade output produced from the real tree.
+        if ! printf '%s\n' "$OUT" | grep -qF "Repo root: $TR"; then
+            echo "  PROBE FAIL  $base_name — the run did not resolve its root to the temp repo."
+            echo "              Root resolution changed and this probe is measuring the wrong tree."
+            printf '%s\n' "$OUT" | sed 's/^/      | /' | head -4
+            probe_fail=1; continue
+        fi
+        # SCOPE CONTROL, per case (F15-r3). A case that made a commit must have had
+        # something to scan; "no outgoing commits" is a pass by emptiness and is the
+        # only way every one of these cases can look green while measuring nothing.
+        # scope-no-outgoing-commits.txt is the one case that asserts it deliberately,
+        # and it makes no commit.
+        if [ "$NCOMMIT" -gt 0 ] && printf '%s\n' "$OUT" | grep -qF "no outgoing commits"; then
+            echo "  PROBE FAIL  $base_name — the commit never landed; this case scanned an"
+            echo "              empty range and its verdict is about nothing"
+            probe_fail=1; continue
+        fi
+        if [ "$RC" -ne "$want" ]; then
+            echo "  PROBE FAIL  $base_name — expected exit $want, got $RC"
+            printf '%s\n' "$OUT" | sed 's/^/      | /' | tail -10
+            probe_fail=1; continue
+        fi
+        miss=""
+        while IFS= read -r m; do
+            [ -n "$m" ] || continue
+            printf '%s\n' "$OUT" | grep -qF -- "$m" || miss="$miss
+      missing: $m"
+        done < <(dvals EXPECT-MATCH "$f")
+        while IFS= read -r a; do
+            [ -n "$a" ] || continue
+            printf '%s\n' "$OUT" | grep -qF -- "$a" && miss="$miss
+      present but must be absent: $a"
+        done < <(dvals EXPECT-ABSENT "$f")
+        if [ -n "$miss" ]; then
+            echo "  PROBE FAIL  $base_name — exit $RC was right, the output was not:$miss"
+            probe_fail=1; continue
+        fi
+        printf '  ok  %-10s %-30s exit %s · %s\n' "$role" "$base_name" "$RC" \
+            "$(printf '%s\n' "$OUT" | grep -m1 '^Results:' | sed $'s/\033\\[[0-9;]*m//g' || echo 'no Results line')"
+    done
+
+    # ── branch mirror 1: every breadth marker, read out of this file's own source ──
+    # F15-r4: a canary per family is not a canary per branch. The markers are not
+    # restated here, they are EXTRACTED, so a marker added later is exercised the next
+    # time the probe runs instead of shipping unguarded.
+    echo ""
+    echo "BRANCH MIRROR — multi-skill breadth markers, extracted from this file's source"
+    marker_line="$(grep -m1 -- '\*library-wide\*' "$SELF")"
+    if [ -z "$marker_line" ]; then
+        echo "  PROBE FAIL  the breadth-marker line could not be found — the mirror is broken,"
+        echo "              which means the markers are unguarded whatever the rest of this says"
+        probe_fail=1
+    else
+        markers="$(printf '%s' "$marker_line" | tr '|' '\n' \
+                   | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' -e 's/)$//' \
+                         -e 's/^\*//' -e 's/\*$//' -e 's/"//g' | grep -v '^$')"
+        nmark=0
+        printf 'chore(x): tidy-up\n' > "$MSGD/msg"
+        run_commit "$BASESHA" "$MSGD/msg" \
+            "research/keyword-research/SKILL.md" "research/serp-analysis/SKILL.md"
+        if [ "$RC" -eq 1 ]; then
+            echo "  ok  positive   two skills, no marker, neither named   exit 1"
+        else
+            echo "  PROBE FAIL  two undeclared skills passed with no breadth marker (exit $RC)"
+            probe_fail=1
+        fi
+        while IFS= read -r mk; do
+            [ -n "$mk" ] || continue
+            nmark=$((nmark + 1))
+            printf 'chore(x): %s tidy-up\n' "$mk" > "$MSGD/msg"
+            run_commit "$BASESHA" "$MSGD/msg" \
+                "research/keyword-research/SKILL.md" "research/serp-analysis/SKILL.md"
+            if [ "$RC" -eq 0 ] && ! printf '%s\n' "$OUT" | grep -qF "no outgoing commits"; then
+                printf '  ok  negative   breadth marker %-24s exit 0\n' "\"$mk\""
+            else
+                echo "  PROBE FAIL  the declared breadth marker \"$mk\" did not excuse a two-skill commit"
+                probe_fail=1
+            fi
+        done <<< "$markers"
+        echo "  $nmark of $nmark breadth markers exercised (extracted, not restated)"
+    fi
+
+    # ── branch mirror 2: every register in the alias table has a fixture ──
+    echo ""
+    echo "BRANCH MIRROR — register_aliases() keys, extracted from this file's source"
+    keys="$(sed -n '/^register_aliases()/,/^}/p' "$SELF" \
+            | grep -oE '^[[:space:]]+[a-z][a-z-]*\)' | tr -d ' )')"
+    fixture_regs="$(grep -h '^# FILE:' "$FIXDIR"/*.txt | sed -e 's/^# FILE:[[:space:]]*//' \
+                    | grep -E '^(docs/loop/[^/]+\.md|VERSIONS\.md)$' \
+                    | sed -e 's#.*/##' -e 's#\.md$##' | tr '[:upper:]' '[:lower:]' | sort -u)"
+    nkey=0; nhit=0
+    while IFS= read -r k; do
+        [ -n "$k" ] || continue
+        nkey=$((nkey + 1))
+        if printf '%s\n' "$fixture_regs" | grep -qx "$k"; then
+            nhit=$((nhit + 1))
+        else
+            echo "  PROBE FAIL  register '$k' has an alias list and no fixture touches it"
+            probe_fail=1
+        fi
+    done <<< "$keys"
+    echo "  $nhit of $nkey alias-table registers are touched by a fixture case"
+    echo "  (register-alias-vocabulary.txt names all ten by ALIAS only — that case is the"
+    echo "   only exercise the alias branch has, and it passes or the corpus above fails)"
+
+    echo ""
+    echo "STATED LIMITS — measured blind spots, asserted so they stay measured"
+    printf '%s' "$GAPS"
+    echo "  (what the probe itself does not prove: sed -n '32,62p' $SELF)"
+    echo ""
+    if [ "$probe_fail" -eq 0 ]; then
+        echo "PROBE PASS — ${#CASES[@]} cases: $n_pos positive, $n_neg negative controls, $n_gap known-gap;"
+        echo "             plus $nmark breadth-marker branches and $nkey alias-table registers mirrored."
+        exit 0
+    fi
+    echo "PROBE FAILED"
+    exit 1
+fi
 
 RED=$'\033[0;31m'; GREEN=$'\033[0;32m'; YELLOW=$'\033[1;33m'; NC=$'\033[0m'
 pass=0; fail=0; warn=0
@@ -148,6 +398,8 @@ for sha in $COMMITS; do
   # reproduced inside the fix for a different instance of it, and caught only
   # because the probe is mandatory. Basenames cannot collide that way: a commit
   # editing `scripts/validate-tracking.sh` has to write `validate-tracking`.
+  # That commit is checked in as scripts/fixtures/commit-scope-check/gate-code-undeclared.txt
+  # and `--probe` re-runs it, so the near-miss stays measured rather than remembered.
   gate_files=$(printf '%s\n' "$files" | grep -E '^(scripts/.*\.(sh|py)|\.claude/settings\.json)$' || true)
   gate_missing=""
   if [ -n "$gate_files" ]; then

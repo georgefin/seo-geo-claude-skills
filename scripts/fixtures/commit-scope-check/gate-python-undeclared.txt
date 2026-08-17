@@ -1,0 +1,9 @@
+# CASE: gate-python-undeclared
+# ROLE: positive
+# EXPECT-EXIT: 1
+# EXPECT-MATCH: scripts/probe-helper.py
+# FILE: scripts/probe-helper.py
+# WHY: the `.py` alternative of the gate-file pattern. No .py file exists in scripts/
+#      today, so without this case that branch is never executed.
+# ---8<--- commit message
+chore: tidy up a helper

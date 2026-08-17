@@ -1,0 +1,12 @@
+# CASE: scope-base-unresolvable
+# ROLE: negative
+# BASE: refs/heads/zzz-no-such-ref
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: does not resolve
+# FILE: docs/loop/FAILURE-LEDGER.md
+# WHY: an unresolvable base SKIPs at exit 0 — and it skips a commit that WOULD have
+#      failed (the file here is the register-undeclared shape). That is the correct
+#      behaviour and the reason the gate's null-scope disclosure exists: a green run
+#      of this leg means nothing until you know what it scanned.
+# ---8<--- commit message
+fix(agent): tighten the blind-executor brief

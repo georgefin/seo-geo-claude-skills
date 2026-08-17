@@ -1,0 +1,7 @@
+# journal-broken-steal.tsv — lane-b STOLE a live tenure from lane-a.
+# Layout: EVENT<TAB>OFFSET<TAB>HOLDER-OR-BREAKER<TAB>PATH<TAB>VICTIM<TAB>REASON
+# BREAK steal bounds the tenure at the break time: it WAS live when taken, so the
+# stolen tenure still counts against every commit made inside it. That promise is
+# printed by acquire's own --steal help text; these cases are what makes it true.
+ACQUIRE	-3600	lane-a	docs/loop/PILOT.md
+BREAK	-1800	lane-b	docs/loop/PILOT.md	lane-a	steal

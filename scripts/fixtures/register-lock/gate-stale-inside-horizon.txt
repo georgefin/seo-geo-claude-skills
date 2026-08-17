@@ -1,0 +1,12 @@
+# CASE: gate-stale-inside-horizon
+# ROLE: positive
+# JOURNAL: journal-stale-open.tsv
+# COMMIT-AT: -7200
+# FILE: docs/loop/KPI.md
+# EXPECT-EXIT: 1
+# EXPECT-MATCH: inside another holder's tenure
+# EXPECT-MATCH: stale tenure — docs/loop/KPI.md held by lane-x
+# WHY: two things at once, and both must hold: the stale tenure is WARNed about (never
+#      silently honoured) and a commit inside its bounded window still FAILS.
+# ---8<--- commit message
+docs(loop): weekly numbers

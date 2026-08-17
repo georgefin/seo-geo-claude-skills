@@ -1,0 +1,22 @@
+# CASE: warn-no-trigger-phrases
+# ROLE: positive
+# DIR: probe-no-triggers
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: description should include trigger phrases
+# EXPECT-ABSENT: FAIL
+# WHY: the description is long enough to pass every length branch and carries no
+#      quoted phrase and no `Use when`, so the trigger branch fires alone.
+# ---8<--- SKILL.md
+---
+name: probe-no-triggers
+description: A probe fixture whose description is long enough to be valid and carries no quoted example phrase at all, so the discovery-trigger recommendation is the only thing that can fire here.
+license: Apache-2.0
+compatibility: "Claude Code >=1.0."
+metadata:
+  author: probe-fixture
+  version: "1.0.0"
+---
+
+# Probe No Triggers
+
+Body content.

@@ -33,6 +33,9 @@
 #   never closed    [acquire, min(now, +TTL)]   — a crashed agent's lock decays
 #                                                 instead of poisoning every
 #                                                 later commit forever.
+#   Every one of those four bounds is asserted by a fixture case under
+#   scripts/fixtures/register-lock/, in pairs one second apart where a pair is
+#   what separates two readings. Run `--probe`; do not take this table on trust.
 #
 # STALENESS — horizon REGISTER_LOCK_TTL_MIN minutes (default 90; authoring runs
 #   in this repo land well inside it). A stale tenure is never silently honoured:
@@ -71,6 +74,8 @@
 #         Print open tenures with age and live/stale state.
 #   gate-check [<base-ref>]
 #         Pre-push check over outgoing commits (base arg, else @{upstream}).
+#   --probe
+#         Fault injection over scripts/fixtures/register-lock/ (see below).
 #
 # A locked path is matched exactly, or as a directory prefix when it ends in "/"
 # (e.g. `docs/loop/` covers every register in that directory).
@@ -80,10 +85,349 @@
 #      ledger), REGISTER_LOCK_TTL_MIN (staleness horizon, default 90).
 # Exit: 0 = ok/pass, 1 = refused/FAIL, 2 = usage error. No network access.
 # Dependencies: bash, git (gate-check only), awk, date; flock(1) when available.
+#
+# ── FAULT INJECTION (--probe), added for G3-C5 ────────────────────────────────
+# Two surfaces, probed two ways, because they fail differently.
+#   * The LIFECYCLE (acquire / release / status) is a state machine over a
+#     journal file. The probe drives it through the real CLI with
+#     REGISTER_LOCK_FILE pointed at a scratch journal, and asserts the refusals
+#     as hard as the successes: --force must NOT break a live tenure, and an
+#     unrelated path must NOT be refused. A lock that refuses everything is as
+#     broken as one that refuses nothing, and only the second is obvious.
+#   * GATE-CHECK reads commits, so its fixtures are commits. The probe builds a
+#     throwaway git repository, SYMLINKS this script into its scripts/ directory
+#     (so `${BASH_SOURCE[0]}` resolves ROOT to the temp repo — nothing is copied
+#     and no history is rewritten), materialises a journal fixture, and writes
+#     each case's commit at a controlled `GIT_COMMITTER_DATE`.
+# Journal fixtures carry OFFSETS FROM NOW, never timestamps: staleness is defined
+# relative to now, so a frozen timestamp would decay from live to stale over the
+# life of the file and the fixture would stop meaning what it says.
+#
+# WHAT THIS PROBE DOES NOT PROVE:
+#   1. ATTRIBUTION — the same thing the header above already refuses to claim. A
+#      commit carrying `Register-Lock: lane-a` passes whether or not lane-a's
+#      content is in it. The trailer is an auditable claim; the probe asserts the
+#      claim is REQUIRED, never that it is true.
+#   2. CONCURRENCY. `with_journal_lock`/flock exists to serialise two acquires
+#      issued in the same instant. Every probe case is sequential, so the race is
+#      not reproduced — only the code path around it runs.
+#   3. The DEFAULT journal path. Every case sets REGISTER_LOCK_FILE, so
+#      `<root>/.register-locks` is exercised by real sessions and by nothing here.
+#   4. The DEFAULT base ref. The gate calls `gate-check` with no argument and it
+#      resolves `@{upstream}`; a temp repo has no upstream, so every case passes an
+#      explicit base and that branch is never taken.
+#   5. A writer who never runs `acquire`. Invisible to the check by construction,
+#      and therefore invisible to any fixture the check could ever be given.
+#   6. That the `Register-Lock: none` escape is implemented as documented. It is
+#      not — see gap-bare-none-accepted.txt, which asserts the behaviour that
+#      actually ships.
+# ──────────────────────────────────────────────────────────────────────────────
 
 set -uo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT" || exit 1
+
+if [ "${1:-}" = "--probe" ]; then
+    SELF="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
+    FIXDIR="$ROOT/scripts/fixtures/register-lock"
+    [ -d "$FIXDIR" ] || { echo "PROBE ERROR: fixture directory missing: $FIXDIR" >&2; exit 2; }
+    command -v git >/dev/null 2>&1 || { echo "PROBE ERROR: git is required for gate-check" >&2; exit 2; }
+
+    shopt -s nullglob
+    CASES=("$FIXDIR"/gate-*.txt "$FIXDIR"/gap-*.txt)
+    JOURNALS=("$FIXDIR"/journal-*.tsv)
+    shopt -u nullglob
+    # Scope control (F15-r3: a probe that scans nothing must fail, not pass).
+    if [ "${#CASES[@]}" -eq 0 ] || [ "${#JOURNALS[@]}" -eq 0 ]; then
+        echo "PROBE ERROR: empty corpus (${#CASES[@]} cases, ${#JOURNALS[@]} journals) — a probe" >&2
+        echo "             with nothing to run measures nothing and must not report health" >&2
+        exit 2
+    fi
+
+    PNOW="$(date -u +%s)"
+    TR="$(mktemp -d)"; JD="$(mktemp -d)"; trap 'rm -rf "$TR" "$JD"' EXIT
+    probe_fail=0; n_pos=0; n_neg=0; n_gap=0; n_life=0; GAPS=""; USED_JOURNALS=""
+    export REGISTER_LOCK_HOLDER=""   # so the "holder required" case tests the code, not the env
+
+    head_of() { awk '/^# ---8<---/{exit} {print}' "$1"; }
+    body_of() { awk 'f{print} /^# ---8<---/{f=1}' "$1"; }
+    dvals()   { head_of "$2" | sed -n "s/^# $1:[[:space:]]*//p"; }
+
+    # A journal fixture's column 2 is an OFFSET IN SECONDS FROM NOW. Materialising it
+    # here is what keeps "stale" and "live" meaning the same thing next month.
+    materialise_journal() {   # <fixture> <destination>
+        local src="$1" dst="$2" ev off holder path victim reason ep iso
+        : > "$dst"
+        while IFS=$'\t' read -r ev off holder path victim reason || [ -n "$ev" ]; do
+            case "$ev" in ''|'#'*) continue ;; esac
+            ep=$((PNOW + off))
+            iso="$(date -u -d "@$ep" +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || echo "epoch-$ep")"
+            if [ -n "${victim:-}" ]; then
+                printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+                    "$ev" "$iso" "$ep" "$holder" "$path" "$victim" "${reason:-}" >> "$dst"
+            else
+                printf '%s\t%s\t%s\t%s\t%s\n' "$ev" "$iso" "$ep" "$holder" "$path" >> "$dst"
+            fi
+        done < "$src"
+    }
+
+    # ── throwaway repository; the script is REACHED through a symlink, never copied ──
+    mkdir -p "$TR/scripts" "$TR/docs/loop"
+    ln -s "$SELF" "$TR/scripts/register-lock.sh"
+    RL="$TR/scripts/register-lock.sh"
+    git -C "$TR" init -q
+    git -C "$TR" config user.email "probe@invalid.example"
+    git -C "$TR" config user.name  "probe"
+    git -C "$TR" config commit.gpgsign false
+    git -C "$TR" config core.hooksPath "$TR/.no-hooks"
+    printf 'scripts/register-lock.sh\n.register-locks\n' > "$TR/.git/info/exclude"
+    for _p in README.md VERSIONS.md docs/loop/KPI.md docs/loop/PIPELINE.md docs/loop/PILOT.md; do
+        printf 'base\n' > "$TR/$_p"
+    done
+    git -C "$TR" add -A
+    git -C "$TR" commit -q -m "base: probe fixture root"
+    BASESHA="$(git -C "$TR" rev-parse HEAD)"
+
+    echo "register-lock --probe : fault injection on a scratch journal and synthetic commits"
+    echo "Fixture: $FIXDIR"
+    echo "Temp repo: $TR (symlinked script, no history rewritten, real ledger untouched)"
+    echo "=============================================="
+    echo "LIFECYCLE — acquire / release / status against a scratch journal"
+
+    LJ="$JD/lifecycle.journal"
+    life() {   # <label> <want-exit> <must-contain> <args...>
+        local label="$1" want="$2" must="$3"; shift 3
+        local out rc
+        out="$(REGISTER_LOCK_FILE="$LJ" bash "$RL" "$@" 2>&1)"; rc=$?
+        n_life=$((n_life + 1))
+        if [ "$rc" -ne "$want" ]; then
+            echo "  PROBE FAIL  $label — expected exit $want, got $rc"
+            printf '%s\n' "$out" | sed 's/^/      | /' | head -8; probe_fail=1; return
+        fi
+        # Exit code AND message: a right exit for the wrong reason is how a probe
+        # stops measuring (F15-r3).
+        if ! printf '%s\n' "$out" | grep -qF -- "$must"; then
+            echo "  PROBE FAIL  $label — exit $rc was right, but the output never says \"$must\""
+            printf '%s\n' "$out" | sed 's/^/      | /' | head -8; probe_fail=1; return
+        fi
+        printf '  ok  %-10s %-52s exit %s\n' "lifecycle" "$label" "$rc"
+    }
+
+    life "acquire a free path"                     0 "ACQUIRED"          acquire --as lane-a docs/loop/
+    life "re-acquire your own path is a no-op"     0 "already holds"     acquire --as lane-a docs/loop/
+    life "another holder, prefix overlap: REFUSED" 1 "held by another writer" acquire --as lane-b docs/loop/KPI.md
+    life "another holder, unrelated path: allowed" 0 "ACQUIRED"          acquire --as lane-b README.md
+    life "--force does NOT break a LIVE tenure"    1 "held by another writer" acquire --as lane-b --force docs/loop/KPI.md
+    life "--steal breaks a LIVE tenure, recorded"  0 "broke steal tenure" acquire --as lane-b --steal docs/loop/KPI.md
+    life "status shows the live holder"            0 "holder=lane-b"     status
+    life "release ends the tenure"                 0 "RELEASED"          release --as lane-b
+    life "release what you never held: exit 0"     0 "holds nothing here" release --as lane-zzz
+    life "status after release: nothing open"      0 "no writer has announced a register path" status
+
+    SJ="$JD/stale.journal"
+    materialise_journal "$FIXDIR/journal-stale-open.tsv" "$SJ"
+    USED_JOURNALS="$USED_JOURNALS journal-stale-open.tsv"
+    slife() {   # same, against the stale journal
+        local label="$1" want="$2" must="$3"; shift 3
+        local out rc
+        out="$(REGISTER_LOCK_FILE="$SJ" bash "$RL" "$@" 2>&1)"; rc=$?
+        n_life=$((n_life + 1))
+        if [ "$rc" -ne "$want" ] || ! printf '%s\n' "$out" | grep -qF -- "$must"; then
+            echo "  PROBE FAIL  $label — wanted exit $want containing \"$must\", got exit $rc"
+            printf '%s\n' "$out" | sed 's/^/      | /' | head -8; probe_fail=1; return
+        fi
+        printf '  ok  %-10s %-52s exit %s\n' "lifecycle" "$label" "$rc"
+    }
+    slife "status marks an over-horizon tenure STALE" 0 "STALE"               status
+    slife "a STALE tenure still refuses a plain acquire" 1 "held by another writer" acquire --as lane-y docs/loop/KPI.md
+    slife "--force breaks a STALE tenure, recorded"  0 "broke stale tenure"   acquire --as lane-y --force docs/loop/KPI.md
+
+    echo "USAGE — every refusal path exits 2, and says which one"
+    life "no holder id at all"            2 "a holder id is required"        acquire docs/loop/KPI.md
+    life "holder id with whitespace"      2 "must not contain whitespace"    acquire --as "lane a" docs/loop/KPI.md
+    life "path with whitespace (TSV)"     2 "the journal is TSV"             acquire --as lane-a "docs/loop/a b.md"
+    life "acquire with no path"           2 "needs at least one path"        acquire --as lane-a
+    life "unknown flag"                   2 "unknown flag"                   acquire --as lane-a --bogus x
+    life "unknown command"                2 "unknown command"                frobnicate
+    ttl_out="$(REGISTER_LOCK_FILE="$LJ" REGISTER_LOCK_TTL_MIN=ninety bash "$RL" status 2>&1)"; ttl_rc=$?
+    n_life=$((n_life + 1))
+    if [ "$ttl_rc" -eq 2 ] && printf '%s\n' "$ttl_out" | grep -qF "must be whole minutes"; then
+        printf '  ok  %-10s %-52s exit %s\n' "lifecycle" "non-numeric REGISTER_LOCK_TTL_MIN" "$ttl_rc"
+    else
+        echo "  PROBE FAIL  a non-numeric TTL was accepted (exit $ttl_rc) — every derived bound"
+        echo "              in this file would then be computed from a garbage horizon"
+        probe_fail=1
+    fi
+
+    echo ""
+    echo "GATE-CHECK — outgoing commits against a materialised tenure ledger"
+
+    for f in "${CASES[@]}"; do
+        base_name="$(basename "$f" .txt)"
+        while IFS= read -r line; do
+            case "$line" in
+                '# CASE:'*|'# ROLE:'*|'# JOURNAL:'*|'# COMMIT-AT:'*|'# FILE:'*) ;;
+                '# EXPECT-EXIT:'*|'# EXPECT-MATCH:'*|'# EXPECT-ABSENT:'*|'# GAP:'*) ;;
+                '# WHY:'*|'# WHY '*) ;;
+                '# '[A-Z]*:*) echo "  PROBE FAIL  $base_name — unknown directive: $line"; probe_fail=1 ;;
+                '#'*|'') ;;
+                *) echo "  PROBE FAIL  $base_name — non-comment line before the message separator"
+                   probe_fail=1 ;;
+            esac
+        done < <(head_of "$f")
+
+        role="$(dvals ROLE "$f" | head -1)"
+        want="$(dvals EXPECT-EXIT "$f" | head -1)"
+        jname="$(dvals JOURNAL "$f" | head -1)"
+        at="$(dvals COMMIT-AT "$f" | head -1)"
+        if [ -z "$role" ] || [ -z "$want" ] || [ -z "$jname" ] || [ -z "$(dvals EXPECT-MATCH "$f")" ]; then
+            echo "  PROBE FAIL  $base_name — needs ROLE, JOURNAL, EXPECT-EXIT and an EXPECT-MATCH"
+            probe_fail=1; continue
+        fi
+        case "$role" in
+            positive)  n_pos=$((n_pos + 1)) ;;
+            negative)  n_neg=$((n_neg + 1)) ;;
+            known-gap) n_gap=$((n_gap + 1)); GAPS="$GAPS  [$base_name] $(dvals GAP "$f" | head -1)
+" ;;
+            *) echo "  PROBE FAIL  $base_name — ROLE must be positive|negative|known-gap"; probe_fail=1; continue ;;
+        esac
+
+        CJ="$JD/case.journal"; rm -f "$CJ"
+        if [ "$jname" != "NONE" ]; then
+            if [ ! -f "$FIXDIR/$jname" ]; then
+                echo "  PROBE FAIL  $base_name — names a journal that does not exist: $jname"
+                echo "              (a case whose ledger is missing would 'pass' on an empty ledger)"
+                probe_fail=1; continue
+            fi
+            materialise_journal "$FIXDIR/$jname" "$CJ"
+            USED_JOURNALS="$USED_JOURNALS $jname"
+        fi
+
+        git -C "$TR" checkout -q -B probecase "$BASESHA"
+        git -C "$TR" clean -qfd
+        mapfile -t files < <(dvals FILE "$f")
+        for p in ${files[@]+"${files[@]}"}; do
+            mkdir -p "$TR/$(dirname "$p")"
+            printf 'probe fixture content %s\n' "$base_name" > "$TR/$p"
+        done
+        cep=$((PNOW + ${at:--450}))
+        body_of "$f" > "$JD/msg"
+        git -C "$TR" add -A
+        GIT_AUTHOR_DATE="@$cep +0000" GIT_COMMITTER_DATE="@$cep +0000" \
+            git -C "$TR" commit -q -F "$JD/msg"
+
+        OUT="$(REGISTER_LOCK_FILE="$CJ" bash "$RL" gate-check "$BASESHA" 2>&1)"; RC=$?
+
+        if ! printf '%s\n' "$OUT" | grep -qF "Repo root: $TR"; then
+            echo "  PROBE FAIL  $base_name — the run did not resolve its root to the temp repo;"
+            echo "              this probe would be measuring the real tree"
+            probe_fail=1; continue
+        fi
+        # Scope control, per case: the commit must have landed. "no outgoing commits"
+        # is a pass by emptiness and would make every case below look green.
+        if printf '%s\n' "$OUT" | grep -qF "no outgoing commits"; then
+            echo "  PROBE FAIL  $base_name — the commit never landed; this case scanned an empty"
+            echo "              range and its verdict is about nothing"
+            probe_fail=1; continue
+        fi
+        if [ "$RC" -ne "$want" ]; then
+            echo "  PROBE FAIL  $base_name — expected exit $want, got $RC"
+            printf '%s\n' "$OUT" | sed 's/^/      | /' | tail -12
+            probe_fail=1; continue
+        fi
+        miss=""
+        while IFS= read -r m; do
+            [ -n "$m" ] || continue
+            printf '%s\n' "$OUT" | grep -qF -- "$m" || miss="$miss
+      missing: $m"
+        done < <(dvals EXPECT-MATCH "$f")
+        while IFS= read -r a; do
+            [ -n "$a" ] || continue
+            printf '%s\n' "$OUT" | grep -qF -- "$a" && miss="$miss
+      present but must be absent: $a"
+        done < <(dvals EXPECT-ABSENT "$f")
+        if [ -n "$miss" ]; then
+            echo "  PROBE FAIL  $base_name — exit $RC was right, the output was not:$miss"
+            probe_fail=1; continue
+        fi
+        printf '  ok  %-10s %-52s exit %s\n' "$role" "$base_name" "$RC"
+    done
+
+    # ── the `covers <sha>` vouching branch needs TWO commits, so it lives here ──
+    # A trailer may vouch for OTHER commits by naming their short SHAs. That branch is
+    # unreachable from a one-commit fixture and is the widest escape the check offers,
+    # so leaving it unexercised would leave the widest door unguarded.
+    materialise_journal "$FIXDIR/journal-live-two-holders.tsv" "$JD/case.journal"
+    git -C "$TR" checkout -q -B probecase "$BASESHA"
+    git -C "$TR" clean -qfd
+    printf 'first\n' > "$TR/docs/loop/KPI.md"
+    git -C "$TR" add -A
+    GIT_AUTHOR_DATE="@$((PNOW - 450)) +0000" GIT_COMMITTER_DATE="@$((PNOW - 450)) +0000" \
+        git -C "$TR" commit -q -m "docs(loop): weekly numbers"
+    VSHA="$(git -C "$TR" rev-parse --short=7 HEAD)"
+    printf 'second\n' > "$TR/README.md"
+    git -C "$TR" add -A
+    printf 'docs: unrelated tidy\n\nRegister-Lock: none -- covers %s: written before lane-a acquired\n' \
+        "$VSHA" > "$JD/msg"
+    GIT_AUTHOR_DATE="@$((PNOW - 100)) +0000" GIT_COMMITTER_DATE="@$((PNOW - 100)) +0000" \
+        git -C "$TR" commit -q -F "$JD/msg"
+    OUT="$(REGISTER_LOCK_FILE="$JD/case.journal" bash "$RL" gate-check "$BASESHA" 2>&1)"; RC=$?
+    if [ "$RC" -eq 0 ] && printf '%s\n' "$OUT" | grep -qF "vouched by a Register-Lock declaration naming it"; then
+        printf '  ok  %-10s %-52s exit %s\n' "negative" "covers <sha> vouches another commit in the push" "$RC"
+        n_neg=$((n_neg + 1))
+    else
+        echo "  PROBE FAIL  the 'covers <sha>' vouching branch did not clear commit $VSHA (exit $RC)"
+        printf '%s\n' "$OUT" | sed 's/^/      | /' | tail -12
+        probe_fail=1
+    fi
+    # …and the same two commits with the vouching line REMOVED must fail, or the case
+    # above proves only that gate-check passes commits it was always going to pass.
+    git -C "$TR" checkout -q -B probecase "$BASESHA"
+    git -C "$TR" clean -qfd
+    printf 'first\n' > "$TR/docs/loop/KPI.md"
+    git -C "$TR" add -A
+    GIT_AUTHOR_DATE="@$((PNOW - 450)) +0000" GIT_COMMITTER_DATE="@$((PNOW - 450)) +0000" \
+        git -C "$TR" commit -q -m "docs(loop): weekly numbers"
+    printf 'second\n' > "$TR/README.md"
+    git -C "$TR" add -A
+    GIT_AUTHOR_DATE="@$((PNOW - 100)) +0000" GIT_COMMITTER_DATE="@$((PNOW - 100)) +0000" \
+        git -C "$TR" commit -q -m "docs: unrelated tidy"
+    OUT="$(REGISTER_LOCK_FILE="$JD/case.journal" bash "$RL" gate-check "$BASESHA" 2>&1)"; RC=$?
+    if [ "$RC" -eq 1 ]; then
+        printf '  ok  %-10s %-52s exit %s\n' "positive" "the same pair, unvouched, is caught" "$RC"
+        n_pos=$((n_pos + 1))
+    else
+        echo "  PROBE FAIL  removing the vouching trailer changed nothing (exit $RC) — the"
+        echo "              'covers' control above was passing for some other reason"
+        probe_fail=1
+    fi
+
+    # ── journal mirror: a checked-in journal nobody runs is decoration ──
+    echo ""
+    echo "JOURNAL MIRROR — every checked-in ledger fixture must be exercised"
+    njr=0; njh=0
+    for j in "${JOURNALS[@]}"; do
+        jb="$(basename "$j")"; njr=$((njr + 1))
+        case " $USED_JOURNALS " in
+            *" $jb "*) njh=$((njh + 1)) ;;
+            *) echo "  PROBE FAIL  $jb is checked in and no case uses it"; probe_fail=1 ;;
+        esac
+    done
+    echo "  $njh of $njr journal fixtures exercised"
+
+    echo ""
+    echo "STATED LIMITS — behaviour this check gets wrong, asserted so it stays measured"
+    printf '%s' "$GAPS"
+    echo "  (what the probe itself does not prove: sed -n '89,124p' $SELF)"
+    echo ""
+    if [ "$probe_fail" -eq 0 ]; then
+        echo "PROBE PASS — $n_life lifecycle assertions; ${#CASES[@]} ledger cases plus 2 built inline:"
+        echo "             $n_pos positive, $n_neg negative controls, $n_gap known-gap, $njr journals."
+        exit 0
+    fi
+    echo "PROBE FAILED"
+    exit 1
+fi
 
 RED=$'\033[0;31m'; GREEN=$'\033[0;32m'; YELLOW=$'\033[1;33m'; NC=$'\033[0m'
 
@@ -411,6 +755,11 @@ do_gate_check() {
         # claim someone can later check against the diff — in the same shape as
         # claims-gate's FLIP trailer, which also declares rather than proves. A bare
         # `none` with no reason is NOT accepted.
+        #   MEASURED 2026-08-17, and it IS accepted: `^[^-]*--` can never reach the
+        #   `--`, because "Register-Lock" carries a hyphen first, so this sed never
+        #   fires and `none_reason` is the whole trailer line. See
+        #   scripts/fixtures/register-lock/gap-bare-none-accepted.txt, which asserts
+        #   the behaviour that ships rather than the behaviour described above.
         local none_reason=""
         case " $declared " in
             *" none "*)

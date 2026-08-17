@@ -1,0 +1,12 @@
+# CASE: gate-steal-at-break-second
+# ROLE: negative
+# JOURNAL: journal-broken-steal.tsv
+# COMMIT-AT: -1800
+# FILE: docs/loop/PILOT.md
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: none landed inside another holder's tenure undeclared
+# WHY: the other side of the same second. BREAK steal bounds the tenure at [acquire,
+#      break), so the break second itself belongs to the new holder. Paired with
+#      gate-steal-inside-stolen-tenure: if the two ever agree, the bound moved.
+# ---8<--- commit message
+docs(loop): pilot scope
