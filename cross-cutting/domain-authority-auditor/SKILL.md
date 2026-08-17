@@ -1,13 +1,13 @@
 ---
 name: domain-authority-auditor
-version: "4.3.6"
+version: "4.3.7"
 description: 'Run the full 40-item CITE domain authority audit across 4 dimensions with domain-type weighting and veto checks. Use when the user asks to "audit domain authority", "domain trust score", "CITE audit", "how authoritative is my site", "domain credibility check", "is my domain trustworthy", "domain credibility score", "domain rating". For content-level assessment, see content-quality-auditor. For link profile details, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.6"
+  version: "4.3.7"
   geo-relevance: "medium"
   tags:
     - seo
@@ -120,6 +120,9 @@ source]" (see Step 3) — do not downgrade them into Hypothesis scores.
 ### Step 1: Preparation
 
 ```markdown
+<!-- SKELETON — every [bracket] is a slot filled from the domain and data you were given; a
+     slot with no value means the line is dropped and the gap named in prose. Delete this
+     comment when the block is filled. -->
 ### Audit Setup
 
 **Domain**: [domain]
@@ -156,6 +159,8 @@ beside the score so a reader can check it. If tally and score disagree, the item
 right and the sentence is wrong: recount before publishing.
 
 ```markdown
+<!-- SKELETON — one dimension's shape. Repeat it per dimension, scoring every item; a slot
+     with no grade behind it is not printed. Delete this comment when the tables are filled. -->
 ### C — Citation
 
 | ID | Check Item | Score | Notes |
@@ -182,6 +187,7 @@ right and the sentence is wrong: recount before publishing.
 Same format for Trust and Eminence dimensions.
 
 ```markdown
+<!-- SKELETON — one dimension's shape, as in Step 2. Delete this comment when filled. -->
 ### T — Trust
 
 | ID | Check Item | Score | Notes |
@@ -235,6 +241,9 @@ Formulas, N/A rescaling, veto-cap handling, and worked gain/projection examples:
 Calculate scores and generate the final report:
 
 ```markdown
+<!-- SKELETON — the client's report. Every [bracket] is a slot: fill it from this audit's own
+     tables, or drop the line and name the gap. No bracket, no "TBD", and nothing addressed to
+     whoever ran the audit survives in what the client is handed. Delete this line when filled. -->
 ## CITE Domain Authority Report
 
 ### Overview
@@ -273,11 +282,11 @@ Calculate scores and generate the final report:
 Sorted by: weight × points lost (highest impact first). Potential gain = recoverable points
 (10 from Fail, 5 from Partial) × that dimension's weight — show the multiplication.
 
-1. **[ID] [Name]** — [specific modification suggestion]
+1. **[Name]** — [specific modification suggestion]
    - Current: [Fail/Partial] | Potential gain: [10 or 5] × [dim weight] = [X] weighted points
    - Evidence: [observed data behind the score] | Confidence: [Confirmed/Likely/Hypothesis — if Hypothesis, name what would confirm it]
    - Action: [concrete step]
-2. **[ID] [Name]** — [specific modification suggestion]
+2. **[Name]** — [specific modification suggestion]
    - Current: [Fail/Partial] | Potential gain: [10 or 5] × [dim weight] = [X] weighted points
    - Evidence: [observed data behind the score] | Confidence: [Confirmed/Likely/Hypothesis — if Hypothesis, name what would confirm it]
    - Action: [concrete step]

@@ -161,6 +161,29 @@ protected form.
 > [PROVENANCE — not a rule] here on 2026-08-10; the ruleset states the statistics rule without them, because a writer
 > [PROVENANCE — not a rule] needs the rule and an auditor needs the reason.
 
+> [PROVENANCE — not a rule] **Family 9, ruled 2026-08-17.** Opened by a Mode A review of the
+> [PROVENANCE — not a rule] engine-claim sweep, which reported that a seventh shape family existed and that Greek
+> [PROVENANCE — not a rule] escaped every one of the six then shipped. Re-derived rather than taken on report: of 19
+> [PROVENANCE — not a rule] constructed shapes, **16 reach no finding**, not the 18 the review claimed — two of its
+> [PROVENANCE — not a rule] examples were already caught by P1, whose verb list happens to carry `rewards` and `cites`.
+> [PROVENANCE — not a rule] The 16 fall in three groups: all 6 Greek, 6 prepositional-adjunct, 4 copular/nominal.
+> [PROVENANCE — not a rule] **Why Greek landed in this file and not in the sweep.** The sweep scans repo text. Measured
+> [PROVENANCE — not a rule] the same day, its seven directories hold **7 Greek-carrying files outside `evals/` and zero
+> [PROVENANCE — not a rule] Greek engine-claims** — the Greek there is this ruleset's own vocabulary rows, keyword
+> [PROVENANCE — not a rule] transliteration tables and label examples. Greek engine-claims are absent from the repo
+> [PROVENANCE — not a rule] because Greek deliverables are absent from it: they are produced at run time, on the surface
+> [PROVENANCE — not a rule] this ruleset governs and that sweep never sees. A Greek branch there would have reported a
+> [PROVENANCE — not a rule] clean residual for an unscanned surface — the exact failure that sweep's header exists to
+> [PROVENANCE — not a rule] prevent. The prepositional group did go to the sweep, as its P7: measured raw +2, **residual
+> [PROVENANCE — not a rule] +0**, catching 6 of 6 constructed shapes with no new noise. The copular group was **declined
+> [PROVENANCE — not a rule] on measurement** — its drafted regex caught 2 of the 3 genuine escapes and contributed one
+> [PROVENANCE — not a rule] real-tree line, a false positive on ruling-R2 guidance; a broader form fired on the
+> [PROVENANCE — not a rule] definition of SEO, because `engine` sits inside the term this library is about.
+> [PROVENANCE — not a rule] **Screen measurements.** Family 9's two-step screen flags 6 of 6 constructed Greek defects
+> [PROVENANCE — not a rule] and passes 3 of 3 legitimate Greek lines, including «Επιλέγουμε λέξεις-κλειδιά…», whose verb
+> [PROVENANCE — not a rule] is in the RANK list and whose subject is the author — which is why the rank step exists and
+> [PROVENANCE — not a rule] why the row says the defect is the subject, not the verb.
+
 ---
 
 ## Provenance for §3, §5 and the file header — nothing to record

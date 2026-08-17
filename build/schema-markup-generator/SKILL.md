@@ -1,6 +1,6 @@
 ---
 name: schema-markup-generator
-version: "4.2.8"
+version: "4.2.9"
 description: 'Generate Schema.org JSON-LD structured data — one accurate primary type per page (FAQPage, HowTo, Article, Product, LocalBusiness, and 6 other types) plus documented auxiliaries only where warranted. Use when the user asks to "add schema markup", "generate structured data", "JSON-LD", "FAQ schema", "rich snippets", "I want star ratings in Google", or "structured data validation errors". Produces validated markup for Google rich results where still offered (no FAQ rich result for ordinary sites — government/health only, Aug 2023 — FAQPage is kept because it stays valid and Google says there is no need to proactively remove it), Bing structured data, and machine-readable input for any consumer that reads it. Validates via the Schema.org validator, plus Rich Results Test for non-FAQ types. For broader technical SEO, see technical-seo-checker. For meta tag optimization, see meta-tags-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.2.8"
+  version: "4.2.9"
   geo-relevance: "medium"
   tags:
     - seo
@@ -134,6 +134,9 @@ When a user requests schema markup:
    ```
 
    ```markdown
+   <!-- SKELETON — every [bracket] is a slot filled from the page you were given; a slot with
+        no value means the line is dropped and the gap named in prose. Delete this comment
+        when the block is filled. -->
    ### Schema Analysis
 
    **Content Type**: [blog/product/FAQ/how-to/local business/etc.]
@@ -143,7 +146,7 @@ When a user requests schema markup:
    
    | Rich Result Type | Eligibility | Impact |
    |------------------|-------------|--------|
-   | FAQ | ❌ (none for an ordinary site — government/health only since Aug 2023) | No SERP result. Valid markup, no evidenced citation benefit (R3 + 9a) |
+   | FAQ | ❌ (none for an ordinary site — government/health only since Aug 2023) | No SERP result. Valid markup, and no citation benefit is claimed either way — nothing establishes one |
    | How-To | Unconfirmed — no appearance claimed | HowTo still generated for step-by-step content |
    | Product | ✅/❌ | High - Shows price, availability |
    | Review | ✅/❌ | High - Shows star ratings |
@@ -192,24 +195,28 @@ When a user requests schema markup:
 
 3. **Provide Implementation and Validation**
 
-    ```markdown
+    ````markdown
     ## Implementation Guide
 
     ### Adding Schema to Your Page
 
     **Option 1: In HTML <head>**
     ```html
+    <!-- SKELETON — placement only, not paste-ready. [JSON-LD-BLOCK] is a slot: paste the
+         finished block from above in its place and delete this comment. A page that ships
+         with the bracket still in it ships no schema at all. -->
     <head>
       <script type="application/ld+json">
-        [Your JSON-LD schema here]
+        [JSON-LD-BLOCK]
       </script>
     </head>
     ```
 
     **Option 2: Before closing </body>**
     ```html
+    <!-- SKELETON — placement only, not paste-ready. Same slot, same rule as Option 1. -->
       <script type="application/ld+json">
-        [Your JSON-LD schema here]
+        [JSON-LD-BLOCK]
       </script>
     </body>
     ```
@@ -237,7 +244,7 @@ When a user requests schema markup:
     - [ ] Dates are ISO 8601 at the precision the page states
     - [ ] Content matches visible page content
     - [ ] No policy violations
-    ```
+    ````
 
 ## Validation Checkpoints
 
@@ -266,7 +273,7 @@ When a user requests schema markup:
 
 **Output**:
 
-```markdown
+````markdown
 ## FAQ Schema for SEO Page
 
 ### Schema Markup
@@ -309,7 +316,7 @@ _Implementation: Wrap the above JSON-LD in `<script type="application/ld+json">.
 ### Rich-Result Eligibility
 
 **Eligible for**: nothing in Google Search for an ordinary site. Google restricted FAQ rich results to well-known, authoritative government and health websites on 2023-08-08; for every other site the rich result "will no longer be shown regularly" (Google's words). So this markup produces no SERP accordion here. **What the emitted properties do**: state each question and its answer in a machine-readable form alongside the visible text. **What they do not do**: earn a citation anywhere — no primary source establishes that in either direction, so promise nothing (settled ruling R3 + amendment 9a). The markup ships because it is valid, costs nothing, and Google says there is no need to proactively remove it — not because it is a lever.
-```
+````
 
 ## Schema Type Quick Reference
 

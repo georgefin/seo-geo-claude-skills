@@ -76,6 +76,14 @@ Not all gaps are worth filling. Filter by:
 | Business relevance | Must relate to your product/service | Ensure strategic fit |
 | Intent match | Must match content types you can create | Ensure execution capability |
 
+**Where this run has no volumes, the minimum-volume row is not skipped — the proxy carries it.**
+The named demand proxy (§4 below, SKILL.md Step 9) supplies the floor in its own units, chosen and
+printed before any gap is scored: "cluster depth ≥ N articles across the competitors counted", with
+N stated. **Naming a proxy is a property of the run; a floor is what a single keyword can fail** —
+every keyword in a proxied run "carries the named proxy" equally, so a proxy with no floor leaves
+this row empty. Nothing downstream refills it: §4's Quick Win Score *adds* Search Demand rather than
+gating on it, so a gap at the bottom Demand band still reaches the moderate quick-win band.
+
 **After filtering, categorize remaining gaps:**
 
 | Category | Description | Example |
@@ -283,6 +291,28 @@ and §7. Disclose instead: name the proxy, and state on the row that Density is 
 evidence there. A reader who knows the two cells came from one count can discount them correctly;
 a reader who does not, cannot.
 
+**How far they cancel — worked, in both scores.** Take the mirrored case, where one count is read
+one way for Demand and the other way for Density, so `Density = 6 − Demand`. The pair then
+contributes `0.25·D + 0.20·(6 − D) = 1.20 + 0.05·D` to the Gap Priority Score — **1.25, 1.30, 1.35,
+1.40, 1.45** as Demand runs 1 to 5. That is a **0.20** spread across the whole swing, where two
+factors holding 45% of the weight would move the score by **1.80** if they moved independently in
+the same direction: about **a ninth** of their nominal leverage, and 5% of the score's own 1.00-5.00
+range. In the **Quick Win Score the cancellation is exact**, because there the two are unweighted:
+`D + (6 − D) = 6` for every gap, so the screen collapses to `Relevance + Effort − 6` — a −4 to +4
+quantity read against bands calibrated for four inputs spanning −8 to +8.
+
+Two gaps at opposite ends of the demand evidence, everything else held at Relevance 4 / Creation
+Effort 4 / Conversion Potential 3:
+
+| Gap | Proxy reading | Factors (D/Den/R/E/C) | Gap Priority Score | Tier | Quick Win Score |
+|-----|---------------|------------------------|--------------------|------|-----------------|
+| Deep cluster | 18 articles across the two competitors | 5/1/4/4/3 | `0.25×5 + 0.20×1 + 0.25×4 + 0.15×4 + 0.15×3 = 3.50` | P1 | `5+4+4+1 − 12 = +2` |
+| Shallow cluster | 2 articles across the same two | 1/5/4/4/3 | `0.25×1 + 0.20×5 + 0.25×4 + 0.15×4 + 0.15×3 = 3.30` | P1 | `1+4+4+5 − 12 = +2` |
+
+Same tier, **identical** Quick Win Score, and both land in Tier 1 — on demand evidence as far apart
+as this scale goes. **So on the proxy path the screen is not the demand test**; §1 Step 4's proxy
+floor is, which is why the proxy has to carry a floor in its own units and not merely a name.
+
 ### Priority Tiers
 
 **Rounding convention: round the Gap Priority Score to two decimal places, halves up, and read
@@ -333,8 +363,10 @@ gap between them either.
 **This score does not enforce the demand filter — the filter does.** Search Demand is one added
 input of four, so a gap in the bottom Demand band still reaches the "moderate quick win" band on
 the strength of the other three: `1 + 4 + 4 + 5 - 12 = +2`. The demand condition is enforced
-earlier and only there — the minimum-volume filter in §1 Step 4, or the named proxy where this run
-has no volumes. Filter Segment C first, then score what survives. SKILL.md Step 4's Quick Wins
+earlier and only there — the minimum-volume filter in §1 Step 4, or, where this run has no volumes,
+the floor the named proxy sets in its own units and fixes before scoring (§1 Step 4). **A proxy with
+no floor is not a filter**: naming one is a property of the run, and every keyword in that run
+satisfies it equally. Filter Segment C first, then score what survives. SKILL.md Step 4's Quick Wins
 bucket states the same condition in words; it is a filter restated, not a reading of this formula.
 
 **All four inputs are required, and Search Demand is the one that goes missing.** The screen is a
@@ -344,7 +376,10 @@ above bites, take one of two routes and name it in the report:
 
 - **Named proxy** — score Search Demand from something the supplied data actually contains
   (competitor cluster depth, own-site sessions on adjacent pages), state that basis, and compute
-  the Quick Win Score as normal with the proxy named beside it.
+  the Quick Win Score as normal with the proxy named beside it. Where that basis is the same
+  competitor count Competitive Density reads, the two legs cancel exactly (above): print the score,
+  say on the row that it read as `Relevance + Effort − 6`, and let §1 Step 4's proxy floor carry the
+  demand test the screen no longer carries.
 - **Screen not run** — if Search Demand is dropped rather than proxied, no Quick Win Score is
   produced. Write "quick-win screen not run — Search Demand unavailable", order the gaps on the
   renormalised Gap Priority Score, and let the P0 tier do the "start here" job. Do **not** sum the

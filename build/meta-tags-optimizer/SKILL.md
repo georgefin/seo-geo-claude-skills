@@ -1,13 +1,13 @@
 ---
 name: meta-tags-optimizer
-version: "4.2.1"
+version: "4.2.2"
 description: 'Create and optimize title tags, meta descriptions, Open Graph tags, and Twitter cards for maximum click-through rates. Use when the user asks to "optimize title tag", "write meta description", "improve CTR", "Open Graph tags", "social media preview", "fix my meta tags", or "OG tags not showing". Produces optimized meta tags with character counting, A/B test variations, and CTR analysis. For a broader on-page audit, see on-page-seo-auditor. For structured data markup, see schema-markup-generator.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.2.1"
+  version: "4.2.2"
   geo-relevance: "low"
   tags:
     - seo
@@ -116,7 +116,7 @@ When a user requests meta tag optimization:
 
 2. **Create Optimized Title Tag**
 
-   ```markdown
+   ````markdown
    ### Title Tag Optimization
    
    **Requirements**:
@@ -158,11 +158,11 @@ When a user requests meta tag optimization:
    ```html
    <title>[Selected Title]</title>
    ```
-   ```
+   ````
 
 3. **Write Meta Description**
 
-   ```markdown
+   ````markdown
    ### Meta Description Optimization
    
    **Requirements**:
@@ -199,7 +199,7 @@ When a user requests meta tag optimization:
    ```html
    <meta name="description" content="[Selected Description]">
    ```
-   ```
+   ````
 
 4. **Create Open Graph, Twitter Card, and Additional Meta Tags**
 
@@ -310,7 +310,7 @@ For EL/EN/DE (or any multi-language) page sets. Hreflang implementations commonl
 
 **Output**:
 
-```markdown
+````markdown
 ## Meta Tags: How to Start a Podcast (2026)
 
 ### Title Tag
@@ -341,7 +341,7 @@ _Complete meta tag block (with OG, Twitter, Article tags) generated using templa
 
 **Description Variation B**:
 "Want to start a podcast in 2026? This guide covers everything: equipment ($100 budget option), best hosting platforms, recording tips, and how to get your first 1,000 listeners."
-```
+````
 
 ## Tips for Success
 

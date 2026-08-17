@@ -120,6 +120,16 @@ Prior full sweep 2026-08-08 (all rulings stood).
   2026-08-11 decision, until that owner read happens. 9a is text in one register and reverts
   in one commit; 9b changes four reference files across three skills on evidence nobody here
   could read directly.
+- **9a's scope is language-neutral, and 2026-08-17 was the first time anything said so.** The
+  amendment bars asserting an engine disposition as fact; every carrier enforcing it — the
+  reference text, the reviewer checklists and `scripts/engine-claim-sweep.sh`'s seven shape
+  families — was **English-only**, so «Η Google προτιμά σελίδες με σαφή ορισμό στην αρχή.» broke
+  9a and passed every net. The sweep was deliberately **not** taught Greek: it scans repository
+  text, and measured that day its seven directories held 7 Greek-carrying files and **zero** Greek
+  engine-claims, because Greek deliverables are produced at run time and never enter the repo.
+  The Greek carrier is `anti-slop-ruleset.md` §6 FAIL-grade **family 9**, on the surface that
+  governs deliverables. Full reasoning, including the declined copular family and the locale
+  constraint that decided the net's form, in OPEN-FINDINGS 102.
 - **Decided**: 2026-08-08 sweep (retirement reflected in schema-markup-generator 4.0.1);
   provenance amended 2026-08-11.
 - **Encoded in repo**: `build/schema-markup-generator/SKILL.md:223`; `VERSIONS.md:259`

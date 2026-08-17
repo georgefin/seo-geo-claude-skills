@@ -103,10 +103,13 @@ outside the template a model copies.
 **Quick Win Gaps** (Demand evidence present, lower volume, low difficulty)
 
 A quick win is cheap *and wanted*. Low difficulty on its own does not qualify a keyword: it has
-to clear the demand floor set in the gap filters — >100/month by default, adjusted for the niche
-— or, where no volume figures exist for this run, carry the named demand proxy the report states
-(gap-analysis-frameworks.md §4). A zero-demand keyword in an empty SERP is not a quick win; it is
-a page nobody will read.
+to clear a demand floor — >100/month by default, adjusted for the niche — and where no volume
+figures exist for this run, the floor is the one the **named proxy** sets in its own units, fixed
+and printed before any gap is scored ("cluster depth ≥ N articles across the competitors counted").
+*Carrying* a proxy is not clearing a floor: every keyword in a proxied run carries it equally, so a
+proxy stated without a floor leaves this column ungated, and neither score re-applies the condition
+later (gap-analysis-frameworks.md §1 Step 4, §4). A zero-demand keyword in an empty SERP is not a
+quick win; it is a page nobody will read.
 
 | Keyword | Volume (or named proxy) | Difficulty | Competitor | Their Position |
 |---------|-------------------------|------------|------------|----------------|
@@ -413,6 +416,24 @@ run (Search Demand dropped), say so and read the tiers from the priority score a
 Opportunity* carries the gap count alone, and says so, when no volumes exist for the run. *No
 traffic projection* is a rule, not a stylistic choice — see
 [score-arithmetic.md](./score-arithmetic.md) §6.
+
+**Pre-send check on the prose in this template** (author's check — it stays out of the fence above,
+and out of the client's report): **where a sentence and a table disagree, the table wins — fix the
+sentence.** Two slots here fail it more than anything else, because both are written from memory
+after the tables are built: *Key Findings* in the Executive Summary, where a superlative ("the
+largest gap", "none of them cover it") gets written against a figure printed further down, and
+*Why prioritize* under each tier, where the count of rows in the tier is restated in words. Read
+each one back against the table it describes and correct the sentence, never the table. Same rule
+as [score-arithmetic.md](./score-arithmetic.md) §7 item 8 and SKILL.md → **Content Gap Report**;
+three sites, one rule, changed together.
+
+**Where Search Demand was proxied, two things ride the row itself** (SKILL.md Step 9,
+gap-analysis-frameworks.md §4). The *Volume* cell carries the proxy and its basis in place of a
+figure — "cluster depth: 23 + 41 articles across the two competitors; a coverage proxy, not a volume
+measurement" — and, where the proxy is the same competitor count Competitive Density reads, the
+*Quick Win Score* cell says the two legs cancelled: `5+4+4+1 − 12 = +2 (demand and density legs
+cancel — read as Relevance + Effort)`. The weights are not adjusted to compensate; the dependency
+is disclosed and the demand test sits in the gap filter's proxy floor instead.
 
 **Two rows in the Success Metrics table are conditional.** *Traffic from new content* carries no plan-time target
 number: the pages do not exist, so a figure there would be a forecast with no baseline and no

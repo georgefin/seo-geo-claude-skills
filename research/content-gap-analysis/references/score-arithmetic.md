@@ -179,15 +179,22 @@ Run this against the finished report, not the working notes.
    tier its score does not support.
 3. Every Quick Win Score is an integer in -8 to +8 and equals the sum of its four factors minus
    12; where Search Demand was dropped rather than proxied, no Quick Win Score appears and the
-   report says the screen did not run.
+   report says the screen did not run. Where it was **proxied from the same competitor count
+   Competitive Density reads**, the row says so and says the two legs cancelled — with mirrored
+   bands `D + (6 − D) = 6`, leaving `Relevance + Effort − 6`, a −4 to +4 quantity read against
+   bands built for −8 to +8 (frameworks §4).
 4. Where a factor was dropped, the renormalised weights are printed, they sum to 1.00, and the
-   dropped factor is named. Where a factor was proxied, the proxy's basis is named.
+   dropped factor is named. Where a factor was proxied, the proxy's basis is named **and the demand
+   floor that proxy set is printed in the proxy's own units** — a proxy with no floor left the gap
+   filter empty, and neither score re-applies it (frameworks §1 Step 4, §4).
 5. Every mean states its n; every Gap Size shows both inputs; the funnel stage counts sum to the
    stated total.
 6. Every GEO Value carries the rubric band it was scored against and is labelled a judgement; no
    blended SEO+GEO number appears.
 7. No traffic projection and no competitor per-page or per-type traffic figure appears anywhere.
 8. Where a sentence and a table disagree, the table wins — fix the sentence. This one is repeated
-   in SKILL.md → **Content Gap Report** as a pre-send check on the prose, deliberately: this pass
-   runs while the scores are computed, and the breach happens later, while the prose about them is
-   written. Both copies are the same rule; change them together.
+   deliberately, because this pass runs while the scores are computed and the breach happens later,
+   while the prose about them is written. It therefore stands at **three** sites and they are one
+   rule — change them together: here; SKILL.md → **Content Gap Report**, as a pre-send check in the
+   output-format section; and `analysis-templates.md` → **Prioritized Report Template**, against the
+   two prose slots that fail it most often, *Key Findings* and *Why prioritize*.

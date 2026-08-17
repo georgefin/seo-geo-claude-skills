@@ -2016,8 +2016,20 @@ increment condition is F15's.
 
 - **Found by**: Mode A, by mutating vocabulary rather than structure.
 - **Recurrence**: F15 → 4.
-- **Status**: recorded, **not fixed** — a canary per branch and per high-traffic token is owed,
-  and the header must state what the canaries do and do not protect. FLIP: F15-r4 -- none
+- **Status**: **FIXED 2026-08-17**, both halves, each fault-injected before being called done.
+  (a) *Per high-traffic token*: `AG_TOKENS` mirrors the alternation and the probe drops each of
+  the **17** branches in turn, requiring exactly one AG-canary to fall out — the same exclusivity
+  contract the families already had. Its own first run failed on `systems?` and `assistants?`,
+  because `?` is an ERE quantifier in the drop-expression; the mirror-drift check that caught it
+  is now permanent. (b) *Per branch*: P6's three alternatives are **named** (`P6a`/`P6b`/`P6c`)
+  rather than inlined, so the probe neuters each and requires one branch-canary to fall out.
+  Fault-injected both ways — blanking a branch canary and deleting alternative 3 from the family
+  each produce PROBE FAILED. Families are now built by `build_families()`, so the probe varies
+  `AG` and **rebuilds** the real patterns instead of restating them; the hand-copied second list
+  is the defect this file already paid for. And the header now states coverage limits, as this
+  entry required: the verb lists inside P1/P3/P4/P5 are **unguarded at branch level**, the four
+  excuse lists have exactly one negative control between them, and nothing here validates that a
+  residual line is a defect. FLIP: F15-r4 -- none
 
 ---
 
@@ -2058,3 +2070,29 @@ missed were exactly the four that would have said so.
 - **Recurrence**: F9 → 10.
 - **Status**: exclusion withdrawn, disclosure installed, report template carries it, and the
   grep returns nothing outside the corrected register row. FLIP: F9-r10 -- none
+
+---
+
+## F11 — Recurrence 8 (2026-08-17) · A register row summarised a commit while dropping the commit's own scope caveat
+
+`b50bd77`'s message is explicit: *"SNAPSHOT, NOT A CLOSE-OUT … its references/ and evals/ passes
+have not landed."* The register row that summarised it listed findings "60, 62, 63, 69 … reported
+done" and carried no caveat at all. Of the four content-gap findings in that wave, **one (62) was
+genuinely finished and three (67, 68, 79) were mid-flight**, with the register silent on which was
+which.
+
+The cost was paid immediately: the lane opened on 67 and began re-fixing a sentence that had been
+deleted four days earlier, and the equivalence claim the finding quotes exists nowhere in the tree.
+It stopped because it checked the tree before editing — not because the register warned it.
+
+**How this differs from F11's earlier instances.** Those were status lines that *became* false when
+later work superseded them. This one was **never true of part of its own scope** on the day it was
+written. Same failure mode for a reader — a claim in a register that the tree does not support —
+reached by summarising rather than by ageing.
+
+- **Found by**: the content-gap lane, opening a finding and discovering it fixed.
+- **Recurrence**: F11 → 8.
+- **Rule added**: a register row summarising a commit **quotes that commit's own scope caveat, or
+  does not summarise the commit**. A partial landing is recorded per finding, never per wave.
+- **Status**: rows 62 and 67 rewritten with what is actually at HEAD; the pattern recorded as
+  finding 103. FLIP: F11-r8 -- none

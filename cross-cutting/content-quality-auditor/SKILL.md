@@ -1,6 +1,6 @@
 ---
 name: content-quality-auditor
-version: "4.4.3"
+version: "4.4.4"
 description: 'Run the full 80-item CORE-EEAT audit across 8 dimensions with content-type weighted scoring, veto checks, and prioritized fix plans. Use when the user asks to "audit content quality", "EEAT score", "CORE-EEAT audit", "content quality check", "how good is my content", "content improvement plan", "is my content AI-citation worthy", "GEO quality score". For SEO page element audits, see on-page-seo-auditor. For domain-level authority, see domain-authority-auditor.'
 license: Apache-2.0
 allowed-tools: WebFetch
@@ -8,7 +8,7 @@ compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, 
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.4.3"
+  version: "4.4.4"
   geo-relevance: "high"
   tags:
     - seo
@@ -111,6 +111,8 @@ When a user requests a content quality audit:
 ### Step 1: Preparation
 
 ```markdown
+<!-- SKELETON — every [bracket] is a slot filled from the content you were given; a slot with no
+     value means the line is dropped and the gap named in prose. Delete this line when filled. -->
 ### Audit Setup
 
 **Content**: [title or URL]
@@ -144,6 +146,8 @@ Score each item:
 **Confidence labels** — every Partial/Fail note carries one: **Confirmed** (directly observed in the provided content/data) · **Likely** (strong indirect evidence) · **Hypothesis** (plausible, needs verification — name the verification step). Pass and N/A notes may omit the label. This extends the library's `[VERIFY]` discipline into client deliverables: a guess presented as an observation is a defect.
 
 ```markdown
+<!-- SKELETON — one dimension's shape. Repeat it per dimension, scoring every item; a slot
+     with no grade behind it is not printed. Delete this comment when the table is filled. -->
 ### C — Contextual Clarity
 
 | ID | Check Item | Score | Notes |
@@ -161,6 +165,7 @@ Repeat the same table format for **O** (Organization), **R** (Referenceability),
 ### Step 3: EEAT Audit (40 items)
 
 ```markdown
+<!-- SKELETON — one dimension's shape, as in Step 2. Delete this comment when filled. -->
 ### Exp — Experience
 
 | ID | Check Item | Score | Notes |
@@ -194,7 +199,41 @@ Calculate scores and generate the final report. Every finding — each Partial/F
 
 **Quote discipline** — R02 and R03 (citation density, source hierarchy) and the Ept/A items (Ept01 Author Identity, Ept02 Credentials Display, A06 Social Proof) are where this report asks for citations, credentials and expert quotes, and the count thresholds (≥1 citation per 500 words; ≥3 Tier 1–2 sources) are exactly the pressure that invents one. A quotation attributed to a named person or organisation needs a real, checkable source in the same breath: speaker, role, where and when they said it, and a link that opens. Without one, do not attribute it — paraphrase it unattributed, or drop it. This governs both quote surfaces below. The **Evidence** field quotes the audited content verbatim (copied from the content, never reconstructed). A **Fix** or Action Plan step tells the writer to *source* a quote — it never drafts one, and never invents a name, credential or institution to carry it (statistics rule: sourced, cited, or placeholder, never invented). A fabricated statistic is an unverifiable claim; a fabricated quotation is a false statement about an identifiable person, published under the client's byline.
 
+#### N/A Item Handling
+
+**Method, not report content** — it sits outside the report fence below because a model copies
+the fence, so anything addressed to whoever runs the audit stays out of what the client is
+handed. The report carries the outcome — the item, its reason, the denominator it was scored
+against — never this procedure and never a bare item ID.
+
+When an item cannot be evaluated (e.g. Backlink Profile, `CORE-EEAT-A01`, needs site-level data
+you were not given):
+
+1. Mark the item as "N/A" with reason
+2. Exclude N/A items from the dimension score calculation
+3. Dimension Score = (sum of scored items) / (number of scored items x 10) x 100
+4. If more than 50% of a dimension's items are N/A, flag the dimension as "Insufficient Data" and exclude it from the weighted total
+5. Recalculate weighted total using only dimensions with sufficient data, re-normalizing weights to sum to 100%
+
+**Example**: Authority dimension with 8 N/A items and 2 scored items — Brand Recognition (`CORE-EEAT-A05`) Pass = 10, Knowledge Graph Presence (`CORE-EEAT-A07`) Partial = 5:
+- Dimension score = (10 + 5) / (2 x 10) x 100 = 75
+- But 8/10 items are N/A (>50%), so flag as "Insufficient Data -- Authority"
+- Exclude A dimension from weighted total; redistribute its weight proportionally to remaining dimensions
+
+**Attainable dimension scores — check before printing.** Every scored item earns 10, 5, or 0, so a dimension score is always an exact multiple of `50 / (number of scored items)`. No value between two of those steps can be produced by any tally.
+
+| Scored items | Score is a multiple of | Attainable set |
+|---|---|---|
+| 10 (none N/A) | 5 | 0, 5, 10 … 100 |
+| 5 | 10 | 0, 10, 20 … 100 |
+| 2 | 25 | 0, 25, 50, 75, 100 |
+
+Reverse check on a printed score: `score x scored items / 50` must be a whole number, and that number equals (2 x Passes) + Partials. The example above checks out — 75 x 2 / 50 = 3 = (2 x 1 Pass) + 1 Partial. A fractional result means the tally slipped: 65 over 2 scored items gives 2.6, so 65 is not a score this scale can produce. Rounding is the one legitimate exception (50 / scored items does not always give a terminating decimal — 9, 7, 6 and 3 scored items do not), and the full derivation, the same check for GEO/SEO and weighted figures, and the veto outcomes that sit outside the arithmetic are in [references/score-arithmetic.md](./references/score-arithmetic.md).
+
 ```markdown
+<!-- SKELETON — the client's report. Every [bracket] is a slot: fill it from this audit's own
+     tables, or drop the line and name the gap. No bracket, no "TBD", and nothing addressed to
+     whoever ran the audit survives in what the client is handed. Delete this line when filled. -->
 ## CORE-EEAT Audit Report
 
 ### Overview
@@ -227,30 +266,7 @@ Calculate scores and generate the final report. Every finding — each Partial/F
 
 **Rating Scale**: 90-100 Excellent | 75-89 Good | 60-74 Medium | 40-59 Low | 0-39 Poor
 
-### N/A Item Handling
-
-When an item cannot be evaluated (e.g., A01 Backlink Profile requires site-level data not available):
-
-1. Mark the item as "N/A" with reason
-2. Exclude N/A items from the dimension score calculation
-3. Dimension Score = (sum of scored items) / (number of scored items x 10) x 100
-4. If more than 50% of a dimension's items are N/A, flag the dimension as "Insufficient Data" and exclude it from the weighted total
-5. Recalculate weighted total using only dimensions with sufficient data, re-normalizing weights to sum to 100%
-
-**Example**: Authority dimension with 8 N/A items and 2 scored items (A05 = Pass = 10, A07 = Partial = 5):
-- Dimension score = (10 + 5) / (2 x 10) x 100 = 75
-- But 8/10 items are N/A (>50%), so flag as "Insufficient Data -- Authority"
-- Exclude A dimension from weighted total; redistribute its weight proportionally to remaining dimensions
-
-**Attainable dimension scores — check before printing.** Every scored item earns 10, 5, or 0, so a dimension score is always an exact multiple of `50 / (number of scored items)`. No value between two of those steps can be produced by any tally.
-
-| Scored items | Score is a multiple of | Attainable set |
-|---|---|---|
-| 10 (none N/A) | 5 | 0, 5, 10 … 100 |
-| 5 | 10 | 0, 10, 20 … 100 |
-| 2 | 25 | 0, 25, 50, 75, 100 |
-
-Reverse check on a printed score: `score x scored items / 50` must be a whole number, and that number equals (2 x Passes) + Partials. The example above checks out — 75 x 2 / 50 = 3 = (2 x 1 Pass) + 1 Partial. A fractional result means the tally slipped: 65 over 2 scored items gives 2.6, so 65 is not a score this scale can produce. Rounding is the one legitimate exception (50 / scored items does not always give a terminating decimal — 9, 7, 6 and 3 scored items do not), and the full derivation, the same check for GEO/SEO and weighted figures, and the veto outcomes that sit outside the arithmetic are in [references/score-arithmetic.md](./references/score-arithmetic.md).
+**Items not evaluated**: named in the per-item tables with their reason, excluded from that dimension's denominator rather than scored zero; a dimension with more than half its items unevaluated is reported as Insufficient Data instead of carrying a score.
 
 ### Per-Item Scores
 
@@ -273,7 +289,7 @@ Reverse check on a printed score: `score x scored items / 50` must be a whole nu
 
 Sorted by: weight × points lost (highest impact first). Every entry carries all four parts plus its confidence label — **Confirmed** (directly observed in the provided content/data) · **Likely** (strong indirect evidence) · **Hypothesis** (plausible, needs verification).
 
-1. **[ID] [Name]** — [Confirmed / Likely / Hypothesis]
+1. **[Name]** — [Confirmed / Likely / Hypothesis]
    - **Finding**: [what is wrong, one sentence]
    - **Evidence**: [verbatim quote or measurement from the content; for Likely/Hypothesis, the indirect signal plus the step that would confirm it]
    - **Impact**: [Fail/Partial] → potential gain of [X] weighted points

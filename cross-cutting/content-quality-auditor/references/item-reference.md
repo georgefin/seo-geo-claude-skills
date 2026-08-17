@@ -56,6 +56,9 @@ Quick reference for all 80 CORE-EEAT audit items. Full scoring criteria in [core
 **Output** (partial — showing one dimension to demonstrate format):
 
 ```markdown
+<!-- ILLUSTRATIVE FILL — the page, the scores and every note below are invented, and the
+     report is abridged to one dimension of eight. It shows the shape, not a result. Replace
+     all of it with the audited page's own findings, and delete this comment. -->
 ## CORE-EEAT Audit Report
 
 ### Overview
@@ -86,22 +89,28 @@ Quick reference for all 80 CORE-EEAT audit items. Full scoring criteria in [core
 
 #### Priority Improvements from C Dimension
 
-1. **C09 FAQ Coverage** -- Confirmed
+1. **FAQ Coverage** -- Confirmed
    - **Finding**: No FAQ section despite clear long-tail potential
    - **Evidence**: no FAQ/Q&A block anywhere on the page; uncovered long-tail queries such as "free PM tools for small remote teams"
    - **Impact**: Fail (0) -> potential gain of 2.5 weighted points
    - **Fix**: Add FAQ with "Are there free PM tools for small remote teams?", "How to migrate between PM tools?", etc.
 
-2. **C02 Direct Answer** -- Confirmed
+2. **Direct Answer** -- Confirmed
    - **Finding**: Core answer not delivered in the first 150 words
    - **Evidence**: answer first appears in the first 300 words; no summary box above the fold
    - **Impact**: Partial (5) -> potential gain of 1.25 weighted points
    - **Fix**: Insert a "Top 3 Picks" callout box in the first 150 words
 
 [... remaining 7 dimensions (O, R, E, Exp, Ept, A, T) follow the same per-item format ...]
-[... anti-slop scan hits (AS-1 to AS-4) are recorded in the notes of the items they evidence: O09, O06, C02, E06, E08, R01, R02, R04, Ept03 ...]
 [... then: Dimension Scores table, Top 5 Priority Improvements (Finding / Evidence / Impact / Fix + confidence label), Action Plan ...]
-
-The follow-up runs are not part of that report — they go in a separate operator block whose
-label sits inside its own fence (SKILL.md, after the report template).
 ```
+
+Two things about that example are for whoever runs the audit, not for the client, which is why
+they sit out here and not in the fence:
+
+- **Anti-slop scan hits go in the Notes column of the items they evidence** — O09, O06, C02,
+  E06, E08, R01, R02, R04, Ept03, the same nine the SKILL.md checkbox lists. In the report each
+  hit is a note against the named item in its own row; a bare run of item IDs is not something
+  a client can read or act on, which is why this list stays out here.
+- **The follow-up runs are not part of that report.** They go in a separate operator block whose
+  label sits inside its own fence — see `SKILL.md`, after the report template.

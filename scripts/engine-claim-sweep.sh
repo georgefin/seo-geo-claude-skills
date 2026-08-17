@@ -29,9 +29,10 @@ cd "$(dirname "$0")/.." || exit 2
 # per F11-r6, so scanning them would fight the convention), `evals/**` (excluded in raw() —
 # a blind executor must never have expectations surfaced to it), root `README.md`,
 # `CLAUDE.md` and `CONNECTORS.md`, and every non-markdown file.
-# The three root files were hand-checked 2026-08-17 with **all six families** — the first note
-# here recorded a P1+P5-only check, which is 2 of 5 and prescribed a 2-of-5 re-check forever.
-# All six over `README.md`, `CLAUDE.md` and `CONNECTORS.md` return **three** hits, none a class
+# The three root files were re-checked 2026-08-17 with **all seven families**, scripted rather
+# than by hand — the first note here recorded a P1+P5-only check, which is 2 of 5 and prescribed
+# a 2-of-5 re-check forever. P7 adds no root-file hit; the count below is unchanged by it.
+# All seven over `README.md`, `CLAUDE.md` and `CONNECTORS.md` return **three** hits, none a class
 # member: `CONNECTORS.md:61` (P1), `README.md:278` (P2, a trigger-phrase table row), and
 # `CONNECTORS.md:24` — `| Reporting | ~~reporting | Google Data Studio, Tableau, Power BI | — |`,
 # which **P6 matches as a false positive**: `Google` … then `Power` inside `\bpowers?\b` 29
@@ -43,13 +44,24 @@ cd "$(dirname "$0")/.." || exit 2
 # when any of the three grows, or add them to DIRS and re-baseline the residual.
 DIRS="build research optimize monitor cross-cutting commands references"
 
-# ── The five shape families ────────────────────────────────────────────────────────────────
+# ── The shape families (seven; P6 added 2026-08-17, P7 the same day) ───────────────────────
 # P1-P4 were each complete against their own vocabulary and still missed six class members.
 # P5 exists only because the sweeper assumed its list was incomplete and tested that
 # assumption: "AI systems prioritize informational answers" matched none of P1-P4, because
 # `prioritize` was in no verb list. A verb-list sweep is bounded by its verb list. Widen these
 # rather than re-derive them, and expect a widened list to find more.
 AG='(AI|LLM|LLMs|engine|engines|systems?|ChatGPT|Perplexity|Gemini|Claude|Google|Copilot|Bing|assistants?|Knowledge Graph|Knowledge Panel|Satori)'
+
+# AG_TOKENS mirrors the alternation above, one entry per branch. It exists so the probe can
+# exercise each token INDIVIDUALLY (F15-r4). Kept in lockstep by an assertion in --probe, not
+# by discipline — a second hand-maintained copy of AG is precisely what drifted before.
+AG_TOKENS='AI LLM LLMs engine engines systems? ChatGPT Perplexity Gemini Claude Google Copilot Bing assistants? Knowledge_Graph Knowledge_Panel Satori'
+
+# Families are built by a FUNCTION rather than assigned once, so that anything needing to vary
+# AG (the probe's token-drop check) rebuilds them from the real definitions. The alternative —
+# restating P1/P5/P6/P7 at the call site — is the hand-copied-list defect this file already
+# paid for once, when a duplicated positive filter silently lost `Copilot` and bare `systems`.
+build_families() {
 
 P1="\b$AG\b[^.!?]{0,40}\b(extracts?|prefers?|cites?|trusts?|values?|needs?|uses?|selects?|favou?rs?|rewards?|wants?|understands?|parses?|reads?|weighs?|weights?|ranks?|picks?|chooses?|looks? for|recogni[sz]es?|verif(y|ies)|treats?|relies|rely|deems?|judges?|synthesi[sz]es?|pulls?)\b"
 P2='(gets? cited|get picked up|is cited|are cited|be cited|being cited|citation likelihood|citation odds|citation chance|likelihood of citation|more likely to (be )?(cite|get|appear|quote)|chances of (being )?cited)'
@@ -65,10 +77,77 @@ P5="\b$AG\b[^.!?|]{0,45}\b(prioriti[sz]es?|prioriti[sz]e|emphasi[sz]es?|discount
 # NOTE it does NOT exclude `|`, unlike P5. Three of its real hits are table rows where the claim
 # spans cells — a two-column "source -> what it powers" table IS the supply claim. Excluding the
 # pipe is the difference between catching 3 of 4 and 4 of 4.
+# Its three alternatives are NAMED, not inlined, so --probe can blank them one at a time.
+# F15-r4 measured that two of the four sites P6 was built to catch sat behind alternatives with
+# no canary: deleting alternative 2 or 3 passed the probe and silently lost three real hits.
+# A canary per family is not a canary per branch.
 SUP='(feeds?|powers?|underpins?|backs?|supplies|supply|fuels?|populates?|trains?|informs?|drives?)'
-P6="\b$SUP\b[^.!?]{0,35}\b$AG\b|\b$AG\b[^.!?]{0,35}\b$SUP\b|\b$AG\b[^.!?]{0,25}(is |are )?(driven|powered|fed|trained|built|backed) by\b"
+P6a="\b$SUP\b[^.!?]{0,35}\b$AG\b"
+P6b="\b$AG\b[^.!?]{0,35}\b$SUP\b"
+P6c="\b$AG\b[^.!?]{0,25}(is |are )?(driven|powered|fed|trained|built|backed) by\b"
+P6="$P6a|$P6b|$P6c"
 
-FAMILIES=("$P1" "$P2" "$P3" "$P4" "$P5" "$P6")
+# ── P7: the engine inside a FRAMING ADJUNCT, no predicate verb at all ──────────────────────
+# P1-P6 all need the engine to be an argument of a verb — subject (P1-P5) or object (P6). A
+# class member can put it in a sentence-initial adjunct and make the claim in the main clause,
+# where no engine verb ever appears: "According to Google, definition blocks matter most",
+# "To an LLM, an unsourced number is worthless", "In Perplexity's view, tables outrank prose".
+# Same assertion about an undocumented internal mechanic, invisible to all six.
+# NARROWED DELIBERATELY to a comma-closed adjunct. The first draft allowed a bare preposition
+# and returned 75 raw hits, almost all "content optimized for AI citation" — which names a GOAL
+# (adjudication reason (e)) and is exactly the corrected form this library wants. Requiring the
+# comma took it to 2 raw hits, both frontmatter `description:` lines already excused at stage 3.
+# MEASURED 2026-08-17 over the seven DIRS: raw +2, **residual +0**, and it catches 6 of 6
+# constructed prepositional shapes. A family that adds no noise is the only kind worth adding.
+P7="(^|[.!?] +|^[^:]*:[0-9]+: *(- |\* |[0-9]+\. )?)(According to|In|To|For|Within|Among|From) (an? |the )?[^,.!?]{0,20}\b$AG\b('s)?[^,.!?]{0,20}, +[a-z]"
+
+# ── KNOWN ESCAPES — shapes ruled ON and DECLINED, each with the measurement that declined it ─
+# Recorded here, not omitted, because the next sweeper will re-derive them and needs to know
+# they were considered. A shape absent from this file reads as a shape nobody thought of.
+#
+#   (i) COPULAR / NOMINAL PREDICATION — "Schema is how engines know what your page is about",
+#       "Statistics are a strong citation signal for LLMs", "A quotable sentence is the unit of
+#       AI citation". Real class members: they assert an engine disposition with no engine verb.
+#       Of four shapes constructed for this ruling, ONE — "Definition blocks are what Google
+#       rewards" — turns out to be caught already, by P1, because `rewards` is in P1's verb
+#       list. The header first recorded all four as escaping; the probe's declined-shape check
+#       contradicted it on its first run. Three genuinely escape, and those three are the
+#       declined set.
+#       DECLINED 2026-08-17 on measurement, not on principle. The drafted regex caught 2 of the
+#       3 genuine escapes and contributed **+1 to the residual over the real tree — a false
+#       positive**: `analysis-templates.md:171`, "Add FAQPage markup only where FAQPage is the
+#       page's one primary type", which is ruling-R2 guidance the library wants. A broader form
+#       fired on the DEFINITION OF SEO ("Search Engine Optimization **is a** practice…", 17 hits)
+#       because `engine` sits inside the term this whole library is about. True-to-false on the
+#       real tree was 0:4. This file's stated failure mode is punishing a corrected line, at a
+#       recorded cost four times in this repo's history; a family whose only measured effect is
+#       to do that is not an improvement. Re-open it when a real instance appears — the four
+#       shapes are in the probe's DECLINED canary block, so the day one lands, the
+#       shapes are already written.
+#
+#  (ii) GREEK — every verb list above is English-only, so all six pre-P7 families and P7 itself
+#       miss «Η Google προτιμά σελίδες με σαφή ορισμό στην αρχή.», which is P1's exact defect in
+#       the language half this library's deliverables are written in. ROUTED, not declined:
+#       measured 2026-08-17, the seven DIRS contain **7 Greek-carrying files outside evals/ and
+#       zero Greek engine-claims** — the Greek there is anti-slop vocabulary rows, keyword
+#       transliteration tables and label examples. Greek engine-claims are not in the repo
+#       because Greek deliverables are not in the repo: they are produced at run time. Scanning
+#       repo text for them would report a clean residual for a surface this instrument never
+#       sees, which is the exact failure the header above was written to prevent. The rule is
+#       carried where the Greek surface is actually governed — anti-slop-ruleset.md §6, which
+#       is already bilingual and is graded by the Greek editor. See that file's family 9.
+#       A Greek branch here would additionally have no locale it could run in: measured in this
+#       environment (GNU grep 3.11), `grep -P '[\x{0370}-\x{03FF}]'` **exits 2** under C, POSIX
+#       *and* en_US.UTF-8, working only under C.UTF-8, while the POSIX range `[α-ω]` does the
+#       exact opposite — matches by byte under C/POSIX/en_US.UTF-8 and aborts under C.UTF-8.
+#       The two methods fail in complementary locales and **there is no locale in which both
+#       work**. The first Greek census run for this ruling used the PCRE form and reported
+#       "0 files carry Greek" when 30 do; it was caught only by cross-checking with fixed
+#       strings. Any Greek matching in this repo uses fixed literals. Never a range.
+
+FAMILIES=("$P1" "$P2" "$P3" "$P4" "$P5" "$P6" "$P7")
+}
+build_families
 
 raw() {
   local i
@@ -197,7 +276,41 @@ Adding statistics improves the chance of AI citation.
 What AI checks first is the opening paragraph.
 Copilot prioritizes pages with a clear definition block.
 Wikidata feeds the Knowledge Graph.
+According to Google, definition blocks matter most.
 CANARY
+
+    # AG-TOKEN CANARIES (F15-r4). The family canaries above exercise five of AG's seventeen
+    # branches. Measured 2026-08-17 over the real tree, dropping `Google` from AG takes the
+    # residual 59 -> 48, dropping `AI` takes it to 39, dropping `engine` to 51 — and the probe
+    # passed through every one of those, because no canary named those tokens. A component list
+    # gets the same treatment as a family list: one canary per branch, each load-bearing.
+    # Five branches (ChatGPT, Perplexity, Gemini, LLM, LLMs) contribute 0 to the real residual
+    # and are canaried anyway — a token carrying nothing today is exactly the token a future
+    # narrowing deletes without noticing.
+    : > "$tmp/research/probe/agcanary.md"
+    for t in $AG_TOKENS; do
+      printf '%s prefers tables over prose.\n' "$(printf '%s' "$t" | tr '_' ' ' | sed 's/?$//')" \
+        >> "$tmp/research/probe/agcanary.md"
+    done
+
+    # P6 BRANCH CANARIES (F15-r4, second half). One line per named alternative, each matching
+    # exactly one of them and no other family.
+    cat > "$tmp/research/probe/branchcanary.md" <<'BRANCH'
+Structured data populates the Knowledge Panel.
+The Knowledge Graph informs the answer box.
+The Knowledge Panel is powered by Wikidata.
+BRANCH
+
+    # DECLINED SHAPES (see "KNOWN ESCAPES" (i) above). These are real class members that no
+    # family catches, recorded so the shapes are not re-derived from scratch. The probe does not
+    # fail on them — it NOTES if one starts being caught, which means a new family landed and
+    # the header's declined-with-measurement note is now stale and must be rewritten.
+    cat > "$tmp/research/probe/declined.md" <<'DECLINED'
+Schema is how engines know what your page is about.
+Statistics are a strong citation signal for LLMs.
+A quotable sentence is the unit of AI citation.
+DECLINED
+    ndecw=3
     printf 'Gemini prefers listicles above all else.\n' > "$tmp/build/probe/evals/evals.md"
     printf 'Perplexity trusts .edu domains most.\n'     > "$tmp/build/probe/notmarkdown.txt"
 
@@ -207,9 +320,10 @@ CANARY
     # (1) EXCLUSIVITY + LOAD-BEARING: blanking family N must drop EXACTLY ONE canary from the
     #     FINAL output. Fewer means that family had no canary of its own (v2's P3 bug);
     #     more means a canary is not exclusive and the count cannot localise a break.
+    nfam=${#ORIG[@]}
     base=$(raw | adjudicate | grep -c 'probe/canary\.md' || true)
-    [ "$base" -eq 6 ] || { echo "PROBE FAIL — $base/6 canaries reach the FINAL output"; fail=1; }
-    for n in 0 1 2 3 4 5; do
+    [ "$base" -eq "$nfam" ] || { echo "PROBE FAIL — $base/$nfam canaries reach the FINAL output"; fail=1; }
+    for n in $(seq 0 $((nfam - 1))); do
       FAMILIES=("${ORIG[@]}"); FAMILIES[$n]=""
       got=$(raw | adjudicate | grep -c 'probe/canary\.md' || true)
       if [ "$got" -ne $((base - 1)) ]; then
@@ -218,6 +332,57 @@ CANARY
       fi
     done
     FAMILIES=("${ORIG[@]}")
+
+    # (1b) AG-TOKEN LOAD-BEARING (F15-r4). Same treatment for the shared token list: drop each
+    #      branch of AG in turn and require exactly one AG-canary to fall out. Families are
+    #      REBUILT from the modified AG via build_families() rather than restated here.
+    AG_ORIG="$AG"
+    ntok=$(printf '%s\n' $AG_TOKENS | grep -c '')
+    agbase=$(raw | adjudicate | grep -c 'probe/agcanary\.md' || true)
+    if [ "$agbase" -ne "$ntok" ]; then
+      echo "PROBE FAIL — $agbase/$ntok AG-token canaries reach the FINAL output; AG_TOKENS and AG disagree"
+      fail=1
+    fi
+    for t in $AG_TOKENS; do
+      lit="$(printf '%s' "$t" | tr '_' ' ')"
+      # `?` is an ERE quantifier, so an unescaped `systems?` asks sed for "system"/"systems" —
+      # neither of which is in AG, whose literal text is `systems?`. The probe's own first run
+      # reported both optional-plural branches as drift. Escape before matching.
+      esc="$(printf '%s' "$lit" | sed 's/[^A-Za-z0-9 ]/\\&/g')"
+      AG="$(printf '%s' "$AG_ORIG" | sed -E "s/\|${esc}\|/|/; t; s/\(${esc}\|/(/; t; s/\|${esc}\)/)/")"
+      if [ "$AG" = "$AG_ORIG" ]; then
+        echo "PROBE FAIL — AG_TOKENS lists '$lit' but it is not a branch of AG; the mirror has drifted"
+        fail=1; AG="$AG_ORIG"; build_families; continue
+      fi
+      build_families
+      got=$(raw | adjudicate | grep -c 'probe/agcanary\.md' || true)
+      [ "$got" -eq $((agbase - 1)) ] || {
+        echo "PROBE FAIL — dropping AG branch '$lit' changed the count $agbase -> $got (expected $((agbase-1))); that token has no exclusive canary"
+        fail=1; }
+      AG="$AG_ORIG"; build_families
+    done
+    ORIG=("${FAMILIES[@]}")
+
+    # (1b2) P6 BRANCH LOAD-BEARING (F15-r4, second half): blank each named alternative in turn
+    #       and require exactly one branch canary to fall out.
+    brbase=$(raw | adjudicate | grep -c 'probe/branchcanary\.md' || true)
+    [ "$brbase" -eq 3 ] || { echo "PROBE FAIL — $brbase/3 P6 branch canaries reach the FINAL output"; fail=1; }
+    P6a_O="$P6a"; P6b_O="$P6b"; P6c_O="$P6c"
+    for b in a b c; do
+      P6a="$P6a_O"; P6b="$P6b_O"; P6c="$P6c_O"
+      case "$b" in a) P6a="(?!)x^" ;; b) P6b="(?!)x^" ;; c) P6c="(?!)x^" ;; esac
+      FAMILIES[5]="$P6a|$P6b|$P6c"
+      got=$(raw | adjudicate | grep -c 'probe/branchcanary\.md' || true)
+      [ "$got" -eq $((brbase - 1)) ] || {
+        echo "PROBE FAIL — neutering P6 alternative $b changed the count $brbase -> $got (expected $((brbase-1))); that alternative has no exclusive canary"
+        fail=1; }
+    done
+    P6a="$P6a_O"; P6b="$P6b_O"; P6c="$P6c_O"; FAMILIES=("${ORIG[@]}")
+
+    # (1c) DECLINED SHAPES: advisory. Not a failure either way — a NOTE that the header is stale.
+    ndec=$(raw | adjudicate | grep -c 'probe/declined\.md' || true)
+    [ "$ndec" -eq 0 ] && dec_msg="0/$ndecw declined shapes caught (matches the KNOWN ESCAPES (i) note)" \
+                      || dec_msg="NOTE — $ndec/$ndecw declined shapes are now CAUGHT; rewrite the KNOWN ESCAPES (i) note, it is stale"
 
     # (2) PIPELINE INTEGRITY: the exclusions are part of the net, not decoration.
     raw | grep -q '/evals/'   && { echo "PROBE FAIL — /evals/ exclusion not applied"; fail=1; }
@@ -239,8 +404,20 @@ CANARY
     [ "$(raw | grep -c '')" -gt 0 ] || { echo "PROBE FAIL — raw() returned 0 over the real tree"; fail=1; }
 
     if [ "$fail" -eq 0 ]; then
-      echo "PROBE PASS — 6/6 exclusive canaries through the full pipeline, each family load-bearing,"
-      echo "             exclusions applied, wanted line excused, DIRS equals the declared scope."
+      echo "PROBE PASS — $base/$nfam exclusive family canaries, $agbase/$ntok exclusive AG-token canaries"
+      echo "             and $brbase/3 exclusive P6-alternative canaries through the full pipeline, each"
+      echo "             load-bearing; exclusions applied, wanted line excused, DIRS equals the scope."
+      echo "             $dec_msg"
+      echo
+      echo "WHAT THIS PROBE DOES NOT PROTECT (state it, per F15-r4):"
+      echo "  · The VERB LISTS inside P1, P3, P4 and P5 are unguarded at branch level. Each family"
+      echo "    has one canary exercising one verb; deleting any other verb passes. P6 is guarded"
+      echo "    per alternative because it has three structurally distinct ones, not because verb"
+      echo "    coverage was solved. A canary per verb would be ~90 canaries testing a list that is"
+      echo "    known-incomplete by construction — P5 exists only because P1-P4's lists were."
+      echo "  · The ADJUDICATED / MARKERS / SHAPES / MEASURED excuse lists are guarded by exactly"
+      echo "    one negative control. Widening any of them to swallow a real finding passes."
+      echo "  · Nothing here validates that a residual line IS a defect. This script narrows."
     else
       echo "PROBE FAILED"; exit 1
     fi

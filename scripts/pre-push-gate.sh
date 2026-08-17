@@ -54,6 +54,18 @@ fi
 echo "== validate-tracking (repo-level)"
 bash "$ROOT/scripts/validate-tracking.sh" "$ROOT" || overall=1
 
+echo "== fence-nesting-check (rendered-shape integrity)"
+# Wired in immediately rather than run advisory for a week, unlike engine-claim-sweep.sh.
+# The distinction is the failure mode. That sweep's risk is punishing a corrected line — it
+# needs human eyes on its output before it gets a veto. This one has no judgment in it: a
+# fence is either closed by CommonMark's rule or it is not, the probe carries a negative
+# control, and it returned 0 findings across all 230 files once the two real defects were
+# fixed. It found those two in SKILL.md files that passed validate-skill.sh at 15/15.
+bash "$ROOT/scripts/fence-nesting-check.sh" >/dev/null 2>&1 || {
+    bash "$ROOT/scripts/fence-nesting-check.sh"
+    overall=1
+}
+
 echo "== claims-gate (F11 register drafting integrity)"
 # Scope decision (G5 wiring, 2026-08-09): no base arg — claims-gate resolves
 # @{upstream}, gating each push's NEW outgoing register drafting. Pre-gate

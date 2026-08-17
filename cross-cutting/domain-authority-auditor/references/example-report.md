@@ -12,6 +12,10 @@ part of what it is demonstrating.
 **Output**:
 
 ```markdown
+<!-- ILLUSTRATIVE FILL — cloudhosting.example is invented and so is every figure below; nobody
+     measured any of it. It is here to show the shape of a finished report and what each
+     derived number has to recompute from. Replace all of it with the audited domain's own
+     measured data, and delete this comment. -->
 ## CITE Domain Authority Report
 
 ### Overview
@@ -52,23 +56,23 @@ part of what it is demonstrating.
 Sorted by: weight × points lost (highest impact first). Potential gain = recoverable points
 (10 from Fail, 5 from Partial) × that dimension's weight.
 
-1. **C05 AI Citation Frequency** — Increase citations in AI-generated answers
+1. **AI Citation Frequency** — Increase citations in AI-generated answers
    - Current: Partial | Potential gain: 5 × 40% = 2.0 weighted points | Evidence: graded Partial in the dimension table above | Confidence: Likely (sampled AI answers, not exhaustive)
    - Action: Optimize top 10 pages for GEO; add definitive statements that still say something true when lifted out of their paragraph
 
-2. **I01 Knowledge Graph Presence** — Create entity entry in Google Knowledge Graph
+2. **Knowledge Graph Presence** — Create entity entry in Google Knowledge Graph
    - Current: Fail | Potential gain: 10 × 15% = 1.5 weighted points | Evidence: graded Fail in the dimension table above (no entity entry found) | Confidence: Confirmed
    - Action: Create Wikidata entry for CloudHost Inc. with P856 (website), P452 (industry), P571 (inception)
 
-3. **T08 Content Freshness Signal** — 40% of content is >12 months without update
+3. **Content Freshness Signal** — 40% of content is >12 months without update
    - Current: Partial | Potential gain: 5 × 20% = 1.0 weighted points | Evidence: content inventory, 40% of URLs >12 months old | Confidence: Confirmed
    - Action: Establish monthly content refresh schedule; prioritize top 20 traffic pages
 
-4. **I03 Brand SERP Ownership** — Branded SERP shows only 4 of 10 results from owned properties
+4. **Brand SERP Ownership** — Branded SERP shows only 4 of 10 results from owned properties
    - Current: Partial | Potential gain: 5 × 15% = 0.75 weighted points | Evidence: branded-SERP scan, 4 of 10 results owned | Confidence: Confirmed
    - Action: Claim Google Business Profile; build out social profiles; create CrunchBase entry
 
-5. **I04 Schema.org Coverage** — Organization schema present but incomplete: sameAs, founder and foundingDate absent
+5. **Schema.org Coverage** — Organization schema present but incomplete: sameAs, founder and foundingDate absent
    - Current: Partial | Potential gain: 5 × 15% = 0.75 weighted points | Evidence: markup crawl, properties absent from Organization schema | Confidence: Confirmed
    - Action: Add complete Organization schema with sameAs links to Wikidata, LinkedIn, CrunchBase
 
