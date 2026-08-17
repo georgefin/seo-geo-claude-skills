@@ -85,9 +85,9 @@ Quick reference for all 80 CORE-EEAT audit items. Full scoring criteria in [core
 | C09 | FAQ Coverage       | Fail    | 0      | No FAQ section despite long-tail potential ("free PM tools for small teams") — Confirmed |
 | C10 | Semantic Closure   | Partial | 5      | Conclusion present but doesn't loop back to opening promise — Confirmed |
 
-**C Dimension Score**: 75/100 (Good)
+6 Pass · 3 Partial · 1 Fail = 75 points over 10 scored items → **C Dimension Score**: 75/100 (Good)
 **Blog Post weight for C**: 25%
-**Weighted contribution**: 18.75
+**Weighted contribution**: 75 × 25% = 18.75
 
 #### Priority Improvements from C Dimension
 
@@ -96,7 +96,7 @@ Sorted by weight × points lost, with dependencies respected.
 1. **FAQ Coverage** -- Confirmed
    - **Finding**: No FAQ section despite clear long-tail potential
    - **Evidence**: no FAQ/Q&A block anywhere on the page; uncovered long-tail queries such as "free PM tools for small remote teams"
-   - **Impact**: Fail (0) -> potential gain of 2.5 weighted points
+   - **Impact**: Fail -> 100 ÷ 10 scored items × 25% = potential gain of 2.5 weighted points
    - **Fix**: Add a visible FAQ block answering "Are there free PM tools for small remote teams?" and "How do you migrate between PM tools?"
    - **Owner**: Content · **Effort**: Medium · **Depends on**: none
    - **Done when**: the live page carries a visible question-and-answer block of at least 4 pairs, each answering a distinct query, checked on the production URL
@@ -105,7 +105,7 @@ Sorted by weight × points lost, with dependencies respected.
 2. **Direct Answer** -- Confirmed
    - **Finding**: Core answer not delivered in the first 150 words
    - **Evidence**: answer first appears in the first 300 words; no summary box above the fold
-   - **Impact**: Partial (5) -> potential gain of 1.25 weighted points
+   - **Impact**: Partial -> 50 ÷ 10 scored items × 25% = potential gain of 1.25 weighted points
    - **Fix**: Insert a "Top 3 Picks" callout box in the first 150 words
    - **Owner**: Content · **Effort**: Quick · **Depends on**: none
    - **Done when**: the first 150 words of the live page name the three picks and say who each is for, readable without scrolling on mobile
@@ -127,9 +127,15 @@ Ordered by weighted gain ÷ effort with dependencies respected. Effort bands: Qu
 | 5 | Commission a hands-on trial of the three lead tools so the page can carry original findings | Client decision | A dated test note exists naming the tester, the method and the results, and the findings are published on the page | not estimated -- the Exclusivity dimension is not scored in this abridged example | Strategic | budget, and trial accounts on all three tools | medium -- findings published without a stated method are not evidence and invite a correction |
 ```
 
-Two things about that example are for whoever runs the audit, not for the client, which is why
+Three things about that example are for whoever runs the audit, not for the client, which is why
 they sit out here and not in the fence:
 
+- **The `÷ 10 scored items` in those two Impact lines is this example's number, not a constant.**
+  Nothing in the C dimension here is N/A, so the divisor is 10 and the gain happens to equal
+  recoverable points × weight. In any dimension where N/A shrank the count it does not: a
+  Fail→Pass at 6 scored items is worth `100 ÷ 6 = 16.67` dimension points, not 10, and a gain
+  priced without the divisor understates it by 40%. Copy the three-factor shape, never the 10 —
+  `SKILL.md` Step 4 and [score-arithmetic.md](./score-arithmetic.md) § 5 state the rule.
 - **Anti-slop scan hits go in the Notes column of the items they evidence** — O09, O06, C02,
   E06, E08, R01, R02, R04, Ept03, the same nine the SKILL.md checkbox lists. In the report each
   hit is a note against the named item in its own row; a bare run of item IDs is not something

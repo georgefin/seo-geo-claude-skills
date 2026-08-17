@@ -65,9 +65,18 @@ something slipped between the item table and the score line.
 | 72 | 10 | 14.4 | impossible — no ten-item tally produces 72 |
 | 87.5 | 8 | 14 | possible — 7 Pass + 1 Fail, or 6 Pass + 2 Partial (70 points over 80) |
 | 66.67 | 9 | 12.0006 → 12 within rounding | possible — 6 Pass + 3 Fail (60 points over 90) |
+| 55.56 | 9 | 10.0008 → 10 within rounding | possible — 4 Pass + 2 Partial (50 points over 90) — **and still wrong** if the table beneath it shows 3 Pass + 2 Partial + 4 Fail, which is 40 points over 90 = 44.44 |
 
 `k` fixes the point total, not the split: the 87.5 row shows two different tallies behind one
 score. Confirm the split against the item table, not against `k`.
+
+**The last row is the reason §7 opens with a recount and not with this check.** A tally that
+miscounts one grade almost always lands on some *other* reachable tally, so its score is
+attainable, `k` is a whole number, and this screen passes it. Only counting the rows catches it.
+The cost of not counting is not a decimal: in a measured blind run of this skill on 2026-08-17,
+that single 44.44-for-55.56 substitution in one 11.76%-weighted dimension carried a weighted
+total of 39.80 up to 41.11 — across the 40 floor of the Low band, so the report printed a
+rating its own item tables did not reach.
 
 **Rounding is the one legitimate exception.** 50/n does not terminate for n = 3, 6, 7 or 9, so
 an exact score such as 200/3 prints as 66.67 and fails a strict whole-number test. Run the
@@ -94,10 +103,23 @@ reads it. Authority dimension, 8 items N/A for want of site-level data, Brand Re
 re-normalised to sum to 100% (SKILL.md N/A Item Handling, rules 4–5). The 75.0 above is the
 dimension score; it is not carried into the weighted total.
 
-State the denominator beside the score, so the reader can apply §3 without reconstructing it:
-`A Score: 75/100 — 15 points over 2 scored items; A01–A04, A06, A08–A10 N/A (requires
-site-level data)`. Scored + N/A = 10 in every dimension and 80 across the report, and the N/A
-list in the prose has to match the N/A rows in the tables.
+State the denominator beside the score, so the reader can apply §3 without reconstructing it —
+**as a count and a reason, never as a list of item IDs**:
+
+`Authority: 75/100 — 15 points over 2 scored items; the other 8 could not be evaluated (they
+need site-level data we were not given)`
+
+The reader learns how many items were scored, how many were excluded and why, which is what the
+line exists to do. *Which* eight is already on the page: each sits in its own row of the tables
+above, beside its plain-language name. A bare run of IDs in prose — `A01–A04, A06, A08–A10` —
+is the referent form SKILL.md's Output Validation bans, because no plain-language name sits
+against any of them and a client cannot act on it. Where the operator needs the IDs themselves,
+to hand the run on or to hold the same denominators next quarter, they go in the labelled
+`<!-- OPERATOR BLOCK … -->` fence in the hyphenated framework-first form (`CORE-EEAT-A01`),
+never in the client's prose.
+
+Scored + N/A = 10 in every dimension and 80 across the report, and the count and reason in the
+prose have to match the N/A rows in the tables — same number of rows, same reason.
 
 ## 5. GEO, SEO and weighted figures
 
@@ -113,9 +135,17 @@ list in the prose has to match the N/A rows in the tables.
 - **Potential gain** = the dimension points an item recovers × that dimension's weight.
   Recovering an item is worth 10 dimension points only when the dimension has all ten items
   scored; with `n` scored items a Fail→Pass flip moves the dimension score by `100/n` and a
-  Partial→Pass flip by `50/n`. In the Authority example above, no fix inside A moves the
-  weighted total at all while A is excluded as Insufficient Data — the fix that pays there is
-  supplying the missing site-level data, not raising an item.
+  Partial→Pass flip by `50/n`. **Show all three factors on the Impact line** — the 100 or 50,
+  the scored-item count it is divided by, and the weight it is multiplied by — so the rescale is
+  visible where the number is written rather than only here. In the Authority example above, no
+  fix inside that dimension moves the weighted total at all while it is excluded as Insufficient
+  Data — the fix that pays there is supplying the missing site-level data, not raising an item.
+- **The rating band is read off the final figure, and the published bands have whole-number
+  endpoints** (90–100 Excellent · 75–89 Good · 60–74 Medium · 40–59 Low · 0–39 Poor). A computed
+  total can therefore land between two of them — 39.80 is above the Poor range's 39 and below
+  the Low range's 40 — and such a figure is **never given the name of the band above it**. Print
+  the figure with enough precision beside the band that a reader can see which side of the
+  boundary it fell on. The band is a label on the arithmetic, never a way of nudging it.
 - These multiples are screens, not verdicts. They catch a slipped figure; they never certify
   one. The check that always applies is recomputing each figure from the numbers printed above
   it.
@@ -136,16 +166,26 @@ list in the prose has to match the N/A rows in the tables.
 
 Run this against the finished report, not against the working notes:
 
-1. Each dimension score recomputes from its own item table and is an attainable value for its
-   scored-item count (§2–§3).
-2. Scored + N/A = 10 in each dimension and 80 in the report; the prose N/A list matches the
-   tables.
+1. Each dimension score recomputes from its own item table — **count the Pass/Partial/Fail rows,
+   never read the tally sentence beside them** — and any tally line agrees with the table it
+   summarises. The score is then an attainable value for its scored-item count (§2–§3).
+   **The attainability screen does not stand in for the recount**: a miscounted tally is usually
+   itself a possible tally, so its score is attainable and the screen passes it (§3, last row).
+2. Scored + N/A = 10 in each dimension and 80 in the report; every prose statement of how many
+   items were not evaluated, and why, matches the N/A rows in the tables it describes — a count
+   and a reason, not a list of item IDs (§4).
 3. Every dimension with more than 5 N/A items is flagged Insufficient Data, excluded from the
    weighted total, and the remaining weights are renormalised to 100%.
 4. GEO = mean of the four printed CORE scores; SEO = mean of the four printed EEAT scores; the
    weighted total reproduces from the printed dimension scores and weights.
 5. If a veto fired: the reported final is the cap or is suppressed, and any uncapped figure is
    labelled as such.
-6. Every Top 5 gain equals recovered dimension points × weight, the list is sorted descending
-   by that figure, and a combined claim equals the sum of the gains it aggregates.
-7. Where a sentence and a table disagree, the table wins — fix the sentence.
+6. Every Top 5 gain equals `100/n × weight` for a Fail→Pass and `50/n × weight` for a
+   Partial→Pass, where `n` is that dimension's scored-item count (§5) — **all three factors
+   shown on the Impact line**, so the rescale is visible where the number is written and the
+   abbreviation "recovered dimension points × weight" cannot be read as the flat form. The list
+   is sorted descending by that figure, and a combined claim equals the sum of the gains it
+   aggregates.
+7. Where a sentence and a table disagree, the table wins — fix the sentence, and check whether
+   the figures downstream of it (the dimension score, GEO, SEO, the weighted total and the
+   rating band beside it) moved when it changed.

@@ -1,6 +1,6 @@
 ---
 name: content-quality-auditor
-version: "4.5.0"
+version: "4.6.0"
 description: 'Run the full 80-item CORE-EEAT audit across 8 dimensions with content-type weighted scoring, veto checks, and prioritized fix plans. Use when the user asks to "audit content quality", "EEAT score", "CORE-EEAT audit", "content quality check", "how good is my content", "content improvement plan", "is my content AI-citation worthy", "GEO quality score". For SEO page element audits, see on-page-seo-auditor. For domain-level authority, see domain-authority-auditor.'
 license: Apache-2.0
 allowed-tools: WebFetch
@@ -8,7 +8,7 @@ compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, 
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.5.0"
+  version: "4.6.0"
   geo-relevance: "high"
   tags:
     - seo
@@ -157,10 +157,10 @@ Score each item:
 | ... | ... | ... | ... |
 | C10 | Semantic Closure | Pass/Partial/Fail | [observation — on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
 
-**C Score**: [X]/100
+[P] Pass · [Q] Partial · [F] Fail = [points] over [n] scored items → **C Score**: [X]/100
 ```
 
-Repeat the same table format for **O** (Organization), **R** (Referenceability), and **E** (Exclusivity), scoring all 10 items per dimension.
+Count that tally line off the rows you just wrote, every time — never off the tally you expected to write. Where a tally line and its table disagree, **the table wins**: fix the line, then re-derive everything downstream of it (the dimension score, GEO, SEO, the weighted total, and the rating band beside the total). Repeat the same table format for **O** (Organization), **R** (Referenceability), and **E** (Exclusivity), scoring all 10 items per dimension.
 
 ### Step 3: EEAT Audit (40 items)
 
@@ -173,7 +173,7 @@ Repeat the same table format for **O** (Organization), **R** (Referenceability),
 | Exp01 | First-Person Narrative | Pass/Partial/Fail | [observation — on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
 | ... | ... | ... | ... |
 
-**Exp Score**: [X]/100
+[P] Pass · [Q] Partial · [F] Fail = [points] over [n] scored items → **Exp Score**: [X]/100
 ```
 
 Repeat the same table format for **Ept** (Expertise), **A** (Authority), and **T** (Trust), scoring all 10 items per dimension.
@@ -219,9 +219,9 @@ you were not given):
 
 The worked case — an Authority dimension with 8 items N/A and 2 scored, the correct denominator against the wrong one, and what "Insufficient Data" then does to the weighted total — is in [references/score-arithmetic.md](./references/score-arithmetic.md) § 4.
 
-**Attainable dimension scores — check before printing.** Every scored item earns 10, 5, or 0, so a dimension score is always an exact multiple of `50 / (number of scored items)` — a multiple of 5 over 10 scored items (0, 5, 10 … 100), of 10 over 5 scored items, of 25 over 2 (0, 25, 50, 75, 100). No value between two of those steps can be produced by any tally. The full step table for every scored-item count is in [references/score-arithmetic.md](./references/score-arithmetic.md) § 2.
+**Attainable dimension scores — check before printing.** Every scored item earns 10, 5, or 0, so a dimension score is always an exact multiple of `50 / (number of scored items)` — a multiple of 5 over 10 scored items (0, 5, 10 … 100), of 10 over 5 scored items, of 25 over 2 (0, 25, 50, 75, 100). No value between two of those steps can be produced by any tally. The full step table for every scored-item count is in [references/score-arithmetic.md](./references/score-arithmetic.md) § 2. Reverse check on a printed score: `score x scored items / 50` must be a whole number, and that number equals (2 x Passes) + Partials. A dimension with 2 scored items printing 75 checks out — 75 x 2 / 50 = 3 = (2 x 1 Pass) + 1 Partial. A fractional result means the tally slipped: 65 over 2 scored items gives 2.6, so 65 is not a score this scale can produce. Rounding is the one legitimate exception (50 / scored items does not always give a terminating decimal — 9, 7, 6 and 3 scored items do not), and the full derivation, the same check for GEO/SEO and weighted figures, and the veto outcomes that sit outside the arithmetic are in [references/score-arithmetic.md](./references/score-arithmetic.md). **But both checks above are screens, and neither is the recount.** A miscounted tally is almost always itself a *possible* tally, so its score is attainable, the reverse check returns a whole number, and both screens pass it — 55.56 over 9 scored items is exactly what 4 Pass + 2 Partial gives, and says nothing about whether the table beneath it holds 4 Passes. **Step 4 is not finished until the pre-send recompute pass has been run against the finished report**, not against the working notes ([references/score-arithmetic.md](./references/score-arithmetic.md) § 7): every dimension score recounted off the Pass/Partial/Fail rows of its own item table; every tally line agreeing with the table it summarises; GEO and SEO each the mean of the four dimension scores as printed; the weighted total reproduced from the printed dimension scores and printed weights, with renormalised weights summing to 100%; and the rating beside the total being the band that total falls in on the scale the report itself prints. Where a sentence and a table disagree, **the table wins** — fix the sentence, then re-derive everything downstream of it, because one dimension moving carries GEO, the weighted total and its rating band with it.
 
-Reverse check on a printed score: `score x scored items / 50` must be a whole number, and that number equals (2 x Passes) + Partials. A dimension with 2 scored items printing 75 checks out — 75 x 2 / 50 = 3 = (2 x 1 Pass) + 1 Partial. A fractional result means the tally slipped: 65 over 2 scored items gives 2.6, so 65 is not a score this scale can produce. Rounding is the one legitimate exception (50 / scored items does not always give a terminating decimal — 9, 7, 6 and 3 scored items do not), and the full derivation, the same check for GEO/SEO and weighted figures, and the veto outcomes that sit outside the arithmetic are in [references/score-arithmetic.md](./references/score-arithmetic.md).
+**Potential gain** = the dimension points an item recovers × that dimension's weight. Recovering an item is worth 10 dimension points only when the dimension has all ten items scored; with `n` scored items a Fail→Pass flip moves the dimension score by `100/n` and a Partial→Pass flip by `50/n`. **Show all three factors on the Impact line** — the 100 or 50, the scored-item count it is divided by, and the weight it is multiplied by — so the rescale is visible where the number is written. A dimension excluded as Insufficient Data has no gain to show at all: nothing inside it moves the weighted total, and the fix that pays there is supplying the missing data, not raising an item.
 
 ```markdown
 <!-- SKELETON — the client's report. Every [bracket] is a slot: fill it from this audit's own
@@ -254,6 +254,7 @@ Reverse check on a printed score: `score x scored items / 50` must be a whole nu
 | **Weighted Total** | | | | **[X]/100** |
 
 **Score Calculation**:
+- Dimension score = points earned ÷ (10 × scored items) × 100, counted from that dimension's own rows above
 - GEO Score = (C + O + R + E) / 4
 - SEO Score = (Exp + Ept + A + T) / 4
 - Weighted Score = Σ (dimension_score × content_type_weight)
@@ -286,7 +287,7 @@ Sorted by: weight × points lost (highest impact first), with dependencies respe
 1. **[Name]** — [Confirmed / Likely / Hypothesis]
    - **Finding**: [what is wrong, one sentence]
    - **Evidence**: [verbatim quote or measurement from the content; for Likely/Hypothesis, the indirect signal plus the step that would confirm it]
-   - **Impact**: [Fail/Partial] → potential gain of [X] weighted points
+   - **Impact**: [Fail/Partial] → [100 for a Fail, 50 for a Partial] ÷ [that dimension's scored-item count] × [that dimension's weight] = potential gain of [X] weighted points
    - **Fix**: [one imperative sentence naming the artefact and the change]
    - **Owner**: [role] · **Effort**: [Quick / Medium / Strategic] · **Depends on**: [named blocker, or "none"]
    - **Done when**: [observable, binary, attached to a named artefact or measurement, dated or triggered]
@@ -331,10 +332,11 @@ Drop any row whose run this audit did not actually motivate; a standing list of 
 
 ### Output Validation
 - [ ] All 80 items scored (or marked N/A with reason)
-- [ ] All 8 dimension scores calculated correctly, and each is an attainable value for its scored-item count (an exact multiple of 50 / scored items — see N/A Item Handling)
-- [ ] Weighted total matches content-type weight configuration
+- [ ] **Pre-send recompute pass run against the finished report** (Step 4; § 7 of the score-arithmetic reference): every one of the 8 dimension scores recounted off the Pass/Partial/Fail rows of its own item table, and every tally line agreeing with the table it summarises. **The attainable-value screen does not stand in for this recount** — each score is also an exact multiple of 50 / scored items (see N/A Item Handling), but a miscounted tally is usually itself a possible tally, so it clears that screen and only the recount catches it
+- [ ] Weighted total matches content-type weight configuration and reproduces from the printed dimension scores and printed weights (renormalised weights sum to 100%); GEO and SEO are each the mean of the four dimension scores as printed; the rating beside the total is the band that total falls in on the scale the report prints. The published bands have whole-number endpoints, so a figure can land between two of them — 39.80 is above the Poor range's 39 and below the Low range's 40 — and such a figure is **never given the name of the band above it**, and is printed with enough precision that a reader can see which side of the boundary it fell on
+- [ ] Every prose statement of how many items were not evaluated, and why, matches the N/A rows in the tables it describes — a count and a reason, never a list of item IDs
 - [ ] Veto items checked and flagged if triggered; consequence applied (one veto = cap at 59, two+ = BLOCK, unassessable = no final score); T04 marked N/A when no material connection exists
-- [ ] Top 5 improvements sorted by weighted impact, not arbitrary
+- [ ] Top 5 improvements sorted by weighted impact, not arbitrary, and every potential gain shows all three factors and recomputes from them — `100/n` for a Fail→Pass or `50/n` for a Partial→Pass, where `n` is that dimension's scored-item count, × that dimension's weight; a combined claim equals the sum of the gains it aggregates, and a dimension excluded as Insufficient Data carries no gain at all
 - [ ] Every recommendation is specific and actionable (not generic advice)
 - [ ] Action plan includes concrete steps with effort estimates
 - [ ] Every recommended action — each Top 5 entry and every Action Plan row — carries all seven fields (action, owner, acceptance criterion, expected impact, effort, dependencies, risk if done wrong), with a stated-absence value wherever an answer does not exist (`not estimated — no baseline data`, `none`, `low — reversible, no downstream effect`); no action ships without an owner-role and an acceptance criterion, the owner is a role from the closed list (`Client decision` and `unassigned — needs an owner` both count, the second being itself a finding), and where an action appears in both views its fields say the same thing
