@@ -94,11 +94,41 @@
     "schema_note": "summary.passed/failed/total/pass_rate per F16-r1(c). Verified with scripts/eval-corpus-report.sh before reporting. NOTE for the corpus reader: the prior record for this same suite (blind-2026-08-10/technical.json) uses the wave-a `totals.pass/fail/total` shape. This record does not reintroduce it."
   },
   "per_eval": {
-    "1": {"passed": 6, "failed": 0, "editor_pending": 0, "instrument_defect": 0, "total": 6},
-    "2": {"passed": 6, "failed": 0, "editor_pending": 0, "instrument_defect": 0, "total": 6},
-    "3": {"passed": 5, "failed": 0, "editor_pending": 1, "instrument_defect": 0, "total": 6},
-    "4": {"passed": 4, "failed": 0, "editor_pending": 0, "instrument_defect": 0, "total": 4},
-    "5": {"passed": 6, "failed": 0, "editor_pending": 0, "instrument_defect": 0, "total": 6}
+    "1": {
+      "passed": 6,
+      "failed": 0,
+      "editor_pending": 0,
+      "instrument_defect": 0,
+      "total": 6
+    },
+    "2": {
+      "passed": 6,
+      "failed": 0,
+      "editor_pending": 0,
+      "instrument_defect": 0,
+      "total": 6
+    },
+    "3": {
+      "passed": 5,
+      "failed": 0,
+      "editor_pending": 1,
+      "instrument_defect": 0,
+      "total": 6
+    },
+    "4": {
+      "passed": 4,
+      "failed": 0,
+      "editor_pending": 0,
+      "instrument_defect": 0,
+      "total": 4
+    },
+    "5": {
+      "passed": 6,
+      "failed": 0,
+      "editor_pending": 0,
+      "instrument_defect": 0,
+      "total": 6
+    }
   },
   "expectations": [
     {
@@ -407,9 +437,26 @@
         "where": "e1.md L47",
         "severity": "informational",
         "defect": "The trailing-slash problem is scored twice — once as 'Valid syntax ⚠️' (a precision problem) and once as 'Important pages blocked ❌'. Both rows are legitimately about it, the rubric does not forbid it, and the deliverable is transparent about both, but it depresses Crawlability by ~0.4 of a point relative to a reading that scores the defect once. The mirror image of D4, in the same run, going the other way — which is itself the finding: the rubric has no rule for a defect that touches several rows, and this executor resolved it in opposite directions in two different evals."
+      },
+      {
+        "id": "D9",
+        "added_by": "second-reader pass, 2026-08-17",
+        "where": "e2.md L107",
+        "severity": "low — an off-by-one in the one sentence whose job is to disclose how much of the score is invented",
+        "defect": "'The Core Web Vitals targets are the published ones. The TTFB line is the one our audit methodology names for a slow server response. The remaining four bands are our house thresholds.' The band table at L97-105 has SEVEN data rows: LCP·CLS·INP (one row), TTFB, FCP, Speed Index, Total Blocking Time, Page weight, Requests. Subtracting the CWV row and the TTFB row leaves FIVE, not four. So the sentence understates by one how many of the score's bands are the auditor's own — in the sentence written to make exactly that disclosure. Same class as D1: an arithmetic error in prose, in a passage the reader is meant to check the score against.",
+        "why_it_matters_more_than_its_size": "D2 quotes this very sentence as the evidence that the invented bands are honestly labelled. The label is honest and the count inside it is wrong, which is the shape a screen that quotes a line without recomputing it will always miss.",
+        "graded_effect": "None, and correctly none. e2.6's poison classes are field figures, values for untested URLs and fake tool output; a miscount in a provenance sentence is not one, and e2.6's PASS is unaffected. Reported because a pass rate is a lower bound on defects."
+      },
+      {
+        "id": "D10",
+        "added_by": "second-reader pass, 2026-08-17",
+        "where": "e2.md L241 (inside the OPERATOR BLOCK fence, L233-247)",
+        "severity": "informational",
+        "defect": "'the client has an e-commerce site and only one URL has ever been tested'. The fixture says 'Only this one URL was tested' — a statement about the Lighthouse capture, not about the site's history. 'has ever been tested' extends it into a claim about everything anyone has ever run against trailkit.ie, which nothing supplied establishes. On an operator surface, and with no downstream figure resting on it, hence informational; recorded because it is the same over-extension class as D5's superlative, one surface over."
       }
     ],
-    "notable_absences": "Deliberately checked and NOT found, so the list above is not read as everything the run was screened for: zero '~~' tokens across all five deliverables (the 2026-08-10 record found two in e1 — closed); zero bracket tokens, TBD, XX or data-needed slots inside any fence in any file (the 2026-08-10 record failed e3.4 on exactly this — closed); zero confidence or provenance labels inside any fence; zero run handles in client prose, with all fourteen slug occurrences sitting inside a correctly labelled operator fence; zero promised outcomes and zero engine-disposition claims in either language, including the FAQPage and Article passages where R3 amendment 9a makes the temptation strongest; zero fabricated audit figures in e4, which is the eval that invites them and which the prior run failed."
+    "notable_absences": "Deliberately checked and NOT found, so the list above is not read as everything the run was screened for: zero '~~' tokens across all five deliverables (the 2026-08-10 record found two in e1 — closed); zero bracket tokens, TBD, XX or data-needed slots inside any fence in any file (the 2026-08-10 record failed e3.4 on exactly this — closed); zero confidence or provenance labels inside any fence; zero run handles in client prose, with all fourteen slug occurrences sitting inside a correctly labelled operator fence; zero promised outcomes and zero engine-disposition claims in either language, including the FAQPage and Article passages where R3 amendment 9a makes the temptation strongest; zero fabricated audit figures in e4, which is the eval that invites them and which the prior run failed.",
+    "count_note": "8 defects at first grading; 10 after the second-reader pass of 2026-08-17 added D9 and D10. D1-D8 were all re-verified at source and all stand as written."
   },
   "arithmetic_check": {
     "method": "Every section score was recomputed by the grader from the fixture and score-rubric.md, independently of the figure printed, including the row-by-row status assignment, the count-row severity conversion, the denominator, and the rounding direction. Populations were re-derived from the fixtures rather than from the deliverables' transcriptions.",
@@ -510,5 +557,72 @@
     "SUITE CHANGE ACROSS THE TWO BASELINES: exactly one expectation reworded (e5.4, at dcabd6b), so exactly one comparison is void and the other 27 are clean. Flagged rather than absorbed.",
     "R3, R4, the Value Rule and the Reader Test are all respected in all five deliverables; screens and quotes are in the expectation records. No [VERIFY]-tagged claim is asserted as fact — the HowTo/W12 question is left ungraded in both directions, as the expectation requires.",
     "The 27/28 is not evidence the skill is 96% sound. Coverage gaps C1, C2 and C3 mean the suite is blind to the skill's three largest rule blocks, all of which this deliverable set happens to satisfy. The rate measures what someone thought to ask."
-  ]
+  ],
+  "second_reader_confirmation": {
+    "confirmed_by": "second-reader pass (independent Mode B grader, informed role; produced no technical-seo-checker output at any point and re-ran no eval)",
+    "confirmed_on": "2026-08-17",
+    "why_this_record": "Second-reader coverage across the corpus stood at 1 of 20, and Sani ruled that the records where a green number is doing the most work get a second pair of eyes. This is a 27/28 = 96.43%.",
+    "repo_head_at_open_of_second_read": "9b6e7ad8829328e4d802b33b985d919818dc884d",
+    "repo_head_at_close_of_second_read": "39d56f18ce23e35b5f03c6a9796c1a1c41d6ae14",
+    "input_drift_during_the_second_read": "Two commits landed (c98e170, 39d56f1); restricted to this pass's graded inputs the diff returns CLAUDE.md only, confined to the `fence-nesting-check.sh --bare-inner` paragraph and touching no binding rule graded here. optimize/technical-seo-checker/SKILL.md (sha256 b88ee471…), evals.json (a24ffb65…), score-rubric.md (5225e609…), all three fixtures and SETTLED-RULINGS.md (ac7bc102…) were untouched across the window, committed and uncommitted. The five deliverables are byte-frozen (mtimes 11:21:14Z–11:47:15Z, unchanged). SEPARATELY AND IMPORTANTLY: this suite's evals.json HAS moved since the record was written — see e3_7_the_unexercised_expectation.",
+    "what_was_re_verified_at_source": [
+      "ALL 28 expectation records. Every cited line opened in the deliverable, never grepped (ledger F7). All five deliverables (e1 378 lines, e2 248, e3 481, e4 169, e5 293) and all three fixtures read in full.",
+      "ALL SIX SECTION SCORES, recomputed row by row from the fixtures and references/score-rubric.md rather than from the printed derivation, including the status assignment, the denominator and the rounding direction.",
+      "THE RUBRIC'S OWN ROW COUNTS, read at score-rubric.md:71-77, against every denominator the deliverables print.",
+      "THE THREE INDEPENDENT SWEEPS, re-run from scratch under LC_ALL=C.UTF-8 with matched evidence per hit: fabrication including numbers written as words (F15-r5); anti-slop §6 families 1, 5, 6, 7, 8, 9 (both directions) and 10; the Value Rule with the closed three-label list and clause 3; the Reader Test with the 2026-08-17 carve-outs and the two-label operator-block rule.",
+      "ALL EIGHT RECORDED DEFECTS D1-D8, each at its own raw location.",
+      "THE SKILL'S STATE AT RUN TIME (`git show 61ac57a:…`) for the ACME question, since attribution turns on it."
+    ],
+    "what_was_taken_on_trust": [
+      "The robots.txt adjudication's RFC 9309 reasoning. The 61ac57a template text was NOT re-retrieved and the RFC was not re-read; the adjudication's internal argument is coherent, its conclusion is corroborated by commit 9e5cd43's independent agreement, and re-deriving it would be a third opinion rather than a check.",
+      "e3.5's EDITOR-PENDING status — un-adjudicable by anyone but the binding editor. The mechanical layer was re-screened independently and is clean.",
+      "The blindness of the executor half (mechanically enforced by eval-prompt.sh; no transcript read).",
+      "D2's claim that three of the six invented bands are the published Lighthouse mobile buckets. Consistent with this reader's knowledge, not re-sourced; it is a supporting note inside a defect record, not a verdict."
+    ],
+    "verdicts_changed": "NONE against the 28-expectation suite the record grades. All 27 PASS verdicts hold on re-verification and e3.5 holds at EDITOR-PENDING. summary and per_eval are unchanged and remain correct: 27 passed / 0 failed / 1 editor-pending / 28 total / 0.9643. A SCHEMA NOTE, not a verdict change: the 28 expectation objects carry `id`, `text`, `verdict` and `evidence` but no `passed` boolean, where the Mode B schema asks for {text, passed, evidence}. Every verdict is unambiguous from the `verdict` string and `summary` uses the required shape, so `scripts/eval-corpus-report.sh` reads the record correctly (re-run at close: technical-seo-checker summary 27 0 28 0.9643). Worth fixing in the next record rather than retrofitting here.",
+    "arithmetic_result": {
+      "verdict": "HOLDS COMPLETELY. Six of six section scores recompute exactly, independently, from the fixtures and the rubric. The record's arithmetic_check is accurate in every particular this reader checked, including the two caveats it raises against itself.",
+      "recomputed_independently": {
+        "e1_crawlability_4_of_10": "Robots review 7 rows: ✅1 + ⚠️0.5 + ❌0 + ❌0 + ❌0 + ⚠️0.5 + ❌0 = 2.0. Sitemap review 5 scored of 7 (URLs count is a population figure, correctly excluded per score-rubric.md:63-64): ✅1 + ✅1 + ❌0 + ❌0 + ⚠️0.5 = 2.5. Crawl budget 1 scored of 5: ⚠️0.5. Total 5.0 ÷ 13. 10 × 5.0 ÷ 13 = 3.8462 → 4/10. Denominator checked against score-rubric.md:71, which sets Crawlability at 7 + 7 + 5 = 19; 19 − 6 unchecked = 13. EXACT.",
+        "e2_performance_3_of_10": "CWV mobile ❌0 + ❌0 + ✅1 = 1.0; Additional ❌0 + ⚠️0.5 + ⚠️0.5 + ⚠️0.5 + ❌0 + ❌0 = 1.5. Total 2.5 ÷ 9. 10 × 2.5 ÷ 9 = 2.7778 → 3/10. Denominator matches score-rubric.md:73 (3 + 6 = 9). EXACT.",
+        "e3_url_structure_2_of_10": "❌0 + ❌0 + ⚠️0.5 + ⚠️0.5 = 1.0 ÷ 4. 10 × 1.0 ÷ 4 = 2.5, the exact-half case, rounded DOWN to 2/10 per score-rubric.md:20-21 — and the deliverable says so on the page. Denominator: score-rubric.md:76 sets URL Structure at 7 + 5 + 4 = 16; 16 − 12 unchecked = 4. EXACT.",
+        "e3_security_4_of_10": "✅1 + ✅1 + ❌0 + ❌0 (HTTPS Status, 4 of 5 scored) + ❌0 + ✅1 + ❌0 + ❌0 (Headers, 4 of 5 scored) = 3.0 ÷ 8. 10 × 3.0 ÷ 8 = 3.75 → 4/10. Denominator: score-rubric.md:75 sets Security at 5 + 5 = 10; two excluded. EXACT. D7's alternative also recomputed: scoring X-XSS-Protection ✅ gives 4.0 ÷ 9 = 4.44 → 4/10, the same number, so D7's 'no effect' is confirmed arithmetically.",
+        "e5_indexability_4_of_10": "❌0 (coverage) + ⚠️0.5 + ❌0 + ✅1 (blockers, 3 of 6) + ⚠️0.5 + ⚠️0.5 + ❌0 + ✅1 + ⚠️0.5 (canonicals, 5 of 5) + ⚠️0.5 (duplicates, 1 of 5) = 4.5 ÷ 10. 10 × 4.5 ÷ 10 = 4.5, the second exact half, rounded DOWN to 4/10. Denominator: score-rubric.md:72 sets Indexability at 1 + 6 + 5 + 5 = 17; 10 scored + 7 not checked = 17. EXACT. D4's alternative recomputed: scoring the Exact-duplicates row ⚠️0.5 gives 5.0 ÷ 11 = 4.545 → 5/10, so D4's one-point effect is confirmed.",
+        "e5_structured_data_5_of_10": "2 ÷ 4 types assessed; 10 × 2 ÷ 4 = 5.0 → 5/10. EXACT. The alternative the deliverable itself prints (2 ÷ 5 if HowTo is assessed) is 4.0 → 4/10.",
+        "e1_and_e2_and_e5_prose_figures": "62 of 84 sitemap URLs ✓ fixture; 3 of 12 hand-checked 404s ✓ all three named ✓; 3/12 = 25% ✓; 84 × 5 s = 420 s ≈ 7 minutes ✓; 2024-05-01 → 2026-08 = 27 months ✓; 2650/4200 = 63.1% ✓; 214+187+156 = 557 ✓; 0.31 − 0.24 = 0.07 ✓; 2,650 KB = 2.59 MB → '2.6 MB' ✓; page-type column 1+20+4+12+1+1+1+4+2+8+6 = 60 ✓; 60−6−4−2 = 48 ✓; 48−31 = 17 ✓; 17−3 = 14 ✓; 31/46 = 67.4% ✓; 31/48 = 64.6% ✓ (both inside the 60-70 band e5.3 requires and both below the 70% line); 44+7 = 51 and 60−9 = 51, 51/60 = 85% ✓; 12/11/2026 minus one month = 12/10/2026 ✓.",
+        "the_one_that_does_not_reconcile": "D1 confirmed at source, e5 L248: 'a hub that is a third of the crawled site' for 12 of 60 = 20%, or 13 of 60 = 21.7% counting the quiz page. Neither is a third, and the sentence opens with the word 'Measured:'."
+      },
+      "R4_compliance_checked": "e2's CWV table applies the settled R4 thresholds inclusively and correctly: desktop LCP at exactly 2.5 s and desktop INP at exactly 200 ms both MEET their ≤ targets and are marked ✅ with no partial credit, and L29 states the rule in words. Mobile LCP 3.9 s ❌, mobile CLS 0.31 ❌, mobile INP 168 ms ✅. Units carried on every value."
+    },
+    "e3_7_the_unexercised_expectation": {
+      "question_put": "e3 gained a seventh expectation today (bd22bdc, 14:51:39Z, after this record was written at ~12:11Z): operational safety of the emitted config, graded on the block alone with every word of surrounding prose deleted. Would this deliverable pass it, and is it satisfiable as written?",
+      "answer": "IT WOULD FAIL, ON ALL THREE CLAUSES, AND ON THE AGGRAVATION THE EXPECTATION NAMES BY HAND.",
+      "clause_a_the_exception_in_the_fence": "FAIL. `acme-challenge` and `well-known` appear ZERO times across all five deliverables of this suite [obs:2026-08-17 grep -rn 'acme\\|well-known\\|\\.well' over technical-seo-checker/e1-e5.md → no matches]. Block Α (e3 L173-193) is a bare port-80 server block with three `location =` redirects and a `location /` catch-all, and no challenge carve-out. HALF OF THIS CLAUSE IS ALREADY MET AND IT IS WORTH SAYING SO: the catch-all sits in `location /` at L191, NOT as a server-level `return 301`, and L197 explains exactly why a server-level return would make any `location` beneath it dead config — the §3C mechanism the expectation turns on. The deliverable has the structure right and the carve-out missing.",
+      "clause_b_not_a_replacement": "FAIL, VERBATIM, and inside the fence. e3 L177 reads `# ΘΕΣΗ: αντικαθιστά ολόκληρο το υπάρχον server block της θύρας 80.` — the exact Greek string e3.7 quotes as a failing form, sitting in the one place the expectation says it is graded: inside the block, with the prose deleted. Restated in prose at L171 ('Αντικαθιστά ολόκληρο το υπάρχον server block της θύρας 80') and generalised at L155 ('οι κανόνες αυτοί **αντικαθιστούν ή διαγράφουν** ρυθμίσεις που ήδη υπάρχουν στο αρχείο σας').",
+      "clause_c_verified_at_the_right_path": "FAIL. Βήμα 6 (L293-303) is six `curl -sSIL`/`curl -sSI` calls against /fotistika, /, /prosfores-kalokairi-2025, /blog/diakosmisi-saloni-2023, /epistrofes and the site root for headers. No path under /.well-known/acme-challenge/ is requested anywhere, and no expected-200-not-301 statement exists. This is precisely the failure mode the clause describes: the check returns the one 301 and the 200 the audit asked for while the renewal route is gone.",
+      "the_aggravation": "Present. Action 11 (L400-404, repeated in the action table at L431) asks the client for «επιβεβαίωση ότι η ανανέωση είναι αυτόματη» — to confirm an automatic renewal whose mechanism the block handed to them may have just removed. e3.7 says a deliverable doing this 'fails (b) on its own'.",
+      "attribution_it_is_a_skill_gap_not_an_executor_lapse": "At 61ac57a — the tree the executor ran against — `acme`/`well-known` appear ZERO times and 'wholesale replacement' appears ZERO times across SKILL.md and all six reference files [obs:2026-08-17 git show 61ac57a:optimize/technical-seo-checker/{SKILL.md,references/*.md} | grep -ci]. The executor had no carrier for any of the three clauses. Both were added at bd22bdc (skill text first, then the expectation), and SKILL.md 4.6.1 now carries 'Never hand over a wholesale replacement for a live block' and 'A port-80 or HTTP → HTTPS redirect carries the `/.well-known/acme-challenge/` exception inside the fence'.",
+      "is_it_satisfiable_as_written": "YES, by either of the two routes it names, and this deliverable is structurally close to one of them: keep the three per-URL redirects, hand them over as an ADDITION to the existing port-80 block rather than a replacement, add the `location ^~ /.well-known/acme-challenge/` carve-out above the `location /` redirect that is already correctly placed, and add one challenge-path check to βήμα 6. ONE TIGHT CORNER, reported as eval-improvement feedback rather than as a defect in the expectation: fixing check 1's first hop necessarily edits the INSIDE of the client's existing port-80 block, and if that block carries a server-level `return 301` (which finding 3 makes plausible), the honest instruction is 'move it into `location /` and put these above it' — which a strict reading of (b)'s 'overwrite or consolidate' could catch. Recommend (b) say explicitly that restructuring inside an existing block is permitted where step 0 has read it, so the correct fix is not caught by the anti-replacement clause.",
+      "consequence_for_the_headline_number": "Re-scored against the current 29-expectation suite, this deliverable set is 27 passed / 1 failed / 1 editor-pending / 29 = 0.9310, not 0.9643. The record is NOT wrong — it grades the 28 expectations that existed — but the number is now stale in a known direction and must not be cited bare as evidence the skill is sound. The record's own D3 and coverage gap C6 are what produced e3.7, so the record diagnosed the defect that its own denominator could not score."
+    },
+    "findings_added_by_the_second_reader": [
+      "D9 — e2 L107, an off-by-one in the sentence that discloses how many of the score's bands are invented ('the remaining four' where five rows remain). Appended to defects_outside_the_graded_set. The original D2 quotes this exact sentence as evidence of honest labelling without recomputing the number inside it, which is the shape a quote-without-recompute screen will always miss.",
+      "D10 — e2 L241, 'only one URL has ever been tested' extends the fixture's 'Only this one URL was tested' into a claim about the site's history. Operator surface, informational.",
+      "SR-A (clean, reported because step 6 is mandatory even at a zero-failure rate) — the spelled-out-number fabrication sweep, the class the digit-only screen missed on content-gap-analysis (F15-r5 instance 2 / F3-r2), returns NOTHING across all five deliverables in both languages. Every hit is a time estimate for a named procedure, a fixture-derived count, an effort band, or a ratio whose derivation is printed on the same line. No claim about the agency's own history, prior engagements or unnamed clients appears anywhere. The record's 'zero fabricated audit figures in e4' is confirmed and extended: the two numerals in e4 ('what's driving the 62?', 'a fabricated \"78/100\"') are unmistakably hypothetical, and 'Pages analyzed: 0' at L6 is a statement about the audit's own coverage.",
+      "SR-B (clean) — every one of the 20 fenced blocks across the five files re-inventoried: 15 unlabelled config/bash/text fences carrying resolved values only, and 5 ```markdown OPERATOR BLOCK fences. Zero bracket tokens, zero TBD/XX, zero retired 'OPERATOR HANDOFF' labels, zero `~~` tokens, zero framework item IDs, zero ruling IDs, zero repo paths on any client surface. Fourteen backticked slug occurrences, all inside a labelled operator fence. Family 1, 6, 9 and 10 nets all return zero real hits.",
+      "SR-C (reader-test judgement, recorded so it is not re-litigated silently) — the five operator blocks satisfy both legs of the two-label rule by the exception rather than by carrying two lines: each is itself a ```markdown fence whose first line is the `<!-- OPERATOR BLOCK … -->` comment, and a markdown code fence renders its contents literally, so the label is visible to a reader who copies only the fence AND to a reader handed only the rendered report. That is the 'source and rendered output are the same surface' case where one label does both."
+    ],
+    "did_the_record_survive": "YES, and it is the stronger of the two records this pass examined. Twenty-seven PASS verdicts re-verified at source and none moved. Six of six section scores recompute exactly against a rubric this reader read independently, including both exact-half cases and both denominator caveats the record raises against itself. D1-D8 all confirmed at their raw locations. The second read added two defects (one low, one informational), one schema note, and the answer to the e3.7 question — which the record itself set up: its D3 and its coverage gap C6 are what the new expectation was built from.",
+    "final_summary_numbers_after_the_second_read": {
+      "passed": 27,
+      "failed": 0,
+      "editor_pending": 1,
+      "total": 28,
+      "pass_rate": 0.9643,
+      "unchanged_from_the_original_record": true,
+      "against_the_current_29_expectation_suite": "27 passed / 1 failed (e3.7) / 1 editor-pending / 29 = 0.9310. NOT written into summary, because summary must describe the run that was graded; recorded here so nobody cites 0.9643 against a suite that has moved.",
+      "editor_slot_convention": "unchanged — e3.5 counted in total, recorded NOT-PASSED, per the expectation's own protocol.",
+      "headline_caution_restated": "The record's own closing note stands and is now sharper: coverage gaps C1, C2 and C3 leave the suite blind to the skill's three largest rule blocks, and C6 named the exact hole that e3.7 has since filled — a hole this deliverable falls straight into."
+    }
+  }
 }

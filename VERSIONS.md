@@ -8,28 +8,32 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 
 | Skill | Category | Version | Last Updated |
 |-------|----------|---------|--------------|
-| keyword-research | research | 4.5.0 | 2026-08-17 |
+| keyword-research | research | 4.5.1 | 2026-08-17 |
 | competitor-analysis | research | 4.2.1 | 2026-08-17 |
-| serp-analysis | research | 4.3.7 | 2026-08-17 |
+| serp-analysis | research | 4.3.8 | 2026-08-17 |
 | content-gap-analysis | research | 4.3.1 | 2026-08-17 |
 | seo-content-writer | build | 4.7.1 | 2026-08-17 |
-| geo-content-optimizer | build | 4.5.0 | 2026-08-17 |
+| geo-content-optimizer | build | 4.5.1 | 2026-08-17 |
 | meta-tags-optimizer | build | 4.2.2 | 2026-08-17 |
-| schema-markup-generator | build | 4.2.10 | 2026-08-17 |
-| on-page-seo-auditor | optimize | 4.4.2 | 2026-08-17 |
+| schema-markup-generator | build | 4.2.11 | 2026-08-17 |
+| on-page-seo-auditor | optimize | 4.5.0 | 2026-08-17 |
 | technical-seo-checker | optimize | 4.6.1 | 2026-08-17 |
 | internal-linking-optimizer | optimize | 4.5.0 | 2026-08-17 |
-| content-refresher | optimize | 4.3.8 | 2026-08-17 |
+| content-refresher | optimize | 4.4.0 | 2026-08-17 |
 | rank-tracker | monitor | 4.3.0 | 2026-08-17 |
-| backlink-analyzer | monitor | 4.3.2 | 2026-08-17 |
+| backlink-analyzer | monitor | 4.4.0 | 2026-08-17 |
 | performance-reporter | monitor | 4.6.0 | 2026-08-17 |
-| alert-manager | monitor | 4.4.0 | 2026-08-17 |
-| content-quality-auditor | cross-cutting | 4.7.0 | 2026-08-17 |
+| alert-manager | monitor | 4.5.0 | 2026-08-17 |
+| content-quality-auditor | cross-cutting | 4.8.0 | 2026-08-17 |
 | domain-authority-auditor | cross-cutting | 4.6.0 | 2026-08-17 |
 | entity-optimizer | cross-cutting | 4.4.0 | 2026-08-17 |
 | memory-management | cross-cutting | 4.2.0 | 2026-08-17 |
 
 ## Changelog
+
+### v4.5.4 (2026-08-17)
+
+- **Regression triage wave — 19 grader-attributed regressions diagnosed before any fix, 9 skills changed (2026-08-17)**: Sani ruled the shape — classify each regression as carrier-absent, carrier-present-but-unreachable, or carrier-reachable-with-the-run-at-fault, and fix only the first two, because editing a skill whose text was never the problem pollutes the next blind run's evidence. Four lanes, disjoint by directory. **Result: 10 carrier-absent, 5 present-but-unreachable, 3 run-at-fault, 1 suite-side.** Fifteen of nineteen were the library's failure and are fixed; three were left untouched by design; one was referred for a fixture repair rather than an expectation carve-out `[obs:2026-08-17 four regression-triage lanes, 19 expectations across 10 skills, classifications recorded per-lane in the wave's commit messages]`. **The wave's most transferable finding was not a defect**: two lanes independently caught themselves illustrating a new rule with the failing eval's own fixture — its subject, its phone number, its capture date, its feature pair — and rewrote onto neutral material before shipping, on the ground that writing an eval's answer into the file the next executor reads makes the next blind run unreadable as evidence. Neither was briefed on it; both inferred it from the F18 leak finding. It is now a standing check on any regression-driven edit. **Carrier-placement lessons, three of a kind**: a quote rule stated four times and never in the column where the failing cell is written, whose carrier *grew* between the passing run and the failing one; an intent rule in a reference the acting step does not link; a definitional-position rule existing once, inside Tips for Success, below both Output Validation and the Example. More carrier is not better carrier. **Two run-at-fault verdicts are worth the record**: one deliverable volunteered its own derivation and still printed a wrong count, so the one plausible skill fix would not have caught it; another had the rule at three reachable sites including the skill body. **Skills fixed**: on-page-seo-auditor 4.5.0, content-refresher 4.4.0, alert-manager 4.5.0, backlink-analyzer 4.4.0, content-quality-auditor 4.8.0, keyword-research 4.5.1, serp-analysis 4.3.8, geo-content-optimizer 4.5.1, schema-markup-generator 4.2.11. **Not bumped, deliberately**: internal-linking-optimizer (run-at-fault, not edited — a bump with no diff is a false register entry) and domain-authority-auditor (eval suite only, per the repo's own precedent). Five expectations reconciled to carriers shipped earlier the same day — the carrier-first ordering satisfied, not inverted — and one of them was unsatisfiable on its own fixture, concretely: that eval's corrected total is 39.80, which the new rounding rule reads as 40, and the clause banned taking the band above.
 
 ### v4.5.3 (2026-08-17)
 

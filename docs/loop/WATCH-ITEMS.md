@@ -194,7 +194,7 @@ authoritative.
 - **Where**: `research/serp-analysis/references/serp-feature-taxonomy.md:242`
   ("Re-check on the LSA") (LSA — resolved, tag dropped, serp-analysis 4.2.2; refreshed
   and anchor-tagged 2026-08-17, :233 had drifted onto a GBP playbook step);
-  `research/keyword-research/references/greek-keyword-coverage.md:103`
+  `research/keyword-research/references/greek-keyword-coverage.md:105`
   ("collapses inflected variants") (SERP-distinctness magnitude of inflected forms per
   query class — the remaining open claim; anchor-tagged 2026-08-17, line unchanged and
   re-read at source).
