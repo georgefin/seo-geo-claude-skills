@@ -402,18 +402,28 @@ F_OK=1
 #
 # The window is ASCII-only by deliberate choice (`[^.;]`, not `[^.;—]`). Excluding the em dash
 # would catch one more constructed escape and would exclude its BYTES under this environment's
-# POSIX locale — taking Greek Δ and the guillemets with it (OPEN-FINDINGS 81). Measured under
-# LC_ALL=C and LC_ALL=C.UTF-8: identical verdicts on all 51 live-tree lines.
+# POSIX locale — taking Greek Δ (CE 94) and the guillemets with it (OPEN-FINDINGS 81). Measured
+# 2026-08-17 under LC_ALL unset, C, C.UTF-8 and en_US.UTF-8: identical verdicts on every live-tree
+# line and on all 55 fixture lines. Re-run `--probe` under each locale to reproduce that.
 F_NEAR_AFTER=60
 F_NEAR_BEFORE=12
 # Excuse regex, built the same way for both legs: a NAMED marker anywhere on the line, or a NEAR
 # marker bound to a token. $1 = token regex, $2 = NAMED (whole-line) markers, $3 = NEAR markers.
+#
+# The `^[^:]*:[0-9]+:.*` prefix confines the whole test to the TEXT of the line. Without it the
+# excuse also reads the `path:lineno:` grep prepends, and a file *named* for a marker exempts
+# every line inside it: measured 2026-08-17, `references/non-faq-notes.md` containing nothing but
+# "FAQPage schema is eligible for FAQ rich results on any site." was excused whole, while the
+# identical line in `ordinary-notes.md` failed. Pre-existing and inherited — it applied to all 25
+# markers before this split — and it is the same defect class as the excuse itself: something
+# that is not the claim silencing the check. The probe carries a canary for it.
 f_excuse() {
-    printf '(%s)|(%s)[^.;]{0,%s}(%s)|(%s)[^.;,]{0,%s}(%s)' \
+    printf '^[^:]*:[0-9]+:.*((%s)|(%s)[^.;]{0,%s}(%s)|(%s)[^.;,]{0,%s}(%s))' \
         "$2" "$1" "$F_NEAR_AFTER" "$3" "$3" "$F_NEAR_BEFORE" "$1"
 }
 # The two sweeps as functions so `--probe` runs THIS code over the fixture rather than a second
-# copy of it. $@ = directories to sweep.
+# copy of it. $@ = directories to sweep, relative to the CALLER's cwd — the caller cds, so the
+# same function serves the live tree and the probe's temporary one.
 f_fid_hits() {
     grep -rnE "$DEPRECATED_TOKENS" "$@" --include='*.md' 2>/dev/null \
         | grep -v 'evals/' | grep -viE "$DEPRECATED_EXCUSE" || true
@@ -422,6 +432,16 @@ f_r3_hits() {
     grep -rniE "$R3_TOKENS" "$@" --include='*.md' 2>/dev/null \
         | grep -v 'evals/' | grep -viE "$R3_EXCUSE" || true
 }
+# SWEPT TREES, asserted rather than assumed. Found 2026-08-17 while wiring the probe: all three
+# sweeps below were cwd-relative with no cd, so `bash scripts/validate-tracking.sh /path/to/repo`
+# from any other directory swept the CALLER's cwd — usually nothing — and printed
+# "PASS: (f) no deprecated tokens". A guard that reports success for matching nothing is F15's
+# founding shape, and it was reachable here by passing the argument the usage line documents.
+# Fixed two ways: every sweep now runs inside `cd "$ROOT"`, and the directories must exist.
+F_DIRS="research build optimize monitor cross-cutting commands references"
+for d in $F_DIRS; do
+    [ -d "$ROOT/$d" ] || { fail "(f) swept directory missing under repo root: $d — this check would otherwise pass by sweeping nothing"; F_OK=0; }
+done
 DEPRECATED_TOKENS='\bFID\b|First Input Delay|Affiliate links disclosed'
 #
 # 2026-08-13 — DEPRECATED_LEGAL, and it is the same lesson this file already records
@@ -456,7 +476,7 @@ DEPRECATED_LEGAL_NEAR='\bretired\b|superseded|no longer|deprecat|is dead|\bdropp
 # comment in scripts/eval-expectation-sweep.sh points at.
 DEPRECATED_LEGAL="$DEPRECATED_LEGAL_NAMED|$DEPRECATED_LEGAL_NEAR"
 DEPRECATED_EXCUSE="$(f_excuse "$DEPRECATED_TOKENS" "$DEPRECATED_LEGAL_NAMED" "$DEPRECATED_LEGAL_NEAR")"
-F_HITS=$(f_fid_hits research build optimize monitor cross-cutting commands references)
+F_HITS=$(cd "$ROOT" && f_fid_hits $F_DIRS)
 if [ -n "$F_HITS" ]; then
     while IFS= read -r hit; do
         if printf '%s' "$hit" | grep -qiE "$DEPRECATED_LEGAL"; then
@@ -552,7 +572,7 @@ R3_LEGAL_NEAR='\bretired\b|\bretirement\b|\bended\b|\bceased\b|\bdiscontinued\b|
 # Union: the diagnostic branch below, and the name other scripts' comments point at.
 R3_LEGAL="$R3_LEGAL_NAMED|$R3_LEGAL_NEAR"
 R3_EXCUSE="$(f_excuse "$R3_TOKENS" "$R3_LEGAL_NAMED" "$R3_LEGAL_NEAR")"
-R3_HITS=$(f_r3_hits research build optimize monitor cross-cutting commands references)
+R3_HITS=$(cd "$ROOT" && f_r3_hits $F_DIRS)
 if [ -n "$R3_HITS" ]; then
     while IFS= read -r hit; do
         if printf '%s' "$hit" | grep -qiE "$R3_LEGAL"; then
@@ -578,8 +598,7 @@ fi
 # pattern written from its founding instance. The probe recorded with the original
 # discharged only guard (a) — it fires on the known defect — and left (b) undone.
 R3_OVERSTATE='(advis|recommend|counsel)(es|s|ed)? against ([a-z]+ )?(remov|delet|drop)|discourages? ([a-z]+ )?(remov|delet|drop)|tells you not to (remove|delete|drop)|says you should keep'
-R3_OVER_HITS=$(grep -rniE "$R3_OVERSTATE" \
-    research build optimize monitor cross-cutting commands references \
+R3_OVER_HITS=$(cd "$ROOT" && grep -rniE "$R3_OVERSTATE" $F_DIRS \
     --include='*.md' 2>/dev/null | grep -v 'evals/' \
     | grep -iE 'faq|schema|structured data|markup' || true)
 if [ -n "$R3_OVER_HITS" ]; then
@@ -655,6 +674,9 @@ if [ "$PROBE" -eq 1 ]; then
     # file is out of scope by construction.
     printf 'FAQPage schema is eligible for FAQ rich results on any site.\n' > "$tmp/probe/r3/evals/graded.md"
     printf 'FAQPage schema is eligible for FAQ rich results on any site.\n' > "$tmp/probe/r3/notmarkdown.txt"
+    # Canary for the path-borne excuse: same violation, in a file whose NAME carries a marker.
+    # It must be reported. Before the `^[^:]*:[0-9]+:` anchor in f_excuse it was not.
+    printf 'FAQPage schema is eligible for FAQ rich results on any site.\n' > "$tmp/probe/r3/non-faq-notes.md"
 
     # caught_lines <leg> <corpus-basename> -> the entry numbers the sweep reports as violations
     caught_lines() {
@@ -683,6 +705,12 @@ if [ "$PROBE" -eq 1 ]; then
         n=${#entries[@]}
         if [ -z "$declared" ] || [ "$declared" -ne "$n" ]; then
             echo "PROBE FAIL — $corpus.txt declares COUNT: ${declared:-<none>} but parses $n data lines"
+            probe_fail=1
+        fi
+        # A denominator that can be walked to zero is not a denominator: with no entries every
+        # rate below is 0/0 and the probe reports PASS having measured nothing.
+        if [ "$n" -eq 0 ]; then
+            echo "PROBE FAIL — $corpus.txt has no data lines; a corpus that measures nothing cannot pass"
             probe_fail=1
         fi
         caught="$(caught_lines "$leg" "$corpus")"
@@ -785,9 +813,10 @@ if [ "$PROBE" -eq 1 ]; then
     [ "$lb_r3" -eq "$tot_r3" ] || { echo "PROBE FAIL — $((tot_r3 - lb_r3)) R3 legitimate line(s) pass without any allowlist; they test nothing"; probe_fail=1; }
     [ "$lb_fid" -eq "$tot_fid" ] || { echo "PROBE FAIL — $((tot_fid - lb_fid)) FID legitimate line(s) pass without any allowlist; they test nothing"; probe_fail=1; }
 
-    # Filter controls.
+    # Filter controls — two that must be EXCLUDED, one that must SURVIVE.
     ( cd "$tmp" && f_r3_hits probe/r3 ) | grep -q '/evals/' && { echo "PROBE FAIL — evals/ exclusion not applied"; probe_fail=1; }
     ( cd "$tmp" && f_r3_hits probe/r3 ) | grep -q 'notmarkdown' && { echo "PROBE FAIL — non-markdown file swept"; probe_fail=1; }
+    ( cd "$tmp" && f_r3_hits probe/r3 ) | grep -q 'non-faq-notes' || { echo "PROBE FAIL — a violation in a file NAMED for a marker was excused by its own path"; probe_fail=1; }
 
     # Provenance, ADVISORY. Every line in the two legitimate corpora was copied verbatim from a
     # live file, and the copy carries `path:line`. The tree moves; the corpus is frozen on
@@ -859,11 +888,11 @@ if [ "$PROBE" -eq 1 ]; then
             [ -n "$near_wo" ] || near_wo="$NEVER"
             if [ "$leg" = "r3" ]; then
                 save="$R3_EXCUSE"; R3_EXCUSE="$(f_excuse "$R3_TOKENS" "$named_wo" "$near_wo")"
-                w=$( (cd "$ROOT" && f_r3_hits research build optimize monitor cross-cutting commands references) | grep -c '' )
+                w=$( (cd "$ROOT" && f_r3_hits $F_DIRS) | grep -c '' )
                 R3_EXCUSE="$save"
             else
                 save="$DEPRECATED_EXCUSE"; DEPRECATED_EXCUSE="$(f_excuse "$DEPRECATED_TOKENS" "$named_wo" "$near_wo")"
-                w=$( (cd "$ROOT" && f_fid_hits research build optimize monitor cross-cutting commands references) | grep -c '' )
+                w=$( (cd "$ROOT" && f_fid_hits $F_DIRS) | grep -c '' )
                 DEPRECATED_EXCUSE="$save"
             fi
             [ "$w" -gt 0 ] && printf '  %-4s %3d  %s\n' "$leg" "$w" "$m"
@@ -873,10 +902,12 @@ if [ "$PROBE" -eq 1 ]; then
     member_weights r3 "$R3_LEGAL_NAMED" "$R3_LEGAL_NEAR"
     member_weights fid "$DEPRECATED_LEGAL_NAMED" "$DEPRECATED_LEGAL_NEAR"
 
-    # Live-tree measurement, printed beside the fixture so "green" is never mistaken for "empty"
-    # (OPEN-FINDINGS 94: check (f) passes by excuse, not by absence — 51 lines match and 0 survive).
-    r3_seen=$(cd "$ROOT" && grep -rniE "$R3_TOKENS" research build optimize monitor cross-cutting commands references --include='*.md' 2>/dev/null | grep -vc 'evals/')
-    fid_seen=$(cd "$ROOT" && grep -rnE "$DEPRECATED_TOKENS" research build optimize monitor cross-cutting commands references --include='*.md' 2>/dev/null | grep -vc 'evals/')
+    # Live-tree measurement, printed beside the fixture so "green" is never mistaken for "empty".
+    # OPEN-FINDINGS 94 made that point with a hand count — "51 lines match the R3 tokens and 0
+    # survive" — which was right on 2026-08-17 and drifts with every edit to the tree. The count
+    # below is this commit's, taken from the same sweep check (f) just ran.
+    r3_seen=$(cd "$ROOT" && grep -rniE "$R3_TOKENS" $F_DIRS --include='*.md' 2>/dev/null | grep -vc 'evals/')
+    fid_seen=$(cd "$ROOT" && grep -rnE "$DEPRECATED_TOKENS" $F_DIRS --include='*.md' 2>/dev/null | grep -vc 'evals/')
     r3_surv=$(printf '%s' "$R3_HITS" | grep -c '' ); [ -z "$R3_HITS" ] && r3_surv=0
     fid_surv=$(printf '%s' "$F_HITS" | grep -c '' ); [ -z "$F_HITS" ] && fid_surv=0
     echo ""
