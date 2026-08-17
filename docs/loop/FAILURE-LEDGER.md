@@ -1730,12 +1730,13 @@ judgement is in the artefact where a reader can disagree with it line by line.
 
 - **Found by**: the coordinator, re-running the sweep's own artefacts before quoting them.
 - **Recurrence**: F9 → 6.
-- **Status**: closure note rewritten from a measurement taken at `dcabd6b` — **raw 171 →
-  adjudicated → residual 42** — and the command checked in as `scripts/engine-claim-sweep.sh`, with
-  five families, a named adjudication list carrying a reason per excused class, and a `--probe`
-  mode that fault-injects a known member and a wanted line. Advisory, not gated: its failure mode
-  is punishing a corrected line, which has been the recorded cost four times here.
-  FLIP: F9-r6 -- none
+- **Status**: **superseded within hours by F16 Recurrence 3 and F9 Recurrence 7 below.** The
+  number this entry shipped — *"raw 171 → residual 42 at `dcabd6b`"* — was measured on a dirty
+  working tree and labelled with a commit that returns 91. The command was checked in, which was
+  the real advance and which is how Mode A falsified the number at all; the number itself repeated
+  the class one layer out. Restated from a clean tree at `42a1798`: **raw 173 → residual 46**.
+  Advisory, not gated: its failure mode is punishing a corrected line, which has been the recorded
+  cost four times here. FLIP: F9-r6 -- none
 
 ---
 
