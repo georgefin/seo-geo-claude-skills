@@ -8,6 +8,24 @@ Systematic scoring methodology for ranking keywords by strategic value.
 
 Neither score contains a GEO factor or a competitive factor. GEO candidates are identified in Step 8, and competitor keyword gaps belong to [competitor-analysis](../../competitor-analysis/) — do not describe either score as accounting for them.
 
+## Difficulty Bands (SKILL.md Step 6)
+
+Each keyword is scored 1-100 for difficulty and read into one of three bands. The band numbers are
+fixed and are shared with `serp-analysis` Step 7, whose weighted SERP difficulty reads into the
+same three: a keyword called Medium here and Medium there means the same thing.
+
+| Band | Score | What the SERP looks like |
+|------|-------|--------------------------|
+| **High** | 70-100 | Major brands ranking · high domain-authority competitors · established content (1000+ backlinks) · paid ads dominating the SERP |
+| **Medium** | 40-69 | A mix of authority sites and niche sites · moderate backlink requirement · room for quality content to compete |
+| **Low** | 1-39 | Few authoritative competitors · thin or outdated content ranking · long-tail variations · new or emerging topics |
+
+Where a difficulty score comes from a connected tool, the tool is named beside it — a vendor's
+Keyword Difficulty is that vendor's instrument, not this one, and the two are never ranked against
+each other in one column. Where no tool is connected and nothing was supplied, difficulty is not
+scored: the cell carries an explained N/A and the report says so, per Step 11. It is never
+estimated into one of the three bands to keep the column looking complete.
+
 ## Priority Scoring Matrix
 
 Score each keyword 1-5 on these factors, then calculate weighted total:

@@ -6,6 +6,23 @@ Extended title tag formulas, meta description templates, A/B testing methodology
 
 ## Title Tag Formulas by Content Type
 
+### Generic Patterns (moved from SKILL.md Step 2)
+
+Five shapes that cut across content types. They are the fallback when nothing in the typed tables
+below fits; prefer the typed formula where one does, because it carries a worked example.
+
+| # | Pattern | Template |
+|---|---------|----------|
+| G1 | Keyword \| Benefit \| Brand | `[Primary Keyword]: [Benefit] \| [Brand Name]` |
+| G2 | Number + Keyword + Promise | `[Number] [Keyword] That [Promise/Result]` |
+| G3 | How-to | `How to [Keyword]: [Benefit/Result]` |
+| G4 | Question | `What is [Keyword]? [Brief Answer/Hook]` |
+| G5 | Year + Keyword | `[Keyword] in [Year]: [Hook/Update]` |
+
+G1 puts the brand last, after the separator — the placement "Common Title Tag Mistakes" below
+requires on a non-branded query. G5's `[Year]` resolves to the run's actual year before the tag
+ships; a year token surviving inside a delivered `<title>` is the ledger F13 placement failure.
+
 ### Informational Content
 
 | # | Formula | Template | Example |

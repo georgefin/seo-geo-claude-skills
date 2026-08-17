@@ -28,6 +28,25 @@ it — and these templates are what gets copied.
 Full versions with worked examples:
 [confidence-and-evidence-rules.md](./confidence-and-evidence-rules.md).
 
+## Advanced Analysis Requests (moved from SKILL.md)
+
+Four request shapes this skill supports beyond the standard workflow. Each runs the templates
+below with a narrower scope; none of them relaxes the three rules above, and each still ends in a
+seven-field Action Plan.
+
+| Request | What it runs | Ask |
+|---------|--------------|-----|
+| **Content gap** | Content Analysis Template, scoped to what the competitor has and you do not | `Show me content [competitor] has that I don't, sorted by traffic potential` |
+| **Link intersection** | Backlink Analysis Template across two competitors, intersected | `Find sites linking to [competitor 1] AND [competitor 2] but not me` |
+| **SERP feature** | GEO/AI Citation + Keyword Analysis Templates, scoped to feature ownership | `What SERP features do competitors win? (Featured snippets, PAA, etc.)` |
+| **Historical** | Competitor Profile + Content Analysis Templates across two dated snapshots | `How has [competitor]'s SEO strategy evolved over the past year?` |
+
+Two of the four are especially exposed to the hard-metric rule. "Sorted by traffic potential"
+needs a traffic figure the export must actually contain — with none, the sort is stated as
+unavailable and the list is ordered on something you counted instead. "How the strategy evolved"
+needs two snapshots that both exist; a single snapshot supports no trend, and describing one as a
+trajectory is a characterisation of the set, which belongs in the Assumptions block or nowhere.
+
 ## Competitor Profile Template
 
 ```markdown
@@ -339,15 +358,42 @@ Based on competitor analysis:
 
 ## Action Plan
 
+Ordered within each horizon by expected impact ÷ effort, with dependencies respected.
+
 ### Immediate (This Week)
-1. [Action item]
-2. [Action item]
+
+| Action | Owner | Acceptance criterion | Expected impact | Effort | Dependencies | Risk if done wrong |
+|--------|-------|----------------------|-----------------|--------|--------------|--------------------|
+| [one imperative sentence naming the artefact and the change] | [role] | [observable · binary · named artefact or measurement · dated or triggered] | [derived from a figure printed above, or `not estimated — no baseline data`] | [S/M/L, or `not estimated`] | [named — including the check that would confirm a Hypothesis premise — or `none`] | [failure mode and cost, or `low — reversible, no downstream effect`] |
 
 ### Short-term (This Month)
-1. [Action item]
-2. [Action item]
+
+| Action | Owner | Acceptance criterion | Expected impact | Effort | Dependencies | Risk if done wrong |
+|--------|-------|----------------------|-----------------|--------|--------------|--------------------|
+| [as above] | [role] | [criterion] | [impact or stated absence] | [band] | [named, or `none`] | [risk or stated absence] |
 
 ### Long-term (This Quarter)
-1. [Action item]
-2. [Action item]
+
+| Action | Owner | Acceptance criterion | Expected impact | Effort | Dependencies | Risk if done wrong |
+|--------|-------|----------------------|-----------------|--------|--------------|--------------------|
+| [as above] | [role] | [criterion] | [impact or stated absence] | [band] | [named, or `none`] | [risk or stated absence] |
 ```
+
+**The Action Plan's seven columns are not optional and the horizons are not a substitute for
+them.** Immediate / Short-term / Long-term says *when*; the seven fields say *who, how it is
+checked, and what it costs to get wrong*. A bare `[Action item]` line — the shape this template
+used to carry — is a suggestion, and suggestions do not get done. Fields 1-3 (action, owner,
+acceptance criterion) are required; fields 4-7 take a stated-absence value rather than a blank or
+an invention. Two rules from this skill bind the cells directly:
+
+- **Expected impact obeys the hard-metric rule.** Where the export or the user left a measurement
+  blank, expected impact reads `not estimated — no baseline data`. It is never a reconstructed
+  traffic figure, a modelled range or a "for planning only" number — the label does not make the
+  number admissible (SKILL.md step 2).
+- **A Hypothesis premise becomes a dependency.** Where an action rests on a finding labelled
+  Hypothesis, the check that would confirm it is named in the Dependencies cell, and the action
+  sorts below that check. An action built on an unverified causal ranking explanation, with
+  nothing in Dependencies, is the defect the confidence labels exist to catch.
+
+Full field table, stated-absence values, the closed owner-role list and worked acceptance
+criteria: [Action Output Contract](../../../references/action-output-contract.md).

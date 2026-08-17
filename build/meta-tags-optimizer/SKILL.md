@@ -1,13 +1,13 @@
 ---
 name: meta-tags-optimizer
-version: "4.2.2"
+version: "4.3.0"
 description: 'Create and optimize title tags, meta descriptions, Open Graph tags, and Twitter cards for maximum click-through rates. Use when the user asks to "optimize title tag", "write meta description", "improve CTR", "Open Graph tags", "social media preview", "fix my meta tags", or "OG tags not showing". Produces optimized meta tags with character counting, A/B test variations, and CTR analysis. For a broader on-page audit, see on-page-seo-auditor. For structured data markup, see schema-markup-generator.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.2.2"
+  version: "4.3.0"
   geo-relevance: "low"
   tags:
     - seo
@@ -116,6 +116,8 @@ When a user requests meta tag optimization:
 
 2. **Create Optimized Title Tag**
 
+   **Pick the formula from the page's content type before drafting** — 32 formulas across informational, listicle, comparison, commercial, local and problem-awareness pages, each with a worked example: [references/meta-tag-formulas.md](./references/meta-tag-formulas.md) → Title Tag Formulas by Content Type. The formula is how you draft; it is not deliverable content. What ships is the options table below and the reasoning for the pick.
+
    ````markdown
    ### Title Tag Optimization
    
@@ -125,23 +127,6 @@ When a user requests meta tag optimization:
    - Make it compelling and click-worthy
    - Match search intent
    - Include brand name if appropriate
-   
-   **Title Tag Formula Options**:
-   
-   1. **Keyword | Benefit | Brand**
-      "[Primary Keyword]: [Benefit] | [Brand Name]"
-      
-   2. **Number + Keyword + Promise**
-      "[Number] [Keyword] That [Promise/Result]"
-      
-   3. **How-to Format**
-      "How to [Keyword]: [Benefit/Result]"
-      
-   4. **Question Format**
-      "What is [Keyword]? [Brief Answer/Hook]"
-      
-   5. **Year + Keyword**
-      "[Keyword] in [Year]: [Hook/Update]"
    
    **Generated Title Options**:
    
@@ -162,6 +147,8 @@ When a user requests meta tag optimization:
 
 3. **Write Meta Description**
 
+   **Draft to the shape `[what the page offers] + [benefit to user] + [call-to-action]`**, using the power elements that fit the page — numbers and statistics, the current year, emotional triggers, action verbs, the unique value proposition. Per-content-type description templates, and the rule that every slot resolves before shipping: [references/meta-tag-formulas.md](./references/meta-tag-formulas.md) → Meta Description Templates. As with titles, the shape is drafting guidance and does not appear in the deliverable.
+
    ````markdown
    ### Meta Description Optimization
    
@@ -172,17 +159,6 @@ When a user requests meta tag optimization:
    - Match page content accurately
    - Create urgency or curiosity
    - Avoid duplicate descriptions
-   
-   **Meta Description Formula**:
-   
-   [What the page offers] + [Benefit to user] + [Call-to-action]
-   
-   **Power Elements to Include**:
-   - Numbers and statistics
-   - Current year
-   - Emotional triggers
-   - Action verbs
-   - Unique value proposition
    
    **Generated Description Options**:
    
@@ -263,6 +239,31 @@ When a user requests meta tag optimization:
    - Hypothesis: [Why this might perform better]
    ```
 
+## Recommended Actions — the Seven Fields
+
+The tags are the artefact; the report around them is where somebody is told to install them. **Every recommendation in that report carries seven fields**: **action · owner · acceptance criterion · expected impact · effort · dependencies · risk if done wrong**. That covers the recommended title and description, each tag omitted for want of a value (an OG image that does not exist, an unknown social handle), each hreflang repair from the checklist below, and each A/B variation proposed.
+
+**The fields live in the report, never inside a tag.** A `content=` attribute carries a resolved value and nothing else — an owner or a due date inside one is the same ledger F13 failure as a bracket token there. The block is what gets pasted; the table is what gets assigned.
+
+Fields 1-3 are **required**: no action ships without an owner-role and an acceptance criterion. Fields 4-7 take a stated-absence value where no answer exists (`not estimated — no baseline data`, `not estimated`, `none`, `low — reversible, no downstream effect`), never a blank and never an invention. **Owner is a role**, not a person unless the client supplied the name: `Content` · `SEO/technical` · `Developer` · `Designer` · `Product/merchandising` · `Customer service` · `Legal/compliance` · `Agency` · `Client decision`. Commissioning a missing OG image is often a `Client decision` or a `Designer` job, and naming it is what stops the gap sitting in the report for a quarter; `unassigned — needs an owner` is legitimate and is itself a finding.
+
+**The acceptance criterion is unusually easy to make checkable here, and that is the standard**: the exact string is in the page source at the named URL, its character count is inside the stated range, and it was verified by view-source or a re-crawl on a stated date. The test is whether someone who was not part of this engagement could check it six weeks from now without asking what was meant — so "meta description on `/pricing/` is 140-158 characters and live in the production source, checked 24 Sep", not "improve the description".
+
+**A criterion never requires an engine to do something.** A CTR figure, a position, or the tag appearing verbatim in the SERP is nobody's to deliver — Google rewrites titles and descriptions at its own discretion, which is exactly why this skill quotes no uplift percentage. The A/B test's criterion is the variant live from a dated deploy plus the 30-day click-through comparison run at a comparable average position and recorded beside the 30 days before it, never a number it must reach.
+
+**Ordering, stated once**: expected impact ÷ effort with dependencies respected — a description rewrite that waits on an asset the client has not sent sorts below the request for that asset.
+
+```markdown
+<!-- SKELETON — the recommendation table, which sits in the report beside the tag blocks and
+     never inside one. Every [slot] is filled from this run; fields 4-7 take their stated-absence
+     value where no answer exists. Delete this comment when the table is filled. -->
+| # | Action | Owner | Acceptance criterion | Expected impact | Effort | Dependencies | Risk if done wrong |
+|---|--------|-------|----------------------|-----------------|--------|--------------|--------------------|
+| 1 | [one imperative sentence naming the page and the tag] | [role] | [exact string live in source at the named URL · character count in range · verified how, by when] | [derived from a figure printed in this report, or `not estimated — no baseline data`] | [S/M/L, or `not estimated`] | [named, or `none`] | [failure mode and cost, or `low — reversible, no downstream effect`] |
+```
+
+Field definitions, stated-absence values, the closed role list, worked criteria and the three permitted shapes of expected impact: [Action Output Contract](../../references/action-output-contract.md).
+
 ## Hreflang Checklist (Multi-Language Pages)
 
 For EL/EN/DE (or any multi-language) page sets. Hreflang implementations commonly fail on a handful of classic errors — verify all six before shipping.
@@ -301,6 +302,8 @@ For EL/EN/DE (or any multi-language) page sets. Hreflang implementations commonl
 - [ ] No bracket token, `TBD`/`XX`, or data-needed note inside any delivered tag value (ledger F13 placement rule)
 - [ ] All HTML syntax valid (no unclosed quotes or tags)
 - [ ] Source of each data point stated in the deliverable's own words — the resolved tool name (Google Search Console CTR data, Ahrefs competitor data), "user-provided", or "estimated"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
+- [ ] Every recommendation carries all seven fields — action, owner, acceptance criterion, expected impact, effort, dependencies, risk if done wrong — with a stated-absence value wherever an answer does not exist; none ships without an owner-role and an acceptance criterion, the owner is a role from the closed list (`Client decision` and `unassigned — needs an owner` both count, the second being itself a finding), and every field sits in the report rather than inside a tag value
+- [ ] Every acceptance criterion is observable, binary at the moment of checking, attached to a named artefact or measurement, and dated or triggered — the exact string live in the page source at the named URL, its character count in range, and how and when that was verified. **None requires an engine to do something**: a CTR figure, a position, or the tag appearing verbatim in the SERP is never the criterion. The ordering rule (expected impact ÷ effort, dependencies respected) is stated once
 
 ## Example
 
@@ -354,7 +357,8 @@ _Complete meta tag block (with OG, Twitter, Article tags) generated using templa
 
 ## Reference Materials
 
-- [Meta Tag Formulas](./references/meta-tag-formulas.md) — Proven title and description formulas
+- [Meta Tag Formulas](./references/meta-tag-formulas.md) — Proven title and description formulas: five generic patterns plus 32 typed by content type, description templates, A/B methodology, multi-language guidance
+- [Action Output Contract](../../references/action-output-contract.md) — Library-wide: the seven fields every recommendation carries, their stated-absence values, the closed owner-role list, worked acceptance criteria (and the AI-surface measurement rule), the three permitted shapes of expected impact, and the ordering rule
 - [CTR and Social Reference](./references/ctr-and-social-reference.md) — Page-type templates, the single carrier for CTR technique guidance (no unsourced percentages anywhere in this skill), OG best practices
 
 ## Related Skills

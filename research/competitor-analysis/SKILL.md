@@ -1,13 +1,13 @@
 ---
 name: competitor-analysis
-version: "4.2.1"
+version: "4.3.0"
 description: 'Analyze competitor SEO and GEO strategies including ranking keywords, content approaches, backlink profiles, and AI citation patterns. Use when the user asks to "analyze competitors", "competitive analysis", "what are my competitors doing", "why do they rank higher", "competitor keywords", "competitor backlinks", or "spy on competitor SEO". For content-focused gap analysis, see content-gap-analysis. For link profile specifics, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.2.1"
+  version: "4.3.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -272,6 +272,43 @@ sample copy drafted for the client's own site (the F13 placement guard).
 Definitions, worked examples of each label and the full Greek table:
 [references/confidence-and-evidence-rules.md](./references/confidence-and-evidence-rules.md).
 
+### The Action Plan — Seven Fields per Action
+
+The Synthesis Report ends in an Action Plan, and **every action in it carries seven fields**:
+**action · owner · acceptance criterion · expected impact · effort · dependencies · risk if done
+wrong**. Competitor work is where a deliverable most easily degrades into observations about
+somebody else's site; the action row is what turns "they publish weekly and you do not" into
+something a named role can finish and a stranger can check. Fields 1-3 are **required** — no
+action ships without an owner-role and an acceptance criterion — and fields 4-7 take a
+stated-absence value where no answer exists (`not estimated — no baseline data`, `not estimated`,
+`none`, `low — reversible, no downstream effect`), never a blank and never an invention.
+
+**Owner is a role**, not a person unless the client supplied the name: `Content` ·
+`SEO/technical` · `Developer` · `Designer` · `Product/merchandising` · `Customer service` ·
+`Legal/compliance` · `Agency` · `Client decision`. `unassigned — needs an owner` is legitimate
+and is itself a finding.
+
+**The acceptance-criterion test: could someone who was not part of this engagement check it six
+weeks from now, without asking anybody what was meant?** Observable, binary at the moment of
+checking, attached to a named artefact or measurement, dated or triggered. **It never requires an
+engine to do something** — outranking a competitor, winning a citation or reaching a position is
+nobody's to deliver, and writing it turns the action into a promise. The criterion is the work
+shipped plus the measurement re-run and recorded beside its dated baseline.
+
+**Two of this skill's own rules bind the cells.** *Expected impact obeys the hard-metric rule*:
+where the export, the tool or the user left a measurement blank, the cell reads `not estimated —
+no baseline data`, never a reconstructed traffic figure, a modelled range or a "planning only"
+number — the label does not make the number admissible. *A Hypothesis premise becomes a
+dependency*: where an action rests on a finding labelled Hypothesis, the check that would confirm
+it is named in Dependencies and the action sorts below that check.
+
+**Ordering, stated once**: expected impact ÷ effort with dependencies respected, *inside* the
+existing Immediate / Short-term / Long-term horizons, which stay this report's only priority
+vocabulary. The seven-column layout sits in the Synthesis Report Template:
+[references/analysis-templates.md](./references/analysis-templates.md) → Action Plan. Field
+definitions, stated-absence values, the closed role list, worked criteria and the three permitted
+shapes of expected impact: [Action Output Contract](../../references/action-output-contract.md).
+
 ## Validation Checkpoints
 
 ### Input Validation
@@ -285,6 +322,9 @@ Definitions, worked examples of each label and the full Greek table:
 - [ ] Competitor strengths backed by measurable evidence (metrics, rankings)
 - [ ] Opportunities based on identifiable gaps, not assumptions
 - [ ] Action plan items are specific and actionable (not vague strategies)
+- [ ] Every Action Plan item carries all seven fields — action, owner, acceptance criterion, expected impact, effort, dependencies, risk if done wrong — with a stated-absence value wherever an answer does not exist (`not estimated — no baseline data`, `none`, `low — reversible, no downstream effect`); none ships without an owner-role and an acceptance criterion, and the owner is a role from the closed list (`Client decision` and `unassigned — needs an owner` both count, the second being itself a finding)
+- [ ] Every acceptance criterion is observable, binary at the moment of checking, attached to a named artefact or measurement, and dated or triggered — checkable six weeks on by someone who was not part of this engagement. **None requires an engine to do something**: outranking a competitor, a citation or a position is never the criterion, only the work shipped plus the measurement re-run and recorded beside its dated baseline
+- [ ] No expected-impact cell carries a metric the source data did not contain (hard-metric rule), and every action resting on a **Hypothesis** names that hypothesis's confirming check in its Dependencies cell. Ordering is expected impact ÷ effort with dependencies respected, stated once, inside the Immediate / Short-term / Long-term horizons rather than a second priority vocabulary
 - [ ] Source of each data point stated in the report's own words — the resolved tool name (Ahrefs, Google Analytics 4, Otterly), "user-provided", or "estimated"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 - [ ] Every concluded finding carries a Confirmed / Likely / Hypothesis label (Greek: Επιβεβαιωμένο / Πιθανό / Υπόθεση); no causal ranking or AI-citation explanation is labelled Confirmed; every Hypothesis names the check that would confirm it
 - [ ] No hard SEO metric (traffic, positions, ranking-keyword counts, authority score, backlinks, referring domains) appears anywhere the source data left it empty — not as a range, a model, a "planning figure" or a labelled estimate; soft-quantity inferences say in the same breath that they are inferences and show what was counted
@@ -297,29 +337,7 @@ Definitions, worked examples of each label and the full Greek table:
 
 ## Advanced Analysis Types
 
-### Content Gap Analysis
-
-```
-Show me content [competitor] has that I don't, sorted by traffic potential
-```
-
-### Link Intersection
-
-```
-Find sites linking to [competitor 1] AND [competitor 2] but not me
-```
-
-### SERP Feature Analysis
-
-```
-What SERP features do competitors win? (Featured snippets, PAA, etc.)
-```
-
-### Historical Tracking
-
-```
-How has [competitor]'s SEO strategy evolved over the past year?
-```
+Four narrower request shapes — content gap, link intersection, SERP-feature ownership, historical tracking — with the request wording for each, which templates each one runs, and the two that most often collide with the hard-metric rule (a "sorted by traffic potential" list with no traffic figures; a "how it evolved" narrative with one snapshot): [references/analysis-templates.md](./references/analysis-templates.md) → Advanced Analysis Requests.
 
 ## Tips for Success
 
@@ -334,7 +352,8 @@ How has [competitor]'s SEO strategy evolved over the past year?
 ## Reference Materials
 
 - [Confidence and Evidence Rules](./references/confidence-and-evidence-rules.md) — The Confirmed / Likely / Hypothesis convention with Greek equivalents and worked examples, the hard-metric vs soft-quantity boundary, and the out-of-scope refusal template
-- [Analysis Templates](./references/analysis-templates.md) — Detailed templates for each analysis step (profile, keywords, content, backlinks, technical, GEO, synthesis)
+- [Analysis Templates](./references/analysis-templates.md) — Detailed templates for each analysis step (profile, keywords, content, backlinks, technical, GEO, synthesis), the four advanced analysis requests, and the Action Plan's seven-column layout
+- [Action Output Contract](../../references/action-output-contract.md) — library-wide: the seven fields every Action Plan item carries, their stated-absence values, the closed owner-role list, worked acceptance criteria (and the AI-surface measurement rule), the three permitted shapes of expected impact, and the ordering rule
 - [Battlecard Template](./references/battlecard-template.md) — Quick-reference competitive battlecard for sales and marketing teams
 - [Positioning Frameworks](./references/positioning-frameworks.md) — Positioning maps, messaging matrices, narrative analysis, and differentiation frameworks
 - [Example Report](./references/example-report.md) — Complete example analyzing an illustrative competitor's marketing keyword dominance (fictional `.example` subject, illustrative figures, evidence-bound weaknesses)

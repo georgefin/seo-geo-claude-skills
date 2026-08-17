@@ -1,6 +1,6 @@
 ---
 name: schema-markup-generator
-version: "4.2.11"
+version: "4.3.0"
 description: 'Generate Schema.org JSON-LD structured data — one accurate primary type per page (FAQPage, HowTo, Article, Product, LocalBusiness, and 6 other types) plus documented auxiliaries only where warranted. Use when the user asks to "add schema markup", "generate structured data", "JSON-LD", "FAQ schema", "rich snippets", "I want star ratings in Google", or "structured data validation errors". Produces validated markup for Google rich results where still offered (no FAQ rich result for ordinary sites — government/health only, Aug 2023 — FAQPage is kept because it stays valid and Google says there is no need to proactively remove it), Bing structured data, and machine-readable input for any consumer that reads it. Validates via the Schema.org validator, plus Rich Results Test for non-FAQ types. For broader technical SEO, see technical-seo-checker. For meta tag optimization, see meta-tags-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.2.11"
+  version: "4.3.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -249,6 +249,31 @@ When a user requests schema markup:
     - [ ] No policy violations
     ````
 
+## Recommended Actions — the Seven Fields
+
+The JSON-LD is the artefact; the prose around it is where somebody is told to install it, supply what is missing, and fix what does not match. **Every one of those recommendations carries seven fields**: **action · owner · acceptance criterion · expected impact · effort · dependencies · risk if done wrong**. It covers installing the block at a named URL, each property dropped for want of a value under step 2's missing-data rule, each content mismatch found, and each stacked second type to remove.
+
+**The fields live in the report, never inside the block.** A paste-ready JSON-LD object carries resolved values only, so an owner or a due date as a member of it is the same failure as an invented value. What *does* ride inside a fence is only the condition on that fence's own safe use — the `SKELETON` marker, the "delete this comment when filled" line — because the block is copied out and the report stays behind.
+
+Fields 1-3 are **required**: no action ships without an owner-role and an acceptance criterion. Fields 4-7 take a stated-absence value where no answer exists (`not estimated — no baseline data`, `not estimated`, `none`, `low — reversible, no downstream effect`), never a blank and never an invention. **Owner is a role**, not a person unless the client supplied the name: `Content` · `SEO/technical` · `Developer` · `Designer` · `Product/merchandising` · `Customer service` · `Legal/compliance` · `Agency` · `Client decision`. Installing a block is usually `Developer` (it is a template or CMS edit); supplying a missing `publisher.logo` or a price is usually `Content` or `Product/merchandising`; whether a page should carry a commercial type at all is a `Client decision`. `unassigned — needs an owner` is legitimate and is itself a finding.
+
+**The acceptance criterion here is about as checkable as they get, and that is the standard**: the block is live in the page source at the named URL, the Schema.org validator returns zero errors for it, every property in it corresponds to content visible on that page, and all three were checked on a stated date. The test is whether someone who was not part of this engagement could confirm that six weeks from now without asking what was meant — so not "fix the schema".
+
+**A criterion never requires an engine to do something.** A rich result appearing, a knowledge panel, a local-pack placement or a citation is nobody's to deliver — Google decides per query and per device, which is exactly why this skill's eligibility note promises no appearance and draws no mock SERP. Writing an appearance as an acceptance criterion re-introduces, as a test, the promise the note refuses to make.
+
+**Ordering, stated once**: expected impact ÷ effort with dependencies respected, *inside* the existing P0-P4 implementation priority tiers, which stay this skill's only priority vocabulary. A block that waits on a value the client has not sent sorts below the request for that value.
+
+```markdown
+<!-- SKELETON — the implementation action table, which sits in the report beside the JSON-LD and
+     never inside it. Every [slot] is filled from this run; fields 4-7 take their stated-absence
+     value where no answer exists. Delete this comment when the table is filled. -->
+| Tier | Action | Owner | Acceptance criterion | Expected impact | Effort | Dependencies | Risk if done wrong |
+|------|--------|-------|----------------------|-----------------|--------|--------------|--------------------|
+| [P0-P4] | [one imperative sentence naming the page and the change] | [role] | [block live in source at the named URL · validator returns zero errors · every property matches visible content · checked when] | [what the markup demonstrably does, or `not estimated — no baseline data`] | [S/M/L, or `not estimated`] | [named, or `none`] | [failure mode and cost — a content mismatch is a spam-policy risk, not a cosmetic one] |
+```
+
+Field definitions, stated-absence values, the closed role list, worked criteria and the three permitted shapes of expected impact: [Action Output Contract](../../references/action-output-contract.md).
+
 ## Validation Checkpoints
 
 ### Input Validation
@@ -267,6 +292,8 @@ When a user requests schema markup:
 - [ ] Schema content matches visible page content exactly — **the same fact, not necessarily the same spelling**. Properties with a documented notation are written in it even where the page prints another form: `addressCountry` as an ISO 3166-1 alpha-2 code, `offers.priceCurrency` as an ISO 4217 code, dates as ISO 8601, `telephone` in international dialling format with the country code (`+30 2310 555 000`). Re-notating a fact the page states is not a mismatch; adding a fact it does not state is, so where the page does not establish what the notation needs, the property is dropped and the gap named ([validation-guide.md → Required vs Recommended Properties](./references/validation-guide.md#required-vs-recommended-properties))
 - [ ] Passes ~~schema validator with no errors
 - [ ] Source of each data point stated in the deliverable's own words — the resolved tool name (a Screaming Frog extraction), "user-provided", or "manual entry"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
+- [ ] Every recommendation carries all seven fields — action, owner, acceptance criterion, expected impact, effort, dependencies, risk if done wrong — with a stated-absence value wherever an answer does not exist; none ships without an owner-role and an acceptance criterion, the owner is a role from the closed list (`Client decision` and `unassigned — needs an owner` both count, the second being itself a finding), and every field sits in the report rather than as a member of the emitted JSON-LD
+- [ ] Every acceptance criterion is observable, binary at the moment of checking, attached to a named artefact or measurement, and dated or triggered — block live in source at the named URL, validator returns zero errors, every property matches visible content, all checked on a stated date. **None requires an engine to do something**: a rich result, a knowledge panel, a local-pack placement or a citation is never the criterion. Ordering is expected impact ÷ effort with dependencies respected, stated once, inside the P0-P4 tiers rather than a second priority vocabulary
 
 ## Example
 
@@ -323,18 +350,7 @@ _Implementation: Wrap the above JSON-LD in `<script type="application/ld+json">.
 
 ## Schema Type Quick Reference
 
-| Content Type | Schema Type | Key Properties |
-|--------------|-------------|----------------|
-| Blog Post | BlogPosting/Article | headline, datePublished, author |
-| Product | Product | name, price, availability |
-| FAQ | FAQPage | Question, Answer |
-| How-To | HowTo | step, totalTime |
-| Local Business | LocalBusiness | address, geo, openingHours |
-| Recipe | Recipe | ingredients, cookTime |
-| Event | Event | startDate, location |
-| Video | VideoObject | uploadDate, duration |
-| Course | Course | provider, name |
-| Review | Review | itemReviewed, ratingValue |
+Content type → primary type, what nests inside each, the SERP note per type, and the two or three key properties that identify it: [references/schema-decision-tree.md](./references/schema-decision-tree.md) → Primary Type by Content, and Key Properties at a Glance.
 
 ## Tips for Success
 
@@ -345,14 +361,11 @@ _Implementation: Wrap the above JSON-LD in `<script type="application/ld+json">.
 5. **Test thoroughly** - Validate before deploying
 6. **Monitor Search Console** - Watch for errors and warnings (non-FAQ types — an ordinary site has no FAQ rich result to report on since the 2023-08-08 restriction)
 
-## Schema Type Decision Tree
-
-> **Reference**: See [references/schema-decision-tree.md](./references/schema-decision-tree.md) for primary-type selection by content, the nested-vs-auxiliary boundary (R2), industry starting points, implementation priority tiers (P0-P4), and validation quick reference.
-
 ## Reference Materials
 
 - [Schema Templates](./references/schema-templates.md) - JSON-LD skeletons for every supported type (fill each `[SLOT]` or drop the property), plus the primary + auxiliary array form
-- [Schema Decision Tree](./references/schema-decision-tree.md) - Primary-type selection, nested-vs-auxiliary boundary, industry starting points, priority tiers (P0-P4)
+- [Schema Decision Tree](./references/schema-decision-tree.md) - Primary-type selection by content, key properties at a glance, the nested-vs-auxiliary boundary (R2), industry starting points, implementation priority tiers (P0-P4), validation quick reference
+- [Action Output Contract](../../references/action-output-contract.md) - Library-wide: the seven fields every implementation action carries, their stated-absence values, the closed owner-role list, worked acceptance criteria (and the AI-surface measurement rule), the three permitted shapes of expected impact, and the ordering rule
 - [Validation Guide](./references/validation-guide.md) - Common errors, required properties, the rich-result eligibility note (FAQ: none for an ordinary site — government/health only since Aug 2023), testing workflow (FAQPage: Schema.org validator only)
 
 ## Related Skills

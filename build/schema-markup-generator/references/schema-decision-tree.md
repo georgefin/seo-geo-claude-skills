@@ -36,6 +36,19 @@ Pick the ONE row that matches the page. The "Nest Inside It" column lists entiti
 
 **"Should it be X or Y — or both?"** Pick the one type that matches what the page IS, and nest the other entity inside it (a workshop page is an Event with the studio nested as `organizer` — not Event + Organization side by side). Two content types as co-primaries are justified only if the page genuinely is both things and each type is complete, accurate, and independently justified.
 
+### Key Properties at a Glance (moved from SKILL.md)
+
+The two or three properties that identify each type, for recognising a mis-typed page quickly.
+They are a lookup, not a required-property list — what a type actually requires is in
+[validation-guide.md](./validation-guide.md), and a property with no value on the page is dropped
+rather than filled.
+
+BlogPosting/Article — `headline`, `datePublished`, `author` · Product — `name`, `price` (inside
+`offers`), `availability` · FAQPage — `Question`, `Answer` · HowTo — `step`, `totalTime` ·
+LocalBusiness — `address`, `geo`, `openingHours` · Recipe — `recipeIngredient`, `cookTime` ·
+Event — `startDate`, `location` · VideoObject — `uploadDate`, `duration` · Course — `provider`,
+`name` · Review — `itemReviewed`, `ratingValue`.
+
 ---
 
 ## Documented Auxiliary Types

@@ -1,13 +1,13 @@
 ---
 name: keyword-research
-version: "4.5.1"
+version: "4.6.0"
 description: 'Discover high-value SEO keywords with search intent analysis, difficulty scoring, topic clustering, and AI citation potential. Use when the user asks to "find keywords", "keyword research", "what should I write about", "keyword difficulty score", "identify ranking opportunities", "topic ideas", "what are people searching for", or "long-tail keyword suggestions". For competitor keyword gaps, see competitor-analysis. For topic coverage gaps, see content-gap-analysis.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.5.1"
+  version: "4.6.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -137,32 +137,7 @@ When a user requests keyword research:
 
 3. **Expand Keyword List**
 
-   For each seed keyword, generate variations:
-   
-   ```markdown
-   ## Keyword Expansion Patterns
-   
-   ### Modifiers
-   - Best [keyword]
-   - Top [keyword]
-   - [keyword] for [audience]
-   - [keyword] near me
-   - [keyword] [year]
-   - How to [keyword]
-   - What is [keyword]
-   - [keyword] vs [alternative]
-   - [keyword] examples
-   - [keyword] tools
-   
-   ### Long-tail Variations
-   - [keyword] for beginners
-   - [keyword] for small business
-   - Free [keyword]
-   - [keyword] software/tool/service
-   - [keyword] template
-   - [keyword] checklist
-   - [keyword] guide
-   ```
+   Expand every seed against the modifier library — modifiers (best, top, for [audience], near me, [year], how to, what is, vs, examples, tools) and long-tail variations (for beginners, for small business, free, software/tool/service, template, checklist, guide). Each pattern is listed with the intent it usually produces, because the modifier is normally what decides the expanded keyword's category: [references/keyword-intent-taxonomy.md](./references/keyword-intent-taxonomy.md) → Keyword Expansion Patterns. "Usually" is not a classification — every expanded keyword still gets classified in Step 5 against the SERP.
 
 4. **Expand Greek Seed Keywords (Dual-Coverage)**
 
@@ -206,28 +181,7 @@ When a user requests keyword research:
 
 6. **Assess Keyword Difficulty**
 
-   Score each keyword (1-100 scale):
-
-   ```markdown
-   ### Difficulty Factors
-   
-   **High Difficulty (70-100)**
-   - Major brands ranking
-   - High domain authority competitors
-   - Established content (1000+ backlinks)
-   - Paid ads dominating SERP
-   
-   **Medium Difficulty (40-69)**
-   - Mix of authority and niche sites
-   - Some opportunities for quality content
-   - Moderate backlink requirements
-   
-   **Low Difficulty (1-39)**
-   - Few authoritative competitors
-   - Thin or outdated content ranking
-   - Long-tail variations
-   - New or emerging topics
-   ```
+   Score each keyword 1-100 and read it into one of three bands — **High 70-100 · Medium 40-69 · Low 1-39**. `serp-analysis` Step 7 reads its weighted SERP difficulty into these same three, so the words mean the same thing in both. What each band looks like on the SERP, how a connected tool's own Keyword Difficulty is reported beside this one, and why an unscoreable difficulty stays an explained N/A rather than being estimated into a band: [references/keyword-prioritization-framework.md](./references/keyword-prioritization-framework.md) → Difficulty Bands.
 
 7. **Calculate Opportunity Score**
 
@@ -322,6 +276,27 @@ When a user requests keyword research:
 
     **Metrics columns are universal in analysis tables**: every keyword analysis table in the deliverable — including GEO/conversational-query tables — carries Volume / Difficulty / Intent columns. When a metric is not tool-reported (typical for GEO conversational queries and GBP-driven local terms), the cell shows an explained N/A (e.g., "N/A — not tool-reported") — never an invented number. Placement/crosswalk tables (like Step 10's GBP mapping) reference keywords already metricized in an analysis table; a keyword target may not appear for the first time in a crosswalk — give it an analysis row (explained N/A allowed) first. "Estimated" is a source label only where the estimate has a stated basis (a range the user gave, a named proxy, a hand-check you describe); with no tool connected and nothing supplied there is nothing to estimate from — the cell carries the explained N/A and the report says so in plain words.
 
+    **Next Steps is an action table, and every action in it carries seven fields**: **action · owner · acceptance criterion · expected impact · effort · dependencies · risk if done wrong**. A keyword plan that stops at a ranked list has handed the client a spreadsheet, not a plan — every row that says *do something* (commission the pillar, settle a cluster's owner, target the Greeklish forms in the paid-search account, seed the three GBP Q&A entries) becomes an action row. Fields 1-3 are **required**: no action ships without an owner-role and an acceptance criterion. Fields 4-7 carry a stated-absence value where no answer exists (`not estimated — no baseline data`, `not estimated`, `none`, `low — reversible, no downstream effect`) — never blank and never invented. On a zero-data run expected impact is routinely `not estimated — no baseline data`, and that is the honest cell: the same rule that withholds the Opportunity Score in Step 7 withholds the traffic forecast here.
+
+    **Owner is a role**, not a person unless the client supplied the name: `Content` · `SEO/technical` · `Developer` · `Designer` · `Product/merchandising` · `Customer service` · `Legal/compliance` · `Agency` · `Client decision`. **Step 9's cluster assignments are the `Client decision` case in its purest form** — this run proposes the owning property and the reasoning, the client decides, and the acceptance criterion is that decision recorded: one property and one URL written into the ownership register, dated and signed off. A cluster reading `no owner assigned` produces exactly that action rather than a blank cell. `unassigned — needs an owner` is legitimate and is itself a finding.
+
+    **The acceptance-criterion test: could someone who was not part of this engagement check it six weeks from now, without asking anybody what was meant?** Observable, binary at the moment of checking, attached to a named artefact or measurement, dated or triggered — "the pillar page is live at the agreed URL, its H1 carries the head term, and it is linked from both category pages, by 30 Sep", not "target the cluster".
+
+    **A criterion never requires an engine to do something.** A ranking, an AI Overview appearance or a citation is nobody's to deliver, so none of them is the criterion; the criterion is the work shipped plus the measurement re-run and recorded beside its dated baseline. For a GEO row that is the AI-visibility capture re-run on the same repeat protocol with its `k of N` recorded — never "the brand appears in the answer".
+
+    **Ordering, stated once**: expected impact ÷ effort with dependencies respected — an action whose dependency is unmet sorts below the thing it waits on, whatever its score. The bands this report already computed (Quick Wins / Growth / GEO, and the Priority Score's P0-P3) are the bands used; no second priority vocabulary is invented beside them.
+
+    ```markdown
+    <!-- SKELETON — the Next Steps table's seven columns. Every [slot] is filled from this run's
+         own findings; fields 4-7 take their stated-absence value where no answer exists. Delete
+         this comment when the table is filled. -->
+    | Priority | Action | Owner | Acceptance criterion | Expected impact | Effort | Dependencies | Risk if done wrong |
+    |----------|--------|-------|----------------------|-----------------|--------|--------------|--------------------|
+    | [the band this report already assigned] | [one imperative sentence naming the artefact and the change] | [role] | [observable · binary · named artefact or measurement · dated or triggered] | [derived from a figure printed in this report, or `not estimated — no baseline data`] | [S/M/L, or `not estimated`] | [named, or `none`] | [failure mode and cost, or `low — reversible, no downstream effect`] |
+    ```
+
+    The action table is client-read: no skill slug, no `~~category` token, and no framework item ID as the referent in its prose. Field definitions, the stated-absence values, the closed role list, worked criteria and the three permitted shapes of expected impact: [Action Output Contract](../../references/action-output-contract.md).
+
     > **Reference**: See [references/example-report.md](./references/example-report.md) for the full report template and example.
 
 ## Validation Checkpoints
@@ -345,6 +320,8 @@ When a user requests keyword research:
 - [ ] Greek-market keywords ship the Step-4 artefact (if applicable): ONE table, one row per demand, all four forms — accented, unaccented, Greeklish, EN equivalent — as literal keyword strings with placement stated per form. Demands that arrived in a tool export get a row like any other; a form that does not exist says so in its cell; no cell is blank and no form is left to prose
 - [ ] Local-intent keywords mapped to GBP surfaces, not just website pages (if applicable)
 - [ ] Source of each data point stated in the report's own words — the resolved tool name (Ahrefs, Semrush), "user-provided", or "estimated"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
+- [ ] Every recommended action carries all seven fields — action, owner, acceptance criterion, expected impact, effort, dependencies, risk if done wrong — with a stated-absence value wherever an answer does not exist (`not estimated — no baseline data`, `none`, `low — reversible, no downstream effect`); none ships without an owner-role and an acceptance criterion, and the owner is a role from the closed list (`Client decision` — which every cluster assignment awaiting the client is — and `unassigned — needs an owner` both count, the second being itself a finding)
+- [ ] Every acceptance criterion is observable, binary at the moment of checking, attached to a named artefact or measurement, and dated or triggered — checkable six weeks on by someone who was not part of this engagement. **None requires an engine to do something**: a ranking, an AI Overview appearance or a citation is never the criterion, only the work shipped plus the measurement re-run and recorded beside its dated baseline. Ordering is by expected impact ÷ effort with dependencies respected, stated once, inside the bands this report already assigned rather than a second priority vocabulary
 
 ## Example
 
@@ -375,6 +352,7 @@ When a user requests keyword research:
 - [Example Report](./references/example-report.md) — Complete example keyword research report for project management software
 - [Greek Keyword Coverage](./references/greek-keyword-coverage.md) — Diacritics/Greeklish dual-coverage patterns, inflection-set clustering (case/number), transliteration reference, and GBP surface mapping
 - [Cluster Ownership](./references/cluster-ownership.md) — The ownership register's columns, how the owning property is decided (conversion path first, then the three tie-breakers), what to write when this run cannot decide, and how bilingual clusters become one row or two
+- [Action Output Contract](../../references/action-output-contract.md) — library-wide: the seven fields every Next Steps action carries, their stated-absence values, the closed owner-role list, worked acceptance criteria (and the AI-surface measurement rule), the three permitted shapes of expected impact, and the ordering rule
 
 ## Related Skills
 

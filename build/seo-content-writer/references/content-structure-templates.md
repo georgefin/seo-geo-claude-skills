@@ -13,6 +13,24 @@ a plausible-looking default. The implementation checklist's "customize all [brac
 placeholders]" box cannot catch a default that was never bracketed, which is why this rule is
 stated here rather than left to that box.
 
+## Invocation Shapes (moved from SKILL.md)
+
+Four content types this skill is most often asked for by name, with the request wording that
+selects each and the template below that serves it. The wording is the *user's* side; the
+structure is this file's.
+
+| Content type | Request wording | Template below |
+|--------------|-----------------|----------------|
+| How-to guide | `Write a how-to guide for [task] targeting [keyword]` | How-To Guide (Step-by-Step) |
+| Comparison article | `Write a comparison article: [Option A] vs [Option B] for [keyword]` | Comparison Article ("[A] vs [B]") |
+| Listicle | `Write a list post: "N Best [Items] for [Audience/Purpose]" targeting [keyword]` | Listicle ("Top N [Items]") |
+| Ultimate guide | `Write an ultimate guide about [topic] (3,000+ words) targeting [keyword]` | Pillar Page (Comprehensive Guide) |
+
+The request wording names the *format*, never the outcome: a request phrased as "write the guide
+that will rank first" is answered with the guide and without the promise, per this skill's
+family-10 rule. Two further types have templates here with no fixed invocation of their own —
+Blog Post (Informational) and Product Review — and are selected from the content brief.
+
 ## Blog Post (Informational)
 
 **Target word count**: 1,200-1,800 words
