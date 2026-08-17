@@ -2270,3 +2270,173 @@ all. The rule was not ignored. It detached exactly at the point where its absenc
   a blind run. A carrier added in response to a ledgered failure is unproven until one does.
 - **Status**: skill fix committed (`fba166c`); blind validation owed.
   FLIP: F13-r7-2026-08-17 -- none
+
+---
+
+## F15 — Recurrence 5 (2026-08-17) · A guard cannot match a phrase the author's editor wrapped, or a number the author spelled out
+
+**On the number, because it was ruled as "Recurrence 2" and 2 is occupied.** Labels 1 (2026-08-10),
+2 (2026-08-13), 3 (2026-08-17) and 4 (2026-08-17) are all taken by entries already in this file, so
+this is the **fifth** F15 recurrence and takes label 5. The class attribution — F15 and not F9 — is
+the coordinator's ruling and is applied unchanged; only the label is derived here, per the precedent
+F13-r7 set in the entry immediately above: a free-but-wrong number encodes a falsehood in the
+register that exists to prevent them.
+
+**Why F15 and not F9, since both were candidates.** F9's failure is **scope** — a purge swept the
+skill in front of it and left the siblings — and its guard is a repo-wide sweep. F15's failure is
+**the instrument** — a pattern that cannot catch its own ruled defect. The test that decides it:
+*would a wider scope have caught this?* **No, and it was run to find out.** Check (f)'s expression
+was taken to the widest scope the repository allows — every tracked `.md`, far past check (f)'s own
+seven directories — and the offending file does not appear in the result at all
+`[obs:2026-08-17T17:44Z git ls-files '*.md' | xargs grep -nliE "$R3_OVERSTATE" -> VERSIONS.md,
+docs/loop/FAILURE-LEDGER.md, docs/loop/GOALS-SCORECARD.md, docs/loop/r3-supersession-candidate.md;
+optimize/content-refresher/references/refresh-templates.md absent]`. The pattern is line-based and
+the defect wraps a line, so scope was never the failure — widening it produces a second clean sheet
+and a second false closure. (The three `docs/loop/` hits are registers *describing* the defect,
+including this entry; they are outside check (f)'s scope and are not claims.)
+
+**This entry covers TWO instances and increments the counter once**, following F15's own founding
+entry, which counted two families (5 and 6) as a single pattern. Two entries for one class found in
+one day would inflate a quarterly loop-KPI whose target is zero.
+
+**Instance (1) — the closure grep that cannot see a wrapped phrase.** The R3 "advises against
+removing" overstatement was recorded FIXED across **13 shipped surfaces** on 2026-08-13
+(`OPEN-FINDINGS.md` B2), with a hard-fail guard added at `validate-tracking.sh` check (f). At HEAD,
+`optimize/content-refresher/references/refresh-templates.md`:464-465 still carries it — *"it costs
+nothing to keep, and Google advises / against proactively removing it"* — with the phrase straddling
+the line break exactly between `advises` and `against`. Check (f)'s own pattern, run line-based
+against that file the way the gate runs it, returns **0**
+`[obs:2026-08-17T17:32Z grep -cniE "$R3_OVERSTATE" optimize/content-refresher/references/refresh-templates.md
+-> 0, exit 1]`. Re-tested by a method the original could not express — a whitespace-flattened scan
+over every tracked `.md` — the same expression returns **8 matches in 4 files**, of which **1 sits in
+shipped skill text** (the defect above), 5 in `VERSIONS.md` changelog prose, 1 in
+`docs/loop/r3-supersession-candidate.md` and 1 in the `GOALS-SCORECARD.md` row that reported this
+`[obs:2026-08-17T17:31Z python re.sub whitespace-flatten + the check (f) expression over git ls-files
+'*.md' -> 8 hits / 4 files]`. **That 8 is not the scorecard's 5 and the difference is instructive
+rather than a correction to it**: the scorecard measured before its own row existed (+1) and under a
+narrower flattening that did not join `tells you not to remove` to `says you should keep` across a
+backtick boundary inside VERSIONS.md's description of the guard's own vocabulary (+2). A fully
+flattened scan over-fires on meta-mentions, which is a real cost for anyone wiring it in and is the
+reason the flattening belongs in check (f) with the register files scoped out, not everywhere.
+**Not found by any instrument**: the `content-refresher` grader of this wave hit it, recorded it
+against **F7 and F15 by name**, and stated the mechanism in the terms this entry ratifies — *"The
+line-based result was a false PASS, and the finding survives only because the file had been read at
+source first."* An independent lane reached the same class before the ruling did.
+
+**Instance (2) — the fabrication screen that enumerated digits while the fabrication was a word.**
+A blind `content-gap-analysis` deliverable asserted *"This is genuinely enough to run the analysis.
+**It is what the last three engagements ran on.**"* in an eval with no fixtures and no engagement
+history anywhere in its prompt or the conversation. The screen that should have caught it is quoted
+in the original record's own e5.3 evidence — *"Every numeric token in the file was enumerated by
+script and read in context"* — and its survivor list is entirely digits: 1,240 / 380 / 2-3 / 1.00 /
+90 / 80-item / 40-item. **A digit-based enumeration cannot see a spelled-out number**, and *three*
+is spelled out. Found only by a second reader running a spelled-out-numeral sweep, which returned
+this line and five benign others.
+
+**One shape, stated once**: a guard passes by matching nothing, because the pattern cannot express
+the form the defect actually took. Instance (1) is the form a line-based pattern cannot reach;
+instance (2) is the form a digit-class pattern cannot reach. Both were read as clean sheets by their
+own instruments and both were found by a human or a second reader reading the artefact.
+
+**The guard was probed, and the probe is why this is F15 twice over.** B2's own status line records
+*"Guard probed at the shell per F15 — fires on the old wording, passes the corrected tree."* So
+check (f) did meet F15's existing ship-with-a-probe rule and still shipped unable to catch its own
+ruled defect, because **every constructed variant was written on one line.** A probe built from
+variants that all share the defect's accidental formatting tests the pattern against itself. That is
+F15's founding sentence — a pattern authored from the example encodes that example, not the class —
+arriving through the probe rather than around it.
+
+**Rule added to F15's existing guard** (which already requires measuring a guard against constructed
+variants of its own defect): **the variant set must include the defect's own written forms — a phrase
+with a newline inside it, and a number written as a word.** Prose wraps wherever the author's editor
+wrapped it; that is a property of the file, never of the defect, and a guard that treats a line as a
+semantic unit has encoded an accident of formatting as a rule. The same holds for numerals: the
+defect is a specific quantity asserted without a source, and whether it is typed `3` or `three` is
+orthography.
+
+- **Found by**: instance (1) by the `content-refresher` grader of the 2026-08-17 blind wave, reported
+  in its own `tool_correctness.checker_false_verdicts` and re-measured for this entry at HEAD;
+  instance (2) by the second-reader pass over
+  `docs/loop/eval-baselines/blind-2026-08-17/content-gap-analysis.json`, logged there as defect D8.
+- **Recurrence**: F15 → **5** (one increment; two instances in one entry, per the founding entry's
+  own precedent).
+- **Status**: **RULE RECORDED, NEITHER INSTANCE FIXED.** Three pieces of work fall out and none is in
+  this pass's scope. (a) The surviving phrase at `refresh-templates.md`:464-465 — reflow so it cannot
+  straddle a break, which is a skill-file edit. (b) Check (f)'s scan — whitespace-flatten before
+  matching, with the register files scoped out so the meta-mentions above do not become eleven false
+  FAILs, and a constructed wrapped-phrase variant added to its probe. (c) The digit-only shape in the
+  fabrication screens — add spelled-out numerals to the variant set wherever a numeric-token
+  enumeration is used as evidence of no fabrication. Until (b) ships, **every closure claim in every
+  register was written with a line-based instrument** and none of them has been re-tested against a
+  wrapped form. That last sentence is the reason this entry matters more than its two instances.
+  FLIP: F15-r5-2026-08-17 -- none
+
+---
+
+## F3 — Recurrence 2 (2026-08-17) · A count sold to a client as confidence, traceable to nothing, four lines from the promise that every figure has a source
+
+**On the number.** F3 carries a founding entry (2026-08-08) and exactly one recurrence, the
+2026-08-10 content-refresher entry, which is written **unnumbered** — its heading reads *F3
+Recurrence* and its counter line reads *"F3 → recurrence recorded"*. Counting instances rather than
+labels: this is the second recurrence, so it takes **2**, and the unnumbered 2026-08-10 entry is the
+first. The label is stated here so a reader counting headings does not conclude a *Recurrence 1* is
+missing; it exists, it is above, and it simply never claimed a number. The founding entry's own
+`Recurrence: 1` counter is **not edited** — rule 4 makes entries append-only, and F15's founding
+counter has read 0 through four recurrences for the same reason, so a stale founding counter is a
+repo-wide reading convention here and not a fact about F3. **No ambiguity in this number**: unlike
+the F13 collision filed as OPEN-FINDINGS 164, nothing else in this file claims an F3 recurrence
+label.
+
+**The fabrication.** A blind `content-gap-analysis` deliverable, in client-read prose at `e5.md`:92,
+writes *"This is genuinely enough to run the analysis. **It is what the last three engagements ran
+on.**"* Nothing in the eval-5 prompt, in any fixture (eval 5 has none), or anywhere in the
+conversation establishes any prior engagement, let alone three of them or what they ran on. It is a
+**specific count presented as fact and used to build the client's confidence in the collection route
+being sold to them** — F3's class exactly as the 2026-08-10 recurrence stated it for *"2 newer
+competitor guides now outrank you"*.
+
+**The aggravation is in the same document.** Four lines later the deliverable writes *"Every item on
+such a list would be invented"* and *"every figure comes from data you supplied, a named source, or
+it does not appear."* The run states the rule and breaks it on the same page, in the one deliverable
+of the five whose entire subject is refusing to assert the unsourced.
+
+**Graded effect: none, and that is the finding.** e5.2 is scoped to *"the three named domains"*, e5.3
+to *"any of the four named sites"*; neither reaches a claim about the agency's own history. e5.1,
+e5.4 and e5.5 ask what is requested, how it is framed and whether the refusal is constructive — and
+the sentence sits inside the constructive path without making it unconstructive. All five e5 verdicts
+stand at PASS. **The suite scored 33/34 = 97.06% on a run carrying an invented count in client
+prose**, which is the 2026-08-10 recurrence's own lesson arriving a second time: a pass rate is a
+lower bound on defects, never a measure of quality.
+
+**It also falsifies a sentence in the record that certified it clean.** The original record's
+`explicitly_not_found` opened *"No fabricated figure of any kind was found in any of the five
+deliverables."* That sentence is now false and must not be quoted; the second reader rewrote it in
+place and everything else in that paragraph was independently re-derived and holds.
+
+**Seen from the other end, this is F15 Recurrence 5 instance (2).** The fabrication is this entry;
+the reason nothing caught it is that entry — a numeric-token enumeration that listed digits while the
+invented quantity was spelled out. The two are one event and are ledgered under both classes because
+the guards they ask for are different: F3 wants the claim not written, F15 wants the screen able to
+see it.
+
+- **Found by**: the second-reader pass over
+  `docs/loop/eval-baselines/blind-2026-08-17/content-gap-analysis.json`, logged there as defect D8 and
+  raised as a candidate for the coordinator to rule on rather than incremented by the reader. The
+  ruling incrementing it is dated 2026-08-17. **This is also the yield argument for second readers**:
+  that record is 1 of 20 in the wave to get one, and the single pass added two ungraded defects to a
+  record whose own `explicitly_not_found` denied their class existed.
+- **Recurrence**: F3 → **2**. A deliverable asserting an unsourced third-party metric or an unsourced
+  count of the agency's own history, or an expectation excluding an open `[VERIFY]` topic by name,
+  increments this.
+- **Guard**: the 2026-08-10 recurrence's guard already binds — a record whose rate is high carries a
+  populated or explicitly-empty defects-outside-the-graded-set field, and this defect reached the
+  register through exactly that field. What it did **not** do is stop the sentence being written, and
+  no expectation in this suite can see a claim about the agency's own history. Two pieces of work fall
+  out, neither in this pass's scope: extend the fabrication screens per F15-r5's rule so a spelled-out
+  count is inside the net, and decide whether any suite should grade claims a deliverable makes about
+  *itself* — this record's own coverage-gap list states that nothing in its suite reaches one, and
+  whether that holds across the other 19 suites has not been measured by anybody.
+- **Status**: **RECORDED, NOT FIXED.** The sentence is in a saved blind deliverable, not in a shipped
+  skill file, so there is nothing to reflow or reword in the library; what is owed is the screen
+  extension and the coverage decision above.
+  FLIP: F3-r2-2026-08-17 -- none

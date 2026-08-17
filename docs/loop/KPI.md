@@ -118,3 +118,73 @@ stays terse, the method lives here so the number can be re-derived).
   stop, 2 check (g) FAILs from anchor tokens that wrapped across a line, and 1 check (g) FAIL from a
   pointer whose target line moved under it mid-pass. A wave-level figure needs the coordinator's
   view of every lane and is left to the fire that has it.
+
+| 2026-08-17 | 19 of 477 previously-passing expectations across the 18 compared suites = 4.0% | 18 increments across 17 entries (the 16/15 above, plus F15 r5 and F3 r2) | 20/20 grader runs clean of tool misuse reaching a verdict; lane + coordinator runs still not countable from this lane | 544/610 across 20 suites | n/a — not countable from this lane; see column note | CORRECTS the 2026-08-17 row above, whose population was the 11 records present at 14:45Z; blind-2026-08-17/*.json now holds 20 records; 18 compared, 2 not (performance-reporter, rank-tracker); content-gap-analysis PROVISIONAL lifted by its own `confirmation_2026_08_17`; OPEN-FINDINGS 168-178; FAILURE-LEDGER F15 r5, F3 r2 |
+
+**Column notes for the correcting 2026-08-17 row** (this row supersedes no cell of the row above;
+it restates the same fire over the population that finished arriving after that row was written).
+
+- **WHY THIS ROW EXISTS, and what is *not* wrong with the row it corrects.** The earlier row is
+  accurate for its stated population and warned in its own note that the wave was still producing
+  records. Its numbers are not errors and are not withdrawn. This file's rule 1 gives one path for
+  a figure whose population has moved — append a new row naming the one it corrects — and forbids
+  the other, editing the cold row. Nine records landed after 14:45Z and took the corpus from 11 to
+  20: content-quality-auditor, content-refresher, entity-optimizer, memory-management,
+  meta-tags-optimizer, on-page-seo-auditor, schema-markup-generator, seo-content-writer and
+  serp-analysis.
+- **`regression rate` — same method as the row above, wider population.** Denominator is each prior
+  record's own `passed`/`pass` field, summed across the 18 suites where a per-expectation comparison
+  was actually run: alert-manager 24 · backlink-analyzer 24 · competitor-analysis 21 ·
+  content-gap-analysis 29 · content-quality-auditor 28 · content-refresher 25 ·
+  domain-authority-auditor 24 · entity-optimizer 18 · geo-content-optimizer 27 ·
+  internal-linking-optimizer 26 · keyword-research 29 · memory-management 25 · meta-tags-optimizer
+  24 · on-page-seo-auditor 29 · schema-markup-generator 44 · seo-content-writer 27 · serp-analysis
+  28 · technical-seo-checker 25 = **477**. The nine suites the earlier row used sum to 229 under this
+  same read, which is that row's own figure, so the two rows differ in population and not in method
+  `[obs:2026-08-17T17:28Z python read of summary/totals passed|pass across the 18 named baseline
+  records — 477; the earlier row's 9-suite subset re-sums to 229]`. Numerator is 19: on-page-seo-auditor
+  4 (e1.5, e3.5, e5.1, e2.6) · alert-manager 3 (e2.6, e3.1, e4.4) · content-quality-auditor 2 (e4.4,
+  e4.6) · content-refresher 2 (e1.1, e2.6) · keyword-research 2 (e3.3, e4.1) · serp-analysis 2 (e3.1,
+  e4.2) · backlink-analyzer 1 (e1.6) · geo-content-optimizer 1 (e2.1) · internal-linking-optimizer 1
+  (e4.4) · schema-markup-generator 1 (e1.7). **19 of 477 = 3.98%, printed as 4.0%.**
+- **The single-figure presentation is not a simplification — the second figure's cause was removed.**
+  The earlier row gave two rates because content-gap-analysis was provisional (its grader was killed
+  by a spend limit before reporting). A second-reader pass has since reviewed that record, lifted the
+  provisional qualification, and left its verdicts unchanged at 33/0/1 of 34. Its 29 prior-record
+  passes therefore sit inside the 477 without a caveat.
+- **19 moved verdicts is not 19 distinct defects, and the difference is in the register, not in this
+  cell.** Two of the 19 are one span scored twice (content-quality-auditor e4.4 and e4.6 both fail on
+  `e4.md`:141), and one is a suite defect the deliverable failed *for complying with a binding rule*
+  (content-refresher e2.6, ledger F13-r5, ruled a suite defect on 2026-08-11 and not since edited).
+  The rate counts moved graded verdicts because that is what the column's definition says; anyone
+  costing the fix list reads OPEN-FINDINGS 168-178, where each row states which kind it is.
+- **`evals passed/total` is `544/610` across all 20 records** and reconciles exactly: 544 passed + 41
+  failed + 25 greek-content-editor slots = 610, with the editor slots inside `total` and in neither
+  `passed` nor `failed` per the convention F16-r1(d) fixed `[obs:2026-08-17T17:29Z python sum over the
+  20 blind-2026-08-17 summary objects — 544/41/25/610]`. Unlike the earlier row's 299/332 this is a
+  corpus figure for this wave: every one of the 20 skills has a record of this date.
+- **`repeat-failure count` counts increments, not entries, on the same read as the row above.** That
+  row's 16 increments across 15 entries is re-derived unchanged. Two entries are added by the pass
+  that wrote this row — F15 Recurrence 5 and F3 Recurrence 2 — carrying one increment each, giving
+  **18 across 17**. F15 r5 covers two instances in one entry and still counts once, following the
+  precedent set in F15's own founding entry, which counted two families as one. The F13 numbering
+  collision noted in the earlier row is unchanged and is still OPEN-FINDINGS 164.
+- **`tool-correctness` is a grader-run rate only, and it widens cleanly.** All 20 grading runs report
+  no tool error that reached a verdict; the recurring `scripts/eval-prompt.sh` id-form mismatch is now
+  reported by five records (alert-manager, performance-reporter, rank-tracker, seo-content-writer and
+  entity-optimizer's note that the warning was correct), which is a script usability defect, not
+  misuse, and touched no verdict. Reported beside the rate rather than inside it: **9 checker false
+  verdicts self-caught before reporting carry an explicit count field** — meta-tags-optimizer 3,
+  backlink-analyzer 2, domain-authority-auditor 2, geo-content-optimizer 1, internal-linking-optimizer
+  1 — and five further records state at least one in prose with no count field (content-gap-analysis,
+  content-refresher, on-page-seo-auditor, seo-content-writer, technical-seo-checker), so **9 is a floor
+  and is labelled as one.** One of the prose ones is worth naming here because it changed a register:
+  content-refresher's grader caught a repo-wide `grep -rn "advises against"` returning a false clean
+  sheet, re-ran it as a multiline regex, and found `refresh-templates.md`:464 — the finding behind
+  ledger F15 Recurrence 5.
+- **`caught pre-push vs post-push` is `n/a` for the same reason as the row above** — the wave's gate
+  history sits outside any single lane's view, and this row's author ran no gate on outgoing commits.
+  It is `n/a` rather than `0` because nothing was measured, not because nothing fired. The scorecard
+  criterion that wants a number here (G1-C8) is unmet for this fire and closes only when the
+  coordinator writes the cell at close-out or the column's definition narrows to what one lane can
+  count.
