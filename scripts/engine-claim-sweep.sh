@@ -23,6 +23,16 @@
 set -uo pipefail
 cd "$(dirname "$0")/.." || exit 2
 
+# SCOPE — state it, because "library-wide" reads as literal and this is not.
+# SCANNED: the seven directories below, `*.md` only.
+# NOT SCANNED: `docs/**` (registers and loop state — they QUOTE withdrawn claims by design,
+# per F11-r6, so scanning them would fight the convention), `evals/**` (excluded in raw() —
+# a blind executor must never have expectations surfaced to it), root `README.md`,
+# `CLAUDE.md` and `CONNECTORS.md`, and every non-markdown file.
+# The three root files were checked by hand at 2026-08-17: P1 and P5 over `README.md` and
+# `CONNECTORS.md` return one hit, `CONNECTORS.md:61` ("If your organization uses Ahrefs and
+# Google Search Console, read it as:"), which is not a class member. Re-check them by hand
+# when either file grows, or add them here and re-baseline the residual.
 DIRS="build research optimize monitor cross-cutting commands references"
 
 # ── The five shape families ────────────────────────────────────────────────────────────────

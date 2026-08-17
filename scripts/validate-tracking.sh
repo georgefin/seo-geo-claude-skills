@@ -368,7 +368,9 @@ DEPRECATED_TOKENS='\bFID\b|First Input Delay|Affiliate links disclosed'
 # is a statement this library can source from settled ruling R4 — vetted per the B2 rule
 # that an allowlist marker is an assertion the guard now endorses. What still fails is
 # the token standing alone, or beside a live threshold, which is the case that matters.
-DEPRECATED_LEGAL='retired|replaced by inp|superseded|no longer|deprecat|is dead|dropped|not named here|do not teach|teaching'
+# Same whole-line hazard as R3_LEGAL below — see the note there. `dropped` and `teaching` are
+# the generic members here; bounded so an unrelated use does not exempt a live FID claim.
+DEPRECATED_LEGAL='\bretired\b|replaced by inp|superseded|no longer|deprecat|is dead|\bdropped\b|not named here|do not teach|\bteaching\b'
 F_HITS=$(grep -rnE "$DEPRECATED_TOKENS" \
     research build optimize monitor cross-cutting commands references \
     --include='*.md' 2>/dev/null | grep -v 'evals/' | grep -viE "$DEPRECATED_LEGAL" || true)
@@ -431,7 +433,20 @@ fi
 # vet it like shipped prose.** Marker replaced with the faithful phrasing, and
 # the overstatement is now a hard fail below.
 R3_TOKENS='faq.*rich[- ]?(result|snippet)|rich[- ]?(result|snippet)s?.*faq|eligib[^.|]*faq|faq[^.|]*eligib|expandable q&a below|faq (accordion|dropdown|drop-down)|serp accordion'
-R3_LEGAL='retired|retirement|ended|ceased|discontinued|no longer|non-faq|no faq (support|eligibility)|faq(:| has) none|dropped faq support|do not run it through|"add faq rich results"|no evidenced citation benefit|no need to (proactively )?remove|scheduled for august 2026|has none since|no faq rich result|government and health|government/health|restricted (them )?to|2023-08-08|aug 2023|does not (support|test) faqpage|not (the route|supported) for faqpage|unverified'
+# R3_LEGAL is a WHOLE-LINE exclusion. Every generic English member therefore exempts any line
+# that merely contains the word, whatever the line actually claims. Measured 2026-08-17 on six
+# lines each carrying the exact claim R3 amendment 9a retracted ("FAQPage schema earns AI
+# citations"): only 1 of 6 was caught. `ended` is a SUBSTRING of *recommended* — 117 lines in
+# the scanned directories contain that word, and every one of them was wholly exempt — and also
+# of *extended*, *amended*, *appended*. `unverified` excused a line whose "unverified" was about
+# an unrelated figure. Same shape as the two channels found in the citation guard the same day:
+# a qualifier that is not about the claim silences the check.
+#   FIX: word-bound the generic members. `\bended\b` still excuses "FAQ rich results ended for
+#   ordinary sites" and now catches "It is recommended that FAQPage schema earns AI citations" —
+#   both directions probed at the shell before this shipped.
+#   DO NOT fix a miss here by ADDING a legal marker. Every whole-line marker widens the hole;
+#   the direction is narrower excuses, bound to the claim.
+R3_LEGAL='\bretired\b|\bretirement\b|\bended\b|\bceased\b|\bdiscontinued\b|no longer|non-faq|no faq (support|eligibility)|faq(:| has) none|dropped faq support|do not run it through|"add faq rich results"|no evidenced citation benefit|no need to (proactively )?remove|scheduled for august 2026|has none since|no faq rich result|government and health|government/health|restricted (them )?to|2023-08-08|aug 2023|does not (support|test) faqpage|not (the route|supported) for faqpage|unverified (dates|magnitudes)'
 R3_HITS=$(grep -rniE "$R3_TOKENS" \
     research build optimize monitor cross-cutting commands references \
     --include='*.md' 2>/dev/null | grep -v 'evals/' | grep -viE "$R3_LEGAL" || true)
