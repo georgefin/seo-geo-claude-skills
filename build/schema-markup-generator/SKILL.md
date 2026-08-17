@@ -1,6 +1,6 @@
 ---
 name: schema-markup-generator
-version: "4.2.10"
+version: "4.2.11"
 description: 'Generate Schema.org JSON-LD structured data — one accurate primary type per page (FAQPage, HowTo, Article, Product, LocalBusiness, and 6 other types) plus documented auxiliaries only where warranted. Use when the user asks to "add schema markup", "generate structured data", "JSON-LD", "FAQ schema", "rich snippets", "I want star ratings in Google", or "structured data validation errors". Produces validated markup for Google rich results where still offered (no FAQ rich result for ordinary sites — government/health only, Aug 2023 — FAQPage is kept because it stays valid and Google says there is no need to proactively remove it), Bing structured data, and machine-readable input for any consumer that reads it. Validates via the Schema.org validator, plus Rich Results Test for non-FAQ types. For broader technical SEO, see technical-seo-checker. For meta tag optimization, see meta-tags-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.2.10"
+  version: "4.2.11"
   geo-relevance: "medium"
   tags:
     - seo
@@ -245,7 +245,7 @@ When a user requests schema markup:
     - [ ] All required properties present
     - [ ] URLs are absolute, not relative
     - [ ] Dates are ISO 8601 at the precision the page states
-    - [ ] Content matches visible page content
+    - [ ] Content matches visible page content — the same fact, in the notation each property requires
     - [ ] No policy violations
     ````
 
@@ -264,7 +264,7 @@ When a user requests schema markup:
 - [ ] URLs are absolute, not relative
 - [ ] Dates in ISO 8601 **at the precision the page states** — date-only `2025-03-12` when the page shows no time (reduced precision is valid ISO 8601 and correct here); `2025-03-12T09:00:00+02:00` only when the page states a time, and a zone offset only when the page or the client supplies one. Never invent a time, a zone, or a day to reach a longer form
 - [ ] **In paste-ready JSON-LD** — the default, and anything not explicitly labelled a skeleton — no unfilled slot survives: no `[BRACKET]` token, no `_SKELETON` marker, no `TBD`/`XX`, no invented value. A value that cannot be sourced means the property is **dropped** and the gap is named in prose (missing-data rule, step 2). **In a skeleton the user asked for**, brackets are the correct notation and `"_SKELETON"` must be the object's first member — the marker is what makes the block a skeleton, so banning it there would leave an unlabelled block full of brackets, which is the worse of the two failures. *(Scoped 2026-08-13: this read "no unfilled slot survives in the emitted JSON-LD" flat, which contradicted step 2's own fill-in-template route — the skill banned what it prescribed one screen earlier.)*
-- [ ] Schema content matches visible page content exactly
+- [ ] Schema content matches visible page content exactly — **the same fact, not necessarily the same spelling**. Properties with a documented notation are written in it even where the page prints another form: `addressCountry` as an ISO 3166-1 alpha-2 code, `offers.priceCurrency` as an ISO 4217 code, dates as ISO 8601, `telephone` in international dialling format with the country code (`+30 2310 555 000`). Re-notating a fact the page states is not a mismatch; adding a fact it does not state is, so where the page does not establish what the notation needs, the property is dropped and the gap named ([validation-guide.md → Required vs Recommended Properties](./references/validation-guide.md#required-vs-recommended-properties))
 - [ ] Passes ~~schema validator with no errors
 - [ ] Source of each data point stated in the deliverable's own words — the resolved tool name (a Screaming Frog extraction), "user-provided", or "manual entry"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 

@@ -1,13 +1,13 @@
 ---
 name: geo-content-optimizer
-version: "4.5.0"
+version: "4.5.1"
 description: 'Optimize content for AI citation across Google AI Mode (default search surface, incl. AI Overviews), ChatGPT, Perplexity, and Gemini with quotable statements and structured Q&A. Use when the user asks to "optimize for AI", "get cited by ChatGPT", "GEO optimization", "appear in AI answers", "make content AI-quotable", "Google AI Overview optimization", or "Google AI Mode optimization". Adds quotable statements, structured Q&A, precise statistics with sources, expert attribution, and a structured FAQ. Uses CORE-EEAT GEO-First items as optimization targets. For SEO-focused writing, see seo-content-writer. For entity and brand AI presence, see entity-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.5.0"
+  version: "4.5.1"
   geo-relevance: "high"
   tags:
     - geo
@@ -191,7 +191,7 @@ When a user requests GEO optimization:
 
    Key principles:
    - **Three targets, not one — "get cited" is one job of three**: being *mentioned* (the answer names the brand), being *cited* (a client URL appears in the answer's sources) and being *recommended* (the brand sits inside an ordered set of options) are three separate facts with three different fixes, and the techniques below do not serve them equally. Quotable statements, definitions, factual density, followable sources and structure make the owning URL **liftable and sourceable** — the citation job. Full entity names, a named author with checkable credentials and first-party data are the **mention** job. Comparison tables, "X vs alternative" and "best X for use case" coverage, and acknowledged limitations are the **recommendation** job. Name which of the three each change serves: a page can win one and not the others, and a report that concludes "AI visibility: present" has thrown the diagnosis away. Mapping, the split-result reads and where each routes: [references/ai-visibility-targets.md](./references/ai-visibility-targets.md) §2 · fields: [AI Visibility Measurement](../../references/ai-visibility-measurement.md) §3
-   - **Definitions**: 25-50 words, standalone, starting with the term
+   - **Definitions**: 25-50 words, standalone, starting with the term — and **where the page's target query is definitional ("what is X", «τι είναι X»), that definition is the first body sentence**, not merely somewhere inside the first 150 words. The 150 words are C02's *ceiling*, not the target: a definition at word 118, under its own H2, has a hundred-odd words of something else in front of it, and what a reader meets at the top of the page — and what any extractive consumer lifts from it — is that other thing. This is checkable by opening the page, which is the only kind of reason this skill gives. Rewriting the page's existing opener (a category frame, a welcome line) does not discharge it: a frame sentence with figures poured into it is still a frame sentence, and the definition has to displace it rather than follow it
    - **Quotable statements**: Specific statistics with sources, verifiable facts
    - **Authority signals**: Expert quotes you can source (speaker, role, where and when they said it, link) — never one you cannot; proper source citations
    - **Structure**: Q&A format, comparison tables, numbered lists
@@ -258,7 +258,7 @@ When a user requests GEO optimization:
 
     | What was checked | Status | Notes |
     |------------------|--------|-------|
-    | Core answer within the first 150 words | ✅/⚠️/❌ | [notes] |
+    | Core answer within the first 150 words — and, on a definitional target query, in the first body sentence | ✅/⚠️/❌ | [word position of the answer; what the page opens with instead, if not the answer] |
     | Key terms defined on first use | ✅/⚠️/❌ | [notes] |
     | Structured FAQ covering follow-up questions | ✅/⚠️/❌ | [notes] |
     | Key-takeaways summary box | ✅/⚠️/❌ | [notes] |

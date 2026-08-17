@@ -38,6 +38,29 @@ AI systems love clear, quotable definitions.
 - [ ] Uses precise, unambiguous language
 - [ ] Can stand alone as a complete answer
 - [ ] Is 25-50 words for optimal citation length
+- [ ] **Sits where the page opens, when the page's target query is definitional** — the first body sentence, not merely inside the first 150 words
+
+**Position, not only shape.** Everything above describes what the sentence looks like; none of it
+says where it goes, and a correctly-shaped definition buried under a lead paragraph is the commonest
+way this technique is applied and still misses. On a page whose target query is definitional
+("what is X", «τι είναι X»), the definition is the page's opening sentence. The 150-word figure is a
+ceiling on where the core answer may sit, not a target to aim at.
+
+**The page's own opener is what you are replacing, not what you are filling.** An orientation frame
+("Welcome to our guide on…", «Εδώ θα δείτε όλη τη συλλογή μας…") stays a frame when you pour figures
+into it — the reader still meets an orientation sentence first, and the definition still sits behind
+it. Move the definition to the front and let the frame's surviving content follow it, or drop the
+frame.
+
+**Before** (definition present, position wrong):
+> Welcome to our guide on waterproof panniers, where we cover 24 models between 12 and 40 litres,
+> priced £45-£190. […100-odd words of orientation…] **What is a waterproof pannier?**
+> A waterproof pannier is a bag that mounts to a bicycle rack and keeps its contents dry.
+
+**After** (same sentences, definition first):
+> **A waterproof pannier** is a bicycle bag that mounts to a rear or front rack and uses a sealed
+> closure to keep its contents dry in sustained rain. This guide covers 24 models between 12 and
+> 40 litres, priced £45-£190.
 
 ## Quotable Statement Optimization
 

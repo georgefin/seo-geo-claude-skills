@@ -1,13 +1,13 @@
 ---
 name: keyword-research
-version: "4.5.0"
+version: "4.5.1"
 description: 'Discover high-value SEO keywords with search intent analysis, difficulty scoring, topic clustering, and AI citation potential. Use when the user asks to "find keywords", "keyword research", "what should I write about", "keyword difficulty score", "identify ranking opportunities", "topic ideas", "what are people searching for", or "long-tail keyword suggestions". For competitor keyword gaps, see competitor-analysis. For topic coverage gaps, see content-gap-analysis.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.5.0"
+  version: "4.5.1"
   geo-relevance: "medium"
   tags:
     - seo
@@ -39,7 +39,6 @@ metadata:
 ---
 
 # Keyword Research
-
 
 Discovers, analyzes, and prioritizes keywords for SEO and GEO content strategies. Identifies high-value opportunities based on search volume, competition, intent, and business relevance.
 
@@ -170,7 +169,7 @@ When a user requests keyword research:
    Greek users search tonos-optional (accents dropped) and often in Greeklish (Latin-script transliteration). Expand every Greek keyword to 4 forms — regardless of how it arrived (typed by the user, brainstormed in Steps 2-3, or imported from a tool export file) — one demand cluster for volume aggregation, distinct forms for placement:
 
    ```markdown
-   ### Greek Dual-Coverage Pattern
+   ### Greek Dual-Coverage Pattern — what each form is, and where it goes
 
    | Form | Example | Placement |
    |------|---------|-----------|
@@ -179,8 +178,14 @@ When a user requests keyword research:
    | (c) Greeklish | kataskevi istoselidon | Brand terms, domains, paid search |
    | (d) EN equivalent | web development Athens | Bilingual pages, EN-audience content |
 
-   Second example: υδραυλικός Αθήνα / υδραυλικος αθηνα / ydravlikos athina / plumber Athens
+   ### The artefact this step ships — ONE table, ONE row per demand
+
+   | Demand | (a) Accented — visible copy | (b) Unaccented — no placement | (c) Greeklish — slugs, domains, paid search | (d) EN equivalent — EN-audience pages |
+   |--------|------------------------------|-------------------------------|----------------------------------------------|----------------------------------------|
+   | Plumber, Athens | υδραυλικός Αθήνα | υδραυλικος αθηνα | ydravlikos athina | plumber Athens |
    ```
+
+   **The expansion is an artefact, not a transformation you do in your head.** It ships as the second table above — one row per Greek demand, one column per form, every cell a literal keyword string, placement carried in the headers. Never the forms scattered through prose, never one row per form, never a description of the transformation standing in for the string. A grid has visibly empty cells and prose does not, which is the point: a demand missing its Greeklish or its EN equivalent is a gap the reader can see. A form that genuinely does not exist for a demand says so in its own cell and why — no cell is blank. **This includes demands that arrived in a tool export**, which is where the step is most often skipped, because the list already looks finished: fold each export row into the demand it belongs to, then expand that demand like any other.
 
    Diacritic normalization (a ↔ b) is reliable in search matching; Greeklish (c) is not — target it explicitly (domains, brand terms, paid search bids) rather than relying on organic normalization. More forms and verticals: [references/greek-keyword-coverage.md](./references/greek-keyword-coverage.md).
 
@@ -188,7 +193,7 @@ When a user requests keyword research:
 
 5. **Classify Search Intent**
 
-   Categorize each keyword:
+   Categorize **every** keyword — including every GEO/conversational and local row — into one of these four. There is no fifth category:
 
    | Intent | Signals | Example | Content Type |
    |--------|---------|---------|--------------|
@@ -196,6 +201,8 @@ When a user requests keyword research:
    | Navigational | brand names, specific sites | "google analytics login" | Homepage, product pages |
    | Commercial | best, review, vs, compare | "best SEO tools [current year]" | Comparison posts, reviews |
    | Transactional | buy, price, discount, order | "buy SEO software" | Product pages, pricing |
+
+   **A blended query is labelled primary + secondary, both drawn from the four** — `Commercial (primary) / Informational (secondary)`, or the compound form `Informational → commercial`. Bare `Mixed` is not a classification: it names none of the four, and it tells a writer nothing about what to put on the page. Lead with the primary intent; the secondary decides what the page must also cover. A format or job label ("a download", "a job name") is not an intent either — it may sit beside one, never in place of one. Blended patterns, the primary/secondary tables and the classification-mistake table: [references/keyword-intent-taxonomy.md](./references/keyword-intent-taxonomy.md).
 
 6. **Assess Keyword Difficulty**
 
@@ -331,11 +338,11 @@ When a user requests keyword research:
 - [ ] Any score whose inputs are missing is withheld with the formula stated and the missing inputs named — never computed from invented numbers; a reduced-factor ranking states its rescaling (denominator or renormalised weights) and which factors dropped out
 - [ ] Every score, star rating and headline total in the report reproduces from the row or column printed beside it — the Opportunity Score from its own Volume/Difficulty/Intent cells, an AI Potential star count from its indicators, a summary total from the column it sums — and any figure that would need an assumption the report has not stated (volume converted to sessions, traffic potential) is either withheld or shipped with that assumption named
 - [ ] No unlabelled claim about what a competitor ranks for — including what their ranking set is mostly about, which topics they own, or what they would not rank for. Each such claim is a numbered entry in the Assumptions block, or it is cut
-- [ ] Keywords grouped by intent and mapped to content types
+- [ ] Every keyword — including every GEO/conversational and local row — carries one of the four intent categories, and a blended query carries a primary + secondary pair drawn from those four; never a bare `Mixed`, never a format label in place of an intent. Keywords grouped by intent and mapped to content types
 - [ ] Topic clusters show clear pillar-to-cluster relationships
 - [ ] Every cluster names its owning property and its owning URL, or states `no owner assigned` — and every `no owner assigned` is named in the prose as a finding with what would settle it, never left as a blank cell
 - [ ] Every assignment this run proposes states its reasoning (the conversion path for that intent, then the tie-breaker if one was needed) and is described as a proposal until it carries a decision date; a bilingual cluster is one row where one URL serves both audiences and two rows where the URLs differ
-- [ ] Greek-market keywords show accented, unaccented, Greeklish, and EN forms with placement noted (if applicable)
+- [ ] Greek-market keywords ship the Step-4 artefact (if applicable): ONE table, one row per demand, all four forms — accented, unaccented, Greeklish, EN equivalent — as literal keyword strings with placement stated per form. Demands that arrived in a tool export get a row like any other; a form that does not exist says so in its cell; no cell is blank and no form is left to prose
 - [ ] Local-intent keywords mapped to GBP surfaces, not just website pages (if applicable)
 - [ ] Source of each data point stated in the report's own words — the resolved tool name (Ahrefs, Semrush), "user-provided", or "estimated"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 
@@ -359,7 +366,6 @@ When a user requests keyword research:
 5. **Prioritize quick wins** to build momentum and credibility
 6. **Include GEO keywords** in your strategy for AI visibility
 7. **Review quarterly** - keyword dynamics change over time
-
 
 ## Reference Materials
 

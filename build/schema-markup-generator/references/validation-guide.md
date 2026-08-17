@@ -124,6 +124,21 @@ Add time and offset only when the page (or the CMS) actually states them — `"d
 
 ## Required vs Recommended Properties
 
+**Standard-format properties are normalised, and that is not a content mismatch.** A handful of
+properties below carry a documented notation, and the markup writes the value in that notation even
+where the page prints it some other way: `addressCountry` as an ISO 3166-1 alpha-2 code, not a
+country name; `offers.priceCurrency` as an ISO 4217 code, not the symbol; `datePublished` /
+`dateModified` as ISO 8601; `telephone` in international dialling format with the country code.
+**"Content matches visible page content" governs what the value says, not how it is spelled** — the
+page's «Αθήνα, Ελλάδα» and the markup's `GR` are the same fact in two notations, and so are a
+national-format phone number and the same number with its country code. The content-match policy
+bans a *different value*
+in the markup from the one on the page, which is why the normalisation is bounded on both sides: it
+may only re-notate a fact the page already states, never add one it does not. Where the page does not
+establish the input the notation needs — no country for a phone number, no time zone for a
+timestamp, no currency for a price — the property is dropped and the gap is named in prose, exactly
+as for any other unsourceable value. Never invent the missing half to complete the format.
+
 ### FAQPage Schema
 
 | Property | Status | Notes |
@@ -194,7 +209,7 @@ Add time and offset only when the page (or the CMS) actually states them — `"d
 | address.postalCode | Required | ZIP/postal code |
 | address.addressCountry | Required | ISO 3166-1 alpha-2 code — GR, GB, US, DE. Not a country name, and not "UK" (not an alpha-2 code) |
 | geo | Recommended | Latitude/longitude |
-| telephone | Recommended | Phone number |
+| telephone | Recommended | International dialling format, country code first — `+30 2310 555 000`, not `2310 555 000`. Same normalisation `addressCountry` gets one row above: the page prints the national form for readers who already know the country, and the markup is read out of that context, where the digits alone do not identify one. Take the country code from `addressCountry` (GR → +30, GB → +44, US → +1); where the country is not established on the page, the property is dropped and the gap named, never guessed. Spacing and dashes are free |
 | openingHoursSpecification | Recommended | Business hours |
 | priceRange | Recommended | Price range indicator |
 | aggregateRating | Recommended | Customer ratings — only where the page shows genuine ratings; a rating not visible on the page is a content-mismatch violation |
@@ -232,7 +247,9 @@ The per-schema element SKILL.md step 2 requires in every deliverable. It is a **
 
 **Worked example — LocalBusiness (no result of its own)**
 
-> **Eligible for**: no rich result of its own that we would promise you. **What feeds it**: `name`, `address`, `telephone` and `openingHoursSpecification` corroborate the business entity where Google reads the page. **Caveat**: this markup supports how the business is understood; it does not by itself place you in the local pack, and no placement is promised. (Skill-side note, not for the deliverable: the mechanism behind local-pack placement is `[VERIFY]`-tagged in schema-decision-tree.md — write the caveat as above and assert nothing either way.)
+> **Eligible for**: no rich result of its own that we would promise you. **What feeds it**: `name`, `address`, `telephone` and `openingHoursSpecification` state the business entity in a form any consumer that reads the page can parse. **Caveat**: what decides placement in the local map results is not something we can evidence in either direction, so this report tells you neither that the markup does it nor that it does not — and promises no placement. What the markup demonstrably does is put your name, address, phone and hours on the page in machine-readable form, which you can check by viewing the source.
+
+*(Skill-side note, not part of the deliverable: the caveat above asserts nothing either way, and that is the point of its wording. Writing "it does not by itself place you in the local pack" is the same unsourced claim in reverse and is banned by SKILL.md's LocalBusiness `[VERIFY]` note — no Google-primary source is on file supporting or refuting it. The mechanism is `[VERIFY]`-tagged in schema-decision-tree.md; `[VERIFY]` is an in-repo tag and never appears in a deliverable.)*
 
 ---
 

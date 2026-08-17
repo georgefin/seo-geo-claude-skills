@@ -25,7 +25,9 @@ Treated as separate keywords, these fragment volume and understate real demand. 
 
 **Placement**: only form (a) goes into visible on-page content. Forms (b)-(d) are covered through normalization, technical fields, and paid search — not through duplicate pages or stuffed text. Do not create one page per spelling variant; that is a thin-content/doorway-page pattern and a ranking risk, not a ranking strategy.
 
-## Worked Examples
+## Worked Examples — and the shape the deliverable's own table takes
+
+The table below is not only an illustration: **it is the shape Step 4's artefact ships in** — one row per demand, one column per form, every cell a literal keyword string. Reproduce it in the deliverable with the client's own demands in the first column, and state placement per form (the column headers or the section below both discharge it). Forms scattered through prose, one row per form, or a description of the transformation in place of the string are all the same failure: nothing shows which form is missing for which demand.
 
 | Concept | (a) Accented Greek | (b) Unaccented Greek | (c) Greeklish | (d) EN equivalent |
 |---------|--------------------|-----------------------|----------------|--------------------|
@@ -124,7 +126,7 @@ The website-side FAQ section for question queries is content, not markup: the vi
 
 ## Quick Checklist
 
-- [ ] Every Greek seed keyword expanded to all 4 forms
+- [ ] Every Greek demand expanded to all 4 forms, in one table with one row per demand and one column per form — including demands that arrived in a tool export; every cell a literal string, no cell blank
 - [ ] Volumes aggregated across forms for opportunity scoring (Step 7), not treated as 4 separate keywords
 - [ ] Inflected variants (case/number) clustered with their head keyword and volumes summed — natural inflected forms used freely in visible copy
 - [ ] Only accented Greek used in visible copy (titles, H1s, body, meta, alt text)

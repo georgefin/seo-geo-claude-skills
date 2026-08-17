@@ -1,6 +1,6 @@
 ---
 name: serp-analysis
-version: "4.3.7"
+version: "4.3.8"
 description: 'Analyze search engine results pages to understand ranking factors, SERP features, user intent patterns, and AI overview triggers. Use when the user asks to "analyze search results", "SERP analysis", "what ranks for", "SERP features", "why does this page rank", "featured snippets", "AI overviews", or "what does Google show for". For tracking rankings over time, see rank-tracker. For keyword discovery, see keyword-research.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ allowed-tools: WebFetch
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.7"
+  version: "4.3.8"
   geo-relevance: "high"
   tags:
     - seo
@@ -142,6 +142,8 @@ When a user requests SERP analysis:
 
    For each present SERP feature: analyze the current holder, content format, and strategy to win. Cover Featured Snippet (type, content, winning strategy), PAA (questions, current answers, optimization approach), and AI Overview (sources cited, content patterns, citation strategy).
 
+   **Then read the features together, not only one at a time.** Which features co-occur is a finding in its own right, and it goes in the deliverable *before* the per-feature strategies, so a reader knows why two surfaces are being worked at once instead of meeting two strategies with no stated connection. Name the pairing you actually observed, say what this library reads it as, and say what it implies — the combination table in [references/serp-feature-taxonomy.md](./references/serp-feature-taxonomy.md) ("SERP Feature Combination Patterns") gives the read for the common pairings. It states what the composition tells *you*; it never states what an engine wants (ruling R3 amendment 9a).
+
 6. **Determine Search Intent**
 
    Confirm primary intent from SERP composition. Document evidence, intent breakdown percentages, and content format implications (format, tone, CTA).
@@ -169,9 +171,10 @@ When a user requests SERP analysis:
 ### Output Validation
 - [ ] Every recommendation cites specific data points (not generic advice)
 - [ ] SERP composition mapped with all features documented
+- [ ] Where two or more features co-occur, the combination is read as a signal in its own right — the pairing named, this library's read of it stated, and the implication drawn — before the per-feature strategies, never left implicit in the fact that both features got a strategy
 - [ ] Ranking factors identified from actual top 10 analysis (not assumptions)
 - [ ] Content requirements based on observed patterns in current SERP
-- [ ] Difficulty score prints its sub-scores, the weights used and any dropped factor with its reason; the band is read off the rounded score; no factor is scored 0 for want of data
+- [ ] Difficulty is in exactly one of two states, and both are pass states. **Scored** — the sub-scores, the weights actually used and any dropped factor with its reason are printed beside the number, and the band is read off the rounded score. **Not assessed** (every factor dropped — the normal outcome on a single capture with no authority pull, not an edge case) — no number and no band anywhere in the deliverable, the five factors printed with the input each one needs, and the report says plainly that difficulty was not assessed. Either way, no factor is scored 0 for want of data, and neither 0, 50 nor a band stands in for the absent score
 - [ ] Every share or distribution states its denominator — the intent breakdown counts classified SERP elements (`9 of 9`), the format and domain-type distributions use the number of results actually classified, and each set sums to its own denominator
 - [ ] Source of each data point stated in the report's own words — the resolved tool name (Ahrefs, Otterly), "user-provided", or "manual observation"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 

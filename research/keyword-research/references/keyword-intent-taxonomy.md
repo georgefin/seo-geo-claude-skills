@@ -260,12 +260,14 @@ Advocacy        →   Informational            Enable sharing
 
 Many real-world queries blend multiple intent types. Recognize and address the dominant + secondary intent.
 
+**Both halves of the pair come from the four categories** — informational, navigational, commercial, transactional. A blended query is never labelled with the bare word `Mixed`, and never with a fifth label: `Mixed` names none of the four, so it carries no instruction to whoever writes the page. Sub-categories (Instructional, Comparison, Evaluation, Download) narrow an intent inside its category and are useful in the Sub-category column; they never occupy the Primary or Secondary Intent column on their own.
+
 ### Common Mixed Intent Patterns
 
 | Query Pattern | Primary Intent | Secondary Intent | Content Strategy |
 |--------------|---------------|-----------------|-----------------|
 | "best [product] for [use case]" | Commercial | Informational | Buying guide with educational context |
-| "how to [task] with [product]" | Instructional | Navigational | Tutorial featuring the product |
+| "how to [task] with [product]" | Informational (instructional) | Navigational | Tutorial featuring the product |
 | "[product] review and pricing" | Commercial | Transactional | Review with clear pricing CTAs |
 | "what is [concept] tools" | Informational | Commercial | Explainer that transitions to tool recommendations |
 | "[product] free download" | Transactional | Navigational | Landing page with download + product info |
@@ -321,4 +323,4 @@ Many real-world queries blend multiple intent types. Recognize and address the d
 | Treating all questions as informational | "how much does Ahrefs cost" | User is evaluating a purchase | Commercial / Transactional |
 | Ignoring local intent | "SEO services" | May have strong local intent in many contexts | Transactional (local) |
 | Missing navigational intent | "HubSpot blog" | User wants a specific page | Navigational |
-| Assuming single intent | "SEO tools" | Could be informational OR commercial | Mixed -- check SERP |
+| Assuming single intent | "SEO tools" | Could be informational OR commercial | Commercial (primary) / Informational (secondary) -- check SERP |

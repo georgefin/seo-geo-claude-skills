@@ -396,11 +396,13 @@ When SERP features change for your target keywords, investigate:
 
 ## SERP Feature Combination Patterns
 
-Certain SERP feature combinations indicate specific opportunities:
+Certain SERP feature combinations indicate specific opportunities. Read the composition you captured as a whole, and put that read in the deliverable before the per-feature strategies — otherwise the client is handed two strategies with nothing saying why both are being run.
 
-| SERP Combination | What It Signals | Opportunity |
+**The middle column is this library's read of an observed composition, not a statement about an engine.** Write it that way: what appeared together, what this library takes that to mean about the query, what to do. No row here licenses "Google sees…", "Google prefers…" or any other engine disposition, in any language — no primary source establishes one in either direction, and asserting the negative is the same unsourced move in reverse (ruling R3 amendment 9a).
+
+| SERP Combination | What this library reads it as | Opportunity |
 |-----------------|----------------|-------------|
-| AI Overview + Featured Snippet | Google sees this as high-information query | Optimize for both -- structured content with clear answers |
+| AI Overview + Featured Snippet | Two extracted answers above the first organic result — a high-information query | Optimize for both -- structured content with clear answers |
 | Video + PAA + Featured Snippet | Multi-format informational query | Create comprehensive guide with video and FAQ |
 | Shopping + Ads + Reviews | Strong commercial intent | Product optimization, review content |
 | Local Pack + Ads | Local commercial intent | Google Business Profile optimization |

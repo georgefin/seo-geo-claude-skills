@@ -142,6 +142,14 @@ denominator):
 ## SERP Features Analysis Template
 
 ```markdown
+### Feature Combination Read
+
+**Features observed together**: [the features your capture actually showed side by side]
+**What this library reads that as**: [the read from serp-feature-taxonomy.md → "SERP Feature Combination Patterns", in your own words]
+**What it implies here**: [what the pairing tells you to do, before the per-feature strategies below]
+
+---
+
 ### Featured Snippet Analysis
 
 **Current Snippet Holder**: [URL]
@@ -192,6 +200,13 @@ denominator):
 2. [recommendation, stated as what to put on the page]
 3. [recommendation, stated as what to put on the page]
 ```
+
+> **Filling the Feature Combination Read.** It comes first because it is the reason the
+> per-feature sections below are being run at once. Take the read from
+> [serp-feature-taxonomy.md](./serp-feature-taxonomy.md) → "SERP Feature Combination Patterns"
+> and write it in your own words. Where only one feature is present, say so — a single-feature
+> composition is a read too. State what the composition **is** and what you take it to mean;
+> never what an engine wants from it, in any language (ruling R3 amendment 9a).
 
 > **Filling the two blocks above.** The *Sources Cited* and *Content Patterns* rows record
 > what you saw in the Overview you actually ran — an observation, dated. The recommendation
