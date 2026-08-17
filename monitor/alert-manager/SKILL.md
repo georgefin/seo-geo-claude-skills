@@ -1,13 +1,13 @@
 ---
 name: alert-manager
-version: "4.3.4"
+version: "4.4.0"
 description: 'Set up automated monitoring and notifications for SEO ranking drops, traffic changes, technical issues, and competitor movements. Use when the user asks to "set up SEO alerts", "notify me when rankings drop", "traffic alerts", "watch competitor changes", "alert me if rankings drop", "notify me of traffic changes", "monitor rankings", or "watch my keywords for changes". For detailed rank analysis, see rank-tracker. For comprehensive reporting, see performance-reporter.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.4"
+  version: "4.4.0"
   geo-relevance: "low"
   tags:
     - seo
@@ -27,6 +27,8 @@ metadata:
     - automated-monitoring
     - threshold-alerts
     - anomaly-detection
+    - ai-visibility-alerts
+    - prompt-level-monitoring
   triggers:
     - "set up SEO alerts"
     - "monitor rankings"
@@ -38,6 +40,7 @@ metadata:
     - "alert me if rankings drop"
     - "notify me of traffic changes"
     - "watch my keywords for changes"
+    - "alert me if we stop appearing in AI answers"
 ---
 
 # Alert Manager
@@ -66,29 +69,12 @@ Sets up proactive monitoring alerts for critical SEO and GEO metrics. Triggers n
 
 ## How to Use
 
-### Set Up Alerts
-
 ```
 Set up SEO monitoring alerts for [domain]
-```
-
-```
 Create ranking drop alerts for my top 20 keywords
-```
-
-### Configure Specific Alerts
-
-```
 Alert me when [specific condition]
-```
-
-```
 Set up competitor monitoring for [competitor domains]
-```
-
-### Review Alert System
-
-```
+Alert me if we stop appearing in AI answers for [topic]
 Review and optimize my current SEO alerts
 ```
 
@@ -132,8 +118,8 @@ When a user requests alert setup:
    | Technical Alerts | Site health issues | P0 |
    | Backlink Alerts | Link profile changes | P2 |
    | Competitor Alerts | Competitor movements | P2-P3 |
-   | GEO Alerts | AI visibility changes | P2 |
-   | Brand Alerts | Brand mentions and reputation | P2 |
+   | GEO Alerts | AI answer and citation changes, measured at the prompt | P1-P2 |
+   | Brand Alerts | Brand mentions and reputation (incl. answer sentiment) | P2 |
    ```
    
    Typical, not automatic: each individual alert gets its own priority in step 2, and the
@@ -157,7 +143,37 @@ When a user requests alert setup:
    where two rows could fire on the same event, grade it on the row that names it most specifically
    and say which — two rows firing on one event is how a whole band becomes unreachable.
 
-   > **Reference**: See [references/alert-configuration-templates.md](./references/alert-configuration-templates.md) for complete alert tables, threshold examples, and response plan templates for all 7 categories.
+   **Prompt-level answer alerts, and the sampling rule they all depend on.** Ranking alerts watch a
+   position in a list; these watch what an assistant *says* in a generated answer, and the unit is a
+   **prompt**, not a keyword. Four rows sit beside the citation rows in the GEO category, each
+   defined **per engine** and per prompt cluster: **brand absent from the answers** for a cluster's
+   head prompts · **recommendation position drops** · **a competitor enters the answer set** ·
+   **the cited URL flips to a non-owning property of the client's** — that last one a cannibalisation
+   signal, whose fix is the ownership contest (`references/query-cluster-ownership.md` §5), so
+   routing it to content work wastes the alert.
+
+   **No prompt-level alert ever fires on a single capture — the whole category rests on this.**
+   Generated answers vary between runs for the same prompt, on the same day, from the same location,
+   so one capture is an *observation*, and an alert wired to one fires on that variation rather than
+   on a change, every cycle, until the client mutes the channel and the rest of the alerts with it.
+   Every condition above is therefore evaluated over **`k of N` repeat captures**: N ≥ 3 per prompt
+   per engine per cycle, captured in one session, both numbers written into the alert — "named in 0
+   of 3 captures", never "not named" — and **confirmed across two consecutive cycles** before it
+   fires, since a `k of N` standing in one cycle is a candidate. Failed captures (refusal, rate
+   limit, empty response) are logged with their reason and reduce N; dropping them turns a 1-of-1
+   into 100%. A configuration that cannot run the repeats ships these rows **off** and says so.
+   **Every threshold on the four rows is a proposed default awaiting the client's confirmation**,
+   marked as such wherever written: none is a measured constant, and this skill already carries
+   threshold rows waiting on the same decision (threshold guide, *Open threshold decisions*).
+
+   **The existing Negative Mention alert is the sentiment field's alert path — one field, not two.**
+   Sentiment is recorded once per captured answer, on the sentence carrying the brand rather than the
+   answer overall (`references/ai-visibility-measurement.md` field 9, scored as CITE item C08), and
+   the Negative Mention row in the Brand category fires on it. No second sentiment metric is defined
+   here: a negative-sentiment answer is graded on that row, not also on a prompt-level row above —
+   one observation, one row, as everywhere else in this skill.
+
+   > **Reference**: See [references/alert-configuration-templates.md](./references/alert-configuration-templates.md) for complete alert tables, threshold examples, and response plan templates for all 7 categories — including the four prompt-level rows with their `k of N` conditions, bands and priorities.
 
 3. **Define Alert Response Plans**
 
@@ -194,25 +210,10 @@ When a user requests alert setup:
     priority cells, each column's Total is the sum of its seven category cells, and both totals
     meet at the same bottom-right figure. Recount the table against the alert definitions above
     it before sending — a summary that does not add up is the first thing a client checks.
-    
-    ## Quick Reference
-    
-    ### If You Get a P0 Alert
-    
-    1. Don't panic
-    2. Check alert details
-    3. Follow response plan
-    4. Document actions taken
-    5. Update stakeholders
-    
-    ### Weekly Alert Review Checklist
-    
-    - [ ] Review all alerts triggered
-    - [ ] Identify patterns
-    - [ ] Adjust thresholds if needed
-    - [ ] Update response plans
-    - [ ] Clean up false positives
     ```
+
+    Append the summary's two closing blocks — the P0 quick-reference steps and the weekly alert
+    review checklist — from [references/alert-configuration-templates.md](./references/alert-configuration-templates.md), "Alert summary closing blocks".
 
 ## Validation Checkpoints
 
@@ -228,6 +229,11 @@ When a user requests alert setup:
 - [ ] Response plans are specific and time-bound
 - [ ] Every alert carries both labels — the threshold band it fires at (Info / Warning / Critical / Emergency, or "no band — boundary alert") and its response priority (P0-P3) — with no third vocabulary anywhere in the configuration
 - [ ] Any priority above or below the band's default map states its reason in the same line. Where the threshold guide defines no ladder for the metric (all brand rows, all competitor-activity rows), "no band — boundary alert" is the correct Band entry and no reason clause is owed — with no band there is no default to depart from, and the Band cell is what says so
+- [ ] No alert condition anywhere in the configuration can fire on a single capture of a generated answer: every prompt-level row states its `k of N` (N ≥ 3 repeats per prompt per engine per cycle) and its two-consecutive-cycle confirmation, and a configuration that cannot run the repeats ships those rows off and says so
+- [ ] Prompt-level rows are defined per engine and per prompt cluster, never pooled across engines, and each fires on a prompt-set version that is named; failed captures are logged with their reason and reduce N rather than being dropped
+- [ ] Every new prompt-level threshold is written as a **proposed default awaiting the client's confirmation** and is labelled as such in the configuration — no new AI-answer threshold ships as a settled number
+- [ ] Sentiment is alerted once, on the Negative Mention row, from the recorded sentiment field — no second sentiment metric, and no negative-sentiment answer graded twice
+- [ ] No alert, response plan or summary line promises a position, citation, inclusion, recommendation or share of voice on any AI surface, and none asserts what an engine does or prefers — an alert reports what the captures showed (anti-slop-ruleset.md §6 families 9 and 10)
 - [ ] Roles are drawn from the one role list (threshold guide Section 4) and each is mapped to a named person; no role in a live routing table is unfilled
 - [ ] Any threshold derived from a baseline shows the arithmetic: the mean, the standard deviation, the multiple used, and the resulting value (e.g. `8,800 = 10,000 − 1.5 × 800`)
 - [ ] The alert-count table adds up both ways and its bottom-right cell equals the stated Total Active Alerts
@@ -352,17 +358,13 @@ are the defaults; depart from one only with a reason in the same line, and eithe
 used. Full working in the threshold guide, §1 "Three method choices".
 
 1. **Sample standard deviation (n − 1)** — a spreadsheet's `STDEV` / `STDEV.S`. A baseline is a
-   sample of an ongoing process, not a closed population, so this is the estimator; it is also the
-   larger of the two, erring towards wider bands rather than false positives. The two forms differ
-   by √(n/(n−1)) — about 12% at n = 5, 2% at n = 28 — so the choice moves every bound most on the
-   short baselines a new configuration has. Use the population form only where the recorded values
-   really are the whole population, and say so.
+   sample of an ongoing process, not a closed population, so this is the estimator, and it is the
+   larger of the two, erring towards wider bands rather than false positives. Use the population
+   form only where the recorded values really are the whole population, and say so.
 2. **Split weekday and weekend baselines** before pooling them, for any daily metric with a weekly
-   cycle. Pooled, the standard deviation carries the weekday/weekend gap as if it were noise — it
-   measures the calendar rather than the variance — so every band widens with it: a genuinely bad
-   Tuesday sits inside the everyday range while an ordinary Saturday grades as an anomaly. Pool only
-   if the weekend mean falls inside the weekday baseline's `|z| < 1` range. Name the population
-   beside every mean and every standard deviation.
+   cycle. Pooled, the standard deviation measures the calendar rather than the variance and every
+   band widens with it. Pool only if the weekend mean falls inside the weekday baseline's `|z| < 1`
+   range. Name the population beside every mean and every standard deviation.
 3. **CTR has no benchmark in this skill.** Its bands come from the site's own CTR baseline on the
    same standard-deviation ladder. There is no industry, vertical or "typical e-commerce" CTR figure
    anywhere in this library, and none may be supplied from memory when a client asks whether their
@@ -375,8 +377,9 @@ used. Full working in the threshold guide, §1 "Three method choices".
 
 ## Reference Materials
 
-- [Alert Threshold Guide](./references/alert-threshold-guide.md) — Recommended thresholds by metric (fixed absolutes vs. baseline-derived), fatigue prevention, escalation paths, the never-fired-row triage (Sec. 6), and the write-up rules for counts, quotes, generics and payloads (Sec. 9)
-- [Alert Configuration Templates](./references/alert-configuration-templates.md) — Ready-to-use alert definitions per monitoring category, incl. the GEO/AI citation set
+- [Alert Threshold Guide](./references/alert-threshold-guide.md) — Recommended thresholds by metric (fixed absolutes vs. baseline-derived), fatigue prevention, escalation paths, the never-fired-row triage (Sec. 6), the write-up rules for counts, quotes, generics and payloads (Sec. 9), and the prompt-level answer thresholds with their sampling rule and their four open decisions
+- [Alert Configuration Templates](./references/alert-configuration-templates.md) — Ready-to-use alert definitions per monitoring category, incl. the GEO/AI citation set, the four prompt-level answer rows with their `k of N` conditions, and the alert-summary closing blocks
+- [AI Visibility Measurement](../../references/ai-visibility-measurement.md) — library-wide: the prompt as the unit, the twelve recorded fields (sentiment is field 9), the N >= 3 sampling protocol these alerts are built on, and what may never be promised (§7)
 
 ## Related Skills
 

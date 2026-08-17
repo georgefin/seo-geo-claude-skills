@@ -374,7 +374,7 @@ All GEO alerts use a weekly check window; thresholds are tunable operational def
 | Citation Rate Floor | Citation rate below 10% absolute | Critical | P0 — raised from P1: same inherited call; confirm or drop to P1 (see the note) |
 | GEO Competitor | Competitor cited where you're not | Warning | P2 |
 
-**All nine rows, and where each priority comes from.** Four sit one level above the default map, but
+**All nine citation rows above, and where each priority comes from.** Four sit one level above the default map, but
 not for the same reason, and the difference matters. **Priority-1 Citation Lost (P1, band Warning)**
 and **Priority-1 Loss Cluster (P0, band Critical)** are lifted by the standing priority-1 / Tier-1
 override — that query set is the client's money, brand and top-converting terms. **Citation Rate
@@ -404,6 +404,59 @@ single observation, and the corrections are visible above:
 
 **Response plan**: citation-loss alerts (loss, position, rate) hand the affected query and page to content-refresher's AI Overview recovery playbook. Priority-1 = the client-critical keywords from alert setup (money, brand, top-converting terms).
 
+### Prompt-Level Answer Alerts — every threshold below is a PROPOSED DEFAULT awaiting the client's confirmation
+
+**These four rows watch what an assistant says, not where a URL sits in a list.** The unit is a
+**prompt**, the population is one record per (prompt × engine × capture date), and every row is
+defined **per engine and per prompt cluster** — never pooled across engines, because a brand that
+has vanished from one engine's answers and holds in another is one finding, not an average.
+
+**The sampling rule is what makes these rows alertable at all, and it is not optional.** Generated
+answers vary between runs for the same prompt, on the same day, from the same location. A single
+capture is an **observation**, so an alert wired to one capture fires on that variation rather than
+on a change, every cycle, until the channel is muted. Every condition below is therefore evaluated
+over **`k of N` repeat captures** — N ≥ 3 per prompt per engine per cycle, captured in one session —
+with both numbers written into the alert text ("named in 0 of 3 captures", never "not named"), and
+**confirmed across two consecutive cycles** before it fires. A `k of N` result standing in one cycle
+is a candidate. Failed captures (refusal, rate limit, empty response) are logged with their reason
+and reduce N; dropping them silently turns a 1-of-1 into 100%. Where a configuration cannot run the
+repeats, these rows ship **off**, and the configuration says so rather than reading one capture as a
+measurement.
+
+| Alert Name | Condition (per engine, per cluster, over `k of N` repeats, confirmed across 2 consecutive cycles) | Band | Priority (proposed) |
+|------------|---------------------------------------------------------------------------------------------------|------|---------------------|
+| Brand Absent From Answers | Brand named in **0 of N** captures for the cluster's head prompts | none — boundary alert | **Proposed P1** where the cluster is on the priority-1 list, **P2** otherwise — awaiting client confirmation |
+| Recommendation Position Drop | Average recommendation position for the cluster worsens by **2 or more slots** vs. the previous cycle, computed over captures where a recommendation set existed | none — boundary alert | **Proposed P2** — awaiting client confirmation |
+| Competitor Enters Answer Set | A competitor absent from the previous cycle's captures is named in **2 or more of N** captures this cycle | none — boundary alert | **Proposed P2** — awaiting client confirmation |
+| Cited URL Flips To Non-Owning Property | The cited client URL for the cluster is **not** the register's owning URL in **2 or more of N** captures | none — boundary alert | **Proposed P2** — awaiting client confirmation |
+
+**Why "none — boundary alert" on all four, and why no number here is presented as settled.** The
+threshold guide defines no ladder for prompt-level answer metrics — there is no baseline mean and
+no standard deviation for them anywhere in this library — so these fire on an event, exactly like
+the brand and competitor-activity rows, and with no band there is no default map to sit above or
+below. Their priorities are therefore set directly from the business and owe no "raised from"
+clause; the Band cell is what says so. The `k`, the slot count and the cycle count above are
+**proposed defaults, not measured constants**, and a configuration that ships one states that it is
+awaiting confirmation. A ladder becomes derivable once 8+ cycles of `k of N` history exist, on the
+same terms as the optional statistical ladder for citation metrics — until then, no number is
+invented to fill the column.
+
+**Row 4 is a cannibalisation signal, not an AI problem.** A cited URL that is not the cluster's
+owning URL means the engine picked a property of the client's that does not own the cluster; the
+fix is the ownership contest — consolidate, differentiate, retire — and routing it to content work
+on the answer wastes the alert. Hand it to the ownership register, not to a refresh playbook
+(`references/query-cluster-ownership.md` §5, the AI form of the collision signal).
+
+**One observation, one row, here too.** A cluster whose brand went absent *and* whose competitor
+appeared is graded on the row that names it most specifically, and the alert says which. Sentiment
+is not one of these four rows: it is recorded once per captured answer and alerts on the Negative
+Mention row below.
+
+**Nothing in these alerts promises an outcome.** An alert reports what the captures showed, with
+its `k of N` and its timestamp. It never states what an engine prefers or does, and a response plan
+built on one never promises that the work will restore a mention, a citation or a position — the
+deliverable is the work plus the re-measurement recorded beside its baseline.
+
 ---
 
 ## Brand Monitoring Alerts
@@ -422,9 +475,19 @@ history can build the ladder with the guide's Section 2 method.
 | Alert Name | Condition | Band | Priority |
 |------------|-----------|------|----------|
 | Brand Mention | New brand mention online | none — boundary alert | P3 (info) |
-| Negative Mention | Negative sentiment mention | none — boundary alert | P1 |
+| Negative Mention | Negative sentiment on a recorded mention — including the sentiment recorded on a captured AI answer | none — boundary alert | P1 |
 | Review Alert | New review on key platforms | none — boundary alert | P2 |
 | Unlinked Mention | Brand mention without link | none — boundary alert | P3 (opportunity) |
+
+**Negative Mention is the alert path for the recorded sentiment field — one field, not two.**
+Sentiment on an AI answer is recorded once, on the sentence carrying the brand rather than on the
+answer overall (`references/ai-visibility-measurement.md` field 9, scored as CITE item C08), and it
+alerts here. No second sentiment metric is defined in the GEO section and none is added there: a
+negative-sentiment answer is graded on this row, not also on a prompt-level row — the same
+one-observation-one-row rule that governs the citation tables. The row keeps its boundary-alert Band
+because a single negative answer is an event, not a distance from a baseline; where enough cycles
+exist to make a sentiment split (positive / neutral / negative counts) into a series, that series is
+reported, not converted into a score.
 
 ### Reputation Alerts
 
@@ -540,3 +603,31 @@ table in the skill, which left the last hop of every escalation pointing at nobo
 | 15 min (P0) | The rest of that category's P0 route, then Marketing VP |
 | 4 hours (P1) | SEO Lead — and Engineering Lead as well, on technical alerts |
 | 48 hours (P2) | SEO Lead (the channel table's auto-escalation to P1 after one week still applies) |
+
+---
+
+## Alert summary closing blocks
+
+Append these two blocks to the Alert System Summary the skill produces (SKILL.md step 5), after the
+Alert Count by Category table.
+
+```markdown
+## Quick Reference
+
+### If You Get a P0 Alert
+
+1. Don't panic
+2. Check alert details
+3. Follow response plan
+4. Document actions taken
+5. Update stakeholders
+
+### Weekly Alert Review Checklist
+
+- [ ] Review all alerts triggered
+- [ ] Identify patterns
+- [ ] Adjust thresholds if needed
+- [ ] Update response plans
+- [ ] Clean up false positives
+- [ ] For prompt-level rows: confirm each fired on its `k of N` across two consecutive cycles, and record any capture failures that reduced N
+```

@@ -242,9 +242,78 @@ site-wide rate — recompute that one from its own totals.
 | [query] | Yes | No | [gap] | [action] |
 ```
 
+### 5a. Prompt-Level AI Visibility Template
+
+Use this block whenever prompt-level captures exist — it is the primary AI visibility report, and
+the citation overview in §5 sits beside it rather than replacing it. **The unit is a prompt, not a
+keyword**, and the discipline is fixed by [ai-visibility-measurement.md](../../../references/ai-visibility-measurement.md):
+one row per (prompt × engine × capture date), N ≥ 3 repeats per prompt per engine per cycle before
+any rate is printed as a rate, failed captures counted with their reason rather than dropped, and
+the prompt-set version stated once per report.
+
+**Three constraints this block exists to enforce.** (1) **Per engine, never pooled** — one row per
+engine, because a pooled figure hides the engine that is failing, and the fixes differ by engine.
+(2) **N and its population beside every figure** — `62% (23 of 37 successful captures)` is a
+measurement, `62%` is an assertion. (3) **No composite.** There is no "AI Visibility Score" row,
+column or total in this block, and none is added: one number across engines, prompts, and three
+different facts cannot be attributed when it moves. A connected tool's own composite may be quoted
+in the prose beneath — with that tool's name attached, unchanged and unblended — and never
+recomputed into a figure of ours.
+
+```markdown
+## AI Visibility — Prompt Set [version], [N] prompts, captured [dates], [R] repeats per prompt per engine
+
+| Engine | Mention rate | Citation rate | Owned-URL citation rate | Avg. recommendation position | Prompt-level share of voice |
+|--------|--------------|---------------|-------------------------|------------------------------|-----------------------------|
+| [Engine 1] | [k] of [N] captures = [X]% | [k] of [N] captures = [X]% | [k] of [cited captures] = [X]% | [mean] (over [n] recommendation answers) | [client mentions] of [client + competitor mentions] = [X]% |
+| [Engine 2] | [k] of [N] captures = [X]% | [k] of [N] captures = [X]% | [k] of [cited captures] = [X]% | [mean] (over [n] recommendation answers) | [client mentions] of [client + competitor mentions] = [X]% |
+
+**Competitor set counted in share of voice**: [names]. Changing this set changes the denominator, so it is named wherever the figure appears.
+**Captures attempted / successful / failed**: [A] / [S] / [F] — [reasons for the failures]. Failed captures reduce N; they are not dropped.
+
+### What each figure says, and what it does not
+
+| Reading | What it means | What it does not mean |
+|---------|---------------|-----------------------|
+| Mentioned, not cited | The brand is known; the site was not the source | Not a citation |
+| Cited, not mentioned | The page earned its place; the brand did not stick | Not a brand win |
+| Recommended at position [n] | The client's ordinal inside an enumerated set in that answer | Not a ranking, and not comparable to a search position |
+| Owned-URL citation rate below citation rate | Cited, but on a property that does not own this cluster | Not an AI problem — an ownership one |
+
+Mention, citation and recommendation are three separate facts with three different fixes, so they are reported as three figures and never merged into a single verdict.
+
+### Period-over-period
+
+| Engine | Metric | This period (k of N) | Last period (k of N) | Change |
+|--------|--------|----------------------|----------------------|--------|
+| [Engine 1] | Mention rate | [k] of [N] = [X]% | [k] of [N] = [Y]% | [+/-Z] pp |
+
+A rate change is stated in **percentage points**; both fractions print, because a rate that rose on a shrunken N is a different story from one that rose on captures won. A change that has not survived a second cycle is written as a candidate, not a result.
+
+### Single captures this period
+
+| Prompt | Engine | Date and time | What the answer said (verbatim excerpt) |
+|--------|--------|---------------|------------------------------------------|
+| [prompt] | [engine] | [timestamp] | [excerpt] |
+
+Each row above is an **observation** from one capture, carrying its timestamp — it is never written as what the engine does or as a rate.
+```
+
+---
+
 ### 5b. AI Referral Traffic Template
 
 Use inside the GEO/AI section when AI-referral data exists. Sources: ~~analytics (GA4), ~~search console AI-surface data, server logs — triangulated; hostname roster in [kpi-definitions.md](./kpi-definitions.md).
+
+**Every session figure in this block is a floor and is labelled as one.** Referrer-host
+identification is partial by construction — some surfaces send no referrer, some strip it, and some
+of that traffic arrives as direct — so the count is a lower bound and reads as one: "at least 340
+sessions from assistant referrers in the window; the true figure is higher by an unmeasured amount".
+The label travels to anything derived from it: a share computed from a floor numerator is itself a
+floor. And **any link to conversions is a correlation inside a named window, never a causal claim
+and never a per-mention value** — "the 41 conversions on those pages fall in the same 28-day window"
+is reportable; "each AI mention is worth EUR X" is not, because nothing in this method measures it
+([ai-visibility-measurement.md](../../../references/ai-visibility-measurement.md) §5.1).
 
 ```markdown
 ## AI Referral Traffic
@@ -255,8 +324,10 @@ Use inside the GEO/AI section when AI-referral data exists. Sources: ~~analytics
 
 | Metric | This Period | Last Period | Change |
 |--------|-------------|-------------|--------|
-| AI referral sessions | [X] | [Y] | [+/-Z%] |
-| AI share of total sessions | [X] ÷ [total sessions] = [S]% | [same, last period] | [+/-Z pp] |
+| AI referral sessions (floor — at least this many) | [X] | [Y] | [+/-Z%] |
+| AI share of total sessions (floor) | [X] ÷ [total sessions] = [S]% | [same, last period] | [+/-Z pp] |
+
+Both rows are lower bounds: some assistant surfaces send no referrer and that traffic arrives as direct, so the true figures are higher by an unmeasured amount. State that sentence in the report, not only in this column header.
 
 Share prints its denominator in both periods: total sessions, all channels, same property and
 window as the numerator. A share change is stated in percentage points; the sessions change beside
@@ -489,6 +560,46 @@ a negative ROI as a verdict.
 
 ## 10. Recommendations Template
 
+**Seven fields per action, and three of them are required.** Every row below carries **action ·
+owner · acceptance criterion · expected impact · effort · dependencies · risk if done wrong**
+([action-output-contract.md](../../../references/action-output-contract.md)). Action, owner and
+acceptance criterion are required — a row missing either of the last two is not an action and does
+not ship as one. The other four carry a **stated-absence value** rather than a blank or an
+invention: `not estimated — no baseline data` (impact), `not estimated` (effort), `none`
+(dependencies), `low — reversible, no downstream effect` (risk). The absence is itself information
+the client can act on; a blank is not.
+
+**Owner is a role**, from one list — `Content` · `SEO/technical` · `Developer` · `Designer` ·
+`Product/merchandising` · `Customer service` · `Legal/compliance` · `Agency` · `Client decision` —
+with a person's name beside the role where the client has supplied names. `Client decision` is an
+owner, not a gap, and is the right one for anything the agency cannot decide. `unassigned — needs
+an owner` is legitimate and is a finding: it surfaces work with nowhere to go, which is more useful
+than a plausible guess nobody owns.
+
+**Acceptance criterion**: observable, binary at the moment of checking, attached to a named
+artefact or measurement, dated or triggered. The test is whether someone outside this engagement
+could check it in six weeks without asking what was meant. **An AI-surface criterion is a
+measurement criterion, never an outcome criterion** — "the rewrite is live on the named URL and
+mention rate is re-measured on the same 3-repeat protocol and recorded beside the dated baseline
+with its N" passes; "the brand appears in the assistant's answer" does not, because it is not in
+anyone's gift to deliver and writing it turns the action into a promise.
+
+**Expected impact** takes one of three shapes and never a fourth: measured from this site's own
+data with the arithmetic shown · a **mechanism labelled as a working model** · comparable evidence
+with its limits named. Never a promised position, citation or inclusion; never a per-action traffic
+or revenue figure with no baseline; never a percentage with no derivation.
+
+**Ordering**: expected impact ÷ effort, with dependencies respected — an action whose dependency is
+unmet sorts below the thing it waits on, whatever its score. **The order is stated once, not
+implied.** The priority band this skill already computes (P0-P3) is the band used; no second
+priority vocabulary is invented beside it.
+
+**Where the table is too wide for the surface**, the same seven fields become a labelled block per
+action — the fields do not change, only the layout. The action table is **client-read**: no run
+handles, no framework item IDs, no skill slugs, no `~~category` tokens. An action that exists
+because a framework item failed names the job ("the page carries no author and no date"), not the
+item ID.
+
 **Two columns, two questions — and the Priority column answers only one of them.** The
 **priority** (P0 · P1 · P2 · P3) says how much the action matters and who acts first; it is set
 from business impact. The **horizon** — which of the three sections below the row sits in — says
@@ -527,34 +638,45 @@ scanning a Priority column cannot tell a level they do not recognise from a leve
 ```markdown
 ## Recommendations & Next Steps
 
+Ordered by expected impact ÷ effort, with dependencies respected — an action waiting on another sorts below it.
+
 ### Immediate Actions (This Week)
 
-| Priority | Action | Expected Impact | Owner |
-|----------|--------|-----------------|-------|
-| P0 | [Only live damage belongs here — name it] | [Impact] | [Owner] |
-| P1 | [Action 1] | [Impact] | [Owner] |
+| Priority | Action | Owner | Acceptance criterion | Expected impact | Effort | Dependencies | Risk if done wrong |
+|----------|--------|-------|----------------------|-----------------|--------|--------------|--------------------|
+| P0 | [Only live damage belongs here — name the artefact and the change] | [Role, name where supplied] | [Observable, binary, named artefact or measurement, dated] | [Measured with arithmetic / working model / comparable evidence — or "not estimated — no baseline data"] | [S/M/L and what it covers, or "not estimated"] | [Named, or "none"] | [Failure mode and cost, or "low — reversible, no downstream effect"] |
+| P1 | [Action 1] | [Role] | [Criterion] | [Impact with its basis] | [Band] | [none] | [Risk] |
 
 ### Short-term (This Month)
 
-| Priority | Action | Expected Impact | Owner |
-|----------|--------|-----------------|-------|
-| P2 | [Action 1] | [Impact] | [Owner] |
+| Priority | Action | Owner | Acceptance criterion | Expected impact | Effort | Dependencies | Risk if done wrong |
+|----------|--------|-------|----------------------|-----------------|--------|--------------|--------------------|
+| P2 | [Action 1] | [Role] | [Criterion] | [Impact with its basis] | [Band] | [none] | [Risk] |
 
 ### Long-term (This Quarter)
 
-| Priority | Action | Expected Impact | Owner |
-|----------|--------|-----------------|-------|
-| P3 | [Action 1] | [Impact] | [Owner] |
+| Priority | Action | Owner | Acceptance criterion | Expected impact | Effort | Dependencies | Risk if done wrong |
+|----------|--------|-------|----------------------|-----------------|--------|--------------|--------------------|
+| P3 | [Action 1] | [Role] | [Criterion] | [Impact with its basis] | [Band] | [none] | [Risk] |
 
 ### Goals for Next Period
 
-| Metric | Current | Target | Action to Achieve |
-|--------|---------|--------|-------------------|
-| Organic Traffic | [X] | [Y] | [action] |
-| Keywords Top 10 | [X] | [Y] | [action] |
-| AI Citations | [X] | [Y] | [action] |
-| Referring Domains | [X] | [Y] | [action] |
+A target, written as one. Nothing in this table commits an engine to anything — no promised position, citation, inclusion or share of voice, on any timeline.
+
+| Metric | Current (with N where it is a rate) | Target | Action to Achieve | Owner | How it will be checked |
+|--------|-------------------------------------|--------|-------------------|-------|------------------------|
+| Organic Traffic | [X] | [Y] | [action] | [Role] | [measurement and date] |
+| Keywords Top 10 | [X] | [Y] | [action] | [Role] | [measurement and date] |
+| Mention rate, [engine] | [k] of [N] = [X]% | [target rate] | [action] | [Role] | Re-measured on the same [R]-repeat protocol, [date], recorded beside this baseline |
+| Referring Domains | [X] | [Y] | [action] | [Role] | [measurement and date] |
 ```
+
+**The Goals table is where family-10 promises get in.** A target is a statement of intent this
+side of the engine — "we are aiming to move mention rate from 8 of 36 to 15 of 36 by March, and
+here is how we will measure it". A commitment that the engine *will* cite, include, recommend or
+rank the client is a claim about a mechanism nobody has documented, and it does not ship
+([ai-visibility-measurement.md](../../../references/ai-visibility-measurement.md) §7;
+anti-slop-ruleset.md §6 family 10).
 
 ---
 

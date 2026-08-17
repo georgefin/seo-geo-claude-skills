@@ -424,6 +424,52 @@ reason written beside them must be the real one.
 
 **Response path:** every citation-loss alert (rate, priority-1, or position) hands the affected query and its source page to content-refresher's AI Overview recovery playbook.
 
+### Prompt-Level Answer Thresholds — proposed defaults, not settled numbers
+
+**Everything in this subsection is a proposed default awaiting the client's confirmation.** No
+baseline for prompt-level answer metrics exists anywhere in this library, so no measured constant
+is available and none is invented; the values below are starting points that a configuration marks
+as proposed when it ships them, on the same terms as the rows in *Open threshold decisions* below.
+
+**The sampling rule comes before any threshold, and without it none of these rows is alertable.**
+Generated answers vary between runs for the same prompt, on the same day, from the same location.
+A single capture is an **observation**, never a measurement, so:
+
+- **N ≥ 3 repeats** per prompt per engine per cycle, captured in one session, before any prompt-level
+  condition is evaluated at all.
+- **The condition is a `k of N`**, and both numbers appear in the alert: "named in 0 of 3 captures",
+  never "not named". A bare yes/no on one capture is not an alert condition, it is noise with a
+  pager attached.
+- **Two consecutive cycles** confirm before firing. A `k of N` standing in one cycle is a candidate;
+  a change that has not survived a second cycle has not measurably happened.
+- **Failed captures** — refusal, rate limit, empty response — are logged with their reason and
+  reduce N. Dropping them silently turns a 1-of-1 into 100%.
+- **Per engine, never pooled.** A brand absent from one engine's answers and present in another's is
+  one finding on one row, not an average across two.
+- **Where the repeats cannot be run**, these rows ship **off** and the configuration says so. An
+  alerting system that reads one capture as a measurement pages the client on the engine's own
+  variation until they mute the channel — which takes the rest of the alerts with it.
+
+| Metric | Proposed trigger (per engine, per cluster, confirmed across 2 cycles) | Band |
+|--------|----------------------------------------------------------------------|------|
+| Brand absent from answers | Brand named in **0 of N** captures for the cluster's head prompts | none — boundary alert |
+| Recommendation position | Cluster mean worsens by **2 or more slots** vs. the previous cycle, over captures where a recommendation set existed | none — boundary alert |
+| Competitor enters answer set | A competitor absent last cycle is named in **2 or more of N** captures | none — boundary alert |
+| Cited URL is a non-owning property | The cited client URL is not the register's owning URL in **2 or more of N** captures | none — boundary alert |
+
+**Why every band reads "none — boundary alert".** Sections 2-3 define no ladder for prompt-level
+answer metrics — no baseline mean, no standard deviation — so these fire on an event, exactly like
+the brand and competitor-activity rows, and with no band there is no default map to sit above or
+below. Priorities are set directly from the business and owe no "raised from" clause. Once 8+ cycles
+of `k of N` history exist, the Section 2 method can build a ladder from the site's own record, on
+the same terms as the optional statistical ladder above; until then nothing is invented to fill the
+column.
+
+**The non-owning-property row is a cannibalisation signal.** Its fix is the ownership contest —
+consolidate, differentiate, retire — not content work on the answer. Route it to the ownership
+register (`references/query-cluster-ownership.md` §5), and do not hand it to the AI Overview
+recovery playbook, which will not resolve a contest between two of the client's own URLs.
+
 ### Metrics with no ladder — these are boundary alerts
 
 Sections 2-3 define no ladder for **brand and reputation metrics** (mentions, sentiment, reviews,
@@ -436,7 +482,7 @@ once a baseline exists (average review rating and monthly mention volume are bot
 mean); this file sets no numbers for them, and an operator holding that history can build the ladder
 with the Section 2 method.
 
-### Open threshold decisions — nine rows, for the operator
+### Open threshold decisions — thirteen rows, for the operator
 
 Each of these needs a business judgement about the right *value*. They are deliberately left open
 rather than filled with a number nobody chose; a configuration that ships one of them states the
@@ -445,7 +491,10 @@ choice it made.
 **The count is the table.** This heading previously read "seven" over six rows, because the seventh
 — the citation-*rate* pair — was written up in prose two sections above and never carried down
 here. A decision an operator cannot find in the list of decisions is not open, it is lost; so every
-row now sits in this table, and anything added to the list moves this number with it.
+row now sits in this table, and anything added to the list moves this number with it. **Rows 10-13
+were added with the prompt-level answer thresholds** and moved the count from nine, per that same
+rule — a register elsewhere still quoting nine is quoting a superseded count, not a disagreement to
+be split.
 
 | # | Row | The decision |
 |---|-----|--------------|
@@ -455,6 +504,10 @@ row now sits in this table, and anything added to the list moves this number wit
 | 7 | The two citation-*rate* rows — Rate Slide (P1) and Rate Floor (P0) | Both ship one level above their band's default, and the standing priority-1 override does **not** reach them: that override covers a query set, and citation rate is a site-wide line across all tracked queries. Confirm the raised priorities as a deliberate business call, or drop both to their band defaults (P2 / P1). Either way the reason written beside them has to be the real one. Full statement in the citation-metrics section above. |
 | 8 | A single 5xx in a day — boundary alert, or nothing? | Consolidating onto the Section 3 per-day ladder moved the 5xx Warning from "any occurrence" to `>1/day`, so one 5xx in a day now raises nothing. Restoring it means a boundary alert (no band, priority stated with its reason), and whether that is worth its noise depends on this site's 5xx floor, which nobody here has measured. Default off, deliberately, until someone measures it. |
 | 9 | Slow referring-domain erosion — a monthly row beside the weekly one? | The weekly ladder (>5% / >15% of total) does not see 1.5%/week sustained for a month. Adding a month-over-month row restores that coverage and doubles the rows watching one metric, which is what the precedence rule exists to prevent — so it is only worth it if slow link decay is a real cost for this client. Default: weekly only. |
+| 10 | Brand absent from answers — the `k` and the priority | Proposed: fires at **0 of N** captures for the cluster's head prompts, confirmed across two cycles, at **P1** where the cluster is on the priority-1 list and **P2** otherwise. Nothing measured supports either the `k` or the priority; both are the client's call. Sampling discipline (N ≥ 3, `k of N`, two-cycle confirmation, per engine) is **not** on this list — it is a method rule, not a value, and it does not ship off. |
+| 11 | Recommendation position drop — how many slots, over what | Proposed: cluster mean worsens by **2 or more slots** vs. the previous cycle, over captures where a recommendation set existed. The 2-slot figure mirrors the citation-position row and is not independently measured; a client who wants only large moves raises it. Confirm the slot count and the priority (proposed P2). |
+| 12 | Competitor enters the answer set — how many captures | Proposed: a competitor absent last cycle named in **2 or more of N** captures this cycle. At `k` = 1 the row fires on a single capture's variation, which is the failure this category's sampling rule exists to prevent; at `k` = N it will miss real entries. Confirm `k` and the priority (proposed P2). |
+| 13 | Cited URL is a non-owning property — how many captures, and who owns the response | Proposed: **2 or more of N** captures cite a client URL that is not the register's owning URL. Two decisions, not one: the `k`, and whether the alert routes to the ownership contest (recommended — it is a cannibalisation signal) or to content work. It also presumes an ownership register exists; where the cluster has no assigned owner the row records `no owner assigned` and that is the finding. |
 
 ---
 
