@@ -266,21 +266,39 @@ CTR decline        N/A — no Search Console export supplied
 Competitive displ. N/A — no dated SERP check was run (coverage notes cannot score this row)
 
 Scored weight = 30 + 25 + 15 = 70%  → renormalised weights 30/70, 25/70, 15/70 (42.9%, 35.7%, 21.4%)
-Composite = 75(30/70) + 50(25/70) + 75(15/70) = 32.1 + 17.9 + 16.1 = 66.1 / 100  → band read at 66
+Composite = (75×30 + 50×25 + 75×15) / 70 = (2,250 + 1,250 + 1,125) / 70 = 4,625/70 = 66.07…
+          → 66.1 / 100, band read at 66
 ```
 
-**The multiplier in a printed derivation is the exact fraction, never the rounded percentage.** The
-percentages are how the renormalised weights are *displayed*; the arithmetic runs on 30/70, 25/70
-and 15/70. Multiply by the rounded weight instead and the line stops reproducing — 75 × 0.429 =
-32.175, which prints as 32.2, not the 32.1 above. A derivation is printed so the reader can
-recompute it from the operands beside it, so the operands shown are the ones the arithmetic used —
-with each addend and the total displayed to one decimal, halves up.
+**Print the products and the single division, and round once, at the very end.** Each signal
+contributes `score × weight` — both whole numbers, so every product is exact — and the composite is
+their sum divided **once** by the scored-weight sum. Nothing is rounded before that division; the
+quotient is rounded to one decimal, halves up, and that printed figure is the only rounded number in
+the line. (Reading the band off it, below, is a reading of that figure, not a second calculation.)
+
+**Rounding the addends first does not reconcile in general, so it is not the convention.** The
+four-signal 85% path scoring 75 / 100 / 75 / 100 is `(2,250 + 2,500 + 1,125 + 1,500) / 85 = 86.76…`
+→ **86.8**, while the same four addends displayed to one decimal read `26.5 + 29.4 + 13.2 + 17.6 =
+86.7`. A derivation whose printed parts do not sum to its printed total cannot be recomputed by the
+reader, which is the only reason it is printed at all. The single division has no such gap, at any
+scored-weight sum.
+
+**The renormalised percentages are a display, and no arithmetic runs on them.** 42.9%, 35.7% and
+21.4% are how the weights above are shown to the reader; multiply by one and the line stops
+reproducing — 75 × 0.429 = 32.175 where 75 × 30/70 = 32.14… Printing the products sidesteps this
+entirely, which is the second reason the convention is products-then-divide.
+
+**The count in "derived from n of the 5 signals" is read off the derivation, not written from
+memory.** n is the number of products printed, and the divisor must equal those n weights added
+up: 70 is three signals, 85 is four, 100 is all five. A sentence claiming three signals over an 85
+divisor is a defect on its face, and the arithmetic beside it — not the sentence — settles the count.
 
 Printed in the deliverable as: *"Composite decay score 66.1/100 — significant decay. Derived from 3
-of 5 signals: traffic −40% (75 × 30/70 = 32.1), positions −4 (50 × 25/70 = 17.9), freshness 26
-months (75 × 15/70 = 16.1). CTR decline and competitive displacement are unscored — no Search
-Console export and no dated SERP check were available — and the three remaining weights were
-renormalised over their own 70% sum, i.e. 42.9%, 35.7% and 21.4%."*
+of the 5 signals: traffic −40% scores 75 at weight 30, positions −4 scores 50 at weight 25,
+freshness 26 months scores 75 at weight 15 — (2,250 + 1,250 + 1,125) / 70 = 4,625/70 = 66.07 →
+66.1. CTR decline and competitive displacement are unscored — no Search Console export and no dated
+SERP check were available — and the three remaining weights were renormalised over their own 70%
+sum, i.e. 42.9%, 35.7% and 21.4%."*
 
 ### Score Interpretation
 
@@ -329,6 +347,22 @@ was read into — the arithmetic decides, not the preference.
 Every time estimate below is a **house planning default**, not a measured figure — no timing study
 backs them. Each total is the sum of its own rows, so a changed row changes the total; a total that
 does not reconcile with the rows above it is a defect, not a rounding.
+
+### Which playbook a content type uses
+
+Refresh difficulty is scored off the playbook matching the page's Type cell, so a type with no
+playbook cannot be scored at all. Route it here first, and name the routing in the report:
+
+| Content type on the inventory | Playbook |
+|---|---|
+| Blog post, article, listicle, buying guide, evergreen guide | Blog Post / Article |
+| Tool comparison, "best X" roundup | Blog Post / Article — its statistics and screenshot rows are the bulk of the work here |
+| Product page, service page, category page | Product/Service Page |
+| Statistics roundup, data study | Statistics/Data Roundup |
+| How-to guide, tutorial, checklist | How-To Guide |
+| Definition, glossary entry, "what is X" | Definition / Glossary Page |
+| News/trend | **none** — this type is archived or redirected rather than refreshed (*Update Strategy by Content Type*), so refresh difficulty is N/A, named as such, and its weight renormalised |
+| Anything else | the playbook whose rows actually describe the work, named in the report; where none does, the factor is N/A with the reason given — never an hour figure invented to fill the rung |
 
 ### Blog Post / Article Refresh Playbook
 
@@ -383,6 +417,23 @@ does not reconcile with the rows above it is a defect, not a rounding.
 | 6 | Update FAQ with new common questions | 15 min |
 | 7 | Test all links and embedded resources | 15 min |
 | **Total** | | **185 min (about 3 hours)** |
+
+### Definition / Glossary Page Refresh Playbook
+
+| Step | Action | Time Estimate |
+|------|--------|--------------|
+| 1 | Re-check the definition against current usage and the primary sources it rests on | 20 min |
+| 2 | Replace dated examples and superseded terminology | 20 min |
+| 3 | Tighten the opening into a 40-60 word direct answer | 15 min |
+| 4 | Refresh internal links to related terms and the pillar page | 10 min |
+| 5 | Add or update a related-questions block (FAQ content, not markup) | 15 min |
+| 6 | Update meta description and `dateModified`, republish | 10 min |
+| **Total** | | **90 min (about 1.5 hours)** |
+
+A definition page decays slowly — *Update Strategy by Content Type* puts it on "as needed", with a
+2-5 year shelf life — so the trigger is usually a changed definition or a new question the term now
+attracts, not the calendar. Low hours do not make it a priority; they make it cheap, which is what
+the refresh-difficulty factor measures and all it measures.
 
 ---
 
@@ -454,25 +505,48 @@ read off an input you hold, and the figure it came from is printed beside it.
 
 | Factor | Weight | How the 1-10 score is read | Input it needs |
 |--------|--------|----------------------------|----------------|
-| Current traffic value | 25% | Rank the candidates in this batch on the traffic figure you hold: highest = 10, lowest = 1, the rest interpolated on the same figure | the traffic column of the inventory you were given |
+| Current traffic value | 25% | Min-max across this batch on the traffic figure you hold — `1 + 9 × (x − lowest) ÷ (highest − lowest)`, to the nearest whole number; see *Ranking a factor across the batch* below | the traffic column of the inventory you were given |
 | Decay severity | 20% | Composite decay score ÷ 10, rounded to the nearest whole number (66.1 → 7) | a composite score that was actually issued (§Decay Severity Scoring) |
 | Competitive opportunity | 20% | Read against the competitor pages actually compared, named with the date they were read: 10 = they are thinner or older than yours · 5 = comparable · 1 = materially stronger. This factor scores **content strength, not rank** — so unlike displacement it is scoreable from coverage notes, and it claims no ranking relationship they do not carry | the dated SERP check the displacement signal needs, **or** the user's own dated competitor notes — either one supplies pages to compare |
-| Refresh difficulty | 15% | 10 = under 2 hours on the matching playbook · 5 = 3-4 hours · 1 = the decision framework says rewrite | the content type plus the playbook estimate above |
-| Strategic importance | 10% | 10 = the owner names it a priority page for a current goal · 5 = ordinary · 1 = no stated goal | the owner saying so; not inferable from traffic |
-| Backlink equity | 10% | Rank the candidates on referring domains: highest = 10, lowest = 1 | a supplied backlink figure |
+| Refresh difficulty | 15% | On the matching playbook's hours: 10 = under 2 · 7 = 2 to under 3 · 5 = 3 to under 4 · 3 = 4 or more · 1 = the decision framework says rewrite rather than refresh. Score the hours you actually plan — the playbook total, or the subset of its rows this page needs — and print which | the page's content type, routed to a playbook by *Which playbook a content type uses* above |
+| Strategic importance | 10% | 10 = the owner names this page a priority for a current goal · 5 = their stated priorities exist and do not name it · 1 = they state it is off-strategy (topic dropped, superseded, being retired); see *An empty cell is not a rung* below | the owner's own statement of priorities — a brief, a goal, or a note on the row; not inferable from traffic |
+| Backlink equity | 10% | Min-max across this batch on referring domains, the same formula and rounding as traffic value | a supplied backlink figure |
 
-**Priority formula**: `priority = Σ (factor score × factor weight)`, on the same 1-10 scale. Print
-every factor score with the figure behind it, then the total. A factor with no input is **dropped,
-not guessed and not scored 5 as a middle**: renormalise the remaining weights over their own sum,
-name the dropped factor and why, exactly as the composite score does. Refresh highest-scoring
-content first.
+**Priority formula**: `priority = Σ (factor score × factor weight) ÷ Σ (weights scored)`, on the same
+1-10 scale, printed products-then-one-division and rounded once at the end exactly as the composite
+decay score is. Print every factor score with the figure behind it, then the arithmetic, then the
+total. A factor with no input is **dropped, not guessed and not scored 5 as a middle**: renormalise
+the remaining weights over their own sum, name the dropped factor and why, exactly as the composite
+score does. Refresh highest-scoring content first.
 
-**Worked derivation** (illustrative figures): *"Priority 7.4/10 — traffic 8 (1,900 sessions/mo, the
-highest in this batch) × 25%, decay severity 7 (composite 66.1) × 20%, refresh difficulty 6
-(blog-post playbook, about 3.5 h) × 15%, strategic importance 9 (owner named it the lead page) ×
-10%. Competitive opportunity and backlink equity are unscored — no SERP check and no backlink data
-were supplied — so the four remaining weights were renormalised over their own 70% sum:
-8(25/70) + 7(20/70) + 6(15/70) + 9(10/70) = 7.4."*
+**Ranking a factor across the batch** (current traffic value, backlink equity). Both are min-max
+scaled on the figures you hold: `score = 1 + 9 × (x − lowest) ÷ (highest − lowest)`, rounded to the
+nearest whole number, halves up. The highest figure scores 10, the lowest scores 1, and **two
+candidates carrying the same figure score the same** — that is the rule working, not a tie needing a
+break. Anchoring at zero instead (`1 + 9x ÷ highest`) is a *different* rule that returns different
+numbers for the same batch, and mixing the two is how a printed column stops matching the rule
+stated above it: use the one written here and print the lowest and highest it was scaled against.
+Where every candidate carries the same figure — including a batch of one — the factor separates
+nothing: drop it and renormalise, never divide by zero and never score the batch 5.
+
+**An empty cell is not a rung** (strategic importance). All three rungs read off the *same* input —
+the owner's own statement of what matters — so what decides is whether that statement exists at all,
+not whether one row carries a note. Where the owner supplied priorities anywhere in this session (a
+brief, a goal, notes on some rows), the factor is scoreable for **every** row: a page they named is
+10, a page they did not name is 5, a page they say is off-strategy is 1. **A blank notes cell on an
+otherwise annotated inventory scores 5**, not 1 — silence about one page is not the owner declaring
+that page goalless, and 1 needs them to have said so. Where no statement of priorities exists for
+any page, the input is absent, and the factor is dropped for the whole batch and renormalised. That
+absent case is what the formula note's ban on "scored 5 as a middle" is about: 5 here is a reading
+of an input you hold, never a stand-in for one you do not.
+
+**Worked derivation** (illustrative figures): *"Priority 7.4/10 — traffic 8 (1,900 sessions/mo;
+batch low 260, high 2,400, so 1 + 9 × 1,640/2,140 = 7.9 → 8) at weight 25, decay severity 7
+(composite 66.1) at weight 20, refresh difficulty 5 (blog-post playbook, the ~3.5 h of its rows this
+page needs) at weight 15, strategic importance 10 (the owner named it the lead page for this
+quarter's goal) at weight 10. Competitive opportunity and backlink equity are unscored — no SERP
+check and no backlink data were supplied — so the four remaining weights were renormalised over
+their own 70% sum: (200 + 140 + 75 + 100) / 70 = 515/70 = 7.36 → 7.4."*
 
 ---
 

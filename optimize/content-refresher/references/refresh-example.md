@@ -109,15 +109,16 @@ was connected in this session.
 
 ### Composite Decay Score — 91.2/100
 
-Derived from 4 of the 5 signals: traffic −56% (score 75 × 30/85), average position 4.2 → 14.8, now
-off page 1 — the state rung, which overrides the 10.6-position delta (100 × 25/85), CTR −62%
-relative (100 × 15/85), freshness 3.5 years with facts since changed
-(100 × 15/85). **Competitive displacement is unscored**: no dated SERP check was run or supplied,
-and the owner's 8 Aug notes record what those two guides *cover*, not what outranks this page, so
-they cannot score that row. The four remaining weights were therefore renormalised over their own
-85% sum (displayed as 35.3%, 29.4%, 17.6% and 17.6%; the arithmetic runs on the fractions, per
-content-decay-signals.md): 26.47 + 29.41 + 17.65 + 17.65 = 91.18 → 91.2/100, and the band is read
-off 91.
+Derived from 4 of the 5 signals — four products printed, four weights in the divisor: traffic −56%
+scores 75 at weight 30, average position 4.2 → 14.8, now off page 1 (the state rung, which overrides
+the 10.6-position delta) scores 100 at weight 25, CTR −62% relative scores 100 at weight 15, and
+freshness 3.5 years with facts since changed scores 100 at weight 15. **Competitive displacement is
+unscored**: no dated SERP check was run or supplied, and the owner's 8 Aug notes record what those
+two guides *cover*, not what outranks this page, so they cannot score that row. The four remaining
+weights were therefore renormalised over their own 85% sum (displayed as 35.3%, 29.4%, 17.6% and
+17.6% — no arithmetic runs on those displayed figures; the products are summed and divided once, per
+content-decay-signals.md): (2,250 + 2,500 + 1,500 + 1,500) / 85 = 7,750/85 = 91.17… → **91.2**/100,
+rounded once at the end, and the band is read off 91.
 
 **Both gates on the position state rung are met here** — a drop is on file, *and* the earlier
 position (4.2) was itself on page 1. Without the second gate a keyword going 25 → 26 would score

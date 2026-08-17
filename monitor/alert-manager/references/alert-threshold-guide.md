@@ -152,6 +152,26 @@ For binary or count-based metrics, use absolute thresholds.
 | SSL certificate expiry | <30 days to expiry | <7 days to expiry |
 | Robots.txt changes | Any unexpected change | Key pages blocked |
 
+### A fixed threshold needs no baseline — state it, even with nothing connected
+
+Every value in the table above is fixed by definition rather than computed from the client's
+history: a count of 5xx responses in a day, days to certificate expiry, "any detection". So are the
+percentage steps above it (index coverage -5% / -15%), the ranking-tier drops, the brand top-3 rows
+and the Core Web Vitals boundaries in Section 3. A run with no tool connected and no export in hand
+can write every one of them down. What it cannot do is state *this site's* mean, standard
+deviation, normal range or expected position. Keep the three kinds apart in the deliverable:
+
+| Kind of number | Needs this client's history? | With no data in hand |
+|----------------|------------------------------|----------------------|
+| **Fixed threshold** — 5xx/day, 4xx/day, SSL days, index-coverage %, tier drops, brand top-3, LCP 2.5 s · INP 200 ms · CLS 0.1 | No — the value is set here or by a settled ruling | Stated plainly, as itself |
+| **Generic default** — the -15% / -30% WoW traffic steps | No, but it is a starting guess, not this site's behaviour | Stated, **labelled** a generic default to recalibrate |
+| **Derived value** — mean, standard deviation, band bounds, normal range, expected position | Yes | **Absent**, with the collection plan that would produce it |
+
+Withholding a fixed threshold because no tool is connected is the same defect as inventing a
+baseline: both replace what is known with what the run wishes it could say. The abstention form is
+ledger **F19** — "confirm the boundary when you reconnect the feed", about a number the feed was
+never going to supply.
+
 ### Precedence: one ladder per metric
 
 Sections 2 and 3 both carry thresholds, and where they disagreed a run picked whichever unit
@@ -162,6 +182,14 @@ it carries the Emergency band, which no Section 2 table has — and it is what t
 SKILL.md quick reference quote. Section 2's tables teach the three methods and repeat Section 3's
 Warning/Critical values for the metrics they name; they never set a different value, a different
 unit, or a different comparison period.
+
+**Two notations for one ladder are not two ladders.** The Core Web Vitals rows carry a status word
+*and* a figure — "Needs Improvement" **is** "above 2.5 s" — and a row quoting both is one rung
+written twice, not a duplicate to consolidate away. This rule forbids a second *value*; it does not
+forbid a second *notation* for the same value. The test: could a reader grade one observation two
+different ways off these two rows? With a status word and its own boundary they cannot, so both
+stay, and the numeric form is the one a monitoring tool can actually evaluate. Consolidating them
+is how a run ends up shipping a CWV alert set that names no metric and no number — see Section 3.
 
 **Five rows were corrected to this rule** — three on 2026-08-12, two more on 2026-08-13 after an
 adversarial pass read the rule's own sentence back against the tables and found survivors. The
@@ -267,23 +295,48 @@ applies to query groups exactly as it does to weekdays).
 | Crawl rate change | -30% vs. baseline | -60% vs. baseline | Near-zero crawl |
 | Index coverage drop | -5% | -15% | -30% |
 | Average server response time | >500ms | >1000ms | >2000ms |
-| LCP (mobile) | Moves to "Needs Improvement" — field LCP above **2.5 s** | Moves to "Poor" — above **4.0 s** | >6s |
-| CLS | >0.1 | >0.25 | >0.5 |
-| INP | >200ms | >500ms | >1000ms |
-
-**The Core Web Vitals numbers are settled, so state them — do not send a client to look them up.**
-"Good" is **LCP ≤ 2.5 s · INP ≤ 200 ms · CLS ≤ 0.1**. INP is the responsiveness metric — the
-older input-delay measure it replaced was retired in March 2024 and is not named here, because
-this guide's own deprecated-token sweep bans the string outright. These are fixed thresholds, not this site's baseline, so they need no history and no
-connected tool to state. *(Added 2026-08-13 after two blind runs in a row rebuilt the CWV rows
-**status-only** and declined to give the numbers — one of them writing "confirm the current
-boundary numbers when you reconnect the feed" about values that were never in question. The cause
-was this guide: it banded LCP by status word and stated 2.5 s nowhere, so the figure was
-unreachable from inside the skill. Ledger **F17** — a rule with no carrier — producing ledger
-**F19**, abstention where a settled ruling holds the answer.)*
-
+| LCP (field, mobile) | above **2.5 s** — "Needs Improvement" | above **4.0 s** — "Poor" | >6s |
+| INP (field, mobile) | above **200 ms** — "Needs Improvement" | above **500 ms** — "Poor" | >1000ms |
+| CLS (field, mobile) | above **0.1** — "Needs Improvement" | above **0.25** — "Poor" | >0.5 |
 | Robots.txt change | Any unexpected edit | Pages blocked | Entire site blocked |
 | Sitemap errors | New errors | Sitemap inaccessible | Sitemap returning 5xx |
+
+**The Core Web Vitals numbers are settled, so state them — do not send a client to look them up.**
+"Good" is **LCP ≤ 2.5 s · INP ≤ 200 ms · CLS ≤ 0.1** — settled ruling **R4**
+(`docs/loop/SETTLED-RULINGS.md`), which also records that the input-delay metric INP replaced was
+retired in **March 2024**. These are fixed definitions, not this site's baseline: they need no
+history, no connected feed and no confirmation before they are written down, and a configuration
+that withholds them because a tool is disconnected has withheld something it already knows. The
+"Poor" ends in the Critical column are this guide's own second tier, not part of R4. Ruling handles
+are operator vocabulary — cite R4 in working notes, give the client the number.
+
+**Three metrics, three ladders, and the status word *is* the number.** "Needs Improvement" on LCP
+means field LCP above 2.5 s: the words and the figures are one ladder written twice, not two
+ladders, so the precedence rule below has nothing to consolidate here and the one-observation rule
+does not delete the figure. Every Core Web Vitals alert therefore ships **the metric name and its
+numeric boundary** — "LCP (field, mobile) > 2.5 s", never "a CWV metric drops to Needs
+Improvement". A status word is not a trigger a monitoring tool can evaluate, and a client cannot
+check a boundary nobody wrote down. A rebuild that collapses these into one status-banded "Core Web
+Vitals" row is the defect this paragraph exists to stop: it silently drops INP, which is exactly
+the row a configuration inherited from before March 2024 is missing.
+
+**Naming a retired metric in a review is not teaching it.** This library's own files never write
+the retired input-delay token — a repo-level deprecated-token sweep fails the string — but that is
+an authoring rule for these files, not a gag on the deliverable. Where a client's inherited config
+carries a row on that metric, quote their row verbatim, say it monitors a metric retired in March
+2024, and replace it with the INP row above at 200 ms. You cannot ask someone to delete a row you
+refuse to name.
+
+*(Numbers added to the LCP row 2026-08-13; INP and CLS given the same treatment and this note moved
+out of the table on 2026-08-17. The 2026-08-13 fix had placed its explanation **inside** the table,
+which orphaned the Robots.txt and Sitemap rows below a paragraph and stopped the table rendering as
+one table. Original cause, unchanged: two blind runs in a row rebuilt the CWV rows **status-only**
+and declined to give the numbers — one writing "confirm the current boundary numbers when you
+reconnect the feed" about values that were never in question. Ledger **F17**, a rule with no
+carrier, producing ledger **F19**, abstention where a settled ruling holds the answer. The third
+run wrote no INP row at all: with the templates file shipping a complete status-keyed CWV pair, a
+status-only rebuild had become the faithful reading of the skill, and "a CWV metric" names no
+metric.)*
 
 **The 5xx and index-coverage rows above are the single ladder for each of those metrics** — Section
 2 quotes them, it does not set them (see "Precedence: one ladder per metric"). A whole-site outage
@@ -555,6 +608,31 @@ Every alert notification should include:
 | Update keyword tiers | Promote/demote keywords based on current business priority |
 | Verify notification routing | Confirm all recipients are still in the correct roles |
 | Test alert delivery | Send a test alert through each channel to verify delivery |
+
+### A row that never fires — four diagnoses, and only one of them is tuning
+
+Zero fires across a review window is a finding, not a clean bill. Say which of these it is before
+touching a number, because the fixes differ and only the last row is a threshold problem:
+
+| Diagnosis | What it looks like | Fix |
+|-----------|--------------------|-----|
+| **Dead metric** — the thing measured no longer exists | The metric was retired by the platform; its column vanished from the tools | Replace the metric, do not retune the row. The input-delay metric retired in March 2024 becomes an INP row at **200 ms** (ruling R4) |
+| **Dead feed** — the metric lives, the data stopped | A subscription lapsed, a key expired, an export stopped arriving | Rewire the source, then keep the row. Until the source is back the row is not coverage, and no threshold edit changes that |
+| **Dead report** — the surface the alert watched was withdrawn | The report or search feature that fed it is gone, so nothing can fire | Retire the alert. Do not propose a replacement sensor for a surface that no longer exists |
+| **Quiet guard** — nothing has gone wrong yet | A security or site-down row on a healthy site | Keep it, and test-fire it. Silence here is the alert working |
+
+**The FAQ rich-result alert is the dead-report case: those rich results ended in 2026**, per
+settled ruling **R3** (`docs/loop/SETTLED-RULINGS.md`). The search appearance and the rich-result
+report were dropped; Search Console API support was scheduled for August 2026, and this guide does
+not assert that cut as complete. An alert watching for the loss of that result has no sensor left,
+so it is removed rather than retuned, and no replacement monitor is proposed for it.
+
+**The retirement stops at the alert.** R3 keeps FAQPage markup in this library: it stays valid, and
+per that ruling Google's own guidance is that there is no need to proactively remove it. A review
+that turns "this alert is dead" into "delete your FAQPage markup" has extended a monitoring finding
+into a site change nobody ruled on. R3 constrains the other direction too — this library does not
+claim that markup earns AI citations, so a review does not sell it back to the client on that
+ground either.
 
 ### Threshold Evolution Over Time
 

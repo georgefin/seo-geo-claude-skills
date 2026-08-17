@@ -1,13 +1,13 @@
 ---
 name: content-refresher
-version: "4.3.3"
+version: "4.3.4"
 description: 'Refresh old blog posts and outdated content with current statistics, new information, and freshness signals to restore search rankings. Use when the user asks to "update old content", "refresh content", "content is outdated", "improve declining rankings", "revive old blog posts", "traffic is declining on this page", "rankings dropped for this article", or "this post is outdated". For writing new content from scratch, see seo-content-writer. For auditing without rewriting, see on-page-seo-auditor.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.3"
+  version: "4.3.4"
   geo-relevance: "medium"
   tags:
     - seo
@@ -127,7 +127,9 @@ When a user requests content refresh help:
    Rapidly score each dimension (estimate 0-100) and print the derivation beside every score, so a
    reader can recompute it: check at least 3 items of that dimension in the benchmark, grade each
    Pass 10 / Partial 5 / Fail 0 (an unassessable item is N/A — out of the denominator, never a 0),
-   then `score = points ÷ (10 × items checked) × 100`. Under 3 checkable items the dimension reads
+   then `score = points ÷ (10 × items checked) × 100` — **rounded once, at the end, to one decimal,
+   halves up, and the `.0` dropped when it lands whole**: 5 pts over 3 items is 16.7, never 17, or
+   the tally printed beside it stops reproducing. Under 3 checkable items the dimension reads
    "not assessed", not a number. Refresh Priority follows the score, not a separate impression:
    🔴 below 50 · 🟡 50-74 · 🟢 75 and above. A quick score is this skill's own estimate over the
    items it checked, never a tool measurement.
@@ -196,25 +198,26 @@ When a user requests content refresh help:
    
    ### Content Audit Results
    
-   | Content | Published | Last Updated | Traffic Trend (periods compared) | Priority |
-   |---------|-----------|--------------|----------------------------------|----------|
-   | [Title 1] | [date] | [date] | [+/-X]% ([period A] vs [period B]) | [matrix cell below] |
-   | [Title 2] | [date] | [date or "never"] | [+/-X]% ([period A] vs [period B]) | [matrix cell below] |
-   | [Title 3] | [date] | [date] | [+/-X]% ([period A] vs [period B]) | [matrix cell below] |
+   | Content | Type | Published | Last Updated | Traffic Trend (periods compared) | Cadence check | Priority |
+   |---------|------|-----------|--------------|----------------------------------|---------------|----------|
+   | [Title 1] | [content type] | [date] | [date] | [+/-X]% ([period A] vs [period B]) | [that type's refresh frequency] — [gap since last update] | [matrix cell below] |
+   | [Title 2] | [content type] | [date] | [date or "never"] | [+/-X]% ([period A] vs [period B]) | [that type's refresh frequency] — [gap since last update] | [matrix cell below] |
    
    Every cell comes from the inventory supplied, and the trend cell names the two periods it compares. A page the data does not cover keeps its row and carries "not supplied" there — stated, never interpolated, never converted into a priority.
+   
+   **The Type cell is not optional — it is what routes the row.** Fill it from the inventory's own content-type field where there is one and from reading the page where there is not; then look that type up in *Update Strategy by Content Type* ([content-decay-signals.md](./references/content-decay-signals.md)), print its refresh frequency in the Cadence check cell beside the gap since the last update, and **schedule any page past that frequency on it, naming the frequency**, whatever the traffic trend shows — a cadence that is never quoted was never applied. Two types leave the loop here: news/trend content is archived or redirected rather than refreshed, and a page the Content Retirement checklist catches is routed to retirement with a named option. The same Type cell picks the refresh-difficulty playbook in Refresh Priority Scoring.
    
    ### Refresh Prioritization Matrix
    
    ```
+   Not declining (flat or improving) = 🟢 Healthy — leave alone; does not enter the matrix
    High Traffic + High Decline = 🔴 Refresh Immediately
    High Traffic + Low Decline = 🟡 Schedule Refresh
    Low Traffic + High Decline = 🟡 Evaluate & Decide
    Low Traffic + Low Decline = 🟢 Low Priority
    ```
    
-   High and low are relative to this batch: split the supplied traffic figures at their median, and
-   the declines likewise, then say which figures and which split produced each quadrant.
+   **The matrix ranks declines, so a page that is not declining never enters it**: traffic flat or up on the comparison that governs the page (year-over-year where seasonality is in play), or a position that improved, reads 🟢 Healthy and is reported as healthy — growth is not a decline of small size and never becomes "Schedule Refresh". Hold the false positives out before splitting too: a month-over-month drop that the same-month year-over-year figure shows flat or up is seasonal (monitor, do not schedule), and a collapse alongside a near-stable position and a tracking-migration note goes to tracking verification before any decay diagnosis. High and low are then relative to the pages that remain: split their traffic figures at their median and their declines likewise, then say which figures and which split produced each quadrant. A page held out of the matrix still carries its Cadence check cell.
    ```
 
 3. **Analyze Individual Content for Refresh**
@@ -270,6 +273,7 @@ When a user requests content refresh help:
    | Links | [X] broken | Fix or replace |
    | Screenshots | Outdated UI | Recapture |
    | SERP-feature claims | "[what the article promises Google shows]" | Correct only what is settled; open items are flagged for verification, never asserted either way — [refresh-templates.md](./references/refresh-templates.md) §"Correcting claims about SERP features" |
+   | Core Web Vitals figures | "[old metric or threshold]" | **Settled — correct it in place, do not route it to the client**: "Good" is LCP ≤2.5 s, INP ≤200 ms, CLS ≤0.1; First Input Delay was retired 03-2024 (INP is the responsiveness metric) and the circulating 2.0-second LCP figure is a vendor-blog number, not Google's (settled ruling R4, `docs/loop/SETTLED-RULINGS.md`). Sending the reader to Google's documentation for a figure this library has settled is the abstention overshoot, ledger F19 |
    
    ### Missing Information
    
