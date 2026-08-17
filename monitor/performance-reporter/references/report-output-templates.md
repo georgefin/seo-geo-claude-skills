@@ -89,7 +89,7 @@ Action Required:
 
 ## 3. Organic Traffic Analysis Template
 
-```markdown
+````markdown
 ## Organic Traffic Analysis
 
 ### Traffic Overview
@@ -136,7 +136,7 @@ Action Required:
 | Desktop | [X] ([Y]%) | [+/-Z%] | [%] |
 | Mobile | [X] ([Y]%) | [+/-Z%] | [%] |
 | Tablet | [X] ([Y]%) | [+/-Z%] | [%] |
-```
+````
 
 ---
 

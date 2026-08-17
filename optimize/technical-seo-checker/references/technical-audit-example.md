@@ -15,7 +15,7 @@ this example line by line.
 
 **Output**:
 
-```markdown
+````markdown
 # Technical SEO Audit Report
 
 **Domain**: cloudhosting.example
@@ -167,7 +167,7 @@ The same actions, cut into windows — no action appears here that is not a row 
 - **Week 1** — rows 1 and 2 (the Critical band, and the redirect block that unblocks nothing else).
 - **Week 2-3** — row 3.
 - **Week 4+** — row 4, once the CDN is procured, and row 5 whenever the data arrives.
-```
+````
 
 ---
 
