@@ -21,7 +21,7 @@ Prior full sweep 2026-08-08 (all rulings stood).
   confirmed honoring it.
 - **Decided**: on/before 2026-07-18 (in v1 routine prompt); re-affirmed 2026-08-08.
 - **Evidence**: No engine-official adoption found; absence re-confirmed each weekly sweep.
-- **Encoded in repo**: `build/geo-content-optimizer/SKILL.md:148` ("Not citation levers");
+- **Encoded in repo**: `build/geo-content-optimizer/SKILL.md:141` ("Not citation levers");
   `build/geo-content-optimizer/references/ai-citation-patterns.md:520` ("Not citation levers");
   `VERSIONS.md:255` ("non-levers")
   (pointers refreshed 2026-08-09 — 4.1.5 module insertion + v4.3.1 changelog shifted both;
@@ -55,7 +55,7 @@ Prior full sweep 2026-08-08 (all rulings stood).
   primaries) IS stacking and stays banned — unless the page genuinely is both things and
   each type is complete, accurate, and independently justified. Skill text and references
   must teach this boundary, not the pre-clarification "pile types" pattern.
-- **Encoded in repo**: `build/geo-content-optimizer/SKILL.md:148` ("Not citation levers");
+- **Encoded in repo**: `build/geo-content-optimizer/SKILL.md:141` ("Not citation levers");
   `build/geo-content-optimizer/references/ai-citation-patterns.md:520` ("Not citation levers");
   `VERSIONS.md:255` ("non-levers")
   (pointers refreshed 2026-08-09, same shift as R1; VERSIONS pointer re-refreshed twice on
