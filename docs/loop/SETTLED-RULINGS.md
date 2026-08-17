@@ -215,6 +215,24 @@ search-engine behaviour. The reopening condition is Sani's own word, not primary
 
 ---
 
+### M2 — a version bump is never waived as "behaviourally empty"
+
+- **Statement**: a blind record whose graded version is behind HEAD's `metadata.version` is
+  **not current**, and no lane may clear it by judging the intervening bump empty. Where the
+  whole diff is the version lines themselves, the record is still stale and the suite is still
+  re-run. `GOALS-SCORECARD.md` G2-C3 is applied as written.
+- **Decided**: 2026-08-17, by Sani, on a lane's own recommendation against its own verdict.
+- **Why it is not relitigable here**: the lane that proposed the waiver argued for it, applied
+  it once, and then asked for it to be refused — because *"the version moved and I decided it
+  didn't matter"* is a precedent that, used loosely by the next lane, dissolves the version
+  check entirely. The check costs one suite to honour and stops costing anything the moment it
+  is optional. One suite is cheaper than a check nobody can rely on.
+- **Effect on the 2026-08-17 re-run scope**: `seo-content-writer` moves out of the no-re-run
+  tier. The list is **14 of 20**, not 13.
+- **Reopens on**: Sani's explicit word only.
+
+---
+
 ## Pinned baselines (drift watch — not rulings)
 
 Last-known-verified states the weekly sweep uses as cheap change-detectors. Drift here is a
