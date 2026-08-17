@@ -93,7 +93,20 @@ a claim you do not have.
 | 2 | Sidebar or dedicated links section | Widget, blogroll, or sidebar placement |
 | 1 | Footer, sitewide, or hidden | Footer link, sitewide template link, or visually obscured |
 
-**Key principle:** Editorial in-content links carry the most weight because they represent a genuine endorsement. Footer and sitewide links are devalued by search engines.
+**Key principle — and the weight is this rubric's, not an engine's.** An in-content editorial link
+was placed by a person who was writing about the subject at the time, so it is evidence of
+somebody's judgement about the page. A footer or sitewide link was placed once into a template and
+then repeats on every URL of the site regardless of what any of them is about, so it is evidence of
+one decision, not of an editorial one — and it is the same link whether the page it sits on is
+relevant or not. That difference is readable from the linking page itself, and it is what Factor 4
+scores 5 down to 1.
+
+[VERIFY — 2026-08-17] The sentence that closed this note — *"Footer and sitewide links are devalued
+by search engines"* — asserted an engine mechanic as fact, and is withdrawn on the same grounds as
+the Factor 3 note above. No engine-primary source for it was read here, in either direction: what
+any engine does or does not do with a sitewide link is not published. **The 15% weight does not
+rest on it** — the editorial-judgement reading above carries the factor on its own. Do not state it
+to a client. Resolves on an owner read of Google's own link-quality documentation.
 
 ### Factor 5: Anchor Text (10% weight)
 
@@ -300,7 +313,7 @@ domain:spam-directory.net
 | 6 | Add non-removed toxic links to disavow | Format as .txt file |
 | 7 | Upload to Google Search Console | Disavow Links tool |
 | 8 | Document all actions and dates | Internal records |
-| 9 | Re-check in 4-6 weeks | Verify processing |
+| 9 | Re-check on a stated cadence and record each check with its date | Search Console shows which disavow file is currently in force, so "the file we intended is the file that is loaded" is verifiable. The "4-6 weeks" this row used to give had no source read here and is withdrawn — no processing window is stated, in either direction |
 
 **The sequence does not compress under a deadline.** Steps 4 and 5 are what keep good links out of the file, and they are exactly the two a same-day request asks you to skip. The two-week window at step 5 is real waiting time, not a formality to mention and then step over: the tool applies the file you upload rather than reviewing whether it was warranted, and a disavow is slow and uncertain to reverse, so a link wrongly included costs more than a link left in the profile another week. When a client wants the upload today, the deliverable says what can finish today — steps 1-4, plus the file drafted and held — and what cannot, with the date the sequence reaches the upload. Removal outreach is never described as optional or parallel to the upload; it is the step the upload waits on. A file that leaves your hands before outreach has run carries a plain statement that no removal outreach was attempted, and a clean manual-actions report is recorded as lower urgency rather than as evidence that disavowing is safe.
 

@@ -6,7 +6,17 @@ Complete checklist of entity signals organized by priority and verification meth
 
 ## Priority 1: Foundation Signals (Must-Have)
 
-These signals form the minimum viable entity identity. Without them, search engines and AI systems cannot reliably identify the entity.
+These signals form the minimum viable entity identity: with all of them in place, every public
+record naming the brand says the same thing about it, and each one can be checked by opening it.
+Where they are absent, that record is incomplete or self-contradictory — which is the finding, and
+it is a finding you can show the client.
+
+**What is not the finding: anything about what an engine would then do.** *"Without these, search
+engines and AI systems cannot reliably identify the entity"* stood here as fact and is withdrawn —
+it is the same unsourced claim as *"with these, engines will identify the entity"*, and ruling R3
+amendment 9a bars it **in either direction**, a negative existence or capability claim about an
+engine being no more sourceable than a positive one. Priority 3 below settles the question the
+only honest way there is: ask the engines and record what comes back, with the date.
 
 ### On-Site Structured Data
 

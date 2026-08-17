@@ -1,13 +1,13 @@
 ---
 name: entity-optimizer
-version: "4.3.0"
+version: "4.4.0"
 description: 'Audit and build entity presence across Google Knowledge Graph, Wikidata, and AI systems for brand recognition and AI citations. Use when the user asks to "optimize entity presence", "build knowledge graph", "improve knowledge panel", "entity audit", "establish brand entity", "Google doesn''t know my brand", "no knowledge panel", "establish my brand as an entity". For structured data implementation, see schema-markup-generator. For content-level AI optimization, see geo-content-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.0"
+  version: "4.4.0"
   geo-relevance: "high"
   tags:
     - seo
@@ -194,7 +194,9 @@ Evaluate each signal as Pass ✅ / Partial ⚠️ / Fail ❌ — the same three 
 
 ### Step 3: Report & Action Plan
 
-Three rules govern the report below — two on every claim it carries, one on anything prohibited the audit found already in place. Apply them while writing it, not after.
+Four rules govern the report below — three on every claim it carries, one on anything prohibited the audit found already in place. Apply them while writing it, not after.
+
+**No claim about what a search engine or an assistant does — and none about what it does not.** Entity work is where this breaks first, because every finding is about a system whose insides nobody publishes. State what a **record** says, what the **client controls**, what a **named source** states, or what you **observed and when**. Never what an engine does with any of it. **The prohibition runs in both directions and the negative half is the one that gets written by accident**: *"there is no submission form, no queue and no appeal for absence"*, *"Google does not read directory listings"*, *"assistants never revisit a page after it is corrected"* are the same unsourced assertion as *"Google prefers consistent NAP"* — a claim about the inside of a system, carrying a minus sign. Two replacements do the job and cost the client nothing: say what **is or is not documented** ("no submission interface for the Knowledge Graph is documented"; "no claiming process is documented for that panel"), or say what **was observed and when** ("re-checked 14 August on three brand queries — still no panel"). The same bar applies to timelines: how long a panel, an entry or a corrected fact takes to show up is not published, so it is measured on a stated cadence and reported with dates, never forecast. Withdrawn engine claims are recorded in the reference files, not in the client's report — a client reading a retraction of something they were never told is reading the library's internal history.
 
 **Every fact traces to a named input — including facts about entities that are not the client.** A widely-known fact is still an unsourced assertion the moment it enters a client deliverable: a landmark's century, another organisation's founding year, the size of some other entity's content footprint, the year something will matter. Nobody in this audit measured it, the client cannot check it, and it travels to everyone the client forwards the report to. Background knowledge is not a source, and being famous is not a citation. Instead: name a colliding or comparison entity exactly as the supplied input names it, and build the disambiguation finding or the priority argument out of surfaces the audit actually read. If the argument needs a fact no input carries, either make the argument without that fact or state the check that would supply it — never fill the gap from memory to make a recommendation sound stronger. **That rule is this library's fabrication prohibition ([prohibited-tactics.md](../../references/prohibited-tactics.md) entry 5) in the form entity work needs it**, and the reason it is stated here rather than only there is that entity work invents plausible facts about organisations more readily than anything else this library does: the failure mode is not an invented footnote, it is a founding year, a headcount, a parent company or an award that reads exactly like the sourced facts around it. A fabricated statistic, quote, expert, case study or date is out on the same terms — cite a primary source with its date, or drop the claim and name the check that would settle it.
 
@@ -314,6 +316,7 @@ unblocking the other goes first and says so.
 - [ ] Wikidata/Wikipedia status verified
 - [ ] Schema.org markup on primary site audited
 - [ ] Every fact and figure traces to a named input — no date, size, or attribute of a non-client entity supplied from background knowledge
+- [ ] No sentence states what a search engine or assistant does, prefers, will do, or fails to do — **checked in both directions**, so a bare negative ("there is no queue", "engines do not read X", "it never updates") fails the same as a bare positive; what is documented, what the client controls, and what was observed with its date are the permitted forms, and no timeline is forecast for a panel, an entry or a corrected fact
 - [ ] Every derived count recounted against its source file, with the population it was counted over stated
 - [ ] No cost-per-mention, cost-per-link, ROI, or payback figure derived from a fee, retainer, or budget
 - [ ] No recommendation asks for written, bought or incentivised reviews, sets a per-staff review quota, scripts what a review should say, or filters who gets asked — the review action is ask every customer, reward none, gate nothing, reply to negatives in public

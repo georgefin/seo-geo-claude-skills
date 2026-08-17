@@ -17,9 +17,15 @@ Your Entity
 ├── is described by → Schema.org markup on your site
 ├── is linked to → Social profiles (LinkedIn, X, etc.)
 ├── is mentioned by → News articles, industry sites
-├── is associated with → Topics, industries, other entities
-└── is recognized by → Google Knowledge Graph, Bing Satori, AI training data
+└── is associated with → Topics, industries, other entities
 ```
+
+Every arrow above is a record you can open, read and check today. Google and Microsoft each run
+an entity store of their own (Knowledge Graph, Satori). What either store holds about this entity,
+what it takes from the records above, and whether any assistant's training corpus contains them
+are **not published, and are asserted here in neither direction** — the tree used to end with a
+`is recognized by → Google Knowledge Graph, Bing Satori, AI training data` branch, and that branch
+is withdrawn (ruling R3 amendment 9a). See the evidence note under the next table.
 
 ### Which Knowledge Graphs Matter
 
@@ -29,10 +35,10 @@ Your Entity
 | **Wikidata** | anyone — it is openly licensed | An open, editable, public record of the entity. Its value here is that it is checkable and correctable by you, not an asserted pipeline into anyone's graph |
 | **Wikipedia** | anyone | A public record with its own sourcing rules. Whether and how any engine consumes it is not documented — see the evidence note below |
 | **Bing Satori** | Microsoft | Microsoft's own entity store. Its relationship to Bing results or Copilot is not publicly documented — see the evidence note below |
-| **Schema.org (your site)** | All search engines, AI crawlers | First-party structured data you control directly |
-| **DBpedia** | Research, some AI systems | Auto-extracted from Wikipedia; relevant for academic/research entities |
+| **Schema.org (your site)** | published as a joint vocabulary by Google, Microsoft, Yahoo and Yandex | First-party structured data you control directly, written in a vocabulary whose specification is public and whose meaning is therefore checkable |
+| **DBpedia** | anyone — openly licensed | Auto-extracted from Wikipedia; a public derived record, relevant for academic/research entities. Which consumers read it is not documented — see the evidence note below |
 
-> **[VERIFY — 2026-08-17] Evidence note for the Impact column.** This table used to state, as fact,
+> **[VERIFY — 2026-08-17] Evidence note for the "Who Uses It" and "Impact" columns.** This table used to state, as fact,
 > that the Google Knowledge Graph *"powers"* Knowledge Panels, that Wikidata *"feeds multiple
 > knowledge graphs"*, that Wikipedia is *"training data for every major LLM"*, and that Satori
 > *"powers"* Bing and Copilot. **No engine-primary source for any of those pipelines was read
@@ -45,30 +51,64 @@ Your Entity
 > whoever turns out to be reading it. Resolves on an owner read of Google's and Microsoft's own
 > entity documentation.
 
-### Data Flow
+### What the Work Reaches, and Where It Stops
 
 ```
 Your Website (Schema.org) ─┐
 Wikidata ──────────────────┤
-Wikipedia ─────────────────┼──→ Google Knowledge Graph ──→ Knowledge Panel
-Industry Directories ──────┤                              AI Search Results
-News/Media Mentions ───────┤                              Rich Results
+Wikipedia ─────────────────┼──→ ONE consistent public record of the entity
+Industry Directories ──────┤    — every row readable and correctable by you
+News/Media Mentions ───────┤
 Social Profiles ───────────┘
+
+                                · · · · · · · · · · · · · · · · · · · · ·
+                                not documented, not asserted here either way:
+                                what any engine's own entity store takes
+                                from that record, or when
 ```
 
-Understanding this flow is key: you influence the Knowledge Graph by controlling the **source signals** that feed it.
+The left column is the whole of the work, and it is enough to act on: six records that name the
+brand, each one openable, each one correctable, and the deliverable is getting them to agree
+instead of contradict each other.
+
+**This section used to draw one more arrow** — from those rows into Google's Knowledge Graph and
+on to Knowledge Panels, AI search results and rich results — and closed with *"you influence the
+Knowledge Graph by controlling the source signals that feed it."* **No engine-primary source for
+that pipeline was read here** (see the evidence note above), so the arrow is drawn as a stop.
+What an engine actually returns is settled by asking it and recording the answer with its date —
+step 3 of the skill — never by reasoning forward down a pipeline nobody published.
 
 ## Google Knowledge Graph
 
-### Getting Into the Knowledge Graph
+### Building the Records a Knowledge Graph Entry Would Be Built From
 
-There is no "submit to Knowledge Graph" form. Google builds its Knowledge Graph from multiple sources. To get included:
+**No submission interface for the Knowledge Graph is documented** — nothing in Search Console or
+in Google's published help, as read here, accepts an entity for inclusion. That sentence is a
+statement about the **published interfaces**, and it stops there.
 
-1. **Have a Wikidata entry** — This is the most direct path
-2. **Earn a Wikipedia article** — Strongest single signal
-3. **Implement Schema.org markup** — Provides structured self-description
-4. **Get mentioned on authoritative sites** — Third-party validation
-5. **Build branded search demand** — Signals that users look for your entity
+> **A negative claim about an engine is still an engine claim.** *"There is no queue, no appeal
+> and no process for absence"*, *"Google does not read X"*, *"assistants never revisit a corrected
+> page"* are the same defect as *"Google prefers X"* wearing a minus sign: each asserts something
+> about the inside of a system that publishes nothing about it. Ruling R3 amendment 9a bars the
+> claim **in either direction** — no primary source establishes what an engine does, and none
+> establishes what it does not. Two forms are safe and say almost as much: state what **is or is
+> not documented** ("no submission interface is documented"; "no claiming process is documented"),
+> or state what **was observed and when** ("re-checked on 14 August, still no panel"). Write those;
+> never the bare negative.
+
+So the list below is not a set of routes into anyone's graph, and nothing in it is ranked by how
+well it works — that ordering would be the withdrawn claim in list form. It is ordered by **how
+much of the record the client controls and how quickly it can be checked**:
+
+1. **Have a Wikidata entry** — the only record here you can write and correct yourself
+2. **Earn a Wikipedia article** — the hardest to obtain and the hardest for anyone else to rewrite; its own notability rules govern it, and they are published (see below)
+3. **Implement Schema.org markup** — your structured self-description, on infrastructure you own, in a public vocabulary
+4. **Get mentioned on authoritative sites** — records about the brand that the brand did not author
+5. **Build branded search demand** — countable in Search Console as impressions and clicks on the brand's own name
+
+Then **measure**: run the branded queries and the assistant prompts on a stated cadence and record
+what comes back, with dates (step 3). That is what tells you where the entity stands. Reasoning
+from this list to a panel is prediction, and this guide does not make it.
 
 ### Checking Your Knowledge Graph Status
 
@@ -334,7 +374,18 @@ Every entity should have at minimum this markup on the homepage:
 
 ### sameAs Best Practices
 
-The `sameAs` property is the **primary entity disambiguation signal** in Schema.org. It tells search engines "this is the same entity as the one on these other platforms."
+`sameAs` is schema.org's **identity property**: it states, in machine-readable form, which public
+identifiers refer to this entity, and any consumer that reads structured data can follow each URL
+to the record at the far end. That is what the property means in the published vocabulary, and it
+is checkable by opening the markup and clicking through — which is the whole of what this guide
+claims for it.
+
+[VERIFY — 2026-08-17] This paragraph used to say the property *"tells search engines 'this is the
+same entity as the one on these other platforms'"* — an asserted engine mechanic, withdrawn on the
+same grounds as the identical claim in SKILL.md's Tips ("directly tells search engines 'I am this
+entity in the Knowledge Graph'"), which was withdrawn there and left standing here. No
+engine-primary source for it was read. Do not state it to a client. Resolves on an owner read of
+Google's own structured-data documentation.
 
 **Must include (when available):**
 1. Wikidata URL (most important for Knowledge Graph)
@@ -383,7 +434,12 @@ For articles:
 }
 ```
 
-This creates a consistent entity graph that search engines can confidently map to Knowledge Graph entries.
+This makes every page assert the same entity identity: one `@id` per entity across the whole site,
+so any consumer reading the markup meets one entity described consistently rather than several
+near-duplicates that have to be reconciled. It is checkable without asking anyone — validate the
+markup on a sample of pages and compare the `@id` values. What an engine then does with it is not
+documented and is not claimed here (ruling R3 amendment 9a); the previous wording, *"a consistent
+entity graph that search engines can confidently map to Knowledge Graph entries"*, is withdrawn.
 
 ### Markup Describes What Is on the Page
 
@@ -464,4 +520,4 @@ Mention volume is tracked as a count with its window and its source named, split
 2. Strengthen disambiguation signals (see SKILL.md Disambiguation Strategy)
 3. Add qualifier to entity name if needed
 4. Build more unique entity signals (original content, specific topic associations)
-5. Timeline: 1-3 months
+5. Timeline: **unknown, and do not state one** — the "1-3 months" here had no source, and how long a panel takes to change its mind about which entity it is showing is not something anyone in this library has measured. Re-check the branded query on a stated cadence and record what you observe, with its date.

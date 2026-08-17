@@ -49,7 +49,7 @@ Ordered impact first, then ascending effort — the two High/Low actions precede
 
 1. **Create Wikidata entry** with key properties: instance of (P31: business intelligence software company), official website (P856: cloudmetrics.io), inception (P571), country (P17)
    - Impact: High | Effort: Low
-   - Why: a Wikidata entry is a public, structured record of the entity that anyone can read, check and correct — including the client, and including any consumer that chooses to read it. That is true whatever any engine does with it, which is the reason to write one. (What this line used to say — that Wikidata *feeds* Google Knowledge Graph, Bing and AI training pipelines — is withdrawn: see the `[VERIFY]` note in `knowledge-graph-guide.md`. No engine-primary source for that pipeline was read here.)
+   - Why: CloudMetrics currently has no structured public record of itself that anyone can cite. A Wikidata entry is one — open, referenced, readable by anybody, and correctable by you when a fact changes. It is also the cheapest item on this list: the four properties above take under an hour, and every later action (Person schema, press coverage, a future Wikipedia article) has something to point at once it exists.
 
 2. **Add Person schema for leadership team** on the About/Team page, including name, jobTitle, sameAs links to LinkedIn profiles, and worksFor pointing to the Organization entity
    - Impact: High | Effort: Low
@@ -57,10 +57,30 @@ Ordered impact first, then ascending effort — the two High/Low actions precede
 
 3. **Build Wikipedia notability through independent press coverage** -- target 3-5 articles in industry publications (TechCrunch, VentureBeat, Analytics India Magazine) that mention CloudMetrics by name with verifiable claims
    - Impact: High | Effort: High
-   - Why: Wikipedia notability requires coverage in independent reliable sources; press mentions simultaneously feed AI training data, build third-party entity signals, and create the citation foundation for a future Wikipedia article
+   - Why: Wikipedia's general notability guideline requires significant coverage in independent, reliable sources, and the audit found 2 against the 3 that path needs. Each further article is also a record of CloudMetrics that CloudMetrics did not write — countable at the next audit under the media-mentions signal, which is currently a partial pass at 2 of 3, and quotable by anyone who needs a third-party description of the company
 
 ### Cross-Reference
 
 - **CORE-EEAT**: A07 (Knowledge Graph Presence) scored Fail, A08 (Entity Consistency) scored Pass -- entity optimization should focus on knowledge base gaps rather than consistency
-- **CITE**: I-dimension weakest area is I01 (Knowledge Graph Presence) -- completing Wikidata entry and earning Knowledge Panel directly improves domain identity score
+- **CITE**: I-dimension weakest area is I01 (Knowledge Graph Presence) -- the Wikidata entry is the part of that item the client can complete and verify; whether a Knowledge Panel then appears is Google's call and is not scheduled or promised here
 ```
+
+<!-- OPERATOR BLOCK — outside the client fence deliberately, because a model copies the fence and
+     not the prose around it. Two claims that used to stand inside the Why clauses above were
+     withdrawn on 2026-08-17 under ruling R3 amendment 9a, and the withdrawal notes live here
+     rather than in the report, where library retractions are not the client's reading:
+       · action 1 said a Wikidata entry "feeds Google Knowledge Graph, Bing and AI training
+         pipelines"; the replacement argues the entry from what it is, not where it goes.
+       · action 3 said press mentions "simultaneously feed AI training data"; the replacement
+         argues them from Wikipedia's published notability guideline and from signal 19's count.
+     No engine-primary source for either pipeline was read. Full evidence note:
+     references/knowledge-graph-guide.md, the "Who Uses It"/"Impact" note and the withdrawn
+     data-flow arrow. -->
+
+**Why this example is short two claims** — for whoever maintains the skill, not part of the report
+
+The two withdrawn sentences are recorded above rather than left as an unexplained absence. Both were
+the same shape: an action justified by where a record supposedly travels inside an engine, rather
+than by what the record is and what the client can check. When rewriting a *Why* clause, argue from
+the artefact — what it says, who can read it, what it costs, what it unblocks — because that
+argument survives whatever any engine turns out to do.
