@@ -8,28 +8,32 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 
 | Skill | Category | Version | Last Updated |
 |-------|----------|---------|--------------|
-| keyword-research | research | 4.5.1 | 2026-08-17 |
-| competitor-analysis | research | 4.2.1 | 2026-08-17 |
-| serp-analysis | research | 4.3.8 | 2026-08-17 |
-| content-gap-analysis | research | 4.3.1 | 2026-08-17 |
-| seo-content-writer | build | 4.7.1 | 2026-08-17 |
-| geo-content-optimizer | build | 4.5.1 | 2026-08-17 |
-| meta-tags-optimizer | build | 4.2.2 | 2026-08-17 |
-| schema-markup-generator | build | 4.2.11 | 2026-08-17 |
-| on-page-seo-auditor | optimize | 4.5.0 | 2026-08-17 |
-| technical-seo-checker | optimize | 4.6.1 | 2026-08-17 |
-| internal-linking-optimizer | optimize | 4.5.0 | 2026-08-17 |
-| content-refresher | optimize | 4.4.0 | 2026-08-17 |
-| rank-tracker | monitor | 4.3.0 | 2026-08-17 |
+| keyword-research | research | 4.6.0 | 2026-08-17 |
+| competitor-analysis | research | 4.3.0 | 2026-08-17 |
+| serp-analysis | research | 4.4.0 | 2026-08-17 |
+| content-gap-analysis | research | 4.4.0 | 2026-08-17 |
+| seo-content-writer | build | 4.8.0 | 2026-08-17 |
+| geo-content-optimizer | build | 4.6.0 | 2026-08-17 |
+| meta-tags-optimizer | build | 4.3.0 | 2026-08-17 |
+| schema-markup-generator | build | 4.3.0 | 2026-08-17 |
+| on-page-seo-auditor | optimize | 4.5.1 | 2026-08-17 |
+| technical-seo-checker | optimize | 4.6.2 | 2026-08-17 |
+| internal-linking-optimizer | optimize | 4.6.0 | 2026-08-17 |
+| content-refresher | optimize | 4.5.0 | 2026-08-17 |
+| rank-tracker | monitor | 4.4.0 | 2026-08-17 |
 | backlink-analyzer | monitor | 4.4.0 | 2026-08-17 |
-| performance-reporter | monitor | 4.6.0 | 2026-08-17 |
-| alert-manager | monitor | 4.5.0 | 2026-08-17 |
+| performance-reporter | monitor | 4.6.1 | 2026-08-17 |
+| alert-manager | monitor | 4.6.0 | 2026-08-17 |
 | content-quality-auditor | cross-cutting | 4.8.0 | 2026-08-17 |
-| domain-authority-auditor | cross-cutting | 4.6.0 | 2026-08-17 |
-| entity-optimizer | cross-cutting | 4.4.0 | 2026-08-17 |
-| memory-management | cross-cutting | 4.2.0 | 2026-08-17 |
+| domain-authority-auditor | cross-cutting | 4.6.1 | 2026-08-17 |
+| entity-optimizer | cross-cutting | 4.5.0 | 2026-08-17 |
+| memory-management | cross-cutting | 4.3.0 | 2026-08-17 |
 
 ## Changelog
+
+### v4.6.0 (2026-08-17)
+
+- **Eight-lane wave against the goals scorecard — 18 skills changed, and two of the wave's own gate legs were found blind (2026-08-17)**: dispatched against the criteria `docs/loop/GOALS-SCORECARD.md` Round 1 measured unmet, with each lane's scope journalled to `.register-locks` before dispatch — the mechanism that existed and had been switched off for the two prior waves, including the one in which the coordinator's own F8 breach happened. **The wave's own conduct was caught by its own gates twice**: `register-lock gate-check` failed a coordinator commit that landed inside a live tenure, and `commit-scope-check` failed the commit whose entire subject is a gate going blind, because its message never named the gate file it changed. Both were amended rather than waived `[obs:2026-08-17 register-lock gate-check 8 passed 0 failed and commit-scope-check clean after amendment; both FAILs reproduced first]`. **G4-C1, the largest measured library gap**: the binding "Every Action Is Implementable" ruling reached 13 skills that had never been shown it — ten with no mention anywhere, three carrying a pointer with no rule in the body. The seven fields are in each output template, not only in prose above it, and bound to each skill rather than pasted. **The root cause of the pointer-only cases was established at commit level and it is not the line cap**: `content-quality-auditor` was at 350 of 350 with zero free when the rule entered its body and came out at 345; `content-gap-analysis` had 35 lines free and spent 12 of them in the same edit on the ownership half, leaving the action half by choice. The contract had arrived as a rider on the One Owner Per Cluster wave and landed in a *Reporting a Collision* section — a rare output — while those skills' real deliverables are a gap list and a link plan. **Two lanes independently found the 7-of-20 baseline generous**, one by opening `entity-optimizer`'s template and finding three of seven fields with owner and acceptance criterion missing, the other by spotting the same rider shape in two skills; the real figure is nearer 5 of 20. **`memory-management` was dropping the two required fields at the cache boundary** — its trigger file extracted action items while its hot-cache template stored no owner and no acceptance criterion, so they were reinvented by the next run. **G2-C5 closed to 20 of 20, and closing it produced two more regressions**: the two records reading `NOT PERFORMED` were compared per expectation, and both are NOT CLEAN — 19 attributed regressions becomes 21. **The wave's transferable finding is measured twice, exactly**: `performance-reporter` scored 27/28 = 0.9643 before and after with a different expectation failing each time, and `rank-tracker` 25/28 = 0.8929 before and after with four of 28 verdicts moved underneath. A pass-rate comparison reports no movement in both cases. **G3-C7's instrument half**: check (f) was reproduced certifying a tree clean, exit 0, on a re-injected verbatim historical defect; repaired with a bounded whole-line window after four simpler patterns were rejected on measurement and checked in as fixture cases, and a second blindness in the same leg was found — the pipeline fed `path:line:text` into the subject filter, so the narrowing was switched off for every file whose *path* carried a conjunct word, 5 of 121 files. **G3-C5 from 3 of 6 legs to 6 of 6**: 61 cases across three new fixture trees, 12 of 12 mutation tests red, and branch lists read from each script's own source so a branch added tomorrow without a case turns the probe red. **A blocking defect found and deliberately not fixed**: `register-lock.sh`'s header states a bare `Register-Lock: none` is not accepted; it is accepted, because `[^-]*` in its extraction can never reach the `--` past the hyphen in `Register-Lock`, so any commit can wave itself past that gated leg. The fix is ambiguous — this repo's own history writes the trailer with an em dash — so it is asserted at current behaviour in a fixture that turns red when fixed. **A rubric contradicted the ruling it was the designated carrier for**: eight double-graded band endpoints in `on-page-seo-auditor` (the reported count was four; two more tables carried the identical class) and three in `performance-reporter`, where `2.5s`, `0.1` and `200ms` were each graded twice against settled ruling R4 whose own encoded-in-repo pointer is those very lines. No endpoint moved; every resolution was dictated by an operator already printed in the same column. **A worked example was printing the eval fixture's answer key** — `15 occurrences / 229 words` against a suite grading an occurrence count within 11-18 and a word count within 190-270, so both expectations were satisfiable by copying the skill without opening the fixture. **Skills changed**: keyword-research 4.6.0, competitor-analysis 4.3.0, serp-analysis 4.4.0, content-gap-analysis 4.4.0, seo-content-writer 4.8.0, geo-content-optimizer 4.6.0, meta-tags-optimizer 4.3.0, schema-markup-generator 4.3.0, on-page-seo-auditor 4.5.1, technical-seo-checker 4.6.2, internal-linking-optimizer 4.6.0, content-refresher 4.5.0, rank-tracker 4.4.0, alert-manager 4.6.0, performance-reporter 4.6.1, memory-management 4.3.0, domain-authority-auditor 4.6.1, entity-optimizer 4.5.0. **Not bumped, deliberately**: backlink-analyzer — its assigned regression was already fixed by an earlier commit and verified reachable rather than re-fixed, and a bump with no diff is a false register entry. **Every record in `blind-2026-08-17/` remains stale under ruling M2** and the re-run wave is owed; `technical-seo-checker` is the sharpest case, its record grading 28 expectations against a suite that now holds 29.
 
 ### v4.5.4 (2026-08-17)
 

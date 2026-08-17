@@ -91,7 +91,7 @@ authoritative.
 
 - **Claim**: Translation-only pages lose AI-engine citations to the strongest-language
   version (often EN) — treat thin EL/DE translations as a citation risk.
-- **Where**: `build/seo-content-writer/SKILL.md:279` ("semantic collapse") — refreshed and anchor-tagged 2026-08-17, read at source: :277 had drifted onto a Pricing/figures table row. Previously refreshed 2026-08-10 after the 4.2.5 connector-rule insertion; before that 2026-08-08 after the anti-slop wave.
+- **Where**: `build/seo-content-writer/SKILL.md:269` ("semantic collapse") — refreshed and anchor-tagged 2026-08-17, read at source: :277 had drifted onto a Pricing/figures table row. Previously refreshed 2026-08-10 after the 4.2.5 connector-rule insertion; before that 2026-08-08 after the anti-slop wave.
 - **Source**: searchengineland.com/multilingual-regions-ai-search-future-478282 (2026, day n/a).
 - **Resolves when**: engine-primary documentation or a robust multilingual citation study.
 - **Cadence**: quarterly.
@@ -317,7 +317,7 @@ authoritative.
 
 - **Where**: THREE carriers, all found on 2026-08-10, each by a different agent that did not
   know about the others:
-  1. `build/meta-tags-optimizer/references/meta-tag-formulas.md:210-219`
+  1. `build/meta-tags-optimizer/references/meta-tag-formulas.md:227-236`
      ("No source is on file for any figure in this section") — the position-by-CTR
      curve and the per-vertical CTR bands. Anchor-tagged 2026-08-17, span unchanged and
      re-read at source. Tagged in place during the meta-tags-optimizer 4.2.0
