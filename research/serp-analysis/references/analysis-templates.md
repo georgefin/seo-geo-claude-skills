@@ -311,7 +311,7 @@ If too difficult, consider:
 To compete for "[keyword]", you need:
 
 **Minimum Requirements**:
-- [ ] Word count: [X]+ words
+- [ ] Word count: [X]+ words   <!-- SKELETON slot — resolved from the captured top-10 mean, or the row is dropped -->
 - [ ] Backlinks: [X]+ referring domains
 - [ ] Domain Authority: [X]+
 - [ ] Content format: [type]
@@ -332,9 +332,13 @@ To compete for "[keyword]", you need:
 
 ### Recommended Content Outline
 
-Based on SERP analysis:
+Fill every slot from the SERP you captured. If you did not capture one, **do not emit this block
+at all** — an outline built from nothing is a guess wearing a structure.
 
 ```
+# SKELETON — scaffold, not output. Every [bracket] is a slot filled from the captured SERP.
+# What ships to the client carries resolved values only; a slot with no SERP behind it means
+# the outline is not emitted, and the missing capture is named in the report instead.
 Title: [Optimized title]
 
 H1: [Main heading]
