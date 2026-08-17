@@ -1,6 +1,6 @@
 ---
 name: content-quality-auditor
-version: "4.7.0"
+version: "4.8.0"
 description: 'Run the full 80-item CORE-EEAT audit across 8 dimensions with content-type weighted scoring, veto checks, and prioritized fix plans. Use when the user asks to "audit content quality", "EEAT score", "CORE-EEAT audit", "content quality check", "how good is my content", "content improvement plan", "is my content AI-citation worthy", "GEO quality score". For SEO page element audits, see on-page-seo-auditor. For domain-level authority, see domain-authority-auditor.'
 license: Apache-2.0
 allowed-tools: WebFetch
@@ -8,7 +8,7 @@ compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, 
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.7.0"
+  version: "4.8.0"
   geo-relevance: "high"
   tags:
     - seo
@@ -152,15 +152,15 @@ Score each item:
 
 | ID | Check Item | Score | Notes |
 |----|-----------|-------|-------|
-| C01 | Intent Alignment | Pass/Partial/Fail | [observation — on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
-| C02 | Direct Answer | Pass/Partial/Fail | [observation — on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
+| C01 | Intent Alignment | Pass/Partial/Fail | [observation — anything quoted from the content is copied verbatim, any cut marked …; on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
+| C02 | Direct Answer | Pass/Partial/Fail | [observation — anything quoted from the content is copied verbatim, any cut marked …; on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
 | ... | ... | ... | ... |
-| C10 | Semantic Closure | Pass/Partial/Fail | [observation — on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
+| C10 | Semantic Closure | Pass/Partial/Fail | [observation — anything quoted from the content is copied verbatim, any cut marked …; on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
 
 [P] Pass · [Q] Partial · [F] Fail = [points] over [n] scored items → **C Score**: [X]/100
 ```
 
-Count that tally line off the rows you just wrote, every time — never off the tally you expected to write. Where a tally line and its table disagree, **the table wins**: fix the line, then re-derive everything downstream of it (the dimension score, GEO, SEO, the weighted total, and the rating band beside the total). Repeat the same table format for **O** (Organization), **R** (Referenceability), and **E** (Exclusivity), scoring all 10 items per dimension.
+Count that tally line off the rows you just wrote, every time — never off the tally you expected to write. Where a tally line and its table disagree, **the table wins**: fix the line, then re-derive everything downstream of it (the dimension score, GEO, SEO, the weighted total, and the rating band beside the total). Repeat the same table format for **O** (Organization), **R** (Referenceability), and **E** (Exclusivity), scoring all 10 items per dimension. **The Notes column is an evidence cell, and every quotation inside it is verbatim** — the same requirement Step 4's Quote discipline puts on a Top-5 **Evidence** field, restated here because the item tables are written before Step 4 is read and a run copies the table, not the paragraph downstream of it. Copy the span out of the content: never retype it from memory, never tighten it, never quote from your own summary of it. **A shortened quote marks the cut with `…`, or it is not presented as a quote at all** — an interior word dropped inside the quotation marks changes what the page is recorded as saying while still looking like a faithful copy, and the elision mark is the only thing that tells a reader something was removed. Where a span will not survive being copied whole, describe it unquoted instead. This holds in every language the audit is written in — Greek guillemets « » are quotation marks and carry the identical requirement — and one sentence quoted twice in one report is quoted the same way both times.
 
 ### Step 3: EEAT Audit (40 items)
 
@@ -170,7 +170,7 @@ Count that tally line off the rows you just wrote, every time — never off the 
 
 | ID | Check Item | Score | Notes |
 |----|-----------|-------|-------|
-| Exp01 | First-Person Narrative | Pass/Partial/Fail | [observation — on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
+| Exp01 | First-Person Narrative | Pass/Partial/Fail | [observation — anything quoted from the content is copied verbatim, any cut marked …; on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
 | ... | ... | ... | ... |
 
 [P] Pass · [Q] Partial · [F] Fail = [points] over [n] scored items → **Exp Score**: [X]/100
@@ -199,7 +199,7 @@ Calculate scores and generate the final report. Every finding — each Partial/F
 
 **Every action is implementable.** A finding diagnoses; an action gets done. Every action this audit recommends — each **Fix** in the Top 5 and every Action Plan row — carries seven fields: **action** (one imperative sentence naming the artefact and the change), **owner**, **acceptance criterion** (labelled **Done when** in a per-action block and **Acceptance criterion** as a table column — one field, two labels, no third), **expected impact**, **effort**, **dependencies**, **risk if done wrong**. The **Fix** line *is* the action field and the **Impact** line *is* the expected-impact field, so an entry adds the other five rather than restating those two. Fields 1–3 are required — an action with no owner-role and no acceptance criterion does not ship as an action — and 4–7 take a stated-absence value (`not estimated — no baseline data`, `none`, `low — reversible, no downstream effect`), never a blank and never an invention. **Owner is a role** from a closed list — Content · SEO/technical · Developer · Designer · Product/merchandising · Customer service · Legal/compliance · Agency · Client decision — never a person unless the client supplied the name; `Client decision` is a real owner and assigning it makes a decision visible instead of leaving the action stalled, and `unassigned — needs an owner` is legitimate and is itself a finding. **The acceptance-criterion test: could someone who was not part of this engagement check it six weeks from now, without asking anybody what was meant?** Observable, binary at the moment of checking, attached to a named artefact or measurement, dated or triggered — "the page carries a named author with a stated credential and a visible publication date, live on the production URL" rather than "author signals improved". **It never requires an engine to do something**: an appearance in a generated answer is nobody's to deliver, and writing it turns the action into a promise, so an AI-surface action is accepted on the work shipped plus the measurement re-run and recorded beside its dated baseline. Effort uses this report's own bands — Quick (<30 min) · Medium (1–2 h) · Strategic (needs planning) — and priority stays the existing weight × points-lost sort; no second vocabulary is invented beside either. Field table, stated-absence values, worked criteria and the permitted shapes of expected impact: [Action Output Contract](../../references/action-output-contract.md). A prohibited tactic found in the audited content is reported the same way — named, exposure stated, remediation owned and accepted, ranked against everything else: [Prohibited Tactics](../../references/prohibited-tactics.md) §2.
 
-**Quote discipline** — R02 and R03 (citation density, source hierarchy) and the Ept/A items (Ept01 Author Identity, Ept02 Credentials Display, A06 Social Proof) are where this report asks for citations, credentials and expert quotes, and the count thresholds (≥1 citation per 500 words; ≥3 Tier 1–2 sources) are exactly the pressure that invents one. A quotation attributed to a named person or organisation needs a real, checkable source in the same breath: speaker, role, where and when they said it, and a link that opens. Without one, do not attribute it — paraphrase it unattributed, or drop it. This governs both quote surfaces below. The **Evidence** field quotes the audited content verbatim (copied from the content, never reconstructed). A **Fix** or Action Plan step tells the writer to *source* a quote — it never drafts one, and never invents a name, credential or institution to carry it (statistics rule: sourced, cited, or placeholder, never invented). A fabricated statistic is an unverifiable claim; a fabricated quotation is a false statement about an identifiable person, published under the client's byline.
+**Quote discipline** — R02 and R03 (citation density, source hierarchy) and the Ept/A items (Ept01 Author Identity, Ept02 Credentials Display, A06 Social Proof) are where this report asks for citations, credentials and expert quotes, and the count thresholds (≥1 citation per 500 words; ≥3 Tier 1–2 sources) are exactly the pressure that invents one. A quotation attributed to a named person or organisation needs a real, checkable source in the same breath: speaker, role, where and when they said it, and a link that opens. Without one, do not attribute it — paraphrase it unattributed, or drop it. This governs all three quote surfaces of the report, not two: the per-item **Notes** cells written back in Steps 2–3, the **Evidence** field here, and the **Fix**/Action Plan text. The **Evidence** field and every per-item Notes cell quote the audited content verbatim (copied from the content, never reconstructed), and **a shortened quote marks the cut with `…` or is not presented as a quote** — an unmarked interior deletion is a paraphrase wearing quotation marks, in guillemets « » exactly as in "…". A **Fix** or Action Plan step tells the writer to *source* a quote — it never drafts one, and never invents a name, credential or institution to carry it (statistics rule: sourced, cited, or placeholder, never invented). A fabricated statistic is an unverifiable claim; a fabricated quotation is a false statement about an identifiable person, published under the client's byline.
 
 #### N/A Item Handling
 
@@ -270,15 +270,15 @@ The worked case — an Authority dimension with 8 items N/A and 2 scored, the co
 
 | ID | Check Item | Score | Notes |
 |----|-----------|-------|-------|
-| C01 | Intent Alignment | [Pass/Partial/Fail] | [observation — on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
-| C02 | Direct Answer | [Pass/Partial/Fail] | [observation — on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
+| C01 | Intent Alignment | [Pass/Partial/Fail] | [observation — anything quoted from the content is copied verbatim, any cut marked …; on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
+| C02 | Direct Answer | [Pass/Partial/Fail] | [observation — anything quoted from the content is copied verbatim, any cut marked …; on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
 | ... | ... | ... | ... |
 
 #### EEAT — Source Credibility (40 Items)
 
 | ID | Check Item | Score | Notes |
 |----|-----------|-------|-------|
-| Exp01 | First-Person Narrative | [Pass/Partial/Fail] | [observation — on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
+| Exp01 | First-Person Narrative | [Pass/Partial/Fail] | [observation — anything quoted from the content is copied verbatim, any cut marked …; on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
 | ... | ... | ... | ... |
 
 ### Top 5 Priority Improvements
@@ -343,7 +343,7 @@ Drop any row whose run this audit did not actually motivate; a standing list of 
 - [ ] Every recommended action — each Top 5 entry and every Action Plan row — carries all seven fields (action, owner, acceptance criterion, expected impact, effort, dependencies, risk if done wrong), with a stated-absence value wherever an answer does not exist (`not estimated — no baseline data`, `none`, `low — reversible, no downstream effect`); no action ships without an owner-role and an acceptance criterion, the owner is a role from the closed list (`Client decision` and `unassigned — needs an owner` both count, the second being itself a finding), and where an action appears in both views its fields say the same thing
 - [ ] Every acceptance criterion is observable, binary at the moment of checking, attached to a named artefact or measurement, and dated or triggered — checkable by someone who was not part of this engagement, six weeks on, without asking what was meant. **None of them requires an engine to do something**: an AI-surface action is accepted on the work shipped plus the measurement re-run and recorded beside its dated baseline, never on an appearance in a generated answer. The ordering rule is stated once, and the existing weight × points-lost sort and the Quick/Medium/Strategic effort bands are the only priority and effort vocabularies used
 - [ ] Every Partial/Fail note and every priority improvement carries a confidence label (Confirmed / Likely / Hypothesis); each Hypothesis names its verification step
-- [ ] No quotation in the report attributes words to a named person or organisation without a checkable source beside it; Evidence quotes are verbatim from the audited content, and no Fix or Action Plan step drafts a quote in a real person's name
+- [ ] No quotation in the report attributes words to a named person or organisation without a checkable source beside it, and no Fix or Action Plan step drafts a quote in a real person's name. **Every quotation of the audited content is verbatim on all three quote surfaces** — a per-item Notes cell as much as a Top-5 Evidence field — **and any shortening is marked at the cut with `…`**: a quoted span with an interior word dropped and no elision mark is a paraphrase presented as a quote, and it fails this check even where the same sentence is quoted correctly elsewhere in the same report. Greek guillemets « » are quotation marks and are checked identically; where one sentence is quoted more than once, the copies match each other and the source
 - [ ] Anti-slop scans (AS-1 to AS-4) run, with hits recorded in the evidenced items' notes (O09, O06, C02, E06, E08, R01, R02, R04, Ept03)
 - [ ] The client report fence carries its own label as its FIRST line — `<!-- SKELETON … -->` while slots are unfilled, `<!-- ILLUSTRATIVE FILL … -->` once demo numbers are in — and the follow-up-run block is a separate fence carrying **both** labels: `<!-- OPERATOR BLOCK … -->` as its first line **and** a visible `**Next steps for your team** — *operator block; not part of the client report*` line directly under it. Both, because a comment alone renders to nothing in the delivered report and a heading alone is lost when a model copies the fence; **no skill slug or command slug appears anywhere inside the client report fence**, and **no framework item ID appears in the client-facing prose** — a reader who copies only that fence must be able to tell it is not for the client. **The scored per-item table keeps its ID column** (ruled 2026-08-13): there the ID is a row label sitting beside the item's plain-language name, so the client reads "Intent Alignment" and the ID is only a stable handle for the row. In prose the ID *is* the referent — "Items R02 and R03 failed" tells a client nothing — and that is the form the rule bans. **A bare list of IDs inside a cell does not qualify either**: "C02, C03 Pass; C01 Partial" is the referent form wearing a table's clothes, because no plain-language name sits against any of them. The earlier fence-wide wording was unsatisfiable: the checkbox above it requires every item scored, and the per-item table is the instrument the client bought.
 
