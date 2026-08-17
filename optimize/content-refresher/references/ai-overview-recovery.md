@@ -63,8 +63,15 @@ Work top to bottom; re-measure between stages rather than shipping everything at
    change no schema. (Per R3 and amendment 9a, FAQPage markup — where justified — is kept
    because it is valid schema.org, costs nothing to keep, and Google says there is no need
    to proactively remove it — a permission to leave existing markup alone, not Google
-   advising anyone to keep it. Google's FAQ rich results are retired, so promise no SERP
-   feature; and no primary source establishes an AI-citation benefit either way, so never
+   advising anyone to keep it. An ordinary site has no FAQ rich result — Google restricted them to
+   well-known government and health sites on 2023-08-08 — so promise no SERP feature. **This
+   line read "Google's FAQ rich results are retired" until 2026-08-17**, which is the library's
+   unsourced fuller claim asserted as fact, in the one file whose siblings forbid exactly that;
+   a blind run caught the contradiction between this sentence and `refresh-templates.md`.
+   [VERIFY — 2026-08-17] A 2026 completion of that retirement is a **corroborated candidate**,
+   not established: secondary sources agree on it, no primary source has been read here, and
+   `developers.google.com` is refused by this environment's egress. Do not state a 2026 date to
+   a client until an owner reads the deprecation notice; and no primary source establishes an AI-citation benefit either way, so never
    sell the markup as a citation lever — least of all in a playbook about lost citations.)
 4. **Structured data check.** Existing markup must state only genuine claims and keep one
    primary content type per page (R2). This step never adds types to chase citations.

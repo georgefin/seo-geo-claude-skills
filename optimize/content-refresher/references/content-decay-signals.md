@@ -383,7 +383,7 @@ hours and a tool-comparison cadence, which is not a conflict but two different q
 | 8 | Update meta description | 5 min |
 | 9 | Add/update schema markup | 10 min |
 | 10 | Update dateModified and republish | 5 min |
-| **Total** | | **205-265 min (3.5-4.5 hours)** |
+| **Total** | | **205-265 min** (≈3,4-4,4 h — rounded for reading; score from the minutes, see *Refresh difficulty*) |
 
 ### Product/Service Page Refresh Playbook
 
@@ -513,7 +513,20 @@ read off an input you hold, and the figure it came from is printed beside it.
 | Current traffic value | 25% | Min-max across this batch on the traffic figure you hold — `1 + 9 × (x − lowest) ÷ (highest − lowest)`, to the nearest whole number; see *Ranking a factor across the batch* below | the traffic column of the inventory you were given |
 | Decay severity | 20% | Composite decay score ÷ 10, rounded to the nearest whole number (66.1 → 7) | a composite score that was actually issued (§Decay Severity Scoring) |
 | Competitive opportunity | 20% | Read against the competitor pages actually compared, named with the date they were read: 10 = they are thinner or older than yours · 5 = comparable · 1 = materially stronger. This factor scores **content strength, not rank** — so unlike displacement it is scoreable from coverage notes, and it claims no ranking relationship they do not carry | the dated SERP check the displacement signal needs, **or** the user's own dated competitor notes — either one supplies pages to compare |
-| Refresh difficulty | 15% | On the matching playbook's hours: 10 = under 2 · 7 = 2 to under 3 · 5 = 3 to under 4 · 3 = 4 or more · 1 = the decision framework says rewrite rather than refresh. Score the hours you actually plan — the playbook total, or the subset of its rows this page needs — and print which; a range is scored at its midpoint with the range printed (blog post 3.5-4.5 h → 4.0 → rung 3) | the page's content type, routed to a playbook by *Which playbook a content type uses* above |
+
+**A floor for the priority score, added 2026-08-17 — the decay score had one and this did not.**
+Rule 3 above refuses a composite decay score on fewer than three scored signals. The priority
+score had no equivalent, so a run could legitimately drop five of six factors and still print a
+priority number. A blind run did exactly that: five dropped, and the survivor was **refresh
+difficulty** — which measures how *cheap* the work is, and which this file already warns is "all
+it measures". A page ranked solely on cheapness is ranked on the one axis that says nothing about
+whether it is worth doing.
+
+**Fewer than three scored factors → no priority score is issued.** Print the factors you could
+score, name the inputs each missing one needs, and rank nothing. A single-factor priority is not
+a weak ranking, it is a different instrument wearing the same number.
+
+| Refresh difficulty | 15% | On the matching playbook's hours: 10 = under 2 · 7 = 2 to under 3 · 5 = 3 to under 4 · 3 = 4 or more · 1 = the decision framework says rewrite rather than refresh. Score the hours you actually plan — the playbook total, or the subset of its rows this page needs — and print which; a range is scored at its midpoint with the range printed. **Convert from the playbook's MINUTE total, which is the sum of its own rows; the parenthetical hours beside it are rounded for reading and are not the scoring input.** Corrected 2026-08-17 after a blind run scored the same playbook two ways: the blog-post rows total 205-265 min → midpoint 235 min → **3,92 h → rung 5**, while the rounded label "3.5-4.5 h" midpoints to 4,0 → rung 3. Two rungs, one playbook, a 2-point swing on a 15% factor. Worked correctly: **blog post 205-265 min → 235 min → 3,92 h → rung 5** | the page's content type, routed to a playbook by *Which playbook a content type uses* above |
 | Strategic importance | 10% | 10 = the owner names this page a priority for a current goal · 5 = their stated priorities exist and do not name it · 1 = they state it is off-strategy (topic dropped, superseded, being retired); see *An empty cell is not a rung* below | the owner's own statement of priorities — a brief, a goal, or a note on the row; not inferable from traffic |
 | Backlink equity | 10% | Min-max across this batch on referring domains, the same formula and rounding as traffic value | a supplied backlink figure |
 
@@ -548,7 +561,7 @@ of an input you hold, never a stand-in for one you do not.
 **Worked derivation** (illustrative figures): *"Priority 7.4/10 — traffic 8 (1,900 sessions/mo;
 batch low 260, high 2,400, so 1 + 9 × 1,640/2,140 = 7.9 → 8) at weight 25, decay severity 7
 (composite 66.1) at weight 20, refresh difficulty 5 (blog-post playbook — the ~3.5 h subset of rows
-this page needs, not its 3.5-4.5 h full total) at weight 15, strategic importance 10 (the owner
+this page needs, not its 205-265 min full total) at weight 15, strategic importance 10 (the owner
 named it the lead page for this quarter's goal) at weight 10. Competitive opportunity and backlink
 equity are unscored — no SERP check and no backlink data were supplied — so the four remaining
 weights were renormalised over their own 70% sum: (200 + 140 + 75 + 100) / 70 = 515/70 = 7.36 →

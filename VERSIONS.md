@@ -13,13 +13,13 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 | serp-analysis | research | 4.3.7 | 2026-08-17 |
 | content-gap-analysis | research | 4.2.6 | 2026-08-17 |
 | seo-content-writer | build | 4.5.9 | 2026-08-17 |
-| geo-content-optimizer | build | 4.4.9 | 2026-08-17 |
+| geo-content-optimizer | build | 4.4.10 | 2026-08-17 |
 | meta-tags-optimizer | build | 4.2.1 | 2026-08-13 |
 | schema-markup-generator | build | 4.2.8 | 2026-08-13 |
 | on-page-seo-auditor | optimize | 4.3.2 | 2026-08-13 |
 | technical-seo-checker | optimize | 4.4.6 | 2026-08-17 |
 | internal-linking-optimizer | optimize | 4.4.0 | 2026-08-10 |
-| content-refresher | optimize | 4.3.5 | 2026-08-17 |
+| content-refresher | optimize | 4.3.6 | 2026-08-17 |
 | rank-tracker | monitor | 4.2.0 | 2026-08-10 |
 | backlink-analyzer | monitor | 4.1.1 | 2026-08-17 |
 | performance-reporter | monitor | 4.4.3 | 2026-08-17 |

@@ -22,7 +22,7 @@ Never a framework item ID or a skill slug on a surface the client reads
 | 2 | GEO Readiness (step 2 baseline) | sum of the factor scores ÷ factors scored |
 | 3 | Overall GEO Score (step 4, after) | the same factors, the same count rules, re-counted on the optimized text |
 | 4 | Change per factor | after − before |
-| 5 | Lift % | (after − before) ÷ before × 100 |
+| 5 | Lift % | (after − before) ÷ before × 100, **over the six factors whose `asked` is not plan-set** — Clear definitions and Quotable statements are excluded, and the exclusion is named beside the figure (§3, the plan-denominator ruling) |
 | 6 | Citation-readiness rating, if one is printed | count of the full-readiness factors met (§6) |
 
 Every other figure in the report derives from these six and has to reconcile with them.
@@ -58,12 +58,12 @@ from the count, do not argue about the decimal.
 
 ## 3. What each factor counts
 
-The eight factors are the ones in SKILL.md step 2. `asked` is set **once**, at step 2, and reused unchanged at step 4, so the two columns are comparable. For six of the eight factors it comes from the content and the brief; for *Clear definitions* and *Quotable statements* it comes from the **planned** page — see the note under the table, and note that rule is **under review** (open finding 82).
+The eight factors are the ones in SKILL.md step 2. `asked` is set **once**, at step 2, and reused unchanged at step 4, so the two columns are comparable. For six of the eight factors it comes from the content and the brief; for *Clear definitions* and *Quotable statements* it is `max(inbound, planned)` — see the ruling under the table.
 
 | Factor | met | asked |
 |--------|-----|-------|
-| Clear definitions | key terms carrying a standalone 25–50-word definition that starts with the term | key terms the **planned** page uses — see the note below; not the inbound page's vocabulary |
-| Quotable statements | statements a reader could lift unchanged — specific, self-contained, no "as mentioned above" | main sections of the **planned** page (one per section is the target) — see the note below |
+| Clear definitions | key terms carrying a standalone 25–50-word definition that starts with the term | `max(inbound, planned)` — the key terms the page already uses OR the terms the planned page will define, whichever is greater (§3 ruling: it may rise, never fall) |
+| Quotable statements | statements a reader could lift unchanged — specific, self-contained, no "as mentioned above" | `max(inbound, planned)` main sections — those the page has OR those the plan gives it, whichever is greater (§3 ruling) |
 | Factual density | precise data points with units | 5 — the Output Validation floor; a page with more than 5 caps the ratio at 1 |
 | Source citations | claims **resolved**: carrying a named, dated, checkable source — or removed, converted to first-party, or hedged, with the disposition named in the report (§3.1) | claims that need one (your own claim inventory) |
 | Q&A format | target queries answered by a matching heading plus a direct standalone answer | target queries from step 1, capped at 5 |
@@ -190,9 +190,29 @@ a page with no data points at all** — nothing to go stale scored half the fact
 that meant nothing. And a **founding year is a data point older than 24 months that is not
 stale data**: the old wording flagged it, which is why the check was unusable as written.
 
-**Time-sensitive is the distinction.** A figure is time-sensitive when re-measuring it today
-could produce a different answer: prices, counts, volumes, rates, shares, performance
-measurements, anything with an implied "as of". A figure is **not** time-sensitive when it is a
+**Time-sensitive is the distinction, and there is exactly ONE test for it — reconciled 2026-08-17
+after a review found three live definitions in this instrument giving opposite verdicts on the
+same page.** This paragraph read *"a figure is time-sensitive when re-measuring it today could
+produce a different answer"*; §3.2's ruling below read *"stated as a claim, not counted off the
+layout"*, then *"would become wrong unless someone edits the page"*. A feed-rendered price is IN
+by the first and OUT by the third. The binary those attempts reached for — hand-written versus
+auto-generated — has no cell for a value a human maintains inside a system that renders it, which
+is how most e-commerce prices actually work.
+
+> **A figure is time-sensitive if nothing keeps it current except someone remembering to change
+> it.**
+
+Ask it that way: **is there a process that updates this value without anyone remembering?**
+A feed-rendered price — yes, there is → not time-sensitive. A count auto-generated from the
+inventory query — yes → not time-sensitive. **A price the client updates by hand in their CMS —
+no, it depends on someone remembering → time-sensitive**, and so is a hand-typed statistic, and
+so is a figure a CMS re-renders from a database nobody updates. Who typed it and what renders it
+are both irrelevant; **maintenance is the whole question**, because unmaintained is exactly what
+"stale" means and the only staleness an optimisation run can act on.
+
+The paradigm cases, restated under the one test: prices, counts, volumes, rates, shares and
+performance measurements are time-sensitive **when they are maintained by hand**, and not when a
+process maintains them. A figure is **not** time-sensitive when it is a
 historical fact fixed to its date — a founding year, the date of an event, the year a
 regulation took effect, a model year, the start of a tenure. Those do not age; the date *is*
 the fact. Only time-sensitive figures are checked for staleness.
@@ -212,7 +232,7 @@ a grid of N items and states no statistic. Is N a "time-sensitive figure"? Row 3
 different `asked` and different scores, both defensible, and §8 rule 10 passes either way — so
 two honest runs of the same page disagree and nothing in the file settles it.
 
-**Ruled 2026-08-17, and re-ruled the same day.** The first form — *"a figure the page states as a
+**Ruled 2026-08-17, re-ruled the same day, and superseded that evening by the single reconciled test stated above — kept here because it records what the instrument used to say.** Earlier form: The first form — *"a figure the page states as a
 claim, not one a reader could count off the layout"* — drew its line at **typography** while
 justifying it by **mutability**, so the two disagreed on a feed-rendered price: stated in text,
 yet changing with no edit. §3.2 lists prices first among time-sensitive figures, pulling a third
@@ -332,7 +352,7 @@ re-adding the column.
   step 4 table repeats the step 2 factor set rather than introducing a shorter one, because
   two factor sets over the same content produce two different baselines and the lift then
   depends on which one the reader happens to read.
-- **Change** per factor = after − before. **Lift** = (after − before) ÷ before × 100, computed
+- **Change** per factor = after − before. **Lift** = (after − before) ÷ before × 100, computed **The lift is the six-factor figure** — Clear definitions and Quotable statements are excluded because their `asked` is set by the run being scored (§3); the two excluded factors are named beside it.
   from the two printed averages and printed with both operands:
   `(9.4 − 2.6) ÷ 2.6 × 100 = 262%`.
 - The scale floors at 1, so the baseline is never 0 and the lift is always defined.
@@ -395,7 +415,7 @@ Run this against the finished deliverable, not the working notes:
 3. Sum of the printed factor scores ÷ the printed divisor = the printed average, to one decimal.
 4. Factors scored + factors N/A = 8; the prose N/A list matches the N/A rows.
 5. Before and after use the same factor set, the same `asked` values and the same divisor.
-6. The lift reproduces from the two printed averages.
+6. The lift reproduces from the two printed **six-factor** averages, and the deliverable names the two excluded factors beside it. The eight-factor averages are still printed as GEO Readiness (figures 2 and 3); the lift is not computed from them.
 7. Any claimed threshold ("at least 50% from baseline") is stated against the one baseline in
    the deliverable, with the arithmetic that produces it.
 8. Where a sentence and a table disagree, the table wins — fix the sentence.

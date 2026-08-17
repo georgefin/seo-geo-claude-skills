@@ -31,10 +31,15 @@ cd "$(dirname "$0")/.." || exit 2
 # `CLAUDE.md` and `CONNECTORS.md`, and every non-markdown file.
 # The three root files were hand-checked 2026-08-17 with **all six families** — the first note
 # here recorded a P1+P5-only check, which is 2 of 5 and prescribed a 2-of-5 re-check forever.
-# All six over `README.md`, `CLAUDE.md` and `CONNECTORS.md` return **two** hits, neither a class
-# member: `CONNECTORS.md:61` (P1, "If your organization uses Ahrefs and Google Search Console,
-# read it as:") and `README.md:278` (P2, a trigger-phrase table row "| Optimize for AI / get
-# cited by ChatGPT / AI optimization |"). `CLAUDE.md` returns zero. Re-check with ALL families
+# All six over `README.md`, `CLAUDE.md` and `CONNECTORS.md` return **three** hits, none a class
+# member: `CONNECTORS.md:61` (P1), `README.md:278` (P2, a trigger-phrase table row), and
+# `CONNECTORS.md:24` — `| Reporting | ~~reporting | Google Data Studio, Tableau, Power BI | — |`,
+# which **P6 matches as a false positive**: `Google` … then `Power` inside `\bpowers?\b` 29
+# characters later. It survives all four adjudication stages. Recorded rather than patterned
+# away, because narrowing SUP to miss "Power BI" would also miss "powers". The first version of
+# this note said TWO hits — it reported the P1 and P5 hits it had looked for and missed the one
+# the new family introduced, which is what a hand-check does when it knows what it expects.
+# `CLAUDE.md` returns zero. Re-check with ALL families
 # when any of the three grows, or add them to DIRS and re-baseline the residual.
 DIRS="build research optimize monitor cross-cutting commands references"
 
@@ -226,7 +231,7 @@ CANARY
 
     # (4) SCOPE CONTROL: DIRS must be the intended set, not merely a set that exists.
     #     v2 asserted only that each entry was a directory, so DIRS="scripts" passed while the
-    #     sweep reported raw 1 -> RESIDUAL 1, and DIRS="build research" passed at residual 25.
+    #     sweep reported raw 1 -> RESIDUAL 1, and DIRS="build research" passed at residual 24.
     DIRS="$ORIG_DIRS"
     [ "$DIRS" = "build research optimize monitor cross-cutting commands references" ] || {
       echo "PROBE FAIL — DIRS is not the declared scope; the header's scope note is now false"; fail=1; }

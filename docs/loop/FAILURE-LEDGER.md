@@ -1917,3 +1917,104 @@ decorative — nothing in row 87 depends on how many commits sit on top.
   what the row claimed. **Guard candidate recorded, not written**: claims-gate rule 3 could test a
   "historical as of" stamp against the authorship time of the commit it names.
   FLIP: F11-r7 -- none
+
+---
+
+## F9 — Recurrence 9 (2026-08-17) · A ruling written to reconcile two definitions added a third, and the one-second grep that would have caught it is the rule this coordinator wrote four commits earlier
+
+Open finding 83 was reopened because the instrument carried two readings of *time-sensitive* that
+disagreed on a feed-rendered price. The ruling issued to close it — *"a figure is time-sensitive
+if it would become wrong through the passage of time unless someone edits the page"* — did not
+replace either. It was **added 28 lines below** a paragraph still reading *"time-sensitive when
+re-measuring it today could produce a different answer"*, which puts a feed price **in** scope
+where the new rule puts it **out**. `SKILL.md` carried the old wording too, in a file the same
+commit bumped.
+
+**Three definitions standing at once in one instrument, opposite verdicts on the page type the ruling was
+written for.** Two runs scoring the same Greek category page reach different `asked`, different
+factor scores, different GEO Readiness, and different lift — which is verbatim the defect 83 was
+opened to close.
+
+**The remedy was already written down, by the same author, four commits earlier.** F9-r8 says:
+*"when a closure names a file, the sweep is a grep over that file's own vocabulary, pasted into
+the closure."* It costs one second:
+
+```
+$ grep -rn "re-measur" build/geo-content-optimizer/
+geo-score-arithmetic.md:193:...time-sensitive when re-measuring it today
+SKILL.md:...one that could read differently if re-measured today
+```
+
+**Why it recurred despite the rule**: F9-r8's rule was written for a *closure* — a claim that a
+class is fixed. A **ruling** did not read as a closure, so the rule was not applied to it. That
+distinction is worthless: a ruling that names a file makes exactly the same claim about that file.
+
+**Rule widened**: *the grep applies to any statement that a file now says something — ruling,
+closure, correction or fix note alike. If it names a file, grep that file's vocabulary and paste
+the output.*
+
+**And the deeper one, from the resolution.** Neither existing definition was right. The reviewer
+showed the new rule also failed on a price a client updates by hand in a CMS — they edit a product
+record, not the page — so "hand-written versus auto-generated" had no cell for the commonest real
+case. The reconciled test drops both framings: **a figure is time-sensitive if nothing keeps it
+current except someone remembering to change it.** Who typed it and what renders it are both
+irrelevant; maintenance is the whole question. **Two competing rules can both be wrong, and
+picking one is not reconciliation.**
+
+- **Found by**: Mode A, with the grep the coordinator's own rule prescribes.
+- **Recurrence**: F9 → 9.
+- **Status**: one test, stated once; the two superseded framings quoted in place; `SKILL.md`
+  aligned. FLIP: F9-r9 -- none
+
+---
+
+## F13 — Recurrence 3 (2026-08-17) · The lift exclusion was stated in prose and contradicted on every surface a run copies
+
+The plan-denominator ruling excluded two factors from the headline lift %. It was written in one
+paragraph of §3 and carried to **none** of the six places a run computing the lift actually reads:
+§1's chain of figures, §5's *"Before → after, and the lift"*, both worked examples, `SKILL.md`'s
+report template, and — decisively — **§8 item 6, the pre-send checklist**, which still required
+the lift to reproduce from the eight-factor averages.
+
+**So a deliverable that obeyed the new ruling failed the skill's own validation, and one that
+ignored it passed.** The shipped worked example is wrong by 23 points against the rule 260 lines
+above it: 8-factor gives 262%, 6-factor gives 239%.
+
+This is F13-r2's founding lesson — **a model copies the fence, not the heading** — cited twice as
+binding in root `CLAUDE.md`, applied here to a checklist rather than a fence. A rule that lives
+only in the paragraph that announced it has no carrier at all.
+
+- **Found by**: Mode A, by recomputing the file's own example under the file's own new rule.
+- **Recurrence**: F13 → 3.
+- **Status**: carried to §1, §5 and §8 item 6; the excluded factors named beside the figure.
+  FLIP: F13-r3 -- none
+
+---
+
+## F15 — Recurrence 4 (2026-08-17) · The probe proves each family is non-empty, never that its vocabulary is intact
+
+Probe v3 catches every structural mutation thrown at it — families blanked singly and in
+combination, a shared canary, a wrong base, `adjudicate()` neutered, a colliding temp file, three
+`DIRS` variants. That redesign is sound. **Its weakness is depth, not structure**: each family is
+guarded by exactly one canary exercising exactly one string.
+
+Measured by dropping each `AG` alternative in turn: **5 of 17 tokens are protected, 12 are not.**
+Dropping `Google` alone — the single most load-bearing token in an SEO library — the probe prints
+PASS and the residual falls **59 → 48**. Eleven findings vanish in silence.
+
+Worse in the new family: **two of the four sites P6 was built to catch sit behind branches with no
+canary at all.** Deleting P6 alternative 2 or 3 passes the probe and loses
+`knowledge-graph-guide.md:28`, `knowledge-panel-wikidata-guide.md:10` and `:11`.
+
+**A canary per family is not a canary per branch.** F15's title sentence — *passed by matching
+nothing* — one wave after F15 → 3, in the file whose header cites F15.
+
+Also recorded here: **F15-r3's Status line still reads *"6 of 6 caught, where the previous probe
+caught 0 of 6"***, for a probe since measured at 10-of-26 missed and replaced. A closure left
+standing after its subject was superseded is F11's class; it is recorded under F15 because the
+increment condition is F15's.
+
+- **Found by**: Mode A, by mutating vocabulary rather than structure.
+- **Recurrence**: F15 → 4.
+- **Status**: recorded, **not fixed** — a canary per branch and per high-traffic token is owed,
+  and the header must state what the canaries do and do not protect. FLIP: F15-r4 -- none
