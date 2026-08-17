@@ -623,6 +623,13 @@
       "against_the_current_29_expectation_suite": "27 passed / 1 failed (e3.7) / 1 editor-pending / 29 = 0.9310. NOT written into summary, because summary must describe the run that was graded; recorded here so nobody cites 0.9643 against a suite that has moved.",
       "editor_slot_convention": "unchanged — e3.5 counted in total, recorded NOT-PASSED, per the expectation's own protocol.",
       "headline_caution_restated": "The record's own closing note stands and is now sharper: coverage gaps C1, C2 and C3 leave the suite blind to the skill's three largest rule blocks, and C6 named the exact hole that e3.7 has since filled — a hole this deliverable falls straight into."
+    },
+    "closing_drift_addendum": {
+      "recorded_at": "close of the second-reader pass, 2026-08-17",
+      "what_moved": "HEAD moved a second time during the write-up (39d56f1 -> 3ce98c9 -> ff60694, five commits from other lanes). Re-diffed: docs/loop/SETTLED-RULINGS.md is the only graded input touched. R1-R5 unchanged in substance (VERSIONS.md pointer re-anchoring only), plus one NEW working-method ruling. No commit touched optimize/technical-seo-checker in this window, committed or uncommitted.",
+      "new_ruling_M2": "'A version bump is never waived as behaviourally empty' (Sani, 2026-08-17, fee2543): a blind record whose graded version is behind HEAD's metadata.version is not current and the suite is re-run, even where the whole diff is the version lines.",
+      "effect_on_this_record": "NO VERDICT MOVES, but M2 CHANGES THIS RECORD'S STANDING and it is recorded here rather than left for a reader to derive. The record grades technical-seo-checker 4.5.0. HEAD carries 4.5.1 (9e5cd43, during the original grading) and then 4.6.1 (b13ce22 / bd22bdc / f24a7b7). Under M2 the record is NOT CURRENT and the suite is in the re-run tier -- and that conclusion is now reached twice by two independent routes: M2 on the version, and the e3.7 finding above on the denominator. Neither route depends on the other. The 27/28 = 0.9643 remains the true and correctly-scored result of the run it describes; it is not a current statement about the skill.",
+      "no_verify_tagged_claim_asserted_as_fact": "Checked. e5.4's FAQPage passage uses the SOURCED 2023 eligibility restriction, not the unsourced 2026 one, and asserts no citation or parsing benefit -- which is what R3 amendment 9a permits and forbids respectively. HowTo is left ungraded in both directions per W12. R4's CWV thresholds are used exactly, with the two boundary values judged inclusively."
     }
   }
 }

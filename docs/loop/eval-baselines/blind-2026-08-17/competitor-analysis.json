@@ -638,6 +638,13 @@
       "unchanged_from_the_original_record": true,
       "editor_slot_convention": "unchanged — e3.1 counted in total, recorded NOT-PASSED, per the expectation's own protocol.",
       "headline_caution_restated": "Still a lower bound. Six defects no expectation can see, eleven behaviours the suite never grades, and now a named carrier gap. The rate is accurate; it is not the finding."
+    },
+    "closing_drift_addendum": {
+      "recorded_at": "close of the second-reader pass, 2026-08-17",
+      "what_moved": "HEAD moved a second time during the write-up (39d56f1 -> 3ce98c9 -> ff60694, five commits from other lanes). Re-diffed: docs/loop/SETTLED-RULINGS.md is the only graded input touched. R1-R5 are unchanged in substance -- the diff is VERSIONS.md pointer re-anchoring (:301->:305, :305->:309, :306->:310) plus one NEW working-method ruling.",
+      "new_ruling_M2": "'A version bump is never waived as behaviourally empty' (Sani, 2026-08-17, fee2543): a blind record whose graded version is behind HEAD's metadata.version is not current and the suite is re-run, even where the whole diff is the version lines.",
+      "effect_on_this_record": "NONE, and the check was run rather than assumed. This suite was graded at competitor-analysis 4.2.1 and research/competitor-analysis/SKILL.md is still 4.2.1 at HEAD (version and metadata.version in lockstep, sha256 600674c3... unchanged across the whole window). The record is CURRENT under M2 and does not enter the re-run tier. No verdict is affected by any part of the drift.",
+      "no_verify_tagged_claim_asserted_as_fact": "Checked. The record asserts nothing from the [VERIFY] queue; R3 amendment 9a's own snippet-grade evidence note is respected -- neither this record nor any deliverable claims FAQPage earns AI citations, and R3 does not arise in this suite."
     }
   }
 }
