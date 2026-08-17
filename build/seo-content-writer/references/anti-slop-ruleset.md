@@ -227,11 +227,19 @@ matching is not free in Greek** — `grep -i` case-folds Greek only under a UTF-
 in a default `LC_CTYPE=POSIX` shell `grep -i 'δεν'` silently misses «Δεν» while the same
 pattern under `LC_ALL=C.UTF-8` matches it (checked in this repo's environment 2026-08-10,
 GNU grep 3.11, on the line «Δεν χρεώνουμε καμία προμήθεια.»), so an implementer rebuilding
-this check handles capitals deliberately — set a UTF-8 locale, or write both cases into the
-pattern («[δΔ]εν», «[κΚ]ανέν», «[κΚ]αμί»), which is safe in either locale because an explicit
-two-character bracket is not a range. A Greek *range* is safe in neither: `[α-ω]` aborts the
-grep with `Invalid collation character` and exit status 2, so never reach for one (both
-checked 2026-08-10, same environment) — and never assumes `-i` did it; the licenser test
+this check handles capitals deliberately — **set `LC_ALL=C.UTF-8` explicitly, and do not treat
+the two-case bracket as a substitute for it.** Writing both cases into the pattern
+(«[δΔ]εν», «[κΚ]ανέν», «[κΚ]αμί») is the right shape but is **not locale-safe**: measured
+2026-08-17, `ιδανικ[ηήοό]` matched **3** lines under POSIX against **2** under `C.UTF-8` and
+`rg`, the extra being «ιδανικά», which shares a UTF-8 lead byte. **This passage said the
+opposite until 2026-08-17** — that a two-character bracket "is safe in either locale" — and that
+sentence sat 57 lines above the νίκη bullet that was corrected first, in the same file, and
+survived the correction. A Greek *range* is worse and for a reason this passage also had
+backwards: `[α-ω]` aborts with `Invalid collation character` and exit 2 **under `C.UTF-8` only**.
+Under POSIX — this environment's default — it exits **0** and matches by byte. **The loud
+failure is the one you get in the locale you probably are not in; the quiet one is the
+default**, and no exit-status check catches it. Never reach for a range, always set the locale,
+and record the locale beside the count — and never assumes `-i` did it; the licenser test
 must be word-bounded, because as substrings these
 strings misfire badly in both directions («δεσμεύει» contains `δε`, «μηδέν» contains `μη`,
 «μηδενικό» contains `δεν` — a substring filter would have exempted the founding instance

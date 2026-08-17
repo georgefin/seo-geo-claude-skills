@@ -1846,3 +1846,74 @@ clean when you measured it.* `git status --porcelain` before quoting a number is
 - **Status**: numbers restated from a clean-tree measurement, with the residual re-taken after
   the filter corrections rather than carried over. FLIP: F16-r3 -- none
   FLIP: F9-r7 -- none
+
+---
+
+## F9 — Recurrence 8 (2026-08-17) · The closure said "both files"; a one-second grep found the third sentence, in a file the same commit edited
+
+`60c363e` corrected the Greek-locale claim in two places and its body stated *"Both files now state
+the rule so it survives the locale"*. `OPEN-FINDINGS.md` row 81 repeated it. Mode A ran
+`grep -n "Invalid collation" build/seo-content-writer/references/anti-slop-ruleset.md` and got a
+hit at `:233` — **57 lines above the bullet that was corrected, in the same file**, still asserting
+both halves of what the wave retracted:
+
+> …write both cases into the pattern («[δΔ]εν», «[κΚ]ανέν», «[κΚ]αμί»), **which is safe in either
+> locale because an explicit two-character bracket is not a range. A Greek range is safe in
+> neither: `[α-ω]` aborts the grep with `Invalid collation character` and exit status 2**…
+
+Both clauses are falsified by measurements **inside the same commit**: `[α-ω]` exits 0 under the
+default locale, and a two-character bracket is not locale-safe (`ιδανικ[ηήοό]` → 3 POSIX / 2
+C.UTF-8). So the file said, 57 lines apart, that a two-character bracket is safe in either locale
+and that it is not.
+
+**This is F9-r5's rule quoted back at its own author.** That rule reads: *"a closure note is a
+claim about a class, and it is written from the sweep's output, never from the fix."* It was
+written by this coordinator, on this day, and F9 was incremented to 7 four commits earlier for the
+same shape. The sweep costs one second and was not run.
+
+**The concrete cost, not a hypothetical**: the surviving sentence is the instruction for building
+the family-5 licenser screen, a required read on every Greek run, and the branch it offers —
+two-case bracket, no locale set — produces exactly the silent false-positive class the wave exists
+to warn about. Open finding 81 records a blind run whose Greek screen produced that false positive.
+
+**Rule added, because "run a sweep" has now failed as an instruction three times**: *when a
+closure names a file, the sweep is a grep over that file's own vocabulary, pasted into the
+closure.* Not "I checked" — the command and its output. A closure that cannot show its grep is a
+closure written from the fix.
+
+- **Found by**: Mode A, in one grep, on a range whose author had just written the rule it broke.
+- **Recurrence**: F9 → 8.
+- **Status**: swept repo-wide (3 files carry the vocabulary, 1 was wrong), corrected in the house
+  form, and the correction quotes what the passage used to claim. seo-content-writer 4.5.9.
+  FLIP: F9-r8 -- none
+
+---
+
+## F11 — Recurrence 7 (2026-08-17) · Two invented figures in one register row, in the register the F11 guard exists to keep clean
+
+`OPEN-FINDINGS.md` row 87 — itself the *correction of record* for a commit whose subject is false —
+was given two numbers, and both were invented:
+
+- *"rewriting history **five commits** now sit on"*. Measured: `git log --oneline e76366c..HEAD`
+  → **14**. No reading of the history yields five. **The row it replaced carried no number at
+  all** — the edit introduced a wrong count where a correct vague phrase stood.
+- *"historical as of **2026-08-13T21:00Z**"*. `e76366c` was authored **2026-08-17T04:54:21Z**. The
+  stamp predates its own subject by four days, and `git log --since --until` around it returns
+  nothing: it corresponds to no event in this history.
+
+**Why no gate caught it**: `claims-gate.sh` rule 3 tests for timestamps that *postdate* the gate
+clock, plus tilde-approximations. A **past**-dated stamp inconsistent with its subject is
+structurally invisible to it. Confirmed — claims-gate returned `3 passed, 0 warnings, 0 failed`
+over the commit that added both errors.
+
+**The shape worth carrying**: a number added to make a sentence more precise is a claim, and a
+vague sentence that was true is better than a precise one that is false. The precision was
+decorative — nothing in row 87 depends on how many commits sit on top.
+
+- **Found by**: Mode A, by measuring both figures rather than reading them.
+- **Recurrence**: F11 → 7.
+- **Status**: count replaced with the measured 14 and its command; stamp replaced with `3d0b592`'s
+  actual authorship, 2026-08-17T05:02:11Z; both errors quoted in place so the next reader sees
+  what the row claimed. **Guard candidate recorded, not written**: claims-gate rule 3 could test a
+  "historical as of" stamp against the authorship time of the commit it names.
+  FLIP: F11-r7 -- none

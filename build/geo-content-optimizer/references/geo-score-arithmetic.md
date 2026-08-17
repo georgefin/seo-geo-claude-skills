@@ -58,8 +58,7 @@ from the count, do not argue about the decimal.
 
 ## 3. What each factor counts
 
-The eight factors are the ones in SKILL.md step 2. `asked` is set **once**, at step 2, from
-the content and the brief — and reused unchanged at step 4, so the two columns are comparable.
+The eight factors are the ones in SKILL.md step 2. `asked` is set **once**, at step 2, and reused unchanged at step 4, so the two columns are comparable. For six of the eight factors it comes from the content and the brief; for *Clear definitions* and *Quotable statements* it comes from the **planned** page — see the note under the table, and note that rule is **under review** (open finding 82).
 
 | Factor | met | asked |
 |--------|-----|-------|
@@ -144,7 +143,8 @@ said the counter-pressure lives in the other factors — *"cut too much and fact
 quotable statements, clear definitions and Q&A coverage all fall."* **That is true of some claims
 and false of the ones most likely to be cut.** Take "our service is the market leader": factual
 density counts *precise data points with units* and this has none; clear definitions counts *key
-terms the content actually uses*; Q&A counts *target queries from step 1*. Deleting every claim of
+terms the planned page uses* (this sentence quoted the earlier wording, "key terms the content
+actually uses", until 2026-08-17); Q&A counts *target queries from step 1*. Deleting every claim of
 that shape can take Source citations from 1 to 10 and move nothing else — **+1.125 on the
 eight-factor average, for removing content.** The denominator genuinely cannot shrink (`asked` is
 fixed at the step-2 inventory, here and in `SKILL.md`), so the arithmetic is bounded, but the
