@@ -145,7 +145,7 @@ they quote, and what to put on a page in response.
 
 ### Citation Behavior
 
-**Note**: Claude typically relies on training data rather than live web access, but understanding preferences helps create citeable content.
+**Note**: [VERIFY — 2026-08-17] This library has carried "Claude typically relies on training data rather than live web access, but understanding preferences helps create citeable content." Both halves are withdrawn from assertion: **how a product sources its answers** is an engine mechanic no primary source read here establishes, and the second clause claims a benefit from "understanding preferences" that this file's own head note says no engine has stated. Web access varies by product surface and configuration in any case, so a single disposition is the wrong shape of claim. Do not state either to a client. What survives is the observable: **what a page puts on the page.** A standalone definition can be lifted and quoted intact whether or not anything fetched it, and that is the reason to write one.
 
 **Format preferences**:
 - When citing, uses clear attribution phrases

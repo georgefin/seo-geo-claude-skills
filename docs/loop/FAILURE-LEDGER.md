@@ -1766,3 +1766,82 @@ explaining a correction is not exempt from the correction's own rules.
 - **Recurrence**: F16 → 2.
 - **Status**: the number is now produced by a checked-in command; the report's figure is not
   restated anywhere as fact. FLIP: F16-r2 -- none
+
+---
+
+## F15 — Recurrence 3 (2026-08-17) · A guard shipped with a probe that passed on every mutation, in a script whose own header cites F15
+
+`scripts/engine-claim-sweep.sh` was written to make a closure number re-derivable, and shipped
+with a `--probe` mode described as fault injection. Mode A mutated it seven ways. **The probe
+printed PASS and exited 0 on every one**, including three that make the script report the class
+100% closed:
+
+| mutation | probe | residual it then reported |
+|---|---|---|
+| `P1` replaced by a never-matching literal | PASS | 31 |
+| `P1`–`P4` all gutted | PASS | 25 |
+| `MARKERS="."` / `MEASURED="."` / `SHAPES="."` | PASS | **0** |
+| an `ADJUDICATED` entry shortened to `md` | PASS | **0** |
+| `DIRS="nonexistent-dir"` | PASS | **raw 0 → 0** |
+
+The last one is the worst: a renamed directory makes the sweep scan zero files and report a
+perfectly clean class, with the probe agreeing.
+
+**Two structural causes, both the same mistake.** The one positive assertion grepped `P5`
+*directly* rather than calling `raw()` — so it exercised 1 of 5 families and tested none of the
+pipeline around them: not `DIRS`, not `--include="*.md"`, not the `/evals/` exclusion, not the
+dedup. And the only adjudication assertion was a **negative control**, which passes when the
+stage prints nothing. Nothing anywhere checked that a real class member *survives*. That is
+F15's title sentence — *passed by matching nothing* — inside a file whose header cites F15.
+
+**The wider lesson, because this is the third guard in one day with the same shape.** A probe
+that tests a component in isolation tests the component and calls it the system. §6 family 8
+already carries this exact sentence — *"a probe must exercise each component, not the pattern as
+a whole"* — and the inverse is now recorded beside it: **exercising one component is not
+exercising the system.** Every assertion must run the full pipeline.
+
+**Rule added**: *a guard's probe carries a positive control per family through the whole
+pipeline, a control that must SURVIVE every excusing stage, and a scope control that fails when
+the scan finds no files at all. A probe with only negative controls is not a probe.*
+
+- **Found by**: Mode A, by mutating the script rather than reading it. Reading it would not have
+  found this; the code looks like a fault injection.
+- **Recurrence**: F15 → 3.
+- **Status**: probe rewritten with six per-family canaries run through `raw()`, a positive
+  control that must survive all four adjudication stages, a negative control, an `/evals/` and
+  non-markdown exclusion check, and a scope control. Re-measured against Mode A's own mutation
+  set: **6 of 6 caught, where the previous probe caught 0 of 6.** FLIP: F15-r3 -- none
+
+---
+
+## F16 — Recurrence 3 (2026-08-17) · The residual was stamped with a commit hash it was never measured at
+
+Recorded one wave after F16-r2, by the author of F16-r2, in the commit that records F16-r2.
+
+`docs/loop/OPEN-FINDINGS.md`, the ledger and the commit body all said *"Measured at the shell
+2026-08-17 at `dcabd6b`: raw 171 → residual 42"*. Mode A ran the checked-in command against a
+`git archive` of every commit in the range:
+
+- `dcabd6b` — the commit actually named — returns **raw 218 → residual 91**. It is the
+  *pre-fix* tree.
+- `0dfe52f` — the commit the work landed in — returns **raw 173 → residual 43**.
+- `171 / 42` occurs at **no commit in the range.**
+
+**What actually happened, and it is the ordinary version of this mistake rather than an exotic
+one.** The number was measured on the *working tree*, mid-edit, before the last file change was
+made. The label came from `git rev-parse --short HEAD`, which still pointed at the previous
+commit because nothing had been committed yet. So the measurement was real, the command was
+real, and the label named a tree that never contained it. The `[VERIFY]` block added to
+`link-quality-rubric.md` minutes later is exactly the +2 raw / +1 residual difference.
+
+**Rule added**: *a measurement taken on a dirty working tree is labelled as such, or it is not
+labelled with a commit at all. `HEAD` is not a name for what you measured unless the tree was
+clean when you measured it.* `git status --porcelain` before quoting a number is the whole check.
+
+- **Found by**: Mode A, re-running the command at every commit in the range instead of trusting
+  the label.
+- **Recurrence**: F16 → 3. F9 → 7 for the closure-note half — the note names a command and a
+  commit that together do not produce its number, which is F9-r6's own signature one wave later.
+- **Status**: numbers restated from a clean-tree measurement, with the residual re-taken after
+  the filter corrections rather than carried over. FLIP: F16-r3 -- none
+  FLIP: F9-r7 -- none
