@@ -1,6 +1,6 @@
 ---
 name: serp-analysis
-version: "4.3.5"
+version: "4.3.6"
 description: 'Analyze search engine results pages to understand ranking factors, SERP features, user intent patterns, and AI overview triggers. Use when the user asks to "analyze search results", "SERP analysis", "what ranks for", "SERP features", "why does this page rank", "featured snippets", "AI overviews", or "what does Google show for". For tracking rankings over time, see rank-tracker. For keyword discovery, see keyword-research.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ allowed-tools: WebFetch
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.5"
+  version: "4.3.6"
   geo-relevance: "high"
   tags:
     - seo
@@ -148,7 +148,7 @@ When a user requests SERP analysis:
 
 7. **Calculate True Difficulty**
 
-   Score overall difficulty (1-100) from five factors — top 10 domain authority (25%), page authority (20%), backlinks required (20%), content quality bar (20%), SERP stability (15%). Each factor is converted to the same 1-100 sub-scale *before* it is weighted; the score is the weighted mean, rounded to a whole number, halves up. **A factor you cannot measure is dropped and the remaining weights are renormalised over their own sum — never scored 0**, which would claim the SERP is easy on that axis. Bands are `keyword-research` Step 6's: 70-100 High · 40-69 Medium · 1-39 Low.
+   Score overall difficulty (1-100) from five factors — top 10 domain authority (25%), page authority (20%), backlinks required (20%), content quality bar (20%), SERP stability (15%). Each factor is converted to the same 1-100 sub-scale *before* it is weighted; the score is the weighted mean, rounded to a whole number, halves up. **A factor you cannot measure is dropped and the remaining weights are renormalised over their own sum — never scored 0**, which would claim the SERP is easy on that axis. Bands are `keyword-research` Step 6's: 70-100 High · 40-69 Medium · 1-39 Low. **When every factor drops, the renormalisation divides by zero and there is no score** — added 2026-08-17 after a blind run reached exactly that state and found the rule undefined. Emit **no number and no band**, print the five factors with the input each one needs, and say plainly that difficulty was not assessed. Do not reach for 0, for 50, or for a band: the instrument has no vocabulary for *unscored*, and inventing one inside the 1-100 scale would make an unmeasured SERP indistinguishable from a measured easy one.
 
    **Print the arithmetic beside the score**, in the deliverable: the sub-scores, the weights actually used, and any factor dropped with its reason (`75/100 (High) — DA 75 ×5, links 90 ×4, content bar 60 ×4, ÷13; page authority and stability not scored: no PA pull, single snapshot`). A difficulty a reader cannot recompute from the table above it is an opinion with a decimal point, and the next pull will not reproduce it. Conversion ladders, the quality-bar rubric and a worked renormalisation: [references/analysis-templates.md](./references/analysis-templates.md) → "How the difficulty score is built". Provide realistic assessments for new, growing, and established sites, plus easier alternatives — a tool's own Keyword Difficulty may stand in for an unanalysed alternative only if the tool is named and the figure is not ranked against this score, which is a different instrument.
 
@@ -177,7 +177,7 @@ When a user requests SERP analysis:
 
 ## Greek Comparison-Shopping Surfaces (Skroutz, BestPrice, Google Shopping)
 
-When the target market is Greek e-commerce, Skroutz.gr is a second SERP — often the first stop for Greek shoppers on purchase-intent queries, ahead of Google. Audit Skroutz visibility alongside the Google workflow above; it supplements, not replaces, the Google analysis. Two further surfaces complete the Greek comparison-shopping picture: BestPrice.gr, a second comparison surface (vendor-measured magnitudes are tagged unverified in the reference), and Google's Shopping tab with free listings — live for Greece via Merchant Center (engine-primary), a zero-cost surface. See [references/greek-shopping-surfaces.md](./references/greek-shopping-surfaces.md); it cross-references the Skroutz checklist rather than duplicating it.
+When the target market is Greek e-commerce, Skroutz.gr is a second SERP for this market and is audited alongside Google. [VERIFY — 2026-08-17] This line used to add that it is *"often the first stop for Greek shoppers on purchase-intent queries, ahead of Google"* — a consumer-behaviour claim with no source and no date, in a module whose own two reference files open with *"a number without a source in this file does not exist"*. Withdrawn; do not state it to a client. What stands without it: comparison platforms are a second search surface for this category, which is the reason to audit them. Audit Skroutz visibility alongside the Google workflow above; it supplements, not replaces, the Google analysis. Two further surfaces complete the Greek comparison-shopping picture: BestPrice.gr, a second comparison surface (**its vendor-measured magnitudes are not client-quotable** — the reference requires them resolved against a current primary source *before any client-facing claim*, which is stricter than "tagged unverified" and was being read here as permission to cite with a caveat), and Google's Shopping tab with free listings — live for Greece via Merchant Center (engine-primary), a zero-cost surface. See [references/greek-shopping-surfaces.md](./references/greek-shopping-surfaces.md); it cross-references the Skroutz checklist rather than duplicating it.
 
 **Trigger conditions** (any of):
 - Target market/locale is Greece and content type is product, category, or commercial-investigation

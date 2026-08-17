@@ -10,7 +10,7 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 |-------|----------|---------|--------------|
 | keyword-research | research | 4.4.3 | 2026-08-17 |
 | competitor-analysis | research | 4.2.0 | 2026-08-10 |
-| serp-analysis | research | 4.3.5 | 2026-08-17 |
+| serp-analysis | research | 4.3.6 | 2026-08-17 |
 | content-gap-analysis | research | 4.2.6 | 2026-08-17 |
 | seo-content-writer | build | 4.5.8 | 2026-08-17 |
 | geo-content-optimizer | build | 4.4.7 | 2026-08-17 |

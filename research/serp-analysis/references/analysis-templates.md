@@ -37,16 +37,25 @@ Templates for each step of the SERP analysis workflow. Use these to structure yo
 
 | Feature | Present | Position | Opportunity |
 |---------|---------|----------|-------------|
-| AI Overview | Yes/No | Top | [analysis] |
-| Featured Snippet | Yes/No | [pos] | [analysis] |
-| People Also Ask | Yes/No | [pos] | [analysis] |
-| Knowledge Panel | Yes/No | Right | [analysis] |
-| Image Pack | Yes/No | [pos] | [analysis] |
-| Video Results | Yes/No | [pos] | [analysis] |
-| Local Pack | Yes/No | [pos] | [analysis] |
-| Shopping Results | Yes/No | [pos] | [analysis] |
-| News Results | Yes/No | [pos] | [analysis] |
-| Sitelinks | Yes/No | [pos] | [analysis] |
+| AI Overview | Present / Absent / **Not captured** | Top | [analysis] |
+| Featured Snippet | Present / Absent / **Not captured** | [pos] | [analysis] |
+| People Also Ask | Present / Absent / **Not captured** | [pos] | [analysis] |
+| Knowledge Panel | Present / Absent / **Not captured** | Right | [analysis] |
+| Image Pack | Present / Absent / **Not captured** | [pos] | [analysis] |
+| Video Results | Present / Absent / **Not captured** | [pos] | [analysis] |
+| Local Pack | Present / Absent / **Not captured** | [pos] | [analysis] |
+| Shopping Results | Present / Absent / **Not captured** | [pos] | [analysis] |
+| News Results | Present / Absent / **Not captured** | [pos] | [analysis] |
+| Sitelinks | Present / Absent / **Not captured** | [pos] | [analysis] |
+
+> **The third value is not optional, and it is why this column was changed on 2026-08-17.** The
+> column read `Yes/No`. A run that never captured the SERP — no tool, no screenshot, no browse —
+> has only two writable values there, and **"No" asserts a finding it does not have**: it tells the
+> client the feature is absent when the truth is that nobody looked. That is the highest-risk cell
+> in this skill, because the fabrication is *forced by the template* rather than chosen by the
+> writer. **Absent** means looked and not there. **Not captured** means not looked. They are
+> different claims and the client is entitled to know which one they were handed.
+> The same fix applies to the Recommendations block's `Winnable? Yes/No` column below.
 ```
 
 ## Top Results Analysis Template
