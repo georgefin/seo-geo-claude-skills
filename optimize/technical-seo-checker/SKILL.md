@@ -1,6 +1,6 @@
 ---
 name: technical-seo-checker
-version: "4.6.1"
+version: "4.6.2"
 description: 'Run technical SEO audits covering Core Web Vitals, crawlability, indexing, mobile-friendliness, and site architecture. Use when the user asks to "technical SEO audit", "check page speed", "Core Web Vitals", "crawl errors", "indexing problems", "site health check". For content element issues, see on-page-seo-auditor. For link architecture, see internal-linking-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.6.1"
+  version: "4.6.2"
   geo-relevance: "low"
   tags:
     - seo
@@ -135,7 +135,7 @@ Step 9 audit summary.
 
 1. **Audit Crawlability**
 
-   ```markdown
+   ````markdown
    ## Crawlability Analysis
    
    ### Robots.txt Review
@@ -206,7 +206,7 @@ Step 9 audit summary.
    | Orphan pages | [X] found | [Low/Med/High] |
    
    **Crawlability Score**: [X]/10 ([points] ÷ [rows scored]; [N] rows not checked) · highest severity: [🔴 Critical / 🟡 High / 🟢 Medium-Low]
-   ```
+   ````
 
 2. **Audit Indexability**
 
