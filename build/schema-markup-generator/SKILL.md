@@ -1,6 +1,6 @@
 ---
 name: schema-markup-generator
-version: "4.2.5"
+version: "4.2.6"
 description: 'Generate Schema.org JSON-LD structured data — one accurate primary type per page (FAQPage, HowTo, Article, Product, LocalBusiness, and 6 other types) plus documented auxiliaries only where warranted. Use when the user asks to "add schema markup", "generate structured data", "JSON-LD", "FAQ schema", "rich snippets", "I want star ratings in Google", or "structured data validation errors". Produces validated markup for Google rich results where still offered (no FAQ rich result for ordinary sites — government/health only, Aug 2023 — FAQPage is kept because it stays valid and Google says there is no need to proactively remove it), Bing structured data, and machine-readable input for any consumer that reads it. Validates via the Schema.org validator, plus Rich Results Test for non-FAQ types. For broader technical SEO, see technical-seo-checker. For meta tag optimization, see meta-tags-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.2.5"
+  version: "4.2.6"
   geo-relevance: "medium"
   tags:
     - seo
@@ -183,7 +183,7 @@ When a user requests schema markup:
    **Missing data — the value rule.** The JSON-LD you hand over is paste-ready, so every value inside it is a real value taken from the page or from what the user supplied. When a required or recommended property has no value available:
 
    1. **Omit the property and name the gap in prose** — preferred, and what a finished deliverable does. Name the property, say what leaving it out costs, and state exactly what to send back: "`publisher.logo` is missing — send the absolute URL of a logo no wider than 600px and it becomes one more line in the block." An illustrative URL belongs in that prose; it never goes inside the emitted block.
-   2. **Or leave the slot visible as a bracketed placeholder** — `[LATITUDE]`, `[PRICE-RANGE]`, `[IMAGE-URL]`, `[EVENT-IMAGE-URL]`, `[PUBLISHER-LOGO-URL]`: SCREAMING-KEBAB inside square brackets, never any other stand-in shape. Use this when the user asked for a fill-in template, or when a slot is genuinely more useful kept visible than dropped — and then say on the block that it is not ready to paste until the slot is filled (`"_SKELETON"` as its first member is the standing form; see schema-templates.md). A bracket token anywhere in a block means that block is not ship-ready.
+   2. **Or emit a labelled skeleton** — permitted **only** when the user asked for a fill-in template, and then the block is a skeleton and says so **inside its own fence**: `"_SKELETON": "…"` as the JSON object's **first member**, because a model copies the fence and not the sentence above it (root `CLAUDE.md`, the Value Rule). Slots are `[LATITUDE]`, `[PRICE-RANGE]`, `[IMAGE-URL]`, `[PUBLISHER-LOGO-URL]` — SCREAMING-KEBAB inside square brackets, never any other stand-in shape. **A skeleton is never introduced with paste-ready framing**, and a paste-ready block never carries a slot: those are the two halves of one rule, and mixing them is what the Output Validation checkbox below catches.
    3. **Never invent a value, and never use an unbracketed stand-in** — no plausible-looking coordinates, no `TBD`/`XX`, no `your-logo.png` or `your latitude here`, no note shaped like a value. An invented value is a content-mismatch (spam-policy) risk; an unbracketed stand-in hides the gap from the one person who could close it.
 
    Same rule one skill over: meta-tags-optimizer applies it to `content=` attributes and `<title>` (ledger F13). Paste-ready values are resolved values, brackets belong only in a labelled skeleton, and the remedy for missing data is drop-it-and-name-the-gap in both.
@@ -253,7 +253,7 @@ When a user requests schema markup:
 - [ ] All required properties present for chosen schema type
 - [ ] URLs are absolute, not relative
 - [ ] Dates in ISO 8601 **at the precision the page states** — date-only `2025-03-12` when the page shows no time (reduced precision is valid ISO 8601 and correct here); `2025-03-12T09:00:00+02:00` only when the page states a time, and a zone offset only when the page or the client supplies one. Never invent a time, a zone, or a day to reach a longer form
-- [ ] No unfilled slot survives in the emitted JSON-LD: no `[BRACKET]` token, no `_SKELETON` marker, no `TBD`/`XX`, no invented value — a value that cannot be sourced means the property is dropped and the gap is named in prose (missing-data rule, step 2)
+- [ ] **In paste-ready JSON-LD** — the default, and anything not explicitly labelled a skeleton — no unfilled slot survives: no `[BRACKET]` token, no `_SKELETON` marker, no `TBD`/`XX`, no invented value. A value that cannot be sourced means the property is **dropped** and the gap is named in prose (missing-data rule, step 2). **In a skeleton the user asked for**, brackets are the correct notation and `"_SKELETON"` must be the object's first member — the marker is what makes the block a skeleton, so banning it there would leave an unlabelled block full of brackets, which is the worse of the two failures. *(Scoped 2026-08-13: this read "no unfilled slot survives in the emitted JSON-LD" flat, which contradicted step 2's own fill-in-template route — the skill banned what it prescribed one screen earlier.)*
 - [ ] Schema content matches visible page content exactly
 - [ ] Passes ~~schema validator with no errors
 - [ ] Source of each data point stated in the deliverable's own words — the resolved tool name (a Screaming Frog extraction), "user-provided", or "manual entry"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)

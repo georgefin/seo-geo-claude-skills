@@ -431,8 +431,18 @@ After publishing gap-filling content, validate that the gap is actually closed:
 | Indexing | 1-2 weeks | Is the page indexed? | Appears in Google index |
 | Initial ranking | 2-4 weeks | Is it ranking for target keyword? | Appears in top 100 |
 | Competitive ranking | 2-3 months | Has it reached competitive positions? | Top 20 or improving trend |
-| Traffic impact | 3-6 months | Is it driving meaningful traffic? | Meeting traffic projections |
+| Traffic impact | 3-6 months | Is it driving meaningful traffic? | Clicks and impressions rising against the 90-day baseline recorded at publication — **not** a projection: this skill produces none for unwritten content |
 | Gap closure | 6 months | Has the gap been effectively closed? | Ranking comparable to competitors |
+
+**Why that row does not say "meeting traffic projections"** *(corrected 2026-08-13)*: it used to, and
+three other surfaces in this skill — SKILL.md's Success Metrics, its Scoring & Derivation section,
+`score-arithmetic.md` §6 and `analysis-templates.md` — all state that **no traffic projection is
+produced for unwritten content**, because there is no model here that converts a gap into a number.
+So the validation table asked the reader to validate against a figure the skill forbids creating.
+A success criterion that cannot be met without breaking the skill's own rule is worse than no
+criterion: it invites someone to invent the number retrospectively so the row has something to
+check against. **Record the baseline at publication and compare to it** — that is a measurement,
+and it needs no forecast.
 
 ---
 
