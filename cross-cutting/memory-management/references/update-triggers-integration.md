@@ -34,7 +34,12 @@ After specific events, update memory systematically:
 ### After Audit (Technical/Content/Backlink)
 ```markdown
 1. Save full report to memory/audits/[type]/YYYY-MM-DD-[audit-name].md
-2. Extract top 3-5 action items -> CLAUDE.md Current Optimization Priorities
+2. Extract top 3-5 action items -> CLAUDE.md Current Optimization Priorities.
+   Copy each item's whole row, not its headline: action, owner, acceptance criterion,
+   expected impact, effort, dependencies, risk if done wrong. Owner and acceptance
+   criterion are what a one-line summary drops, and they are the two that make the item
+   implementable when a later run reads it back. `unassigned — needs an owner` carries
+   through as written; it is a finding, not a blank to fill in here.
 3. Update Key Metrics Snapshot if audit includes metrics
 4. Create campaign entry if audit spawns new initiative
 ```

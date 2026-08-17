@@ -1,13 +1,13 @@
 ---
 name: content-gap-analysis
-version: "4.3.1"
+version: "4.4.0"
 description: 'Find content opportunities by identifying topics and keywords your competitors cover that you don''t. Use when the user asks to "find content gaps", "what am I missing", "topics to cover", "content opportunities", "what topics am I missing", "where are my content blind spots", "untapped topics", or "content strategy gaps". For broader competitive intelligence, see competitor-analysis. For general keyword discovery, see keyword-research.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.1"
+  version: "4.4.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -167,6 +167,10 @@ When a user requests content gap analysis:
 
    Produce a final report in the shape set out under **Content Gap Report** below. The three tiers are read from the two scores, and each tier states the rule it used: **Tier 1** = P0 or P1 with a Quick Win Score of 2+; **Tier 2** = P0 or P1 that missed the quick-win bar; **Tier 3** = P2 and P3.
 
+   **A ranked gap is a finding; the action plan this step is named for is what gets done.** Every row that leaves this analysis as something to do — each tier row, each calendar entry, each collision resolution — carries seven fields: **action** (one imperative sentence naming the page or cluster and the change), **owner**, **acceptance criterion**, **expected impact**, **effort**, **dependencies**, **risk if done wrong**. Fields 1-3 are required: a gap with a score but no owner-role and nothing checkable is a suggestion, and a prioritised list of suggestions is what a client already had before commissioning the analysis. Fields 4-7 take a stated-absence value — `not estimated — no baseline data`, `not estimated`, `none`, `low — reversible, no downstream effect` — never a blank and never an invention, and on this skill's zero-tool path those absences are the norm rather than a failure. **Owner is a role** from a closed list (Content · SEO/technical · Developer · Designer · Product/merchandising · Customer service · Legal/compliance · Agency · Client decision), never a person unless the client supplied the name. **`Client decision` is the correct owner for any row whose blocker is an ownership call** — which cluster a page will own, whether a colliding page is consolidated or differentiated — and assigning it makes the decision visible instead of leaving the row stalled with no explanation; `unassigned — needs an owner` is legitimate and is itself a finding.
+
+   **The acceptance-criterion test: could someone who was not part of this engagement check it six weeks from now, without asking anybody what was meant?** Observable, binary at the moment of checking, attached to a named artefact or measurement, dated or triggered — "the comparison page is live at an agreed URL, carries a named author and a publication date, and is linked from both parent category pages", not "publish the comparison article". **A tier, a score and a calendar month are none of them criteria**: the tier says how it ranked, the month says when it starts, and neither says what state proves it finished. **And no criterion may require an engine to do something** — a position, a citation or an appearance in a generated answer is nobody's to deliver, and writing one turns the action into a promise; a GEO-gap row is accepted on the page shipping plus the measurement re-run and recorded beside its dated baseline. **Expected impact obeys this skill's own arithmetic rules**: the gap's factor row and its score, or a mechanism labelled a working model, never a traffic projection for a page that does not exist. **Ordering is already computed** — the P0-P3 priority score and the three tiers are this report's ordering, stated once under the tier list; no second impact ÷ effort vocabulary is invented beside them. Field table, stated-absence values, worked criteria and the role list: [Action Output Contract](../../references/action-output-contract.md); the per-row layout: [references/analysis-templates.md](./references/analysis-templates.md) → Prioritized Report Template.
+
    **When a factor cannot be scored, do not invent its input.** The Gap Priority Score bands Search Demand in monthly search volume, and Step 4's categories need difficulty. With no SEO tool connected and nothing supplied, neither figure exists for this run — and guessing one produces a precise-looking ranking with nothing behind it. Two routes are honest, and the report states which it took. **Named proxy**: score the factor from something the supplied data actually contains and name that basis in the report — e.g. "Search Demand scored from competitor cluster depth (23 + 41 articles across the two competitors); a coverage proxy, not a volume measurement". **When cluster depth is the Demand proxy, say on that row that Competitive Density is not independent evidence.** Both factors are then read off the same count in opposite directions — deep coverage raises Demand and lowers Density — so at 25% and 20% they largely cancel and the row behaves as if it had three factors, not five. **In the Quick Win Score the cancellation is exact, not partial**: there the two enter unweighted, so with mirrored bands (Density = 6 − Demand) their sum is a constant 6 whatever the proxy says, and the screen collapses to `Relevance + Effort − 6`. Say that on the row too, and read the band knowing the demand leg came out; on this path the demand test is Step 4's proxy floor, not the screen (gap-analysis-frameworks.md §4). The weights do not change: re-weighting would make the proxy path and the published-weight path score the same gap differently, and would invalidate every attainable value in [references/score-arithmetic.md](./references/score-arithmetic.md) §3. Disclose the dependency instead, on every row that uses the proxy. **Drop it**: leave the factor unscored, renormalise the remaining weights over their own sum, and state the rescaling — the denominator or the renormalised weights — together with which factor dropped out and why. Read the P0-P3 tiers against the renormalised score; see [references/gap-analysis-frameworks.md](./references/gap-analysis-frameworks.md) §4. **Dropping Search Demand also stops the quick-win screen**: the Quick Win Score needs all four of its inputs, so write "quick-win screen not run — Search Demand unavailable", order the gaps on the renormalised priority score, and let P0 carry the "start here" job. Score Search Demand from a named proxy instead and the screen runs as normal, labelled with that proxy. The same discipline governs the label: "estimated" is a source label only where the estimate has a stated basis — a range the user gave, a named proxy, a hand-check you describe. With no tool and nothing supplied there is nothing to estimate from, so the cell carries an explained N/A and the report says so in plain words.
 
    > **Reference**: See [references/analysis-templates.md](./references/analysis-templates.md) for detailed templates for each step.
@@ -212,9 +216,18 @@ Tier 1 Quick Wins · Tier 2 Strategic Builds · Tier 3 Long-term, with the tier 
 Priority Score and tier, and the Quick Win Score where the screen ran. Every row proposing a
 new page names the cluster that page will own and the ownership outcome it passed on.
 
+Every row also carries its **owner** (a role) and its **acceptance criterion** — what state
+proves the row is done, checkable six weeks on by someone who was not part of this engagement —
+plus expected impact, effort, dependencies and risk if done wrong, each holding its stated-absence
+value where no answer exists. The scoring columns say how a row ranked; these say what gets done
+and how anyone will know it was. Layout, and the labelled-block form where seven more columns
+will not fit: analysis templates → Prioritized Report Template.
+
 ## Content Calendar
 
-Sequenced by priority and dependency, capped by the team's real monthly output.
+Sequenced by priority and dependency, capped by the team's real monthly output. A month is a
+start date, not an acceptance criterion — each entry keeps the owner and the criterion from its
+tier row rather than restating the deadline as the finish condition.
 
 ## Success Metrics
 
@@ -285,6 +298,8 @@ means judged and lowest.
 - [ ] Every recommendation to create a page names the cluster that page will own, and confirms that cluster is unowned or is being deliberately reassigned — a new page proposed for a cluster an existing URL of the client's already owns ships as a collision finding with a proposed resolution, not as a gap
 - [ ] Every gap row carries who owns its cluster today, `no owner assigned`, or `unverified — no ownership register supplied` with what would settle it; where an owning URL exists and is thin, the finding is a depth gap on that URL rather than a new page
 - [ ] No collision is claimed on one signal alone — two of the six independent signals are named, and adjacent clusters with different intent and different conversion paths are not reported as a collision
+- [ ] Every row that leaves this analysis as something to do carries all seven fields — action, owner, acceptance criterion, expected impact, effort, dependencies, risk if done wrong — with a stated-absence value wherever an answer does not exist (`not estimated — no baseline data`, `none`, `low — reversible, no downstream effect`); no row ships without an owner-role and an acceptance criterion, and the owner is a role from the closed list (`Client decision` for an ownership call, `unassigned — needs an owner` where there is genuinely nowhere for it to go, the second being itself a finding)
+- [ ] Every acceptance criterion is observable, binary at the moment of checking, attached to a named artefact or measurement, and dated or triggered — a tier, a score and a calendar month are none of them criteria. **None requires an engine to do something**: a GEO-gap row is accepted on the page shipping plus the measurement re-run and recorded beside its dated baseline, never on an appearance in a generated answer. The P0-P3 score and the three tiers are the report's one ordering vocabulary, stated once
 - [ ] Content calendar maps gaps to realistic timeframes
 - [ ] Source of each data point stated in the report's own words — the resolved tool name (Ahrefs, Google Analytics 4, Otterly), "user-provided", or "estimated"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 
@@ -329,6 +344,7 @@ Find gaps in our [commercial/informational] intent content
 - [Score Arithmetic](./references/score-arithmetic.md) — Which figures the scoring model can and cannot produce: attainable values, the rounding convention, the GEO Value rubric, and the pre-send recompute pass
 - [Ownership Screen](./references/ownership-screen.md) — Whether a gap is a gap: the three-question screen and its five outcomes, the six collision signals and what is not one, how a deliberate reassignment is written up, and what to report when no ownership register exists
 - [Example Report](./references/example-report.md) — Complete example analyzing SaaS marketing blog gaps vs. two illustrative `.example` competitors (illustrative figures; competitor traffic labelled as a tool estimate)
+- [Action Output Contract](../../references/action-output-contract.md) — library-wide: the seven fields every tier row, calendar entry and collision resolution carries, their stated-absence values, the closed owner-role list, worked acceptance criteria (and why an AI-surface criterion is a measurement criterion), and the ordering rule
 
 ## Handoff to the Next Run
 

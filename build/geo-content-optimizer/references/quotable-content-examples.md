@@ -529,3 +529,54 @@ Ask these questions about your content:
 If you answer "yes" to 8+ questions, content is highly quotable.
 If you answer "yes" to 5-7 questions, content is moderately quotable.
 If you answer "yes" to fewer than 5, content needs significant optimization.
+
+---
+
+## Worked Example — a GEO-optimized paragraph, end to end
+
+Moved here from `SKILL.md` to keep that file inside its 350-line body cap. Unlike the fictional
+cast used elsewhere in this file, the figures below come from a **client-provided data block** and
+nothing else was added — that is the point of the example.
+
+**User**: "Optimize this paragraph for GEO: 'Solar water heaters are very common in Greece. They save energy and need servicing now and then. A technician checks the parts and replaces what is worn.'
+
+Client-provided data:
+- Our 2025 service records (1,240 jobs): average service visit costs €85
+- Manufacturer manual (2024): annual anode-rod replacement extends tank life by 3-5 years"
+
+**Output**:
+
+```markdown
+## GEO-Optimized Version
+
+**Solar water heater servicing** is the scheduled inspection of a solar 
+thermal system's collector, tank, anode rod, and safety valve. Across the 
+1,240 services we completed in 2025, the average visit cost €85.
+
+### A standard annual service includes:
+
+1. **Anode-rod check**: Annual replacement extends tank life by 3-5 years 
+   (manufacturer manual, 2024)
+2. **Collector and circuit inspection**: Glass condition, antifreeze 
+   concentration, and loop pressure
+3. **Safety valve test**: Confirms overpressure protection works correctly
+
+> **Key statistic**: The average solar water heater service visit costs €85 
+> (our 2025 service records, n=1,240).
+
+---
+
+### Changes Made
+
+Standalone definition, numbered service list, two quotable facts. Both figures come from the client-provided data block; nothing else was added. The published copy above carries no bracket token — it reads complete without the datum it does not have.
+
+**Claim dropped, not dressed up**: the original sentence "solar water heaters are very common in Greece" carries no source, so it stayed out rather than acquiring an invented percentage.
+
+**Data still needed**: how common solar water heaters are in Greek homes. It is the one sentence that would place this service in a national context for an AI answer about Greek households. Send a sourced figure with its year — a national statistics or energy-agency publication, or your own installed-base count — and the sentence goes back in.
+
+**Structured data**: no extra type was added. The page needs one accurate structured-data type for what it actually is; piling on more types buys no AI citations, and the answers above stand on their own as visible text that any reader or consumer reaches without markup.
+
+**GEO Readiness**: 1.3/10 → 8.0/10 — 10 points ÷ 8 factors scored before, 64 ÷ 8 after; lift (8.0 − 1.3) ÷ 1.3 × 100 = 515%. The per-factor rows and the count behind each one ship in the step 4 table.
+```
+
+> Two things the deliverable above deliberately does not say: the name of a skill, and the ID of a ruling or a benchmark item. The schema decision is routed to [schema-markup-generator](../../schema-markup-generator/) under ruling R2, and the checks come from CORE-EEAT — but that vocabulary is yours and the operator's, not the client's.

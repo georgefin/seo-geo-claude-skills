@@ -1,13 +1,13 @@
 ---
 name: content-refresher
-version: "4.4.0"
+version: "4.5.0"
 description: 'Refresh old blog posts and outdated content with current statistics, new information, and freshness signals to restore search rankings. Use when the user asks to "update old content", "refresh content", "content is outdated", "improve declining rankings", "revive old blog posts", "traffic is declining on this page", "rankings dropped for this article", or "this post is outdated". For writing new content from scratch, see seo-content-writer. For auditing without rewriting, see on-page-seo-auditor.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.4.0"
+  version: "4.5.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -321,7 +321,11 @@ When a user requests content refresh help:
 
 5. **Create Refresh Plan** — Structural changes, content additions, statistics/links/images to update
 
-   > **Reference**: See [references/refresh-templates.md](./references/refresh-templates.md) for the full refresh plan template (Step 5).
+   **The plan is the action surface, so every line of it is an action and carries seven fields**: **action** (one imperative sentence naming the section or element and the change), **owner**, **acceptance criterion**, **expected impact**, **effort**, **dependencies**, **risk if done wrong**. Fields 1-3 are required — a plan line with no owner-role and nothing checkable is a suggestion, and the step-4 checkboxes above ("Update title tag with current year", "Add clear definition at start") are exactly that until this step gives them the other six. Fields 4-7 take a stated-absence value: `not estimated — no baseline data`, `not estimated`, `none`, `low — reversible, no downstream effect` — never a blank and never an invention. **Owner is a role** from a closed list (Content · SEO/technical · Developer · Designer · Product/merchandising · Customer service · Legal/compliance · Agency · Client decision), never a person unless the client supplied the name; `Client decision` is a real owner — the right one for the republish-date call and for retiring a page — and `unassigned — needs an owner` is legitimate and is itself a finding.
+
+   **The acceptance-criterion test: could someone who was not part of this engagement check it six weeks from now, without asking anybody what was meant?** Observable, binary at the moment of checking, attached to a named artefact or measurement, dated or triggered — "the intro is rewritten and live on the production URL, leading with the room-size answer, and the two retired FID figures are gone from the page" rather than "content refreshed". **A refresh priority, a decay score and a next-review date are none of them criteria**: the first two say how it ranked, the third says when to look again, and neither says what state proves the work finished. **And no criterion may require an engine to do something** — a position, a snippet, an AI Overview citation or an appearance in a generated answer is nobody's to deliver, and writing one turns the action into a promise (the same rule the AI Overview recovery playbook's verification ladder already runs on). An AI-surface line is accepted on the work shipped plus the measurement re-run at T+7/T+14/T+28 and recorded beside its dated baseline. **Expected impact obeys this skill's own derivation rule**: this page's own measured figures with the arithmetic shown, or a mechanism labelled a working model — never a position or traffic target, which step 9's Expected Outcomes table already refuses. **Ordering** is the existing refresh prioritisation (🔴/🟡/🟢 and the priority score), stated once; no second impact ÷ effort vocabulary beside it. Field table, stated-absence values, worked criteria and the role list: [Action Output Contract](../../references/action-output-contract.md).
+
+   > **Reference**: See [references/refresh-templates.md](./references/refresh-templates.md) for the full refresh plan template (Step 5), whose Refresh Actions table carries the seven columns.
 
 6. **Write Refresh Content** — Updated introduction, new sections, refreshed statistics, new FAQ section
 
@@ -355,6 +359,8 @@ When a user requests content refresh help:
 - [ ] Source of each data point stated in the report's own words — the resolved tool name (Google Analytics 4, Google Search Console, Ahrefs), "user-provided", or "estimated"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 - [ ] Every score in the deliverable carries its derivation beside it — the inputs, the arithmetic, the weights — for all four this skill emits: CORE-EEAT quick scores (Step 1), the composite decay score, the refresh priority score, and any ROI figure. A signal or factor with no input is shown N/A with the missing input named and the remaining weights renormalised; it is never estimated into a number (ledger F9-r3, [references/content-decay-signals.md](./references/content-decay-signals.md) "When a signal has no input")
 - [ ] No third-party claim — a competitor's rank, publication date, coverage or "newer guide" — appears without the dated observation it came from
+- [ ] Every line of the refresh plan carries all seven fields — action, owner, acceptance criterion, expected impact, effort, dependencies, risk if done wrong — with a stated-absence value wherever an answer does not exist (`not estimated — no baseline data`, `none`, `low — reversible, no downstream effect`); no line ships without an owner-role and an acceptance criterion, and the owner is a role from the closed list (`Client decision` and `unassigned — needs an owner` both count, the second being itself a finding). The step-4 update checkboxes are not actions until this plan gives them the other six fields
+- [ ] Every acceptance criterion is observable, binary at the moment of checking, attached to a named artefact or measurement, and dated or triggered — a refresh priority, a decay score and a next-review date are none of them criteria. **None requires an engine to do something**: an AI-surface line is accepted on the work shipped plus the T+7/T+14/T+28 re-measurement recorded beside its dated baseline, never on a citation or a position. The existing refresh prioritisation is the report's one ordering vocabulary, stated once
 - [ ] No framework item ID inside the client report fence: the quick-score IDs and the veto flags sit in their own fence carrying **both** labels — `<!-- OPERATOR BLOCK … -->` as its first line **and** a visible `**CORE-EEAT quick scan** — *operator triage; not part of the client report*` line directly under it — so that a reader who copies only a fence **and** a reader handed only the rendered report can each tell who it is for. A comment alone renders to nothing; a heading alone is lost on copy (anti-slop family 8; root `CLAUDE.md` § The Reader Test, clause 2)
 
 ## Example
@@ -363,14 +369,7 @@ When a user requests content refresh help:
 
 ## Tips for Success
 
-1. **Prioritize by ROI** - Refresh high-potential content first
-2. **Don't just add dates** - Make substantial improvements
-3. **Beat competitors** - Add what they have and more
-4. **Track results** - Monitor ranking changes post-refresh
-5. **Schedule regular audits** - Check content health quarterly
-6. **Optimize for GEO** - Every refresh is a GEO opportunity
-
-> **Reference data**: For content decay signal taxonomy, lifecycle stages, refresh vs. rewrite decision framework, and update strategy by content type, see [references/content-decay-signals.md](./references/content-decay-signals.md).
+> **Reference**: The six working rules for a refresh run — prioritise by ROI, substantive change rather than a new date, cover what the reviewed competitor pages cover, track results after republishing, audit content health quarterly, and treat every refresh as a GEO opportunity — are in [references/content-decay-signals.md](./references/content-decay-signals.md) § Tips for Success, beside the reference data they rest on: decay signal taxonomy, lifecycle stages, the refresh vs. rewrite decision framework, and update strategy by content type.
 
 ## Reference Materials
 
@@ -378,6 +377,7 @@ When a user requests content refresh help:
 - [AI Overview Recovery Playbook](./references/ai-overview-recovery.md) — Trigger profile, four-case query segmentation, answer-first remediation, T+7/T+14/T+28 verification ladder, stop rules with entity-optimizer handoff
 - [Refresh Templates](./references/refresh-templates.md) — Step 1's three quick-scan rules (unassessable veto, no page text, content-type label), plus the detailed output templates for steps 5-9 (refresh plan, content writing, GEO enhancement, republishing, report) and the two claim-correction rules
 - [Refresh Example & Checklist](./references/refresh-example.md) — Full worked example and pre/post-refresh checklist
+- [Action Output Contract](../../references/action-output-contract.md) — library-wide: the seven fields every refresh-plan line carries, their stated-absence values, the closed owner-role list, worked acceptance criteria (and why an AI-surface criterion is a measurement criterion), and the ordering rule
 
 ## Related Skills
 

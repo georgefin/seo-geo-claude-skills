@@ -344,7 +344,15 @@ does not reconcile has double-counted a page or dropped one.
 ## Prioritized Gap List
 
 **How these tiers were assigned**: Tier 1 = P0 or P1 with a Quick Win Score of 2 or better ·
-Tier 2 = P0 or P1 below that bar · Tier 3 = P2 and P3.
+Tier 2 = P0 or P1 below that bar · Tier 3 = P2 and P3. **That is this report's ordering rule and
+its only one** — no second impact ÷ effort ranking is invented beside it.
+
+<!-- Each tier table below is the scored instrument: it says how a row ranked. It does not say
+     what gets done or how anyone will know it was done, so every row also gets an action entry
+     under its tier — seven fields, action/owner/acceptance criterion required, the other four
+     holding a stated-absence value. Splitting them this way is the contract's narrow-surface
+     layout: the scoring table is already seven columns wide and seven more would be unreadable.
+     Do not merge them, and do not ship a tier table with no action entries under it. -->
 
 ### Tier 1: Quick Wins (Do Now)
 
@@ -356,6 +364,21 @@ Tier 2 = P0 or P1 below that bar · Tier 3 = P2 and P3.
 **Why prioritize**: wanted, relevant, cheap and uncontested — the four inputs of the Quick Win
 Score, all of them above midpoint
 
+**Actions — one per row above, in the same order:**
+
+**1. [one imperative sentence naming the page or cluster and the change]**
+- Owner: [role — Content · SEO/technical · Developer · Designer · Product/merchandising ·
+  Customer service · Legal/compliance · Agency · Client decision · or `unassigned — needs an owner`]
+- Done when: [observable, binary at the moment of checking, attached to a named artefact or
+  measurement, dated or triggered — e.g. "the comparison page is live at an agreed URL, carries a
+  named author and a publication date, and is linked from both parent category pages"]
+- Expected impact: [the gap's factor row and score, or a mechanism labelled a working model, or
+  `not estimated — no baseline data`. Never a traffic figure for a page that does not exist.]
+- Effort: [S / M / L, or `not estimated`] · Depends on: [named blocker, or `none`] ·
+  Risk if done wrong: [failure mode and cost, or `low — reversible, no downstream effect`]
+
+**2. [action]** — [same five lines]
+
 ### Tier 2: Strategic Builds (This Quarter)
 
 | Content to Create | Target Keyword | Volume | Difficulty | Factor scores (D/Den/R/E/C) | Gap Priority Score → tier | Quick Win Score |
@@ -365,6 +388,11 @@ Score, all of them above midpoint
 **Why prioritize**: High value, requires more resources — a P0/P1 score that the quick-win screen
 did not clear, usually on Creation Effort
 
+**Actions**: same five-line block per row as Tier 1. A row whose blocker is an ownership call —
+which cluster the page will own, whether a colliding page is consolidated or differentiated —
+takes **`Client decision`** as its owner and names the decision in the Depends on field. That is
+a real assignment, and it makes the decision visible instead of leaving the row stalled.
+
 ### Tier 3: Long-term Investments (This Year)
 
 | Content to Create | Target Keyword | Volume | Difficulty | Factor scores (D/Den/R/E/C) | Gap Priority Score → tier | Quick Win Score |
@@ -372,6 +400,8 @@ did not clear, usually on Creation Effort
 | [Title idea] | [keyword] | [vol] | [diff] | [scores] | [arithmetic → tier] | [arithmetic] |
 
 **Why prioritize**: Builds authority, competitive differentiator
+
+**Actions**: same five-line block per row as Tier 1.
 
 **No traffic projection appears in this report.** Searches are not visits: the share that becomes
 sessions depends on the position these pages reach and the click-through rate there, and neither
@@ -383,12 +413,17 @@ traffic target gets set from the first published pages' own rank data after abou
 ## Content Calendar Recommendation
 
 ### Month 1
-| Week | Content | Type | Target Keyword | Status |
-|------|---------|------|----------------|--------|
-| 1 | [Title] | [Type] | [Keyword] | Planned |
-| 2 | [Title] | [Type] | [Keyword] | Planned |
-| 3 | [Title] | [Type] | [Keyword] | Planned |
-| 4 | [Title] | [Type] | [Keyword] | Planned |
+| Week | Content | Type | Target Keyword | Owner | Done when | Status |
+|------|---------|------|----------------|-------|-----------|--------|
+| 1 | [Title] | [Type] | [Keyword] | [role] | [criterion from this row's tier action] | Planned |
+| 2 | [Title] | [Type] | [Keyword] | [role] | [criterion] | Planned |
+| 3 | [Title] | [Type] | [Keyword] | [role] | [criterion] | Planned |
+| 4 | [Title] | [Type] | [Keyword] | [role] | [criterion] | Planned |
+
+<!-- The week number is a start date, not a finish condition. "Planned" and "Week 3" say nothing
+     about what state proves the item done, so the Done when cell carries the same criterion the
+     tier action already stated — copied, not re-invented, so the two never drift apart. -->
+
 
 ### Month 2
 [Continue...]

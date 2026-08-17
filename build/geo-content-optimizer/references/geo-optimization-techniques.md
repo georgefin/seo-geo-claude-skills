@@ -401,3 +401,24 @@ Use this checklist for any content:
 - [ ] FAQPage markup added only where FAQPage is the page's one primary type — never bolted onto a page that already carries an accurate type, and never onto one whose accurate type is still missing; the report says which of the two this page is
 - [ ] Content freshness indicated
 - [ ] Sources are verifiable
+
+---
+
+## Tips for Success
+
+Moved here from `SKILL.md` to keep that file inside its 350-line body cap. Each reason states what
+the tip puts on the page, checkable by opening it — **never what an engine does with it**, which no
+primary source establishes in either direction (ruling R3 amendment 9a). A model reads a tip list as
+instruction, so an engine mechanic written here travels straight into client copy.
+
+1. **Answer the question first** — put the answer in the first sentence. On a definitional target
+   query that is the first *body* sentence, not merely somewhere inside the first 150 words.
+2. **Be specific** — a vague sentence contains nothing that can be lifted out of it; a specific one
+   does.
+3. **Cite sources** — a named, dated, linkable source is one the reader can check without taking
+   your word for it.
+4. **Stay current** — update statistics and facts regularly, and score staleness only where the page
+   carries a figure that could read differently if re-measured today.
+5. **Match query format** — questions deserve direct answers.
+6. **Build authority** — a named expert with checkable credentials is something a competitor cannot
+   also claim.

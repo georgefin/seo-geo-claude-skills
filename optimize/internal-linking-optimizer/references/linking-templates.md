@@ -201,10 +201,31 @@ row belongs here — see [score-rubric.md](./score-rubric.md) §5 (after-state f
 ## Priority Actions
 
 Phases follow the Implementation Priority Order (structural fixes, then architecture, then
-cross-linking, then anchors). Every checkbox that adds or rewrites a link is a link suggestion,
-so it is written one link per checkbox as `[source] → [target] · "[anchor]" · [placement]`. A
-checkbox may cite the row that already carries those fields ("Links to Add, row 3") instead of
-repeating them; it may not replace them with a count.
+cross-linking, then anchors) — **that sequence is this plan's ordering rule and its only one**.
+Every checkbox that adds or rewrites a link is a link suggestion, so it is written one link per
+checkbox as `[source] → [target] · "[anchor]" · [placement]`. A checkbox may cite the row that
+already carries those fields ("Links to Add, row 3") instead of repeating them; it may not
+replace them with a count.
+
+### Phase Actions
+
+The checkboxes say which links. This table says who does the work and what proves it done —
+one row per work item, not per link.
+
+| # | Action | Owner | Acceptance criterion | Expected impact | Effort | Depends on | Risk if done wrong |
+|---|--------|-------|----------------------|-----------------|--------|------------|--------------------|
+| 1 | [one imperative sentence naming what changes, e.g. "add in-body inbound links to the 4 orphan pages listed in Phase 1"] | [role] | [observable, binary, attached to a named artefact or measurement, dated or triggered — e.g. "all 4 orphans carry at least one in-body inbound link with descriptive anchor text, verified in a re-crawl export dated after this phase closes"] | [link-graph arithmetic from this plan's own additions, or `not estimated — no baseline data`] | [S / M / L, or `not estimated`] | [named blocker, or `none`] | [failure mode, or `low — reversible, no downstream effect`] |
+| 2 | [work item] | [role] | [criterion] | [impact] | [effort] | [depends on] | [risk] |
+
+<!-- Four rules for this table. (1) Owner and Acceptance criterion are required: a phase whose
+     links are all perfectly specified but which nobody is named to do, and which has no finish
+     condition, is a specification rather than a plan. (2) A cross-property row names its own
+     owner instead of inheriting the phase's — it needs edit access to a site the main team may
+     not hold — and `Client decision` is the owner where the blocker is an unsettled cluster
+     assignment. (3) A phase week and a priority band are not criteria: the week says when it
+     starts, the band says how it ranked. (4) No traffic or ranking figure in Expected impact,
+     and never the [VERIFY]-tagged ROI ranges — this is link-graph arithmetic, not a forecast. -->
+
 
 ### Phase 1: Critical Fixes (Week 1)
 

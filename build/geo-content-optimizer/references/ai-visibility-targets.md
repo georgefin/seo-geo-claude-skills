@@ -196,6 +196,6 @@ before a rate is called a rate, and failed captures recorded rather than dropped
 | The prohibition list in full, and what to do when the client already has one | `references/prohibited-tactics.md` |
 | The greppable screen for a promise, and the engine-disposition screen beside it | `build/seo-content-writer/references/anti-slop-ruleset.md` §6, families 10 and 9 |
 | Which property and URL should be the cited one | `references/query-cluster-ownership.md` |
-| Turning a finding here into an action with an owner and an acceptance criterion | `references/action-output-contract.md` |
+| The seven fields in full, with worked criteria and the role list — the rule itself is stated in `SKILL.md` step 5, where the actions are written | `references/action-output-contract.md` |
 | The measurement half — running the prompt set and recording the rows | `monitor/rank-tracker/` |
 | Carrying an observation to another run | `references/inter-skill-handoff.md` |

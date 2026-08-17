@@ -148,6 +148,26 @@ blog-post hours and a tool-comparison cadence. They are two different questions,
 |-------|--------|--------------|
 | [img 1] | Replace | "[keyword-rich alt]" |
 | [img 2] | Keep | Update alt text |
+
+### Refresh Actions
+
+Ordered by the refresh prioritisation already computed above — no second ranking beside it.
+
+| # | Action | Owner | Acceptance criterion | Expected impact | Effort | Depends on | Risk if done wrong |
+|---|--------|-------|----------------------|-----------------|--------|------------|--------------------|
+| 1 | [one imperative sentence naming the section or element and the change] | [role] | [observable, binary at the moment of checking, attached to a named artefact or measurement, dated or triggered] | [this page's own measured figures with the arithmetic, or a mechanism labelled a working model, or `not estimated — no baseline data`] | [S / M / L, or `not estimated`] | [named blocker, or `none`] | [failure mode and cost, or `low — reversible, no downstream effect`] |
+| 2 | [action] | [role] | [criterion] | [impact] | [effort] | [depends on] | [risk] |
+
+<!-- Four things this table may never do. (1) No row without an owner-role and an acceptance
+     criterion — those two are what make the row implementable, and a row missing either is a
+     suggestion. (2) No criterion that requires an engine to do something: a position, a snippet
+     or an AI Overview citation is nobody's to deliver, and writing one turns the action into a
+     promise. An AI-surface row is accepted on the work shipped plus the T+7/T+14/T+28
+     re-measurement recorded beside its dated baseline. (3) No refresh priority, decay score or
+     next-review date in the criterion cell — the first two say how it ranked, the third says
+     when to look again, and none says what state proves it finished. (4) No run handle,
+     framework item ID or unresolved tool-category placeholder anywhere in the table: it is
+     client-read, so name the tool or name the plain-language source instead. -->
 ```
 
 ### The word-count table is arithmetic, not an impression (author's rule, not template copy)

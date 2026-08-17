@@ -523,46 +523,65 @@ One clock per priority, the same one the threshold guide's routing and SLA table
 times belong to the **priority**, never to the threshold band: a Critical-band metric on a P2
 alert is still a 48-hour job.
 
+**The clock is not the resolution condition, and every plan below needs both.** "Acknowledge
+within 15 minutes, target resolution 2 hours" says how fast the response starts and how long it
+may run; it does not say what state means *resolved*. So each row carries a **Resolved when**
+cell — observable, binary at the moment of checking, expressed in the same metric and window the
+alert fired on — and an **Owner**, read off the routing matrix (threshold guide Sec. 4) rather
+than from a second role list. The Immediate Actions column is the diagnostic procedure; where it
+is entirely diagnostic, the Resolved when cell says what each branch concludes with. These are
+the seven action fields on a narrow surface: action (the row's alert type plus its steps), owner,
+acceptance criterion (Resolved when), and — where a plan has them — expected impact, effort,
+dependencies and risk-if-done-wrong stated beneath the table rather than as four more columns.
+
 ### P0 — Emergency
 
 **Response Time**: Acknowledge within 15 minutes, first action within 1 hour, target resolution 2 hours
 
-| Alert Type | Immediate Actions |
-|------------|-------------------|
-| Site Down | 1. Check server status 2. Contact hosting 3. Check DNS |
-| Traffic Crash | 1. Check for algorithm update 2. Review GSC errors 3. Check competitors |
-| Manual Action | 1. Review GSC message 2. Identify issue 3. Begin remediation |
-| Top-3 Keyword Drop (priority-1 set) | 1. Check if page indexed 2. Review SERP 3. Analyze competitors |
+| Alert Type | Owner (from routing matrix) | Immediate Actions | Resolved when |
+|------------|------------------------------|-------------------|---------------|
+| Site Down | SEO Lead + Engineering Lead + DevOps | 1. Check server status 2. Contact hosting 3. Check DNS | The site returns 200 on the monitored URL across two consecutive checks and the cause is recorded in the incident note |
+| Traffic Crash | SEO Lead + Engineering Lead + Marketing VP | 1. Check for algorithm update 2. Review GSC errors 3. Check competitors | Daily sessions are back inside the site's own normal range for two consecutive days, **or** the drop is attributed in writing to a named cause and the alert is reclassified rather than left open |
+| Manual Action | SEO Lead + Engineering Lead + Legal | 1. Review GSC message 2. Identify issue 3. Begin remediation | A reconsideration request has been submitted with the remediation described, and the submission date is recorded |
+| Top-3 Keyword Drop (priority-1 set) | SEO Lead + Content Lead | 1. Check if page indexed 2. Review SERP 3. Analyze competitors | The page is confirmed indexed and either the position is back inside its Warning band across two checks, or the SERP change is documented and the query is moved to the planned-work queue with an owner |
+
+<!-- No Resolved when cell may require an engine to do something. A restored position, a
+     recovered citation or a return to an AI answer is nobody's to deliver, and writing one here
+     turns the alert into a promise (anti-slop families 9 and 10). Where the honest condition is
+     "we did the work and re-measured", say that: it is checkable and it is true. A prompt-level
+     plan resolves on the work shipped plus the k of N re-measured on the same protocol across
+     the confirming cycle and recorded beside its baseline. -->
+
 
 ### P1 — Urgent
 
 **Response Time**: Acknowledge within 4 hours, resolved same day
 
-| Alert Type | Actions |
-|------------|---------|
-| Major Rank Drops | Analyze cause, create recovery plan |
-| Traffic Decline | Investigate source, check technical issues |
-| Backlink Loss | Attempt recovery outreach |
-| CWV Failure | Diagnose and fix performance issues |
+| Alert Type | Owner (from routing matrix) | Actions | Resolved when |
+|------------|------------------------------|---------|---------------|
+| Major Rank Drops | SEO Team | Analyze cause, create recovery plan | A recovery plan exists carrying an owner and its own acceptance criterion, and the affected queries are on the tracked list with a re-check date |
+| Traffic Decline | SEO Lead + Marketing Manager | Investigate source, check technical issues | The decline is attributed to a named source (segment, channel, technical fault, tracking change) in writing, and either the fault is fixed or the finding is queued with an owner |
+| Backlink Loss | SEO Team | Attempt recovery outreach | Outreach is sent and logged with dates and recipients; the outcome is recorded either way — a recovered link is not the condition, since it is not in anyone's gift |
+| CWV Failure | SEO Lead + Engineering Team | Diagnose and fix performance issues | The failing field metric is back inside its threshold (LCP ≤2.5s · INP ≤200ms · CLS ≤0.1) in the field data for the affected template, across one full reporting window |
 
 ### P2 — Important
 
 **Response Time**: Within 48 hours
 
-| Alert Type | Actions |
-|------------|---------|
-| Moderate Rank Changes | Monitor trend, plan content updates |
-| Competitor Movement | Analyze competitor changes |
-| New 404s | Set up redirects, update internal links |
+| Alert Type | Owner (from routing matrix) | Actions | Resolved when |
+|------------|------------------------------|---------|---------------|
+| Moderate Rank Changes | SEO Team | Monitor trend, plan content updates | The trend is re-read at the next scheduled check and either returns inside band, or a content update is queued with an owner and its own acceptance criterion |
+| Competitor Movement | SEO Team | Analyze competitor changes | What changed is recorded as a dated observation with its observer, and the finding is either closed as no-action-needed or queued with an owner |
+| New 404s | SEO Team + Engineering Team | Set up redirects, update internal links | Every listed 404 returns 200 or 301 to a named live URL, and no in-body internal link still points at the dead URL — verified in a re-crawl export |
 
 ### P3 — Monitor
 
 **Response Time**: Weekly review
 
-| Alert Type | Actions |
-|------------|---------|
-| Positive Changes (wins, new citations, climbs) | Document wins, understand cause |
-| Info and opportunity alerts | Log for trend analysis; work the opportunity queue in the weekly slot |
+| Alert Type | Owner (from routing matrix) | Actions | Resolved when |
+|------------|------------------------------|---------|---------------|
+| Positive Changes (wins, new citations, climbs) | SEO Team (weekly digest) | Document wins, understand cause | The win is logged with its date and the leading explanation, labelled as unverified where nothing settles it, and reviewed in the weekly slot |
+| Info and opportunity alerts | SEO Team (weekly digest) | Log for trend analysis; work the opportunity queue in the weekly slot | Each item is logged, and each opportunity is either actioned with an owner or closed with a reason — an item left in the queue two reviews running is triaged rather than carried again |
 
 ---
 
@@ -649,3 +668,56 @@ Alert Count by Category table.
 - [ ] Clean up false positives
 - [ ] For prompt-level rows: confirm each fired on its `k of N` across two consecutive cycles, and record any capture failures that reduced N
 ```
+
+---
+
+## Worked Example — a ranking alert configuration, end to end
+
+Moved here from `SKILL.md` to keep that file inside its 350-line body cap. It shows the two-label
+rule (band and priority) applied to five real rows, the one-level override on the priority-1 set,
+and the boundary-alert case where a trigger reaches no band at all.
+
+**User**: "Set up ranking drop alerts for my top keywords"
+
+**Output**:
+
+```markdown
+## Ranking Alert Configuration
+
+### Priority-1 Keywords (P1 — same day)
+
+| Keyword | Current | Alert If | Band reached | Priority |
+|---------|---------|----------|--------------|----------|
+| best project management software | 2 | Drops to 5+ (drop >=3) | Warning — Tier 1 warns at >=3 | 🟠 P1 |
+| project management tools | 4 | Drops to 8+ (drop >=4) | Warning — Tier 1 warns at >=3 | 🟠 P1 |
+| team collaboration software | 1 | Any drop from #1 | Warning — brand/#1 rule | 🟠 P1 |
+
+Warning band defaults to P2; all three are raised one level because they are priority-1 money
+terms. A drop of 5+ on any of them reaches the **Critical** band, which under the same override
+fires as **P0** — page, do not queue.
+
+### Wider Tracked Set (P2 — 48 hours)
+
+| Keyword | Current | Alert If | Band reached | Priority |
+|---------|---------|----------|--------------|----------|
+| agile project management | 7 | Drops out of top 10 (drop >=4) | none — page-1 boundary | 🟡 P2 |
+| kanban software | 9 | Drops out of top 10 (drop >=2) | none — page-1 boundary | 🟡 P2 |
+
+These two fire on losing page 1, not on a variance move: a 2-position slip from #9 reaches no
+Tier-2 band (that table warns at >=5), so the Band column says so rather than borrowing a band the
+trigger never reaches. Colour follows the priority, one marker per level — 🔴 P0 · 🟠 P1 · 🟡 P2 ·
+🟢 P3 — because two levels sharing a red dot is a legend nobody can read.
+
+### Alert Response Plan
+
+**If a priority-1 keyword drops (P1 — acknowledge within 4 h, resolved same day)**:
+1. Check if page is still indexed (site:url)
+2. Look for algorithm update announcements
+3. Analyze what changed in SERP
+4. Review competitor ranking changes
+5. Check for technical issues on page
+6. Create recovery action plan within 24 hours
+
+**Notification**: Email + Slack to SEO team immediately
+```
+

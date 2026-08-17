@@ -1,13 +1,13 @@
 ---
 name: internal-linking-optimizer
-version: "4.5.0"
+version: "4.6.0"
 description: 'Analyze and optimize internal link structure to improve site architecture, distribute page authority, and fix orphan pages. Use when the user asks to "fix internal links", "improve site architecture", "link structure", "distribute page authority", "internal linking strategy", "orphan pages", "site architecture is messy", or "pages have no links pointing to them". For a broader on-page audit, see on-page-seo-auditor. For external link analysis, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.5.0"
+  version: "4.6.0"
   geo-relevance: "low"
   tags:
     - seo
@@ -299,7 +299,9 @@ When a user requests internal linking optimization:
 
 7. **Generate Link Implementation Plan** — Executive summary, current state metrics, phased priority actions (weeks 1-4+), implementation guide, tracking plan
 
-   > **Reference**: See [references/linking-templates.md](./references/linking-templates.md) for the full implementation plan template (Step 7). This is the what-to-fix-first surface, so the contract applies hardest here: every phase checkbox that adds a link is one checkbox per link, written `[source] → [target] · "[anchor]" · [placement]` — never "add links from [X] pages" or "add the [X] missing cluster links". A checkbox may cite the row that already carries the four fields instead of repeating them.
+   **Two contracts meet here, and neither replaces the other.** The suggestion contract above governs the *link*: source page, target page, anchor text, placement, one row per link. The **action contract** governs the *work item* a phase groups those links into — fix these four orphans, rewrite these six exact-match anchors — and it carries seven fields: **action** (one imperative sentence naming what changes), **owner**, **acceptance criterion**, **expected impact**, **effort**, **dependencies**, **risk if done wrong**. A plan can satisfy the first contract completely and still be unimplementable: forty perfectly specified link rows with nobody named to add them and nothing that says when the phase is finished is a specification, not a plan. Fields 1-3 are required; 4-7 take a stated-absence value — `not estimated — no baseline data`, `not estimated`, `none`, `low — reversible, no downstream effect` — never a blank and never an invention. **Owner is a role** from a closed list (Content · SEO/technical · Developer · Designer · Product/merchandising · Customer service · Legal/compliance · Agency · Client decision), never a person unless the client supplied the name. **A cross-property row is where this bites**: it needs edit access to a site the main team may not hold, so it names its own owner rather than inheriting the phase's, and `Client decision` is the right owner where the blocker is an unsettled cluster assignment. `unassigned — needs an owner` is legitimate and is itself a finding — on a portfolio it is often the most useful line in the plan. **The acceptance-criterion test: could someone who was not part of this engagement check it six weeks from now, without asking anybody what was meant?** Observable, binary at the moment of checking, attached to a named artefact or measurement, dated or triggered — "all 4 orphans carry at least one in-body inbound link with descriptive anchor text, verified in a re-crawl export dated after the phase closes" rather than "orphan pages fixed". **A phase week and a priority band are not criteria**: the week says when it starts, the band says how it ranked. Expected impact obeys the impact-figure rule above — link-graph arithmetic derived from this plan's own additions, or a stated-absence value; never a traffic or ranking forecast, and never the `[VERIFY]`-tagged ROI ranges. Ordering is the existing phase sequence (structural fixes, architecture, cross-linking, anchors), stated once; no second impact ÷ effort vocabulary beside it. Field table, stated-absence values, worked criteria and the role list: [Action Output Contract](../../references/action-output-contract.md).
+
+   > **Reference**: See [references/linking-templates.md](./references/linking-templates.md) for the full implementation plan template (Step 7), whose Phase Actions table carries the seven fields. This is the what-to-fix-first surface, so the suggestion contract applies hardest here too: every phase checkbox that adds a link is one checkbox per link, written `[source] → [target] · "[anchor]" · [placement]` — never "add links from [X] pages" or "add the [X] missing cluster links". A checkbox may cite the row that already carries the four fields instead of repeating them.
 
 ## Scoring & Impact-Figure Rules
 
@@ -352,6 +354,8 @@ would produce one — baseline the affected pages now, re-measure 4-8 weeks afte
 - [ ] Every cluster in the plan names its owning URL (or says the owner is unassigned, and plans no cluster links for it), and every cluster link points at that URL; a supporting page is checked against all three conditions with the check shown, and one failed condition makes it a collision finding with a proposed resolution rather than a linking opportunity
 - [ ] Every cross-property link names both properties and who can implement it, runs one way from supporter to owner, sits in body copy, and is counted on its own line — never folded into a property's internal-link total and never presented as an earned link
 - [ ] Every paste-ready string — a recommended anchor, the sentence carrying it, any link markup — is final copy: no bracket token, no `TBD`/`XX`, no provenance note ("client data needed", "per the export") and no agency-workflow marker inside it. Gaps, assumptions and source labels live in the report and recommendation-table frame around it, never in the string the client copies
+- [ ] Every phase work item in the implementation plan carries all seven action fields — action, owner, acceptance criterion, expected impact, effort, dependencies, risk if done wrong — with a stated-absence value wherever an answer does not exist (`not estimated — no baseline data`, `none`, `low — reversible, no downstream effect`); no item ships without an owner-role and an acceptance criterion, and the owner is a role from the closed list. A cross-property item names its own owner rather than inheriting the phase's, because it needs edit access to a site the main team may not hold; `unassigned — needs an owner` and `Client decision` are both legitimate, the first being itself a finding
+- [ ] Every acceptance criterion is observable, binary at the moment of checking, attached to a named artefact or measurement, and dated or triggered — a phase week and a priority band are neither of them criteria, and "orphan pages fixed" is not one either. The four-field link rows satisfy the suggestion contract; they do not satisfy this one, and a fully specified set of links with nobody named to add them is a specification rather than a plan
 - [ ] Every projected or after-state figure is re-derivable from the changes this report itself proposes, with the addition shown; a model-produced figure prints its model, parameters and input graph
 - [ ] Source of each data point stated in the report's own words — the resolved tool name (Screaming Frog, Google Analytics 4), "user-provided", or "manual analysis"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 - [ ] Each score prints its derivation — Structure Score as [points] ÷ [rows scored] with the model it was scored against and the unchecked rows named; Anchor Score as [points] ÷ [link instances graded] with the excluded template links named. A score with nothing checkable reads "not scored — no link data", never 0/10; no site data at all means no score in the report
@@ -364,11 +368,7 @@ would produce one — baseline the affected pages now, re-measure 4-8 weeks afte
 
 ## Tips for Success
 
-1. **Quality over quantity** - Add relevant links, not random ones
-2. **User-first thinking** - Links should help users navigate
-3. **Vary anchor text** - Avoid over-optimization
-4. **Link to important pages** - Distribute authority strategically
-5. **Regular audits** - Internal links need maintenance as content grows
+> **Reference**: The five working rules — quality over quantity, user-first thinking, vary anchor text, link to the cluster's owning URL, audit regularly — are in [references/score-rubric.md](./references/score-rubric.md) § Tips for Success, each tied to the rule in this skill it protects.
 
 ## Reference Materials
 
@@ -377,6 +377,7 @@ would produce one — baseline the affected pages now, re-measure 4-8 weeks afte
 - [Linking Templates](./references/linking-templates.md) — Detailed output templates for **steps 4-7**: topic cluster strategy (Step 4) and contextual opportunities (Step 5), both carrying the From Page / To Page / Anchor Text / Location columns, plus navigation optimization (Step 6), the implementation plan (Step 7) and the Anchor Text Guidelines bands
 - [Linking Example](./references/linking-example.md) — Full worked example for internal linking opportunities
 - [Ownership Linking](./references/ownership-linking.md) — Why the owning URL is the link target, the three-condition support test and what a failed condition becomes, the cross-property link pattern with its extra fields and counting rule, what to do when a cluster has no settled owner, and how a collision found in the link graph is reported
+- [Action Output Contract](../../references/action-output-contract.md) — library-wide: the seven fields every phase work item carries (as distinct from the four-field suggestion contract governing each link), their stated-absence values, the closed owner-role list, worked acceptance criteria, and the ordering rule
 - [Inter-Skill Handoff](../../references/inter-skill-handoff.md) — what to pass when this analysis names a follow-up run (step 3's escalation to a content audit is the standing one), the operator-block placement rule, and the drop-and-name rule for an unavailable field
 
 ## Related Skills

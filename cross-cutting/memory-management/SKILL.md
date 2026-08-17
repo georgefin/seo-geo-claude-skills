@@ -6,7 +6,7 @@ compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, 
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.2.0"
+  version: "4.3.0"
   geo-relevance: "low"
   tags:
     - seo
@@ -241,6 +241,12 @@ Step 4: Update both CLAUDE.md and memory/keywords/historical-rankings.csv
 
 Memory is where a handoff payload is stored and re-read, so store the payload's fields in the payload's own notation — the framework-labelled score strings (`CORE-EEAT C:… O:… R:…`, `CITE C:… I:… T:… E:…`), prefixed item IDs, veto status and audit date — rather than paraphrasing them into a summary the next run has to re-parse. Field list and notation: [inter-skill-handoff.md](../../references/inter-skill-handoff.md). Everything promoted to the hot cache is operator-read, so run handles are correct there and never in a client deliverable drawn from it.
 
+### A stored action keeps all seven fields — the round trip is where they get lost
+
+**An action written into memory is stored with the seven fields it shipped with, and read back with them.** Every recommended action in this library carries **action · owner · acceptance criterion · expected impact · effort · dependencies · risk if done wrong**, the first three required and the rest holding a stated-absence value (`not estimated — no baseline data`, `not estimated`, `none`, `low — reversible, no downstream effect`) rather than a blank ([Action Output Contract](../../references/action-output-contract.md)). This skill does not author actions — it is the layer they survive in, and **a field this layer drops is a field the next run silently reinvents**. Promoting "top 3-5 action items" as bare one-line priorities is exactly that loss: it discards the owner and the acceptance criterion, which are the two fields that make an action implementable, and a later run re-emits the item into a client deliverable with a plausible owner nobody agreed to and nothing checkable. Store the row, not the headline.
+
+**Three consequences.** (1) The hot cache's *Current Optimization Priorities* block carries **Owner** and **Done when** alongside status and expected impact — the template in [hot-cache-template.md](./references/hot-cache-template.md) is the shape, and its ~100-line budget is met by holding fewer actions, never by holding them with fields stripped. (2) **Demotion to cold storage moves the whole row**; an archived action that lost its criterion cannot be checked, so the archive stops answering "was this ever done?", which is the question archives exist for. (3) A stored action whose owner reads `unassigned — needs an owner` **keeps that value on promotion and is surfaced in the weekly hot-cache review** — it is a legitimate value and a finding, and quietly filling it in during a memory update makes an assignment nobody made. Where a stored action predates this rule and its owner or criterion genuinely was never recorded, write `not recorded at capture — re-derive before re-issuing` rather than inventing one; a run that re-issues it names that gap in its own output.
+
 ## Validation Checkpoints
 
 ### Structure Validation
@@ -265,7 +271,8 @@ Memory is where a handoff payload is stored and re-read, so store the payload's 
 ### Update Validation
 - [ ] After ranking check, historical-rankings.csv has new row with today's date
 - [ ] After competitor analysis, analysis-history/ has dated file
-- [ ] After audit, top action items appear in CLAUDE.md priorities
+- [ ] After audit, top action items appear in CLAUDE.md priorities — each with all seven fields it arrived with (action, owner, acceptance criterion, expected impact, effort, dependencies, risk if done wrong), not compressed to a one-line headline; `unassigned — needs an owner` is carried through as written, never filled in during the update
+- [ ] Every action demoted to cold storage moved as a whole row, criterion included, so the archive can still answer "was this done?"; and any action stored without an owner or a criterion carries `not recorded at capture — re-derive before re-issuing` rather than a value this run supplied
 - [ ] After monthly report, metrics snapshot reflects new data
 
 ### Data-Handling Validation
@@ -349,6 +356,7 @@ Identifies keyword overlaps, competitor intersections, and strategy similarities
 - [CORE-EEAT Content Benchmark](../../references/core-eeat-benchmark.md) — Content quality scoring stored in memory
 - [CITE Domain Rating](../../references/cite-domain-rating.md) — Domain authority scoring stored in memory
 - [Inter-Skill Handoff](../../references/inter-skill-handoff.md) — the payload fields and score-string notation to store verbatim, so a later run reads them without re-parsing
+- [Action Output Contract](../../references/action-output-contract.md) — the seven fields an action arrives with and must leave with: their stated-absence values, the closed owner-role list, and what makes an acceptance criterion checkable six weeks later by someone who was not there
 
 ## Related Skills
 

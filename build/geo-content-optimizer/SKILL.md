@@ -1,13 +1,13 @@
 ---
 name: geo-content-optimizer
-version: "4.5.1"
+version: "4.6.0"
 description: 'Optimize content for AI citation across Google AI Mode (default search surface, incl. AI Overviews), ChatGPT, Perplexity, and Gemini with quotable statements and structured Q&A. Use when the user asks to "optimize for AI", "get cited by ChatGPT", "GEO optimization", "appear in AI answers", "make content AI-quotable", "Google AI Overview optimization", or "Google AI Mode optimization". Adds quotable statements, structured Q&A, precise statistics with sources, expert attribution, and a structured FAQ. Uses CORE-EEAT GEO-First items as optimization targets. For SEO-focused writing, see seo-content-writer. For entity and brand AI presence, see entity-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.5.1"
+  version: "4.6.0"
   geo-relevance: "high"
   tags:
     - geo
@@ -273,8 +273,25 @@ When a user requests GEO optimization:
     | Limitations acknowledged | ✅/⚠️/❌ | [notes] |
     | Reasoning shown, not just conclusions | ✅/⚠️/❌ | [notes] |
 
-    **Items Needing Attention**: [list every ⚠️/❌ row and what would close it]
+    **Items Needing Attention** — one row per ⚠️/❌ above, ordered by expected impact ÷ effort:
+
+    | Action | Owner | Done when | Expected impact | Effort | Depends on | Risk if done wrong |
+    |--------|-------|-----------|-----------------|--------|------------|--------------------|
+    | [one imperative sentence naming the element and the change] | [role] | [observable, binary, attached to a named artefact or measurement, dated or triggered] | [what it puts on the page, as a labelled working model — never a citation, position or inclusion] | [S / M / L, or `not estimated`] | [named blocker, or `none`] | [failure mode, or `low — reversible, no downstream effect`] |
+
+    <!-- Owner and Done when are required; a row missing either is a suggestion, not an action.
+         No criterion may require an engine to do something — "the brand appears in the answer"
+         is nobody's to deliver and turns the row into a promise (no-promise rule below). An
+         AI-surface row is accepted on the work shipped plus the mention or citation rate
+         re-measured on the same N >= 3 repeat protocol and recorded beside its dated baseline.
+         This table is client-read: no framework item ID, no skill slug, and no unresolved
+         tool-category placeholder — name the tool, name the plain-language source, or say no
+         tool was connected and leave the figure out. -->
     ```
+
+    **Every item needing attention leaves as an implementable action, not a note.** The check above diagnoses; the table beside it is what gets done, and each row carries seven fields — **action · owner · acceptance criterion · expected impact · effort · dependencies · risk if done wrong**. The first three are required: a ⚠️ row restated as "add more data points" has no owner-role and nothing checkable, so nobody can be held to it and it does not ship as an action. The other four take a stated-absence value — `not estimated — no baseline data`, `not estimated`, `none`, `low — reversible, no downstream effect` — never a blank and never an invention, which matters most here because this skill's honest answer to "what will this gain?" is usually that no baseline exists yet. **Owner is a role** from a closed list (Content · SEO/technical · Developer · Designer · Product/merchandising · Customer service · Legal/compliance · Agency · Client decision), never a person unless the client supplied the name; `Client decision` is the right owner where the blocker is the client's — supplying first-party data, naming an expert, approving a byline — and `unassigned — needs an owner` is legitimate and is itself a finding. This skill's Quick Wins and Primary Weaknesses in step 2 become rows in this same table; they are not a second, looser action format.
+
+    **The acceptance-criterion test: could someone who was not part of this engagement check it six weeks from now, without asking anybody what was meant?** Observable, binary at the moment of checking, attached to a named artefact or measurement, dated or triggered — "the definition is the first body sentence on the production URL and runs 25-50 words starting with the term" rather than "improve the definition". A GEO score, a factor score and this deliverable's own lift are none of them criteria: they say how the page was graded, not what state proves the work shipped. **And no criterion may require an engine to do something** — a citation, an inclusion, a recommendation position or a share of any AI answer is nobody's to deliver, and writing one into a criterion is the no-promise rule broken in the one place it is easiest to miss, because a criterion reads like a plan rather than a claim. An AI-surface action is accepted on the work shipped **plus** the mention or citation rate re-measured on the same N ≥ 3 repeat protocol and recorded beside its dated baseline with its prompt-set version. Expected impact takes one of three shapes only — this page's own measured before/after, a mechanism labelled a working model, or comparable evidence with its limits — and never a forecast. Field table, stated-absence values, worked criteria and the role list: [Action Output Contract](../../references/action-output-contract.md).
 
     **Framework item IDs stay off the client's copy.** The rows above are the CORE-EEAT GEO-First items in plain language. An item ID (C02, C09, O05) is a coordinate in a document the client has never seen — never exempt on a client-read surface (`anti-slop-ruleset.md` §6 family 8, ruled on Greek evidence, enforced in every language). Keep the IDs where the reader is the operator: internal audit notes, and the handoff to [content-quality-auditor](../../cross-cutting/content-quality-auditor/), which needs them. The test is the reader, not the section — the ID list itself is in step 1. **And an operator block has to be severable.** Where the deliverable carries one — labelled inside the fence, in that fence's own syntax — no sentence the client reads may point at it: «βλ. σημείωμα ομάδας στο τέλος», "see the team note", "as noted in the handoff below". The block's own label says it is not delivered, so strip it and re-read what is left; every cross-reference in the client's sections must still resolve. Nothing escapes here — this is the inverse of an ID leak — but the client is handed a report that breaks when it is prepared as instructed. Whatever the client needs in order to act (that the structured-data code comes in a separate step, that a figure is still missing) is stated in the client's own sections, in the client's words, and repeated in the operator block if the operator needs it too.
 
@@ -300,6 +317,8 @@ When a user requests GEO optimization:
 - [ ] Each change names which of the three jobs it serves — mentioned, cited, or recommended — since a page can win one and not the others ([references/ai-visibility-targets.md](./references/ai-visibility-targets.md) §2)
 - [ ] Where the run names a target engine, the step 1 precedence order decided which one led, any conflict it resolved is named as a trade-off rather than dropped, and anything said about Google organic says it is a different instrument, not a lower priority
 - [ ] Every screen run over the finished deliverable (bracket tokens, `~~` tokens, a Greek regression net, a numeral census) is reported with its **exit status** as well as its output — a screen that exits non-zero has not run, and a screen that has not run is UNSCREENED, never clean ([references/geo-score-arithmetic.md](./references/geo-score-arithmetic.md) §9)
+- [ ] Every item needing attention leaves as an action carrying all seven fields — action, owner, acceptance criterion, expected impact, effort, dependencies, risk if done wrong — with a stated-absence value wherever an answer does not exist (`not estimated — no baseline data`, `none`, `low — reversible, no downstream effect`); no action ships without an owner-role and an acceptance criterion, the owner is a role from the closed list (`Client decision` where the blocker is the client's — first-party data, a named expert, a byline — and `unassigned — needs an owner` where there is genuinely nowhere for it to go, the second being itself a finding), and step 2's Quick Wins and Primary Weaknesses use this same format rather than a looser one
+- [ ] Every acceptance criterion is observable, binary at the moment of checking, attached to a named artefact or measurement, and dated or triggered — a GEO score, a factor score and this deliverable's own lift are none of them criteria. **None requires an engine to do something**: an AI-surface action is accepted on the work shipped plus the mention or citation rate re-measured on the same N ≥ 3 repeat protocol and recorded beside its dated baseline, never on a citation, an inclusion or a recommendation position, which would break the no-promise rule in the one place it reads like a plan instead of a claim
 
 **When a threshold and the Statistics rule collide, the threshold loses.** The counts above describe what well-sourced content looks like; they are not quotas to fill. If the page and the supplied data yield three precise data points, ship three: mark the item ❌ with the count actually reached and name the data that would close it. Never a fourth number the skill invented to clear a checkbox — and that includes the 50% lift, which is a false report if any factor behind it was scored on invented content.
 
@@ -309,69 +328,22 @@ When a user requests GEO optimization:
 
 ## Example
 
-**User**: "Optimize this paragraph for GEO: 'Solar water heaters are very common in Greece. They save energy and need servicing now and then. A technician checks the parts and replaces what is worn.'
-
-Client-provided data:
-- Our 2025 service records (1,240 jobs): average service visit costs €85
-- Manufacturer manual (2024): annual anode-rod replacement extends tank life by 3-5 years"
-
-**Output**:
-
-```markdown
-## GEO-Optimized Version
-
-**Solar water heater servicing** is the scheduled inspection of a solar 
-thermal system's collector, tank, anode rod, and safety valve. Across the 
-1,240 services we completed in 2025, the average visit cost €85.
-
-### A standard annual service includes:
-
-1. **Anode-rod check**: Annual replacement extends tank life by 3-5 years 
-   (manufacturer manual, 2024)
-2. **Collector and circuit inspection**: Glass condition, antifreeze 
-   concentration, and loop pressure
-3. **Safety valve test**: Confirms overpressure protection works correctly
-
-> **Key statistic**: The average solar water heater service visit costs €85 
-> (our 2025 service records, n=1,240).
-
----
-
-### Changes Made
-
-Standalone definition, numbered service list, two quotable facts. Both figures come from the client-provided data block; nothing else was added. The published copy above carries no bracket token — it reads complete without the datum it does not have.
-
-**Claim dropped, not dressed up**: the original sentence "solar water heaters are very common in Greece" carries no source, so it stayed out rather than acquiring an invented percentage.
-
-**Data still needed**: how common solar water heaters are in Greek homes. It is the one sentence that would place this service in a national context for an AI answer about Greek households. Send a sourced figure with its year — a national statistics or energy-agency publication, or your own installed-base count — and the sentence goes back in.
-
-**Structured data**: no extra type was added. The page needs one accurate structured-data type for what it actually is; piling on more types buys no AI citations, and the answers above stand on their own as visible text that any reader or consumer reaches without markup.
-
-**GEO Readiness**: 1.3/10 → 8.0/10 — 10 points ÷ 8 factors scored before, 64 ÷ 8 after; lift (8.0 − 1.3) ÷ 1.3 × 100 = 515%. The per-factor rows and the count behind each one ship in the step 4 table.
-```
-
-> Two things the deliverable above deliberately does not say: the name of a skill, and the ID of a ruling or a benchmark item. The schema decision is routed to [schema-markup-generator](../schema-markup-generator/) under ruling R2, and the checks come from CORE-EEAT — but that vocabulary is yours and the operator's, not the client's.
+> **Reference**: See [references/quotable-content-examples.md](./references/quotable-content-examples.md) § Worked Example for a full run end to end — a Greek solar-water-heater paragraph rewritten from a client-provided data block, with the claim that had no source dropped rather than dressed up, the missing datum named as a request, the structured-data decision left to its own step, and the GEO Readiness lift printed with the arithmetic behind it.
 
 ## Tips for Success
 
-Each reason below states what the tip puts on the page, checkable by opening it — never what an engine does with it, which no primary source establishes in either direction (ruling R3 amendment 9a). A model reads this list as instruction, so an engine mechanic written here travels into client copy.
-
-1. **Answer the question first** - Put the answer in the first sentence
-2. **Be specific** - A vague sentence contains nothing that can be lifted out of it; a specific one does
-3. **Cite sources** - A named, dated, linkable source is one the reader can check without taking your word for it
-4. **Stay current** - Update statistics and facts regularly
-5. **Match query format** - Questions deserve direct answers
-6. **Build authority** - A named expert with checkable credentials is something a competitor cannot also claim
+> **Reference**: The six working rules — answer first, be specific, cite sources, stay current, match query format, build authority — are in [references/geo-optimization-techniques.md](./references/geo-optimization-techniques.md) § Tips for Success, each stated as what it puts on the page rather than what an engine does with it. Read them there before writing a tip of your own: a model reads a tip list as instruction, so an engine mechanic written into one travels straight into client copy (ruling R3 amendment 9a).
 
 ## Reference Materials
 
 - [AI Citation Patterns](./references/ai-citation-patterns.md) - This library's observational working model of Google AI Mode (incl. AI Overviews), ChatGPT, Perplexity and Claude — citation styles visible in their published output, per-engine overlap and community/UGC patterns. Read its evidence-grade block first: none of it is engine-published, and none of it goes into a deliverable as an engine mechanic
 - [GEO Optimization Techniques](./references/geo-optimization-techniques.md) - Detailed before/after examples, templates and checklists for the six core optimization techniques, plus the GEO Readiness Checklist (definitions, quotable content, authority, structure, technical)
-- [Quotable Content Examples](./references/quotable-content-examples.md) - Before/after examples of content optimized for AI citation
+- [Quotable Content Examples](./references/quotable-content-examples.md) - Before/after examples of content optimized for AI citation, and § Worked Example — the one section in it built from a client-provided data block rather than the fictional cast
 - [AI Visibility Targets](./references/ai-visibility-targets.md) - Engine precedence and what it governs (with rank 4 written out); mentioned / cited / recommended as three jobs with three different fixes, mapped onto this skill's own techniques; and what a deliverable states instead of a promise
+- [Action Output Contract](../../references/action-output-contract.md) - library-wide: the seven fields every item-needing-attention row carries, their stated-absence values, the closed owner-role list, worked acceptance criteria (and why an AI-surface criterion is a measurement criterion, not an outcome one), the three permitted shapes of expected impact, and the ordering rule
 - [GEO Score Arithmetic](./references/geo-score-arithmetic.md) - What every printed number is made of: the 1-10 scale as a ratio, what each factor counts, N/A handling, the lift, the pre-send recompute pass, and how to read a screen you ran over your own deliverable (a screen that exits non-zero has not run)
 
-> The first three files illustrate technique with **fictional sources** (the reserved `Example …` cast) and invented figures. That is demonstration material, not evidence: swap in a source you have read before anything ships, and never attribute data or a quotation to a real organisation or a real person on the strength of an example here.
+> The first three files illustrate technique with **fictional sources** (the reserved `Example …` cast) and invented figures — the one exception being § Worked Example at the end of the quotable-content file, whose figures come from a client-provided data block and are labelled as such where they sit. That is demonstration material, not evidence: swap in a source you have read before anything ships, and never attribute data or a quotation to a real organisation or a real person on the strength of an example here.
 
 ## Related Skills
 

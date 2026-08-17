@@ -928,3 +928,23 @@ Two shapes, both from shipped reviews:
   into a stated one, on the strength of nothing — and it is the step a reader cannot check, because
   the file they hold says X. If their definition looks wrong, say it looks wrong, say what would
   settle it, and leave both readings standing until it is settled.
+
+---
+
+## 10. Tips for Success
+
+Moved here from `SKILL.md` to keep that file inside its 350-line body cap. Operator guidance, not
+configuration copy.
+
+1. **Start simple** — do not create too many alerts initially. An estate with six alerts that fire
+   correctly beats one with sixty nobody reads.
+2. **Tune thresholds** — adjust against the site's own measured variance, not against this guide's
+   generic defaults, and say which you used (Sec. 1, "Three method choices").
+3. **Avoid alert fatigue** — too many alerts means ignored alerts, and an ignored channel takes the
+   good alerts down with it. This is the whole reason no prompt-level row may fire on one capture.
+4. **Document response plans** — know what to do when an alert fires, and who does it. A plan with
+   no owner and no resolution condition is a list of things somebody might try.
+5. **Review regularly** — alerts need maintenance as the SEO programme matures; run the never-fired
+   triage and the absent-row pass together (Sec. 6).
+6. **Include positive alerts** — track wins, not just problems. A citation won is an Info-band P3
+   row and it is worth having.

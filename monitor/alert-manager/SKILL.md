@@ -1,13 +1,13 @@
 ---
 name: alert-manager
-version: "4.5.0"
+version: "4.6.0"
 description: 'Set up automated monitoring and notifications for SEO ranking drops, traffic changes, technical issues, and competitor movements. Use when the user asks to "set up SEO alerts", "notify me when rankings drop", "traffic alerts", "watch competitor changes", "alert me if rankings drop", "notify me of traffic changes", "monitor rankings", or "watch my keywords for changes". For detailed rank analysis, see rank-tracker. For comprehensive reporting, see performance-reporter.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.5.0"
+  version: "4.6.0"
   geo-relevance: "low"
   tags:
     - seo
@@ -179,6 +179,10 @@ When a user requests alert setup:
 
    Map each priority (P0 Emergency, P1 Urgent, P2 Important, P3 Monitor) to its response clock and immediate action steps — one clock per priority, never per band.
 
+   **A response plan is an action, and it carries the seven fields.** Every plan this skill writes — and every remediation a review recommends — carries **action · owner · acceptance criterion · expected impact · effort · dependencies · risk if done wrong**, with fields 1-3 required and 4-7 taking a stated-absence value (`not estimated — no baseline data`, `not estimated`, `none`, `low — reversible, no downstream effect`) rather than a blank or an invention. **The clock is not the criterion.** "Acknowledge within 4 hours, resolved same day" says how fast the response starts and how long it may take; it does not say what state means *resolved*, and at 2 a.m. that is the sentence that is missing. So every plan states its **resolution condition** in the same terms the alert fired in — "the 5xx rate is back under 1/day for two consecutive daily checks and the cause is recorded in the incident note", "the priority-1 query is back inside its Warning band and has held there across two checks" — observable, binary at the moment of checking, attached to the same metric and window the trigger used, and checkable six weeks later by someone who was not on the call. A plan whose steps are all diagnostic ("check indexing, review the SERP, analyse competitors") ends by naming what happens next in each branch; a diagnosis that resolves nothing is not a resolution condition. **No condition may require an engine to do something**: a restored position, a recovered citation or a return to an AI answer is nobody's to deliver, and writing one into a plan turns the alert into a promise (Output Validation, families 9 and 10). What a prompt-level plan is accepted on is the work shipped plus the `k of N` re-measured on the same protocol across the confirming cycle and recorded beside its baseline.
+
+   **The owner field is the routing role — one vocabulary, not a second.** This skill already carries a closed role list mapped to named people (threshold guide Sec. 4: SEO Lead · SEO Analyst · SEO Team · Content Lead · Engineering Lead · Engineering Team · DevOps · Marketing Manager · Marketing VP · Legal), and the routing matrix already assigns one per category per priority. That assignment **is** the action contract's owner field, so read it off the routing table rather than introducing the library-wide role list beside it — a second list here would recreate exactly the defect this skill fixed when the templates file ran its own shorter list and named different recipients for the same alert. A role nobody holds is deleted from the routing table, not carried as an owner, and where a remediation leaves the alerting system entirely (handed to content or development work as a piece of project work) it takes the library-wide role list at that hand-off point. Field table, stated-absence values and the acceptance-criterion test in full: [Action Output Contract](../../references/action-output-contract.md).
+
 4. **Set Up Alert Delivery**
 
    Configure notification channels (Email, SMS, Slack), recipient routing by role, suppression rules (duplicate cooldown, maintenance windows), and escalation paths.
@@ -226,7 +230,8 @@ When a user requests alert setup:
 ### Output Validation
 - [ ] Every metric cites its data source and collection date
 - [ ] Alert thresholds account for normal metric fluctuations
-- [ ] Response plans are specific and time-bound
+- [ ] Response plans are specific and time-bound, and every plan carries all seven action fields — action, owner, acceptance criterion, expected impact, effort, dependencies, risk if done wrong — with a stated-absence value wherever an answer does not exist (`not estimated — no baseline data`, `none`, `low — reversible, no downstream effect`). The owner is the routing role already assigned in the routing matrix, from the one role list (threshold guide Sec. 4) — never a second role vocabulary introduced beside it
+- [ ] Every plan states a **resolution condition** as well as its clock: observable, binary at the moment of checking, expressed in the same metric and window the alert fired on, and checkable by someone who was not on the call. "Acknowledge within 4 hours, resolved same day" is a clock, not a condition. An all-diagnostic plan names what happens next in each branch, and no condition requires an engine to do something — a prompt-level plan is accepted on the work shipped plus the `k of N` re-measured on the same protocol across the confirming cycle and recorded beside its baseline
 - [ ] Every alert carries both labels — the threshold band it fires at (Info / Warning / Critical / Emergency, or "no band — boundary alert") and its response priority (P0-P3) — with no third vocabulary anywhere in the configuration
 - [ ] Any priority above or below the band's default map states its reason in the same line. Where the threshold guide defines no ladder for the metric (all brand rows, all competitor-activity rows), "no band — boundary alert" is the correct Band entry and no reason clause is owed — with no band there is no default to depart from, and the Band cell is what says so
 - [ ] No alert condition anywhere in the configuration can fire on a single capture of a generated answer: every prompt-level row states its `k of N` (N ≥ 3 repeats per prompt per engine per cycle) and its two-consecutive-cycle confirmation, and a configuration that cannot run the repeats ships those rows off and says so
@@ -255,58 +260,11 @@ When a user requests alert setup:
 
 ## Example
 
-**User**: "Set up ranking drop alerts for my top keywords"
-
-**Output**:
-
-```markdown
-## Ranking Alert Configuration
-
-### Priority-1 Keywords (P1 — same day)
-
-| Keyword | Current | Alert If | Band reached | Priority |
-|---------|---------|----------|--------------|----------|
-| best project management software | 2 | Drops to 5+ (drop >=3) | Warning — Tier 1 warns at >=3 | 🟠 P1 |
-| project management tools | 4 | Drops to 8+ (drop >=4) | Warning — Tier 1 warns at >=3 | 🟠 P1 |
-| team collaboration software | 1 | Any drop from #1 | Warning — brand/#1 rule | 🟠 P1 |
-
-Warning band defaults to P2; all three are raised one level because they are priority-1 money
-terms. A drop of 5+ on any of them reaches the **Critical** band, which under the same override
-fires as **P0** — page, do not queue.
-
-### Wider Tracked Set (P2 — 48 hours)
-
-| Keyword | Current | Alert If | Band reached | Priority |
-|---------|---------|----------|--------------|----------|
-| agile project management | 7 | Drops out of top 10 (drop >=4) | none — page-1 boundary | 🟡 P2 |
-| kanban software | 9 | Drops out of top 10 (drop >=2) | none — page-1 boundary | 🟡 P2 |
-
-These two fire on losing page 1, not on a variance move: a 2-position slip from #9 reaches no
-Tier-2 band (that table warns at >=5), so the Band column says so rather than borrowing a band the
-trigger never reaches. Colour follows the priority, one marker per level — 🔴 P0 · 🟠 P1 · 🟡 P2 ·
-🟢 P3 — because two levels sharing a red dot is a legend nobody can read.
-
-### Alert Response Plan
-
-**If a priority-1 keyword drops (P1 — acknowledge within 4 h, resolved same day)**:
-1. Check if page is still indexed (site:url)
-2. Look for algorithm update announcements
-3. Analyze what changed in SERP
-4. Review competitor ranking changes
-5. Check for technical issues on page
-6. Create recovery action plan within 24 hours
-
-**Notification**: Email + Slack to SEO team immediately
-```
+> **Reference**: See [references/alert-configuration-templates.md](./references/alert-configuration-templates.md) § Worked Example for a full ranking-alert configuration — five rows carrying both labels, the one-level override applied to the priority-1 money terms, the boundary-alert case where a page-1 trigger reaches no band at all, and the response plan that follows it.
 
 ## Tips for Success
 
-1. **Start simple** - Don't create too many alerts initially
-2. **Tune thresholds** - Adjust based on normal fluctuations
-3. **Avoid alert fatigue** - Too many alerts = ignored alerts
-4. **Document response plans** - Know what to do when alerts fire
-5. **Review regularly** - Alerts need maintenance as your SEO matures
-6. **Include positive alerts** - Track wins, not just problems
+> **Reference**: The six working rules — start simple, tune against the site's own variance, avoid alert fatigue, document response plans with an owner and a resolution condition, review regularly, include positive alerts — are in [references/alert-threshold-guide.md](./references/alert-threshold-guide.md) §10, each tied to the section of that guide which enforces it.
 
 ## Alert Threshold Quick Reference
 
@@ -381,6 +339,7 @@ used. Full working in the threshold guide, §1 "Three method choices".
 - [Alert Threshold Guide](./references/alert-threshold-guide.md) — Recommended thresholds by metric (fixed absolutes vs. baseline-derived), fatigue prevention, escalation paths, the never-fired-row triage and the absent-row pass beside it (Sec. 6), the write-up rules for counts, quotes, generics, payloads and unverified explanations (Sec. 9), and the prompt-level answer thresholds with their sampling rule and their four open decisions
 - [Alert Configuration Templates](./references/alert-configuration-templates.md) — Ready-to-use alert definitions per monitoring category, incl. the site-integrity floor coverage a review adds where an estate has none, the GEO/AI citation set, the four prompt-level answer rows with their `k of N` conditions, and the alert-summary closing blocks
 - [AI Visibility Measurement](../../references/ai-visibility-measurement.md) — library-wide: the prompt as the unit, the twelve recorded fields (sentiment is field 9), the N >= 3 sampling protocol these alerts are built on, and what may never be promised (§7)
+- [Action Output Contract](../../references/action-output-contract.md) — library-wide: the seven fields every response plan and remediation carries, their stated-absence values, and the acceptance-criterion test that separates a resolution condition from a response clock. Its role list governs a remediation handed out of the alerting system; inside a configuration the owner is the routing role from threshold guide Sec. 4
 
 ## Related Skills
 

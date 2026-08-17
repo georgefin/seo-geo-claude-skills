@@ -182,8 +182,17 @@ listed under New Rankings / Lost Rankings and are excluded from the averages and
 
 > These are hypotheses based on available signals, not confirmed causes. Investigate each with the relevant skill to confirm.
 
-**Recommended actions**:
-- [kw 1]: [action to recover]
+**Recommended actions** — a recovery action is an action, so it carries the seven fields of
+template 7's Recommendations table rather than a bare verb phrase. The shortest complete form:
+
+- **[kw 1] — [one imperative sentence naming the page and the change]** · Owner: [role] ·
+  Done when: [observable, binary, attached to a named artefact or measurement, dated or
+  triggered] · Expected impact: [with its basis] · Effort: [S / M / L] · Depends on: [blocker,
+  or `none`] · Risk if done wrong: [failure mode, or `low — reversible, no downstream effect`]
+
+A protocol row (page-1 exit, drop 5-10) says how urgently to investigate; it is not an action and
+does not substitute for one. "Full diagnostic" is a job with no owner and nothing checkable —
+name what gets diagnosed, by whom, and what state proves it was done.
 
 ### Traffic Impact
 
@@ -442,14 +451,34 @@ ranking sections above) rather than demoted.]
 Each recommendation names the job in the client's own vocabulary — "rewrite the boiler guide",
 "re-check that SERP" — never a run handle. Handles belong in the closing operator block.
 
-### Immediate Actions
-1. [Action] for [keyword] - [what it is expected to change, stated as an expectation not a number]
+**Ordered by expected impact ÷ effort, with dependencies respected** — state that sentence once,
+here, and let the numbering carry it. Every row carries all seven fields; Action, Owner and
+Acceptance criterion are required, and the other four take their stated-absence value
+(`not estimated — no baseline data`, `not estimated`, `none`, `low — reversible, no downstream
+effect`) rather than a blank or a guess.
 
-### This Month
-1. [Action]
+| # | Action | Owner | Acceptance criterion | Expected impact | Effort | Depends on | Risk if done wrong |
+|---|--------|-------|----------------------|-----------------|--------|------------|--------------------|
+| 1 | [one imperative sentence naming the page or prompt cluster and the change] | [role] | [observable, binary at the moment of checking, attached to a named artefact or measurement, dated or triggered] | [what should change and on what basis — this report's own measured figures, or a mechanism labelled a working model] | [S / M / L] | [named blocker, or `none`] | [realistic failure mode and its cost] |
+| 2 | [action] | [role] | [criterion] | [impact] | [effort] | [depends on] | [risk] |
 
-### Next Quarter
-1. [Strategic action]
+<!-- Three things this table may never do. (1) No acceptance criterion may require an engine to
+     do something: "the brand appears in ChatGPT's answer" is nobody's to deliver and turns the
+     action into a promise. An AI-surface row is accepted on the work shipped plus the
+     measurement re-run on the same N-repeat protocol and recorded beside its dated baseline.
+     (2) No expected-impact figure without its derivation — this report's own arithmetic, or a
+     labelled working model, or comparable evidence with its limits stated. (3) No run handle,
+     framework item ID or unresolved tool-category placeholder in any cell: this table is
+     client-read, so name the tool or name the plain-language source instead. -->
+
+**Where the surface is too narrow for seven columns**, the same seven fields become a labelled
+block per action — the fields do not change, only the layout:
+
+**1. [action sentence]**
+- Owner: [role] · Effort: [S / M / L] · Depends on: [named blocker, or "none"]
+- Done when: [observable, binary, attached to a named artefact or measurement, dated or triggered]
+- Expected impact: [what should change, with its basis]
+- Risk if done wrong: [failure mode and cost, or "low — reversible, no downstream effect"]
 
 ## Next Report
 

@@ -206,3 +206,22 @@ excluded)`**
 The executive summary that follows reports "1 orphan page to fix · 5 link opportunities found ·
 4 pages gaining inbound links" and **no traffic figure at all**, because nothing in this data
 set measures traffic outcomes.
+
+---
+
+## Tips for Success
+
+Moved here from `SKILL.md` to keep that file inside its 350-line body cap. Operator guidance, not
+report copy.
+
+1. **Quality over quantity** — add relevant links, not random ones. A count is a finding; a link
+   with a source, a target, an anchor and a placement is a suggestion.
+2. **User-first thinking** — links should help users navigate. A link nobody on the source page
+   would want to click is a link that gets removed at the next content review.
+3. **Vary anchor text** — avoid over-optimization. Ten pages pointing at one target with one
+   identical exact-match string is marked down by the Anchor Score whether or not the target is
+   the correct one.
+4. **Link to important pages** — distribute authority strategically, and to the cluster's *owning*
+   URL rather than whichever page currently ranks (`ownership-linking.md` §2).
+5. **Regular audits** — internal links need maintenance as content grows; broken in-body links and
+   newly orphaned pages are what a re-crawl is for.

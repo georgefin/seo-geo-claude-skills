@@ -1,13 +1,13 @@
 ---
 name: rank-tracker
-version: "4.3.0"
+version: "4.4.0"
 description: 'Track keyword ranking positions and SERP position changes over time, and track prompt-level AI visibility — what a generative engine actually says when a buyer asks a question. Use when the user asks to "track rankings", "check keyword positions", "monitor SERP positions", "how am I ranking", "where do I rank for this keyword", "did my rankings change", "ranking changes", "keyword position tracking", "track AI visibility", "am I cited by ChatGPT", or "prompt tracking". For automated alerting, see alert-manager. For comprehensive reports, see performance-reporter.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.0"
+  version: "4.4.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -191,6 +191,14 @@ Every number this skill prints into a deliverable shows how it was reached, **be
 
 > **Reference**: See [references/metric-derivations.md](./references/metric-derivations.md) for every figure the templates emit, its formula, its rounding convention, its population rule, and the fallback when its input is missing.
 
+## Recommended Actions — the Seven Fields
+
+A movement is a finding; an action gets done. Every recommendation this skill emits — each recovery action under step 4, every row of step 8's Recommendations — carries seven fields: **action** (one imperative sentence naming the page or prompt cluster and the change), **owner**, **acceptance criterion**, **expected impact**, **effort**, **dependencies**, **risk if done wrong**. Fields 1-3 are required: a recommendation with no owner-role and nothing checkable is a suggestion, and suggestions do not get done. Fields 4-7 take a stated-absence value — `not estimated — no baseline data`, `not estimated`, `none`, `low — reversible, no downstream effect` — never a blank and never an invented figure, because the absence names a gap the client can close. **Owner is a role** from a closed list (Content · SEO/technical · Developer · Designer · Product/merchandising · Customer service · Legal/compliance · Agency · Client decision), never a person unless the client supplied the name; `Client decision` is a real owner and assigning it makes a decision visible instead of leaving the action stalled, and `unassigned — needs an owner` is legitimate and is itself a finding.
+
+**The acceptance-criterion test: could someone who was not part of this engagement check it six weeks from now, without asking anybody what was meant?** Observable, binary at the moment of checking, attached to a named artefact or measurement, dated or triggered. **A response-protocol row is not an acceptance criterion and never stands in for one** — "Emergency response", "Full diagnostic" and "Investigate immediately" say how fast to start, not what state proves the work finished. **And no criterion may require an engine to do something**: a position, a citation or an appearance in a generated answer is nobody's to deliver, and writing one turns the action into a promise (anti-slop family 10). A prompt-level action is accepted on the work shipped *plus* the rate re-measured on the same N ≥ 3 repeat protocol and recorded beside its dated baseline with its prompt-set version — which is a measurement this skill can actually run.
+
+**Ordering, stated once per report**: by expected impact ÷ effort with dependencies respected — an unmet dependency sinks an action below the thing it waits on, whatever its score. Expected impact is derived like every other figure here (Metric Derivation Contract): this report's own arithmetic, a mechanism labelled a working model, or comparable evidence with its limits — never a position, traffic or citation forecast. The action table is client-read and carries no run handles, so a follow-up run named in the operator block appears here as the job instead. Field table, stated-absence values, worked criteria and the role list: [Action Output Contract](../../references/action-output-contract.md); the seven-column block and its narrow-surface form: [references/ranking-analysis-templates.md](./references/ranking-analysis-templates.md) template 7.
+
 ## Validation Checkpoints
 
 ### Input Validation
@@ -214,6 +222,8 @@ Every number this skill prints into a deliverable shows how it was reached, **be
 - [ ] A single capture is reported as an **observation**, carrying that word and its timestamp, never as what an engine does
 - [ ] No promise of a position, a citation, an inclusion, a recommendation or a share of voice on any AI surface, on any timeline; what a deliverable states instead is the mechanism as a labelled working model, a leading indicator with its measurement plan, and the dated baseline with its N (anti-slop-ruleset.md §6 family 10)
 - [ ] Where the engine order is shown, the deliverable also says that organic search is a different instrument rather than a demoted one
+- [ ] Every recommended action carries all seven fields — action, owner, acceptance criterion, expected impact, effort, dependencies, risk if done wrong — with a stated-absence value wherever an answer does not exist (`not estimated — no baseline data`, `none`, `low — reversible, no downstream effect`); no action ships without an owner-role and an acceptance criterion, the owner is a role from the closed list (`Client decision` and `unassigned — needs an owner` both count, the second being itself a finding), and the ordering rule is stated once
+- [ ] Every acceptance criterion is observable, binary at the moment of checking, attached to a named artefact or measurement, and dated or triggered — checkable by someone who was not part of this engagement, six weeks on, without asking what was meant. A response-protocol row ("Emergency response", "Full diagnostic") is a clock, not a criterion. **None of them requires an engine to do something**: a prompt-level action is accepted on the work shipped plus the rate re-measured on the same N ≥ 3 protocol and recorded beside its dated baseline, never on an appearance in a generated answer
 
 ## Example
 
@@ -245,14 +255,40 @@ Every number this skill prints into a deliverable shows how it was reached, **be
 
 ## Needs Attention
 
-| Keyword | Old | New | Change | Protocol row | Action |
-|---------|-----|-----|--------|--------------|--------|
-| marketing automation | 4 | 12 | +8 | Page-1 exit (overrides the 5-10 size row) | Full diagnostic, then rewrite the guide |
-| pipeline reporting | 9 | 11 | +2 | Page-1 exit (overrides the 1-2 size row) | Re-check the SERP, then refresh the page |
+| Keyword | Old | New | Change | Protocol row |
+|---------|-----|-----|--------|--------------|
+| marketing automation | 4 | 12 | +8 | Page-1 exit (overrides the 5-10 size row) |
+| pipeline reporting | 9 | 11 | +2 | Page-1 exit (overrides the 1-2 size row) |
+
+The protocol row says how fast to start. What gets done is in Recommended Actions below.
 
 No traffic figures appear above: no click baseline was supplied for these URLs, so the loss is
 not quantified here. Send a Search Console clicks export for the two URLs and the next report
 will state it.
+
+## Recommended Actions
+
+Ordered by expected impact ÷ effort, with dependencies respected.
+
+**1. Rewrite the marketing-automation guide to lead with the buying question its top-3 competitors
+answer in their opening paragraph.**
+- Owner: Content · Effort: M (one writer, two days) · Depends on: none
+- Done when: the rewritten guide is live at `/guide/marketing-automation` with the answer in the
+  first body paragraph, and the position is re-checked in the 9 May pull and recorded beside the
+  9 April figure of 12.
+- Expected impact: this keyword lost 8 positions and is the only page-1 exit in the set with a
+  four-figure impression count, so it is the largest available click recovery here. The size of
+  the recovery is not estimated — no click baseline was supplied.
+- Risk if done wrong: a rewrite that drops the existing comparison table could cost the two
+  long-tail positions the page still holds. Keep the table; diff the outgoing copy before publishing.
+
+**2. Re-check the pipeline-reporting SERP in incognito and record what now occupies positions 1-10.**
+- Owner: SEO/technical · Effort: S (30 minutes) · Depends on: none
+- Done when: a dated SERP capture for "pipeline reporting" is on file with the ten results listed,
+  and the report says whether the page-1 exit is a competitor change or a layout change.
+- Expected impact: not estimated — no baseline data. This is a diagnostic that decides whether
+  action 1's treatment applies here too; it buys the decision, not the position.
+- Risk if done wrong: low — reversible, no downstream effect.
 
 ## AI Visibility — prompt set v2 (17 prompts), captured 9 April 2026
 
@@ -340,6 +376,7 @@ Bands are inclusive at both ends and do not overlap. Drop size = new position �
 - [Tracking Setup Guide](./references/tracking-setup-guide.md) — Configuration best practices, device/location settings, and striking-distance GSC mining methodology (Section 9)
 - [Ranking Analysis Templates](./references/ranking-analysis-templates.md) — Output templates for seven of the eight workflow steps, the operator handoff block, and the prompt-level AI visibility template (template 9); step 2's mining format is in the setup guide §9
 - [Metric Derivations](./references/metric-derivations.md) — Every figure this skill emits: formula, inputs, rounding, population rule, and what to do when the input is missing
+- [Action Output Contract](../../references/action-output-contract.md) — library-wide: the seven fields every recommended action carries, their stated-absence values, the closed owner-role list, worked acceptance criteria (and why an AI-surface criterion is a measurement criterion), the three permitted shapes of expected impact, and the ordering rule
 
 ## Related Skills
 

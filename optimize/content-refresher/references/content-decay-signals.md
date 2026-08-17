@@ -694,3 +694,24 @@ listicle on *Evergreen guides* unless its items are themselves dated. Where noth
 schedule on the page's own evidence rather than inventing a frequency — a borrowed cadence is
 reported as borrowed, never as this type's own.
 
+
+---
+
+## Tips for Success
+
+Six working rules for a refresh run, moved here from `SKILL.md` to keep that file inside its
+350-line body cap. They are operator guidance, not report copy.
+
+1. **Prioritize by ROI** — refresh high-potential content first. The composite decay score and
+   the refresh priority score are what "high-potential" means here; do not re-rank by impression.
+2. **Don't just add dates** — make substantial improvements. A republish date on unchanged copy
+   is the one refresh tactic that changes a signal without changing the page, and the word-count
+   table in `refresh-templates.md` §"Step 5" is what keeps the claim honest.
+3. **Beat competitors** — add what the pages you actually reviewed cover, and more. The
+   denominator is the pages read and named, never a standing "out of 5".
+4. **Track results** — monitor ranking changes after republishing. This is also where the
+   refresh plan's acceptance criteria get checked, so schedule the re-measurement rather than
+   leaving it to whoever remembers.
+5. **Schedule regular audits** — check content health quarterly, and schedule on the type's own
+   refresh frequency from *Update Strategy by Content Type* above rather than on a hunch.
+6. **Optimize for GEO** — every refresh is a GEO opportunity, and step 7 is where it is taken.
