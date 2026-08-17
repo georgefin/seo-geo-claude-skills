@@ -46,6 +46,16 @@
       ]
     },
     {
+      "id": 41,
+      "_EXPECT": "(f3) — PARITY CANARY for the 2026-08-17 re-sync. 'recommended against removing' and 'says you should keep' are two of the five variants check (f)'s original R3_OVERSTATE missed (measured 3 of 8). They are here so the widened copy is probe-covered rather than asserted, and so a future narrowing shows up as this eval going quiet.",
+      "prompt": "Our dev wants to delete the FAQ markup. What is Google's position?",
+      "files": ["evals/files/fixture-page.md"],
+      "expected_output": "Guidance that Google has recommended against removing FAQPage markup and says you should keep it in place.",
+      "expectations": [
+        "The response reports that Google discourages removing the markup and tells you not to remove it."
+      ]
+    },
+    {
       "id": 5,
       "_EXPECT": "(e1) — the aside form. The requirement itself is correct and negative; the retracted claim sits in the grader's parenthetical rationale. Still a defect (check (f) would fail the identical sentence in skill text) but a WEAKER one, and the FAIL message must say so rather than claim the expectation requires it.",
       "prompt": "How do I check the markup is working?",

@@ -5,7 +5,9 @@
       "id": 1,
       "prompt": "Generate LocalBusiness schema for our HVAC company in Athens. The contact page copy is in evals/files/klimatismos-oikonomou-contact.md — use exactly the details listed there, nothing else. The markup goes on https://www.klimatismos-oikonomou.gr/epikoinonia.",
       "expected_output": "A single LocalBusiness (or HVACBusiness) JSON-LD object populated only from the fixture: Greek name Κλιματισμός Οικονόμου Ο.Ε., full Greek PostalAddress (Λεωφόρος Βουλιαγμένης 274, Άγιος Δημήτριος, 173 43, Αττική, GR), telephone +30 210 976 5432, url and email from the fixture, and openingHoursSpecification for Monday–Friday 08:00–16:00 plus Saturday 09:00–14:00. geo, aggregateRating, and priceRange are dropped from the block with the gap named in prose because the fixture supplies none — never invented, and never left as a bracket token in a block offered as the markup to install. Brief implementation and validation guidance follows the markup.",
-      "files": ["evals/files/klimatismos-oikonomou-contact.md"],
+      "files": [
+        "evals/files/klimatismos-oikonomou-contact.md"
+      ],
       "expectations": [
         "The response contains a JSON-LD code block that parses as valid JSON (no trailing commas, all property names quoted).",
         "The JSON-LD declares \"@context\": \"https://schema.org\" and its top-level \"@type\" is \"LocalBusiness\" or a schema.org LocalBusiness subtype fitting an HVAC company (e.g. \"HVACBusiness\" or \"HomeAndConstructionBusiness\").",
@@ -22,7 +24,9 @@
       "id": 2,
       "prompt": "Μπορείς να μου φτιάξεις Product schema για τη σελίδα προϊόντος του e-shop μας; Όλα τα στοιχεία είναι στο αρχείο evals/files/eshop-product-elaiolado.md. Θέλουμε να εμφανίζεται η τιμή μας στα αποτελέσματα της Google.",
       "expected_output": "A single Product JSON-LD object with the Greek name and description preserved, sku EL-KAL-750, brand Ελαιώνες Μεσσηνίας, and a nested Offer: price \"12.90\", priceCurrency \"EUR\", availability https://schema.org/InStock, seller Ελαιώνες Μεσσηνίας Μονοπρόσωπη Ι.Κ.Ε., and the product URL. The image property is dropped from the block with the missing URL asked for in prose (no image URL exists in the fixture), not left as a bracket token in a block offered as the markup to install; no ratings, reviews, or priceValidUntil are invented. The response notes that price display in Google requires offers.price + priceCurrency + availability.",
-      "files": ["evals/files/eshop-product-elaiolado.md"],
+      "files": [
+        "evals/files/eshop-product-elaiolado.md"
+      ],
       "expectations": [
         "The response contains a JSON-LD code block that parses as valid JSON.",
         "The JSON-LD declares \"@context\": \"https://schema.org\" and exactly one top-level \"@type\": \"Product\".",
@@ -39,8 +43,10 @@
     {
       "id": 3,
       "prompt": "hey — we want FAQ schema on our pricing FAQ page, the page copy is in evals/files/faq-pricing-page.md. main goal is getting those FAQ dropdowns under our result in Google like our competitors used to have. can you generate the markup for us?",
-      "expected_output": "FAQPage JSON-LD containing the fixture's 4 Q&A pairs verbatim, plus an honest SERP-status correction: Google retired FAQ rich results in 2026, so no dropdown/accordion is promised — the markup's remaining value is AI-engine/GEO parsing (answer engines extract clean Q&A pairs). Validation guidance points to the Schema.org validator, not Google's Rich Results Test or Search Console FAQ reports.",
-      "files": ["evals/files/faq-pricing-page.md"],
+      "expected_output": "FAQPage JSON-LD containing the fixture's 4 Q&A pairs verbatim, plus an honest SERP-status correction: an ordinary site has no FAQ rich result — Google restricted them to well-known government and health websites on 2023-08-08 — so no dropdown/accordion is promised, and NO citation or parsing benefit is claimed in either direction (settled ruling R3 amendment 9a: a skill may say FAQPage is valid and cheap to keep; it may not say it earns AI citations). Validation guidance points to the Schema.org validator, not Google's Rich Results Test or Search Console FAQ reports.",
+      "files": [
+        "evals/files/faq-pricing-page.md"
+      ],
       "expectations": [
         "The skill DOES generate FAQPage JSON-LD (settled ruling R3: FAQPage is kept despite the 2026 rich-result retirement) — it does not refuse or substitute a different schema type.",
         "The JSON-LD parses as valid JSON and declares \"@context\": \"https://schema.org\" with top-level \"@type\": \"FAQPage\".",
@@ -49,15 +55,17 @@
         "The four question names match the fixture's headings verbatim, including \"How much does TidyBooks cost?\" and \"Do you offer a discount for annual billing?\".",
         "Each answer text matches the fixture's visible answer copy (content-match policy) — no rewritten, shortened, or invented answers, and no fifth Q&A pair added.",
         "The response nowhere claims the markup is eligible for FAQ rich results, SERP dropdowns/accordions, or any Google rich-result appearance — despite the user explicitly asking for \"those FAQ dropdowns\". Labels and headers are not claims: a table header, row label, or section heading that merely names the concept (e.g. a status-table row labeled \"FAQ rich results\") does not count; only prose asserting eligibility or promising such an appearance counts as a claim — and that same assert-or-promise test governs any novel phrasing this list does not anticipate.",
-        "The response states that Google retired FAQ rich results in 2026 and frames the markup's remaining value as AI-engine/GEO parsing (answer engines extracting clean Q&A pairs).",
-        "The response does not instruct the user to monitor FAQ rich results in Search Console or to test FAQ eligibility in Google's Rich Results Test (both were cut for FAQ in 2026); if validation is suggested, it points to the Schema.org validator."
+        "The response states that an ordinary site gets no FAQ rich result (Google restricted them to government and health websites on 2023-08-08) and frames the markup as valid, zero-cost schema.org with NO benefit attached — neither a SERP feature nor a citation or parsing gain. Framing it as AI-engine/GEO parsing value FAILS: settled ruling R3 amendment 9a withdrew that warrant, so an expectation requiring it would fail a correct skill for being right.",
+        "The response does not instruct the user to monitor FAQ rich results in Search Console or to test FAQ eligibility in Google's Rich Results Test (neither route serves FAQPage — the Rich Results Test does not test it, and an ordinary site has no FAQ rich result to report on since the 2023-08-08 restriction); if validation is suggested, it points to the Schema.org validator."
       ]
     },
     {
       "id": 4,
       "prompt": "We're a small yoga studio and I've written up our autumn workshop page in evals/files/workshop-event-page.md. Should the markup be Event schema or Organization schema, or both? Whichever is right, give me the final JSON-LD to paste into the page.",
       "expected_output": "A recommendation to use exactly one type — Event — with a short one-accurate-type-per-page rationale (declining the \"both\" option), followed by a single Event JSON-LD object: name from the fixture title, startDate 2026-09-19T10:00 in ISO 8601 (endDate 13:00 if included), location Place \"The Loft Studio\" with the full postal address, nested offers (price 35, GBP, booking URL), and Wildbird Yoga nested as organizer inside the Event. No separate Organization block; missing data such as an event image is dropped from the block and named in prose — never invented, and never left as a bracket token in the final JSON-LD the user was told to paste.",
-      "files": ["evals/files/workshop-event-page.md"],
+      "files": [
+        "evals/files/workshop-event-page.md"
+      ],
       "expectations": [
         "The response picks exactly ONE schema type for the page and says so explicitly: Event is recommended as the single type, and the user's suggestion to add both Event and Organization is declined with a one-accurate-type-per-page rationale (settled ruling R2).",
         "The JSON-LD parses as valid JSON and declares \"@context\": \"https://schema.org\" with a single top-level \"@type\": \"Event\" — the output is not an array containing an Organization or any second top-level object.",
@@ -73,7 +81,9 @@
       "id": 5,
       "prompt": "Please review and improve the schema markup on one of our blog posts — I pasted the visible page excerpt and the current JSON-LD from the page source into evals/files/blog-existing-schema.md. Our SEO crawler reports structured data errors on this URL. What should the corrected markup be?",
       "expected_output": "An audit that names the defects — trailing comma after the author name, non-ISO datePublished \"03/12/2025\", relative image URL, and an irrelevant stacked Product object (a consulting service marked up as Product on a blog post) — followed by corrected JSON-LD: one BlogPosting object with the headline unchanged, datePublished 2025-03-12 in ISO 8601 (disambiguated by the visible \"12 March 2025\" byline), the image URL made absolute on northbeam-consulting.com, author Dana Okafor, and the publisher logo dropped from the block and requested from the user rather than left as a bracket token in the corrected markup. The Product object is removed.",
-      "files": ["evals/files/blog-existing-schema.md"],
+      "files": [
+        "evals/files/blog-existing-schema.md"
+      ],
       "expectations": [
         "The corrected JSON-LD parses as valid JSON — the trailing comma after the author's \"name\" property is removed.",
         "The corrected output contains exactly one top-level schema object of \"@type\": \"BlogPosting\" (or \"Article\") — the stacked Product object is removed and the output is no longer an array of multiple types (settled ruling R2).",

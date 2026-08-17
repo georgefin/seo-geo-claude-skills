@@ -665,7 +665,13 @@ for path in suites:
                         snip = sent.strip()
                         snip = (snip[:180] + "…") if len(snip) > 180 else snip
                         if role == "AMBIGUOUS":
-                            AMBIG.append((rel, eid, fname, cid, snip))
+                            # Deduped on the same key as the FAILs: three tokens in one
+                            # quoted sentence are one thing for a human to read, and the
+                            # WARN block is only useful if it is short enough to be read.
+                            akey = ("A",) + (str(rel), str(eid), fname, cid, sent.strip())
+                            if akey not in SEEN:
+                                SEEN.add(akey)
+                                AMBIG.append((rel, eid, fname, cid, snip))
                             continue
                         key = (str(rel), str(eid), fname, cid, sent.strip())
                         if key in SEEN:
