@@ -9,8 +9,10 @@
 #
 # Usage:   ./validate-tracking.sh [repo-root]     (default: .)
 #          ./validate-tracking.sh --probe [repo-root]
-#              Fault-injection for check (f)'s two allowlists against the checked-in corpus in
-#              scripts/fixtures/r3-allowlist/. Prints caught/missed per corpus and FAILS when a
+#              Fault-injection for check (f), against two checked-in corpora: its two allowlists
+#              (scripts/fixtures/r3-allowlist/) and its R3-overstatement leg, whose cases are
+#              multi-line because the defect that beat it was a phrase with a break inside it
+#              (scripts/fixtures/r3-overstate/). Prints caught/missed per corpus and FAILS when a
 #              violation is excused. See the probe block below check (f) for why it exists.
 #          ./validate-tracking.sh --emit-f-patterns [repo-root]
 #              Prints check (f)'s pattern surface as `NAME<TAB>value` lines, for the guards that
@@ -641,8 +643,8 @@ fi
 # Deliberately narrowed to lines ALSO about FAQ/schema/markup: "advises against
 # removing" can be true of something else entirely (redirects, canonical tags),
 # and a guard that fails a correct sentence about a different subject is the
-# same design error the note above is about. The check is grep-AND by pipe —
-# grep -E has no conjunction.
+# same design error the note above is about. The check is an AND of two patterns —
+# neither grep -E nor awk's match() has a conjunction.
 # Widened 2026-08-13 after a Mode A pass measured the first form at **3 of 8**
 # constructed variants — it caught `advises against removing` and two siblings and
 # missed `advised against removing` (past tense), `recommends against`, `discourages`,
@@ -650,6 +652,91 @@ fi
 # pattern written from its founding instance. The probe recorded with the original
 # discharged only guard (a) — it fires on the known defect — and left (b) undone.
 R3_OVERSTATE='(advis|recommend|counsel)(es|s|ed)? against ([a-z]+ )?(remov|delet|drop)|discourages? ([a-z]+ )?(remov|delet|drop)|tells you not to (remove|delete|drop)|says you should keep'
+# The second half of the conjunction, hoisted out of the pipeline it used to be a literal inside,
+# so it is a named part of the pattern surface and travels through --emit-f-patterns like the rest.
+R3_OVER_SUBJECT='faq|schema|structured data|markup'
+#
+# -- WHY THIS LEG IS NOT A LINE-BASED GREP (2026-08-17, ledger F15 recurrence 5) ----------------
+# It was one, for four days, and it certified a tree clean while carrying the exact defect it
+# exists to catch. `optimize/content-refresher/references/refresh-templates.md`:464-465 read
+# "...and Google advises / against proactively removing it" with the phrase straddling the break,
+# and `grep -cniE "$R3_OVERSTATE"` over that file returned 0. The class had been recorded FIXED
+# across 13 shipped surfaces on 2026-08-13 with THIS check as its guard. The surviving instance
+# was found by a human reading the file four days later, and repaired only then (`3ce98c9`).
+#
+# A guard that treats a line as a semantic unit has encoded an accident of formatting as a rule.
+# Prose wraps wherever the author's editor wrapped it; the defect is the claim, not its layout.
+# Three concrete shapes beat the line-based form, each of them ordinary markdown rather than an
+# adversarial construction, and each is checked in as a case in the fixture below:
+#   * the phrase split across a wrap          (the real instance);
+#   * an indented list continuation -- joining the raw lines leaves THREE spaces where the phrase
+#     needs one, which is why the window is whitespace-flattened and not merely concatenated;
+#   * the FAQ/schema conjunct wrapped away onto the neighbouring line, which is the same blindness
+#     one step over: fixing only the phrase would leave the qualifier line-bound.
+#
+# WHAT REPLACED IT, and the two things it deliberately does NOT do.
+# Each line is an ANCHOR. The window is that line plus WHOLE neighbouring lines in each direction
+# until $F_NEAR_WINDOW characters of context have been added, all of it whitespace-flattened; a
+# match is reported at the line where it STARTS, so an instance is reported exactly once and a
+# single-line instance still lands on its own line number.
+#   * NOT a whole-file flatten. That is the method F15-r5 measured with, and it turns the
+#     FAQ/schema conjunct from "near the claim" into "anywhere in the file" -- a real widening,
+#     and that conjunct is the only thing keeping a correct sentence about redirects or canonical
+#     tags out of this check. Measured over $F_DIRS at HEAD both ways: 0 hits either way, so the
+#     flatten buys nothing here and costs the narrowing. The fixture case `subject-past-the-window`
+#     is that difference turned into a test -- a whole-file flatten reports it; this must not.
+#   * NOT sentence-bounded, though the `[^.;]` idiom above would have been the consistent choice.
+#     Measured against the real instance and rejected on the measurement: its subject word is
+#     `schema.org`, so splitting the window on `.` cuts the qualifier off the claim and the guard
+#     goes blind again on the one line it was built for.
+# $F_NEAR_WINDOW is 110 because the swept trees' non-empty lines run p50=58 / p90=116 characters
+# [obs:2026-08-17T19:4xZ awk length() over the 121 swept .md files, n=29419 lines; measured twice
+# two hours apart and it moved p50 57->58 / p90 115->116 as other lanes edited, so re-run it rather
+# than quote it -- what is stable is the shape, not the digits], so 110 characters of
+# whole-line context always reaches at least one full neighbouring line and usually two -- which is
+# what makes a break bridgeable wherever the author put it. Raising it is free on today's tree
+# (0 hits at 60, 110, 200 and 400) but the direction of risk is the conjunct's reach, so it is set
+# to the smallest value meeting that guarantee, not the largest that stays green. Widen it and the
+# `subject-past-the-window` case will tell you what you bought.
+F_NEAR_WINDOW=110
+# f_over_hits -- the sweep as a FUNCTION, for the reason f_r3_hits is one: `--probe` runs THIS
+# code over the fixture rather than a second copy of it. $@ = directories, relative to the
+# CALLER's cwd (the caller cds). Same filters as the other two legs -- `*.md` only, `evals/`
+# excluded -- asserted by probe controls rather than assumed.
+# The patterns reach awk through ENVIRON, not -v: -v escape-processes its argument, so a `\b`
+# added to either pattern later would arrive at the matcher as a backspace. (mawk has no word
+# boundary at all; the probe asserts both patterns stay backslash-free rather than leaving that
+# to a comment.)
+f_over_hits() {
+    export R3_OVERSTATE R3_OVER_SUBJECT F_NEAR_WINDOW
+    find "$@" -type f -name '*.md' 2>/dev/null | grep -v 'evals/' | sort | while IFS= read -r _f; do
+        awk '
+            function flat(s) { gsub(/[ \t]+/, " ", s); sub(/^ /, "", s); sub(/ $/, "", s); return s }
+            BEGIN { OVER = ENVIRON["R3_OVERSTATE"]; SUBJ = ENVIRON["R3_OVER_SUBJECT"]
+                    WIN  = ENVIRON["F_NEAR_WINDOW"] + 0 }
+            { L[NR] = flat($0) }
+            END {
+                for (i = 1; i <= NR; i++) {
+                    if (L[i] == "") continue
+                    alen = length(L[i]); win = L[i]
+                    j = i + 1
+                    while (j <= NR && length(win) - alen < WIN) { if (L[j] != "") win = win " " L[j]; j++ }
+                    pre = ""; k = i - 1
+                    while (k >= 1 && length(pre) < WIN) { if (L[k] != "") pre = L[k] " " pre; k-- }
+                    lwin = tolower(win)
+                    if (! match(lwin, OVER)) continue
+                    # The leftmost match is the one match() returns, so RSTART > alen means no
+                    # match starts on this line at all -- it belongs to a later anchor and is
+                    # reported there, exactly once.
+                    if (RSTART > alen) continue
+                    if ((tolower(pre) " " lwin) !~ SUBJ) continue
+                    mark = (RSTART + RLENGTH - 1 > alen) ? "   [the phrase straddles a line break]" : ""
+                    printf "%s:%d:%s%s\n", FILENAME, i, substr(win, 1, alen + WIN), mark
+                }
+            }
+        ' "$_f"
+    done
+}
 
 # --emit-f-patterns: THE EXPORT. Every pattern variable check (f) uses, one per line, NAME<TAB>
 # value, raw — no quoting, no escaping, because a consumer that has to un-escape is a consumer
@@ -657,7 +744,7 @@ R3_OVERSTATE='(advis|recommend|counsel)(es|s|ed)? against ([a-z]+ )?(remov|delet
 # and it exits immediately: the accessor must not be able to report a verdict, or a caller will
 # start reading its exit code as one. `--probe` asserts this list covers every pattern assignment
 # in the file (F_EMIT_NAMES vs the source), so the export cannot silently go stale.
-F_EMIT_NAMES="F_NEAR_AFTER F_NEAR_BEFORE DEPRECATED_TOKENS DEPRECATED_LEGAL_NAMED DEPRECATED_LEGAL_NEAR DEPRECATED_LEGAL R3_TOKENS R3_LEGAL_NAMED R3_LEGAL_NEAR R3_LEGAL R3_OVERSTATE"
+F_EMIT_NAMES="F_NEAR_AFTER F_NEAR_BEFORE F_NEAR_WINDOW DEPRECATED_TOKENS DEPRECATED_LEGAL_NAMED DEPRECATED_LEGAL_NEAR DEPRECATED_LEGAL R3_TOKENS R3_LEGAL_NAMED R3_LEGAL_NEAR R3_LEGAL R3_OVERSTATE R3_OVER_SUBJECT"
 if [ "$EMIT" -eq 1 ]; then
     exec 1>&3
     for _n in $F_EMIT_NAMES; do
@@ -665,12 +752,10 @@ if [ "$EMIT" -eq 1 ]; then
     done
     exit 0
 fi
-R3_OVER_HITS=$(cd "$ROOT" && grep -rniE "$R3_OVERSTATE" $F_DIRS \
-    --include='*.md' 2>/dev/null | grep -v 'evals/' \
-    | grep -iE 'faq|schema|structured data|markup' || true)
+R3_OVER_HITS=$(cd "$ROOT" && f_over_hits $F_DIRS)
 if [ -n "$R3_OVER_HITS" ]; then
     while IFS= read -r hit; do
-        fail "(f) R3 overstatement — Google permits dropping FAQPage markup and says only that there is no need to proactively remove it; it never advised against removal. Write the permission, not a recommendation: $hit"
+        fail "(f) R3 overstatement — Google permits dropping FAQPage markup and says only that there is no need to proactively remove it; it never advised against removal. Write the permission, not a recommendation. The text below is the flattened window, so a phrase marked as straddling a break is quoted joined and sits at the line named: $hit"
     done <<< "$R3_OVER_HITS"
     F_OK=0
 fi
@@ -873,6 +958,174 @@ if [ "$PROBE" -eq 1 ]; then
     probe_corpus fid fid-violations violation
     probe_corpus fid fid-legitimate legitimate
     probe_corpus fid fid-token-coverage violation
+
+    # -- R3 OVERSTATEMENT LEG (2026-08-17, ledger F15 recurrence 5) --------------------------
+    # G3-C5 measured 3 of 6 gate legs with no fault injection at all. This leg had none: its
+    # only recorded probe was "fires on the old wording, passes the corrected tree", every
+    # variant of which was written on ONE LINE -- so the probe passed while the guard could not
+    # see the wrapped instance sitting in a shipped skill file. A corpus of one-line variants
+    # tests the pattern against its own accidental formatting.
+    #
+    # The corpus is a directory of CASES, not a file of lines, because a datum here has a line
+    # break inside it. Cases are materialised as .md files and swept by the REAL f_over_hits.
+    echo ""
+    echo "R3 overstatement leg — wrapped-phrase cases"
+    OVERFIX="$ROOT/scripts/fixtures/r3-overstate/overstate-cases.txt"
+    if [ ! -f "$OVERFIX" ]; then
+        echo "  PROBE FAIL — overstatement fixture missing: $OVERFIX"
+        probe_fail=1
+    else
+        overdir="$tmp/probe/over"
+        mkdir -p "$overdir/evals"
+        awk -v out="$overdir" '
+            /^=== CASE / { name = $3; flags = ""
+                           for (i = 4; i <= NF; i++) flags = flags (flags == "" ? "" : ",") $i
+                           print name "\t" flags > (out "/_manifest.tsv")
+                           f = out "/" name ".md"; printf "" > f
+                           next }
+            /^=== NOTE/  { next }
+            /^=== /      { print "FORMAT-ERROR\t" $0 > (out "/_manifest.tsv"); next }
+                         { if (name != "") print $0 > f }
+        ' "$OVERFIX"
+        # Two controls that must NOT be reported, the same pair the R3 leg carries: an eval
+        # fixture legitimately carries the defect it grades, and a non-markdown file is out of
+        # scope by construction. Both are the wrapped form, so they also prove the new code path
+        # -- not just the old grep -- honours the filters.
+        printf 'FAQPage markup is valid, and Google advises\nagainst removing it.\n' \
+            > "$overdir/evals/graded.md"
+        printf 'FAQPage markup is valid, and Google advises\nagainst removing it.\n' \
+            > "$overdir/notmarkdown.txt"
+
+        over_hits="$( (cd "$tmp" && f_over_hits probe/over) )"
+        over_declared="$(probe_declared_count "$OVERFIX")"
+        over_n=0; over_ok=0; over_bad=0; over_open=0; over_report=""
+        over_bound=""; over_caught_names=""; over_wrapped_names=""
+        while IFS="$(printf '\t')" read -r cname cflags; do
+            [ -n "$cname" ] || continue
+            if [ "$cname" = "FORMAT-ERROR" ]; then
+                echo "  PROBE FAIL — overstate-cases.txt line is neither a case, a note, nor case content: $cflags"
+                probe_fail=1; continue
+            fi
+            over_n=$((over_n + 1))
+            hit="$(printf '%s\n' "$over_hits" | grep -F "probe/over/$cname.md:" || true)"
+            is_caught=0; [ -n "$hit" ] && is_caught=1
+            is_wrapmarked=0
+            printf '%s' "$hit" | grep -qF 'straddles a line break' && is_wrapmarked=1
+            case ",$cflags," in *,SUBJECT-BOUND,*) over_bound="$over_bound $cname" ;; esac
+            case ",$cflags," in
+                *,CLEAN,*)
+                    if [ "$is_caught" -eq 1 ]; then
+                        over_bad=$((over_bad + 1))
+                        over_report="$over_report
+    $cname FALSE POSITIVE — a sentence the library must be able to write is now failed"
+                    else
+                        over_ok=$((over_ok + 1))
+                    fi ;;
+                *,MISSED,*)
+                    if [ "$is_caught" -eq 1 ]; then
+                        over_bad=$((over_bad + 1))
+                        over_report="$over_report
+    $cname declared MISSED but is CAUGHT — the guard got wider and the fixture now lies"
+                    else
+                        over_open=$((over_open + 1))
+                        over_report="$over_report
+    $cname OPEN HOLE (declared): still not caught"
+                    fi ;;
+                *)
+                    if [ "$is_caught" -eq 1 ]; then
+                        over_ok=$((over_ok + 1))
+                        over_caught_names="$over_caught_names $cname"
+                        [ "$is_wrapmarked" -eq 1 ] && over_wrapped_names="$over_wrapped_names $cname"
+                    else
+                        over_bad=$((over_bad + 1))
+                        over_report="$over_report
+    $cname MISSED and not declared — this is the blindness, not a note about it"
+                    fi ;;
+            esac
+            # A case that says its phrase straddles a break must BE straddling one. Without this
+            # the corpus can be silently disarmed by a reflow: the lines join, every case still
+            # passes, and the wrapped variants stop existing while the numbers stay full.
+            case ",$cflags," in
+                *,WRAPPED,*)
+                    if [ "$is_caught" -eq 1 ] && [ "$is_wrapmarked" -eq 0 ]; then
+                        over_bad=$((over_bad + 1))
+                        over_report="$over_report
+    $cname declares WRAPPED but the sweep found the phrase whole on one line — the case was reflowed and now tests the easy form"
+                    fi ;;
+            esac
+        done < "$overdir/_manifest.tsv"
+        if [ -z "$over_declared" ] || [ "$over_declared" -ne "$over_n" ]; then
+            echo "  PROBE FAIL — overstate-cases.txt declares COUNT: ${over_declared:-<none>} but parses $over_n case(s)"
+            probe_fail=1
+        fi
+        [ "$over_n" -eq 0 ] && { echo "  PROBE FAIL — the overstatement corpus has no cases; a corpus that measures nothing cannot pass"; probe_fail=1; }
+        n_wrapped=$(printf '%s' "$over_wrapped_names" | wc -w)
+        printf '  %-28s %2d cases | %2d as declared | %2d WRONG | %2d declared open | %2d caught wrapped\n' \
+            "overstate-cases" "$over_n" "$over_ok" "$over_bad" "$over_open" "$n_wrapped"
+        [ -n "$over_report" ] && echo "  $over_report"
+        [ "$over_bad" -gt 0 ] && probe_fail=1
+
+        # Filter controls, asserted the same way the R3 leg asserts its own.
+        printf '%s\n' "$over_hits" | grep -q '/evals/' && { echo "  PROBE FAIL — evals/ exclusion not applied on the overstatement leg"; probe_fail=1; }
+        printf '%s\n' "$over_hits" | grep -q 'notmarkdown' && { echo "  PROBE FAIL — non-markdown file swept on the overstatement leg"; probe_fail=1; }
+
+        # LOAD-BEARING, in the direction this leg's second pattern actually works. The FAQ/schema
+        # conjunct is a REQUIREMENT, not an excuse, so the test is the mirror of the allowlist
+        # one: make it trivially true and every case that claims to be clean BECAUSE of it must
+        # fire. A "legitimate" case that stays quiet under that substitution is quiet for some
+        # reason nobody has tested, and is measuring nothing.
+        save="$R3_OVER_SUBJECT"; R3_OVER_SUBJECT='.'
+        lb_hits="$( (cd "$tmp" && f_over_hits probe/over) )"
+        R3_OVER_SUBJECT="$save"
+        lb_n=0; lb_quiet=""
+        for cname in $over_bound; do
+            lb_n=$((lb_n + 1))
+            printf '%s\n' "$lb_hits" | grep -qF "probe/over/$cname.md:" || lb_quiet="$lb_quiet $cname"
+        done
+        if [ -n "$lb_quiet" ]; then
+            echo "  PROBE FAIL — SUBJECT-BOUND case(s) stay clean with the FAQ/schema conjunct made trivial, so nothing about them is being tested:$lb_quiet"
+            probe_fail=1
+        else
+            printf '  Conjunct load-bearing (subject requirement made trivial, every SUBJECT-BOUND case must fire): %d/%d\n' "$lb_n" "$lb_n"
+        fi
+
+        # ALTERNATIVE COVERAGE, derived from the live pattern rather than from a list beside it,
+        # and with the F15-r5 rule made mechanical: each alternative needs a case that is caught
+        # AND a case whose phrase straddles a break. An alternative added tomorrow with only a
+        # one-line variant fails here instead of joining the unmeasured set -- which is exactly
+        # how this leg came to ship blind.
+        echo "  Per-alternative coverage (each needs a caught case AND a wrapped caught case):"
+        save_over="$R3_OVERSTATE"; alt_bad=0
+        while IFS= read -r alt; do
+            [ -n "$alt" ] || continue
+            R3_OVERSTATE="$alt"
+            a_hits="$( (cd "$tmp" && f_over_hits probe/over) )"
+            a_all=0; a_wrap=0
+            for cname in $over_caught_names; do
+                h="$(printf '%s\n' "$a_hits" | grep -F "probe/over/$cname.md:" || true)"
+                [ -n "$h" ] || continue
+                a_all=$((a_all + 1))
+                printf '%s' "$h" | grep -qF 'straddles a line break' && a_wrap=$((a_wrap + 1))
+            done
+            if [ "$a_all" -eq 0 ] || [ "$a_wrap" -eq 0 ]; then
+                echo "    PROBE FAIL — $a_all caught / $a_wrap wrapped: $alt"
+                echo "                 (add a case to scripts/fixtures/r3-overstate/overstate-cases.txt; a wrapped one)"
+                alt_bad=1
+            else
+                printf '    %2d caught, %2d wrapped  %s\n' "$a_all" "$a_wrap" "$alt"
+            fi
+        done <<< "$(f_alts "$save_over")"
+        R3_OVERSTATE="$save_over"
+        [ "$alt_bad" -eq 1 ] && probe_fail=1
+
+        # Both patterns reach awk as dynamic regexes. mawk has no word-boundary escape at all,
+        # and a backslash in either would be read as an escape rather than as itself, so the
+        # constraint is asserted where it can fail loudly instead of living in a comment.
+        case "$R3_OVERSTATE$R3_OVER_SUBJECT" in
+            *\\*) echo "  PROBE FAIL — R3_OVERSTATE/R3_OVER_SUBJECT contain a backslash; the awk matcher on this leg has no word-boundary escape and will not read it as written"
+                  probe_fail=1 ;;
+        esac
+    fi
 
     # TOKEN-LIST COVERAGE (2026-08-17). Everything above measures the ALLOWLIST; nothing measured
     # the TOKEN LIST, and an unexercised token alternative can be deleted with every check staying
@@ -1088,7 +1341,7 @@ if [ "$PROBE" -eq 1 ]; then
     # OVERSTATE, or an `F_NEAR_*` window. Per-run RESULTS (R3_HITS, R3_OVER_HITS) do not match, and
     # the frozen HIST_* copies in this block are deliberately not exported — they are history.
     echo ""
-    src_names="$(grep -oE '^(R3|DEPRECATED)_[A-Z0-9_]*(TOKENS|LEGAL|NAMED|NEAR|OVERSTATE)=|^F_NEAR_[A-Z]+=' \
+    src_names="$(grep -oE '^(R3|DEPRECATED)_[A-Z0-9_]*(TOKENS|LEGAL|NAMED|NEAR|OVERSTATE|SUBJECT)=|^F_NEAR_[A-Z]+=' \
                     "${BASH_SOURCE[0]}" | sed 's/=$//' | sort -u)"
     emitted_names="$(bash "${BASH_SOURCE[0]}" --emit-f-patterns "$ROOT" | cut -f1 | sort -u)"
     unexported="$(comm -23 <(printf '%s\n' "$src_names") <(printf '%s\n' "$emitted_names"))"
