@@ -63,8 +63,12 @@ Work top to bottom; re-measure between stages rather than shipping everything at
    change no schema. (Per R3 and amendment 9a, FAQPage markup — where justified — is kept
    because it is valid schema.org, costs nothing to keep, and Google says there is no need
    to proactively remove it — a permission to leave existing markup alone, not Google
-   advising anyone to keep it. An ordinary site has no FAQ rich result — Google restricted them to
-   well-known government and health sites on 2023-08-08 — so promise no SERP feature. **This
+   advising anyone to keep it. An ordinary site has no FAQ rich result — since 2023-08-08 Google
+   shows those only for well-known, authoritative government and health websites (Google Search
+   Central blog, "Changes to HowTo and FAQ rich results", 2023-08-08,
+   `https://developers.google.com/search/blog/2023/08/howto-faq-changes`; owner-read 2026-08-11 per
+   `docs/loop/WATCH-ITEMS.md` W12) — so promise no SERP feature, and give the client that date and
+   URL rather than a ruling handle. **This
    line read "Google's FAQ rich results are retired" until 2026-08-17**, which is the library's
    unsourced fuller claim asserted as fact, in the one file whose siblings forbid exactly that;
    a blind run caught the contradiction between this sentence and `refresh-templates.md`.

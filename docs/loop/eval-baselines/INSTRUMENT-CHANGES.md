@@ -13,6 +13,38 @@ the FAIL→PASS direction, 3 of 29). Finding **86** is the wave-scale version, r
 
 ---
 
+
+## research/content-gap-analysis — 30 → 34 expectations (2026-08-17)
+
+**Change**: four expectations **appended** — e1.7, e1.8 (English) and e3.8, e3.9 (Greek) — grading
+the two behaviours content-gap-analysis 4.2.7 shipped and nothing measured: the demand floor on the
+proxy path, and the Competitive-Density non-independence disclosure. Per-eval totals e1 6→8,
+e3 7→9. e2, e4, e5 untouched.
+
+**DIRECTION: addition, not rewrite.** Every pre-existing expectation is byte-identical and in its
+original position — verified programmatically against `ecab362`, not asserted. This matters more
+than the totals, and it is the half a reader is most likely to get wrong:
+
+- **Per-expectation regression comparison against all three prior records stays VALID.** That is
+  the comparison that outranks the pass rate, and it is unaffected.
+- **Raw pass-rate comparison across this boundary is NOT valid.** Old denominator 30, new 34, and
+  the two new behaviours *could not have been failed* by any run graded before 2026-08-17. A move
+  from 0.9667 to 0.9412 (32/34) across this boundary is not evidence of skill drift.
+
+**Records made non-comparable on totals** (all three graded a 30-expectation instrument):
+
+| record | method | skill version | as recorded |
+|---|---|---|---|
+| `blind-2026-08-11/gap.json` | blind | 4.2.2 | 29 passed / 1 editor-pending / 30 = 0.9667 |
+| `blind-2026-08-10c/gap.json` | blind, founding | 4.1.0 | 28 / 2 / 30 = 0.9333 |
+| `2026-08-10-e2345.json` (suite `contentgap`) | informed-executor | not recorded | 29 / 0 / 30 = 0.9667 |
+
+**A re-run is owed before either number is quoted as evidence**, because the skill under test also
+moved — 4.2.2 → 4.2.7 — so the instrument and the subject both changed between the last record and
+now. Two moving parts, one number: that is exactly the confusion this file exists to prevent.
+
+---
+
 ## 2026-08-17 — three suites stopped grading a retracted claim
 
 **Commit**: `dcabd6b`. **Suites**: `build/schema-markup-generator` e3 ·

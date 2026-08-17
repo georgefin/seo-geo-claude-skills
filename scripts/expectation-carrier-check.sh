@@ -113,7 +113,17 @@ for suite in suites:
     # "Decide access **per role**, never per vendor name alone" does not literally contain
     # the phrase an expectation quotes without the asterisks — that produced a false
     # "uncarried rule" for technical-seo-checker on 2026-08-10. Normalise both sides.
-    def norm(x): return re.sub(r"[*_`]", "", x)
+    # Strip markdown emphasis AND collapse whitespace. The collapse closes a FOURTH
+    # false-positive hole, found 2026-08-17 and measured: a quoted phrase that WRAPS a line in
+    # the skill's source could never match, because the corpus is joined with newlines intact
+    # while the expectation quotes it as one line. Both multi-line quotes in the content-gap
+    # lane's new expectations hit it — `**A proxy with` / `no floor is not a filter**` at
+    # gap-analysis-frameworks.md:367-368, and the worked Quick-Win string wrapped across
+    # analysis-templates.md:434-435 — and both were reported as uncarried rules that are in
+    # fact carried verbatim. Measured effect on that suite: 11 candidates -> 9, both removals
+    # confirmed false positives by hand. The three holes already in the footer (length cap,
+    # quote style, behaviour-blindness) are unaffected; this is a fourth, now closed.
+    def norm(x): return re.sub(r"\s+", " ", re.sub(r"[*_`]", "", x)).strip()
     blob = norm("\n".join(corpus))
     if not blob:
         print(f"{RED}NO SKILL TEXT{OFF} {rel}"); continue

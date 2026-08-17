@@ -242,9 +242,10 @@ publishes, where an unresolved claim reads as fact:
 - **No FAQ rich result for an ordinary site — no SERP feature to promise** (settled ruling R3).
   **What is sourced, and where** — Google Search Central blog, *"Changes to HowTo and FAQ rich
   results"*, dated **2023-08-08**, at
-  `https://developers.google.com/search/blog/2023/08/howto-faq-changes`: FAQ rich results *"will
-  only be shown for well-known, authoritative government and health websites"*, and *"For all other
-  sites, this rich result will no longer be shown regularly."* That post was read in a browser by
+  `https://developers.google.com/search/blog/2023/08/howto-faq-changes`. Verbatim from that post,
+  which is dated 2023-08-08: FAQ rich results *"will only be shown for well-known, authoritative
+  government and health websites"*, and *"For all other sites, this rich result will no longer be
+  shown regularly."* That post was read in a browser by
   the owner on 2026-08-11 (`docs/loop/WATCH-ITEMS.md` W12), which is why this is the
   best-evidenced sentence in this section; `developers.google.com` is refused by this environment's
   own egress, so it cannot be re-read from a run. Give the client the date and the URL, never the

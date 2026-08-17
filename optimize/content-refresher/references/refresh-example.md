@@ -170,13 +170,17 @@ rewrite framework below, and it is REFRESH.
 3. **Add affiliate disclosure and FAQ section** (~200 words)
    - Add disclosure statement below introduction: "This post contains affiliate links. See our editorial policy." — this clears the publish-blocker flagged above and ships with the refresh, not after it
    - Add FAQ with 4 questions the article's own queries raise (e.g., "What is the cheapest cloud hosting?", "Is cloud hosting faster than shared hosting?"), 40-60 words each
-   - FAQ *content* ships. FAQPage markup does **not**: this page is a commercial comparison, not
-     also an FAQ resource, so a second full content type would be stacking (ruling R2). Where a page
-     does pass that test, the markup is kept because it is valid schema.org, costs nothing to keep,
-     and Google says there is no need to proactively remove it (a permission to leave it, not advice
-     to keep it) — an ordinary site gets no FAQ rich result (government/health only since Aug 2023), so no SERP feature is promised, and no primary
-     source establishes an AI-citation benefit either way, so none is claimed (ruling R3 +
-     amendment 9a)
+   - FAQ *content* ships. FAQPage markup does **not**: this page is a commercial comparison, it is
+     not also an FAQ resource, and a page carries one primary content type — so adding a second
+     would be stacking. Where a page genuinely is both things, each complete and independently
+     justified, the markup is kept because it is valid schema.org, costs nothing to keep, and
+     Google says there is no need to proactively remove it (a permission to leave it, not advice to
+     keep it). An ordinary site gets no FAQ rich result: since 2023-08-08 Google shows those only
+     for well-known, authoritative government and health websites (Google Search Central blog,
+     "Changes to HowTo and FAQ rich results", 2023-08-08 —
+     https://developers.google.com/search/blog/2023/08/howto-faq-changes), so no SERP feature is
+     promised; and no primary source establishes an AI-citation benefit either way, so none is
+     claimed
 
 4. **Fix dead links and update internal links** (~15 min)
    - Replace the 3 dead outbound links with live sources
