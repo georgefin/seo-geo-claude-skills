@@ -29,10 +29,13 @@ cd "$(dirname "$0")/.." || exit 2
 # per F11-r6, so scanning them would fight the convention), `evals/**` (excluded in raw() —
 # a blind executor must never have expectations surfaced to it), root `README.md`,
 # `CLAUDE.md` and `CONNECTORS.md`, and every non-markdown file.
-# The three root files were checked by hand at 2026-08-17: P1 and P5 over `README.md` and
-# `CONNECTORS.md` return one hit, `CONNECTORS.md:61` ("If your organization uses Ahrefs and
-# Google Search Console, read it as:"), which is not a class member. Re-check them by hand
-# when either file grows, or add them here and re-baseline the residual.
+# The three root files were hand-checked 2026-08-17 with **all six families** — the first note
+# here recorded a P1+P5-only check, which is 2 of 5 and prescribed a 2-of-5 re-check forever.
+# All six over `README.md`, `CLAUDE.md` and `CONNECTORS.md` return **two** hits, neither a class
+# member: `CONNECTORS.md:61` (P1, "If your organization uses Ahrefs and Google Search Console,
+# read it as:") and `README.md:278` (P2, a trigger-phrase table row "| Optimize for AI / get
+# cited by ChatGPT / AI optimization |"). `CLAUDE.md` returns zero. Re-check with ALL families
+# when any of the three grows, or add them to DIRS and re-baseline the residual.
 DIRS="build research optimize monitor cross-cutting commands references"
 
 # ── The five shape families ────────────────────────────────────────────────────────────────
@@ -41,7 +44,7 @@ DIRS="build research optimize monitor cross-cutting commands references"
 # assumption: "AI systems prioritize informational answers" matched none of P1-P4, because
 # `prioritize` was in no verb list. A verb-list sweep is bounded by its verb list. Widen these
 # rather than re-derive them, and expect a widened list to find more.
-AG='(AI|LLM|LLMs|engine|engines|systems?|ChatGPT|Perplexity|Gemini|Claude|Google|Copilot|Bing|assistants?)'
+AG='(AI|LLM|LLMs|engine|engines|systems?|ChatGPT|Perplexity|Gemini|Claude|Google|Copilot|Bing|assistants?|Knowledge Graph|Knowledge Panel|Satori)'
 
 P1="\b$AG\b[^.!?]{0,40}\b(extracts?|prefers?|cites?|trusts?|values?|needs?|uses?|selects?|favou?rs?|rewards?|wants?|understands?|parses?|reads?|weighs?|weights?|ranks?|picks?|chooses?|looks? for|recogni[sz]es?|verif(y|ies)|treats?|relies|rely|deems?|judges?|synthesi[sz]es?|pulls?)\b"
 P2='(gets? cited|get picked up|is cited|are cited|be cited|being cited|citation likelihood|citation odds|citation chance|likelihood of citation|more likely to (be )?(cite|get|appear|quote)|chances of (being )?cited)'
@@ -49,9 +52,24 @@ P3='(increases?|improves?|boosts?|drives?|influences?|raises?|lifts?|maximi[sz]e
 P4="(AI'?s? |engines?'? |LLMs?'? )(source selection|selection|preference|preferences|citation (behaviou?r|preference|selection|criteria|factors?)|trust|attention|confidence|ground truth|comprehension|understanding)|(what|which|how) (AI|engines?|LLMs?) (checks?|wants?|looks?|reads?|sees?|does)|signals? (that |which )?(AI|engines?|LLMs?)|(easy|easier|hard|harder) for (AI|engines?|LLMs?)"
 P5="\b$AG\b[^.!?|]{0,45}\b(prioriti[sz]es?|prioriti[sz]e|emphasi[sz]es?|discounts?|penali[sz]es?|ignores?|skips?|surfaces?|elevates?|promotes?|demotes?|filters?|requires?|expects?|assumes?|associates?|remembers?|learns?|infers?|matches?|scores?|ingests?|retrieves?|quotes?|lifts?|summari[sz]es?|attributes?)\b"
 
+# ── P6: the engine as OBJECT, supply arrow reversed ────────────────────────────────────────
+# P1-P5 all assume the engine is the grammatical SUBJECT ("Google prefers X"). A class member can
+# put it in the object: "Wikidata FEEDS Google Knowledge Graph", "Bing Knowledge Panel: DRIVEN BY
+# Wikidata". Same assertion about an undocumented internal mechanic, invisible to all five.
+# Found 2026-08-17 by a blind run, exactly where the closure note said to look.
+# NOTE it does NOT exclude `|`, unlike P5. Three of its real hits are table rows where the claim
+# spans cells — a two-column "source -> what it powers" table IS the supply claim. Excluding the
+# pipe is the difference between catching 3 of 4 and 4 of 4.
+SUP='(feeds?|powers?|underpins?|backs?|supplies|supply|fuels?|populates?|trains?|informs?|drives?)'
+P6="\b$SUP\b[^.!?]{0,35}\b$AG\b|\b$AG\b[^.!?]{0,35}\b$SUP\b|\b$AG\b[^.!?]{0,25}(is |are )?(driven|powered|fed|trained|built|backed) by\b"
+
+FAMILIES=("$P1" "$P2" "$P3" "$P4" "$P5" "$P6")
+
 raw() {
-  for p in "$P1" "$P2" "$P3" "$P4" "$P5"; do
-    grep -rn -i -E "$p" --include="*.md" $DIRS
+  local i
+  for i in "${!FAMILIES[@]}"; do
+    [ -z "${FAMILIES[$i]}" ] && continue
+    grep -rn -i -E "${FAMILIES[$i]}" --include="*.md" $DIRS
   done 2>/dev/null | grep -v "/evals/" | sort -u -t: -k1,1 -k2,2n
 }
 
@@ -144,67 +162,83 @@ case "${1:-}" in
     printf '\n######## RAW HITS: %d ########\n' "$(raw | grep -c '')"
     ;;
   --probe)
-    # F15 discipline, second attempt. The FIRST version of this probe passed on every mutation
-    # Mode A threw at it — including `DIRS="nonexistent-dir"`, where the sweep reported
-    # `raw 0 -> RESIDUAL: 0` and the probe printed two PASS lines and exited 0, so a scan of
-    # zero files read as a perfectly closed class. Two structural reasons, both fixed here:
-    #   * it grepped $P5 DIRECTLY instead of running raw(), so it exercised 1 of 5 families and
-    #     tested neither DIRS, nor --include, nor the /evals/ exclusion, nor the dedup;
-    #   * its only adjudication assertion was a NEGATIVE control, which passes when the stage
-    #     prints nothing. Nothing checked that a real member SURVIVES. That is F15's title
-    #     sentence — "passed by matching nothing" — inside a script whose header cites F15.
-    # Every assertion below runs the FULL pipeline over a temp tree, and the per-family hit
-    # rate is printed so a reader sees coverage rather than a bare PASS.
+    # F15 discipline, THIRD attempt, and the history is the specification.
+    #   v1 passed on all 7 of a reviewer's mutations, including DIRS="nonexistent".
+    #   v2 caught those 7 and still missed 10 of 26 on a wider set. Two structural causes,
+    #     both named by Mode A and both fixed here:
+    #     (a) the canaries were NOT exclusive — L3 matched P1 *and* P3, so P3 had no canary of
+    #         its own and gutting P3 still left the count at 6;
+    #     (b) NO canary traversed the full pipeline — they were counted in raw()'s output,
+    #         BEFORE adjudicate(), so any widening of an excuse that missed one synthetic
+    #         line was invisible. Re-introducing the historical positive-filter defect
+    #         collapsed the residual to 1 while the probe printed PASS.
+    # So: every canary is exclusive to one family, every canary is checked in the FINAL
+    # output, and each family is blanked in turn to prove it is load-bearing.
     tmp="$(mktemp -d)"; trap 'rm -rf "$tmp"' EXIT
     mkdir -p "$tmp/research/probe" "$tmp/build/probe/evals"
     fail=0
 
-    # One canary per family: each is a real class member, phrased to need that family.
+    # One canary per family, each verified to match EXACTLY ONE family AND to carry an engine
+    # token. The token is not decoration: the final positive filter drops any line without one,
+    # so a canary lacking it never reaches the output and the exclusivity check reads as a
+    # broken family. v3's first draft used "content gets cited far more often" and "improves the
+    # chance of citation" for P2 and P3 — both perfectly good class shapes, both tokenless, both
+    # silently swallowed. The probe caught that on its first run, which is the point of checking
+    # the FINAL output rather than raw().
     cat > "$tmp/research/probe/canary.md" <<'CANARY'
-ChatGPT extracts the first 40 words of any page it answers from.
-Well-structured content gets cited far more often than prose.
-Adding statistics increases the chance AI will cite the page.
+ChatGPT extracts the first 40 words of the page.
+Content in this shape is cited by Perplexity far more often than prose.
+Adding statistics improves the chance of AI citation.
 What AI checks first is the opening paragraph.
 Copilot prioritizes pages with a clear definition block.
-Retrieval systems prefer concise answers over long ones.
+Wikidata feeds the Knowledge Graph.
 CANARY
-    # Must be ignored: the /evals/ exclusion and the *.md include are part of the pipeline.
     printf 'Gemini prefers listicles above all else.\n' > "$tmp/build/probe/evals/evals.md"
     printf 'Perplexity trusts .edu domains most.\n'     > "$tmp/build/probe/notmarkdown.txt"
 
-    ORIG_DIRS="$DIRS"; cd "$tmp" || exit 2; DIRS="research build"
-    got="$(raw)"
+    ORIG_DIRS="$DIRS"; ORIG=("${FAMILIES[@]}")
+    cd "$tmp" || exit 2; DIRS="research build"
+
+    # (1) EXCLUSIVITY + LOAD-BEARING: blanking family N must drop EXACTLY ONE canary from the
+    #     FINAL output. Fewer means that family had no canary of its own (v2's P3 bug);
+    #     more means a canary is not exclusive and the count cannot localise a break.
+    base=$(raw | adjudicate | grep -c 'probe/canary\.md' || true)
+    [ "$base" -eq 6 ] || { echo "PROBE FAIL — $base/6 canaries reach the FINAL output"; fail=1; }
+    for n in 0 1 2 3 4 5; do
+      FAMILIES=("${ORIG[@]}"); FAMILIES[$n]=""
+      got=$(raw | adjudicate | grep -c 'probe/canary\.md' || true)
+      if [ "$got" -ne $((base - 1)) ]; then
+        echo "PROBE FAIL — blanking P$((n+1)) changed the count $base -> $got (expected $((base-1))); that family has no exclusive canary"
+        fail=1
+      fi
+    done
+    FAMILIES=("${ORIG[@]}")
+
+    # (2) PIPELINE INTEGRITY: the exclusions are part of the net, not decoration.
+    raw | grep -q '/evals/'   && { echo "PROBE FAIL — /evals/ exclusion not applied"; fail=1; }
+    raw | grep -q 'notmarkdown' && { echo "PROBE FAIL — non-markdown file scanned"; fail=1; }
     cd - >/dev/null || exit 2
 
-    n_can=$(printf '%s\n' "$got" | grep -c 'probe/canary\.md' || true)
-    echo "  families: 6 canaries planted, $n_can matched by raw() — one per shape family"
-    [ "$n_can" -ge 6 ] || { echo "PROBE FAIL — $n_can/6 canaries caught; a family's net is broken"; fail=1; }
-    printf '%s\n' "$got" | grep -q '/evals/' && { echo "PROBE FAIL — /evals/ exclusion not applied"; fail=1; }
-    printf '%s\n' "$got" | grep -q 'notmarkdown' && { echo "PROBE FAIL — non-markdown file scanned"; fail=1; }
-
-    # POSITIVE CONTROL — the assertion the first probe lacked. A real class member must
-    # SURVIVE all four adjudication stages and appear in the final output.
-    if printf 'x.md:1:ChatGPT extracts the first 40 words of any page it answers from.\n' \
-       | adjudicate | grep -q 'ChatGPT extracts'; then
-      echo "  positive control: a class member survives adjudication — PASS"
-    else
-      echo "PROBE FAIL — adjudication swallowed a known class member; excuses are too broad"; fail=1
-    fi
-
-    # NEGATIVE CONTROL — a line this library wants must be excused.
+    # (3) NEGATIVE CONTROL: a line this library WANTS must be excused.
     if printf 'x.md:1:- Helps Google understand site structure\n' | adjudicate | grep -q .; then
       echo "PROBE FAIL — adjudication let a wanted line through as a finding"; fail=1
-    else
-      echo "  negative control: a Google-documented mechanic is excused — PASS"
     fi
 
-    # SCOPE CONTROL — the DIRS="nonexistent-dir" mutation. raw() over the real tree must
-    # return something; zero means the scan found no files, not that the class is closed.
+    # (4) SCOPE CONTROL: DIRS must be the intended set, not merely a set that exists.
+    #     v2 asserted only that each entry was a directory, so DIRS="scripts" passed while the
+    #     sweep reported raw 1 -> RESIDUAL 1, and DIRS="build research" passed at residual 25.
     DIRS="$ORIG_DIRS"
-    [ "$(raw | grep -c '')" -gt 0 ] || { echo "PROBE FAIL — raw() returned 0 over the real tree; DIRS is wrong, not the class clean"; fail=1; }
+    [ "$DIRS" = "build research optimize monitor cross-cutting commands references" ] || {
+      echo "PROBE FAIL — DIRS is not the declared scope; the header's scope note is now false"; fail=1; }
     for d in $DIRS; do [ -d "$d" ] || { echo "PROBE FAIL — DIRS names a missing directory: $d"; fail=1; }; done
+    [ "$(raw | grep -c '')" -gt 0 ] || { echo "PROBE FAIL — raw() returned 0 over the real tree"; fail=1; }
 
-    [ "$fail" -eq 0 ] && echo "PROBE PASS — all controls held" || { echo "PROBE FAILED"; exit 1; }
+    if [ "$fail" -eq 0 ]; then
+      echo "PROBE PASS — 6/6 exclusive canaries through the full pipeline, each family load-bearing,"
+      echo "             exclusions applied, wanted line excused, DIRS equals the declared scope."
+    else
+      echo "PROBE FAILED"; exit 1
+    fi
     ;;
   *)
     r="$(raw | grep -c '')"
