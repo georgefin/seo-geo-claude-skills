@@ -125,6 +125,15 @@ enough to settle it. Where a deliverable offers a cause, it is labelled a workin
 **Field 5 is verbatim URLs, not domains.** "They cited us" and "they cited our comparison page
 instead of our product page" are different findings, and only the second is actionable.
 
+**Field 5's ordering carries a second fact — the citation slot — and it is not field 4.** Where an
+answer lists its sources, the client URL's ordinal in that list ("second of five sources") is read
+off field 5's recorded order and needs no column of its own. It is a different measurement from
+field 4: **recommendation position is where the client sits among the options the answer proposes;
+citation slot is where the client's URL sits among the sources the answer drew on.** An answer can
+recommend a competitor first while citing the client first, and the reverse. A skill that already
+emits a citation-slot figure keeps it distinct from recommendation position and labels which it
+means — collapsing the two produces a number nobody can act on.
+
 ---
 
 ## 4. Sampling — One Run Is an Observation, Not a Measurement

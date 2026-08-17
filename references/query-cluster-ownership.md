@@ -123,7 +123,7 @@ Six signals, cheapest first. None is conclusive alone; two together are.
 | Search Console query overlap | GSC by page, two pages, same query, both with impressions | The engine is undecided between them |
 | Duplicate or near-duplicate titles across properties | Crawl or title export | Usually the first visible symptom |
 | The ranking URL flips between two of the client's pages across dates | Ranking history | Classic split signal |
-| An AI answer cites the non-owning property | Visibility record field 6 | The GEO form of the same defect |
+| A generated answer's cited URL is on a non-owning property | Visibility record field 6 | The same defect, read off an answer rather than a ranking |
 | Two properties both have the cluster in their content plan | The plans themselves | Cheapest catch of all — before either is built |
 
 **What is not a collision**: two properties covering adjacent clusters with genuinely different
