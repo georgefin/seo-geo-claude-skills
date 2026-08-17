@@ -71,6 +71,9 @@ C05-C08 N/A (no AI-citation test run)`. Rescaled dimension scores are usually no
 of 5, and that is expected. Report how many of the 40 items were scored and how many were
 N/A, and make sure that count matches the item tables (34 + 6 = 40).
 
+**The shrunken denominator rescales every gain in that dimension too**, not just its score — one
+raw item point is worth more when fewer items share the denominator. §5 carries the factor.
+
 ## 4. Veto cap — an override, not a term in the sum
 
 A Fail on T03, T05, or T09 caps the reported CITE Score at 39 (Poor) and raises a
@@ -87,24 +90,65 @@ A Fail on T03, T05, or T09 caps the reported CITE Score at 39 (Poor) and raises 
 
 ## 5. Potential gain, and the sum of several gains
 
+A potential gain is a **score movement**, so it is computed the way the score is computed. §3
+makes a dimension score `points earned ÷ (10 × scored items) × 100`, so one raw item point moves
+that dimension by `10 ÷ n` score points, where `n` is the dimension's **scored-item count**.
+Carry that factor into the weighting:
+
 ```
-potential gain = recoverable points × that dimension's weight
-recoverable points = 10 from Fail, 5 from Partial
+potential gain = recoverable points × (10 ÷ n) × that dimension's weight
+  recoverable points = 10 from Fail, 5 from Partial
+  n                  = that dimension's scored items — 10 unless N/A shrank it (§3)
 ```
 
-Worked, on E-commerce weights (C 20% / I 20% / T 35% / E 25%):
+**Write all three factors, with the denominator named** — `5 × (10 ÷ 6 scored) × 25% = 2.08`.
+The middle factor is `(10 ÷ 10 scored) = 1` wherever a dimension has all ten items graded, and
+printing it anyway is the visible proof that the scored-item count was checked. Dropping it is
+safe **only** at `n = 10`; below that it understates every gain in that dimension — by 20% at
+`n = 8`, 40% at `n = 6`, 50% at `n = 5`, 70% at `n = 3`, and without bound as `n` shrinks. It
+understates hardest where the data is thinnest, which is exactly where the Top 5 carries the
+most weight and where the N/A machinery exists to help.
 
-| Item | Current | Recoverable | Weight | Gain |
-|------|---------|:-----------:|:------:|:----:|
-| T06 | Partial | 5 | 35% | 1.75 |
-| I05 | Fail | 10 | 20% | 2.00 |
-| T08 | Partial | 5 | 35% | 1.75 |
+Worked A — E-commerce weights (C 20% / I 20% / T 35% / E 25%), all 40 items scored:
 
-**A combined claim equals the sum of its parts.** T06 + I05 is worth **3.75** weighted
-points. Writing "these fixes capture more than five points" overstates it — and adding T08
-to reach 5.50 only works if the action prescribed for T08 can actually flip that item. If
-the report's own T08 row says the grade is driven by content age, a footer fix cannot claim
-T08's 1.75. Claim the gain of the item your action actually moves.
+| Item | Current | Recoverable | n | 10 ÷ n | Weight | Gain |
+|------|---------|:-----------:|:-:|:------:|:------:|:----:|
+| T06 | Partial | 5 | 10 | 1 | 35% | 1.75 |
+| I05 | Fail | 10 | 10 | 1 | 20% | 2.00 |
+| T08 | Partial | 5 | 10 | 1 | 35% | 1.75 |
+
+Worked B — **the same three items on a rescaled audit**: T04 is N/A so T has `n = 9`, and I01 is
+N/A so I has `n = 9`. Not one grade changed; only the denominators did.
+
+| Item | Current | Recoverable | n | 10 ÷ n | Weight | Gain |
+|------|---------|:-----------:|:-:|:------:|:------:|:----:|
+| T06 | Partial | 5 | 9 | 1.1111 | 35% | 1.94 |
+| I05 | Fail | 10 | 9 | 1.1111 | 20% | 2.22 |
+| T08 | Partial | 5 | 9 | 1.1111 | 35% | 1.94 |
+
+Check T06 against the dimension table rather than against the formula: T earning 55 points over
+its 9 scored items scores 61.11; flip T06 to Pass and it earns 60 over 9 = 66.67. The move is
+`100 × 5 ÷ 90 = 5.5556` dimension points, worth `5.5556 × 0.35 = 1.94` CITE points — the figure
+the formula gives. Multiply the *rounded* 5.56 instead and you get 1.95: chain your rounding and
+the check stops agreeing with the thing it is checking. The unrescaled form prices that identical
+fix at 1.75 and under-sells it by 10%.
+
+**Round each gain half up at two decimals wherever the second decimal carries information.** A
+rescaled gain is rarely a round number, and cutting 2.08 to 2.1 breaks the sum below. A gain that
+is exact at one decimal — 2.0, 0.75 — needs no padding.
+
+**A combined claim equals the sum of its parts, added as printed.** T06 + I05 is worth **3.75**
+on Worked A and **4.16** on Worked B; adding T08 reaches **5.50** and **6.10**. Writing "these
+fixes capture more than five points" overstates either pair — and the T08 line holds only if
+the action prescribed for T08 can actually flip that item. If the report's own T08 row says the
+grade is driven by content age, a footer fix cannot claim T08's gain. Claim the gain of the item
+your action actually moves. **Add the printed gains, not a hidden unrounded register**: Worked
+B's three gains total 6.1111 unrounded, and 6.11 is a figure no reader can reproduce from the
+column above it — `1.94 + 2.22 + 1.94 = 6.10` is.
+
+**An N/A item has no potential gain.** It has no grade to recover from, and measuring it moves
+the denominator as well as the numerator — `n` becomes `n + 1` — so no single multiplication
+prices it. That is a projection, and §6 recomputes both of its endpoints instead.
 
 The Top 5 is sorted by this same figure, descending. Sort by the numbers after you have
 computed them, not by the order you found the items in.
@@ -127,6 +171,16 @@ each CITE Score in the last column checkable. The bracket is **68.50 to 71.00** 
 two endpoints the report itself just stated, which is also 10 E-points × 25%. A stated range
 that does not equal the gap between its own endpoints is a defect regardless of how plausible
 it sounds.
+
+**Why this is not §5's gain formula, and how the two reconcile.** E06 is *unmeasured*, not
+failed. Resolving it moves `n` from 9 to 10 as well as the points earned, and the figure it moves
+away from (66.67) is itself a rescaled number — so the move from the reported row to the
+E06-proves-Pass row is 70.17 → 71.00, **0.83 CITE points**, not the 2.50 that pricing 10
+recoverable points at E's weight would report. §5 prices a **graded** item improving inside a
+fixed denominator; §6 prices an **ungraded** item entering the denominator. They are two
+operations, not two answers to one. The 2.50 above is the gap between two endpoints that both
+have `n = 10`, where §5's `10 ÷ n` factor is 1 — which is exactly why 10 raw item points buys 10
+dimension points there and would not at any smaller `n`.
 
 ## 7. Counts and tallies in prose
 
@@ -151,17 +205,20 @@ Run this after the report is written, against the finished tables:
    unrounded figure is printed; the rating label matches the rounded number.
 4. If a veto fired: reported score is the cap, the uncapped figure is labelled as such, and
    the Manipulation Alert is present.
-5. Every Top 5 gain = recoverable points × weight, the list is sorted descending, and any
-   combined claim equals the sum of the gains it aggregates.
+5. Every Top 5 gain = recoverable points × (10 ÷ that dimension's scored items) × weight, with
+   all three factors shown; the list is sorted descending; any combined claim equals the sum of
+   the gains **as printed**; and no N/A item is priced as a gain — it is projected under §6.
 6. Every projection's endpoints and range recompute; every prose count matches its own list.
 7. Where a sentence and a table disagree, the table wins — fix the sentence.
 
 ## 9. Defect shapes this file exists to prevent
 
 Observed in this skill's own eval deliverables during the 2026-08-10 blind Mode B run and in
-the executor-phase correction logged in the preceding informed run — all four are derived
+the executor-phase correction logged in the preceding informed run — the first four are derived
 figures that no source-data check would catch, because every input metric was traced
-correctly:
+correctly. The fifth was found in **this file**, on 2026-08-17: §5 stated the gain formula
+without its `10 ÷ n` factor, so the rule a writer copied was wrong in any dimension carrying an
+N/A item and right in every worked example, all of which scored all ten.
 
 | Shape | What it looked like | Fix |
 |-------|--------------------|-----|
@@ -169,3 +226,4 @@ correctly:
 | Wrong pool | "400 raw points available; 340 scored" against tables totalling 335 | Scored + lost = pool |
 | Miscounted enumeration | "the four C-dimension Partials" followed by five IDs | Count the IDs typed |
 | Unrecomputed bracket | A sensitivity range whose endpoints and width were all three wrong | Recompute both endpoints; range = their difference |
+| Unrescaled gain | A Top 5 gain priced `recoverable × weight` in a dimension with N/A items | Multiply by `10 ÷ scored items`; at six scored the shortcut loses 40% |

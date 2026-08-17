@@ -56,38 +56,41 @@ part of what it is demonstrating.
 ### Top 5 Priority Improvements
 
 Sorted by: weight × points lost (highest impact first), with dependencies respected. Potential
-gain = recoverable points (10 from Fail, 5 from Partial) × that dimension's weight.
+gain = recoverable points (10 from Fail, 5 from Partial) × (10 ÷ that dimension's scored-item
+count) × that dimension's weight. Every item here is scored, so each count is 10 and the middle
+factor is 1 — it is written out anyway, because a dimension carrying unmeasurable items has a
+count below 10 and the factor stops being 1 there.
 
 1. **AI Citation Frequency** — the site is cited in assistant answers less often than its link profile would suggest
-   - Current: Partial | Potential gain: 5 × 40% = 2.0 weighted points | Evidence: graded Partial in the dimension table above | Confidence: Likely (sampled AI answers, not exhaustive)
+   - Current: Partial | Potential gain: 5 × (10 ÷ 10 scored) × 40% = 2.0 weighted points | Evidence: graded Partial in the dimension table above | Confidence: Likely (sampled AI answers, not exhaustive)
    - Action: Rewrite the opening of the top 10 pages so each leads with a statement that still says something true when lifted out of its paragraph
    - Owner: Content | Effort: Medium | Depends on: none
    - Done when: all 10 pages are live with the rewritten openings, and the citation sample is re-run on the same prompt set and repeat count, with the new figure and its N recorded beside the 2025-02-03 baseline
    - Risk if done wrong: low — reversible; openings compressed into slogans lose the substance that made them liftable, so keep every claim checkable on the page
 
 2. **Knowledge Graph Presence** — no entity record exists for the publisher
-   - Current: Fail | Potential gain: 10 × 15% = 1.5 weighted points | Evidence: graded Fail in the dimension table above (no entity entry found) | Confidence: Confirmed
+   - Current: Fail | Potential gain: 10 × (10 ÷ 10 scored) × 15% = 1.5 weighted points | Evidence: graded Fail in the dimension table above (no entity entry found) | Confidence: Confirmed
    - Action: Create a Wikidata entry for CloudHost Inc. carrying website, industry and inception properties
    - Owner: SEO/technical | Effort: Medium | Depends on: a public, citable source for each property — incorporation record, About page, press coverage
    - Done when: the entry is live and resolvable, carries all three properties, and each property cites a source; recorded with its identifier and the date created
    - Risk if done wrong: medium — an entry with unsourced or promotional properties is edited or deleted by the community, and re-creating it is harder than getting it right once
 
 3. **Content Freshness Signal** — 40% of content is >12 months without update
-   - Current: Partial | Potential gain: 5 × 20% = 1.0 weighted points | Evidence: content inventory, 40% of URLs >12 months old | Confidence: Confirmed
+   - Current: Partial | Potential gain: 5 × (10 ÷ 10 scored) × 20% = 1.0 weighted points | Evidence: content inventory, 40% of URLs >12 months old | Confidence: Confirmed
    - Action: Stand up a monthly refresh schedule and work it through the top 20 traffic pages first
    - Owner: Content | Effort: Strategic | Depends on: none
    - Done when: a dated schedule exists naming the pages and the month each is due, and three consecutive months have shipped with the updated pages carrying visible revision dates
    - Risk if done wrong: medium — bumping a date without changing the content is a false freshness signal and a misrepresentation to the reader
 
 4. **Brand SERP Ownership** — the branded results page shows only 4 of 10 results from owned properties
-   - Current: Partial | Potential gain: 5 × 15% = 0.75 weighted points | Evidence: branded-SERP scan, 4 of 10 results owned | Confidence: Confirmed
+   - Current: Partial | Potential gain: 5 × (10 ÷ 10 scored) × 15% = 0.75 weighted points | Evidence: branded-SERP scan, 4 of 10 results owned | Confidence: Confirmed
    - Action: Claim the Google Business Profile, complete the social profiles and create a CrunchBase entry
    - Owner: Client decision (profile ownership sits with the client's accounts) | Effort: Quick | Depends on: access to the company accounts and a verification address
    - Done when: all four profiles are live and verified under the company name, listed with their URLs, and the branded-SERP scan is re-run and its owned-result count recorded beside the 4 of 10 baseline
    - Risk if done wrong: medium — inconsistent names, addresses or descriptions across profiles weaken the identity signal instead of strengthening it
 
 5. **Schema.org Coverage** — Organization schema present but incomplete: sameAs, founder and foundingDate absent
-   - Current: Partial | Potential gain: 5 × 15% = 0.75 weighted points | Evidence: markup crawl, properties absent from Organization schema | Confidence: Confirmed
+   - Current: Partial | Potential gain: 5 × (10 ÷ 10 scored) × 15% = 0.75 weighted points | Evidence: markup crawl, properties absent from Organization schema | Confidence: Confirmed
    - Action: Add sameAs, founder and foundingDate to the existing Organization block
    - Owner: Developer | Effort: Quick | Depends on: the Wikidata entry from row 2 existing, so sameAs has something to point at
    - Done when: the live Organization block validates with zero errors in a structured-data test and carries all three properties, each matching information published on the site
@@ -129,6 +132,16 @@ ID off [cite-domain-rating.md](../../../references/cite-domain-rating.md) § 2 b
 the dimension letter in the ID *is* the weight selector, so a mis-attributed item prices the fix
 wrongly even when the grade behind it is right. The Top 5 stays sorted by the gains as computed —
 2.0 · 1.5 · 1.0 · 0.75 · 0.75 — and the closing sum equals those five numbers added, nothing else.
+
+**Why every gain above carries a `(10 ÷ 10 scored)` that changes nothing** — also for whoever runs
+the audit. Each dimension here has all ten items graded, so the factor is 1 and each multiplication
+gives the same answer with or without it. That is precisely why an example like this one cannot
+teach the rule on its own: on an audit with N/A items the dimension's scored-item count drops, one
+raw point buys more score, and the factor rescales every gain in that dimension —
+`5 × (10 ÷ 6 scored) × 25% = 2.08`, not 1.25.
+[score-arithmetic.md](./score-arithmetic.md) § 5 works that case as Worked B beside this one, and
+§ 6 covers the different operation of an N/A item becoming measurable, which is a projection with
+two recomputed endpoints and not a gain at all.
 
 The follow-up runs go in a **separate fence of their own**, and the label lives **inside** it —
 a model copies the fence, not the heading above it

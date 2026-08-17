@@ -1,13 +1,13 @@
 ---
 name: domain-authority-auditor
-version: "4.4.0"
+version: "4.5.0"
 description: 'Run the full 40-item CITE domain authority audit across 4 dimensions with domain-type weighting and veto checks. Use when the user asks to "audit domain authority", "domain trust score", "CITE audit", "how authoritative is my site", "domain credibility check", "is my domain trustworthy", "domain credibility score", "domain rating". For content-level assessment, see content-quality-auditor. For link profile details, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.4.0"
+  version: "4.5.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -207,7 +207,7 @@ Same format for Trust and Eminence dimensions.
 **E Score**: [X]/100 — [p] Pass + [q] Partial + [r] Fail = [p]×10 + [q]×5 (p + q + r = 10)
 ```
 
-**Note**: Some items require specialized data (C05-C08 AI citation data, I01 knowledge graph queries, T04-T05 IP/profile analysis). Score what is observable; mark unverifiable items as "N/A — requires [data source]" and exclude them from the dimension average. Excluded means the denominator shrinks, never that the item scores 0: **dimension score = points earned ÷ (10 × scored items) × 100**. State the denominator beside the score — `C Score: 58/100 — 35 pts over 6 scored items; C05-C08 N/A`. Worked N/A cases: [references/score-arithmetic.md](./references/score-arithmetic.md).
+**Note**: Some items require specialized data (C05-C08 AI citation data, I01 knowledge graph queries, T04-T05 IP/profile analysis). Score what is observable; mark unverifiable items as "N/A — requires [data source]" and exclude them from the dimension average. Excluded means the denominator shrinks, never that the item scores 0: **dimension score = points earned ÷ (10 × scored items) × 100**. State the denominator beside the score — `C Score: 58/100 — 35 pts over 6 scored items; C05-C08 N/A`. **The shrunken denominator rescales that dimension's potential gains too** (Step 4, rule 4), not just its score. Worked N/A cases: [references/score-arithmetic.md](./references/score-arithmetic.md).
 
 **Greek e-commerce domains**: apply the supplementary trust/staleness checks in [references/greek-eshop-compliance.md](./references/greek-eshop-compliance.md) when scoring T06, T08, and T10 (stale ODR link, ΓΕΜΗ/ΑΦΜ and entity transparency, withdrawal/returns and policy furniture). These are audit signals only — never legal advice; compliance conclusions go to the client's lawyer.
 
@@ -216,22 +216,24 @@ Same format for Trust and Eminence dimensions.
 **Derived figures — recompute every one before you publish.** Any number not copied from the
 input is derived from the report's own per-item grades and stated weights: dimension scores,
 the weighted CITE Score, item tallies, points-scored/points-lost sums, Top 5 potential gains,
-and any "what the score would be if X" projection. Three rules carry most of the defects:
+and any "what the score would be if X" projection. Five rules carry most of the defects:
 
 1. **A count matches the list it names** — "the four C Partials (C04, C05, C06, C07, C09)"
    is wrong: five IDs, called four. Count the IDs you just typed.
-2. **A total equals its parts** — points scored + points lost = points available; a combined
-   gain claim equals the sum of the gains it aggregates; a projected range equals the
-   difference of its own two endpoints.
+2. **A total equals its parts** — points scored + points lost = points available; a combined gain
+   claim equals the sum of the gains it aggregates; a projected range equals the difference of its own endpoints.
 3. **The tables win** — if a sentence disagrees with the table above it, fix the sentence.
-4. **The item ID selects the weight** — a gain is recoverable points × *that item's own
-   dimension* weight, and the dimension letter in the ID is what picks it. Check the ID and its
-   name against `references/cite-domain-rating.md` § 2 before multiplying: freshness is `T08`
-   (Trust), not `E04` (Technical Crawlability), and those two weights differ, so a mis-attributed
-   item prices the fix wrongly even when the grade behind it is right.
+4. **A gain is a score movement, so compute it the way the score is computed** — recoverable
+   points × (10 ÷ that dimension's **scored-item count**) × *that item's own dimension* weight.
+   The middle factor is 1 only where all ten of that dimension's items are scored; where N/A
+   shrank the count it is not, and leaving it out understates every gain in that dimension — 40%
+   at six scored items. An N/A item has no gain at all: it is projected, not priced.
+5. **The item ID selects the weight** — the dimension letter in the ID is what picks it. Check
+   the ID and its name against `references/cite-domain-rating.md` § 2 before multiplying:
+   freshness is `T08` (Trust), not `E04` (Technical Crawlability), and those two weights differ,
+   so a mis-attributed item prices the fix wrongly even when the grade behind it is right.
 
-Formulas, N/A rescaling, veto-cap handling, and worked gain/projection examples:
-[references/score-arithmetic.md](./references/score-arithmetic.md).
+Formulas, N/A rescaling, veto-cap handling, and worked gain/projection examples (both a full and a rescaled dimension): [references/score-arithmetic.md](./references/score-arithmetic.md).
 
 **Every action is implementable.** A finding diagnoses; an action gets done. Every action this audit recommends — each Top 5 entry and every Action Plan row — carries seven fields: **action** (one imperative sentence naming the artefact and the change), **owner**, **acceptance criterion** (labelled **Done when** in a per-action block and **Acceptance criterion** as a table column — one field, two labels, no third), **expected impact**, **effort**, **dependencies**, **risk if done wrong**. The **Action** line *is* the action field and the **Potential gain** line *is* the expected-impact field, so an entry adds the other five rather than restating those two. Fields 1–3 are required — an action with no owner-role and no acceptance criterion does not ship as an action — and 4–7 take a stated-absence value (`not estimated — no baseline data`, `none`, `low — reversible, no downstream effect`), never a blank and never an invention. **Owner is a role** from a closed list — Content · SEO/technical · Developer · Designer · Product/merchandising · Customer service · Legal/compliance · Agency · Client decision — never a person unless the client supplied the name; `Client decision` is a real owner and assigning it makes a decision visible instead of leaving the action stalled, and `unassigned — needs an owner` is legitimate and is itself a finding. **The acceptance-criterion test: could someone who was not part of this engagement check it six weeks from now, without asking anybody what was meant?** Observable, binary at the moment of checking, attached to a named artefact or measurement, dated or triggered — "the entity record exists with website, industry and inception properties, each carrying a source" rather than "knowledge graph sorted". **It never requires an engine to do something**: an appearance in a generated answer, a knowledge panel or a citation is nobody's to deliver, and writing it turns the action into a promise, so an AI-surface action is accepted on the work shipped plus the measurement re-run and recorded beside its dated baseline. Effort uses this report's own bands — Quick (<1 week) · Medium (1–4 weeks) · Strategic (1–3 months) — and priority stays the existing weight × points-lost sort; no second vocabulary is invented beside either. Field table, stated-absence values, worked criteria and the permitted shapes of expected impact: [Action Output Contract](../../references/action-output-contract.md). A prohibited tactic found in the audited setup — a bought-link pattern, a duplicate microsite, review gating — is reported the same way and never left quietly in place: named, exposure stated, remediation owned and accepted, ranked against everything else, with any recommendation that depended on it withdrawn. This skill never removes or alters a client's live property on its own initiative: it reports and proposes, the client decides. [Prohibited Tactics](../../references/prohibited-tactics.md) §2.
 
@@ -278,10 +280,10 @@ Calculate scores and generate the final report:
 
 ### Top 5 Priority Improvements
 
-Sorted by: weight × points lost (highest impact first), with dependencies respected — an entry whose dependency is unmet sits below the thing it waits on. Potential gain = recoverable points (10 from Fail, 5 from Partial) × that dimension's weight — show the multiplication.
+Sorted by: weight × points lost (highest impact first), with dependencies respected — an entry whose dependency is unmet sits below the thing it waits on. Potential gain = recoverable points (10 from Fail, 5 from Partial) × (10 ÷ that dimension's scored-item count) × that dimension's weight — show all three factors. The middle factor is 1 only where all ten of that dimension's items are scored; where N/A shrank the count it is not.
 
 1. **[Name]** — [specific modification suggestion]
-   - Current: [Fail/Partial] | Potential gain: [10 or 5] × [dim weight] = [X] weighted points
+   - Current: [Fail/Partial] | Potential gain: [10 or 5] × (10 ÷ [scored items in that dimension] scored) × [dim weight] = [X] weighted points
    - Evidence: [observed data behind the score] | Confidence: [Confirmed/Likely/Hypothesis — if Hypothesis, name what would confirm it]
    - Action: [one imperative sentence naming the artefact and the change]
    - Owner: [role] | Effort: [Quick / Medium / Strategic] | Depends on: [named blocker, or "none"]
@@ -342,7 +344,7 @@ Drop any row whose run this audit did not actually motivate; a standing list of 
 - [ ] All 40 items scored (or marked N/A with reason)
 - [ ] All 4 dimension scores calculated correctly — each equals its own item tally (N/A items rescale the denominator, they never score 0)
 - [ ] Weighted CITE Score matches domain-type weight configuration, shown unrounded then rounded
-- [ ] Every other derived figure (item tallies, points-lost sums, potential gains, projections) recomputes from the report's own tables, and every stated count matches the number of items it enumerates
+- [ ] Every other derived figure (item tallies, points-lost sums, potential gains, projections) recomputes from the report's own tables, and every stated count matches the number of items it enumerates — a gain carries the same `10 ÷ scored items` rescale its dimension score carries, so one method computes both and never two
 - [ ] All 3 veto items checked first and flagged if triggered
 - [ ] Top 5 improvements sorted by weighted impact, not arbitrary
 - [ ] Every recommendation is specific and actionable (not generic advice)

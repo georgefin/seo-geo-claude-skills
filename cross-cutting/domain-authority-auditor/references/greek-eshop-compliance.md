@@ -86,9 +86,15 @@ presence and findability observations in T10 Notes.
 
 myDATA e-invoicing obligations are tracked as **UNVERIFIED** in the library's watch queue
 (**watch-item W2**, `docs/loop/WATCH-ITEMS.md`). Do **not** assert myDATA obligations,
-phases, or dates in any audit report, and do not score them under any CITE item. If the
-client raises the topic, state that verification against primary sources is pending (W2)
-and refer them to their accountant/lawyer.
+phases, or dates in any audit report, and do not score them under any CITE item.
+
+**Where the watch-item handle may appear.** `W2` and the queue it lives in are addressed to
+whoever runs this library — they belong on this page, in an operator note, and in the audit's
+internal record. They never reach the client, who cannot open that register and gains nothing
+from its name (`CLAUDE.md` § The Reader Test, clause 1). If the client raises the topic, the
+answer is the substance in their own terms and nothing else: verification against primary
+sources is still pending, so nothing is asserted here, and their accountant or lawyer is the
+person to settle it. No handle, no register name, no repo path in that sentence.
 
 ## Greek Footer Terms — Quick Reference
 
