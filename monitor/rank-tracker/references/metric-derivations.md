@@ -31,6 +31,19 @@ point.
 | 14 | Average citation slot | `Σ slots ÷ k` over the AI Overviews citing you | Step 6 observations |
 | 15 | Top-10 share of voice | `keywords where the domain holds positions 1-10 ÷ N tracked` | Same keyword set and date for every domain (step 7) |
 
+Rows 12-14 are **SERP-level**: they describe AI Overviews inside a Google result page, one per
+tracked keyword. Rows 16-21 are **prompt-level**: they describe what an assistant answered. The
+two sets share no denominator and no figure crosses between them.
+
+| # | Figure | Formula | Inputs, and where they are collected |
+|---|--------|---------|--------------------------------------|
+| 16 | Mention rate | `captures naming the brand ÷ successful captures` | Step 6 prompt-level captures, per engine |
+| 17 | Citation rate | `captures citing any client URL ÷ successful captures` | Same captures, per engine; printed beside row 16, never instead of it |
+| 18 | Owned-URL citation rate | `captures citing the cluster's owning URL ÷ captures citing any client URL` | Same captures + the cluster's assigned owning URL |
+| 19 | Average recommendation position | `Σ recommendation positions ÷ k` over captures presenting an ordered set | Same captures; `k` counts recommendation answers only |
+| 20 | Prompt-level share of voice | `client mentions ÷ (client + all named competitors' mentions)` | Same captures, per engine per cluster, with the competitor set named |
+| 21 | Cluster coverage | `clusters with ≥1 client citation ÷ clusters in the prompt set` | Same captures, grouped by the prompt set's clusters |
+
 Every other number in a rank-tracker deliverable is one of these, a difference between two of
 them, or a figure this skill does not define (§4).
 
@@ -46,6 +59,8 @@ them, or a figure this skill does not define (§4).
 | Percentages | whole number | Print the fraction beside it: `9/40 = 23%` (exact 22.5, halves away from zero) |
 | Opportunity | whole number | Compute unrounded, print the multiplication: `840 × 8.0 = 6,720` |
 | Average citation slot | 1 decimal | Only over the AI Overviews that cite you |
+| Prompt-level rates (rows 16-18, 20-21) | whole number | Print `k of N` beside the percentage, always: `23 of 51 (45%)`. A percentage with no `k of N` is not a reportable form here |
+| Average recommendation position | 1 decimal | Print the sum and the count: `19/8 = 2.4`. Rounded once, at the end |
 
 Three conventions that stop the common slips:
 
@@ -76,6 +91,24 @@ keywords enter the tracked set, keywords stop ranking, a check misses a SERP.
    feature or AI-citation rate, not a negative observation inside it.
 5. **Counts state their denominator inline**: `6 of the 10 tracked keywords`, not `6 keywords`.
 
+Four more that apply only to the prompt-level rows (16-21), where the population moves in ways a
+keyword list does not:
+
+6. **The prompt set is a versioned population.** Adding or rewording a prompt moves every rate in
+   rows 16-21 without anything having happened in the world — the same defect rule 1 names for
+   keywords. State the set version beside the figure; two compared cycles either hold the version
+   constant or name the change and what it moved.
+7. **N is stated beside every rate, and its arithmetic is visible**: `23 of 51 successful captures
+   — 17 prompts × 3 repeats, minus 0 failed`. A rate from fewer than 3 repeats per prompt is not a
+   rate; it is an **observation**, and it is reported with that word and its timestamp.
+8. **Failed captures reduce N and are never dropped.** A refusal, a rate limit or an empty
+   response is a row with a reason and sits outside the numerator *and* the denominator. Silently
+   dropping them inflates every rate above.
+9. **Engines are separate populations.** Nothing is pooled across engines silently — pooling hides
+   the engine that is failing. A combined figure appears only where the deliverable says it is
+   combined and names which engines it combines. The same applies to the two languages of a
+   bilingual prompt set: two populations, reported as two.
+
 ## 4. Figures this skill does not define — and what goes in their place
 
 Naming these is as load-bearing as the formulas above: each is a number a reader expects, and
@@ -84,6 +117,8 @@ each is one this skill has no honest way to produce.
 | Not defined | Why | What to print instead |
 |-------------|-----|-----------------------|
 | Visibility score | Needs a position-CTR curve this library cannot source | A connected tool's own visibility figure, labelled with the tool's name — or the countable top-10 share of voice (§1 row 15) |
+| Composite AI visibility score | One number spanning engines, prompts and three different facts (mention, citation, recommendation) cannot be attributed when it moves | Rows 16-21 reported separately, each with N, its population and its engine. A connected platform's own composite is quoted with that platform's name attached and is never recomputed, rescaled or blended |
+| Any promised AI-surface outcome | No engine publishes citation criteria, guarantees determinism, or offers a binding submission path | The mechanism as a labelled working model, a leading indicator with its measurement plan, and the dated baseline with its N — see [ai-visibility-measurement.md](../../../references/ai-visibility-measurement.md) §7 |
 | Position-CTR curve | The setup guide's position-vs-traffic ranges are unsourced and tagged (§6 of that guide) | The guide's range, cited as the guide's generic estimate, never as this site's measured loss |
 | Traffic or clicks impact for a keyword | Requires a measured click baseline for the URL | With a baseline: the baseline, the band applied, and the label. Without: delete the column and name the export that would restore it |
 | Revenue, conversions, sales uplift | Requires conversion data this skill never collects | A sentence naming the data that would ground it — never a projection |
@@ -127,3 +162,9 @@ Run this against the finished deliverable, not the working notes:
    reads, the snapshot's data-source column included.
 7. Run handles appear only inside the operator handoff block; the client-facing prose names jobs.
 8. Where a sentence and a table disagree, the table wins — fix the sentence.
+9. Every prompt-level rate carries `k of N`, its population and its engine; the prompt-set version
+   is stated once; single captures carry the word **observation** and a timestamp.
+10. Mention, citation and recommendation appear as three separate facts — no line merges them into
+    a single "AI visibility" verdict, and no cited URL is reduced to its domain.
+11. No sentence promises a position, a citation, an inclusion, a recommendation or a share of
+    voice on any AI surface, on any timeline.

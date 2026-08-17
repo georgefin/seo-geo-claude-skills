@@ -8,10 +8,17 @@ Output templates for seven of SKILL.md's eight workflow steps, plus the operator
 | 2. Current Ranking Snapshot | Step 3 |
 | 3. Ranking Change Analysis | Step 4 |
 | 4. SERP Feature Tracking | Step 5 |
-| 5. GEO/AI Visibility Tracking | Step 6 |
+| 5. GEO/AI Visibility Tracking (SERP-level: AI Overviews inside a Google result page) | Step 6 |
 | 6. Competitor Ranking Comparison | Step 7 |
 | 7. Ranking Performance Report | Step 8 |
 | 8. Operator Handoff Block | Step 8 (closing block) |
+| 9. Prompt-Level AI Visibility (what an assistant answers) | Step 6 |
+
+**Step 6 has two templates and they record different observations.** Template 5 is a per-keyword
+SERP fact: an AI Overview appeared inside a Google result page for a tracked keyword, and a URL
+of ours was or was not in its source list. Template 9 is a per-prompt fact: an assistant was
+asked a buyer's question and this is what it said. Neither is filled from the other, neither
+substitutes for the other, and no figure is carried across between them.
 
 **Every fence below is a skeleton, and says so inside itself.** The label is the first line *inside* the fence, in that fence's own syntax (`<!-- SKELETON … -->`, which is a comment in Markdown as in HTML), because a model copies the fence and not the heading above it. A bracket token is correct notation inside a skeleton and is a defect in anything handed to a client: fill every slot from collected data, and where an input was never collected, **delete the row or column and name the gap in prose** — never ship `[X]`, `TBD` or `XX` where a value belongs. Delete the skeleton comment when the block is filled.
 
@@ -268,6 +275,11 @@ state the observation that put each row in its band.
 
 ## 5. GEO/AI Visibility Tracking Template
 
+**Scope: SERP-level.** Every row here is a Google result page observed for a tracked keyword —
+whether an AI Overview appeared in it, and whether one of our URLs was in its source list. What
+an assistant *answers* when asked a buyer's question is a different observation with a different
+unit, and it goes in template 9. Neither template is filled from the other.
+
 ```markdown
 <!-- SKELETON — fill every [slot] from the observed AI answers; drop what was not checked and name the gap in prose -->
 ## AI/GEO Visibility Tracking
@@ -381,6 +393,9 @@ passed you. State both.
 **Generated**: [date]
 **Data sources**: [resolved source per metric family — tool name, or plain-language origin]
 **Change convention**: Change = new position − old position (negative = improvement)
+**Prompt set**: [version] ([n] prompts), [N] repeats per prompt per engine — stated once here and
+governing every AI-visibility figure below. [Delete this line where no prompt-level capture was
+made this cycle, and say so in the AI visibility section.]
 
 ## Executive Summary
 
@@ -416,7 +431,11 @@ decides it named.
 
 ## Detailed Analysis
 
-[Include top performing keywords, keywords needing attention, SERP features, GEO visibility, competitive position]
+[Include top performing keywords, keywords needing attention, SERP features, then AI visibility as
+two separate reads — the prompt-level section from template 9, engines in precedence order, and
+the SERP-level AI Overview section from template 5 — then competitive position. Where the engine
+order is shown, say that Google organic search is measured with a different instrument (the
+ranking sections above) rather than demoted.]
 
 ## Recommendations
 
@@ -490,3 +509,89 @@ decidable rather than a matter of interpretation.
   a fabrication that the receiving skill will treat as an input.
 - A handle in the payload is a handle, not a citation: it is never introduced with client-facing
   framing ("we will run…") in the prose above the block.
+
+---
+
+## 9. Prompt-Level AI Visibility Template
+
+Step 6's other half. The unit here is a **prompt**, not a keyword, and the governing statement is
+[ai-visibility-measurement.md](../../../references/ai-visibility-measurement.md) — the twelve
+recorded fields (§3), the sampling rule (§4), the derived metrics (§5) and the no-promise rule
+(§7). This template is only their output shape.
+
+Three things this fence gets wrong most often, so they are built into it: **mention, citation and
+recommendation are three rows, never one**; **every rate carries N and its population, per
+engine**; and **cited URLs are printed in full**, because "they cited us" and "they cited our
+comparison page instead of our product page" are different findings.
+
+```markdown
+<!-- SKELETON — fill every [slot] from the capture log; drop what was not captured and name the gap in prose -->
+## AI Visibility — prompt set [version] ([n] prompts), captured [date]
+
+**Source**: [resolved source — the platform's own name, or "hand capture, logged out, [locale],
+[date]"] · [N] repeats per prompt per engine · [attempted] captures attempted, [successful]
+successful, [failed] failed ([reasons]). Failed captures sit outside every denominator below and
+are listed with their reasons in the capture log.
+
+**Engine order** below is a working priority for this audience, not a claim about the engines.
+**Google organic search is measured with a different instrument — the ranking sections of this
+report — and is not deprioritised by this ordering.**
+
+### [Engine 1 — ChatGPT Search]
+
+| Fact | Figure | Population |
+|------|--------|------------|
+| Mentioned | [k] of [N] successful captures ([p]%) | [n] prompts × [r] repeats, minus [f] failed |
+| Cited (any of our URLs) | [k] of [N] ([p]%) | same population as the row above |
+| Cited the owning URL | [k] of [the citing captures] | denominator is citing captures, not all captures |
+| Average recommendation position | [x.x] ([sum]/[k]) | the [k] captures presenting an ordered set; the other [m] presented none and are outside this figure |
+| Share of voice | [k] of [k + competitor mentions] ([p]%) | competitor set: [named competitors] |
+
+**Cited URLs, verbatim** — [count] citing captures:
+
+| URL as cited | Times cited | Owning URL for this cluster | Match? |
+|--------------|-------------|-----------------------------|--------|
+| `[full url exactly as the answer gave it]` | [k] | `[full owning url]` | Yes / No / no owner assigned |
+
+**Answer excerpt** (the sentence carrying the brand, verbatim): "[excerpt]" — [engine], [timestamp]
+
+### [Engine 2 — name it]
+
+### [Engine 3 — name it]
+
+Repeat the same three blocks per engine, in the precedence order. Nothing is pooled across
+engines: a combined figure appears only where the deliverable says it is combined and names
+which engines it combines.
+
+### Single captures
+
+Where only one capture exists, it is an **observation** and carries that word plus its timestamp,
+in this shape:
+
+> Observation, [date] [time]: the answer to [prompt, verbatim] cited `[full url]` [nth] of [m]
+> sources. One capture, so no rate is stated for this prompt — [reason the other repeats are
+> missing].
+
+### What is not stated here
+
+No composite AI visibility score: one number across engines, prompts and three different facts
+could not be traced back to anything actionable. [Where a connected platform reports its own
+composite: "[Platform name] reports its own visibility index at [value] — that is [platform]'s
+figure on [platform]'s method, quoted as-is."]
+```
+
+**Rules this fence enforces, restated so a filled copy can be checked against them.**
+
+- **No promise of a position, a citation, an inclusion, a recommendation or a share of voice**,
+  on any surface or timeline. The forward-looking sentence a deliverable *may* carry is the
+  measurement plan: the same prompt set, the same repeat count, the same cadence, against the
+  dated baseline above.
+- **The prompt-set version is stated once** per deliverable and every figure belongs to it. Two
+  cycles compared under different versions say so and say what moved.
+- **Failed captures appear as a count with reasons**, never as silence — they reduce N, and
+  dropping them inflates every rate above.
+- **A change between cycles is a candidate** until a second cycle repeats it; the word "candidate"
+  or an equivalent hedge belongs in the sentence.
+- Client prose names jobs; skill names, framework item IDs and repo paths stay in the operator
+  handoff block (template 8). `~~category` tokens never reach this surface — the source line
+  above resolves to a real name or to a plain-language origin.
