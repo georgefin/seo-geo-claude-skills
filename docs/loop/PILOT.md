@@ -137,6 +137,56 @@ a pipeline shakedown and early citation read, NOT a rankings verdict.
 
 ---
 
+**2026-08-17 — input 1, SUBJECT MATTER EXPANDED AND PRIORITISED; input 2, NEW TOOLING NAMED.**
+Sani, verbatim: *"αφυγραντήρες, θερμοπομποί is the most critical and urgent!! Currently we have
+peec ai and now I added Perplexity pro."*
+
+What this settles:
+
+- **A second category joins the pilot: αφυγραντήρες (dehumidifiers)**, alongside θερμοπομποί.
+  These are the two commercial priorities, stated as urgent. On the brand map already recorded
+  here, θερμοπομποί is the Nobo/Atlantic cluster; αφυγραντήρες is a **different brand set —
+  Kullhaus and Meaco** — so this is not more pages of the same cluster, it is a second cluster
+  with its own competitor set and its own SERP.
+- **Priority is stated.** Everything else in the queue yields to these two.
+- **Two tools named**: Peec AI (already held) and Perplexity Pro (added). Neither is in
+  `.mcp.json`, so neither is reachable as a connector from here. **What is needed to use them is
+  an export, not an authorization** — the same CSV/export path input 2 already names as the
+  primary measurement route. Open question for Sani, and it is small: what can Peec AI export,
+  and over what date range? That answer decides whether the pilot has a real GEO baseline or an
+  observational one.
+
+**The blocker is narrower than this file has been recording, and the correction matters.**
+The 2026-08-11 entry above concluded that *"every §2 baseline step that reads the property is
+unexecutable from here"*. That is still exactly true, and re-tested rather than assumed
+[obs:2026-08-17T09:52:58Z `curl -sS --max-time 12 https://www.sanihellas.gr/` from this session
+returns `curl: (56) CONNECT tunnel failed, response 403`, identical to the 2026-08-11 record;
+`https://sanihellas.gr/robots.txt` fails the same way; a control request to `github.com`
+completes the tunnel and returns an HTTP status, so the refusal is host-specific and not a
+general network fault]. The egress proxy refuses `sanihellas.gr` at the gateway. But it was allowed to read as though the **whole** pilot were
+unexecutable, and it is not. **WebSearch is not subject to that refusal.** Measured this session, a
+single search returned the property's own category URLs, its buying-criteria blog post ranking on
+a commercial comparison query, and an AI answer that **named Kullhaus alpha Q13L/Q20L and DDQ10L
+by model** while citing Testado.gr, DropFix.gr, best10.gr and parathiro.com as sources.
+
+So the pilot splits in two, and only one half is stopped by the gateway:
+
+| Half | Needs | Status |
+|---|---|---|
+| **Page-side** — crawl the cluster, enumerate NOBO/ATLANTIC/Kullhaus/Meaco pages, capture pre-change copies, audit published pages | reading the property | **STOPPED at the gateway**, unchanged — needs the URL list from Sani, or an export, or a session whose egress reaches the host |
+| **Market-side** — keyword landscape, SERP composition, competitor set, AI-answer citation observation | search only | **EXECUTABLE FROM HERE**, and started 2026-08-17 |
+
+This is not a loosening of §0's input bar. The URL list is still owed and the coordinator still
+does not infer it — a cluster Herbert guessed would not be Sani's named target, and §1's
+matched-pair design turns on which pages are treatment and which are held out. What changes is
+that the market-side baseline no longer waits on it, and an AI-citation observation for these two
+categories can be taken **today**, which is the one measurement that decays if deferred.
+
+**Still owed by Sani, unchanged and now shorter**: the page URL list (or a selection rule plus a
+count, if the cluster exceeds §0's 5–15 band), and input 3 in full — named human publisher,
+approval channel, pre-change capture method, turnaround. Nothing publishes without per-change
+approval naming the pages; that is unchanged and not negotiable by anything above.
+
 ## 1. Design decision tree
 
 Run once at day 0, after the cluster is named; record the outcome and the full
