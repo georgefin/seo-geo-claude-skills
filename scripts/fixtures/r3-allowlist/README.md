@@ -22,6 +22,16 @@ it could not catch.
 | `r3-legitimate.txt` | 17 real lines from the live tree that the library **wants** | any one caught FAILS the probe |
 | `fid-violations.txt` | 8 constructed live-FID lines, same declaration rules | same as above |
 | `fid-legitimate.txt` | all 3 real FID lines in the tree | same as above |
+| `r3-token-coverage.txt` | one bare violation per **top-level alternative of `R3_TOKENS`** — measures the TOKEN LIST, which nothing else here does | an unexercised alternative FAILS the probe; so does a line matching no token |
+| `fid-token-coverage.txt` | the same for `DEPRECATED_TOKENS`, **case-sensitive** (that leg greps without `-i`) | same as above |
+
+The two coverage files are separate from the violation corpora above because those corpora are
+denominators of published numbers (17, and the 0/8 → 0/8 FID rate) and cannot grow without moving
+a figure other records quote. These grow with the token list instead: `--probe` splits the live
+token regex and demands a line per alternative, so a token added without one fails on the next
+run. Added 2026-08-17, when that measurement found `serp accordion` and `Affiliate links
+disclosed` reached by no line in any corpus — either could have been deleted from check (f) with
+every probe, gate and canary staying green.
 
 ## Format
 

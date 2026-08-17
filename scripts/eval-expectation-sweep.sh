@@ -406,10 +406,33 @@ if _missing:
 
 
 def alternatives(pattern):
-    """Split a regex on its TOP-LEVEL `|` — depth-aware, because members carry their own groups."""
-    out, depth, cur = [], 0, ""
+    """Split a regex on its TOP-LEVEL `|`.
+
+    Depth-aware over BOTH groups and character classes. The class half is not hypothetical: check
+    (f)'s R3_TOKENS contains `eligib[^.|]*faq`, and a splitter that counts only parentheses cuts
+    that member in half at the `|` INSIDE the class, producing two fragments that are not regexes
+    and a member count that is quietly wrong. Found 2026-08-17 by running the paren-only version
+    over the live export — it raised "unterminated character set", which is the loud version of a
+    failure this function would otherwise have delivered as a plausible number.
+    """
+    out, depth, cur, in_class, esc = [], 0, "", False, False
     for ch in pattern:
-        if ch == "(":
+        if esc:
+            cur += ch
+            esc = False
+            continue
+        if ch == "\\":
+            cur += ch
+            esc = True
+            continue
+        if in_class:
+            if ch == "]":
+                in_class = False
+            cur += ch
+            continue
+        if ch == "[":
+            in_class = True
+        elif ch == "(":
             depth += 1
         elif ch == ")":
             depth -= 1

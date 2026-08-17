@@ -450,6 +450,29 @@ f_excuse() {
     printf '^[^:]*:[0-9]+:.*((%s)|(%s)[^.;]{0,%s}(%s)|(%s)[^.;,]{0,%s}(%s))' \
         "$2" "$1" "$F_NEAR_AFTER" "$3" "$3" "$F_NEAR_BEFORE" "$1"
 }
+# f_alts — split a regex on its TOP-LEVEL `|`, one alternative per line. Depth-aware over BOTH
+# groups AND character classes: R3_TOKENS contains `eligib[^.|]*faq`, and a paren-only splitter
+# cuts that member at the `|` INSIDE the class, yielding two fragments that are not regexes. The
+# paren-only version shipped in the member-weight block on 2026-08-17 and survived only because
+# the two allowlists happen to contain no brackets; run over the TOKEN lists it raised
+# "unterminated character set" on the first try. A splitter that is right by luck about the input
+# it is given today is the same shape as the guard this file is full of notes about.
+f_alts() {
+    printf '%s' "$1" | awk '{
+        d = 0; cls = 0; esc = 0; cur = "";
+        for (i = 1; i <= length($0); i++) {
+            c = substr($0, i, 1);
+            if (esc)              { cur = cur c; esc = 0; continue }
+            if (c == "\\")        { cur = cur c; esc = 1; continue }
+            if (cls)              { if (c == "]") cls = 0; cur = cur c; continue }
+            if (c == "[")         cls = 1;
+            else if (c == "(")    d++;
+            else if (c == ")")    d--;
+            if (c == "|" && d == 0) { print cur; cur = ""; } else cur = cur c;
+        }
+        print cur;
+    }'
+}
 # The two sweeps as functions so `--probe` runs THIS code over the fixture rather than a second
 # copy of it. $@ = directories to sweep, relative to the CALLER's cwd — the caller cds, so the
 # same function serves the live tree and the probe's temporary one.
@@ -654,6 +677,31 @@ fi
 [ "$F_OK" -eq 1 ] && pass "(f) no deprecated tokens (FID / First Input Delay / affiliate-only T04) and no un-acknowledged FAQ rich-result claims (R3) in live skill, command, or framework files"
 
 # ---------------------------------------------------------------------------
+# i_unreachable_dirs — the measurement behind check (i), as a function
+# ---------------------------------------------------------------------------
+# Defined here, above --probe, for the same reason f_r3_hits is a function: the probe must run
+# THIS code over a temporary tree, not a second copy of it. $1 = baselines root.
+# Prints one record-holding directory per line that cannot reach INSTRUMENT-CHANGES.md.
+#
+# REACHABLE means: the directory holds the file itself, or some file in that directory NAMES it.
+# Not "a key inside each record" — the records are machine-written and INSTRUMENT-CHANGES.md says
+# so in its own closing section, so a hand-added JSON key would be erased by the next run that
+# writes the record. A sibling note in the directory survives, and `ls` is what a grader sent to a
+# record BY PATH actually does.
+i_unreachable_dirs() {
+    _base="$1"
+    _ic_dir="$_base"
+    find "$_base" -type f -name '*.json' 2>/dev/null | while IFS= read -r rec; do
+        dirname "$rec"
+    done | sort -u | while IFS= read -r d; do
+        [ "$d" = "$_ic_dir" ] && continue
+        if ! grep -rlq 'INSTRUMENT-CHANGES' "$d" 2>/dev/null; then
+            printf '%s\n' "$d"
+        fi
+    done
+}
+
+# ---------------------------------------------------------------------------
 # --probe: fault injection for check (f)'s allowlists (OPEN-FINDINGS 92 owed item)
 # ---------------------------------------------------------------------------
 # WHY THIS EXISTS. Three numbers about this check were published in one day and none could be
@@ -707,10 +755,10 @@ if [ "$PROBE" -eq 1 ]; then
     probe_declared_count() { grep -oE '^# COUNT: [0-9]+' "$1" | head -1 | grep -oE '[0-9]+'; }
 
     # Materialise each corpus: one datum per line, so grep's line number IS the entry number.
-    for f in r3-violations r3-violations-extended r3-legitimate; do
+    for f in r3-violations r3-violations-extended r3-legitimate r3-token-coverage; do
         probe_parse "$FIXDIR/$f.txt" | cut -f2- > "$tmp/probe/r3/$f.md"
     done
-    for f in fid-violations fid-legitimate; do
+    for f in fid-violations fid-legitimate fid-token-coverage; do
         probe_parse "$FIXDIR/$f.txt" | cut -f2- > "$tmp/probe/fid/$f.md"
     done
     # Two controls that must NOT be reported, proving the filters are part of the net and not
@@ -819,10 +867,38 @@ if [ "$PROBE" -eq 1 ]; then
     probe_corpus r3 r3-violations violation
     probe_corpus r3 r3-violations-extended violation
     probe_corpus r3 r3-legitimate legitimate
+    probe_corpus r3 r3-token-coverage violation
     echo ""
     echo "FID leg — live allowlist"
     probe_corpus fid fid-violations violation
     probe_corpus fid fid-legitimate legitimate
+    probe_corpus fid fid-token-coverage violation
+
+    # TOKEN-LIST COVERAGE (2026-08-17). Everything above measures the ALLOWLIST; nothing measured
+    # the TOKEN LIST, and an unexercised token alternative can be deleted with every check staying
+    # green. Measured when this was written: `serp accordion` and `Affiliate links disclosed` were
+    # reached by no line in any corpus. The requirement is DERIVED from the live pattern — split
+    # it, demand a line per alternative — so a token added tomorrow without a fixture line fails
+    # here rather than joining the unmeasured set.
+    echo ""
+    echo "Token-list coverage (each alternative must be exercised by a line no allowlist excuses):"
+    tok_cover() {   # <leg> <token regex> <corpus .md> <grep flags>
+        _leg="$1"; _tokre="$2"; _corp="$3"; _flags="$4"; _miss=0; _n=0
+        while IFS= read -r a; do
+            [ -n "$a" ] || continue
+            _n=$((_n + 1))
+            c=$(grep -c $_flags -- "$a" "$_corp" 2>/dev/null || true)
+            if [ "${c:-0}" -eq 0 ]; then
+                echo "  PROBE FAIL — $_leg token alternative exercised by NO fixture line: $a"
+                echo "               (delete it and every check stays green — add a line to $(basename "$_corp" .md).txt)"
+                _miss=1
+            fi
+        done <<< "$(f_alts "$_tokre")"
+        [ "$_miss" -eq 1 ] && probe_fail=1
+        [ "$_miss" -eq 0 ] && printf '  %-4s all %d token alternative(s) exercised\n' "$_leg" "$_n"
+    }
+    tok_cover r3  "$R3_TOKENS"          "$tmp/probe/r3/r3-token-coverage.md"    "-iE"
+    tok_cover fid "$DEPRECATED_TOKENS"  "$tmp/probe/fid/fid-token-coverage.md"  "-E"
 
     # Historical rates, re-derived rather than quoted. Same corpora, same code path, the frozen
     # allowlist strings substituted in.
@@ -922,16 +998,7 @@ if [ "$PROBE" -eq 1 ]; then
     echo "lines un-excused, if the member is removed (0/0 = deletion candidate, see the note above):"
     member_weights() {   # <leg> <named> <near>
         leg="$1"
-        all="$(printf '%s|%s' "$2" "$3" | awk '{
-            d = 0; cur = "";
-            for (i = 1; i <= length($0); i++) {
-                c = substr($0, i, 1);
-                if (c == "(") d++;
-                else if (c == ")") d--;
-                if (c == "|" && d == 0) { print cur; cur = ""; } else cur = cur c;
-            }
-            print cur;
-        }')"
+        all="$(f_alts "$2|$3")"
         while IFS= read -r m; do
             [ -n "$m" ] || continue
             named_wo=""; near_wo=""
@@ -975,6 +1042,43 @@ if [ "$PROBE" -eq 1 ]; then
     echo ""
     echo "Live tree, this commit: R3 $r3_seen lines match the tokens, $r3_surv survive the allowlist."
     echo "                        FID $fid_seen lines match the tokens, $fid_surv survive the allowlist."
+    # CHECK (i) FAULT INJECTION (OPEN-FINDINGS 95). Two synthetic trees, one of each shape: a
+    # records directory with no way up to INSTRUMENT-CHANGES.md must be REPORTED, and the same
+    # directory carrying a one-line pointer must go quiet. A census that cannot go quiet is a
+    # nag, and a census that cannot speak is decoration; this asserts both directions.
+    echo ""
+    # The synthetic tree carries three traps, each from a way this could pass while broken:
+    #   * the INSTRUMENT-CHANGES.md file NAMES ITSELF in its own text, so a reachability test
+    #     scoped to the baselines ROOT rather than to the record's own directory silences the
+    #     whole census. That exact fault was injected on 2026-08-17 and the FIRST version of this
+    #     probe passed through it, because the synthetic file happened not to contain the token.
+    #     A probe that passes on a broken guard is the guard's failure mode wearing a rosette.
+    #   * one covered subdirectory alongside the uncovered one, so "reports everything" fails too;
+    #   * a record at the top level, which is reachable by construction and must never be listed.
+    i_probe="$tmp/icheck"
+    mkdir -p "$i_probe/blind-1999-01-01" "$i_probe/blind-1999-01-02"
+    printf '# Instrument changes\n\nRows in INSTRUMENT-CHANGES.md are one per change.\n' \
+        > "$i_probe/INSTRUMENT-CHANGES.md"
+    printf '{"summary":{"passed":1,"failed":0,"total":1,"pass_rate":1.0}}\n' > "$i_probe/top.json"
+    printf '{"summary":{"passed":1,"failed":0,"total":1,"pass_rate":1.0}}\n' > "$i_probe/blind-1999-01-01/rec.json"
+    printf '{"summary":{"passed":1,"failed":0,"total":1,"pass_rate":1.0}}\n' > "$i_probe/blind-1999-01-02/rec.json"
+    printf 'See ../INSTRUMENT-CHANGES.md before differencing any two records here.\n' \
+        > "$i_probe/blind-1999-01-02/README.md"
+    i_before="$(i_unreachable_dirs "$i_probe")"
+    i_before_n=$(printf '%s\n' "$i_before" | grep -c '.')
+    i_named_wrong=$(printf '%s\n' "$i_before" | grep -c 'blind-1999-01-02' || true)
+    printf 'See ../INSTRUMENT-CHANGES.md before differencing any two records here.\n' \
+        > "$i_probe/blind-1999-01-01/README.md"
+    i_after=$(i_unreachable_dirs "$i_probe" | grep -c '.')
+    if [ "$i_before_n" -eq 1 ] && [ "$i_named_wrong" -eq 0 ] && [ "$i_after" -eq 0 ]; then
+        echo "check (i) reachability: 1 of 2 records dirs reported (the uncovered one), pointer added -> silent (0)"
+    else
+        echo "PROBE FAIL — check (i) does not measure what it claims. Uncovered dir must be the only"
+        echo "             one reported: got $i_before_n dir(s), $i_named_wrong of them the COVERED one;"
+        echo "             after adding the missing pointer, $i_after (want 0)"
+        probe_fail=1
+    fi
+
     # EXPORT COMPLETENESS (OPEN-FINDINGS 100). `--emit-f-patterns` is now the only supply of these
     # patterns to scripts/eval-expectation-sweep.sh, so an unexported pattern is a pattern that
     # silently stops applying over there — the same silence the hand-copy produced, arriving by a
@@ -1256,6 +1360,47 @@ done < <(cd "$ROOT" && grep -rnoE "$QA_TOKENS" \
     research build optimize monitor cross-cutting commands references \
     --include='*.md' 2>/dev/null | grep -v 'evals/' | awk -F: '!seen[$1":"$2]++')
 [ "$H_OK" -eq 1 ] && pass "(h) no unsourced quotation attribution in live skill, command, or framework files ($H_SEEN attribution shape(s) seen: $H_EX_URL carried a source URL within +/-2 lines, $H_EX_FICT used a fictional \`Example …\` attributee or a bracketed placeholder)"
+
+# ---------------------------------------------------------------------------
+# (i) instrument-change reachability (OPEN-FINDINGS 95)
+# ---------------------------------------------------------------------------
+# docs/loop/eval-baselines/INSTRUMENT-CHANGES.md records which baselines stopped being comparable
+# to their successors, and it opens "Read this before comparing any two scores in this directory."
+# Its own stated mechanism is a hope: "a reader comparing two numbers reaches this directory
+# first". They do not. A grader is sent to a record BY PATH — by the skill-reviewer's regression
+# instruction and by PIPELINE's stage description — and six of the records it governs sit one
+# directory BELOW it, where nothing names it and `ls` shows nothing.
+#
+# This is a CENSUS, not a gate, and deliberately WARN-only: the fix is a one-line pointer in each
+# records directory, which is a docs edit, and failing a push over a missing note would be the
+# check asserting more than it can verify (F11). It goes silent the moment the pointer lands.
+# Vacuity is reported rather than passed: if the directory or the file is absent, this check
+# measured nothing and says so, because "no unreachable records" and "no records" print the same
+# green otherwise (F15's founding shape).
+echo ""
+echo "[i] instrument-change reachability (OPEN-FINDINGS 95; census, never fails the gate)"
+I_BASE="$ROOT/docs/loop/eval-baselines"
+I_IC="$I_BASE/INSTRUMENT-CHANGES.md"
+if [ ! -d "$I_BASE" ]; then
+    warn "(i) no docs/loop/eval-baselines/ directory — this check measured nothing"
+elif [ ! -f "$I_IC" ]; then
+    warn "(i) docs/loop/eval-baselines/INSTRUMENT-CHANGES.md is absent — nothing records which baselines stopped being comparable, and this check measured nothing"
+else
+    I_RECORDS=$(find "$I_BASE" -type f -name '*.json' 2>/dev/null | grep -c '.')
+    I_UNREACH="$(i_unreachable_dirs "$I_BASE")"
+    I_UNREACH_N=$(printf '%s\n' "$I_UNREACH" | grep -c '.')
+    if [ "$I_RECORDS" -eq 0 ]; then
+        warn "(i) INSTRUMENT-CHANGES.md exists but there are no baseline records under it — this check measured nothing"
+    elif [ "$I_UNREACH_N" -gt 0 ]; then
+        I_BELOW=$(printf '%s\n' "$I_UNREACH" | while IFS= read -r d; do [ -n "$d" ] && find "$d" -maxdepth 1 -name '*.json' | grep -c '.'; done | awk '{s+=$1} END {print s+0}')
+        warn "(i) $I_BELOW baseline record(s), in $I_UNREACH_N director$( [ "$I_UNREACH_N" -eq 1 ] && echo y || echo ies) below docs/loop/eval-baselines/, cannot reach INSTRUMENT-CHANGES.md — a grader sent to one of these BY PATH is never shown that its instrument moved; one line naming the file, in each directory, closes it"
+        printf '%s\n' "$I_UNREACH" | while IFS= read -r d; do
+            [ -n "$d" ] && printf '      %s\n' "${d#$ROOT/}"
+        done
+    else
+        pass "(i) all $I_RECORDS baseline record(s) sit in a directory that names INSTRUMENT-CHANGES.md"
+    fi
+fi
 
 # ---------------------------------------------------------------------------
 # Summary
