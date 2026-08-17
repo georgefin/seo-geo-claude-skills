@@ -47,23 +47,37 @@ excluded and named rather than failed.
 
 Ordered impact first, then ascending effort — the two High/Low actions precede the High/High one.
 
-1. **Create Wikidata entry** with key properties: instance of (P31: business intelligence software company), official website (P856: cloudmetrics.io), inception (P571), country (P17)
-   - Impact: High | Effort: Low
-   - Why: CloudMetrics currently has no structured public record of itself that anyone can cite. A Wikidata entry is one — open, referenced, readable by anybody, and correctable by you when a fact changes. It is also the cheapest item on this list: the four properties above take under an hour, and every later action (Person schema, press coverage, a future Wikipedia article) has something to point at once it exists.
+1. **Create a Wikidata entry for CloudMetrics** carrying instance of (P31: business intelligence software company), official website (P856: cloudmetrics.io), inception (P571) and country (P17)
+   - Impact: High | Effort: Low | Owner: SEO/technical
+   - Why: CloudMetrics currently has no structured public record of itself that anyone can cite. A Wikidata entry is one — open, referenced, readable by anybody, and correctable by you when a fact changes. It is also the cheapest item on this list: the four properties above take under an hour, and every later action (the leadership page, press coverage, a future Wikipedia article) has something to point at once it exists.
+   - Done when: the entry is live at its own QID and resolvable, carries all four properties, and each property cites a published source; the QID and the date created are recorded in this audit file
+   - Depends on: a published source for inception and country — incorporation record, About page or press coverage | Risk if done wrong: medium — an entry whose properties are unsourced or read as promotional is edited down or deleted by the community, and re-creating it is harder than getting it right once
 
-2. **Add Person schema for leadership team** on the About/Team page, including name, jobTitle, sameAs links to LinkedIn profiles, and worksFor pointing to the Organization entity
-   - Impact: High | Effort: Low
-   - Why: Addresses the "Who founded CloudMetrics?" gap directly; Person schema for key people creates bidirectional entity associations that strengthen organizational identity
+2. **Publish a leadership page naming the founders, their roles and their backgrounds, then mark it up with Person schema** — name, jobTitle, sameAs to the LinkedIn profiles, worksFor pointing at the Organization entity. The page comes first: the audit found no leadership page at all, and markup describing people a visitor cannot see on the page is a mismatch, not a stronger signal
+   - Impact: High | Effort: Low | Owner: Content (the page) → Developer (the markup)
+   - Why: "Who founded CloudMetrics?" returned nothing in any system tested, and nothing on the site answers it either — there is no page anybody could read, cite or link. The fix is a page that states it, in the client's own words, with the markup describing what is then visibly there
+   - Done when: the leadership page is live and names each founder with role and background, every `Person` property has a visible counterpart on that page, and the block validates with zero errors in a structured-data test
+   - Depends on: sign-off from the named individuals on what is published about them | Risk if done wrong: medium — markup asserting a title, an award or a profile the page does not show is the mismatch this skill's own markup rule bans, and it invalidates the block it sits in
 
-3. **Build Wikipedia notability through independent press coverage** -- target 3-5 articles in industry publications (TechCrunch, VentureBeat, Analytics India Magazine) that mention CloudMetrics by name with verifiable claims
-   - Impact: High | Effort: High
+3. **Commission independent press coverage naming CloudMetrics** — target 3-5 articles in industry publications (TechCrunch, VentureBeat, Analytics India Magazine) with verifiable claims
+   - Impact: High | Effort: High | Owner: Content, with Client decision on budget
    - Why: Wikipedia's general notability guideline requires significant coverage in independent, reliable sources, and the audit found 2 against the 3 that path needs. Each further article is also a record of CloudMetrics that CloudMetrics did not write — countable at the next audit under the media-mentions signal, which is currently a partial pass at 2 of 3, and quotable by anyone who needs a third-party description of the company
+   - Done when: three or more independent articles naming CloudMetrics are published and logged with their URLs and dates, taking the media-mentions signal from 2 of 3 to 3 of 3 at the next audit
+   - Depends on: a story worth covering, and budget or agency time | Risk if done wrong: high — paid placements and reciprocal arrangements are not independent coverage, do not count toward notability, and carry a retraction risk that outlives the spend
+```
 
-### Cross-Reference
+The client's report ends at that fence. The framework cross-reference is a separate block, outside it,
+carrying both labels — matching the skill's own template, and for the same two reasons.
+
+<!-- OPERATOR BLOCK — for whoever runs the skill library, not part of the report above. Framework
+     item IDs are run handles: they name coordinates in registers the client has never opened, and
+     a model copies the fence and not the prose around it. Nothing here goes to the client as
+     written. -->
+
+**Cross-reference — for whoever runs the skill library, not part of the client report**
 
 - **CORE-EEAT**: A07 (Knowledge Graph Presence) scored Fail, A08 (Entity Consistency) scored Pass -- entity optimization should focus on knowledge base gaps rather than consistency
 - **CITE**: I-dimension weakest area is I01 (Knowledge Graph Presence) -- the Wikidata entry is the part of that item the client can complete and verify; whether a Knowledge Panel then appears is Google's call and is not scheduled or promised here
-```
 
 <!-- OPERATOR BLOCK — outside the client fence deliberately, because a model copies the fence and
      not the prose around it. Two claims that used to stand inside the Why clauses above were
@@ -73,7 +87,12 @@ Ordered impact first, then ascending effort — the two High/Low actions precede
          pipelines"; the replacement argues the entry from what it is, not where it goes.
        · action 3 said press mentions "simultaneously feed AI training data"; the replacement
          argues them from Wikipedia's published notability guideline and from signal 19's count.
-     No engine-primary source for either pipeline was read. Full evidence note:
+       · action 2 said Person schema "creates bidirectional entity associations that strengthen
+         organizational identity" — the same shape, missed by that pass and withdrawn 2026-08-17.
+         The same rewrite fixed a second defect in that action: it recommended markup for a
+         leadership page the audit had just scored absent, which the skill's own markup rule and
+         its Output Validation both ban. The action now publishes the page first.
+     No engine-primary source for any of the three was read. Full evidence note:
      references/knowledge-graph-guide.md, the "Who Uses It"/"Impact" note and the withdrawn
      data-flow arrow. -->
 

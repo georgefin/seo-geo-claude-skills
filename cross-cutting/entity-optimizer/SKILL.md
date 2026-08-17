@@ -1,13 +1,13 @@
 ---
 name: entity-optimizer
-version: "4.4.0"
+version: "4.5.0"
 description: 'Audit and build entity presence across Google Knowledge Graph, Wikidata, and AI systems for brand recognition and AI citations. Use when the user asks to "optimize entity presence", "build knowledge graph", "improve knowledge panel", "entity audit", "establish brand entity", "Google doesn''t know my brand", "no knowledge panel", "establish my brand as an entity". For structured data implementation, see schema-markup-generator. For content-level AI optimization, see geo-content-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.4.0"
+  version: "4.5.0"
   geo-relevance: "high"
   tags:
     - seo
@@ -194,15 +194,17 @@ Evaluate each signal as Pass ✅ / Partial ⚠️ / Fail ❌ — the same three 
 
 ### Step 3: Report & Action Plan
 
-Four rules govern the report below — three on every claim it carries, one on anything prohibited the audit found already in place. Apply them while writing it, not after.
+Five rules govern the report below — three on every claim it carries, one on anything prohibited the audit found already in place, and one on the shape of every action it recommends. Apply them while writing it, not after.
 
-**No claim about what a search engine or an assistant does — and none about what it does not.** Entity work is where this breaks first, because every finding is about a system whose insides nobody publishes. State what a **record** says, what the **client controls**, what a **named source** states, or what you **observed and when**. Never what an engine does with any of it. **The prohibition runs in both directions and the negative half is the one that gets written by accident**: *"there is no submission form, no queue and no appeal for absence"*, *"Google does not read directory listings"*, *"assistants never revisit a page after it is corrected"* are the same unsourced assertion as *"Google prefers consistent NAP"* — a claim about the inside of a system, carrying a minus sign. Two replacements do the job and cost the client nothing: say what **is or is not documented** ("no submission interface for the Knowledge Graph is documented"; "no claiming process is documented for that panel"), or say what **was observed and when** ("re-checked 14 August on three brand queries — still no panel"). The same bar applies to timelines: how long a panel, an entry or a corrected fact takes to show up is not published, so it is measured on a stated cadence and reported with dates, never forecast. Withdrawn engine claims are recorded in the reference files, not in the client's report — a client reading a retraction of something they were never told is reading the library's internal history.
+**No claim about what a search engine or an assistant does — and none about what it does not.** Entity work is where this breaks first, because every finding is about a system whose insides nobody publishes. State what a **record** says, what the **client controls**, what a **named source** states, or what you **observed and when**. Never what an engine does with any of it. **The prohibition runs in both directions and the negative half is the one that gets written by accident**: *"there is no submission form, no queue and no appeal for absence"*, *"Google does not read directory listings"*, *"assistants never revisit a page after it is corrected"* are the same unsourced assertion as *"Google prefers consistent NAP"* — a claim about the inside of a system, carrying a minus sign. Two replacements do the job and cost the client nothing: say what **is or is not documented** ("no submission interface for the Knowledge Graph is documented"; "no claiming process is documented for that panel"), or say what **was observed and when** ("re-checked 14 August on three brand queries — still no panel"). The same bar applies to timelines: how long a panel, an entry or a corrected fact takes to show up is not published, so it is measured on a stated cadence and reported with dates, never forecast. Withdrawn engine claims are recorded in the reference files, not in the client's report — a client reading a retraction of something they were never told is reading the library's internal history. **All of that is FAIL-grade family 9 in [anti-slop-ruleset.md](../../build/seo-content-writer/references/anti-slop-ruleset.md) §6, and family 10 is a separate rule breaking in a separate place** — family 9 bans asserting what an engine *does*, family 10 bans promising what an engine *will do for this client*, and a deliverable can violate either one alone. Entity work meets family 10 constantly, because the outcome the client wants is a Knowledge Panel, a Knowledge Graph entry or a name in a generated answer, and none of the three is anyone's to deliver: **no panel, entry, citation or assistant answer is promised, scheduled, given a probability, or written into a goal, a roadmap phase or an acceptance criterion, on any timeline.** What the report offers in its place is the work put in place and the client controls, the AI resolution test re-run on the same queries as a dated measurement, and the public records the client can complete and verify themselves. That is [prohibited-tactics.md](../../references/prohibited-tactics.md) entry 9, and the whole of that list is the floor under this skill whether or not an entry is restated here.
 
 **Every fact traces to a named input — including facts about entities that are not the client.** A widely-known fact is still an unsourced assertion the moment it enters a client deliverable: a landmark's century, another organisation's founding year, the size of some other entity's content footprint, the year something will matter. Nobody in this audit measured it, the client cannot check it, and it travels to everyone the client forwards the report to. Background knowledge is not a source, and being famous is not a citation. Instead: name a colliding or comparison entity exactly as the supplied input names it, and build the disambiguation finding or the priority argument out of surfaces the audit actually read. If the argument needs a fact no input carries, either make the argument without that fact or state the check that would supply it — never fill the gap from memory to make a recommendation sound stronger. **That rule is this library's fabrication prohibition ([prohibited-tactics.md](../../references/prohibited-tactics.md) entry 5) in the form entity work needs it**, and the reason it is stated here rather than only there is that entity work invents plausible facts about organisations more readily than anything else this library does: the failure mode is not an invented footnote, it is a founding year, a headcount, a parent company or an award that reads exactly like the sourced facts around it. A fabricated statistic, quote, expert, case study or date is out on the same terms — cite a primary source with its date, or drop the claim and name the check that would settle it.
 
 **Recount every derived count against its source before publishing it.** Any figure presented as read off a supplied file — mentions per name form, surfaces carrying an address, profiles missing a property — is recounted from that file at write-up time, and the report states the population it was counted over. Where the recount disagrees with the working figure, the recount is the number. A count that contradicts the file it claims to come from is worse than a missing count: it carries the authority of a derivation, so the client acts on it and the error is only found by whoever opens the file next.
 
 **A prohibited tactic already in the client's setup is a finding, not a silence.** Bought or incentivised reviews, a gating flow, a per-staff review quota, markup describing content that is not on the page, or an invented fact already published about the entity — each is named plainly in the client's own words, with what it exposes them to, a remediation carrying an owner-role and an acceptance criterion ([action-output-contract.md](../../references/action-output-contract.md) §1–§3), and a rank against everything else in the report. They do not all rank the same: a gating flow still collecting reviews outranks a wrong founding date in a dormant directory profile, and a report where every finding is critical has ranked nothing. Nothing is built on top of one — where a priority action assumes the gated flow keeps producing its current rating, or cites a published claim the audit could not source, that action is withdrawn or restated without it and the dependency is named. This skill reports and proposes; nothing live is removed or altered on the run's own initiative. Handling: [prohibited-tactics.md](../../references/prohibited-tactics.md) §2.
+
+**Every action is implementable, and the fields ride inside the template rather than above it.** Each Top 5 priority action and each remediation carries seven fields: **action** (one imperative sentence naming the artefact and the change), **owner**, **acceptance criterion** (labelled **Done when**), **expected impact** (the **Why** line — what the work puts in place and what it should change), **effort**, **dependencies**, **risk if done wrong**. Fields 1–3 are required: an action with no owner-role and no acceptance criterion does not ship as an action. The other four take a stated-absence value — `not estimated — no baseline data`, `none`, `low — reversible, no downstream effect` — never a blank and never an invention. **Owner is a role**, from the closed list: Content · SEO/technical · Developer · Designer · Product/merchandising · Customer service · Legal/compliance · Agency · Client decision. `Client decision` is a real owner and using it makes a decision visible instead of leaving an action stalled with no explanation; `unassigned — needs an owner` is legitimate and is itself a finding. **The acceptance-criterion test: could someone who was not part of this engagement check it six weeks from now, without asking anybody what was meant?** Observable, binary at the moment of checking, attached to a named artefact or measurement, dated or triggered — "the Wikidata entry is live and resolvable, carries website, industry and inception, and each property cites a public source" rather than "entity presence sorted". **It never requires an engine to do something** — a panel, a Knowledge Graph entry or an assistant's answer as the criterion turns the action into the promise the rule above bans, so an entity-recognition action is accepted on the work shipped *plus* the AI resolution test re-run on the same queries and recorded beside its dated baseline. The **Impact** High/Medium and **Effort** Low/Medium/High labels below stay this report's only impact and effort vocabularies, and the ordering rule under the Top 5 is its only ordering; no third vocabulary is imported beside either. Field table, stated-absence values, the role list and worked criteria: [action-output-contract.md](../../references/action-output-contract.md).
 
 ```markdown
 ## Entity Optimization Report
@@ -246,38 +248,38 @@ one first. Effort breaks ties; it never outranks impact, and it is never multipl
 arithmetic would put the most expensive action on top). Where two actions tie on both, the one
 unblocking the other goes first and says so.
 
-1. **[Signal]** — [specific action]
-   - Impact: [High/Medium] | Effort: [Low/Medium/High]
-   - Why: [explanation of how this improves entity recognition]
+1. **[Signal]** — [one imperative sentence naming the artefact and the change]
+   - Impact: [High/Medium] | Effort: [Low/Medium/High] | Owner: [role, or "unassigned — needs an owner"]
+   - Why: [what this puts in place and what it should change, or "not estimated — no baseline data"]
+   - Done when: [observable, binary, attached to a named artefact or measurement, dated or triggered — never an engine doing something]
+   - Depends on: [named blocker, or "none"] | Risk if done wrong: [failure mode and cost, or "low — reversible, no downstream effect"]
 
-2. **[Signal]** — [specific action]
-   - Impact: [High/Medium] | Effort: [Low/Medium/High]
-   - Why: [explanation]
-
-3–5. [Same format]
+2–5. [Same format]
 
 ### Entity Building Roadmap
 
-#### Week 1-2: Foundation (Structured Data + Consistency)
+Sequencing only — this says *when*, never *whether*. Anything the audit recommends as an action is stated with its seven fields in the Top 5 above; a box that never becomes a Top-5 entry is a standing task under its phase owner. No phase is a date by which an engine will have done anything.
+
+#### Week 1-2: Foundation (Structured Data + Consistency) — owner: Developer + SEO/technical
 - [ ] Implement/fix Organization or Person schema with full properties
 - [ ] Add sameAs links to all authoritative profiles
 - [ ] Audit and fix NAP (Name/Address/Phone) + description/logo/social consistency — exact format across site, Google Business Profile, and Greek directories (vrisko.gr, xo.gr), including Greek/Latin script variants of the business name
 - [ ] Claim/complete Google Business Profile — categories, Posts, Q&A, Products, photos
 - [ ] Ensure About page is entity-rich and well-structured
 
-#### Month 1: Knowledge Bases
+#### Month 1: Knowledge Bases — owner: SEO/technical
 - [ ] Create or update Wikidata entry with complete properties
 - [ ] Ensure CrunchBase / industry directory profiles are complete
 - [ ] Build Wikipedia notability (or plan path to notability)
 - [ ] Submit to relevant authoritative directories
 
-#### Month 2-3: Authority Building
+#### Month 2-3: Authority Building — owner: Content, with Client decision on budget
 - [ ] Secure mentions on authoritative industry sites
 - [ ] Build co-citation signals with established entities
 - [ ] Create topical content clusters that reinforce entity-topic associations
 - [ ] Pursue PR opportunities that generate entity mentions
 
-#### Ongoing: AI-Specific Optimization
+#### Ongoing: AI-Specific Optimization — owner: SEO/technical
 - [ ] Test AI entity resolution quarterly
 - [ ] Update factual claims to remain current and verifiable
 - [ ] Monitor AI systems for incorrect entity information
@@ -309,6 +311,8 @@ unblocking the other goes first and says so.
 - [ ] All 7 signal categories evaluated, each under its own name from Step 2 — a category nothing could be scored in still appears, marked Not applicable or Not assessed with the reason
 - [ ] Every category status prints the count behind it (points ÷ signals scored = %), uses only the three statuses Strong / Gaps / Missing, and excludes rather than fails the signals no input can settle
 - [ ] Priority actions are ordered impact first, then ascending effort, and the order matches the labels printed on them
+- [ ] Every priority action and every remediation carries all seven fields (action, owner, acceptance criterion, expected impact, effort, dependencies, risk if done wrong), with a stated-absence value wherever an answer does not exist (`not estimated — no baseline data`, `none`, `low — reversible, no downstream effect`) and never a blank; none ships without an owner-role from the closed list (`Client decision` and `unassigned — needs an owner` both count, the second being itself a finding) and a Done-when criterion that someone outside this engagement could check six weeks on without asking what was meant. **No criterion is an engine appearance** — an entity-recognition action is accepted on the work shipped plus the AI resolution test re-run on the same queries and recorded beside its dated baseline
+- [ ] No Knowledge Panel, Knowledge Graph entry, citation or assistant answer is promised, scheduled, given a probability, or written into a goal, a roadmap phase or an acceptance criterion, on any timeline (`build/seo-content-writer/references/anti-slop-ruleset.md` §6 family 10, and [prohibited-tactics.md](../../references/prohibited-tactics.md) entry 9). **This is a separate check from the engine-claim one above and a report can fail either alone**: family 9 is asserting what an engine *does*, family 10 is promising what it *will do for this client*
 - [ ] NAP (Name/Address/Phone) checked in exact-matching format across site, GBP, and Greek directories (vrisko.gr, xo.gr), including Greek/Latin script variants
 - [ ] Google Business Profile audited as its own category (completeness, categories, Posts/Q&A/Products, photo freshness, review velocity/response rate)
 - [ ] AI entity resolution tested with at least 3 queries
@@ -353,7 +357,7 @@ unblocking the other goes first and says so.
 Detailed guides for entity optimization:
 - [references/entity-signal-checklist.md](./references/entity-signal-checklist.md) — Complete signal checklist with verification methods
 - [references/knowledge-graph-guide.md](./references/knowledge-graph-guide.md) — Wikidata, Wikipedia, and Knowledge Graph optimization playbook, plus "Markup describes what is on the page"
-- [Prohibited Tactics](../../references/prohibited-tactics.md) — the library-wide floor. Entry 3 (fake or incentivised reviews and review gating), entry 5 (fabricated citations, statistics or quotes) and entry 6 (hidden content and cloaking) govern this skill's recommendations; §2 is the handling for one already in the client's setup; §3 lists the legitimate practices each is confused with
+- [Prohibited Tactics](../../references/prohibited-tactics.md) — the library-wide floor. Entry 3 (fake or incentivised reviews and review gating), entry 5 (fabricated citations, statistics or quotes), entry 6 (hidden content and cloaking) and entry 9 (guaranteed-outcome promises — the family-10 half) govern this skill's recommendations most directly, and the rest of the list binds it too; §2 is the handling for one already in the client's setup; §3 lists the legitimate practices each is confused with
 - [Action Output Contract](../../references/action-output-contract.md) — the seven fields every priority action and remediation carries, and what makes an acceptance criterion checkable
 
 ## Related Skills

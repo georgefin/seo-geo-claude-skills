@@ -18,7 +18,7 @@ part of what it is demonstrating.
      measured data, and delete this comment. -->
 ## Domain Authority Audit
 
-*Scored against CITE — our 40-item domain-authority benchmark. Gloss it on first use like this; the bare acronym names a document the client has never seen.*
+*Scored against CITE — our 40-item domain-authority benchmark, covering citations and links, the domain's identity signals, its trust signals, and its expertise footprint.*
 
 ### Overview
 
@@ -38,12 +38,12 @@ part of what it is demonstrating.
 
 ### Dimension Scores
 
-| Dimension | Score | Items (Pass/Partial/Fail) | Rating | Weight | Weighted |
-|-----------|-------|:-------------------------:|--------|--------|----------|
-| C — Citation | 70/100 | 4/6/0 | Medium | 40% | 28.0 |
-| I — Identity | 55/100 | 3/5/2 | Low | 15% | 8.25 |
-| T — Trust | 80/100 | 6/4/0 | Good | 20% | 16.0 |
-| E — Eminence | 65/100 | 5/3/2 | Medium | 25% | 16.25 |
+| Dimension | Score | Items (Pass/Partial/Fail/N/A) | Rating | Weight | Weighted |
+|-----------|-------|:-----------------------------:|--------|--------|----------|
+| C — Citation | 70/100 over 10 scored | 4/6/0/0 | Medium | 40% | 28.0 |
+| I — Identity | 55/100 over 10 scored | 3/5/2/0 | Low | 15% | 8.25 |
+| T — Trust | 80/100 over 10 scored | 6/4/0/0 | Good | 20% | 16.0 |
+| E — Eminence | 65/100 over 10 scored | 5/3/2/0 | Medium | 25% | 16.25 |
 | **CITE Score** | | | | | **68.5/100** |
 
 **Score Calculation**:
@@ -111,7 +111,9 @@ Every action above, ordered by weighted gain ÷ effort with dependencies respect
 | 5 | Stand up a monthly refresh schedule and work it through the top 20 traffic pages | Content | A dated schedule naming the pages and the month each is due, and three consecutive months shipped with the updated pages carrying visible revision dates | 1.0 weighted points | Strategic | none | medium — bumping a date without changing the content is a false freshness signal and a misrepresentation to the reader |
 | 6 | Commission digital PR aimed at earning mentions on industry publications | Client decision | A dated outreach plan exists with named targets, and earned mentions are logged with their URLs and dates as they land | not estimated — no baseline data; this audit measured referring domains, not campaign response | Strategic | budget, and a story worth covering | high — paid placements and reciprocal schemes are not earned mentions and carry a retraction risk that outlives the spend |
 
-### Cross-Reference with CORE-EEAT
+### Cross-Reference with the Content Audit
+
+For a complete assessment, pair this domain audit with a content audit scored against CORE-EEAT — our 80-item content-quality benchmark for the pages themselves, covering how clearly each one answers, how it is organised, how reliable and current it is, and the experience, expertise, authority and trust it shows:
 
 | Assessment | Score | Rating |
 |-----------|-------|--------|
@@ -124,6 +126,16 @@ landing pages settles it, and is the cheaper of the two to run first.
 ```
 
 The client's report ends at that fence.
+
+**Two things above are written for whoever runs the audit, and neither is an annotation on the
+example — both are how the report itself has to read.** (1) Each framework name is glossed the
+first time the client meets it: `CITE` at the top and `CORE-EEAT` in the cross-reference. The bare
+acronym names a document the client has never seen, and glossing is what the Reader Test asks for a
+framework *name*; it never rescues an item ID or a skill slug (`CLAUDE.md` § The Reader Test, clause
+1). (2) Every dimension prints its scored-item denominator — `70/100 over 10 scored` — and its N/A
+count, even where nothing is N/A and the denominator is the obvious 10. That is the only figure a
+reader can check the Top-5 `(10 ÷ n scored)` rescale against, and a template that prints it only
+when it is interesting teaches the writer to omit it exactly where it starts to matter.
 
 **Why row 3 of the Top 5 is worth 1.0 and not 1.25** — a note for whoever runs this audit, not
 part of the report above. Each potential gain takes the weight of the dimension its item belongs

@@ -1,13 +1,13 @@
 ---
 name: domain-authority-auditor
-version: "4.6.0"
+version: "4.6.1"
 description: 'Run the full 40-item CITE domain authority audit across 4 dimensions with domain-type weighting and veto checks. Use when the user asks to "audit domain authority", "domain trust score", "CITE audit", "how authoritative is my site", "domain credibility check", "is my domain trustworthy", "domain credibility score", "domain rating". For content-level assessment, see content-quality-auditor. For link profile details, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.6.0"
+  version: "4.6.1"
   geo-relevance: "medium"
   tags:
     - seo
@@ -207,7 +207,7 @@ Same format for Trust and Eminence dimensions.
 **E Score**: [X]/100 — [p] Pass + [q] Partial + [r] Fail = [p]×10 + [q]×5 (p + q + r = 10)
 ```
 
-**Note**: Some items require specialized data (C05-C08 AI citation data, I01 knowledge graph queries, T04-T05 IP/profile analysis). Score what is observable; mark unverifiable items as "N/A — requires [data source]" and exclude them from the dimension average. Excluded means the denominator shrinks, never that the item scores 0: **dimension score = points earned ÷ (10 × scored items) × 100**. State the denominator beside the score — `C Score: 58/100 — 35 pts over 6 scored items; C05-C08 N/A`. **The shrunken denominator rescales that dimension's potential gains too** (Step 4, rule 4), not just its score. Worked N/A cases: [references/score-arithmetic.md](./references/score-arithmetic.md).
+**Note**: Some items require specialized data (C05-C08 AI citation data, I01 knowledge graph queries, T04-T05 IP/profile analysis). Score what is observable; mark unverifiable items as "N/A — requires [data source]" and exclude them from the dimension average. Excluded means the denominator shrinks, never that the item scores 0: **dimension score = points earned ÷ (10 × scored items) × 100**. State the denominator beside the score, and state what went unevaluated as a count and a reason rather than a list of item IDs — `C Score: 58.3/100 — 35 pts over 6 scored items; 4 not evaluated, no AI-citation data`. **The shrunken denominator rescales that dimension's potential gains too** (Step 4, rule 4), not just its score. Worked N/A cases: [references/score-arithmetic.md](./references/score-arithmetic.md).
 
 **Greek e-commerce domains**: apply the supplementary trust/staleness checks in [references/greek-eshop-compliance.md](./references/greek-eshop-compliance.md) when scoring T06, T08, and T10 (stale ODR link, ΓΕΜΗ/ΑΦΜ and entity transparency, withdrawal/returns and policy furniture). These are audit signals only — never legal advice; compliance conclusions go to the client's lawyer.
 
@@ -253,16 +253,16 @@ Calculate scores and generate the final report:
 - **Domain Type**: [type]
 - **Audit Date**: [date]
 - **CITE Score**: [score]/100 ([rating])
-- **Veto Status**: ✅ No triggers / ⚠️ [item] triggered — Score capped at 39
+- **Veto Status**: ✅ No triggers / ⚠️ [the triggered item's plain-language name, never its ID] triggered — Score capped at 39
 
 ### Dimension Scores
 
-| Dimension | Score | Items (Pass/Partial/Fail) | Rating | Weight | Weighted |
-|-----------|-------|:-------------------------:|--------|--------|----------|
-| C — Citation | [X]/100 | [p]/[q]/[r] | [rating] | [X]% | [X] |
-| I — Identity | [X]/100 | [p]/[q]/[r] | [rating] | [X]% | [X] |
-| T — Trust | [X]/100 | [p]/[q]/[r] | [rating] | [X]% | [X] |
-| E — Eminence | [X]/100 | [p]/[q]/[r] | [rating] | [X]% | [X] |
+| Dimension | Score | Items (Pass/Partial/Fail/N/A) | Rating | Weight | Weighted |
+|-----------|-------|:-----------------------------:|--------|--------|----------|
+| C — Citation | [X]/100 over [n] scored | [p]/[q]/[r]/[s] | [rating] | [X]% | [X] |
+| I — Identity | [X]/100 over [n] scored | [p]/[q]/[r]/[s] | [rating] | [X]% | [X] |
+| T — Trust | [X]/100 over [n] scored | [p]/[q]/[r]/[s] | [rating] | [X]% | [X] |
+| E — Eminence | [X]/100 over [n] scored | [p]/[q]/[r]/[s] | [rating] | [X]% | [X] |
 | **CITE Score** | | | | | **[X]/100** |
 
 **Score Calculation**: CITE Score = C × [w_C] + I × [w_I] + T × [w_T] + E × [w_E] = [each product] = [unrounded sum] → **[reported score]/100** (one decimal, half up), band read off **[whole number]** → [rating]
@@ -273,10 +273,10 @@ Calculate scores and generate the final report:
 
 | ID | Check Item | Score | Notes |
 |----|-----------|-------|-------|
-| C01 | Referring Domains Volume | [Pass/Partial/Fail] | [observation — on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
-| C02 | Referring Domains Quality | [Pass/Partial/Fail] | [observation — on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
+| C01 | Referring Domains Volume | [Pass/Partial/Fail, or N/A] | [observation — an N/A names the data source it needs; on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
+| C02 | Referring Domains Quality | [Pass/Partial/Fail, or N/A] | [observation — an N/A names the data source it needs; on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
 | ... | ... | ... | ... |
-| E10 | Industry Share of Voice | [Pass/Partial/Fail] | [observation — on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
+| E10 | Industry Share of Voice | [Pass/Partial/Fail, or N/A] | [observation — an N/A names the data source it needs; on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
 
 ### Top 5 Priority Improvements
 
@@ -293,16 +293,16 @@ Sorted by: weight × points lost (highest impact first), with dependencies respe
 
 ### Action Plan
 
-Every action this audit recommends, in one place, ordered by weighted gain ÷ effort with dependencies respected. Effort bands: Quick (<1 week) · Medium (1–4 weeks) · Strategic (1–3 months). A field with no answer carries its stated-absence value, never a blank.
+Every action this audit recommends, in one place, ordered by weighted gain ÷ effort with dependencies respected. Effort bands: Quick (<1 week) · Medium (1–4 weeks) · Strategic (1–3 months). A field with no answer carries its stated-absence value, never a blank. A prohibited tactic found in the audited setup is a row here like any other — named plainly, its exposure in the risk column — never dropped because it was already in place.
 
 | # | Action | Owner | Acceptance criterion | Expected gain | Effort | Depends on | Risk if done wrong |
 |---|--------|-------|----------------------|---------------|--------|------------|--------------------|
 | 1 | [imperative sentence naming the artefact and the change] | [role, or "unassigned — needs an owner"] | [observable, binary, dated or triggered — checkable by someone who was not part of this audit] | [weighted points, from the tables above, or "not estimated — no baseline data"] | [band] | [named blocker, or "none"] | [failure mode and cost, or "low — reversible, no downstream effect"] |
 | 2 | [next action] | … | … | … | … | … | … |
 
-### Cross-Reference with CORE-EEAT
+### Cross-Reference with the Content Audit
 
-For a complete assessment, pair this CITE audit with a CORE-EEAT content audit:
+For a complete assessment, pair this domain audit with a content audit scored against CORE-EEAT — our 80-item content-quality benchmark for the pages themselves, covering how clearly each one answers, how it is organised, how reliable and current it is, and the experience, expertise, authority and trust it shows:
 
 | Assessment | Score | Rating |
 |-----------|-------|--------|
@@ -341,7 +341,7 @@ Drop any row whose run this audit did not actually motivate; a standing list of 
 - [ ] If comparative audit, competitor domains also specified
 
 ### Output Validation
-- [ ] All 40 items scored (or marked N/A with reason)
+- [ ] All 40 items scored, or marked N/A naming the data source it needs; each dimension prints its scored-item denominator beside its score, and any prose statement of what went unevaluated gives a count and a reason, never a list of item IDs
 - [ ] All 4 dimension scores calculated correctly — each equals its own item tally (N/A items rescale the denominator, they never score 0)
 - [ ] Weighted CITE Score matches domain-type weight configuration, shown unrounded then rounded; the rating word is read off the computed score rounded **once to a whole number**, half up — the band endpoints are whole numbers, so a one-decimal figure such as 39.8 belongs to no band, and re-rounding the one-decimal reported figure moves a band (74.46 → 74 Medium, but via 74.5 → 75 Good)
 - [ ] Every other derived figure (item tallies, points-lost sums, potential gains, projections) recomputes from the report's own tables, and every stated count matches the number of items it enumerates — a gain carries the same `10 ÷ scored items` rescale its dimension score carries, so one method computes both and never two
