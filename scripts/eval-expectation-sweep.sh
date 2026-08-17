@@ -239,6 +239,10 @@ print("")
 print("[0] class self-test (F15: a sweep whose patterns have rotted reports a clean tree)")
 selftest_ok = True
 for cid, name, tok, leg, yes, no in CLASSES:
+    ctx = CONTEXT.get(cid)
+    if ctx and not ctx.search(yes):
+        fail(f"(0) class ({cid}) canary \"{yes}\" does not satisfy the class's own CONTEXT "
+             f"requirement — the class can never fire"); selftest_ok = False
     if not tok.search(yes):
         fail(f"(0) class ({cid}) no longer matches its own canary: \"{yes}\" — pattern drift; "
              f"the corpus below was NOT judged"); selftest_ok = False

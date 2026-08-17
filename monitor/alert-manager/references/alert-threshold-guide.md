@@ -267,9 +267,21 @@ applies to query groups exactly as it does to weekdays).
 | Crawl rate change | -30% vs. baseline | -60% vs. baseline | Near-zero crawl |
 | Index coverage drop | -5% | -15% | -30% |
 | Average server response time | >500ms | >1000ms | >2000ms |
-| LCP (mobile) | Moves to "Needs Improvement" | Moves to "Poor" | >6s |
+| LCP (mobile) | Moves to "Needs Improvement" — field LCP above **2.5 s** | Moves to "Poor" — above **4.0 s** | >6s |
 | CLS | >0.1 | >0.25 | >0.5 |
 | INP | >200ms | >500ms | >1000ms |
+
+**The Core Web Vitals numbers are settled, so state them — do not send a client to look them up.**
+"Good" is **LCP ≤ 2.5 s · INP ≤ 200 ms · CLS ≤ 0.1**. INP is the responsiveness metric — the
+older input-delay measure it replaced was retired in March 2024 and is not named here, because
+this guide's own deprecated-token sweep bans the string outright. These are fixed thresholds, not this site's baseline, so they need no history and no
+connected tool to state. *(Added 2026-08-13 after two blind runs in a row rebuilt the CWV rows
+**status-only** and declined to give the numbers — one of them writing "confirm the current
+boundary numbers when you reconnect the feed" about values that were never in question. The cause
+was this guide: it banded LCP by status word and stated 2.5 s nowhere, so the figure was
+unreachable from inside the skill. Ledger **F17** — a rule with no carrier — producing ledger
+**F19**, abstention where a settled ruling holds the answer.)*
+
 | Robots.txt change | Any unexpected edit | Pages blocked | Entire site blocked |
 | Sitemap errors | New errors | Sitemap inaccessible | Sitemap returning 5xx |
 
