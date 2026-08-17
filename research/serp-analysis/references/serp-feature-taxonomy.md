@@ -128,18 +128,22 @@ the recommendation that way in a client report, never as an engine mechanic.
 4. **Establish topical authority** -- Coverage across the topic that a generalist page does not have
 5. **Include original data and statistics** -- Unique data points exist nowhere else, so no competing source can supply them either
 6. **Create comparison content** -- A structured comparison table turns values into addressable cells instead of prose a reader has to reassemble
-7. **Update content regularly** -- Recency signals influence AI source selection
-8. **Use clear section headings** -- AI systems use headings to understand content structure
+7. **Update content regularly** -- A visible current date and a re-checked figure are what a reader sees; a three-year-old number is one a reader can disprove
+8. **Use clear section headings** -- A heading that states the question it answers makes each section addressable on its own, instead of a passage a reader has to locate
 
 **Source Citation Patterns:**
 
-| What Gets Cited | Why | How to Optimize |
+Same evidence grade as the playbook above -- the left column is what this library
+prioritises writing, the middle column states what that content **is** on the page, and
+neither reports an engine mechanic. No engine documents its selection rule.
+
+| Content this library prioritises | What it puts on the page | How to Optimize |
 |----------------|-----|----------------|
-| Definitions | AI needs authoritative definitions | Write clear, complete definitions in first paragraph |
-| Statistics | AI cites specific data points | Include original research, cite sources |
-| Step-by-step processes | AI extracts structured sequences | Use numbered lists with clear step headers |
-| Comparison data | AI synthesizes multi-source comparisons | Create comparison tables with clear labels |
-| Expert quotes | AI values authoritative voices | Include expert attribution with credentials |
+| Definitions | A standalone definition that can be lifted and quoted intact | Write clear, complete definitions in first paragraph |
+| Statistics | A specific data point with a unit and a source, which a reader can check | Include original research, cite sources |
+| Step-by-step processes | An ordered sequence with each step addressable on its own | Use numbered lists with clear step headers |
+| Comparison data | Values as addressable cells instead of prose a reader has to reassemble | Create comparison tables with clear labels |
+| Expert quotes | A named expert with checkable credentials -- something a competitor cannot also claim | Include expert attribution with credentials |
 
 **Greece (el-GR) availability:** Google **AI Mode** (the adjacent conversational search surface) is live in Greek since 2025-10-08 (pinned baseline, last verified 2026-08-08). AI Overview trigger rates for el-GR queries are not separately verified — record AI Overview presence per keyword during the audit rather than assuming the general trigger patterns above hold for Greek queries.
 
@@ -414,8 +418,8 @@ The rise of AI Overviews changes how to prioritize SERP features:
 | Informational query | Win featured snippet | Win AI Overview citation AND featured snippet |
 | Comparison query | Create comparison content | Create structured comparison tables (values become addressable cells, not prose to reassemble) |
 | Definition query | Write clear definition for snippet | Write authoritative, citable definition with evidence |
-| How-to query | Create step-by-step list | Create steps with unique insights AI can synthesize |
-| List query | Create comprehensive ranked list | Create list with original data/reasoning AI can cite |
+| How-to query | Create step-by-step list | Create steps carrying an insight no other source on the page-one set states |
+| List query | Create comprehensive ranked list | Create list with original data and stated reasoning — the one thing a competing list cannot also supply |
 
 ### Key Difference
 

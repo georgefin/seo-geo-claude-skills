@@ -54,7 +54,7 @@ Sorted by: weight × points lost (highest impact first). Potential gain = recove
 
 1. **C05 AI Citation Frequency** — Increase citations in AI-generated answers
    - Current: Partial | Potential gain: 5 × 40% = 2.0 weighted points | Evidence: graded Partial in the dimension table above | Confidence: Likely (sampled AI answers, not exhaustive)
-   - Action: Optimize top 10 pages for GEO; add definitive statements AI can quote directly
+   - Action: Optimize top 10 pages for GEO; add definitive statements that still say something true when lifted out of their paragraph
 
 2. **I01 Knowledge Graph Presence** — Create entity entry in Google Knowledge Graph
    - Current: Fail | Potential gain: 10 × 15% = 1.5 weighted points | Evidence: graded Fail in the dimension table above (no entity entry found) | Confidence: Confirmed

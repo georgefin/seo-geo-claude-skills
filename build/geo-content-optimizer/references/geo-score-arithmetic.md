@@ -23,7 +23,7 @@ Never a framework item ID or a skill slug on a surface the client reads
 | 3 | Overall GEO Score (step 4, after) | the same factors, the same count rules, re-counted on the optimized text |
 | 4 | Change per factor | after − before |
 | 5 | Lift % | (after − before) ÷ before × 100 |
-| 6 | Citation-likelihood rating, if one is printed | count of the high-likelihood factors met (§6) |
+| 6 | Citation-readiness rating, if one is printed | count of the full-readiness factors met (§6) |
 
 Every other figure in the report derives from these six and has to reconcile with them.
 
@@ -282,17 +282,25 @@ arrives):
 Lift: (9.4 − 2.6) ÷ 2.6 × 100 = **262%**. Reverse-check one row: definitions after, `S = 10`,
 `n = 4` → `met = (10 − 1) × 4 ÷ 9 = 4`, which is the count printed beside it.
 
-## 6. Citation-likelihood ratings
+## 6. Citation-readiness ratings
 
-If a deliverable prints one, it is a count, not an impression: the number of **High Citation
-Likelihood** factors met from the ten listed in
+If a deliverable prints one, it is a count, not an impression: the number of **full-readiness**
+factors met from the ten listed in
 [ai-citation-patterns.md](./ai-citation-patterns.md), printed as
-`7/10 — 7 of the 10 high-likelihood factors met; the three missing are …`.
+`7/10 — 7 of the 10 citation-readiness factors met; the three missing are …`.
+
+**The name carries a rule, so do not print the old one.** This rating was called
+*citation likelihood* until 2026-08-17. A likelihood is a prediction of what an engine will
+do, which no primary source establishes in either direction (ruling R3 amendment 9a); a
+readiness count is ten checkable properties of the page, which is what the ten factors
+actually are. The arithmetic is identical and the factors are unchanged — only the claim the
+number makes to the client is corrected. Whether the page *was* cited is measured, never
+predicted from this count.
 
 The `Citation likelihood: X/10` labels in
 [quotable-content-examples.md](./quotable-content-examples.md) are illustrative judgements
 about example text written to teach a contrast. They are not deliverable scores and carry no
-derivation; do not copy the habit into a client report.
+derivation; do not copy the habit, or the word, into a client report.
 
 ## 7. Scores never leave the report
 

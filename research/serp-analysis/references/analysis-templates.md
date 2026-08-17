@@ -169,20 +169,26 @@ denominator):
 **AI Overview Type**: [Summary/List/Comparison/etc.]
 
 **Sources Cited in AI Overview**:
-1. [Source 1] - [Why cited]
-2. [Source 2] - [Why cited]
-3. [Source 3] - [Why cited]
+1. [Source 1] - [what that page carries that the quoted passage came from]
+2. [Source 2] - [what that page carries that the quoted passage came from]
+3. [Source 3] - [what that page carries that the quoted passage came from]
 
 **AI Overview Content Patterns**:
 - Pulls definitions from: [source type]
 - Lists information as: [format]
 - Cites statistics from: [source type]
 
-**How to Get Cited in AI Overview**:
-1. [Specific recommendation]
-2. [Specific recommendation]
-3. [Specific recommendation]
+**How to Compete for an AI Overview Citation**:
+1. [recommendation, stated as what to put on the page]
+2. [recommendation, stated as what to put on the page]
+3. [recommendation, stated as what to put on the page]
 ```
+
+> **Filling the two blocks above.** The *Sources Cited* and *Content Patterns* rows record
+> what you saw in the Overview you actually ran — an observation, dated. The recommendation
+> rows say what to put on the page, which the client can check by opening it. Neither states
+> why an engine chose a source: no engine publishes its selection rule, and this library does
+> not report one (ruling R3 amendment 9a).
 
 ## Search Intent Template
 

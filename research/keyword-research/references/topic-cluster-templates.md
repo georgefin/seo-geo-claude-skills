@@ -184,7 +184,7 @@ Use this template to evaluate whether a topic deserves a full cluster:
 |-------------|-------------|-----|
 | Footer-only links to cluster pages | Low link equity, poor UX | Move links into body content |
 | Generic anchors ("click here", "read more") | No keyword signal | Use descriptive, keyword-relevant anchors |
-| Orphan cluster pages (no inbound links) | Search engines can't discover/value them | Add contextual links from pillar and related clusters |
+| Orphan cluster pages (no inbound links) | Nothing on the site leads to them — no reader and no crawler arrives by following a link | Add contextual links from pillar and related clusters |
 | Over-linking (20+ internal links per page) | Dilutes link equity, feels spammy | Keep to 5-10 relevant internal links |
 | Linking only to pillar (ignoring sibling clusters) | Misses cross-cluster relevance | Link to 2-3 related sibling pages |
 

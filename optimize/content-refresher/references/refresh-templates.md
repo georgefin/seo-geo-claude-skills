@@ -206,8 +206,8 @@ wrong.
 ### Add Clear Definitions
 
 **Add at start of article**:
-> **[Topic]** is [clear, quotable definition in 40-60 words that
-> AI systems can cite directly].
+> **[Topic]** is [clear definition in 40-60 words that still says what the
+> thing is when lifted out of the article on its own].
 
 ### Add Quotable Statements
 

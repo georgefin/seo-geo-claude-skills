@@ -354,9 +354,10 @@ report body (anti-slop-ruleset.md §6 family 8).
 ## Content Quality
 
 Content quality here is the **CORE-EEAT score**: an 80-check read of each audited page —
-how clearly it answers, how it is organised, how quotable and distinctive it is (the parts
-AI assistants reward), plus the experience, expertise, authority and trust signals search
-engines weigh. Scored out of 100.
+how clearly it answers, how it is organised, how quotable and distinctive it is (the half
+of the score aimed at being quoted in AI answers), plus the experience, expertise, authority
+and trust signals the page shows a reader (the half aimed at search). Scored out of 100.
+Every check is something you can confirm by opening the page.
 
 ### Content Quality Summary
 

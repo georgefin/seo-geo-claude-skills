@@ -1565,9 +1565,10 @@ engine behaviour" — and not what the class now is.
 
 - **Found by**: the PR #9 merge gate (Mode A), as BLOCKING finding B1.
 - **Recurrence**: F9 → 5.
-- **Status**: all 17 instances rewritten as this library's prioritisation model, each reason
-  restated as what the item puts on the page. The register sentence is corrected in place, quoted,
-  so the next reader sees what it claimed. FLIP: F9-r5 -- none
+- **Status**: superseded by **F9 Recurrence 6 (2026-08-17)**, below. The "17 instances" in this
+  entry was itself written from the fix — the dedicated sweep found **37 across 11 skills and 1
+  framework file**. The register sentence is corrected in place, quoted, so the next reader sees
+  what it claimed. FLIP: F9-r5 -- none
 
 ---
 
@@ -1685,3 +1686,83 @@ pass that found the need.
 
 - **Recurrence**: F17 → 3.
 - **Status**: A fixed at the carrier; B re-derived by hand and flagged for a guard. FLIP: F17-r3 -- none
+
+---
+
+## F9 — Recurrence 6 (2026-08-17) · The closure note was rewritten from a sweep, and the sweep's own closure number could not be re-derived
+
+F9-r5 recorded the rule that fixes this class: *a closure note is a claim about a class, and it is
+written from the sweep's output, never from the fix.* The remediation item for it was to re-run the
+sweep by noun shape and rewrite the note from the output. That was done, and the sweep was good
+work — **37 sites across 11 skills and 1 framework file**, against a finding that named 6 and a
+first closure that claimed 17. The Mode A reviewer, checking the class declared closed at 17, had
+found **23+ survivors**; the sweep found more than that again.
+
+**The method carried the value.** Four verb families were built, each complete against its own
+vocabulary, and all four returned clean on `AI systems prioritize informational answers` — because
+`prioritize` appeared in none of them as a predicate. A fifth family existed only because its
+author assumed the list was incomplete and went looking for the assumption's cost. It found six
+further members across five files. **A verb-list sweep is bounded by its verb list**, and the honest
+closure is *against these stated patterns*, never absolute.
+
+**Where it recurred, one level up.** The sweep reported `residual: 5` and named a script as its
+runnable basis. Re-run at the same commit before the note was written:
+
+- the named script returned **134** lines, not 5;
+- a sibling script in the same directory returned **39**;
+- of the 5 lines quoted verbatim as the residual, **1** appeared in either output;
+- neither script printed the `RESIDUAL COUNT` marker the report quoted, so the number came from a
+  sixth command that was never saved;
+- and the persisted script omitted **P5** — the family that was the sweep's own headline finding.
+
+The fixes were real and every touched skill validated 15/15. **The defect is in the closure
+evidence, not the closure.** A number nobody can re-derive is indistinguishable from a regression
+the next time someone checks, which is the same reason F9-r5 exists — one layer further out.
+
+**What makes this worth an entry rather than a note**: the task was *literally* "rewrite the closure
+note from the sweep's output." Copying the reported residual would have satisfied the instruction to
+the letter and committed the class it was written to stop. **An instruction to source a claim from a
+measurement is not satisfied by sourcing it from a report of a measurement.**
+
+**Rule added**: *a closure number ships with the command that produces it, checked in and re-runnable
+at any commit — not with a transcript quoting it.* Where the number depends on judgement, the
+judgement is in the artefact where a reader can disagree with it line by line.
+
+- **Found by**: the coordinator, re-running the sweep's own artefacts before quoting them.
+- **Recurrence**: F9 → 6.
+- **Status**: closure note rewritten from a measurement taken at `dcabd6b` — **raw 171 →
+  adjudicated → residual 42** — and the command checked in as `scripts/engine-claim-sweep.sh`, with
+  five families, a named adjudication list carrying a reason per excused class, and a `--probe`
+  mode that fault-injects a known member and a wanted line. Advisory, not gated: its failure mode
+  is punishing a corrected line, which has been the recorded cost four times here.
+  FLIP: F9-r6 -- none
+
+---
+
+## F16 — Recurrence 2 (2026-08-17) · A residual count quoted as a measurement, from an artefact that returns a different one
+
+Scoped separately from F9-r6 because the two rules differ. F9 governs *what a closure note is
+written from*; F16 governs *what may be stated as measured*. The same sweep tripped both, and a
+future reader fixing one should not think the other is covered.
+
+F16's founding entry recorded measurements quoted as fact being weaker than their record. Here the
+record and the quote disagree outright: the report's `RESIDUAL COUNT: 5` block is presented as
+verbatim shell output, and no surviving artefact produces it. **Verbatim is a claim about
+provenance, not about formatting** — reproducing a number's *appearance* is not reproducing the
+number.
+
+**The mitigating half, stated because it matters**: this sweep's author volunteered three things
+against its own interest — that P1-P4 had missed a family, that it had caught itself committing the
+very defect it was fixing (an operator note landing inside a client-read fence, family 8 / Value
+Rule, moved before validating), and that the class could not be claimed closed absolutely. That
+disclosure is why the ledger gets a precise entry rather than a suspicion, and it is the behaviour
+this library wants. The failure is narrow and mechanical: the artefact was not saved.
+
+**Second class recorded from the same self-report**, worth its own line for the next fixer: **an
+operator note added by a fix is subject to the same fence rule as the text it fixes.** A note
+explaining a correction is not exempt from the correction's own rules.
+
+- **Found by**: the coordinator, re-running before quoting.
+- **Recurrence**: F16 → 2.
+- **Status**: the number is now produced by a checked-in command; the report's figure is not
+  restated anywhere as fact. FLIP: F16-r2 -- none

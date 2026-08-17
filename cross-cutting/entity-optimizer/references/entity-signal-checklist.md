@@ -71,7 +71,9 @@ These signals establish the entity as recognized and authoritative. They separat
 
 ## Priority 3: AI-Specific Signals (Must-Have for GEO)
 
-These signals specifically help AI systems recognize, understand, and cite the entity.
+These are the signals this library puts in place first when GEO is the goal, and the items
+below **test** the result by asking the engines directly rather than predicting it. What any
+engine does internally is not published and is not claimed here (ruling R3 amendment 9a).
 
 ### AI Recognition
 

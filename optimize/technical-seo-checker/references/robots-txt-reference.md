@@ -186,8 +186,9 @@ stance behind it.
 **The bot-pair rule (core of this section)**: every AI vendor ships a bot pair or triple —
 one agent for model *training*, one for *search/citation discovery*, and often one for
 *user-triggered* fetching (see the bot-role roster above). Each role must be decided
-**separately**. Blocking a vendor's training bot while never explicitly allowing its
-search bot silently forfeits that engine's citations.
+**separately**. Blocking a vendor's training bot while never naming its search bot leaves
+that agent's access to whatever `User-agent: *` happens to grant — inherited, not decided,
+and it changes the next time somebody edits the wildcard group.
 
 **Audit finding to flag**: *"training bot blocked but sibling search bot not explicitly
 allowed."* Raise it whenever a robots.txt disallows any training agent (GPTBot, ClaudeBot,

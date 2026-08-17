@@ -223,6 +223,13 @@ cited, or placeholder, never invented).
 
 ## GEO Content Gap Template
 
+**Filling the AI-Answerable Topics table** (operator note — stays out of the fence below, and
+out of the client's report): column 3 is filled by opening the competitor's page and naming
+what is visibly on it. It is **not** why an engine chose them. No engine publishes its
+selection rule, so that reason is not available to state and is not stated — the column was
+headed *"Why They're Cited"* until 2026-08-17 and invited exactly that (ruling R3
+amendment 9a).
+
 ```markdown
 ## GEO Content Gap Analysis
 
@@ -230,10 +237,10 @@ cited, or placeholder, never invented).
 
 **Topics where competitors get AI citations (you don't)**:
 
-| Topic | AI Cites | Why They're Cited | Your Gap |
+| Topic | Competitor quoted | What their page carries that yours does not | Your Gap |
 |-------|----------|-------------------|----------|
-| [topic 1] | [Comp] | [reason] | [what you need] |
-| [topic 2] | [Comp] | [reason] | [what you need] |
+| [topic 1] | [Comp] | [the definition, table, figure or credential visible on their page] | [what you need] |
+| [topic 2] | [Comp] | [the definition, table, figure or credential visible on their page] | [what you need] |
 
 ### GEO-Optimized Content Gaps
 

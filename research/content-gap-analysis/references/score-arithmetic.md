@@ -94,7 +94,7 @@ frameworks §2 Step 4:
 
 | GEO Value | The gap is | Why |
 |-----------|-----------|-----|
-| 5 | A definition, a direct question, or a head-to-head comparison | These are the shapes an engine lifts whole — a self-contained passage that answers on its own |
+| 5 | A definition, a direct question, or a head-to-head comparison | These shapes are already self-contained — the passage answers on its own and survives being lifted whole |
 | 3 | Explainable in a self-contained passage, but scoped as a general article rather than a definition, Q&A or comparison | Liftable after restructuring, not as scoped |
 | 1 | Useful only with the reader's own account, a login, a transaction or a physical visit | There is nothing for an engine to lift |
 

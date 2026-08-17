@@ -8,7 +8,7 @@ Comprehensive playbook for establishing and maintaining entity presence across G
 
 ### The Entity Web
 
-Knowledge graphs are interconnected databases of entities and their relationships. Search engines and AI systems use them as ground truth for entity understanding.
+Knowledge graphs are interconnected databases of entities and their relationships — public, editable in places, and readable by anyone. Getting your entry right is how the facts about the brand become a single consistent record instead of a set of pages that disagree. What any given engine does with that record is not published by any engine, and this guide does not claim it (ruling R3 amendment 9a).
 
 ```
 Your Entity
@@ -99,11 +99,20 @@ If connected, query directly for entity status and attributes.
 
 ### Why Wikidata Is Critical
 
-Wikidata is the **single most influential editable knowledge base** for entity optimization:
-- Google uses it as a primary source for Knowledge Panels
-- Bing uses it for Satori knowledge graph
-- AI systems reference it during entity resolution
-- It's open and you can edit it (within their guidelines)
+Wikidata is where this library spends entity effort first, and the reasons are properties of
+the resource rather than claims about what any engine does with it:
+- It is open, structured, and editable by you (within their guidelines) — which almost no
+  other authoritative record of your brand is
+- Its statements carry references and identifiers, so a claim about the entity is checkable
+  from the entry itself
+- It is widely mirrored and reused, so one correction there propagates further than a
+  correction on your own site
+- [VERIFY — 2026-08-17] This library has also carried "Google uses it as a primary source for
+  Knowledge Panels", "Bing uses it for Satori" and "AI systems reference it during entity
+  resolution". No engine-primary source for any of the three was read here
+  (`developers.google.com` is refused by this environment's egress, per ruling R3's evidence
+  note). Do not state them to a client. Resolves on an owner read of Google's own
+  Knowledge Panel documentation.
 
 ### Creating a Wikidata Entry
 
@@ -233,15 +242,27 @@ Coverage-building strategies:
 - Remove criticism or negative but sourced information
 - Pay someone to write the article without disclosure (violates Wikipedia policy)
 
-### Wikipedia's Impact on AI
+### Why This Library Ranks Wikipedia High
 
-Wikipedia is disproportionately important for AI systems because:
-- It's in the training data of every major LLM
-- AI systems treat it as a high-trust source
-- Wikipedia's structured format makes it easy for AI to extract and cite
-- The first paragraph of a Wikipedia article often becomes the AI's entity definition
+Wikipedia is near the top of this library's entity do-first order, and the reasons are things
+you can check by opening the article — not what any engine does with it, which no engine
+publishes (ruling R3 amendment 9a):
+- The article is public, permanent, heavily mirrored, and outranks most brands' own pages for
+  their own name
+- Its lead section is a standalone definition of the entity: 2-3 sentences that say what the
+  thing is, independent of the rest of the article, quotable intact
+- Its infobox and references make every claim about the entity traceable to a named source
+- It is one of the few records about a brand that a competitor cannot rewrite in their favour
 
-This makes Wikipedia presence one of the highest-impact entity optimization actions for GEO.
+Ranking it high is this library's judgement, not a documented mechanic. Say what the article
+gives the client — a correct, sourced, quotable public definition — and never that an engine
+will use it.
+
+[VERIFY — 2026-08-17] Previously stated here as fact and withdrawn: that Wikipedia is in the
+training data of every major LLM, that AI systems treat it as a high-trust source, and that
+its first paragraph "often becomes the AI's entity definition". No engine-primary source for
+any of the three was read here. Resolves on published model-card or engine documentation
+naming the corpus and its weighting.
 
 ## Schema.org Entity Markup
 

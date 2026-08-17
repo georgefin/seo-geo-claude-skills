@@ -1,13 +1,13 @@
 ---
 name: domain-authority-auditor
-version: "4.3.3"
+version: "4.3.4"
 description: 'Run the full 40-item CITE domain authority audit across 4 dimensions with domain-type weighting and veto checks. Use when the user asks to "audit domain authority", "domain trust score", "CITE audit", "how authoritative is my site", "domain credibility check", "is my domain trustworthy", "domain credibility score", "domain rating". For content-level assessment, see content-quality-auditor. For link profile details, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.3"
+  version: "4.3.4"
   geo-relevance: "medium"
   tags:
     - seo

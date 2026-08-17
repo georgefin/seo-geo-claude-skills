@@ -8,25 +8,25 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 
 | Skill | Category | Version | Last Updated |
 |-------|----------|---------|--------------|
-| keyword-research | research | 4.4.2 | 2026-08-13 |
+| keyword-research | research | 4.4.3 | 2026-08-17 |
 | competitor-analysis | research | 4.2.0 | 2026-08-10 |
-| serp-analysis | research | 4.3.4 | 2026-08-13 |
-| content-gap-analysis | research | 4.2.5 | 2026-08-13 |
-| seo-content-writer | build | 4.5.5 | 2026-08-13 |
-| geo-content-optimizer | build | 4.4.3 | 2026-08-13 |
+| serp-analysis | research | 4.3.5 | 2026-08-17 |
+| content-gap-analysis | research | 4.2.6 | 2026-08-17 |
+| seo-content-writer | build | 4.5.7 | 2026-08-17 |
+| geo-content-optimizer | build | 4.4.4 | 2026-08-17 |
 | meta-tags-optimizer | build | 4.2.1 | 2026-08-13 |
 | schema-markup-generator | build | 4.2.8 | 2026-08-13 |
 | on-page-seo-auditor | optimize | 4.3.2 | 2026-08-13 |
-| technical-seo-checker | optimize | 4.4.5 | 2026-08-13 |
+| technical-seo-checker | optimize | 4.4.6 | 2026-08-17 |
 | internal-linking-optimizer | optimize | 4.4.0 | 2026-08-10 |
-| content-refresher | optimize | 4.3.4 | 2026-08-13 |
+| content-refresher | optimize | 4.3.5 | 2026-08-17 |
 | rank-tracker | monitor | 4.2.0 | 2026-08-10 |
-| backlink-analyzer | monitor | 4.1.0 | 2026-08-10 |
-| performance-reporter | monitor | 4.4.2 | 2026-08-13 |
+| backlink-analyzer | monitor | 4.1.1 | 2026-08-17 |
+| performance-reporter | monitor | 4.4.3 | 2026-08-17 |
 | alert-manager | monitor | 4.3.4 | 2026-08-13 |
-| content-quality-auditor | cross-cutting | 4.4.1 | 2026-08-13 |
-| domain-authority-auditor | cross-cutting | 4.3.3 | 2026-08-13 |
-| entity-optimizer | cross-cutting | 4.2.0 | 2026-08-10 |
+| content-quality-auditor | cross-cutting | 4.4.2 | 2026-08-17 |
+| domain-authority-auditor | cross-cutting | 4.3.4 | 2026-08-17 |
+| entity-optimizer | cross-cutting | 4.2.1 | 2026-08-17 |
 | memory-management | cross-cutting | 4.1.0 | 2026-08-10 |
 
 ## Changelog

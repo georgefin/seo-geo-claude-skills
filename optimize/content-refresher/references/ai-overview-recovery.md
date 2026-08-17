@@ -53,7 +53,8 @@ Work top to bottom; re-measure between stages rather than shipping everything at
    number, a proper noun, or a date); structure the rest of the page under jump-linked
    H2s so each subtopic is independently addressable.
 2. **Standalone quotable sentences.** Add sentences that each make one specific, sourced
-   claim and survive being lifted out of context — these are what engines quote.
+   claim and survive being lifted out of context — the test is that the sentence still
+   says something true on its own, which you can check by cutting it out and reading it.
 3. **FAQ section.** Answer the affected queries' people-also-ask variants in 40-60-word
    answers. **R2 rule — read before touching markup**: the FAQ *content* is the port
    here. FAQPage *markup* is added ONLY if the page genuinely passes the R2 both-things

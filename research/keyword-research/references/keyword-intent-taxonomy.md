@@ -52,7 +52,7 @@ The user wants to **learn something**. They are seeking knowledge, not a product
 | Featured Snippet | Very High | Especially for "what is" and "how to" queries |
 | People Also Ask | Very High | Almost always present for informational queries |
 | Knowledge Panel | High | For entity-related informational queries |
-| AI Overview | Very High | AI systems prioritize informational answers |
+| AI Overview | Very High | Appears on most informational queries in this set — confirm per keyword rather than assuming |
 | Video Carousel | Medium-High | Especially for instructional queries |
 | Image Pack | Medium | For visual/diagram-seeking queries |
 | Shopping Results | Very Low | Rarely appears for pure informational |
@@ -152,7 +152,7 @@ The user is **researching before making a purchase decision**. They are comparin
 |-------------|------------------------|-------|
 | People Also Ask | Very High | Comparison and evaluation questions |
 | Featured Snippet | High | Especially for "best" and comparison queries |
-| AI Overview | High | AI often synthesizes comparisons |
+| AI Overview | High | Usually appears in comparison form on these queries — record the form you actually saw, per query |
 | Shopping Results | Medium | When products have direct purchase path |
 | Video Carousel | Medium | Review and comparison videos |
 | Ads (top) | Very High | Advertisers target commercial intent heavily |

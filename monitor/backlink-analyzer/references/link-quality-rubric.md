@@ -71,9 +71,17 @@ a claim you do not have.
 | 1 | <10 visits/month | No meaningful traffic, minimal value |
 
 **Why traffic matters:**
-- Links from pages with real traffic are more likely to be genuine editorial placements.
-- Google likely weights links from pages that receive traffic more highly.
-- Referral traffic from the link provides direct business value beyond SEO.
+- Links from pages with real traffic are more likely to be genuine editorial placements — an
+  inference about how publishers behave, not about how an engine scores.
+- Referral traffic from the link provides direct business value beyond SEO, measurable in
+  analytics whatever any engine does with the link.
+- [VERIFY — 2026-08-17] This library has also carried "Google likely weights links from pages
+  that receive traffic more highly." No engine-primary source for it was read here. It is
+  hedged rather than asserted, which is why it stood; it is tagged now because it was helping
+  justify a **scoring weight**, and a load-bearing claim needs a source or a tag. **The 15%
+  weight does not rest on it** — the two observable bullets above carry the factor on their
+  own. Do not state it to a client. Resolves on an owner read of Google's own link-quality
+  documentation.
 
 ### Factor 4: Link Position (15% weight)
 

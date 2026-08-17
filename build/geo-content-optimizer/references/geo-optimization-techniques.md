@@ -41,8 +41,8 @@ AI systems love clear, quotable definitions.
 
 ## Quotable Statement Optimization
 
-AI systems cite specific, standalone statements. Transform vague
-content into quotable facts.
+A specific, standalone statement can be lifted out of its paragraph and still
+say something; a vague one cannot. Transform vague content into quotable facts.
 
 **Weak (Not quotable)**:
 > Email marketing is pretty effective and lots of companies use it.
@@ -108,7 +108,7 @@ own data, which are yours to state.
 
 **Source Citations**
 
-Properly cite sources that AI can verify:
+Cite sources a reader can follow — named, dated and locatable:
 
 Before:
 > Studies show that most people prefer video content.
@@ -128,7 +128,8 @@ After:
 
 ## Structure Optimization for GEO
 
-AI systems parse structured content more effectively.
+Structure makes each answer addressable on its own — a question heading, a table cell, a
+numbered step — instead of a passage a reader has to reassemble.
 
 **Q&A Format**
 
@@ -173,7 +174,7 @@ Highlight key definitions:
 
 ## Factual Density Improvement
 
-AI systems prefer fact-rich content over opinion-heavy content.
+A fact with a unit and a source can be checked; an opinion can only be agreed with.
 
 **Content Transformation**:
 
@@ -219,7 +220,7 @@ exemption for having been published first. Four cases, in the order to try them:
 3. **Hedgeable** — broadly true, not measurable. Keep it explicitly unquantified, and never
    attach a number nobody measured.
 4. **None of the above** — cut it. A claim with no owner and no source is exactly the sentence
-   an AI engine will quote back at the client under their own byline.
+   that gets repeated back at the client under their own byline, by whoever repeats it.
 
 Never available: inventing the source, or leaving a borrowed authority ("studies show", "most
 manufacturers recommend") standing as though it had been checked.
@@ -252,7 +253,7 @@ the client actually gave — "for frame repairs, as supplied", «όπως μας
 where neither is available, ask before publishing rather than after. Naming the inference in the
 report is necessary and not sufficient: **the report is not what gets pasted onto the page**,
 and the sentence that ships is a claim about the client's own business, made in their voice.
-A scope claim the client cannot recognise as their own is the one an AI engine will quote back
+A scope claim the client cannot recognise as their own is the one that gets quoted back
 at them.
 
 ## FAQ Optimization for GEO

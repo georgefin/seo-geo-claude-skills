@@ -27,10 +27,15 @@ Before/after examples of content optimized for AI citation. Each example shows t
 > other.
 >
 > **The `Citation likelihood: X/10` labels below are teaching devices, not deliverable
-> scores.** They rate example text to make a contrast visible and carry no derivation. Any
-> score printed in a client deliverable shows the count behind it, in the same row or the next
-> sentence — see [geo-score-arithmetic.md](./geo-score-arithmetic.md), which also states how a
-> citation-likelihood rating is derived when a report prints one.
+> scores.** They rate example text to make a contrast visible and carry no derivation.
+> **And they rate the text, not an engine**: the number says how much of the paragraph could
+> be lifted and quoted intact, and it is never a prediction that an engine will quote it — no
+> primary source establishes that in either direction (ruling R3 amendment 9a). The word
+> survives on this page because the only reader here is whoever operates the library; the
+> rating a **report** prints is called **citation readiness** and is a count of the ten
+> factors in [ai-citation-patterns.md](./ai-citation-patterns.md). Any score printed in a
+> client deliverable shows the count behind it, in the same row or the next sentence — see
+> [geo-score-arithmetic.md](./geo-score-arithmetic.md) §6.
 
 ## Example 1: Definition Block
 
@@ -335,7 +340,7 @@ Before/after examples of content optimized for AI citation. Each example shows t
 >
 > 3. **Source attribution value** - Being cited by AI systems (Generative Engine Optimization/GEO) becomes as important as ranking #1
 >
-> Published forecasts disagree with each other, and none of them is about your site. The number that matters is your own: track, per engine, how often your pages are cited in AI answers — engines select sources differently, so a single blended "AI traffic" figure hides the answer.
+> Published forecasts disagree with each other, and none of them is about your site. The number that matters is your own: track, per engine, how often your pages are cited in AI answers. Run the same query on two engines and the cited sets only partly overlap, so a single blended "AI traffic" figure hides the answer.
 
 **Improvements**:
 - One forecast, attributed and dated, and labelled a forecast rather than restated as fact (fictional stand-in — cite the outlook you have read, and say who published it)

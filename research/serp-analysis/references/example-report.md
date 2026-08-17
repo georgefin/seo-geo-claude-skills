@@ -82,9 +82,11 @@ the reason.
 2. musicstreamer.example - "Record and edit"
 3. encyclopedia.example - Definition of podcasting
 
-**Pattern**: AI pulls step-by-step instructions from guides with clear structure. Two of the
-three citations are in the organic top 5 and the third is not, so the citation set and the
-ranking set overlap without being the same list.
+**Pattern**: all three cited pages carry the same thing — a numbered sequence with each step
+under its own heading, liftable one step at a time. Two of the three citations are in the
+organic top 5 and the third is not, so the citation set and the ranking set overlap without
+being the same list. (Why those three were chosen is not observable from here, and this
+report does not say.)
 
 ### Content Requirements
 

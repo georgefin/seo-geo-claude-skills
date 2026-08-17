@@ -1,8 +1,25 @@
 # AI Citation Patterns
 
-How different AI systems select and cite content. Understanding these patterns helps optimize content for AI visibility.
+This library's working model of how different AI systems present and attribute the content
+they quote, and what to put on a page in response.
 
-> **Standing rule for every example in this file.** The engine-behaviour sections below
+> **Evidence grade — read before quoting anything in this file.** No engine publishes its
+> citation-selection mechanics. What is genuinely observable is the **citation style** each
+> product visibly uses in its own output — inline numbers, a footnoted Sources list, named
+> attribution — and that is what the per-engine sections below record. The **"what gets
+> cited" / "prefers" / "values" lists beside them are this library's judgement about where to
+> spend effort**, not a preference any engine has stated. Ruling R3 amendment 9a retracted a
+> claim of exactly this shape — that FAQPage markup earns AI citations — on the ground that
+> **no primary source establishes it in either direction**; that absence is not narrower here.
+>
+> **In a deliverable**: use these sections to order work, and justify every recommendation by
+> what it puts on the page — a standalone definition that can be lifted and quoted intact, a
+> comparison a reader can scan, a source a reader can follow. Never by an asserted engine
+> mechanic. "Engines extract from the first paragraph" is not a sentence this library can
+> source; "the answer is in the first 150 words, where a reader and any extractive consumer
+> both reach it without scrolling" is.
+
+> **Standing rule for every example in this file.** The per-engine sections below
 > describe real systems and carry `[VERIFY]` tags where the evidence is weak — read those
 > tags as written. The **worked examples** are a different genre and follow a different rule:
 > an illustrative example never attributes data or a quotation to a real organisation or a
@@ -157,7 +174,7 @@ How different AI systems select and cite content. Understanding these patterns h
 ### Universal Citation Factors
 
 **Content quality**:
-- Factual accuracy (incorrect info won't be cited)
+- Factual accuracy (an incorrect figure is a liability wherever it is repeated)
 - Clear, unambiguous language
 - Proper grammar and spelling
 - Comprehensive coverage
@@ -245,7 +262,7 @@ Question-answer formats match AI query patterns.
 
 ### 4. Comparison Tables
 
-Structured comparisons are easy for AI to parse and cite.
+A structured comparison turns values into addressable cells instead of prose a reader has to reassemble.
 
 **Structure**:
 ```markdown
@@ -421,9 +438,19 @@ Highlighted important points.
 
 ---
 
-## Citation Likelihood Factors
+## Citation-Readiness Factors
 
-### High Citation Likelihood
+> **Renamed 2026-08-17, and the rename is the point.** These tiers previously read *High /
+> Medium / Low Citation Likelihood*, which states a probability that an engine will cite the
+> page — a claim about engine behaviour that no primary source establishes in either
+> direction (ruling R3 amendment 9a), and one that
+> [geo-score-arithmetic.md](./geo-score-arithmetic.md) §6 lets a run **print in a client
+> report**. Every factor below is unchanged and still right; each is a property of the page a
+> reader can confirm by opening it. What the count reports is how far the page is set up to
+> be quoted — not how likely any engine is to quote it. Whether it was quoted is **measured**
+> (CITE C05-C08, rank-tracker's citation counts), never predicted.
+
+### Full readiness — the ten-factor set
 
 - [ ] Content from recognized authority domains
 - [ ] Published or updated within 12 months
@@ -436,7 +463,7 @@ Highlighted important points.
 - [ ] Technical accuracy verified
 - [ ] Consensus with other sources
 
-### Medium Citation Likelihood
+### Partial readiness
 
 - [ ] Content from less-known but quality domains
 - [ ] Published 1-2 years ago
@@ -447,7 +474,7 @@ Highlighted important points.
 - [ ] No author listed but quality content
 - [ ] Some supporting evidence
 
-### Low Citation Likelihood
+### Low readiness
 
 - [ ] Content from unknown/low-authority domains
 - [ ] Published 3+ years ago without updates

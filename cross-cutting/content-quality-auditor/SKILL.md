@@ -1,6 +1,6 @@
 ---
 name: content-quality-auditor
-version: "4.4.1"
+version: "4.4.2"
 description: 'Run the full 80-item CORE-EEAT audit across 8 dimensions with content-type weighted scoring, veto checks, and prioritized fix plans. Use when the user asks to "audit content quality", "EEAT score", "CORE-EEAT audit", "content quality check", "how good is my content", "content improvement plan", "is my content AI-citation worthy", "GEO quality score". For SEO page element audits, see on-page-seo-auditor. For domain-level authority, see domain-authority-auditor.'
 license: Apache-2.0
 allowed-tools: WebFetch
@@ -8,7 +8,7 @@ compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, 
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.4.1"
+  version: "4.4.2"
   geo-relevance: "high"
   tags:
     - seo
@@ -343,7 +343,7 @@ See [references/item-reference.md](./references/item-reference.md) for a complet
 1. **Start with veto items** — T04 (conditional: only when a material connection exists), C01, and R10 override the arithmetic: one verified veto failure caps the final score at 59, two or more = BLOCK (no final score), unassessable veto evidence = no score issued
    > These veto items and their scoring consequences follow the CORE-EEAT benchmark (Section 3), which defines them as framework rules that override the overall score.
 2. **Focus on high-weight dimensions** — Different content types prioritize different dimensions
-3. **GEO-First items matter most for AI visibility** — Prioritize items tagged GEO 🎯 if AI citation is the goal
+3. **GEO-First items are this library's do-first order when AI citation is the goal** — Prioritize items tagged GEO 🎯. That order is the library's judgement (benchmark §4), not documented engine behaviour; each item's reason states what it puts on the page, checkable by opening it
 4. **Some EEAT items need site-level data** — Don't penalize content for things only observable at the site level (backlinks, brand recognition)
 5. **Use the weighted score, not just the raw average** — A product review with strong Exclusivity matters more than strong Authority
 6. **Re-audit after improvements** — Run again to verify score improvements and catch regressions

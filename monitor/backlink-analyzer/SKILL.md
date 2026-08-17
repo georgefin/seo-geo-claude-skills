@@ -1,13 +1,13 @@
 ---
 name: backlink-analyzer
-version: "4.1.0"
+version: "4.1.1"
 description: 'Analyze backlink profiles to assess link authority, identify toxic links, discover link building opportunities, and monitor competitors. Use when the user asks to "analyze backlinks", "check link profile", "find toxic links", "link building opportunities", "who links to me", "how do I get more backlinks", "disavow links", or "off-page SEO". For internal link analysis, see internal-linking-optimizer. For competitor link profiles, see competitor-analysis.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.1.0"
+  version: "4.1.1"
   geo-relevance: "low"
   tags:
     - seo

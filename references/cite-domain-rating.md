@@ -205,7 +205,7 @@ absence is not narrower here. Do not write an engine mechanic into a client repo
 
 | CITE Item | Related CORE-EEAT Items | Relationship |
 |-----------|------------------------|--------------|
-| C05-C08 (AI Citations) | C02 (Direct Answer), O02 (Summary Box), E01 (Original Data) | Domain gets cited when content is citable |
+| C05-C08 (AI Citations) | C02 (Direct Answer), O02 (Summary Box), E01 (Original Data) | The CORE-EEAT items name what makes a page liftable; the CITE items count where it was actually quoted |
 | I01 (Knowledge Graph) | A07 (Knowledge Graph Presence), A08 (Entity Consistency) | EEAT-A items build the identity that I items measure |
 | I04 (Schema.org) | O05 (Schema Markup), R09 (HTML Semantics) | Content-level schema contributes to domain-level coverage |
 | I05 (Author Entity) | Ept01 (Author Identity), Ept02 (Credentials Display) | Content author signals build domain author recognition |
@@ -491,11 +491,11 @@ absence is not narrower here. Do not write an engine mechanic into a client repo
 | 1 | Ignoring AI citations | C05 | Only checking backlinks | Also monitor AI engine citations across major platforms |
 | 2 | Counting total links, not domains | C01 | "We have 50,000 backlinks!" | Count unique referring domains, not total link count |
 | 3 | Link quality conflated with quantity | C02 | 10,000 low-authority links = good | 200 high-authority editorial links > 10,000 directory links |
-| 4 | Ignoring entity identity | I01 | Focus only on links and traffic | Check knowledge graph presence; it's how AI verifies sources |
-| 5 | Neglecting Schema markup | I04 | "Schema doesn't matter for authority" | Schema helps AI engines understand your domain's scope |
+| 4 | Ignoring entity identity | I01 | Focus only on links and traffic | Check knowledge graph presence; it is what makes the entity resolvable to one identity across sources instead of ambiguous |
+| 5 | Neglecting Schema markup | I04 | "Schema doesn't matter for authority" | Schema states the site's entities and page types in a machine-readable form; prose alone leaves them to inference |
 | 6 | Not checking veto items first | T03 | Full evaluation before checking fundamentals | Always check T03, T05, T09 first — they can invalidate everything |
 | 7 | Treating abandoned domains as trustworthy | T08 | "Old domain = authoritative domain" | A domain dormant for 3 years has decayed authority |
-| 8 | Overlooking AI crawler policies | E04 | Blocking all bots for "security" | Review robots.txt; blocking AI crawlers kills GEO potential |
+| 8 | Overlooking AI crawler policies | E04 | Blocking all bots for "security" | Review robots.txt; a blanket block also covers the vendors' named search/citation agents, so decide each agent's access deliberately rather than inherit it |
 | 9 | Equating social presence with authority | E05 | "We have 100K followers = high authority" | Social presence is one of 40 items, not a proxy for overall authority |
 | 10 | Using single-metric shortcuts | — | "Our Moz DA is 60, so we're good" | No single metric captures the full picture; CITE evaluates 40 signals |
 

@@ -1,13 +1,13 @@
 ---
 name: entity-optimizer
-version: "4.2.0"
+version: "4.2.1"
 description: 'Audit and build entity presence across Google Knowledge Graph, Wikidata, and AI systems for brand recognition and AI citations. Use when the user asks to "optimize entity presence", "build knowledge graph", "improve knowledge panel", "entity audit", "establish brand entity", "Google doesn''t know my brand", "no knowledge panel", "establish my brand as an entity". For structured data implementation, see schema-markup-generator. For content-level AI optimization, see geo-content-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.2.0"
+  version: "4.2.1"
   geo-relevance: "high"
   tags:
     - seo
@@ -43,12 +43,12 @@ metadata:
 # Entity Optimizer
 
 
-Audits, builds, and maintains entity identity across search engines and AI systems. Entities — the people, organizations, products, and concepts that search engines and AI systems recognize as distinct things — are the foundation of how both Google and LLMs decide *what a brand is* and *whether to cite it*.
+Audits, builds, and maintains entity identity across search engines and AI systems. An entity — a person, organization, product or concept treated as one distinct thing rather than a string of words — is what makes a brand resolvable to a single identity across sources instead of ambiguous.
 
-**Why entities matter for SEO + GEO:**
+**Why entities matter for SEO + GEO** — this library's working model, stated as what the work puts in place, because no engine publishes how it resolves or selects entities (ruling R3 amendment 9a):
 
-- **SEO**: Google's Knowledge Graph powers Knowledge Panels, rich results, and entity-based ranking signals. A well-defined entity earns SERP real estate.
-- **GEO**: AI systems resolve queries to entities before generating answers. If an AI cannot identify an entity, it cannot cite it — no matter how good the content is.
+- **SEO**: Google's Knowledge Graph is what Knowledge Panels are built from, and a claimed, accurate panel is a block of SERP space showing your own facts rather than a competitor's. Whether it is shown, and how, is Google's call and is not promised here.
+- **GEO**: a brand whose name, description and identifiers say the same thing on every surface is one an answer can only get right; a brand whose sources disagree is one that can be confused with something else. Testing that is a measurement — ask the engines and record what comes back (step 3) — not a prediction.
 
 ## When to Use This Skill
 
@@ -341,7 +341,7 @@ Detailed guides for entity optimization:
 - [content-quality-auditor](../content-quality-auditor/) — CORE-EEAT items A07 (Knowledge Graph Presence) and A08 (Entity Consistency) directly relate
 - [domain-authority-auditor](../domain-authority-auditor/) — CITE I01-I10 (Identity dimension) measures entity signals at domain level
 - [schema-markup-generator](../../build/schema-markup-generator/) — Generate Organization, Person, Product, and other entity schema
-- [geo-content-optimizer](../../build/geo-content-optimizer/) — Entity signals feed AI citation probability
+- [geo-content-optimizer](../../build/geo-content-optimizer/) — Entity work settles who the brand is; that skill makes the page's answers quotable
 - [competitor-analysis](../../research/competitor-analysis/) — Compare entity presence against competitors
 - [backlink-analyzer](../../monitor/backlink-analyzer/) — Branded backlinks strengthen entity signals
 - [performance-reporter](../../monitor/performance-reporter/) — Track branded search and Knowledge Panel metrics

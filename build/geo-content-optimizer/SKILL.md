@@ -1,13 +1,13 @@
 ---
 name: geo-content-optimizer
-version: "4.4.3"
+version: "4.4.4"
 description: 'Optimize content for AI citation across Google AI Mode (default search surface, incl. AI Overviews), ChatGPT, Perplexity, and Gemini with quotable statements and structured Q&A. Use when the user asks to "optimize for AI", "get cited by ChatGPT", "GEO optimization", "appear in AI answers", "make content AI-quotable", "Google AI Overview optimization", or "Google AI Mode optimization". Adds quotable statements, structured Q&A, precise statistics with sources, expert attribution, and a structured FAQ. Uses CORE-EEAT GEO-First items as optimization targets. For SEO-focused writing, see seo-content-writer. For entity and brand AI presence, see entity-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.4.3"
+  version: "4.4.4"
   geo-relevance: "high"
   tags:
     - geo
@@ -44,18 +44,18 @@ This skill optimizes content to appear in AI-generated responses. As AI systems 
 - Creating new content designed for both SEO and GEO
 - Improving chances of appearing in Google AI Mode (default surface; AI Overviews folded in)
 - Making content more quotable by AI systems
-- Adding authority signals that AI systems trust
+- Adding authority signals a reader can check — a named author, a dated source, a linkable credential
 - Structuring content for AI comprehension
 - Competing for visibility in the AI-first search era
 
 ## What This Skill Does
 
-1. **Citation Optimization**: Makes content more likely to be quoted by AI
+1. **Citation Optimization**: Rewrites statements so they can be lifted and quoted intact
 2. **Structure Enhancement**: Formats content for AI comprehension
-3. **Authority Building**: Adds signals that AI systems trust
+3. **Authority Building**: Adds signals a reader can check — named author, credentials, dated sources
 4. **Factual Enhancement**: Improves accuracy and verifiability
 5. **Quote Creation**: Creates memorable, citeable statements
-6. **Source Attribution**: Adds proper citations that AI can verify
+6. **Source Attribution**: Adds citations a reader can follow to a named, dated, locatable source
 7. **GEO Scoring**: Evaluates content's AI-friendliness
 
 ## How to Use
@@ -154,7 +154,7 @@ When a user requests GEO optimization:
    - **What this skill may emit** — the boundary three signals in this repo used to blur. It emits JSON-LD for the page's **one primary type only**, only once that type is settled and named in the report, and only to carry content it just wrote; the FAQPage skeleton in [geo-optimization-techniques.md](./references/geo-optimization-techniques.md) is that case and the only one shipped here. It never emits a second content type, never an auxiliary (BreadcrumbList, publisher/author, WebSite), and never a type it had to guess. Everything else — property completeness, validation, auxiliaries, cross-page consistency, and every uncertain or contested type call — belongs to [schema-markup-generator](../schema-markup-generator/), which carries the same boundary: hand it the page's facts, not a guess. Step 5's `[type emitted, or why none]` row takes exactly three answers: the type this skill emitted, the accurate type already on the page and left alone, or none — routed on, with the type the page needs and why. **A type that moves under the edit is a replacement, not an addition**: if the optimization genuinely changes what the page is, the old object goes out as the new one goes in and the page still carries one primary type (CORE-EEAT benchmark §5, "when the correct type changes because of the edit").
 
    _Full benchmark: [references/core-eeat-benchmark.md](../../references/core-eeat-benchmark.md)_
-   _Engine behavior detail: [references/ai-citation-patterns.md](./references/ai-citation-patterns.md)_
+   _Per-engine working model (this library's, not engine-published): [references/ai-citation-patterns.md](./references/ai-citation-patterns.md)_
    ```
 
 2. **Analyze Current Content**
@@ -190,7 +190,7 @@ When a user requests GEO optimization:
 
 3. **Apply GEO Optimization Techniques**
 
-   > **GEO fundamentals**: AI systems prioritize content that is authoritative (expert credentials, proper citations), accurate (verifiable, up-to-date), clear (well-structured, unambiguous), and quotable (standalone answers, specific data). See [references/geo-optimization-techniques.md](./references/geo-optimization-techniques.md) for detailed before/after examples, templates and checklists for each technique.
+   > **GEO fundamentals** — this library's do-first order, stated as page properties, because no engine publishes its selection rule (ruling R3 amendment 9a): make the page authoritative (a named expert with checkable credentials, sources a reader can follow), accurate (every figure traceable and current), clear (one topic per section, no ambiguous referents), and quotable (answers that stand alone when lifted out of their paragraph). Each is checkable by opening the page — write the recommendation that way, never as an engine mechanic. See [references/geo-optimization-techniques.md](./references/geo-optimization-techniques.md) for detailed before/after examples, templates and checklists for each technique.
 
    Apply the six core optimization techniques: definition optimization, quotable statement creation, authority signal enhancement, structure optimization, factual density improvement, and FAQ implementation (visible Q&A always; markup only under the one-primary-type rule in step 1).
 
@@ -345,7 +345,7 @@ Standalone definition, numbered service list, two quotable facts. Both figures c
 
 **Data still needed**: how common solar water heaters are in Greek homes. It is the one sentence that would place this service in a national context for an AI answer about Greek households. Send a sourced figure with its year — a national statistics or energy-agency publication, or your own installed-base count — and the sentence goes back in.
 
-**Structured data**: no extra type was added. The page needs one accurate structured-data type for what it actually is; piling on more types buys no AI citations, and the answers above earn their citations as visible text.
+**Structured data**: no extra type was added. The page needs one accurate structured-data type for what it actually is; piling on more types buys no AI citations, and the answers above stand on their own as visible text that any reader or consumer reaches without markup.
 
 **GEO Readiness**: 1.3/10 → 8.0/10 — 10 points ÷ 8 factors scored before, 64 ÷ 8 after; lift (8.0 − 1.3) ÷ 1.3 × 100 = 515%. The per-factor rows and the count behind each one ship in the step 4 table.
 ```
@@ -354,16 +354,18 @@ Standalone definition, numbered service list, two quotable facts. Both figures c
 
 ## Tips for Success
 
+Each reason below states what the tip puts on the page, checkable by opening it — never what an engine does with it, which no primary source establishes in either direction (ruling R3 amendment 9a). A model reads this list as instruction, so an engine mechanic written here travels into client copy.
+
 1. **Answer the question first** - Put the answer in the first sentence
-2. **Be specific** - Vague content doesn't get cited
-3. **Cite sources** - AI systems trust verifiable information
+2. **Be specific** - A vague sentence contains nothing that can be lifted out of it; a specific one does
+3. **Cite sources** - A named, dated, linkable source is one the reader can check without taking your word for it
 4. **Stay current** - Update statistics and facts regularly
 5. **Match query format** - Questions deserve direct answers
-6. **Build authority** - Expert credentials increase citation likelihood
+6. **Build authority** - A named expert with checkable credentials is something a competitor cannot also claim
 
 ## Reference Materials
 
-- [AI Citation Patterns](./references/ai-citation-patterns.md) - How Google AI Mode (incl. AI Overviews), ChatGPT, Perplexity, and Claude select and cite sources, plus per-engine overlap and community/UGC citation patterns
+- [AI Citation Patterns](./references/ai-citation-patterns.md) - This library's observational working model of Google AI Mode (incl. AI Overviews), ChatGPT, Perplexity and Claude — citation styles visible in their published output, per-engine overlap and community/UGC patterns. Read its evidence-grade block first: none of it is engine-published, and none of it goes into a deliverable as an engine mechanic
 - [GEO Optimization Techniques](./references/geo-optimization-techniques.md) - Detailed before/after examples, templates and checklists for the six core optimization techniques, plus the GEO Readiness Checklist (definitions, quotable content, authority, structure, technical)
 - [Quotable Content Examples](./references/quotable-content-examples.md) - Before/after examples of content optimized for AI citation
 - [GEO Score Arithmetic](./references/geo-score-arithmetic.md) - What every printed number is made of: the 1-10 scale as a ratio, what each factor counts, N/A handling, the lift, the pre-send recompute pass, and how to read a screen you ran over your own deliverable (a screen that exits non-zero has not run)
