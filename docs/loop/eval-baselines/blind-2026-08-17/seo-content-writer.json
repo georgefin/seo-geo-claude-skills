@@ -278,7 +278,11 @@
     "pass_rate": 0.8667,
     "passed_plus_failed_vs_total": "26 + 1 = 27, three short of 30. The gap is exactly the three greek-content-editor slots — e1.6, e2.6, e4.6 — each inside the total and in neither passed nor failed, pending the binding editor's report (ledger F16-r1(d)).",
     "editor_slot_convention": {
-      "which_slots": ["e1.6", "e2.6", "e4.6"],
+      "which_slots": [
+        "e1.6",
+        "e2.6",
+        "e4.6"
+      ],
       "counted_in_total": true,
       "how_scored": "EDITOR-PENDING, recorded NOT-PASSED, kept inside the denominator, per each expectation's own text — 'record it EDITOR-PENDING, keep it inside the suite's total, and never record it as passed'. Same convention as blind-2026-08-17/rank-tracker.json and blind-2026-08-13/alertmanager.json, so the three records are directly comparable.",
       "mechanical_layer_result": "CLEAN on all three. Final sigma and diacritics correct throughout; every heading inside every Greek fence is natively-phrased Greek with no Latin-script boilerplate; zero §1.3 calque patterns on all three files; Greek-market number/day/VAT formatting correct on e4; e2's per-brief obligation that every medical term be explained in plain words on first use is met and quoted in that expectation's evidence. Only the fluency/naturalness/register half is outstanding, and this grader forms no opinion on it.",
@@ -290,11 +294,41 @@
     "headline_caution": "DO NOT READ 0.8667 AS A DROP FROM THE 0.90 BLIND BASELINE. The two rates are computed on different instruments: four of the thirty expectations were rewritten between the 2026-08-10 record and now, and three of those four (e1.6, e2.6, e4.6) created the EDITOR-PENDING category that accounts for the entire arithmetic gap. On the 26 expectations whose wording is unchanged, this run is 25 PASS / 1 FAIL against the baseline's 24 PASS / 2 FAIL. There are ZERO regressions. See regressions_vs_baseline."
   },
   "per_eval": {
-    "1": {"passed": 5, "failed": 0, "editor_pending": 1, "instrument_defect": 0, "total": 6},
-    "2": {"passed": 5, "failed": 0, "editor_pending": 1, "instrument_defect": 0, "total": 6},
-    "3": {"passed": 6, "failed": 0, "editor_pending": 0, "instrument_defect": 0, "total": 6},
-    "4": {"passed": 4, "failed": 1, "editor_pending": 1, "instrument_defect": 0, "total": 6},
-    "5": {"passed": 6, "failed": 0, "editor_pending": 0, "instrument_defect": 0, "total": 6}
+    "1": {
+      "passed": 5,
+      "failed": 0,
+      "editor_pending": 1,
+      "instrument_defect": 0,
+      "total": 6
+    },
+    "2": {
+      "passed": 5,
+      "failed": 0,
+      "editor_pending": 1,
+      "instrument_defect": 0,
+      "total": 6
+    },
+    "3": {
+      "passed": 6,
+      "failed": 0,
+      "editor_pending": 0,
+      "instrument_defect": 0,
+      "total": 6
+    },
+    "4": {
+      "passed": 4,
+      "failed": 1,
+      "editor_pending": 1,
+      "instrument_defect": 0,
+      "total": 6
+    },
+    "5": {
+      "passed": 6,
+      "failed": 0,
+      "editor_pending": 0,
+      "instrument_defect": 0,
+      "total": 6
+    }
   },
   "regressions_vs_baseline": {
     "verdict": "NONE. Zero expectations that passed at the 2026-08-10 blind baseline fail in this run on unchanged wording.",
@@ -305,40 +339,230 @@
     "confounders_eliminated_before_attributing_any_movement": {
       "prompt": "IDENTICAL. Programmatic comparison of all five prompts and all five `files` arrays between df63d1e (the baseline's own recorded input commit) and HEAD: all five prompts byte-identical, all five fixture lists byte-identical. All six fixture files unchanged since 2026-08-09 (git log).",
       "expectation_count": "IDENTICAL. 5 evals × 6 expectations = 30 at both points. No expectation was added or removed, so the denominators are like-for-like and no rescaling is needed.",
-      "expectation_text": "FOUR OF THIRTY WERE REWRITTEN, all on 2026-08-10 after the baseline was taken. Programmatic diff df63d1e..HEAD identifies them exactly: e1.5, e1.6, e2.6, e4.6, e5.3.",
-      "depended_on_skill_region": "The skill moved 4.2.4 -> 4.7.0 between runs. The regions this suite depends on were diffed: seo-score-rubric.md and seo-writing-checklist.md have not changed since 2026-08-10 (e6a2a04); greek-ymyl-credentials.md has not changed since 2026-08-08; content-structure-templates.md last changed 2026-08-13; anti-slop-ruleset.md and SKILL.md changed on 2026-08-17, adding FAIL-grade family 10, the prohibited-tactics floor and the family-9 RANK widening — all ADDITIONS that tighten, none that relaxes any rule this suite grades."
+      "expectation_text": "FIVE OF THIRTY CHANGED TEXT — four materially, one cosmetically — all on 2026-08-10 after the baseline was taken. Programmatic diff df63d1e..HEAD identifies them exactly: e1.5, e1.6, e2.6, e4.6, e5.3. Four of the five are the material rewrites (e1.6, e2.6, e4.6, e5.3) and are excluded from the like-for-like comparison; e1.5's change is the source-label substitution ('~~SEO tool data, user-provided, or estimated' -> 'in the deliverable's own words') and is counted as comparable, which is why the comparable set is 26 and not 25. [COUNT CORRECTED BY THE 2026-08-17 SECOND READ — this field read 'FOUR OF THIRTY WERE REWRITTEN' above a five-item list. The diff was re-run and returns five; the substantive claim, and the 26-expectation comparable set stated in like_for_like_figure, were re-verified and are unchanged.]",
+      "depended_on_skill_region": "The skill moved 4.2.4 -> 4.7.0 between runs. The regions this suite depends on were diffed: seo-score-rubric.md and seo-writing-checklist.md have not changed since 2026-08-10 (e6a2a04); greek-ymyl-credentials.md has not changed since 2026-08-08; content-structure-templates.md last changed 2026-08-13; anti-slop-ruleset.md and SKILL.md changed on 2026-08-17, adding FAIL-grade family 10, the prohibited-tactics floor and the family-9 RANK widening — all ADDITIONS that tighten, none that relaxes any rule this suite grades.",
+      "_second_read_correction_note": "Original wording, preserved so a reader who has quoted it can see what changed: FOUR OF THIRTY WERE REWRITTEN, all on 2026-08-10 after the baseline was taken. Programmatic diff df63d1e..HEAD identifies them exactly: e1.5, e1.6, e2.6, e4.6, e5.3."
     },
     "per_expectation": [
-      {"expectation": "e1.1", "baseline": "FAIL", "now": "PASS", "movement": "IMPROVEMENT — REGRESSION RECOVERED", "text_changed": false, "note": "The baseline's sole conjunct failure was the absent provider name in the page body. e1.md:128 now opens the page with «Η Μετακομίσεις Βαρδάρης Ι.Κ.Ε.»."},
-      {"expectation": "e1.2", "baseline": "PASS", "now": "PASS", "movement": "none", "text_changed": false},
-      {"expectation": "e1.3", "baseline": "PASS", "now": "PASS", "movement": "none", "text_changed": false},
-      {"expectation": "e1.4", "baseline": "PASS", "now": "PASS", "movement": "none", "text_changed": false},
-      {"expectation": "e1.5", "baseline": "PASS", "now": "PASS", "movement": "none", "text_changed": true, "text_change": "Cosmetic only: the quoted Output-Validation fragment was updated from 'Source of each data point clearly stated (~~SEO tool data, user-provided, or estimated)' to '… in the deliverable's own words', tracking the family-7 resolution rule. The bracketed-placeholder and agency-aside clauses are byte-identical, so this expectation remains comparable."},
-      {"expectation": "e1.6", "baseline": "PASS", "now": "EDITOR-PENDING", "movement": "VOID — REWORDED TEXT, NOT SKILL MOVEMENT", "text_changed": true, "text_change": "Substantive. The baseline graded a 'mechanically checkable layer' expectation whose own process note deferred the editor's verdict elsewhere. Commit 3a8d62c (2026-08-10, 'the Greek editor's verdict becomes a scored slot in all 20 suites') made the editor's grade BINDING and added the instruction that an absent editor report is recorded EDITOR-PENDING and never passed. The baseline's PASS was correct under the old text and is unreachable under the new one without an editor report. The mechanical layer this run is clean."},
-      {"expectation": "e2.1", "baseline": "PASS", "now": "PASS", "movement": "none", "text_changed": false},
-      {"expectation": "e2.2", "baseline": "PASS", "now": "PASS", "movement": "none", "text_changed": false},
-      {"expectation": "e2.3", "baseline": "PASS", "now": "PASS", "movement": "none", "text_changed": false},
-      {"expectation": "e2.4", "baseline": "PASS", "now": "PASS", "movement": "none", "text_changed": false},
-      {"expectation": "e2.5", "baseline": "PASS", "now": "PASS", "movement": "none", "text_changed": false},
-      {"expectation": "e2.6", "baseline": "FAIL", "now": "EDITOR-PENDING", "movement": "VOID — REWORDED TEXT", "text_changed": true, "text_change": "Same 3a8d62c rewrite. The baseline FAILed it on a mechanical clause (medical terms not all explained for the 45+ lay audience). That clause survives the rewrite and now HOLDS — evidence quoted in the e2.6 record — but the rewritten expectation makes the editor's grade binding, so the slot cannot be resolved either way without a report. Recorded as a mechanical-layer improvement that the instrument can no longer convert into a PASS on its own."},
-      {"expectation": "e3.1", "baseline": "PASS", "now": "PASS", "movement": "none", "text_changed": false, "note": "Same verdict by a different route: the baseline satisfied it with two [SOURCED STAT: …] placeholders, this run with zero placeholders and zero statistic-shaped holes. Both satisfy the guard."},
-      {"expectation": "e3.2", "baseline": "PASS", "now": "PASS", "movement": "none", "text_changed": false},
-      {"expectation": "e3.3", "baseline": "PASS", "now": "PASS", "movement": "none", "text_changed": false, "note": "The baseline's self-check marked R01 and R02 'FAIL — cannot pass honestly'; this run marks R02 Fail and R01 Warning. Both clear the expectation's two testable conditions; the R01 status difference is recorded under ambiguous_expectations_eval_improvement."},
-      {"expectation": "e3.4", "baseline": "PASS", "now": "PASS", "movement": "none", "text_changed": false},
-      {"expectation": "e3.5", "baseline": "PASS", "now": "PASS", "movement": "none", "text_changed": false},
-      {"expectation": "e3.6", "baseline": "PASS", "now": "PASS", "movement": "none", "text_changed": false},
-      {"expectation": "e4.1", "baseline": "PASS", "now": "PASS", "movement": "none", "text_changed": false},
-      {"expectation": "e4.2", "baseline": "PASS", "now": "PASS", "movement": "none", "text_changed": false},
-      {"expectation": "e4.3", "baseline": "FAIL", "now": "FAIL", "movement": "none — REPEAT FAILURE, second consecutive blind run", "text_changed": false, "note": "Different mechanism each time. Baseline: the deliverable declared the page publishable today. Now: the deliverable states the blocking rule correctly and exempts the author row from it, marking that row «Καλύπτεται». Two independent blind executors failed the same expectation from opposite directions, which is the signature of a rule the skill states ambiguously rather than of an executor lapse. See suite_level_findings."},
-      {"expectation": "e4.4", "baseline": "PASS", "now": "PASS", "movement": "none", "text_changed": false},
-      {"expectation": "e4.5", "baseline": "PASS", "now": "PASS", "movement": "none", "text_changed": false},
-      {"expectation": "e4.6", "baseline": "PASS", "now": "EDITOR-PENDING", "movement": "VOID — REWORDED TEXT", "text_changed": true, "text_change": "Same 3a8d62c rewrite as e1.6/e2.6."},
-      {"expectation": "e5.1", "baseline": "PASS", "now": "PASS", "movement": "none", "text_changed": false},
-      {"expectation": "e5.2", "baseline": "PASS", "now": "PASS", "movement": "none", "text_changed": false},
-      {"expectation": "e5.3", "baseline": "PASS", "now": "PASS", "movement": "none", "text_changed": true, "text_change": "Substantive RELAXATION, commit a6b8c8e (2026-08-10, 'seo-content-writer e5.3 disambiguated'). The old text required 'inside the draft article and its table, gaps appear only as square-bracketed placeholders'; the baseline passed it only via a DOCUMENTED INTERPRETATION on a zero-placeholder draft. The new text says outright 'Marking no gap at all passes equally … the count of bracketed placeholders — zero included — is not graded here'. Direction FAIL->PASS for a zero-placeholder deliverable. No movement occurred here in either instrument, but the rewrite is the single most load-bearing fact for this record's headline finding: the coordinator fixed this exact contradiction in ONE expectation of six that reach for it."},
-      {"expectation": "e5.4", "baseline": "PASS", "now": "PASS", "movement": "none", "text_changed": false},
-      {"expectation": "e5.5", "baseline": "PASS", "now": "PASS", "movement": "none", "text_changed": false},
-      {"expectation": "e5.6", "baseline": "PASS", "now": "PASS", "movement": "none", "text_changed": false}
+      {
+        "expectation": "e1.1",
+        "baseline": "FAIL",
+        "now": "PASS",
+        "movement": "IMPROVEMENT — REGRESSION RECOVERED",
+        "text_changed": false,
+        "note": "The baseline's sole conjunct failure was the absent provider name in the page body. e1.md:128 now opens the page with «Η Μετακομίσεις Βαρδάρης Ι.Κ.Ε.»."
+      },
+      {
+        "expectation": "e1.2",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none",
+        "text_changed": false
+      },
+      {
+        "expectation": "e1.3",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none",
+        "text_changed": false
+      },
+      {
+        "expectation": "e1.4",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none",
+        "text_changed": false
+      },
+      {
+        "expectation": "e1.5",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none",
+        "text_changed": true,
+        "text_change": "Cosmetic only: the quoted Output-Validation fragment was updated from 'Source of each data point clearly stated (~~SEO tool data, user-provided, or estimated)' to '… in the deliverable's own words', tracking the family-7 resolution rule. The bracketed-placeholder and agency-aside clauses are byte-identical, so this expectation remains comparable."
+      },
+      {
+        "expectation": "e1.6",
+        "baseline": "PASS",
+        "now": "EDITOR-PENDING",
+        "movement": "VOID — REWORDED TEXT, NOT SKILL MOVEMENT",
+        "text_changed": true,
+        "text_change": "Substantive. The baseline graded a 'mechanically checkable layer' expectation whose own process note deferred the editor's verdict elsewhere. Commit 3a8d62c (2026-08-10, 'the Greek editor's verdict becomes a scored slot in all 20 suites') made the editor's grade BINDING and added the instruction that an absent editor report is recorded EDITOR-PENDING and never passed. The baseline's PASS was correct under the old text and is unreachable under the new one without an editor report. The mechanical layer this run is clean."
+      },
+      {
+        "expectation": "e2.1",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none",
+        "text_changed": false
+      },
+      {
+        "expectation": "e2.2",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none",
+        "text_changed": false
+      },
+      {
+        "expectation": "e2.3",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none",
+        "text_changed": false
+      },
+      {
+        "expectation": "e2.4",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none",
+        "text_changed": false
+      },
+      {
+        "expectation": "e2.5",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none",
+        "text_changed": false
+      },
+      {
+        "expectation": "e2.6",
+        "baseline": "FAIL",
+        "now": "EDITOR-PENDING",
+        "movement": "VOID — REWORDED TEXT",
+        "text_changed": true,
+        "text_change": "Same 3a8d62c rewrite. The baseline FAILed it on a mechanical clause (medical terms not all explained for the 45+ lay audience). That clause survives the rewrite and now HOLDS — evidence quoted in the e2.6 record — but the rewritten expectation makes the editor's grade binding, so the slot cannot be resolved either way without a report. Recorded as a mechanical-layer improvement that the instrument can no longer convert into a PASS on its own."
+      },
+      {
+        "expectation": "e3.1",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none",
+        "text_changed": false,
+        "note": "Same verdict by a different route: the baseline satisfied it with two [SOURCED STAT: …] placeholders, this run with zero placeholders and zero statistic-shaped holes. Both satisfy the guard."
+      },
+      {
+        "expectation": "e3.2",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none",
+        "text_changed": false
+      },
+      {
+        "expectation": "e3.3",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none",
+        "text_changed": false,
+        "note": "The baseline's self-check marked R01 and R02 'FAIL — cannot pass honestly'; this run marks R02 Fail and R01 Warning. Both clear the expectation's two testable conditions; the R01 status difference is recorded under ambiguous_expectations_eval_improvement."
+      },
+      {
+        "expectation": "e3.4",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none",
+        "text_changed": false
+      },
+      {
+        "expectation": "e3.5",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none",
+        "text_changed": false
+      },
+      {
+        "expectation": "e3.6",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none",
+        "text_changed": false
+      },
+      {
+        "expectation": "e4.1",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none",
+        "text_changed": false
+      },
+      {
+        "expectation": "e4.2",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none",
+        "text_changed": false
+      },
+      {
+        "expectation": "e4.3",
+        "baseline": "FAIL",
+        "now": "FAIL",
+        "movement": "none — REPEAT FAILURE, second consecutive blind run",
+        "text_changed": false,
+        "note": "Different mechanism each time. Baseline: the deliverable declared the page publishable today. Now: the deliverable states the blocking rule correctly and exempts the author row from it, marking that row «Καλύπτεται». Two independent blind executors failed the same expectation from opposite directions, which is the signature of a rule the skill states ambiguously rather than of an executor lapse. See suite_level_findings."
+      },
+      {
+        "expectation": "e4.4",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none",
+        "text_changed": false
+      },
+      {
+        "expectation": "e4.5",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none",
+        "text_changed": false
+      },
+      {
+        "expectation": "e4.6",
+        "baseline": "PASS",
+        "now": "EDITOR-PENDING",
+        "movement": "VOID — REWORDED TEXT",
+        "text_changed": true,
+        "text_change": "Same 3a8d62c rewrite as e1.6/e2.6."
+      },
+      {
+        "expectation": "e5.1",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none",
+        "text_changed": false
+      },
+      {
+        "expectation": "e5.2",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none",
+        "text_changed": false
+      },
+      {
+        "expectation": "e5.3",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none",
+        "text_changed": true,
+        "text_change": "Substantive RELAXATION, commit a6b8c8e (2026-08-10, 'seo-content-writer e5.3 disambiguated'). The old text required 'inside the draft article and its table, gaps appear only as square-bracketed placeholders'; the baseline passed it only via a DOCUMENTED INTERPRETATION on a zero-placeholder draft. The new text says outright 'Marking no gap at all passes equally … the count of bracketed placeholders — zero included — is not graded here'. Direction FAIL->PASS for a zero-placeholder deliverable. No movement occurred here in either instrument, but the rewrite is the single most load-bearing fact for this record's headline finding: the coordinator fixed this exact contradiction in ONE expectation of six that reach for it."
+      },
+      {
+        "expectation": "e5.4",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none",
+        "text_changed": false
+      },
+      {
+        "expectation": "e5.5",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none",
+        "text_changed": false
+      },
+      {
+        "expectation": "e5.6",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none",
+        "text_changed": false
+      }
     ],
     "like_for_like_figure": "On the 26 expectations whose wording is unchanged (30 minus e1.6, e2.6, e4.6, e5.3; e1.5's change is cosmetic and it is counted as comparable): 2026-08-10 blind = 24 PASS / 2 FAIL = 0.923. 2026-08-17 blind = 25 PASS / 1 FAIL = 0.962. Movement +1 expectation, +3.9 points, entirely attributable to the e1.1 recovery. This is the only cross-run comparison in this record that is method-clean and instrument-clean, and it is the one to quote.",
     "instrument_changes_register": "docs/loop/eval-baselines/INSTRUMENT-CHANGES.md carries NO row for the 3a8d62c 'library-wide sweep — the Greek editor's verdict becomes a scored slot in all 20 suites' change, although that commit rewrote one expectation in every one of the 20 suites and moved a PASS-able slot into a category that cannot be passed without an artefact no run produces by itself. Recorded here as a register gap for the coordinator; this record supplies the direction the register asks for (PASS -> EDITOR-PENDING for any pre-3a8d62c record whose editor slot was graded on the mechanical layer alone)."
@@ -365,9 +589,18 @@
         },
         "why_the_skill_cannot_settle_it": "The string 'paste-ready' occurs EXACTLY ONCE in the whole of SKILL.md and its six reference files (grep, excluding the provenance file): SKILL.md:235, and there only inside the reviewer-naming clause — «That naming lives in the deliverable's own report/handoff section, never as an agency aside inside the copy and never as a bracket token in a paste-ready block». The skill never states whether the article draft it produces is a paste-ready block. Family 2's ban is scoped to 'paste-ready copy'; the statistics rule's instruction is scoped to 'the draft'. Whether those are the same surface is the entire question, and the skill is silent on it. FURTHER: the skill carries NO reference to the Value Rule at all, and none of the three closed-list in-fence labels — `SKELETON`, `ILLUSTRATIVE FILL`, `OPERATOR BLOCK` — appears anywhere in SKILL.md or its references (grep: zero hits). The executor used `OPERATOR BLOCK` correctly in all five deliverables, which it can only have taken from the root CLAUDE.md.",
         "how_the_six_expectations_divide": {
-          "explicitly_permit_zero_brackets": ["e5.3 — «Marking no gap at all passes equally … the count of bracketed placeholders — zero included — is not graded here»"],
-          "permit_a_notes_list_instead_disjunctively": ["e1.5 — «in the draft and/or as an item in a notes/data-collection list»", "e2.3 — «is a square-bracketed [SOURCED STAT: …]-style placeholder **or** an item in the data-request list»", "e2.5 — «surface only in notes/data-request/self-check sections **or** as square-bracketed in-draft placeholders»"],
-          "state_it_unconditionally": ["e3.1 — «every would-be figure is a square-bracketed [SOURCED STAT: …] / [CLIENT DATA: …] placeholder per the statistics rule»", "e3.2 — «Placeholders follow the specificity ladder's sourced form … each placeholder names the specific datum and its intended source class»"]
+          "explicitly_permit_zero_brackets": [
+            "e5.3 — «Marking no gap at all passes equally … the count of bracketed placeholders — zero included — is not graded here»"
+          ],
+          "permit_a_notes_list_instead_disjunctively": [
+            "e1.5 — «in the draft and/or as an item in a notes/data-collection list»",
+            "e2.3 — «is a square-bracketed [SOURCED STAT: …]-style placeholder **or** an item in the data-request list»",
+            "e2.5 — «surface only in notes/data-request/self-check sections **or** as square-bracketed in-draft placeholders»"
+          ],
+          "state_it_unconditionally": [
+            "e3.1 — «every would-be figure is a square-bracketed [SOURCED STAT: …] / [CLIENT DATA: …] placeholder per the statistics rule»",
+            "e3.2 — «Placeholders follow the specificity ladder's sourced form … each placeholder names the specific datum and its intended source class»"
+          ]
         },
         "why_it_did_not_cost_the_run_any_points_this_time": "The zero-placeholder deliverables satisfy all six, because four are disjunctive or explicitly permissive and the two unconditional ones are universally quantified over an empty set. That is luck of drafting, not a resolved conflict: a deliverable that put the tokens in — the form the skill's own worked example models, and the form the 2026-08-10 blind run used and passed on — trips a FAIL-grade family in the same skill's own ruleset.",
         "the_evidence_that_makes_it_consequential_rather_than_merely_true": "This is not a hypothetical. It has now been hit by two independent blind executors, a year apart in run terms and seven days apart in fact, and BOTH stopped and reported it rather than picking a side. The 2026-08-10 blind grader wrote it into the baseline verbatim, under e5.3: «DOCUMENTED INTERPRETATION and the single most consequential judgment in this run … F13 family 2 in this skill's own references/anti-slop-ruleset.md §6 makes any [CLIENT DATA / [SOURCE NEEDED inside paste-ready copy FAIL-grade while explicitly protecting customer-voice hedging, so the literal reading would mandate the very violation F13 exists to prevent.» The coordinator's response, commit a6b8c8e the same day, was to disambiguate ONE expectation — e5.3 — and to leave the other five, the skill body, the worked example and the ruleset untouched. Seven days later the second executor hit the identical conflict from the other four evals and resolved it the same way, and this grader reached it a third time from the ruleset side. Three independent arrivals, one narrow fix, and the underlying contradiction still standing in the skill.",
@@ -570,17 +803,72 @@
   "eleven_executor_claims_adjudicated": {
     "framing": "The executor reported eleven places it says the skill left it guessing. Each was checked against the skill text independently of, and after, the expectation grading. Verdicts: 6 UPHELD, 2 PARTLY UPHELD, 3 REFUTED.",
     "claims": [
-      {"n": 1, "subject": "Factor 6 internal links, 0 vs N/A", "verdict": "PARTLY UPHELD — the outcome is determined, the worked example is missing", "reasoning": "The rubric is not silent. seo-score-rubric.md:91 legitimately excludes «internal links on a site that has no second page yet» (which is e3 exactly, and e3's N/A is authorised); :94-96 states the general rule «Absence of the thing being graded is a measurable fail», and factor 6's own band-0 is '0'. A draft with zero internal links on a site that has other pages is therefore a 0 by the rubric's own general rule, which is what the executor scored in e1/e2/e4/e5. What is genuinely missing is a worked example for that exact case beside the three that are given. The executor's 'invented' rule reproduces the rubric's answer rather than departing from it, and the claim that it is worth 5 points across the suite is its own framing, not a rubric gap."},
-      {"n": 2, "subject": "Factor 7 bands require links 'that resolve', unverifiable at Tier 1", "verdict": "UPHELD", "reasoning": "seo-score-rubric.md:56 band-1 is «2–3 links to authoritative sources **that resolve**, each supporting a named claim»; :74 repeats «factor 7 grades links that resolve, not link *recommendations*». Band-0.5 is «Exactly 1» and band-0 is «0». A deliverable with 2-3 links whose resolution cannot be checked — the normal Tier-1 case, and AGENTS.md:179 says every skill works at Tier 1 — falls in NO band. The bands are not exhaustive. The executor graded 1 in e1 (3 links), e2 (2), e3 (2) and e5 (3), which is the only band that mentions 2-3 links, and each deliverable states the verification limit and asks for a human check before publication. Defensible, and a real rubric defect: a scoring band should not require an observation the skill's own Tier-1 guarantee makes impossible."},
-      {"n": 3, "subject": "Factor 8's 0.5 band used for a condition it does not describe", "verdict": "UPHELD — and it produced a measurable inconsistency inside this run", "reasoning": "seo-score-rubric.md:57 band-1 requires BOTH «≥3 questions taken from real query variants» AND «answers in the 40–60-word band»; band-0.5 describes only «≥3 questions but answers outside the band». The case in front of all five deliverables — answers inside the band, questions with no query source — is in no band. The executor used 0.5 in e3 and e5 and 1 in e2 and e4 on the identical condition, which is defect D3 above: the gap did not merely leave it guessing, it made the run inconsistent with itself. Fix the band, not the deliverable."},
-      {"n": 4, "subject": "Factor 10's 800-word floor on a 150-word landing page", "verdict": "UPHELD as a gap, but the executor's resolution is NOT what the rubric says", "reasoning": "Two things are both true. The gap is real: seo-score-rubric.md:91's word-count exclusion is «when the commissioned unit is a fixed-length component rather than an article», which does not cover a landing page, and neither the rubric nor SKILL.md:302's «minimum 800 words for substantive content» says whether a landing page is substantive content — while SKILL.md:41-44 puts landing pages and service pages squarely in scope. But the rubric's literal answer is not N/A: factor 10's band-0 is «Below the 800-word floor», and :94-96's general rule makes measured absence a 0. So the executor's N/A is an unauthorised exclusion (D4) reached from a real ambiguity. Both halves belong in the report."},
-      {"n": 5, "subject": "Statistics rule vs Value Rule — does an article draft count as paste-ready copy, and does the skill say?", "verdict": "UPHELD — and this is the run's most consequential finding", "reasoning": "Fully evidenced as SUITE-1 above. Short form: SKILL.md:234, SKILL.md:325, seo-writing-checklist.md:152-256, anti-slop-ruleset.md:130 and seo-score-rubric.md:66-71 all model bracket tokens inside a draft; anti-slop-ruleset.md:182 family 2 makes «any `[CLIENT DATA` / `[SOURCE NEEDED` inside paste-ready copy or schema» a FAIL-grade defect; root CLAUDE.md's Value Rule §1 says paste-ready blocks carry resolved values only. AND THE SKILL NEVER SAYS WHICH ITS DRAFT IS: 'paste-ready' appears exactly once in the entire skill (SKILL.md:235) and only about the reviewer's name. The executor's resolution — zero tokens in any fence — is defensible and cost this run nothing, but it is the executor legislating, and the 2026-08-10 blind grader legislated the opposite way on the same conflict."},
-      {"n": 6, "subject": "Anti-slop family 4 vs SEO factor 4 in Greek — does an inflected form count as 'the primary keyword'?", "verdict": "UPHELD — the skill is silent and the EVAL carries the rule instead", "reasoning": "«μετακομίσεις Θεσσαλονίκη» is the brief's primary keyword and is exactly the article-less query shape family 4 rules FAIL-grade as page copy (anti-slop-ruleset.md:184). SKILL.md:245 requires «Primary keyword in title, H1, first 100 words, at least one H2, and conclusion» and seo-score-rubric.md:53 grades «The primary keyword appears in all five required positions» — NEITHER says whether a naturally inflected form satisfies it. Grep confirms the skill contains no guidance on Greek inflection anywhere. The rule exists only in the eval: e1.1 says «in exact or naturally inflected form (e.g. «μετακομίσεις στη Θεσσαλονίκη» passes — skill step 7)». That is the `expectation-carrier-check.sh` class exactly — a rule the suite grades and the skill never states — and the executor got it right by reasoning rather than by instruction. The executor's handling is clean on both sides: the query form appears only in the keyword-list table cell and in metalinguistic report prose, never as page copy."},
-      {"n": 7, "subject": "SKILL.md:281's absolute publish gate over a disjunctive row 1", "verdict": "UPHELD", "reasoning": "SKILL.md:274 is disjunctive on its face — «Local author, credential, **or** entity relevant to that locale» — and taskharbor-greek-data-note-el.md supplies «TaskHarbor Ελλάς Μ.Ι.Κ.Ε.» with «Αρ. ΓΕΜΗ: 176350904000», which greek-ymyl-credentials.md:39 names as the company-legitimacy anchor. SKILL.md:281's «Do not publish a language variant until every row above is locale-native» is absolute and has no per-content-type relaxation. So the executor's ruling follows the skill. IT STILL FAILS e4.3, whose premise is that the row cannot be satisfied — which is why this is SUITE-2 and a coordinator question, not an executor error. The claim is upheld and the FAIL stands; those are not in tension."},
-      {"n": 8, "subject": "The 16-item self-check has no aggregation rule and no content-type gating", "verdict": "REFUTED on both halves — this is the rationalisation in the set", "reasoning": "(a) NO AGGREGATION RULE IS DELIBERATE AND STATED. SKILL.md:294 asks for «pass/warning/fail status. List items needing attention» — a status list, not a score — and seo-score-rubric.md:189-190 forbids the aggregation outright: «Step 10's self-check covers 16 CORE-EEAT items as pass/warning/fail; **16 items are not a CORE-EEAT score** and must not be averaged into one.» The absence the executor calls a gap is a rule. (b) NO CONTENT-TYPE GATING IS ALSO STATED. SKILL.md:154: «_These 16 items apply across all content types. For content-type-specific dimension weights, see the Content-Type Weight Table in core-eeat-benchmark.md_» — the weight table is pointed at the 80-item benchmark's dimension weights, not at step 10, and the skill says in one sentence that the 16 apply everywhere. The executor's own e4 deliverable states the correct reading at e4.md:247: «το σημειώνουμε ως αποτυχία και όχι ως εξαίρεση, γιατί ο κανόνας δεν κάνει διάκριση». Having read and applied the rule correctly, it then reported the rule's existence as a gap. Residual worth one line: 'these 16 apply across all content types' could say why, since three of them (O02, O08, E07) are article-shaped and a landing page fails all three by design — but that is a documentation improvement, not a place the skill left anyone guessing."},
-      {"n": 9, "subject": "No landing-page or service-page template exists", "verdict": "UPHELD — verified directly", "reasoning": "content-structure-templates.md contains exactly seven templates: Blog Post, Comparison Article, Listicle, How-To Guide, Product Review, Pillar Page, FAQ Page. There is no Landing Page and no Service Page. Meanwhile SKILL.md:41 lists «Creating landing pages optimized for search» and :44 «Creating service pages for local SEO» in scope; the frontmatter description promises «blog posts, **landing pages**, and articles» and carries the trigger «write a landing page»; and SKILL.md's Content Type Templates section (:327-351) offers four invocation stubs, none of which is a landing or service page. Two of this suite's five evals — e1 (service page) and e4 (landing page) — commission exactly the two page types with no template. A real, verified coverage gap between what the skill advertises and what it supplies."},
-      {"n": 10, "subject": "Output Validation's «Internal links included (2-5 relevant links)» is systematically unsatisfiable", "verdict": "PARTLY UPHELD", "reasoning": "The factual half is confirmed: none of the six fixtures supplies a single site URL, so the box cannot be ticked in ANY of the five evals, and factor 6 is thereby pinned at 0 or N/A in all five. The overstatement is 'systematically': the box is satisfiable whenever a client supplies a URL list, which is the ordinary case outside this suite. What IS a real skill defect is narrower and worth fixing: SKILL.md:309 states the requirement unconditionally with no stated-absence path, while the checkbox eleven lines below it at :315 carries exactly such a path — «an unassigned reviewer is stated as the gap, never invented and never left blank». The internal-links box should carry the same escape, in the same words, for the same reason. Note the parallel: F13-r7, added to the ledger during this grading, ends by splitting backlink-analyzer's Output Validation so it 'carries an explicit \"no disavow file produced\" value so it cannot become unsatisfiable when there is no file'. Same fix, same week, different skill."},
-      {"n": 11, "subject": "Two family-8 misses self-caught and fixed; one Tier-1 'unlock' said to have shipped in report prose", "verdict": "REFUTED as to what shipped — nothing is in the files", "reasoning": "`grep -ino 'unlock[a-z]*'` over e1.md..e5.md: ZERO HITS. Same for 'elevate', 'harness', 'unleash', 'delve', 'game-chang'. The full Tier-1 EN screen (26 patterns) and Tier-1 EL screen (22 patterns) return zero across all five files, and the Tier-2 ration screen returns zero occurrences of all 14 rationed terms. On family 8, the artefacts are clean by the reader test on every one of the 16 slug occurrences, 5 framework-name occurrences, ~100 item-ID occurrences and 1 repo path — evidence in defects_outside_the_graded_set.clean_on.reader_test. So both self-reported family-8 misses were indeed fixed before saving, and the 'unlock' either never reached a saved file or was removed. A miss that was fixed is not a miss that shipped, and only the artefacts can settle that: they say nothing shipped."}
+      {
+        "n": 1,
+        "subject": "Factor 6 internal links, 0 vs N/A",
+        "verdict": "PARTLY UPHELD — the outcome is determined, the worked example is missing",
+        "reasoning": "The rubric is not silent. seo-score-rubric.md:91 legitimately excludes «internal links on a site that has no second page yet» (which is e3 exactly, and e3's N/A is authorised); :94-96 states the general rule «Absence of the thing being graded is a measurable fail», and factor 6's own band-0 is '0'. A draft with zero internal links on a site that has other pages is therefore a 0 by the rubric's own general rule, which is what the executor scored in e1/e2/e4/e5. What is genuinely missing is a worked example for that exact case beside the three that are given. The executor's 'invented' rule reproduces the rubric's answer rather than departing from it, and the claim that it is worth 5 points across the suite is its own framing, not a rubric gap."
+      },
+      {
+        "n": 2,
+        "subject": "Factor 7 bands require links 'that resolve', unverifiable at Tier 1",
+        "verdict": "UPHELD",
+        "reasoning": "seo-score-rubric.md:56 band-1 is «2–3 links to authoritative sources **that resolve**, each supporting a named claim»; :74 repeats «factor 7 grades links that resolve, not link *recommendations*». Band-0.5 is «Exactly 1» and band-0 is «0». A deliverable with 2-3 links whose resolution cannot be checked — the normal Tier-1 case, and AGENTS.md:179 says every skill works at Tier 1 — falls in NO band. The bands are not exhaustive. The executor graded 1 in e1 (3 links), e2 (2), e3 (2) and e5 (3), which is the only band that mentions 2-3 links, and each deliverable states the verification limit and asks for a human check before publication. Defensible, and a real rubric defect: a scoring band should not require an observation the skill's own Tier-1 guarantee makes impossible."
+      },
+      {
+        "n": 3,
+        "subject": "Factor 8's 0.5 band used for a condition it does not describe",
+        "verdict": "UPHELD — and it produced a measurable inconsistency inside this run",
+        "reasoning": "seo-score-rubric.md:57 band-1 requires BOTH «≥3 questions taken from real query variants» AND «answers in the 40–60-word band»; band-0.5 describes only «≥3 questions but answers outside the band». The case in front of all five deliverables — answers inside the band, questions with no query source — is in no band. The executor used 0.5 in e3 and e5 and 1 in e2 and e4 on the identical condition, which is defect D3 above: the gap did not merely leave it guessing, it made the run inconsistent with itself. Fix the band, not the deliverable."
+      },
+      {
+        "n": 4,
+        "subject": "Factor 10's 800-word floor on a 150-word landing page",
+        "verdict": "UPHELD as a gap, but the executor's resolution is NOT what the rubric says",
+        "reasoning": "Two things are both true. The gap is real: seo-score-rubric.md:91's word-count exclusion is «when the commissioned unit is a fixed-length component rather than an article», which does not cover a landing page, and neither the rubric nor SKILL.md:302's «minimum 800 words for substantive content» says whether a landing page is substantive content — while SKILL.md:41-44 puts landing pages and service pages squarely in scope. But the rubric's literal answer is not N/A: factor 10's band-0 is «Below the 800-word floor», and :94-96's general rule makes measured absence a 0. So the executor's N/A is an unauthorised exclusion (D4) reached from a real ambiguity. Both halves belong in the report."
+      },
+      {
+        "n": 5,
+        "subject": "Statistics rule vs Value Rule — does an article draft count as paste-ready copy, and does the skill say?",
+        "verdict": "UPHELD — and this is the run's most consequential finding",
+        "reasoning": "Fully evidenced as SUITE-1 above. Short form: SKILL.md:234, SKILL.md:325, seo-writing-checklist.md:152-256, anti-slop-ruleset.md:130 and seo-score-rubric.md:66-71 all model bracket tokens inside a draft; anti-slop-ruleset.md:182 family 2 makes «any `[CLIENT DATA` / `[SOURCE NEEDED` inside paste-ready copy or schema» a FAIL-grade defect; root CLAUDE.md's Value Rule §1 says paste-ready blocks carry resolved values only. AND THE SKILL NEVER SAYS WHICH ITS DRAFT IS: 'paste-ready' appears exactly once in the entire skill (SKILL.md:235) and only about the reviewer's name. The executor's resolution — zero tokens in any fence — is defensible and cost this run nothing, but it is the executor legislating, and the 2026-08-10 blind grader legislated the opposite way on the same conflict."
+      },
+      {
+        "n": 6,
+        "subject": "Anti-slop family 4 vs SEO factor 4 in Greek — does an inflected form count as 'the primary keyword'?",
+        "verdict": "UPHELD — the skill is silent and the EVAL carries the rule instead",
+        "reasoning": "«μετακομίσεις Θεσσαλονίκη» is the brief's primary keyword and is exactly the article-less query shape family 4 rules FAIL-grade as page copy (anti-slop-ruleset.md:184). SKILL.md:245 requires «Primary keyword in title, H1, first 100 words, at least one H2, and conclusion» and seo-score-rubric.md:53 grades «The primary keyword appears in all five required positions» — NEITHER says whether a naturally inflected form satisfies it. Grep confirms the skill contains no guidance on Greek inflection anywhere. The rule exists only in the eval: e1.1 says «in exact or naturally inflected form (e.g. «μετακομίσεις στη Θεσσαλονίκη» passes — skill step 7)». That is the `expectation-carrier-check.sh` class exactly — a rule the suite grades and the skill never states — and the executor got it right by reasoning rather than by instruction. The executor's handling is clean on both sides: the query form appears only in the keyword-list table cell and in metalinguistic report prose, never as page copy."
+      },
+      {
+        "n": 7,
+        "subject": "SKILL.md:281's absolute publish gate over a disjunctive row 1",
+        "verdict": "UPHELD",
+        "reasoning": "SKILL.md:274 is disjunctive on its face — «Local author, credential, **or** entity relevant to that locale» — and taskharbor-greek-data-note-el.md supplies «TaskHarbor Ελλάς Μ.Ι.Κ.Ε.» with «Αρ. ΓΕΜΗ: 176350904000», which greek-ymyl-credentials.md:39 names as the company-legitimacy anchor. SKILL.md:281's «Do not publish a language variant until every row above is locale-native» is absolute and has no per-content-type relaxation. So the executor's ruling follows the skill. IT STILL FAILS e4.3, whose premise is that the row cannot be satisfied — which is why this is SUITE-2 and a coordinator question, not an executor error. The claim is upheld and the FAIL stands; those are not in tension."
+      },
+      {
+        "n": 8,
+        "subject": "The 16-item self-check has no aggregation rule and no content-type gating",
+        "verdict": "REFUTED on both halves — this is the rationalisation in the set",
+        "reasoning": "(a) NO AGGREGATION RULE IS DELIBERATE AND STATED. SKILL.md:294 asks for «pass/warning/fail status. List items needing attention» — a status list, not a score — and seo-score-rubric.md:189-190 forbids the aggregation outright: «Step 10's self-check covers 16 CORE-EEAT items as pass/warning/fail; **16 items are not a CORE-EEAT score** and must not be averaged into one.» The absence the executor calls a gap is a rule. (b) NO CONTENT-TYPE GATING IS ALSO STATED. SKILL.md:154: «_These 16 items apply across all content types. For content-type-specific dimension weights, see the Content-Type Weight Table in core-eeat-benchmark.md_» — the weight table is pointed at the 80-item benchmark's dimension weights, not at step 10, and the skill says in one sentence that the 16 apply everywhere. The executor's own e4 deliverable states the correct reading at e4.md:247: «το σημειώνουμε ως αποτυχία και όχι ως εξαίρεση, γιατί ο κανόνας δεν κάνει διάκριση». Having read and applied the rule correctly, it then reported the rule's existence as a gap. Residual worth one line: 'these 16 apply across all content types' could say why, since three of them (O02, O08, E07) are article-shaped and a landing page fails all three by design — but that is a documentation improvement, not a place the skill left anyone guessing."
+      },
+      {
+        "n": 9,
+        "subject": "No landing-page or service-page template exists",
+        "verdict": "UPHELD — verified directly",
+        "reasoning": "content-structure-templates.md contains exactly seven templates: Blog Post, Comparison Article, Listicle, How-To Guide, Product Review, Pillar Page, FAQ Page. There is no Landing Page and no Service Page. Meanwhile SKILL.md:41 lists «Creating landing pages optimized for search» and :44 «Creating service pages for local SEO» in scope; the frontmatter description promises «blog posts, **landing pages**, and articles» and carries the trigger «write a landing page»; and SKILL.md's Content Type Templates section (:327-351) offers four invocation stubs, none of which is a landing or service page. Two of this suite's five evals — e1 (service page) and e4 (landing page) — commission exactly the two page types with no template. A real, verified coverage gap between what the skill advertises and what it supplies."
+      },
+      {
+        "n": 10,
+        "subject": "Output Validation's «Internal links included (2-5 relevant links)» is systematically unsatisfiable",
+        "verdict": "PARTLY UPHELD",
+        "reasoning": "The factual half is confirmed: none of the six fixtures supplies a single site URL, so the box cannot be ticked in ANY of the five evals, and factor 6 is thereby pinned at 0 or N/A in all five. The overstatement is 'systematically': the box is satisfiable whenever a client supplies a URL list, which is the ordinary case outside this suite. What IS a real skill defect is narrower and worth fixing: SKILL.md:309 states the requirement unconditionally with no stated-absence path, while the checkbox eleven lines below it at :315 carries exactly such a path — «an unassigned reviewer is stated as the gap, never invented and never left blank». The internal-links box should carry the same escape, in the same words, for the same reason. Note the parallel: F13-r7, added to the ledger during this grading, ends by splitting backlink-analyzer's Output Validation so it 'carries an explicit \"no disavow file produced\" value so it cannot become unsatisfiable when there is no file'. Same fix, same week, different skill."
+      },
+      {
+        "n": 11,
+        "subject": "Two family-8 misses self-caught and fixed; one Tier-1 'unlock' said to have shipped in report prose",
+        "verdict": "REFUTED as to what shipped — nothing is in the files",
+        "reasoning": "`grep -ino 'unlock[a-z]*'` over e1.md..e5.md: ZERO HITS. Same for 'elevate', 'harness', 'unleash', 'delve', 'game-chang'. The full Tier-1 EN screen (26 patterns) and Tier-1 EL screen (22 patterns) return zero across all five files, and the Tier-2 ration screen returns zero occurrences of all 14 rationed terms. On family 8, the artefacts are clean by the reader test on every one of the 16 slug occurrences, 5 framework-name occurrences, ~100 item-ID occurrences and 1 repo path — evidence in defects_outside_the_graded_set.clean_on.reader_test. So both self-reported family-8 misses were indeed fixed before saving, and the 'unlock' either never reached a saved file or was removed. A miss that was fixed is not a miss that shipped, and only the artefacts can settle that: they say nothing shipped."
+      }
     ]
   },
   "artifacts": {
@@ -595,7 +883,11 @@
     "this_record": "docs/loop/eval-baselines/blind-2026-08-17/seo-content-writer.json"
   },
   "greek_editor_handoff": {
-    "owed_on": ["e1.md draft fence, lines 125-240 (EL service page)", "e2.md draft fence, lines 115-235 (EL YMYL health article)", "e4.md draft fence, lines 56-111 (EL landing page)"],
+    "owed_on": [
+      "e1.md draft fence, lines 125-240 (EL service page)",
+      "e2.md draft fence, lines 115-235 (EL YMYL health article)",
+      "e4.md draft fence, lines 56-111 (EL landing page)"
+    ],
     "what_the_editor_decides": "Fluency, idiomatic naturalness, translation-ese and register on all three, per the expectation text of e1.6, e2.6 and e4.6. This grader forms no second opinion on any of those and has recorded none.",
     "what_this_grader_has_already_settled_and_the_editor_need_not_redo": "The mechanical clauses of each expectation: final sigma, diacritics, absence of Latin-script boilerplate headings, the §1.3 calque list, and (e4 only) Greek-market number/day/VAT formatting. All clean, with evidence in each expectation's record.",
     "specific_questions_worth_the_editor_s_eye": [
@@ -604,5 +896,85 @@
       "e4: B2B SaaS register — «πλέον ΦΠΑ», «μηνιαία χρέωση», «θέσεις χρήστη», «δημιουργικό» for the creative team, «πάγια» for retainers. Native trade usage or translated?"
     ]
   },
-  "record_corrections": "None. This record was written once, after all grading was complete, and no verdict in it was revised after being written. If a later reader finds a correction here, the working-tree file is authoritative over any quotation of it elsewhere."
+  "record_corrections": "ONE, made by the 2026-08-17 second read: `regressions_vs_baseline.confounders_eliminated_before_attributing_any_movement.expectation_text` said 'FOUR OF THIRTY WERE REWRITTEN' and then listed five expectation IDs. The programmatic diff df63d1e..HEAD was re-run and returns FIVE changed expectations (e1.5, e1.6, e2.6, e4.6, e5.3). The count word is corrected in place and the superseded wording is preserved in a sibling key. Everything the sentence was load-bearing for was re-derived and holds: the comparable set is 26, the like-for-like figures 24/26 = 0.923 -> 25/26 = 0.962 reproduce exactly against blind-2026-08-10/writer.json, and the regression verdict NONE stands. Otherwise as originally written: this record was written once, after all grading was complete, and no verdict in it was revised after being written. The working-tree file is authoritative over any quotation of it elsewhere.",
+  "second_read": {
+    "date": "2026-08-17",
+    "what_this_is": "NARROWED second-reader pass, not a re-grade. Three moves only: (1) recompute every figure the record quotes inside its evidence and defect entries; (2) sweep the deliverables for numbers written as WORDS in EN and EL and check each against the fixture (ledger F15-r5, unfixed corpus-wide); (3) test whether the record is still current at HEAD. This record's deliverables are the largest in the corpus and include two Greek pages, so move 2 was run at full depth here.",
+    "head_at_second_read": "b5135d431aeef7910426d03c82bcf5828d6ece99 — unchanged open to close; `git status` clean; the five deliverables byte-identical to the ones the record cites.",
+    "move_1_arithmetic_recomputation": {
+      "figures_recomputed_by_this_reader": 62,
+      "wrong": 1,
+      "the_one_wrong": "A count in a confounder field, not in a deliverable figure — see corrections_made_in_place. Every figure quoted FROM a deliverable recomputes.",
+      "method": "The record names its own grading scripts and its own method note; both were read before any figure was judged, per the F7 worked warning about word-count tokenisations. The scripts were then RE-RUN by this reader (`modeb-writer-wordcount.py`, `modeb-writer-counts.py`) and their output compared line by line against the record's prose, and the seven printed arithmetic operations plus the heading censuses were re-derived independently of them.",
+      "the_five_seo_scores_INCLUDING_DENOMINATORS": [
+        "e1 — printed at e1.md:365 as `1 + 1 + 1 + 1 + 1 + 0 + 1 + 1 + 1 + 1 = 9,0/10`. Ten terms, sum 9.0, denominator 10. Re-added: correct, and the denominator is unshrunken because no factor is N/A.",
+        "e2 — printed at e2.md:348, identical shape and identical sum. Correct.",
+        "e3 — printed at e3.md:344 as `1 + 1 + 1 + 1 + 1 + 1 + 0.5 + 1 + 1 = 8.5/9 factors scored`, nine terms, sum 8.5. Rescale at :347: `8.5 ÷ 9 × 10 = 9.444… → 9.4/10 (9 factors scored)`. Recomputed 8.5/9*10 = 9.44444 -> 9.4. Correct. THE DENOMINATOR IS AUTHORISED, verified at source rather than accepted: the excluded factor is 6 (internal links), and seo-score-rubric.md:91 names 'internal links on a site that has no second page yet' as a legitimate exclusion; brief-cashflow-zero-data-en.md is headed 'Ledgerline Blog (Launch Article)' for a 'pre-launch' client, which is that case exactly. The rescale itself is authorised by rubric §4, and both of §4's conditions are met on the page — the unrounded value is printed beside the rounded one ('9.444…') and the `(9 factors scored)` label is present.",
+        "e4 — printed at e4.md:222 as `1 + 1 + 1 + 1 + 1 + 0 + 0 + 1 + 1 = 7,0/9 παράγοντες`, nine terms, sum 7.0. Rescale at :225: `7,0 ÷ 9 × 10 = 7,777… → 7,8/10 (9 παράγοντες)`. Recomputed 7/9*10 = 7.77778 -> 7.8. Correct, and both §4 conditions are again met (unrounded printed, N-factors label present; the Greek decimal comma is explicitly not a defect per rubric:114). THE DENOMINATOR IS THE ONE THE RECORD DISPUTES, and its D4 was re-read at source: the excluded factor is 10 (word count), rubric:91 authorises that exclusion only 'when the commissioned unit is a fixed-length component rather than an article', rubric:89 states 'The exclusion path is narrow, and it is not an escape hatch', and a landing page is not the named case. D4's reading is defensible and its arithmetic is right — 7,0/9 where a literal reading gives 7,0/10, since the sum does not move when factor 10 scores 0. D4 also states the counter-reading (a real rubric gap) rather than hiding it. NOT OVERTURNED: this is a rule-application judgment, not an arithmetic error, and both readings are on the page.",
+        "e5 — printed at e5.md:296 as `1 + 1 + 1 + 1 + 1 + 0 + 1 + 0.5 + 1 + 1 = 8.5/10`. Ten terms, sum 8.5, denominator 10. Correct."
+      ],
+      "other_figures_recomputed_and_holding": [
+        "Summary: 26/30 = 0.86667 -> 0.8667; 26 + 1 + 3 = 30 = total. per_eval 5/6 · 5/6 · 6/6 · 4/6 · 6/6 re-derived from the 30 verdicts and matched to evals.json's 6,6,6,6,6.",
+        "15 title character counts (e1 57/56/57, e2 47/51/50, e3 53/52/53, e4 55/49/54, e5 51/50/46) — 15 of 15 exact, every one <= 60, and every claimed string found on its own line.",
+        "5 meta-description counts 152 / 159 / 160 / 158 / 156 — 5 of 5 exact, all inside 150-160 and therefore inside e1.2's relaxed 140-160.",
+        "19 FAQ answer word counts across five files (4+4+4+3+4 = 19), every one inside the 40-60 band. The per-file ranges reproduce: e1 43-51, e2 42-45, e3 42-51, e4 41-44, e5 42-49. D7's finding stands — e2 prints '42-47' against a true max of 45.",
+        "5 draft word counts under four tokenisations, reproduced by re-running the record's own script: e1 1,088 / 1,119 / 1,128 / 1,169 against a claim of 1,098; e2 988 / 1,012 / 1,015 / 1,096 against 997; e3 1,599 / 1,642 / 1,647 / 1,722 against 1,611; e4 493 / 504 / 516 / 516 uncounted; e5 1,291 / 1,335 / 1,322 / 1,351 against 1,302. The record's stated ranges are exact. 'Within 1.2% under the strictest tokenisation' re-derived: the largest gap is e1 at 0.91%, so the record's bound is conservative and true.",
+        "D5's four numbers are exact, and its consequence recomputes: 1,128 > the 1,100 ceiling, so under the convention the row itself declares ('τίτλοι και πίνακες μέσα') factor 10 would be 0.5 and the score 8,5/10.",
+        "The two 'about' judgments: e3 1,611 vs ~1,500 = +7.40%; e5 1,302 vs ~1,200 = +8.50%. Both exact.",
+        "Four printed arithmetic operations: 1.900 ÷ 365 = 5.2055, so «πάνω από πέντε την ημέρα» holds; 7 × 4 = 28; (2 ÷ 98) × (365 ÷ 20) = 0.37245, so '≈ 37% a year' holds; 'invoice on day 5 + Net 30 = day 35'. All four exact. Plus the two rescales above.",
+        "5 heading censuses recounted inside the draft fences: e1 10 H2 / 4 H3, e2 9/4, e3 8/4, e4 7/3, e5 7/4. 5 of 5 exact.",
+        "D3's consequence: correcting factor 8 to 0.5 on e2 and e4 gives 8,5/10 and 6,5/9. Both exact.",
+        "LIKE-FOR-LIKE, re-derived against docs/loop/eval-baselines/blind-2026-08-10/writer.json rather than accepted: the baseline's three FAILs are e1.1, e2.6, e4.3; excluding the four materially-changed expectations leaves 26 comparable; baseline 24 PASS / 26 = 0.9231; this run 25 PASS / 26 = 0.9615; movement +1 expectation, +3.85 points (record says +3.9). 'Entirely attributable to the e1.1 recovery' confirmed — e1.1 is the only not-PASS -> PASS move in the whole set. The full-set PASS -> not-PASS moves are e1.6 and e4.6, both inside the excluded set, so the record's headline `regressions: NONE` stands."
+      ]
+    },
+    "move_2_spelled_out_number_sweep": {
+      "result": "ONE new low-severity item, outside the graded set and outside every defect the record already lists. Everything else traces.",
+      "method": "EN + EL cardinal-word sweep over all five deliverables (335 lines carried a spelled-out number), run twice: once narrowed to the F15-r5 signature across the whole file, and once UNNARROWED but restricted to the five publishable draft fences (e1 125-240, e2 115-235, e3 82-218, e4 56-111, e5 85-180) — the client-read surface, where an unsourced quantity does the damage. Every candidate was opened at source and checked against its own fixture.",
+      "new_item_D9": {
+        "id": "D9 (added by the second read)",
+        "where": "e5.md:173, inside the article fence, FAQ answer to 'Can I have window film and keep my blinds?'",
+        "quote": "«Yes, and **most of our customers do.** Film goes on the glass and works on heat and glare whether the blind is open or shut.»",
+        "severity": "low",
+        "what_it_is": "A quantified empirical claim about the client's own customer base, asserted in publishable copy. brief-window-film-vs-blinds-en.md supplies six figures — 60 installs, 4.8 °C, £14-£22 per m², 2-3 hours, 78%, 10 years — and nothing at all about how many customers keep their blinds. The deliverable's own §9 sign-off list (:269-277) has an item for every one of those six figures and no item for this sentence.",
+        "why_no_expectation_covers_it": "e5.2 bans invented prices, percentages, temperature/heat-gain figures, lifespans, brand names and studies ON THE BLINDS SIDE. This is a claim about the client's own customers, and it carries no number, so it is none of the banned classes. Same shape as the record's D2, one axis over: D2 is an unsourced claim about an external standard, this is an unsourced claim about the client's own book.",
+        "mitigations_stated": "It is written in the client's own voice about the client's own customers, so the named reviewer can strike or confirm it from knowledge — which is not true of D1 or D2. It carries no number and drives no recommendation. It is the weakest item on this record's defect list and is recorded because move 2 exists to find exactly this class: a quantity written as a word, invisible to a numeric-token screen.",
+        "relation_to_the_ledger": "F15-r5 instance shape, and adjacent to F3-r2 (a quantity sold as confidence with nothing supplying it). Reported as an observation for the coordinator to rule on, NOT incremented by this reader."
+      },
+      "candidates_checked_and_traced": [
+        "e1.md:156 «πάνω από 1.900 μετακομίσεις … βγαίνουν πάνω από πέντε την ημέρα (1.900 ÷ 365). Γι' αυτό υπάρχουν έξι ξεχωριστά συνεργεία» — the fixture gives '1.900+' completed moves in 2025 and '6 συνεργεία'. 1900/365 = 5.2055. Both the spelled-out 'πέντε' and the spelled-out 'έξι' are fixture-exact.",
+        "e2.md:165-167 «Επτά συνεχόμενες ημέρες … Δύο μετρήσεις το πρωί και δύο το βράδυ … Επτά ημέρες επί τέσσερις μετρήσεις κάνουν 28 τιμές» — the fixture's protocol line gives 7 days, 2 morning + 2 evening; 7 x 4 = 28. Every spelled-out term traces.",
+        "e2.md:148-157 «δύο αριθμούς», «δύο χτύπους», «Τα όρια … είναι δύο», «Και τα δύο όρια … ESC 2024» — the fixture gives exactly two thresholds (140/90 clinic, 135/85 home), both credited to ESC 2024. Correct.",
+        "e3.md:87 'owners of trades, agencies and consultancies of one to fifteen people' — the fixture's audience line reads 'owners of 1-15-person service businesses (trades, agencies, consultants)'. The spelled-out range is fixture-exact.",
+        "e3.md:113/:189 'All five controls' / 'the other four controls' — an internal count of the article's own sections, 5 and 5-1. Self-consistent.",
+        "e3.md:183 'in most jurisdictions a business may charge interest…' — already the record's D1, and its analysis holds; not double-counted here.",
+        "e5.md:98 and :117 and :169 'A three-window living room takes 2-3 hours' — the fixture's own line reads 'typical 3-window living room install time: 2-3 hours'. The spelled-out 'three-window' is fixture-exact.",
+        "e5.md:266 'four of the six figures are theirs' — RECOUNTED against the fixture: the six figures are 4.8 °C, the 60-install sample, £14-£22 per m², 2-3 hours, 78% and 10 years; the first four come from the 2025 monitoring and the last two from the manufacturer spec sheet. Exactly four of six. Correct.",
+        "e5.md:92 'on two of those three, blinds win outright' — the three named are blackout, night privacy and appearance; the claim is a judgment about which two blinds win, not a count of anything measurable, and it concedes against the client's own interest. Not a fabrication.",
+        "e4.md:20 «μια έρευνα χωρίς ελληνικό δείγμα» — refers to the fixture's own '2025 customer survey (214 agencies)' item, which the deliverable correctly DROPS. Traces."
+      ]
+    },
+    "move_3_currency": {
+      "verdict": "NOT CURRENT — re-run required under ruling M2. This is the record M2 was decided on, and M2 is applied as written: no attempt was made to clear it.",
+      "version_check": "Record's graded version 4.7.0. HEAD `build/seo-content-writer/SKILL.md` carries `version: \"4.7.1\"` and `metadata.version: \"4.7.1\"` in lockstep. The record is one patch behind.",
+      "correction_to_the_premise_the_pass_was_briefed_with": "The 4.7.0 -> 4.7.1 diff is NOT version-only, and this matters more than the bump itself. `git diff 8a84e85..HEAD -- build/seo-content-writer/` covers two commits (9dac5da, 8d342e8) and two files. SKILL.md's half IS version-only — two lines. But the same bump carries FOUR substantive edits to `references/anti-slop-ruleset.md`: (a) FAIL-grade family 5's greppable net gains a lookbehind, `ποτέ` -> `(?<!α)ποτέ`, because bare `ποτέ` matches inside «αποτέλεσμα»; (b) the limits paragraph under the table is corrected — it had claimed the false positive extends to the plural «αποτελέσματα», which is wrong because the tonos moves; (c) the advisory «νίκη» guard changes from `(?<!Θεσσαλο)νίκη` to `(?<![Θθ]εσσαλο)νίκη` after the capital-only form was measured at a 100% false-positive rate on real Greek input; (d) the protected list gains lowercase «θεσσαλονίκη`.",
+      "why_that_matters_to_THIS_record": "anti-slop-ruleset.md is a graded rubric surface for this suite, not background. This record's `defects_outside_the_graded_set.clean_on.families_1_4_5_6_9_10` reports family 5 as 'five n-word survivors of the licenser filter … three are «αποτέλεσμα» containing «ποτέ» (the documented false-positive class)' — i.e. it screened with the pre-fix net and hand-dropped exactly the three hits the new lookbehind now drops automatically. The screen's own instrument changed under the record. That is a behaviourally live difference in the instrument this record used, on top of the version bump, so M2 applies a fortiori and would have applied even under a looser reading.",
+      "denominator_drift": "NONE. The record grades 30 expectations; evals.json at HEAD holds 5 x 6 = 30, and `git diff 8a84e85..HEAD -- build/seo-content-writer/evals/evals.json` is empty. No expectation was added, so there is no added expectation to judge the deliverable against. The five expectations that DID change text all changed on 2026-08-10, before this run, and are already accounted for in the confounder analysis.",
+      "instrument_changes_register_gap_re_confirmed": "The record's own note stands: docs/loop/eval-baselines/INSTRUMENT-CHANGES.md carries no row for 3a8d62c. Re-checked during this pass and still absent."
+    },
+    "corrections_made_in_place": [
+      "ONE. `regressions_vs_baseline.confounders_eliminated_before_attributing_any_movement.expectation_text` read 'FOUR OF THIRTY WERE REWRITTEN … identifies them exactly: e1.5, e1.6, e2.6, e4.6, e5.3' — a count of four above a list of five. The diff was re-run programmatically (`git show df63d1e:build/seo-content-writer/evals/evals.json` against HEAD) and returns FIVE changed expectations, exactly the five listed. The count word is corrected to five, with the four/one material/cosmetic split spelled out; the superseded wording is preserved in a sibling key `_second_read_correction_note`, and `record_corrections` now names the change. THE SUBSTANTIVE CLAIM WAS RE-VERIFIED AND IS UNCHANGED: the comparable set is 26, and `like_for_like_figure` already stated the four/one split correctly, so nothing downstream of the sentence moves."
+    ],
+    "taken_on_trust_not_re_verified": [
+      "The 30 expectation verdicts themselves — this is not a re-grade.",
+      "The anti-slop screens (§1 Tier-1/Tier-2 literals, §6 families 1-10, Value Rule, Reader Test) reported under `defects_outside_the_graded_set.clean_on`. These are pattern screens, not arithmetic, and re-running them is grading work outside all three moves — with the one caveat recorded above, that family 5's net changed at HEAD.",
+      "The three greek-content-editor slots (e1.6, e2.6, e4.6) remain EDITOR-PENDING and untouched.",
+      "`eleven_executor_claims_adjudicated` — adjudications, not figures.",
+      "D8's negative result (zero 'unlock' hits) was not re-probed; it is a grep the record printed and its direction is against the record's own interest."
+    ],
+    "nearly_recorded_then_cleared": [
+      "e3.md:127 'invoice on the 5th, put Net 30 on it, and the money is due on the 35th day after the work'. If the work finishes on the 1st, day 35 is 34 days after it, so the phrase 'the 35th day after the work' is loose by one. NOT recorded as a finding: the derivation the record actually quotes ('invoice on day 5 + Net 30 = day 35') is exact, the article's own summary row at e3.md:22 states it in that exact correct form, and the client-facing point — that the wait starts at finishing and not at billing — is unaffected in either reading. Reported here only so the next reader does not spend the same minutes on it.",
+      "e1.md:363's word-count row was checked against the F7 worked warning about tokenisation before being judged. The record's method note names four tokenisations and states its range; re-running the record's own script reproduces all four values exactly. No fabrication finding was manufactured out of the convention spread, and D5 already records the one real consequence."
+    ],
+    "verdicts_changed": "NONE. summary and per_eval are unchanged and were independently re-derived from the 30 expectation verdicts during this pass. The regression verdict NONE was independently re-derived against the 2026-08-10 blind baseline and stands."
+  }
 }

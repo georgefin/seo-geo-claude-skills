@@ -243,11 +243,41 @@
     "headline_caution": "DO NOT READ 0.893 AS VALIDATION OF THE 4.3.0 WAVE. evals.json last changed 2026-08-10 (1a1b55d); SKILL.md and two references changed today (af230bb, +128/-22 on the skill body alone). Not one of the 28 expectations touches the prompt-level AI-visibility half that the wave added, the operator handoff block, or any of the seven new Output Validation checkboxes. This rate measures the 4.2.x surface, on a 4.3.0 skill."
   },
   "per_eval": {
-    "1": { "passed": 6, "failed": 0, "editor_pending": 0, "instrument_defect": 0, "total": 6 },
-    "2": { "passed": 5, "failed": 1, "editor_pending": 0, "instrument_defect": 0, "total": 6 },
-    "3": { "passed": 4, "failed": 1, "editor_pending": 1, "instrument_defect": 0, "total": 6 },
-    "4": { "passed": 6, "failed": 0, "editor_pending": 0, "instrument_defect": 0, "total": 6 },
-    "5": { "passed": 4, "failed": 0, "editor_pending": 0, "instrument_defect": 0, "total": 4 }
+    "1": {
+      "passed": 6,
+      "failed": 0,
+      "editor_pending": 0,
+      "instrument_defect": 0,
+      "total": 6
+    },
+    "2": {
+      "passed": 5,
+      "failed": 1,
+      "editor_pending": 0,
+      "instrument_defect": 0,
+      "total": 6
+    },
+    "3": {
+      "passed": 4,
+      "failed": 1,
+      "editor_pending": 1,
+      "instrument_defect": 0,
+      "total": 6
+    },
+    "4": {
+      "passed": 6,
+      "failed": 0,
+      "editor_pending": 0,
+      "instrument_defect": 0,
+      "total": 6
+    },
+    "5": {
+      "passed": 4,
+      "failed": 0,
+      "editor_pending": 0,
+      "instrument_defect": 0,
+      "total": 4
+    }
   },
   "regressions_vs_baseline": {
     "baseline_exists": true,
@@ -503,5 +533,65 @@
       "expectation": "the snapshot column lists - e1.6 'keyword, position, ranking URL, check date, data source rows'; e4.6 'keyword, position, ranking URL, SERP features, check date, and data source'",
       "issue": "e1.6 omits SERP features from a list e4.6 and SKILL.md:146 both include. Harmless here (e1's snapshot carries the column anyway, marked 'Not checked'), but the two evals grade the same contract to two different column sets, and a future deliverable that dropped the column in e1 would pass while failing the skill's own persistence contract."
     }
-  ]
+  ],
+  "second_read": {
+    "date": "2026-08-17",
+    "what_this_is": "NARROWED second-reader pass, not a re-grade. Three moves only: (1) recompute every figure the record quotes inside its evidence and defect entries; (2) sweep the deliverables for numbers written as WORDS in EN and EL and check each against the fixture (ledger F15-r5, unfixed corpus-wide); (3) test whether the record is still current at HEAD. No expectation was re-graded and no verdict was re-derived from scratch.",
+    "head_at_second_read": "b5135d431aeef7910426d03c82bcf5828d6ece99 — unchanged from the open of this pass to its close; `git status` clean; the five deliverables byte-identical to the ones the record cites.",
+    "move_1_arithmetic_recomputation": {
+      "figures_recomputed_by_this_reader": 34,
+      "wrong": 0,
+      "method": "Recomputed from the four fixture files, independently of the record's own scripts. Every figure below was re-derived rather than re-read; the fixture rows were opened at source before any figure was judged (F7).",
+      "recomputed_and_holding": [
+        "Summary rates: 25/28 = 0.89286 -> 0.8929; the two alternatives 26/28 = 0.92857 -> 0.929 and 25/27 = 0.92593 -> 0.926. All three exact. 25 + 2 + 1 = 28 = total.",
+        "per_eval tallies 6/6/6/6/4 re-derived from the 28 expectation verdicts and matched to evals.json's own per-eval counts (6,6,6,6,4). Every cell reconciles.",
+        "e1 weekly sums over the constant 9-keyword population, re-added column by column from rank-export-calorix-weekly-el.md: 85 / 93 / 84 / 82 / 80. Means 9.4444 / 10.3333 / 9.3333 / 9.1111 / 8.8889. All ten figures exact.",
+        "e1 20-July decomposition: «λέβητας αερίου» 6 -> 15 = +9, worth 9/9 = 1.0 on a nine-keyword mean, against the whole-set move 85 -> 93 = +8, i.e. +0.8889. The record's claim that the spike is that one keyword is arithmetically true — every other keyword moved net -1 across the set.",
+        "e1 'six of the nine keywords were stable' re-derived keyword by keyword (<=2 positions AND same results page): calorix 1->1, ηλιακός θερμοσίφωνας 8->8, ηλεκτρικός θερμοσίφωνας 80 4->4, λέβητας αερίου 6->6, αντλία θερμότητας 21->21, κόστος ενδοδαπέδιας 13->12 = 6. «ενδοδαπέδια θέρμανση» 10->11 correctly excluded by the page condition despite moving 1. Exact.",
+        "e1 top-10 counts 6 and 6 on both dates, and unchanged whether the 10th keyword (NF -> 38) is inside or outside the population. Exact.",
+        "e2 from rank-log-stromatex-anatomiko-el.md: pre 5+5+6 = 16/3 = 5.3333; post 6+9+5+11+7+12 = 50/6 = 8.3333; difference exactly +3.0. Controls re-derived independently: «στρώμα latex» 11/3 = 3.6667 -> 23/6 = 3.8333 = +0.1667 (printed +0.2); «στρώματα προσφορές» 23/3 = 7.6667 -> 48/6 = 8.0 = +0.3333 (printed +0.3). Blog-URL checks 9+11+12 = 32/3 = 10.6667 (printed 10.7); category-URL post checks 6+5+7 = 18/3 = 6.0 exact. All nine exact.",
+        "e3 all six Opportunity products re-derived from gsc-queries-kipos-fysi-el.md as impressions x (position - 1): 1150x17.9 = 20,585 · 1400x7.3 = 10,220 · 720x10.2 = 7,344 · 880x5.4 = 4,752 · 310x13.8 = 4,278 · 450x8.6 = 3,870. All exact, and the printed rank order is the strict descending order of those products.",
+        "e3 aggregates: impressions over the six = 1150+1400+720+880+310+450 = 4,910; clicks = 15+28+9+12+4+6 = 74; all-12 impressions total = 9,912, so the operator block's '~9,900 in 28 days' is exact-to-the-rounding. All three exact.",
+        "e4 from serp-feature-log-melifera-el.md: 3+9+6+12+1 = 31/5 = 6.2 -> 3+5+8+11+1 = 28/5 = 5.6, change -0.6; the five per-keyword deltas 0/-4/+2/-1/0; positions 1-10 four-of-five on both dates; the 10-August distribution 1/1/2/1/0 summing to 5 with 20/20/40/20/0; the three feature-ownership counts 1/0/0 -> 0/1/1 re-derived independently from both check tables; 5 keywords x 2 checks = 10 observations. All exact."
+      ],
+      "the_records_one_did_not_reconcile_CONFIRMED": "e3.md:84 opened at source. The deliverable reads «σπορα γκαζον φθινοπωρο» — 44 εμφανίσεις, μέση θέση 7,9. **Δεκαπέντε εμφανίσεις κάτω από το κατώφλι μας.**' The fixture gives 44 impressions and the deliverable's own stated floor at :54 is 50, so the gap is 6. The record's recomputation is exact and its consequence analysis holds — the 44 is printed correctly in the same sentence and the exclusion decision is right.",
+      "defect_entries_recomputed": [
+        "D5 (e1.md:103, 'the only keyword whose URL you touched in the period') — the fixture change log records TWO URL events inside the period: 2026-07-08 refresh of /blog/antlia-thermotitas-epidotisi-2026 and 2026-07-30 publication of /iliakoi-thermosifones/200-litra, both of which are tracked keywords' ranking URLs. The record is correct.",
+        "D6 (e2.md:449, 'six weeks') — re-derived: 2026-06-24 publication to the 2026-08-03 log end is 40 days = 5.71 weeks; the first observed URL flip (2026-07-06) to the log end is 28 days = 4 weeks. Neither is six. The record is correct.",
+        "D7 (e1.md:190-191, 'at least one day and at most thirteen') — the dip sits between checks on 2026-07-13 and 2026-07-27, 14 days apart, so the upper bound of 13 is right and the lower bound is not derivable from one observation. The record is correct."
+      ]
+    },
+    "move_2_spelled_out_number_sweep": {
+      "result": "CLEAN — and this suite's own grader had already found the one instance, which is worth recording because it is the first time the F15-r5 class was caught inside a first read rather than by a second reader.",
+      "method": "EN + EL cardinal-word sweep over all five deliverables (551 lines carried a spelled-out number), then a narrowed net for the F15-r5 signature — a spelled-out count of an external population, or a count preceded by a history marker (our/last/past/previous). 41 narrowed candidates; every one opened at source and checked against its fixture or prompt.",
+      "candidates_checked_and_traced": [
+        "e1.md:310 'has fallen in each of the last four weeks' — θερμοπομποί 4/6/8/9/10 gives four consecutive week-over-week declines and a current position of 10. Correct.",
+        "e1.md:516-517 '25-30 questions ... run three times across three surfaces. That is about 250 captures' — 25x3x3 = 225 to 30x3x3 = 270. 'About 250' sits inside the range. Correct. The 'three times' is the library's own N>=3 rule, not a claim about the world.",
+        "e2.md:83-87 'category ... 6, 5, 7 against a pre-publication 5, 5, 6' and 'guide ... 9, then 11, then 12 — the last two are off page one' — all eight values fixture-exact, and 11 and 12 are indeed off page one. 'From 6 July the log alternates perfectly — guide, category, guide, category, guide' re-checked row by row: correct.",
+        "e2.md:190 'shown ... for a commercial keyword three times in the last five weeks' — the blog URL is the shown URL on 07-06, 07-20 and 08-03, which are three of the last five check dates. Correct.",
+        "e4.md:140 'one of the five keywords. The other four SERPs showed no featured snippet on either check' and e4.md:209 'the other three questions' (fixture: PAA box present, 4 questions, one of which is now sourced from melifera) — both correct.",
+        "e5.md:77 'Three of your eight keywords name Glyfada and the other five are treatment searches' — re-derived from the eval-5 prompt's own eight keywords: «οδοντίατρος γλυφάδα», «παιδοδοντίατρος γλυφάδα», «οδοντιατρείο γλυφάδα κριτικές» name Glyfada (3); the remaining five are treatment/cost searches. Exact.",
+        "e5.md:175-176 and :192 'six-month-old site' / 'six months of' — the prompt says the site launched in February and the report is dated 17 August 2026. Correct."
+      ],
+      "nothing_new_found": "No spelled-out number in any of the five deliverables asserts a quantity the fixture or the prompt does not supply, beyond the one the record already reports."
+    },
+    "move_3_currency": {
+      "verdict": "CURRENT.",
+      "version_check": "Record's graded version 4.3.0. HEAD `monitor/rank-tracker/SKILL.md` carries `version: \"4.3.0\"` and `metadata.version: \"4.3.0\"` in lockstep. Ruling M2 does not bite: nothing to be behind.",
+      "diff_since_the_records_own_close": "`git diff 61ac57a..HEAD -- monitor/rank-tracker/` is EMPTY. The skill, its references and its suite have not moved since this record closed.",
+      "denominator_drift": "NONE. The record grades 28 expectations; `monitor/rank-tracker/evals/evals.json` at HEAD holds 6+6+6+6+4 = 28, and `git diff 61ac57a..HEAD -- monitor/rank-tracker/evals/evals.json` is empty. No expectation was added, so there is no added expectation to judge the deliverable against.",
+      "headline_caution_re_verified": "The record's own `summary.headline_caution` — that 0.893 measures the 4.2.x surface on a 4.3.0 skill because no expectation touches the prompt-level AI-visibility half — is unaffected by this pass and still stands. Currency of the RECORD is not coverage of the SUITE, and only the first is in this pass's scope."
+    },
+    "corrections_made_in_place": "NONE. Every number this record quotes recomputes.",
+    "taken_on_trust_not_re_verified": [
+      "The 28 expectation verdicts themselves — this is not a re-grade. Only the figures quoted inside their evidence were recomputed.",
+      "The record's own count `arithmetic_check.figures_recomputed: 61`. This reader recomputed 34 figures independently and found no discrepancy; the residual 27 are the record's own enumeration and were not re-enumerated.",
+      "The Greek mechanical-layer screens reported under e3.5 (final sigma, diacritics, heading census) — screening work, not arithmetic, and outside all three moves.",
+      "The greek-content-editor slot (e3.5) remains EDITOR-PENDING and untouched."
+    ],
+    "nearly_recorded_then_cleared": [
+      "The record renders the e3.md:84 defect quote in Latin transliteration — «Dekapente emfaniseis kato apo to katofli mas» — while the deliverable reads «Δεκαπέντε εμφανίσεις κάτω από το κατώφλι μας». Checked and NOT recorded as an error: the transliteration is faithful and the line reference is exact. Recorded here only because a citer copying the record's quoted string and grepping for it in the deliverable will get zero hits."
+    ],
+    "verdicts_changed": "NONE. summary and per_eval are unchanged, and both were independently re-derived from the expectation verdicts during this pass."
+  }
 }
