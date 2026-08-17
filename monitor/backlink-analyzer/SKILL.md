@@ -1,13 +1,13 @@
 ---
 name: backlink-analyzer
-version: "4.3.2"
+version: "4.4.0"
 description: 'Analyze backlink profiles to assess link authority, identify toxic links, discover link building opportunities, and monitor competitors. Use when the user asks to "analyze backlinks", "check link profile", "find toxic links", "link building opportunities", "who links to me", "how do I get more backlinks", "disavow links", or "off-page SEO". For internal link analysis, see internal-linking-optimizer. For competitor link profiles, see competitor-analysis.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.2"
+  version: "4.4.0"
   geo-relevance: "low"
   tags:
     - seo
@@ -106,7 +106,9 @@ Automatically pull comprehensive backlink profiles including referring domains, 
 
 **With manual data only:**
 Ask the user to provide:
-1. Backlink export CSV (with source domains, anchor text, link type)
+1. Backlink export CSV (with source URLs, **target URLs**, anchor text, link type). The target
+   column is the one every page-level reading depends on; where an export omits it, say so and
+   drop the page-level findings rather than inferring a target from a source path
 2. Referring domains list with authority metrics
 3. Competitor domains for comparison
 4. Recent link gains/losses if tracking changes
@@ -119,6 +121,20 @@ Proceed with the full analysis using provided data. Note in the output which met
 When a user requests backlink analysis:
 
 1. **Generate Profile Overview** -- Key metrics (total backlinks, referring domains, DA/DR, dofollow ratio), link velocity (30d/90d/year), authority distribution chart, profile health score.
+
+   **Read the export's columns before you read its rows.** A backlink row carries **two** URLs and
+   they answer different questions: the **source URL** is the page the link sits on, the **target
+   URL** is the page of the client's site it points at. Every claim about *which page of the client's
+   site is linked* — a most-linked page, a page-level count, the page under a contrast between earned
+   and paid links — reads the **target** column. A source path that happens to echo a target's
+   wording is a coincidence of two content teams naming the same topic, and reading it as the target
+   attributes a link to a page that never received it. Where a row's own fields disagree with a claim
+   about that row, the row wins. Two rules ride with this one, because they fail in the same sentence:
+   **a superlative is a count, so print the count** — "the most-linked page" is a ranking over the
+   whole export and ships with its figure and its population ("N of the M exported rows", both
+   numbers written), or it is not written — and **a sentence never contradicts the table it sits
+   beside**: an "all N of them" in the prose while the table above it lists N+1 is a claim the client
+   falsifies by looking up, and re-reading your own table is cheaper than being corrected on it.
 
    **Every score in this analysis prints its arithmetic next to itself, in the client's copy.** The Profile Health Score is a tally of the eight benchmark rows in [link-quality-rubric.md](./references/link-quality-rubric.md) §5 — Healthy 1 · Warning 0.5 · Critical 0, `round(100 × points ÷ rows scored)`, halves down — with any unscoreable row left out of both sides and named. The Toxic Score is a counted share (toxic referring domains ÷ domains reviewed), not an index of this skill's own. The per-link Link Quality Score is the six weighted factors, printed with the factor scores. Two rules hold across all three: a figure you could not measure is **dropped and renormalised, never scored 0** — zero means measured and failing — and a score whose derivation is not beside it is not deliverable, because the client cannot check it and the next audit will not reproduce it.
 
@@ -163,11 +179,14 @@ When running `domain-authority-auditor` after this analysis, the following data 
 ### Input Validation
 - [ ] Target domain backlink data is complete and current
 - [ ] Competitor domains specified for comparison analysis
-- [ ] Backlink data includes necessary fields (source domain, anchor text, link type)
+- [ ] Backlink data includes necessary fields (source URL/domain, target URL, anchor text, link type) — a missing target column is named, and every page-level finding is dropped rather than inferred
 - [ ] Authority metrics available (DA/DR or equivalent)
 
 ### Output Validation
 - [ ] Every metric cites its data source and collection date
+- [ ] Every statement about which page of the client's site a link points to was read from the export's **target** column, and every domain named in such a statement is checked back against that row before the sentence ships — a source path echoing a target's wording is not evidence of a target
+- [ ] Every superlative and rank ("the most-linked page", "our strongest link", "the only one that…") prints the count it is a superlative over and names the population counted; an uncounted superlative is cut, not softened
+- [ ] No sentence contradicts a table in the same document — re-read every count, band and "all N of them" claim against the table it refers to before delivery
 - [ ] Toxic link assessments include risk justification
 - [ ] Every emitted score shows its derivation beside it — Profile Health Score as points ÷ rows scored with the unscored rows named, Toxic Score as its two counts over a named population, Link Quality Score with its six factor scores — and no unmeasurable input is scored 0
 - [ ] Any tool-reported score (a link index's spam or toxicity number, a DR) is printed as that tool's figure with its name and pull date, never merged with a score counted here

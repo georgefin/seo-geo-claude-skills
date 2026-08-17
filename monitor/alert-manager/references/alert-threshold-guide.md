@@ -1,6 +1,6 @@
 # Alert Threshold Guide
 
-Complete reference for configuring SEO/GEO alert thresholds. Covers baseline establishment, threshold setting methodology, tuning process, alert routing configuration, notification channel setup, response playbooks for each alert type, and (Section 9) the write-up rules for counts, quotes, generics and handoff payloads.
+Complete reference for configuring SEO/GEO alert thresholds. Covers baseline establishment, threshold setting methodology, tuning process, alert routing configuration, notification channel setup, response playbooks for each alert type, and (Section 9) the write-up rules for counts, quotes, generics, handoff payloads and unverified explanations.
 
 ---
 
@@ -344,6 +344,16 @@ metric.)*
 2 quotes them, it does not set them (see "Precedence: one ladder per metric"). A whole-site outage
 is graded by the traffic DoD Emergency row and Section 7's P0 playbook, not by counting 5xx
 responses; the count ladder here is for the errors a crawl or a log review turns up.
+
+**That sentence assigns the ladder, not the coverage.** It says where an outage's *severity* is
+read from; it does not say that the traffic row is the only row watching for one, and reading it
+that way is how a review ships a configuration with nothing watching whether the site is up. A
+configuration still carries a site-availability row (templates, *Site Down*), because reachability
+is a different observation from traffic: *the site did not respond* is a boundary fact an
+availability check sees in minutes, *organic sessions fell by half* is a distance from a baseline
+that a daily total cannot show until tomorrow. An outage raising both is two observations of one
+incident, not one graded twice — the same split the templates already make between *Index Dropped*
+and *Index Coverage Drop*.
 
 ### Backlink Thresholds
 
@@ -689,6 +699,27 @@ into a site change nobody ruled on. R3 constrains the other direction too — th
 claim that markup earns AI citations, so a review does not sell it back to the client on that
 ground either.
 
+### The row that is not there
+
+All four diagnoses above start from a row you can read. The gap none of them can see is the metric
+with **no row at all**: nothing fired, nothing is silent, and neither a fire log nor a config export
+contains anything to notice. A review that triages only the rows it inherited will report a
+healthier estate than it found, and will do it in good faith — **"nothing fired here" and "nothing
+watches this" are the same line in a fire log**, which is why the question can only be asked from
+the template side.
+
+So a review runs one more pass, over the templates' category tables rather than over the client's
+config: which categories have no row, and is each absence deliberate? Two are **floor coverage**,
+named rather than left to judgement — **a site-availability row** and **the security /
+manual-action pair at any detection**. A configuration missing either adds it from the templates, or
+the deliverable says why it is out. Every other absence is reported as an absence rather than
+quietly accepted; an incident that got noticed only because some *other* row happened to move is the
+case this pass exists for, and it reads in the log as a working alert rather than as a gap.
+
+This is not the single-5xx question in "Open threshold decisions" (row 8), which asks whether one
+5xx in a day earns a boundary alert and is deliberately defaulted off. The floor here is
+availability, and its row already carries its trigger — nothing on this list needs a number set.
+
 ### Threshold Evolution Over Time
 
 | Site Maturity | Threshold Approach | Rationale |
@@ -824,10 +855,10 @@ means anything.
 
 ---
 
-## 9. Writing the configuration up — counts, quotes, generics and payloads
+## 9. Writing the configuration up — counts, quotes, generics, payloads and unverified explanations
 
 The thresholds are half the deliverable; the prose around them is where the recorded defects have
-landed. Five rules, each of them from a shipped review that a client could have checked.
+landed. Six rules, each of them from a shipped review that a client could have checked.
 
 ### 9.1 Every "N of M" enumerates its members
 
@@ -873,3 +904,27 @@ slash that was not there. Where the source gives only a path, join it to the dom
 own form and say the absolute form was not supplied. The carrier's rule is the reason —
 an incomplete row that names its gap is a working handoff, and a complete-looking row with one
 guessed field is a defect that propagates (`references/inter-skill-handoff.md` Section 4.4).
+
+### 9.6 An unverified explanation is the leading explanation, not a fact
+
+A monitoring write-up is mostly explanations of readings, and the explanation is normally arrived at
+before anything has been checked. Write it at the confidence you actually hold: the **reading** is
+the fact, the **explanation** is the leading one, and the sentence says which is which. The tell is
+internal — **a document that prescribes a verification and states the conclusion as settled has
+contradicted itself in two paragraphs.** If the check could not change the answer it is not a
+check; if it could, the answer is not settled yet. Hedging the *worry level* ("almost nothing to
+worry about here") is not hedging the *diagnosis*: the diagnosis needs its own words, and a
+plausible explanation stated in bold is still a stated one.
+
+Two shapes, both from shipped reviews:
+
+- **A missing measurement is a gap in the data, not a measurement.** Where a log carries no value
+  for a day, what is established is that no value was recorded. "The metric did not move" and "the
+  metric was not measured" are different claims, and the second never licenses the first.
+- **The source's own definition of its own notation is the fact; your reading of it is the
+  hypothesis.** Where the client's file states what its dash, blank or zero means, that is what it
+  means. Section 9.3 forbids re-glossing that definition; this forbids **overriding** it. Answering
+  «it does not mean X, it means Y» to a file that said X is what converts a probable explanation
+  into a stated one, on the strength of nothing — and it is the step a reader cannot check, because
+  the file they hold says X. If their definition looks wrong, say it looks wrong, say what would
+  settle it, and leave both readings standing until it is settled.

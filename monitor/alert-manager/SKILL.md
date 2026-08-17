@@ -1,13 +1,13 @@
 ---
 name: alert-manager
-version: "4.4.0"
+version: "4.5.0"
 description: 'Set up automated monitoring and notifications for SEO ranking drops, traffic changes, technical issues, and competitor movements. Use when the user asks to "set up SEO alerts", "notify me when rankings drop", "traffic alerts", "watch competitor changes", "alert me if rankings drop", "notify me of traffic changes", "monitor rankings", or "watch my keywords for changes". For detailed rank analysis, see rank-tracker. For comprehensive reporting, see performance-reporter.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.4.0"
+  version: "4.5.0"
   geo-relevance: "low"
   tags:
     - seo
@@ -243,13 +243,14 @@ When a user requests alert setup:
   plainly with no tool connected and no data in hand; only a number describing *this* site (mean,
   standard deviation, normal range, expected position) is derived or absent, and a generic default
   is labelled as one. Withholding a settled figure is the same defect as inventing a baseline
-- [ ] Every "N of M" lists its N and names both populations; nothing is called "named" that the
-  source does not name; a quoted definition is quoted once, not re-glossed; a claim about what
-  other sites do is labelled a generic assumption or cut; a handoff payload copies each identifier
-  — domain, `www.` or not, scheme, path — exactly as the source wrote it (threshold guide Sec. 9)
-- [ ] A row that never fired is diagnosed before it is tuned — dead metric (replace it), dead feed
-  (rewire it), dead report (retire the alert), quiet guard (keep it) — and retiring an alert never
-  becomes advice to remove the markup or page element it watched (threshold guide Section 6)
+- [ ] Every "N of M" lists its N and names both populations; nothing is called "named" that the source does not name; a quoted definition is
+  quoted once, not re-glossed, and never overridden — the client's own file is the authority on its own notation, and a missing measurement is a
+  gap in the data, not a measurement; an explanation the run has not verified is the leading explanation and never settled fact, above all where
+  the same document prescribes the check that would settle it; a claim about what other sites do is labelled a generic assumption or cut; a handoff
+  payload copies each identifier — domain, `www.` or not, scheme, path — exactly as the source wrote it (threshold guide Sec. 9)
+- [ ] A row that never fired is diagnosed before it is tuned — dead metric (replace it), dead feed (rewire it), dead report (retire the alert), quiet
+  guard (keep it); retiring an alert never becomes advice to remove the markup or page element it watched; and the review names the rows that are not
+  there — no configuration ships without a site-availability row and the security / manual-action pair, or says why (threshold guide Section 6)
 - [ ] Source of each alert trigger stated in the configuration's own words — the resolved tool name (an Ahrefs API alert, a Search Console notification, a Screaming Frog alert) or "manual user check"; where no tool is connected, the configuration says exactly that and the alert is not written up as automated. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 
 ## Example
@@ -377,8 +378,8 @@ used. Full working in the threshold guide, §1 "Three method choices".
 
 ## Reference Materials
 
-- [Alert Threshold Guide](./references/alert-threshold-guide.md) — Recommended thresholds by metric (fixed absolutes vs. baseline-derived), fatigue prevention, escalation paths, the never-fired-row triage (Sec. 6), the write-up rules for counts, quotes, generics and payloads (Sec. 9), and the prompt-level answer thresholds with their sampling rule and their four open decisions
-- [Alert Configuration Templates](./references/alert-configuration-templates.md) — Ready-to-use alert definitions per monitoring category, incl. the GEO/AI citation set, the four prompt-level answer rows with their `k of N` conditions, and the alert-summary closing blocks
+- [Alert Threshold Guide](./references/alert-threshold-guide.md) — Recommended thresholds by metric (fixed absolutes vs. baseline-derived), fatigue prevention, escalation paths, the never-fired-row triage and the absent-row pass beside it (Sec. 6), the write-up rules for counts, quotes, generics, payloads and unverified explanations (Sec. 9), and the prompt-level answer thresholds with their sampling rule and their four open decisions
+- [Alert Configuration Templates](./references/alert-configuration-templates.md) — Ready-to-use alert definitions per monitoring category, incl. the site-integrity floor coverage a review adds where an estate has none, the GEO/AI citation set, the four prompt-level answer rows with their `k of N` conditions, and the alert-summary closing blocks
 - [AI Visibility Measurement](../../references/ai-visibility-measurement.md) — library-wide: the prompt as the unit, the twelve recorded fields (sentiment is field 9), the N >= 3 sampling protocol these alerts are built on, and what may never be promised (§7)
 
 ## Related Skills

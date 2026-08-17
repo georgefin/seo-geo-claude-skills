@@ -6,7 +6,7 @@ Detailed output templates for each step of the backlink analysis workflow. Use t
 
 ## 1. Profile Overview Template
 
-```markdown
+````markdown
 ## Backlink Profile Overview
 
 **Domain**: [domain]
@@ -42,7 +42,7 @@ DA 0-19:   [X]%
 ```
 
 **Profile Health Score**: [X]/100 ([points] ÷ [rows scored] × 100; [N] rows not scored: [which and why])
-```
+````
 
 **How the Profile Health Score is computed** — it is a tally of the eight benchmark rows in
 [link-quality-rubric.md](./link-quality-rubric.md) §5, not a judgement about the profile. Score
@@ -123,6 +123,23 @@ so their mean is a competitor mean, never an industry one.
 | [Country 2] | [X] | [Y]% |
 | [Country 3] | [X] | [Y]% |
 ```
+
+**The Target Page cell is copied from the export's target column — never read off the source URL.**
+Every row in a backlink export carries two URLs, and they are not interchangeable: the source is the
+page the link sits on, the target is the page of the client's site it points at. Publishers write
+about the same subject the client does, so the two paths often echo each other — a source at
+`coffee-magazine.example/reviews/best-espresso-machines` beside a target at
+`client.example/blog/espresso-buying-guide` is two content teams naming one topic, not one page.
+Filling this column from the source path silently reassigns links between the client's own pages,
+and every page-level finding built on it — most-linked page, page-level counts, which page earned
+the coverage — inherits the error while looking derived.
+
+**A most-linked-page reading is a count over the whole export, and it ships with the count.** Group
+the rows by target, print the top targets with their figures and the population they were counted
+over ("N of the M exported rows", both numbers written), and expect the homepage to win: a page
+called "the most linked" without the homepage's own figure beside it is usually a claim about second
+place. Where the export has no target column, say so and drop the page-level section — an inferred
+target is not a weaker finding, it is a different one.
 
 ---
 

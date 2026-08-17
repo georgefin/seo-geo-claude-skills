@@ -171,6 +171,24 @@ SSL Expiry sits one level above its band's default (P2), and the reason travels 
 certificate that lapses takes every page down at once, and the fix needs a same-day human.
 Robots.txt Block takes the default map unchanged.
 
+**Site Down is coverage, not a row you inherit — a review adds it where the estate has none.** An
+alert review reads the rows a client already has, and the commonest real gap is the row that was
+never there to be reviewed. Two things are **floor coverage** in any configuration this skill
+writes or repairs: **a site-availability row** (this table's *Site Down*) and **the security /
+manual-action pair at any detection** (*Security Alerts*, below). A configuration missing either
+adds it from these tables, or the deliverable says why it is deliberately out. Closing a coverage
+review on the rows that happened to exist is how a site ends up with nothing watching whether it is
+up — a gap that costs nothing until the day it costs everything, and that no fire log can show you.
+
+**Adding it does not double-grade the traffic row.** The threshold guide grades an outage's
+*traffic consequence* on the day-over-day Emergency rung and says the 5xx count ladder does not
+grade outage severity — both still true, and neither is what this row does. Reachability is a
+different observation from traffic: *the site did not respond* is a boundary fact an availability
+check sees in minutes, *organic sessions fell by half* is a distance from a baseline that a daily
+total cannot show until tomorrow. An outage raising both raises **Site Down** on its reachability
+and the DoD row on its traffic — two observations of one incident, exactly as *Index Dropped* and
+*Index Coverage Drop* split below, not one observation graded twice.
+
 **Index Dropped was rewritten 2026-08-13, and the reason is the rule it was breaking.** It read
 "Pages dropping from index → Critical", while *Index Coverage Drop* below reads "Indexed pages
 decline 10%+ → Warning". **The same observation was graded at two bands**, which `SKILL.md`'s own
