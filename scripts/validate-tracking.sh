@@ -12,6 +12,11 @@
 #              Fault-injection for check (f)'s two allowlists against the checked-in corpus in
 #              scripts/fixtures/r3-allowlist/. Prints caught/missed per corpus and FAILS when a
 #              violation is excused. See the probe block below check (f) for why it exists.
+#          ./validate-tracking.sh --emit-f-patterns [repo-root]
+#              Prints check (f)'s pattern surface as `NAME<TAB>value` lines, for the guards that
+#              apply those patterns to surfaces check (f) cannot reach. This is an ACCESSOR, not a
+#              verdict: it exits 0 whatever the tree contains and prints nothing else on stdout.
+#              See "THE PATTERN SURFACE IS AN EXPORT" below.
 # Exit:    0 = all checks pass (warnings allowed), 1 = any FAIL, 2 = usage/setup error
 # No network access. Dependencies: bash, coreutils, grep, sed, awk, sort, comm, cmp (diffutils).
 
@@ -24,11 +29,35 @@ set -u
 # written, so the probe runs AFTER it and stdout is parked until then. Checks (a)-(f) do execute;
 # their output is suppressed, and their FAIL count is printed in the probe header so a probe can
 # never report health while the validator it lives in is broken.
+#
+# THE PATTERN SURFACE IS AN EXPORT (--emit-f-patterns, 2026-08-17, OPEN-FINDINGS 100).
+# The lesson above had to be learned a second time, one directory over.
+# `scripts/eval-expectation-sweep.sh` applies check (f)'s classes to a surface check (f) cannot
+# reach (eval expectations, which `grep -v 'evals/'` removes from every sweep here), and it did
+# that by HAND-COPYING the pattern strings under a standing "keep them copied, not re-invented"
+# comment. The copy fossilised at the pre-word-bounding spelling. Measured 2026-08-17: the
+# sentence "The FAQPage block is eligible for FAQ rich results, as recommended in the brief."
+# was CAUGHT here and EXEMPTED there, because `ended` is a substring of *recommended* and the
+# sweep still carried the unbounded member this file fixed in 8f69a7a. A copy kept in sync by a
+# comment is not kept in sync — it is the third instance of that class in this repo (a duplicated
+# positive filter that lost two tokens; a duplicated AG list that drifted; this).
+#
+# So the patterns are EXPORTED from here and IMPORTED there, and two things make that binding
+# rather than aspirational:
+#   * `--probe` asserts the export is COMPLETE — every pattern variable in this file's own source
+#     is emitted — so a pattern added later cannot be silently left unexported;
+#   * the importer FAILS HARD when the export is missing or short, and never falls back to a
+#     local copy. A fallback copy is the defect wearing a safety belt.
+# What the importer may legitimately do to an imported pattern is documented at its call site: it
+# greps 800-character sentences, not 85-character markdown lines, so the token regex is bounded by
+# a mechanical, asserted transform. Members are NEVER edited downstream; extra members are added
+# in a separately named set so the derived part stays byte-comparable to what is emitted here.
 PROBE=0
-if [ "${1:-}" = "--probe" ]; then
-    PROBE=1
-    shift
-fi
+EMIT=0
+case "${1:-}" in
+    --probe)           PROBE=1; shift ;;
+    --emit-f-patterns) EMIT=1;  shift ;;
+esac
 
 ROOT="${1:-.}"
 
@@ -60,7 +89,7 @@ for req in "$PLUGIN_JSON" "$MARKETPLACE_JSON" "$README" "$VERSIONS"; do
     fi
 done
 
-if [ "$PROBE" -eq 1 ]; then
+if [ "$PROBE" -eq 1 ] || [ "$EMIT" -eq 1 ]; then
     exec 3>&1 1>/dev/null
 fi
 
@@ -598,6 +627,21 @@ fi
 # pattern written from its founding instance. The probe recorded with the original
 # discharged only guard (a) — it fires on the known defect — and left (b) undone.
 R3_OVERSTATE='(advis|recommend|counsel)(es|s|ed)? against ([a-z]+ )?(remov|delet|drop)|discourages? ([a-z]+ )?(remov|delet|drop)|tells you not to (remove|delete|drop)|says you should keep'
+
+# --emit-f-patterns: THE EXPORT. Every pattern variable check (f) uses, one per line, NAME<TAB>
+# value, raw — no quoting, no escaping, because a consumer that has to un-escape is a consumer
+# that can get it wrong. Placed here because this is the first point at which all of them exist,
+# and it exits immediately: the accessor must not be able to report a verdict, or a caller will
+# start reading its exit code as one. `--probe` asserts this list covers every pattern assignment
+# in the file (F_EMIT_NAMES vs the source), so the export cannot silently go stale.
+F_EMIT_NAMES="F_NEAR_AFTER F_NEAR_BEFORE DEPRECATED_TOKENS DEPRECATED_LEGAL_NAMED DEPRECATED_LEGAL_NEAR DEPRECATED_LEGAL R3_TOKENS R3_LEGAL_NAMED R3_LEGAL_NEAR R3_LEGAL R3_OVERSTATE"
+if [ "$EMIT" -eq 1 ]; then
+    exec 1>&3
+    for _n in $F_EMIT_NAMES; do
+        printf '%s\t%s\n' "$_n" "${!_n}"
+    done
+    exit 0
+fi
 R3_OVER_HITS=$(cd "$ROOT" && grep -rniE "$R3_OVERSTATE" $F_DIRS \
     --include='*.md' 2>/dev/null | grep -v 'evals/' \
     | grep -iE 'faq|schema|structured data|markup' || true)
@@ -862,8 +906,20 @@ if [ "$PROBE" -eq 1 ]; then
     # count the lines that stop being excused. Weight 0 means the member carries nothing today —
     # a deletion candidate, and the only kind of allowlist edit that goes in the right direction.
     # Splitting on `|` is depth-aware: several members contain their own alternation groups.
+    #
+    # TWO COLUMNS, because one column cannot answer the question that gets asked of it
+    # (OPEN-FINDINGS 101, which read a single column of zeros as "22 of 35 members carry nothing").
+    # `tree` is the live-tree weight. `fixt` is the same measurement against the FROZEN legitimate
+    # corpus — the lines this library looked at and decided it wants. The two disagree in the case
+    # that matters: a member at tree 0 / fixt >0 is not dead vocabulary, it is the only thing
+    # standing between the guard and a line somebody already had to defend, which has merely moved
+    # or been reworded since. Only tree 0 AND fixt 0 is a deletion candidate on the evidence here,
+    # and even then it is a deletion decision with a cost — every member is also a rewording the
+    # library might legitimately write tomorrow, and the check has three recorded instances of
+    # rejecting the most accurate line in the repository. State both numbers; do not delete on one.
     echo ""
-    echo "Live-tree weight per allowlist member (lines un-excused if the member is removed):"
+    echo "Weight per allowlist member — tree = live-tree lines un-excused, fixt = frozen legitimate"
+    echo "lines un-excused, if the member is removed (0/0 = deletion candidate, see the note above):"
     member_weights() {   # <leg> <named> <near>
         leg="$1"
         all="$(printf '%s|%s' "$2" "$3" | awk '{
@@ -889,14 +945,20 @@ if [ "$PROBE" -eq 1 ]; then
             if [ "$leg" = "r3" ]; then
                 save="$R3_EXCUSE"; R3_EXCUSE="$(f_excuse "$R3_TOKENS" "$named_wo" "$near_wo")"
                 w=$( (cd "$ROOT" && f_r3_hits $F_DIRS) | grep -c '' )
+                wf=$(caught_lines r3 r3-legitimate | grep -c '')
                 R3_EXCUSE="$save"
             else
                 save="$DEPRECATED_EXCUSE"; DEPRECATED_EXCUSE="$(f_excuse "$DEPRECATED_TOKENS" "$named_wo" "$near_wo")"
                 w=$( (cd "$ROOT" && f_fid_hits $F_DIRS) | grep -c '' )
+                wf=$(caught_lines fid fid-legitimate | grep -c '')
                 DEPRECATED_EXCUSE="$save"
             fi
-            [ "$w" -gt 0 ] && printf '  %-4s %3d  %s\n' "$leg" "$w" "$m"
-            [ "$w" -eq 0 ] && printf '  %-4s   .  %s   (carries nothing today)\n' "$leg" "$m"
+            wt_s="  ."; [ "$w"  -gt 0 ] && wt_s=$(printf '%3d' "$w")
+            wf_s="  ."; [ "$wf" -gt 0 ] && wf_s=$(printf '%3d' "$wf")
+            tag=""
+            [ "$w" -eq 0 ] && [ "$wf" -eq 0 ] && tag="   (carries nothing here or in the fixture)"
+            [ "$w" -eq 0 ] && [ "$wf" -gt 0 ] && tag="   (nothing live, but holds up a frozen legitimate line)"
+            printf '  %-4s tree %s  fixt %s  %s%s\n' "$leg" "$wt_s" "$wf_s" "$m" "$tag"
         done <<< "$all"
     }
     member_weights r3 "$R3_LEGAL_NAMED" "$R3_LEGAL_NEAR"
@@ -913,6 +975,35 @@ if [ "$PROBE" -eq 1 ]; then
     echo ""
     echo "Live tree, this commit: R3 $r3_seen lines match the tokens, $r3_surv survive the allowlist."
     echo "                        FID $fid_seen lines match the tokens, $fid_surv survive the allowlist."
+    # EXPORT COMPLETENESS (OPEN-FINDINGS 100). `--emit-f-patterns` is now the only supply of these
+    # patterns to scripts/eval-expectation-sweep.sh, so an unexported pattern is a pattern that
+    # silently stops applying over there — the same silence the hand-copy produced, arriving by a
+    # tidier route. The check reads this file's OWN SOURCE for pattern assignments rather than a
+    # second list: a list of names maintained beside the names is the defect again.
+    # Pattern assignment = a column-0 `R3_*`/`DEPRECATED_*` name ending in TOKENS/LEGAL/NAMED/NEAR/
+    # OVERSTATE, or an `F_NEAR_*` window. Per-run RESULTS (R3_HITS, R3_OVER_HITS) do not match, and
+    # the frozen HIST_* copies in this block are deliberately not exported — they are history.
+    echo ""
+    src_names="$(grep -oE '^(R3|DEPRECATED)_[A-Z0-9_]*(TOKENS|LEGAL|NAMED|NEAR|OVERSTATE)=|^F_NEAR_[A-Z]+=' \
+                    "${BASH_SOURCE[0]}" | sed 's/=$//' | sort -u)"
+    emitted_names="$(bash "${BASH_SOURCE[0]}" --emit-f-patterns "$ROOT" | cut -f1 | sort -u)"
+    unexported="$(comm -23 <(printf '%s\n' "$src_names") <(printf '%s\n' "$emitted_names"))"
+    phantom="$(comm -13 <(printf '%s\n' "$src_names") <(printf '%s\n' "$emitted_names"))"
+    n_emitted=$(printf '%s\n' "$emitted_names" | grep -c '.')
+    if [ -n "$unexported" ]; then
+        echo "PROBE FAIL — check (f) pattern(s) not carried by --emit-f-patterns, so eval-expectation-sweep.sh cannot see them:"
+        printf '    %s\n' $unexported
+        probe_fail=1
+    elif [ -n "$phantom" ]; then
+        echo "PROBE FAIL — --emit-f-patterns names a variable check (f) no longer assigns: $phantom"
+        probe_fail=1
+    elif [ "$n_emitted" -lt 6 ]; then
+        echo "PROBE FAIL — the export carries only $n_emitted name(s); an empty or near-empty export would let the importer's own canaries pass on nothing"
+        probe_fail=1
+    else
+        echo "Export to eval-expectation-sweep.sh: $n_emitted pattern name(s), complete against this file's own assignments."
+    fi
+
     echo ""
     if [ "$probe_fail" -eq 0 ]; then
         echo "PROBE PASS — every corpus matched its declaration. Declared open holes above are still holes."

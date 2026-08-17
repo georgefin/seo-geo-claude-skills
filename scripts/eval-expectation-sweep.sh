@@ -54,8 +54,10 @@
 # expectations[] or expected_output.
 #
 # TOKEN CLASSES, AND WHY TWO OF THEM ARE NEW.
-# Classes (f1)-(f3) are check (f)'s own patterns, verbatim, applied to a surface it
-# cannot reach. Classes (e1)-(e2) exist because a VERBATIM extension of check (f)
+# Classes (f1)-(f3) ARE check (f)'s own patterns — read out of
+# `scripts/validate-tracking.sh` at run time via `--emit-f-patterns`, never copied
+# (OPEN-FINDINGS 100; see "WHERE (f1)-(f3) COME FROM" at the class block below).
+# Classes (e1)-(e2) exist because a VERBATIM extension of check (f)
 # would NOT have caught the 2026-08-13 instance, and that is worth recording:
 # check (f)'s R3_LEGAL allowlist contains `retired|retirement`, so the sentence
 # "Google retired FAQ rich results in 2026" is EXEMPT from (f) by construction —
@@ -175,22 +177,28 @@
 #      only. Adding a canary per alternative is the fix; it has not been done.
 #
 # Usage:   scripts/eval-expectation-sweep.sh [repo-root]
-#          scripts/eval-expectation-sweep.sh --suite <path/to/evals.json>   (probe mode)
-# Probes:  scripts/fixtures/eval-expectation-sweep/stale/evals.json    -> must exit 1
-#          scripts/fixtures/eval-expectation-sweep/correct/evals.json  -> must exit 0
+#          scripts/eval-expectation-sweep.sh --suite <path/to/evals.json>   (single suite)
+#          scripts/eval-expectation-sweep.sh --probe [repo-root]
+#              Fault injection, four corpora, exit codes asserted rather than eyeballed:
+#              the two checked-in fixtures, plus the two synthetic suites that measure the
+#              IMPORT (the substring escape that must be reported, the corrected line that
+#              must not be). Prints a transcript and FAILS if any of them lands wrong.
 # Exit:    0 = pass (warnings allowed), 1 = any FAIL, 2 = usage/setup error
-# No network. Dependencies: bash, python3.
+# No network. Dependencies: bash, python3, scripts/validate-tracking.sh (pattern source).
 
 set -u
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SUITES=()
+PROBE=0
 
 while [ "$#" -gt 0 ]; do
     case "$1" in
         --suite)
             [ "${2:-}" ] || { echo "ERROR: --suite needs a file" >&2; exit 2; }
             SUITES+=("$2"); shift 2 ;;
+        --probe)
+            PROBE=1; shift ;;
         -h|--help)
             # Print the whole header block, not a fixed line range: the range in the
             # first draft stopped at 60 and the header had grown past 130, so --help
@@ -206,8 +214,114 @@ for s in "${SUITES[@]:-}"; do
     [ -f "$s" ] || { echo "ERROR: suite file not found: $s" >&2; exit 2; }
 done
 
+# --- IMPORT check (f)'s patterns (OPEN-FINDINGS 100) ------------------------
+# Classes (f1)-(f3) used to be a hand-copy of check (f)'s pattern strings, kept in step by a
+# comment that said "keep them copied". It did not hold. When 8f69a7a word-bounded the generic
+# R3 markers, this file kept the unbounded spelling, and on 2026-08-17 the sentence
+#   "The FAQPage block is eligible for FAQ rich results, as recommended in the brief."
+# was CAUGHT by check (f) and EXEMPTED here — `ended` is a substring of *recommended*. Third
+# instance of the class in this repo. So there is now ONE source and this is its importer.
+#
+# NO FALLBACK ON PURPOSE. If the source is missing or short, this script exits 2 without judging
+# the corpus. A guard that degrades to a stale local copy when its source is unavailable is the
+# defect with a safety belt on: it would keep printing PASS while measuring the wrong patterns.
+VT="$ROOT/scripts/validate-tracking.sh"
+if [ ! -f "$VT" ]; then
+    echo "ERROR: pattern source not found: $VT" >&2
+    echo "       Classes (f1)-(f3) are check (f)'s patterns, read from it at run time." >&2
+    echo "       There is deliberately no local copy to fall back on (OPEN-FINDINGS 100)." >&2
+    exit 2
+fi
+if ! F_PATTERNS="$(bash "$VT" --emit-f-patterns "$ROOT")"; then
+    echo "ERROR: \`$VT --emit-f-patterns\` failed; classes (f1)-(f3) cannot be built and the" >&2
+    echo "       corpus was NOT judged. Fix the pattern source, do not re-copy the patterns." >&2
+    exit 2
+fi
+if [ -z "$F_PATTERNS" ]; then
+    echo "ERROR: \`$VT --emit-f-patterns\` printed nothing — an empty import would leave every" >&2
+    echo "       (f)-class matching nothing and this sweep printing PASS over an unread corpus." >&2
+    exit 2
+fi
+export F_PATTERNS
+
+# --- --probe: fault injection, exit codes asserted --------------------------
+# F15: a probe that has never been shown failing is worth nothing. Each case below has been run
+# with the guard deliberately broken. Cases 3 and 4 are the ones that measure the IMPORT: case 3
+# is the exact sentence the hand-copy exempted, so re-pasting the fossil member turns it red.
+if [ "$PROBE" -eq 1 ]; then
+    SELF="${BASH_SOURCE[0]}"
+    ptmp="$(mktemp -d)"; trap 'rm -rf "$ptmp"' EXIT
+    probe_fail=0
+    echo "eval-expectation-sweep --probe : fault injection over four corpora"
+    echo "Pattern source: $VT --emit-f-patterns ($(printf '%s\n' "$F_PATTERNS" | grep -c '.') names)"
+    echo ""
+
+    # Case 3 corpus — the substring escape. `ended` inside *recommended* excused this sentence
+    # here for as long as the copy existed, while check (f) failed the identical line.
+    cat > "$ptmp/escape.json" <<'JSON'
+{"skill_name": "probe-escape", "evals": [{"id": "p1", "prompt": "x",
+ "expected_output": "The report confirms the page is eligible for FAQ rich results, as recommended in the brief.",
+ "expectations": ["The FAQPage block is eligible for FAQ rich results, as recommended in the brief."]}]}
+JSON
+    # Case 4 corpus — the corrected line, in the register the library actually writes. It must
+    # stay clean, or the guard punishes the author who fixed the claim (check (f)'s recorded
+    # lesson, four times over).
+    cat > "$ptmp/corrected.json" <<'JSON'
+{"skill_name": "probe-corrected", "evals": [{"id": "p1", "prompt": "x",
+ "expected_output": "An ordinary site gets no FAQ rich result; government/health only since 2023-08-08.",
+ "expectations": ["The response states that FAQ rich results ended for ordinary sites, so no FAQ rich result is promised."]}]}
+JSON
+
+    probe_case() {   # <label> <expected-exit> <suite path> [grep that output must contain]
+        label="$1"; want="$2"; suite="$3"; must="${4:-}"
+        out="$(bash "$SELF" --suite "$suite" 2>&1)"; got=$?
+        if [ "$got" -ne "$want" ]; then
+            echo "  PROBE FAIL  $label — expected exit $want, got $got"
+            printf '%s\n' "$out" | sed 's/^/      | /' | head -12
+            probe_fail=1
+            return
+        fi
+        if [ -n "$must" ] && ! printf '%s\n' "$out" | grep -q "$must"; then
+            echo "  PROBE FAIL  $label — exit $got was right but the output never says \"$must\";"
+            echo "              a right exit code for the wrong reason is how a probe stops measuring"
+            printf '%s\n' "$out" | sed 's/^/      | /' | head -12
+            probe_fail=1
+            return
+        fi
+        n_fail="$(printf '%s\n' "$out" | grep -c '^FAIL')"
+        echo "  ok          $label — exit $got, $n_fail FAIL line(s)"
+    }
+
+    probe_case "stale fixture must be reported     " 1 \
+        "$ROOT/scripts/fixtures/eval-expectation-sweep/stale/evals.json" "^FAIL: (f2)"
+    probe_case "correct fixture must stay clean    " 0 \
+        "$ROOT/scripts/fixtures/eval-expectation-sweep/correct/evals.json"
+    probe_case "IMPORT: substring escape reported  " 1 "$ptmp/escape.json" "^FAIL: (f2)"
+    probe_case "IMPORT: corrected line stays clean " 0 "$ptmp/corrected.json"
+
+    # The self-test is the always-on half: it holds the derivation parity assertions, so a
+    # member edited downstream, an unbounded `.*` surviving the transform, or a re-pasted copy
+    # fails HERE on every ordinary run, not only under --probe.
+    st="$(bash "$SELF" --suite "$ROOT/scripts/fixtures/eval-expectation-sweep/correct/evals.json" 2>&1 | grep '(0)')"
+    if printf '%s\n' "$st" | grep -q '^PASS: (0)'; then
+        echo "  ok          self-test (0), including derivation parity and the import canaries"
+    else
+        echo "  PROBE FAIL  self-test (0) is not passing:"
+        printf '%s\n' "$st" | sed 's/^/      | /'
+        probe_fail=1
+    fi
+
+    echo ""
+    if [ "$probe_fail" -eq 0 ]; then
+        echo "PROBE PASS — all four corpora landed on their declared exit code."
+        exit 0
+    fi
+    echo "PROBE FAILED"
+    exit 1
+fi
+
 python3 - "$ROOT" "${SUITES[@]:-}" <<'PY'
-import json, re, sys, pathlib
+import json, os, re, sys, pathlib
 
 root = pathlib.Path(sys.argv[1])
 explicit = [pathlib.Path(p) for p in sys.argv[2:] if p]
@@ -270,59 +384,88 @@ NEG = (r"nothing in the response|nowhere (claims|states|promises|instructs)|"
        r"(are|is) not (a |an )?claims?\b|does not count\b|"
        r"no serp (promise|feature|claim)")
 
-F1_TOK = r"\bFID\b|First Input Delay|Affiliate links disclosed"
-F1_LEG = (r"corrected to|replaced by inp|inp[- ]only|retired|deprecated|"
-          r"instead of|rather than|" + NEG)
-# THE ONE DELIBERATE DIVERGENCE FROM check (f)'s PATTERN, and why it is not a paste
-# error (2026-08-17, found by the negative-control fixture).
-# check (f) is `grep -E` over MARKDOWN LINES: `.` never crosses a newline, and a line
-# is ~85 characters, so `faq.*rich-result` can only ever span one line's worth. Here
-# the same regex runs over 800-character sentences, where `.*` is greedy across whole
-# clauses — and on the negative-control fixture it matched
-# «FAQ rich results as expandable questions right in the SERP' is flagged as n», a
-# span that STARTS INSIDE a quotation and ENDS OUTSIDE it. classify() tests whether a
-# match is contained in a quoted span, so a match that straddles the closing quote can
-# never be classified QUOTE: the guard's whole fixture/rule distinction switches off
-# for the commonest token shape, and the expectation is saved only if F2_LEG happens
-# to match too. Bounded to 60 characters, non-greedy, and forbidden from crossing a
-# quote delimiter, so a match is either wholly inside a quotation or wholly outside.
-# If check (f)'s R3_TOKENS widens, widen the ALTERNATIVES here in the same commit —
-# but do not restore the unbounded `.*`.
+# --- WHERE (f1)-(f3) COME FROM (OPEN-FINDINGS 100) --------------------------
+# Imported from scripts/validate-tracking.sh check (f) through `--emit-f-patterns`, parsed here.
+# The importer in the bash half above exits 2 rather than fall back to a copy; this half fails
+# rather than build a class out of a missing name. Between them there is no path on which a
+# (f)-class quietly becomes something other than what check (f) enforces.
+SRC = {}
+for _line in os.environ.get("F_PATTERNS", "").splitlines():
+    if "\t" in _line:
+        _k, _v = _line.split("\t", 1)
+        SRC[_k] = _v
+REQUIRED = ("DEPRECATED_TOKENS", "DEPRECATED_LEGAL_NAMED", "DEPRECATED_LEGAL_NEAR",
+            "R3_TOKENS", "R3_LEGAL_NAMED", "R3_LEGAL_NEAR", "R3_OVERSTATE")
+_missing = [k for k in REQUIRED if not SRC.get(k)]
+if _missing:
+    print("FAIL: (0) pattern import is short — validate-tracking.sh --emit-f-patterns did not "
+          "carry: " + ", ".join(_missing))
+    print("      Classes (f1)-(f3) cannot be built. The corpus was NOT judged, and no local copy "
+          "of these patterns exists to fall back on (OPEN-FINDINGS 100).")
+    sys.exit(1)
+
+
+def alternatives(pattern):
+    """Split a regex on its TOP-LEVEL `|` — depth-aware, because members carry their own groups."""
+    out, depth, cur = [], 0, ""
+    for ch in pattern:
+        if ch == "(":
+            depth += 1
+        elif ch == ")":
+            depth -= 1
+        if ch == "|" and depth == 0:
+            out.append(cur)
+            cur = ""
+        else:
+            cur += ch
+    out.append(cur)
+    return [a for a in out if a]
+
+
+# THE ONE TRANSFORM APPLIED TO AN IMPORTED PATTERN, and why it is mechanical rather than manual.
+# check (f) greps MARKDOWN LINES: `.` never crosses a newline and a line is ~85 characters, so
+# `faq.*rich-result` can only ever span one line's worth. Here the same regex runs over
+# 800-character sentences, where `.*` is greedy across whole clauses — on the negative-control
+# fixture it matched «FAQ rich results as expandable questions right in the SERP' is flagged as n»,
+# a span that STARTS INSIDE a quotation and ENDS OUTSIDE it. classify() asks whether a match is
+# contained in a quoted span, so a match straddling the closing quote can never be classified
+# QUOTE: the fixture/rule distinction switches off for the commonest token shape.
+#
+# So the imported token regex is bounded — but by CODE, with assertions, not by a second copy
+# somebody edits. `.*` becomes a non-greedy 60-character run that cannot cross a quote delimiter,
+# and any class that already excludes sentence enders also excludes quote delimiters. If check (f)
+# ever grows a construct this does not know how to bound, check (0) says so and the sweep stops.
 _Q = r"'\"«»`“”"
-F2_TOK = (rf"faq[^{_Q}]{{0,60}}?rich[- ]?(result|snippet)|"
-          rf"rich[- ]?(result|snippet)s?[^{_Q}]{{0,60}}?faq|"
-          rf"eligib[^.|{_Q}]*faq|faq[^.|{_Q}]*eligib|"
-          r"expandable q&a below|faq (accordion|dropdown|drop-down)|serp accordion")
-F2_LEG = (r"retired|retirement|ended|ceased|discontinued|no longer|non-faq|"
-          r"no faq (support|eligibility)|faq(:| has) none|dropped faq support|"
-          r"do not run it through|no evidenced citation benefit|"
-          r"no need to (proactively )?remove|scheduled for august 2026|has none since|"
-          r"no faq rich result|government (and|/)health|government and health|"
-          r"government/health|restricted (them )?to|2023-08-08|aug 2023|"
-          r"does not (support|test) faqpage|not (the route|supported) for faqpage|unverified|"
-          r"promis\w* no|no serp feature|"
-          # NOISE B, 2026-08-17. Added against a live line this guard failed for being
-          # right: "Validation guidance points to the Schema.org validator, NOT Google's
-          # Rich Results Test or Search Console FAQ reports". The sentence denies the
-          # eligibility route and was flagged for naming what it denies — check (f)'s
-          # 2026-08-11 lesson, a fourth time. Vetted per B2: the marker endorses only
-          # "the Rich Results Test is not the FAQ route", which is R3's own sourced
-          # position (Rich Results Test support was dropped). The Schema.org validator
-          # was NOT added as a marker — that would endorse a claim about a tool R3 does
-          # not source, and the denial alone is enough.
-          r"not (google'?s? )?(rich results? test|search console)|" + NEG)
-# PARITY RE-SYNC, 2026-08-17. check (f)'s R3_OVERSTATE was widened in a concurrent
-# commit after a Mode A pass measured the original at 3 of 8 constructed variants: it
-# caught "advises against removing" and two siblings, and missed the past tense,
-# "recommends against", "discourages", "tells you not to remove" and "says you should
-# keep". This class is a COPY of (f)'s, so it is re-synced here rather than left as a
-# fossil of the narrower form — the header's standing instruction, honoured the first
-# time it came due. Widening is safe whichever way the sibling commit lands: every
-# variant below is a RECOMMENDATION Google never made, and none of them becomes true
-# if the other patch is dropped.
-F3_TOK = (r"(advis|recommend|counsel)(es|s|ed)? against ([a-z]+ )?(remov|delet|drop)|"
-          r"discourages? ([a-z]+ )?(remov|delet|drop)|"
-          r"tells you not to (remove|delete|drop)|says you should keep")
+
+
+def quote_bound(tok):
+    return tok.replace(".*", "[^%s]{0,60}?" % _Q).replace("[^.|]", "[^.|%s]" % _Q)
+
+
+# --- (f1)/(f2)/(f3): imported, plus this file's own SEPARATELY NAMED extras --
+# The extras are not edits to imported members — they are a second set, unioned in, so the derived
+# half stays byte-comparable to the export and check (0) can assert that. Each extra exists
+# because an EXPECTATION says a true thing in a register skill prose does not use.
+#
+# (f1) extras: an expectation routinely describes the correction rather than performing it
+# ("the LCP-2.0/FID line corrected to INP <=200 ms"), which check (f) never has to allow.
+SWEEP_F1_EXTRA = r"corrected to|inp[- ]only|instead of|rather than"
+# (f2) extras: NOISE B (2026-08-17) — "Validation guidance points to the Schema.org validator, NOT
+# Google's Rich Results Test or Search Console FAQ reports" is a line that DENIES the eligibility
+# route and was flagged for naming what it denies. Vetted per B2: the marker endorses only "the
+# Rich Results Test is not the FAQ route", which is R3's own sourced position. The Schema.org
+# validator was NOT added — that would endorse a claim about a tool R3 does not source.
+SWEEP_F2_EXTRA = (r"promis\w* no|no serp feature|"
+                  r"not (google'?s? )?(rich results? test|search console)")
+
+DERIVED_F1_LEG = SRC["DEPRECATED_LEGAL_NAMED"] + "|" + SRC["DEPRECATED_LEGAL_NEAR"]
+DERIVED_F2_LEG = SRC["R3_LEGAL_NAMED"] + "|" + SRC["R3_LEGAL_NEAR"]
+
+F1_TOK = SRC["DEPRECATED_TOKENS"]
+F1_LEG = DERIVED_F1_LEG + "|" + SWEEP_F1_EXTRA + "|" + NEG
+F2_TOK = quote_bound(SRC["R3_TOKENS"])
+F2_LEG = DERIVED_F2_LEG + "|" + SWEEP_F2_EXTRA + "|" + NEG
+F3_TOK = SRC["R3_OVERSTATE"]
 F3_LEG = r"(?!x)x"          # never legal: Google made no such recommendation (B2, 2026-08-13)
 
 # (e1) the unsourced 2026 FAQ-ending date, asserted with no evidence qualifier.
@@ -504,6 +647,57 @@ print("==============================================")
 print("")
 print("[0] class self-test (F15: a sweep whose patterns have rotted reports a clean tree)")
 selftest_ok = True
+
+# --- derivation parity (OPEN-FINDINGS 100) ----------------------------------
+# Three assertions, and each one fails on a different way of re-introducing the hand-copy:
+#   (i)  a token class edited downstream instead of at the source;
+#   (ii) an imported MEMBER missing from the assembled allowlist — the fossil case, where the
+#        local spelling of a member survives a source change;
+#   (iii) the transform leaving an unbounded `.*`, which switches the QUOTE classifier off.
+for _name, _got, _want in (("f1", F1_TOK, SRC["DEPRECATED_TOKENS"]),
+                           ("f3", F3_TOK, SRC["R3_OVERSTATE"])):
+    if _got != _want:
+        fail(f"(0) class ({_name}) token pattern is not what check (f) enforces. This class is "
+             f"IMPORTED and must not be edited here — change it in validate-tracking.sh. "
+             f"imported: {_want!r} · in use: {_got!r}")
+        selftest_ok = False
+for _leg_name, _derived, _assembled in (("f1", DERIVED_F1_LEG, F1_LEG),
+                                        ("f2", DERIVED_F2_LEG, F2_LEG)):
+    _have = set(alternatives(_assembled))
+    _lost = [m for m in alternatives(_derived) if m not in _have]
+    if _lost:
+        fail(f"(0) class ({_leg_name}) allowlist has lost imported member(s): {_lost!r}. Members "
+             f"are imported whole; extras belong in SWEEP_{_leg_name.upper()}_EXTRA, never as an "
+             f"edit to an imported one (OPEN-FINDINGS 100)")
+        selftest_ok = False
+if ".*" in F2_TOK or re.search(r"(?<!\\)\.[+{]", F2_TOK):
+    fail("(0) the (f2) transform left an unbounded `.` quantifier: over an 800-character sentence "
+         "that match can straddle a closing quote, and a straddling match can never classify "
+         "QUOTE — the fixture/rule distinction switches off silently. Teach quote_bound() the "
+         "new construct; do not hand-write the pattern")
+    selftest_ok = False
+if len(alternatives(F2_TOK)) != len(alternatives(SRC["R3_TOKENS"])):
+    fail(f"(0) the (f2) transform changed the alternative COUNT "
+         f"({len(alternatives(SRC['R3_TOKENS']))} imported -> {len(alternatives(F2_TOK))} in use) "
+         f"— it is meant to bound each alternative, not add or drop any")
+    selftest_ok = False
+
+# --- the import canary, which is the whole finding in one sentence ----------
+# This is the line that measured the divergence on 2026-08-17: check (f) failed it, and this
+# script exempted it, because `ended` is a substring of *recommended*. It is a canary rather
+# than a fixture line because the fixtures cannot see a class that was never assembled — if
+# somebody re-hardcodes the fossil list, THIS is what goes red.
+_escape = ("The FAQPage block is eligible for FAQ rich results, as recommended in the brief.")
+_em = re.compile(F2_TOK, re.I).search(_escape)
+if _em is None:
+    fail("(0) import canary cannot run — (f2) no longer matches a bare FAQ-eligibility assertion")
+    selftest_ok = False
+elif re.compile(F2_LEG, re.I).search(_escape[max(0, _em.start() - 120):_em.end() + 120]):
+    fail("(0) IMPORT CANARY FAILED — a FAQ-eligibility assertion is excused by a marker that is "
+         "only a SUBSTRING of another word (`ended` inside *recommended*). check (f) word-bounded "
+         "these members in 8f69a7a; this class is supposed to be reading that fix, not a copy of "
+         "the list from before it (OPEN-FINDINGS 100)")
+    selftest_ok = False
 for cid, name, tok, leg, yes, no in CLASSES:
     ctx = CONTEXT.get(cid)
     if ctx and not ctx.search(yes):
@@ -604,7 +798,9 @@ if selftest_ok:
     pas(f"(0) all {len(CLASSES)} token classes match their positive canary, are not exempted "
         f"by their own markers, and clear their negative canary; "
         f"{len(CLASSIFIER_CANARIES)} classifier canaries, both proximity canaries and the "
-        f"(e1)/(e2) qualifier asymmetry hold")
+        f"(e1)/(e2) qualifier asymmetry hold; classes (f1)-(f3) imported from check (f) "
+        f"({len(alternatives(DERIVED_F1_LEG))}+{len(alternatives(DERIVED_F2_LEG))} allowlist "
+        f"members, parity and import canary hold)")
 else:
     print("")
     print("==============================================")
