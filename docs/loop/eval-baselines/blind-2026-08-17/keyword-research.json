@@ -16,20 +16,23 @@
       "research/keyword-research/references/{greek-keyword-coverage,keyword-prioritization-framework,keyword-intent-taxonomy}.md",
       "research/keyword-research/evals/files/{ahrefs-export-crete-rentals.csv,client-brief-crete-rentals.md}",
       "CLAUDE.md, docs/loop/SETTLED-RULINGS.md, docs/loop/FAILURE-LEDGER.md, docs/loop/OPEN-FINDINGS.md (rows 132/136/138)",
-      "docs/loop/eval-baselines/blind-2026-08-13/alertmanager.json (schema only, per task restriction)"
+      "docs/loop/eval-baselines/blind-2026-08-13/alertmanager.json (schema)",
+      "docs/loop/eval-baselines/blind-2026-08-10b/keyword.json (prior baseline — read after the coordinator lifted the restriction mid-grading; see regressions_vs_baseline)"
     ],
+    "not_read": "No executor transcript and no other agent's output file, in either run. The prior run's five deliverables (scratchpad/blind-keyword-out-e*.md) were NOT opened; the prior record's own quoted evidence is what the comparison below rests on.",
     "executor_save_cadence_observation": "e2.md was written at 11:23:36Z; e1/e3/e4/e5 were written to disk at 11:45:12 / 11:45:15 / 11:45:19 / 11:45:21Z, i.e. four files inside 9 seconds. Recorded as an observation about save cadence against the executor brief's 'save each deliverable the moment it is finished', NOT as a contamination claim: blindness here rests on eval-prompt.sh's field-dropping, not on save timing, and nothing in the deliverables shows knowledge of an expectation.",
     "contamination_disclosure_from_executor": "none reached this grader.",
     "editor_referral": "e1.7, e2.9 and e3.8 refer to the binding greek-content-editor. e2.md is a full Greek deliverable; e1.md and e3.md compose Greek strings, Greek H1s and paste-ready Greek profile copy. Register calls that travel with the referral: the transliterated priority bands «Π0/Π1/Π2/Π3» (e2 L96-101), the keyword-list article-less phrasing declared as such at e2 L115 and e1 L86, the loanword mix («meta περιγραφές», «slug», «domain», «eshop»), and e3's four paste-ready service descriptions at L417-423."
   },
   "repo_head_at_open": "61ac57acb08f6e75ae25f509297c3b657e526822",
-  "repo_head_at_close": "9e5cd43dccf72c48557ce6adbd4b220d3ab4564b",
+  "repo_head_at_close": "cb9599991028f33b32f2ae04cfdfd7697650f96e",
   "input_drift_during_the_grading": {
     "checked": "git diff --name-only 61ac57a..9e5cd43 over the whole tree, then scoped to research/keyword-research/, CLAUDE.md, docs/loop/SETTLED-RULINGS.md and docs/loop/FAILURE-LEDGER.md",
-    "result": "One commit landed while grading: 9e5cd43 fix(technical-seo-checker) — three files (VERSIONS.md, optimize/technical-seo-checker/SKILL.md, optimize/technical-seo-checker/references/robots-txt-reference.md). research/keyword-research/ shows an EMPTY diff across the whole window; CLAUDE.md, SETTLED-RULINGS.md and FAILURE-LEDGER.md are byte-identical to what this grading used.",
+    "result": "One commit landed while grading: 9e5cd43 fix(technical-seo-checker) — three files (VERSIONS.md, optimize/technical-seo-checker/SKILL.md, optimize/technical-seo-checker/references/robots-txt-reference.md). research/keyword-research/ shows an EMPTY diff across the whole window; CLAUDE.md, SETTLED-RULINGS.md and FAILURE-LEDGER.md are byte-identical to what this grading used. Two further commits landed at the close (9e5cd43..cb95999), all of them eval-baseline records written by parallel graders for other suites; re-diffed 61ac57a..cb95999 over research/keyword-research/, CLAUDE.md, SETTLED-RULINGS.md, FAILURE-LEDGER.md, OPEN-FINDINGS.md and blind-2026-08-10b/keyword.json — EMPTY. No graded input changed at any point in the run.",
     "effect_on_verdicts": "none. No graded input changed.",
+    "brief_drift": "The coordinator corrected the grader's brief mid-run, lifting a restriction that had limited eval-baselines reads to one schema file. Effect: regressions_vs_baseline was rewritten from a partial statement into a full per-expectation comparison, and one verdict (e4.1) changed as a direct result of evidence that comparison surfaced. Recorded because the verdict moved after the record was first written.",
     "subject_stability": "research/keyword-research last changed at eee0d0f, 2026-08-17T10:48:57Z — 35 minutes before the first deliverable was written (11:23:36Z) — so the skill was byte-identical throughout execution and throughout grading. That commit ('assign every cluster an owner before content is commissioned') is the Step-9 ownership wave, and all five deliverables carry its artefact, which is direct evidence the current text reached the executor.",
-    "suite_stability": "research/keyword-research/evals/evals.json unchanged during the window. NOT verified against the 2026-08-10 suite text — see regressions_vs_baseline."
+    "supersedes_a_committed_draft": "This grader's PRE-CORRECTION first draft was staged and committed by the coordinator at 0c6065b (2026-08-17T12:09:14Z) while the grading was still open — the commit message says so. That committed version records e4.1 as INSTRUMENT-DEFECT and the summary as 29 passed / 1 failed of 34 = 0.8788. IT IS SUPERSEDED BY THIS FILE: e4.1 is FAIL, the summary is 29 / 2 / 3 of 34 = 0.8529, and regressions_vs_baseline is a full per-expectation comparison rather than a partial statement. The correction is a direct consequence of the coordinator lifting the eval-baselines read restriction. The working-tree version is authoritative and needs committing; this grader does not commit."
   },
   "expectations": [
     {
@@ -65,7 +68,7 @@
       "text": "Every keyword row carries volume, difficulty and intent; crosswalk tables reference only already-metricized keywords",
       "verdict": "PASS",
       "passed": true,
-      "evidence": "Both analysis tables carry all three columns for every row: main table L88-111 (22 rows, Volume / Difficulty / Intent) and the GEO table L183-191 (7 rows, same three columns), every metric cell reading 'N/A — no tool connected, nothing supplied'. The Step-10 crosswalk (L201-224) is exempt and earns the exemption: the grader checked all 22 of its keyword rows against the main table and every one has an analysis row — the crosswalk's own claim at L199 ('Every keyword named here already carries a row in one of the two analysis tables above') is true as written. Content descriptors are correctly separated at L226 ('Those are posting themes, not keywords you are targeting, and none of them has or needs a row in the tables above'). NOT counted against this item, but recorded under defects: the Step-9 ownership register at L257 introduces two English strings ('English speaking dentist Athens', 'dental implants Athens price') that have no analysis row anywhere — the register is not the placement/crosswalk artefact this expectation names, and its cluster is marked 'no owner assigned' rather than targeted, so it is reported as D2 rather than failed here."
+      "evidence": "Both analysis tables carry all three columns for every row: main table L88-111 (22 rows, Volume / Difficulty / Intent) and the GEO table L183-191 (7 rows, same three columns), every metric cell reading 'N/A — no tool connected, nothing supplied'. The Step-10 crosswalk (L201-224) is exempt and earns the exemption: the grader checked all 22 of its keyword rows against the main table and every one has an analysis row — the crosswalk's own claim at L199 ('Every keyword named here already carries a row in one of the two analysis tables above') is true as written. Content descriptors are correctly separated at L226 ('Those are posting themes, not keywords you are targeting, and none of them has or needs a row in the tables above'). NOT counted against this item, but recorded under defects as D2: the Step-9 ownership register at L257 introduces two English strings ('English speaking dentist Athens', 'dental implants Athens price') that have no analysis row anywhere — the register is not the placement/crosswalk artefact this expectation names, and its cluster is marked 'no owner assigned' rather than targeted."
     },
     {
       "id": "e1.6",
@@ -79,7 +82,7 @@
       "text": "Greek naturalness verdict — binding greek-content-editor slot",
       "verdict": "EDITOR-PENDING",
       "passed": null,
-      "evidence": "Recorded per the expectation's own instruction: no greek-content-editor report on e1.md is in front of this grader, so the item is UNGRADED, kept inside the suite total, and never recorded as passed (ledger F15). In scope for the editor: the 22 accented seeds and their unaccented/Greeklish/EN expansions (L132-155), the inflection sets (L165-169), the Greek question queries, and the three paste-ready GBP service sentences at L233-235 ('Τοποθετούμε οδοντικά εμφυτεύματα στο οδοντιατρείο μας στο Χαλάνδρι.' etc.). MECHANICAL LAYER SCREENED BY THE GRADER, verdict still the editor's: zero '~~' tokens, zero bracket placeholders, zero English engine-disposition claims, and the deliverable does not assert its own Greek is native. What the grader cannot see and the editor must: terminology fit (dimension 4) — whether a north-Athens dental patient types «οδοντιατρείο» or «οδοντίατρος», whether «σφράγισμα δοντιού» is the lay term, and whether the Greeklish cells are clean transliterations rather than editing artefacts."
+      "evidence": "Recorded per the expectation's own instruction: no greek-content-editor report on e1.md is in front of this grader, so the item is UNGRADED, kept inside the suite total, and never recorded as passed (ledger F15). In scope for the editor: the 22 accented seeds and their unaccented/Greeklish/EN expansions (L132-155), the inflection sets (L165-169), the Greek question queries, and the three paste-ready GBP service sentences at L233-235 ('Τοποθετούμε οδοντικά εμφυτεύματα στο οδοντιατρείο μας στο Χαλάνδρι.' etc.). MECHANICAL LAYER SCREENED BY THE GRADER, verdict still the editor's: zero '~~' tokens, zero bracket placeholders, zero English or Greek engine-disposition claims, and the deliverable does not assert its own Greek is native. What the grader cannot see and the editor must: terminology fit (dimension 4) — whether a north-Athens dental patient types «οδοντιατρείο» or «οδοντίατρος», whether «σφράγισμα δοντιού» is the lay term, and whether the Greeklish cells are clean transliterations rather than editing artefacts (the prior run's record flags exactly that class at its own E1 L123)."
     },
     {
       "id": "e2.1",
@@ -121,14 +124,14 @@
       "text": "Intent classification plus topic clusters mapped to content types, with at least one named pillar carrying 2+ cluster items",
       "verdict": "PASS",
       "passed": true,
-      "evidence": "Intent: e2.md L117-138, Πρόθεση column on all 20 rows (Συναλλακτική / Εμπορική / Πληροφοριακή / Πλοηγητική). Clusters mapped to content types: the register L258-267 gives each cluster a named destination page type (κατηγορία, αρχική, οδηγός μεγεθών, οδηγός φροντίδας), and the crosswalk L223-244 maps each keyword to a page and a position on it. Named pillar with 2+ items: `xeiropoiita` at L262 owns `/` — αρχική, with supporting 'οι δύο σελίδες κατηγορίας, με συνδέσμους προς τα εδώ και αντίστροφα', i.e. the homepage as pillar with the two category pages beneath it linking back; the link pass is scheduled at L325. A second instance: `asimi-frontida` (L265) groups five queries onto one guide page, explicitly built as one page with four sections rather than four articles (L322). WORDING NOTE for eval-improvement: the deliverable never uses the word 'pillar'/«κεντρική σελίδα»; a grader keyed to the literal token could read this as a miss, and the structure is unambiguously present."
+      "evidence": "Intent: e2.md L117-138, Πρόθεση column on all 20 rows (Συναλλακτική / Εμπορική / Πληροφοριακή / Πλοηγητική). Clusters mapped to content types: the register L258-267 gives each cluster a named destination page type (κατηγορία, αρχική, οδηγός μεγεθών, οδηγός φροντίδας), and the crosswalk L223-244 maps each keyword to a page and a position on it. Named pillar with 2+ items: `xeiropoiita` at L262 owns `/` — αρχική, with supporting 'οι δύο σελίδες κατηγορίας, με συνδέσμους προς τα εδώ και αντίστροφα', i.e. the homepage as pillar with the two category pages beneath it linking back; the link pass is scheduled at L325. A second instance: `asimi-frontida` (L265) groups five queries onto one guide page, explicitly built as one page with four sections rather than four articles (L322). WORDING NOTE for eval-improvement: the deliverable never uses the word 'pillar'/«κεντρική σελίδα», where the prior run's deliverable did («Κεντρική σελίδα»); a grader keyed to the literal token could read this as a miss, and the structure is unambiguously present."
     },
     {
       "id": "e2.7",
       "text": "No volume figure presented as tool data; withheld with the absence stated, or estimated with a stated basis",
       "verdict": "PASS",
       "passed": true,
-      "evidence": "e2.md L25-32: '**Δεν συνδέθηκε κανένα εργαλείο SEO σε αυτή την ανάλυση και δεν μου δώσατε δικά σας στοιχεία** ... **Όγκος αναζήτησης: μη διαθέσιμος.** Όχι κατ' εκτίμηση, όχι κατά προσέγγιση. Δεν υπάρχει βάση για εκτίμηση.' Every Όγκος and Δυσκολία cell in both tables reads «Μη διαθέσιμο — χωρίς εργαλείο, χωρίς στοιχεία». Scripted scan: the only digits in the document are the run's own row/cluster counts, the Priority arithmetic, the weights, and «925» (the silver alloy grade, from assumption 2). No figure is called estimated."
+      "evidence": "e2.md L25-32: '**Δεν συνδέθηκε κανένα εργαλείο SEO σε αυτή την ανάλυση και δεν μου δώσατε δικά σας στοιχεία** ... **Όγκος αναζήτησης: μη διαθέσιμος.** Όχι κατ' εκτίμηση, όχι κατά προσέγγιση. Δεν υπάρχει βάση για εκτίμηση.' Every Όγκος and Δυσκολία cell in both tables reads «Μη διαθέσιμο — χωρίς εργαλείο, χωρίς στοιχεία». Scripted scan: the only digits in the document are the run's own row/cluster counts, the Priority arithmetic, the weights, and «925» (the silver alloy grade, from assumption 2). No figure is called estimated. NOTE: this expectation was reworded after the prior baseline to add the 'estimated with the basis stated' branch; the deliverable satisfies both the old and the new text, so the comparison is safe."
     },
     {
       "id": "e2.8",
@@ -142,14 +145,14 @@
       "text": "Greek naturalness verdict — binding greek-content-editor slot",
       "verdict": "EDITOR-PENDING",
       "passed": null,
-      "evidence": "Recorded per the expectation's own instruction; no greek-content-editor report on e2.md is in front of this grader (ledger F15). This is the suite's heaviest editor slot: e2.md is a 349-line all-Greek deliverable, so register, terminology fit and cultural fit run through every section, not just the keyword cells. Specific items for the editor: the transliterated band labels «Π0 — υποχρεωτικό / Π1 — υψηλή αξία / Π2 — ευκαιρία / Π3 — παρακολούθηση» (L96-101); the rendered seeds from a Greeklish prompt («χειροποίητα ασημένια κοσμήματα», «βεράκια ασημένια», «σκουλαρίκια κρίκοι ασημένιοι») and whether those are what a Greek jewellery shopper types (dimension 4); the transliteration variants; the loanword density («meta περιγραφές», «slug», «domain», «eshop»); and whether the shop-facing instructions read as native advice. MECHANICAL LAYER SCREENED: zero '~~' tokens, zero bracket placeholders, zero Greek engine-disposition assertions — L62 explicitly declares the normalisation model as an assumption rather than engine fact (see instrument_defects note on OPEN-FINDINGS 132). The verdict is the editor's."
+      "evidence": "Recorded per the expectation's own instruction; no greek-content-editor report on e2.md is in front of this grader (ledger F15). This is the suite's heaviest editor slot: e2.md is a 349-line all-Greek deliverable, so register, terminology fit and cultural fit run through every section, not just the keyword cells. Specific items for the editor: the transliterated band labels «Π0 — υποχρεωτικό / Π1 — υψηλή αξία / Π2 — ευκαιρία / Π3 — παρακολούθηση» (L96-101); the rendered seeds from a Greeklish prompt («χειροποίητα ασημένια κοσμήματα», «βεράκια ασημένια», «σκουλαρίκια κρίκοι ασημένιοι») and whether those are what a Greek jewellery shopper types (dimension 4); the transliteration variants; the loanword density («meta περιγραφές», «slug», «domain», «eshop»); and whether the shop-facing instructions read as native advice. MECHANICAL LAYER SCREENED: zero '~~' tokens, zero bracket placeholders, zero Greek engine-disposition assertions — L62 explicitly declares the normalisation model as an assumption rather than engine fact (see notable_absences). The verdict is the editor's."
     },
     {
       "id": "e3.1",
       "text": "CSV figures labelled tool-sourced; keywords beyond the export estimated-with-basis or withheld with the absence labelled",
       "verdict": "PASS",
       "passed": true,
-      "evidence": "e3.md L25: '**Volume, KD and CPC**: Ahrefs estimates, GB and GR databases, pulled 1 August 2026 — the eleven rows in your export, reproduced verbatim below.' L28 states the other branch: 'where a keyword is proposed here and is *not* in your export, it carries **\"N/A — not in the Ahrefs export\"** in the volume and difficulty columns. There is no second source to estimate from, so no number is put there.' Enforced: all 14 rows of Part 5 (L254-267) and all four non-export rows of Part 8 carry that exact cell. No export-shaped number appears against any keyword the export does not contain — verified by recomputing every printed figure against the CSV (arithmetic_check, 100% agreement)."
+      "evidence": "e3.md L25: '**Volume, KD and CPC**: Ahrefs estimates, GB and GR databases, pulled 1 August 2026 — the eleven rows in your export, reproduced verbatim below.' L28 states the other branch: 'where a keyword is proposed here and is *not* in your export, it carries **\"N/A — not in the Ahrefs export\"** in the volume and difficulty columns. There is no second source to estimate from, so no number is put there.' Enforced: all 14 rows of Part 5 (L254-267) and all four non-export rows of Part 8 carry that exact cell. No export-shaped number appears against any keyword the export does not contain — verified by recomputing every printed figure against the CSV (arithmetic_check, 100% agreement). NOTE: this expectation was reworded after the prior baseline precisely to add the withhold-and-label branch, which the prior grader had had to pass on a grading note; the deliverable now satisfies the literal text."
     },
     {
       "id": "e3.2",
@@ -163,7 +166,8 @@
       "text": "Greek seeds expanded through the Step-4 dual-coverage artifact: a SINGLE TABLE in which each seed's row contains all four forms as literal strings, with placement stated per form — required even though the keywords arrived via a tool export",
       "verdict": "FAIL",
       "passed": false,
-      "evidence": "FAIL. Raw output inspected at the flagged location before reporting (ledger F7). NO four-form dual-coverage table exists anywhere in e3.md. Scripted scan: zero occurrences of 'EN equivalent' or 'English equivalent' in the file, and no table header line carries all four form columns (the only header naming forms is L95, '| Demand | Accented row in export? | Unaccented row in export? | Consequence |', which has two form columns and writes out no strings). The closest artefact is L74-80, 'The Crete demand, assembled': '| Row | Volume | Form |' with four ROWS (ενοικίαση αυτοκινήτου κρήτη / Accented Greek · ενοικιαση αυτοκινητου κρητη / Unaccented Greek · enoikiasi aftokinitou kriti / Greeklish · rent a car kriti / Loan phrase + Greeklish place name) — one demand of four, three forms of four, no EN-equivalent form, no placement column, and one row per form rather than one row per seed. COVERAGE PER DEMAND, counted by the grader: 'Car rental Crete' has (a)(b)(c) scattered across Part 1 items 1-3 and no (d) in any expansion artefact; 'Car rental Heraklion city' has (a) only, with (b) named as missing at L98 and a Greeklish string appearing only inside a to-pull list at L105; 'Car rental Heraklion airport' has (b) plus an accented rewrite at L121 and no (c); 'Cost question Crete' has (a) only. THE CARRIER IS PRESENT AND NAMES THIS CASE BY NAME: SKILL.md:170 — 'Expand every Greek keyword to 4 forms — **regardless of how it arrived** (typed by the user, brainstormed in Steps 2-3, or **imported from a tool export file**)'. WHAT DOES PASS, recorded because it is most of the underlying behaviour: placement IS stated per form in prose (L57 accented-only page, L70 and L297 Greeklish to slug and never to the English site, L138 inflected forms in visible copy), the spelling axes ARE analysed correctly and at length, and the clustering the pattern exists to produce is done and scored. What is absent is the artefact."
+      "regression": true,
+      "evidence": "FAIL, and a REGRESSION — see regressions_vs_baseline R1. Raw output inspected at the flagged location before reporting (ledger F7). NO four-form dual-coverage table exists anywhere in e3.md. Scripted scan: zero occurrences of 'EN equivalent' or 'English equivalent' in the file, and no table header line carries all four form columns (the only header naming forms is L95, '| Demand | Accented row in export? | Unaccented row in export? | Consequence |', which has two form columns and writes out no strings). The closest artefact is L74-80, 'The Crete demand, assembled': '| Row | Volume | Form |' with four ROWS (ενοικίαση αυτοκινήτου κρήτη / Accented Greek · ενοικιαση αυτοκινητου κρητη / Unaccented Greek · enoikiasi aftokinitou kriti / Greeklish · rent a car kriti / Loan phrase + Greeklish place name) — one demand of four, three forms of four, no EN-equivalent form, no placement column, and one row per form rather than one row per seed. COVERAGE PER DEMAND, counted by the grader: 'Car rental Crete' has (a)(b)(c) scattered across Part 1 items 1-3 and no (d) in any expansion artefact; 'Car rental Heraklion city' has (a) only, with (b) named as missing at L98 and a Greeklish string appearing only inside a to-pull list at L105; 'Car rental Heraklion airport' has (b) plus an accented rewrite at L121 and no (c); 'Cost question Crete' has (a) only. THE CARRIER IS PRESENT, NAMES THIS CASE BY NAME, AND IS BYTE-IDENTICAL TO THE VERSION THAT PASSED: SKILL.md:170 — 'Expand every Greek keyword to 4 forms — **regardless of how it arrived** (typed by the user, brainstormed in Steps 2-3, or **imported from a tool export file**)'. WHAT DOES PASS, recorded because it is most of the underlying behaviour: placement IS stated per form in prose (L57 accented-only page, L70 and L297 Greeklish to slug and never to the English site, L138 inflected forms in visible copy), the spelling axes ARE analysed correctly and at length, and the clustering the pattern exists to produce is done and scored. What is absent is the artefact."
     },
     {
       "id": "e3.4",
@@ -191,7 +195,7 @@
       "text": "Every keyword row shows volume, difficulty and intent; crosswalks reference only already-metricized keywords",
       "verdict": "PASS",
       "passed": true,
-      "evidence": "Four analysis tables, all three columns on every row: Part 2 export audit L154-166 (11 rows, Volume / KD / CPC / Intent), Part 4 L225-234 (8 rows), Part 5 L252-267 (14 rows, explained N/A), Part 8 GEO L400-406 (5 rows, explained N/A on four and real figures on the one the export covers). The crosswalks earn their exemption: the grader checked all eight keywords in the GBP table and all six in the English-site table against Parts 4/5/8 and every one has a metricized row, so the deliverable's claim at L315 ('Every keyword named below already has a row in Part 4 or Part 5') is true as written. Content descriptors are correctly separated at L332: 'The themes worth posting — arrivals-desk opening hours through the season, out-of-hours pickup, shoulder-season availability — are content descriptors and have no row in the tables above, because they are not terms you are targeting.'"
+      "evidence": "Four analysis tables, all three columns on every row: Part 2 export audit L154-166 (11 rows, Volume / KD / CPC / Intent), Part 4 L225-234 (8 rows), Part 5 L252-267 (14 rows, explained N/A), Part 8 GEO L400-406 (5 rows, explained N/A on four and real figures on the one the export covers). The crosswalks earn their exemption: the grader checked all eight keywords in the GBP table and all six in the English-site table against Parts 4/5/8 and every one has a metricized row, so the deliverable's claim at L315 ('Every keyword named below already has a row in Part 4 or Part 5') is true as written. Content descriptors are correctly separated at L332: 'The themes worth posting — arrivals-desk opening hours through the season, out-of-hours pickup, shoulder-season availability — are content descriptors and have no row in the tables above, because they are not terms you are targeting.' NOTE: reworded since the prior baseline to add exactly that content-descriptor carve-out, which the prior grader had had to reason to on its own; the deliverable satisfies both texts."
     },
     {
       "id": "e3.8",
@@ -203,9 +207,10 @@
     {
       "id": "e4.1",
       "text": "Every keyword — including every GEO row — classified into one of the skill's four intent categories; a format/'Type' label on GEO rows does not substitute",
-      "verdict": "INSTRUMENT-DEFECT",
-      "passed": null,
-      "evidence": "See instrument_defects I1. Excluded from the pass rate. STATE OF THE DELIVERABLE, recorded so the coordinator can settle it without redoing the work: the clause the expectation emphasises passes cleanly — the GEO table (L172-179) carries a full Intent column beside its Shape column, with four-category values on every row, so no format label substitutes for an intent anywhere. 23 of the 25 main-table rows carry one of the four categories. Two do not: row 11 'Mixed — job name, searched for both how-to and tools' (L128) and row 19 'Mixed — a download, but of a free resource' (L136). Under a reading in which `Mixed` is not permitted this is a FAIL on 2 of 25 rows; under the skill's own reference it is a PASS. The skill's reference decides against the expectation — see I1."
+      "verdict": "FAIL",
+      "passed": false,
+      "regression": true,
+      "evidence": "FAIL, and a REGRESSION — see regressions_vs_baseline R2. Raw output inspected at the flagged location before reporting (ledger F7). 23 of the 25 main-table rows carry one of the four categories, and the clause the expectation emphasises passes cleanly and separately: the GEO table (L172-179) carries a full Intent column beside its Shape column, with four-category values on all six rows, so no format label substitutes for an intent anywhere. THE GAP: two rows are classified with a label that is not one of the four and does not name any of the four — L128 row 11 'vendor statement reconciliation | ... | **Mixed — job name, searched for both how-to and tools**' and L136 row 19 'accounts payable reconciliation template | ... | **Mixed — a download, but of a free resource**'. Neither cell names informational, navigational, commercial or transactional. THIS IS A NEAR-MISS, AND IT IS FAILED RATHER THAN EXCUSED FOR TWO REASONS. (1) The skill's dominant instruction for a blended query is not 'Mixed' but a primary-plus-secondary pair — keyword-intent-taxonomy.md L261 'Recognize and address the **dominant + secondary** intent', its Mixed Intent Patterns table's own columns are headed 'Primary Intent | Secondary Intent', and L275 says 'Lead with the primary intent'. The compliant path exists and is the reference's own. (2) It was demonstrably taken, blind, on byte-identical expectation text and a byte-identical reference: the prior blind run passed this item with compound labels built from the four ('Informational → commercial', 'Transactional (download)') and its grader recorded the reasoning — 'each is composed of the skill's own four categories with the primary named first, not a format label standing in for one'. MITIGATION RECORDED, not applied: keyword-intent-taxonomy.md L324 does print '**Mixed -- check SERP**' in a column headed 'Correct Classification', which is a real skill-side ambiguity and is filed as skill_and_eval_feedback S1. It makes the label defensible; it does not make the row compliant with an expectation the same reference's primary instruction satisfies."
     },
     {
       "id": "e4.2",
@@ -219,14 +224,14 @@
       "text": "Ordering follows the skill's zero-data rule: formula stated, Volume and Difficulty named as unavailable, Opportunity withheld, ranking on the renormalised Priority Score with the rescaling stated; first picks are quick wins consistent with DA 12",
       "verdict": "PASS",
       "passed": true,
-      "evidence": "Formula stated with its intent weights (L81). Missing inputs named and the score withheld (L83): '**Volume** and **Difficulty** do not exist for this run ... The score is withheld.' Scripted scan: zero Opportunity Score values anywhere in e4.md. Rescaling stated in BOTH forms the skill accepts (L87-95): the renormalised weights table with '0.30 ÷ 0.45 = **0.667**' and '0.15 ÷ 0.45 = **0.333**', the denominator named ('renormalised over **0.45**'), the three dropped factors named with reasons, and the once-for-the-run rule honoured ('One denominator for the whole run, so every row is comparable to every other'). Nothing is silently reweighted — L95 states outright 'This is not an Opportunity Score and is not on its scale.' DA-12 consistency: build criterion 1 (L72) is 'Specificity before breadth. Your domain is 8 months old at DA 12. The terms with the most words and the narrowest audience are the ones fewest pages are written for', which puts the long-tail buyer term at page 1 and the bare head term at page 8, and names the missing factor rather than pretending to it ('The factor that would settle this properly is keyword difficulty, and it is the factor that dropped out'). OPEN-FINDINGS 136 APPLIES AND IS DISCHARGED: 17 of 25 land in P0 and the deliverable says so at L110 and builds an explicitly reasoned separate build order because of it — that is the instrument, not the executor."
+      "evidence": "Formula stated with its intent weights (L81). Missing inputs named and the score withheld (L83): '**Volume** and **Difficulty** do not exist for this run ... The score is withheld.' Scripted scan: zero Opportunity Score values anywhere in e4.md. Rescaling stated in BOTH forms the skill accepts (L87-95): the renormalised weights table with '0.30 ÷ 0.45 = **0.667**' and '0.15 ÷ 0.45 = **0.333**', the denominator named ('renormalised over **0.45**'), the three dropped factors named with reasons, and the once-for-the-run rule honoured ('One denominator for the whole run, so every row is comparable to every other'). Nothing is silently reweighted — L95 states outright 'This is not an Opportunity Score and is not on its scale.' DA-12 consistency: build criterion 1 (L72) is 'Specificity before breadth. Your domain is 8 months old at DA 12. The terms with the most words and the narrowest audience are the ones fewest pages are written for', which puts the long-tail buyer term at page 1 and the bare head term at page 8, and names the missing factor rather than pretending to it. OPEN-FINDINGS 136 APPLIES AND IS DISCHARGED: 17 of 25 land in P0 and the deliverable says so at L110 and builds an explicitly reasoned separate build order because of it — that is the instrument, not the executor. THE COMPARISON TO THE PRIOR BASELINE IS VOID: this expectation was the confirmed-unsatisfiable one (ledger F9-r2) and was rewritten in 4.3.0 to ask the opposite question. See regressions_vs_baseline."
     },
     {
       "id": "e4.4",
       "text": "No volume or difficulty figure presented as measured tool data",
       "verdict": "PASS",
       "passed": true,
-      "evidence": "e4.md L26-33 states the position and its consequence; every Volume and Difficulty cell in both tables reads 'N/A — no tool connected, nothing supplied'. Scripted scan: zero numeric volume or difficulty values. The one third-party-shaped number in the brief is handled explicitly at L22: '**The DA 12 figure is yours, used as you gave it.** It is not verified here and no tool was consulted' — user-provided and labelled. L29 additionally refuses a substitution the prompt invites: 'this is *competitor* difficulty, which is a different thing from your own domain authority. You gave me the second and not the first, and the second does not substitute for it.'"
+      "evidence": "e4.md L26-33 states the position and its consequence; every Volume and Difficulty cell in both tables reads 'N/A — no tool connected, nothing supplied'. Scripted scan: zero numeric volume or difficulty values. The one third-party-shaped number in the brief is handled explicitly at L22: '**The DA 12 figure is yours, used as you gave it.** It is not verified here and no tool was consulted' — user-provided and labelled. L29 additionally refuses a substitution the prompt invites: 'this is *competitor* difficulty, which is a different thing from your own domain authority. You gave me the second and not the first, and the second does not substitute for it.' NOTE: reworded almost completely since the prior baseline (similarity 0.02) — the old text demanded figures be 'labeled estimated (or unavailable)' and quoted the retired '~~SEO tool data' Output Validation line; the deliverable satisfies the new text directly."
     },
     {
       "id": "e4.5",
@@ -247,14 +252,14 @@
       "text": "The response explicitly names competitor-analysis as the correct skill for a competitor keyword-gap breakdown",
       "verdict": "PASS",
       "passed": true,
-      "evidence": "Named twice, at e5.md L311 and L312, inside the labelled operator block: '| 1 | `competitor-analysis` | The client's original request: keywords monday.com and asana.com rank for that buildtrack.io does not, with ranking URLs and positions. Out of scope for this run and impossible without an indexed tool | ...'. The client-facing half routes without the slug, which is what the Reader Test requires: L15 'running it properly is scoped, priced and reported separately. The specification for that work is set out for your team at the foot of this document', and L289 'Commission the competitor gap analysis as its own piece of work'. The expectation says 'the response explicitly names', not 'the client prose names' — so the compliant placement satisfies it. FLAGGED FOR EVAL-IMPROVEMENT (A1): the wording is one word away from an unsatisfiable pair with the Reader Test, and should say where the naming may live."
+      "evidence": "Named twice, at e5.md L311 and L312, inside the labelled operator block: '| 1 | `competitor-analysis` | The client's original request: keywords monday.com and asana.com rank for that buildtrack.io does not, with ranking URLs and positions. Out of scope for this run and impossible without an indexed tool | ...'. The client-facing half routes without the slug, which is what the Reader Test requires: L15 'running it properly is scoped, priced and reported separately. The specification for that work is set out for your team at the foot of this document', and L289 'Commission the competitor gap analysis as its own piece of work'. The expectation says 'the response explicitly names', not 'the client prose names' — so the compliant placement satisfies it. NOTE ON THE PRIOR RUN: the same expectation passed there on a client-prose mention ('`competitor-analysis` is the skill that owns competitor keyword/gap work'), which the Reader Test — ruled after that run — now forbids. This run reaches the same PASS by the compliant route. FLAGGED FOR EVAL-IMPROVEMENT (A1): the wording is one word away from an unsatisfiable pair with the Reader Test and should say where the naming may live."
     },
     {
       "id": "e5.2",
       "text": "No fabricated competitor data; any competitor keyword guess labelled an assumption or estimate, hedging words alone not being a label",
       "verdict": "PASS",
       "passed": true,
-      "evidence": "THIS IS THE EXPECTATION LEDGERED AS F13 RECURRENCE 3, and it holds this time. Every characterisation of the two competitors is a numbered entry in the report's own Assumptions block — the licensed form SKILL.md:93 names — and each is labelled in the indicative-refusing form the expectation demands. L27: 'Items 5–8 are claims about monday.com and asana.com that I have not verified.' L33: '**Assumption — unverified:** monday.com and asana.com each rank for a very large number of keywords, plausibly in the tens of thousands ... **I have not counted, and no count was pulled.**' L34 (the exact shape that failed in 2026-08-10): '**Assumption — unverified:** most of what those two domains rank for is horizontal project-management, work-management and general-productivity demand rather than construction demand. **I have not sampled their ranking sets and have no evidence of the split.**' L35 and L36 same shape, each with 'What would settle it'. The argument that requires the characterisation is written entirely as conditionals on those numbers (L68 'If assumption 6 holds', L70 'If assumption 5 holds', L72 'If assumption 7 holds', L74 'If assumption 8 holds') — which is SKILL.md:93's 'This applies hardest in the paragraph where you argue against the user's plan'. Scripted scan for a position or ranking-URL attributed to either domain: zero hits. Negative statements reinforce it at L184, L253 and L300 ('It cannot tell you ... anything at all about what monday.com and asana.com currently rank for')."
+      "evidence": "THIS IS THE EXPECTATION LEDGERED AS F13 RECURRENCE 3, IT FAILED THE PRIOR BLIND RUN, AND IT HOLDS NOW ON BYTE-IDENTICAL TEXT. Every characterisation of the two competitors is a numbered entry in the report's own Assumptions block — the licensed form SKILL.md:93 names — and each is labelled in the indicative-refusing form the expectation demands. L27: 'Items 5–8 are claims about monday.com and asana.com that I have not verified.' L33: '**Assumption — unverified:** monday.com and asana.com each rank for a very large number of keywords, plausibly in the tens of thousands ... **I have not counted, and no count was pulled.**' L34, which is the exact shape that failed in 2026-08-10: '**Assumption — unverified:** most of what those two domains rank for is horizontal project-management, work-management and general-productivity demand rather than construction demand. **I have not sampled their ranking sets and have no evidence of the split.**' L35 and L36 same shape, each with 'What would settle it'. The argument that requires the characterisation is written entirely as conditionals on those numbers (L68 'If assumption 6 holds', L70 'If assumption 5 holds', L72 'If assumption 7 holds', L74 'If assumption 8 holds') — which is SKILL.md:93's 'This applies hardest in the paragraph where you argue against the user's plan'. Scripted scan for a position or ranking-URL attributed to either domain: zero hits. Negative statements reinforce it at L184, L253 and L300 ('It cannot tell you ... anything at all about what monday.com and asana.com currently rank for')."
     },
     {
       "id": "e5.3",
@@ -268,66 +273,199 @@
       "text": "Interim keyword work stays in scope and is not presented as the requested gap report",
       "verdict": "PASS",
       "passed": true,
-      "evidence": "The boundary is drawn in the first line under the title (L13): 'That list is not in this report, for two separate reasons. Either one alone would be enough.' What is offered is named as a substitution, not a delivery (L19): 'What is below instead: a full keyword strategy for construction project management demand, built from your product and your buyer, with 27 targets, seven clusters, an ownership register ...'. The content is squarely inside this skill: seed expansion and intent classification (Section 5), GEO candidates (Section 6), clustering and ownership (Section 8). Sources are labelled at L40-48. The one place competitor names are used is bounded explicitly at L159: 'Rows 7 to 9 are the legitimate use of the two names you gave me. They are query strings people type, and targeting them requires no knowledge whatever of what monday.com or asana.com rank for. That distinction is the whole difference between using a competitor as a seed and running a gap analysis.'"
+      "evidence": "The boundary is drawn in the first line under the title (L13): 'That list is not in this report, for two separate reasons. Either one alone would be enough.' What is offered is named as a substitution, not a delivery (L19): 'What is below instead: a full keyword strategy for construction project management demand ...'. The content is squarely inside this skill: seed expansion and intent classification (Section 5), GEO candidates (Section 6), clustering and ownership (Section 8). Sources are labelled at L40-48. The one place competitor names are used is bounded explicitly at L159: 'Rows 7 to 9 are the legitimate use of the two names you gave me. They are query strings people type, and targeting them requires no knowledge whatever of what monday.com or asana.com rank for.' The prior grader logged a borderline on this item ('the honest version of the gap you asked for'); no equivalent phrase appears here."
     }
   ],
   "summary": {
     "passed": 29,
-    "failed": 1,
+    "failed": 2,
     "editor_pending": 3,
-    "instrument_defect": 1,
+    "instrument_defect": 0,
     "total": 34,
-    "graded_denominator": 33,
-    "pass_rate": 0.8788,
-    "pass_rate_definition": "passed / graded_denominator = 29 / 33. graded_denominator is total (34) minus the one INSTRUMENT-DEFECT (e4.1), which is a finding about the suite and is excluded from the rate per the task's four-verdict rule. The three EDITOR-PENDING slots stay INSIDE the denominator.",
-    "passed_plus_failed_vs_total": "29 + 1 = 30, three short of the graded denominator of 33 and four short of the raw total of 34. The three-slot gap is exactly e1.7, e2.9 and e3.8, each inside the total and neither passed nor failed pending the binding editor's report (ledger F16-r1(d)); the fourth is e4.1, excluded as an instrument defect.",
+    "pass_rate": 0.8529,
+    "pass_rate_definition": "passed / total = 29 / 34. The three EDITOR-PENDING slots stay INSIDE the denominator and are counted in neither passed nor failed. No expectation is excluded.",
+    "passed_plus_failed_vs_total": "29 + 2 = 31, three short of 34. The gap is exactly e1.7, e2.9 and e3.8, each inside the total and neither passed nor failed pending the binding editor's report (ledger F16-r1(d)).",
+    "like_for_like_rate_vs_prior_baseline": "29/31 = 0.9355 on the 31 expectation slots that existed at the prior baseline (i.e. excluding the three editor slots added by the 2026-08-10 sweep). The prior blind run scored 29/31 = 0.9355. THE RATE IS IDENTICAL AND THE COMPOSITION IS NOT: two expectations regressed and two moved the other way. A rate quoted without that sentence reports no change where four verdicts moved.",
     "editor_slot_convention": {
-      "which_slots": ["e1.7", "e2.9", "e3.8"],
+      "which_slots": [
+        "e1.7",
+        "e2.9",
+        "e3.8"
+      ],
       "counted_in_total": true,
       "counted_in_pass_rate_denominator": true,
-      "how_scored": "EDITOR-PENDING, recorded NOT-PASSED, kept inside the denominator, per each expectation's own text — 'record it EDITOR-PENDING, keep it inside the suite's total, and never record it as passed'. Same convention as docs/loop/eval-baselines/blind-2026-08-13/alertmanager.json, so the two records are directly comparable.",
+      "how_scored": "EDITOR-PENDING, recorded NOT-PASSED, kept inside the denominator, per each expectation's own text — 'record it EDITOR-PENDING, keep it inside the suite's total, and never record it as passed'. Same convention as docs/loop/eval-baselines/blind-2026-08-13/alertmanager.json, so the two records are directly comparable. The prior keyword-research baseline predates these slots entirely, which is why the like-for-like figure above is computed on 31.",
       "mechanical_layer_result": "clean on all three — zero '~~' tokens, zero bracket placeholders, zero Greek or English engine-disposition assertions, and no Greek deliverable asserting its own nativeness EXCEPT e3 L428 ('They are correct as written'), which is recorded as defect D7 and travels with the referral.",
-      "rate_if_the_three_slots_were_counted_passed": "32/33 = 0.9697",
-      "rate_if_e4_1_were_counted_FAIL_instead_of_excluded": "29/34 = 0.8529",
-      "rate_if_e4_1_were_counted_PASS_instead_of_excluded": "30/34 = 0.8824"
+      "rate_if_the_three_slots_were_counted_passed": "32/34 = 0.9412"
     },
-    "schema_note": "summary.passed/failed/total/pass_rate per F16-r1(c). No second schema introduced. `editor_pending`, `instrument_defect` and `graded_denominator` are additive fields, not a re-keying.",
-    "headline_caution": "One FAIL (e3.3) and one INSTRUMENT-DEFECT (e4.1) are the whole of the negative result, and they are not the same kind of thing: e3.3 is the skill's most explicitly-carried Greek rule not producing its artefact on the one eval with real data, and e4.1 is the suite contradicting the skill's own reference. A rate quoted without that sentence reports a single number over two unlike findings."
+    "schema_note": "summary.passed/failed/total/pass_rate per F16-r1(c). No second schema introduced. `editor_pending` and `instrument_defect` are additive fields, not a re-keying.",
+    "headline_caution": "TWO REGRESSIONS, BOTH ON BYTE-IDENTICAL EXPECTATION TEXT AND BYTE-IDENTICAL SKILL TEXT. They outrank the pass rate and this record should not be quoted without them."
   },
   "per_eval": {
-    "1": {"passed": 6, "failed": 0, "editor_pending": 1, "instrument_defect": 0, "total": 7},
-    "2": {"passed": 8, "failed": 0, "editor_pending": 1, "instrument_defect": 0, "total": 9},
-    "3": {"passed": 6, "failed": 1, "editor_pending": 1, "instrument_defect": 0, "total": 8},
-    "4": {"passed": 5, "failed": 0, "editor_pending": 0, "instrument_defect": 1, "total": 6},
-    "5": {"passed": 4, "failed": 0, "editor_pending": 0, "instrument_defect": 0, "total": 4}
+    "1": {
+      "passed": 6,
+      "failed": 0,
+      "editor_pending": 1,
+      "instrument_defect": 0,
+      "total": 7
+    },
+    "2": {
+      "passed": 8,
+      "failed": 0,
+      "editor_pending": 1,
+      "instrument_defect": 0,
+      "total": 9
+    },
+    "3": {
+      "passed": 6,
+      "failed": 1,
+      "editor_pending": 1,
+      "instrument_defect": 0,
+      "total": 8
+    },
+    "4": {
+      "passed": 5,
+      "failed": 1,
+      "editor_pending": 0,
+      "instrument_defect": 0,
+      "total": 6
+    },
+    "5": {
+      "passed": 4,
+      "failed": 0,
+      "editor_pending": 0,
+      "instrument_defect": 0,
+      "total": 4
+    }
   },
   "regressions_vs_baseline": {
-    "baseline_that_exists": "docs/loop/eval-baselines/blind-2026-08-10b/keyword.json",
-    "comparison_performed": "PARTIAL, and the limitation is stated rather than worked around. This grader's task restricted eval-baselines reads to blind-2026-08-13/alertmanager.json (schema only), so no per-expectation diff against the 2026-08-10b record was possible. Two independent obstacles would have complicated it anyway: the suite has grown from 31 expectations to 34 since that run (the ledger records the prior run as 29/31), so ids are not guaranteed to align; and evals.json was edited in 4.3.0 to fix an unsatisfiable e4.3 (ledger F9-r2), so at least one expectation's text changed.",
-    "count_confirmed": 0,
-    "confirmed_movement_from_the_ledger_record": [
+    "baseline": "docs/loop/eval-baselines/blind-2026-08-10b/keyword.json — blind, subject 4.2.2, 29/31 = 0.935, committed 5d51741 (2026-08-10T16:30:52Z). This is the only prior BLIND record for this suite; the three earlier records (2026-08-08.json 23/31, 2026-08-08-v2.json 31/31, 2026-08-09-v3.json 31/31) are informed-executor and are not used for attribution here.",
+    "did_evals_json_change_between_the_two_runs": "YES — and the change is itemised below rather than glossed, because three of the four moved verdicts have to be read against it. evals.json moved twice after the prior record was committed: 6fde04f (2026-08-10T16:44:47Z, 14 minutes later — the 4.3.0 reconciliation that fixed the confirmed-unsatisfiable e4.3, ledger F9-r2) and 3a8d62c (2026-08-10T21:40:26Z — the library-wide sweep that made the Greek editor's verdict a scored slot in all 20 suites). All five PROMPTS are byte-identical. Of the 31 prior expectations, 24 are BYTE-IDENTICAL, 7 were reworded, and 3 were added.",
+    "expectation_text_diff": {
+      "byte_identical_24": [
+        "e1.1",
+        "e1.2",
+        "e1.3",
+        "e1.4",
+        "e2.1",
+        "e2.2",
+        "e2.3",
+        "e2.4",
+        "e2.5",
+        "e2.6",
+        "e2.8",
+        "e3.2",
+        "e3.3",
+        "e3.4",
+        "e3.5",
+        "e3.6",
+        "e4.1",
+        "e4.2",
+        "e4.5",
+        "e4.6",
+        "e5.1",
+        "e5.2",
+        "e5.3",
+        "e5.4"
+      ],
+      "reworded_7": [
+        {
+          "id": "e1.5",
+          "similarity": 0.81,
+          "what_changed": "added the content-descriptor carve-out for crosswalk rows"
+        },
+        {
+          "id": "e1.6",
+          "similarity": 0.16,
+          "what_changed": "flipped from 'every figure is explicitly labeled estimated (or unavailable)' to 'no figure is presented as tool-sourced: each is withheld with the absence stated, or labeled estimated with the basis stated'; the retired '~~SEO tool data' Output Validation quote was dropped"
+        },
+        {
+          "id": "e2.7",
+          "similarity": 0.4,
+          "what_changed": "same flip, Greek eval"
+        },
+        {
+          "id": "e3.1",
+          "similarity": 0.31,
+          "what_changed": "added the withhold-and-label branch the prior grader had had to pass on a written grading note"
+        },
+        {
+          "id": "e3.7",
+          "similarity": 0.68,
+          "what_changed": "added the content-descriptor carve-out"
+        },
+        {
+          "id": "e4.3",
+          "similarity": 0.29,
+          "what_changed": "REPLACED THE QUESTION. Old text demanded the run APPLY the Opportunity formula; new text demands it STATE the formula, name the missing inputs and WITHHOLD the score. These are opposite requirements."
+        },
+        {
+          "id": "e4.4",
+          "similarity": 0.02,
+          "what_changed": "near-total rewrite, same flip as e1.6"
+        }
+      ],
+      "added_3": [
+        "e1.7",
+        "e2.9",
+        "e3.8 — the binding greek-content-editor slots, added by 3a8d62c across all 20 suites"
+      ]
+    },
+    "count": 2,
+    "items": [
       {
-        "id": "e5.2",
-        "was": "FAIL (blind, 2026-08-10, recorded in FAILURE-LEDGER.md F13 Recurrence 3 — the run scored 29/31 and this was one of the two failures)",
-        "now": "PASS",
-        "what_moved": "The 2026-08-10 deliverable asserted in the indicative what the two competitors rank for — 'Most of the keywords they rank for … will be marketing-team workflows, HR onboarding templates, software-sprint boards' — with no assumption label, in a document that elsewhere claimed to assert nothing. This run makes every such statement a numbered entry in its own Assumptions block (items 5-8, each headed 'Assumption — unverified' with what would settle it) and writes the whole of section 3 as conditionals on those numbers.",
-        "why_it_matters_beyond_the_score": "F13-r3's guard says a carrier added in response to a ledgered failure 'is unproven until a blind run exercises it', and it deliberately held the SKILL.md:93 strengthening for a diagnosis-before-edit pass. That strengthening landed in 6fde04f (2026-08-10T16:44:47Z) — the paragraph beginning 'A characterisation of the set is a claim about the set' and, decisively, 'The licensed form is a numbered entry in the report's own Assumptions block, so the claim has somewhere to live rather than only somewhere it is banned from'. THIS RUN IS THAT CARRIER'S FIRST BLIND TEST AND IT HELD, in the exact form the carrier prescribes. Recommend the coordinator close F13-r3's open guard on this evidence.",
-        "confidence": "high on the direction (the prior verdict is quoted in the ledger, not inferred); the per-expectation baseline file was not read."
+        "id": "R1",
+        "expectation": "e3.3",
+        "was": "PASS",
+        "now": "FAIL",
+        "expectation_text_state": "BYTE-IDENTICAL between the two runs. Prompt byte-identical. Fixture unchanged.",
+        "skill_text_state": "BYTE-IDENTICAL. `git show 5d51741:research/keyword-research/SKILL.md` diffed against HEAD over the whole of Step 4 returns an empty diff, including the clause the expectation turns on — 'regardless of how it arrived (typed by the user, brainstormed in Steps 2-3, or imported from a tool export file)'. The reference behind it, greek-keyword-coverage.md, differs between the two versions only in the GBP-mapping FAQ row and its new R2 paragraph; the 4-Form Pattern section, the placement rules and the checklist are byte-identical.",
+        "what_moved": "The prior blind deliverable produced the artefact and its grader quoted it: 'Single table at L172-176, header \"Cluster | (a) Accented Greek | (b) Unaccented | (c) Greeklish | (d) EN equivalent | Export rows folded in | Cluster volume\"; 3 rows, 0 empty form cells (scripted); all cells literal strings ... Placement per form immediately below at L178-182.' This run produces no such table anywhere in e3.md — zero occurrences of 'EN equivalent', no header line with four form columns, and no Greeklish or EN form at all for three of the four Greek demands.",
+        "genuine_or_consequence": "GENUINE REGRESSION, with every confounder eliminated by diff: same expectation text, same prompt, same fixture, same instruction, same reference section. The difference is the deliverable. It is also the sharpest available evidence about this carrier: two blind runs, one artefact, one absence, on identical instructions."
+      },
+      {
+        "id": "R2",
+        "expectation": "e4.1",
+        "was": "PASS",
+        "now": "FAIL",
+        "expectation_text_state": "BYTE-IDENTICAL between the two runs. Prompt byte-identical.",
+        "skill_text_state": "BYTE-IDENTICAL. SKILL.md Step 5 diffs empty between 5d51741 and HEAD. keyword-intent-taxonomy.md differs only in two 'AI Overview' cells (engine-claim softening, unrelated); its Mixed Intent section, its 'dominant + secondary' instruction and its 'Mixed -- check SERP' cell are all byte-identical.",
+        "what_moved": "The prior deliverable labelled blended queries with compound labels built from the four categories and its grader recorded exactly why that passed: 'Compound labels appear (\"Informational → commercial\", \"Transactional (download)\") — each is composed of the skill's own four categories with the primary named first, not a format label standing in for one.' This run labels two of 25 rows 'Mixed — job name, searched for both how-to and tools' (L128) and 'Mixed — a download, but of a free resource' (L136), neither of which names any of the four.",
+        "genuine_or_consequence": "GENUINE REGRESSION, and the prior record is what settles it. This grader's first draft recorded e4.1 as an INSTRUMENT-DEFECT on the strength of keyword-intent-taxonomy.md L324 printing 'Mixed -- check SERP' in a 'Correct Classification' column. The baseline comparison overturned that: on the same reference and the same expectation text, a blind executor found the compliant path, and the reference's own dominant instruction ('Recognize and address the dominant + secondary intent', 'Lead with the primary intent') points straight at it. An expectation that a blind run has satisfied is not broken. The L324 ambiguity is real and is filed as skill_and_eval_feedback S1, but it mitigates rather than excuses.",
+        "note_on_the_verdict_change": "Recorded openly because it is the clearest single argument for the coordinator's correction: the restriction that blocked this file would have shipped a suite-level instrument defect that does not exist."
       }
     ],
-    "regressions_this_grader_can_assert": "none identified. This is not a clean 'none vs baseline' — it is 'no regression visible from the evidence this grader was permitted to read'. A second pass with read access to blind-2026-08-10b/keyword.json should confirm e3.3, e1.5 and e3.7, which are the three expectations whose wording most plausibly changed in 4.3.0."
+    "improvements_same_comparison": [
+      {
+        "id": "I1",
+        "expectation": "e5.2",
+        "was": "FAIL",
+        "now": "PASS",
+        "expectation_text_state": "BYTE-IDENTICAL. This delta is a clean measurement.",
+        "what_moved": "The prior deliverable asserted in the indicative what the two competitors rank for — 'Most of the keywords they rank for and you do not have nothing to do with construction — they will be marketing-team workflows, HR onboarding templates, software-sprint boards' — with no label, in a document that claimed at its own L82 to assert nothing of the kind. This run makes every such statement a numbered entry in its own Assumptions block (items 5-8, each headed 'Assumption — unverified' with what would settle it) and writes the whole of the argument section as conditionals on those numbers.",
+        "why_it_matters_beyond_the_score": "F13 Recurrence 3's guard states that a carrier added in response to a ledgered failure 'is unproven until a blind run exercises it', and it deliberately HELD the SKILL.md:93 strengthening for a diagnosis-before-edit pass. That strengthening landed in 6fde04f at 2026-08-10T16:44:47Z — fourteen minutes after the failing record was committed — and reads 'A characterisation of the set is a claim about the set ... The licensed form is a numbered entry in the report's own Assumptions block, so the claim has somewhere to live rather than only somewhere it is banned from. This applies hardest in the paragraph where you argue against the user's plan.' THIS RUN IS THAT CARRIER'S FIRST BLIND TEST AND IT HELD, in the exact form the carrier prescribes, in the exact paragraph the carrier predicts. RECOMMENDATION: close F13-r3's open guard on this evidence."
+      }
+    ],
+    "improvements_across_a_changed_question_delta_void": [
+      {
+        "id": "V1",
+        "expectation": "e4.3",
+        "was": "FAIL",
+        "now": "PASS",
+        "why_void": "The expectation was replaced, not reworded — similarity 0.29, and the two texts ask opposite things. The old text required the run to APPLY Opportunity = (Volume × Intent Value) / Difficulty on a prompt with no volume and no difficulty; the prior grader diagnosed it as unsatisfiable against SKILL.md 4.2.2's own withhold-the-figure rule, and the ledger records it as the confirmed-unsatisfiable expectation fixed in 4.3.0 (F9-r2). The new text requires the opposite: state the formula, name the missing inputs, withhold the score, rank on the renormalised Priority Score. Reporting FAIL→PASS here would be a delta across two different questions. What CAN be said: the deliverable satisfies the new text in full, including both accepted forms of the rescaling statement."
+      }
+    ],
+    "unchanged_verdicts": "The other 27 comparable slots hold their prior verdict (all PASS). Of those, 21 are byte-identical text and 6 are the reworded-but-same-direction items (e1.5, e1.6, e2.7, e3.1, e3.7, e4.4) — each satisfies both the old and the new wording on this deliverable, so no comparison is void."
   },
-  "instrument_defects": [
+  "instrument_defects": [],
+  "skill_and_eval_feedback": [
     {
-      "id": "I1",
-      "expectation": "e4.1",
-      "class": "the expectation forbids what the skill's own Reference Materials call correct",
-      "expectation_text": "Every keyword — including every row of the GEO/AI-citation opportunities table, which is not exempt — is classified into one of the skill's four intent categories — informational, navigational, commercial, transactional — per SKILL.md Step 5; a format/'Type' label on GEO rows does not substitute for an intent category.",
-      "what_the_skill_says": "SKILL.md's Reference Materials index points to `references/keyword-intent-taxonomy.md` as 'Complete intent classification with signal words and content strategies'. That file carries a whole section headed 'Mixed Intent Queries' (L259): 'Many real-world queries blend multiple intent types. Recognize and address the dominant + secondary intent.' Its 8-step classification process makes mixed intent a required check — L311, step 5: 'Check for mixed intent — does the query blend two types?' And its 'Common Classification Mistakes' table names single-intent assumption as the mistake and prints the label in the Correct Classification column — L324: '| Assuming single intent | \"SEO tools\" | Could be informational OR commercial | **Mixed -- check SERP** |'. The same file also uses 'Instructional' as a Primary Intent at L268, a fifth label. SKILL.md Step 5 lists four rows and says 'Categorize each keyword'; it nowhere states the list is closed.",
-      "why_this_is_a_suite_finding_and_not_a_skill_failure": "A blind executor reading the file the skill calls its complete intent classification is told, in a column headed 'Correct Classification', that `Mixed` is correct. e4.md then labels exactly two of 25 rows 'Mixed', each naming both constituent intents in the cell. The expectation fails a deliverable for taking a path the skill's own reference calls correct. That is the F13-r4 shape inverted: not an expectation grading a convention the skill never names, but an expectation grading a RESTRICTION the skill never states and its reference contradicts.",
-      "affected_rows": "e4.md L128 row 11 ('Mixed — job name, searched for both how-to and tools') and L136 row 19 ('Mixed — a download, but of a free resource'). The clause the expectation emphasises — GEO rows carrying an intent category rather than only a format label — passes cleanly and separately: e4.md L172-179 carries Shape AND Intent columns with four-category values on all six rows.",
-      "same_pattern_elsewhere_in_the_run": "e5.md uses the same two 'Mixed' labels (L144 row 20, L146 row 22). e5 has no intent-classification expectation, so nothing turns on it there — but any future expectation of this shape would hit both evals.",
-      "not_resolved_here": "Suite not edited. The coordinator has three clean options and this grader takes none of them: (a) rule `Mixed` out and align the reference by rewriting L324's Correct Classification cell as a primary+secondary pair, which is what L261 and L275 already prescribe; (b) rule `Mixed` in and amend the expectation to 'one of the four categories, or a primary+secondary pair naming two of them'; (c) leave both and accept that this expectation is not decidable. Verdict under (a) would be FAIL on 2 of 25 rows; under (b), PASS."
+      "id": "S1",
+      "class": "a reference cell that licenses a label its own section's primary instruction does not use",
+      "where": "research/keyword-research/references/keyword-intent-taxonomy.md L324",
+      "text": "| Assuming single intent | \"SEO tools\" | Could be informational OR commercial | **Mixed -- check SERP** |",
+      "problem": "That is the 'Correct Classification' column of the Common Classification Mistakes table, so the file's own answer to a blended query is the bare word `Mixed`. Sixty lines above, the same file's Mixed Intent Patterns table is headed 'Primary Intent | Secondary Intent' and instructs 'Recognize and address the dominant + secondary intent' (L261) and 'Lead with the primary intent' (L275). The file therefore offers two answers to the same question and only one of them names a category. This run's e4 and e5 both took the bare-label branch (e4 rows 11 and 19, e5 rows 20 and 22); e4.1 grades it and failed it, and e5 has no expectation that reaches it. L268 has a related loose end — 'Instructional' is used as a Primary Intent, a fifth label that appears nowhere in SKILL.md Step 5.",
+      "not_resolved_here": "No file edited. Suggested fix for the coordinator, which costs one cell: rewrite L324's Correct Classification as a primary+secondary pair ('Commercial (primary) / Informational (secondary) — check SERP'), which is what the section's own instruction already prescribes, and either fold 'Instructional' into Informational at L268 or say why it is separate. That closes the ambiguity without touching the expectation."
     }
   ],
   "coverage_gaps": [
@@ -343,7 +481,7 @@
       "id": "C2",
       "gap": "CLUSTER OWNERSHIP IS ENTIRELY UNGRADED, and it is the skill's newest and largest behaviour. SKILL.md Step 9 ('Create Topic Clusters — and Assign Each One an Owner'), the whole of references/cluster-ownership.md, three Output Validation items ('Every cluster names its owning property and its owning URL, or states `no owner assigned`', the proposal-until-dated rule, the bilingual one-row-or-two rule) and the binding CLAUDE.md ruling 'One Owner Per Cluster' are graded by ZERO expectations — grep of evals.json for 'no owner assigned', 'owning property', 'owning url', 'decision date', 'ownership register' returns nothing.",
       "observed_effect": "All five deliverables implement it in full and at length — an ownership register with Owning property / Owning URL / Status / Decided columns, `no owner assigned` used as a value and written up as a named finding in every one of the five, and every row marked a proposal because none carries a decision date. e3 even applies the bilingual rule correctly in both directions (six rows as three clusters written twice because the URLs differ, L364; `brand` as one row because one URL serves both, L366). The single largest body of correct behaviour in this run is invisible to the suite.",
-      "why_it_matters": "This is the behaviour eee0d0f shipped 35 minutes before the run. A wave landing with no expectation cannot be regression-tested, and the next executor that drops the register will score identically to this one."
+      "why_it_matters": "This is the behaviour eee0d0f shipped 35 minutes before the run. A wave landing with no expectation cannot be regression-tested — and R1 above is what an ungraded-then-graded rule looks like when it slips. The next executor that drops the register will score identically to this one."
     },
     {
       "id": "C3",
@@ -373,7 +511,7 @@
       "run handles in client prose — skill slugs, framework item IDs, ruling IDs, repo paths (2 slug hits, both inside e5's correctly labelled operator fence; 0 item IDs, 0 ruling IDs, 0 repo paths anywhere)",
       "Value Rule: bracket tokens, TBD, XX or note-shaped values inside paste-ready fences (0; both Greek paste-ready fences carry fully resolved values and say so)",
       "promised outcomes / family 10 (0)",
-      "engine-disposition claims asserted as fact, IN ENGLISH AS WELL AS GREEK, per ruling R3 amendment 9a (0 — see the notable absence below)",
+      "engine-disposition claims asserted as fact, IN ENGLISH AS WELL AS GREEK, per ruling R3 amendment 9a (0 — see notable_absences)",
       "invented figures, unsourced third-party claims, and characterisations of a competitor's ranking set (see D5)",
       "internal contradictions and headline totals that do not reproduce from the column they sum",
       "orphaned rows: scored targets appearing in no cluster and no build order"
@@ -404,7 +542,7 @@
         "id": "D4",
         "where": "e2 L282",
         "severity": "medium",
-        "defect": "AN UNSOURCED DEMAND ASSERTION IN THE INDICATIVE, in a zero-data run whose own data-sources section says volume is unavailable: «Η ζήτηση υπάρχει — τα ελληνικά χειροποίητα ασημικά τα αγοράζουν και επισκέπτες και πελάτες εκτός Ελλάδας» ('The demand exists — Greek handmade silverware is bought by visitors and by customers outside Greece'). Nothing in the prompt, no tool and no fixture supplies it. The same run's English sibling handles the identical situation correctly — e1 L272: 'there is plausibly a second audience here — but that is a demand I would be guessing at'. This is the F3 family (a fabricated market claim inside a scored deliverable, invisible to every expectation) at low magnitude: it does not carry a number, and it is load-bearing for whether the client builds English pages.",
+        "defect": "AN UNSOURCED DEMAND ASSERTION IN THE INDICATIVE, in a zero-data run whose own data-sources section says volume is unavailable: «Η ζήτηση υπάρχει — τα ελληνικά χειροποίητα ασημικά τα αγοράζουν και επισκέπτες και πελάτες εκτός Ελλάδας» ('The demand exists — Greek handmade silverware is bought by visitors and by customers outside Greece'). Nothing in the prompt, no tool and no fixture supplies it. The same run's English sibling handles the identical situation correctly — e1 L272: 'there is plausibly a second audience here — but that is a demand I would be guessing at'. This is the F3 family (a fabricated market claim inside a scored deliverable, invisible to every expectation) at low magnitude: it carries no number, and it is load-bearing for whether the client builds English pages.",
         "covered_by_any_expectation": "no. e2.7 reaches volume figures only."
       },
       {
@@ -443,8 +581,8 @@
     ],
     "notable_absences_worth_recording": [
       "OPEN-FINDINGS 132 IS DISCHARGED, NOT TRIPPED, AND ON THE RUN'S OWN INITIATIVE. The finding records that the skill's Greek module states diacritic normalisation as engine fact, which family 9 forbids on a Greek client surface. Both Greek-facing deliverables restate it as a declared working model instead: e1 L159 'Our working model is that accented and unaccented Greek behave as one demand in search ... No search engine publishes how it handles Greek diacritics, so that is a model we work to, not documented behaviour', and e2 L62 «Καμία μηχανή δεν δημοσιεύει πώς χειρίζεται τους ελληνικούς τόνους, οπότε αυτό είναι παραδοχή εργασίας μας και όχι τεκμηριωμένη συμπεριφορά». Both then make the recommendation survive the model being wrong ('a second page per spelling variant would be near-duplicate content competing with your own page ... that recommendation does not depend on the model being right'), which is the structural half of the finding — form (b) getting no placement without the engine claim underneath it. e3 avoids the claim entirely, attributing the variance to users rather than engines. All five deliverables do the same for AI answers ('No engine publishes how it picks the sources for a generated answer'). Zero R3/9a violations in English or Greek.",
-      "RULING R2 IS APPLIED CORRECTLY AND WITHOUT A RUN HANDLE. e1 L228 'Add FAQ structured data only if that page's accurate type really is a FAQ page — on a service page it is not, and stacking it on top adds nothing'; e2 L246 the same in Greek. Neither names the ruling, which is what finding 80 requires of client prose.",
-      "THE READER TEST IS SATISFIED IN THE HARDEST PLACE. e5's operator block (L304-323) is a separate fence at the foot of the document, labelled inside the fence in that fence's own syntax — '<!-- OPERATOR BLOCK — for the team running the library, not part of the report above. Nothing in this fence goes to the client as written. -->' — using OPERATOR BLOCK, one of the three permitted labels and not the retired fourth spelling. Both skill slugs and both framework NAMES (CORE-EEAT, CITE) sit inside it; zero framework item IDs, zero ruling IDs and zero repo paths appear anywhere in any of the five files."
+      "RULING R2 IS APPLIED CORRECTLY AND WITHOUT A RUN HANDLE. e1 L228 'Add FAQ structured data only if that page's accurate type really is a FAQ page — on a service page it is not, and stacking it on top adds nothing'; e2 L246 the same in Greek. Neither names the ruling, which is what finding 80 requires of client prose. This is the R2 paragraph added to greek-keyword-coverage.md after the prior baseline reaching a deliverable.",
+      "THE READER TEST IS SATISFIED IN THE HARDEST PLACE. e5's operator block (L304-323) is a separate fence at the foot of the document, labelled inside the fence in that fence's own syntax — '<!-- OPERATOR BLOCK — for the team running the library, not part of the report above. Nothing in this fence goes to the client as written. -->' — using OPERATOR BLOCK, one of the three permitted labels and not the retired fourth spelling. Both skill slugs and both framework NAMES (CORE-EEAT, CITE) sit inside it; zero framework item IDs, zero ruling IDs and zero repo paths appear anywhere in any of the five files. The prior run put the same slug in client prose, which was compliant then and is not now."
     ]
   },
   "arithmetic_check": {
@@ -452,7 +590,7 @@
     "result": "EVERY DERIVED FIGURE IN ALL FIVE DELIVERABLES RECOMPUTES EXACTLY. Zero mismatches.",
     "fixture_sums": "export total 30,740; English subtotal 25,900 (4 gb rows); Greek subtotal 4,840 (7 gr rows); clustered Crete demand 3,550 (1,900+1,300+210+140); unaccented/accented ratio 1300/1900 = 68.42% printed as 68% — all exact.",
     "opportunity_scores_e3": "All nine exact: Crete cluster (3550x3)/22 = 484.0909 -> 484.1 · Crete unclustered (1900x3)/22 = 259.0909 -> 259.1 · car rental crete (12000x3)/45 = 800.0 · rent a car heraklion (6600x3)/38 = 521.0526 -> 521.1 · car hire heraklion airport (4400x3)/41 = 321.9512 -> 322.0 · cheap car rental crete (2900x3)/33 = 263.6364 -> 263.6 · Heraklion city (880x3)/18 = 146.6667 -> 146.7 · Heraklion airport (320x3)/12 = 80.0 · cost question (90x2)/4 = 45.0. The last is the one row that exercises the Commercial=2 weight and it is right, which is direct evidence the stated intent weights were applied and not assumed.",
-    "the_denominator_question_you_asked_about": "e3 clusters four export rows into one demand and therefore has to choose which member's KD becomes the divisor. IT CHOSE THE ACCENTED HEAD TERM'S KD OF 22, AND IT STATED THE CHOICE IN THE TABLE CELL ITSELF — L227: '22 — the accented head term's KD, the one page you will build'. The reasoning is given at L223: 'the governing KD is stated per row, because averaging KD across spelling variants would produce a number Ahrefs never reported.' That is the defensible choice and the choice is visible. Sensitivity, computed by this grader and NOT by the deliverable: on the volume-weighted mean KD (21.29) the score would be 500.2; on the arithmetic mean of the four KDs (14.0) it would be 760.7, which would leapfrog `rent a car heraklion` at 521.1 and reorder the file's headline claim. The deliverable's choice is the conservative one and the only one that keeps every printed input traceable to a fixture cell.",
+    "the_denominator_question_you_asked_about": "e3 clusters four export rows into one demand and therefore has to choose which member's KD becomes the divisor. IT CHOSE THE ACCENTED HEAD TERM'S KD OF 22, AND IT STATED THE CHOICE IN THE TABLE CELL ITSELF — L227: '22 — the accented head term's KD, the one page you will build'. The reasoning is given at L223: 'the governing KD is stated per row, because averaging KD across spelling variants would produce a number Ahrefs never reported.' That is the defensible choice and the choice is visible. Sensitivity, computed by this grader and NOT by the deliverable: on the volume-weighted mean KD (21.29) the score would be 500.2; on the arithmetic mean of the four KDs (14.0) it would be 760.7, which would leapfrog `rent a car heraklion` at 521.1 and reorder the file's headline claim. NOTE FOR THE COORDINATOR: the prior blind run stated a different rule for the same choice — 'Cluster rows use summed volume and the highest KD in the set' — which on this cluster resolves to the same 22 by coincidence (the accented head term also carries the highest KD). Two blind runs, two stated rules, one number. The skill states neither rule; it is a genuine gap in Step 7, and it is invisible to e3.6 because the arithmetic agrees either way on this fixture.",
     "priority_scores_denominator_A_e3": "All eight exact against 0.222/0.278/0.333/0.167 (which sum to 1.000): 4.278->4.3 · 4.444->4.4 · 4.500->4.5 · 4.000->4.0 · 3.945->3.9 · 4.334->4.3 · 4.334->4.3 · 3.612->3.6. Every band reading is correct on the rounded value, including the one that turns on rounding direction (cheap car rental crete at 3.945 -> 3.9 -> P1, the only export row outside P0).",
     "priority_scores_denominator_B": "The full 5x5 grid of 0.667xR + 0.333xI was computed once and every printed row in e1 (22), e2 (20), e3 Part 5 (14), e4 (25) and e5 (27) checked against it — 108 rows, 0 mismatches, bands included. The renormalisation itself is correct in all five: 0.30/0.45 = 0.667 and 0.15/0.45 = 0.333, dropped weights 0.20+0.25+0.10 = 0.55.",
     "p0_counts_and_prose_claims": "Recomputed P0 counts match every prose claim: e1 '17 of 22' (17), e2 «15 από τις 20» (15), e4 '17 of 25' (17), e5 '19 of 27' (19). Tie-group claims also match: e4 'the nine rows currently sitting at 4.7' (9), e5 'the eleven rows sitting at 4.7' (11), e1 'the seven keywords currently sitting at 5.0' (7), e2 «τις επτά γραμμές που σήμερα κάθονται στο 5,0» (7).",
@@ -462,12 +600,11 @@
   "tool_correctness": {
     "tool_errors_encountered": [],
     "expectations_not_gradable_as_written": [
-      "e1.7, e2.9, e3.8 — by design; EDITOR-PENDING pending the binding greek-content-editor report.",
-      "e4.1 — not gradable as written; see instrument_defects I1."
+      "e1.7, e2.9, e3.8 — by design; EDITOR-PENDING pending the binding greek-content-editor report."
     ],
-    "checker_verification": "Every negative verdict was confirmed by reading the raw deliverable at the flagged location and quoting it before it was recorded (ledger F7). For e3.3 specifically the absence was verified three ways rather than by eye: a scripted scan for table header lines containing all four form names (none), a scan for 'EN equivalent'/'English equivalent' (0 occurrences in e3.md against 4 header lines in e1.md and 1 in e2.md), and a hand count of which forms exist per Greek demand.",
-    "scope_drift": "none. The grader produced no keyword-research output at any point, did not re-run the skill, and did not read any other agent's transcript or output file. One repository write only: this JSON.",
-    "restriction_observed": "docs/loop/eval-baselines/ reads were limited to blind-2026-08-13/alertmanager.json per the task. The consequence for the regression check is stated in regressions_vs_baseline rather than worked around.",
+    "checker_verification": "Every negative verdict was confirmed by reading the raw deliverable at the flagged location and quoting it before it was recorded (ledger F7). For e3.3 specifically the absence was verified three ways rather than by eye: a scripted scan for table header lines containing all four form names (none), a scan for 'EN equivalent'/'English equivalent' (0 occurrences in e3.md against 4 header lines in e1.md and 1 in e2.md), and a hand count of which forms exist per Greek demand. For both regressions the confounders were eliminated by git diff of the expectation text, the prompt, SKILL.md's relevant step and the relevant reference section across the two subject versions.",
+    "grader_verdict_changed_after_first_write": "YES, once, and it is recorded rather than silently overwritten: e4.1 was first written as INSTRUMENT-DEFECT and was corrected to FAIL after the coordinator lifted the eval-baselines read restriction and the prior record showed a blind executor satisfying the same text on the same reference. The record's headline numbers moved with it (pass_rate 0.8788 on a 33 denominator -> 0.8529 on 34).",
+    "scope_drift": "none. The grader produced no keyword-research output at any point, did not re-run the skill, and did not read any executor's transcript or any deliverable other than the five under grading.",
     "grader_working_files": [
       "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-kwresearch-2026-08-17-checks.py"
     ]
@@ -476,23 +613,33 @@
     {
       "id": "A1",
       "expectation": "e5.1",
-      "issue": "'The response explicitly names competitor-analysis as the correct skill' is one word away from an unsatisfiable pair with the binding Reader Test, which forbids a skill slug in client prose. This deliverable found the compliant path — slug inside a labelled operator block, plain-language routing in the client prose — and passes. A stricter grader reading 'the response' as 'the report the client reads' would fail a Reader-Test-compliant deliverable, which is exactly the rank-tracker e3.4/e3.6 collision that forced the ruling. Suggested wording: 'names competitor-analysis on an operator-addressed surface, and routes the client to that work in plain language'."
+      "issue": "'The response explicitly names competitor-analysis as the correct skill' is one word away from an unsatisfiable pair with the binding Reader Test, which forbids a skill slug in client prose. The prior blind run passed it with the slug in client prose; this run passes it with the slug in a labelled operator block. Both PASS, and only the second is Reader-Test-compliant, which means the expectation is currently blind to the rule. Suggested wording: 'names competitor-analysis on an operator-addressed surface, and routes the client to that work in plain language'."
     },
     {
       "id": "A2",
-      "expectation": "e2.6",
-      "issue": "'at least one named pillar that has at least 2 cluster items grouped under it' — the deliverable satisfies the structure without ever using the word 'pillar' (or «κεντρική σελίδα»), because it expresses it as an ownership register with an owning URL plus supporting pages. Graded PASS on structure. The clause would be sharper as 'one page named as the cluster's owner, with at least two other pages or sections named as linking to it', which is the form the skill's own Step 9 now produces."
+      "expectation": "e4.1",
+      "issue": "The failing rows would be unambiguous under 'one of the four categories, or a primary+secondary pair naming two of them' — which is what the skill's own reference prescribes and what the prior passing run produced. As written, the expectation and reference L324 disagree, and the disagreement is invisible until a run takes the L324 branch. Fix the reference (S1) or widen the expectation, but not both."
     },
     {
       "id": "A3",
+      "expectation": "e2.6",
+      "issue": "'at least one named pillar that has at least 2 cluster items grouped under it' — this deliverable satisfies the structure without ever using the word 'pillar' (or «κεντρική σελίδα»), because it expresses it as an ownership register with an owning URL plus supporting pages; the prior deliverable used the word. Graded PASS on structure both times, but the clause would be sharper as 'one page named as the cluster's owner, with at least two other pages or sections named as linking to it', which is the form the skill's own Step 9 now produces."
+    },
+    {
+      "id": "A4",
       "expectation": "e1.5 and e3.7 (identical wording)",
       "issue": "The crosswalk exemption is scoped to 'placement/crosswalk tables (e.g. the Step-10 GBP mapping)' and is silent on the Step-9 ownership register, which now appears in every deliverable, carries a 'Representative queries' column, and is neither an analysis table nor a crosswalk. e1 introduces two unmetricized strings there (defect D2). Say explicitly whether representative-query cells in the ownership register are in scope."
     },
     {
-      "id": "A4",
+      "id": "A5",
       "expectation": "e3.3",
-      "issue": "Not ambiguous — it failed cleanly — but worth recording alongside OPEN-FINDINGS 138, which notes that the 4-form rule is unconditional and does not state its unit. e3's export supplies eleven rows resolving to four Greek demands plus four English ones; the expectation asks for 'each seed's row' without saying whether a seed is an export row, a clustered demand, or a proposed target (Part 5 adds nine more Greek strings). A deliverable that expanded all thirteen Greek strings would produce 52 cells. Naming the unit — 'one row per clustered demand' would match what this deliverable already computes — would make the expectation both satisfiable at scale and unambiguous to grade."
+      "issue": "Not ambiguous — it failed cleanly, and a prior blind run satisfied it — but worth recording alongside OPEN-FINDINGS 138, which notes that the 4-form rule is unconditional and does not state its unit. e3's export supplies eleven rows resolving to four Greek demands plus four English ones; the expectation asks for 'each seed's row' without saying whether a seed is an export row, a clustered demand, or a proposed target (Part 5 adds nine more Greek strings). Naming the unit — 'one row per clustered demand', which is what both blind runs actually computed — would make the expectation satisfiable at scale and unambiguous to grade."
+    },
+    {
+      "id": "A6",
+      "expectation": "e3.6",
+      "issue": "The expectation grades the formula and the intent weights and is silent on the divisor for a clustered row, which is the one input the skill does not define. Two blind runs stated two different rules ('the accented head term's KD' vs 'the highest KD in the set') and both passed, because on this fixture the two coincide. A fixture where they diverge would split the suite. Fix belongs in Step 7 first."
     }
   ],
-  "most_consequential_finding": "e3.3. The Greek four-form dual-coverage table is this skill's most explicitly-carried rule — SKILL.md:170 spells out the tool-export case by name ('regardless of how it arrived ... or imported from a tool export file'), the reference restates it as checklist item one, and the expectation restates it a third time. e1 and e2 both build the table without being asked. e3, the ONLY eval with a real fixture, does not build it at all — and does so while producing the best spelling-variant analysis in the run, correct placement rules per form in prose, and exact clustering arithmetic. The rule did not fail for want of understanding; it failed because the export gave the executor something better to organise the section around, and nothing in the skill says the artefact survives that. That is the shape F13-r3 named — a carrier that reads unambiguously to anyone who already knows what is being graded, and does not hold when the run has a more natural structure available."
+  "most_consequential_finding": "Two regressions, both on byte-identical expectation text AND byte-identical skill text — e3.3 (the Greek four-form dual-coverage artefact, absent where the prior blind run built it) and e4.1 (two rows labelled 'Mixed' where the prior blind run used compound labels built from the four categories). Every confounder is eliminated by diff: same prompts, same fixture, same Step 4, same Step 5, same reference sections. Against that, the suite's one prior blind FAILURE — e5.2, the F13-r3 fabrication class — is fixed, and fixed in the exact form the carrier added fourteen minutes after that record was written prescribes. So the skill did not get worse or better; two specific behaviours moved in each direction while the headline stayed at 29/31. That is the finding the blind method exists to produce and an informed run could not: what changed is legible only because the expectation text, the skill text and the prior verdicts could all be diffed at once."
 }
