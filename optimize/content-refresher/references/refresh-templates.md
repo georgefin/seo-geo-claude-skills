@@ -43,6 +43,7 @@ Detailed output templates for content-refresher steps 5-9. Referenced from [SKIL
 | [New Section] | 0 | [X] | Add entirely |
 | FAQ | 0 | [X] | Add for GEO |
 | Conclusion | [X] | [X] | Update CTA |
+| **Total** | **[sum of Current]** | **[sum of After]** | [After ÷ Current]× the length; [new + rewritten] of [After] words is new |
 
 ### Specific Updates
 
@@ -67,6 +68,20 @@ Detailed output templates for content-refresher steps 5-9. Referenced from [SKIL
 | [img 1] | Replace | "[keyword-rich alt]" |
 | [img 2] | Keep | Update alt text |
 ```
+
+### The word-count table is arithmetic, not an impression (author's rule, not template copy)
+
+Both columns are sums of the rows above them, and the **Current** column must also reconcile with the
+page's measured word count printed at the top of the analysis. Where they disagree the section list
+is wrong — a section missing, or one counted twice — and the fix is to find it: a Current column
+summing to 282 under a Total row reading 231 is a defect, not a rounding, and it is load-bearing
+because Step 8's date decision is computed from these totals.
+
+**State the change as arithmetic, never as an adjective.** The multiple is `After total ÷ Current
+total`, printed to one decimal: 231 → ~2,240 words is **9.7×**, not "roughly triples". The
+new-content share is `(new + rewritten words) ÷ After total`. Where an adjective and the table
+disagree, the table is right — and the adjective is what carries a wrong republish-date
+recommendation into the report.
 
 ---
 
@@ -122,6 +137,21 @@ Detailed output templates for content-refresher steps 5-9. Referenced from [SKIL
 [Direct answer]
 ```
 
+### A caveat outside the copy does not travel with it (author's rule, not template copy)
+
+Publish-ready copy is pasted into a CMS on its own. The report frame around it — the gap list, the
+flags, the "we could not verify this" note — stays behind on somebody's screen, so a claim the
+inputs do not support must never ship inside the fence with its warning outside it. That asymmetric
+placement is ledger F13, and the warning loses every time.
+
+Two ways out, and only two. **Drop the claim from the copy** and name the gap in the plan prose —
+which fact, what its absence costs the reader, exactly what to send — per the Value Rule that a
+paste-ready block carries resolved values only. Or, where the reader genuinely needs the point,
+**write it in the customer's own voice with the hedge inside the sentence** — "the right capacity
+depends on how many people draw hot water at once, so ask us for a sizing check before you order",
+in the deliverable's own language. That carries the caution into the CMS because it *is* the copy. A
+specific figure has no hedged form: a capacity, a price, a percentage ships sourced or not at all.
+
 ### Correcting claims about SERP features (author's rule, not template copy)
 
 An old article often states what Google *shows* — rich results, snippets, panels. Correct only what
@@ -143,6 +173,28 @@ publishes, where an unresolved claim reads as fact:
   claim is unverified.
 - **A retirement one type underwent is not evidence about another type.** Do not generalise from the
   FAQ line to any other feature; each is settled or it is not.
+
+### Correcting stale technical claims (author's rule, not template copy)
+
+**Check the settled register before hedging.** "Correct only what is settled" has a second half that
+binds just as hard: **where this library has settled it, correct it — do not hand it back to the
+client as unverified.** Declining to state a figure `docs/loop/SETTLED-RULINGS.md` establishes is not
+caution, it is the abstention overshoot (ledger F19), and its cost is invisible in review: the
+client republishes a section this repository had already closed, and nothing in the deliverable looks
+wrong.
+
+- **Core Web Vitals — settled, ruling R4.** "Good" is **LCP ≤2.5 s, INP ≤200 ms, CLS ≤0.1**. **First
+  Input Delay was retired in March 2024** and INP is the responsiveness metric that replaced it. The
+  circulating **2.0-second LCP** figure is a vendor-blog number, not Google's. An old article
+  teaching FID, or 2.0 s as "Google's LCP benchmark", is corrected in place with those figures, and
+  the correction names which metric replaced which. Re-teaching FID as live fails; so does sending
+  the reader to Google's documentation for a threshold printed right here.
+- **They are cited as this library's settled ruling**, which is what they are (R4; reopens only on a
+  Google-primary threshold change) — not as a fresh reading of Google's documentation that nobody in
+  this session performed.
+- **Anything not in the register stays open** and the SERP-feature rule above governs it: flag it for
+  verification, assert nothing in either direction. The register is the stopping condition, not a
+  licence to correct by memory.
 
 ---
 
@@ -241,6 +293,14 @@ Structure content with questions AI might answer:
 - [ ] Watch for featured snippet capture
 - [ ] Check AI citation improvements
 ```
+
+**Which date option applies is computed, not judged (author's rule, not report copy).** The three
+options are bands of one fraction — `(new + rewritten words) ÷ post-refresh total`, both figures
+taken from the Step 5 word-count table — so compute it and print it beside the recommendation. A
+plan taking a page from 231 to ~2,240 words is 9.7× the length and **at least 89.7% new** — 2,009 of
+2,240 words, even if every existing word survives untouched. That is option 1, a major overhaul, and
+no adjective in the prose ("roughly triples", "a moderate update") moves it into option 2. Where the
+sentence and the fraction disagree, the fraction decides.
 
 ---
 

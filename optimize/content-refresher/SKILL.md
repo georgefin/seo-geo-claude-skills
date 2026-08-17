@@ -203,22 +203,20 @@ When a user requests content refresh help:
    | [Title 1] | [content type] | [date] | [date] | [+/-X]% ([period A] vs [period B]) | [that type's refresh frequency] — [gap since last update] | [matrix cell below] |
    | [Title 2] | [content type] | [date] | [date or "never"] | [+/-X]% ([period A] vs [period B]) | [that type's refresh frequency] — [gap since last update] | [matrix cell below] |
    
-   Every cell comes from the inventory supplied, and the trend cell names the two periods it compares. A page the data does not cover keeps its row and carries "not supplied" there — stated, never interpolated, never converted into a priority.
-   
-   **The Type cell is not optional — it is what routes the row.** Fill it from the inventory's own content-type field where there is one and from reading the page where there is not; then look that type up in *Update Strategy by Content Type* ([content-decay-signals.md](./references/content-decay-signals.md)), print its refresh frequency in the Cadence check cell beside the gap since the last update, and **schedule any page past that frequency on it, naming the frequency**, whatever the traffic trend shows — a cadence that is never quoted was never applied. Two types leave the loop here: news/trend content is archived or redirected rather than refreshed, and a page the Content Retirement checklist catches is routed to retirement with a named option. The same Type cell picks the refresh-difficulty playbook in Refresh Priority Scoring.
-   
    ### Refresh Prioritization Matrix
    
-   ```
    Not declining (flat or improving) = 🟢 Healthy — leave alone; does not enter the matrix
    High Traffic + High Decline = 🔴 Refresh Immediately
    High Traffic + Low Decline = 🟡 Schedule Refresh
    Low Traffic + High Decline = 🟡 Evaluate & Decide
    Low Traffic + Low Decline = 🟢 Low Priority
    ```
-   
-   **The matrix ranks declines, so a page that is not declining never enters it**: traffic flat or up on the comparison that governs the page (year-over-year where seasonality is in play), or a position that improved, reads 🟢 Healthy and is reported as healthy — growth is not a decline of small size and never becomes "Schedule Refresh". Hold the false positives out before splitting too: a month-over-month drop that the same-month year-over-year figure shows flat or up is seasonal (monitor, do not schedule), and a collapse alongside a near-stable position and a tracking-migration note goes to tracking verification before any decay diagnosis. High and low are then relative to the pages that remain: split their traffic figures at their median and their declines likewise, then say which figures and which split produced each quadrant. A page held out of the matrix still carries its Cadence check cell.
-   ```
+
+   **Filling that table** (author's rules, not report copy). Every cell comes from the inventory supplied, and the trend cell names the two periods it compares. A page the data does not cover keeps its row and carries "not supplied" there — stated, never interpolated, never converted into a priority.
+
+   **The Type cell is not optional — it is what routes the row.** Fill it from the inventory's own content-type field where there is one, and from reading the page where there is not; then look that type up in *Update Strategy by Content Type* ([content-decay-signals.md](./references/content-decay-signals.md)), print that type's refresh frequency in the Cadence check cell beside the gap since the last update, and **schedule any page past that frequency on it, quoting the frequency**, whatever the traffic trend shows — a cadence nobody quotes is a cadence nobody applied. Two types leave the loop here: news/trend content is archived or redirected rather than refreshed, and a page the Content Retirement checklist catches is routed to retirement with a named option. The same Type cell picks the refresh-difficulty playbook when the batch is priority-scored. **A page scheduled on cadence is scheduled as maintenance and is reported that way** — being due on the calendar is not evidence of decay, and it never overrides what the numbers say: a page the evidence shows healthy, seasonal or awaiting tracking verification keeps that verdict and carries its cadence note beside it.
+
+   **The matrix ranks declines, so a page that is not declining never enters it**: traffic flat or up on the comparison that governs the page (year-over-year where seasonality is in play), or a position that improved, reads 🟢 Healthy and is reported as healthy — growth is not a small decline and never becomes "Schedule Refresh". Hold the false positives out before splitting too: a month-over-month drop that the same-month year-over-year figure shows flat or up is seasonal (monitor, do not schedule), and a collapse alongside a near-stable position and a tracking-migration note goes to tracking verification before any decay diagnosis. High and low are then relative to the pages that remain: split their traffic figures at their median and their declines likewise, then say which figures and which split produced each quadrant. A page held out of the matrix still carries its Cadence check cell.
 
 3. **Analyze Individual Content for Refresh**
 
@@ -273,7 +271,7 @@ When a user requests content refresh help:
    | Links | [X] broken | Fix or replace |
    | Screenshots | Outdated UI | Recapture |
    | SERP-feature claims | "[what the article promises Google shows]" | Correct only what is settled; open items are flagged for verification, never asserted either way — [refresh-templates.md](./references/refresh-templates.md) §"Correcting claims about SERP features" |
-   | Core Web Vitals figures | "[old metric or threshold]" | **Settled — correct it in place, do not route it to the client**: "Good" is LCP ≤2.5 s, INP ≤200 ms, CLS ≤0.1; First Input Delay was retired 03-2024 (INP is the responsiveness metric) and the circulating 2.0-second LCP figure is a vendor-blog number, not Google's (settled ruling R4, `docs/loop/SETTLED-RULINGS.md`). Sending the reader to Google's documentation for a figure this library has settled is the abstention overshoot, ledger F19 |
+   | Core Web Vitals figures | "[old metric or threshold — e.g. FID, LCP 2.0 s]" | **Correct in place, do not route it back for verification**: "Good" is LCP ≤2.5 s, INP ≤200 ms, CLS ≤0.1. First Input Delay was retired in March 2024 and INP replaced it as the responsiveness metric; the 2.0-second LCP figure carried in older posts is a vendor number, not Google's |
    
    ### Missing Information
    
@@ -308,6 +306,8 @@ When a user requests content refresh help:
    - [ ] Update sources with current citations
    - [ ] Create standalone factual statements
    ```
+
+   > **On the two claim rows** (author's rule, not report copy): correct what `docs/loop/SETTLED-RULINGS.md` settles — the Core Web Vitals thresholds above are ruling R4 — and flag for verification only what it does not. Declining to state a figure the register already holds is the abstention overshoot (ledger F19); the rule, its stopping condition and its provenance are in [refresh-templates.md](./references/refresh-templates.md) §"Correcting stale technical claims".
 
 5. **Create Refresh Plan** — Structural changes, content additions, statistics/links/images to update
 

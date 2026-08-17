@@ -1,6 +1,6 @@
 # Alert Threshold Guide
 
-Complete reference for configuring SEO/GEO alert thresholds. Covers baseline establishment, threshold setting methodology, tuning process, alert routing configuration, notification channel setup, and response playbooks for each alert type.
+Complete reference for configuring SEO/GEO alert thresholds. Covers baseline establishment, threshold setting methodology, tuning process, alert routing configuration, notification channel setup, response playbooks for each alert type, and (Section 9) the write-up rules for counts, quotes, generics and handoff payloads.
 
 ---
 
@@ -156,14 +156,16 @@ For binary or count-based metrics, use absolute thresholds.
 
 Every value in the table above is fixed by definition rather than computed from the client's
 history: a count of 5xx responses in a day, days to certificate expiry, "any detection". So are the
-percentage steps above it (index coverage -5% / -15%), the ranking-tier drops, the brand top-3 rows
-and the Core Web Vitals boundaries in Section 3. A run with no tool connected and no export in hand
-can write every one of them down. What it cannot do is state *this site's* mean, standard
-deviation, normal range or expected position. Keep the three kinds apart in the deliverable:
+percentage steps above it (index coverage -5% / -15%), the ranking-tier drops, the brand-position
+and top-3 count rows, and the Core Web Vitals boundaries in Section 3. A run with no tool connected
+and no export in hand can write every one of them down. What it cannot do is state *this site's*
+mean, standard deviation, normal range or expected position. **Evaluating a percentage step needs
+last week's number; stating the threshold does not** — that is the whole distinction. Keep the
+three kinds apart in the deliverable:
 
-| Kind of number | Needs this client's history? | With no data in hand |
-|----------------|------------------------------|----------------------|
-| **Fixed threshold** — 5xx/day, 4xx/day, SSL days, index-coverage %, tier drops, brand top-3, LCP 2.5 s · INP 200 ms · CLS 0.1 | No — the value is set here or by a settled ruling | Stated plainly, as itself |
+| Kind of number | Needs this client's history to *state*? | With no data in hand |
+|----------------|-----------------------------------------|----------------------|
+| **Fixed threshold** — 5xx/day, 4xx/day, SSL days, index-coverage %, tier drops, brand position and top-3 counts, LCP 2.5 s · INP 200 ms · CLS 0.1 | No — the value is set here or by a settled ruling | Stated plainly, as itself |
 | **Generic default** — the -15% / -30% WoW traffic steps | No, but it is a starting guess, not this site's behaviour | Stated, **labelled** a generic default to recalibrate |
 | **Derived value** — mean, standard deviation, band bounds, normal range, expected position | Yes | **Absent**, with the collection plan that would produce it |
 
@@ -312,7 +314,7 @@ are operator vocabulary — cite R4 in working notes, give the client the number
 
 **Three metrics, three ladders, and the status word *is* the number.** "Needs Improvement" on LCP
 means field LCP above 2.5 s: the words and the figures are one ladder written twice, not two
-ladders, so the precedence rule below has nothing to consolidate here and the one-observation rule
+ladders, so Section 2's precedence rule has nothing to consolidate here and the one-observation rule
 does not delete the figure. Every Core Web Vitals alert therefore ships **the metric name and its
 numeric boundary** — "LCP (field, mobile) > 2.5 s", never "a CWV metric drops to Needs
 Improvement". A status word is not a trigger a monitoring tool can evaluate, and a client cannot
@@ -709,10 +711,13 @@ ground either.
 
 ### Playbook: Core Web Vitals Degradation (P2 at "Needs Improvement" · P1 at "Poor")
 
-**Trigger:** a CWV metric moves out of "Good" — either to **"Needs Improvement"** (Warning band →
-**P2**, the default map) or straight to **"Poor"** (Critical band → **P1**, the default map, and the
-templates' "Core Web Vitals Fail" row). The header used to say P2 for a trigger that spans both
-bands, while the templates priced the Poor end at P1.
+**Trigger:** one named metric leaves "Good" — **LCP above 2.5 s · INP above 200 ms · CLS above
+0.1** — either into **"Needs Improvement"** (Warning band → **P2**, the default map) or straight
+into **"Poor"**: LCP above 4.0 s, INP above 500 ms, CLS above 0.25 (Critical band → **P1**, the
+default map, and the templates' "— Poor" rows). Which metric moved is part of the trigger; "a CWV
+metric degraded" is not an alert anyone can act on, and it is how the INP row goes missing. The
+header used to say P2 for a trigger that spans both bands, while the templates priced the Poor end
+at P1.
 
 One playbook, two entry priorities: the steps below are the same either way, but the clock belongs
 to the priority, never to the band — P2 is within 48 hours, P1 is acknowledged within 4 hours and
@@ -763,3 +768,55 @@ Each of these is reported with its two counts, not as a bare percentage: `false 
 and named — averaging it in as if it resolved at the window edge flatters the number. Report MTTA
 and MTTR per priority, never pooled: one P0 in a month of P3s moves a pooled mean far more than it
 means anything.
+
+---
+
+## 9. Writing the configuration up — counts, quotes, generics and payloads
+
+The thresholds are half the deliverable; the prose around them is where the recorded defects have
+landed. Five rules, each of them from a shipped review that a client could have checked.
+
+### 9.1 Every "N of M" enumerates its members
+
+A count inside the sentence carrying your central risk claim is the first thing a reader checks
+against the table above it, so write it derivably: name the M, name the N, and list the N — "six of
+the eleven rows (2, 3, 5, 8, 10, 11)", not "most of them". The usual error is two populations that
+are not the same set: rows that exist, rows a given service feeds, rows that fired zero times, rows
+already dark for a different reason. **A row already silent because its own feed lapsed is not among
+the rows that "go quiet" when a shared service stops** — it is outside that N, and counting it in
+makes the claim off by one against a table the client can read for themselves. Same rule for a set
+you rebuilt: if the traffic rows become three, list the three.
+
+### 9.2 Nothing is "named" that the source does not name
+
+"Two named competitors" asserts that names exist. If the source records only that a competitor was
+cited, write "two competitors, not named in the sheet" — and never both forms in one deliverable,
+which is how a document contradicts itself between page one and page four. The unknown travels in
+the same phrase as the fact, not in a caveat three sections away.
+
+### 9.3 A quoted definition is quoted once
+
+Where the client's own file defines a term, quote it verbatim and then use those words. Re-glossing
+it a clause later — "i.e. …", "meaning …" — in your own words leaves two definitions of one term in
+one paragraph, and which one binds is now the reader's guess. If the source's definition needs a
+comment, comment on it; do not restate it.
+
+### 9.4 A claim about other sites is labelled or cut
+
+"Most shops run…", "it almost always falls outside…", "what most businesses of this size see" are
+generalisations with no source in the client's data and none in this library. Either label the
+sentence a generic assumption not derived from this site's data, or cut it. **A hedge is not a
+label**: "probably", "typically around" and "usually" carry no provenance. This is Section 3's
+CTR-benchmark rule generalised — this skill holds no industry norms, and a run may not supply them
+from memory.
+
+### 9.5 A handoff payload copies identifiers character-for-character
+
+The receiving run pastes the payload, so a host written `www.example.gr` where the brief says
+`example.gr` sends the next run to a host nobody established — and a deliverable using the bare
+domain in its prose and the `www.` form in its payload has already disagreed with itself. Copy the
+domain, the path and the casing as the source wrote them: add no scheme, no `www.`, no trailing
+slash that was not there. Where the source gives only a path, join it to the domain in the source's
+own form and say the absolute form was not supplied. The carrier's rule is the reason —
+an incomplete row that names its gap is a working handoff, and a complete-looking row with one
+guessed field is a defect that propagates (`references/inter-skill-handoff.md` Section 4.4).

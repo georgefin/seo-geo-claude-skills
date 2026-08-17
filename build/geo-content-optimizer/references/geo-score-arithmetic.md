@@ -169,10 +169,47 @@ signal can only tell you one thing.
 
 **Counting the staleness half, per column.** It is met when **every time-sensitive figure in
 scope is either current — no older than 24 months — or was disposed of with the disposition
-named**, exactly as §3.1 counts a claim. A version that simply has no figures and never had any
-does **not** meet it: that is where the old vacuity hid, and "no figures yet" is the gap the
-optimization closes, not a pass. Where the page genuinely has nothing that can go stale, the
-scope table above has already taken the half out.
+named**, exactly as §3.1 counts a claim.
+
+**A negative check cannot be failed by an empty set** *(corrected 2026-08-17; the rule
+previously read "a version that simply has no figures and never had any does **not** meet it")*.
+The half asks *no time-sensitive figure older than 24 months*. A version carrying no
+time-sensitive figure at all has nothing that could have gone stale, so in that column the half
+is **met** — and the row prints which of the two it is: "1 of 1 — nothing on the inbound page
+could go out of date" reads differently from "1 of 1 — the three figures published are the
+client's own, all inside 24 months", and the client is owed the difference.
+
+**One qualifier, and it is the naming guard, not an exception.** This covers an empty set that
+was always empty — the version never carried a time-sensitive figure. Where a version is empty
+*because figures were removed*, the sentence above it governs instead: each removal is met only
+with its disposition named in the report. Without that qualifier this rule would pay for a quiet
+deletion, which is the one thing §3.1 and §3.2 both refuse. In practice the before column's
+empty set is always the always-empty kind (at step 2 nothing has been done yet), and an empty
+after column was reached by cutting, so the disposition clause is what reads it.
+
+**The cell this closes.** The scope test reads the page **and** the supplied data, so a page
+carrying nothing of its own sits at `asked = 1` whenever the client's data block contains a
+price, a count or a dated total. Under the old wording the before column then scored `met = 0`
+— `1 + 9×(0/1)` = **1** — under a row note saying *the page carries nothing that can go stale*,
+which is this half's own inapplicability condition written out beside a 1. The after column
+scored 10, the factor moved **+9**, and every point of that movement came from a check the
+inbound page could not have failed. `0 of 1` on the staleness half is now **unattainable**:
+either the version being scored carries a time-sensitive figure (and the half is scored on it),
+or it carries none (and the half is met), or neither half is in scope (and the scope table has
+already taken the whole factor to N/A, never to 1).
+
+**Where the "no figures yet" gap is counted instead.** It is Factual density's, in both columns
+— `met` precise data points out of an `asked` of 5, so a page with none scores 1 there and the
+gap is on the report in the place that measures it. Charging it to freshness as well counted one
+gap twice, and the double count landed entirely in the before column, where it enlarges the
+printed lift. That direction is the one §3's N/A rule already names: *scoring an inapplicable
+factor 1 understates the page and inflates the lift.*
+
+**§3.1 checked in the same pass, per the invariant below: no equivalent hole.** Source
+citations' `asked` is the step-2 claim inventory taken from the page alone — it is never widened
+by the supplied data — so a column of that factor cannot be handed a denominator with nothing in
+it to score. Where the page makes no claim needing a source, `asked` is 0 and the factor is N/A.
+The asymmetry is only in the scope test, and only this factor has one.
 
 **Why the disposition clause is there** *(added 2026-08-13; the rule previously read "met when the
 version being scored carries at least one time-sensitive figure and none of them is older than 24
@@ -282,3 +319,36 @@ Run this against the finished deliverable, not the working notes:
 9. The two factors with a definition (§3.1, §3.2): every Source-citations claim counted as met
    by disposition rather than by a source has that disposition named in the report, and the
    Content-freshness row states which of its two halves were in scope.
+10. No staleness half is recorded `0 of n` on a version that carries no time-sensitive figure,
+    and no row note states an inapplicability condition ("nothing here can go stale", "no
+    comparison on this page") beside a score of 1 — that pairing is the defect §3.2 and §3's
+    N/A rule both exist to prevent, and it always moves the lift in the same direction.
+
+## 9. Screens over the finished deliverable — a silent screen is not a clean screen
+
+§8 is arithmetic you can re-add by hand. The rest of a pre-send pass is usually patterns:
+bracket tokens inside paste-ready blocks, `~~` connector tokens, a Greek regression net
+(`anti-slop-ruleset.md` §6), a census of every numeral against the supplied data. Two failures
+of that instrument were observed in the field on 2026-08-13, and both produced the same
+report — *nothing surfaced*.
+
+- **Read the exit status, not only the output.** A screen that aborts prints nothing, and a
+  check that reads only stdout records it as clean. That a Greek character range aborts is
+  established in-repo, at the shell: `[α-ω]` fails with `Invalid collation character` and exit
+  status 2 (`anti-slop-ruleset.md` §6, measured 2026-08-10, warned about there twice). What the
+  field run added is the direction that matters here — the abort was **silent to the harness**,
+  which went on reporting clean. So: use explicit two-character brackets (`[αΑ]`, `μηδ[εέ]ν`),
+  never a Greek range; and **a screen that exits non-zero has not run** — record the status
+  beside the result and treat it as UNSCREENED, never as a pass. No pattern's stated hit rate
+  covers the case where the grep never ran.
+- **A plain substring is defeated by the accent moving under inflection.** The mechanism is
+  measured in §6 for «μηδέν» → «μηδενικά», where the tonos leaves the ε and an accented pattern
+  catches half its family. The same shape was reported on another stem, «ξεκλείδωνε», together
+  with six instances found by eye that the screens had not surfaced — **that instance and that
+  count are one run's own report of its own instrument, not independently reproduced**, so treat
+  them as a reason to hand-check, not as a measured hit rate. Write the pattern against the
+  unaccented stem or bracket the vowel that moves, and hand-check a sample regardless.
+
+**Report a screen the way it behaved** — "screened, nothing surfaced, exit 0" — never "clean".
+A pattern's silence is evidence only once you know the pattern ran, and only about what that
+pattern can reach.

@@ -317,8 +317,10 @@ each of 20 < S < 21, 40 < S < 41, 60 < S < 61 and 80 < S < 81 contains at least 
 positions 50 with freshness 100, the other two signals unscored, gives 4250/70 = 60.714…, which sits
 in no band at all unrounded and reads as **61 — significant decay** once rounded. Halves up sends a
 score to whichever band it is nearer, in both directions: a renormalised 60.294… (the four-signal,
-85% path) reads as 60, active decay. Print the unrounded figure beside the band so the reader can
-rerun the rounding.
+85% path) reads as 60, active decay. Print the division beside the band — `4,625/70 = 66.07 → 66.1`
+— so the reader can rerun both steps. The band is read off that printed one-decimal figure and off
+nothing else: one number, computed once and printed once, is what the band and everything downstream
+consume.
 
 | Composite Score (rounded) | Decay Stage | Urgency |
 |----------------|-------------|---------|
@@ -351,7 +353,10 @@ does not reconcile with the rows above it is a defect, not a rounding.
 ### Which playbook a content type uses
 
 Refresh difficulty is scored off the playbook matching the page's Type cell, so a type with no
-playbook cannot be scored at all. Route it here first, and name the routing in the report:
+playbook cannot be scored at all. Route it here first, and name the routing in the report. **This
+routing is for hours only** — the *cadence* for the same types is routed separately in *Update
+Strategy by Content Type*, and the two need not land on the same row: a buying guide takes blog-post
+hours and a tool-comparison cadence, which is not a conflict but two different questions.
 
 | Content type on the inventory | Playbook |
 |---|---|
@@ -508,7 +513,7 @@ read off an input you hold, and the figure it came from is printed beside it.
 | Current traffic value | 25% | Min-max across this batch on the traffic figure you hold — `1 + 9 × (x − lowest) ÷ (highest − lowest)`, to the nearest whole number; see *Ranking a factor across the batch* below | the traffic column of the inventory you were given |
 | Decay severity | 20% | Composite decay score ÷ 10, rounded to the nearest whole number (66.1 → 7) | a composite score that was actually issued (§Decay Severity Scoring) |
 | Competitive opportunity | 20% | Read against the competitor pages actually compared, named with the date they were read: 10 = they are thinner or older than yours · 5 = comparable · 1 = materially stronger. This factor scores **content strength, not rank** — so unlike displacement it is scoreable from coverage notes, and it claims no ranking relationship they do not carry | the dated SERP check the displacement signal needs, **or** the user's own dated competitor notes — either one supplies pages to compare |
-| Refresh difficulty | 15% | On the matching playbook's hours: 10 = under 2 · 7 = 2 to under 3 · 5 = 3 to under 4 · 3 = 4 or more · 1 = the decision framework says rewrite rather than refresh. Score the hours you actually plan — the playbook total, or the subset of its rows this page needs — and print which | the page's content type, routed to a playbook by *Which playbook a content type uses* above |
+| Refresh difficulty | 15% | On the matching playbook's hours: 10 = under 2 · 7 = 2 to under 3 · 5 = 3 to under 4 · 3 = 4 or more · 1 = the decision framework says rewrite rather than refresh. Score the hours you actually plan — the playbook total, or the subset of its rows this page needs — and print which; a range is scored at its midpoint with the range printed (blog post 3.5-4.5 h → 4.0 → rung 3) | the page's content type, routed to a playbook by *Which playbook a content type uses* above |
 | Strategic importance | 10% | 10 = the owner names this page a priority for a current goal · 5 = their stated priorities exist and do not name it · 1 = they state it is off-strategy (topic dropped, superseded, being retired); see *An empty cell is not a rung* below | the owner's own statement of priorities — a brief, a goal, or a note on the row; not inferable from traffic |
 | Backlink equity | 10% | Min-max across this batch on referring domains, the same formula and rounding as traffic value | a supplied backlink figure |
 
@@ -542,11 +547,12 @@ of an input you hold, never a stand-in for one you do not.
 
 **Worked derivation** (illustrative figures): *"Priority 7.4/10 — traffic 8 (1,900 sessions/mo;
 batch low 260, high 2,400, so 1 + 9 × 1,640/2,140 = 7.9 → 8) at weight 25, decay severity 7
-(composite 66.1) at weight 20, refresh difficulty 5 (blog-post playbook, the ~3.5 h of its rows this
-page needs) at weight 15, strategic importance 10 (the owner named it the lead page for this
-quarter's goal) at weight 10. Competitive opportunity and backlink equity are unscored — no SERP
-check and no backlink data were supplied — so the four remaining weights were renormalised over
-their own 70% sum: (200 + 140 + 75 + 100) / 70 = 515/70 = 7.36 → 7.4."*
+(composite 66.1) at weight 20, refresh difficulty 5 (blog-post playbook — the ~3.5 h subset of rows
+this page needs, not its 3.5-4.5 h full total) at weight 15, strategic importance 10 (the owner
+named it the lead page for this quarter's goal) at weight 10. Competitive opportunity and backlink
+equity are unscored — no SERP check and no backlink data were supplied — so the four remaining
+weights were renormalised over their own 70% sum: (200 + 140 + 75 + 100) / 70 = 515/70 = 7.36 →
+7.4."*
 
 ---
 
@@ -643,6 +649,11 @@ CREATE → PROMOTE → MAINTAIN → REFRESH → [REFRESH again] or RETIRE
 
 ## Update Strategy by Content Type
 
+**This table fills the Cadence check cell of the Content Audit Results table** ([SKILL.md](../SKILL.md)
+Step 2). Every audited page's type is looked up here, its refresh frequency printed beside the gap
+since its last update, and a page past that frequency scheduled on it — the frequency quoted — even
+where the traffic trend is unremarkable. A cadence nobody quotes is a cadence nobody applied.
+
 | Content Type | Refresh Frequency | Key Updates | Shelf Life |
 |-------------|-------------------|------------|-----------|
 | Statistics roundups | Every 6 months | Replace old stats, add new sources | 6-12 months |
@@ -652,4 +663,10 @@ CREATE → PROMOTE → MAINTAIN → REFRESH → [REFRESH again] or RETIRE
 | News/trend content | Don't refresh | Archive or redirect | 1-3 months |
 | Case studies | Rarely | Update results if available | 2-3 years |
 | Glossary/definitions | As needed | Update when definitions evolve | 2-5 years |
+
+**A type not listed takes the row it most resembles, and the report says which row and why**: a
+buying guide or product roundup reads on *Tool comparisons* (prices and models move under it), a
+listicle on *Evergreen guides* unless its items are themselves dated. Where nothing fits, say so and
+schedule on the page's own evidence rather than inventing a frequency — a borrowed cadence is
+reported as borrowed, never as this type's own.
 

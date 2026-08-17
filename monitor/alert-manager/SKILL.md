@@ -1,13 +1,13 @@
 ---
 name: alert-manager
-version: "4.3.2"
+version: "4.3.3"
 description: 'Set up automated monitoring and notifications for SEO ranking drops, traffic changes, technical issues, and competitor movements. Use when the user asks to "set up SEO alerts", "notify me when rankings drop", "traffic alerts", "watch competitor changes", "alert me if rankings drop", "notify me of traffic changes", "monitor rankings", or "watch my keywords for changes". For detailed rank analysis, see rank-tracker. For comprehensive reporting, see performance-reporter.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.2"
+  version: "4.3.3"
   geo-relevance: "low"
   tags:
     - seo
@@ -41,7 +41,6 @@ metadata:
 ---
 
 # Alert Manager
-
 
 Sets up proactive monitoring alerts for critical SEO and GEO metrics. Triggers notifications when rankings drop, traffic changes significantly, technical issues occur, or competitors make moves.
 
@@ -233,6 +232,18 @@ When a user requests alert setup:
 - [ ] Any threshold derived from a baseline shows the arithmetic: the mean, the standard deviation, the multiple used, and the resulting value (e.g. `8,800 = 10,000 − 1.5 × 800`)
 - [ ] The alert-count table adds up both ways and its bottom-right cell equals the stated Total Active Alerts
 - [ ] Any alert-effectiveness figure (false-positive rate, MTTA, MTTR) prints its two counts and its window, reported per priority rather than pooled
+- [ ] A threshold fixed here or by a settled ruling — 4xx/5xx counts per day, SSL days to expiry,
+  index coverage -5%/-15%, the tier drops, brand top-3, LCP 2.5s · INP 200ms · CLS 0.1 — is stated
+  plainly with no tool connected and no data in hand; only a number describing *this* site (mean,
+  standard deviation, normal range, expected position) is derived or absent, and a generic default
+  is labelled as one. Withholding a settled figure is the same defect as inventing a baseline
+- [ ] Every "N of M" lists its N and names both populations; nothing is called "named" that the
+  source does not name; a quoted definition is quoted once, not re-glossed; a claim about what
+  other sites do is labelled a generic assumption or cut; a handoff payload copies each identifier
+  — domain, `www.` or not, scheme, path — exactly as the source wrote it (threshold guide Sec. 9)
+- [ ] A row that never fired is diagnosed before it is tuned — dead metric (replace it), dead feed
+  (rewire it), dead report (retire the alert), quiet guard (keep it) — and retiring an alert never
+  becomes advice to remove the markup or page element it watched (threshold guide Section 6)
 - [ ] Source of each alert trigger stated in the configuration's own words — the resolved tool name (an Ahrefs API alert, a Search Console notification, a Screaming Frog alert) or "manual user check"; where no tool is connected, the configuration says exactly that and the alert is not written up as automated. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 
 ## Example
@@ -305,7 +316,9 @@ variance is tighter than -15% WoW should be alerting sooner than this table says
 | Pages indexed (index coverage) | -5% change | -15% change | Weekly |
 | Crawl errors | >10 new/day | >50 new/day | Daily |
 | Server 5xx errors | >1/day | >5/day (Emergency >20/day) | Daily |
-| Core Web Vitals | "Needs Improvement" | "Poor" | Weekly |
+| LCP (field, mobile) | >2.5s — "Needs Improvement" | >4.0s — "Poor" | Weekly |
+| INP (field, mobile) | >200ms — "Needs Improvement" | >500ms — "Poor" | Weekly |
+| CLS (field, mobile) | >0.1 — "Needs Improvement" | >0.25 — "Poor" | Weekly |
 | Backlinks lost | >5% in 1 week | >15% in 1 week | Weekly |
 | AI citation rate | Down 10+ pp vs. baseline | Below 10% absolute floor | Weekly |
 | AI citation loss (priority-1) | 1 priority-1 query loses its citation, i.e. is dropped from the answer entirely | 3+ priority-1 queries lose citations | Weekly |
@@ -318,11 +331,19 @@ Emergency). The full tier table, the Emergency column, and the ladders for every
 here are in the threshold guide, which holds **one ladder per metric** — this table quotes that
 ladder and never sets a different value, a different unit, or a different comparison period.
 
+**Core Web Vitals enter a configuration as three metrics with three numbers, never as one
+status-banded row.** "Needs Improvement" *is* the number — LCP above 2.5 s — so word and figure are
+one rung written twice, not two rows on one event, and both stay. **LCP ≤2.5s · INP ≤200ms · CLS
+≤0.1** is settled (`docs/loop/SETTLED-RULINGS.md` R4, which also records the input-delay metric INP
+replaced as retired in March 2024): fixed definitions owing no baseline, no connected feed and no
+confirmation before they are written down. Ruling handles stay in operator notes; the client gets
+the number.
+
 **AI citation event alerts** (same weekly window): a citation **won** on a tracked query is logged as a positive, informational alert (Info band, P3); an **AI Overview appearing or disappearing** on a tracked query is a Warning-band event at **P2** — either direction reshapes the click landscape for that query.
 
 **Priority-1 queries** are the client-critical keywords captured during alert setup (the critical-keywords intake, Data Sources item 2): money terms, brand terms, and top-converting queries. This is the same set the threshold guide calls "Tier 1" — maintain one list, not two.
 
-**Response path**: when any citation-loss alert fires (rate, priority-1, or position), hand the affected query and its source page to [content-refresher](../../optimize/content-refresher/) and run its AI Overview recovery playbook. All AI-citation thresholds above are tunable operational defaults, not measured constants — calibrate them against the site's own baseline per the threshold guide.
+**Response path**: when any citation-loss alert fires (rate, priority-1, or position), hand the affected query and its source page to [content-refresher](../../optimize/content-refresher/) and run its AI Overview recovery playbook. Copy the query string and the URL into that payload exactly as the client's own file wrote them — the receiving run pastes the payload, so an added `www.`, scheme or trailing slash sends it to a host nobody established (threshold guide Sec. 9.5). All AI-citation thresholds above are tunable operational defaults, not measured constants — calibrate them against the site's own baseline per the threshold guide.
 
 ### Three defaults, so two runs on the same data land on the same numbers
 
@@ -354,7 +375,7 @@ used. Full working in the threshold guide, §1 "Three method choices".
 
 ## Reference Materials
 
-- [Alert Threshold Guide](./references/alert-threshold-guide.md) — Recommended thresholds by metric, fatigue prevention strategies, and escalation path templates
+- [Alert Threshold Guide](./references/alert-threshold-guide.md) — Recommended thresholds by metric (fixed absolutes vs. baseline-derived), fatigue prevention, escalation paths, the never-fired-row triage (Sec. 6), and the write-up rules for counts, quotes, generics and payloads (Sec. 9)
 - [Alert Configuration Templates](./references/alert-configuration-templates.md) — Ready-to-use alert definitions per monitoring category, incl. the GEO/AI citation set
 
 ## Related Skills

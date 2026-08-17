@@ -229,6 +229,32 @@ governs the deliverable — it is their more recent statement of what they know.
 conflict in the report with both versions and ask which is current. Do not pick silently, and
 do not average them.
 
+## A Supplied Datum Keeps the Scope It Arrived With
+
+The data block is a set of facts, and each one arrives with a scope attached: one service, one
+branch, one product line, one sample. Publish each at that scope and no wider. Three ways the
+widening happens — none of them fabrication in the ordinary sense, which is exactly what makes
+them hard to catch, because every number involved is real:
+
+1. **Down a column.** A 48-hour turnaround supplied for frame repairs is printed in the
+   turnaround cell of all three rows of a services table — frames, wheels, annual service. The
+   table now makes three commitments; the client made one.
+2. **Out to the whole page.** The same datum is restated as a page-wide promise — "we turn any
+   job around in 48 hours" — inside the block the client is told is ready to publish.
+3. **Up from a figure to a method.** "Average repair cost for a steel-frame bicycle" describes
+   one figure. "The study covers steel frames only" describes the study's *inclusion criteria*,
+   which the client never stated. Asserting the second in the indicative while the report's own
+   data-request list asks what the criteria were puts a contradiction inside one deliverable —
+   the published copy answering a question the report is still asking.
+
+**The remedy is not a footnote.** Publish the narrower reading, or publish the qualification
+the client actually gave — "for frame repairs, as supplied", «όπως μας δόθηκε, για …» — and
+where neither is available, ask before publishing rather than after. Naming the inference in the
+report is necessary and not sufficient: **the report is not what gets pasted onto the page**,
+and the sentence that ships is a claim about the client's own business, made in their voice.
+A scope claim the client cannot recognise as their own is the one an AI engine will quote back
+at them.
+
 ## FAQ Optimization for GEO
 
 FAQ sections are highly effective for GEO because:
@@ -249,6 +275,16 @@ accurate type, the FAQ ships as visible content and the report says why no secon
 added — do not quietly drop the FAQ instead, and do not quietly add the type. CORE-EEAT C09
 passes on the visible Q&A block and does not require markup, so a page that legitimately gets
 no FAQPage object is not marked down for it.
+
+**Two different pages, two different sentences.** A page that already carries an accurate type
+and a page whose accurate type is still missing both refuse FAQPage, for the same reason — the
+page's one primary type is something else — but only one of those sentences is true of any
+given page, and the check row reports the page's state, not the rule's phrasing. Write "a page
+that already carries an accurate type" only where the step-1 input question ("structured data
+already on the page, and which type") came back with a type; where it came back *none*, the row
+says none, and the reason FAQPage stays off is that the type this page needs is a different one.
+A row asserting a type the page does not have is a false statement about the client's page in
+the one row whose job is to describe it.
 
 **Where this skill's emission stops.** It may emit JSON-LD for the page's one primary type,
 once that type is settled and named in the report — the FAQPage skeleton below is that case,
@@ -338,6 +374,6 @@ Use this checklist for any content:
 
 **Technical**
 - [ ] Structured data: ONE accurate primary type for the page; documented auxiliaries only where the page data warrants them (ruling R2)
-- [ ] FAQPage markup added only where FAQPage is the page's one primary type — never bolted onto a page that already carries an accurate type
+- [ ] FAQPage markup added only where FAQPage is the page's one primary type — never bolted onto a page that already carries an accurate type, and never onto one whose accurate type is still missing; the report says which of the two this page is
 - [ ] Content freshness indicated
 - [ ] Sources are verifiable

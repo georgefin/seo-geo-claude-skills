@@ -217,15 +217,43 @@ trigger for this one. Choose between the two closures above; do not add a parall
 
 | Alert Name | Condition | Band | Priority |
 |------------|-----------|------|----------|
-| Core Web Vitals Warn | A CWV metric drops to "Needs Improvement" | Warning | P2 |
-| Core Web Vitals Fail | A CWV metric drops to "Poor" | Critical | P1 |
+| LCP — Needs Improvement | Field LCP (mobile) above **2.5 s** | Warning | P2 |
+| LCP — Poor | Field LCP (mobile) above **4.0 s** | Critical | P1 |
+| INP — Needs Improvement | Field INP (mobile) above **200 ms** | Warning | P2 |
+| INP — Poor | Field INP (mobile) above **500 ms** | Critical | P1 |
+| CLS — Needs Improvement | Field CLS (mobile) above **0.1** | Warning | P2 |
+| CLS — Poor | Field CLS (mobile) above **0.25** | Critical | P1 |
 | Page Speed Drop | Load time increases 50%+ | none — boundary alert (relative change; the guide's ladder is absolute response time: >500ms / >1000ms / >2000ms) | P2 |
 | Mobile Issues | Mobile usability errors | none — boundary alert | P1 |
 
-The two CWV rows are one playbook with two entry priorities — the guide's *Core Web Vitals
-Degradation* playbook, whose trigger spans both bands. The header there used to read P2 for the
-whole span while this table priced the Poor end at P1; both bands are now named on both surfaces,
-and the response clock follows the priority, not the band.
+**Core Web Vitals is three metrics, so it is three ladders — and the status word is the number.**
+"Needs Improvement" on LCP *means* field LCP above 2.5 s, so writing the figure states the same
+rung in the notation a monitoring tool can evaluate — not a second ladder for the precedence rule
+to consolidate away. The Good boundaries — **LCP ≤ 2.5 s · INP ≤ 200 ms · CLS ≤ 0.1** — are settled ruling
+**R4** (`docs/loop/SETTLED-RULINGS.md`): fixed definitions that need no baseline, no connected feed
+and no confirmation before they go into a configuration. The Poor column is the threshold guide's
+own second tier, not part of R4. Cite the ruling handle in operator notes only; the client gets the
+number.
+
+**These rows were two until 2026-08-17, and that is what this fix is about.** They read "Core Web
+Vitals Warn — a CWV metric drops to *Needs Improvement*" and "Core Web Vitals Fail — … *Poor*": a
+complete, self-contained, status-keyed pair, which made a status-only rebuild the faithful reading
+of this file. A run repairing an inherited config copied the pair, and "a CWV metric" names no
+metric — so **the INP row disappeared entirely**, along with every boundary number, and the run
+then offered to confirm the boundaries "when you reconnect the feed", about values no feed
+supplies. Metric-named rows are what stop that: there is no INP alert to forget when INP has its
+own row.
+
+The six rows are still **one playbook with two entry priorities** — the guide's *Core Web Vitals
+Degradation* playbook, whose trigger spans both bands. Its header once read P2 for the whole span
+while this table priced the Poor end at P1; both bands are now named on both surfaces, and the
+response clock follows the priority, not the band.
+
+**An inherited config carrying a row on the input-delay metric retired in March 2024** is repaired
+by replacing that row with the INP rows above — not by retuning its threshold and not by waiting
+for data. Quote the client's row verbatim when you name it. And where these rows fire zero times
+because the subscription feeding field data lapsed, that is a dead *feed*: rewire the source, do
+not edit the numbers (threshold guide, "A row that never fires").
 
 ### Security Alerts
 

@@ -351,9 +351,27 @@ echo ""
 echo "[f] deprecated-token sweep (F9 guard)"
 F_OK=1
 DEPRECATED_TOKENS='\bFID\b|First Input Delay|Affiliate links disclosed'
+#
+# 2026-08-13 — DEPRECATED_LEGAL, and it is the same lesson this file already records
+# three times for R3_LEGAL. The sweep bans the token outright, which is right for a
+# skill that still *teaches* the metric and wrong for the one sentence that retires it.
+# **Three separate workers hit this in a single day** — the coordinator twice (once
+# working around it by refusing to name the metric at all, which made the guidance
+# vaguer than the truth) and an implementer once, while writing the correction a graded
+# run had failed to make. That correction is the highest-value sentence in the skill:
+# a run must be able to tell a client "this metric was retired in March 2024 and INP
+# replaced it" instead of sending them to look it up (ledger F19, twice recorded).
+# A guard that forbids the retirement notice **produces** the abstention it was never
+# meant to touch.
+#
+# So: a line may name the token when the SAME line also retires it. Every marker below
+# is a statement this library can source from settled ruling R4 — vetted per the B2 rule
+# that an allowlist marker is an assertion the guard now endorses. What still fails is
+# the token standing alone, or beside a live threshold, which is the case that matters.
+DEPRECATED_LEGAL='retired|replaced by inp|superseded|no longer|deprecat|is dead|dropped|not named here|do not teach|teaching'
 F_HITS=$(grep -rnE "$DEPRECATED_TOKENS" \
     research build optimize monitor cross-cutting commands references \
-    --include='*.md' 2>/dev/null | grep -v 'evals/' || true)
+    --include='*.md' 2>/dev/null | grep -v 'evals/' | grep -viE "$DEPRECATED_LEGAL" || true)
 if [ -n "$F_HITS" ]; then
     while IFS= read -r hit; do
         fail "(f) deprecated token still taught: $hit"
