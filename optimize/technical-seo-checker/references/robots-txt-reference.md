@@ -201,10 +201,28 @@ vendor's search/citation and user-triggered agents.
 | **Default-closed** | Licensed/paid/private content, or a deliberate text-and-data-mining reservation | All AI agents (training AND search/citation AND user-triggered) disallowed; the site accepts losing AI citations |
 | **Split (search yes, training no)** | Search indexing and AI citations wanted; model-training use refused | Training agents disallowed; search/citation and user-triggered agents explicitly allowed |
 
+> **Read this before editing any multi-group file below — a crawler obeys ONE group, and
+> groups are NOT merged.** Per RFC 9309, a crawler selects the single most specific group whose
+> user-agent matches it and follows only that group. It never falls back to `User-agent: *` for
+> rules it did not find there. **Consequence: every directory you want kept out of a named
+> agent's reach must be repeated inside that agent's own group.** Utility blocks placed only in
+> the `*` group protect the site from unnamed crawlers and from nobody else.
+>
+> This is not a style note. It is why the split-stance example below repeats
+> `Disallow: /admin/` and `Disallow: /private/` in four groups instead of writing them once —
+> and the repetition must not be "tidied" away. **The earlier form of this example put them in
+> the `*` group alone, which left Googlebot, Bingbot and six named AI agents free to crawl both
+> paths while appearing to block them.** Found 2026-08-17 by a blind executor that declined to
+> paste a block it could not verify.
+
 **Split-stance example** (search + citations kept, training refused):
 
 ```
+# ILLUSTRATIVE FILL — every value below is invented. Replace example.com and the
+# directory list with the site's own before this file is deployed.
+
 # --- AI model training: refused ---
+# Disallow: / covers everything, so the utility paths need no repeat here.
 User-agent: GPTBot
 User-agent: ClaudeBot
 User-agent: anthropic-ai
@@ -212,22 +230,25 @@ User-agent: CCBot
 User-agent: Google-Extended
 Disallow: /
 
-# --- AI search / citation discovery: allowed ---
+# --- AI search / citation discovery: allowed, minus the utility paths ---
 User-agent: OAI-SearchBot
 User-agent: Claude-SearchBot
 User-agent: PerplexityBot
-Disallow:
+Disallow: /admin/
+Disallow: /private/
 
-# --- User-triggered fetchers: allowed ---
+# --- User-triggered fetchers: allowed, minus the utility paths ---
 User-agent: ChatGPT-User
 User-agent: Claude-User
 User-agent: Perplexity-User
-Disallow:
+Disallow: /admin/
+Disallow: /private/
 
-# --- Search engines: allowed ---
+# --- Search engines: allowed, minus the utility paths ---
 User-agent: Googlebot
 User-agent: Bingbot
-Disallow:
+Disallow: /admin/
+Disallow: /private/
 
 # --- Everyone else ---
 User-agent: *
@@ -236,6 +257,12 @@ Disallow: /private/
 
 Sitemap: https://example.com/sitemap.xml
 ```
+
+**Verify after deploying any multi-group file**, per group rather than per file — a whole-file
+test answers the wrong question. In Search Console's robots.txt report, test `/admin/` as
+Googlebot specifically; for the rest, confirm by reading that each named group carries the
+utility lines. A file that tests clean as `*` and was never tested as a named agent has not
+been tested.
 
 **Ops checks (run for ANY stance)**:
 
@@ -603,10 +630,13 @@ User-agent: BadBot
 Crawl-delay: 60
 Disallow: /
 
-# Good bots - full access
+# Good bots - full access except the utility paths.
+# /admin/ is repeated here on purpose: this group is the only one Googlebot and
+# Bingbot read, so omitting it leaves both free to crawl /admin/. See the
+# one-group rule above.
 User-agent: Googlebot
 User-agent: Bingbot
-Disallow:
+Disallow: /admin/
 
 # Default for others
 User-agent: *

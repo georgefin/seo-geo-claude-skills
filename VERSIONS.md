@@ -17,7 +17,7 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 | meta-tags-optimizer | build | 4.2.2 | 2026-08-17 |
 | schema-markup-generator | build | 4.2.10 | 2026-08-17 |
 | on-page-seo-auditor | optimize | 4.4.0 | 2026-08-17 |
-| technical-seo-checker | optimize | 4.5.0 | 2026-08-17 |
+| technical-seo-checker | optimize | 4.5.1 | 2026-08-17 |
 | internal-linking-optimizer | optimize | 4.5.0 | 2026-08-17 |
 | content-refresher | optimize | 4.3.7 | 2026-08-17 |
 | rank-tracker | monitor | 4.3.0 | 2026-08-17 |
