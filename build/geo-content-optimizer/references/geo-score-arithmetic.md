@@ -63,14 +63,35 @@ the content and the brief — and reused unchanged at step 4, so the two columns
 
 | Factor | met | asked |
 |--------|-----|-------|
-| Clear definitions | key terms carrying a standalone 25–50-word definition that starts with the term | key terms the content actually uses |
-| Quotable statements | statements a reader could lift unchanged — specific, self-contained, no "as mentioned above" | main sections (one per section is the target) |
+| Clear definitions | key terms carrying a standalone 25–50-word definition that starts with the term | key terms the **planned** page uses — see the note below; not the inbound page's vocabulary |
+| Quotable statements | statements a reader could lift unchanged — specific, self-contained, no "as mentioned above" | main sections of the **planned** page (one per section is the target) — see the note below |
 | Factual density | precise data points with units | 5 — the Output Validation floor; a page with more than 5 caps the ratio at 1 |
 | Source citations | claims **resolved**: carrying a named, dated, checkable source — or removed, converted to first-party, or hedged, with the disposition named in the report (§3.1) | claims that need one (your own claim inventory) |
 | Q&A format | target queries answered by a matching heading plus a direct standalone answer | target queries from step 1, capped at 5 |
 | Authority signals | authority elements actually present: byline with credentials · sourced expert quote · first-party data · named methodology | the ones this client can genuinely supply — not all four by default |
 | Content freshness | visible publish/update date within 12 months · no **time-sensitive** figure older than 24 months (§3.2) | 2 — or 1 where the staleness half does not apply, or N/A where neither half does (§3.2) |
 | Structure clarity | headings matching query phrasing · 3–5-sentence chunks · a table wherever a comparison exists · a numbered list for any process · a summary box | 5, minus any element the page has no occasion for (see N/A below) |
+
+**Two factors take `asked` from the plan, not from the inbound page — and the file did not say
+so until 2026-08-17.** *Clear definitions* and *Quotable statements* are the only rows whose
+`asked` derives from the content itself, and they are exactly the two rows an optimization run
+changes. Read the old wording literally — "key terms the content actually uses", "main sections"
+— and the denominator is fixed by the page you are about to rewrite, so the after column can
+never exceed the inbound page's vocabulary and the two factors the skill exists to move are the
+two it cannot score. A blind run hit this and had to state an assumption the file never
+sanctioned.
+
+**Rule**: for these two, set `asked` from the **planned** structure at step 2 — the terms the
+optimized page will define, the sections it will have — and reuse it unchanged in both columns,
+exactly as §8 item 5 requires. The before column then reads honestly as *"1 of the 5 definitions
+this page needs"* and the after column as *"5 of 5"*. Every other factor keeps its existing
+source; nothing else moves.
+
+**The gaming risk, named rather than patterned away**: an optimiser who plans fewer sections gets
+an easier ratio. That is why **the plan is printed with the score** — `met` and `asked` are
+already required to appear beside every factor, and a denominator a reader can see is a
+denominator a reader can argue with. A shrinking `asked` between two runs of the same page is a
+finding, not a score.
 
 **A factor with nothing to count is N/A, not a 1.** If `asked` would be 0 — the page makes no
 comparison, so no table is owed; the client has no first-party data and no expert to quote —
@@ -163,6 +184,26 @@ the fact. Only time-sensitive figures are checked for staleness.
 | a visible date, **no** time-sensitive figure anywhere | 1 | the date alone — the staleness half is N/A and the row says so |
 | ≥1 time-sensitive figure, **no** date available (or confirmed unavailable per the skill's Input Validation) | 1 | the staleness half alone — the date half is N/A and the row says so |
 | neither | N/A | nothing — excluded from sum and divisor, never scored 1 |
+
+**What counts as a time-sensitive figure — added 2026-08-17, because a blind run found the table
+undecidable on the commonest e-commerce page there is.** A product-listing or category page shows
+a grid of N items and states no statistic. Is N a "time-sensitive figure"? Row 3 and row 4 give
+different `asked` and different scores, both defensible, and §8 rule 10 passes either way — so
+two honest runs of the same page disagree and nothing in the file settles it.
+
+**Ruled: a time-sensitive figure is one the page *states as a claim*, not one a reader could
+count off the layout.** A grid of 12 products is a rendering of inventory, not an assertion that
+there are twelve; it changes without anyone editing the page, which is the opposite of the
+staleness the factor measures. So a listing page carrying no stated statistic takes **row 2 or
+row 4** — never row 3 on the strength of its item count. A sentence that *says* «12 μοντέλα
+διαθέσιμα» is a stated claim and does put the page in scope.
+
+**And the confirmation branch, which no run in this environment can satisfy.** Rows 3 and 4 lean
+on a date being "confirmed unavailable per Input Validation", and a blind run — or any run with
+no client contact — can confirm nothing. Treat *not supplied and not askable* as **not
+available**, take the row that follows, and **name the unconfirmed input in the report** rather
+than silently scoring as though it were confirmed. An assumption a reader can see beats a
+confirmation nobody made.
 
 At `asked = 1` the factor is pass/fail: 1 or 10, nothing between (§2). That is honest — one
 signal can only tell you one thing.
