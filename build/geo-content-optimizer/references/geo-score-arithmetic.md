@@ -340,15 +340,42 @@ bracket tokens inside paste-ready blocks, `~~` connector tokens, a Greek regress
 of that instrument were observed in the field on 2026-08-13, and both produced the same
 report — *nothing surfaced*.
 
-- **Read the exit status, not only the output.** A screen that aborts prints nothing, and a
-  check that reads only stdout records it as clean. That a Greek character range aborts is
-  established in-repo, at the shell: `[α-ω]` fails with `Invalid collation character` and exit
-  status 2 (`anti-slop-ruleset.md` §6, measured 2026-08-10, warned about there twice). What the
-  field run added is the direction that matters here — the abort was **silent to the harness**,
-  which went on reporting clean. So: use explicit two-character brackets (`[αΑ]`, `μηδ[εέ]ν`),
-  never a Greek range; and **a screen that exits non-zero has not run** — record the status
-  beside the result and treat it as UNSCREENED, never as a pass. No pattern's stated hit rate
-  covers the case where the grep never ran.
+- **Read the exit status, not only the output — and do not stop there.** A screen that aborts
+  prints nothing, and a check that reads only stdout records it as clean. `[α-ω]` fails with
+  `Invalid collation character` and exit status 2, and the field run added that the abort is
+  **silent to the harness**, which goes on reporting clean. **A screen that exits non-zero has
+  not run** — record the status beside the result and treat it as UNSCREENED, never as a pass.
+
+  **Corrected 2026-08-17, and the correction is the more dangerous half.** This paragraph
+  asserted the abort as unconditional. It is **locale-dependent**, and the default locale here
+  is the one where it does *not* fire. Measured at the shell, this environment, `LANG` empty and
+  `LC_CTYPE=POSIX`:
+
+  | locale | `grep -c "[α-ω]"` on 3 Greek lines | exit |
+  |---|---|---|
+  | default / `POSIX` | **3** — matched by byte | **0** |
+  | `C.UTF-8` | `Invalid collation character` | 2 |
+
+  So the failure this paragraph tells you to watch for is the *loud* one. **The quiet one is
+  worse: a screen that exits 0 having silently matched the wrong thing**, and no exit-status
+  discipline catches it. State both halves or the rule teaches half a lesson.
+
+  **The prescribed fix has the same defect.** Explicit two-character brackets are still the right
+  shape, but they are not locale-safe either: on «ιδανικά / ιδανικό / ιδανικη», `ιδανικ[ηήοό]`
+  matched **3** under POSIX — a false positive on «ιδανικά», which shares a UTF-8 lead byte —
+  against **2** under `C.UTF-8` and under `rg`. Found by a blind run whose own Greek screen
+  produced that false positive and was caught only by hand.
+
+  **Same family, and it silently corrupts a threshold.** `wc -w` is not word-aware outside a
+  UTF-8 locale: on a one-sentence Greek line, default `wc -w` returned **1** and `LC_ALL=C.UTF-8
+  wc -w` returned **11**. On a full deliverable the blind run measured **204** against **1116**.
+  Any density or length threshold read off a POSIX `wc` is wrong by roughly an order of
+  magnitude, in the direction that makes short copy look compliant.
+
+  **The rule, restated so it survives the locale:** set `LC_ALL=C.UTF-8` explicitly for every
+  Greek screen, or use `rg`, which was correct in both locales on every case above. Record the
+  locale beside the result the same way you record the exit status — **an unrecorded locale makes
+  a Greek count unreproducible**, and this file's own §9 spent a week asserting the wrong default.
 - **A plain substring is defeated by the accent moving under inflection.** The mechanism is
   measured in §6 for «μηδέν» → «μηδενικά», where the tonos leaves the ε and an accented pattern
   catches half its family. The same shape was reported on another stem, «ξεκλείδωνε», together
