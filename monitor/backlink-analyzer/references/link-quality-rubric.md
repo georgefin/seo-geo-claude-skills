@@ -221,7 +221,16 @@ Build a prioritized list with contact information, outreach angle, and template 
 
 ### When to Disavow
 
-Only disavow links when you have clear evidence of risk. Unnecessary disavow can hurt your rankings. That warning is not background for the analyst — it ships inside the recommendation itself, in the client's copy, every time a disavow is proposed.
+Only disavow links when you have clear evidence of risk. Unnecessary disavow can hurt your rankings.
+
+That warning is not background for the analyst, and it has **two carriage points which are satisfied separately** — one never stands in for the other:
+
+1. **In the recommendation prose**, in the client's copy, every time a disavow is proposed.
+2. **Inside the disavow file**, as comment lines in the file itself, every time a file is produced — including a draft handed over to be uploaded later.
+
+The second is the one that gets dropped, and it is the one that matters more. A report is read once, by whoever commissioned it. The file outlives the report, gets forwarded, and is often uploaded by somebody who never read it. A warning that lives only in the report is missing at the moment of the irreversible action.
+
+The comment block at the top of the §4 template below is therefore **part of the deliverable, not an annotation on the example**. It travels with every file this skill produces.
 
 | Situation | Disavow? | Reasoning |
 |-----------|----------|-----------|
@@ -238,8 +247,22 @@ Only disavow links when you have clear evidence of risk. Unnecessary disavow can
 The disavow file is a plain text file (.txt) uploaded to Google Search Console.
 
 ```
+# ILLUSTRATIVE FILL — every domain and date below is invented. Replace all of them.
+#
+# WARNING — READ BEFORE UPLOADING. An unnecessary disavow can hurt your rankings.
+# Google applies this file as submitted; it does not check whether the entries were
+# warranted, and reversing a disavow is slow and uncertain. A good link wrongly listed
+# here costs more than a bad link left in the profile another month.
+#
+# This file is NOT ready to upload unless all four are true:
+#   1. every domain below was reviewed by hand, not selected by score alone
+#   2. removal was requested by email first
+#   3. two weeks were allowed for replies
+#   4. someone accountable has approved this exact file
+# If any one of the four is false, this is a draft. Do not upload it.
+
 # Disavow file for example.com
-# Generated: [date]
+# Generated: 2026-03-14
 # Reason: Toxic link cleanup
 
 # Individual URLs to disavow
@@ -256,6 +279,7 @@ domain:spam-directory.net
 
 | Practice | Why |
 |----------|-----|
+| Keep the warning block at the top of the file | Whoever uploads it may never have read the report it came with |
 | Comment every entry or group | Future auditors need to understand why |
 | Use `domain:` for sites with multiple bad links | More thorough than individual URLs |
 | Use individual URLs when only one page is toxic | Avoid disavowing good links from the same domain |

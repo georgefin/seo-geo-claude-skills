@@ -3,7 +3,7 @@
 [![ClawHub](https://img.shields.io/badge/ClawHub-20_skills-purple)](https://clawhub.ai/u/aaron-he-zhu)
 [![Skills](https://img.shields.io/badge/skills.sh-20_skills-blue)](https://skills.sh/aaron-he-zhu/seo-geo-claude-skills)
 [![License](https://img.shields.io/badge/license-Apache%202.0-green)](./LICENSE)
-[![Version](https://img.shields.io/badge/version-4.5.0-orange)](./VERSIONS.md)
+[![Version](https://img.shields.io/badge/version-4.5.1-orange)](./VERSIONS.md)
 
 > **Fork notice.** This repository is a fork of [aaron-he-zhu/seo-geo-claude-skills](https://github.com/aaron-he-zhu/seo-geo-claude-skills) (Apache-2.0), maintained by Sani Hellas with an automated weekly review loop. The ClawHub and skills.sh badges above link to the upstream project's published listings; this fork installs from GitHub. The CORE-EEAT and CITE frameworks are separate upstream projects and keep their own attribution throughout.
 

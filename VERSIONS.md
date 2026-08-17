@@ -21,7 +21,7 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 | internal-linking-optimizer | optimize | 4.5.0 | 2026-08-17 |
 | content-refresher | optimize | 4.3.7 | 2026-08-17 |
 | rank-tracker | monitor | 4.3.0 | 2026-08-17 |
-| backlink-analyzer | monitor | 4.2.0 | 2026-08-17 |
+| backlink-analyzer | monitor | 4.3.0 | 2026-08-17 |
 | performance-reporter | monitor | 4.5.0 | 2026-08-17 |
 | alert-manager | monitor | 4.4.0 | 2026-08-17 |
 | content-quality-auditor | cross-cutting | 4.5.0 | 2026-08-17 |
@@ -30,6 +30,10 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 | memory-management | cross-cutting | 4.1.0 | 2026-08-10 |
 
 ## Changelog
+
+### v4.5.1 (2026-08-17)
+
+- **backlink-analyzer 4.3.0 (the disavow warning detached exactly where it mattered, 2026-08-17)**: `link-quality-rubric.md` §4 required the unnecessary-disavow-can-hurt-rankings warning to ship "inside the recommendation itself … every time a disavow is proposed", and the disavow-file template fourteen lines below it carried three `#` comment lines — a domain, a date, a reason — and no warning. A blind run measured the consequence across five deliverables `[obs:2026-08-17 blind Mode B, monitor/backlink-analyzer, 5 deliverables, grader record docs/loop/eval-baselines/blind-2026-08-17/backlink-analyzer.json]`: the two deliverables that only *recommended* a disavow reproduced the warning sentence verbatim, and the single deliverable that actually *produced a disavow file* carried no ranking-harm warning anywhere in it. The rule was not ignored — it was written where the artefact never reads. **This is the Value Rule's founding finding in a third shape: a model copies the fence, not the heading above it**, and the two prior instances (meta-tags-optimizer 4.1.3, schema-markup-generator) were both about a *label* wrongly outside a fence, where this is a *safety caveat* wrongly outside one. **Applied**: the §4 template now opens with an in-fence comment block carrying the ranking-harm warning, the irreversibility, and the four conditions that make the file uploadable rather than a draft, under an `ILLUSTRATIVE FILL` label with its `[date]` token resolved so every value in it is invented and none is a bracket token; §4's rule text restated as two carriage points satisfied separately — the recommendation prose and the file itself — with the reason stated (a report is read once, a file gets forwarded and is often uploaded by somebody who never read the report); `SKILL.md`:131's standing rule brought into line; and Output Validation split so the artefact half is checkable by reading the file alone, with an explicit "no disavow file produced" value so the item does not become unsatisfiable when there is no file. Same-edit structural repair: the Toxic Link Analysis template in `analysis-templates.md` opened a ```` ```markdown ```` fence and then opened inner ``` fences inside it, so the first inner delimiter closed the outer block and the template truncated mid-way, orphaning its Individual-URLs list; outer fence widened to four backticks and both inner disavow blocks given the same in-fence warning under a `SKELETON` label.
 
 ### v4.5.0 (2026-08-17)
 

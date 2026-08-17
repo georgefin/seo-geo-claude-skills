@@ -128,7 +128,7 @@ so their mean is a competitor mean, never an industry one.
 
 ## 3. Toxic Link Analysis Template
 
-```markdown
+````markdown
 ## Toxic Link Analysis
 
 ### Risk Summary
@@ -161,6 +161,16 @@ so their mean is a competitor mean, never an industry one.
 
 **Domains to disavow** ([X] total):
 ```
+# SKELETON — every bracket token below is a placeholder, not a value. Nothing here is paste-ready.
+#
+# WARNING — READ BEFORE UPLOADING. An unnecessary disavow can hurt your rankings.
+# Google applies this file as submitted; it does not check whether the entries were
+# warranted, and reversing a disavow is slow and uncertain.
+# This file is NOT ready to upload unless all four are true: every domain below was
+# reviewed by hand, removal was requested by email first, two weeks were allowed for
+# replies, and someone accountable approved this exact file. If any one is false,
+# this is a draft — do not upload it.
+
 domain:[spam-site-1.com]
 domain:[spam-site-2.com]
 domain:[link-farm.com]
@@ -168,10 +178,12 @@ domain:[link-farm.com]
 
 **Individual URLs to disavow** ([X] total):
 ```
+# SKELETON — placeholders. The warning block above belongs at the top of the single
+# .txt file these two lists are combined into, not only in the report around them.
 [specific-url-1]
 [specific-url-2]
 ```
-```
+````
 
 **Risk Score provenance**: `[score]` is filled from the toxicity/spam score reported by
 ~~link database or the user's export, with that tool named beside it. This skill defines no
