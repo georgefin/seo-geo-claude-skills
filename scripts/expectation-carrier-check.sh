@@ -54,10 +54,53 @@
 #           style. Three stale anchors in keyword-research went unseen for that reason.
 #           Single quotes are now extracted, word-boundary guarded so apostrophes inside
 #           words do not match. A guard's own coverage is itself a measured quantity.
+#   MISSED, AND WORSE THAN MISSED — 2026-08-17, monitor/backlink-analyzer. THIRD known
+#           instance; coverage is therefore 1 of 3, not 1 of 2. This one is not a hole to
+#           close. It is the shape of the question this tool asks, and it is why no version
+#           of this tool will ever see the class:
+#
+#             link-quality-rubric.md §4 stated the rule — the unnecessary-disavow-can-hurt-
+#             rankings warning "ships inside the recommendation itself ... every time a
+#             disavow is proposed". Fourteen lines below it, the disavow-file template fence
+#             carried a filename, a date and a reason, and no warning. A blind run measured
+#             the consequence: the two deliverables that only RECOMMENDED a disavow
+#             reproduced the warning verbatim; the one that actually PRODUCED a file carried
+#             no ranking-harm warning anywhere in it.
+#
+#           Measured against the corpus as it stood with the defect live (fba166c^, suite
+#           byte-identical before and after the fix, so this tool's input never changed):
+#             'unnecessary disavow can hurt' -> present    'inside the recommendation itself' -> present
+#             'hurt your rankings'           -> present    'two weeks'                        -> present
+#           9 disavow-related quoted phrases tested, 4 reported uncarried — and not one of
+#           the four was the missing rule. So the tool did not merely fail to see this. It
+#           scored the rule CARRIED, correctly, by its own question. The question it asks is
+#           "does this phrase appear ANYWHERE in the skill's text?" It never asks "is the rule
+#           IMPLEMENTED in the artefact the rule governs?" A rule stated in prose and absent
+#           from the template that prose governs is, to this tool, indistinguishable from a
+#           rule that is honoured. That is the second shape of uncarried behaviour, and it is
+#           the more dangerous one, because the first shape at least reports nothing while
+#           this one contributes to a clean line.
+#
+#   EXTENSION ATTEMPTED AND REJECTED ON ITS OWN NUMBERS, 2026-08-17. The obvious mechanical
+#           catch was tried before this note was written: flag a fenced block in a
+#           comment-capable format, carrying NO comment line, sitting under prose with a
+#           warning word nearby. Measured over the 514 fenced blocks in skill text and shared
+#           references (evals excluded): 310 comment-capable, 248 of those comment-free, 11
+#           surviving the warning-word filter. All 11 hand-checked: 11 false positives, 0 true
+#           — ASCII flowcharts, canonical robots.txt examples, a deliberately-broken JSON
+#           sample, one-line invocation snippets, and 2 that were the fence parser mis-reading
+#           bodies inside a ````markdown wrapper, which is precisely the structure this class
+#           lives in. Then the decisive test: run it against the known instance. The defective
+#           §4 fence contained SIX comment lines. The heuristic would have scored it clean.
+#           Precision 0/11, recall 0/1. It is not a check, it is a noise generator that also
+#           misses what it was built for, so it was not written. Do not rebuild it without
+#           beating those numbers.
 # So: a clean line here means "no uncarried VOCABULARY was found". It says nothing about an
-# uncarried behaviour, which is the more damaging half of the class and needs a human reading
-# the suite beside the skill. Reporting this as "the class is closed" would be F15 again with
-# a new instrument.
+# uncarried behaviour, in either of its two shapes — the rule with no quotable phrase
+# (entity-optimizer) or the rule quoted in prose and unimplemented in the artefact it governs
+# (backlink-analyzer). Both need a human reading the suite beside the skill, and the second
+# needs that human to read the FENCE, not the prose above it. Reporting this as "the class is
+# closed" would be F15 again with a new instrument.
 #
 # ADVISORY ONLY. Never wired into pre-push-gate.sh: its hits need judgement, and a gate that
 # fails on candidates trains people to ignore it.
@@ -175,9 +218,17 @@ print(f"{total_hits} candidate phrase(s) demanded by a suite and absent from its
 print(f"{DIM}Candidates, not defects. Each is one of: an uncarried rule (fix the skill), a value the")
 print(f"deliverable echoes from somewhere other than a fixture, or vocabulary deliberately absent.{OFF}")
 print(f"{YEL}A 'clean' line means no uncarried VOCABULARY was found — not that the skill states every")
-print(f"rule its suite grades.{OFF} This check greps quoted phrases, so it cannot see an uncarried")
-print(f"BEHAVIOUR. entity-optimizer reports clean here and is the worst known instance of the class")
-print(f"(suite graded fabrication, skill said nothing about it, 62.1%). Read the suite beside the")
-print(f"skill; this tool only removes the phrase-shaped half of that job.")
+print(f"rule its suite grades.{OFF} This check asks ONE question: does the phrase appear ANYWHERE in")
+print(f"the skill's text? It never asks whether the rule is IMPLEMENTED where it has to act. So it is")
+print(f"blind to uncarried BEHAVIOUR, in both measured shapes — coverage 1 of 3 known instances:")
+print(f"  {YEL}no quotable phrase{OFF} — entity-optimizer: the suite graded fabrication, the skill said")
+print(f"    nothing about it, it scored 62.1%. Reports clean here, and always will.")
+print(f"  {YEL}phrase present, rule unimplemented{OFF} — backlink-analyzer at fba166c^: the rubric said the")
+print(f"    disavow warning 'ships inside the recommendation itself'; the disavow-file template")
+print(f"    fourteen lines below carried a filename, a date and a reason. Every phrase naming the")
+print(f"    rule was present, so this tool scored it CARRIED. A blind run found the file shipped bare.")
+print(f"The second shape does not merely evade this check — it contributes to a clean line. Read the")
+print(f"suite beside the skill, and where a skill produces an artefact read the FENCE, not the prose")
+print(f"above it: a model copies the fence, not the heading above it.")
 sys.exit(0)
 PY
