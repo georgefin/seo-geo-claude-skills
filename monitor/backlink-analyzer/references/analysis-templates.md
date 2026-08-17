@@ -292,6 +292,15 @@ Sites linking to multiple competitors but not you:
 | Guest posts | High | High | Medium |
 ```
 
+**What may enter these tables**: every row is a place that might cite the site because something on
+it earns the citation. A prospect offered as a purchasable placement, an expired domain offered for
+the links it carries, a redirect from an unrelated domain, or a site whose only offer is a
+reciprocal swap does not enter the prospect list — and does not enter the client report as a
+declined option either, because the report carries findings and actions, not a list of what was
+declined. The "Guest Post Prospects" row means one publication, one pitch, written for its readers
+and edited by them; bulk placement bought per-URL is the prohibited shape it is confused with.
+Where each line runs: [link-quality-rubric.md](./link-quality-rubric.md) §6.
+
 ---
 
 ## 6. Link Change Tracking Template
@@ -390,7 +399,7 @@ Your referring domains rank #[X] among [Y] competitors.
 
 ### Long-term (This Quarter)
 - [ ] Create linkable asset targeting [topic]
-- [ ] Launch guest posting campaign
+- [ ] Pitch [X] contributed articles, one per publication named in the prospect list
 - [ ] Build [X] resource page links
 
 ## KPIs to Track

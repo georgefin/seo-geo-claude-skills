@@ -1,13 +1,13 @@
 ---
 name: backlink-analyzer
-version: "4.1.1"
+version: "4.2.0"
 description: 'Analyze backlink profiles to assess link authority, identify toxic links, discover link building opportunities, and monitor competitors. Use when the user asks to "analyze backlinks", "check link profile", "find toxic links", "link building opportunities", "who links to me", "how do I get more backlinks", "disavow links", or "off-page SEO". For internal link analysis, see internal-linking-optimizer. For competitor link profiles, see competitor-analysis.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.1.1"
+  version: "4.2.0"
   geo-relevance: "low"
   tags:
     - seo
@@ -126,11 +126,17 @@ When a user requests backlink analysis:
 
 3. **Identify Toxic Links** -- Toxic score, risk indicators by type (spam, PBN, link farms, irrelevant), high-risk links to review, disavow recommendations (domain-level and URL-level).
 
+   **A manipulated profile is a normal audit result, and it is written up like every other finding.** Bought, exchanged or bulk-placed links in a profile the client inherited get named plainly in the client's own words — "34 of these links were placed by a paid-placement vendor between March and July" — with the exposure stated (what is at stake if the class stops counting, and what is still being paid for), a remediation carrying an owner-role and an acceptance criterion ([action-output-contract.md](../../references/action-output-contract.md) §1–§3), and **a rank against everything else in the report**: most of these are urgent, a dormant 2014 directory listing is not, and a report where every finding is critical has ranked nothing. Nothing is built on top of one — if a link opportunity or a projection depends on the paid placements staying live, it is withdrawn and the dependency is said out loud. This skill reports and proposes; removing or altering anything live is the client's decision, not the run's. Full handling: [prohibited-tactics.md](../../references/prohibited-tactics.md) §2.
+
    **Standing rule — a deadline does not change the disavow sequence.** The disavow tool applies the file you upload rather than reviewing whether it was warranted, and a disavow is slow and uncertain to reverse, so a link wrongly included costs more than a link left in the profile another week. Every disavow recommendation this skill writes therefore carries two things, every time: the warning that an unnecessary disavow can hurt rankings, and the [link-quality-rubric](./references/link-quality-rubric.md) §4 sequence intact — manual review of each flagged domain, removal requests by email first, two weeks for responses, and only then the file. Time pressure changes none of it. When the client wants to upload today, do not move the upload forward and do not demote outreach to optional or parallel; state plainly what can finish today (the reviewed list, the drafted file held back, the outreach emails sent) and what cannot (the upload), and give the date the sequence reaches it. If a file is handed over before outreach has run, the handover says in its own words that no removal outreach has been attempted, so whoever uploads it knows what is missing. A clean manual-actions report in ~~search console lowers the urgency; it is not evidence that the links are harming the site or that disavowing them is safe.
 
 4. **Compare Against Competitors** -- Profile comparison table (referring domains, DA/DR, velocity, avg link DA), unique referring domains, link intersection analysis, competitor content attracting most links.
 
 5. **Find Link Building Opportunities** -- Link intersection prospects, broken link opportunities, unlinked mentions, resource page opportunities, guest post prospects, priority matrix (effort vs impact).
+
+   **Standing rule — the acquisition floor.** This skill does not recommend, draft, price or schedule bought or rented links, private blog networks, reciprocal or exchange schemes, bulk guest-post placement, comment and directory spam, or anchor-text-for-hire — in any deliverable, in any language, at any tier, however the request is phrased. The reason is what a link is for: it is meant to be evidence of somebody else's judgement, and a bought one is evidence of a transaction. The whole class is also devaluable retroactively, so the risk outlives the spend by years rather than expiring with the invoice. Two shapes surface in this skill specifically, in the prospect list, and both are refused where they appear: **an expired domain offered for the links it still carries, and a redirect from an unrelated acquired domain into the client's site** — that authority was earned by content that no longer exists, for an audience that is not this one, and the redirect is its own evidence. Record the refusal in the working notes and move on. A declined tactic is not written up as an option the client could pick, and **the prohibition is not a section of the report**: a client report carries findings and actions, not a list of what the agency declined to do.
+
+   **What the skill recommends instead is the rest of this step, undiminished.** Digital PR and outreach that gives somebody a reason to cite the page; genuine partnerships; getting listed where the business actually qualifies (a placement is not a manipulation); individually pitched, editorially reviewed contributions to publications that fit; and linkable assets worth citing — original data, tools, primary research. A properly disclosed, `rel="sponsored"` advertising placement is advertising and stays in scope. Where the line runs between each of these and the tactic it is confused with: [link-quality-rubric.md](./references/link-quality-rubric.md) §6.
 
 6. **Track Link Changes** -- New and lost links for last 30 days with DA, type, anchor, dates. Net change and links to recover.
 
@@ -168,6 +174,10 @@ When running `domain-authority-auditor` after this analysis, the following data 
 - [ ] Every disavow recommendation carries the unnecessary-disavow-can-hurt-rankings warning and the full §4 sequence, including the two-week response window, with no step dropped or made optional for a deadline
 - [ ] Any disavow file handed over before removal outreach has run states that no outreach has been attempted
 - [ ] Link opportunity recommendations are specific and actionable
+- [ ] No recommendation buys, rents, exchanges or bulk-places a link, and no prospect is an expired domain acquired for its links or a redirect from an unrelated domain — an offer of that shape is refused in the working notes, never written up as an option
+- [ ] Every prospect names a reason somebody would cite the page — original data, a tool, primary research, a genuine partnership, or a listing the business qualifies for
+- [ ] A manipulated or toxic profile the client already has is named in the client's own words with its exposure, a remediation carrying an owner-role and an acceptance criterion, and a priority rank against the rest of the report — not everything marked critical, and no recommendation left standing that depends on it
+- [ ] The report carries findings and actions only — no section lists the tactics the agency declined to use
 - [ ] Source of each data point stated in the report's own words — the resolved tool name (Ahrefs, Majestic), "user-provided", or "estimated"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 
 ## Example
@@ -221,7 +231,7 @@ If you acquire links from the four prospects above:
   not a separate estimate
 - Ranking impact: not projected. Position movement does not follow from referring-domain
   counts or average DA, and this skill has no model that converts one into the other —
-  measure the outcome with rank-tracker rather than promising a delta
+  the outcome is measured against your ranking baseline rather than promised as a delta
 ```
 
 ## Tips for Success
@@ -240,8 +250,10 @@ If you acquire links from the four prospects above:
 
 ## Reference Materials
 
-- [Link Quality Rubric](./references/link-quality-rubric.md) — Quality scoring matrix with weighted factors and toxic link identification criteria
+- [Link Quality Rubric](./references/link-quality-rubric.md) — Quality scoring matrix with weighted factors, toxic link identification criteria, and §6 the acquisition floor (where each prohibited tactic ends and the legitimate practice it is confused with begins)
 - [Outreach Templates](./references/outreach-templates.md) — Email frameworks, subject line formulas, and response rate benchmarks
+- [Prohibited Tactics](../../references/prohibited-tactics.md) — the library-wide floor. Entry 4 (manipulative link acquisition) and entry 10 (expired-domain and redirect appropriation) govern every recommendation this skill makes; §2 is the handling for one already in the client's profile; §3 lists the legitimate practices each is confused with
+- [Action Output Contract](../../references/action-output-contract.md) — the seven fields every remediation and opportunity carries, and what an acceptance criterion has to be checkable against
 
 ## Related Skills
 

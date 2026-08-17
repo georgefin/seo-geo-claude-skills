@@ -385,6 +385,38 @@ For articles:
 
 This creates a consistent entity graph that search engines can confidently map to Knowledge Graph entries.
 
+### Markup Describes What Is on the Page
+
+Every property in the blocks above states something a visitor can already read on the page carrying
+the markup. That is not a style preference — it is the library's hidden-content-and-cloaking
+prohibition ([prohibited-tactics.md](../../../references/prohibited-tactics.md) entry 6) at
+property level, and it is the half of markup honesty that sits beside settled ruling R2's
+one-accurate-primary-type rule.
+
+The entity-work versions of the defect, in the order they get proposed:
+
+| The tempting shortcut | Why it is out | What to do instead |
+|---|---|---|
+| `foundingDate` in the JSON-LD, nowhere on the site | The property asserts a fact the page does not carry and nobody can check against it; a mismatch invalidates the markup rather than strengthening the entity | Put the founding date in the About page text, then mark it up |
+| `award` listing recognitions the site never mentions | Same mismatch, plus an unverifiable claim about the entity | Publish the awards with their issuer and year, then mark them up |
+| `aggregateRating` assembled from ratings not shown on the page | Markup mismatch and a review-integrity problem at once — see entry 3 | Show the reviews on the page, sourced from the platform that holds them |
+| `sameAs` pointing to a profile that is empty, dead, or redirects | Nothing at the far end confirms the identity claim | Complete or remove the profile, then link it |
+| `Person` markup for staff with no page, no bio, no credentials | An author identity that exists only in JSON-LD | Build the author page first — signal 25 exists for this |
+| Text sized to zero, colour-matched, or positioned off-screen to hold entity keywords | The reader and any crawler are shown different things, whichever one is misled | If it is worth saying, it is worth showing |
+| A crawler-only version of the page carrying entity content visitors do not get | Cloaking, and the markup is the least of the exposure | One page, one content set |
+
+**The order is always the same: fix the page, then mark it up.** Where a property matters for entity
+recognition and the page does not carry it, the recommendation is to put it on the page — that
+recommendation is the finding. Where a property already in the markup has no counterpart on the
+page, it is removed from the markup or given one, and which of the two was done is recorded.
+
+Where markup like this is found already live during an audit, it is handled the way
+[prohibited-tactics.md](../../../references/prohibited-tactics.md) §2 sets out: named in the
+client's own words, with its exposure, a remediation carrying an owner-role and an acceptance
+criterion, ranked against everything else in the report. A workable criterion here is observable —
+"every property in the Organization block on the homepage corresponds to text visible on that page,
+checked property by property against a rendered view, and the markup validates with zero errors".
+
 ## Monitoring Entity Health
 
 ### Quarterly Entity Health Check
@@ -423,9 +455,9 @@ Mention volume is tracked as a count with its window and its source named, split
 **AI systems giving incorrect entity info:**
 1. Identify which sources have incorrect information
 2. Correct information at source (Wikidata, Wikipedia, About page)
-3. AI systems will update over time (training data refresh + live search)
+3. Re-test the affected prompts on a stated cadence after the correction lands, and record what comes back with its date. **What any assistant does with a corrected source is not published by any of them and is not asserted here** — the line that stood here, "AI systems will update over time (training data refresh + live search)", was an unsourced claim about engine behaviour and is withdrawn (ruling R3 amendment 9a). The library's declared working model, offered as a reason to fix the source first rather than as a timetable: a surface that retrieves live can only reflect a corrected page after the page is corrected, and a surface answering from training data cannot reflect it at all until whatever refresh it runs has happened. Neither half is observed here; the re-test is what produces evidence
 4. For urgent issues, some AI systems have feedback mechanisms
-5. Timeline: weeks to months depending on AI system update cycles
+5. Timeline: **unknown, and do not state one** — the "weeks to months depending on AI system update cycles" here rested on no source and asserted an update cadence nobody in this library has measured. Record the correction date, re-test on the cadence in the health check above, and report what you observe
 
 **Knowledge Panel showing wrong entity:**
 1. Claim the Knowledge Panel (if you haven't already)

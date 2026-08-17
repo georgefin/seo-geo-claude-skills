@@ -297,7 +297,7 @@ domain:spam-directory.net
 | Link diversity (unique domains / total links) | >0.3 | 0.1-0.3 | <0.1 |
 | Topical relevance (sampled) | >60% | 40-60% | <40% |
 
-### Industry-Specific Benchmarks
+### Industry-Specific Benchmarks — see §6 for what may never be recommended to close a gap
 
 Authority expectations vary significantly by industry vertical.
 
@@ -315,3 +315,85 @@ Authority expectations vary significantly by industry vertical.
 | New startup | DR 5-25 | 10-200 | Starting point |
 
 _Note: These are general ranges. Actual requirements depend on your specific keyword competition._
+
+---
+
+## 6. The Acquisition Floor
+
+The library-wide statement is [prohibited-tactics.md](../../../references/prohibited-tactics.md),
+entries **4** (manipulative link acquisition) and **10** (expired-domain and redirect
+appropriation). This section is that floor applied to link work: the shapes that get refused, the
+ordinary practice each one is confused with, and how an instance already in the client's profile is
+written up.
+
+### 6.1 What this skill never recommends
+
+Bought or rented links · private blog networks · reciprocal and exchange schemes ("we'll link to
+you if you link to us", three-way swaps, link-exchange marketplaces) · bulk guest-post placement
+bought from a vendor list · comment and forum-signature spam · mass low-quality directory
+submission · anchor-text-for-hire · buying an expired domain for the links it carries · redirecting
+an unrelated acquired domain into the money site · parasite hosting on a borrowed authority domain.
+
+Two reasons, both of which hold whatever any engine does about it:
+
+1. **A link is meant to be evidence of somebody else's judgement.** A bought one is evidence of a
+   transaction. The signal the client is paying for is the thing the purchase destroys.
+2. **The whole class is devaluable retroactively.** The spend is immediate and the exposure is
+   open-ended, so "it has worked so far" is not evidence that it is safe — it is the sentence the
+   At-Risk profile in §2 above could have written the month before it became one.
+
+Refusal is recorded in the working notes and the run moves on. A refused tactic does not become a
+declined option in the client's report, and the report never carries a list of what was declined —
+it carries findings and actions ([prohibited-tactics.md](../../../references/prohibited-tactics.md)
+§4).
+
+### 6.2 Where the line runs
+
+A rule that over-fires on ordinary competitive work gets ignored, so the distinction is stated in
+both directions. Each row below is legitimate on the left and prohibited on the right, and the test
+in the middle is the one that separates them.
+
+| Legitimate | The test | Prohibited |
+|---|---|---|
+| A contributed article pitched individually to a publication that fits, written for its readers and edited by them | Would this publication have taken the pitch on its merits, and does the editor decide what runs? | Bulk guest-post placement bought per-URL from a vendor list, anchor text specified in the order |
+| Digital PR: original data, a tool, primary research, a story a journalist wants | The link follows from something worth citing | Paying for the mention, or paying a "PR" vendor per placed link |
+| A genuine partnership, supplier, association, or customer relationship that both sides describe on their own sites | The relationship exists off the link | Reciprocal linking arranged for the links themselves, at scale or via a swap group |
+| Getting listed on comparison, review, industry and local platforms the business actually qualifies for | The listing is a placement the business is eligible for, and a human would find it useful | Mass submission to directories nobody reads, built to be submitted to |
+| A disclosed advertising or sponsorship placement carrying `rel="sponsored"` | The paid relationship is declared in the markup and to the reader | The same placement with the disclosure removed so it passes as editorial |
+| Buying a domain for its brand, its traffic, or its business, and redirecting it because the business genuinely moved | The redirect describes something that actually happened | Buying an expired domain for its link profile; redirecting an unrelated domain into the money site |
+| Reclaiming a lost link, fixing a broken one, converting an unlinked mention | The publisher already chose to write about the client | Buying the placement back when the publisher says no |
+
+**Sponsored is not a loophole and not a dirty word.** Factor 6 scores `rel="sponsored"` at 3, below
+editorial and above nofollow, precisely because it is honest paid placement: the reader and any
+consumer of the markup both see what it is. What entry 4 prohibits is a paid link dressed as an
+earned one.
+
+### 6.3 An instance already in the profile
+
+A manipulated profile is a normal audit result, and it is handled like every other risk finding —
+named, costed, remediated, owned, ranked
+([prohibited-tactics.md](../../../references/prohibited-tactics.md) §2). The remediation carries
+the seven fields in [action-output-contract.md](../../../references/action-output-contract.md); the
+three that are not optional are the action, the owner-role, and an acceptance criterion somebody
+outside the engagement could check in six weeks without asking what was meant.
+
+Worked shapes — the criteria, not the numbers, are the point:
+
+| Finding | Owner | Acceptance criterion |
+|---|---|---|
+| 34 links from a paid-placement vendor, still live | `Agency` (outreach) → `Client decision` (spend stops) | Each of the 34 URLs re-checked on a dated crawl export: link removed, or `rel="sponsored"` added, or listed in the disavow file version dated in that export's week — with which of the three recorded per URL |
+| Reciprocal swap block in the site footer, 12 partners | `Developer` | The footer block is gone from the live template on every URL type, verified in a crawl of the production site; the 12 partner relationships that are real appear in body content instead, or nowhere |
+| An unrelated domain redirecting into the money site | `Client decision`, then `SEO/technical` | The redirect is removed or repointed to a holding page; a crawl dated after the change shows no 3xx chain from that host into the primary domain |
+| 400 directory listings from a 2014 submission run, dormant | `SEO/technical` | The reviewed list exists with a keep/disavow decision per domain and a date; the disavow file reflects it |
+
+**Rank them against the rest of the report, and expect the ranking to split them.** The first three
+are usually urgent. The fourth is usually not — a dormant 2014 directory listing is not more urgent
+than a broken conversion path, and a report where everything is critical has ranked nothing. The
+ordering rule already in force is expected impact ÷ effort with dependencies respected; nothing
+about a finding being a prohibited tactic exempts it from that.
+
+**Do not build on it.** Any recommendation elsewhere in the report that depends on the prohibited
+links staying live — an authority projection, a "we already have X referring domains" baseline, a
+competitive-position rank — is withdrawn or restated without them, and the dependency is named. And
+the skill reports and proposes: it never removes or alters a client's live property on its own
+initiative.

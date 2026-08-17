@@ -58,7 +58,32 @@ These signals establish the entity as recognized and authoritative. They separat
 | 20 | Industry awards or recognitions | Search "[entity] award" | At least 1 verifiable award or recognition |
 | 21 | Co-citation with established entities | Search for entity alongside competitors | Appears in "X vs Y" comparisons, listicles, or industry roundups |
 | 22 | Speaking engagements or publications | Search event/conference sites | Appears as speaker, author, or contributor |
-| 23 | Reviews on third-party platforms | Check G2, Trustpilot, Yelp, etc. | Reviews exist with reasonable volume and rating |
+| 23 | Reviews on third-party platforms | Check G2, Trustpilot, Yelp, etc. | Reviews exist with reasonable volume and rating, collected without reward and without gating — see the integrity note below |
+
+**Review integrity — how signal 23 is passed, and how it is never passed.** The library-wide
+statement is [prohibited-tactics.md](../../../references/prohibited-tactics.md) entry 3. Written,
+bought or incentivised reviews and review gating are out of scope for every recommendation this
+skill makes, whatever the volume gap looks like. Two exposures, and the order matters: in many
+jurisdictions this is **illegal as an unfair commercial practice independent of any platform
+policy**, and platform enforcement is the second one — retroactive removal, which pulls the reviews
+out of the entity signal long after they were counted into it.
+
+| Legitimate | The test | Prohibited |
+|---|---|---|
+| Asking every customer, every time, through the same channel | Nobody is pre-selected by how happy they are | Asking only the customers a survey scored highly (gating, whatever it is called) |
+| A review request in the standard post-purchase flow | The request is the same for everyone | A discount, prize draw, free month, or loyalty points attached to leaving one |
+| Replying to negative reviews in public, and fixing what they name | The record stays complete | Suppressing, burying, or routing negatives to a private inbox instead of the platform |
+| A staff-wide push to remember to ask | No target attaches to an individual | Per-staff review quotas, or scripting customers to name a staff member (Google policy, SKILL.md Step 2) |
+| Reporting review volume as a count with its window and platform | It is a measurement | Reporting a rating whose collection method the audit did not check |
+
+Where the audit finds any of these already running, it is handled the way
+[prohibited-tactics.md](../../../references/prohibited-tactics.md) §2 sets out — named, exposure
+stated, remediation with an owner-role and an acceptance criterion, ranked against the rest of the
+report.
+A criterion that works here is observable: "from the changeover date recorded in the plan, the
+review request goes to every completed order through one template, with no pre-survey and no
+incentive — verified in the sending tool's audit log". Signal 23 is then scored on what the honest
+flow produces, and a volume gap it exposes is reported as a gap.
 
 ### Content Authority
 
