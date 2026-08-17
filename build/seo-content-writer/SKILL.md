@@ -1,13 +1,13 @@
 ---
 name: seo-content-writer
-version: "4.6.0"
+version: "4.7.0"
 description: 'Write search-engine-optimized blog posts, landing pages, and articles with keyword integration, header hierarchy, and featured snippet targeting. Use when the user asks to "write SEO content", "create a blog post", "write an article", "draft optimized content", "write a landing page", or "SEO copywriting". Creates keyword-optimized content using a 12-step workflow with CORE-EEAT checklist, title optimization, meta description, H1/H2/H3 hierarchy, and internal/external linking. For AI-citation optimization, see geo-content-optimizer. For updating existing content, see content-refresher.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.6.0"
+  version: "4.7.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -232,6 +232,8 @@ When a user requests SEO content:
    - **Structural bans**: uniform paragraph lengths, per-section closing summaries, rhetorical-question openers, listicle padding ("Let's dive in"/«Ας ξεκινήσουμε»)
    - **Information gain**: a sentence that could sit unchanged on any competitor's page gets specific (datum, case, mechanism, named entity) or gets cut; every section must add something not derivable from its own heading
    - **Specificity ladder**: vague → quantified → quantified + sourced; aim for the top rung using only provided/verifiable data — absent data becomes a `[CLIENT DATA: …]` placeholder, never an invented number (statistics rule)
+   - **The floor under anything this skill drafts** — three entries on the library's prohibition list sit inside this skill's own path, and no phrasing of the request lifts them ([prohibited-tactics.md](../../references/prohibited-tactics.md)). **No fabricated citation, statistic, quotation, expert, case study, testimonial or date** (entry 5): the statistics rule and the specificity ladder above are how this one is obeyed — cite a primary source with its date, or drop the claim and say what would establish it, and never attribute anything to a real person or organisation without a record you have read. **No undisclosed AI-generated content at scale** (entry 7): this skill is a drafting tool, so every draft it hands over names the **human subject-matter reviewer** who signs it off and the review step they run — a draft leaving with neither is not publishable, and the accountability gap is the defect even when nothing in the text is wrong. That naming lives in the deliverable's own report/handoff section, never as an agency aside inside the copy and never as a bracket token in a paste-ready block; where the client has assigned nobody, the unassigned reviewer is the gap to state, not a name to invent. **No scraped, spun or unreviewed machine-translated content** (entry 8): a competitor page reworded adds nothing a reader could not get from the original, and a translated variant is a first draft until a native reviewer signs it off, which is what step 9 checks. Where the client's existing content already contains one of these, name it, state the exposure, and give the remediation with an owner — never draft on top of it
+   - **No guaranteed outcome, on any surface** — this skill drafts the copy a client publishes, so it is the likeliest place in the library for "we guarantee position 1", "this will get you cited by ChatGPT" or «εγγυόμαστε την πρώτη θέση» to reach a page. No engine publishes citation criteria and none guarantees determinism, so the promise is a claim about a mechanism nobody has documented. Write the mechanism as a declared working model, a leading indicator with its measurement plan, and a dated baseline instead. FAIL-grade family 10, with the screen and the worked substitutions: [references/anti-slop-ruleset.md](./references/anti-slop-ruleset.md) §6
 
 7. **Apply On-Page SEO Best Practices**
 
@@ -309,6 +311,9 @@ When a user requests SEO content:
 - [ ] Readability score appropriate for target audience
 - [ ] Source of each data point clearly stated in the deliverable's own words — the resolved tool name (Ahrefs, Google Search Console), "user-provided", or "estimated"; never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 - [ ] Anti-slop self-check passed (vocabulary tiers, structure, information gain, specificity — [references/anti-slop-ruleset.md](./references/anti-slop-ruleset.md) §5)
+- [ ] No fabricated citation, statistic, quotation, expert, case study or date anywhere in the draft — every claim sourced, converted to first-party, hedged, or cut ([prohibited-tactics.md](../../references/prohibited-tactics.md) entry 5)
+- [ ] The report/handoff section names the human subject-matter reviewer who signs the draft off and the review step they run, and any non-EN variant names its native reviewer (entries 7 and 8) — an unassigned reviewer is stated as the gap, never invented and never left blank
+- [ ] No guaranteed-outcome promise about a search or AI surface anywhere in the copy — mechanism as a declared working model, leading indicator with its measurement plan, and dated baseline instead ([references/anti-slop-ruleset.md](./references/anti-slop-ruleset.md) §6 family 10)
 - [ ] Overall SEO Score printed as arithmetic over the ten factor grades, each grade carrying its reason, with any excluded factor named and the denominator matching ([references/seo-score-rubric.md](./references/seo-score-rubric.md))
 
 ## Example

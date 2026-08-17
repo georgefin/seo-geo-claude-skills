@@ -1,13 +1,13 @@
 ---
 name: geo-content-optimizer
-version: "4.4.11"
+version: "4.5.0"
 description: 'Optimize content for AI citation across Google AI Mode (default search surface, incl. AI Overviews), ChatGPT, Perplexity, and Gemini with quotable statements and structured Q&A. Use when the user asks to "optimize for AI", "get cited by ChatGPT", "GEO optimization", "appear in AI answers", "make content AI-quotable", "Google AI Overview optimization", or "Google AI Mode optimization". Adds quotable statements, structured Q&A, precise statistics with sources, expert attribution, and a structured FAQ. Uses CORE-EEAT GEO-First items as optimization targets. For SEO-focused writing, see seo-content-writer. For entity and brand AI presence, see entity-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.4.11"
+  version: "4.5.0"
   geo-relevance: "high"
   tags:
     - geo
@@ -60,25 +60,17 @@ This skill optimizes content to appear in AI-generated responses. As AI systems 
 
 ## How to Use
 
-### Optimize Existing Content
+**Optimize existing content:**
 
 ```
 Optimize this content for GEO/AI citations: [content or URL]
-```
-
-```
 Make this article more likely to be cited by AI systems
 ```
 
-### Create GEO-Optimized Content
+**Create GEO-optimized content, or audit a page for GEO readiness:**
 
 ```
 Write content about [topic] optimized for both SEO and GEO
-```
-
-### GEO Audit
-
-```
 Audit this content for GEO readiness and suggest improvements
 ```
 
@@ -133,13 +125,14 @@ When a user requests GEO optimization:
    R01, R02, R03, R04, R05, R07, R09 | E01, E02, E03, E04, E06, E08, E09, E10
    Exp10 | Ept05, Ept08 | A08
 
-   **Per-engine item map** — what this library optimises for when that engine is the named target. The library's judgement; no engine publishes its selection rule, so never report a row as one:
-   | Engine | Items this library prioritises |
-   |--------|----------------|
-   | Google AI Mode (default) | C02, O03, O05, C09 |
-   | ChatGPT Browse | C02, R01, R02, E01 |
-   | Perplexity AI | E01, R03, R05, Ept05 |
-   | Claude | R04, Ept08, Exp10, R03 |
+   **Engine precedence, and the per-engine item map** — the order engines are worked in when effort is limited, when two recommendations conflict, and when the report has to lead with one ([AI Visibility Measurement](../../references/ai-visibility-measurement.md) §2). **Rank 4 is a different instrument, not a lower priority**: organic sits fourth in *prompt-level* work because prompts are not how it is measured, and the ranking, crawl, index and authority work it needs is the substrate the three above it draw on — say that wherever the order is shown to a client. The order is this client's working priority and is revisable on evidence, never a claim about the engines; the item column is this library's judgement, and no engine publishes its selection rule, so never report a row as one. Precedence in full, the conflict rule, and where it lands in each step: [references/ai-visibility-targets.md](./references/ai-visibility-targets.md) §1.
+   | # | Engine | Standing | Items this library prioritises |
+   |---|--------|----------|----------------|
+   | 1 | ChatGPT Search (and Browse) | Primary | C02, R01, R02, E01 |
+   | 2 | Gemini and Google AI surfaces (AI Mode, AI Overviews) | Primary | C02, O03, O05, C09 |
+   | 3 | Perplexity | Primary | E01, R03, R05, Ept05 |
+   | 4 | Google organic search | Foundation | Measured as ranking, not as prompt response — the technical and authority substrate, not deprioritised by this table |
+   | 5 | Other assistants (Claude, Copilot, and what follows) | Monitored channel | R04, Ept08, Exp10, R03 |
 
    **Engine Model (2026 baseline)**: Google AI Mode is Google's default search surface (AI Overviews folded in; live for Greek queries since 08-10-2025) — organic CTR baselines shift accordingly. ChatGPT, Perplexity, Gemini, Claude remain separate engines, each with its own selection behavior.
 
@@ -197,6 +190,7 @@ When a user requests GEO optimization:
    > **Reading the reference examples**: the sources, figures and experts in them are fictional stand-ins by design — they teach the *shape* of a cited sentence, not facts. Never carry a name, number or quotation out of a reference file into client copy, and never attribute anything to a real organisation or a real person without a source you have read and can link.
 
    Key principles:
+   - **Three targets, not one — "get cited" is one job of three**: being *mentioned* (the answer names the brand), being *cited* (a client URL appears in the answer's sources) and being *recommended* (the brand sits inside an ordered set of options) are three separate facts with three different fixes, and the techniques below do not serve them equally. Quotable statements, definitions, factual density, followable sources and structure make the owning URL **liftable and sourceable** — the citation job. Full entity names, a named author with checkable credentials and first-party data are the **mention** job. Comparison tables, "X vs alternative" and "best X for use case" coverage, and acknowledged limitations are the **recommendation** job. Name which of the three each change serves: a page can win one and not the others, and a report that concludes "AI visibility: present" has thrown the diagnosis away. Mapping, the split-result reads and where each routes: [references/ai-visibility-targets.md](./references/ai-visibility-targets.md) §2 · fields: [AI Visibility Measurement](../../references/ai-visibility-measurement.md) §3
    - **Definitions**: 25-50 words, standalone, starting with the term
    - **Quotable statements**: Specific statistics with sources, verifiable facts
    - **Authority signals**: Expert quotes you can source (speaker, role, where and when they said it, link) — never one you cannot; proper source citations
@@ -302,9 +296,14 @@ When a user requests GEO optimization:
 - [ ] GEO score improvement of at least 50% from baseline — "baseline" is the step 2 GEO Readiness figure, the single baseline in the deliverable — with its arithmetic printed beside it: (after − before) ÷ before × 100
 - [ ] Every score carries the count behind it, in the same row or the next sentence ([references/geo-score-arithmetic.md](./references/geo-score-arithmetic.md)); scores stay in the report, never inside schema or paste-ready copy
 - [ ] Source of each data point stated in the deliverable's own words — the resolved tool name (Otterly, Profound), "user-provided", or "estimated" **only where the client estimated the figure and told you so** (this skill never estimates a number on the client's behalf); where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7), and no placeholder or provenance note inside schema, meta tags, or paste-ready copy
+- [ ] No promise of a citation, an inclusion, a recommendation position or a share of any AI answer, on any timeline — the deliverable states the mechanism as a declared working model, a leading indicator with its measurement plan, and the dated baseline with its N ([AI Visibility Measurement](../../references/ai-visibility-measurement.md) §7); the step 4 lift is this deliverable's own before/after, never a forecast
+- [ ] Each change names which of the three jobs it serves — mentioned, cited, or recommended — since a page can win one and not the others ([references/ai-visibility-targets.md](./references/ai-visibility-targets.md) §2)
+- [ ] Where the run names a target engine, the step 1 precedence order decided which one led, any conflict it resolved is named as a trade-off rather than dropped, and anything said about Google organic says it is a different instrument, not a lower priority
 - [ ] Every screen run over the finished deliverable (bracket tokens, `~~` tokens, a Greek regression net, a numeral census) is reported with its **exit status** as well as its output — a screen that exits non-zero has not run, and a screen that has not run is UNSCREENED, never clean ([references/geo-score-arithmetic.md](./references/geo-score-arithmetic.md) §9)
 
 **When a threshold and the Statistics rule collide, the threshold loses.** The counts above describe what well-sourced content looks like; they are not quotas to fill. If the page and the supplied data yield three precise data points, ship three: mark the item ❌ with the count actually reached and name the data that would close it. Never a fourth number the skill invented to clear a checkbox — and that includes the 50% lift, which is a false report if any factor behind it was scored on invented content.
+
+**No-promise rule.** A GEO deliverable never promises a citation, an inclusion, a recommendation position, or a share of any AI answer, on any timeline: no engine publishes its citation criteria, none guarantees determinism, and the same prompt answers differently twice in one minute. Three things are stated instead, and all three are defensible — **the mechanism as a declared working model** ("an explicit room-size answer in the opening paragraph gives an assistant a directly liftable sentence; that is our working model, not documented engine behaviour"), **a leading indicator with its measurement plan** ("mention rate, re-measured across 3 repeats on 40 prompts, monthly"), and **the dated baseline with its N** ("8 of 36 captures, 17 August"). This is the client-facing twin of the engine-mechanic ban and is not covered by it: ruling R3 amendment 9a bans asserting what an engine *does*, this bans promising what an engine *will do for this client*, and a deliverable can break either alone. Carriers: [prohibited-tactics.md](../../references/prohibited-tactics.md) entry 9 · [AI Visibility Measurement](../../references/ai-visibility-measurement.md) §7 · substitutions worked in EN and EL, and why this skill's own GEO score is not a forecast, [references/ai-visibility-targets.md](./references/ai-visibility-targets.md) §3.
 
 **Statistics rule**: Every statistic must come from user-supplied data, a cited source, or be marked as a `[CLIENT DATA: …]` placeholder — never invented to satisfy a threshold. **Attribution**: never put a statistic, a claim or a quotation in the name of a real organisation or a real person without a source you have read and can link. A fabricated quote from a named individual, or an invented credential at a named institution, is the most damaging output this skill can produce — it publishes a falsehood about an identifiable third party under the client's byline. A fabricated number that gets repeated anywhere — quoted back by a reader, lifted into a client's own deck, picked up by any consumer — is a liability that outlives the page. **Placement**: placeholders and provenance notes (bracketed or not — e.g. «απαιτούνται στοιχεία προϊόντος») belong in the report/gap-table sections only, never inside ship-ready surfaces: schema/JSON-LD, meta tags, or answer text presented as paste-ready. Write the customer-visible answer complete without the missing datum — honest hedging in customer voice is fine; an agency-perspective aside is not. Draft body copy may carry a bracketed placeholder only when the resolve-before-publication flag sits **inside the same block, in that block's own syntax** — `<!-- SKELETON … -->` for HTML, `"_SKELETON": "…"` as the first member for JSON-LD, `# SKELETON …` for text (root `CLAUDE.md`, the Value Rule). A model copies the fence, not the heading above it, so a note outside the block does not travel with it, and a block introduced as paste-ready is never a skeleton.
 
@@ -369,6 +368,7 @@ Each reason below states what the tip puts on the page, checkable by opening it 
 - [AI Citation Patterns](./references/ai-citation-patterns.md) - This library's observational working model of Google AI Mode (incl. AI Overviews), ChatGPT, Perplexity and Claude — citation styles visible in their published output, per-engine overlap and community/UGC patterns. Read its evidence-grade block first: none of it is engine-published, and none of it goes into a deliverable as an engine mechanic
 - [GEO Optimization Techniques](./references/geo-optimization-techniques.md) - Detailed before/after examples, templates and checklists for the six core optimization techniques, plus the GEO Readiness Checklist (definitions, quotable content, authority, structure, technical)
 - [Quotable Content Examples](./references/quotable-content-examples.md) - Before/after examples of content optimized for AI citation
+- [AI Visibility Targets](./references/ai-visibility-targets.md) - Engine precedence and what it governs (with rank 4 written out); mentioned / cited / recommended as three jobs with three different fixes, mapped onto this skill's own techniques; and what a deliverable states instead of a promise
 - [GEO Score Arithmetic](./references/geo-score-arithmetic.md) - What every printed number is made of: the 1-10 scale as a ratio, what each factor counts, N/A handling, the lift, the pre-send recompute pass, and how to read a screen you ran over your own deliverable (a screen that exits non-zero has not run)
 
 > The first three files illustrate technique with **fictional sources** (the reserved `Example …` cast) and invented figures. That is demonstration material, not evidence: swap in a source you have read before anything ships, and never attribute data or a quotation to a real organisation or a real person on the strength of an example here.
