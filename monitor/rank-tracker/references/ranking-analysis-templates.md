@@ -437,7 +437,7 @@ Each recommendation names the job in the client's own vocabulary — "rewrite th
 Scheduled: [date]
 Focus areas: [areas to monitor]
 
-<!-- OPERATOR HANDOFF — for whoever runs the skill library; not client copy -->
+<!-- OPERATOR BLOCK — for whoever runs the skill library; not client copy -->
 **Next steps for your team** — *operator block; not part of the client report*
 
 | Follow-up run | Payload |
@@ -468,7 +468,7 @@ decidable rather than a matter of interpretation.
 
 ```markdown
 <!-- SKELETON — fill every [slot]; delete this line when filled, keep the two labels below -->
-<!-- OPERATOR HANDOFF — for whoever runs the skill library; not client copy -->
+<!-- OPERATOR BLOCK — for whoever runs the skill library; not client copy -->
 **Next steps for your team** — *operator block; not part of the client report*
 
 ### Follow-up runs

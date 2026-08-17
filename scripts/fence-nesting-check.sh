@@ -90,6 +90,49 @@ sys.exit(1 if bad else 0)
 PY
 }
 
+if [ "${1:-}" = "--labels" ]; then
+  # Closed-list check for in-fence labels (finding 112, ruled 2026-08-17). Advisory, not gated:
+  # it reports a label word outside the ruled three, and only a human can say whether a given
+  # fence needed a label at all. It exists because the ruling that closed the list is worthless
+  # without something that can see the list being reopened — which is finding 112's own point.
+  shift
+  python3 - "$@" <<'PY'
+import os, re, sys
+ALLOWED = {"SKELETON", "ILLUSTRATIVE FILL", "OPERATOR BLOCK"}
+targets = sys.argv[1:] or ["."]
+SKIP = ("/.git", "/node_modules", "/.venv", "/docs/loop")
+# A label is an all-caps run opening a comment-style or hash-style in-fence marker.
+PAT = re.compile(r'(?:<!--|#|"_)\s*([A-Z][A-Z ]{3,30}?)\s*(?:—|-{2}|:|")')
+files = []
+for t in targets:
+    if os.path.isfile(t): files.append(t)
+    else:
+        for root, _d, fs in os.walk(t):
+            if any(s in root for s in SKIP): continue
+            files += [os.path.join(root, f) for f in fs if f.endswith(".md")]
+off = {}
+for p in sorted(set(files)):
+    for i, l in enumerate(open(p, encoding="utf-8", errors="replace"), 1):
+        for m in PAT.finditer(l):
+            w = m.group(1).strip()
+            if w in ALLOWED or w == "OPERATOR":   # "_OPERATOR" is the ruled JSON member form
+                continue
+            if not re.match(r'^(SKELETON|ILLUSTRATIVE|OPERATOR)\b', w):
+                continue                          # not a label at all — ordinary prose in caps
+            off.setdefault(w, []).append("%s:%d" % (p, i))
+if off:
+    print("Label words outside the ruled closed list {SKELETON, ILLUSTRATIVE FILL, OPERATOR BLOCK}:")
+    for w, locs in sorted(off.items()):
+        print("  %-24s %d site(s): %s" % (w, len(locs), ", ".join(locs[:4])))
+else:
+    print("All in-fence label words are on the ruled closed list of three.")
+print("")
+print("scanned %d markdown file(s)" % len(set(files)))
+sys.exit(1 if off else 0)
+PY
+  exit $?
+fi
+
 if [ "${1:-}" = "--probe" ]; then
   # F15 discipline: a checker that has never been shown failing is not evidence of anything.
   # Each canary reproduces one of the two mechanisms measured in the real tree.

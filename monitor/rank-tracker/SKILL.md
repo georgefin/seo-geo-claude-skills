@@ -1,13 +1,13 @@
 ---
 name: rank-tracker
-version: "4.2.0"
+version: "4.2.1"
 description: 'Track keyword ranking positions and SERP position changes over time in both traditional search and AI-generated responses. Use when the user asks to "track rankings", "check keyword positions", "monitor SERP positions", "how am I ranking", "where do I rank for this keyword", "did my rankings change", "ranking changes", or "keyword position tracking". For automated alerting, see alert-manager. For comprehensive reports, see performance-reporter.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.2.0"
+  version: "4.2.1"
   geo-relevance: "medium"
   tags:
     - seo
@@ -134,7 +134,7 @@ When a user requests rank tracking or analysis:
 
 8. **Generate Ranking Report** -- Executive summary with overall trend, position distribution, key highlights (wins/concerns/opportunities), detailed analysis, SERP feature report, GEO visibility, competitive position, recommendations.
 
-   **Operator handoff block (handoff contract)** -- Every report closes with one block carrying **two** labels: a visible one a reader sees rendered (`**Next steps for your team** -- *operator block; not part of the client report*`) and an in-fence comment that survives being copied (`<!-- OPERATOR HANDOFF -- for whoever runs the skill library; not client copy -->`). Two labels because the two failure modes differ: a comment alone is invisible in a rendered report, and a heading alone is lost when a model copies the fence and not the heading above it. It is the **only** place in the deliverable where a run handle appears -- a skill name, a framework item ID, an internal artefact name. Client prose above it names the job instead ("refresh the boiler guide", "re-check that SERP"), because a handle names a tool the client does not have. One row per follow-up run, carrying what the receiving skill needs: target keyword, content type, the ranking URL, current and previous position with the check date and resolved source, the reason for the handoff, and any framework scores already on file (this skill computes no CORE-EEAT or CITE score, so those fields read "not computed by this skill" rather than being invented). The block is addressed to the operator, so it is an operator surface wherever it sits -- inside a client deliverable included.
+   **Operator block (handoff contract)** -- Every report closes with one block carrying **two** labels: a visible one a reader sees rendered (`**Next steps for your team** -- *operator block; not part of the client report*`) and an in-fence comment that survives being copied (`<!-- OPERATOR BLOCK -- for whoever runs the skill library; not client copy -->`). Two labels because the two failure modes differ: a comment alone is invisible in a rendered report, and a heading alone is lost when a model copies the fence and not the heading above it. It is the **only** place in the deliverable where a run handle appears -- a skill name, a framework item ID, an internal artefact name. Client prose above it names the job instead ("refresh the boiler guide", "re-check that SERP"), because a handle names a tool the client does not have. One row per follow-up run, carrying what the receiving skill needs: target keyword, content type, the ranking URL, current and previous position with the check date and resolved source, the reason for the handoff, and any framework scores already on file (this skill computes no CORE-EEAT or CITE score, so those fields read "not computed by this skill" rather than being invented). The block is addressed to the operator, so it is an operator surface wherever it sits -- inside a client deliverable included.
 
    > **Reference**: See [references/ranking-analysis-templates.md](./references/ranking-analysis-templates.md) for output templates covering seven of these eight steps: its templates 1-7 map to steps 1, 3, 4, 5, 6, 7 and 8 in that order, and its template 8 is the operator handoff block. Step 2's mining output format lives in the tracking setup guide §9 instead -- the templates file covers no step 2.
 
@@ -206,7 +206,7 @@ No traffic figures appear above: no click baseline was supplied for these URLs, 
 not quantified here. Send a Search Console clicks export for the two URLs and the next report
 will state it.
 
-<!-- OPERATOR HANDOFF — for whoever runs the skill library; not client copy -->
+<!-- OPERATOR BLOCK — for whoever runs the skill library; not client copy -->
 **Next steps for your team** — *operator block; not part of the client report*
 
 | Follow-up run | Payload |

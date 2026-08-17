@@ -170,6 +170,23 @@ invisible the moment anyone copies the fence — and copying the fence is what a
 | JSON / JSON-LD | `"_OPERATOR": "…"` as the first member |
 | Text formats (`robots.txt`, config, plain) | `# OPERATOR BLOCK — …` |
 
+**The label vocabulary is a CLOSED list of three, ruled 2026-08-17 (finding 112).** Three labels,
+because a fence can be non-client for three different reasons and a reader needs to know which:
+
+| Label | Says | Use when |
+|-------|------|----------|
+| `SKELETON` | structure only — every slot is unfilled and nothing here is paste-ready | a template with `[bracket]` slots |
+| `ILLUSTRATIVE FILL` | filled, but **every** number, name and date is invented | a worked example the reader must not copy as data |
+| `OPERATOR BLOCK` | addressed to whoever runs the skill library, not to the client | a handoff block, a lookup table, an author's check |
+
+Nothing else. `OPERATOR HANDOFF` was a fourth spelling of `OPERATOR BLOCK` and is **retired**
+(4 sites in rank-tracker, renamed 2026-08-17). The list is closed for a measured reason: a sweep
+for unlabelled fences carrying a run handle **flagged a correctly-labelled block** — rank-tracker's
+— purely because its label word was not on the list the checker knew. **A checker cannot verify a
+rule whose vocabulary is open**, and an open vocabulary turns every new synonym into a false
+positive that trains people to ignore the checker. `bash scripts/fence-nesting-check.sh --labels`
+reports any label word outside these three.
+
 Two ways to satisfy the rule, in order of preference:
 
 1. **Lift it out.** Close the client report's fence before the handoff and emit the operator block as
