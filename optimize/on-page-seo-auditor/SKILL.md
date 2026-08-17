@@ -1,6 +1,6 @@
 ---
 name: on-page-seo-auditor
-version: "4.5.0"
+version: "4.5.1"
 description: 'Audit on-page HTML elements including title tags, headers, image alt text, and internal links with a scored SEO report. Use when the user asks to "audit page SEO", "on-page SEO check", "SEO score", "page optimization", "what SEO issues does this page have", "score my page", "why is this page not ranking", or "check my page". For server, speed, and crawl issues, see technical-seo-checker. For full EEAT content quality scoring, see content-quality-auditor.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.5.0"
+  version: "4.5.1"
   geo-relevance: "medium"
   tags:
     - seo
@@ -267,7 +267,7 @@ bands: [references/scoring-rubric.md](./references/scoring-rubric.md).
 
 4. **Audit Header Structure**
 
-   ```markdown
+   ````markdown
    ## Header Structure Analysis
    
    ### Current Header Hierarchy
@@ -300,7 +300,7 @@ bands: [references/scoring-rubric.md](./references/scoring-rubric.md).
    **Recommended Changes**:
    - H1: [suggestion]
    - H2s: [suggestions]
-   ```
+   ````
 
 5. **Audit Content Quality** — Word count, reading level, comprehensiveness, formatting, E-E-A-T signals, content elements checklist, gap identification
 

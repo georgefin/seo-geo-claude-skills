@@ -211,11 +211,23 @@ H2: More Information
 | Density | Score Impact | Assessment |
 |---------|-------------|-----------|
 | 0.5-1.0% | Full points | Natural, well-integrated |
-| 1.0-2.0% | Full points | Acceptable, slightly keyword-focused |
-| 2.0-2.5% | -1 point | Borderline, review for naturalness |
-| 2.5-3.0% | -2 points | Over-optimized, needs reduction |
+| >1.0-2.0% | Full points | Acceptable, slightly keyword-focused |
+| >2.0-2.5% | -1 point | Borderline, review for naturalness |
+| >2.5-3.0% | -2 points | Over-optimized, needs reduction |
 | >3.0% | 0 points for density | Keyword stuffing, immediate fix needed |
 | <0.5% | -1 point | Under-optimized, add more natural usage |
+
+**Each interior row's lower bound is exclusive; 0.5% is inclusive in the first row because
+`<0.5%` already excludes it, and 3.0% is inclusive in the `>2.5-3.0%` row because `>3.0%` already
+excludes it.** The `>` prefixes state what the two ends' own operators always implied — **no
+boundary moves**. Without them 1.0%, 2.0% and 2.5% each sat in two rows, and 2.0% and 2.5% carried
+two different score impacts at once. A measured 2.0% takes full points and a measured 2.5% costs
+one point: each shared value stays with the first row that names it. **Read the density to one
+decimal, half up**, because these endpoints carry one decimal — 2.04% reads 2.0% and keeps full
+points, 2.05% reads 2.1% and costs one. That is the same rounding rule as the Overall Score below,
+at this scale's own precision, not a second convention
+([core-eeat-benchmark.md](../../../references/core-eeat-benchmark.md) §3, "precision follows the
+band's own endpoints").
 
 ### Calibration Examples
 
@@ -249,9 +261,17 @@ H2: More Information
 | Content Length | Minimum Links | Ideal Range | Too Many |
 |---------------|--------------|-------------|---------|
 | <500 words | 2 | 2-4 | >8 |
-| 500-1,000 words | 3 | 3-6 | >12 |
-| 1,000-2,000 words | 4 | 5-10 | >20 |
+| 500-999 words | 3 | 3-6 | >12 |
+| 1,000-1,999 words | 4 | 5-10 | >20 |
 | 2,000+ words | 5 | 8-15 | >25 |
+
+**Word counts are integers and these bands are lower-bound inclusive** — which is what the table's
+own two ends already declared: `<500` excludes 500 and `2,000+` includes 2,000. Written as
+`500-1,000` and `1,000-2,000` the values 1,000 and 2,000 each sat in two rows with different
+minimums, ideal ranges and ceilings. **The boundaries are unchanged — still 500, 1,000 and
+2,000** — and the notation is the one the Content Length Benchmarks table in Section 4 of this
+file already uses (`1,000-1,499`, `500-999`). Nothing lies between 999 and 1,000 words to fall
+through.
 
 ### Calibration Examples
 
@@ -622,8 +642,15 @@ that the excluded criterion was declared rather than quietly scored 0.
 
 | Metric | Good | Needs Improvement | Poor |
 |--------|------|-------------------|------|
-| LCP | ≤2.5s | 2.5-4.0s | >4.0s |
-| INP | ≤200ms | 200-500ms | >500ms |
-| CLS | ≤0.1 | 0.1-0.25 | >0.25 |
-| TTFB | ≤800ms | 800-1800ms | >1800ms |
+| LCP | ≤2.5s | >2.5-4.0s | >4.0s |
+| INP | ≤200ms | >200-500ms | >500ms |
+| CLS | ≤0.1 | >0.1-0.25 | >0.25 |
+| TTFB | ≤800ms | >800-1800ms | >1800ms |
+
+**The middle band's lower bound is exclusive.** The Good column already claims the boundary value
+with its own `≤`, so a measurement of exactly 2.5s, 200 ms, 0.1 or 800 ms is Good and nothing
+else — the added `>` says so instead of leaving each of those four values graded twice. **No
+threshold moves**; this is the same convention the Poor column has always used. Read each metric
+at the precision its own endpoints carry — one decimal for LCP, two for CLS, whole milliseconds
+for INP and TTFB — not harmonised to one house precision.
 

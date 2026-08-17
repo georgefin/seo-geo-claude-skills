@@ -167,8 +167,8 @@ Step 11 recommendations; same rule as SKILL.md "Finding Format & Confidence Labe
 **Density has no single convention, so the report states the one it used.** Two choices move the
 number: what counts as an occurrence (the exact phrase only, or inflections and near-matches too;
 headings and alt text in, or body paragraphs only) and which words form the base (visible body
-text, or every word in the HTML). Print both alongside the percentage — "15 exact-phrase
-occurrences including headings ÷ 229 visible words = 6.6%" — so the density bands in
+text, or every word in the HTML). Print both alongside the percentage — "24 exact-phrase
+occurrences including headings ÷ 2,000 visible words = 1.2%" — so the density bands in
 [scoring-rubric.md](./scoring-rubric.md) are applied to a number the reader can reproduce. A bare
 percentage is unusable: the same page yields wildly different figures under different counts.
 
