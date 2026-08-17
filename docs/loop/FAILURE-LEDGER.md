@@ -2018,3 +2018,43 @@ increment condition is F15's.
 - **Recurrence**: F15 → 4.
 - **Status**: recorded, **not fixed** — a canary per branch and per high-traffic token is owed,
   and the header must state what the canaries do and do not protect. FLIP: F15-r4 -- none
+
+---
+
+## F9 — Recurrence 10 (2026-08-17) · "Carried to all of them" had reached two of six, and the grep that found it is the one this coordinator wrote two waves ago
+
+The commit answering Mode A's B2 said the lift exclusion was *"carried to all of them"*. Running
+F9-r8's own prescribed grep over the file's vocabulary before touching anything else:
+
+```
+$ grep -rn "÷ \[before\]|÷ before|factors scored before|lift" build/geo-content-optimizer/
+SKILL.md:246   **Lift**: ([after] − [before]) ÷ [before] × 100 = [X]%      ← report template
+SKILL.md:350   ... lift (8.0 − 1.3) ÷ 1.3 × 100 = 515%                     ← worked example
+geo-score-arithmetic.md:357   `(9.4 − 2.6) ÷ 2.6 × 100 = 262%`             ← worked example
+geo-score-arithmetic.md:377   Lift: ... = **262%**                          ← reverse-check
+```
+
+Four of six surfaces untouched, including **the report template a run copies** and both worked
+examples. The claim was written from the two edits made, not from the file.
+
+**The recurrence is the ordinary one. What the grep bought is not.** Reading those four sites in
+context surfaced that §5 already rules — six lines above its own worked example — that *"two
+factor sets over the same content produce two different baselines and the lift then depends on
+which one the reader happens to read"*. **The exclusion ruling introduced exactly that**, in the
+file that forbids it, to fix a lever the same file already has a stated remedy for.
+
+So the fix was not to patch four sites. It was to withdraw the ruling and replace it with
+disclosure: one factor set, one baseline, one lift, and the two plan-denominated factors print
+`met → met of asked` beside the number they influence. That is this file's own principle — *a
+denominator a reader can see is a denominator a reader can argue with* — applied where the lever
+acts instead of amputating the factors.
+
+**The lesson worth keeping**: the grep is prescribed to verify a closure, and it did that. Its
+larger value was showing the ruling to be wrong at all — **you cannot tell whether a rule fits a
+file without reading every place the file already speaks to it**, and the four sites the closure
+missed were exactly the four that would have said so.
+
+- **Found by**: the coordinator, running its own rule before writing the next claim.
+- **Recurrence**: F9 → 10.
+- **Status**: exclusion withdrawn, disclosure installed, report template carries it, and the
+  grep returns nothing outside the corrected register row. FLIP: F9-r10 -- none

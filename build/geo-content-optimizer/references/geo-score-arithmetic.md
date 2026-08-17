@@ -22,7 +22,7 @@ Never a framework item ID or a skill slug on a surface the client reads
 | 2 | GEO Readiness (step 2 baseline) | sum of the factor scores ÷ factors scored |
 | 3 | Overall GEO Score (step 4, after) | the same factors, the same count rules, re-counted on the optimized text |
 | 4 | Change per factor | after − before |
-| 5 | Lift % | (after − before) ÷ before × 100, **over the six factors whose `asked` is not plan-set** — Clear definitions and Quotable statements are excluded, and the exclusion is named beside the figure (§3, the plan-denominator ruling) |
+| 5 | Lift % | (after − before) ÷ before × 100, over **all** factors scored — one factor set, one baseline (§5). The two plan-denominated factors print their `met/asked` beside it so the denominator the run chose is visible (§3) |
 | 6 | Citation-readiness rating, if one is printed | count of the full-readiness factors met (§6) |
 
 Every other figure in the report derives from these six and has to reconcile with them.
@@ -95,12 +95,18 @@ now closed:
    cannot be walked down to 0 and through the N/A rule — which is exactly §3.1's *"worse hole,
    where cutting every claim drives `asked` to 0 and the factor to N/A"*, and §3.1's reasoning
    binds here for the same reason it binds there.
-2. **These two factors are excluded from the headline lift %.** The bigger lever was never the
-   ratio, it was `Lift % = (after − before) ÷ before × 100`: raising the planned count lowers
-   `before` and inflates the headline, measured at 72% versus 96% on one page for identical work.
-   A denominator the scored run chooses must not feed a percentage that run is judged by. They
-   are reported as **`met before → met after` over `asked`** — the counts, which are checkable —
-   and the lift % is computed over the other six factors, with the exclusion named beside it.
+2. **These two factors disclose their denominator beside the lift — they are NOT excluded from
+   it.** The lever is real: `Lift % = (after − before) ÷ before × 100`, so raising the planned
+   count lowers `before` and inflates the headline — worked at 72% versus 96% on one page for
+   identical work. **Excluding them was the first answer and it was wrong**, because §5 already
+   rules that a shorter factor set over the same content produces a second baseline and "the lift
+   then depends on which one the reader happens to read". The fix would have created exactly the
+   defect the file forbids six lines above its own worked example. **Disclosure instead**: one
+   factor set, one baseline, one lift — and Clear definitions and Quotable statements print
+   `met before → met after` over `asked` immediately beside it, so the denominator the run chose
+   is visible to the reader who is judging the number. That is this file's own stated remedy —
+   *a denominator a reader can see is a denominator a reader can argue with* — applied to the
+   place the lever actually acts.
 
 **Why not simply forbid the plan denominator and go back**: the original defect stands — under
 the old wording the after column could not credit a term the optimisation introduced, and those
@@ -352,7 +358,7 @@ re-adding the column.
   step 4 table repeats the step 2 factor set rather than introducing a shorter one, because
   two factor sets over the same content produce two different baselines and the lift then
   depends on which one the reader happens to read.
-- **Change** per factor = after − before. **Lift** = (after − before) ÷ before × 100, computed **The lift is the six-factor figure** — Clear definitions and Quotable statements are excluded because their `asked` is set by the run being scored (§3); the two excluded factors are named beside it.
+- **Change** per factor = after − before. **Lift** = (after − before) ÷ before × 100, computed **The lift stays the all-factor figure**, and the two plan-denominated factors print their `met/asked` counts beside it — see §3.
   from the two printed averages and printed with both operands:
   `(9.4 − 2.6) ÷ 2.6 × 100 = 262%`.
 - The scale floors at 1, so the baseline is never 0 and the lift is always defined.
@@ -415,7 +421,7 @@ Run this against the finished deliverable, not the working notes:
 3. Sum of the printed factor scores ÷ the printed divisor = the printed average, to one decimal.
 4. Factors scored + factors N/A = 8; the prose N/A list matches the N/A rows.
 5. Before and after use the same factor set, the same `asked` values and the same divisor.
-6. The lift reproduces from the two printed **six-factor** averages, and the deliverable names the two excluded factors beside it. The eight-factor averages are still printed as GEO Readiness (figures 2 and 3); the lift is not computed from them.
+6. The lift reproduces from the two printed averages, and the deliverable prints `met/asked` for Clear definitions and Quotable statements beside it, so a reader can see the denominators the run chose.
 7. Any claimed threshold ("at least 50% from baseline") is stated against the one baseline in
    the deliverable, with the arithmetic that produces it.
 8. Where a sentence and a table disagree, the table wins — fix the sentence.

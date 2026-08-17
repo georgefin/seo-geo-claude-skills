@@ -1,13 +1,13 @@
 ---
 name: geo-content-optimizer
-version: "4.4.10"
+version: "4.4.11"
 description: 'Optimize content for AI citation across Google AI Mode (default search surface, incl. AI Overviews), ChatGPT, Perplexity, and Gemini with quotable statements and structured Q&A. Use when the user asks to "optimize for AI", "get cited by ChatGPT", "GEO optimization", "appear in AI answers", "make content AI-quotable", "Google AI Overview optimization", or "Google AI Mode optimization". Adds quotable statements, structured Q&A, precise statistics with sources, expert attribution, and a structured FAQ. Uses CORE-EEAT GEO-First items as optimization targets. For SEO-focused writing, see seo-content-writer. For entity and brand AI presence, see entity-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.4.10"
+  version: "4.4.11"
   geo-relevance: "high"
   tags:
     - geo
@@ -244,6 +244,7 @@ When a user requests GEO optimization:
    | **GEO Readiness** | **[avg]/10** | **[avg]/10** | **+[X]** | **[sum] ÷ [n] factors scored** |
 
    **Lift**: ([after] − [before]) ÷ [before] × 100 = [X]%
+   **Denominators this run chose**: Clear definitions [met]→[met] of [asked] · Quotable statements [met]→[met] of [asked] — these two `asked` values are set by this run from the plan (`max(inbound, planned)`), so they are printed beside the lift they influence
 
    ### AI Query Coverage
 
