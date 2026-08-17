@@ -1,0 +1,51 @@
+# FIXTURE — 8 constructed FID violations (the DEPRECATED_TOKENS leg of check (f)).
+#
+# WHY THIS FILE EXISTS. OPEN-FINDINGS row 93: `DEPRECATED_LEGAL`'s word-bounding shipped as "the
+# same hazard ... bounded too" and was measured at 0/8 caught before and 0/8 after — a no-op,
+# because the two members it bounded (`\bdropped\b`, `\bteaching\b`) have essentially no English
+# words containing them, so no realistic line changes verdict. Those 8 were never saved either.
+# This is the reconstruction.
+#
+# WHAT EACH LINE IS. A line that teaches First Input Delay as a live metric — a threshold to hit,
+# a number to report — while carrying an allowlist marker used about something else. FID was
+# retired in March 2024 and INP replaced it (settled ruling R4), so every line below must FAIL
+# check (f). One marker per line, so a miss localises to a member.
+#
+# The three real FID lines in the tree are in fid-legitimate.txt. There are only three, and two
+# rest on `\bteaching\b` alone.
+#
+# FORMAT: `# ` comment, `>>> ` data. EXPECT defaults to CAUGHT; `# EXPECT: MISSED — reason` opts out.
+#
+# COUNT: 8
+#
+# 1. `no longer`, about the superseded 300 ms guidance, across a semicolon.
+>>> Target FID under 100 ms in the audit; the 300 ms guidance is no longer quoted.
+#
+# 2. `deprecat`, about a table layout. Unbounded member, so the 2026-08-17 diff never touched it.
+>>> Report First Input Delay beside LCP and CLS; the deprecated table layout has been replaced.
+#
+# 3. `superseded`, about a threshold's own history — 52 characters after the token.
+# EXPECT: MISSED — marker follows the token inside the 60-character after-window (gap 52). The
+#   window is sized by the FAQ leg, whose worst legitimate line needs 50; the metric leg's own
+#   real lines need 1, 1 and 5. One number for both legs is a deliberate choice, and this is
+#   what it costs. Sized to the metric leg's evidence (25) this line is caught.
+>>> FID above 300 ms fails Core Web Vitals - this threshold superseded the 2019 draft.
+#
+# 4. `is dead`, about a slow page rather than about the metric.
+>>> Flag any page whose FID exceeds 100 ms; a page that slow is dead on mobile.
+#
+# 5. `not named here`, about INP's absence from a list that teaches FID as current.
+>>> Core Web Vitals to track: LCP, FID, CLS. INP is not named here.
+#
+# 6. `do not teach`, about client-facing detail — 27 characters after the token.
+# EXPECT: MISSED — same after-window residual as line 3, at gap 27.
+>>> Track FID in the monthly report, but do not teach clients the raw millisecond values.
+#
+# 7. `\bdropped\b` — one of the two members the 2026-08-17 diff DID bound, used about traffic.
+#    Bounding it changed nothing here: `dropped` is spelled `dropped` either way. Gap 49.
+# EXPECT: MISSED — same after-window residual, at gap 49.
+>>> FID under 100 ms keeps bounce low even where traffic dropped last quarter.
+#
+# 8. `\bteaching\b` — the other bounded member, and the sole excuse for 2 of the 3 real FID lines.
+#    Here it names a training module, 44 characters before the token.
+>>> The teaching module on intent mapping also sets FID under 100 ms as the responsiveness target.

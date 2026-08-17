@@ -1,0 +1,33 @@
+# FIXTURE — legitimate FID lines, drawn VERBATIM from the live tree (2026-08-17)
+#
+# These are ALL THREE lines in the swept trees that name the retired metric. There is no fourth.
+# That is the fact behind row 93's sharpest observation: `\bteaching\b` is the sole excuse for 2
+# of the 3, so the FID leg of check (f) rests on one gerund. Each of these must survive.
+#
+# They also show why the metric leg needs a much smaller proximity window than the FAQ leg: the
+# marker sits 1, 1 and 5 characters from the token. A corrected sentence about a metric puts the
+# retirement verb ON the metric. It is the FAQ leg, with its sourced date clauses, that needs 50.
+# The shipped window is one number for both legs, sized by the FAQ leg — see the script comment.
+#
+# FORMAT: `# ` comment, `>>> ` data (verbatim after the 4-char prefix).
+# EXPECT for every line in this file: EXCUSED.
+#
+# COUNT: 3
+#
+# optimize/content-refresher/references/refresh-templates.md:189
+#   sole excuse: `\bteaching\b`, 1 character before the token. The line instructs a run to CORRECT
+#   an article that teaches FID; naming the metric is the whole point of the instruction.
+>>>   teaching FID, or 2.0 s as "Google's LCP benchmark", is corrected in place with those figures, and
+#
+# optimize/content-refresher/references/refresh-templates.md:190
+#   sole excuse: `\bteaching\b` again, inside `Re-teaching`. Word-bounding kept it (a hyphen is a
+#   word boundary) — but this pair is the entire evidence base for the bounded members, which is
+#   why row 93 called the bounding one character from failing the gate.
+>>>   the correction names which metric replaced which. Re-teaching FID as live fails; so does sending
+#
+# optimize/content-refresher/SKILL.md:274
+#   excused by `\bretired\b`, 5 characters after `First Input Delay`. NOTE the line ALSO carries a
+#   bare `FID` in a quoted old-metric placeholder ~200 characters earlier with no marker near it:
+#   under an every-instance rule this correct line fails. It is the reason the excuse test is
+#   existential (ANY bound pair excuses the line), and the reason that stays a stated residual.
+>>>    | Core Web Vitals figures | "[old metric or threshold — e.g. FID, LCP 2.0 s]" | **Correct in place, do not route it back for verification**: "Good" is LCP ≤2.5 s, INP ≤200 ms, CLS ≤0.1. First Input Delay was retired in March 2024 and INP replaced it as the responsiveness metric; the 2.0-second LCP figure carried in older posts is a vendor number, not Google's |

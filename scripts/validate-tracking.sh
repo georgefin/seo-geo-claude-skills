@@ -8,10 +8,27 @@
 # SKILL.md frontmatter, the 350-line body cap, and references/ link integrity.
 #
 # Usage:   ./validate-tracking.sh [repo-root]     (default: .)
+#          ./validate-tracking.sh --probe [repo-root]
+#              Fault-injection for check (f)'s two allowlists against the checked-in corpus in
+#              scripts/fixtures/r3-allowlist/. Prints caught/missed per corpus and FAILS when a
+#              violation is excused. See the probe block below check (f) for why it exists.
 # Exit:    0 = all checks pass (warnings allowed), 1 = any FAIL, 2 = usage/setup error
 # No network access. Dependencies: bash, coreutils, grep, sed, awk, sort, comm, cmp (diffutils).
 
 set -u
+
+# --probe runs the same script: the point of the probe is to measure the allowlists check (f)
+# actually enforces, so it must read the same variables, not a copy of them (engine-claim-sweep's
+# own recorded lesson — its hand-copied second pattern list drifted and two canaries walked
+# through the gap). Those variables are assigned inside check (f), where their history is
+# written, so the probe runs AFTER it and stdout is parked until then. Checks (a)-(f) do execute;
+# their output is suppressed, and their FAIL count is printed in the probe header so a probe can
+# never report health while the validator it lives in is broken.
+PROBE=0
+if [ "${1:-}" = "--probe" ]; then
+    PROBE=1
+    shift
+fi
 
 ROOT="${1:-.}"
 
@@ -42,6 +59,10 @@ for req in "$PLUGIN_JSON" "$MARKETPLACE_JSON" "$README" "$VERSIONS"; do
         exit 2
     fi
 done
+
+if [ "$PROBE" -eq 1 ]; then
+    exec 3>&1 1>/dev/null
+fi
 
 echo "validate-tracking: repo-level consistency checks"
 echo "Repo root: $ROOT"
@@ -350,6 +371,57 @@ done <<< "$DISK_SORTED"
 echo ""
 echo "[f] deprecated-token sweep (F9 guard)"
 F_OK=1
+#
+# ── HOW AN EXCUSE IS TESTED (2026-08-17, the proximity fix) ────────────────────────────────────
+# Both allowlists below used to be WHOLE-LINE exclusions: `grep -viE "$LEGAL"`, so a line was
+# excused because the word appeared ON it, wherever it appeared and whatever it was about. Two
+# Mode A passes measured the cost. R3 leg: 17 constructed violations, 7 caught; word-bounding the
+# generic members raised that to 12 and closed the SUBSTRING channel only (`ended` inside
+# *recommended*), leaving 5 riding whole words used about something else — including
+# `\bretired\b`, a member that diff had just bounded (OPEN-FINDINGS 92). FID leg: 0 of 8 caught
+# before the bounding and 0 after, because the two members it bounded have no English words
+# containing them (OPEN-FINDINGS 93). Word-bounding was one channel; this is the other.
+#
+# The rule now: a marker excuses a line only where it is BOUND TO THE CLAIM.
+#   * AFTER the claim, within $F_NEAR_AFTER characters, not crossing `.` or `;` — the predicating
+#     form: "FAQ rich results are retired", "First Input Delay was retired in March 2024".
+#   * BEFORE the claim, within $F_NEAR_BEFORE characters, not crossing `.` `;` or `,` — the
+#     governing form: "Google ended FAQ rich results", "teaching FID". Tight on purpose: amendment
+#     9a rewrote nine surfaces into exactly this shape, so it must stay legal, and the one
+#     character that separates it from the escape is the comma in "This retired template aside,".
+# A marker that is on the line but bound to nothing no longer excuses anything, and the FAIL
+# message says so explicitly rather than leaving the author to guess and reword good prose.
+#
+# THE TWO NUMBERS, and how to change them. $F_NEAR_AFTER is 60 because the worst legitimate line
+# in the tree needs 50 (`commands/generate-schema.md:19`, claim to `2023-08-08` with no sentence
+# break) — 10 characters of headroom, measured, not guessed. $F_NEAR_BEFORE is 12 because nothing
+# in the tree relies on the before-branch alone; it exists so a future "Google ended FAQ rich
+# results" cannot become a false positive. If a correct line ever fails here, WIDEN THIS NUMBER
+# and re-measure with `--probe`. Do not add a marker: every whole-line marker widens the hole,
+# and this file already records three rounds of that lesson below.
+#
+# The window is ASCII-only by deliberate choice (`[^.;]`, not `[^.;—]`). Excluding the em dash
+# would catch one more constructed escape and would exclude its BYTES under this environment's
+# POSIX locale — taking Greek Δ and the guillemets with it (OPEN-FINDINGS 81). Measured under
+# LC_ALL=C and LC_ALL=C.UTF-8: identical verdicts on all 51 live-tree lines.
+F_NEAR_AFTER=60
+F_NEAR_BEFORE=12
+# Excuse regex, built the same way for both legs: a NAMED marker anywhere on the line, or a NEAR
+# marker bound to a token. $1 = token regex, $2 = NAMED (whole-line) markers, $3 = NEAR markers.
+f_excuse() {
+    printf '(%s)|(%s)[^.;]{0,%s}(%s)|(%s)[^.;,]{0,%s}(%s)' \
+        "$2" "$1" "$F_NEAR_AFTER" "$3" "$3" "$F_NEAR_BEFORE" "$1"
+}
+# The two sweeps as functions so `--probe` runs THIS code over the fixture rather than a second
+# copy of it. $@ = directories to sweep.
+f_fid_hits() {
+    grep -rnE "$DEPRECATED_TOKENS" "$@" --include='*.md' 2>/dev/null \
+        | grep -v 'evals/' | grep -viE "$DEPRECATED_EXCUSE" || true
+}
+f_r3_hits() {
+    grep -rniE "$R3_TOKENS" "$@" --include='*.md' 2>/dev/null \
+        | grep -v 'evals/' | grep -viE "$R3_EXCUSE" || true
+}
 DEPRECATED_TOKENS='\bFID\b|First Input Delay|Affiliate links disclosed'
 #
 # 2026-08-13 — DEPRECATED_LEGAL, and it is the same lesson this file already records
@@ -368,15 +440,30 @@ DEPRECATED_TOKENS='\bFID\b|First Input Delay|Affiliate links disclosed'
 # is a statement this library can source from settled ruling R4 — vetted per the B2 rule
 # that an allowlist marker is an assertion the guard now endorses. What still fails is
 # the token standing alone, or beside a live threshold, which is the case that matters.
-# Same whole-line hazard as R3_LEGAL below — see the note there. `dropped` and `teaching` are
-# the generic members here; bounded so an unrelated use does not exempt a live FID claim.
-DEPRECATED_LEGAL='\bretired\b|replaced by inp|superseded|no longer|deprecat|is dead|\bdropped\b|not named here|do not teach|\bteaching\b'
-F_HITS=$(grep -rnE "$DEPRECATED_TOKENS" \
-    research build optimize monitor cross-cutting commands references \
-    --include='*.md' 2>/dev/null | grep -v 'evals/' | grep -viE "$DEPRECATED_LEGAL" || true)
+#
+# 2026-08-17 — the whole-line hazard, measured on this leg. Word-bounding `dropped` and
+# `teaching` was reported as "the same hazard ... bounded too" and was a practical no-op:
+# 0 of 8 constructed violations caught before, 0 after (OPEN-FINDINGS 93). Every one of the
+# eight rode a marker used about something else on the same line. So the markers below are
+# split by whether the marker NAMES its subject or not, and only the first kind stays
+# whole-line. On this leg exactly one qualifies: `replaced by inp` is a sentence about the
+# metric that replaced FID and cannot be about a stylesheet. Everything else is an ordinary
+# English word and is now bound to the token by proximity.
+DEPRECATED_LEGAL_NAMED='replaced by inp'
+DEPRECATED_LEGAL_NEAR='\bretired\b|superseded|no longer|deprecat|is dead|\bdropped\b|not named here|do not teach|\bteaching\b'
+# Union kept for the diagnostic branch below: a line carrying a marker that is merely UNBOUND
+# needs a different sentence from a line carrying no marker at all. It is also the name a
+# comment in scripts/eval-expectation-sweep.sh points at.
+DEPRECATED_LEGAL="$DEPRECATED_LEGAL_NAMED|$DEPRECATED_LEGAL_NEAR"
+DEPRECATED_EXCUSE="$(f_excuse "$DEPRECATED_TOKENS" "$DEPRECATED_LEGAL_NAMED" "$DEPRECATED_LEGAL_NEAR")"
+F_HITS=$(f_fid_hits research build optimize monitor cross-cutting commands references)
 if [ -n "$F_HITS" ]; then
     while IFS= read -r hit; do
-        fail "(f) deprecated token still taught: $hit"
+        if printf '%s' "$hit" | grep -qiE "$DEPRECATED_LEGAL"; then
+            fail "(f) deprecated token still taught — a retirement marker is on this line but is not bound to the metric (it must sit within $F_NEAR_AFTER characters after it, no \`.\` or \`;\` between, or within $F_NEAR_BEFORE immediately before it). Say what is retired where you name it: $hit"
+        else
+            fail "(f) deprecated token still taught: $hit"
+        fi
     done <<< "$F_HITS"
     F_OK=0
 fi
@@ -433,26 +520,46 @@ fi
 # vet it like shipped prose.** Marker replaced with the faithful phrasing, and
 # the overstatement is now a hard fail below.
 R3_TOKENS='faq.*rich[- ]?(result|snippet)|rich[- ]?(result|snippet)s?.*faq|eligib[^.|]*faq|faq[^.|]*eligib|expandable q&a below|faq (accordion|dropdown|drop-down)|serp accordion'
-# R3_LEGAL is a WHOLE-LINE exclusion. Every generic English member therefore exempts any line
-# that merely contains the word, whatever the line actually claims. Measured 2026-08-17 on six
+# R3_LEGAL WAS a WHOLE-LINE exclusion. Every generic English member therefore exempted any line
+# that merely contained the word, whatever the line actually claimed. Measured 2026-08-17 on six
 # lines each carrying the exact claim R3 amendment 9a retracted ("FAQPage schema earns AI
 # citations"): only 1 of 6 was caught. `ended` is a SUBSTRING of *recommended* — 117 lines in
 # the scanned directories contain that word, and every one of them was wholly exempt — and also
 # of *extended*, *amended*, *appended*. `unverified` excused a line whose "unverified" was about
 # an unrelated figure. Same shape as the two channels found in the citation guard the same day:
 # a qualifier that is not about the claim silences the check.
-#   FIX: word-bound the generic members. `\bended\b` still excuses "FAQ rich results ended for
-#   ordinary sites" and now catches "It is recommended that FAQPage schema earns AI citations" —
-#   both directions probed at the shell before this shipped.
+#   FIX 1 (2026-08-17): word-bound the generic members. That closed the SUBSTRING channel and
+#   nothing else — Mode A rebuilt the corpus and measured 7/17 -> 12/17, with 5 still escaping,
+#   one of them on `\bretired\b`, a member the diff had just bounded (OPEN-FINDINGS 92). The
+#   comment written above that fix named the real channel in its own first sentence.
+#   FIX 2 (2026-08-17, this one): bind the excuse to the claim. See the mechanism note at the top
+#   of check (f). The members split in two, and the split is the whole design:
+#     * NAMED — the marker contains "faq" and asserts something about FAQ, so it cannot be about
+#       an unrelated subject. Stays whole-line. `do not run it through` is the one member here
+#       that does not name FAQ; it is kept whole-line because on the real line it excuses
+#       (validation-guide.md:255) the marker sits INSIDE the token span, where no proximity rule
+#       can see it. That trade is recorded in the fixture, not hidden.
+#     * NEAR — an ordinary English word, a date, or a phrase about some other Google feature.
+#       Excuses only where it is bound to the claim. `\bceased\b` is the clearest case: it is
+#       TRUE of How-to rich results and false of FAQ, and whole-line it let the true half of a
+#       sentence excuse the false half.
 #   DO NOT fix a miss here by ADDING a legal marker. Every whole-line marker widens the hole;
-#   the direction is narrower excuses, bound to the claim.
-R3_LEGAL='\bretired\b|\bretirement\b|\bended\b|\bceased\b|\bdiscontinued\b|no longer|non-faq|no faq (support|eligibility)|faq(:| has) none|dropped faq support|do not run it through|"add faq rich results"|no evidenced citation benefit|no need to (proactively )?remove|scheduled for august 2026|has none since|no faq rich result|government and health|government/health|restricted (them )?to|2023-08-08|aug 2023|does not (support|test) faqpage|not (the route|supported) for faqpage|unverified (dates|magnitudes)'
-R3_HITS=$(grep -rniE "$R3_TOKENS" \
-    research build optimize monitor cross-cutting commands references \
-    --include='*.md' 2>/dev/null | grep -v 'evals/' | grep -viE "$R3_LEGAL" || true)
+#   the direction is narrower excuses, bound to the claim. The corpus that measures both
+#   directions is checked in at scripts/fixtures/r3-allowlist/ — run `--probe` after any edit
+#   here and report the number it prints, not one from a shell session.
+R3_LEGAL_NAMED='non-faq|no faq (support|eligibility)|faq(:| has) none|dropped faq support|do not run it through|"add faq rich results"|no faq rich result|does not (support|test) faqpage|not (the route|supported) for faqpage'
+R3_LEGAL_NEAR='\bretired\b|\bretirement\b|\bended\b|\bceased\b|\bdiscontinued\b|no longer|no evidenced citation benefit|no need to (proactively )?remove|scheduled for august 2026|has none since|government and health|government/health|restricted (them )?to|2023-08-08|aug 2023|unverified (dates|magnitudes)'
+# Union: the diagnostic branch below, and the name other scripts' comments point at.
+R3_LEGAL="$R3_LEGAL_NAMED|$R3_LEGAL_NEAR"
+R3_EXCUSE="$(f_excuse "$R3_TOKENS" "$R3_LEGAL_NAMED" "$R3_LEGAL_NEAR")"
+R3_HITS=$(f_r3_hits research build optimize monitor cross-cutting commands references)
 if [ -n "$R3_HITS" ]; then
     while IFS= read -r hit; do
-        fail "(f) FAQ rich-result eligibility claim (FAQ rich results retired 2026, ruling R3): $hit"
+        if printf '%s' "$hit" | grep -qiE "$R3_LEGAL"; then
+            fail "(f) FAQ rich-result eligibility claim (FAQ rich results ended for ordinary sites, ruling R3) — a retraction marker is on this line but is not bound to the claim (it must sit within $F_NEAR_AFTER characters after it, no \`.\` or \`;\` between, or within $F_NEAR_BEFORE immediately before it). Deny the claim where you make it: $hit"
+        else
+            fail "(f) FAQ rich-result eligibility claim (FAQ rich results retired 2026, ruling R3): $hit"
+        fi
     done <<< "$R3_HITS"
     F_OK=0
 fi
@@ -482,6 +589,307 @@ if [ -n "$R3_OVER_HITS" ]; then
     F_OK=0
 fi
 [ "$F_OK" -eq 1 ] && pass "(f) no deprecated tokens (FID / First Input Delay / affiliate-only T04) and no un-acknowledged FAQ rich-result claims (R3) in live skill, command, or framework files"
+
+# ---------------------------------------------------------------------------
+# --probe: fault injection for check (f)'s allowlists (OPEN-FINDINGS 92 owed item)
+# ---------------------------------------------------------------------------
+# WHY THIS EXISTS. Three numbers about this check were published in one day and none could be
+# re-derived: "6 of 6 violations caught" (the corpus was never saved), "old 7/17 -> new 12/17"
+# (Mode A's corpus was never saved either), and "the same hazard bounded too" on the FID leg
+# (measured afterwards at 0/8 -> 0/8). A guard's catch rate is a claim like any other, and a
+# claim that cannot be re-run is indistinguishable from a regression the next time someone looks.
+# So the corpus is checked in at scripts/fixtures/r3-allowlist/ and the number is a command.
+#
+# It runs the REAL sweep functions over a materialised copy of the fixture — same token regexes,
+# same allowlists, same `evals/` and `--include='*.md'` filters — so it cannot drift from the
+# check it measures. It also re-derives the two historical rates from frozen copies of the
+# allowlists as they stood at their commits, which is what makes "before and after" checkable at
+# any point in the future rather than quoted from a session nobody kept.
+if [ "$PROBE" -eq 1 ]; then
+    exec 1>&3
+    probe_fail=0
+    FIXDIR="$ROOT/scripts/fixtures/r3-allowlist"
+    [ -d "$FIXDIR" ] || { echo "PROBE ERROR: fixture directory missing: $FIXDIR" >&2; exit 2; }
+
+    # FROZEN HISTORY. Not live allowlists, never used by check (f) — copies of the R3/FID marker
+    # strings as they stood at the two commits whose rates were published, so those rates stay
+    # re-derivable. They are historical facts and must not be "kept in sync" with anything.
+    # Each was verified byte-identical to the committed line when it was frozen, and the check is
+    # one command, so a reader never has to take that on trust:
+    #   git show 8f69a7a:scripts/validate-tracking.sh  | grep -m1 '^R3_LEGAL='          # _BOUNDED
+    #   git show 8f69a7a^:scripts/validate-tracking.sh | grep -m1 '^R3_LEGAL='          # _PRE
+    #   git show 8f69a7a:scripts/validate-tracking.sh  | grep -m1 '^DEPRECATED_LEGAL='  # _BOUNDED
+    #   git show 8f69a7a^:scripts/validate-tracking.sh | grep -m1 '^DEPRECATED_LEGAL='  # _PRE
+    HIST_R3_PRE='retired|retirement|ended|ceased|discontinued|no longer|non-faq|no faq (support|eligibility)|faq(:| has) none|dropped faq support|do not run it through|"add faq rich results"|no evidenced citation benefit|no need to (proactively )?remove|scheduled for august 2026|has none since|no faq rich result|government and health|government/health|restricted (them )?to|2023-08-08|aug 2023|does not (support|test) faqpage|not (the route|supported) for faqpage|unverified'
+    HIST_R3_BOUNDED='\bretired\b|\bretirement\b|\bended\b|\bceased\b|\bdiscontinued\b|no longer|non-faq|no faq (support|eligibility)|faq(:| has) none|dropped faq support|do not run it through|"add faq rich results"|no evidenced citation benefit|no need to (proactively )?remove|scheduled for august 2026|has none since|no faq rich result|government and health|government/health|restricted (them )?to|2023-08-08|aug 2023|does not (support|test) faqpage|not (the route|supported) for faqpage|unverified (dates|magnitudes)'
+    HIST_FID_PRE='retired|replaced by inp|superseded|no longer|deprecat|is dead|dropped|not named here|do not teach|teaching'
+    HIST_FID_BOUNDED='\bretired\b|replaced by inp|superseded|no longer|deprecat|is dead|\bdropped\b|not named here|do not teach|\bteaching\b'
+    NEVER='zzz_no_such_marker_zzz'   # an excuse that excuses nothing, for the load-bearing test
+
+    tmp="$(mktemp -d)"; trap 'rm -rf "$tmp"' EXIT
+    mkdir -p "$tmp/probe/r3/evals" "$tmp/probe/fid"
+
+    # Fixture parse. `# ` comment, `>>> ` datum, `# EXPECT: MISSED` applying to the next datum.
+    # Anything else is a format error, reported rather than skipped: a datum silently demoted to
+    # a comment would shrink the denominator, which is the failure this whole file is about.
+    probe_parse() {
+        awk '
+            /^# EXPECT: MISSED/ { pending = "MISSED"; next }
+            /^>>> /             { print (pending == "" ? "CAUGHT" : pending) "\t" substr($0, 5); pending = ""; next }
+            /^#/                { next }
+            /^[[:space:]]*$/    { next }
+                                { print "FORMAT-ERROR\t" $0 }
+        ' "$1"
+    }
+    probe_declared_count() { grep -oE '^# COUNT: [0-9]+' "$1" | head -1 | grep -oE '[0-9]+'; }
+
+    # Materialise each corpus: one datum per line, so grep's line number IS the entry number.
+    for f in r3-violations r3-violations-extended r3-legitimate; do
+        probe_parse "$FIXDIR/$f.txt" | cut -f2- > "$tmp/probe/r3/$f.md"
+    done
+    for f in fid-violations fid-legitimate; do
+        probe_parse "$FIXDIR/$f.txt" | cut -f2- > "$tmp/probe/fid/$f.md"
+    done
+    # Two controls that must NOT be reported, proving the filters are part of the net and not
+    # decoration: an eval fixture legitimately carries the defect it grades, and a non-markdown
+    # file is out of scope by construction.
+    printf 'FAQPage schema is eligible for FAQ rich results on any site.\n' > "$tmp/probe/r3/evals/graded.md"
+    printf 'FAQPage schema is eligible for FAQ rich results on any site.\n' > "$tmp/probe/r3/notmarkdown.txt"
+
+    # caught_lines <leg> <corpus-basename> -> the entry numbers the sweep reports as violations
+    caught_lines() {
+        if [ "$1" = "r3" ]; then ( cd "$tmp" && f_r3_hits probe/r3 ); else ( cd "$tmp" && f_fid_hits probe/fid ); fi \
+            | grep -F "probe/$1/$2.md:" | sed "s|^probe/$1/$2\.md:||" | cut -d: -f1 | sort -n -u
+    }
+    token_lines() {   # entries that match the TOKEN at all — a corpus line that matches no token
+        if [ "$1" = "r3" ]; then                  # tests nothing, and must not be counted as a miss
+            ( cd "$tmp" && grep -niE "$R3_TOKENS" "probe/r3/$2.md" 2>/dev/null )
+        else
+            ( cd "$tmp" && grep -nE "$DEPRECATED_TOKENS" "probe/fid/$2.md" 2>/dev/null )
+        fi | cut -d: -f1 | sort -n -u
+    }
+
+    echo "validate-tracking --probe : check (f) allowlist fault injection"
+    echo "Fixture: $FIXDIR"
+    echo "Live windows: after=$F_NEAR_AFTER chars (no . or ;), before=$F_NEAR_BEFORE chars (no . ; ,)"
+    echo "Checks (a)-(f) ran with output suppressed: $FAIL_N FAIL, $WARN_N WARN, $PASS_N PASS"
+    [ "$FAIL_N" -gt 0 ] && echo "  ^ NOT a clean run. Re-run without --probe before trusting anything below."
+    echo ""
+
+    probe_corpus() {   # <leg> <corpus> <role: violation|legitimate>
+        leg="$1"; corpus="$2"; role="$3"
+        declared="$(probe_declared_count "$FIXDIR/$corpus.txt")"
+        mapfile -t entries < <(probe_parse "$FIXDIR/$corpus.txt")
+        n=${#entries[@]}
+        if [ -z "$declared" ] || [ "$declared" -ne "$n" ]; then
+            echo "PROBE FAIL — $corpus.txt declares COUNT: ${declared:-<none>} but parses $n data lines"
+            probe_fail=1
+        fi
+        caught="$(caught_lines "$leg" "$corpus")"
+        toks="$(token_lines "$leg" "$corpus")"
+        n_caught=0; n_missed=0; n_open=0; n_notoken=0
+        miss_report=""; open_report=""; notoken_report=""; stale_report=""
+        i=0
+        for e in "${entries[@]}"; do
+            i=$((i + 1))
+            expect="${e%%	*}"; text="${e#*	}"
+            is_caught=0; printf '%s\n' "$caught" | grep -qx "$i" && is_caught=1
+            has_token=0; printf '%s\n' "$toks" | grep -qx "$i" && has_token=1
+            if [ "$expect" = "FORMAT-ERROR" ]; then
+                echo "PROBE FAIL — $corpus.txt line is neither comment nor \`>>> \` datum: $text"; probe_fail=1; continue
+            fi
+            if [ "$has_token" -eq 0 ]; then
+                n_notoken=$((n_notoken + 1))
+                notoken_report="$notoken_report
+    #$i matches no token at all — it tests the token list, not the allowlist: $text"
+                continue
+            fi
+            if [ "$role" = "legitimate" ]; then
+                if [ "$is_caught" -eq 1 ]; then
+                    n_missed=$((n_missed + 1))
+                    miss_report="$miss_report
+    #$i FALSE POSITIVE — a line the library wants is now failed: $text"
+                else
+                    n_caught=$((n_caught + 1))
+                fi
+            elif [ "$expect" = "MISSED" ]; then
+                if [ "$is_caught" -eq 1 ]; then
+                    n_caught=$((n_caught + 1))
+                    stale_report="$stale_report
+    #$i declared MISSED but is CAUGHT — the guard got narrower and the fixture now lies: $text"
+                else
+                    n_open=$((n_open + 1))
+                    open_report="$open_report
+    #$i OPEN HOLE (declared): $text"
+                fi
+            else
+                if [ "$is_caught" -eq 1 ]; then
+                    n_caught=$((n_caught + 1))
+                else
+                    n_missed=$((n_missed + 1))
+                    miss_report="$miss_report
+    #$i EXCUSED but must be caught: $text"
+                fi
+            fi
+        done
+        if [ "$role" = "legitimate" ]; then
+            printf '  %-28s %2d entries | %2d excused | %2d WRONGLY CAUGHT\n' "$corpus" "$n" "$n_caught" "$n_missed"
+        else
+            printf '  %-28s %2d entries | %2d caught | %2d MISSED | %2d declared open\n' "$corpus" "$n" "$n_caught" "$n_missed" "$n_open"
+        fi
+        [ -n "$notoken_report" ] && { echo "  BROKEN FIXTURE LINES:$notoken_report"; probe_fail=1; }
+        [ -n "$miss_report" ] && { echo "  UNDECLARED:$miss_report"; probe_fail=1; }
+        [ -n "$stale_report" ] && { echo "  STALE DECLARATION (good news, then fix the file):$stale_report"; probe_fail=1; }
+        [ -n "$open_report" ] && echo "  DECLARED OPEN HOLES (still holes):$open_report"
+    }
+
+    echo "R3 leg — live allowlist"
+    probe_corpus r3 r3-violations violation
+    probe_corpus r3 r3-violations-extended violation
+    probe_corpus r3 r3-legitimate legitimate
+    echo ""
+    echo "FID leg — live allowlist"
+    probe_corpus fid fid-violations violation
+    probe_corpus fid fid-legitimate legitimate
+
+    # Historical rates, re-derived rather than quoted. Same corpora, same code path, the frozen
+    # allowlist strings substituted in.
+    echo ""
+    echo "Same corpora through the two earlier allowlists (frozen copies, for comparability):"
+    hist_rate() {   # <leg> <corpus> <label> <frozen whole-line marker string>
+        n_total=$(grep -c '^>>> ' "$FIXDIR/$2.txt")
+        if [ "$1" = "r3" ]; then
+            save="$R3_EXCUSE"; R3_EXCUSE="$4"; c=$(caught_lines r3 "$2" | grep -c '' ); R3_EXCUSE="$save"
+        else
+            save="$DEPRECATED_EXCUSE"; DEPRECATED_EXCUSE="$4"; c=$(caught_lines fid "$2" | grep -c ''); DEPRECATED_EXCUSE="$save"
+        fi
+        printf '  %-46s %2d/%d caught\n' "$3" "$c" "$n_total"
+    }
+    hist_rate r3  r3-violations  "R3, whole-line unbounded (pre 8f69a7a)"   "$HIST_R3_PRE"
+    hist_rate r3  r3-violations  "R3, whole-line word-bounded (8f69a7a)"    "$HIST_R3_BOUNDED"
+    hist_rate fid fid-violations "FID, whole-line unbounded (pre 8f69a7a)"  "$HIST_FID_PRE"
+    hist_rate fid fid-violations "FID, whole-line word-bounded (8f69a7a)"   "$HIST_FID_BOUNDED"
+
+    # Load-bearing test (engine-claim-sweep v3's lesson: a control that never reaches the stage
+    # proves nothing). With an excuse that excuses nothing, every legitimate line must be CAUGHT.
+    # A legitimate line that stays clean here is passing because it lacks a token, not because
+    # the allowlist protected it, and it is measuring nothing.
+    echo ""
+    save="$R3_EXCUSE"; R3_EXCUSE="$NEVER"
+    lb_r3=$(caught_lines r3 r3-legitimate | grep -c ''); R3_EXCUSE="$save"
+    save="$DEPRECATED_EXCUSE"; DEPRECATED_EXCUSE="$NEVER"
+    lb_fid=$(caught_lines fid fid-legitimate | grep -c ''); DEPRECATED_EXCUSE="$save"
+    tot_r3=$(grep -c '^>>> ' "$FIXDIR/r3-legitimate.txt"); tot_fid=$(grep -c '^>>> ' "$FIXDIR/fid-legitimate.txt")
+    printf 'Allowlist load-bearing (excuse blanked, every legitimate line must fail): R3 %d/%d, FID %d/%d\n' \
+        "$lb_r3" "$tot_r3" "$lb_fid" "$tot_fid"
+    [ "$lb_r3" -eq "$tot_r3" ] || { echo "PROBE FAIL — $((tot_r3 - lb_r3)) R3 legitimate line(s) pass without any allowlist; they test nothing"; probe_fail=1; }
+    [ "$lb_fid" -eq "$tot_fid" ] || { echo "PROBE FAIL — $((tot_fid - lb_fid)) FID legitimate line(s) pass without any allowlist; they test nothing"; probe_fail=1; }
+
+    # Filter controls.
+    ( cd "$tmp" && f_r3_hits probe/r3 ) | grep -q '/evals/' && { echo "PROBE FAIL — evals/ exclusion not applied"; probe_fail=1; }
+    ( cd "$tmp" && f_r3_hits probe/r3 ) | grep -q 'notmarkdown' && { echo "PROBE FAIL — non-markdown file swept"; probe_fail=1; }
+
+    # Provenance, ADVISORY. Every line in the two legitimate corpora was copied verbatim from a
+    # live file, and the copy carries `path:line`. The tree moves; the corpus is frozen on
+    # purpose, so drift is expected and is NOT a failure — but a reader deciding whether these
+    # 20 lines still represent the tree should not have to check by hand. Same idea as the F12
+    # anchor rule: the TEXT is authoritative and the line number is derivable from it.
+    echo ""
+    prov_ok=0; prov_moved=0; prov_gone=0; prov_notes=""
+    for corpus in r3-legitimate fid-legitimate; do
+        while IFS="	" read -r src ln text; do
+            [ -n "$src" ] || continue
+            if [ ! -f "$ROOT/$src" ]; then
+                prov_gone=$((prov_gone + 1)); prov_notes="$prov_notes
+    GONE  $src:$ln — file no longer exists"; continue
+            fi
+            actual="$(sed -n "${ln}p" "$ROOT/$src")"
+            if [ "$actual" = "$text" ]; then
+                prov_ok=$((prov_ok + 1))
+            else
+                found="$(grep -nxF "$text" "$ROOT/$src" 2>/dev/null | head -1 | cut -d: -f1)"
+                if [ -n "$found" ]; then
+                    prov_moved=$((prov_moved + 1)); prov_notes="$prov_notes
+    MOVED $src:$ln -> :$found — same text, new line number"
+                else
+                    prov_gone=$((prov_gone + 1)); prov_notes="$prov_notes
+    GONE  $src:$ln — the line was edited or removed; the frozen copy stands, the citation does not"
+                fi
+            fi
+        done < <(awk '
+            /^# [^ ]*\.md:[0-9]+$/ { split(substr($0,3), p, ":"); src = p[1]; ln = p[2]; next }
+            /^>>> /                { if (src != "") printf "%s\t%s\t%s\n", src, ln, substr($0,5); src=""; next }
+        ' "$FIXDIR/$corpus.txt")
+    done
+    printf 'Fixture provenance (advisory): %d verbatim at the cited line, %d moved, %d gone\n' \
+        "$prov_ok" "$prov_moved" "$prov_gone"
+    [ -n "$prov_notes" ] && echo "$prov_notes"
+
+    # Per-member weight on the LIVE tree, which is OPEN-FINDINGS 94 made re-runnable. That row
+    # published a sole-excuse concentration (`non-faq` x6, `does not (support|test) faqpage` x3,
+    # `no faq rich result` x2, `\bretired\b` x1, `\bended\b` x1) and it went stale the same day:
+    # a parallel workstream rewrote the one line `\bretired\b` was holding up. A hand-counted
+    # concentration is a snapshot; this is the measurement. For each member: remove it, re-sweep,
+    # count the lines that stop being excused. Weight 0 means the member carries nothing today —
+    # a deletion candidate, and the only kind of allowlist edit that goes in the right direction.
+    # Splitting on `|` is depth-aware: several members contain their own alternation groups.
+    echo ""
+    echo "Live-tree weight per allowlist member (lines un-excused if the member is removed):"
+    member_weights() {   # <leg> <named> <near>
+        leg="$1"
+        all="$(printf '%s|%s' "$2" "$3" | awk '{
+            d = 0; cur = "";
+            for (i = 1; i <= length($0); i++) {
+                c = substr($0, i, 1);
+                if (c == "(") d++;
+                else if (c == ")") d--;
+                if (c == "|" && d == 0) { print cur; cur = ""; } else cur = cur c;
+            }
+            print cur;
+        }')"
+        while IFS= read -r m; do
+            [ -n "$m" ] || continue
+            named_wo=""; near_wo=""
+            while IFS= read -r x; do
+                [ -n "$x" ] || continue
+                [ "$x" = "$m" ] && continue
+                case "|$2|" in *"|$x|"*) named_wo="${named_wo:+$named_wo|}$x" ;; *) near_wo="${near_wo:+$near_wo|}$x" ;; esac
+            done <<< "$all"
+            [ -n "$named_wo" ] || named_wo="$NEVER"
+            [ -n "$near_wo" ] || near_wo="$NEVER"
+            if [ "$leg" = "r3" ]; then
+                save="$R3_EXCUSE"; R3_EXCUSE="$(f_excuse "$R3_TOKENS" "$named_wo" "$near_wo")"
+                w=$( (cd "$ROOT" && f_r3_hits research build optimize monitor cross-cutting commands references) | grep -c '' )
+                R3_EXCUSE="$save"
+            else
+                save="$DEPRECATED_EXCUSE"; DEPRECATED_EXCUSE="$(f_excuse "$DEPRECATED_TOKENS" "$named_wo" "$near_wo")"
+                w=$( (cd "$ROOT" && f_fid_hits research build optimize monitor cross-cutting commands references) | grep -c '' )
+                DEPRECATED_EXCUSE="$save"
+            fi
+            [ "$w" -gt 0 ] && printf '  %-4s %3d  %s\n' "$leg" "$w" "$m"
+            [ "$w" -eq 0 ] && printf '  %-4s   .  %s   (carries nothing today)\n' "$leg" "$m"
+        done <<< "$all"
+    }
+    member_weights r3 "$R3_LEGAL_NAMED" "$R3_LEGAL_NEAR"
+    member_weights fid "$DEPRECATED_LEGAL_NAMED" "$DEPRECATED_LEGAL_NEAR"
+
+    # Live-tree measurement, printed beside the fixture so "green" is never mistaken for "empty"
+    # (OPEN-FINDINGS 94: check (f) passes by excuse, not by absence — 51 lines match and 0 survive).
+    r3_seen=$(cd "$ROOT" && grep -rniE "$R3_TOKENS" research build optimize monitor cross-cutting commands references --include='*.md' 2>/dev/null | grep -vc 'evals/')
+    fid_seen=$(cd "$ROOT" && grep -rnE "$DEPRECATED_TOKENS" research build optimize monitor cross-cutting commands references --include='*.md' 2>/dev/null | grep -vc 'evals/')
+    r3_surv=$(printf '%s' "$R3_HITS" | grep -c '' ); [ -z "$R3_HITS" ] && r3_surv=0
+    fid_surv=$(printf '%s' "$F_HITS" | grep -c '' ); [ -z "$F_HITS" ] && fid_surv=0
+    echo ""
+    echo "Live tree, this commit: R3 $r3_seen lines match the tokens, $r3_surv survive the allowlist."
+    echo "                        FID $fid_seen lines match the tokens, $fid_surv survive the allowlist."
+    echo ""
+    if [ "$probe_fail" -eq 0 ]; then
+        echo "PROBE PASS — every corpus matched its declaration. Declared open holes above are still holes."
+        exit 0
+    fi
+    echo "PROBE FAILED"
+    exit 1
+fi
 
 # ---------------------------------------------------------------------------
 # (g) anchor-tagged pointer check (F12 guard)

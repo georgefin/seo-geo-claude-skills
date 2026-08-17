@@ -1,0 +1,99 @@
+# FIXTURE — 17 constructed R3 violations. FROZEN: this file is the denominator of a number.
+#
+# WHY IT IS FROZEN. OPEN-FINDINGS row 92: a commit claimed "6 of 6 violations caught", Mode A
+# rebuilt the corpus and measured old 7/17 -> new 12/17, and NEITHER corpus was ever saved. Two
+# numbers, three sessions, nothing re-runnable. This file is that missing denominator. Editing it
+# silently changes what "N/17" means, so: add new channels to r3-violations-extended.txt, never
+# here. The probe asserts the COUNT below for exactly this reason.
+#
+# WHAT EACH LINE IS. A line that asserts, as current fact, that FAQ markup earns a FAQ rich result
+# — the claim settled ruling R3 retracted. Every one of them must FAIL check (f). Any line here
+# that check (f) excuses is a hole in the allowlist, and the probe names it.
+#
+# RECONSTRUCTION, stated honestly. Mode A's exact 17 lines were not saved either; this set was
+# rebuilt to reproduce its published split (7 caught by both allowlists, +5 caught only after the
+# 2026-08-17 word-bounding, 5 escaping both) and it does reproduce it — measured, not assumed.
+# It is NOT a byte-for-byte copy of what Mode A ran. Line 13 IS verbatim from row 92; the other
+# four escapes are reconstructions of the channel row 92 describes, not of its exact sentences.
+#
+# FORMAT: `# ` comment, `>>> ` data (everything after the 4-char prefix is the line).
+# EXPECT defaults to CAUGHT here; an entry may declare `# EXPECT: MISSED — reason`.
+#
+# COUNT: 17
+#
+# ---------------------------------------------------------------------------------------------
+# GROUP 1 (7) — NO allowlist marker anywhere on the line. Caught by every version of the guard,
+# including the one before word-bounding. These are the control: if one of these is ever missed,
+# the TOKEN list broke, not the excuse list, and the probe reports that separately.
+# ---------------------------------------------------------------------------------------------
+#
+# 1. Plain assertion, `faq[^.|]*eligib` / `eligib[^.|]*faq`.
+>>> FAQPage schema is eligible for FAQ rich results on any site.
+#
+# 2. Plain assertion, `faq.*rich[- ]?result`, imperative form — the shape a skill instruction takes.
+>>> Add FAQ schema to win the FAQ rich result for your product pages.
+#
+# 3. `faq.*rich[- ]?snippet` — the snippet half of the token list, which the result half misses.
+>>> FAQ markup earns a rich snippet in Google Search.
+#
+# 4. Eligibility as a noun, which is how a checklist row phrases it.
+>>> Every service page should carry FAQPage markup for rich result eligibility.
+#
+# 5. The visual claim, `faq (accordion|dropdown|drop-down)` — no "rich result" words at all.
+>>> The FAQ accordion in the SERP is worth targeting with FAQPage markup.
+#
+# 6. `rich[- ]?results?.*faq` — reversed order, the shape a table heading takes.
+>>> Rich results (FAQ) remain available to every site that marks up its questions.
+#
+# 7. `expandable q&a below` — the description-without-the-name form.
+>>> Expandable Q&A below the blue link is the payoff for FAQ schema.
+#
+# ---------------------------------------------------------------------------------------------
+# GROUP 2 (5) — SUBSTRING channel. Each carries an ordinary English word that CONTAINS a former
+# allowlist member (`ended` inside recommended / extended / amended / appended) or an old bare
+# member used about a different subject (`unverified`). The 2026-08-17 word-bounding closed this
+# channel: these five went from excused to caught, and that +5 is the real half of row 92's claim.
+# They stay here as the regression test for the bounding — if `\bended\b` ever loses its \b, this
+# group goes silent and the probe says so.
+# ---------------------------------------------------------------------------------------------
+#
+# 8. `ended` inside `recommended`.
+>>> It is recommended that FAQPage schema earns FAQ rich results.
+#
+# 9. `ended` inside `extended`.
+>>> The extended checklist keeps FAQ markup because FAQ rich results are still available.
+#
+# 10. `ended` inside `Amended`.
+>>> Amended January 2026: FAQPage is eligible for FAQ rich results on ordinary sites.
+#
+# 11. `ended` inside `Appended`.
+>>> Appended to the brief: every FAQ block should target the FAQ rich result.
+#
+# 12. The old bare `unverified` member, used about search volumes rather than about the R3 dates.
+#     Narrowed to `unverified (dates|magnitudes)` in the same commit, which is a scope fix rather
+#     than a bounding fix — same channel, different mechanism.
+>>> Search volumes here are unverified, but FAQ schema is eligible for rich results today.
+#
+# ---------------------------------------------------------------------------------------------
+# GROUP 3 (5) — WHOLE-LINE channel. Every one of these carries a marker that word-bounding KEPT,
+# used about something that is not the FAQ claim. These are the five row 92 says still escape, and
+# they are what the proximity fix is for: the marker is on the line but not on the claim.
+# ---------------------------------------------------------------------------------------------
+#
+# 13. VERBATIM from OPEN-FINDINGS row 92. `retired` modifies `template`, one clause away from the
+#     assertion, and `\bretired\b` — a member the word-bounding diff DID bound — excuses the line.
+>>> This retired template aside, FAQ schema is eligible for FAQ rich results today.
+#
+# 14. `no longer` about a maintenance status, across a semicolon from the claim.
+>>> Our legacy audit sheet is no longer maintained; FAQPage markup still earns FAQ rich results.
+#
+# 15. `\bdiscontinued\b` about a sitemap endpoint. Note the line then INSTRUCTS the reader to add
+#     the markup for the appearance — the most damaging form of this class.
+>>> The sitemap ping endpoint was discontinued in 2023, so add FAQ schema and win the FAQ rich result.
+#
+# 16. `\bceased\b` about a DIFFERENT Google feature (How-to), which is the realistic version: the
+#     line is accurate about How-to and false about FAQ, and the true half excuses the false half.
+>>> Google's How-to rich results ceased in 2023; FAQPage is still eligible for FAQ rich results.
+#
+# 17. `\bended\b` about an internal scoring model, before the claim, with a comma between.
+>>> Since the old scoring model ended, every FAQPage is eligible for FAQ rich results again.
