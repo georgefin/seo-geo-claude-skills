@@ -1,6 +1,6 @@
 ---
 name: on-page-seo-auditor
-version: "4.3.2"
+version: "4.4.0"
 description: 'Audit on-page HTML elements including title tags, headers, image alt text, and internal links with a scored SEO report. Use when the user asks to "audit page SEO", "on-page SEO check", "SEO score", "page optimization", "what SEO issues does this page have", "score my page", "why is this page not ranking", or "check my page". For server, speed, and crawl issues, see technical-seo-checker. For full EEAT content quality scoring, see content-quality-auditor.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.3.2"
+  version: "4.4.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -135,6 +135,41 @@ paraphrase it unattributed, or drop it, and never invent a name, credential or i
 carry a line (statistics rule: sourced, cited, or placeholder, never invented). The audit's
 own Evidence follows the same rule: quote the page verbatim from the HTML or content in front
 of you, never from memory or reconstruction.
+
+### Recommended Actions — the Seven Fields
+
+A finding diagnoses; an action gets done. Every action this audit recommends — each **Fix**
+above, every quick win, every Action Plan row — carries seven fields: **action** (one imperative
+sentence naming the element and the change), **owner**, **acceptance criterion** (labelled
+**Done when** in a per-action block and **Acceptance criterion** as a table column — one field,
+two labels, no third), **expected impact**, **effort**, **dependencies**, **risk if done
+wrong**. The **Fix** line *is* the action
+field and the **Impact** line *is* the expected-impact field, so an entry adds the other five
+rather than restating those two. Fields 1–3 are required — an action with no owner-role and no
+acceptance criterion does not ship as an action — and 4–7 take a stated-absence value
+(`not estimated — no baseline data`, `none`, `low — reversible, no downstream effect`), never a
+blank and never an invention, because the absence is itself something the client can act on.
+
+**Owner is a role** from a closed list, never a person unless the client supplied the name.
+`Client decision` is a real owner and assigning it makes a decision visible instead of leaving
+the action stalled; `unassigned — needs an owner` is legitimate and is itself a finding.
+
+**The acceptance-criterion test: could someone who was not part of this engagement check it six
+weeks from now, without asking anybody what was meant?** Observable, binary at the moment of
+checking, attached to a named artefact or measurement, dated or triggered. **It never requires
+an engine to do something** — an appearance in a generated answer is nobody's to deliver, and
+writing it turns the action into a promise; an AI-surface action is accepted on the work shipped
+plus the measurement re-run and recorded beside its dated baseline.
+
+**Ordering, stated once per report**: by expected impact ÷ effort with dependencies respected —
+an unmet dependency sinks an action below the thing it waits on, whatever its score — *inside*
+the existing Critical / Important / Minor severity bands, which stay this skill's only priority
+vocabulary. Role list, effort bands, worked criteria and the stated-absence values:
+[references/audit-templates.md](./references/audit-templates.md) § Recommended Actions and
+[Action Output Contract](../../references/action-output-contract.md). A prohibited tactic found
+on the audited page is reported the same way — named, exposure stated, remediation owned and
+accepted, ranked against everything else:
+[Prohibited Tactics](../../references/prohibited-tactics.md) §2.
 
 **Section scores and the overall score.** Every section score is arithmetic over the criterion
 table printed above it, scored on **that section's own maximum** — Title Tag /15 · Meta
@@ -284,7 +319,7 @@ unverified-criterion worked case and the grade bands:
 
     > **Reference**: See [references/audit-templates.md](./references/audit-templates.md) for the CORE-EEAT quick scan template (Step 10). Full benchmark: [CORE-EEAT Benchmark](../../references/core-eeat-benchmark.md).
 
-11. **Generate Audit Summary** — Overall score with visual breakdown, priority issues (critical/important/minor), quick wins, detailed recommendations, competitor comparison, action checklist, expected results
+11. **Generate Audit Summary** — Overall score with visual breakdown, priority issues (critical/important/minor), quick wins, detailed recommendations, competitor comparison, the seven-field Action Plan, expected results
 
     > **Reference**: See [references/audit-templates.md](./references/audit-templates.md) for the full audit summary template (Step 11).
 
@@ -304,6 +339,9 @@ unverified-criterion worked case and the grade bands:
 - [ ] All suggested changes include specific locations (title tag, H2 #3, paragraph 5, etc.)
 - [ ] Source of each data point stated in the report's own words — the resolved tool name (Google Search Console, Ahrefs, Screaming Frog), "the HTML you provided", or "manual review"; where no tool was connected and nothing was supplied, the report says exactly that and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 - [ ] Every finding carries a Confidence label (Confirmed / Likely / Hypothesis); Hypothesis findings name what would confirm them
+- [ ] Every recommended action carries all seven fields — action, owner, acceptance criterion, expected impact, effort, dependencies, risk if done wrong — with a stated-absence value wherever an answer does not exist (`not estimated — no baseline data`, `none`, `low — reversible, no downstream effect`); no action ships without an owner-role and an acceptance criterion, and the owner is a role from the closed list (`Client decision` and `unassigned — needs an owner` both count, the second being itself a finding)
+- [ ] Every acceptance criterion is observable, binary at the moment of checking, attached to a named artefact or measurement, and dated or triggered — checkable by someone who was not part of this engagement, six weeks on, without asking what was meant. **None of them requires an engine to do something**: an AI-surface action is accepted on the work shipped plus the measurement re-run and recorded beside its dated baseline, never on an appearance in a generated answer
+- [ ] The ordering rule is stated once in the report, and actions run by expected impact ÷ effort with dependencies respected inside the existing Critical / Important / Minor severity bands — no second priority vocabulary appears beside them
 - [ ] No quotation attributes words to a named person or organisation without a checkable source beside it; page quotes are verbatim from the audited HTML/content, and no Fix drafts an expert quote for the writer
 - [ ] The Step 10 quick scan and the follow-up-run block are each their own fence carrying `<!-- OPERATOR BLOCK … -->` as the first line inside it, and no framework item ID or skill slug appears in the client report — a reader who copies only a fence must be able to tell who it is for
 - [ ] Schema recommendations name **one primary type** for the page; no second content type is recommended or scored as extra credit, and FAQ credit rests on the visible on-page Q&A block rather than on FAQPage markup
@@ -327,6 +365,8 @@ unverified-criterion worked case and the grade bands:
 - [Scoring Rubric](./references/scoring-rubric.md) — Per-criterion points for all eight sections and their maxima, how ✅/⚠️/❌ becomes points, what an unverified criterion does to the denominator, the overall-score arithmetic and grade bands, plus calibration examples
 - [Audit Templates](./references/audit-templates.md) — Detailed output templates for steps 5-11 (content quality, keywords, links, images, technical, CORE-EEAT scan, audit summary)
 - [Audit Example & Checklists](./references/audit-example.md) — Full worked example and page-type checklists (blog, product, landing page)
+- [Action Output Contract](../../references/action-output-contract.md) — the seven fields every recommended action carries, their stated-absence values, the closed owner-role list, worked acceptance criteria (and the AI-surface measurement rule), the three permitted shapes of expected impact, and the ordering rule
+- [Prohibited Tactics](../../references/prohibited-tactics.md) — what an action may never be, and §2 for how an existing instance found on the audited page is named, costed, remediated, owned and ranked
 - [Inter-Skill Handoff](../../references/inter-skill-handoff.md) — what to pass when this audit names a follow-up run (step 10's escalation to the full 80-item audit is the standing one), the operator-block placement rule, and the drop-and-name rule for an unavailable field
 
 ## Related Skills

@@ -1,6 +1,6 @@
 ---
 name: technical-seo-checker
-version: "4.4.6"
+version: "4.5.0"
 description: 'Run technical SEO audits covering Core Web Vitals, crawlability, indexing, mobile-friendliness, and site architecture. Use when the user asks to "technical SEO audit", "check page speed", "Core Web Vitals", "crawl errors", "indexing problems", "site health check". For content element issues, see on-page-seo-auditor. For link architecture, see internal-linking-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.4.6"
+  version: "4.5.0"
   geo-relevance: "low"
   tags:
     - seo
@@ -284,9 +284,9 @@ Step 9 audit summary.
 
    > **Reference**: See [references/technical-audit-templates.md](./references/technical-audit-templates.md) for the audit summary template (Step 9).
 
-## Scoring & Config-Snippet Rules
+## Scoring, Action & Config-Snippet Rules
 
-Two rules that bind every step above.
+Three rules that bind every step above.
 
 **Every score shows its working.** The eight section scores (/10) and the overall health score
 (/100) are arithmetic, not impression: ✅ 1 · ⚠️ 0.5 · ❌ 0 over the section's own checklist rows,
@@ -303,6 +303,31 @@ about who will check it. Per-section row definitions, the count-row conversion, 
 the worked derivation: [references/score-rubric.md](./references/score-rubric.md). Priority
 follows severity, never the score — print each section's highest severity beside its number,
 because one Critical row among eighteen healthy ones still costs the site its indexation.
+
+**Every action is implementable.** A finding diagnoses; an action gets done. Every action this
+audit recommends — each **Solution**, every quick win, every Action Plan row — carries seven
+fields: **action** (one imperative sentence naming the artefact and the change), **owner**,
+**acceptance criterion** (labelled **Done when** in a per-action block and **Acceptance
+criterion** as a table column — one field, two labels, no third), **expected impact**,
+**effort**, **dependencies**, **risk if done wrong**. Fields 1–3 are required — an action with no owner-role and no acceptance criterion does
+not ship as an action — and 4–7 take a stated-absence value (`not estimated — no baseline data`,
+`none`, `low — reversible, no downstream effect`), never a blank and never an invention. **Owner
+is a role** from a closed list, never a person unless the client supplied the name; `Client
+decision` is a real owner and assigning it makes a decision visible instead of leaving the action
+stalled, and `unassigned — needs an owner` is legitimate and is itself a finding. **The
+acceptance-criterion test: could someone who was not part of this engagement check it six weeks
+from now, without asking anybody what was meant?** Observable, binary at the moment of checking,
+attached to a named artefact or measurement, dated or triggered — where a config snippet is the
+action, its own stated verification command is the criterion. **It never requires an engine to do
+something**: an appearance in a generated answer is nobody's to deliver, so an AI-surface action
+is accepted on the work shipped plus the measurement re-run and recorded beside its dated
+baseline. **Ordering, stated once per report**: by expected
+impact ÷ effort with dependencies respected — an unmet dependency sinks an action below the thing
+it waits on — *inside* the existing 🔴 Critical / 🟡 High / 🟢 Medium-Low severity bands, which
+stay this skill's only priority vocabulary because priority follows severity and never the score.
+Role list, effort bands, worked criteria and the stated-absence values:
+[references/technical-audit-templates.md](./references/technical-audit-templates.md) §
+Recommended Actions, and [Action Output Contract](../../references/action-output-contract.md).
 
 **Paste-ready means placement-complete.** Every config artefact the report hands over — nginx or
 Apache rules, response headers, `robots.txt` — carries the file it goes in, the block it goes
@@ -329,6 +354,9 @@ land in. Blocks, the four ways a pasted redirect breaks a site, and the verifica
 - [ ] Every finding carries a Confidence label (Confirmed / Likely / Hypothesis); Hypothesis findings name what would confirm them
 - [ ] Every score prints its derivation ([points] ÷ [rows scored], with the unchecked rows counted) and its section's highest severity; a section with nothing checkable reads "not scored — no data", never 0/10; nothing measured at all means no health score in the report
 - [ ] Every config snippet handed over states its file, its block and its position relative to the directives already there, uses the audited site's real values with no placeholders or provenance markers inside the fence, and names its verification command and rollback
+- [ ] Every recommended action carries all seven fields — action, owner, acceptance criterion, expected impact, effort, dependencies, risk if done wrong — with a stated-absence value wherever an answer does not exist (`not estimated — no baseline data`, `none`, `low — reversible, no downstream effect`); no action ships without an owner-role and an acceptance criterion, and the owner is a role from the closed list (`Client decision` and `unassigned — needs an owner` both count, the second being itself a finding)
+- [ ] Every acceptance criterion is observable, binary at the moment of checking, attached to a named artefact or measurement, and dated or triggered — checkable by someone who was not part of this engagement, six weeks on, without asking what was meant; where a config snippet is the action, its stated verification command is the criterion. **None of them requires an engine to do something**: an AI-surface action is accepted on the work shipped plus the measurement re-run and recorded beside its dated baseline, never on an appearance in a generated answer
+- [ ] The ordering rule is stated once in the report, and actions run by expected impact ÷ effort with dependencies respected inside the existing 🔴 Critical / 🟡 High / 🟢 Medium-Low severity bands — no second priority vocabulary appears beside them
 
 ## Example
 
@@ -352,6 +380,8 @@ land in. Blocks, the four ways a pasted redirect breaks a site, and the verifica
 - [Score Rubric](./references/score-rubric.md) — How every /10 section score and the /100 overall are derived: scored rows per section, count-row conversion, CWV mobile rule, rounding, and when a score must be withheld
 - [Server-Config Fix Snippets](./references/server-config-fixes.md) — Placement-complete nginx/Apache redirect and header blocks, the four ways a pasted redirect takes a site down, verification and rollback
 - [Technical Audit Example & Checklist](./references/technical-audit-example.md) — Full worked example and comprehensive technical SEO checklist
+- [Action Output Contract](../../references/action-output-contract.md) — the seven fields every recommended action carries, their stated-absence values, the closed owner-role list, worked acceptance criteria (and the AI-surface measurement rule), the three permitted shapes of expected impact, and the ordering rule
+- [Prohibited Tactics](../../references/prohibited-tactics.md) — what an action may never be, and §2 for how an existing instance found in the audited setup is named, costed, remediated, owned and ranked
 - [Inter-Skill Handoff](../../references/inter-skill-handoff.md) — what to pass when this audit names a follow-up run (step 7's escalation to a content audit is the standing one), the operator-block placement rule, and the drop-and-name rule for an unavailable field. An alerting or monitoring handoff carries thresholds and metrics instead — see the uncovered-shapes list there
 
 ## Related Skills

@@ -78,13 +78,21 @@ from the item table rather than arguing about the decimal.
 
 ## 4. N/A shrinks the denominator; it never scores 0
 
-Worked on the Authority example from SKILL.md — 8 items N/A for want of site-level data, A05
-Pass and A07 Partial:
+**This is the only copy of the worked case.** It stood in both files until 2026-08-17, when the
+duplicate came out of `SKILL.md` — two copies of one derivation are two places for it to drift,
+and the rule it demonstrates (N/A Item Handling, steps 1–5) still sits there where the auditor
+reads it. Authority dimension, 8 items N/A for want of site-level data, Brand Recognition
+(`CORE-EEAT-A05`) Pass = 10 and Knowledge Graph Presence (`CORE-EEAT-A07`) Partial = 5:
 
 | Method | Arithmetic | Result |
 |--------|-----------|--------|
 | Correct — exclude the 8 N/A items | (10 + 5) ÷ (10 × 2) × 100 | **75.0/100** |
 | Wrong — N/A treated as Fail | (10 + 5) ÷ (10 × 10) × 100 | 15.0/100 (understates by 60) |
+
+8 of the 10 items are N/A — past the >50% line — so Authority is additionally flagged
+"Insufficient Data", excluded from the weighted total, and the remaining dimensions' weights are
+re-normalised to sum to 100% (SKILL.md N/A Item Handling, rules 4–5). The 75.0 above is the
+dimension score; it is not carried into the weighted total.
 
 State the denominator beside the score, so the reader can apply §3 without reconstructing it:
 `A Score: 75/100 — 15 points over 2 scored items; A01–A04, A06, A08–A10 N/A (requires

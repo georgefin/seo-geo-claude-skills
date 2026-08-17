@@ -91,20 +91,40 @@ Quick reference for all 80 CORE-EEAT audit items. Full scoring criteria in [core
 
 #### Priority Improvements from C Dimension
 
+Sorted by weight × points lost, with dependencies respected.
+
 1. **FAQ Coverage** -- Confirmed
    - **Finding**: No FAQ section despite clear long-tail potential
    - **Evidence**: no FAQ/Q&A block anywhere on the page; uncovered long-tail queries such as "free PM tools for small remote teams"
    - **Impact**: Fail (0) -> potential gain of 2.5 weighted points
-   - **Fix**: Add FAQ with "Are there free PM tools for small remote teams?", "How to migrate between PM tools?", etc.
+   - **Fix**: Add a visible FAQ block answering "Are there free PM tools for small remote teams?" and "How do you migrate between PM tools?"
+   - **Owner**: Content · **Effort**: Medium · **Depends on**: none
+   - **Done when**: the live page carries a visible question-and-answer block of at least 4 pairs, each answering a distinct query, checked on the production URL
+   - **Risk if done wrong**: low -- reversible; questions padded to hit a count add no information and will score against the filler item instead
 
 2. **Direct Answer** -- Confirmed
    - **Finding**: Core answer not delivered in the first 150 words
    - **Evidence**: answer first appears in the first 300 words; no summary box above the fold
    - **Impact**: Partial (5) -> potential gain of 1.25 weighted points
    - **Fix**: Insert a "Top 3 Picks" callout box in the first 150 words
+   - **Owner**: Content · **Effort**: Quick · **Depends on**: none
+   - **Done when**: the first 150 words of the live page name the three picks and say who each is for, readable without scrolling on mobile
+   - **Risk if done wrong**: low -- reversible, no downstream effect
 
 [... remaining 7 dimensions (O, R, E, Exp, Ept, A, T) follow the same per-item format ...]
-[... then: Dimension Scores table, Top 5 Priority Improvements (Finding / Evidence / Impact / Fix + confidence label), Action Plan ...]
+[... then: Dimension Scores table, Top 5 Priority Improvements (Finding / Evidence / Impact / Fix + confidence label + owner, acceptance criterion, effort, dependencies and risk), Action Plan ...]
+
+### Action Plan
+
+Ordered by weighted gain ÷ effort with dependencies respected. Effort bands: Quick (<30 min) · Medium (1-2 h) · Strategic (needs planning).
+
+| # | Action | Owner | Acceptance criterion | Expected gain | Effort | Depends on | Risk if done wrong |
+|---|--------|-------|----------------------|---------------|--------|------------|--------------------|
+| 1 | Insert a "Top 3 Picks" callout box in the first 150 words | Content | The first 150 words of the live page name the three picks and say who each is for, readable without scrolling on mobile | 1.25 weighted points | Quick | none | low -- reversible, no downstream effect |
+| 2 | State what the article does not cover, beside the existing scope paragraph | Content | The live page carries one sentence naming what is out of scope, in the opening section | 1.25 weighted points | Quick | none | low -- reversible, no downstream effect |
+| 3 | Add a visible FAQ block of at least 4 question-and-answer pairs | Content | The live page carries a visible Q&A block of at least 4 pairs, each answering a distinct query, checked on the production URL | 2.5 weighted points | Medium | none | low -- reversible; padded questions score against the filler item instead |
+| 4 | Rewrite the conclusion to answer the promise made in the opening | Content | The live page's closing section restates the opening question and gives the answer in its own words | 1.25 weighted points | Medium | none | low -- reversible, no downstream effect |
+| 5 | Commission a hands-on trial of the three lead tools so the page can carry original findings | Client decision | A dated test note exists naming the tester, the method and the results, and the findings are published on the page | not estimated -- the Exclusivity dimension is not scored in this abridged example | Strategic | budget, and trial accounts on all three tools | medium -- findings published without a stated method are not evidence and invite a correction |
 ```
 
 Two things about that example are for whoever runs the audit, not for the client, which is why

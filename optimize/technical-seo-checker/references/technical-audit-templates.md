@@ -12,6 +12,66 @@ block and position — [server-config-fixes.md](./server-config-fixes.md).
 
 ---
 
+## Recommended Actions — the Seven Fields
+
+The rule is stated in [SKILL.md](../SKILL.md) § Scoring, Action & Config-Snippet Rules. This is
+the working detail every template below draws on. Full field table, the three permitted shapes of
+expected impact and more worked criteria:
+[Action Output Contract](../../../references/action-output-contract.md).
+
+| # | Field | In these templates | Stated-absence value |
+|---|---|---|---|
+| 1 | Action | the **Solution** line, or the Action column | — (an action with no action is not a row) |
+| 2 | Owner | Owner | `unassigned — needs an owner` |
+| 3 | Acceptance criterion | **Done when** in a per-action block, **Acceptance criterion** as a table column — one field, two labels, no third | — (an action with no criterion is not a row) |
+| 4 | Expected impact | the **Impact** line, or the Expected impact column | `not estimated — no baseline data` |
+| 5 | Effort | Effort | `not estimated` |
+| 6 | Dependencies | Depends on | `none` |
+| 7 | Risk if done wrong | Risk if done wrong | `low — reversible, no downstream effect` |
+
+**Owner roles — the closed list.** `Content` · `SEO/technical` · `Developer` · `Designer` ·
+`Product/merchandising` · `Customer service` · `Legal/compliance` · `Agency` · `Client decision`.
+A person's name appears only where the client supplied one, beside the role. Most of this audit's
+actions land on `Developer` or `SEO/technical`; a hosting change, a CDN contract or taking a
+property offline is `Client decision`, and assigning it makes the decision visible instead of
+leaving the action stalled with no explanation. `unassigned — needs an owner` surfaces work with
+nowhere to go — a common and useful result where a site has no maintainer — and is never used to
+dodge an obvious assignment.
+
+**Effort bands.** **S** — a config edit or a single file, ≤30 min, no deploy window. **M** — ≤2 h,
+or one deploy. **L** — needs planning, a migration, a release train, or somebody else's calendar.
+Hours instead of bands where the client works that way.
+
+**Acceptance criteria — this skill's shapes.** Where the action hands over a config snippet, the
+snippet's own **verification command** is the criterion: it is observable, binary, and runnable
+by anyone. That is the cheapest criterion in this library and it is already required by the
+paste-ready rule.
+
+| Not a criterion | A criterion |
+|---|---|
+| "HSTS sorted" | "`curl -I` on the production host returns `strict-transport-security` with a max-age of at least 31536000" |
+| "Fix the redirect chains" | "Each of the 5 listed legacy URLs returns a single 301 straight to its final destination — no second hop — checked with `curl -IL`" |
+| "Improve LCP" | "A page-speed report for the 3 template URLs, run after the deploy, records mobile LCP for each; the figures are filed beside the dated baseline" |
+| "Fix the sitemap" | "`/sitemap.xml` returns 200, parses as valid XML, contains only indexable URLs, and is declared in `robots.txt`" |
+| "Get cited by AI assistants" | Not a criterion at all — rewrite as the work shipped plus the measurement re-run and recorded |
+
+**An AI-surface criterion is a measurement criterion, never an outcome criterion.** An appearance
+in a generated answer is not in anyone's gift to deliver, and writing it turns the action into a
+promise. A crawler-access change is accepted on the directive shipped and verified, never on a
+citation appearing.
+
+**Ordering.** Expected impact ÷ effort, dependencies respected, *inside* the 🔴 Critical / 🟡 High
+/ 🟢 Medium-Low severity bands this skill already uses — priority follows severity, never the
+score. An action whose dependency is unmet sits below the thing it waits on, whatever its score.
+No second priority vocabulary is invented beside severity, and the ordering rule is stated once
+per report.
+
+**The action table is client-read.** No framework item IDs, no skill or command slugs, no repo
+paths, no ruling IDs, no `~~category` tokens in it. Anything addressed to whoever runs the
+library goes in an operator block, labelled inside its own fence.
+
+---
+
 ## Step 3: Audit Site Speed & Core Web Vitals
 
 ```markdown
@@ -325,50 +385,67 @@ Score Breakdown (✅1 · ⚠️0.5 · ❌0 per checked row; one █ per point):
 Each issue carries Finding / Evidence / Impact / Fix plus a Confidence label
 (Confirmed = directly observed in provided data or crawl · Likely = strong indirect
 evidence · Hypothesis = plausible, needs verification — name what would confirm it).
+The Solution is the action and the Impact is its expected impact; each issue adds the owner,
+the acceptance criterion, the effort, the dependencies and the risk of getting it wrong, so it
+can be picked up and proved done by somebody who was not in the room. Issues are ordered inside
+each severity band by expected impact ÷ effort with dependencies respected — an action whose
+dependency is unmet sits below the thing it waits on.
 
 1. **[Issue]**: [Impact]
    - Evidence: [observed data — crawl line, response header, metric]
    - Affected: [pages/scope]
-   - Solution: [specific fix]
+   - Solution: [one imperative sentence naming the artefact and the change]
+   - Owner: [role] · Effort: [S / M / L] · Depends on: [named blocker, or "none"]
+   - Done when: [observable, binary, attached to a named artefact or measurement, dated or triggered — for a config snippet, its own verification command]
+   - Risk if done wrong: [realistic failure mode and its cost, or "low — reversible, no downstream effect"]
    - Priority: 🔴 Critical · Confidence: [Confirmed/Likely/Hypothesis]
 
-2. **[Issue]**: [Impact]
-   - Evidence: [observed data — crawl line, response header, metric]
-   - Affected: [pages/scope]
-   - Solution: [specific fix]
-   - Priority: 🔴 Critical · Confidence: [Confirmed/Likely/Hypothesis]
+2. **[Issue]**: [same format]
 
 ## High Priority Issues
 
 1. **[Issue]**: [Solution] — Evidence: [observed data] · Confidence: [label]
-2. **[Issue]**: [Solution] — Evidence: [observed data] · Confidence: [label]
+   - Owner: [role] · Effort: [S / M / L] · Depends on: [named blocker, or "none"] · Risk if done wrong: [failure mode and cost, or "low — reversible, no downstream effect"]
+   - Done when: [observable, binary, dated or triggered]
+2. **[Issue]**: [same format]
 
 ## Medium Priority Issues
 
 1. **[Issue]**: [Solution] — Evidence: [observed data] · Confidence: [label]
-2. **[Issue]**: [Solution] — Evidence: [observed data] · Confidence: [label]
+   - Owner: [role] · Effort: [S / M / L] · Depends on: [named blocker, or "none"] · Risk if done wrong: [failure mode and cost, or "low — reversible, no downstream effect"]
+   - Done when: [observable, binary, dated or triggered]
+2. **[Issue]**: [same format]
 
 ## Quick Wins
 
-These can be fixed quickly for immediate improvement:
+The S-effort rows of the Action Plan below, whose dependencies are already met. Owner,
+acceptance criterion and risk are stated once, in that table.
 
-1. [Quick fix 1]
-2. [Quick fix 2]
-3. [Quick fix 3]
+1. [Quick fix 1 — why it is worth doing first]
+2. [Quick fix 2 — why it is worth doing first]
+3. [Quick fix 3 — why it is worth doing first]
 
-## Implementation Roadmap
+## Action Plan
 
-### Week 1: Critical Fixes
-- [ ] [Task 1]
-- [ ] [Task 2]
+Every action this audit recommends, in one place. **Ordered by expected impact ÷ effort with
+dependencies respected, inside the severity bands above** — an action whose dependency is unmet
+sits below the thing it waits on. Effort: S a config edit or single file, ≤30 min, no deploy
+window · M ≤2 h or one deploy · L needs planning, a migration, or somebody else's calendar. A
+field with no answer carries its stated-absence value, never a blank.
 
-### Week 2-3: High Priority
-- [ ] [Task 1]
-- [ ] [Task 2]
+| # | Action | Owner | Acceptance criterion | Expected impact | Effort | Depends on | Risk if done wrong |
+|---|--------|-------|----------------------|-----------------|--------|------------|--------------------|
+| 1 | [imperative sentence naming the artefact and the change] | [role, or "unassigned — needs an owner"] | [observable, binary, dated or triggered — for a config snippet, its own verification command] | [what should change and why, with its basis, or "not estimated — no baseline data"] | [S/M/L] | [named blocker, or "none"] | [failure mode and cost, or "low — reversible, no downstream effect"] |
+| 2 | [next action] | … | … | … | … | … | … |
 
-### Week 4+: Optimization
-- [ ] [Task 1]
-- [ ] [Task 2]
+### Implementation Roadmap
+
+The same actions, cut into windows — **no action appears here that is not a row above**, and no
+field is restated, so the two views cannot drift apart.
+
+- **Week 1** — the 🔴 Critical rows.
+- **Week 2-3** — the 🟡 High rows.
+- **Week 4+** — the 🟢 Medium-Low rows and anything waiting on an unmet dependency.
 
 ## Monitoring Recommendations
 

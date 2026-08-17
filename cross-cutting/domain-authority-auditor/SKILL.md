@@ -1,13 +1,13 @@
 ---
 name: domain-authority-auditor
-version: "4.3.8"
+version: "4.4.0"
 description: 'Run the full 40-item CITE domain authority audit across 4 dimensions with domain-type weighting and veto checks. Use when the user asks to "audit domain authority", "domain trust score", "CITE audit", "how authoritative is my site", "domain credibility check", "is my domain trustworthy", "domain credibility score", "domain rating". For content-level assessment, see content-quality-auditor. For link profile details, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.8"
+  version: "4.4.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -207,12 +207,7 @@ Same format for Trust and Eminence dimensions.
 **E Score**: [X]/100 — [p] Pass + [q] Partial + [r] Fail = [p]×10 + [q]×5 (p + q + r = 10)
 ```
 
-**Note**: Some items require specialized data (C05-C08 AI citation data, I01 knowledge graph queries, T04-T05 IP/profile analysis). Score what is observable; mark unverifiable items as "N/A — requires [data source]" and exclude from dimension average.
-
-Excluded means the denominator shrinks, never that the item scores 0: **dimension score =
-points earned ÷ (10 × scored items) × 100**. State the denominator beside the score —
-`C Score: 58/100 — 35 pts over 6 scored items; C05-C08 N/A`. Worked N/A cases:
-[references/score-arithmetic.md](./references/score-arithmetic.md).
+**Note**: Some items require specialized data (C05-C08 AI citation data, I01 knowledge graph queries, T04-T05 IP/profile analysis). Score what is observable; mark unverifiable items as "N/A — requires [data source]" and exclude them from the dimension average. Excluded means the denominator shrinks, never that the item scores 0: **dimension score = points earned ÷ (10 × scored items) × 100**. State the denominator beside the score — `C Score: 58/100 — 35 pts over 6 scored items; C05-C08 N/A`. Worked N/A cases: [references/score-arithmetic.md](./references/score-arithmetic.md).
 
 **Greek e-commerce domains**: apply the supplementary trust/staleness checks in [references/greek-eshop-compliance.md](./references/greek-eshop-compliance.md) when scoring T06, T08, and T10 (stale ODR link, ΓΕΜΗ/ΑΦΜ and entity transparency, withdrawal/returns and policy furniture). These are audit signals only — never legal advice; compliance conclusions go to the client's lawyer.
 
@@ -237,6 +232,8 @@ and any "what the score would be if X" projection. Three rules carry most of the
 
 Formulas, N/A rescaling, veto-cap handling, and worked gain/projection examples:
 [references/score-arithmetic.md](./references/score-arithmetic.md).
+
+**Every action is implementable.** A finding diagnoses; an action gets done. Every action this audit recommends — each Top 5 entry and every Action Plan row — carries seven fields: **action** (one imperative sentence naming the artefact and the change), **owner**, **acceptance criterion** (labelled **Done when** in a per-action block and **Acceptance criterion** as a table column — one field, two labels, no third), **expected impact**, **effort**, **dependencies**, **risk if done wrong**. The **Action** line *is* the action field and the **Potential gain** line *is* the expected-impact field, so an entry adds the other five rather than restating those two. Fields 1–3 are required — an action with no owner-role and no acceptance criterion does not ship as an action — and 4–7 take a stated-absence value (`not estimated — no baseline data`, `none`, `low — reversible, no downstream effect`), never a blank and never an invention. **Owner is a role** from a closed list — Content · SEO/technical · Developer · Designer · Product/merchandising · Customer service · Legal/compliance · Agency · Client decision — never a person unless the client supplied the name; `Client decision` is a real owner and assigning it makes a decision visible instead of leaving the action stalled, and `unassigned — needs an owner` is legitimate and is itself a finding. **The acceptance-criterion test: could someone who was not part of this engagement check it six weeks from now, without asking anybody what was meant?** Observable, binary at the moment of checking, attached to a named artefact or measurement, dated or triggered — "the entity record exists with website, industry and inception properties, each carrying a source" rather than "knowledge graph sorted". **It never requires an engine to do something**: an appearance in a generated answer, a knowledge panel or a citation is nobody's to deliver, and writing it turns the action into a promise, so an AI-surface action is accepted on the work shipped plus the measurement re-run and recorded beside its dated baseline. Effort uses this report's own bands — Quick (<1 week) · Medium (1–4 weeks) · Strategic (1–3 months) — and priority stays the existing weight × points-lost sort; no second vocabulary is invented beside either. Field table, stated-absence values, worked criteria and the permitted shapes of expected impact: [Action Output Contract](../../references/action-output-contract.md). A prohibited tactic found in the audited setup — a bought-link pattern, a duplicate microsite, review gating — is reported the same way and never left quietly in place: named, exposure stated, remediation owned and accepted, ranked against everything else, with any recommendation that depended on it withdrawn. This skill never removes or alters a client's live property on its own initiative: it reports and proposes, the client decides. [Prohibited Tactics](../../references/prohibited-tactics.md) §2.
 
 Calculate scores and generate the final report:
 
@@ -281,30 +278,25 @@ Calculate scores and generate the final report:
 
 ### Top 5 Priority Improvements
 
-Sorted by: weight × points lost (highest impact first). Potential gain = recoverable points
-(10 from Fail, 5 from Partial) × that dimension's weight — show the multiplication.
+Sorted by: weight × points lost (highest impact first), with dependencies respected — an entry whose dependency is unmet sits below the thing it waits on. Potential gain = recoverable points (10 from Fail, 5 from Partial) × that dimension's weight — show the multiplication.
 
 1. **[Name]** — [specific modification suggestion]
    - Current: [Fail/Partial] | Potential gain: [10 or 5] × [dim weight] = [X] weighted points
    - Evidence: [observed data behind the score] | Confidence: [Confirmed/Likely/Hypothesis — if Hypothesis, name what would confirm it]
-   - Action: [concrete step]
-2. **[Name]** — [specific modification suggestion]
-   - Current: [Fail/Partial] | Potential gain: [10 or 5] × [dim weight] = [X] weighted points
-   - Evidence: [observed data behind the score] | Confidence: [Confirmed/Likely/Hypothesis — if Hypothesis, name what would confirm it]
-   - Action: [concrete step]
-3–5. [Same format]
+   - Action: [one imperative sentence naming the artefact and the change]
+   - Owner: [role] | Effort: [Quick / Medium / Strategic] | Depends on: [named blocker, or "none"]
+   - Done when: [observable, binary, attached to a named artefact or measurement, dated or triggered]
+   - Risk if done wrong: [realistic failure mode and its cost, or "low — reversible, no downstream effect"]
+2–5. [Same format]
 
 ### Action Plan
 
-#### Quick Wins (< 1 week)
-- [ ] [Action 1]
-- [ ] [Action 2]
-#### Medium Effort (1-4 weeks)
-- [ ] [Action 3]
-- [ ] [Action 4]
-#### Strategic (1-3 months)
-- [ ] [Action 5]
-- [ ] [Action 6]
+Every action this audit recommends, in one place, ordered by weighted gain ÷ effort with dependencies respected. Effort bands: Quick (<1 week) · Medium (1–4 weeks) · Strategic (1–3 months). A field with no answer carries its stated-absence value, never a blank.
+
+| # | Action | Owner | Acceptance criterion | Expected gain | Effort | Depends on | Risk if done wrong |
+|---|--------|-------|----------------------|---------------|--------|------------|--------------------|
+| 1 | [imperative sentence naming the artefact and the change] | [role, or "unassigned — needs an owner"] | [observable, binary, dated or triggered — checkable by someone who was not part of this audit] | [weighted points, from the tables above, or "not estimated — no baseline data"] | [band] | [named blocker, or "none"] | [failure mode and cost, or "low — reversible, no downstream effect"] |
+| 2 | [next action] | … | … | … | … | … | … |
 
 ### Cross-Reference with CORE-EEAT
 
@@ -356,6 +348,9 @@ Drop any row whose run this audit did not actually motivate; a standing list of 
 - [ ] Every recommendation is specific and actionable (not generic advice)
 - [ ] Every finding carries a Confidence label (Confirmed / Likely / Hypothesis); Hypothesis findings name what would confirm them
 - [ ] Action plan includes concrete steps with effort estimates
+- [ ] Every recommended action — each Top 5 entry and every Action Plan row — carries all seven fields (action, owner, acceptance criterion, expected impact, effort, dependencies, risk if done wrong), with a stated-absence value wherever an answer does not exist (`not estimated — no baseline data`, `none`, `low — reversible, no downstream effect`); no action ships without an owner-role and an acceptance criterion, the owner is a role from the closed list (`Client decision` and `unassigned — needs an owner` both count, the second being itself a finding), and where an action appears in both views its fields say the same thing
+- [ ] Every acceptance criterion is observable, binary at the moment of checking, attached to a named artefact or measurement, and dated or triggered — checkable by someone who was not part of this engagement, six weeks on, without asking what was meant. **None of them requires an engine to do something**: an appearance in a generated answer, a knowledge panel or a citation is never the criterion, and an AI-surface action is accepted on the work shipped plus the measurement re-run and recorded beside its dated baseline. The ordering rule is stated once, and the existing weight × points-lost sort and the Quick/Medium/Strategic effort bands are the only priority and effort vocabularies used
+- [ ] Any prohibited tactic found in the audited setup is named plainly, its exposure stated, its remediation given with an owner and an acceptance criterion, and ranked against everything else — never quietly left in place, never built on, and never removed or altered on this skill's own initiative
 - [ ] The client report fence carries its own label as its FIRST line — `<!-- SKELETON … -->` while slots are unfilled, `<!-- ILLUSTRATIVE FILL … -->` once demo numbers are in — and the follow-up-run block is a separate fence carrying `<!-- OPERATOR BLOCK … -->` as its first line; **no skill slug or command slug appears anywhere inside the client report fence**, and **no framework item ID appears in the client-facing prose** — a reader who copies only that fence must be able to tell it is not for the client. **The scored per-item table keeps its ID column** (ruled 2026-08-13): there the ID is a row label sitting beside the item's plain-language name, so the client reads "Intent Alignment" and the ID is only a stable handle for the row. In prose the ID *is* the referent — "Items R02 and R03 failed" tells a client nothing — and that is the form the rule bans. **A bare list of IDs inside a cell does not qualify either**: "C02, C03 Pass; C01 Partial" is the referent form wearing a table's clothes, because no plain-language name sits against any of them. The earlier fence-wide wording was unsatisfiable: the checkbox above it requires every item scored, and the per-item table is the instrument the client bought.
 
 ## Example
@@ -376,6 +371,8 @@ See [references/example-report.md](./references/example-report.md) for a complet
 - [references/score-arithmetic.md](./references/score-arithmetic.md) — How every derived figure is composed: dimension tallies, N/A rescaling, the weighted total and its rounding, veto-cap presentation, potential-gain and projection formulas, plus the pre-send recompute pass
 - [references/example-report.md](./references/example-report.md) — Complete CITE audit example with scored dimensions, top 5 improvements, action plan, and CORE-EEAT cross-reference
 - [references/greek-eshop-compliance.md](./references/greek-eshop-compliance.md) — Greek e-shop trust/compliance audit items mapped onto `CITE-T06` / `CITE-T08` / `CITE-T10` (stale ODR link, ΓΕΜΗ/ΑΦΜ transparency, withdrawal/returns and policy furniture) — audit signals, not legal advice
+- [Action Output Contract](../../references/action-output-contract.md) — the seven fields every recommended action carries, their stated-absence values, the closed owner-role list, worked acceptance criteria (and the AI-surface measurement rule), the three permitted shapes of expected impact, and the ordering rule
+- [Prohibited Tactics](../../references/prohibited-tactics.md) — what an action may never be, and §2 for how an existing instance found in the audited setup is named, costed, remediated, owned and ranked
 - [Inter-Skill Handoff](../../references/inter-skill-handoff.md) — the payload every follow-up-run row passes to the run it names, the label-inside-the-fence rule for an operator block, the hyphenated framework-first item-ID form, and the drop-and-name rule for an unavailable field
 
 ## Related Skills

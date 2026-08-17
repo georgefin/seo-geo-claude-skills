@@ -55,46 +55,58 @@ part of what it is demonstrating.
 
 ### Top 5 Priority Improvements
 
-Sorted by: weight × points lost (highest impact first). Potential gain = recoverable points
-(10 from Fail, 5 from Partial) × that dimension's weight.
+Sorted by: weight × points lost (highest impact first), with dependencies respected. Potential
+gain = recoverable points (10 from Fail, 5 from Partial) × that dimension's weight.
 
-1. **AI Citation Frequency** — Increase citations in AI-generated answers
+1. **AI Citation Frequency** — the site is cited in assistant answers less often than its link profile would suggest
    - Current: Partial | Potential gain: 5 × 40% = 2.0 weighted points | Evidence: graded Partial in the dimension table above | Confidence: Likely (sampled AI answers, not exhaustive)
-   - Action: Optimize top 10 pages for GEO; add definitive statements that still say something true when lifted out of their paragraph
+   - Action: Rewrite the opening of the top 10 pages so each leads with a statement that still says something true when lifted out of its paragraph
+   - Owner: Content | Effort: Medium | Depends on: none
+   - Done when: all 10 pages are live with the rewritten openings, and the citation sample is re-run on the same prompt set and repeat count, with the new figure and its N recorded beside the 2025-02-03 baseline
+   - Risk if done wrong: low — reversible; openings compressed into slogans lose the substance that made them liftable, so keep every claim checkable on the page
 
-2. **Knowledge Graph Presence** — Create entity entry in Google Knowledge Graph
+2. **Knowledge Graph Presence** — no entity record exists for the publisher
    - Current: Fail | Potential gain: 10 × 15% = 1.5 weighted points | Evidence: graded Fail in the dimension table above (no entity entry found) | Confidence: Confirmed
-   - Action: Create Wikidata entry for CloudHost Inc. with P856 (website), P452 (industry), P571 (inception)
+   - Action: Create a Wikidata entry for CloudHost Inc. carrying website, industry and inception properties
+   - Owner: SEO/technical | Effort: Medium | Depends on: a public, citable source for each property — incorporation record, About page, press coverage
+   - Done when: the entry is live and resolvable, carries all three properties, and each property cites a source; recorded with its identifier and the date created
+   - Risk if done wrong: medium — an entry with unsourced or promotional properties is edited or deleted by the community, and re-creating it is harder than getting it right once
 
 3. **Content Freshness Signal** — 40% of content is >12 months without update
    - Current: Partial | Potential gain: 5 × 20% = 1.0 weighted points | Evidence: content inventory, 40% of URLs >12 months old | Confidence: Confirmed
-   - Action: Establish monthly content refresh schedule; prioritize top 20 traffic pages
+   - Action: Stand up a monthly refresh schedule and work it through the top 20 traffic pages first
+   - Owner: Content | Effort: Strategic | Depends on: none
+   - Done when: a dated schedule exists naming the pages and the month each is due, and three consecutive months have shipped with the updated pages carrying visible revision dates
+   - Risk if done wrong: medium — bumping a date without changing the content is a false freshness signal and a misrepresentation to the reader
 
-4. **Brand SERP Ownership** — Branded SERP shows only 4 of 10 results from owned properties
+4. **Brand SERP Ownership** — the branded results page shows only 4 of 10 results from owned properties
    - Current: Partial | Potential gain: 5 × 15% = 0.75 weighted points | Evidence: branded-SERP scan, 4 of 10 results owned | Confidence: Confirmed
-   - Action: Claim Google Business Profile; build out social profiles; create CrunchBase entry
+   - Action: Claim the Google Business Profile, complete the social profiles and create a CrunchBase entry
+   - Owner: Client decision (profile ownership sits with the client's accounts) | Effort: Quick | Depends on: access to the company accounts and a verification address
+   - Done when: all four profiles are live and verified under the company name, listed with their URLs, and the branded-SERP scan is re-run and its owned-result count recorded beside the 4 of 10 baseline
+   - Risk if done wrong: medium — inconsistent names, addresses or descriptions across profiles weaken the identity signal instead of strengthening it
 
 5. **Schema.org Coverage** — Organization schema present but incomplete: sameAs, founder and foundingDate absent
    - Current: Partial | Potential gain: 5 × 15% = 0.75 weighted points | Evidence: markup crawl, properties absent from Organization schema | Confidence: Confirmed
-   - Action: Add complete Organization schema with sameAs links to Wikidata, LinkedIn, CrunchBase
+   - Action: Add sameAs, founder and foundingDate to the existing Organization block
+   - Owner: Developer | Effort: Quick | Depends on: the Wikidata entry from row 2 existing, so sameAs has something to point at
+   - Done when: the live Organization block validates with zero errors in a structured-data test and carries all three properties, each matching information published on the site
+   - Risk if done wrong: low — reversible; properties describing anything not published on the site are a misrepresentation, so add only what the site states
 
 These five together are worth 2.0 + 1.5 + 1.0 + 0.75 + 0.75 = **6.0 weighted points** — the sum of the individual gains, no more.
 
 ### Action Plan
 
-#### Quick Wins (< 1 week)
-- [ ] Add sameAs, founder, and foundingDate to Organization schema
-- [ ] Claim Google Business Profile for branded SERP control
+Every action above, ordered by weighted gain ÷ effort with dependencies respected. The schema completion is Quick and would otherwise sit at the top beside row 1; it sorts to row 4 because it waits on the entity record in row 3. Effort bands: Quick (<1 week) · Medium (1-4 weeks) · Strategic (1-3 months).
 
-#### Medium Effort (1-4 weeks)
-- [ ] Create Wikidata entry with complete properties and references
-- [ ] Optimize top 10 pages with GEO-friendly definitive statements
-- [ ] Create or complete CrunchBase, LinkedIn company page profiles
-
-#### Strategic (1-3 months)
-- [ ] Launch monthly content refresh program targeting stale pages
-- [ ] Build topical authority through 3-4 pillar content clusters
-- [ ] Pursue digital PR to earn mentions on industry publications (TechCrunch, G2)
+| # | Action | Owner | Acceptance criterion | Expected gain | Effort | Depends on | Risk if done wrong |
+|---|--------|-------|----------------------|---------------|--------|------------|--------------------|
+| 1 | Claim the Google Business Profile, complete the social profiles and create a CrunchBase entry | Client decision | All four profiles live and verified under the company name, and the branded-SERP scan re-run with its owned-result count recorded beside the 4 of 10 baseline | 0.75 weighted points | Quick | access to the company accounts and a verification address | medium — inconsistent name, address or description across profiles weakens the identity signal instead of strengthening it |
+| 2 | Rewrite the opening of the top 10 pages to lead with a statement that stands alone | Content | All 10 pages live with the rewritten openings, and the citation sample re-run on the same prompt set and repeat count, with the new figure and its N recorded beside the 2025-02-03 baseline | 2.0 weighted points | Medium | none | low — reversible; openings compressed into slogans lose the substance that made them liftable |
+| 3 | Create a Wikidata entry for CloudHost Inc. carrying website, industry and inception properties | SEO/technical | The entry is live and resolvable, carries all three properties, and each cites a public source; recorded with its identifier and creation date | 1.5 weighted points | Medium | a public, citable source for each property | medium — unsourced or promotional properties get edited or deleted, and re-creating the entry is harder than getting it right once |
+| 4 | Add sameAs, founder and foundingDate to the existing Organization block | Developer | The live Organization block validates with zero errors in a structured-data test and carries all three properties, each matching information published on the site | 0.75 weighted points | Quick | row 3 — sameAs needs the entity record to point at | low — reversible; add only properties the site itself states |
+| 5 | Stand up a monthly refresh schedule and work it through the top 20 traffic pages | Content | A dated schedule naming the pages and the month each is due, and three consecutive months shipped with the updated pages carrying visible revision dates | 1.0 weighted points | Strategic | none | medium — bumping a date without changing the content is a false freshness signal and a misrepresentation to the reader |
+| 6 | Commission digital PR aimed at earning mentions on industry publications | Client decision | A dated outreach plan exists with named targets, and earned mentions are logged with their URLs and dates as they land | not estimated — no baseline data; this audit measured referring domains, not campaign response | Strategic | budget, and a story worth covering | high — paid placements and reciprocal schemes are not earned mentions and carry a retraction risk that outlives the spend |
 
 ### Cross-Reference with CORE-EEAT
 

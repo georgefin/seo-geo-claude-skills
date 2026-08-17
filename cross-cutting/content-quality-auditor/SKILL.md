@@ -1,6 +1,6 @@
 ---
 name: content-quality-auditor
-version: "4.4.5"
+version: "4.5.0"
 description: 'Run the full 80-item CORE-EEAT audit across 8 dimensions with content-type weighted scoring, veto checks, and prioritized fix plans. Use when the user asks to "audit content quality", "EEAT score", "CORE-EEAT audit", "content quality check", "how good is my content", "content improvement plan", "is my content AI-citation worthy", "GEO quality score". For SEO page element audits, see on-page-seo-auditor. For domain-level authority, see domain-authority-auditor.'
 license: Apache-2.0
 allowed-tools: WebFetch
@@ -8,7 +8,7 @@ compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, 
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.4.5"
+  version: "4.5.0"
   geo-relevance: "high"
   tags:
     - seo
@@ -197,6 +197,8 @@ A text with Tier-1 vocabulary hits cannot honestly score O09 Pass ("no filler").
 
 Calculate scores and generate the final report. Every finding — each Partial/Fail note and each priority improvement — carries its confidence label (defined in Step 2); priority improvements use the Finding / Evidence / Impact / Fix structure:
 
+**Every action is implementable.** A finding diagnoses; an action gets done. Every action this audit recommends — each **Fix** in the Top 5 and every Action Plan row — carries seven fields: **action** (one imperative sentence naming the artefact and the change), **owner**, **acceptance criterion** (labelled **Done when** in a per-action block and **Acceptance criterion** as a table column — one field, two labels, no third), **expected impact**, **effort**, **dependencies**, **risk if done wrong**. The **Fix** line *is* the action field and the **Impact** line *is* the expected-impact field, so an entry adds the other five rather than restating those two. Fields 1–3 are required — an action with no owner-role and no acceptance criterion does not ship as an action — and 4–7 take a stated-absence value (`not estimated — no baseline data`, `none`, `low — reversible, no downstream effect`), never a blank and never an invention. **Owner is a role** from a closed list — Content · SEO/technical · Developer · Designer · Product/merchandising · Customer service · Legal/compliance · Agency · Client decision — never a person unless the client supplied the name; `Client decision` is a real owner and assigning it makes a decision visible instead of leaving the action stalled, and `unassigned — needs an owner` is legitimate and is itself a finding. **The acceptance-criterion test: could someone who was not part of this engagement check it six weeks from now, without asking anybody what was meant?** Observable, binary at the moment of checking, attached to a named artefact or measurement, dated or triggered — "the page carries a named author with a stated credential and a visible publication date, live on the production URL" rather than "author signals improved". **It never requires an engine to do something**: an appearance in a generated answer is nobody's to deliver, and writing it turns the action into a promise, so an AI-surface action is accepted on the work shipped plus the measurement re-run and recorded beside its dated baseline. Effort uses this report's own bands — Quick (<30 min) · Medium (1–2 h) · Strategic (needs planning) — and priority stays the existing weight × points-lost sort; no second vocabulary is invented beside either. Field table, stated-absence values, worked criteria and the permitted shapes of expected impact: [Action Output Contract](../../references/action-output-contract.md). A prohibited tactic found in the audited content is reported the same way — named, exposure stated, remediation owned and accepted, ranked against everything else: [Prohibited Tactics](../../references/prohibited-tactics.md) §2.
+
 **Quote discipline** — R02 and R03 (citation density, source hierarchy) and the Ept/A items (Ept01 Author Identity, Ept02 Credentials Display, A06 Social Proof) are where this report asks for citations, credentials and expert quotes, and the count thresholds (≥1 citation per 500 words; ≥3 Tier 1–2 sources) are exactly the pressure that invents one. A quotation attributed to a named person or organisation needs a real, checkable source in the same breath: speaker, role, where and when they said it, and a link that opens. Without one, do not attribute it — paraphrase it unattributed, or drop it. This governs both quote surfaces below. The **Evidence** field quotes the audited content verbatim (copied from the content, never reconstructed). A **Fix** or Action Plan step tells the writer to *source* a quote — it never drafts one, and never invents a name, credential or institution to carry it (statistics rule: sourced, cited, or placeholder, never invented). A fabricated statistic is an unverifiable claim; a fabricated quotation is a false statement about an identifiable person, published under the client's byline.
 
 #### N/A Item Handling
@@ -215,20 +217,11 @@ you were not given):
 4. If more than 50% of a dimension's items are N/A, flag the dimension as "Insufficient Data" and exclude it from the weighted total
 5. Recalculate weighted total using only dimensions with sufficient data, re-normalizing weights to sum to 100%
 
-**Example**: Authority dimension with 8 N/A items and 2 scored items — Brand Recognition (`CORE-EEAT-A05`) Pass = 10, Knowledge Graph Presence (`CORE-EEAT-A07`) Partial = 5:
-- Dimension score = (10 + 5) / (2 x 10) x 100 = 75
-- But 8/10 items are N/A (>50%), so flag as "Insufficient Data -- Authority"
-- Exclude A dimension from weighted total; redistribute its weight proportionally to remaining dimensions
+The worked case — an Authority dimension with 8 items N/A and 2 scored, the correct denominator against the wrong one, and what "Insufficient Data" then does to the weighted total — is in [references/score-arithmetic.md](./references/score-arithmetic.md) § 4.
 
-**Attainable dimension scores — check before printing.** Every scored item earns 10, 5, or 0, so a dimension score is always an exact multiple of `50 / (number of scored items)`. No value between two of those steps can be produced by any tally.
+**Attainable dimension scores — check before printing.** Every scored item earns 10, 5, or 0, so a dimension score is always an exact multiple of `50 / (number of scored items)` — a multiple of 5 over 10 scored items (0, 5, 10 … 100), of 10 over 5 scored items, of 25 over 2 (0, 25, 50, 75, 100). No value between two of those steps can be produced by any tally. The full step table for every scored-item count is in [references/score-arithmetic.md](./references/score-arithmetic.md) § 2.
 
-| Scored items | Score is a multiple of | Attainable set |
-|---|---|---|
-| 10 (none N/A) | 5 | 0, 5, 10 … 100 |
-| 5 | 10 | 0, 10, 20 … 100 |
-| 2 | 25 | 0, 25, 50, 75, 100 |
-
-Reverse check on a printed score: `score x scored items / 50` must be a whole number, and that number equals (2 x Passes) + Partials. The example above checks out — 75 x 2 / 50 = 3 = (2 x 1 Pass) + 1 Partial. A fractional result means the tally slipped: 65 over 2 scored items gives 2.6, so 65 is not a score this scale can produce. Rounding is the one legitimate exception (50 / scored items does not always give a terminating decimal — 9, 7, 6 and 3 scored items do not), and the full derivation, the same check for GEO/SEO and weighted figures, and the veto outcomes that sit outside the arithmetic are in [references/score-arithmetic.md](./references/score-arithmetic.md).
+Reverse check on a printed score: `score x scored items / 50` must be a whole number, and that number equals (2 x Passes) + Partials. A dimension with 2 scored items printing 75 checks out — 75 x 2 / 50 = 3 = (2 x 1 Pass) + 1 Partial. A fractional result means the tally slipped: 65 over 2 scored items gives 2.6, so 65 is not a score this scale can produce. Rounding is the one legitimate exception (50 / scored items does not always give a terminating decimal — 9, 7, 6 and 3 scored items do not), and the full derivation, the same check for GEO/SEO and weighted figures, and the veto outcomes that sit outside the arithmetic are in [references/score-arithmetic.md](./references/score-arithmetic.md).
 
 ```markdown
 <!-- SKELETON — the client's report. Every [bracket] is a slot: fill it from this audit's own
@@ -288,29 +281,27 @@ Reverse check on a printed score: `score x scored items / 50` must be a whole nu
 
 ### Top 5 Priority Improvements
 
-Sorted by: weight × points lost (highest impact first). Every entry carries all four parts plus its confidence label — **Confirmed** (directly observed in the provided content/data) · **Likely** (strong indirect evidence) · **Hypothesis** (plausible, needs verification).
+Sorted by: weight × points lost (highest impact first), with dependencies respected — an entry whose dependency is unmet sits below the thing it waits on. Every entry carries all four parts plus its confidence label — **Confirmed** (directly observed in the provided content/data) · **Likely** (strong indirect evidence) · **Hypothesis** (plausible, needs verification) — and the five implementation fields beneath them.
 
 1. **[Name]** — [Confirmed / Likely / Hypothesis]
    - **Finding**: [what is wrong, one sentence]
    - **Evidence**: [verbatim quote or measurement from the content; for Likely/Hypothesis, the indirect signal plus the step that would confirm it]
    - **Impact**: [Fail/Partial] → potential gain of [X] weighted points
-   - **Fix**: [concrete step]
+   - **Fix**: [one imperative sentence naming the artefact and the change]
+   - **Owner**: [role] · **Effort**: [Quick / Medium / Strategic] · **Depends on**: [named blocker, or "none"]
+   - **Done when**: [observable, binary, attached to a named artefact or measurement, dated or triggered]
+   - **Risk if done wrong**: [realistic failure mode and its cost, or "low — reversible, no downstream effect"]
 
 2–5. [Same format]
 
 ### Action Plan
 
-#### Quick Wins (< 30 minutes each)
-- [ ] [Action 1]
-- [ ] [Action 2]
+Every action this audit recommends, in one place, ordered by weighted gain ÷ effort with dependencies respected. Effort bands: Quick (<30 min) · Medium (1–2 h) · Strategic (needs planning). A field with no answer carries its stated-absence value, never a blank.
 
-#### Medium Effort (1-2 hours)
-- [ ] [Action 3]
-- [ ] [Action 4]
-
-#### Strategic (Requires planning)
-- [ ] [Action 5]
-- [ ] [Action 6]
+| # | Action | Owner | Acceptance criterion | Expected gain | Effort | Depends on | Risk if done wrong |
+|---|--------|-------|----------------------|---------------|--------|------------|--------------------|
+| 1 | [imperative sentence naming the artefact and the change] | [role, or "unassigned — needs an owner"] | [observable, binary, dated or triggered — checkable by someone who was not part of this audit] | [weighted points, from the tables above, or "not estimated — no baseline data"] | [band] | [named blocker, or "none"] | [failure mode and cost, or "low — reversible, no downstream effect"] |
+| 2 | [next action] | … | … | … | … | … | … |
 ```
 
 The client's report ends there. Follow-up runs go in a **separate fence of their own**, carrying the label **inside** the fence — a model copies the fence, not the heading above it (`CLAUDE.md` § The Value Rule, clause 2; the handoff sub-rule is [inter-skill-handoff.md § 3.1](../../references/inter-skill-handoff.md)). Payload fields, the hyphenated framework-first ID form, and the drop-and-name rule for a field you cannot source are all in that file.
@@ -346,6 +337,8 @@ Drop any row whose run this audit did not actually motivate; a standing list of 
 - [ ] Top 5 improvements sorted by weighted impact, not arbitrary
 - [ ] Every recommendation is specific and actionable (not generic advice)
 - [ ] Action plan includes concrete steps with effort estimates
+- [ ] Every recommended action — each Top 5 entry and every Action Plan row — carries all seven fields (action, owner, acceptance criterion, expected impact, effort, dependencies, risk if done wrong), with a stated-absence value wherever an answer does not exist (`not estimated — no baseline data`, `none`, `low — reversible, no downstream effect`); no action ships without an owner-role and an acceptance criterion, the owner is a role from the closed list (`Client decision` and `unassigned — needs an owner` both count, the second being itself a finding), and where an action appears in both views its fields say the same thing
+- [ ] Every acceptance criterion is observable, binary at the moment of checking, attached to a named artefact or measurement, and dated or triggered — checkable by someone who was not part of this engagement, six weeks on, without asking what was meant. **None of them requires an engine to do something**: an AI-surface action is accepted on the work shipped plus the measurement re-run and recorded beside its dated baseline, never on an appearance in a generated answer. The ordering rule is stated once, and the existing weight × points-lost sort and the Quick/Medium/Strategic effort bands are the only priority and effort vocabularies used
 - [ ] Every Partial/Fail note and every priority improvement carries a confidence label (Confirmed / Likely / Hypothesis); each Hypothesis names its verification step
 - [ ] No quotation in the report attributes words to a named person or organisation without a checkable source beside it; Evidence quotes are verbatim from the audited content, and no Fix or Action Plan step drafts a quote in a real person's name
 - [ ] Anti-slop scans (AS-1 to AS-4) run, with hits recorded in the evidenced items' notes (O09, O06, C02, E06, E08, R01, R02, R04, Ept03)
@@ -374,6 +367,8 @@ See [references/item-reference.md](./references/item-reference.md) for a complet
 - [references/item-reference.md](./references/item-reference.md) — All 80 item IDs in a compact lookup table + site-level item handling notes + scored example report
 - [references/anti-slop-audit-checks.md](./references/anti-slop-audit-checks.md) — AS-1 to AS-4 scan procedures, EN + EL ban lists, thresholds, and item mappings (O09, O06, C02, E06, E08, R01, R02, R04, Ept03)
 - [references/score-arithmetic.md](./references/score-arithmetic.md) — which dimension, GEO/SEO and weighted figures the 10/5/0 scale can produce, the N/A denominator, rounding, and the veto outcomes that override the arithmetic
+- [Action Output Contract](../../references/action-output-contract.md) — the seven fields every recommended action carries, their stated-absence values, the closed owner-role list, worked acceptance criteria (and the AI-surface measurement rule), the three permitted shapes of expected impact, and the ordering rule
+- [Prohibited Tactics](../../references/prohibited-tactics.md) — what an action may never be, and §2 for how an existing instance found in the audited content is named, costed, remediated, owned and ranked
 - [Inter-Skill Handoff](../../references/inter-skill-handoff.md) — the payload every follow-up-run row passes to the run it names, the label-inside-the-fence rule for an operator block, the hyphenated framework-first item-ID form, and the drop-and-name rule for an unavailable field
 
 ## Related Skills

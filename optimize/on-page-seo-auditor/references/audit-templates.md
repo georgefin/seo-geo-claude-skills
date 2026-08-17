@@ -12,6 +12,62 @@ eight section scores.
 
 ---
 
+## Recommended Actions — the Seven Fields
+
+The rule is stated in [SKILL.md](../SKILL.md) § Recommended Actions. This is the working detail
+every template below draws on. Full field table, the three permitted shapes of expected impact
+and more worked criteria: [Action Output Contract](../../../references/action-output-contract.md).
+
+| # | Field | In these templates | Stated-absence value |
+|---|---|---|---|
+| 1 | Action | the **Fix** line, or the Action column | — (an action with no action is not a row) |
+| 2 | Owner | Owner | `unassigned — needs an owner` |
+| 3 | Acceptance criterion | **Done when** in a per-action block, **Acceptance criterion** as a table column — one field, two labels, no third | — (an action with no criterion is not a row) |
+| 4 | Expected impact | the **Impact** line, or the Expected impact column | `not estimated — no baseline data` |
+| 5 | Effort | Effort | `not estimated` |
+| 6 | Dependencies | Depends on | `none` |
+| 7 | Risk if done wrong | Risk if done wrong | `low — reversible, no downstream effect` |
+
+**Owner roles — the closed list.** `Content` · `SEO/technical` · `Developer` · `Designer` ·
+`Product/merchandising` · `Customer service` · `Legal/compliance` · `Agency` · `Client decision`.
+A person's name appears only where the client supplied one, beside the role. `Client decision`
+is the right owner for anything the agency cannot decide — whether a page goes live, which
+property owns a term — and assigning it makes the decision visible instead of leaving the action
+stalled with no explanation. `unassigned — needs an owner` surfaces work with nowhere to go,
+which is more useful than a plausible guess that quietly nobody owns; it is never used to dodge
+an obvious assignment.
+
+**Effort bands.** **S** — one element, ≤30 min, no release. **M** — ≤2 h, or a content pass over
+the page. **L** — needs planning, a release, or somebody else's calendar. Hours instead of bands
+where the client works that way.
+
+**Acceptance criteria — this skill's shapes.** The test is whether someone who was not part of
+this engagement could check it six weeks from now without asking what was meant.
+
+| Not a criterion | A criterion |
+|---|---|
+| "Title tag optimised" | "The production URL's `<title>` is 50–60 characters, contains the head term in the first 30, and is unique against the sitemap export" |
+| "Better internal linking" | "At least 6 in-body links with descriptive anchor text point to this URL from the category and guide pages, verified in a crawl export" |
+| "Fix the images" | "Every `<img>` in the article body carries alt text describing the image; verified by view-source on the live page" |
+| "Improve AI visibility" | "The rewritten opening ships, and the mention rate for the tracked prompts is re-measured on the same repeat protocol and recorded beside the dated baseline" |
+
+**An AI-surface criterion is a measurement criterion, never an outcome criterion.** "The brand
+appears in an assistant's answer" is not in anyone's gift to deliver, and writing it turns the
+action into a promise. What is acceptable is the work shipped, and the measurement re-run and
+recorded.
+
+**Ordering.** Expected impact ÷ effort, dependencies respected, *inside* the Critical /
+Important / Minor severity bands this skill already uses — an action whose dependency is unmet
+sits below the thing it waits on, whatever its score. No second priority vocabulary is invented
+beside severity, and the ordering rule is stated once per report.
+
+**The action table is client-read.** No framework item IDs, no skill or command slugs, no repo
+paths, no ruling IDs, no `~~category` tokens in it — an action that exists because a scan item
+failed names the job ("the page has no author and no date"), not the item. Operator content goes
+in the operator block, labelled inside its own fence.
+
+---
+
 ## Step 5: Audit Content Quality
 
 ```markdown
@@ -314,10 +370,18 @@ there is no Overall Score line in the report.
 Each issue carries Finding / Evidence / Impact / Fix plus a Confidence label
 (Confirmed = directly observed in provided data or crawl · Likely = strong indirect
 evidence · Hypothesis = plausible, needs verification — name what would confirm it).
+The Fix is the action and the Impact is its expected impact; each issue adds the owner,
+the acceptance criterion, the effort, the dependencies and the risk of getting it wrong,
+so it can be picked up and proved done by somebody who was not in the room.
+Issues are ordered inside each severity band by expected impact ÷ effort with dependencies
+respected — an action whose dependency is unmet sits below the thing it waits on.
 
 ### 🔴 Critical (Fix Immediately)
-1. **[Finding]** — Evidence: [observed data] · Impact: [effect] · Fix: [specific change] · Confidence: [Confirmed/Likely/Hypothesis]
-2. **[Finding]** — Evidence: [observed data] · Impact: [effect] · Fix: [specific change] · Confidence: [Confirmed/Likely/Hypothesis]
+1. **[Finding]** — Evidence: [observed data] · Impact: [effect] · Fix: [one imperative sentence naming the element and the change] · Confidence: [Confirmed/Likely/Hypothesis]
+   - Owner: [role] · Effort: [S / M / L] · Depends on: [named blocker, or "none"]
+   - Done when: [observable, binary, attached to a named artefact or measurement, dated or triggered]
+   - Risk if done wrong: [realistic failure mode and its cost, or "low — reversible, no downstream effect"]
+2. **[Finding]** — [same format]
 
 ### 🟡 Important (Fix Soon)
 1. [Important issue 1 — same format]
@@ -329,11 +393,12 @@ evidence · Hypothesis = plausible, needs verification — name what would confi
 
 ## Quick Wins
 
-These changes will have immediate impact:
+The smallest-effort rows of the Action Plan below — the S-effort actions whose dependencies are
+already met. Their owner, acceptance criterion and risk are stated once, in that table.
 
-1. **[Change 1]**: [Why and how]
-2. **[Change 2]**: [Why and how]
-3. **[Change 3]**: [Why and how]
+1. **[Change 1]** — [why it is worth doing first]
+2. **[Change 2]** — [why it is worth doing first]
+3. **[Change 3]** — [why it is worth doing first]
 
 ## Detailed Recommendations
 
@@ -368,16 +433,18 @@ These changes will have immediate impact:
 | Images | [X] | [Y] | [+/-Z] |
 | H2 headings | [X] | [Y] | [+/-Z] |
 
-## Action Checklist
+## Action Plan
 
-- [ ] Update title tag
-- [ ] Rewrite meta description
-- [ ] Add keyword to H1
-- [ ] Add [X] more internal links
-- [ ] Add alt text to [X] images
-- [ ] Add [X] more content sections
-- [ ] Add the page's one primary schema type, where it is missing
-- [ ] [Additional action items]
+Every action this audit recommends, in one place. **Ordered by expected impact ÷ effort with
+dependencies respected, inside the severity bands above** — an action whose dependency is unmet
+sits below the thing it waits on. Effort: S ≤30 min, one element, no release · M ≤2 h or a
+content pass · L needs planning, a release, or somebody else's calendar. A field with no answer
+carries its stated-absence value, never a blank.
+
+| # | Action | Owner | Acceptance criterion | Expected impact | Effort | Depends on | Risk if done wrong |
+|---|--------|-------|----------------------|-----------------|--------|------------|--------------------|
+| 1 | [imperative sentence naming the element and the change] | [role, or "unassigned — needs an owner"] | [observable, binary, dated or triggered — checkable by someone who was not part of this engagement] | [which criteria this converts and the points they return, or "not estimated — no baseline data"] | [S/M/L] | [named blocker, or "none"] | [failure mode and cost, or "low — reversible, no downstream effect"] |
+| 2 | [next action] | … | … | … | … | … | … |
 
 ## Expected Results
 

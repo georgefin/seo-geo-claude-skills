@@ -124,16 +124,49 @@ Score Breakdown (✅1 · ⚠️0.5 · ❌0 per checked row; one █ per point):
 
 Priority follows severity, not the section score: Crawlability scores 5/10 — mid-table — and
 still leads the list, because one of its eight rows keeps a commercial page out of the index.
+Inside each band the order is expected impact ÷ effort, with dependencies respected.
 
 ### 🔴 Critical (Fix Immediately)
 1. **/pricing/ blocked in robots.txt** — Evidence: `Disallow: /pricing` in the fetched robots.txt; the sitemap lists /pricing/ and 4 plan pages beneath it. Impact: prevents indexation of the highest-value commercial section (severity framework, Critical row). Fix: remove that line, or narrow it to the specific path that was meant to be private; re-request indexing in Search Console afterwards. Confidence: Confirmed.
-2. **Mobile LCP 4.8s (target ≤2.5s)** — Evidence: mobile LCP 4.8s from the PageSpeed Insights run, TTFB 1,240ms, hero image 2.4MB. Impact: fails the CWV Good threshold on the highest-traffic template. Fix: compress hero to WebP (est. save 1.9MB) and add a CDN to bring TTFB <400ms. Confidence: Confirmed.
+   - Owner: Developer · Effort: S · Depends on: confirmation from the site owner that /pricing/ was never meant to be private
+   - Done when: the live `/robots.txt` contains no rule blocking `/pricing`, and `/pricing/` plus the 4 plan pages return "URL is on Google" in a live URL inspection
+   - Risk if done wrong: high — widening the rule instead of narrowing it exposes whatever the original `Disallow` was protecting; confirm what it was for before editing
+2. **Mobile LCP 4.8s (target ≤2.5s)** — Evidence: mobile LCP 4.8s from the PageSpeed Insights run, TTFB 1,240ms, hero image 2.4MB. Impact: fails the CWV Good threshold on the highest-traffic template. Fix: compress the hero image to WebP (est. save 1.9MB) and put a CDN in front of the origin to bring TTFB under 400ms. Confidence: Confirmed.
+   - Owner: Developer, with the CDN contract as Client decision · Effort: L · Depends on: a CDN being procured
+   - Done when: a PageSpeed Insights run on this template, dated after the deploy, records mobile LCP and TTFB, and both figures are filed beside the 4.8s / 1,240ms baseline
+   - Risk if done wrong: medium — a badly configured CDN can serve stale or wrong-region content; stage it and check cache headers before cutting DNS over
 
 ### 🟡 Important (Fix Soon)
-3. **HTTP not redirecting to HTTPS** — Evidence: http:// URLs return 200 without redirect; 7 mixed-content images on /features/. Impact: split signals and browser trust warnings. Fix: add the port-80 server block that 301s both hosts to the canonical HTTPS host, in /etc/nginx/sites-available/cloudhosting.example, above the existing HTTPS block — the canonical block itself gets no redirect (a catch-all there loops the whole site); then HSTS at server level inside the HTTPS block, and update the 7 image URLs. Verify with `nginx -t`, then `curl -sSIL http://cloudhosting.example/` expecting one 301 and a 200. Placement and the paste-ready blocks: [server-config-fixes.md](./server-config-fixes.md). Confidence: Confirmed.
+3. **HTTP not redirecting to HTTPS** — Evidence: http:// URLs return 200 without redirect; 7 mixed-content images on /features/. Impact: split signals and browser trust warnings. Fix: add the port-80 server block that 301s both hosts to the canonical HTTPS host, in /etc/nginx/sites-available/cloudhosting.example, above the existing HTTPS block — the canonical block itself gets no redirect (a catch-all there loops the whole site); then HSTS at server level inside the HTTPS block, and update the 7 image URLs. Placement and the paste-ready blocks: [server-config-fixes.md](./server-config-fixes.md). Confidence: Confirmed.
+   - Owner: Developer · Effort: M · Depends on: none
+   - Done when: `nginx -t` passes and `curl -sSIL http://cloudhosting.example/` returns exactly one 301 followed by a 200, with `strict-transport-security` present on the 200
+   - Risk if done wrong: high — a catch-all redirect placed in the canonical block loops the whole site; the rollback is removing the port-80 block and reloading
 
 ### 🟢 Minor (Optimize)
-4. **No Article/FAQPage schema on blog posts** — Evidence: crawl found no structured data on 48 blog posts and 12 FAQ pages. Impact: missed Article rich-result eligibility. Fix: add Article schema to the blog posts; add FAQPage markup to the FAQ pages because it is valid and Google says there is no need to proactively remove it (no FAQ rich result for ordinary sites — government/health only, Aug 2023 — no SERP promise, and ruling R3 amendment 9a records no evidenced citation benefit either way, so claim none). Confidence: Confirmed.
+4. **No Article/FAQPage schema on blog posts** — Evidence: crawl found no structured data on 48 blog posts and 12 FAQ pages. Impact: missed Article rich-result eligibility. Fix: add Article schema to the blog posts; add FAQPage markup to the FAQ pages because it is valid and Google says there is no need to proactively remove it (no FAQ rich result for ordinary sites — government/health only, Aug 2023 — no SERP promise, and no evidenced citation benefit either way, so claim none). Confidence: Confirmed.
+   - Owner: Developer · Effort: M · Depends on: none
+   - Done when: markup on a sample of 5 blog posts and 5 FAQ pages validates with zero errors in a structured-data test, and every property in it corresponds to content visible on the page
+   - Risk if done wrong: medium — markup describing anything not visible on the page is a misrepresentation and invalidates the block
+
+## Action Plan
+
+Ordered by expected impact ÷ effort with dependencies respected, inside the severity bands above. Effort: S a config edit or single file, ≤30 min, no deploy window · M ≤2 h or one deploy · L needs planning, a migration, or somebody else's calendar.
+
+| # | Action | Owner | Acceptance criterion | Expected impact | Effort | Depends on | Risk if done wrong |
+|---|--------|-------|----------------------|-----------------|--------|------------|--------------------|
+| 1 | Remove or narrow the `Disallow: /pricing` rule in robots.txt, then request indexing for the 5 affected URLs | Developer | Live `/robots.txt` contains no rule blocking `/pricing`, and `/pricing/` plus the 4 plan pages return "URL is on Google" in a live URL inspection | The commercial section becomes crawlable at all; nothing else on this list matters while it is blocked | S | Confirmation from the site owner that `/pricing/` was never meant to be private | high — widening the rule instead of narrowing it exposes whatever it was protecting |
+| 2 | Add the port-80 server block that 301s both hosts to the canonical HTTPS host, then enable HSTS and update the 7 mixed-content image URLs | Developer | `nginx -t` passes and `curl -sSIL http://cloudhosting.example/` returns exactly one 301 then a 200 carrying `strict-transport-security` | Removes the split HTTP/HTTPS signal and the browser trust warning; converts 2 of Security's 4 checked rows | M | none | high — a catch-all redirect in the canonical block loops the whole site; rollback is removing the port-80 block and reloading |
+| 3 | Add Article schema to the 48 blog posts and FAQPage markup to the 12 FAQ pages | Developer | Markup on a sample of 5 posts and 5 FAQ pages validates with zero errors in a structured-data test, and every property corresponds to content visible on the page | Converts 2 of Structured Data's 4 assessed types. No rich-result or citation claim is made — none is evidenced | M | none | medium — markup describing anything not on the page is a misrepresentation and invalidates the block |
+| 4 | Compress the hero image to WebP and put a CDN in front of the origin | Developer (CDN procurement is a Client decision) | A PageSpeed Insights run on this template, dated after the deploy, records mobile LCP and TTFB, and both are filed beside the 4.8s / 1,240ms baseline | Mobile LCP and TTFB are the two measured failures on the highest-traffic template; the hero alone is 2.4MB of the payload | L | a CDN being procured | medium — a misconfigured CDN serves stale or wrong-region content; stage it and check cache headers before cutting DNS over |
+| 5 | Supply the crawl and rendering data for Indexability, Mobile and URL Structure so those three sections can be scored | Client decision | Crawl export, mobile test output and URL inventory are delivered, and the three sections carry scores instead of "not scored — no data" | not estimated — no baseline data; three of seven sections are currently unmeasured | S | access to a crawler | low — reversible, no downstream effect |
+
+### Implementation Roadmap
+
+The same actions, cut into windows — no action appears here that is not a row above.
+
+- **Week 1** — rows 1 and 2 (the Critical band, and the redirect block that unblocks nothing else).
+- **Week 2-3** — row 3.
+- **Week 4+** — row 4, once the CDN is procured, and row 5 whenever the data arrives.
 ```
 
 ---
