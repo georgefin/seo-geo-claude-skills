@@ -207,15 +207,35 @@ authoritative.
 
 - **Where**: `research/serp-analysis/references/serp-feature-taxonomy.md` (:30
   Rich Results row and the How-To playbook rows ~:291),
-  `research/content-gap-analysis/references/gap-analysis-frameworks.md:150`,
-  `build/meta-tags-optimizer/references/ctr-and-social-reference.md:121` — all
+  `research/content-gap-analysis/references/gap-analysis-frameworks.md:161` (token `Step-by-step tutorials`),
+  `build/meta-tags-optimizer/references/ctr-and-social-reference.md:155` (token `Rich results (schema)`) — all
   still teach HowTo rich results as a current SERP feature. Surfaced 2026-08-09 by
   the R3-purge implementer as an out-of-scope observation: training-knowledge
   signal that Google deprecated HowTo rich results in 2023.
   **Historical, as recorded 2026-08-09 and superseded by the verification bullet
   below**: at that point no ruling covered it and no dated primary source was on
   file — **historical** "signal only, not encodable".
-- **Verification (2026-08-10 lane, ahead of the scheduled sweep)**: the signal is
+- **⚠ VERIFICATION WITHDRAWN 2026-08-13 — read this before the bullet it replaces.**
+  The bullet below graded this signal **CORROBORATED** on one named source. **That
+  source has since been read in full, and it does not contain the claim it was cited
+  for.** An owner read `.../2023/08/howto-faq-changes` in a browser on 2026-08-11.
+  What the document **does** carry, and this is now owner-read rather than
+  snippet-grade — an upgrade: HowTo rich results *"will only be shown for desktop
+  users, and not for users on mobile devices"*, dated 2023-08-08. What it does
+  **not** carry: the "As of September 13" update quoted below, the 30-day
+  appearance/report/Rich-Results-Test drop, and the 180-day API cut. Worse than
+  absent — on the reports the same document says close to the opposite: *"The search
+  appearances, and the reports, will remain in Search Console for the time being."*
+  **So the desktop-only fact stands and is stronger than before; everything after it
+  is unsourced and is withdrawn.** This is the same substituted-source chain that
+  falsified settled ruling R3's evidence clause: the claims came from a third URL
+  named nowhere in the ruling or in this item (`docs/loop/r3-supersession-candidate.md`
+  §4, and `scripts/citation-divergence-check.sh`, written for exactly this). **The
+  resolve-condition is NOT met.** HowTo's status after 2023-08-08 is undocumented
+  here, and refreshed copy still asserts nothing about it in either direction — which
+  is what the `[VERIFY]` tag was always for, and the reason no eval suite has to move.
+- **Superseded bullet, kept verbatim so the next reader sees what it claimed
+  (2026-08-10 lane, ahead of the scheduled sweep)**: the signal is
   CORROBORATED at primary-domain snippet grade — the same grade W5/W7 were accepted
   on. Source: `https://developers.google.com/search/blog/2023/08/howto-faq-changes`
   ("Changes to HowTo and FAQ rich results", Google Search Central Blog,
@@ -229,7 +249,14 @@ authoritative.
   verbatim; the year on the "As of September 13" note is contextually 2023 but not
   independently pinned. Full lane record: the coordinator's 2026-08-10 research
   transcription (scratchpad `research-r3-faq-timeline.md`).
-- **Status**: resolve-condition MET pending owner read. The ruling draft + purge is
+- **Status (2026-08-13)**: resolve-condition **NOT met**. The owner read happened and
+  removed the corroboration rather than confirming it — the two-minute check that was
+  expected to upgrade the grade instead found the cited document empty of the claim.
+  **What would settle it now** is a read of Google's Search Central *changelog*
+  (`/search/updates`), which is where these claims actually came from and which
+  **nobody has ever opened**; it is Check 1 of `docs/loop/r3-owner-verification-pack.md`.
+  The desktop-only 2023-08-08 fact needs no further check and may be stated.
+- **Historical status, superseded**: resolve-condition MET pending owner read. The ruling draft + purge is
   routed to Sani as **G9** rather than applied here — creating a ruling is
   gate-class, and a library-wide purge on snippet-grade evidence is Sani's call.
   The E2–E5 eval suites are unaffected: every one was authored to assert nothing
