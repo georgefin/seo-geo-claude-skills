@@ -25,12 +25,25 @@ Your Entity
 
 | Knowledge Graph | Who Uses It | Impact |
 |----------------|-------------|--------|
-| **Google Knowledge Graph** | Google Search, Google AI | Powers Knowledge Panels, rich results, entity understanding in search |
-| **Wikidata** | Google, Bing, Apple, Amazon, AI systems | Open data feeds multiple knowledge graphs; primary structured data source |
-| **Wikipedia** | Google, all AI systems | Training data for every major LLM; Knowledge Panel descriptions often sourced here |
-| **Bing Satori** | Bing, Copilot | Powers Bing's entity understanding and Microsoft Copilot |
+| **Google Knowledge Graph** | Google Search, Google AI | Google's own entity store. What it does with an entry is not documented publicly — see the evidence note below |
+| **Wikidata** | anyone — it is openly licensed | An open, editable, public record of the entity. Its value here is that it is checkable and correctable by you, not an asserted pipeline into anyone's graph |
+| **Wikipedia** | anyone | A public record with its own sourcing rules. Whether and how any engine consumes it is not documented — see the evidence note below |
+| **Bing Satori** | Microsoft | Microsoft's own entity store. Its relationship to Bing results or Copilot is not publicly documented — see the evidence note below |
 | **Schema.org (your site)** | All search engines, AI crawlers | First-party structured data you control directly |
 | **DBpedia** | Research, some AI systems | Auto-extracted from Wikipedia; relevant for academic/research entities |
+
+> **[VERIFY — 2026-08-17] Evidence note for the Impact column.** This table used to state, as fact,
+> that the Google Knowledge Graph *"powers"* Knowledge Panels, that Wikidata *"feeds multiple
+> knowledge graphs"*, that Wikipedia is *"training data for every major LLM"*, and that Satori
+> *"powers"* Bing and Copilot. **No engine-primary source for any of those pipelines was read
+> here** (`developers.google.com` is refused by this environment's egress, per ruling R3's evidence
+> note). They are plausible and widely repeated; that is not the same as sourced. **Do not state
+> them to a client.**
+>
+> **What survives, and it is enough to act on**: each row is a **public record about the client
+> that they can read, check and correct**. That is the reason to keep it accurate, and it holds
+> whoever turns out to be reading it. Resolves on an owner read of Google's and Microsoft's own
+> entity documentation.
 
 ### Data Flow
 
@@ -88,7 +101,7 @@ If connected, query directly for entity status and attributes.
 
 | Problem | Solution |
 |---------|----------|
-| **No Knowledge Panel** | Build Wikidata entry + Schema.org + authoritative mentions. Timeline: 2-6 months. |
+| **No Knowledge Panel** | Build Wikidata entry + Schema.org + authoritative mentions. **No timeline** — the "2-6 months" this row used to give had no source, and a panel's appearance is not something anyone here can promise or schedule. Track it as a measurement (step 3), not a delivery date. |
 | **Wrong image** | Update preferred image on: Wikidata (P18), About page, social profiles. Claim panel and suggest preferred image. |
 | **Wrong description** | Edit Wikidata description. Update first paragraph of About page and Wikipedia article. |
 | **Missing attributes** | Add properties to Wikidata and Schema.org. Claim panel and suggest additions. |
@@ -405,7 +418,7 @@ Mention volume is tracked as a count with its window and its source named, split
 2. Verify Schema.org markup hasn't changed
 3. Look for major algorithm updates that might have affected entity recognition
 4. Rebuild signals: start with Wikidata, then Schema.org, then external mentions
-5. Timeline: 2-8 weeks for recovery
+5. Timeline: **unknown, and do not state one** — the "2-8 weeks" here had no source. Re-check on a stated cadence and record what you observe.
 
 **AI systems giving incorrect entity info:**
 1. Identify which sources have incorrect information

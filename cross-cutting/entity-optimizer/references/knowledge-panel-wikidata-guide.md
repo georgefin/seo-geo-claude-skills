@@ -7,8 +7,8 @@ Detailed instructions for Knowledge Panel optimization, Wikidata entry managemen
 ### Claiming and Editing
 
 1. **Google Knowledge Panel**: Claim via Google's verification process (search for entity -> click "Claim this knowledge panel")
-2. **Bing Knowledge Panel**: Driven by Wikidata and LinkedIn -- update those sources
-3. **AI Knowledge**: Driven by training data -- ensure authoritative sources describe entity correctly
+2. **Bing Knowledge Panel**: no claiming process is documented. Keep the entity's public records — Wikidata, LinkedIn, the site's own markup — accurate and consistent, because those are records you can correct. [VERIFY — 2026-08-17] This line used to say the panel is *"driven by Wikidata and LinkedIn"*; no Microsoft-primary source for that was read here, so do not state it to a client.
+3. **Answers from AI assistants**: nothing here is claimable or editable. Make the authoritative public sources describe the entity correctly, then **measure** what the assistants actually return (step 3) rather than predicting it. [VERIFY — 2026-08-17] This line used to say such answers are *"driven by training data"*; no provider-primary source for that was read here.
 
 ### Common Knowledge Panel Issues
 

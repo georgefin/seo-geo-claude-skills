@@ -49,7 +49,7 @@ Ordered impact first, then ascending effort — the two High/Low actions precede
 
 1. **Create Wikidata entry** with key properties: instance of (P31: business intelligence software company), official website (P856: cloudmetrics.io), inception (P571), country (P17)
    - Impact: High | Effort: Low
-   - Why: Wikidata is the foundational knowledge base that feeds Google Knowledge Graph, Bing, and AI training pipelines; without it, the entity cannot be formally resolved
+   - Why: a Wikidata entry is a public, structured record of the entity that anyone can read, check and correct — including the client, and including any consumer that chooses to read it. That is true whatever any engine does with it, which is the reason to write one. (What this line used to say — that Wikidata *feeds* Google Knowledge Graph, Bing and AI training pipelines — is withdrawn: see the `[VERIFY]` note in `knowledge-graph-guide.md`. No engine-primary source for that pipeline was read here.)
 
 2. **Add Person schema for leadership team** on the About/Team page, including name, jobTitle, sameAs links to LinkedIn profiles, and worksFor pointing to the Organization entity
    - Impact: High | Effort: Low

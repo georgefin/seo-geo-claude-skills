@@ -1,13 +1,13 @@
 ---
 name: entity-optimizer
-version: "4.2.1"
+version: "4.2.2"
 description: 'Audit and build entity presence across Google Knowledge Graph, Wikidata, and AI systems for brand recognition and AI citations. Use when the user asks to "optimize entity presence", "build knowledge graph", "improve knowledge panel", "entity audit", "establish brand entity", "Google doesn''t know my brand", "no knowledge panel", "establish my brand as an entity". For structured data implementation, see schema-markup-generator. For content-level AI optimization, see geo-content-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.2.1"
+  version: "4.2.2"
   geo-relevance: "high"
   tags:
     - seo
@@ -314,8 +314,8 @@ unblocking the other goes first and says so.
 
 ## Tips for Success
 
-1. **Start with Wikidata** — It's the single most influential editable knowledge base; a complete Wikidata entry with references often triggers Knowledge Panel creation within weeks
-2. **sameAs is your most powerful Schema.org property** — It directly tells search engines "I am this entity in the Knowledge Graph"; always include Wikidata URL first
+1. **Start with Wikidata** — it is the one public record about the entity that you can edit yourself, and a complete entry with references is checkable by anyone. [VERIFY — 2026-08-17] This tip used to add that such an entry *"often triggers Knowledge Panel creation within weeks"*; no source for that timing was read here, so do not state it to a client and do not plan around it
+2. **`sameAs` is the property that ties your markup to public records** — it states, in machine-readable form, which public identifiers refer to this entity, and any consumer that reads structured data can follow them. [VERIFY — 2026-08-17] This tip used to say it *"directly tells search engines 'I am this entity in the Knowledge Graph'"* — an asserted engine mechanic, withdrawn. What is checkable is the markup itself. Put the Wikidata URL first so the most complete public record leads
 3. **Test AI recognition before and after** — Query ChatGPT, Claude, Perplexity, and Google AI Overview before optimizing, then again after; this is the most direct GEO metric
 4. **Entity signals compound** — Unlike content SEO, entity signals from different sources reinforce each other; 5 weak signals together are stronger than 1 strong signal alone
 5. **Consistency beats completeness** — A consistent entity name and description across 10 platforms beats a perfect profile on just 2
