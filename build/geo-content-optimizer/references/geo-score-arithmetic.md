@@ -86,6 +86,27 @@ exactly as §8 item 5 requires. The before column then reads honestly as *"1 of 
 this page needs"* and the after column as *"5 of 5"*. Every other factor keeps its existing
 source; nothing else moves.
 
+**RULED 2026-08-17, after a review found the first fix opened the hole §3.1 refused to open.**
+Setting `asked` from the plan let the scored run choose its own denominator. Two levers, both
+now closed:
+
+1. **`asked` has a floor: the count the inbound page already uses.** `asked = max(inbound, planned)`.
+   It can rise when the optimisation introduces terms or sections; it can **never fall**, so it
+   cannot be walked down to 0 and through the N/A rule — which is exactly §3.1's *"worse hole,
+   where cutting every claim drives `asked` to 0 and the factor to N/A"*, and §3.1's reasoning
+   binds here for the same reason it binds there.
+2. **These two factors are excluded from the headline lift %.** The bigger lever was never the
+   ratio, it was `Lift % = (after − before) ÷ before × 100`: raising the planned count lowers
+   `before` and inflates the headline, measured at 72% versus 96% on one page for identical work.
+   A denominator the scored run chooses must not feed a percentage that run is judged by. They
+   are reported as **`met before → met after` over `asked`** — the counts, which are checkable —
+   and the lift % is computed over the other six factors, with the exclusion named beside it.
+
+**Why not simply forbid the plan denominator and go back**: the original defect stands — under
+the old wording the after column could not credit a term the optimisation introduced, and those
+two factors are what the skill is for. The fix is to make the denominator monotone and to stop
+it feeding the number it could bias, not to make the factors unscoreable again.
+
 **The gaming risk, named rather than patterned away**: an optimiser who plans fewer sections gets
 an easier ratio. That is why **the plan is printed with the score** — `met` and `asked` are
 already required to appear beside every factor, and a denominator a reader can see is a
@@ -191,8 +212,21 @@ a grid of N items and states no statistic. Is N a "time-sensitive figure"? Row 3
 different `asked` and different scores, both defensible, and §8 rule 10 passes either way — so
 two honest runs of the same page disagree and nothing in the file settles it.
 
-**Ruled: a time-sensitive figure is one the page *states as a claim*, not one a reader could
-count off the layout.** A grid of 12 products is a rendering of inventory, not an assertion that
+**Ruled 2026-08-17, and re-ruled the same day.** The first form — *"a figure the page states as a
+claim, not one a reader could count off the layout"* — drew its line at **typography** while
+justifying it by **mutability**, so the two disagreed on a feed-rendered price: stated in text,
+yet changing with no edit. §3.2 lists prices first among time-sensitive figures, pulling a third
+way. **The rule now follows the rationale, and typography drops out entirely:**
+
+> **A figure is time-sensitive if it would become wrong through the passage of time unless
+> someone edits the page.**
+
+Ask it as a question: *would this go wrong if nobody touched the page?* A hand-written «12
+μοντέλα διαθέσιμα» — yes, someone must maintain it, so it is in scope. The same sentence
+auto-generated from the inventory query — no, it maintains itself, so it is out, and so is the
+grid, and so is a feed-rendered price, for one reason instead of two. A hand-written statistic
+with a date — yes, always. **This is what the factor was always measuring**: staleness an
+operator can fix by editing, which is the only staleness an optimisation run can act on. A grid of 12 products is a rendering of inventory, not an assertion that
 there are twelve; it changes without anyone editing the page, which is the opposite of the
 staleness the factor measures. So a listing page carrying no stated statistic takes **row 2 or
 row 4** — never row 3 on the strength of its item count. A sentence that *says* «12 μοντέλα
