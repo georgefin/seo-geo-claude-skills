@@ -1,13 +1,13 @@
 ---
 name: domain-authority-auditor
-version: "4.3.5"
+version: "4.3.6"
 description: 'Run the full 40-item CITE domain authority audit across 4 dimensions with domain-type weighting and veto checks. Use when the user asks to "audit domain authority", "domain trust score", "CITE audit", "how authoritative is my site", "domain credibility check", "is my domain trustworthy", "domain credibility score", "domain rating". For content-level assessment, see content-quality-auditor. For link profile details, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.5"
+  version: "4.3.6"
   geo-relevance: "medium"
   tags:
     - seo
@@ -68,31 +68,16 @@ This skill evaluates domain authority across 40 standardized criteria organized 
 
 ## How to Use
 
-### Audit Your Domain
-
 ```
 Audit domain authority for [domain]
 Run a CITE domain audit on [domain] as a [domain type]
-```
-
-### Audit with Domain Type
-
-```
 CITE audit for example.com as an e-commerce site
 Score this SaaS domain against the 40-item benchmark: [domain]
-```
-
-### Comparative Audit
-
-```
 Compare domain authority: [your domain] vs [competitor 1] vs [competitor 2]
-```
-
-### Combined Assessment
-
-```
 Run full 120-item assessment on [domain]: CITE domain audit + CORE-EEAT content audit on [sample pages]
 ```
+
+Lines 1–2 audit a single domain (type auto-detected or stated), 3–4 pin the domain type explicitly, 5 runs the comparative audit, 6 pairs this with the content audit for the full 120 items.
 
 ## Data Sources
 
@@ -143,14 +128,7 @@ source]" (see Step 3) — do not downgrade them into Hypothesis scores.
 
 #### Domain-Type Weight Table
 
-> Canonical source: `references/cite-domain-rating.md`. This inline copy is for convenience.
-
-| Dim | Default | Content Publisher | Product & Service | E-commerce | Community & UGC | Tool & Utility | Authority & Institutional |
-|-----|:-------:|:-:|:-:|:-:|:-:|:-:|:-:|
-| C | 35% | **40%** | 25% | 20% | 35% | 25% | **45%** |
-| I | 20% | 15% | **30%** | 20% | 10% | **30%** | 20% |
-| T | 25% | 20% | 25% | **35%** | 25% | 25% | 20% |
-| E | 20% | 25% | 20% | 25% | **30%** | 20% | 15% |
+> **Read the weights from [`references/cite-domain-rating.md`](../../references/cite-domain-rating.md) § domain-type weights.** The inline copy that stood here was labelled "for convenience" and was a second place for the same numbers to drift — the defect class this library has already paid for twice. One source, traversed.
 
 #### Veto Check (Emergency Brake)
 
@@ -161,7 +139,7 @@ source]" (see Step 3) — do not downgrade them into Hypothesis scores.
 | T09: Penalty & Deindex History | ✅ Pass / ⚠️ VETO | [If VETO: "Address penalty first; all other optimization is futile"] |
 ```
 
-If any veto item triggers, flag it prominently at the top of the report. CITE Score is capped at 39 (Poor) regardless of other scores.
+If any veto item triggers, flag it at the top of the report; CITE Score caps at 39 (Poor) regardless of other scores.
 
 ### Step 2: C + I Audit (20 items)
 
@@ -333,7 +311,21 @@ For a complete assessment, pair this CITE audit with a CORE-EEAT content audit:
 - Low CITE + Low CORE-EEAT → Start with content, then domain
 ```
 
-The client's report ends there. Follow-up runs — a content audit on key pages, a backlink deep-dive, competitor benchmarking, trend tracking — go in a **separate fence of their own**, carrying the label **inside** the fence, because a model copies the fence and not the heading above it (`CLAUDE.md` § The Value Rule, clause 2). Block shape: [references/example-report.md](./references/example-report.md). Payload fields, the hyphenated framework-first ID form, and the drop-and-name rule for a field you cannot source: [inter-skill-handoff.md § 2–3](../../references/inter-skill-handoff.md). Each row carries the domain and its domain type, the `CITE C:… I:… T:… E:…` string with its veto status and audit date, the priority item IDs, and the pages to audit where the next run is page-level.
+The client's report ends there. Follow-up runs go in a **separate fence of their own**, carrying the label **inside** the fence, because a model copies the fence and not the heading above it (`CLAUDE.md` § The Value Rule, clause 2):
+
+```markdown
+<!-- OPERATOR BLOCK — for the client's team, not part of the report above. Every row names a
+     library run and carries its payload. Nothing in this fence goes to the client as written. -->
+### Next steps for your team
+
+| Run | Why | Payload |
+|-----|-----|---------|
+| `content-quality-auditor` | Page-level content quality the domain audit cannot see | [domain] · [domain type] · [key page URLs] · `CITE C:… I:… T:… E:…` · vetoes · audited [date] |
+| `backlink-analyzer` | Deep-dive on the referring-domain profile behind the I score | Same payload, priority `CITE-[ID], …` |
+| `competitor-analysis` | Benchmarks the domain against the named competitor set | Same payload, competitor domains |
+```
+
+Drop any row whose run this audit did not actually motivate; a standing list of four is not a handoff. A payload field that cannot be sourced is omitted and named beneath the block — never a bracket token in a value position. **This block ships here, not one file over**: it lived only in [references/example-report.md](./references/example-report.md) while the checkbox below required the labelled fence — a rule stated where the writer reads it, and a template giving it nowhere to land. Payload fields, the hyphenated framework-first ID form and the drop-and-name rule: [inter-skill-handoff.md § 2–3](../../references/inter-skill-handoff.md).
 
 ## Validation Checkpoints
 
