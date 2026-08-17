@@ -524,6 +524,14 @@
         "location": "cross-cutting/entity-optimizer/SKILL.md:247-255",
         "class": "skill-side — a template that models what the skill's own routing forbids",
         "detail": "The Top-5 Priority Actions template models THREE fields (bolded signal, 'Impact: [High/Medium] | Effort: [Low/Medium/High]', 'Why:'). SKILL.md:354 routes to the seven-field contract and :203 requires owner + acceptance criterion for remediations. references/example-audit-report.md:50-60 models the same three fields across all three worked actions. This is F3's shape — a worked example teaching less than the rule — and it is the reason this coverage gap is worth watching rather than closing on one clean run. The run complied with the rule and not the template, which is the good outcome but not the reproducible one."
+      },
+      {
+        "id": "D7",
+        "added_by": "second-reader pass, 2026-08-17",
+        "severity": "moderate",
+        "location": "e1.md:24",
+        "class": "internal contradiction / a count contradicted by the document's own figures",
+        "detail": "'Two of the other five identity links point at things that do not exist: an X/Twitter account nobody ever registered, and a Crunchbase profile that returns 404.' The fixture's sameAs array carries exactly five entries (schema-markup-pharos-current.md:18-24). e1.md:23, the bullet immediately above, says the Wikipedia collision is 'one of five identity links you publish', and e1.md:84 says 'The identity link list contains 5 entries'. With one of five accounted for, the others number FOUR, not five. The substantive claim — that exactly two of the remainder point at things that do not exist — was re-verified against the inventory's §2 table and is correct; only the count is wrong. Same class as D1 and in the same deliverable, four sentences from D1's sibling bullet, but in the executive summary rather than the detail. Also inside e1.6's clause, which is already FAIL on D1, so no verdict moves. The original scan missed it because a figure-by-figure recomputation sees the numeral 'five', which is correct for the population, and not the missing subtraction carried by the word 'other'."
       }
     ],
     "notable_absences_looked_for_and_not_found": [
@@ -533,7 +541,7 @@
       "STATUS SCALE AND CATEGORY NAMES — the skill's own recorded historical defect: zero recurrences. All 13 printed statuses across e1, e3 and e5 are from the permitted set (Strong / Gaps / Missing / Not assessed). No 'Partial', no 'Weak', no 'Good', no invented band. All seven category names appear in all three scoring deliverables, spelled exactly as the SKILL.md template gives them.",
       "ANTI-SLOP FAMILY 9 AND 10: zero real violations in client text across all five deliverables. Every NET∩RANK survivor was inspected individually; all were either refusals to make such a claim (e2.md:38, e2.md:142, e3.md:98, e3.md:114, e5.md:131) or grep false positives on 'read'/'uses' with an unrelated subject.",
       "UNRESOLVABLE TEMPLATE CELLS: none. The one deliberately empty table — e1.md:64-69, the AI-resolution protocol — is introduced at :50 as 'left as a protocol for you to run rather than filled in', which is the honest form, not an unresolved cell.",
-      "ARITHMETIC IN PROSE: no error found beyond D1. All 13 category percentages, both 53-row reconciliations, the 9/8 folding count, the 5-of-7 and 4-of-3 splits, the seven per-form mention counts, the 16/7/1 sentiment split, the 12-string union and its 6/6 script split, and the 5-of-10 branded-SERP derivation were all recomputed from the fixtures and are exact."
+      "ARITHMETIC IN PROSE: two errors, D1 and D7 (D7 added by the second-reader pass of 2026-08-17 — e1.md:24 'the other five identity links', where the fixture and this document's own two other statements give four). All 13 category percentages, both 53-row reconciliations, the 9/8 folding count, the 5-of-7 and 4-of-3 splits, the seven per-form mention counts, the 16/7/1 sentiment split, the 12-string union and its 6/6 script split, and the 5-of-10 branded-SERP derivation were all recomputed from the fixtures and are exact."
     ]
   },
   "instrument_defects": {
@@ -697,5 +705,74 @@
       "issue": "Bundles the SKILL.md intake list (five items) with the user-run checks (three) and the capture date, then names only the capture date as 'the required element'. This run delivers the capture date, the locale/device refinement and all three check families, misses two of five intake items, and takes the same FAIL as the baseline which missed the capture date entirely.",
       "suggestion": "Separate the intake list from the check assignment. As written, the expectation cannot show that the capture-date leg was repaired between two runs — which is exactly the movement a baseline exists to record."
     }
-  ]
+  ],
+  "second_read": {
+    "date": "2026-08-17",
+    "reader": "second reader, narrowed protocol (three moves), separate agent from the grader",
+    "scope": "NOT a full re-grade. Three moves only: (1) recompute every figure the record quotes inside its own evidence and defect entries; (2) sweep the deliverables for numbers written as WORDS, English and Greek, per ledger F15-r5 instance (2) — the digit-enumerating fabrication screens in this corpus are structurally blind to them; (3) check whether the record is still current at HEAD under ruling M2 and against the suite at HEAD.",
+    "repo_head_at_second_read": "b5135d431aeef7910426d03c82bcf5828d6ece99",
+    "deliverables_frozen": "Confirmed: every deliverable mtime is the original run's (11:22-11:53Z). Nothing was re-run and no output was produced by this reader.",
+    "f7_discipline": "Every recomputation that disagreed with the record was taken back to the source file and read in context before any verdict, and where the record states its own method for a figure that method was applied rather than a reader's default. This step changed the outcome twice — see nearly_recorded_then_cleared.",
+    "input_recheck_at_close": "HEAD unchanged across the pass (b5135d4 -> b5135d4). `git status` at close shows one modified file, docs/loop/eval-baselines/blind-2026-08-17/rank-tracker.json, which belongs to another lane and was neither read nor touched. All four evals.json blobs, both loop registers and all four SKILL.md files re-hashed identical between open and close.",
+    "moves_run": [
+      "move 1 — recompute every quoted figure",
+      "move 2 — spelled-out-number sweep (EN + EL)",
+      "move 3 — currency at HEAD"
+    ],
+    "move_1_result": "HOLDS ON EVERY FIGURE THE RECORD QUOTES — 0 of 31 wrong — and turns up ONE arithmetic error in the deliverable that the record's own scan missed, which falsifies one sentence of the record. See correction_1.",
+    "re_verified_independently": [
+      "e1 and e3 category percentages, 13 of 13: e1 16.7 / 20.0 / 12.5 / 50.0 / 50.0 / 16.7 / 28.6 (0.5/3, 1.0/5, 0.5/4, 1.5/3, 0.5/1, 0.5/3, 2.0/7) and e3 25.0 / 0.0 / 100.0 / 75.0 / 21.4 / 28.6 (1.5/6, 0.0/3, 1.0/1, 1.5/2, 1.5/7, 2.0/7). All exact, and each lands in the band the deliverable prints against the 80/40 thresholds.",
+      "Both 53-row reconciliations: e1 scored 3+5+4+3+1+3+7 = 26, excluded 1+8+0+5+6+7+0 = 27, 26+27 = 53; e3 scored 0+6+3+1+2+7+7 = 26, excluded 4+7+1+7+5+3+0 = 27. Per-category sums are 4/13/4/8/7/10/7 in BOTH, totalling 53, so the two runs partition the same signal list — which is the check that makes the two comparable.",
+      "The 9/8 name-string derivation, recomputed from the inventory's twelve rows: 9 distinct exact strings, 8 under a case fold that also folds accents (Greek all-caps drops diacritics, so «ΦΑΡΟΣ ΝΑΥΤΙΛΙΑΚΗ ΠΛΗΡΟΦΟΡΙΚΗ ΙΚΕ» and «Φάρος Ναυτιλιακή Πληροφορική ΙΚΕ» collapse). Exact.",
+      "e2's 7 + 17 + 5 = 29 alert rows, parsed from the log's three tables; 24 third-party rows over 22 distinct sources with exactly two doubled (Forum Ναυτιλίας x2, Shipping Ops Podcast x2). Exact.",
+      "The seven name-form counts, recomputed column by column from Tables A and B: Pharos Marine Data 8, Φάρος 5, Pharos 4, Φάρος Ναυτιλιακή Πληροφορική 3, Faros Marine Data 2, Φάρος Marine Data 1, Pharos Marine Data PC 1 — 8/5/4/3/2/1/1 = 24. Exact.",
+      "Sentiment 16 Positive / 7 Neutral / 1 Negative = 24. Exact.",
+      "e4's address and phone splits from the inventory: 5 surfaces on «Ακτή Μιαούλη 47» and 2 on 45 over 7 address-carrying surfaces; 4 on the live 250 and 3 on the dead 251 over 7 phone-carrying surfaces. Exact.",
+      "e4's union: A (9 strings over 12 surfaces) ∪ B (7 strings over 24 mentions) = 12 distinct over 36 rows, splitting 6 Greek-initial / 6 Latin-initial. Recomputed set-wise; exact. Ownership 9 client-controlled (inventory rows 1-9) / 3 third-party (rows 10-12). Exact.",
+      "e3's 'five of the ten results are pages you control' at positions 1, 2, 5, 7, 9 — checked row by row against branded-serp-and-ai-tests-pharos.md's top-ten list; position 8 (xo.gr) correctly excluded as directory-created. Exact.",
+      "'2 of your 38 pages carry JSON-LD' against schema-markup-pharos-current.md:57 'Total pages on the site: 38 ... Two of them carry the blocks above'. Exact.",
+      "Defect D1 re-read at source: e1.md:109 does enumerate «Φάρος Μαρίν Ντέιτα» as string 8 of 9 and then close the same sentence with 'is a tenth form'. The record's finding stands verbatim.",
+      "Defect D2 re-read at source: e4.md:80 attributes bare «Φάρος» to «πεδίο ονόματος στα δομημένα δεδομένα της αρχικής», and inventory row 4 gives that field as 'Pharos', which e4.md:81 itself attributes correctly. The record's finding stands. Its own «5 από τις 24» and «4 από τις 24» in those two rows both recompute exactly."
+    ],
+    "correction_1": {
+      "class": "a sentence in the record falsified by a second count",
+      "field_corrected": "defects_outside_the_graded_set.notable_absences_looked_for_and_not_found, the ARITHMETIC IN PROSE bullet",
+      "was": "ARITHMETIC IN PROSE: no error found beyond D1.",
+      "now": "ARITHMETIC IN PROSE: two errors, D1 and D7 (D7 added by the second-reader pass of 2026-08-17).",
+      "the_second_error_D7": {
+        "location": "e1.md:24, the executive-summary bullet list",
+        "quote": "'Two of the other five identity links point at things that do not exist: an X/Twitter account nobody ever registered, and a Crunchbase profile that returns 404.'",
+        "why_it_is_wrong": "The fixture's sameAs array carries exactly FIVE entries (schema-markup-pharos-current.md:18-24: LinkedIn, twitter, crunchbase, el.wikipedia, facebook). The deliverable's own preceding bullet at e1.md:23 says the Wikipedia collision is 'one of five identity links you publish', and its own scoring row at e1.md:84 says 'The identity link list contains 5 entries'. With one of five accounted for, the others number FOUR. 'The other five' is a count contradicted by the same document three lines above it and by the fixture.",
+        "substantive_claim_re_verified": "Correct. Exactly two of the remaining four — the X/Twitter handle and the Crunchbase URL — point at things that do not exist, per the inventory's §2 table. Only the count is wrong.",
+        "severity": "moderate — same class as D1 (a count contradicted by the document's own derivation), in the same deliverable, in the executive summary, four sentences from D1's sibling bullet. It is arguably the more visible of the two: D1 sits at :109 in the detail, this one is bullet 3 of the summary.",
+        "verdict_effect": "NONE. e1.6 is already FAIL on D1 and this is the same clause's class, so no verdict moves. e1.2 is PASS on the sameAs triage table itself, which is correct at five entries and is a different surface from the summary prose.",
+        "why_the_original_scan_missed_it": "The record's arithmetic scan enumerated figures that are derived from the fixtures (percentages, reconciliations, splits, unions). This one is a count of a fixture population restated in prose, where the error is the ordinal word 'other' rather than the numeral — the numeral 'five' is itself correct for the population, and only the subtraction is missing. A figure-by-figure scan sees 5 and finds 5."
+      }
+    },
+    "move_2_spelled_out_numbers": {
+      "method": "Cardinals two and above, English and Greek, across all five deliverables; then a targeted sweep for the F15-r5 shape (a spelled-out count attached to an unverifiable population).",
+      "result": "CLEAN on the fabrication class. 196 hit lines narrowed and read; every spelled-out quantity traces to the three fixtures or is enumerated in its own sentence. The one hit the targeted sweep surfaced, e2.md:36 'not for the reason you would get from most people', is a rhetorical framing immediately followed by an explicit refusal to claim engine behaviour (e2.md:38) — read in context and cleared, not a count.",
+      "note": "D7 above was found by this move's neighbourhood rather than by the digit scan: 'the other five' is a quantity whose error lives in the word beside the numeral. Recorded because F15-r5's rule — a guard's variant set must include the defect's own written forms — reaches this shape too."
+    },
+    "nearly_recorded_then_cleared": [
+      {
+        "what": "The 9-to-8 case fold looked unreproducible.",
+        "how_it_resolved": "A plain `casefold()` leaves «ΦΑΡΟΣ ΝΑΥΤΙΛΙΑΚΗ ΠΛΗΡΟΦΟΡΙΚΗ ΙΚΕ» and «Φάρος Ναυτιλιακή Πληροφορική ΙΚΕ» distinct, because the accents survive, so the fold gives 9 and not 8. Greek uppercase drops diacritics as a matter of orthography, so a case fold in Greek necessarily folds accents; applying that gives exactly 8. The deliverable and the record are right and the reader's first implementation was wrong."
+      }
+    ],
+    "corrections_made": "ONE, applied in place: the ARITHMETIC IN PROSE bullet, plus a new D7 entry in defects_outside_the_graded_set.found. Everything else in that paragraph was independently re-derived and holds.",
+    "verdict_changes": "NONE. `summary` and `per_eval` are unchanged.",
+    "move_3_currency": {
+      "verdict": "NOT CURRENT.",
+      "version": "Graded at 4.3.0. HEAD carries 4.4.0 (cross-cutting/entity-optimizer/SKILL.md:3 and :10). The bump landed at 794724d, 2026-08-17T15:13:48Z — sixteen minutes after this record's own file mtime — as an R3-amendment-9a sweep of ten engine-claim breaches in this skill and backlink-analyzer. Under ruling M2 the record is stale and the suite is re-run.",
+      "relevance_of_the_bump_to_this_record": "Not incidental. Two of this record's own out-of-set defects, D3 and D4, are unsourced third-party and engine-surface claims — the same family the 4.4.0 sweep closed in the skill text. A re-run is the only way to see whether the carrier now holds; per ledger F13-r3, 'the rule is now stated in the skill' is not evidence the rule works, and only a blind run separates them.",
+      "denominator_drift": "NONE. evals.json last changed at 3a8d62c, 2026-08-10T21:26:54Z, and the HEAD blob c9cf0c4a5a34b124c9a5e82d14ab65fd983682c4 is that version. 29 expectations at grading time and 29 at HEAD, 6/6/6/6/5. The record's own headline_caution — a 4.3.0 skill measured by a 4.2.x-era instrument — is now a 4.4.0 skill measured by the same instrument, and is more true than when it was written."
+    },
+    "what_was_taken_on_trust": [
+      "Register/naturalness of the Greek in e4 — e4.4 remains EDITOR-PENDING.",
+      "The per-expectation PASS/FAIL judgements, except where a quoted figure was recomputed.",
+      "The record's anti-slop family screens and Reader Test nets, which were not re-run.",
+      "Defects D3-D6, which are judgements about sourcing rather than arithmetic and were read but not re-adjudicated."
+    ]
+  }
 }

@@ -493,7 +493,7 @@
         "severity": "minor, and it is a finding about the checker rather than the output",
         "location": "build/seo-content-writer/references/anti-slop-ruleset.md:185, family 5's net",
         "class": "screen false-positive class not recorded in the ruleset",
-        "detail": "Family 5's n-word token «ποτέ» is a substring of «αποτέλεσμα» (result). Measured on e4.md: 4 of the 10 «ποτέ» hits (lines 185, 187, 191, 199) are «αποτέλεσμα» / «Αναμενόμενο αποτέλεσμα» — which is the standard Greek rendering of the action contract's 'expected impact' column, so this false positive will fire on EVERY Greek action table this library produces. The other 6 are genuine «ποτέ» and all carry a preverbal «δεν». Family 5's stated limits cover case and line-splitting but not substring collision, and the ruleset records no such class."
+        "detail": "Family 5's n-word token «ποτέ» is a substring of «αποτέλεσμα» (result). Measured on e4.md: 3 of the 10 «ποτέ» hits (lines 185, 187, 199) are «αποτέλεσμα» / «Αναμενόμενο αποτέλεσμα» — CORRECTED 2026-08-17 by the second-reader pass, which originally read '4 ... (lines 185, 187, 191, 199)'; line 191 is a genuine standalone «ποτέ» — which is the standard Greek rendering of the action contract's 'expected impact' column, so this false positive will fire on EVERY Greek action table this library produces. The other 7 are genuine «ποτέ» and all carry a preverbal «δεν». Family 5's stated limits cover case and line-splitting but not substring collision, and the ruleset records no such class."
       }
     ],
     "notable_absences_looked_for_and_not_found": [
@@ -661,5 +661,58 @@
       "issue": "Bundles the structural offer with two distinct input lists (fresh-audit inputs; the SKILL.md manual-data five) and a naming requirement for two skills. A response can be fully concrete on structure and still fail on any of three grounds, and the recorded FAIL does not say which was load-bearing. The 2026-08-10 record raised this as its eval_feedback #7 and the expectation is unchanged — the same expectation has now failed twice with the same undifferentiated verdict.",
       "suggestion": "Split, or name which list is load-bearing. Given two identical failures, the input list is the behaviour worth isolating."
     }
-  ]
+  ],
+  "second_read": {
+    "date": "2026-08-17",
+    "reader": "second reader, narrowed pass (not a re-grade). Separate agent from the executor and from the grader of this record.",
+    "repo_head_at_second_read": "b5135d431aeef7910426d03c82bcf5828d6ece99",
+    "scope": "THREE MOVES ONLY, per the coordinator's brief: (1) recompute every figure this record QUOTES inside its own expectations[].evidence and its out-of-set defect entries; (2) a spelled-out-number sweep of all five deliverables in English and Greek against the fixtures (ledger F15-r5 instance 2 — the fabrication screens in this corpus enumerate digits, so a quantity written as a word passes them); (3) currency of the record against HEAD (ruling M2) plus denominator drift against evals.json at HEAD. NO expectation was re-graded, no deliverable was re-run, no skill/script/suite/register was edited.",
+    "not_re_verified_taken_on_trust": [
+      "Every PASS/FAIL verdict as such. Verdicts were read, not re-derived; a wrong verdict with arithmetically correct evidence would survive this pass.",
+      "The blindness of the executor's run (asserted by the record; not observable here).",
+      "Qualitative judgements: register, idiom, tone, whether a hedge is adequate, whether a defect's severity label is right.",
+      "The Greek-editor slots. Still EDITOR-PENDING; this pass adds nothing to them.",
+      "Coverage-gap analysis and step-7 suite findings, except where a number inside one was quoted."
+    ],
+    "method_notes": "Every number below was recomputed from the fixture or the saved deliverable at the shell, and the flagged location was opened at source before any figure was called wrong (ledger F7). Where the record states its own counting convention, that convention was read first and applied.",
+    "moves_run": [
+      "1 — quoted-figure recomputation",
+      "2 — spelled-out-number sweep",
+      "3 — currency at HEAD"
+    ],
+    "numbers_recomputed": [
+      "e1: GEO (72+65+48+43)/4 = 57.0, SEO (70+75+55+80)/4 = 70.0, Total 63.5, 63.5-66.5 = -3.0 — CONFIRMED, and the eight dimension scores were traced to the audit fixture (lines 23-30), which prints the same three results itself. 91+5 = 96 confirmed.",
+      "The line-count convention note ('wc -l 94 / numbered-view 95' and 'wc -l 62 / numbered-view 63') — CONFIRMED at the shell: both fixtures are wc -l 94 and 62 with no trailing newline. This is the record reading its own method before judging a figure, and it is why its '95 lines' verdict differs from the 2026-08-10 record's self-flagged slip. The verdict is right.",
+      "e2, all twelve age/date claims — RECOMPUTED FROM THE PROMPT'S STATED 'Today is 10 August 2026' AND THE FIXTURE DATES, ALL EXACT: 43 days since 2026-06-28, 8 since 2026-08-02, 91 since 2026-05-11, 82 since 2026-05-20, 59 since 2026-06-12, 113 since 2026-04-19, 11 since 2026-07-30. Every stated decomposition adds up (18+24=42, 18+31+10=59, 11+31+30+31+10=113, 20+30+31+10=91, 11+30+31+10=82, 2+31+10=43).",
+      "'90-day line crossed 2026-08-18, eight days from now' — CONFIRMED: 2026-05-20 + 90 days = 2026-08-18, which is 8 days after the prompt's stated today. This is the single easiest figure in the record to get wrong and it is right.",
+      "e2 '2,640/1,180 = 2.237 -> 2.2x' — CONFIRMED (2.2373).",
+      "e3: '32 months from 2024-01 to 2026-08' — CONFIRMED on the inclusive count (Jan 2024 is month 1, Aug 2026 is month 32); 4 x 32 = 128; 91+63+341+132+10 = 637; 637/150 = 4.2467 -> '4.2 times over' — ALL CONFIRMED.",
+      "e4: 4+2 = 6 and 42 days (2+31+9) — CONFIRMED.",
+      "D2, the record's own recomputation of the e4 line-count error — CONFIRMED LINE BY LINE: the replaced section is hot-cache fixture lines 11-30 (heading through the keyword-database pointer) = 20 lines; the replacement is e4.md:69-93 = 25 lines; plus 2 at e4.md:114-115. Net +7, 91 -> 98, against the deliverable's '+4 γραμμές, 91 -> ~95' at e4.md:57 and the ticked box restating ~95 at e4.md:209. The record is right and its diagnosis of the cause (three inserted record-keeping lines missed) is consistent with the arithmetic.",
+      "D4 'e3.md:94 121 lines vs e3.md:208 about 122 ... 114 lines apart' — CONFIRMED all three (121 at :94, 122 at :208, 208-94 = 114).",
+      "D6's «ποτέ» counts — PARTLY WRONG, CORRECTED IN PLACE. See corrections_made.",
+      "summary and per_eval — CONFIRMED: passed 7+5+4+6+3 = 25, failed 0+1+1+0+1 = 3, editor_pending 1, totals 7+6+5+7+4 = 29 and matching evals.json at HEAD; 25/29 = 0.8621; the four per-eval rates 1.0 / 0.8333 / 0.8 / 0.8571 / 0.75 all recompute."
+    ],
+    "numbers_recomputed_count": {
+      "checked": 34,
+      "wrong": 1,
+      "corrected_in_place": 1
+    },
+    "corrections_made": [
+      "defects_outside_the_graded_set D6: '4 of the 10 «ποτέ» hits (lines 185, 187, 191, 199)' -> '3 of the 10 (lines 185, 187, 199)', and 'The other 6' -> 'The other 7'. Recomputed by locating every «ποτέ» match in e4.md with 22 characters of context either side: lines 185, 187 and 199 are the «αποτέλεσμα» substring collision; line 191 is a genuine standalone «ποτέ» — «...δεν έχουν μετρηθεί ποτέ.» — and belongs with the true positives. THE SUBSTANTIVE CLAIM WAS RE-VERIFIED AND HOLDS: the collision class is real, it is unrecorded in family 5's stated limits, «Αναμενόμενο αποτέλεσμα» is the standard Greek rendering of the action contract's expected-impact column so it will fire on every Greek action table this library produces, and every genuine «ποτέ» in the file carries a preverbal «δεν». Only the 4/6 split changes, to 3/7."
+    ],
+    "nearly_recorded_then_cleared": [
+      "e3's '32 months from 2024-01 to 2026-08' reads as 31 on an exclusive count and looked like an off-by-one feeding straight into the 128 figure. On the inclusive reading the deliverable's own request is 'every monthly ranking snapshot since 2024', i.e. Jan 2024 through Aug 2026, which is 32 snapshots. Cleared; the record's OK is right.",
+      "e2's '42 days (18+24)' has no obvious fixture date behind it in the record's own list. Located at source and it reconciles. No finding."
+    ],
+    "spelled_out_number_sweep": "CLEAN, checked in both languages because e4 is the Greek deliverable. Every Greek spelled-out quantity traces to a fixture: «Από τις έξι εγγραφές ... οι τέσσερις έχουν μετρημένη θέση και οι δύο δεν έχουν» is exact against greek-project-state-el.md (6 keyword rows, 4 with a position, 2 «δεν έχει ελεγχθεί ποτέ»); «Και οι τέσσερις μετρήσεις είναι της ίδιας ημέρας, 2026-06-28» is exact; «τρεις ορισμοί» matches the fixture's three glossary terms. English side: 'the other two competitors have never had one' is exact against the hot cache's three competitors, one of which carries a DA. No instance of ledger F15-r5's class.",
+    "currency_verdict": {
+      "graded_version": "4.1.0",
+      "head_version": "4.2.0 (cross-cutting/memory-management/SKILL.md metadata.version; this skill carries no top-level version field, per the G1 spec-alignment pilot)",
+      "verdict": "NOT CURRENT — stale under settled ruling M2, suite due a re-run.",
+      "evidence": "9dac5da (2026-08-17 15:58) 'a credential floor the library did not have, and a Greek guard with a 100% false-positive rate' landed twenty minutes after this record's deliverables were written. git diff eedbeee..b5135d4 -- cross-cutting/memory-management/ = 4 files, +55/-1: SKILL.md plus hot-cache-template.md, promotion-demotion-rules.md and update-triggers-integration.md. Not a version-lines-only diff.",
+      "direct_relevance": "Both halves of that commit message answer things this record raised — e3's credential-refusal behaviour and D6's Greek false-positive class. The record's own findings appear to have been acted on; whether the fix holds under a blind run is exactly what the re-run would measure.",
+      "denominator_drift": "NONE. evals.json at HEAD carries 29 expectations (7/6/5/7/4), the record's total; cross-cutting/memory-management/evals/ untouched since 1a1b55d (2026-08-10)."
+    }
+  }
 }

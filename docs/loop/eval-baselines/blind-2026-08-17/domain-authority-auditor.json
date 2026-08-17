@@ -341,5 +341,82 @@
       "docs/loop/SETTLED-RULINGS.md": "bc0e4967f339d1859daea459770b80bbf06675da",
       "note": "Every hash above was taken at close and compared against the open-time tree; none moved during the run."
     }
+  },
+  "second_read": {
+    "date": "2026-08-17",
+    "reader": "second reader, narrowed protocol (three moves), separate agent from the grader",
+    "scope": "NOT a full re-grade. Three moves only: (1) recompute every figure the record quotes inside its own evidence and defect entries; (2) sweep the deliverables for numbers written as WORDS, English and Greek, per ledger F15-r5 instance (2) — the digit-enumerating fabrication screens in this corpus are structurally blind to them; (3) check whether the record is still current at HEAD under ruling M2 and against the suite at HEAD.",
+    "repo_head_at_second_read": "b5135d431aeef7910426d03c82bcf5828d6ece99",
+    "deliverables_frozen": "Confirmed: every deliverable mtime is the original run's (11:22-11:53Z). Nothing was re-run and no output was produced by this reader.",
+    "f7_discipline": "Every recomputation that disagreed with the record was taken back to the source file and read in context before any verdict, and where the record states its own method for a figure that method was applied rather than a reader's default. This step changed the outcome twice — see nearly_recorded_then_cleared.",
+    "input_recheck_at_close": "HEAD unchanged across the pass (b5135d4 -> b5135d4). `git status` at close shows one modified file, docs/loop/eval-baselines/blind-2026-08-17/rank-tracker.json, which belongs to another lane and was neither read nor touched. All four evals.json blobs, both loop registers and all four SKILL.md files re-hashed identical between open and close.",
+    "moves_run": [
+      "move 1 — recompute every quoted figure",
+      "move 2 — spelled-out-number sweep (EN + EL)",
+      "move 3 — currency at HEAD"
+    ],
+    "move_1_result": "HOLDS. 0 of 62 recomputed figures wrong.",
+    "re_verified_independently": [
+      "All 160 item grades in e1-e4, re-parsed from the deliverables' own tables by an independent script (modeb2r-daa-recompute.py) and re-tallied per dimension. Every dimension tally the record states reproduces exactly: e1 C 7P/3A/0F, I 5/3/2, T 9/1/0, E 8/2/0; e2 C 5/5/0, I 5/4/1, T 9/0/1, E 5/4/1; e3 C 5/1/0 + 4 N/A, I 4/4/1 + 1 N/A, T 7/2/0 + 1 N/A, E 1/7/2; e4 C 4/3/3, I 3/5/2, T 8/2/0, E 3/5/1 + 1 N/A.",
+      "Weighted CITE scores: 85.2500 -> 85.3 (e1), 78.0000 uncapped (e2), 74.1389 -> 74.1 (e3), 68.7778 -> 68,8 (e4). All four exact.",
+      "Point pools and losses: 335/65/400 (e1), 305/95/400 (e2), 240/100/340 (e3), 255/135/390 (e4). All exact, including the two shrunken pools.",
+      "e3 sensitivity bracket: all-Fail 60.7500 -> 60.8, all-Pass 76.2500 -> 76.3, width 15.5000 splitting 10.0 / 3.0 / 2.5. All five exact.",
+      "e4 E06 sensitivity: 67.2500 -> 67,3, 69.7500 -> 69,8, width 2.5000. Exact.",
+      "e2 veto: 696/940 = 74.0426% > 60%. Exact.",
+      "e5 item-mapping table: 1+10+7+10+7+4+1 = 40, and the union of the seven rows covers all 40 CITE IDs exactly once — programmatically confirmed, 0 duplicates, 0 omissions. The '17 of 40 items plus one joint' claim at e5:134 = rows 3+4 = 10+7. Exact.",
+      "e5's 'about twenty minutes and two logins' = 5 + 10 + 5 from the three rows at e5:43-45.",
+      "Date arithmetic: 2026-03-20 -> 2026-08-17 = 150 days (the deliverable's figure, against the suite's pack-relative 140); 2022-11-08 -> 2026-08-17 = 3y 9m; 2022-12 -> 2026-08 = 3y 8m. All three exact.",
+      "Source metrics spot-traced to the packs: 310 referring domains, 140 brand searches, G2 4.5/34, Skroutz 4,6/230, Google 4,3/95, 12,140 of 12,600 indexed, Trustpilot 4.4/380 and Google 4.6/1,200, 2016-04-11 registration, the 4.2x November velocity spike, '8 of the first 10' and '5 of the first 10' branded-SERP splits with their site/social composition. All present in the fixtures as printed.",
+      "e2 defect 1 re-verified at source: E06 and E10 occur only at e2:119 and e2:123, the per-item table. All ten Action Plan rows (e2:180-189) read; neither appears. The record's finding stands.",
+      "e2 defect 4 re-verified: trailgear pack line 63 'People Also Ask (12 keywords)' and klimatechniki line 76 'People Also Ask (9 λέξεις-κλειδιά)' against e2:183 '12 guides' and e4:194 «τους 9 οδηγούς». The record's finding stands."
+    ],
+    "potential_gain_formula_recheck": {
+      "asked_for_by_the_brief": "Recompute every gain figure the record quotes under the corrected `recoverable x (10 / n) x weight`, and say whether the record's own quoted figures used the right one.",
+      "verdict": "THE RECORD USED THE CORRECTED FORMULA THROUGHOUT. Every gain it quotes is the rescaled figure, and every one reproduces.",
+      "checked": [
+        "e3 Top 5: I10 10/90x100x30% = 3.3333; C01 5/60x100x25% = 2.0833; E03 and E06 10/100x100x20% = 2.0000 each; I03 5/90x100x30% = 1.6667. Aggregate 11.0833 -> 11.08, and it closes against the recomputed projection 85.2222 - 74.1389 = 11.0833 to four decimals. The naive shortcut gives 9.75 and does not close.",
+        "e4: the 2,78 at e4:139 = 10/90x100x25%; the 1,39 in Action Plan rows 2 and 13 = 5/90x100x25%; 1,75 = 5x35% in a fully-scored T; the five Top-5 entries at 2,00 each = 10x20% in fully-scored C and I. Aggregate 10,00, projection 78.7778 -> 78,8, delta 10.0000. All exact under the corrected formula.",
+        "e1 and e2: every dimension has 10 scored items, so 10/n = 1 and the two methods coincide. The record says so and it is right — 2.0/2.0/2.0/1.5/1.5 summing to 9.0 against a projection delta of 9.0000 (e1), and 3.5/2.5/2.0/1.25/1.25 summing to 10.5 against a delta of 10.5000 (e2).",
+        "The adjudication's own worked cases all recompute: the 40% and 10% understatements, the 1.3889-vs-1.2500 Trust case, the 2.7778-vs-2.5000 Eminence case, and the score-arithmetic §6 case where a 3.33 dimension move is worth 0.83 CITE points and not 2.50.",
+        "One loose phrase, recorded and NOT a finding: the consequence paragraph calls the four Identity Partials 'the four 1.50-1.67 Identity Partials', which is their value under the naive and the corrected method respectively rather than a range. The substantive claim — that naive C01 at 1.25 sorts below them while corrected C01 at 2.083 sorts second — holds under either method, recomputed both ways."
+      ],
+      "acted_on_at_head": "The finding was actioned. At HEAD references/score-arithmetic.md:118 reads 'potential gain = recoverable points x (10 / n) x that dimension's weight', §8 rule 5 at :228 carries the same, and example-report.md:59 is corrected. Verifying the completeness of that fix is a diff review, not this pass."
+    },
+    "move_2_spelled_out_numbers": {
+      "method": "Regex sweep for cardinals two and above in English and Greek across all five deliverables (modeb2r-spelled-number-sweep.py), then a targeted sweep for the F15-r5 shape — a spelled-out count attached to an unverifiable population ('our clients', 'prior engagements', 'most owners').",
+      "result": "CLEAN. 207 hit lines narrowed and read; every spelled-out quantity is either an indefinite article, a count enumerated in its own sentence ('τρεις εργασίες' followed by three), or a fixture-derived figure. Specifically traced: 'no pivot in nine years' (2017-2026), 'no pivot in thirteen years' (2013-2026), «δέκα χρόνια» (registered 2016-04-11), «τρία χρόνια» for the dead phone line (March 2023), 'the other thirty-seven' (40-3), 'about twenty minutes' (5+10+5), 'three years and nine months' and 'three years and eight months'. Zero counts sold as confidence with no traceable source.",
+      "softest_item_looked_at_and_cleared": "e3:93 'This is a twenty-minute check' — an effort estimate for the analyst's own work, the same class as the Quick/Medium/Strategic bands the skill mandates, not a claim about the client's data. Not recorded as a defect."
+    },
+    "nearly_recorded_then_cleared": [
+      {
+        "what": "e4.5's '3,283 accented vowels present' looked wrong.",
+        "how_it_resolved": "A first tokenisation returned 3,309. Testing the character sets at the shell: lowercase seven accents (άέήίόύώ) = 3,283 EXACT; adding capitals gives 3,300; adding the diaeresis marks gives 3,309. The record's figure is right on the natural reading for a Greek diacritic screen. This is the brief's own F7 warning arriving in a second lane. Feedback only: the record should name its character class beside the figure, as the geo record names its token rule."
+      },
+      {
+        "what": "e2's T01 'No month accounts for more than 9% of total links' looked false.",
+        "how_it_resolved": "88 spike-month domains against 940 referring domains is 9.36%, which is more than 9%. Opening the fixture: pack-trailgear-outlet-overlap-veto-en.md:37 gives total backlinks as 11,300 and :47 states verbatim 'No month exceeded 9% of total backlinks.' The base is backlinks, not referring domains, and the deliverable restates the fixture. T01 Pass against the benchmark's 15% ceiling is correct. A recomputation alone would have manufactured this finding."
+      }
+    ],
+    "corrections_made": "NONE. No quoted figure in this record required correction.",
+    "verdict_changes": "NONE. `summary` and `per_eval` are unchanged.",
+    "move_3_currency": {
+      "verdict": "NOT CURRENT.",
+      "version": "Graded at 4.4.0. HEAD carries 4.6.0 (frontmatter and metadata.version in lockstep at cross-cutting/domain-authority-auditor/SKILL.md:3 and :10). Four commits landed on the skill after the record was written: e06073a 14:52Z (4.5.0, the potential-gain formula), ccb1a72 16:09Z (4.5.1, operator-block label), 5266d39 16:51Z (4.6.0, rating-band rounding), 39d56f1 17:56Z. Under ruling M2 this record is stale and the suite is re-run; no lane may clear it by judging the bumps empty, and these are not empty.",
+      "denominator_drift": "Expectation COUNT unchanged at 30 (7/6/6/7/4). Expectation TEXT moved on 7 of 30 — e1.3, e1.7, e2.2, e2.6, e3.6, e4.1, e4.7 — diffed string by string between the graded blob 939f9f4b8ede8682c10d601ac703cdcb46b7e8db and HEAD's e421ce44e6050b9d6ff6ec8cc3a584399242f541. All five prompts are byte-identical.",
+      "rating_label_clauses_asked_about_by_the_brief": {
+        "e2.2": "WOULD STILL PASS. The new clause requires the computed figure rounded to a whole number, the cap binding on that rounded figure, and the report stating 39, Poor. e2 prints 78.0 as 'Weighted figure before the cap' and 39/100 (Poor) as reported; 78.0 -> 78 -> capped -> 39 Poor. Both figures appear.",
+        "e1.3_and_e4.1": "AT RISK, and the coordinator should rule rather than assume. The rating LABEL is correct under the new rule in both — 85.25 rounds to 85, inside 75-89 Good, and 68.7778 rounds to 69, inside 60-74 Μέτριο — and the computed value with its derivation is printed in both. What is not printed is the clause's own worked pattern, 'CITE Score = ... = 68.5 -> 68.5/100, band read off 69 -> Medium': e1 prints '85.25 -> 85.3/100 (Good)' and e4 '68,78 -> 68,8/100 (Μέτριο)', with the rating word on the one-decimal figure and the whole number never shown. A strict reading of 'Both figures appear, and neither replaces the other' fails both; a reading that grades the label passes both."
+      },
+      "effect_of_the_reworded_gain_clauses_on_the_two_FAILs": {
+        "e3.6": "The FAIL SURVIVES at HEAD. The new e3.6 keeps 'A derived figure that contradicts the report's own tables fails', and the two figures the record failed it on — e3:217 'the widest gap between any two dimensions' where C-E = 46.67 exceeds T-E = 43.89, and e3:228 'weakest dimension by 20 points' where the margin is 21.67 — are wrong under any reading. Both recomputed again here from the deliverable's own dimension table at e3:44-47. The new clause also positively endorses e3's gain figures: its worked examples (2.08 in C, 1.67 in I, 1.39 in T, 1.00 in E) are exactly what e3 printed.",
+        "e4.7": "THE FAIL'S BASIS IS MATERIALLY WEAKENED at HEAD, and this is a currency finding rather than a re-grade. The record failed e4.7 on a stated-method contradiction: e4:137 prints the naive rule and e4:139 applies the rescaled one. The new e4.7 makes the rescaled rule the graded rule and adds 'a T-dimension Partial is worth «1,75» with the factor written or left implicit — what is graded is the number, not the notation', with no clause about a stated method disagreeing with an applied one. Every number in e4 is correct, so a grader reading the HEAD wording could reasonably record PASS. Not re-graded here; flagged because the re-run M2 already requires would likely move this suite from 27/30 to 28/30 on e4.7 alone."
+      }
+    },
+    "what_was_taken_on_trust": [
+      "Register/naturalness of the Greek in e4 — the editor's, not this reader's, and e4.5 remains EDITOR-PENDING.",
+      "The per-expectation PASS/FAIL judgements themselves, except where a quoted figure inside the evidence was recomputed. This was not a re-grade.",
+      "The record's family-scan hit counts for e4 other than the two recomputed (μηδ[εέ]ν = 5, confirmed; accented vowels = 3,283, confirmed). The family-5 29-hit and family-9 counts were not re-run.",
+      "The fixtures' own internal plausibility, as the record itself states."
+    ]
   }
 }

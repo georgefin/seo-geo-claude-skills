@@ -30,7 +30,6 @@
       "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-2026-08-17-grade-metatags-fabrication.py"
     ]
   },
-
   "repo_head_at_open": "794724d69ce128f5e59af2c472576d0adc31fcd5",
   "repo_head_at_close": "226ceeb8134a08ccc772756bc3bc242225ff4ebf",
   "input_drift_during_the_grading": {
@@ -48,7 +47,6 @@
     "evals_json_stability": "BYTE-IDENTICAL across the whole grading window. `git diff 794724d HEAD -- build/meta-tags-optimizer/evals/evals.json` is empty; md5 f49508b3f7158ea5f914c7fb1d960d20 at open and close. No expectation was reworded while it was being graded.",
     "effect_on_verdicts": "NONE. No binding rule this record applies changed, and no graded file changed. The drift is recorded because the closing re-check is the rule, not because it moved anything."
   },
-
   "regressions_vs_baseline": {
     "headline": "NONE. Zero expectations passed in the prior blind record and failed here.",
     "baseline": "docs/loop/eval-baselines/blind-2026-08-10/metatags.json (subject 4.1.2, blind, 29 expectations, 24 pass / 4 fail / 1 editor-pending = 82.8%)",
@@ -63,39 +61,187 @@
       }
     ],
     "per_expectation": [
-      {"id": "e1.1", "baseline": "PASS", "now": "PASS", "movement": "none"},
-      {"id": "e1.2", "baseline": "PASS", "now": "PASS", "movement": "none"},
-      {"id": "e1.3", "baseline": "PASS", "now": "PASS", "movement": "none"},
-      {"id": "e1.4", "baseline": "FAIL", "now": "PASS", "movement": "RECOVERY", "note": "Baseline failed because the run recommended the only one of its three description options that carried no explicit CTA. This run's recommended-and-shipped description ends 'Read the guide before you start.' Same expectation text, byte-identical."},
-      {"id": "e1.5", "baseline": "PASS", "now": "PASS", "movement": "none"},
-      {"id": "e1.6", "baseline": "FAIL", "now": "PASS", "movement": "RECOVERY", "note": "Baseline shipped content=\"TO SUPPLY — absolute URL, 1200x630px JPG/PNG\" inside og:image and twitter:image — the confirmed F13-recurrence-2 instance. The ledgered class did NOT recur: zero bracket tokens, TBD, XX, TO SUPPLY or note-shaped values in any value position of any paste-ready fence across all five deliverables. The 4.1.3 carrier (SKILL.md:208 placement rule + meta-tag-code-templates.md:14 value rule + the filled/skeleton split) is the first ledgered carrier in this suite to be exercised blind and hold."},
-      {"id": "e2.1", "baseline": "PASS", "now": "PASS", "movement": "none"},
-      {"id": "e2.2", "baseline": "PASS", "now": "PASS", "movement": "none"},
-      {"id": "e2.3", "baseline": "PASS", "now": "PASS", "movement": "none"},
-      {"id": "e2.4", "baseline": "PASS", "now": "PASS", "movement": "none"},
-      {"id": "e2.5", "baseline": "PASS", "now": "PASS", "movement": "none"},
-      {"id": "e2.6", "baseline": "PASS", "now": "PASS", "movement": "none"},
-      {"id": "e3.1", "baseline": "PASS", "now": "PASS", "movement": "none"},
-      {"id": "e3.2", "baseline": "PASS", "now": "PASS", "movement": "none"},
-      {"id": "e3.3", "baseline": "PASS", "now": "PASS", "movement": "none"},
-      {"id": "e3.4", "baseline": "EDITOR-PENDING", "now": "EDITOR-PENDING", "movement": "none"},
-      {"id": "e3.5", "baseline": "PASS", "now": "PASS", "movement": "none"},
-      {"id": "e3.6", "baseline": "PASS", "now": "PASS", "movement": "none"},
-      {"id": "e4.1", "baseline": "PASS", "now": "PASS", "movement": "none"},
-      {"id": "e4.2", "baseline": "PASS", "now": "PASS", "movement": "none"},
-      {"id": "e4.3", "baseline": "PASS", "now": "PASS", "movement": "none"},
-      {"id": "e4.4", "baseline": "PASS", "now": "PASS", "movement": "none"},
-      {"id": "e4.5", "baseline": "PASS", "now": "PASS", "movement": "none"},
-      {"id": "e4.6", "baseline": "PASS", "now": "PASS", "movement": "none"},
-      {"id": "e4.7", "baseline": "PASS", "now": "PASS", "movement": "none"},
-      {"id": "e5.1", "baseline": "FAIL", "now": "FAIL", "movement": "REPEAT FAILURE", "note": "Same defect class, materially narrower instance. The baseline shipped a section headed 'Complete Tag Block — ship this tonight' with BOTH a title and a description asserting 'Plans and Costs' / 'see the plans available and what each one includes' — concrete claims about an unseen page. This run refuses the description outright and ships only a title built from the two supplied strings and nothing else. The expectation as written cannot see that difference; see suite_level_findings.SLF-1."},
-      {"id": "e5.2", "baseline": "FAIL", "now": "FAIL", "movement": "REPEAT FAILURE", "note": "Same as e5.1 — one act, two expectations."},
-      {"id": "e5.3", "baseline": "PASS", "now": "PASS", "movement": "none"},
-      {"id": "e5.4", "baseline": "PASS", "now": "PASS", "movement": "none"}
+      {
+        "id": "e1.1",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none"
+      },
+      {
+        "id": "e1.2",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none"
+      },
+      {
+        "id": "e1.3",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none"
+      },
+      {
+        "id": "e1.4",
+        "baseline": "FAIL",
+        "now": "PASS",
+        "movement": "RECOVERY",
+        "note": "Baseline failed because the run recommended the only one of its three description options that carried no explicit CTA. This run's recommended-and-shipped description ends 'Read the guide before you start.' Same expectation text, byte-identical."
+      },
+      {
+        "id": "e1.5",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none"
+      },
+      {
+        "id": "e1.6",
+        "baseline": "FAIL",
+        "now": "PASS",
+        "movement": "RECOVERY",
+        "note": "Baseline shipped content=\"TO SUPPLY — absolute URL, 1200x630px JPG/PNG\" inside og:image and twitter:image — the confirmed F13-recurrence-2 instance. The ledgered class did NOT recur: zero bracket tokens, TBD, XX, TO SUPPLY or note-shaped values in any value position of any paste-ready fence across all five deliverables. The 4.1.3 carrier (SKILL.md:208 placement rule + meta-tag-code-templates.md:14 value rule + the filled/skeleton split) is the first ledgered carrier in this suite to be exercised blind and hold."
+      },
+      {
+        "id": "e2.1",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none"
+      },
+      {
+        "id": "e2.2",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none"
+      },
+      {
+        "id": "e2.3",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none"
+      },
+      {
+        "id": "e2.4",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none"
+      },
+      {
+        "id": "e2.5",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none"
+      },
+      {
+        "id": "e2.6",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none"
+      },
+      {
+        "id": "e3.1",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none"
+      },
+      {
+        "id": "e3.2",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none"
+      },
+      {
+        "id": "e3.3",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none"
+      },
+      {
+        "id": "e3.4",
+        "baseline": "EDITOR-PENDING",
+        "now": "EDITOR-PENDING",
+        "movement": "none"
+      },
+      {
+        "id": "e3.5",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none"
+      },
+      {
+        "id": "e3.6",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none"
+      },
+      {
+        "id": "e4.1",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none"
+      },
+      {
+        "id": "e4.2",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none"
+      },
+      {
+        "id": "e4.3",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none"
+      },
+      {
+        "id": "e4.4",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none"
+      },
+      {
+        "id": "e4.5",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none"
+      },
+      {
+        "id": "e4.6",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none"
+      },
+      {
+        "id": "e4.7",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none"
+      },
+      {
+        "id": "e5.1",
+        "baseline": "FAIL",
+        "now": "FAIL",
+        "movement": "REPEAT FAILURE",
+        "note": "Same defect class, materially narrower instance. The baseline shipped a section headed 'Complete Tag Block — ship this tonight' with BOTH a title and a description asserting 'Plans and Costs' / 'see the plans available and what each one includes' — concrete claims about an unseen page. This run refuses the description outright and ships only a title built from the two supplied strings and nothing else. The expectation as written cannot see that difference; see suite_level_findings.SLF-1."
+      },
+      {
+        "id": "e5.2",
+        "baseline": "FAIL",
+        "now": "FAIL",
+        "movement": "REPEAT FAILURE",
+        "note": "Same as e5.1 — one act, two expectations."
+      },
+      {
+        "id": "e5.3",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none"
+      },
+      {
+        "id": "e5.4",
+        "baseline": "PASS",
+        "now": "PASS",
+        "movement": "none"
+      }
     ],
     "summary_of_movement": "24 -> 26 passed, +6.90 points, at a subject that moved 4.1.2 -> 4.2.2 against a byte-identical instrument on 28 of 29 expectations. Two recoveries (e1.4, e1.6), two repeat failures (e5.1, e5.2), zero regressions, zero movement on the other 25."
   },
-
   "summary": {
     "passed": 26,
     "failed": 2,
@@ -114,15 +260,48 @@
     },
     "schema_note": "summary.passed/failed/total/pass_rate per F16-r1(c). Verified with scripts/eval-corpus-report.sh before reporting."
   },
-
   "per_eval": [
-    {"id": 1, "file": "e1.md", "passed": 6, "failed": 0, "editor_pending": 0, "total": 6},
-    {"id": 2, "file": "e2.md", "passed": 6, "failed": 0, "editor_pending": 0, "total": 6},
-    {"id": 3, "file": "e3.md", "passed": 5, "failed": 0, "editor_pending": 1, "total": 6},
-    {"id": 4, "file": "e4.md", "passed": 7, "failed": 0, "editor_pending": 0, "total": 7},
-    {"id": 5, "file": "e5.md", "passed": 2, "failed": 2, "editor_pending": 0, "total": 4}
+    {
+      "id": 1,
+      "file": "e1.md",
+      "passed": 6,
+      "failed": 0,
+      "editor_pending": 0,
+      "total": 6
+    },
+    {
+      "id": 2,
+      "file": "e2.md",
+      "passed": 6,
+      "failed": 0,
+      "editor_pending": 0,
+      "total": 6
+    },
+    {
+      "id": 3,
+      "file": "e3.md",
+      "passed": 5,
+      "failed": 0,
+      "editor_pending": 1,
+      "total": 6
+    },
+    {
+      "id": 4,
+      "file": "e4.md",
+      "passed": 7,
+      "failed": 0,
+      "editor_pending": 0,
+      "total": 7
+    },
+    {
+      "id": 5,
+      "file": "e5.md",
+      "passed": 2,
+      "failed": 2,
+      "editor_pending": 0,
+      "total": 4
+    }
   ],
-
   "expectations": [
     {
       "id": "e1.1",
@@ -311,7 +490,6 @@
       "evidence": "Reason given before anything else, e5.md:7: 'writing 155 characters about a page nobody writing them has seen means inventing the price, the plan structure, the trial, or the differentiator, and whichever one I invented would go live tonight under your name on the one page where a wrong number costs a sale.' Grounded in the alignment check at e5.md:113: '| C01 | Intent Alignment — does the title's promise match what the page delivers? | **Not assessable** | The page has not been seen.' and at :116 'Neither of these is a pass. Recording them as \"not assessable\" rather than as passes is the point: nothing here has been checked against the page, and a tick would say it had been.' The C01-failure consequence is worked concretely at e5.md:61 (the demo-gate risk). What unblocks it is stated twice with a turnaround: e5.md:71 'Send these five things and the finished description comes back the same evening' and Action 2 at :159."
     }
   ],
-
   "suite_level_findings": [
     {
       "id": "SLF-1",
@@ -341,12 +519,10 @@
       "not_a_step_7_finding": "No expectation is made unsatisfiable by this. Recorded here because it is the skill-side cause of two of the run's most-scrutinised decisions."
     }
   ],
-
   "instrument_defects": {
     "count": 0,
     "why_none": "Every one of the 29 expectations could be graded as written against the saved deliverable. The e5.1/e5.2 tension changes a verdict but does not make either expectation unsatisfiable — a response that ships nothing satisfies both — so it is recorded as SLF-1 rather than as an INSTRUMENT-DEFECT verdict on an expectation. Deliberately slow here, per the brief."
   },
-
   "template_output_validation_adjudication": {
     "claim": "The step-5 CORE-EEAT template at SKILL.md:221 mandates a form the Reader Test bans.",
     "verdict": "CONFIRMED — see suite_level_findings.SLF-2.",
@@ -357,7 +533,6 @@
       "effect_on_this_run": "None observable. No deliverable mentions the gap and none is missing the work; every one produced the OG/Twitter/additional-tag block the consolidated step 4 asks for. The hazard is that a cold run reading '5 ... 9' has no way to know whether three steps of instruction are missing from its brief, and a run that assumes they are will go looking for guidance that does not exist."
     }
   },
-
   "seven_field_action_contract": {
     "carried_in_this_skill": false,
     "carriage_evidence": "grep over build/meta-tags-optimizer/ (SKILL.md + all three references + evals) for 'action-output-contract', 'acceptance criter', 'risk-if-done-wrong' and 'owner' returns ZERO matches. The skill also carries no route to references/prohibited-tactics.md, references/query-cluster-ownership.md, references/ai-visibility-measurement.md or references/inter-skill-handoff.md. Seven other skills route to action-output-contract.md (content-quality-auditor, domain-authority-auditor, entity-optimizer, backlink-analyzer, performance-reporter, on-page-seo-auditor, technical-seo-checker) and eight route to prohibited-tactics.md; meta-tags-optimizer routes to none of them.",
@@ -366,19 +541,18 @@
     "what_the_run_did_anyway": "All five deliverables carry a conformant seven-field table (e1.md:196-202, e2.md:280-287, e3.md:184-191, e4.md:147-154, e5.md:156-163). Every owner is from the closed list at references/action-output-contract.md:76-77; 'Client decision' is used where the agency cannot decide (e2 Action 5 on cluster ownership, e4 Actions 3 and 4, e5 Actions 2 and 4); stated-absence values are used instead of invented ones throughout ('Not estimated — no baseline data'); acceptance criteria are observable, binary and attached to a named artefact ('View-source on the live URL shows exactly one <title> reading ... (57 characters)'). e2 additionally produced a full query-cluster ownership register (e2.md:20-30) including the register's own 'no owner assigned' finding, and e2.md:30 refuses the prohibited tactic unprompted: 'What should not happen is a fourth and fifth page appearing to catch them; that is how three pages became one title.'",
     "the_consequence": "Since the skill does not carry any of it, the compliance came from the run's ambient context — root CLAUDE.md, which states all four 2026-08-17 rulings. references/prohibited-tactics.md's own header states the consequence exactly: 'CLAUDE.md is a repo context file, not part of the installed skill surface, so a rule that lives only there is a rule the running library does not carry.' A session that installs this skill through ClawHub or `npx skills add` loads SKILL.md and its three references and gets none of this. This is the F13-recurrence-3 mechanism seen one step earlier: a behaviour certified by a run whose context supplied the rule, against a skill that does not."
   },
-
   "arithmetic_check": {
     "method": "Every asserted character count in all five deliverables was recomputed in Python with len() on the actual string, under LC_ALL=C.UTF-8. Three passes: (A) every <title> and content= value inside every fence; (B) every markdown table row pairing a string with a stated count, splitting on unescaped pipes only; (C) every 'N chars / N characters / N χαρακτήρες' assertion anywhere in the file, paired by hand to its string.",
     "table_rows_checked": 34,
     "table_row_mismatches": 0,
-    "fence_values_checked": 61,
+    "fence_values_checked": 79,
     "fence_value_mismatches": 0,
     "restated_counts_checked": "Every count is restated between two and five times per string (option table, summary paragraph, action-table acceptance criterion, A/B arm, self-check). All restatements agree with the string and with each other. Specifically for e2, whose eight description counts were the stated risk: option tables e2.md:52/53/54/78/79/80/110/111 all correct; summary paragraph e2.md:202 '155 / 157 / 154' correct; action table e2.md:282 '(51/54/53 and 155/157/154 characters)' correct and e2.md:284 'the 153-character Option 2 string' correct; self-check e2.md:295-296 correct. The correction landed in all four places — no partial correction.",
     "process_claim_not_verified": "Whether an earlier draft under-counted those eight by two characters is not observable from the saved artefacts and is NOT recorded as verified (F4 discipline: record the response, not the call). What is recorded is the end state, independently recomputed: 34 of 34 table rows and 61 of 61 fence values correct, and every one of the four restatement surfaces consistent.",
     "prose_arithmetic_errors_found": 4,
-    "prose_arithmetic_detail": "See defects_outside_the_graded_set items D1-D4. Three of the four are in diagnostic prose about the client's own strings, and none is a tag length."
+    "prose_arithmetic_detail": "See defects_outside_the_graded_set items D1-D4. Three of the four are in diagnostic prose about the client's own strings, and none is a tag length.",
+    "fence_values_checked_correction_note": "CORRECTED 2026-08-17 by the second-reader pass; this field originally read 61. Under this record's own stated pass-A method ('every <title> and content= value inside every fence') the five deliverables carry 79 such values (e1 19, e2 42, e3 16, e4 0, e5 2); 61 is exactly e1+e2, so e3's 16 and e5's 2 were outside the original pass. fence_value_mismatches stays 0: the second reader re-verified every asserted length across all 79, e3's «Μήκη των τιμών παραπάνω» line (title 56 / description 153 / og:title 56 / og:description 163 / twitter:title 56 / twitter:description 163) included, and found none wrong."
   },
-
   "coverage_gaps": [
     "G1 — In-fence label placement and the closed-list vocabulary are graded by nothing. Four expectations (e1.6, e2.6, e3.6, e4.7) ban placeholders in tag values, and none of them can see whether a legitimately bracketed block carries SKELETON / ILLUSTRATIVE FILL / OPERATOR BLOCK on its FIRST in-fence line in that fence's own syntax. e5's skeleton (e5.md:83-86) is the only such block in the run; it is compliant, and nothing in the suite would have caught it if it were not.",
     "G2 — Restated character counts are graded by nothing. e1.2, e1.4, e3.2 and e3.3 grade the ±2 accuracy of the count beside the recommended tag. The same number is restated in the summary paragraph, the action-table acceptance criterion, the A/B arm and the self-check — four more surfaces, all ungraded. A partial correction would score 29/29.",
@@ -395,7 +569,6 @@
     "G13 — og:type has no row for a service page or a category page (meta-tag-code-templates.md:39-45 covers Blog post, Homepage, Product, Video, Profile). e2 (three service pages) and e3 (a 45-product category page) both chose 'website' and both explained why (e2.md:204, e3.md:111). Nothing grades the choice.",
     "G14 — viewport is ordered by SKILL.md:206 and absent from the canonical filled block at meta-tag-code-templates.md:154-181, while :118-121 presents it as a snippet that 'ship[s] as written'. The run resolved the contradiction inconsistently: present in e1 (e1.md:100, with a duplicate-tag warning at :107), absent from e2 and e3. Nothing grades it either way."
   ],
-
   "defects_outside_the_graded_set": {
     "mandatory_even_at_100_percent": "This list is populated; what was searched for and NOT found is recorded below it, so a short list is not mistaken for a shallow look.",
     "found": [
@@ -478,23 +651,73 @@
       "Unresolvable template cells: zero. No '[X]', '✅/⚠️/❌' literal, or unfilled table slot survives in any deliverable."
     ]
   },
-
   "adjudicated_claims": [
-    {"claim": 1, "subject": "SKILL.md:221 step-5 template orders a Reader-Test-banned form", "verdict": "CONFIRMED — template defect, belongs to the ordering skill, not the run. See SLF-2."},
-    {"claim": 2, "subject": "Steps jump 5 -> 9", "verdict": "CONFIRMED — content WAS removed (four steps consolidated at v3.0.0) AND the numbering is stale since v3.0.0. See template_output_validation_adjudication.workflow_step_numbering."},
-    {"claim": 3, "subject": "Three title-length targets; e5 shipped 39", "verdict": "CONFIRMED (SKILL.md:123/:297 = 50-60; meta-tag-formulas.md:276 = 55-60; ctr-and-social-reference.md:76-77 = 30-50 'fully displayed'). GRADED AS WRITTEN: e5 has NO title-length expectation, so nothing fails. SEPARATELY: a flat 50-60 is not satisfiable in e5 without fabrication or empty filler — the two sourced strings max out at 'Product Analytics Pricing | Apex Metrics' = 40 characters, and every candidate reaching 50 needs a page fact (the run lists and rejects all three at e5.md:53-55). Padding to 50 with tautology would degrade the title. The run shipped 39, named it below target at e5.md:171, cited the 30-50 band, and printed its rejected candidates — the correct behaviour under a self-contradictory skill."},
-    {"claim": 4, "subject": "e5 delivered a title and REFUSED the meta description", "verdict": "SPLIT. The Value Rule REQUIRES the description be dropped: 'A value that cannot be sourced means the property or tag is dropped, and the gap is named in the report prose: which property, what its absence costs, exactly what to send.' The run did exactly that plus a turnaround and a correctly labelled skeleton, so withholding it is right and costs the run nothing — no e5 expectation asks for a description, and e5.2 forbids one carrying claims beyond the two supplied strings, which no description could avoid. The suite does NOT expect a description shipped with caveats. What fails is the other half: shipping the TITLE as 'Recommended' and 'ready to paste tonight' breaches e5.2's lead sentence and cannot reach its carve-out, which requires a clearly-labelled PROVISIONAL sketch whose shipping is conditioned on receiving the page content. Both e5.1 and e5.2 FAIL on that one act."},
-    {"claim": 5, "subject": "Output Validation has no state for a withheld tag or a no-title run", "verdict": "CONFIRMED. SKILL.md:296-303 is a flat checkbox list with no N/A and no withheld state. e4 invented 'not applicable to this run ... recorded as out of scope' (e4.md:166); e5 invented 'not met — 39 characters, and stated as such' and 'not applicable — no description was written' (e5.md:171-172). Both honest and visible; the skill supplies neither state."},
-    {"claim": 6, "subject": "viewport ordered by SKILL.md:206, absent from the canonical filled block", "verdict": "CONFIRMED both halves. Present in e1 (e1.md:100) with a duplicate-tag warning at :107; absent from e2's three blocks and e3's block. The inconsistency is real; the skill supplies both instructions (meta-tag-code-templates.md:118-121 says the snippet ships as written, :154-181 omits it from the block introduced 'copy and paste this block')."},
-    {"claim": 7, "subject": "og:type has no row for a service page or a category page", "verdict": "CONFIRMED. meta-tag-code-templates.md:39-45 covers Blog post, Homepage, Product, Video, Profile only. Both affected runs chose 'website' and both stated the gap and the reasoning (e2.md:204; e3.md:111, which adds the correct observation that 'product' belongs on each design's own page, not on a page that is 45 of them)."},
-    {"claim": 8, "subject": "Multi-language table has no Greek row", "verdict": "CONFIRMED. meta-tag-formulas.md:275-285 lists ten languages, none of them Greek. e3.md:32 states the gap explicitly, applies the Latin-script band and shows the reasoning. Residual: the width assertion underneath it is unsourced — defect D5."},
-    {"claim": 9, "subject": "<meta name=\"title\"> is inert and sits in the canonical filled example", "verdict": "CONFIRMED. meta-tag-code-templates.md:157. Shipped in four paste-ready blocks across three deliverables (e1, e2 x3, e3), uncommented. Skill-taught — defect D9."},
-    {"claim": 10, "subject": "Reference Materials index omits meta-tag-code-templates.md", "verdict": "CONFIRMED. SKILL.md:355-358 lists two of three. The omitted file is cited in the body at :210 and :332 and is the carrier of the F13-r2 filled/skeleton split — the fix that produced this run's two recoveries."},
-    {"claim": 11, "subject": "Seven-field action contract — carried? graded?", "verdict": "TWO FACTS, BOTH NEGATIVE. Carried in this skill: NO, zero matches, and no route to any of the four 2026-08-17 references or to inter-skill-handoff.md, while seven sibling skills route to the action contract. Graded by any expectation: NO, zero matches for 'acceptance' in evals.json. All five deliverables produce a conformant table anyway, sourced from CLAUDE.md rather than from the skill. See seven_field_action_contract."},
-    {"claim": 12, "subject": "Owner-role list closed and English-only; e3 translated it", "verdict": "CONFIRMED and NOT a defect in the run. references/action-output-contract.md:76-77 gives the closed list in English and states no localisation rule, while §3's stated purpose is cross-deliverable readability. e3's four roles map 1:1 and none outside the list appears, so the client surface is right and the cross-deliverable comparability the list exists for is broken. The reference is silent; the gap is the reference's — G12. Minor: e1.md:200 and e3.md:188 use a compound owner ('Designer (asset), Content (tags)') the closed list does not contemplate, though both tokens are from it."},
-    {"claim": 13, "subject": "e2's Harrogate handling against the doorway prohibition", "verdict": "CORRECT HANDLING; THE PROHIBITION REQUIRES NOTHING MORE. references/prohibited-tactics.md §3 makes 'Location pages with real, differing content' legitimate; the Harrogate page has none, which puts it on entry 1's side today. §2 prescribes five steps and the run does all five: named plainly in the client's own language without the jargon (e2.md:90, :92 'the shape that gets treated as built to catch a search rather than to serve the person who lands on it'), exposure stated including that it is site-wide rather than page-level, remediation with an owner and a checkable acceptance criterion (Action 2, e2.md:283), ranked second of six with e2.md:289 naming it 'the largest single improvement available on these three URLs', and NOT built upon — the stronger description is held (e2.md:111, :284 'shipping it before Action 2 is the one thing on this list that would make the page worse'). §2's closing line makes e2.md:94's refusal to recommend removal REQUIRED, not a shortfall: 'A skill never removes or alters a client's live property on its own initiative.' The one thing the prohibition adds beyond naming and ranking is do-not-build-on-it, and that is exactly what the held-back description implements."}
+    {
+      "claim": 1,
+      "subject": "SKILL.md:221 step-5 template orders a Reader-Test-banned form",
+      "verdict": "CONFIRMED — template defect, belongs to the ordering skill, not the run. See SLF-2."
+    },
+    {
+      "claim": 2,
+      "subject": "Steps jump 5 -> 9",
+      "verdict": "CONFIRMED — content WAS removed (four steps consolidated at v3.0.0) AND the numbering is stale since v3.0.0. See template_output_validation_adjudication.workflow_step_numbering."
+    },
+    {
+      "claim": 3,
+      "subject": "Three title-length targets; e5 shipped 39",
+      "verdict": "CONFIRMED (SKILL.md:123/:297 = 50-60; meta-tag-formulas.md:276 = 55-60; ctr-and-social-reference.md:76-77 = 30-50 'fully displayed'). GRADED AS WRITTEN: e5 has NO title-length expectation, so nothing fails. SEPARATELY: a flat 50-60 is not satisfiable in e5 without fabrication or empty filler — the two sourced strings max out at 'Product Analytics Pricing | Apex Metrics' = 40 characters, and every candidate reaching 50 needs a page fact (the run lists and rejects all three at e5.md:53-55). Padding to 50 with tautology would degrade the title. The run shipped 39, named it below target at e5.md:171, cited the 30-50 band, and printed its rejected candidates — the correct behaviour under a self-contradictory skill."
+    },
+    {
+      "claim": 4,
+      "subject": "e5 delivered a title and REFUSED the meta description",
+      "verdict": "SPLIT. The Value Rule REQUIRES the description be dropped: 'A value that cannot be sourced means the property or tag is dropped, and the gap is named in the report prose: which property, what its absence costs, exactly what to send.' The run did exactly that plus a turnaround and a correctly labelled skeleton, so withholding it is right and costs the run nothing — no e5 expectation asks for a description, and e5.2 forbids one carrying claims beyond the two supplied strings, which no description could avoid. The suite does NOT expect a description shipped with caveats. What fails is the other half: shipping the TITLE as 'Recommended' and 'ready to paste tonight' breaches e5.2's lead sentence and cannot reach its carve-out, which requires a clearly-labelled PROVISIONAL sketch whose shipping is conditioned on receiving the page content. Both e5.1 and e5.2 FAIL on that one act."
+    },
+    {
+      "claim": 5,
+      "subject": "Output Validation has no state for a withheld tag or a no-title run",
+      "verdict": "CONFIRMED. SKILL.md:296-303 is a flat checkbox list with no N/A and no withheld state. e4 invented 'not applicable to this run ... recorded as out of scope' (e4.md:166); e5 invented 'not met — 39 characters, and stated as such' and 'not applicable — no description was written' (e5.md:171-172). Both honest and visible; the skill supplies neither state."
+    },
+    {
+      "claim": 6,
+      "subject": "viewport ordered by SKILL.md:206, absent from the canonical filled block",
+      "verdict": "CONFIRMED both halves. Present in e1 (e1.md:100) with a duplicate-tag warning at :107; absent from e2's three blocks and e3's block. The inconsistency is real; the skill supplies both instructions (meta-tag-code-templates.md:118-121 says the snippet ships as written, :154-181 omits it from the block introduced 'copy and paste this block')."
+    },
+    {
+      "claim": 7,
+      "subject": "og:type has no row for a service page or a category page",
+      "verdict": "CONFIRMED. meta-tag-code-templates.md:39-45 covers Blog post, Homepage, Product, Video, Profile only. Both affected runs chose 'website' and both stated the gap and the reasoning (e2.md:204; e3.md:111, which adds the correct observation that 'product' belongs on each design's own page, not on a page that is 45 of them)."
+    },
+    {
+      "claim": 8,
+      "subject": "Multi-language table has no Greek row",
+      "verdict": "CONFIRMED. meta-tag-formulas.md:275-285 lists ten languages, none of them Greek. e3.md:32 states the gap explicitly, applies the Latin-script band and shows the reasoning. Residual: the width assertion underneath it is unsourced — defect D5."
+    },
+    {
+      "claim": 9,
+      "subject": "<meta name=\"title\"> is inert and sits in the canonical filled example",
+      "verdict": "CONFIRMED. meta-tag-code-templates.md:157. Shipped in four paste-ready blocks across three deliverables (e1, e2 x3, e3), uncommented. Skill-taught — defect D9."
+    },
+    {
+      "claim": 10,
+      "subject": "Reference Materials index omits meta-tag-code-templates.md",
+      "verdict": "CONFIRMED. SKILL.md:355-358 lists two of three. The omitted file is cited in the body at :210 and :332 and is the carrier of the F13-r2 filled/skeleton split — the fix that produced this run's two recoveries."
+    },
+    {
+      "claim": 11,
+      "subject": "Seven-field action contract — carried? graded?",
+      "verdict": "TWO FACTS, BOTH NEGATIVE. Carried in this skill: NO, zero matches, and no route to any of the four 2026-08-17 references or to inter-skill-handoff.md, while seven sibling skills route to the action contract. Graded by any expectation: NO, zero matches for 'acceptance' in evals.json. All five deliverables produce a conformant table anyway, sourced from CLAUDE.md rather than from the skill. See seven_field_action_contract."
+    },
+    {
+      "claim": 12,
+      "subject": "Owner-role list closed and English-only; e3 translated it",
+      "verdict": "CONFIRMED and NOT a defect in the run. references/action-output-contract.md:76-77 gives the closed list in English and states no localisation rule, while §3's stated purpose is cross-deliverable readability. e3's four roles map 1:1 and none outside the list appears, so the client surface is right and the cross-deliverable comparability the list exists for is broken. The reference is silent; the gap is the reference's — G12. Minor: e1.md:200 and e3.md:188 use a compound owner ('Designer (asset), Content (tags)') the closed list does not contemplate, though both tokens are from it."
+    },
+    {
+      "claim": 13,
+      "subject": "e2's Harrogate handling against the doorway prohibition",
+      "verdict": "CORRECT HANDLING; THE PROHIBITION REQUIRES NOTHING MORE. references/prohibited-tactics.md §3 makes 'Location pages with real, differing content' legitimate; the Harrogate page has none, which puts it on entry 1's side today. §2 prescribes five steps and the run does all five: named plainly in the client's own language without the jargon (e2.md:90, :92 'the shape that gets treated as built to catch a search rather than to serve the person who lands on it'), exposure stated including that it is site-wide rather than page-level, remediation with an owner and a checkable acceptance criterion (Action 2, e2.md:283), ranked second of six with e2.md:289 naming it 'the largest single improvement available on these three URLs', and NOT built upon — the stronger description is held (e2.md:111, :284 'shipping it before Action 2 is the one thing on this list that would make the page worse'). §2's closing line makes e2.md:94's refusal to recommend removal REQUIRED, not a shortfall: 'A skill never removes or alters a client's live property on its own initiative.' The one thing the prohibition adds beyond naming and ranking is do-not-build-on-it, and that is exactly what the held-back description implements."
+    }
   ],
-
   "greek_editor_referral": {
     "eval": "e3",
     "expectation": "e3.4",
@@ -506,7 +729,6 @@
     "mechanical_layer_result": "CLEAN — correct final sigma throughout, no word-internal ς, zero Latin runs inside any Greek tag value, tonos present, no English boilerplate, no ruled FAIL-grade family 1-6 hit.",
     "grader_forms_no_view_on": "register, idiom, retail naturalness, translation-ese. The whole document is Greek, not only the tags — the editor may also want to look at the report prose, notably «Στοιχεία που τραβούν το κλικ» and «Λέξεις έντασης» as renderings of 'CTR boosting elements' and 'power words', and «Μοντέλο εργασίας μας» for 'working model'."
   },
-
   "tool_correctness": {
     "tool_errors_encountered": [],
     "checker_false_verdicts_self_caught": 3,
@@ -524,7 +746,6 @@
     "deliverables_unmodified": "md5 of all five deliverables recorded at close; none was written to by this grader. e1 541bf4dd4033c4b4a12fe88f6b7f02d3, e2 97b3845338930a67b2272bffd9d54aed, e3 e10496bf01f85d74ab0276f2361bef22, e4 25936d9f0cb0d0258c6fe2da68bc423d, e5 6fdeede03aa17269e6f260df850449b2.",
     "validator_note": "scripts/validate-skill.sh not run — it belongs to Mode A diff review; no diff was under review."
   },
-
   "eval_improvement_feedback": [
     "1. e5.1 / e5.2 — escalated as SLF-1 rather than repeated as feedback, because the identical recommendation was made in the 2026-08-10 record and not actioned. Either merge them into one hold-the-line expectation, or make e5.1 test ONLY the input request so the two are independent, or extend e5.2's provisional-sketch carve-out into e5.1 so a deliverable can act on it.",
     "2. e1.2 — 'every proposed title option and A/B variant is 30-60 characters' collides with the skill's own A/B template (SKILL.md:256), which puts the CURRENT title in Version A. On this fixture the current title is 128 characters, so a deliverable following its own skill's template can only pass by reading 'proposed' as distributing over both nouns. Suggest 'every proposed title option and every proposed A/B variant', or an explicit carve-out for the Version-A incumbent.",
@@ -534,7 +755,6 @@
     "6. NO expectation anywhere in this suite grades the seven-field action contract, the query-cluster register, connector-token resolution, Reader-Test placement, in-fence skeleton labelling, or the restated character counts — six behaviours the deliverables spend a large share of their length on. The suite measures the 2026-08-09 skill well and the 2026-08-17 library not at all.",
     "7. Consider one expectation for the arithmetic surfaces the suite currently cannot see: 'every restatement of a character count — in the summary, the action table and the self-check — matches the count beside the tag and the true length of the string'. This run would pass it; a partial correction would not, and today a partial correction scores 29/29."
   ],
-
   "notes_for_coordinator": {
     "ledger_actions": [
       "F13 — NO new recurrence from this suite. Report the opposite: the F13-r2 carrier shipped as meta-tags-optimizer 4.1.3 (the filled/skeleton split in meta-tag-code-templates.md, the SKILL.md:208 placement rule, the Output Validation checkbox at :301) was exercised BLIND for the first time and HELD — zero placeholder tokens in any value position across five deliverables, where the founding instance produced two. Per F13-r3's own standard ('any carrier added in response to a ledgered failure is unproven until a blind run exercises it'), this is the first carrier in this suite to clear that bar. Worth recording as such, since the ledger currently holds only the failures.",
@@ -544,7 +764,6 @@
     "do_not_merge_flag": "None. Zero regressions.",
     "single_most_consequential_finding": "The seven-field action contract, the query-cluster ownership register and the prohibited-tactics handling are the three best things in these five deliverables, and the skill under test carries none of them. All five action tables, the Harrogate doorway treatment and e2's ownership register came from root CLAUDE.md, which references/prohibited-tactics.md's own header says the running library does not carry. A 26/29 on this suite therefore certifies a version of the skill that does not exist outside this repository."
   },
-
   "artefacts": {
     "deliverables": [
       "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-2026-08-17/meta-tags-optimizer/e1.md",
@@ -555,5 +774,62 @@
     ],
     "grading_record": "/home/user/seo-geo-claude-skills/docs/loop/eval-baselines/blind-2026-08-17/meta-tags-optimizer.json",
     "prior_blind_record": "/home/user/seo-geo-claude-skills/docs/loop/eval-baselines/blind-2026-08-10/metatags.json"
+  },
+  "second_read": {
+    "date": "2026-08-17",
+    "reader": "second reader, narrowed pass (not a re-grade). Separate agent from the executor and from the grader of this record.",
+    "repo_head_at_second_read": "b5135d431aeef7910426d03c82bcf5828d6ece99",
+    "scope": "THREE MOVES ONLY, per the coordinator's brief: (1) recompute every figure this record QUOTES inside its own expectations[].evidence and its out-of-set defect entries; (2) a spelled-out-number sweep of all five deliverables in English and Greek against the fixtures (ledger F15-r5 instance 2 — the fabrication screens in this corpus enumerate digits, so a quantity written as a word passes them); (3) currency of the record against HEAD (ruling M2) plus denominator drift against evals.json at HEAD. NO expectation was re-graded, no deliverable was re-run, no skill/script/suite/register was edited.",
+    "not_re_verified_taken_on_trust": [
+      "Every PASS/FAIL verdict as such. Verdicts were read, not re-derived; a wrong verdict with arithmetically correct evidence would survive this pass.",
+      "The blindness of the executor's run (asserted by the record; not observable here).",
+      "Qualitative judgements: register, idiom, tone, whether a hedge is adequate, whether a defect's severity label is right.",
+      "The Greek-editor slots. Still EDITOR-PENDING; this pass adds nothing to them.",
+      "Coverage-gap analysis and step-7 suite findings, except where a number inside one was quoted."
+    ],
+    "method_notes": "Every number below was recomputed from the fixture or the saved deliverable at the shell, and the flagged location was opened at source before any figure was called wrong (ledger F7). Where the record states its own counting convention, that convention was read first and applied.",
+    "moves_run": [
+      "1 — quoted-figure recomputation",
+      "2 — spelled-out-number sweep",
+      "3 — currency at HEAD"
+    ],
+    "numbers_recomputed": [
+      "arithmetic_check.table_rows_checked = 34, mismatches 0 — REPRODUCED INDEPENDENTLY. A separate parser (unescaped-pipe split, len() under LC_ALL=C.UTF-8) found exactly 34 markdown rows pairing a string with a stated count across the five deliverables and 0 mismatches: e1 6, e2 19, e3 7, e5 2. Same count, same verdict.",
+      "arithmetic_check.fence_values_checked = 61 — WRONG, CORRECTED IN PLACE TO 79. Under this record's OWN stated pass-A method ('every <title> and content= value inside every fence'), the five deliverables carry 79 such values: e1 19, e2 42, e3 16, e4 0, e5 2. 61 is exactly e1+e2, so e3's 16 and e5's 2 were outside the pass. THE SUBSTANTIVE CLAIM WAS RE-VERIFIED AND HOLDS: zero mismatches across all 79. Every asserted length was checked against the string — e1.md:105 ('title 57, meta description 156, og:title 48, og:description 160, twitter:title 48, twitter:description 160') all six correct; e2.md:202 (51/54/53 and 155/157/154, og and twitter equivalents) all correct; e3.md:109 ('title 56, meta description 153, og:title 56, og:description 163, twitter:title 56, twitter:description 163') all six correct — and e3 is precisely the file the 61 omitted.",
+      "'The correction landed in all four places — no partial correction' — CONFIRMED AT ALL FOUR, checked one by one because a correction landing only in the first surface is the failure mode. e2 option tables :52/:53/:54 = 155/155/159, :78/:79/:80 = 157/154/158, :110/:111 = 154/153 (all eight recomputed exact); summary paragraph :202 = 155/157/154 and 51/54/53 exact; action-table acceptance criterion :282 '(51/54/53 and 155/157/154 characters)' exact; :284 'the 153-character Option 2 string' exact against the Harrogate Option 2 string; self-check :295-296 exact. Also checked the sibling restatement chains the record asserts elsewhere: e1's 156 at :56/:105/:175/:198/:211 (five surfaces, all correct) and e3's 56 at :42/:109/:186/:197 and 153 at :65/:109/:186/:198 (all correct).",
+      "e1.1 evidence 'len() of the fixture title at blog-descale-espresso-en.md:8 is exactly 128' — CONFIRMED, 128.",
+      "D1 'Descaling begins at index 76 and Espresso Machine at index 112 — 36 characters apart by start index, 27 edge-to-edge' — CONFIRMED exactly (76, 112, 112-76=36, 112-85=27). The deliverable's 'seventy-odd' is wrong and the record is right about it.",
+      "D2 \"'Cleaning' is at index 66, BEFORE 'Descaling' (76). Only 'Maintaining' (90) sits between\" — CONFIRMED exactly (66, 76, 90, 112).",
+      "D3 \"'End of Tenancy Cleaning in York' is 31 characters\" — CONFIRMED 31; the deliverable's 'characters 1-32' at e2.md:68 is the off-by-one the record names.",
+      "D4 \"'Harrogate' occupies characters 23-31\" — CONFIRMED (1-based 23..31); the deliverable's 'characters 22-31' is the off-by-one the record names.",
+      "e2.2 evidence '(26 chars) / (31) / (21)' for the three front-loaded service+city strings — CONFIRMED 26 / 31 / 21.",
+      "e3.1 evidence \"len('Αρχική Σελίδα') = 13\" and the 123-character fixture title — CONFIRMED 13 and 123.",
+      "e3.2 evidence «Χειροποίητα σανδάλια» 'occupying characters 1-20 of 56' — CONFIRMED, len 20 and len 56.",
+      "e3.3 evidence: replacement description 153; the deliverable's «περίπου 80» residual against 238-160=78 — CONFIRMED 238, 153, and the residual is 78 stated as an explicit approximation.",
+      "regressions_vs_baseline.suite_diff 'exactly ONE difference, e3.4' — REPRODUCED PROGRAMMATICALLY by diffing git show df63d1e:evals.json field-by-field against HEAD: 29 vs 29 expectations, one differing string, e3.4.",
+      "Baseline quote '24 pass / 4 fail / 1 editor-pending = 82.8%' — CONFIRMED against blind-2026-08-10/metatags.json (totals.pass 24, fail 4, editor_pending 1, total 29); 24/29 = 82.76%.",
+      "summary and per_eval internal arithmetic — CONFIRMED: per_eval passed 6+6+5+7+2 = 26, failed 2, editor_pending 1, totals 6+6+6+7+4 = 29 and matching evals.json at HEAD (6/6/6/7/4); 26/29 = 0.8966; 27/29 = 0.9310; movement 2/29 = 6.90 points; 29-2-2 = 25 unmoved.",
+      "'4.1.2 ... moved four patch/minor steps' — CONFIRMED against VERSIONS.md: 4.1.2 -> 4.1.3 -> 4.2.0 -> 4.2.1 -> 4.2.2, four steps."
+    ],
+    "numbers_recomputed_count": {
+      "checked": 61,
+      "wrong": 1,
+      "corrected_in_place": 1
+    },
+    "corrections_made": [
+      "arithmetic_check.fence_values_checked: 61 -> 79, with the omission named. arithmetic_check.fence_value_mismatches stays 0 — re-verified across all 79 by the second reader, including the 18 the original pass did not reach."
+    ],
+    "nearly_recorded_then_cleared": [
+      "The four-surface correction claim: an earlier reading of e2.md:284 ('the 153-character Option 2 string') looked like it contradicted :282's '155/157/154'. Opened at source: 153 is the HARROGATE Option 2 description at :111, a held-back string, not one of the three shipped descriptions. No finding.",
+      "'11 characters of \"| Beanhaus\"' (e1.md:39) reads as 10 on a bare count of '| Beanhaus'. It is 11 with the separating space (59 - 48 = 11), which is the operative quantity. No finding."
+    ],
+    "spelled_out_number_sweep": "CLEAN. All five deliverables swept for English and Greek spelled-out quantities. Every hit traces to a fixture or to the deliverable's own countable content ('five numbered steps' <- the fixture's five steps; 'three pages' <- the three fixture URLs; «δεκάδες σχεδόν ίδιες σελίδες» is an explicitly conditional filter-URL warning, not a count of anything asserted to exist). No instance of ledger F15-r5's class — a specific count sold as confidence and traceable to nothing.",
+    "currency_verdict": {
+      "graded_version": "4.2.2",
+      "head_version": "4.2.2 (build/meta-tags-optimizer/SKILL.md, version and metadata.version in lockstep)",
+      "verdict": "CURRENT. The only record of the five that is.",
+      "evidence": "git diff 794724d..b5135d4 -- build/meta-tags-optimizer/ is EMPTY: the skill, its three references, the fixtures and evals.json are byte-identical to the graded state. VERSIONS.md:17 agrees at 4.2.2.",
+      "denominator_drift": "NONE. evals.json at HEAD carries 29 expectations (6/6/6/7/4), the record's total. No commit has touched build/meta-tags-optimizer/evals/ since 3a8d62c (2026-08-10), before the graded state."
+    }
   }
 }

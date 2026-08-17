@@ -666,5 +666,57 @@
       "expectation": "e3.2",
       "issue": "'echoing its churn/[VERIFY] caveat is a plus; asserting roster completeness as fact fails' mixes a bonus and a failure condition in one clause with no stated weight. A deliverable that says nothing at all about the roster's stability neither earns the plus nor trips the fail - which is probably not the intent, given the roster carries a live [VERIFY] tag in kpi-definitions.md."
     }
-  ]
+  ],
+  "second_read": {
+    "date": "2026-08-17",
+    "reader": "second reader, narrowed pass (not a re-grade). Separate agent from the executor and from the grader of this record.",
+    "repo_head_at_second_read": "b5135d431aeef7910426d03c82bcf5828d6ece99",
+    "scope": "THREE MOVES ONLY, per the coordinator's brief: (1) recompute every figure this record QUOTES inside its own expectations[].evidence and its out-of-set defect entries; (2) a spelled-out-number sweep of all five deliverables in English and Greek against the fixtures (ledger F15-r5 instance 2 — the fabrication screens in this corpus enumerate digits, so a quantity written as a word passes them); (3) currency of the record against HEAD (ruling M2) plus denominator drift against evals.json at HEAD. NO expectation was re-graded, no deliverable was re-run, no skill/script/suite/register was edited.",
+    "not_re_verified_taken_on_trust": [
+      "Every PASS/FAIL verdict as such. Verdicts were read, not re-derived; a wrong verdict with arithmetically correct evidence would survive this pass.",
+      "The blindness of the executor's run (asserted by the record; not observable here).",
+      "Qualitative judgements: register, idiom, tone, whether a hedge is adequate, whether a defect's severity label is right.",
+      "The Greek-editor slots. Still EDITOR-PENDING; this pass adds nothing to them.",
+      "Coverage-gap analysis and step-7 suite findings, except where a number inside one was quoted."
+    ],
+    "method_notes": "Every number below was recomputed from the fixture or the saved deliverable at the shell, and the flagged location was opened at source before any figure was called wrong (ledger F7). Where the record states its own counting convention, that convention was read first and applied.",
+    "moves_run": [
+      "1 — quoted-figure recomputation",
+      "2 — spelled-out-number sweep",
+      "3 — currency at HEAD"
+    ],
+    "numbers_recomputed": [
+      "EVERY figure in arithmetic_check.spot_values_confirmed was recomputed from the four fixtures. ALL RECONCILE AT THE PRECISION PRINTED; not one is wrong. Deltas 21.4286 / 25.6000 / 40.0 / 15.2174 / 15.0838; ratios 4.0000, 3.5886, 1.9328, 1.8339, 13.0000, 2.2999, 1.9611; ROI 128.8889, 98.8889 and the named trap 228.8889; mix 80.0 -> 87.1429, 20.0/12.857, 61.429, 25.714.",
+      "The weighted-position reconstructions, which are the record's own evidence that the run computed rather than copied — CONFIRMED FROM THE SEGMENT TABLE: July 9000x1.2 + 43000x6.5 + 18000x14.9 = 558,500 and /70,000 = 7.9786 (the fixture's printed 7.98); June 10000x1.2 + 40000x6.8 = 284,000 and /50,000 = 5.6800 (the fixture's printed 5.68); ex-cluster 290,300/52,000 = 5.5827. The June reconstruction landing exactly on the fixture's own reported figure is a strong check and it holds.",
+      "AI referrals: 50->95 = +90.0%; shares 1.2279 and 2.0369 with a +0.8090 pp difference; reworked +194.4444, holdout +33.3333, other +29.4118, delta vs control 161.1111 pp; AI CVR 2.0 and 3.1579; '35 of 45 = 77.8%' — ALL CONFIRMED.",
+      "Quarters 31/92 = 33.6957, 30/91 = 32.9670, 41/92 = 44.5652 — CONFIRMED.",
+      "Greek goals: 2,890/2,800 = 103.2143; 53/60 = 88.3333; 2,890 x 0.0193277 = 55.858 -> 56 and the three-order gap (56-53); 60/0.0183391 = 3,271.7; 60/0.0193277 = 3,104.35; AOV 2,060/53 = 38.868 and 60 x 38.868 = 2,332.08 — ALL CONFIRMED.",
+      "Bands 2,890 x 1.03 = 2,976.7 and 2,890 x 1.10 = 3,179.0 — CONFIRMED.",
+      "Misc: users 405/1,905 = 21.26 -> 21.3; 2,890/2,310 = 1.251 -> 1.25 sessions per user; 2,159/52,000 = 4.15%; 353/2,512 = 14.05 -> 14.1%; 54/2,890 = 1.87% and 52/2,890 = 1.80%; revenue per session 0.7128 -> 0.71 and 0.7521 -> 0.75 — ALL CONFIRMED.",
+      "D1 'The cluster is 90.0% of the growth, not the whole of it' — CONFIRMED: impressions 70,000-50,000 = 20,000, cluster 18,000, established +3,000, brand -1,000, and 18,000+3,000-1,000 = 20,000. The click half 353/512 = 68.95% -> '69%' is exact, as the record says, and the corroborating e2 decomposition -30 / +189 / +353 sums to 512 exactly.",
+      "D2 'the cluster's own contribution is +2.40 position points and the pre-existing segments contributed -0.10' against a site-wide +2.30 — CONFIRMED (7.98-5.68 = 2.30; 7.98-5.58 = 2.40; 5.58-5.68 = -0.10).",
+      "D3, the perturbation cells — CONFIRMED, AND ITS EXPLANATION IS CONFIRMED TOO. Exact: 231.25 - 53.8462 = 177.4038 and 231.25 - 17.6471 = 213.6029. Printed: 177.5 and 213.7. Those come from subtracting the DISPLAYED operands (231.3 - 53.8 and 231.3 - 17.6), which is exactly the cause the record names. The other two rows agree on both paths (147.4 and 111.2) and the headline 161.1 pp is exact.",
+      "D6 'one of which came in at 88.3% of target while the other beat its target by 90 sessions' — CONFIRMED (53/60 = 88.33%; 2,890 - 2,800 = 90).",
+      "summary and per_eval — CONFIRMED: passed 27, failed 1, editor_pending 1, total 29 matching evals.json at HEAD (7/5/6/5/6); 27/29 = 0.9310; 28/29 = 0.9655."
+    ],
+    "numbers_recomputed_count": {
+      "checked": 62,
+      "wrong": 0,
+      "corrected_in_place": 0
+    },
+    "corrections_made": [],
+    "nearly_recorded_then_cleared": [
+      "THE SHARPEST NEAR-MISS OF THIS WHOLE PASS, and it is an F7 case. My checker reported D3's explanation as wrong: subtracting displayed-rounded operands appeared to give 177.4 and 213.6, i.e. the same as the exact path, which would have made the record's stated cause a fabrication. Opening e3.md:117 and :119 showed the deliverable prints its own operand as 231.3%, and 231.3 - 53.8 = 177.5 and 231.3 - 17.6 = 213.7 exactly. The disagreement was Python's round() using banker's rounding on 231.25 -> 231.2 where the deliverable rounds half up to 231.3. A false finding against a correct record, avoided only by reading the deliverable's printed operands rather than trusting the recomputation.",
+      "'60/0.019328 = 3,104.35' does not hold on the displayed-rounded divisor (that gives 3,104.30). It holds on the exact ratio 53/2,890, which is what the deliverable back-solves from and what the record means. Notational shorthand, correct answer. Not a finding."
+    ],
+    "spelled_out_number_sweep": "CLEAN in both languages, and this suite has the most spelled-out quantities of the five because e5 is Greek and its subject is counting. Every one traces to a fixture: «τέσσερις βοηθούς» = the four AI hostnames; «έξι νέοι οδηγοί» in «τρεις ημέρες» = the six guides live 24-26 June; «δώδεκα ζευγάρια» = 6 URLs x 2 links, stated; «μηδέν, μηδέν, μία και δύο παραγγελίες πάνω σε 5, 10, 22 και 58 συνεδρίες» is exact against the referral fixture's July rows; «τρεις παραγγελίες» = 0+0+1+2; «πτώση τριών παραγγελιών» = the 56-53 counterfactual gap. English side: 'the two brand queries' matches the GSC top-query table; 'the twelve linking-page pairs' is 6 x 2 and says so. No instance of ledger F15-r5's class.",
+    "currency_verdict": {
+      "graded_version": "4.5.0",
+      "head_version": "4.6.0 (monitor/performance-reporter/SKILL.md, version and metadata.version in lockstep)",
+      "verdict": "NOT CURRENT — stale under settled ruling M2, suite due a re-run.",
+      "evidence": "Two commits landed after this record closed: f24a7b7 (2026-08-17 15:21, four truncated templates repaired) and 5266d39 (2026-08-17 16:51, 'close the rating-band gaps by rounding, per Sani's ruling'). git diff 61ac57a..b5135d4 -- monitor/performance-reporter/ = 2 files, +9/-5, in SKILL.md and report-output-templates.md.",
+      "direct_relevance": "5266d39's rating-band rounding is the subject of this record's own D6 and suite finding S2 — the «Κρίσιμη» rating on a two-KPI denominator, and the undefined fifth rating value 'not rated'. The instrument this record grades against has moved underneath exactly the finding it raised, which is the case M2 exists to catch. Note also this record's headline_caution: 'the suite predates a 356-line rewrite of the skill and grades almost none of it' — the coverage gap it flags is now one wave wider.",
+      "denominator_drift": "NONE. evals.json at HEAD carries 29 expectations (7/5/6/5/6), the record's total; monitor/performance-reporter/evals/ untouched since 3a8d62c (2026-08-10)."
+    }
+  }
 }

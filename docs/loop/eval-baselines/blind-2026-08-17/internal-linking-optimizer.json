@@ -612,5 +612,58 @@
       "expectation": "e1.6 / prior-tree e1.6",
       "issue": "Not a wording problem, a records problem: the ID e1.6 now asks a different question from the one it asked at blind-2026-08-10b (similarity 0.04), and the old question moved to e1.7. Any per-ID comparison across the two records mis-maps it. Recommend that INSTRUMENT-CHANGES.md record ID reuse explicitly, or that renumbering append rather than reuse."
     }
-  ]
+  ],
+  "second_read": {
+    "date": "2026-08-17",
+    "reader": "second reader, narrowed protocol (three moves), separate agent from the grader",
+    "scope": "NOT a full re-grade. Three moves only: (1) recompute every figure the record quotes inside its own evidence and defect entries; (2) sweep the deliverables for numbers written as WORDS, English and Greek, per ledger F15-r5 instance (2) — the digit-enumerating fabrication screens in this corpus are structurally blind to them; (3) check whether the record is still current at HEAD under ruling M2 and against the suite at HEAD.",
+    "repo_head_at_second_read": "b5135d431aeef7910426d03c82bcf5828d6ece99",
+    "deliverables_frozen": "Confirmed: every deliverable mtime is the original run's (11:22-11:53Z). Nothing was re-run and no output was produced by this reader.",
+    "f7_discipline": "Every recomputation that disagreed with the record was taken back to the source file and read in context before any verdict, and where the record states its own method for a figure that method was applied rather than a reader's default. This step changed the outcome twice — see nearly_recorded_then_cleared.",
+    "input_recheck_at_close": "HEAD unchanged across the pass (b5135d4 -> b5135d4). `git status` at close shows one modified file, docs/loop/eval-baselines/blind-2026-08-17/rank-tracker.json, which belongs to another lane and was neither read nor touched. All four evals.json blobs, both loop registers and all four SKILL.md files re-hashed identical between open and close.",
+    "moves_run": [
+      "move 1 — recompute every quoted figure",
+      "move 2 — spelled-out-number sweep (EN + EL)",
+      "move 3 — currency at HEAD"
+    ],
+    "move_1_result": "HOLDS. 0 of 44 recomputed figures wrong. The graph was rebuilt from the two link-map fixtures by an independent parser rather than read back from the record, and every population, count, percentage, score and after-state figure the record states reproduces exactly.",
+    "re_verified_independently": [
+      "velomend graph rebuilt from site-linkmap-velomend-en.md: 8 pages, 14 in-body link instances, 1 pointing at the deleted /blog/wheel-truing, 13 live, 7 template logo links, 21 total. 14/8 = 1.7500 and 13/8 = 1.6250. EXACT.",
+      "velomend inbound vector, recomputed target by target: / 0, /services/bike-repair 1, /blog/bike-maintenance-guide 5, /blog/chain-cleaning 3, /blog/brake-adjustment 2, /blog/gear-indexing 1, /blog/puncture-repair 1, /blog/winter-bike-storage 0 — sum 13. EXACT, row for row.",
+      "velomend anchors: 'bike maintenance' 3 of the 5 links into the guide = 60%; 'read our guide' twice, to /blog/puncture-repair and /blog/brake-adjustment, i.e. two different targets; content-free anchors 3 of 14 = 21.4%. EXACT.",
+      "ladikritis graph rebuilt from site-linkmap-ladikritis-el.md: 6 pages, 11 in-body, 0 broken, 5 template, 16 total; 11/6 = 1.8333. Inbound / 0, shop 5, pillar 4, oxytita 1, apothikefsi 0, ladera 1 — sum 11. EXACT.",
+      "ladikritis anchors: shop repetition 3/5 = 60%, pillar repetition 2/4 = 50%, content-free («πατήστε εδώ», «διαβάστε περισσότερα») 2/11 = 18.2%, over-repeated 6/11 = 54.5%. EXACT, and the 6 resolve to «εξαιρετικό παρθένο ελαιόλαδο» x3, «οδηγός ελαιολάδου» x2 and «ελαιόλαδο κρήτης προσφορά», which is the ⚠️ set the anchor score uses.",
+      "Structure Scores: e1 10 x 1.0 / 6 = 1.6667 -> 2; e3 10 x 2.5 / 6 = 4.1667 -> 4. EXACT.",
+      "Anchor Scores, with the grade partition rebuilt from the fixture rather than read back: e1 8 ✅ + 3 ⚠️ + 3 ❌ = 14 instances scoring 8.0 + 1.5 + 0 = 9.5, 10 x 9.5 / 14 = 6.7857 -> 7; e3 3 ✅ + 6 ⚠️ + 2 ❌ = 11 scoring 3.0 + 3.0 + 0 = 6.0, 10 x 6.0 / 11 = 5.4545 -> 5; e4 projected 14.0 / 14 -> 10. EXACT, and both partitions account for every in-body link in their fixture with nothing left over.",
+      "After-state figures: e1 13 + 10 + 1 = 24, 24/8 = 3.0, services inbound 1 -> 5, guide exact-match 3/5 -> 1/7 = 14%; e2 14 + 15 = 29 with the additions recounted as 5+3+3+2+2 = 15, 29/9 = 3.2222, per-page 8/5/4/3/3/3/2/1 = 29, exact-match 1/8 = 12.5%; e3 11 + 8 = 19, 19/6 = 3.1667, after-inbound 3/3/3/5/5/0 = 19, 1/5 = 20%; e4 held constant at 14 and 1.75 and labelled Unchanged. ALL EXACT.",
+      "Action counts: e1 7 + 5 + 6 = 18; e3 6 + 5 + 5 = 16 and 8 new links + 6 rewrites + 2 navigation = 16; e4 2 + 2 + 2 + 2 = 8. EXACT.",
+      "Defect D1 re-read at source: e3.md:189's «πέντε φορές την ίδια» against e3.md:181-182 «4 από τους 5 ... και οι 3 από αυτούς έχουν πανομοιότυπο κείμενο» and the fixture's three identical «εξαιρετικό παρθένο ελαιόλαδο» anchors of five inbound. The record's finding stands."
+    ],
+    "move_2_spelled_out_numbers": {
+      "method": "Cardinals two and above, English and Greek, across all five deliverables, then a targeted sweep for the F15-r5 shape.",
+      "result": "CLEAN, AND THE ONE INSTANCE OF THE F15-r5 CLASS IN THESE FIVE FILES WAS ALREADY CAUGHT BY THE ORIGINAL GRADER. e5.md:104 'Two of our clients did exactly this and it worked fine' is a spelled-out count attached to an unverifiable population, in client-read prose, in an eval that supplies nothing but a domain name — the founding shape of F15-r5 instance (2) and of F3-r2. It is recorded as this record's D2 at severity medium with the right diagnosis. Across the wave's four records this lane holds, this is the only record whose own screens reached the class.",
+      "everything_else_traces": "165 hit lines narrowed and read. 'three bad anchors out of fourteen is 21%' recomputes (3/14); 'four of these five need no new copy'; 'six changes split into four weeks, two per week' = 8, matching the checkbox count. No other spelled-out quantity asserts anything the fixtures do not carry.",
+      "looked_at_and_cleared": "e5.md:74 'it is the half most people skip' — a hedged aside about practitioner habit inside the agency's own how-to, carrying no count and making no claim about the client or a third party. Read in context and not recorded; it is the same family as the record's own D4 but below the threshold D4 itself sets."
+    },
+    "nearly_recorded_then_cleared": [
+      {
+        "what": "The anchor-score divergence from the skill's own worked example looked like an arithmetic error.",
+        "how_it_resolved": "score-rubric.md §7 works the same fixture to 10.5/14 where the deliverables reach 9.5/14, because the two 'read our guide' links fall in two grade classes at once and the rubric does not order them. Recomputed both ways: 10 x 10.5 / 14 = 7.5 -> 7 and 10 x 9.5 / 14 = 6.7857 -> 7. The displayed score is 7 under either rule, so nothing downstream moves — which is exactly what the record says, and it is right to call it a rubric-ordering gap rather than a defect."
+      }
+    ],
+    "corrections_made": "NONE. No quoted figure in this record required correction.",
+    "verdict_changes": "NONE. `summary` and `per_eval` are unchanged.",
+    "move_3_currency": {
+      "verdict": "CURRENT. The only one of this lane's four that is.",
+      "version": "Graded at 4.5.0; HEAD carries 4.5.0 (optimize/internal-linking-optimizer/SKILL.md:3 and :10, in lockstep). The last commit touching the skill directory is eee0d0f, 2026-08-17T10:48:57Z — before the first deliverable was saved at 11:22Z, which the record already states. Nothing has landed on this skill since. Ruling M2 is satisfied, not waived.",
+      "denominator_drift": "NONE. evals.json last changed at 3a8d62c, 2026-08-10T21:26:54Z, and the HEAD blob 0680c0835663d4e35aa41f0ac790fcc59bc0663d is that version. 30 expectations at grading time and 30 at HEAD, 7/7/6/6/4.",
+      "consequence": "This record can be cited as it stands. Its one regression against blind-2026-08-10b and its six out-of-set defects are current findings against the shipped skill, not findings against a version that has since moved."
+    },
+    "what_was_taken_on_trust": [
+      "Register/naturalness of the Greek in e3 — e3.4 remains EDITOR-PENDING.",
+      "The per-expectation PASS/FAIL judgements, except where a quoted figure was recomputed; the e2 regression was read but not re-adjudicated.",
+      "The Reader Test and Value Rule fence screens, and the family screens, which were not re-run.",
+      "Defects D3-D6, which are sourcing and formatting judgements rather than arithmetic."
+    ]
+  }
 }

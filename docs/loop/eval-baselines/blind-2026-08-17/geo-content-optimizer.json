@@ -212,7 +212,7 @@
       "id": "e5.2",
       "text": "The fixture's unsourced 'around 90% of their time indoors' claim is not laundered into a fake citation: dropped, hedged in the published copy, or tagged in the report/gap sections rather than inside the published copy or its schema — and it must NOT acquire an invented attribution.",
       "passed": true,
-      "evidence": "Dropped, figure and all, with the decision recorded in a report section: L169 '\"Studies show that people spend around 90% of their time indoors\" | **Cut, figure and all** | No study is named, and we will not attach a source we have not read to a number in order to keep it. It is also the page's only figure, so cutting it is why factual density did not improve. A named, dated, linkable publication from a public-health or environment body restores the sentence with a citation.' '90%' appears 4 times in the file and 0 times in the published fence. `grep -E 'EPA|WHO|World Health|Environmental Protection'` returns 0 hits; no body of any kind is named. No `[SOURCE NEEDED]` token appears inside the published copy either, so the placement half of the clause is satisfied in the safe direction."
+      "evidence": "Dropped, figure and all, with the decision recorded in a report section: L169 '\"Studies show that people spend around 90% of their time indoors\" | **Cut, figure and all** | No study is named, and we will not attach a source we have not read to a number in order to keep it. It is also the page's only figure, so cutting it is why factual density did not improve. A named, dated, linkable publication from a public-health or environment body restores the sentence with a citation.' '90%' appears 7 times in the file — 4 in the client-facing report (L110, L111, L169, L199) and 3 more inside the operator block (L306, L312, L320) — and 0 times in the published fence L20-L96. [Count corrected by the second-reader pass of 2026-08-17: the 4 is right for the client-facing report and wrong for 'the file'. The operative claim, that no occurrence survives into the paste-ready copy, was independently re-verified and holds.] `grep -E 'EPA|WHO|World Health|Environmental Protection'` returns 0 hits; no body of any kind is named. No `[SOURCE NEEDED]` token appears inside the published copy either, so the placement half of the clause is satisfied in the safe direction."
     },
     {
       "id": "e5.3",
@@ -489,6 +489,18 @@
       "looked_for_by": "applying e1.7's closing sentence to each of its four named data"
     },
     {
+      "id": "D7",
+      "added_by": "second-reader pass, 2026-08-17 (move 2, the spelled-out-number sweep)",
+      "eval": 4,
+      "severity": "low — an unsourced empirical claim about a customer population, in published copy",
+      "class": "a generalisation about third-party behaviour asserted in the indicative",
+      "detail": "e4.md:54, inside the published fence L20-L88: 'Any one of the three is a reason to book. **The first two are the ones owners usually notice first.**' The fixture (service-page-single-schema-en.md) says only 'If you have noticed reduced cooling performance, unusual noises, or higher electricity bills, it may be time to book a maintenance visit' — nothing about which symptoms owners notice first, or in what order. The claim is about a population of AC owners, is stated in the indicative, and ships inside the paste-ready copy under the client's byline with nothing behind it. It sits sixteen lines from e4:60, where the same deliverable does the opposite correctly ('That is our own recommendation, not a figure we are quoting from a manufacturer'), so the discipline is present and applied inconsistently — the same shape as D5 pointed at customers instead of platforms.",
+      "why_untested": "e4's fabrication expectation is scoped to 'every datum and every claim ABOUT THIS BUSINESS' and explicitly exempts 'generic definitions of terms the page uses'. A claim about the client's customers is neither, so it falls between the two clauses.",
+      "why_the_original_screens_missed_it": "The e4 fabrication evidence rests on a numeral census, and the quantity here is 'the first two'. Ledger F15 recurrence 5 instance (2) reproduced in a different suite: a digit-class pattern cannot see a number written as a word. Materially weaker than the content-gap-analysis instance that founded the entry — 'usually' hedges it and no confidence is being sold — and recorded at that severity.",
+      "verdict_effect": "NONE. No expectation reaches it; e4's verdicts are unchanged.",
+      "looked_for_by": "a spelled-out-number sweep over the published fences, English and Greek"
+    },
+    {
       "what_was_looked_for_and_not_found": [
         "FABRICATED STATISTICS, all five: a full numeral census over each published (paste-ready) span, every hit printed with its line for hand-check. e1 = exactly {12, 24, 39, 2009, 2025, 4.500}; e2 = exactly {2, 10, 15, 18, 24, 25, 40, 60, 120, 129, 449} plus four list markers; e3 = the six supplied figures plus €6,400 and 'about 15 years', both recomputed (9600−3200 = 6400 exactly; 6400 ÷ 430 = 14.884 → 'about 15') and both printed beside their operands; e4 = {2011} alone plus three list markers; e5 = SIX numeral tokens and all six are list markers `1.`–`6.`, i.e. the body of the page contains no numeral at all. Zero untraceable figures in any deliverable.",
         "FABRICATED QUOTATIONS OR CREDENTIALS (ledger F3, the entry founded on THIS skill): the four validate-tracking check-(h) attribution shapes scanned across all five files — speech verb after a closing quote, verb-first attribution, 'According to <Capitalised>', and a '— Name, Role at Organisation' line — ZERO hits. No real organisation and no real person is named as a source anywhere in any of the five. Three deliverables refuse by name to write one: e1 L253 «Δεν γράφουμε εμείς λόγια σε στόμα υπαρκτού προσώπου», e3 L160 'We do not write quotations for people', e5 L252 'We do not write quotations and attribute them to real people.'",
@@ -569,5 +581,77 @@
     "e3.7 — FOURTH record flagging the same clause: 'a derived figure presented without its derivation fails' does not say whether the derivation must accompany EVERY occurrence or appear once. €6,400 appears at L38 with both operands in the neighbouring table and is derived in words at L65. Graded PASS on the once-per-document reading, the same reading all three prior records used. Three records ago this was worth a note; four records in, an unstated convention that has decided four verdicts should be written into the expectation.",
     "COVERAGE, the most useful finding in this run and the direct continuation of the 08-13 record's closing note. That record recommended exactly two additions — an operator-block severability expectation and a scope-claim expectation — and both were made. They immediately did their job: the severability class went from four-of-five defective to clean, and the scope class was caught by e3.8. The same argument now applies to what 4.5.0 added and the suite cannot see: engine precedence, the three visibility targets, and the no-promise rule are produced by all five deliverables and graded by nothing. The no-promise rule is the one to add first — it is the newest, it is the most exposed to a client, and anti-slop family 10 already supplies a measured two-step screen for it (10 of 10 on constructed variants, 0 of 8 false positives).",
     "COVERAGE, second: the score arithmetic is graded in one eval of five, and e4 — the only run in the corpus with N/A factors and a divisor of 6 — is graded by five expectations, none of which looks at a number. e4's two N/A calls are the hardest scoring decisions in this run and nothing in the suite can tell a correct one from a convenient one."
-  ]
+  ],
+  "second_read": {
+    "date": "2026-08-17",
+    "reader": "second reader, narrowed protocol (three moves), separate agent from the grader",
+    "scope": "NOT a full re-grade. Three moves only: (1) recompute every figure the record quotes inside its own evidence and defect entries; (2) sweep the deliverables for numbers written as WORDS, English and Greek, per ledger F15-r5 instance (2) — the digit-enumerating fabrication screens in this corpus are structurally blind to them; (3) check whether the record is still current at HEAD under ruling M2 and against the suite at HEAD.",
+    "repo_head_at_second_read": "b5135d431aeef7910426d03c82bcf5828d6ece99",
+    "deliverables_frozen": "Confirmed: every deliverable mtime is the original run's (11:22-11:53Z). Nothing was re-run and no output was produced by this reader.",
+    "f7_discipline": "Every recomputation that disagreed with the record was taken back to the source file and read in context before any verdict, and where the record states its own method for a figure that method was applied rather than a reader's default. This step changed the outcome twice — see nearly_recorded_then_cleared.",
+    "input_recheck_at_close": "HEAD unchanged across the pass (b5135d4 -> b5135d4). `git status` at close shows one modified file, docs/loop/eval-baselines/blind-2026-08-17/rank-tracker.json, which belongs to another lane and was neither read nor touched. All four evals.json blobs, both loop registers and all four SKILL.md files re-hashed identical between open and close.",
+    "moves_run": [
+      "move 1 — recompute every quoted figure",
+      "move 2 — spelled-out-number sweep (EN + EL)",
+      "move 3 — currency at HEAD"
+    ],
+    "move_1_result": "HOLDS ON THE SCORING CHAIN AND ON EVERY TOKEN COUNT — 0 of 26 token counts wrong, 0 of 20 score/census figures wrong — with ONE quoted count corrected in place (see correction_1) whose substantive claim was re-verified.",
+    "re_verified_independently": [
+      "All five score vectors, recomputed from the deliverables' own printed met/asked counts with `score = 1 + 9 x (met / asked)`, ROUND_HALF_UP, floor 1: e1 before [1,1,1,1,1,1,10,1] = 17 / 8 = 2.125 -> 2,1 and after [10,10,10,10,10,4,10,10] = 74 / 8 = 9.25 -> 9,3, lift 342.86 -> 343%; e2 identical shape; e3 17 / 8 -> 2.1 and 76 / 8 = 9.5, lift 352.38 -> 352%; e4 six scored [1,5,3,5,4,6] = 24 / 6 = 4.0 and [8,10,5,10,4,10] = 47 / 6 = 7.8333 -> 7.8, lift 95%; e5 [1,3,1,1,1,1,1,5] = 14 / 8 = 1.75 -> 1.8 and 62 / 8 = 7.75 -> 7.8, lift 333%. Every count read back off the deliverables' own tables. ALL EXACT.",
+      "26 token counts, recomputed under the record's OWN stated rule ('a token counts only if it contains a letter or digit'), markdown emphasis stripped: e1 L19=40, L34=37, L46=41, L50=35, L54=29; e2 L35=31 and FAQ answers 50/50/45/42/52; e3 L18=49, L51=41, L53=43, L55=49 and FAQ answers 55/58/58/52/54; e4 L22=48; e5 L22=50, L24=47, L53=48, L55=50, L57=49 and FAQ answers 54/55/58/52/57. 26 OF 26 EXACT. This is the figure class the brief warns manufactures false findings, and it manufactured none here.",
+      "The three numeral censuses over the published fences: e1 L17-L86 = 28 numeral tokens, 6 distinct, exactly {12, 24, 39, 2009, 2025, 4.500}; e4 L20-L88 = {2011} plus the three markdown list markers; e5 L20-L96 = six tokens, all six list markers 1.-6., i.e. no numeral in the body at all. ALL EXACT.",
+      "e3's two derived figures: 9600 - 3200 = 6400 exactly, and 6400 / 430 = 14.884 -> 'about 15 years'. Exact.",
+      "e5's word count: the published fence markdown-stripped = 1,101 tokens, matching both the deliverable's own screen row ('1,169 raw / 1,101 markdown-stripped under LC_ALL=C.UTF-8') and its client-facing 'about 1,100 words'. Exact.",
+      "Defect D1's counterfactual arithmetic: under the literal reading factual density would be 1 of 5 -> 3, sum 16 / 8 = 2.0, lift (7.8-2.0)/2.0 = 290%, against the chosen reading's 333%. The record's direction claim is right: the chosen reading produces the LARGER headline. Its 'both count = 16, neither = 12, chosen mix = 14, opposite mix = 14' also recomputes exactly. The record's finding stands.",
+      "Defect D2 re-verified at source: «Κλιματεχνική Αττικής Ε.Π.Ε.» in full occurs SIX times inside e1's published fence (L19, L64, L70, L74, L82, L86 — three nominative, two genitive, one accusative) against the deliverable's «τέσσερις φορές» at e1:142. The record's finding stands, and it is itself a spelled-out-number catch made by the original grader."
+    ],
+    "correction_1": {
+      "class": "a quoted count that is wrong as stated; the substantive claim beside it is right",
+      "field_corrected": "expectations[e5.2].evidence",
+      "was": "'90%' appears 4 times in the file and 0 times in the published fence.",
+      "now": "'90%' appears 7 times in the file — 4 in the client-facing report (L110, L111, L169, L199) and 3 more inside the operator block (L306, L312, L320) — and 0 times in the published fence L20-L96. [Count corrected by the second-reader pass of 2026-08-17; the 4 is right for the client-facing report and wrong for 'the file'. The operative claim, that no occurrence survives into the paste-ready copy, was re-verified and holds.]",
+      "verdict_effect": "NONE. e5.2's operative test is that the figure does not survive into the published copy, and it does not. PASS stands."
+    },
+    "move_2_spelled_out_numbers": {
+      "method": "Cardinals two and above, English and Greek, run specifically over the PUBLISHED (paste-ready) fences of all five deliverables, because those are the surfaces the record's fabrication evidence covers with a digit census — the exact blind spot ledger F15-r5 instance (2) names.",
+      "result": "ONE FINDING, low severity, recorded below. Everything else traces: e1's «τρεις εργασίες» is followed by three; e2's «τα έξι δέκατα» restates 60% in the same sentence and «σε τέσσερα βήματα» heads a four-step numbered list; e3's 'The three terms worth knowing' heads exactly three definitions; e4's 'three visit steps' and 'Three signs' both come from the fixture; e5's 'Four things put something into the air of an office' is followed by exactly four bullets. The remainder are indefinite articles.",
+      "new_defect_outside_the_graded_set": {
+        "id": "D7 (added by the second-reader pass, 2026-08-17)",
+        "eval": 4,
+        "severity": "low — an unsourced empirical claim about a customer population, in the published copy",
+        "class": "a generalisation about third-party behaviour asserted in the indicative",
+        "location": "e4.md:54, inside the published fence L20-L88",
+        "quote": "'Any one of the three is a reason to book. **The first two are the ones owners usually notice first.**'",
+        "detail": "The fixture (service-page-single-schema-en.md) says only 'If you have noticed reduced cooling performance, unusual noises, or higher electricity bills, it may be time to book a maintenance visit.' It says nothing about which symptoms owners notice first, or in what order. The claim is about a population of AC owners, is stated in the indicative, ships inside the paste-ready copy under the client's byline, and rests on nothing the client supplied or anyone measured. It sits in the one deliverable of the five whose central move is converting a borrowed claim into a disclosed first-party recommendation — sixteen lines from e4:60, which does exactly that ('That is our own recommendation, not a figure we are quoting from a manufacturer'). The discipline is present and is applied inconsistently, which is the same shape the record's own D4 records for internal-linking and D5 for platform claims.",
+        "why_untested": "e4's fabrication expectation is scoped to 'every datum and every claim ABOUT THIS BUSINESS' and explicitly exempts 'generic definitions of terms the page uses'. A claim about the client's customers is neither, so it falls between the two.",
+        "why_the_original_screens_missed_it": "The e4 evidence rests on a numeral census, and the quantity here is 'the first two'. This is F15-r5 instance (2)'s shape reproduced in a different suite: a digit-class pattern cannot reach a number written as a word. It is a materially weaker instance than the content-gap-analysis one that founded the entry — 'usually' is a hedge and no confidence is being sold — and it is recorded at that severity.",
+        "verdict_effect": "NONE. No expectation reaches it; e4's verdicts are unchanged."
+      },
+      "looked_at_and_cleared": "e5's 'It solves one half of the problem', 'which half you have' and 'Two offices on the same floor' — all rhetorical or hypothetical, none a count of anything in the world. e3's 'one unit of electricity delivers several units of heat' is hedged and consistent with the fixture's SCOP 3.6."
+    },
+    "nearly_recorded_then_cleared": [
+      {
+        "what": "The e3 and e5 FAQ answer token counts all came back 0.",
+        "how_it_resolved": "The reader's first script counted the line immediately after each FAQ heading, which is blank in those two files — the answers sit one line further down. Opening the deliverables and reading the headings with their answers gave 55/58/58/52/54 and 54/55/58/52/57, both exactly as recorded. Ten false mismatches avoided by looking at the file."
+      },
+      {
+        "what": "e2.1's 'begins at word ~118 of the body' looked 7 off.",
+        "how_it_resolved": "An independent count from the first body line to L35 gives 111. The record marks the figure '~', and where 'the body' starts (H1 included or not, summary box counted or not) moves it by several tokens. The substantive claim — that the canonical definition begins around 120 words in, after a second paragraph and a six-bullet box, rather than opening the page — holds at 111 as firmly as at 118. Inside the record's own hedge; not a finding."
+      }
+    ],
+    "corrections_made": "ONE, applied in place to expectations[e5.2].evidence. No other quoted figure required correction.",
+    "verdict_changes": "NONE. `summary` and `per_eval` are unchanged.",
+    "move_3_currency": {
+      "verdict": "NOT CURRENT.",
+      "version": "Graded at 4.5.0. HEAD carries 4.5.1 (build/geo-content-optimizer/SKILL.md:3 and :10), bumped at 1675e11, 2026-08-17T18:00:31Z — five and a half hours after this record was written, in the regression-triage wave. Under ruling M2 the record is stale and the suite is re-run; no lane may clear it by judging the patch bump behaviourally empty.",
+      "denominator_drift": "NONE. evals.json last changed at 3d0b592, 2026-08-17T05:02:11Z, which is BEFORE the run — the record already accounts for it, noting the denominator moved 29 -> 33 and that the rate is not comparable to the 08-13 record's. 33 expectations at grading time and 33 at HEAD, 7/7/8/5/6.",
+      "note": "The e2.1 regression this record names — the page opening with the fixture's own frame rather than a term-initial definition — is the kind of finding 1675e11's commit subject says that wave diagnosed. Whether the 4.5.1 carrier holds is a blind-run question (F13-r3), not one this pass can answer."
+    },
+    "what_was_taken_on_trust": [
+      "Register/naturalness of the Greek in e1 and e2 — e1.6 and e2.6 remain EDITOR-PENDING and this reader formed no opinion.",
+      "The per-expectation PASS/FAIL judgements, except where a quoted figure was recomputed. The e2.1 regression and the e3.7 FAIL were read but not re-adjudicated.",
+      "The anti-slop family screens and the operator-block deletion tests, which were not re-run.",
+      "Defect D3's grep exit-status probe, which is a claim about this shell rather than about the deliverables."
+    ]
+  }
 }
