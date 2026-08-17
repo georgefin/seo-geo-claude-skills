@@ -60,14 +60,25 @@ authoritative.
 - **Claim**: ~11% ChatGPT↔Perplexity domain overlap; Reddit-type community/UGC content
   ≈40% of citations cross-engine (transcript also carried a 46x brand-citation-rate gap,
   0.59% vs 13.05% — not encoded in repo).
-- **Where**: `build/geo-content-optimizer/SKILL.md:140`;
-  `build/geo-content-optimizer/references/ai-citation-patterns.md:467-470,474,491`
-  (pointers refreshed 2026-08-09 — SKILL.md ref was stale, file refs shifted by the
-  4.1.5 module insertion).
+- **Where**: `build/geo-content-optimizer/SKILL.md:139` ("~11% ChatGPT");
+  `build/geo-content-optimizer/references/ai-citation-patterns.md:511-512`
+  ("ChatGPT ↔ Perplexity domain overlap" — the ≈40% community share is the next line).
+  Both pointers refreshed and anchor-tagged 2026-08-17, read at source: the SKILL.md ref
+  was one line late, and the reference ref was the register's only **multi-part line
+  list** (`:467-470,474,491`), which check (g) WARNs as unverifiable by construction. It
+  is rewritten as a single range because both magnitudes sit on adjacent lines at HEAD.
+  **The third part of the old list is not carried forward and needs a human**: `:491`
+  named a locus this pass could not identify at HEAD, and inventing a third pointer to
+  keep the shape would be a guess. Previously refreshed 2026-08-09 (4.1.5 module
+  insertion).
 - **Partial corroboration 2026-08-09 (W7 lane)**: the community-citation CHANNEL is now
   Google-primary — the 2026-05-06 quote-preview module announcement, encoded at
-  `ai-citation-patterns.md:476`. The ~11% overlap and ≈40% share MAGNITUDES remain the
-  open claims; their tags are unchanged and this item stays open for them alone.
+  `build/geo-content-optimizer/references/ai-citation-patterns.md:518`
+  ("quote-preview module"; refreshed 2026-08-17 from a bare `ai-citation-patterns`
+  line-476 pointer — that line is now blank, and a bare filename is not a
+  repo-root-relative path, so check (g) could not have resolved it either). The ~11% overlap and ≈40% share
+  MAGNITUDES remain the open claims; their tags are unchanged and this item stays open
+  for them alone.
 - **Source**: "680M-citation study", machinerelations.ai (2026, undated, methodology
   unverified).
 - **Resolves when**: independent second study replicates (drop tag) or contradicts (revise).
@@ -80,7 +91,7 @@ authoritative.
 
 - **Claim**: Translation-only pages lose AI-engine citations to the strongest-language
   version (often EN) — treat thin EL/DE translations as a citation risk.
-- **Where**: `build/seo-content-writer/SKILL.md:277` (pointer refreshed 2026-08-10 after the 4.2.5 connector-rule insertion; previously 2026-08-08 after the anti-slop wave).
+- **Where**: `build/seo-content-writer/SKILL.md:279` ("semantic collapse") — refreshed and anchor-tagged 2026-08-17, read at source: :277 had drifted onto a Pricing/figures table row. Previously refreshed 2026-08-10 after the 4.2.5 connector-rule insertion; before that 2026-08-08 after the anti-slop wave.
 - **Source**: searchengineland.com/multilingual-regions-ai-search-future-478282 (2026, day n/a).
 - **Resolves when**: engine-primary documentation or a robust multilingual citation study.
 - **Cadence**: quarterly.
@@ -98,7 +109,9 @@ authoritative.
   business/answer/14114287 CONFIRMED: removal of violative reviews + set-period
   new-review freeze, set-period unpublishing of existing reviews, public warning
   displayed to consumers, email notice, appeal path; no automatic
-  suspension. Encoded at `cross-cutting/entity-optimizer/SKILL.md:185`
+  suspension. Encoded at `cross-cutting/entity-optimizer/SKILL.md:189`
+  ("Prohibited & restricted content" — refreshed and anchor-tagged 2026-08-17; :185 had
+  drifted onto the category-5 mention-counting callout)
   (entity-optimizer 4.1.3, tag dropped; wording corrected to evidence-exact in
   4.1.4 after the close-out review). The business/answer/7400114 same-text
   mirror was NOT separately opened — kept in the callout as a hedged pointer only.
@@ -132,7 +145,7 @@ authoritative.
   2026-05-06; snippet-verified, direct fetch egress-blocked) + 4 independent same-day
   outlets (TechCrunch, Engadget, MacRumors, TechRadar) describing identical behavior.
   Production rollout, not a Labs test; no retirement coverage through 2026-08-09.
-- **Where**: encoded at `build/geo-content-optimizer/references/ai-citation-patterns.md:476`
+- **Where**: encoded at `build/geo-content-optimizer/references/ai-citation-patterns.md:518` ("quote-preview module" — refreshed and anchor-tagged 2026-08-17; :476 is now blank)
   (geo-content-optimizer 4.1.5) with the label-variability precision.
 - **Remaining open leg**: rollout scope only — US/English-first is vendor-reported;
   el-GR availability unconfirmed and matters for Sani Hellas clients. The encoded tag's
@@ -160,12 +173,17 @@ authoritative.
 
 ## W9 — Greek commerce-surface magnitudes (vendor cluster, 4 claims)
 
-- **Where**: `research/serp-analysis/references/greek-shopping-surfaces.md:17` (SimilarWeb:
-  BestPrice ~6.9M visits/mo, #1 in price-comparison *category*; Skroutz ~40.8M, Apr/Jun
-  2026), `:30` (BestPrice ranking-effect magnitude — nothing published), `:45`
-  (e-satisfaction claims 100+ Greek e-shop review clients, self-published);
-  `references/greek-tourism-seasonality.md:24` (free-booking-link clicks −30% under DMA,
-  vendor-reported).
+- **Where**: `research/serp-analysis/references/greek-shopping-surfaces.md:17`
+  ("SimilarWeb magnitudes") (SimilarWeb: BestPrice ~6.9M visits/mo, #1 in
+  price-comparison *category*; Skroutz ~40.8M, Apr/Jun 2026), `:30` (BestPrice
+  ranking-effect magnitude — nothing published), `:45` (e-satisfaction claims 100+ Greek
+  e-shop review clients, self-published);
+  `research/serp-analysis/references/greek-tourism-seasonality.md:24`
+  ("Free-booking-link clicks") (free-booking-link clicks −30% under DMA,
+  vendor-reported). Both anchor-tagged 2026-08-17, lines unchanged and re-read at source;
+  the tourism pointer also gained its repo-root-relative directory, which it had never
+  carried — check (g) resolves pointer paths from the repo root, so `references/…` alone
+  could never have resolved at all.
 - **Resolves when**: engine/primary or first-party data replaces the vendor figure (e.g.
   client Merchant Center/BestPrice merchant data; Google-primary DMA impact numbers).
   Until then: directional only, never client-facing as fact.
@@ -173,17 +191,21 @@ authoritative.
 
 ## W10 — el-GR feature mechanics — LSA leg RESOLVED-PRIMARY 2026-08-09 (owner read); inflection leg open
 
-- **Where**: `research/serp-analysis/references/serp-feature-taxonomy.md:233` (LSA —
-  resolved, tag dropped, serp-analysis 4.2.2);
+- **Where**: `research/serp-analysis/references/serp-feature-taxonomy.md:242`
+  ("Re-check on the LSA") (LSA — resolved, tag dropped, serp-analysis 4.2.2; refreshed
+  and anchor-tagged 2026-08-17, :233 had drifted onto a GBP playbook step);
   `research/keyword-research/references/greek-keyword-coverage.md:103`
-  (SERP-distinctness magnitude of inflected forms per query class — the remaining
-  open claim).
+  ("collapses inflected variants") (SERP-distinctness magnitude of inflected forms per
+  query class — the remaining open claim; anchor-tagged 2026-08-17, line unchanged and
+  re-read at source).
 - **LSA resolution (2026-08-09)**: Sani opened the LSA getting-started page's country
   picker (support.google.com/localservices/answer/6224841) and confirmed in-session:
   "Greece not listed". Claim upgraded multi-vendor + official-domain-structural →
-  owner-verified-primary; encoded at `:233` with a migration re-check note (LSA is
+  owner-verified-primary; encoded at `:242` with a migration re-check note (LSA is
   migrating into Google Ads — reported timeline: US from 2026-08, non-US 2027; the
-  page and picker may move, re-verify on migration only).
+  page and picker may move, re-verify on migration only) — the bare `:233` in this
+  sentence is the same pointer as the one above and was refreshed to `:242` with it,
+  rather than left as a stale sibling (F11).
 - **History**: the 2026-08-09 sweep had upgraded single-vendor → three unanimous
   vendor guides + Google's per-country help-variant structure; `support.google.com`
   egress-blocked from cloud (permanent) — Mode A held the tag until this owner read.
@@ -197,7 +219,9 @@ authoritative.
   `[VERIFY at build time]` tags on lookup portal/search mechanics (ΠΙΣ + regional medical
   associations, bar associations, ΤΕΕ, ΟΕΕ incl. license classes, ΓΕΜΗ, other health
   bodies); `cross-cutting/domain-authority-auditor/references/greek-eshop-compliance.md:46`
-  (exact statutory scope of the ΓΕΜΗ display obligation — a lawyer question by design).
+  ("scope of the display obligation") (exact statutory scope of the ΓΕΜΗ display
+  obligation — a lawyer question by design; anchor-tagged 2026-08-17, line unchanged and
+  re-read at source).
 - **Resolves when**: verified against the registries themselves at the first YMYL/e-shop
   client build (institutions' existence is settled; only mechanics/scope are open). The
   ΓΕΜΗ statutory question goes to the client's lawyer, never resolved in-repo.
@@ -207,8 +231,8 @@ authoritative.
 
 - **Where**: `research/serp-analysis/references/serp-feature-taxonomy.md` (:30
   Rich Results row and the How-To playbook rows ~:291),
-  `research/content-gap-analysis/references/gap-analysis-frameworks.md:161` (token `Step-by-step tutorials`),
-  `build/meta-tags-optimizer/references/ctr-and-social-reference.md:155` (token `Rich results (schema)`) — all
+  `research/content-gap-analysis/references/gap-analysis-frameworks.md:169` ("Step-by-step tutorials" — refreshed from :161 and re-tagged in check (g)'s own `("token")` form 2026-08-17; the earlier `(token …)` spelling was never parseable by the check),
+  `build/meta-tags-optimizer/references/ctr-and-social-reference.md:155` ("Rich results (schema)" — line unchanged, re-tagged in the parseable form 2026-08-17) — all
   still teach HowTo rich results as a current SERP feature. Surfaced 2026-08-09 by
   the R3-purge implementer as an out-of-scope observation: training-knowledge
   signal that Google deprecated HowTo rich results in 2023.
@@ -269,8 +293,10 @@ authoritative.
 
 ## W13 — Does an installed plugin carry root `CLAUDE.md`? [VERIFY]
 
-- **Where**: root `CLAUDE.md:36` — the inter-skill handoff convention, and by the same
-  mechanism every other standing ruling recorded there. Opened by ledger **F17**
+- **Where**: root `CLAUDE.md:36` ("When a skill recommends running another") — the
+  inter-skill handoff convention, and by the same
+  mechanism every other standing ruling recorded there. Anchor-tagged 2026-08-17, line
+  unchanged and re-read at source. Opened by ledger **F17**
   (2026-08-10), which stands on its own without this question: the convention names no
   shipped carrier, while `CLAUDE.md`'s two other standing rulings both do.
 - **The question**: whether a session that installs this plugin from a marketplace or a
@@ -291,13 +317,17 @@ authoritative.
 
 - **Where**: THREE carriers, all found on 2026-08-10, each by a different agent that did not
   know about the others:
-  1. `build/meta-tags-optimizer/references/meta-tag-formulas.md:210-219` — the position-by-CTR
-     curve and the per-vertical CTR bands. Tagged in place during the meta-tags-optimizer 4.2.0
+  1. `build/meta-tags-optimizer/references/meta-tag-formulas.md:210-219`
+     ("No source is on file for any figure in this section") — the position-by-CTR
+     curve and the per-vertical CTR bands. Anchor-tagged 2026-08-17, span unchanged and
+     re-read at source. Tagged in place during the meta-tags-optimizer 4.2.0
      wave by the implementer, which flagged that opening a `[VERIFY]` without a register row
      leaves it where the weekly sweep does not read — the same shape as F17. This row closes that.
-  2. `optimize/content-refresher/references/content-decay-signals.md:47-55` — a position-CTR
+  2. `optimize/content-refresher/references/content-decay-signals.md:47-55`
+     ("Expected CTR by position") — a position-CTR
      curve, reframed as an illustrative shape rather than a benchmark, with quoting it to a
-     client forbidden at the point of use.
+     client forbidden at the point of use. Anchor-tagged 2026-08-17, span unchanged and
+     re-read at source.
   3. `monitor/rank-tracker/references/tracking-setup-guide.md` — the position-versus-traffic
      click-loss table, tagged in place; the row strings its eval suite quotes are byte-identical
      after tagging.

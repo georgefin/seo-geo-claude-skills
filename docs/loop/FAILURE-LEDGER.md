@@ -2223,3 +2223,50 @@ coordinator, is the rule being edited to fit the diff — the exact move recorde
   taken under a minute beforehand.
 - **Status**: recorded, first draft deleted, rule left as written.
   FLIP: F8-r2-2026-08-17 -- none
+
+---
+
+## F13 — Recurrence 7 (2026-08-17) · The safety caveat was outside the fence, and it went missing exactly where it mattered most
+
+**Why this is a recurrence of F13 and not a new entry.** F13's class is a rule recorded where the
+surface that produces the artefact never reads it, and F13-r2's redesign (rule 3) says carriage
+must land **on the surface the executor reads, and specifically on every paste-ready worked
+example**. That is precisely the guard this instance defeated. `link-quality-rubric.md` §4 said the
+ranking-harm warning ships *"inside the recommendation itself"*; the disavow-file template fourteen
+lines below carried three comment lines — a domain, a date, a reason — and nothing else. The rule
+was on one surface and the fence a model copies was on another. Same class, same guard, guard
+under-applied: a recurrence, not a founding.
+
+**What is new is the shape, and it is worth recording precisely.** The two prior instances of the
+founding finding were both a **label** wrongly outside a fence — the F13-r2 meta-tag block and the
+2026-08-13 operator-block framing. This one is a **safety caveat** wrongly outside one, and it fails
+in the inverse-risk direction: **the warning is worth least when there is nothing to upload and most
+when a file is sitting in someone's hands.** Measured on the blind run of five deliverables — the
+two that only *recommended* a disavow reproduced *"an unnecessary disavow can hurt your rankings"*
+verbatim, and the one that actually *produced a disavow file* carried no ranking-harm warning at
+all. The rule was not ignored. It detached exactly at the point where its absence costs something.
+
+- **Found by**: the 2026-08-17 blind grading wave of `monitor/backlink-analyzer`
+  (`docs/loop/eval-baselines/blind-2026-08-17/backlink-analyzer.json`), then repaired at `fba166c`.
+- **Recurrence**: F13 → **7**. **Label 6 is deliberately unused.** The ledger already carries two
+  entries numbered *Recurrence 3* — the 2026-08-10 informed-versus-blind carrier entry and the
+  2026-08-17 lift-exclusion entry — so the true count of recorded F13 instances runs one ahead of
+  the highest label. This entry is the seventh recurrence and says so, rather than taking the
+  free-but-wrong label 6. Rule 4 makes entries append-only, so the colliding pair is **not**
+  renumbered here; it is filed for a human as OPEN-FINDINGS 164.
+- **Guard**: the template fence now opens with the ranking-harm warning, the irreversibility and
+  the four conditions that separate an uploadable file from a draft, under an `ILLUSTRATIVE FILL`
+  label with its date token resolved so no bracket token survives in a value position. §4's rule is
+  restated as **two carriage points satisfied separately** — the recommendation prose and the file
+  itself — with the reason said out loud: a report is read once, a file gets forwarded and is often
+  uploaded by somebody who never read the report. Output Validation is split so the artefact half is
+  checkable by reading the file alone, and carries an explicit *"no disavow file produced"* value so
+  it cannot become unsatisfiable when there is no file.
+- **The acceptance test this yields, and it generalises past disavow files**: *read the fence alone,
+  with everything above it deleted — does it still tell its reader what the action costs and when
+  not to take it?* Applied and met here. It is the Value Rule's founding test with the caveat, not
+  the label, as its subject.
+- **Unproven leg, stated per F13-r3's own rule**: the repaired carrier has **not** been exercised by
+  a blind run. A carrier added in response to a ledgered failure is unproven until one does.
+- **Status**: skill fix committed (`fba166c`); blind validation owed.
+  FLIP: F13-r7-2026-08-17 -- none

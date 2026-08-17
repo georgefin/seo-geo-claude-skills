@@ -14,7 +14,8 @@ received — G5–G8 registered, proposal in `MASTER-IMPROVEMENT-PLAN.md`).
 **GROUNDING RULE — do this first**: before researching or proposing anything, read the
 five files in `docs/loop/`: `PIPELINE.md` (this file), `SETTLED-RULINGS.md`,
 `WATCH-ITEMS.md`, `GATED-ITEMS.md`, `FAILURE-LEDGER.md`. Local checkout preferred; else
-fetch raw from the fork (same pattern as `VERSIONS.md:3`). Rulings are non-relitigable
+fetch raw from the fork (same pattern as `VERSIONS.md:3` ("raw.githubusercontent.com")).
+Rulings are non-relitigable
 without new primary evidence; gated items are untouchable without Sani's recorded
 verdict; ledgered failures must not be repeated — repeating one is an incident.
 
@@ -46,9 +47,13 @@ verdict; ledgered failures must not be repeated — repeating one is an incident
    completes against its frozen SHAs and its findings land fix-forward on the
    successor accumulator. The review is never skipped, only its landing point
    moves. Branch naming
-   per `CLAUDE.md:62` (`feature/…`, `fix/…`, `docs/…`); cloud sessions use their assigned
-   `claude/*` branch. Skill edits trigger the 5-tracking-file sync (`CLAUDE.md:61`);
-   docs-only changes (this directory) do NOT.
+   per `CLAUDE.md:140` ("Branch naming") (`feature/…`, `fix/…`, `docs/…`); cloud sessions
+   use their assigned `claude/*` branch. Skill edits trigger the 5-tracking-file sync
+   (`CLAUDE.md:139` ("update all 5 tracking files")); docs-only changes (this directory)
+   do NOT. Both pointers refreshed and anchor-tagged 2026-08-17: `:62`/`:61` had drifted
+   onto the connector-resolution paragraph and a blank line respectively — the second
+   silent drift of this same pair (the first, to `:53`/`:54`, is recorded in GATED-ITEMS
+   as the case that motivated extending check (g) past `VERSIONS.md`).
 4. **VALIDATE** — two legs, both required:
    (i) STRUCTURAL: `scripts/pre-push-gate.sh` before EVERY push — runs
    `scripts/validate-skill.sh` on each touched skill plus `scripts/validate-tracking.sh`

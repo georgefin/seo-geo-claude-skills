@@ -266,12 +266,25 @@ watching), G4 harvest merged (PR #4).**
     schema has **no `schemaVersion`/`id`** (only `name` required), and `commands`/`skills`
     are documented as path strings/arrays, not `{name, description, path}` objects — repo
     mandates the opposite (`CLAUDE.md:59`; fields present at `.claude-plugin/plugin.json:2-3`;
-    added deliberately in v3.0.0, `VERSIONS.md:304` ("### v3.0.0" section —
+    added deliberately in v3.0.0, `VERSIONS.md:311` ("### v3.0.0" section —
     pointer anchor-tagged per F12, token authoritative on mismatch; had silently
     drifted from :79-88; refreshed 2026-08-10, +2 from the entity-optimizer 4.1.5 /
     backlink-analyzer 4.0.4 bullet)).
   - Sketch if approved: fold `version` into `metadata` (keep `metadata.version`), trim
     non-spec plugin.json fields, run `claude plugin validate --strict` (watch-item W8).
+  - **Pointer note, 2026-08-17 — the four bare pointers in this Proposal block were
+    deliberately NOT anchor-tagged, and they need a human.** All four (`CLAUDE.md` lines
+    58, 59 and 58-59, and `CONTRIBUTING.md` line 40) were read at source: they now
+    resolve to the connector-resolution rules and to a `description:` example. The drift
+    is not the
+    whole problem. This Proposal records the repo state **as it stood on 2026-08-08,
+    before G1 executed**, and its claim — "repo mandates it" — is one G1 itself made
+    false: `CLAUDE.md`'s contribution rules now say a top-level `version` field is
+    *tolerated on legacy skills and absent on spec-aligned ones*. Anchoring these to
+    today's lines would attach a current token to a superseded claim and read as though
+    the repo still mandates what it no longer mandates. Either the block is marked historical
+    or the pointers are dropped; both are edits to an approved-and-executed gate record,
+    which is not a maintenance pass's call.
 - **Risk**: could break ClawHub / skills.sh marketplace listings (their tolerance of the
   spec-pure format is unproven); contradicts the repo's published contribution contract,
   so `CLAUDE.md:58-59` + the `CONTRIBUTING.md` template must change in the same PR.
@@ -610,10 +623,18 @@ watching), G4 harvest merged (PR #4).**
   constrain how confidently the library may phrase the benefit.
 - **Proposal 9b — HowTo ruling + purge (W12)**: rule that HowTo rich results ended in
   2023 and purge the four library loci still teaching them as a current SERP feature
-  (`research/serp-analysis/references/serp-feature-taxonomy.md:30` and `~:291`,
-  `research/content-gap-analysis/references/gap-analysis-frameworks.md:150`,
+  (`research/serp-analysis/references/serp-feature-taxonomy.md:30`
+  ("How-To, Review Stars, Recipe, Event, Product") and `~:291`,
+  `research/content-gap-analysis/references/gap-analysis-frameworks.md:169`
+  ("Step-by-step tutorials"),
   `build/meta-tags-optimizer/references/ctr-and-social-reference.md:121`), shipping the
   check (f) token row in the same wave per the F9-r2 backfill rule.
+  (Pointers read at source and anchor-tagged 2026-08-17; the gap-analysis one had drifted
+  from :150 to :169. The `ctr-and-social-reference` pointer above is **left bare and is
+  referred for a human**: its :121 is a blank line, and the only How-To text now in that
+  file is a title-formula row at :51 that does not teach a rich result, so which locus
+  proposal 9b meant cannot be settled from the file. `~:291` is shorthand, not a pointer,
+  and check (g) does not parse it.)
 - **Why gated rather than applied**: creating a ruling is gate-class by the loop's own
   protocol, and the evidence — while consistent across independent
   domain-restricted queries against Google's own domain — is snippet grade, not
@@ -754,10 +775,34 @@ From the 08-08-2026 report's slow-loop lane; promote to gated only when concreti
   token, so the check counts and lists them per register but never fails them —
   anchor-tagging those is queued, not assumed; and pointers using a multi-part line
   list are WARNed as unverifiable rather than silently skipped.
+  **Anchor-tagging pass run 2026-08-17 against that census of 35: 27 anchored, 8 refused
+  and referred for a human** `[obs:2026-08-17 bash scripts/validate-tracking.sh — "(g) 8
+  un-anchored", "all 37 anchor-tagged … verified", census was 35 un-anchored / 10 anchored
+  before the pass]`. **Of the 27, only 12 were correct as written**: 14 needed the line
+  number refreshed because the target had drifted, and 1 needed its path corrected to
+  repo-root-relative (it named `references/greek-tourism-seasonality.md`, which does not
+  exist at the repo root, so the check could never have resolved it). Largest drift
+  measured: **+153 lines** (`kpi-definitions.md` CWV thresholds, :300-306 → :453-455);
+  next +78, twice, on PIPELINE's stage-3 `CLAUDE.md` pair — the second silent drift of
+  that same pair, the first being the case recorded in the bullet above.
+  That ratio is the finding: **a bare line-number pointer in this repository is more
+  often wrong than right**, and the census counted only whether a token was present, never
+  whether the number was. The eight refusals are listed at their own pointers and fall in
+  three classes:
+  a target that is now a blank line or a syntax delimiter, a pointer inside prose that
+  **quotes a historically drifted pointer as an example** (the two in this bullet's own
+  neighbourhood, the stage-3 `CLAUDE.md` pair and the bare `SKILL.md` line-258 case —
+  anchoring a record of a past wrong state would be a category error, and that bare
+  `SKILL.md` names no directory so it matches twenty files), and a pointer that still
+  resolves cleanly but whose surrounding claim is itself superseded
+  (the four in G1's Proposal block). The refusal classes are the two
+  `reanchor-pointers.sh` refuses plus one it cannot see: a pointer that resolves cleanly
+  and would still be wrong.
 - **fork-manifest attribution (flagged 2026-08-09 as a Sani decision; DELEGATED to
   the coordinator 2026-08-10, twelfth verdict-log entry)**: both
-  marketplace manifests' `owner`/`metadata.repository` fields and `VERSIONS.md:3`'s
-  raw-fetch URL still carry the upstream identity (aaron-he-zhu) — fork
+  marketplace manifests' `owner`/`metadata.repository` fields and `VERSIONS.md:3`
+  ("raw.githubusercontent.com")'s raw-fetch URL still carried the upstream identity
+  (aaron-he-zhu) at flag time — fork
   inheritance, surfaced when the marketplace-discovery shim landed. No functional
   impact on marketplace discovery (probed: the add succeeds with the
   upstream-attributed manifests; installs were blocked separately by the W8
@@ -768,8 +813,9 @@ From the 08-08-2026 report's slow-loop lane; promote to gated only when concreti
   Practice chosen, and the principle behind it: machine-readable identity points at
   the artifact people install and file issues against; human-readable credit names
   the upstream project permanently and prominently. Applied in this scope —
-  (a) both manifests' `owner` + `metadata.repository` and `VERSIONS.md:3`'s
-  raw-fetch URL move to `georgefin/seo-geo-claude-skills`, because those fields
+  (a) both manifests' `owner` + `metadata.repository` and `VERSIONS.md:3`
+  ("raw.githubusercontent.com")'s raw-fetch URL move to `georgefin/seo-geo-claude-skills`,
+  because those fields
   drive update checks and marketplace resolution, and pointing them upstream means
   a fork user silently reads upstream's files instead of the ones this loop
   maintains; (b) README gains an explicit fork-credit line naming the upstream

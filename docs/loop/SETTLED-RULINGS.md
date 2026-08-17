@@ -13,6 +13,12 @@ before 2026-07-18 are not recoverable from the current session transcript.
 at the benchmark) and R3 gained provenance amendment 9a. R1, R4, R5 unchanged and standing.
 Prior full sweep 2026-08-08 (all rulings stood).
 
+**2026-08-17, register maintenance only — no ruling was reviewed, re-affirmed or changed.**
+R4's and R5's `Encoded in repo` pointers were re-derived at source and anchor-tagged (four of the
+five bare pointers in this file); R3's `schema-markup-generator` SKILL.md pointer was left
+alone and referred for a human — see the note in R3. Sani's working-method ruling M1 was added in
+its own section below the research rulings.
+
 ---
 
 ## R1 — llms.txt is a dead lever
@@ -23,7 +29,7 @@ Prior full sweep 2026-08-08 (all rulings stood).
 - **Evidence**: No engine-official adoption found; absence re-confirmed each weekly sweep.
 - **Encoded in repo**: `build/geo-content-optimizer/SKILL.md:141` ("Not citation levers");
   `build/geo-content-optimizer/references/ai-citation-patterns.md:520` ("Not citation levers");
-  `VERSIONS.md:270` ("non-levers")
+  `VERSIONS.md:277` ("non-levers")
   (pointers refreshed 2026-08-09 — 4.1.5 module insertion + v4.3.1 changelog shifted both;
   VERSIONS pointer re-refreshed 2026-08-10, +2 from the seo-content-writer 4.2.5 bullet,
   then +2 again from the entity-optimizer 4.1.5 / backlink-analyzer 4.0.4 bullet.
@@ -57,7 +63,7 @@ Prior full sweep 2026-08-08 (all rulings stood).
   must teach this boundary, not the pre-clarification "pile types" pattern.
 - **Encoded in repo**: `build/geo-content-optimizer/SKILL.md:141` ("Not citation levers");
   `build/geo-content-optimizer/references/ai-citation-patterns.md:520` ("Not citation levers");
-  `VERSIONS.md:270` ("non-levers")
+  `VERSIONS.md:277` ("non-levers")
   (pointers refreshed 2026-08-09, same shift as R1; VERSIONS pointer re-refreshed twice on
   2026-08-10, same two changelog insertions as R1; skill pointers re-derived at source
   2026-08-10 — see R1's note, both were already wrong at HEAD before this wave began);
@@ -132,10 +138,18 @@ Prior full sweep 2026-08-08 (all rulings stood).
   constraint that decided the net's form, in OPEN-FINDINGS 102.
 - **Decided**: 2026-08-08 sweep (retirement reflected in schema-markup-generator 4.0.1);
   provenance amended 2026-08-11.
-- **Encoded in repo**: `build/schema-markup-generator/SKILL.md:223`; `VERSIONS.md:274`
+- **Encoded in repo**: `build/schema-markup-generator/SKILL.md:223`; `VERSIONS.md:281`
   ("schema-markup-generator 4.0.1" — anchor-tagged per F12; on any line/token
   mismatch, grep the token — the token is authoritative; VERSIONS pointer refreshed
   2026-08-10, +2 from the entity-optimizer 4.1.5 / backlink-analyzer 4.0.4 bullet).
+  **The SKILL.md pointer was NOT anchor-tagged in the 2026-08-17 pass, deliberately.**
+  Read at source that day, `:223` resolves to a bare `</script>` line inside a placement
+  skeleton — a token that appears three times in the file and carries none of this
+  ruling. The ruling's subject is now spread over six candidate lines in that skill
+  (:45, :152, :169, :240, :258, :321), and picking one is a judgement about which is
+  canonical, not a refresh. That is the ambiguous case `reanchor-pointers.sh` refuses,
+  so this pass refused it too and left the bare pointer standing rather than freezing a
+  guess into the register. **Needs a human.**
 - **Reopens on**: schema.org deprecating the FAQPage type itself, or primary evidence that
   AI engines stopped parsing it.
 
@@ -145,14 +159,22 @@ Prior full sweep 2026-08-08 (all rulings stood).
   (INP-only). The circulating "2.0s LCP" figure is vendor-blog, not Google.
 - **Decided**: on/before 2026-07-18; FID cleanup applied 2026-08-08
   (technical-seo-checker 4.0.1).
-- **Encoded in repo**: `monitor/performance-reporter/references/kpi-definitions.md:300-306`
-  (pointer refreshed 2026-08-08 after the AI-referrals insertion shifted the table);
-  `VERSIONS.md:275` ("technical-seo-checker 4.0.1", anchor-tagged per F12 — token
+- **Encoded in repo**: `monitor/performance-reporter/references/kpi-definitions.md:453-455`
+  ("**LCP** (Largest Contentful Paint)") — pointer refreshed 2026-08-17: :300-306 had
+  drifted onto the AI Citation Position block and carried no CWV row at all; the three
+  threshold rows were re-derived by grepping the token, not by trusting the old number;
+  previously refreshed 2026-08-08 after the AI-referrals insertion shifted the table;
+  `VERSIONS.md:282` ("technical-seo-checker 4.0.1", anchor-tagged per F12 — token
   authoritative on mismatch; refreshed 2026-08-10, +2 from the entity-optimizer 4.1.5 /
-  backlink-analyzer 4.0.4 bullet); `optimize/technical-seo-checker/SKILL.md:259`
-  (pointer refreshed 2026-08-09 — an E3 Mode A round found :258 resolving to a
-  blank line, a pointer class check (g) does not cover; previously refreshed
-  2026-08-08 after the labels wave; FID rows also purged from that skill's two
+  backlink-analyzer 4.0.4 bullet); `optimize/technical-seo-checker/SKILL.md:258`
+  ("CWV metrics (LCP/CLS/INP)" — anchor added 2026-08-17. The number moved **during this
+  pass**: read at source it was :259, and a concurrently-running skills lane shifted it to
+  :258 before the pass finished. Recorded rather than smoothed over, because it is the
+  whole argument for the anchor: the token survived the edit and the number did not.
+  Re-derive with `scripts/reanchor-pointers.sh` rather than trusting this number;
+  previously refreshed 2026-08-09 — an E3 Mode A round found :258
+  resolving to a blank line, a pointer class check (g) does not cover; previously
+  refreshed 2026-08-08 after the labels wave; FID rows also purged from that skill's two
   reference files the same day — the 4.0.1 cleanup had missed them).
 - **Reopens on**: Google-primary threshold change only (web.dev / Google Search Central).
 
@@ -162,9 +184,34 @@ Prior full sweep 2026-08-08 (all rulings stood).
   scored (CITE item I09).
 - **Decided**: on/before 2026-07-18 (I09 dates to CITE v2.0.0, 2026-02-08); re-affirmed
   2026-08-08 ("no Google-primary contradiction; not reopened").
-- **Encoded in repo**: `references/cite-domain-rating.md:309-310` (scoring),
-  `references/cite-domain-rating.md:447` (I09 measurement).
+- **Encoded in repo**: `references/cite-domain-rating.md:322-325`
+  ("I09: Unlinked Brand Mentions") — scoring;
+  `references/cite-domain-rating.md:462` ("Brand mention monitoring") — measurement.
+  Both pointers refreshed
+  2026-08-17: :309-310 had drifted onto the domain-age Partial/Fail rungs and :447 onto
+  the C04 Link Velocity row, so neither carried I09 any more. Re-derived by grepping
+  `I09`, not from the old numbers, and anchor-tagged so `reanchor-pointers.sh` carries
+  them from here on.
 - **Reopens on**: Google-official primary evidence only — explicitly **not** blog evidence.
+
+---
+
+## Working-method rulings (Sani; not research rulings)
+
+Kept in this register because they are non-relitigable on the same terms as the rulings above,
+and separated from them because their subject is the loop's own working method rather than
+search-engine behaviour. The reopening condition is Sani's own word, not primary evidence.
+
+### M1 — PR #9 is not to be merged; work ships split by reviewability
+
+- **Statement**: PR #9 is **not to be merged**. No wave, report or brief may name merging it as
+  a goal. Work reaches the tree in slices ordered by how reviewable each slice is: **registers
+  first, then scripts, then skills in waves.**
+- **Decided**: 2026-08-17, by Sani.
+- **Why it is not relitigable here**: the ordering is a review-capacity decision, not a technical
+  one. A slice is sized so a reviewer can hold all of it at once; a lane that argues for a bigger
+  slice is arguing about somebody else's reading capacity.
+- **Reopens on**: Sani's explicit word only.
 
 ---
 
@@ -178,7 +225,7 @@ no gate needed).
 |---|---|---|
 | schema.org release | v30.0 | 2026-03-19 |
 | Google Search Quality Rater Guidelines | last known active version dated 2025-09-11 | 2026-08-08 |
-| Google AI Mode in Greek | live since 2025-10-08 (`VERSIONS.md:270` ("non-levers")) | 2026-08-09 |
+| Google AI Mode in Greek | live since 2025-10-08 (`VERSIONS.md:277` ("non-levers")) | 2026-08-09 |
 | awesome-generative-engine-optimization (GitHub) | last commit 2026-04-14 (quiet) | 2026-08-08 |
 | RSI paper baseline | MetaSkill-Evolve arXiv 2607.05297 · RSI survey arXiv 2607.07663 · AREX arXiv 2607.21461 ("AREX: Towards a Recursively Self-Improving Agent for Deep Research", BAAI, v1/v2 — existence confirmed 2026-08-08, see W1) · PAST-Bench arXiv 2608.04003 | 2026-08-08 |
 | Skill-loop literature (2026-08-08 assessment additions) | GRASP arXiv 2605.29668 · SEA-Eval arXiv 2604.08988 · feedback-dynamics arXiv 2608.02636 · OpenSkillEval arXiv 2605.23657 (titles search-verified; contents beyond abstracts [VERIFY]) | 2026-08-08 |
