@@ -6,7 +6,7 @@ compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, 
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.1.0"
+  version: "4.2.0"
   geo-relevance: "low"
   tags:
     - seo
@@ -176,6 +176,28 @@ project-root/
 
 > **Templates**: See [references/hot-cache-template.md](./references/hot-cache-template.md) for the complete CLAUDE.md hot cache template and [references/glossary-template.md](./references/glossary-template.md) for the project glossary template.
 
+### Data-Handling Floor — governs every write in this skill
+
+**No secret value is ever written into a file this skill controls** — not the hot cache, not any
+`memory/` file, not a report, and not a `.env` or a gitignored file. API keys, service-account
+private keys, OAuth tokens, passwords and shared admin logins are refused a place, and
+**relocating one to a quieter file is not compliance**: the rule is that the value is not written
+anywhere. Refuse in the same reply, give the reason, and offer the pointer form below.
+
+Three reasons, each sufficient alone: (1) **the hot cache auto-loads on every run, for everyone on
+the project** — not a file someone opens deliberately, so it reaches sessions run by people the
+credential was never issued to; (2) **the memory tree is version-controlled, so a secret committed
+once survives its deletion** — a later commit does not remove it from history, and from the moment
+it lands rotation is the only real remediation; (3) **a shared login destroys the audit trail** —
+with one account between several people no change in the CMS, the analytics property or the search
+console can be attributed to a person, a loss that outlasts the engagement.
+
+**Record the fact, never the value**: that the credential exists, who holds it, which secret store or password manager it lives in, and who grants access. `Search Console access — held by the marketing lead, in the company password manager` is a complete entry. Never reproduce a value the user has pasted, not even to confirm what you are declining to store. **A value already pasted is already exposed** — say so plainly and record that it needs rotating, because quietly declining to store it leaves the user believing it is safe.
+
+**Personal data is a judgement, not a bright line.** A work contact for a role is ordinary project context; a home address, personal mobile, ID number, or any health or financial detail is not, and convenience is not a reason to hold it. Name what was asked for, say why you are questioning it, and leave the decision with the person the data belongs to — it is not this skill's to make.
+
+> Library-wide statement of this floor: [Prohibited Tactics](../../references/prohibited-tactics.md) entry 11.
+
 ### 4. Context Lookup Flow
 
 When a user references something unclear, follow this lookup sequence:
@@ -245,6 +267,14 @@ Memory is where a handoff payload is stored and re-read, so store the payload's 
 - [ ] After competitor analysis, analysis-history/ has dated file
 - [ ] After audit, top action items appear in CLAUDE.md priorities
 - [ ] After monthly report, metrics snapshot reflects new data
+
+### Data-Handling Validation
+- [ ] No secret value in any file this run wrote — hot cache, `memory/`, reports, config. Check the files written, not the intent: a key moved from the hot cache into `memory/` still fails
+- [ ] Nothing relocated to a `.env`, a gitignored file, or "a different file" as a workaround
+- [ ] No value the user pasted is reproduced anywhere in the run's own output
+- [ ] Every credential referenced is recorded fact-only — exists, who holds it, which secret store — with the value absent
+- [ ] Any already-pasted value is flagged as exposed, with rotation stated as the remedy
+- [ ] Personal data beyond a work contact for a role was named and referred back to its owner, not stored on the run's own judgement
 
 ## Examples
 

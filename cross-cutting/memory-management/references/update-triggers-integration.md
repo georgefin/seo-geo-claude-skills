@@ -2,6 +2,14 @@
 
 Systematic memory update procedures triggered by specific events, plus integration points with other SEO skills.
 
+**Every write below is governed by the Data-Handling Floor in `SKILL.md`.** Cold storage is not a
+safer place for a secret than the hot cache: `memory/` is plain text in the project directory and
+is normally version-controlled, so a credential saved into a dated audit or report file survives
+its own deletion just as it would in `CLAUDE.md`. Routing a key, password or shared login *out* of
+the hot cache and *into* `memory/` — or into a `.env` or a gitignored file — is not compliance.
+Record that the credential exists, who holds it and which secret store it lives in; never the
+value. A pasted value is already exposed and needs rotating, and saying so is part of the write.
+
 ## Update Triggers
 
 After specific events, update memory systematically:

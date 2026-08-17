@@ -4,10 +4,21 @@ Use this template when initializing memory for a new SEO project.
 
 ### 2. Hot Cache (CLAUDE.md) Structure
 
+**Before writing: no secret value goes in this file, and none goes in a substitute file either.**
+The hot cache auto-loads into every session for everyone on the project, and it is
+version-controlled, so a credential committed once survives its deletion. Record that a credential
+exists, who holds it and which secret store it lives in — never the value, and never a value the
+user has pasted. Moving one to `memory/`, a `.env` or a gitignored file is not compliance. Full
+rule, including the personal-data judgement: `SKILL.md` → **Data-Handling Floor**.
+
 Create or update CLAUDE.md with this template:
 
 ```markdown
 # [Project Name] - SEO Memory (Hot Cache)
+
+<!-- No credentials, API keys, passwords, tokens or personal data in this file. It auto-loads into
+     every session and is version-controlled, so a secret committed once survives its deletion.
+     Record who holds a credential and which secret store it is in — never the value. -->
 
 **Last Updated**: [Date]
 **Project Status**: [Active/Maintenance/Growth]
