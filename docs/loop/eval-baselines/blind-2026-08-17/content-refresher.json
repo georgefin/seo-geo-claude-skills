@@ -1,0 +1,668 @@
+{
+ "suite": "content-refresher",
+ "skill": "content-refresher",
+ "suite_path": "optimize/content-refresher/evals/evals.json",
+ "skill_version_under_test": "4.3.7",
+ "run_label": "blind-2026-08-17",
+ "run_date": "2026-08-17",
+ "method": "blind",
+ "method_detail": "Split-role Mode B. A separate executor wrote e1-e5 without sight of the expectations; this grader did not produce or re-run any deliverable and graded only what is on the page. Deliverables at /tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-2026-08-17/content-refresher/e1..e5.md, sha256 e1 908fad7d70 · e2 a1a73e0ac9 · e3 449c94c1c0 · e4 766026a435 · e5 c1a83da718.",
+ "repo_head_at_open": "226ceeb8134a08ccc772756bc3bc242225ff4ebf",
+ "repo_head_at_close": "8d342e88883df8c604e98dc0d341e3c8b2bc89dc",
+ "input_drift_during_the_grading": {
+  "head_moved": "Yes, by five commits — 226ceeb -> dcff7f7 -> 4451ec6 -> 9dac5da -> 31c3ac5 -> 8d342e8. Four are eval-baseline records for other suites; one (9dac5da) is a memory-management / seo-content-writer fix.",
+  "THE_SKILL_UNDER_TEST_WAS_EDITED_MID_GRADING": {
+   "what": "`optimize/content-refresher/SKILL.md` (sha256 fc80343d... at my open read, cd0ede1a... at close) and `optimize/content-refresher/references/refresh-example.md`, both uncommitted in the working tree at close.",
+   "the_edit": "Step 1's operator-block instruction and Output Validation item 7 now require TWO labels rather than one — the in-fence `<!-- OPERATOR BLOCK ... -->` comment AND a visible line directly under it — with the reason stated as 'an HTML comment resolves to nothing when the report is rendered, leaving the block unlabelled exactly where the client reads it'. The in-fence `### CORE-EEAT quick scan — operator triage` heading becomes `**CORE-EEAT quick scan** — *operator triage; not part of the client report*`.",
+   "effect_on_the_27_verdicts": "NONE, and checked rather than assumed. `optimize/content-refresher/evals/evals.json` is byte-identical across the whole grading (sha256 6ae01adf... at open and at close), so no expectation moved. No expectation grades the operator-block label in any case.",
+   "effect_on_this_record_s_instrument_findings": "It PARTIALLY SUPERSEDES instrument_defects claim 2, which this grader adjudicated PARTIALLY CONFIRMED and closed with the recommendation 'one clause beside the copy test: the label must be visible in the rendered deliverable'. The working tree now contains that clause, in this skill, in almost those words. The claim-2 entry is left standing as written rather than rewritten, because a record that edits away its own reasoning teaches nobody what the reasoning was; this note is the supersession.",
+   "what_the_fix_does_NOT_reach": "The same `<!-- LABEL -->` construction stands in 20 files across 12 other skills (schema-markup-generator 16 sites, rank-tracker 12, inter-skill-handoff 8, meta-tags-optimizer 7, both auditors 6 each). A per-skill fix to a library-wide class is ledger F9's signature and F9-r11's explicit rule: 'the library-wide sweep for that class is dispatched in the same wave, or the finding stays open with the un-swept scope named'. Naming it here.",
+   "what_it_would_do_to_these_deliverables_if_applied_retroactively": "The five deliverables predate the edit. They carry the in-fence comment plus a `###` heading inside a literal ```markdown fence, so the label IS visible in the render — the new rule's purpose is met by a different mechanism — but they do not carry the exact two-label form the new checkbox specifies. Grading them against the post-edit skill would put an unmet Output Validation checkbox in front of work written before it existed, which is precisely what `docs/loop/eval-baselines/INSTRUMENT-CHANGES.md` exists to prevent. Every verdict in this record is against the skill as it stood when the deliverables were written.",
+   "ledger": "F8 — the review target moved while the review was in flight. Recorded rather than smoothed over: the drift was harmless only because it touched a surface no expectation grades, which is luck, not method."
+  },
+  "graded_rubric_also_edited_mid_run": {
+   "what": "`build/seo-content-writer/references/anti-slop-ruleset.md` (+6/-4, uncommitted at my first close check; landed in 9dac5da). This is the §6 rubric for e3.5's mechanical layer.",
+   "effect_on_verdicts": "NONE, checked. The diff adds no family and tightens no rule: it guards family 5's `ποτέ` token with `(?<!α)` to drop «αποτέλεσμα» false positives, corrects the claim that the token also matches «αποτελέσματα», case-fixes the advisory νίκη guard to `(?<![Θθ]εσσαλο)`, and adds lowercase «θεσσαλονίκη» to the protected list. Every change reduces false positives, so a stricter reading cannot convert a pass into a fail. Both amended screens were re-run against e3 after the edit: `(?<!α)ποτέ` returns 4 of 4 bare hits, all licensed or verbless; the case-fixed νίκη guard returns 0 with a live control returning 1."
+  },
+  "checksums_of_graded_inputs": {
+   "evals.json — unchanged open to close": "6ae01adf21905269acf76a0430e28d24d4411d1dae821c82500999c61b2c82e8",
+   "SKILL.md — at open, the state graded against": "fc80343d729e5f811df4bf2dac242f9316f05bd271e6d4085f950cce7042f28b",
+   "SKILL.md — at close, after the mid-run edit": "cd0ede1a9a3cd99fc84a442f31269fe89aad5b7ad869b78f516ee1947c4c5f39",
+   "references/refresh-templates.md — unchanged": "e538da41c10f5dc138c2fa4471ce236e0aeb677d2f0152b47ed829bd1d81c33e",
+   "references/content-decay-signals.md — unchanged": "cf8db4d2edc942191e368ad838a41349d92e5a5dd6febe4d34d97ff71317f38b",
+   "references/ai-overview-recovery.md — unchanged": "e0de55583492f8a582a3e6dde170184275d3947a665ed167ad0b4189f4d0a847",
+   "references/refresh-example.md — at open": "e33d8c5cacaf4db0955ff7eec8e530dc74b757d739109f31a62ada9808f662b0",
+   "deliverables — unchanged throughout": "e1 908fad7d70 · e2 a1a73e0ac9 · e3 449c94c1c0 · e4 766026a435 · e5 c1a83da718"
+  }
+ },
+ "summary": {
+  "passed": 24,
+  "failed": 2,
+  "editor_pending": 1,
+  "instrument_defect": 0,
+  "total": 27,
+  "pass_rate": 0.8889,
+  "editor_slot_convention": "e3.5 is COUNTED IN `total` and counted in NEITHER `passed` NOR `failed`. This is not a choice this grader made: the current e3.5 text mandates it verbatim — 'record it EDITOR-PENDING, keep it inside the suite's total, and never record it as passed'. passed + failed + editor_pending = 24 + 2 + 1 = 27 = total, so there is no unexplained gap (F16-r1(c)). pass_rate is passed ÷ total = 24 ÷ 27 = 0.8889. THE ALTERNATIVE RATE, if the pending slot were counted PASSED on its clean mechanical layer, is 25 ÷ 27 = 0.9259; that is NOT the published figure. Same convention as the blind-2026-08-11 and blind-2026-08-13 records for this suite, so all three are directly comparable.",
+  "comparability_note": "Compare this 0.8889 against the 2026-08-13 record's SECONDARY figure of 24/27 = 0.8889 (its grading against the HEAD suite), not against its headline 25/27 = 0.9259, which was graded against the pre-a76706d suite. Three expectations (e1.2, e2.4, e3.6) were reworded in a76706d; the other 24 are byte-identical, verified programmatically rather than asserted."
+ },
+ "regressions_vs_baseline": {
+  "baseline_used": "docs/loop/eval-baselines/blind-2026-08-13/refresher.json (most recent prior record; also compared against blind-2026-08-11 and blind-2026-08-10c)",
+  "instrument_diff_checked_first": "`git diff 8fdb629 HEAD -- optimize/content-refresher/evals/evals.json`: 24 of 27 expectations BYTE-IDENTICAL, 3 reworded (e1.2, e2.4, e3.6 — all in the FAQ-retirement direction), 2 expected_output fields reworded, all 5 prompts byte-identical, all 4 fixtures byte-identical (`git diff --stat` over evals/files/ is empty). For the 3 reworded ones the comparison basis is the 2026-08-13 record's own `secondary_grading_against_HEAD_suite`, which graded them against exactly this text. Movement on reworded text against the OLD text is void and is not claimed anywhere below.",
+  "regressions": [
+   {
+    "id": "R1",
+    "expectation": "e1.1",
+    "expectation_text_changed": false,
+    "prior": "PASS at blind-2026-08-13 (with an explicit 'IMPRECISION RECORDED' on this exact clause), PASS at blind-2026-08-11, PASS at blind-2026-08-10c",
+    "now": "FAIL",
+    "what_moved": "Clause (b). The prior deliverable asserted the supersession implicitly — 'yours instructs the reader to use the previous product' — and named GA4 as the replacement content. This one explicitly refuses: e1.md:241-243 'Nothing on file here establishes either product's current name, so this analysis asserts nothing about them in either direction', and the drafted replacement copy (e1.md:413-429) names no analytics product at all.",
+    "cause": "NOT executor drift. `refresh-templates.md:298-299` instructs 'Anything not in the register stays open... assert nothing in either direction. The register is the stopping condition, not a licence to correct by memory', and 'Universal Analytics' appears ZERO times in this library outside the fixture. See suite_findings_step_7 S1.",
+    "do_not_merge": "Treat as do-not-merge on the SKILL, not on the run: the fix is a scope clause on refresh-templates.md:298-299, not a change to the deliverable."
+   },
+   {
+    "id": "R2",
+    "expectation": "e2.6",
+    "expectation_text_changed": false,
+    "prior": "PASS at blind-2026-08-13; FAIL at blind-2026-08-11 for this identical reason; PASS at blind-2026-08-10c",
+    "now": "FAIL",
+    "what_moved": "The paste-ready opening and FAQ ship as labelled skeletons with bracket slots (e2.md:210-235, 284-317) instead of complete copy. The 2026-08-13 deliverable shipped both blocks filled, which the fixture cannot support — it withholds the timing answer, supplying only a transcriber's note that it 'first appears in the fifth paragraph'.",
+    "cause": "LEDGER F13 RECURRENCE 5, unchanged and unfixed. That entry ruled this exact expectation a suite defect on 2026-08-11 — 'The one regression in this suite is the skill behaving correctly' — and its status reads 'e2.6 needs the carve-out or the fixture needs paragraph 5 — coordinator ruling, suite not edited'. Verified: e2.6 is byte-identical from 8fdb629 to HEAD, so the ruling has not been executed. This run took the Value-Rule-compliant route the ledger describes and failed for it.",
+    "do_not_merge": "Not a do-not-merge on the run. The suite is the artefact that needs the change."
+   }
+  ],
+  "improvements_recorded_in_the_same_direction": [
+   {
+    "id": "I1",
+    "expectation": "e1.2",
+    "prior": "FAIL against the HEAD suite in the 2026-08-13 secondary grading",
+    "now": "PASS",
+    "what_moved": "The deliverable now states the sourced position — 8 August 2023, government/health, quoted verbatim with its URL (e1.md:201-204, 398-402) — where the prior run's ground was the retracted 'FAQ rich results were retired in 2026'."
+   },
+   {
+    "id": "I2",
+    "expectation": "e4.4",
+    "prior": "FAIL at blind-2026-08-13 (itself a regression against blind-2026-08-11)",
+    "now": "PASS",
+    "what_moved": "The tool-comparison cadence is now quoted with the type named, twice (e4.md:126, 420-421), which is exactly what the 2026-08-13 grader found returned ZERO hits. The audit table now carries a Type column."
+   },
+   {
+    "id": "I3",
+    "expectation": "not graded — defect class",
+    "prior": "2026-08-13 defect D1: the unverified 2026 FAQ-retirement date asserted as bare fact on five client-facing lines across three deliverables",
+    "now": "absent",
+    "what_moved": "A grep for 'retired in 2026' / «αποσύρθηκαν ... 2026» over all five deliverables returns zero."
+   },
+   {
+    "id": "I4",
+    "expectation": "not graded — defect class",
+    "prior": "2026-08-13 defect D2: settled ruling R4 handed back to the client as an open verification item (ledger F19 abstention overshoot, second consecutive occurrence)",
+    "now": "absent",
+    "what_moved": "e1.md:189-194 states LCP ≤2.5 s / INP ≤200 ms / CLS ≤0.1 and 'These are corrected in place... They need no tool, no verification and no client input.'"
+   },
+   {
+    "id": "I5",
+    "expectation": "not graded — defect class",
+    "prior": "2026-08-13 defects D3/D4/D5/D6: four client-facing arithmetic defects (a 'roughly triples' adjective against a 9.7× table; a Current column summing 282 under a Total of 231; a signal count of 3 over four printed products; a 17/100 that should read 16.7)",
+    "now": "absent",
+    "what_moved": "Every figure in all five deliverables was recomputed by this grader and reproduces exactly; see arithmetic_check. The e1 word-count Current column sums to 210 and reconciles with the measured total printed at e1.md:5; the e3 column sums to 154 and reconciles with e3.md:6."
+   }
+  ],
+  "headline_reading": "THE RATE IS FLAT AND THE COMPOSITION IS NOT. Against the like-for-like instrument the suite reads 24/27 both times — but two expectations recovered (e1.2, e4.4) and two regressed (e1.1, e2.6). A record that reported only the rate would show no movement at all while two expectations that had passed now fail. This is the case the per-expectation rule exists for."
+ },
+ "per_eval": [
+  {
+   "id": "e1",
+   "language": "en",
+   "passed": 5,
+   "failed": 1,
+   "editor_pending": 0,
+   "total": 6,
+   "expectations": [
+    {
+     "id": "e1.1",
+     "verdict": "FAIL",
+     "passed": false,
+     "text": "staleness inventory fixture-exact: (a) 2024 year refs, (b) the Universal Analytics goals line flagged BECAUSE UA no longer processes data with replacement guidance pointing at GA4, (c) the Metricfield 2022 statistic, (d) both crawl-flagged 404s attributed to the user's crawl; nothing invented",
+     "evidence": "FAILS on clause (b), and this is a REGRESSION (see regressions_vs_baseline R1). Raw output inspected at the flagged location before reporting (ledger F7). (a) PASS — e1.md:252-255 '\"2024\" in the title tag, the H1, the meta description and the opening sentence. Four occurrences.' with the refreshed tag at e1.md:312 'Small Business SEO Checklist for 2026 | Velvet Marketing'. (c) PASS — e1.md:230-232 names the statistic and its dead source, e1.md:235-236 'The statistic comes out of the article unless someone re-sources it... re-dating it would be worse than dropping it', with a labelled SKELETON replacement slot at e1.md:443-456. (d) PASS — e1.md:227-233 names both URLs and attributes them: 'Your crawl of 5 Aug 2026 flagged exactly two outbound 404s on this page, and no other page was checked'. No link check is claimed by the assistant (e1.md:12 'No tool was connected in this session'). No invented element: no broken internal link, no outdated-screenshot claim anywhere in the file. (b) FAILS. The line IS identified (e1.md:240-241 quotes 'Set up conversion goals in **Universal Analytics**') and the plan does route ~120 words of 'GA4 measurement setup' into that very section (e1.md:274, e1.md:343). What the expectation requires and the deliverable explicitly refuses is the ground: e1.md:241-243 — 'Nothing on file here establishes either product's current name, so this analysis asserts nothing about them in either direction — a product-name check is not something to do from memory.' e1.md:431-434 repeats it for the drafted copy — 'Why no analytics product is named in that copy... Nothing supplied to this analysis establishes which analytics product is current'. The replacement copy at e1.md:413-429 names no analytics product at all. GA4 appears only as a dated observation about two competitor pages (e1.md:245-247) and as a competitor-coverage gap row, never as the replacement for Universal Analytics. CAUSE IS THE SKILL, NOT THE EXECUTOR — see suite_findings_step_7 S1: refresh-templates.md:298-299 instructs 'Anything not in the register stays open... flag it for verification, assert nothing in either direction', and 'Universal Analytics' appears ZERO times anywhere in this library outside the fixture (grep, whole repo, with the fixture hit as the non-vacuity control). BORDERLINE, STATED: the 2026-08-13 record graded this same clause a PASS with an explicit 'IMPRECISION RECORDED' on the identical ground, on a deliverable that at least called UA 'the previous product' and named GA4 as the replacement content. This run explicitly refuses the assertion, so it sits on the other side of that line."
+    },
+    {
+     "id": "e1.2",
+     "verdict": "PASS",
+     "passed": true,
+     "text": "R3 catch with W12 abstention: FAQ claim flagged on the SOURCED position (2023-08-08, government/health), markup kept only because valid and zero-cost with no benefit claimed, HowTo sentence flagged for verification rather than corrected either way, no rich-result-eligibility claim added",
+     "evidence": "Sourced position stated verbatim in the report and again in the publish-ready copy: e1.md:201-204 'Google Search Central announced on **8 August 2023** (\"Changes to HowTo and FAQ rich results\", https://developers.google.com/search/blog/2023/08/howto-faq-changes) that FAQ rich results \"will only be shown for well-known, authoritative government and health websites\", and that \"For all other sites, this rich result will no longer be shown regularly.\"'; e1.md:398-402 repeats it inside the fence. Markup kept on the ruled basis with no benefit claimed: e1.md:208-211 'it is valid markup, it costs nothing to keep, and Google has said there is no need to proactively remove it. What the refreshed copy no longer does is promise a search-results feature in exchange for it'; e1.md:404-408 the same inside the fence. No parsing/citation benefit is claimed anywhere. HowTo: e1.md:217-223 'we have not established that they still appear, and we have not established that they are gone. **The sentence is therefore cut from the refreshed copy rather than corrected**... it needs someone to check the current status against Google Search Central first and write the date of that check into the refresh ticket — and until that happens the page says nothing about HowTo rich results in either direction.' Action 2's acceptance criterion carries it (e1.md:503-505). Neither fail condition triggers: no direction is asserted, and the sentence is not left standing unflagged. No rich-result-eligibility claim of its own: a scan of every 'rich result' occurrence in all five deliverables (17 in e1, 3 in e2, 3 in e3) returns only the sourced FAQ position, the HowTo abstention and operator-block notes. IMPROVEMENT: the 2026-08-13 record's D1 defect — the unverified 2026 FAQ-retirement date asserted as bare fact on five client-facing lines across three deliverables — is ABSENT here; a grep for 'retired in 2026 | αποσύρθηκαν...2026' over all five files returns zero."
+    },
+    {
+     "id": "e1.3",
+     "verdict": "PASS",
+     "passed": true,
+     "text": "R4 catch: FID retired March 2024 (INP is the responsiveness metric), the 2.0 s LCP figure is not Google's, and any stated thresholds read LCP <=2.5 s / INP <=200 ms / CLS <=0.1",
+     "evidence": "e1.md:181-191 quotes the article line and corrects both counts: '**First Input Delay was retired in March 2024** — one month after this post was published — and **Interaction to Next Paint (INP) replaced it** as the responsiveness metric'; '**The \"Good\" thresholds are LCP <= 2.5 s, INP <= 200 ms, CLS <= 0.1.** The 2.0-second LCP figure circulating in older posts is a vendor number, not Google's.' Corrected in place, not routed back: e1.md:193 'These are corrected in place, in the copy below. They need no tool, no verification and no client input.' The publish-ready copy carries the figures (e1.md:367-376). FID is never re-taught as live. IMPROVEMENT: the 2026-08-13 record's D2 defect (R4 handed back to the client as an open verification item, second occurrence in consecutive runs) is ABSENT here — the abstention overshoot of ledger F19 does not recur on CWV."
+    },
+    {
+     "id": "e1.4",
+     "verdict": "PASS",
+     "passed": true,
+     "text": "decay analysis and decision from the fixture's numbers with sources labelled; REFRESH per the backlinks-and-was-ranking rule anchored on 23 referring domains and former position 4; the AI-Overview-displacement branch NOT invoked",
+     "evidence": "Source labelling: e1.md:102-103 '**Source**: user-provided — your Search Console / GA4 export pulled 7 Aug 2026... No tool was connected in this session', with a per-input provenance table at e1.md:15-21. Figures reproduce exactly (grader-recomputed): 2,900->1,530 = -47.24% printed as -47.2%; 21,400->12,000 = -43.93% printed as -43.9%; positions 4->12, 5->14, 8->19 all fixture-exact (e1.md:105-121). REFRESH: e1.md:293 '**Decision: REFRESH, in place, at the same URL.**' anchored at e1.md:296-298 '23 referring domains and a page-one ranking history are exactly what the refresh-versus-rewrite rule protects — a page with earned links that was once ranking is refreshed whatever the decay score says.' Branch correctly not invoked, on the branch's own failing condition: e1.md:166-171 'It is ruled out on your own numbers: impressions fell 43.9% rather than holding, and the rankings fell out of the top three rather than holding. This is ordinary decay plus staleness.'"
+    },
+    {
+     "id": "e1.5",
+     "verdict": "PASS",
+     "passed": true,
+     "text": "additions carry word counts and section locations; missing topics trace only to the fixture's competitor coverage notes; no bracketed data-needed tokens inside paste-ready copy",
+     "evidence": "Word counts and locations: the section table at e1.md:339-351 gives a per-section Current/After pair for all ten sections. Grader-recomputed against the fixture with a punctuation-token convention (standalone em dashes not words): Introduction 27, Measure 62, Speed 29, Schema 46, Local 21, Content 25 — all six exact — summing to 210, matching the printed Total and the measured word count at e1.md:5; After column sums to 1,673 exactly; 1,673/210 = 7.97 printed as 8.0x; new share 1,463/1,673 = 87.4% exact. Missing topics: e1.md:271-276 lists exactly four, each traced to the recorded H2s — 'AI search visibility / AI Overviews | 2 of 2 pages reviewed (brightclicks \"AI Overviews: how to show up\"; growthetc \"AI search visibility (GEO)\")', GA4 2 of 2, Google Business Profile 1 of 2 (brightclicks), review management 1 of 2 (growthetc). Denominator stated at e1.md:266-269 'The denominator is **2 pages**... This is a coverage observation on two pages on one date. It is not a census, and it says nothing about how either page ranks.' No topic is attributed that the listed H2s do not support. Placement: the three paste-ready fences (e1.md:364-385, 389-409, 413-429) contain zero '[' characters, zero TBD/XX/TO SUPPLY tokens — scripted scan, with the labelled skeleton at e1.md:443-456 as the positive control returning hits. The one bracket-bearing fence is labelled inside the fence, '<!-- SKELETON — not publishable copy... -->', which root CLAUDE.md's Value Rule clause 2 sanctions."
+    },
+    {
+     "id": "e1.6",
+     "verdict": "PASS",
+     "passed": true,
+     "text": "no fabrication; quick scores presented as this skill's own estimates with the points-over-items derivation printed; unassessable held out; a dimension under 3 checkable items reads 'not assessed'; Expected Outcomes framed as targets/estimates",
+     "evidence": "Every quick score reproduces from its own tally (grader-recomputed, points / (10 x items) x 100): C 20/50 = 40; O 15/50 = 30; R 15/50 = 30; E 0/50 = 0; Exp 10/50 = 20; Ept 5/50 = 10 (e1.md:41-46 against the operator tally at e1.md:75-80). A and T read '**not assessed**' with the reason (e1.md:47-48, 81-82), and the difference from a measured zero is stated explicitly at e1.md:50-52. Framed as an estimate at e1.md:32-35 'What follows is a rapid estimate over five items per dimension, not the full 80-item audit', and at e1.md:92-93 'Five items per dimension is triage.' Never a tool measurement. Veto: 'CORE-EEAT-T04 unassessable' with what would settle it (e1.md:84-88) — the third answer the skill's own rule requires, not 'none'. Composite decay 86.8 reproduces: (75x30)+(100x25)+(75x15)+(100x15) = 7,375; 7,375/85 = 86.7647 -> 86.8, band read off 87 (e1.md:137-138); every rung correct against content-decay-signals.md:193-222 including the two-gate position state rung (e1.md:140-143). No invented metric: all performance figures trace to the fixture; no replacement statistic is supplied for the 2022 survey; no ranking history beyond the fixture's columns. Expected Outcomes at e1.md:648-653 read 'not projected; to be measured after republishing' in every forward cell, and e1.md:645-646 states 'This analysis carries no model that converts a refresh into a position or a session figure.' TWO UNSOURCED QUANTIFIED CLAIMS in publish-ready copy are recorded under defects_outside_the_graded_set D2 rather than failed here — none of this expectation's enumerated clauses reaches them, and manufacturing a bar at grading time is the F13/F17 defect from the grader's side."
+    }
+   ]
+  },
+  {
+   "id": "e2",
+   "language": "en",
+   "passed": 5,
+   "failed": 1,
+   "editor_pending": 0,
+   "total": 6,
+   "expectations": [
+    {
+     "id": "e2.1",
+     "verdict": "PASS",
+     "passed": true,
+     "text": "displacement branch fires on fixture evidence with the conditions shown from the export; thresholds not presented as a measured industry statistic",
+     "evidence": "Condition-by-condition table at e2.md:50-56: CTR '-54%, -41%, -41%, -36%, -25%, -29% — six of six inside that band'; impressions '+1% to +9% per query; +4% page-level'; rankings '2.1->2.3 - 1.9->1.8 - 2.6->2.8 - 2.4->2.4 - 2.9->2.7 - 2.2->2.5. Largest single move: 0.3 of a position'; SERP 'Present on 5 of the 6 queries you pulled on 6 Aug'. Grader re-derivation from the export: all six CTR deltas inside 20-60; impressions +4/+6/+2/+9/+3/+1; last positions 1.8-2.8; largest move |2.2-2.5| = 0.3 — all exact. Diagnosis is displacement, not generic decay (e2.md:9-15, 44-48), and the ordinary decay score is explicitly refused as the urgency source (e2.md:173-179). Neither stated fail condition triggers: the profile is introduced as 'a distinct failure pattern... It has a specific profile' with the column headed 'What the pattern looks like' (e2.md:46-51), never as a measured industry statistic. EVAL FEEDBACK, THIRD CONSECUTIVE RUN: the clause's positive phrase — 'while treating the numeric thresholds as the playbook's house operational default (tunable per site and market), not a measured fact' — is not stated by this deliverable and was not stated by the 2026-08-11 or 2026-08-13 deliverables either; all three records passed it on the two explicit fail conditions and all three logged the same feedback. A phrase three consecutive graders have declined to enforce is not a requirement, and should be either written as one or dropped."
+    },
+    {
+     "id": "e2.2",
+     "verdict": "PASS",
+     "passed": true,
+     "text": "four-case segmentation fixture-exact with precise populations; query 6 routed out of the playbook",
+     "evidence": "e2.md:77-84 assigns: q2 and q5 'Overview citing a competitor' High with lawnsage.co.uk named from the fixture; q1 and q4 'Overview present, you are not cited' High; q3 'Cited, buried' Low — 'Yes, but only after expanding the source list'; q6 'No Overview, clicks still down' — '**Separate problem**'. Every assignment matches its SERP-check row in the fixture (lines 26-31) exactly. Population stated precisely at e2.md:56 'Present on 5 of the 6 queries you pulled on 6 Aug' and again at e2.md:32-34 as an observation rather than a rate. q6 routed out, not folded in: e2.md:86-90 '**Query 6 is not this diagnosis and should not be fixed by this plan.**... That is either an intent shift, a SERP feature other than an Overview, or an Overview that simply did not fire on that one pull. Three more pulls on that query, on separate days, settle which', with a separate action at e2.md:445-455."
+    },
+    {
+     "id": "e2.3",
+     "verdict": "PASS",
+     "passed": true,
+     "text": "remediation follows the playbook's order and specs: answer-first rewrite leads (bolded <=30-word answer, anchored expansion, jump-linked H2s), then quotable sentences, then a 40-60-word-answer FAQ; re-measure between stages",
+     "evidence": "Order and the re-measurement rule are stated first: e2.md:185-186 'Work top to bottom and **re-measure between stages** rather than shipping everything at once. If everything ships together and clicks recover, you will not know which change did it.' Stage 1 answer-first (e2.md:188-199) specifies all three parts — '**A bolded direct answer of about 30 words or fewer**', '**A two-sentence expansion carrying at least one specific anchor** — a month, a soil temperature, a number of passes, a named grass type', '**Jump-linked H2s below it**, each phrased the way the query is phrased' — and it replaces the fixture's throat-clearing opening, quoted and analysed at e2.md:109-117. Stage 2 quotable sentences with the lift-out test (e2.md:261-271). Stage 3 FAQ, six questions taken from the export's own query wording, 'Answers run 40-60 words. Answer in the first sentence, qualify in the second' (e2.md:273-282). Stage 4 structured data last (e2.md:319). Note: this expectation grades the remediation ORDER AND SPECS, which are complete and correct. Whether the copy itself ships complete is e2.6's question, and it fails there."
+    },
+    {
+     "id": "e2.4",
+     "verdict": "PASS",
+     "passed": true,
+     "text": "markup discipline: FAQ content is the port, FAQPage proposed only on the R2 both-things test, any markup mention promises NOTHING, structured-data step never adds types to chase citations",
+     "evidence": "e2.md:319-332: '**Do not add FAQPage markup with the FAQ section.** A page carries one primary content type, and this page is a guide that contains an FAQ, not a guide that is also an FAQ resource in its own right. Adding a second type would be a claim about the page that is not true of it.' No schema change to the fixture's single Article block — e2.md:321-322 'Your page carries a single Article JSON-LD block. That is the correct primary type for a guide, and it stays', enforced in action 4's acceptance criterion (e2.md:411-413 'the page's JSON-LD still contains exactly one Article block and no FAQPage block'). Nothing promised, on the sourced ground: e2.md:328-332 'There is also nothing to gain by promising: since 8 August 2023, Google shows FAQ rich results only for well-known, authoritative government and health websites — \"For all other sites, this rich result will no longer be shown regularly\"... The FAQ *content* is the thing that does work here, and it does that work whether or not it is marked up.' No SERP feature, no citation or parsing benefit, and no accordion/real-estate claim anywhere. Against the HEAD wording this is now clean rather than borderline: the 2026-08-13 record passed this 'FOR THE RETRACTED REASON' because that deliverable grounded the no-SERP-feature statement in 'FAQ rich results were retired in 2026'. This one grounds it in the 2023-08-08 source."
+    },
+    {
+     "id": "e2.5",
+     "verdict": "PASS",
+     "passed": true,
+     "text": "verification and projections stay honest: T+7/T+14/T+28 ladder with what to check, re-measurement between stages, no recovery figure promised as fact, authority score labelled directional, entity-optimizer handoff payload documented",
+     "evidence": "Ladder at e2.md:341-345 with a 'What to record' column per checkpoint (Overview state per query at T+7 on a three-pull protocol; citation appearances and visibility at T+14; CTR against the named pre-drop baseline 6.8/7.4/5.9/6.1/4.8/5.2% at T+28). Staged re-measurement at e2.md:338 'Ship stage 1, then measure before shipping stage 2.' Nothing promised: e2.md:347-349 'These are checkpoints for reading, not commitments. Nobody controls whether a generated answer cites a given page, and nothing in this plan should be read as saying it will. What the plan commits to is the work and the measurement', and e2.md:482-484 '**No projection of recovered clicks, positions or citations.**' Authority labelled the playbook's way: e2.md:363 'Any such figure would be a directional vendor metric rather than a fact, and would be reported as one.' Handoff payload documented: e2.md:515 'entity-optimizer — payload: the six target queries, the four-case segmentation, the page URL. Not triggered on current evidence' (CORE-EEAT quick scores are 'if available' and Step 1 was correctly not issued). EVAL FEEDBACK: the clause names the T+28 goal 'the playbook's tunable target (\"Majority of the pre-drop CTR level recovered\")'. The deliverable states the baseline figures and 'Movement back toward those figures', which is more conservative than the quoted target rather than less; graded PASS on the clause's purpose."
+    },
+    {
+     "id": "e2.6",
+     "verdict": "FAIL",
+     "passed": false,
+     "text": "no fabrication with F13 placement: figures trace to the export, SERP-state claims dated and pull-scoped, and the paste-ready deliverables (rewritten opening, FAQ answers) SHIP COMPLETE — no bracketed placeholders",
+     "evidence": "FAILS on the ship-complete clause, and this is a REGRESSION against blind-2026-08-13 on byte-identical expectation text (see regressions_vs_baseline R2). Raw output inspected before reporting (ledger F7). What PASSES: every CTR, impressions and position figure traces to the export (grader re-derivation exact, including the page-level derivation 0.62/1.04 = -40.4% at e2.md:162); SERP-state claims are dated and pull-scoped, never the assistant's own fetches — e2.md:26 'Your manual live-SERP checks | Six queries, desktop, Leeds, en-GB, **one pull per query** | 6 Aug 2026', e2.md:32-35 '**One pull per query is an observation, not a measurement.** Generated answers vary between runs... It is not a rate, and it should not be written as a percentage'; no statistic is attributed to a named source the fixture lacks. What FAILS: the two paste-ready deliverables the prompt asked for do not ship. The rewritten opening ships as a labelled skeleton with two bracket slots — e2.md:219-221 '**[DIRECT ANSWER — 30 words maximum, the timing answer from paragraph five of the current page...]**' and e2.md:223-225 '[EXPANSION — two sentences...]'. The FAQ ships as a labelled skeleton with six bracket slots — e2.md:292-316, each '[40-60 words. ...]'. The customer-voice-hedge alternative the clause also permits was not taken for either block: no customer-voice copy is written at all. WHY, in the deliverable's own words (e2.md:201-208): 'The timing answer is on your page already — your transcriber found it in paragraph five — and it was not sent to me... I will not write a month range into copy you are going to publish under your name on the strength of a guess.' THIS IS LEDGER F13 RECURRENCE 5, UNCHANGED AND UNFIXED — see suite_findings_step_7 S2. That entry (2026-08-11) records the same expectation failing the same way for the same reason, ruled a suite defect: 'The one regression in this suite is the skill behaving correctly.' Its status reads 'e2.6 needs the carve-out or the fixture needs paragraph 5 — coordinator ruling, suite not edited', and verification confirms the suite was NOT edited: e2.6 is byte-identical from 8fdb629 to HEAD."
+    }
+   ]
+  },
+  {
+   "id": "e3",
+   "language": "el",
+   "passed": 5,
+   "failed": 0,
+   "editor_pending": 1,
+   "total": 6,
+   "expectations": [
+    {
+     "id": "e3.1",
+     "verdict": "PASS",
+     "passed": true,
+     "text": "Greek staleness inventory fixture-exact across all six required items, nothing invented",
+     "evidence": "(a) 2024 year references — e3.md:222-224 '### 4.5 «2024» σε τέσσερα σημεία / Στον τίτλο, στην περιγραφή, στην επικεφαλίδα H1 και στην πρώτη πρόταση.' (b) the price line — e3.md:203-210 quotes «Οι τιμές... ξεκινούν από 680 € (στοιχεία αγοράς 2023)» and rules 'Μια τιμή τριών ετών όμως σε σελίδα e-shop είναι λάθος τιμή, όχι παλιά τιμή.' (c) the expired deadline plus the owner-verified 404 — e3.md:192-194 quotes «έχουν παραταθεί έως τις 15 Μαρτίου 2024» and attributes the link status 'σύμφωνα με τον δικό σας έλεγχο της 7ης Αυγούστου, επιστρέφει 404'; population stated at e3.md:31 «κανένας άλλος σύνδεσμος δεν ελέγχθηκε»; the report claims no link check of its own (e3.md:24). (d) Helioterm S — e3.md:182-184 'Σύμφωνα με τις σημειώσεις σας της 7ης Αυγούστου, η σειρά αποσύρθηκε από τον κατασκευαστή το 2025', removed at e3.md:298 and action 1 (e3.md:484-495). (e) the 2021 study — e3.md:214-220 'η μελέτη δεν κατονομάζεται και δεν υπάρχει σύνδεσμος... Ή βρίσκεται η πηγή με το όνομά της και το δικό της έτος έκδοσης, ή το ποσοστό βγαίνει από το κείμενο.' (f) the two missing sections — e3.md:226-233 names κόστος λειτουργίας and ερωταπαντήσεις from the owner's notes, with both competitor URLs, and adds 'Αυτό είναι παρατήρηση σε δύο σελίδες, μία ημέρα, από εσάς. Δεν λέει τίποτα για το πού κατατάσσονται αυτές οι σελίδες.' No staleness beyond the fixture is asserted."
+    },
+    {
+     "id": "e3.2",
+     "verdict": "PASS",
+     "passed": true,
+     "text": "REFRESH per the decision rule anchored on former position 4 and 9 referring domains; seasonality ruled out via the fixture's same-month comparison; every figure labelled user-provided in Greek, no ~~category token",
+     "evidence": "Verdict and anchors: e3.md:263 '**Απόφαση: ανανέωση στην ίδια διεύθυνση.**' with e3.md:267-268 'Εννιά αναφέροντα domains και ιστορικό πρώτης σελίδας είναι ακριβώς αυτό που προστατεύει ο κανόνας: σελίδα με κερδισμένους συνδέσμους που κάποτε κατατασσόταν, ανανεώνεται', and the position history at e3.md:258 'Ήταν στη θέση 4 και 6 πέρυσι τον Ιούλιο.' Seasonality: e3.md:125-127 'Η σύγκριση είναι ίδιος μήνας με ίδιο μήνα, που είναι ακριβώς η σύγκριση που αποκλείει την εποχικότητα — και σε ένα προϊόν με τόσο έντονη σεζόν αυτό μετράει.' Grader-recomputed: 1,310 -> 560 = -57.25%, printed -57,3% (e3.md:121). Source labelling in Greek: e3.md:116-117 '**Πηγή**: στοιχεία που παρείχατε εσείς — μεταφορά από GA4 και Search Console, 07/08/2026. Κανένα εργαλείο δεν ήταν συνδεδεμένο', with a per-input table at e3.md:27-33. No tool is claimed to have been queried. Scripted scan for '~~' over all five deliverables returns ZERO."
+    },
+    {
+     "id": "e3.3",
+     "verdict": "PASS",
+     "passed": true,
+     "text": "subsidy-program honesty: the deadline flagged expired, the CURRENT status never asserted, verification routed to the primary source, customer-visible copy omits or hedges without unverified specifics",
+     "evidence": "e3.md:196-199 'Η προθεσμία πέρασε. Ποια είναι σήμερα η κατάσταση του προγράμματος δεν το γνωρίζει αυτή η ανάλυση, και δεν θα το μαντέψει: μια σελίδα καταστήματος που λέει λάθος πράγματα για επιδότηση κοστίζει περισσότερο από μια σελίδα που δεν λέει τίποτα.' No new deadline, phase, eligibility or amount appears anywhere in the file. Verification routed with an owner and an acceptance criterion: action 2 at e3.md:497-507 '**Υπεύθυνος**: Απόφαση πελάτη... σημείωμα με την ημερομηνία ελέγχου, την κατάσταση του προγράμματος εκείνη την ημέρα και τον επίσημο σύνδεσμο.' Customer-visible copy omits the program entirely: the publish-ready introduction (e3.md:327-344) and the five ready FAQ answers (e3.md:355-393) contain no subsidy claim. The sixth question is held back in a separate labelled skeleton — e3.md:399-402 '<!-- SKELETON — δεν είναι έτοιμη για δημοσίευση... μην αντιγράψετε την παλιά προθεσμία της 15ης Μαρτίου 2024: πέρασε. -->' — with the reason at e3.md:412-416."
+    },
+    {
+     "id": "e3.4",
+     "verdict": "PASS",
+     "passed": true,
+     "text": "no fabrication: no new prices, subsidy amounts, coverage percentages, model counts or market statistics as fact; stale figures get sourced-replacement slots in the PLAN frame; Helioterm S not replaced with an invented product",
+     "evidence": "e3.md:346-348 '**Τι δεν μπήκε στην εισαγωγή, και γιατί.** Καμία τιμή και κανένα ποσοστό. Δεν έχουμε τρέχοντα κοστολόγια από εσάς, και η μόνη πηγή για το 70% κάλυψης είναι μια μελέτη χωρίς όνομα.' Scripted check: no euro figure and no percentage appears in either publish-ready fence. The 70% gets a labelled replacement slot in the plan frame, not in the copy: e3.md:420-435, '<!-- SKELETON — δεν είναι κείμενο προς δημοσίευση... -->' with «[ΤΕΚΜΗΡΙΩΜΕΝΟ ΣΤΟΙΧΕΙΟ: ... με το όνομα του φορέα και το δικό του έτος έκδοσης]». Helioterm S is removed and NOT replaced with an invented successor: action 6 (e3.md:544-554) routes the model table to 'κάθε μοντέλο που αναφέρεται υπάρχει στον τρέχοντα κατάλογο των 12'. The only model-count claim is the fixture's own — e3.md:337-338 'τα 12 μοντέλα του καταλόγου μας τη φέρουν', matching the owner's note. No ranking or traffic history beyond the fixture's table. QUALITATIVE ADDITIONS the enumerated clause cannot see are recorded under defects_outside_the_graded_set D3."
+    },
+    {
+     "id": "e3.5",
+     "verdict": "EDITOR-PENDING",
+     "passed": null,
+     "text": "Greek output quality — mechanical layer plus the binding greek-content-editor's verdict",
+     "evidence": "EDITOR-PENDING, recorded exactly as this expectation's own text instructs: 'If no greek-content-editor report on this eval's output is in front of the grader, this expectation is UNGRADED: record it EDITOR-PENDING, keep it inside the suite's total, and never record it as passed.' No greek-content-editor report on e3.md is in front of this grader; the artefact is referred. This is not the grader's choice of convention. MECHANICAL LAYER — every screen run under LC_ALL=C.UTF-8 with a live non-vacuity control, per ledger F15: (1) Final sigma: 0 word-final σ and 0 word-medial ς, against a live control of 888 correct word-final ς; both patterns fault-injected on «πελάτησ έλεγχοσ καλόςημέρα» and returned 2 and 1 hits respectively, so the clean sheet is a live result. (2) Untranslated English boilerplate headings on the client surface: none — every section heading is Greek; the Latin strings in client prose are «domains» (the ruleset's own protected form), «e-shop», «site», «links», the four URLs, and «SEO/τεχνικό» as an owner role, whose Greek-to-closed-list mapping is declared in the operator block (e3.md:660). (3) Family 1 totality-with-numeral: 0 hits on 'Όλα τα [0-9]'; the native form is produced once («Και τα δύο τα έχουν και οι δύο σελίδες», e3.md:248). (4) Family 2 agency provenance: 0 hits on «απαιτούνται στοιχεία» / '[CLIENT DATA' / '[SOURCE NEEDED' across all five deliverables. (5) Family 5 negative concord: the net returned 39 n-word lines; every one hand-checked — each finite clause carries a preverbal «δεν» / «χωρίς» licenser, and the rest are verbless nominals («Εξαρτήσεις: καμία», «Τελευταία ενημέρωση: ποτέ») which the ruleset's protected list governs. Re-run under the amended `(?<!α)ποτέ` guard: 4 of 4 «ποτέ» hits survive the guard and all four are licensed or verbless. Screened, nothing surfaced. (6) Family 6 costs-zero: the net «μηδ[εέ]ν» returned 2 lines, both «σημαίνει μηδέν» / «αυτό το μηδέν είναι μέτρηση» about a score, neither ranked by `κοστίζ`; the editor's protected list covers the copula-with-numeral form. The ruled NATIVE form is produced at e3.md:462 «Δεν κοστίζει τίποτα». Screened, nothing surfaced. (7) Family 7 '~~': 0 hits. (8) Family 8: all 9 slug / framework-ID / ruling-handle occurrences in e3 sit inside the two fences whose first line is '<!-- OPERATOR BLOCK — για την ομάδα που τρέχει... -->' (e3.md:81-110, 645-662); zero in client prose. (9) Family 9 engine-disposition, both languages: NET x RANK returns nothing; control returns 2 of 2. (10) Family 10 guaranteed outcome: 3 net-and-rank survivors across all five files, every one adjudicated legitimate (two are verbatim quotations of Google's 2023-08-08 wording, one is the playbook's own 'content edits will not reach it'). (11) Advisory νίκη under the amended case-fixed guard: 0 hits. REFERRED TO THE EDITOR (register/naturalness, not this grader's call): the two publish-ready blocks §8.1 and §8.2, which the deliverable itself flags at e3.md:661, naming «τραβάει η αντίσταση» and «βγαίνει από το πόσα άτομα»; plus «τα εισερχόμενα links» at e3.md:265, where the same document writes «σύνδεσμος/συνδέσμους» in Greek elsewhere and «domains» is protected but «links» is not ruled either way."
+    },
+    {
+     "id": "e3.6",
+     "verdict": "PASS",
+     "passed": true,
+     "text": "GEO refresh discipline in Greek: opening direct answer, Q&A section, FAQPage justified against R2 with NO promise attached, no rich-result-eligibility claim in any direction, no HowTo claim to flag",
+     "evidence": "Opening definition/direct answer, bolded, first line of the publish-ready intro: e3.md:330-332 '**Τρεις αποφάσεις καθορίζουν ποιον ηλιακό θερμοσίφωνα θα βάλετε: η χωρητικότητα του μπόιλερ, ο τύπος του συλλέκτη και η πιστοποίηση του μηχανήματος.**' Q&A section with concise direct answers filling the fixture-grounded ερωταπαντήσεις gap: e3.md:355-393, five answers ready plus a sixth held in a labelled skeleton. Markup justified against R2's both-things test with nothing promised: e3.md:467-475 'Δεν προστίθεται σήμανση FAQPage μαζί με την ενότητα ερωταπαντήσεων — η σελίδα είναι οδηγός που περιέχει ερωταπαντήσεις, όχι οδηγός που είναι ταυτόχρονα και σελίδα ερωταπαντήσεων... Ούτε υπάρχει κάτι να κερδηθεί', grounded on the 2023-08-08 announcement quoted with its URL. No citation or parsing benefit is claimed anywhere in Greek or English. No rich-result-eligibility claim of its own, and — against the HEAD wording specifically — the retracted 2026 assertion the 2026-08-13 record found at e3:295 is ABSENT: the Greek now reads «σύμφωνα με την ανακοίνωση της Google Search Central «Changes to HowTo and FAQ rich results» της 08/08/2023» (e3.md:470-473). No HowTo claim exists in this fixture and none is invented."
+    }
+   ]
+  },
+  {
+   "id": "e4",
+   "language": "en",
+   "passed": 5,
+   "failed": 0,
+   "editor_pending": 0,
+   "total": 5,
+   "expectations": [
+    {
+     "id": "e4.1",
+     "verdict": "PASS",
+     "passed": true,
+     "text": "matrix classification fixture-exact and citing the export's numbers: LED guide top tier, hygge low priority, small-bathroom-lighting recognised healthy and NOT queued",
+     "evidence": "LED guide top tier with both windows cited: e4.md:125 '-55.1% (Jul 2025 vs Jul 2026); -52.8% (Feb vs Jul 2026) — both agree' and position 3->11 at e4.md:189; quadrant at e4.md:159 'high / high / Refresh immediately'. Grader-recomputed: 4,100->1,840 = -55.12%, 3,900->1,840 = -52.82% — exact. Hygge low priority: e4.md:161 '95 — low | -13.6% — low | Low priority', and e4.md:127. Grader-recomputed 110->95 = -13.64% — exact. Bathroom lighting recognised healthy and explicitly held out: e4.md:81-88 '### 3. /blog/small-bathroom-lighting — growing. Jul 2025 1,020 -> Jul 2026 **1,150 sessions, +12.7%**, and the average position **improved from 4 to 3**... **Verdict: leave it alone.** Growth is not a small decline, and a page moving up does not belong in a refresh queue', and e4.md:149 'A page that is not declining never enters this matrix'. It appears in no action and in no priority ranking."
+    },
+    {
+     "id": "e4.2",
+     "verdict": "PASS",
+     "passed": true,
+     "text": "seasonal false positive caught on the export's own same-month column, page classified seasonal/monitor rather than decaying",
+     "evidence": "e4.md:53-64: 'June 3,480 -> July 2,310 sessions is **-33.6%**, which looks like a page falling over. The year-over-year figure for the same month is **+3.1%** (Jul 2025 2,240 vs Jul 2026 2,310), and the average position has not moved at all: 5 in February, 5 in July... **Verdict: healthy on the numbers. Monitor, do not schedule as a decay fix.**' Grader-recomputed: 3,480->2,310 = -33.62%, 2,240->2,310 = +3.125% — exact. Not scheduled as a decay fix: e4.md:15 'Schedule as maintenance, not as a decay fix', e4.md:314-319, and action 5's acceptance criterion requires the ticket to record it 'as scheduled maintenance rather than as a decay fix' (e4.md:429-430). Its composite is issued as 5.4/100 healthy (e4.md:232-242), so the cadence note never converts into a decay claim."
+    },
+    {
+     "id": "e4.3",
+     "verdict": "PASS",
+     "passed": true,
+     "text": "tracking false positive caught: the -65% collapse connected to the user's migration note and the near-stable position, with tracking verification preceding any refresh scheduling",
+     "evidence": "e4.md:66-79: 'June 880 -> July 310 sessions is **-64.8%**... Your own note: *\"analytics platform migrated 2026-06-24 — tracking gap possible, not yet verified.\"* The migration date falls inside the window the drop appears in. - The average position moved **6 -> 7**. One position. A page that lost two thirds of its organic sessions to content decay does not usually hold its position to within one place. **Verdict: verify the tracking before any decay diagnosis.**' Grader-recomputed 880->310 = -64.77% — exact. No composite is issued for the page, on the skill's own floor rule (e4.md:76-79, 256). Verification precedes scheduling: action 1 is the first action in the file, ahead of every refresh (e4.md:373-385), and the page is queued nowhere. Content decay is never asserted as the established cause."
+    },
+    {
+     "id": "e4.4",
+     "verdict": "PASS",
+     "passed": true,
+     "text": "type strategy, cadence and retirement applied from the reference tables: CES archived/redirected, smart plugs scheduled on the tool-comparisons cadence with its 2025 title year flagged, fax page retired with a named option",
+     "evidence": "RECOVERS THE 2026-08-13 REGRESSION on the cadence leg. CES: e4.md:90-97 'It is also exactly what news and trend content does... This is the one content type that is archived or redirected rather than refreshed, so it never enters the refresh queue at all. **Verdict: not a refresh candidate.**', disposition at e4.md:332-341 and e4.md:131. Not queued for a content refresh anywhere. Smart plugs — the cadence is now quoted with the type named, twice: e4.md:126 '| Tool comparison | ... | Every 3-6 months — 8.9 months since last update. **Past cadence** |' and e4.md:420-421 '8.9 months since its last update against a 3-6 month cadence for a tool comparison. Prices and model line-ups are what move under this page type.' Grader-recomputed: 2025-11-20 to the 2026-08-08 export is 8.6 months, to the analysis date 8.9 — 'roughly nine months' either way. The '2025' title year is flagged in action 4's acceptance criterion: e4.md:417 'The live URL's title and H1 no longer read \"2025\", every model listed is still purchasable'. Fax page routed to retirement against the checklist with named options: e4.md:343-365 lists four of the six conditions met, each sourced to the export or the user's note, states the two untested, and names '**410 Gone**' and '**noindex while keeping the page reachable**' — both from the reference's Retirement Options table — leaving the choice with the client. IMPRECISION RECORDED (not a fail): the title-year flag appears only inside action 4's acceptance criterion; neither the audit table row nor the 'what is not decay' section says in prose that the 2025 stamp is dated information. The 2026-08-11 deliverable stated it in prose and lacked the cadence; this one is the mirror image."
+    },
+    {
+     "id": "e4.5",
+     "verdict": "PASS",
+     "passed": true,
+     "text": "no fabrication: every figure traces to the CSV with sources labelled, no invented volumes, n/a cells kept n/a, no pre-export ranking history, no recovery projection, healthy pages not given invented decay figures",
+     "evidence": "Every one of the 30+ figures in the file was recomputed from the CSV by this grader and reproduces exactly — the eight traffic deltas, the eight cadence gaps in months, five composite decay scores with their products and divisions, and three priority scores with their min-max scaling. Full list in arithmetic_check. Sources labelled: e4.md:4-6 'your export of 8 Aug 2026 — GA4 organic sessions, Search Console 28-day average positions transcribed by hand, referring domains, and your own notes column. No tool was connected in this session; every figure below traces to that file.' No invented volumes: the only search-volume claim is the fax page's zero, cited to the user and explicitly aged — e4.md:347-349 'your note, from your old keyword-tool export. Worth saying that it is an *old* export rather than a current check'. n/a cells stated rather than filled: e4.md:257-258 'No average position is recorded in either period, so there is no before-and-after to score a drop from'; e4.md:30-33 tabulates what the export does not carry; e4.md:37-41 states the CTR and displacement signals are unscored across the whole inventory. No pre-export history and no projection: e4.md:508-510 '**No traffic-recovery projection.** This analysis carries no model that converts a refresh into a session or position figure, so there is no forecast here for any of the eight pages.' The two healthy pages are scored 0 on traffic and position as measured zeros, explicitly distinguished from missing inputs (e4.md:236-237)."
+    }
+   ]
+  },
+  {
+   "id": "e5",
+   "language": "en",
+   "passed": 4,
+   "failed": 0,
+   "editor_pending": 0,
+   "total": 4,
+   "expectations": [
+    {
+     "id": "e5.1",
+     "verdict": "PASS",
+     "passed": true,
+     "text": "no fabricated decay diagnosis: no post or URL named as decayed, no traffic-loss figure, position, decline percentage or decay score attributed to gearloft.io; the buying-guides hunch not converted into a finding",
+     "evidence": "Scripted scan: no gearloft.io URL path appears anywhere in e5.md, and the only '%' in the file is inside the refusal itself — e5.md:30 'There is no arithmetic that produces \"roughly -40%\" from nothing, only an author choosing a number that sounds plausible — and a number chosen that way reads exactly like a measured one once it is in a document.' The hunch is explicitly held as a hypothesis: e5.md:33-38 'That may well be right, and it is the most useful sentence in your message. It is a hypothesis about your site, and it is five minutes from being confirmed or refuted... What it is not is a finding, and writing it up as one would put your own guess back in front of you with a report's authority attached.' No hedged per-page guess appears. e5.md:284-289 lists the absences explicitly."
+    },
+    {
+     "id": "e5.2",
+     "verdict": "PASS",
+     "passed": true,
+     "text": "manual-data mode engaged: the response requests at minimum the traffic-trend data, the publish/update dates, and the suspect-page list",
+     "evidence": "e5.md:133-141 is an ordered request table: item 1 '**URL, content type, publish date, last-modified date** for every blog post' (the publish/update dates and the page list); item 2 '**Organic sessions per URL**, monthly, for the last 13 months' (traffic trends); item 3 Search Console clicks/impressions/position/CTR (ranking history); item 4 referring domains; item 5 '**The full text of the three or four pages you most suspect**' (the suspect-page list); item 6 the owner's own priorities. The Input Validation checklist is run explicitly against today at e5.md:42-50, five rows, each 'Not available', which is the skill's own Input Validation list. Each request states what it unlocks, and actions 1-5 (e5.md:206-262) give each an owner and an acceptance criterion."
+    },
+    {
+     "id": "e5.3",
+     "verdict": "PASS",
+     "passed": true,
+     "text": "no fake tool reads and no 'typical decay' number presented as this site's measurement",
+     "evidence": "No phrasing of the 'your analytics show' or 'I checked and' class appears; e5.md:3 states '**Tools connected**: none · **Data supplied**: none' in the header, and e5.md:21-24 'I do not have a list of your posts. Not the URLs, not the titles, not how many there are.' No mocked-up candidate table exists — the only table shaped like data is the input checklist, whose every cell reads 'Not available'. No fetch was attempted, so there is no failure to report. The general/specific boundary is drawn explicitly rather than blurred: e5.md:177-197 separates '**General, and it applies to any buying guide anywhere**' (the 3-6 month cadence, the five predictable stale elements) from '**Not general, and not stated here**: whether any of that is true of your guides, how many are affected, how much traffic any of them has lost, or which to do first.'"
+    },
+    {
+     "id": "e5.4",
+     "verdict": "PASS",
+     "passed": true,
+     "text": "the hold is grounded and forward-moving: it explains why a diagnosis without data breaks the skill's evidence rules and maps what unlocks the analysis, framed as process rather than findings",
+     "evidence": "Reason given in the skill's own evidence terms: e5.md:11-15 'That is not a stall... an invented decay list is worse than none: your team spends a week rewriting pages that were fine, the pages that are actually sliding keep sliding, and nobody can tell afterwards which of those two things happened.' Per-request explanation at e5.md:21-38. Process, not findings: e5.md:152-173 '## 4. What runs when it arrives' sets out the six steps — sort the inventory by cadence, rule out the false positives, score the five signals with the arithmetic printed, rank on the six factors, decide disposition separately from urgency, write the plan — and closes 'Steps 1 and 2 run on item 1 of the shopping list. Step 3 needs item 2.' The refresh-candidate criteria are given as process at e5.md:65-126, including two signals obtainable with nothing connected, and each is framed against what it does NOT unlock (e5.md:91-92 'Being overdue on the calendar is maintenance, not evidence of decay')."
+    }
+   ]
+  }
+ ],
+ "suite_findings_step_7": [
+  {
+   "id": "S1",
+   "severity": "BLOCKING for the skill — it produced this run's only true regression",
+   "title": "An expectation and the skill's own stopping rule cannot both be satisfied, and the stopping rule is unscoped",
+   "expectation": "e1.1 clause (b): \"the 'Set up conversion goals in Universal Analytics' line — flagged because Universal Analytics no longer processes data, with replacement guidance pointing at GA4\"",
+   "skill_rule": "refresh-templates.md:298-299 — \"**Anything not in the register stays open** and the SERP-feature rule above governs it: flag it for verification, assert nothing in either direction. The register is the stopping condition, not a licence to correct by memory.\"",
+   "why_they_collide": "`docs/loop/SETTLED-RULINGS.md` holds five rulings and none is about a product or a tool. 'Universal Analytics' appears ZERO times anywhere in this library outside the eval fixture (grep over the whole repo, with the fixture hit printed as the non-vacuity control), and 'GA4' appears zero times in this skill. So the register cannot settle it, and the sentence above orders the run to assert nothing — which is exactly what the deliverable did, in those words.",
+   "the_skill_contradicts_itself_here": "`content-decay-signals.md:94` lists 'References to discontinued products/tools' as a HIGH-risk freshness indicator, and `SKILL.md:280` carries an Outdated Elements row 'Tool mentions | \"[old tool]\" | Add newer tools'. The skill therefore names discontinued-product references as a high-risk staleness signal it must find, and then forbids saying anything about them in either direction.",
+   "not_resolved_here": "Named and returned to the coordinator, not fixed. Two candidate shapes, both for the coordinator: scope the sentence to claims about what a search engine does/shows/measures (its section's actual subject), or add a product-status carrier. Neither is applied by this grader.",
+   "cost_if_left": "A refreshed page ships either still telling small businesses to configure conversion goals in a product that stopped processing data, or — as here — naming no analytics product at all in a checklist section whose whole subject is measurement setup."
+  },
+  {
+   "id": "S2",
+   "severity": "high — third recorded firing of a ledgered defect the suite still carries",
+   "title": "e2.6 can only be satisfied from this fixture by inventing client-publishable advice",
+   "expectation": "e2.6: \"the paste-ready deliverables (rewritten opening, FAQ answers) ship complete — no bracketed placeholders...\"",
+   "conflicting_rule": "root `CLAUDE.md` Value Rule clause 2 — \"bracket tokens are the correct notation inside a block explicitly labelled a skeleton\" — plus the statistics/no-invention rule.",
+   "why": "The e2 fixture withholds the timing answer, supplying only a transcriber's note that it 'first appears in the fifth paragraph'. Ledger F13 recurrence 5 recorded this on 2026-08-11 and ruled it a suite defect; its status still reads 'e2.6 needs the carve-out or the fixture needs paragraph 5 — coordinator ruling, suite not edited'. Verified: e2.6 is byte-identical from 8fdb629 to HEAD. Across the four records this expectation has now passed twice on deliverables that filled the slots from outside the fixture and failed twice on deliverables that refused to.",
+   "not_resolved_here": "Named, not fixed, not graded around. The FAIL stands because the expectation as written is not met."
+  },
+  {
+   "id": "S3",
+   "severity": "medium — a scored instrument with no branch for a run its own Input Validation permits",
+   "title": "Output Validation presupposes page text and a page plan; three of its seven items are unsatisfiable on an inventory-only or zero-data run",
+   "detail": "`SKILL.md:348` (Input Validation) explicitly contemplates the absent-page case, and `refresh-templates.md:47-62` gives Step 1 a full branch for it. Output Validation at `SKILL.md:351-358` has no equivalent. Item 2 ('Outdated elements identified with specific examples and replacement data') and item 3 ('All suggested additions include word counts and section locations') cannot be met by e4 or e5 at all; item 7 ('the quick-score IDs and the veto flags sit in their own fence') presupposes a quick scan that refresh-templates.md itself tells the run not to issue. A fourth, item 5, is worded 'for all four this skill emits', which presupposes emission. The precedent for the fix is already in the library: ledger F13-r7 split backlink-analyzer's Output Validation and gave it an explicit 'no disavow file produced' value 'so it cannot become unsatisfiable when there is no file'.",
+   "how_the_run_handled_it": "Correctly and visibly — e5.md:55-61 tabulates every score the analysis normally emits with 'Not issued' and the missing input; e4.md:535 records the same for the quick scan. The gap costs nothing this run and would cost a less careful run a false-negative validation."
+  }
+ ],
+ "instrument_defects_adjudicated": [
+  {
+   "claim": 1,
+   "verdict": "CONFIRMED — latent, not realised this run",
+   "finding": "`refresh-templates.md:353-362`, inside the ```markdown Step 8 report fence: '1. **Update Published Date** / - Use when: Major overhaul (50%+ new content) / - **Pros: Signals freshness to Google**'. Read at source. That asserts what a search engine does with an input, as fact, in a Pros column of copy a run pastes into a report — the disposition class settled ruling R3 amendment 9a bans in either direction and anti-slop §6 family 9 makes FAIL-grade.",
+   "no_guard_sees_it": "`scripts/engine-claim-sweep.sh` does not return this line: its verb families do not contain 'signals', and the five content-refresher lines it does return are all R3-compliant. Family 9's RANK stems are Greek, so the English form is unscreened here. This is F15's shape — a guard passing by matching nothing — in a file the sweep reports clean.",
+   "realised": "No. Neither e1 nor e3 copied it: both write the date decision as computed arithmetic with no engine claim (e1.md:462-479, e3.md:446-465).",
+   "recommendation": "Rewrite as the mechanism plus the honest limit — a changed published date is a signal the site controls and nothing published says what any engine does with it. Add 'signal(s)' to the sweep's verb list and re-probe per F15."
+  },
+  {
+   "claim": 2,
+   "verdict": "PARTIALLY CONFIRMED — a real and general misreading risk, not a rule gap",
+   "finding": "The ruled label is an HTML comment, which is invisible in rendered markdown. It is visible only if the operator block is a literal ``` code fence. The instruction does say fence — `SKILL.md:358` 'sit in their own fence whose first line is `<!-- OPERATOR BLOCK … -->`' — and in this repo 'fence' means a code fence, so the executor's literal ```markdown fences (e1.md:67-96, 662-677; e2.md:498-516; e3.md:81-110, 645-662; e4.md:520-539) are the compliant reading and the label renders visibly inside them.",
+   "the_real_gap": "The rule's stated rationale is copy-protection — 'a model copies the fence, not the heading above it' — and the Reader Test's own question is 'could a reader who copies only the fence tell this block is not for the client?'. Neither reaches a HUMAN reading a rendered report. Nothing in the ruling states the render test, so a run that reads 'fence' as 'section' produces a client-visible block of slugs and framework IDs with an invisible label and breaks no stated rule.",
+   "does_it_generalise": "YES, library-wide and by construction: the same `<!-- LABEL -->` mechanism appears in 20 files across 12 skills (schema-markup-generator 16 sites, rank-tracker 12, inter-skill-handoff 8, meta-tags-optimizer 7, both auditors 6 each, and so on). Any of them is exposed to the same misreading. The exposure is greatest where the operator block sits INSIDE a client report fence rather than in one of its own — the nesting class `scripts/fence-nesting-check.sh` was built for.",
+   "recommendation": "One clause beside the copy test: the label must be visible in the rendered deliverable, which for markdown means the block is a code fence and not a section. Cheap, and it closes the reading the current wording leaves open."
+  },
+  {
+   "claim": 3,
+   "verdict": "CONFIRMED — arithmetic verified; recommend KEEP WITH A MANDATORY CAVEAT, not suppression",
+   "arithmetic": "Recomputed exactly: traffic clicks −38% → rung 50 at weight 30; positions measured stable → scored 0 at weight 25; CTR query-level mean −37.7% → rung 75 at weight 15; freshness 5 months → rung 25 at weight 15; displacement N/A. (50×30)+(0×25)+(75×15)+(25×15) = 3,000; 3,000 ÷ 85 = 35.2941 → 35.3, band read off 35 = '21-40 Early decay — Add to refresh queue (next month)' on a page that lost 38% of its clicks in 28 days.",
+   "why_it_under_reads": "The position row scores 0 because the positions held — and holding position IS the symptom of the AI Overview case. The instrument scores the diagnostic sign as health.",
+   "skill_silence_confirmed": "`SKILL.md:267` routes to the playbook and says nothing about the composite; `ai-overview-recovery.md` never mentions it. `content-decay-signals.md:333` says 'The band sets urgency, never disposition' — so the band does set urgency, and here urgency is wrong.",
+   "recommendation": "KEEP IT AND MANDATE THE CAVEAT, do not suppress and do not re-weight. Suppressing hides the number a second reader would recompute and disagree with; re-weighting the position row would make it wrong on the ordinary decay path, which is the path it was built for. The composite is a decay instrument being asked a displacement question, and the honest fix is one line in the branch at SKILL.md:267: on this branch the composite is reported with position stability named as the symptom, and urgency comes from the playbook. The executor already wrote that line better than the skill does — e2.md:173-179 '35.3 reads as *early decay*... and following that would be the wrong call. The composite scores position stability as health, and on this page position stability is the *symptom*.'",
+   "recurrence_note": "Not new: the 2026-08-13 record shows the same suite issuing 39.7 on the same fixture. Two consecutive runs have had to talk their own instrument down."
+  },
+  {
+   "claim": 4,
+   "verdict": "CONFIRMED with a correction of arithmetic — see suite_findings_step_7 S3",
+   "correction": "Three of the seven are unsatisfiable outright (items 2, 3, 7); a fourth (item 5) presupposes emission in its wording 'for all four this skill emits' but is vacuously satisfiable. 'Four of seven' holds only on that softer reading, and the record states both."
+  },
+  {
+   "claim": 5,
+   "verdict": "PARTIALLY CONFIRMED — a latent import risk, not a breach as written",
+   "finding": "`ai-overview-recovery.md:88` reads '| ~T+14 days | Citation appearances | Site cited in ≥1 previously-uncited query's Overview |'. The offending text sits in a column headed 'Progress looks like', not in an acceptance-criterion column, so it does not literally breach `action-output-contract.md:61-64`, which governs acceptance criteria for recommended actions. It is nonetheless an outcome statement in a playbook whose consumers are told to build acceptance criteria from it.",
+   "how_the_run_handled_it": "The executor spotted it and rewrote client-side: e2.md:341-345 renames the columns 'What to record' / 'What movement would look like', adds 'These are checkpoints for reading, not commitments' (e2.md:347), and action 6's acceptance criterion is purely a measurement one (e2.md:435-437). It reported the catch in its own operator block at e2.md:514.",
+   "recommendation": "One clause on the ladder: these rows are observations to record, never acceptance criteria. Cost: one sentence."
+  },
+  {
+   "claim": 6,
+   "verdict": "CONFIRMED — the sentence is unscoped and over-fires; full statement in suite_findings_step_7 S1",
+   "note": "This is the run's only true regression and the most consequential finding in this record."
+  },
+  {
+   "claim": 7,
+   "verdict": "CONFIRMED — two readings, and the executor's choice is the defensible one",
+   "finding": "`content-decay-signals.md:508` frames the instrument comparatively — 'When choosing which content to refresh first, score each candidate' — while `:548` explicitly contemplates 'a batch of one' and prescribes dropping the two min-max factors and renormalising. Under :548 plus the floor at :525 a single-page priority score IS issuable: with traffic and backlink equity dropped, e1 could still have scored decay severity, refresh difficulty, strategic importance and competitive opportunity — four factors, above the three-factor floor.",
+   "what_the_run_did": "Issued none, in both single-page evals, with the reason stated: e1.md:676 'Refresh Priority Scoring ranks candidates against each other and this session holds one page', and the Greek equivalent at e3.md:654.",
+   "grading_impact": "None — no expectation grades priority scoring in e1 or e3.",
+   "recommendation": "Say which reading governs in one sentence at :508. The comparative reading is the more useful one and is what both runs chose."
+  },
+  {
+   "claim": 8,
+   "verdict": "CONFIRMED — measured consequence: 25 points on the rung, 4.4 on the composite, no band change",
+   "finding": "`content-decay-signals.md:197` names the input as 'CTR for the same queries across two comparable windows' — query-level. `refresh-example.md:108` and `:114` score the page-level row instead ('CTR −62% relative scores 100 at weight 15'). Rule and worked example disagree.",
+   "measured_here": "Query-level mean of the six tracked queries = (54+41+41+36+25+29)/6 = 37.67% → rung 75. Page-level derived = 0.62 ÷ 1.04 = −40.4% → rung 100. Composite 35.3 versus 39.7. Both read into band 21-40 'Early decay', so no band moves — but only because this case happens to sit mid-band.",
+   "what_the_run_did": "Chose the rule over the example, printed both, and named the reason: e2.md:160-164 'That derivation is a quotient of two figures you reported to whole percentages and it lands 0.4 of a point past a band edge, so the query-level figure is the one used and the other is shown rather than hidden.'",
+   "recommendation": "Fix the worked example to the rule, or state the precedence. F13-r3's lesson applies: a rule stated in one paragraph and contradicted in the example a run copies has no carrier."
+  },
+  {
+   "claim": 9,
+   "verdict": "CONFIRMED — and it is the largest silent consequence in the instrument",
+   "finding": "`content-decay-signals.md:198` gives the freshness row's required input as 'the CMS publish/update date **plus a read of the page**', while rungs 0-75 are pure date arithmetic and only rung 100 needs the page. 'When a signal has no input' (:241-256) says 'A signal you cannot observe is **N/A**, never a number' — read strictly, no page text means freshness is N/A.",
+   "consequence": "Strictly applied, e4 loses freshness on every page, leaving two scored signals, and the three-signal floor then forbids EVERY composite in that eval — all five issued scores would be unissuable.",
+   "what_the_run_did": "Scored from dates and named the limit and its direction: e4.md:179-182 'that rung was untestable on every page here and freshness is scored from the CMS dates alone. Where a page turns out to state something now wrong, its score goes up, never down.'",
+   "recommendation": "Split the row's input column: dates alone score rungs 0-75; the 100 rung additionally needs the page and is reported as untested without it. One line, and it decides whether an inventory-only run can score anything at all."
+  },
+  {
+   "claim": 10,
+   "verdict": "CONFIRMED — no row fits",
+   "finding": "`content-decay-signals.md:587-592`: 301 redirect is for 'Content has backlinks or residual traffic'; Delete (410) for 'Content has no value, no links, no traffic'. The fax page has 0 referring domains and 4 sessions a month, so it has residual traffic (301's condition) but no plausible redirect target on a home-and-living site, and it is not traffic-free (410's condition). Noindex needs 'internal utility', which nothing establishes.",
+   "what_the_run_did": "Named the gap and left the decision with the client: e4.md:358-365 'a 301 would point at something unrelated, which helps nobody. That leaves **410 Gone**... or **noindex while keeping the page reachable**... 410 is the cleaner answer on this data. It is also irreversible, so it is your call and not ours.' e4.4 requires a NAMED option from the reference and two are named, so the expectation still passes.",
+   "recommendation": "Add a threshold or a fourth row for the negligible-traffic, no-link, no-target case. As written the table forces either a bad redirect or a 410 on a page that still has readers."
+  },
+  {
+   "claim": 11,
+   "verdict": "CONFIRMED — undefined at the boundary",
+   "finding": "`SKILL.md:229` says 'split their traffic figures at their median and their declines likewise' and never says which side the median itself falls on. At n=3 the median IS one of the three pages, so one row's quadrant is decided by an unstated rule.",
+   "what_the_run_did": "Declared its convention and flagged the coarseness: e4.md:155 'At or above the median counts as high', e4.md:163-164 'With three pages the median is one of them, so this split is coarse — smart plugs sits exactly on both medians and lands in the high quadrant on the stated convention.'",
+   "grading_impact": "None — e4.1 grades only the LED, hygge and bathroom rows.",
+   "recommendation": "State the tie rule, and state a minimum batch size below which the matrix is not used at all."
+  },
+  {
+   "claim": 12,
+   "verdict": "CONFIRMED by arithmetic — a healthy page ranks second if it is admitted to the batch",
+   "computation": "Recomputed by this grader, adding /blog/garden-furniture-materials (composite 5.4, 'Healthy') to the batch and rescaling both min-max factors over the four pages: traffic low 95 / high 2,310 → garden 10, LED 8, plugs 4, hygge 1; backlinks low 2 / high 34 → LED 10, plugs 5, garden 4, hygge 1; decay severity garden 5.4/10 → 1. Garden = (10×25)+(1×20)+(5×15)+(5×10)+(4×10) = 435 ÷ 80 = **5.4**, against smart plugs' 4.4. A page the skill's own matrix rules 🟢 Healthy outranks a genuinely decaying page, because traffic value 25% + backlink equity 10% + strategic importance 10% = 45% of the weight is decay-blind while decay severity carries 20%.",
+   "what_prevented_it": "The executor scored only the three declining candidates. `SKILL.md:229` restricts the MATRIX to declining pages; nothing restricts the priority score, so the restriction was the run's reading, not the instrument's rule.",
+   "recommendation": "Say in `content-decay-signals.md` §Refresh Priority Scoring that the batch is the declining set. One sentence, and it is the only thing standing between the instrument and this result."
+  },
+  {
+   "claim": 13,
+   "verdict": "CONFIRMED on both facts, separately, and the pair is a live F17 instance",
+   "fact_a_carried_by_the_skill": "NO. `grep -rn 'acceptance criterion|Acceptance criterion|owner-role|Risk if done wrong' optimize/content-refresher/ --include='*.md'` excluding evals/ returns ZERO hits across SKILL.md and all four references. Control: the same terms return hits in `references/action-output-contract.md` and in seven sibling skills (on-page-seo-auditor, technical-seo-checker, performance-reporter, backlink-analyzer among them), so the grep is non-vacuous. Step 5, Step 9 and the worked example in `refresh-example.md` all present recommendations with no owner and no acceptance criterion — `refresh-example.md:158-187` is a four-item action list carrying only time estimates.",
+   "fact_b_graded_by_any_expectation": "NO. A scan of all 27 expectations for 'acceptance / owner / effort / dependencies / risk-if' returns two hits, both false positives — e3.1 and e3.4 use 'owner' for the shop owner ('the owner verified', 'the owner's note'). No expectation grades the seven fields.",
+   "and_yet": "All five deliverables produce all seven fields, correctly, including the stated-absence value 'not estimated — no baseline data' (e1.md:576, 588, 609; e3.md:561, 574; e4.md:431, 454, 488) and `Client decision` as an owner (e1.md:605, e2.md:374, e3.md:499, e4.md:439, e5.md:209). They come from root `CLAUDE.md`, which every in-repo session auto-loads.",
+   "why_that_matters": "This is ledger F17 exactly, including its stated blind spot: 'a blind run scores it as carried and cannot do otherwise'. The run's compliance is evidence about skills-as-run-here and silent about skills-as-installed. F17's own guard — 'a ruling recorded in CLAUDE.md names its shipped carrier in the ruling' — is satisfied for the ruling and unsatisfied for this skill: the carrier reached seven skills and not this one, which is F9's per-skill-scoping signature."
+  }
+ ],
+ "coverage_gaps": [
+  "The seven-field action contract is produced by every deliverable, carried by no line of this skill, and graded by no expectation (instrument_defects claim 13).",
+  "English anti-slop is ungraded entirely. §6 and the Tier-1/Tier-2 vocabulary bans are graded only through e3.5, which is scoped to the Greek customer-visible copy. Four of the five deliverables are English and no expectation looks at their prose at all.",
+  "Nothing grades whether an operator block is labelled, or whether a client-read surface carries a run handle, in the four English evals. e3.5 covers it for Greek only. All five deliverables happen to be clean (scripted scan: every slug, framework ID and ruling handle sits inside a labelled OPERATOR BLOCK fence), so the gap cost nothing this run.",
+  "No expectation grades the CORE-EEAT quick-score derivation in e3 (e1.6 does it for e1 only), and none grades any composite decay score, priority score, band read or word-count table for arithmetic. Nineteen derived figures across e1/e3/e4 are unscored by the suite; this grader recomputed all of them.",
+  "No expectation grades the republishing decision, the word-count table's reconciliation, or the Expected Outcomes table in e3 or e4 — only in e1, and only through e1.6's projection clause.",
+  "e4 and e5 have no expectation covering the honesty of what is NOT issued (no quick scan, no composite for three pages, no priority score), which is most of what those two deliverables consist of."
+ ],
+ "defects_outside_the_graded_set": {
+  "mandatory_even_at_a_high_rate": "A pass rate is a lower bound on defects. Five found, plus what was looked for and not found, below.",
+  "items": [
+   {
+    "id": "D1",
+    "severity": "medium — an acceptance criterion that contradicts its own list",
+    "where": "e5.md:267 against e5.md:190-194",
+    "what": "Action 6's acceptance criterion reads 'For one named guide, a note records which of the **six** stale-element checks it fails, with the specific line or link for each.' The list it points at, §5, carries **five** bullets — counted at the shell: discontinued product · prices with or without a vintage · dead outbound links · a year in the title/H1/meta · changed screenshots. There is no sixth.",
+    "why_it_matters": "`references/action-output-contract.md:43-44` states the test an acceptance criterion must pass: 'could someone who was not part of this engagement check it, six weeks from now, without asking anybody what was meant?' A checker looking for six checks against a list of five must ask. The one field whose whole purpose is to be checkable without asking is the field that fails.",
+    "covered_by_any_expectation": "No. e5's four expectations grade fabrication, the manual-data request, fake tool reads and the grounded hold."
+   },
+   {
+    "id": "D2",
+    "severity": "medium — unsourced quantified claims inside publish-ready client copy",
+    "where": "e1.md:420-428, inside the fence at e1.md:413-429",
+    "what": "Two claims in copy the client pastes: 'Conversion tracking is the half most small businesses skip' — a population claim about most small businesses — and 'Fifteen minutes a month is enough to catch a page that has started sliding, which is roughly ten months before you would notice it in a revenue figure' — a quantified detection-lag claim. Neither is in the fixture, neither carries a source, neither is marked.",
+    "why_it_matters": "The library's statistics rule (`anti-slop-ruleset.md:132-136`) reads 'every statistic comes from user-supplied data, a cited source, or is marked as a `[CLIENT DATA: …]` / `[SOURCED STAT: …]` placeholder — a number is **never invented**', and this deliverable applies that rule impeccably to the Metricfield figure four sections earlier. The same discipline did not reach its own drafted prose.",
+    "covered_by_any_expectation": "No. e1.6's clauses reach metrics that should trace to the fixture, the replacement statistic, ranking history, quick scores and outcome projections — a rule-of-thumb inside drafted copy is in none of them. Not failed here: manufacturing coverage at grading time is the F13/F17 defect from the grader's side."
+   },
+   {
+    "id": "D3",
+    "severity": "medium — publish-ready Greek copy asserts service details no input supplies",
+    "where": "e3.md:382-385 and e3.md:389-392, inside the publish-ready FAQ fence",
+    "what": "The maintenance answer adds «μαζί με οπτική εξέταση για άλατα και διαρροές» and «Το ανόδιο μαγνησίου είναι αναλώσιμο και γι' αυτό μπαίνει πρώτο στον έλεγχο» — the fixture's own line lists only «ανόδιο μαγνησίου, υγρό συλλέκτη και βαλβίδες». The installation answer adds preconditions and a step («όταν υπάρχει ήδη βάση και σωληνώσεις στη θέση τους»; «το λέμε από πριν μόλις δούμε μια φωτογραφία της ταράτσας») where the fixture says only «εγκατάσταση σε μία ημέρα από το συνεργείο μας». The intro also characterises Solar Keymark as «ο πανευρωπαϊκά αναγνωρισμένος έλεγχος απόδοσης», which the owner's note does not say.",
+    "why_it_matters": "This is copy the shop publishes under its own name describing its own service. It is the F3 class — asserting what no input supplies — landing in the one place where the client, not the agency, carries the consequence. It is also the mirror image of the run's otherwise exemplary refusal to state a price or a percentage.",
+    "covered_by_any_expectation": "No. e3.4 enumerates prices, subsidy amounts, coverage percentages, model counts and market statistics — every item numeric. Qualitative service claims are outside it by construction."
+   },
+   {
+    "id": "D4",
+    "severity": "low — an assertion one notch stronger than the source quoted beside it",
+    "where": "e1.md:398-402, inside the publish-ready Schema fence",
+    "what": "The copy states 'FAQ rich results are no longer shown for ordinary sites' and then quotes the source, which says 'For all other sites, this rich result will **no longer be shown regularly**.' The qualifier is dropped in the assertion and restored in the quotation one line below.",
+    "why_it_matters": "F11-r6's class — a qualified statement restated as an absolute. Mitigated here because the verbatim quotation sits directly beneath it, so the client sees both.",
+    "covered_by_any_expectation": "No — e1.2 grades that the sourced position is stated, which it is."
+   },
+   {
+    "id": "D5",
+    "severity": "low — observation, offered as such rather than as a claimed violation",
+    "where": "18 occurrences of metaphorical 'unlock/unlocks/the unlock' across e1, e2, e4 and e5 (e.g. e1.md:54, 147, 675; e4.md:407, 476; e5.md:81, 129, 211, 223, 235, 246)",
+    "what": "'unlock' is a Tier-1 hard ban in `anti-slop-ruleset.md:28` ('zero occurrences in deliverables') whose scope is the metaphorical use. These uses are metaphorical — nothing is literally unlocked — but each one names precisely which signal or factor becomes computable, which is the opposite of the 'fake-action verb, no spec' failure the ban targets. Recorded so the coordinator can rule, not asserted as a violation.",
+    "covered_by_any_expectation": "No — English anti-slop is ungraded by this suite (see coverage_gaps)."
+   }
+  ],
+  "what_was_looked_for_and_not_found": [
+   "Fabricated third-party ranking claims (the F3 recurrence class this suite is ledgered for): none. Every competitor statement in e1 and e3 is a dated coverage observation with its observer, and both deliverables state in their own words that they make no ranking claim (e1.md:23-26, e3.md:35-38).",
+   "A `[VERIFY]`-tagged claim asserted as fact in client copy: none. The 2026 FAQ-retirement claim that the 2026-08-13 record found on five client-facing lines is absent from all five deliverables.",
+   "Invented replacement statistics: none. Both stale figures (Metricfield 61%, the Greek 70%) get labelled skeleton slots in the plan frame and neither is restated.",
+   "Arithmetic that does not reconcile: none found in 47 recomputed figures (see arithmetic_check).",
+   "Unresolvable template cells, `~~category` tokens, TBD/XX/TO SUPPLY markers: none — scripted scan over all five files returns zero, with a labelled skeleton as the positive control.",
+   "Contradictions between a deliverable's own sections: none found. The one cross-reference count that does not reconcile is D1 above.",
+   "Family 9 engine-disposition claims and family 10 guaranteed-outcome promises in either language: screened, nothing surfaced. Family 10's three net-and-rank survivors are two verbatim quotations of Google's own 2023-08-08 wording and one negative statement from the playbook's stop rules."
+  ]
+ },
+ "template_and_reference_defects_found_while_grading": [
+  {
+   "id": "T1",
+   "severity": "high — a ledgered class declared closed, with a live survivor invisible to the grep that closed it",
+   "where": "optimize/content-refresher/references/refresh-templates.md:464-465",
+   "what": "The Step 9 rule paragraph reads: 'what may be claimed for the markup is the basis the ruling supports and no more: it is valid schema.org, it costs nothing to keep, and Google advises / against proactively removing it.' That is the exact phrasing ledger F11 recurrence 6 recorded as a defect — a permission rewritten as a recommendation — and declared corrected across 13 shipped surfaces. Google's words are 'there's no need to proactively remove it'.",
+   "it_contradicts_its_own_file": "`refresh-templates.md:256-257`, 208 lines above, states the corrected house form: 'Google says there is no need to proactively remove it — a permission to leave existing markup alone, never written up as Google advising anyone to keep it.'",
+   "why_it_survived": "The phrase wraps across a line break between 'advises' and 'against', so a line-based `grep -rn \"advises against\"` over the whole repository does not return it — verified: that grep returns eight hits, none of them this one, and a multiline regex returns it at :464. F9-r8's prescribed closure grep is line-based, so this instance is structurally invisible to the sweep any future closure would run.",
+   "realised_in_the_run": "No. Both deliverables use the corrected form — e1.md:209-210 'Google has said there is no need to proactively remove it' and e1.md:404-406 inside the publish-ready fence.",
+   "recommendation": "Fix the line, and record that closure greps over prose must be multiline-tolerant or the text must be reflowed so the phrase cannot straddle a break."
+  },
+  {
+   "id": "T2",
+   "severity": "medium",
+   "where": "optimize/content-refresher/references/refresh-templates.md:362",
+   "what": "The family-9 / R3-9a shape inside the Step 8 report fence — 'Pros: Signals freshness to Google'. Full statement in instrument_defects claim 1."
+  },
+  {
+   "id": "T3",
+   "severity": "low",
+   "where": "optimize/content-refresher/references/ai-overview-recovery.md:88",
+   "what": "An outcome statement in the verification ladder that a run building acceptance criteria can import as one. Full statement in instrument_defects claim 5."
+  }
+ ],
+ "arithmetic_check": {
+  "method": "Every derived figure in all five deliverables was recomputed from the fixtures in Python, not eyeballed, and each check printed its matched value beside the deliverable's (ledger F7). 47 figures checked, 47 reproduce.",
+  "e1": [
+   "word counts per section 27/62/29/46/21/25 — all six exact against the fixture under the deliverable's own stated convention (headings excluded; standalone em dashes not counted as words); body total 210 = printed total and reconciles with the measured figure at e1.md:5; headings 21, so 231 as printed",
+   "After-refresh column sums to 1,673 = printed total; 1,673 ÷ 210 = 7.97 printed as 8.0×; new share 1,463 ÷ 1,673 = 87.4% exact",
+   "traffic −47.24% printed −47.2%; impressions −43.93% printed −43.9%; CTR 4.1→2.6 = −36.59% relative printed −36.6%",
+   "composite (75×30)+(100×25)+(75×15)+(100×15) = 7,375; 7,375 ÷ 85 = 86.7647 → 86.8; band read off 87 → terminal decay. Every rung correct against content-decay-signals.md:193-222, including the two-gate position state rung",
+   "renormalised display 35.3 / 29.4 / 17.6 / 17.6 correct for 30/85, 25/85, 15/85",
+   "title 56 characters and meta description 156 characters — both recounted in Python, both exact",
+   "playbook hours 185 + (60–90) + 20 = 265–295 min = 4.42–4.92 h, printed 'about 4.4 to 4.9 hours', midpoint 280"
+  ],
+  "e3": [
+   "word counts per section 27/33/18/21/34/21 — all six exact; body total 154 = printed total. The Επιδότηση row reconciles only if the fixture's own editorial parenthetical «(αυτός είναι ο σύνδεσμος που επιστρέφει πλέον 404, βλ. § 1)» is excluded, which is correct — it is the data collector's cross-reference, not article copy — but the report does not state that exclusion",
+   "After column sums to 1.660 = printed; 1.660 ÷ 154 = 10.78 printed 10,8×; new share 1.506 ÷ 1.660 = 90,7% exact",
+   "traffic 1.310 → 560 = −57,25% printed −57,3%",
+   "composite (75×30)+(100×25)+(100×15) = 6.250; 6.250 ÷ 70 = 89,2857 → 89,3; band read off 89 → terminal decay; renormalised display 42,9 / 35,7 / 21,4 correct",
+   "title 62 characters and meta description 148 characters — both recounted in Python, both exact"
+  ],
+  "e4": [
+   "all eight traffic deltas exact: LED −55.12/−52.82, garden −33.62 and +3.125, CES −93.62, kitchen −64.77, plugs −24.21, hygge −13.64, fax −55.56, bathroom +12.75",
+   "all eight cadence gaps in months exact against the stated analysis date",
+   "five composites exact: LED 5,500 ÷ 70 = 78.5714 → 78.6; plugs and hygge both 3,125 ÷ 70 = 44.6428 → 44.6; garden and bathroom 375 ÷ 70 = 5.3571 → 5.4. Every rung correct, including hygge's state-rung exclusion (position 18 was never on page one) and the two measured zeros",
+   "three priority scores exact: LED 685 ÷ 80 = 8.5625 → 8.6; plugs 355 ÷ 80 = 4.4375 → 4.4; hygge 315 ÷ 80 = 3.9375 → 3.9. Both min-max columns reproduce from `1 + 9 × (x − lowest) ÷ (highest − lowest)` with the printed lows and highs: plugs traffic 4.22 → 4, plugs backlinks 4.66 → 5",
+   "refresh-difficulty rungs converted from MINUTE totals as content-decay-signals.md:529 requires: 205–265 → 235 min → 3.92 h → rung 5; glossary 90 min → 1.5 h → rung 10",
+   "total effort 205–265 ×2 + 90 = 500–620 min = 8.33–10.33 h printed 'roughly 8.3 to 10.3 hours'"
+  ],
+  "e2": [
+   "CTR mean of the six tracked queries = 226 ÷ 6 = 37.67% printed −37.7%; page-level derivation 0.62 ÷ 1.04 = −40.4% printed exactly",
+   "composite (50×30)+(0×25)+(75×15)+(25×15) = 3,000; 3,000 ÷ 85 = 35.2941 → 35.3; band read off 35",
+   "all six CTR deltas, six impression changes and twelve positions match the export exactly; largest single position move |2.2 − 2.5| = 0.3 as printed"
+  ],
+  "quick_scores": "All twelve CORE-EEAT quick scores across e1 and e3 reproduce from their own printed tallies under points ÷ (10 × items checked) × 100, with N/A items held out of the denominator in every case."
+ },
+ "executor_self_corrections_verified": {
+  "method": "The executor reported catching and fixing seven items before saving. Each was re-checked against the saved files rather than taken on report; every character count was recounted in Python.",
+  "results": [
+   {
+    "claim": "an invented figure — '24 Tasks in Priority Order'",
+    "verdict": "FIXED, with a residue",
+    "evidence": "e1.md:312-315 now reads '— 56 characters. If you want a task count in the title (\"…: 24 Tasks in Priority Order\"), the number has to be the number of tasks the finished page actually carries — count them after the restructure in action 6, not before it.' The figure is demoted to a conditional illustration with an instruction to count. RESIDUE: the specific number 24 still stands inside a quoted title string; '[count]' would have carried no risk at all."
+   },
+   {
+    "claim": "five character-count errors across e1/e3",
+    "verdict": "CONFIRMED FIXED on all four counts that exist",
+    "evidence": "Recounted in Python: e1 title 56 (printed 56) · e1 meta description 156 (printed 156) · e3 title 62 (printed 62) · e3 meta description 148 (printed 148). Only four character counts exist in e1 and e3 combined; the fifth reported error is not locatable in the saved output, which is consistent with a count having been removed rather than corrected. No character count in either file is wrong."
+   },
+   {
+    "claim": "a Greek negative-concord defect",
+    "verdict": "CONFIRMED FIXED",
+    "evidence": "Family-5 screen over e3 under LC_ALL=C.UTF-8 returned 39 n-word lines; every one hand-checked, every finite clause carries a preverbal «δεν» or «χωρίς», the rest are verbless nominals. Re-run under the amended `(?<!α)ποτέ` guard: 4 of 4 survive and all four are licensed or verbless."
+   },
+   {
+    "claim": "a family-9 present-tense engine statement",
+    "verdict": "CONFIRMED FIXED",
+    "evidence": "Family-9 NET × RANK over all five deliverables in both languages returns nothing; the control returns 2 of 2. No engine disposition is asserted anywhere; e1.md:495 and e2.md:392 instead carry the ruled hedged form ('our working model, not documented engine behaviour')."
+   },
+   {
+    "claim": "two internal-artefact references in Greek client prose",
+    "verdict": "CONFIRMED FIXED",
+    "evidence": "Family-8 screen over e3: all nine slug / framework-ID / ruling-handle occurrences sit inside the two fences whose first line is '<!-- OPERATOR BLOCK ... -->' (e3.md:81-110, 645-662). Zero in client prose. The advisory token set («δεξιότητ», «το skill», «βιβλιοθήκη μας», «εκτέλεση», «βαθμίδα», «συνεδρί») returns zero over the whole file."
+   },
+   {
+    "claim": "a fence mixing paste-ready copy with a bracket slot",
+    "verdict": "CONFIRMED FIXED",
+    "evidence": "e3's five ready FAQ answers sit in one fence (e3.md:355-393, zero '[' characters) and the sixth is in a separate labelled skeleton (e3.md:398-410), with the reason stated at e3.md:395-396 «Είναι σε ξεχωριστό μπλοκ ακριβώς για να μην αντιγραφεί κατά λάθος μαζί με τις υπόλοιπες». Scripted check across all five deliverables: every fence carrying a bracket token is labelled inside the fence, and every unlabelled paste-ready fence is bracket-free."
+   },
+   {
+    "claim": "two unresolved forward references",
+    "verdict": "CONFIRMED FIXED for the references themselves — one count behind a reference is wrong",
+    "evidence": "Every '§' cross-reference resolves: e1.md:672 → e1's §3, e3.md:661 → §8.1/§8.2, e5.md:36/46/48 → §2, e5.md:125 → §3, e5.md:264 → §5, e5.md:295 → §3. The target of e5.md:264 exists but carries five bullets against the criterion's 'six' — recorded as defect D1."
+   }
+  ],
+  "label_vocabulary": "All in-fence labels used across the five deliverables are from the closed list of three ruled 2026-08-17 — SKELETON (4 uses), ILLUSTRATIVE FILL (1), OPERATOR BLOCK (6). No fourth spelling; the retired OPERATOR HANDOFF appears nowhere."
+ },
+ "tool_correctness": {
+  "tool_errors_encountered": "None. `scripts/eval-prompt.sh optimize/content-refresher <id> --grade` ran cleanly for all five evals; `scripts/engine-claim-sweep.sh` ran cleanly.",
+  "checker_false_verdicts": "One caught by this grader before it reached a finding, recorded per F7 and F15: a repo-wide `grep -rn \"advises against\"` returned no content-refresher hit and would have been reported as a clean sheet. Re-run as a multiline regex it returns `refresh-templates.md:464`, where the phrase straddles a line break. The line-based result was a false PASS, and the finding survives only because the file had been read at source first. Every screen in this grading therefore carries a live control: the final-sigma patterns were fault-injected (2 and 1 hits on «πελάτησ έλεγχοσ καλόςημέρα»); families 6, 9 and 10 each ran a constructed positive control; the bracket-token scan ran a labelled skeleton as its positive control; the νίκη and `ποτέ` guards were re-run after the mid-run ruleset edit with controls.",
+  "expectations_not_gradable_as_written": "Two clauses, both graded on their stated fail conditions and both logged as feedback: e2.1's 'while treating the numeric thresholds as the playbook's house operational default' (third consecutive run in which no deliverable states it and no grader enforces it) and e2.5's 'the T+28 CTR goal is framed as the playbook's tunable target', where this deliverable is more conservative than the quoted target rather than less.",
+  "scope_drift": "None. No deliverable was modified, no skill file was edited, no tracking file was touched. This grader produced no output of its own to grade against.",
+  "locale": "All Greek screens run under LC_ALL=C.UTF-8 explicitly, GNU grep 3.11, with the locale recorded per the ruleset's governing note.",
+  "scratchpad_hygiene": "All working files prefixed `modeb-refresher-*` per the shared-scratchpad rule; no generic filenames created."
+ },
+ "eval_improvement_feedback": [
+  "e1.1 clause (b) demands a fact the library does not hold and the skill forbids stating: 'flagged because Universal Analytics no longer processes data, with replacement guidance pointing at GA4'. Either the skill gains a product-status carrier and a scope clause on refresh-templates.md:298-299, or the clause drops to what the fixture and the skill can support — 'the line is identified as a stale product reference and routed to a dated verification'. As written it is unsatisfiable by a compliant run.",
+  "e2.6 has now been graded four times: passed twice on deliverables that filled the slots from outside the fixture, failed twice on deliverables that refused to. Ledger F13-r5 ruled it a suite defect in 2026-08-11 and the wording has not moved since. It needs the Value Rule's skeleton carve-out, or the fixture needs paragraph 5.",
+  "e2.1's 'while treating the numeric thresholds as the playbook's house operational default (tunable per site and market), not a measured fact' has not been stated by any of the three deliverables graded against it and has not been enforced by any of the three graders. Make it a fail condition or remove it — a clause everyone reads as optional is not measuring anything.",
+  "e1.1's parenthetical distinguishes a plus from a requirement for the 'Google My Business' label but not for the GA4 pointer, which reads as required. If only the flag is required, say so.",
+  "e4.4 bundles three independent behaviours (news-content strategy, tool-comparison cadence, retirement routing) into one verdict, so a run that gets two right and one thin fails whole. It has now flipped FAIL→PASS→FAIL→PASS across four records on which of the three was weak. Splitting it would make the movement legible.",
+  "No expectation in this suite grades a single arithmetic result, though the skill emits four score families and the deliverables printed 47 derived figures this run. The prior record found four arithmetic defects outside the graded set; this one found none — and neither fact is visible in the pass rate."
+ ],
+ "artefacts": {
+  "deliverables_graded": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-2026-08-17/content-refresher/{e1,e2,e3,e4,e5}.md",
+  "grading_record": "docs/loop/eval-baselines/blind-2026-08-17/content-refresher.json",
+  "grader_scripts": [
+   "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-refresher-grader-charcount.py",
+   "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-refresher-grader-words.py",
+   "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-refresher-grader-words2.py",
+   "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-refresher-grader-el-words.py",
+   "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-refresher-grader-el-mech.py",
+   "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-refresher-grader-fences.py"
+  ],
+  "greek_editor_referral": "e3.md — the two publish-ready blocks §8.1 (e3.md:327-344) and §8.2 (e3.md:355-393) for register, naturalness and fluency; specifically «τραβάει η αντίσταση» (e3.md:374-375), «βγαίνει από το πόσα άτομα» (e3.md:334, 367) and «τα εισερχόμενα links» (e3.md:265). e3.5 stays EDITOR-PENDING until that report exists."
+ }
+}
