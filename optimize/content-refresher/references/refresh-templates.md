@@ -1,6 +1,87 @@
 # Content Refresh Templates
 
-Detailed output templates for content-refresher steps 5-9. Referenced from [SKILL.md](../SKILL.md).
+Step 1's three quick-scan rules, and the detailed output templates for content-refresher
+steps 5-9. Referenced from [SKILL.md](../SKILL.md).
+
+---
+
+## Step 1: CORE-EEAT Quick Scan — the three rules the template cannot hold
+
+Author's rules, not report copy. [SKILL.md](../SKILL.md) Step 1 states them in one paragraph;
+this is the full form, with the consequence each one carries.
+
+### The veto line has three answers, not two
+
+`"none"` is itself a finding. It asserts that no material connection exists on this page, so write
+it only where you looked for one and there was none.
+
+The third answer is the case this library's stated market hits by default: a retailer scoring its
+own buying guide, where a material connection plainly may exist and nothing you were given settles
+whether it is disclosed. That is neither Pass, nor Fail, nor "none". Write it as
+`CORE-EEAT-T04 unassessable`, and beside it the single input that would settle it — a look at the
+live page for a disclosure line, one question to the owner, the affiliate agreement itself. Do not
+guess past it, do not round it down to "none", and do not coin a label of your own: a state this
+skill does not define cannot be acted on by whoever receives it.
+
+**It is consequential, which is why it may not be smoothed over.**
+[core-eeat-benchmark.md](../../../references/core-eeat-benchmark.md) § Veto Items rules that where
+evidence for a veto item is missing or unassessable, **no final score is issued at all** — not a
+capped score, not a score with a caveat. This quick pass issues no final score either way, so
+nothing changes for its own output; what changes is what the full 80-item audit may do with it, and
+[inter-skill-handoff.md §4.3](../../../references/inter-skill-handoff.md) (*Veto status* row)
+requires the handoff to transmit that state rather than a number. So it travels verbatim. T04's
+other two answers are unchanged: a material connection undisclosed or materially obscured is the
+veto, flagged by ID; no material connection at all is N/A, held out of the dimension average and
+never recorded as Partial.
+
+### A description of the page is not the page
+
+Most of the eight dimensions are checkable only against the text itself — how a claim is sourced,
+whether two passages contradict each other, whether a disclosure line exists, whether anybody
+tested anything, whether the opening delivers what the title promises. A session holding a title, a
+URL, one row of an inventory or somebody's summary of the page will therefore miss the three-item
+bar in most of them, and each of those dimensions reads "not assessed". **That is the rule working,
+not a failure to try harder** — estimating past it is the same defect as filling an N/A decay
+signal from a typical case.
+
+What the skill did not say before is how to report that outcome, and whether to start at all:
+
+1. **Say what the scan ran on, once.** One line above the table — "scored from the inventory row
+   and the title; the page text was not supplied" — rather than eight unexplained dashes.
+2. **Count the assessed dimensions and name the rest together.** "Two of the eight assessed" is a
+   claim a reader can weigh; a column of blanks is not.
+3. **Name the one input that unlocks the rest** — the page's own text, pasted or fetched. Same
+   drop-and-name rule the missing-topics table and the composite decay score already follow.
+4. **Where no dimension reaches three checkable items, issue no quick scan at all.** Say that in
+   one line with the input needed, skip Step 1, and run the refresh on the decay signals, which
+   score from the inventory and the exports rather than from the prose. A Weakest Dimensions list
+   is a ranking, and a ranking drawn from one assessed dimension out of eight is a sentence wearing
+   a score — every refresh priority read off it would inherit that.
+5. **The Weakest Dimensions list ranks assessed dimensions only, and says how many of the eight it
+   drew from.** An unassessed dimension is never "the weakest"; it is unmeasured, and in a bare
+   list the two look identical.
+
+None of this licenses hedging on what you *can* read. A page supplied in full is scored normally —
+the rule is about the input, never about confidence.
+
+### Content Type here is description, not a routing key
+
+The quick scan applies **no weight profile**. It is an unweighted read of the handful of items it
+checked — `points ÷ (10 × items checked) × 100` — so it never needs a content-type column from the
+benchmark's weight table, and it never improvises one for a type that has no column. Write the
+Content Type field in the words the client would use: "retailer's buying guide", "how-to",
+"product listing page".
+
+Two questions inside this skill *do* route on a type, and both are looked up in
+[content-decay-signals.md](./content-decay-signals.md):
+
+| Question | Table | Where a buying guide lands |
+|---|---|---|
+| How often is this type refreshed? (Step 2's Cadence check) | *Update Strategy by Content Type* | No row of its own. That file's stated fallback reads it onto *Tool comparisons* — prices and models move under it — and the report names the borrowed row and why |
+| How many hours does a refresh take? (refresh-difficulty scoring) | *Which playbook a content type uses* | Named outright in the first row: *Blog post, article, listicle, buying guide, evergreen guide* → Blog Post / Article |
+
+The two need not land on the same row, and that file says so directly: a buying guide takes
+blog-post hours and a tool-comparison cadence. They are two different questions, not a conflict.
 
 ---
 
@@ -158,7 +239,17 @@ An old article often states what Google *shows* — rich results, snippets, pane
 this library has settled, and only that far. The rule governs the refreshed copy the client
 publishes, where an unresolved claim reads as fact:
 
-- **No FAQ rich result for an ordinary site — no SERP feature to promise** (settled ruling R3). What is *sourced*: Google restricted FAQ rich results to well-known government and health websites on 2023-08-08. What is **not** sourced and must not be written into copy: this library's further claim of a full 2026 end (`docs/loop/r3-decision-brief.md`). An article promising them
+- **No FAQ rich result for an ordinary site — no SERP feature to promise** (settled ruling R3).
+  **What is sourced, and where** — Google Search Central blog, *"Changes to HowTo and FAQ rich
+  results"*, dated **2023-08-08**, at
+  `https://developers.google.com/search/blog/2023/08/howto-faq-changes`: FAQ rich results *"will
+  only be shown for well-known, authoritative government and health websites"*, and *"For all other
+  sites, this rich result will no longer be shown regularly."* That post was read in a browser by
+  the owner on 2026-08-11 (`docs/loop/WATCH-ITEMS.md` W12), which is why this is the
+  best-evidenced sentence in this section; `developers.google.com` is refused by this environment's
+  own egress, so it cannot be re-read from a run. Give the client the date and the URL, never the
+  ruling handle. What is **not** sourced and must not be written into copy: this library's further
+  claim of a full 2026 end (`docs/loop/r3-decision-brief.md`). An article promising them
   is wrong, and the line is rewritten. FAQPage markup, where a page justifies it under R2, is kept
   because it is valid schema.org, costs nothing to keep, and Google says there is no need to
   proactively remove it — a permission to leave existing markup alone, never written up as Google
@@ -192,6 +283,16 @@ wrong.
 - **They are cited as this library's settled ruling**, which is what they are (R4; reopens only on a
   Google-primary threshold change) — not as a fresh reading of Google's documentation that nobody in
   this session performed.
+- **How far R4's backing goes, so "settled" is not taken on trust.** The entry is
+  `docs/loop/SETTLED-RULINGS.md` R4 — a register an operator can open and a fresh session cannot.
+  It records the thresholds as Google's own, and records that it reopens only on a Google-primary
+  change (web.dev / Google Search Central); it names **no source URL and states no evidence grade**,
+  so what this skill holds is the ruling, not a document anyone read here. **That governs
+  attribution, never disclosure.** The figures ship in the corrected copy either way: they are fixed
+  definitions that need no connected tool, no client baseline and no confirmation before they are
+  written down, and withholding them is the abstention overshoot this skill's own case founded
+  (ledger F19). Where a client asks where the numbers come from, send them to Google's Core Web
+  Vitals documentation — not to this register, whose handles are operator vocabulary.
 - **Anything not in the register stays open** and the SERP-feature rule above governs it: flag it for
   verification, assert nothing in either direction. The register is the stopping condition, not a
   licence to correct by memory.
@@ -360,9 +461,13 @@ passes ruling R2's both-things test — it genuinely is both its primary type an
 each complete and independently justified. Otherwise the FAQ content ships and the schema is left
 alone, and the report says so. Either way, what may be claimed for the markup is the basis the
 ruling supports and no more: it is valid schema.org, it costs nothing to keep, and Google advises
-against proactively removing it. An ordinary site gets no FAQ rich result (government/health only since Aug 2023), so no SERP feature is promised —
-and no primary source establishes an AI-citation benefit either way, so the markup is never sold as
-earning AI citations (ruling R3 + amendment 9a).
+against proactively removing it. An ordinary site gets no FAQ rich result — since 2023-08-08 Google
+shows those only for well-known, authoritative government and health websites
+(`https://developers.google.com/search/blog/2023/08/howto-faq-changes`, 2023-08-08) — so no SERP
+feature is promised; and no primary source establishes an AI-citation benefit either way, so the
+markup is never sold as earning AI citations (ruling R3 + amendment 9a; the source and its reading
+grade are in §"Correcting claims about SERP features" above, and the handle stays out of the
+report — the client gets the date and the URL).
 
 **On every score this report prints** — a CORE-EEAT quick score, the composite decay score, the
 refresh priority score, an ROI figure: the derivation sits beside the number, and a signal or factor

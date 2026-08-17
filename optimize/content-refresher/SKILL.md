@@ -42,7 +42,6 @@ metadata:
 
 # Content Refresher
 
-
 This skill helps identify and revitalize outdated content to reclaim lost rankings and traffic. It analyzes content freshness, identifies update opportunities, and guides the refresh process for maximum SEO and GEO impact.
 
 ## When to Use This Skill
@@ -169,8 +168,9 @@ When a user requests content refresh help:
    | [dimension] | [X]/100 — [P] pts over [n] | [IDs with their grades, e.g. C02, C03 Pass; C01 Partial; C09 Fail] |
 
    **Veto flagged**: [`CORE-EEAT-C01` / `CORE-EEAT-R10` / `CORE-EEAT-T04` where a material
-   connection exists — or "none"]. The quick pass flags; the full 80-item audit rules and
-   applies the score cap.
+   connection exists · `CORE-EEAT-T04 unassessable` where one may exist and nothing here settles
+   whether it is disclosed · or "none"]. The quick pass flags; the full 80-item audit rules and
+   applies the score cap — except after an unassessable veto, where it issues no final score at all.
    ```
 
    One row per dimension scored. **This scan is not a dimension score and never becomes one**: it is
@@ -179,6 +179,16 @@ When a user requests content refresh help:
    ([inter-skill-handoff.md §4.3](../../references/inter-skill-handoff.md)). What the client gets
    from the scan is the plain-language weakness column above. For the full 80-item audit, hand off to
    [content-quality-auditor](../../cross-cutting/content-quality-auditor/).
+
+   **Three rules the template cannot hold, in full in
+   [refresh-templates.md](./references/refresh-templates.md) §"Step 1".** (a) `"none"` on the veto
+   line is a finding — it asserts that no material connection exists — so where one plausibly exists
+   and nothing you hold settles disclosure, write `CORE-EEAT-T04 unassessable` and name what would
+   settle it; never "none", never a label of your own. (b) A title, a URL, an inventory row or
+   somebody's summary is **not the page**: dimensions that miss the three-item bar read "not
+   assessed", and where none of the eight reaches it there is no quick scan to issue. (c) **Content
+   Type** here is plain description that routes nothing — the scan applies no weight profile, so it
+   needs no content-type column from the benchmark and improvises none.
 
 2. **Identify Content Refresh Candidates**
 
@@ -295,7 +305,7 @@ When a user requests content refresh help:
    - [ ] Refresh meta description
    - [ ] Add new H2 sections for [topics]
    - [ ] Update internal links to newer content
-   - [ ] Add an FAQ section answering the query's real follow-ups — FAQ *content* is the deliverable; FAQPage markup only where the page passes the R2 both-things test, and then on the basis the ruling actually supports: it is valid schema.org, costs nothing to keep, and Google says there is no need to proactively remove it — a permission to leave existing markup alone, not Google advising anyone to keep it. Not that it earns AI citations — no primary source establishes that either way; and an ordinary site gets no FAQ rich result (Google restricted them to government/health sites, Aug 2023), so no SERP feature either (ruling R3 + amendment 9a)
+   - [ ] Add an FAQ section answering the query's real follow-ups — FAQ *content* is the deliverable; FAQPage markup only where the page genuinely is both its primary type and an FAQ resource, each complete and independently justified, and then claiming nothing for it: it is valid schema.org, costs nothing to keep, and Google says there is no need to proactively remove it — a permission to leave existing markup alone, not advice to keep it. No AI-citation benefit is established either way, and an ordinary site gets no FAQ rich result: since 2023-08-08 Google shows those only for well-known, authoritative government and health websites (source: Google Search Central blog, "Changes to HowTo and FAQ rich results", 2023-08-08, `developers.google.com/search/blog/2023/08/howto-faq-changes`), so no SERP feature is promised
    - [ ] Refresh images and add new alt text
    
    ### GEO Updates Needed
@@ -307,7 +317,7 @@ When a user requests content refresh help:
    - [ ] Create standalone factual statements
    ```
 
-   > **On the two claim rows** (author's rule, not report copy): correct what `docs/loop/SETTLED-RULINGS.md` settles — the Core Web Vitals thresholds above are ruling R4 — and flag for verification only what it does not. Declining to state a figure the register already holds is the abstention overshoot (ledger F19); the rule, its stopping condition and its provenance are in [refresh-templates.md](./references/refresh-templates.md) §"Correcting stale technical claims".
+   > **On the two claim rows** (author's rule, not report copy): correct what `docs/loop/SETTLED-RULINGS.md` settles — the Core Web Vitals thresholds above are ruling R4, and the FAQ checkbox is ruling R2's both-things test plus R3 amendment 9a — and flag for verification only what it does not. **Ruling handles are operator vocabulary**: cite R2/R3/R4 in working notes, and give the client the figure and, where one is on file, the source (root `CLAUDE.md` § The Reader Test). Declining to state a figure the register already holds is the abstention overshoot (ledger F19). The rules, their stopping condition, and how far each one's backing actually goes are in [refresh-templates.md](./references/refresh-templates.md) §"Correcting claims about SERP features" and §"Correcting stale technical claims".
 
 5. **Create Refresh Plan** — Structural changes, content additions, statistics/links/images to update
 
@@ -335,6 +345,7 @@ When a user requests content refresh help:
 - [ ] Target content URL or title clearly identified
 - [ ] Historical performance data available (traffic trends, rankings)
 - [ ] Content publish/update dates known
+- [ ] The page's own text is in hand — pasted, fetched or supplied as a file. A title, a URL or a description of the page is not the page, and Step 1 reports which dimensions that leaves unassessed rather than estimating them
 - [ ] If comparing to competitors, competitor URLs provided — or a dated SERP check the operator ran; with neither, competitive findings are reported as unassessed, not inferred
 
 ### Output Validation
@@ -365,7 +376,7 @@ When a user requests content refresh help:
 
 - [Content Decay Signals](./references/content-decay-signals.md) — Decay indicators, lifecycle stages, and refresh triggers by content type
 - [AI Overview Recovery Playbook](./references/ai-overview-recovery.md) — Trigger profile, four-case query segmentation, answer-first remediation, T+7/T+14/T+28 verification ladder, stop rules with entity-optimizer handoff
-- [Refresh Templates](./references/refresh-templates.md) — Detailed output templates for steps 5-9 (refresh plan, content writing, GEO enhancement, republishing, report)
+- [Refresh Templates](./references/refresh-templates.md) — Step 1's three quick-scan rules (unassessable veto, no page text, content-type label), plus the detailed output templates for steps 5-9 (refresh plan, content writing, GEO enhancement, republishing, report) and the two claim-correction rules
 - [Refresh Example & Checklist](./references/refresh-example.md) — Full worked example and pre/post-refresh checklist
 
 ## Related Skills
