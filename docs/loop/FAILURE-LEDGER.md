@@ -1625,3 +1625,63 @@ cost a probe cycle and would have cost a whole class of undetected scope drift.
 
 - **Recurrence**: F15 → 2.
 - **Status**: shipped with both probes recorded in the commit message. FLIP: F15-r2 -- none
+
+---
+
+## F19 — Recurrence 1 (2026-08-13) · The same abstention, on the same values, in a second skill
+
+F19 was founded when `content-refresher` refused to state Core Web Vitals thresholds that settled
+ruling **R4** fixes — LCP 2.5 s, INP 200 ms, CLS 0.1 — having learned not to assert what it could
+not source. It recurs now in `alert-manager`, **on those same three values**, and one deliverable
+put the shape into words: *"confirm the current boundary numbers against the field-data definition
+when you reconnect the feed."* There is nothing to confirm and no feed involved. A blind run at
+the previous version had stated the numbers; this one did not.
+
+**The root cause is not the model's caution — it is F17, and that is the transferable part.**
+`monitor/alert-manager/references/alert-threshold-guide.md` banded LCP by **status word** ("Moves
+to Needs Improvement") and stated `2.5 s` **nowhere**, and `R4` appeared **zero times** anywhere in
+`monitor/alert-manager/`. The number was unreachable from inside the skill. An executor that
+declines to state a figure it cannot find is behaving correctly; the defect is that the figure was
+not there to find. **F19 is what F17 looks like from the outside** — and an F19 that recurs is
+better read as a missing carrier than as an over-cautious run.
+
+Aggravating, and recorded because it makes the diagnosis harder next time: the 4.3.x wave under
+test had itself added a second status-based CWV row and the one-ladder-per-metric precedence rule.
+Together those make a status-only rebuild the *faithful* reading of the surface. **The wave that
+introduced the abstention was a wave of correct fixes** — which is why the regression only shows up
+against a prior baseline and not against any rule.
+
+- **Found by**: the Mode B grader on the 2026-08-13 blind run (e2.2; e2.1 is the same cause on INP).
+- **Recurrence**: F19 → 1.
+- **Status**: carrier added — the numeric boundaries now sit beside the status words, with the full
+  settled set stated once and a note that they need no baseline and no connected tool, so there is
+  nothing to go and confirm. The two regressions stand until a re-run. FLIP: F19-r1 -- none
+
+---
+
+## F17 — Recurrence 3 (2026-08-13) · Two carriers missing, found the same day by different routes
+
+Two instances, and they are worth one entry because the second explains the first.
+
+**Instance A — the CWV numbers (see F19-r1 above).** `alert-threshold-guide.md` required a run to
+grade Core Web Vitals and gave it status words with no numbers; `R4` appeared nowhere in the skill.
+Two consecutive blind runs then declined to state values this library has settled. **A rule the
+skill cannot reach is a rule the skill does not have**, however firmly a register states it.
+
+**Instance B — the handoff producer/consumer tables.** `references/inter-skill-handoff.md` §5.1/§5.2
+carry a maintenance obligation in their own header: *"Re-derive it after any skill edit that adds or
+removes a follow-up recommendation."* On 2026-08-13 `content-gap-analysis` gained a *Handoff to the
+Next Run* section and appeared in **neither table**. It was caught by the implementer that made the
+change, reporting out of scope — **not by any gate**. Nothing in the loop re-derives those tables,
+so a skill that gains a follow-up recommendation silently falsifies both, and the falsification is
+invisible until somebody reads the file for another reason.
+
+**What the pair shows**: F17 has two shapes. Instance A is a rule with no carrier — stated
+somewhere the worker cannot see it. Instance B is a carrier with no keeper — stated where it can be
+seen, and quietly wrong because nothing re-derives it. **The second is the more dangerous, because
+a stale table reads exactly like a current one.** The obligation in that header is a grep the file
+itself specifies; a guard is a candidate, and is recorded as one rather than written in the same
+pass that found the need.
+
+- **Recurrence**: F17 → 3.
+- **Status**: A fixed at the carrier; B re-derived by hand and flagged for a guard. FLIP: F17-r3 -- none
