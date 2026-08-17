@@ -140,12 +140,25 @@ prose have to match the N/A rows in the tables — same number of rows, same rea
   visible where the number is written rather than only here. In the Authority example above, no
   fix inside that dimension moves the weighted total at all while it is excluded as Insufficient
   Data — the fix that pays there is supplying the missing site-level data, not raising an item.
-- **The rating band is read off the final figure, and the published bands have whole-number
-  endpoints** (90–100 Excellent · 75–89 Good · 60–74 Medium · 40–59 Low · 0–39 Poor). A computed
-  total can therefore land between two of them — 39.80 is above the Poor range's 39 and below
-  the Low range's 40 — and such a figure is **never given the name of the band above it**. Print
-  the figure with enough precision beside the band that a reader can see which side of the
-  boundary it fell on. The band is a label on the arithmetic, never a way of nudging it.
+- **The rating band is read off the final figure rounded to a whole number, half up.** The
+  published bands have whole-number endpoints (90–100 Excellent · 75–89 Good · 60–74 Medium ·
+  40–59 Low · 0–39 Poor) and a weighted mean is not a whole number, so unrounded there are four
+  windows a computed total can land in that belong to no band — 39.80 is above the Poor range's
+  39 and below the Low range's 40. Rounding closes all four **without moving an endpoint**: 39.80
+  reads 40, Low. The rule and its worked veto case live in
+  [references/core-eeat-benchmark.md](../../../references/core-eeat-benchmark.md) § 3; this file
+  does not state a second convention.
+- **Both figures are printed, and the rounded one never replaces the computed one.** Print the
+  computed total with its derivation, at enough precision that a reader can see which side of the
+  boundary it fell on and reproduce the rounding, and print the rounded total carrying the rating
+  word — `39.80 → 40/100, Low`. The band is a label on the arithmetic, never a way of nudging it,
+  and rounding is a reading step for the band alone: every check in § 7 runs against the computed
+  figure, not the rounded one.
+- **Precision follows the band's own endpoints.** These bands round to a whole number because
+  their endpoints are whole numbers. The Link Quality Score in
+  [monitor/backlink-analyzer/references/link-quality-rubric.md](../../../monitor/backlink-analyzer/references/link-quality-rubric.md)
+  § 1 rounds to one decimal because its endpoints carry one. Do not harmonise them — one decimal
+  here leaves 39.8 in no band, and a whole number there collapses three bands into two.
 - These multiples are screens, not verdicts. They catch a slipped figure; they never certify
   one. The check that always applies is recomputing each figure from the numbers printed above
   it.
@@ -156,6 +169,11 @@ prose have to match the N/A rows in the tables — same number of rows, same rea
   a ceiling imposed on the arithmetic, not a figure the arithmetic produced — it will often
   not be an attainable value under §2 or §5, and that is correct. The uncapped figure may
   appear only labelled as what the score would have been without the veto.
+  **Round first, then cap, and read the band off the same rounded figure.** A vetoed weighted
+  total of 59.6 rounds to 60, which stands above the cap, so the cap binds and the report says
+  **59, Low**. The defect the order prevents is checking the cap against one figure (59.6,
+  already at or above 59, so "capped") and reading the band off another (60, Medium): a vetoed
+  report printing 60/Medium has breached the cap however it got there.
 - **Two or more verified vetoes**: BLOCK. Dimension scores may still be shown; there is no
   final score to check.
 - **A veto item whose evidence is missing or unassessable**: no final score is issued at all.
@@ -177,9 +195,10 @@ Run this against the finished report, not against the working notes:
 3. Every dimension with more than 5 N/A items is flagged Insufficient Data, excluded from the
    weighted total, and the remaining weights are renormalised to 100%.
 4. GEO = mean of the four printed CORE scores; SEO = mean of the four printed EEAT scores; the
-   weighted total reproduces from the printed dimension scores and weights.
+   weighted total reproduces from the printed dimension scores and weights. The computed total
+   and its rounded form are both printed, and the rating word sits on the rounded one (§5).
 5. If a veto fired: the reported final is the cap or is suppressed, and any uncapped figure is
-   labelled as such.
+   labelled as such. The cap and the band are read off the same rounded number (§6).
 6. Every Top 5 gain equals `100/n × weight` for a Fail→Pass and `50/n × weight` for a
    Partial→Pass, where `n` is that dimension's scored-item count (§5) — **all three factors
    shown on the Impact line**, so the rescale is visible where the number is written and the

@@ -19,6 +19,13 @@ what makes the bands contiguous: the weights make x.x5 results reachable — a 5
 4 on traffic with 1s on the other four factors gives exactly 2.45 — and an unrounded 2.45 sits in
 no band below, while 2.45 rounded is 2.5, Acceptable.
 
+**One decimal here, a whole number there — do not harmonise them.** The CORE-EEAT and CITE rating
+scales use the same rule at their own precision: whole-number endpoints (90-100 · 75-89 · 60-74 ·
+40-59 · 0-39), so those scores round to a whole number
+([references/core-eeat-benchmark.md](../../../references/core-eeat-benchmark.md) § 3). Precision
+follows the band's own endpoints. Rounding an LQS to a whole number collapses three bands into two,
+and rounding a CORE-EEAT total to one decimal leaves 39.8 in no band at all.
+
 **Rating Scale** (rounded LQS):
 - **4.0-5.0**: Premium link — high authority, topically relevant, editorial placement
 - **2.5-3.9**: Acceptable link — provides value, typical of healthy profiles

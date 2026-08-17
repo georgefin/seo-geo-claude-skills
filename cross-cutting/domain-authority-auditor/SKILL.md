@@ -1,13 +1,13 @@
 ---
 name: domain-authority-auditor
-version: "4.5.1"
+version: "4.6.0"
 description: 'Run the full 40-item CITE domain authority audit across 4 dimensions with domain-type weighting and veto checks. Use when the user asks to "audit domain authority", "domain trust score", "CITE audit", "how authoritative is my site", "domain credibility check", "is my domain trustworthy", "domain credibility score", "domain rating". For content-level assessment, see content-quality-auditor. For link profile details, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.5.1"
+  version: "4.6.0"
   geo-relevance: "medium"
   tags:
     - seo
@@ -265,9 +265,9 @@ Calculate scores and generate the final report:
 | E — Eminence | [X]/100 | [p]/[q]/[r] | [rating] | [X]% | [X] |
 | **CITE Score** | | | | | **[X]/100** |
 
-**Score Calculation**: CITE Score = C × [w_C] + I × [w_I] + T × [w_T] + E × [w_E] = [each product] = [unrounded sum] → **[rounded]/100** (one decimal, half up; the rating label follows the rounded number)
+**Score Calculation**: CITE Score = C × [w_C] + I × [w_I] + T × [w_T] + E × [w_E] = [each product] = [unrounded sum] → **[reported score]/100** (one decimal, half up), band read off **[whole number]** → [rating]
 
-**Rating Scale**: 90-100 Excellent | 75-89 Good | 60-74 Medium | 40-59 Low | 0-39 Poor
+**Rating Scale**: 90-100 Excellent | 75-89 Good | 60-74 Medium | 40-59 Low | 0-39 Poor — the band endpoints are whole numbers, so the rating word is read off the computed score rounded once to a whole number, half up; the computed score stays printed beside it
 
 ### Per-Item Scores
 
@@ -343,9 +343,9 @@ Drop any row whose run this audit did not actually motivate; a standing list of 
 ### Output Validation
 - [ ] All 40 items scored (or marked N/A with reason)
 - [ ] All 4 dimension scores calculated correctly — each equals its own item tally (N/A items rescale the denominator, they never score 0)
-- [ ] Weighted CITE Score matches domain-type weight configuration, shown unrounded then rounded
+- [ ] Weighted CITE Score matches domain-type weight configuration, shown unrounded then rounded; the rating word is read off the computed score rounded **once to a whole number**, half up — the band endpoints are whole numbers, so a one-decimal figure such as 39.8 belongs to no band, and re-rounding the one-decimal reported figure moves a band (74.46 → 74 Medium, but via 74.5 → 75 Good)
 - [ ] Every other derived figure (item tallies, points-lost sums, potential gains, projections) recomputes from the report's own tables, and every stated count matches the number of items it enumerates — a gain carries the same `10 ÷ scored items` rescale its dimension score carries, so one method computes both and never two
-- [ ] All 3 veto items checked first and flagged if triggered
+- [ ] All 3 veto items checked first and flagged if triggered; where one fired, **round first, then cap, and read the band off the same rounded figure** — a vetoed 39.6 rounds to 40, the cap binds, and the report says 39, Poor
 - [ ] Top 5 improvements sorted by weighted impact, not arbitrary
 - [ ] Every recommendation is specific and actionable (not generic advice)
 - [ ] Every finding carries a Confidence label (Confirmed / Likely / Hypothesis); Hypothesis findings name what would confirm them

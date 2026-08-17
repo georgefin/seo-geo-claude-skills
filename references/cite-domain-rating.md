@@ -82,7 +82,7 @@
 | T02 | Dofollow Ratio Normality | Dofollow 40-85% of total backlinks |
 | T03 | Link-Traffic Coherence | Link volume proportional to organic traffic (**Veto Item**) |
 | T04 | IP/Network Diversity | >=100 unique C-class IP ranges; no single C-class >5% |
-| T05 | Backlink Profile Uniqueness | No other domain shares >60% same referring domains (**Veto Item**) |
+| T05 | Backlink Profile Uniqueness | No other domain shares 40%+ of the same referring domains; >60% triggers the veto (**Veto Item**) |
 | T06 | WHOIS & Registration Transparency | Public WHOIS, reputable registrar, stable ownership >=2 years |
 | T07 | Technical Security | Site-wide HTTPS + HSTS; no malware/phishing flags |
 | T08 | Content Freshness Signal | New/updated content within last 90 days |
@@ -141,6 +141,40 @@
 | 40–59 | Low |
 | 0–39 | Poor |
 
+**Round the score to a whole number, half up, and read the band off the rounded figure.** Every
+endpoint above is a whole number and the CITE Score is a weighted mean, so the computed figure
+usually is not. Unrounded, four windows per hundred belong to no band at all — anything strictly
+between 39 and 40, 59 and 60, 74 and 75, or 89 and 90. The rounding step is what makes the bands
+contiguous, and it does that **without moving a single endpoint**.
+
+**Both figures appear, and neither replaces the other.** Print the computed value with its
+derivation — that is what a reader reproduces the score from — and print the rounded value carrying
+the rating word: `CITE Score = 28.0 + 8.25 + 16.0 + 16.25 = 68.5 → 68.5/100, band read off 69 → Medium`. The rounded
+figure is the band's input only. It is never the figure the arithmetic is checked against, and a
+report that prints only the rounded number has thrown away the derivation.
+
+**Round once, from the computed figure.** `domain-authority-auditor` reports the CITE Score at one
+decimal; that is a presentation precision, and the band still comes off the computed value rounded
+straight to a whole number — never off the one-decimal figure rounded a second time. Chaining the
+two moves a band: a computed 74.46 rounds to 74, Medium, but via 74.5 it becomes 75, Good.
+
+**Precision follows the band's own endpoints — do not harmonise the two scales.** These bands have
+whole-number endpoints, so the score rounds to a whole number. The Link Quality Score in
+[monitor/backlink-analyzer/references/link-quality-rubric.md](../monitor/backlink-analyzer/references/link-quality-rubric.md)
+§1 rounds to **one decimal**, because its bands have one-decimal endpoints (4.0-5.0 · 2.5-3.9 ·
+1.0-2.4). One rule, two precisions, each set by the scale it serves. Rounding a CITE Score to one
+decimal leaves 39.8 exactly where it was — in no band — and rounding an LQS to a whole number
+collapses three bands into two. The difference is not a discrepancy to tidy up.
+
+**Item criteria are read the same way, at their own precision.** Section 7's Pass/Partial/Fail
+criteria are written with whole-number endpoints (`Partial: 30-59% editorial links`), so a measured
+quantity is rounded to a whole number, half up, before it is read against them — 59.6% editorial
+reads 60% and takes the Pass its endpoint names, and 59.4% reads 59% and takes the Partial. Where
+an item's own endpoints carry a decimal — **T10** alone, at `3.0-3.4` against a `>=3.5` Pass — the
+measurement is read to one decimal instead. This is a reading rule for the measured quantity, not a
+change to any threshold: it moves a borderline observation by at most half a unit of the band's own
+precision, which is the price of every value having a grade instead of some values having none.
+
 ### Veto Items
 
 The following items can override the overall score — a Fail on any veto item caps the CITE Score at 39 (Poor) and raises a **Manipulation Alert**:
@@ -148,6 +182,19 @@ The following items can override the overall score — a Fail on any veto item c
 - **T03** — Thousands of links but near-zero organic traffic (link farm)
 - **T05** — Near-identical backlink profile found on another domain (manipulation network)
 - **T09** — Google manual action or deindexing (zero trust)
+
+**Round first, then apply the cap — and read the band off the same figure the cap sits on.** The
+cap is a ceiling on the score the report prints, and the score the report prints is the rounded
+one, so the ceiling belongs on the rounded figure.
+
+Worked, one veto Fail, weighted total **39.6**: rounding gives **40**, which reads Low and stands
+above the cap; the cap then binds and the reported score is **39, Poor**, with the Manipulation
+Alert raised. Applying the cap to the unrounded 39.6 and rounding afterwards reaches the same 39,
+and that coincidence is exactly why the order gets left to inference. The defect this ordering
+prevents is not the arithmetic — it is checking the cap against one figure (39.6, already above 39,
+so "capped") and then reading the band off another (40, Low). **A vetoed report that prints 40/Low
+has breached the cap however it got there.** State the cap and the band against the one rounded
+number. CITE has no 59 cap and no BLOCK verdict; those are CORE-EEAT's mechanics.
 
 ---
 
@@ -338,7 +385,7 @@ absence is not narrower here. Do not write an engine mechanic into a client repo
 
 **T02: Dofollow Ratio Normality**
 - **Pass**: 40-85% dofollow.
-- **Partial**: 85-90% (slightly elevated).
+- **Partial**: 20% up to but not including 40% (below the normal range), or above 85% up to 90% (slightly elevated).
 - **Fail**: >90% (manipulation signal) or <20%.
 
 **T03: Link-Traffic Coherence** | **VETO ITEM**
@@ -352,7 +399,7 @@ absence is not narrower here. Do not write an engine mechanic into a client repo
 - **Fail**: <50 C-class ranges or >20% from one C-class (PBN signature).
 
 **T05: Backlink Profile Uniqueness** | **VETO ITEM**
-- **Pass**: No domain shares >60% of same referring domains.
+- **Pass**: No domain shares 40% or more of the same referring domains.
 - **Partial**: One domain shares 40-60% overlap.
 - **Fail**: Another domain shares >60% → **Veto triggered**.
 
@@ -368,7 +415,7 @@ absence is not narrower here. Do not write an engine mechanic into a client repo
 
 **T08: Content Freshness Signal**
 - **Pass**: Content published/updated within last 90 days.
-- **Partial**: Last update 90-365 days ago.
+- **Partial**: Last update more than 90 and up to 365 days ago.
 - **Fail**: No updates for >1 year.
 
 **T09: Penalty & Deindex History** | **VETO ITEM**

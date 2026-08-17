@@ -182,6 +182,40 @@ A content type with no column here — an e-commerce category page (Section 5) i
 | 40–59 | Low |
 | 0–39 | Poor |
 
+**Round the score to a whole number, half up, and read the band off the rounded figure.** Every
+endpoint above is a whole number and every score this framework produces is a mean or a weighted
+mean, so the computed figure usually is not. Unrounded, four windows per hundred belong to no band
+at all — anything strictly between 39 and 40, 59 and 60, 74 and 75, or 89 and 90. A blind run
+produced a corrected weighted total of **39.80** and the scale had nowhere to put it. The rounding
+step is what makes the bands contiguous, and it does that **without moving a single endpoint**.
+
+**Both figures appear, and neither replaces the other.** Print the computed value with its
+derivation — that is what a reader reproduces the score from — and print the rounded value carrying
+the rating word: `Weighted Total = 12.00 + 9.60 + … = 39.80 → 40/100, Low`. The rounded figure is
+the band's input only. It is never the figure the arithmetic is checked against, and a report that
+prints only the rounded number has thrown away the derivation every skill in this library is
+required to show.
+
+**Round once, from the computed figure.** Where a skill also prints the score at some presentation
+precision, the band still comes off the computed value rounded straight to a whole number — never
+off the presentation figure rounded a second time. Chaining the two moves a band: a computed 74.46
+rounds to 74, Medium, but via 74.5 it becomes 75, Good.
+
+**Precision follows the band's own endpoints — do not harmonise the two scales.** These bands have
+whole-number endpoints, so the score rounds to a whole number. The Link Quality Score in
+[monitor/backlink-analyzer/references/link-quality-rubric.md](../monitor/backlink-analyzer/references/link-quality-rubric.md)
+§1 rounds to **one decimal**, because its bands have one-decimal endpoints (4.0-5.0 · 2.5-3.9 ·
+1.0-2.4). One rule, two precisions, each set by the scale it serves. Rounding this score to one
+decimal leaves 39.8 exactly where it was — in no band — and rounding an LQS to a whole number
+collapses three bands into two. The difference is not a discrepancy to tidy up.
+
+**Item criteria are read the same way, at their own precision.** A Section 7 criterion written with
+whole-number endpoints (`Partial: 30–50%` of page area) is read against a measurement rounded to a
+whole number, half up; where an item's own endpoints carry a decimal, the measurement is read to
+that decimal. This is a reading rule for the measured quantity, not a change to any threshold: it
+moves a borderline observation by at most half a unit of the band's own precision, which is the
+price of every value having a grade instead of some values having none.
+
 ### Veto Items
 
 Three items act as vetoes — trust failures that override the arithmetic regardless of other scores:
@@ -197,6 +231,18 @@ Three items act as vetoes — trust failures that override the arithmetic regard
 | One verified veto failure | Final overall score capped at 59 (top of "Low"); the cap is flagged in the report |
 | Two or more verified veto failures | BLOCK-class outcome — no final score is reported (dimension scores may still be shown; the final is suppressed) |
 | Evidence for a veto item missing or unassessable | No final score is issued at all — a veto item is never guessed past |
+
+**Round first, then apply the cap — and read the band off the same figure the cap sits on.** The
+cap is a ceiling on the score the report prints, and the score the report prints is the rounded
+one, so the ceiling belongs on the rounded figure.
+
+Worked, one verified veto, weighted total **59.6**: rounding gives **60**, which reads Medium and
+stands above the cap; the cap then binds and the reported score is **59, Low**. Applying the cap to
+the unrounded 59.6 and rounding afterwards reaches the same 59, and that coincidence is exactly why
+the order gets left to inference. The defect this ordering prevents is not the arithmetic — it is
+checking the cap against one figure (59.6, already at or above 59, so "capped") and then reading
+the band off another (60, Medium). **A vetoed report that prints 60/Medium has breached the cap
+however it got there.** State the cap and the band against the one rounded number.
 
 ---
 

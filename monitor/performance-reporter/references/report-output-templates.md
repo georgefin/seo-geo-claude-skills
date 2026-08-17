@@ -449,7 +449,11 @@ audited pages, list the page scores instead. Where a previous period's average i
 comparison, it has to cover the same page set or the comparison says which pages entered and left.
 The `[rating]` word is read off the content-quality-auditor scale this library already publishes —
 90-100 Excellent · 75-89 Good · 60-74 Medium · 40-59 Low · 0-39 Poor — quoted, not re-cut, and
-applied to the average exactly as it applies to a page score.
+applied to the average exactly as it applies to a page score. Those endpoints are whole numbers and
+a mean over pages almost never is, so **the band is read off the average rounded to a whole number,
+half up**, with the computed average still printed: `62.4 → 62, Medium`. Rounding is the step that
+puts every possible average in exactly one band without moving an endpoint — an average of 74.6
+belongs to no band unrounded. Round once, from the computed average.
 
 ### Dimension Averages Across Audited Pages
 

@@ -19,7 +19,7 @@ makes the existing mechanic show its arithmetic.
 | 2 | Dimension score (0-100) | Sum of that dimension's ten item points |
 | 3 | Weighted contribution | Dimension score × that dimension's domain-type weight |
 | 4 | CITE Score | Sum of the four weighted contributions |
-| 5 | Rating label | The rounded CITE Score read off the rating scale |
+| 5 | Rating label | The CITE Score rounded half up to a **whole number**, read off the rating scale (§2) |
 | 6 | Reported score | The CITE Score, or 39 if a veto item Fails (§4) |
 
 Everything else in the report — tallies, points-lost sums, potential gains, projections — is
@@ -37,15 +37,29 @@ Write the products, then the unrounded sum, then the rounded score:
 ```
 CITE Score = 70 × 0.40 + 55 × 0.15 + 80 × 0.20 + 65 × 0.25
            = 28.0 + 8.25 + 16.0 + 16.25
-           = 68.5 → 68.5/100 (Medium)
+           = 68.5 → 68.5/100, band read off 69 → (Medium)
 ```
 
-- **Round half up, at one decimal.** 69.95 → 70.0, not 69.9. Truncation is the common slip.
-- **The rating label follows the rounded number**, on the scale 90-100 Excellent | 75-89 Good
-  | 60-74 Medium | 40-59 Low | 0-39 Poor. A number in a band gap does not exist — the bands
-  are contiguous once the figure is rounded to one decimal.
+There are **two roundings here and they do different jobs**. Keep them apart.
+
+- **The reported score is rounded half up at one decimal.** 69.95 → 70.0, not 69.9. Truncation
+  is the common slip. This is a presentation precision: it is the figure the client reads and
+  reproduces from the products above it.
+- **The rating band is read off the score rounded half up to a whole number** — 68.5 → 69,
+  Medium — on the scale 90-100 Excellent | 75-89 Good | 60-74 Medium | 40-59 Low | 0-39 Poor.
+  The band endpoints are whole numbers, so a one-decimal figure can land in no band at all:
+  **39.8 is above Poor's 39 and below Low's 40, and rounding it to one decimal leaves it exactly
+  where it was.** Only the whole-number rounding closes those four windows, and it closes them
+  without moving an endpoint. The rule is stated once, in
+  [references/cite-domain-rating.md](../../../references/cite-domain-rating.md) § 3; this file
+  does not hold a second convention.
+- **Round once, from the computed figure.** The band comes off the computed sum rounded straight
+  to a whole number — never off the one-decimal reported figure rounded a second time. Chaining
+  them moves a band: a computed 74.46 rounds to 74, Medium, but via 74.5 it becomes 75, Good.
+  This is § 5's chained-rounding warning applied to the band instead of to a gain.
 - **Always print the unrounded sum** as well as the rounded score. It is what lets a reader
   reproduce the figure, and it removes any dependence on which rounding convention they hold.
+  The rounded band input never replaces it.
 - In a Greek-language report the decimal separator is a comma («68,5»). The arithmetic is
   identical and the comma is not a defect.
 
@@ -81,6 +95,11 @@ A Fail on T03, T05, or T09 caps the reported CITE Score at 39 (Poor) and raises 
 
 - The cap is a ceiling. A weighted figure above 39 is reported as 39; a weighted figure
   already below 39 stands as it is. Either way the Manipulation Alert is raised.
+- **Round first, then cap, and read the band off the same rounded figure.** A vetoed weighted
+  total of 39.6 rounds to 40, which stands above the cap, so the cap binds and the report says
+  **39, Poor**. The defect the order prevents is checking the cap against one figure (39.6,
+  already above 39, so "capped") and reading the band off another (40, Low): a vetoed report
+  printing 40/Low has breached the cap however it got there.
 - The uncapped figure may appear **only** labelled as what the score would have been without
   the veto — never as the score. It still has to recompute from the dimension table.
 - Per-item grades and dimension scores are unchanged by a veto. The cap changes the final
@@ -202,9 +221,10 @@ Run this after the report is written, against the finished tables:
 1. Each dimension score = its own item tally, and the tally counts sum to the scored items.
 2. Scored + N/A = 40, and the N/A list in the prose matches the N/A rows in the tables.
 3. The weighted sum reproduces from the four dimension scores and the stated weights; the
-   unrounded figure is printed; the rating label matches the rounded number.
-4. If a veto fired: reported score is the cap, the uncapped figure is labelled as such, and
-   the Manipulation Alert is present.
+   unrounded figure is printed; the rating label matches the computed figure rounded once to a
+   whole number (§2), not the one-decimal reported figure rounded a second time.
+4. If a veto fired: reported score is the cap, the uncapped figure is labelled as such, the cap
+   and the band are read off the same rounded number (§4), and the Manipulation Alert is present.
 5. Every Top 5 gain = recoverable points × (10 ÷ that dimension's scored items) × weight, with
    all three factors shown; the list is sorted descending; any combined claim equals the sum of
    the gains **as printed**; and no N/A item is priced as a gain — it is projected under §6.
