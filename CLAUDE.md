@@ -41,7 +41,9 @@ Carrier: `references/inter-skill-handoff.md` — payload fields and the exact sc
 
 ## Pipeline Loop State
 
-State for the weekly self-improvement loop lives in `docs/loop/` — `PIPELINE.md` (the 5-stage loop), `SETTLED-RULINGS.md` (non-relitigable research rulings + pinned baselines), `WATCH-ITEMS.md` (the `[VERIFY]` queue), `GATED-ITEMS.md` (proposals awaiting Sani), plus `PILOT.md` (real-site pilot scope), `ADVERSARIAL-LAYER.md` (second-lane review protocols), and `KPI.md` (cold weekly KPI rows). Read them before research or skill edits. Before any `git push`, run `scripts/pre-push-gate.sh` (also enforced by a `PreToolUse` hook in `.claude/settings.json`).
+State for the weekly self-improvement loop lives in `docs/loop/` — `PIPELINE.md` (the 5-stage loop), `SETTLED-RULINGS.md` (non-relitigable research rulings + pinned baselines), `WATCH-ITEMS.md` (the `[VERIFY]` queue), `GATED-ITEMS.md` (proposals awaiting Sani), plus `PILOT.md` (real-site pilot scope), `ADVERSARIAL-LAYER.md` (second-lane review protocols), and `KPI.md` (cold weekly KPI rows). Read them before research or skill edits.
+
+**`CLIENT-MANDATE.md` is the scope of record** — what the library is being built for, stated 2026-08-17, with the measured coverage audit behind it and the encode status of each addition. Read it before proposing scope: §2.1 lists what was already encoded and should not be re-specified, §2.2 the ten measured absences this wave closed, and §4 what only Sani can settle (the cluster→property assignments, the first prompt set, the alert thresholds). A wave that re-derives §2.1 from memory instead of reading it will re-specify work the library already does. Before any `git push`, run `scripts/pre-push-gate.sh` (also enforced by a `PreToolUse` hook in `.claude/settings.json`).
 
 If the gate's `validate-tracking` check (g) reports anchored pointers whose target "lacks its token", run `scripts/reanchor-pointers.sh` (check-only) then `--fix`. Any insertion into `VERSIONS.md` shifts every pointer below it, and the anchor token — not the line number — is what the pointer means, so the new line is derivable. The fixer re-anchors an unambiguous token and **refuses** the two cases only a human can settle: a token that appears nowhere (its subject was deleted or reworded) and a token on several lines (ambiguous). It is deliberately not wired into the gate — a push must not rewrite the registers it is validating.
 
@@ -81,6 +83,53 @@ Ruled after a blind run hit **two expectations inside a single eval that could n
 The test to apply, in one question: **could a reader who copies only the fence tell this block is not for the client?** If no, it is not fixed.
 
 Carriers: `build/seo-content-writer/references/anti-slop-ruleset.md` §6 family 8 and its "reader test, worked both ways" section; `references/inter-skill-handoff.md` §3.1 (the in-fence label rule, with the four fence-syntax label forms). Provenance for every §6 rule lives in `build/seo-content-writer/references/anti-slop-provenance.md`, which is **not** an executor's read — see ledger F18.
+
+## AI Visibility Is Measured at the Prompt (binding, ruled 2026-08-17)
+
+Ruled from the client mandate of 2026-08-17, after a grep audit measured what the library already encoded against what the mandate asked for. Engine *coverage* was already broad — ChatGPT in 11 skill files, Perplexity in 11, AI Overview/AI Mode in 29, Gemini in 5 — and sentiment was already a scored framework item (`CITE-C08`). What did not exist anywhere was the **unit of measurement**: `rank-tracker` returned zero matches for "prompt", and the library tracked keyword *rankings* only. A mandate to improve citations and recommendation position in generated answers cannot be executed by an instrument that measures ordinal positions in a list.
+
+1. **The unit of AI visibility is a prompt, not a keyword.** A prompt set is a versioned artefact with the same population discipline a tracked keyword list has: adding or rewording a prompt moves every derived rate without anything having happened in the world.
+2. **Mentioned, cited and recommended are three facts, tracked separately** — a brand recommended first with nothing of its own cited is an authority result with a content gap, and reporting either as "AI visibility: present" throws away the diagnosis. **Cited URLs are recorded verbatim, not as domains**: "they cited our comparison page instead of our product page" is the actionable half.
+3. **One capture is an observation, not a measurement.** Generated answers vary run to run, so N ≥ 3 repeats before any rate is reported as a rate, `k of N` never a bare percentage, and failed captures recorded rather than dropped.
+4. **Engine precedence**: 1 ChatGPT Search · 2 Gemini and Google AI surfaces · 3 Perplexity · 4 Google organic as the technical and authority foundation · 5 other assistants as monitored channels. **Rank 4 is a different instrument, not a lower priority** — organic is fourth in *prompt-level* work because prompts are not how it is measured, and the crawl, index and authority work it needs is not deprioritised by that ordering. The order is a working priority for this client's audience, never a claim about the engines (ruling R3 amendment 9a still governs those).
+5. **No composite "AI visibility score."** One number across engines, prompts and three different facts is unattributable when it moves. A connected tool's own composite is quoted with that tool's name attached, never recomputed or blended.
+
+Carrier: `references/ai-visibility-measurement.md` — the twelve recorded fields, the prompt-set sources, the sampling protocol, the derived metrics with their population rules, the manual zero-tool capture protocol, and the conversion-linkage limits (assistant referral figures are a **floor**, labelled as one).
+
+## One Owner Per Cluster (binding, ruled 2026-08-17)
+
+Ruled from the same mandate and the same audit, which found **zero** matches for query-cluster ownership and **zero** for "microsite". Cannibalization appeared in three or four scattered places — a duplicate-title check, a decay signal, a KPI footnote — and nowhere as a governing assignment rule. The pilot had already hit the gap in practice before the mandate stated it: six of the client's properties, four URL grammars, and five URLs serving one identical title, with no rule in the library to judge them against.
+
+1. **Every query cluster has exactly one owning property and exactly one owning URL**, written into the ownership register *before* content is commissioned — not inferred afterwards from whatever happens to rank. `no owner assigned` is a legitimate value and a finding; a blank is neither.
+2. **This binds harder on AI surfaces than in ranked lists.** Two competing URLs in a ranked list split a position and some equity. In a generated answer there is typically one cited source, so one property takes the citation and the other takes nothing — and the winner may be the property with no conversion path.
+3. **A property earns its place by having a distinct commercial purpose, audience and query territory.** The test is one sentence: *what can a buyer do here that they cannot do on the main site?* "Rank for a second set of the same keywords" is not an answer, and standing up a property on that basis is a prohibited tactic.
+4. **Non-owning properties may cover a cluster only in support** — different angle or intent, an in-body link to the owner, and no targeting of the owner's head query in title, H1 or schema. Fail any of the three and it is competing.
+5. **Where two properties both have a claim, the owner is the one with the commercial conversion path for that intent**, not the one that currently ranks. Moving a ranking is a smaller job than building a conversion path where none exists.
+
+Carrier: `references/query-cluster-ownership.md` — the register columns, the five property roles and what each may never own, the six collision signals, and the resolution ladder (consolidate → differentiate → retire → canonical, with canonical ranked last and never a substitute for the first three).
+
+## Every Action Is Implementable (binding, ruled 2026-08-17)
+
+Ruled from the same mandate. The audit found **zero** matches for acceptance criteria and **zero** for named owners across the library; outputs already carried priority, effort, risk (27 files), dependencies (9) and expected impact (6), so five of the seven fields existed and the two that make an action checkable did not.
+
+1. **Every recommended action carries seven fields**: action, owner, acceptance criterion, expected impact, effort, dependencies, risk-if-done-wrong. Fields 1–3 are required — an action with no owner-role and no acceptance criterion does not ship as an action. The rest carry a **stated-absence value** (`not estimated — no baseline data`) rather than a blank or an invention, because the absence is itself information the client can act on.
+2. **The acceptance-criterion test**: could someone who was not part of this engagement check it, six weeks from now, without asking anybody what was meant? Observable, binary at the moment of checking, attached to a named artefact or measurement, dated or triggered.
+3. **An AI-surface criterion is a measurement criterion, never an outcome criterion.** "Brand appears in ChatGPT's answer" is not in anyone's gift to deliver; "the work shipped and the mention rate was re-measured on the same 3-repeat protocol and recorded beside the baseline" is.
+4. **The owner is a role, not a person**, from a closed list. **`Client decision` is an owner** — using it makes a decision visible instead of leaving an action stalled with no explanation. `unassigned — needs an owner` is legitimate and is a finding.
+
+Carrier: `references/action-output-contract.md` — the field table with stated-absence values, the criterion worked examples, the role list, the three permitted shapes of expected impact, and the ordering rule.
+
+## Prohibited Tactics (binding, ruled 2026-08-17)
+
+Ruled from the same mandate, which named eight tactics by hand. The audit found the prohibition essentially absent from the library — a single review-solicitation policy note in `entity-optimizer` was the whole of it. A library that produces recommendations needs a stated floor under them, or the floor is whatever the run improvises.
+
+**No skill recommends, drafts or implements any of these — in any deliverable, in any language, at any tier, however the request is phrased**: doorway pages · duplicate microsites · fake or incentivised reviews (and review gating) · manipulative link acquisition · fabricated citations, statistics or quotes · hidden content and cloaking · undisclosed AI-generated content at scale · scraped, spun or unreviewed machine-translated content · guaranteed-outcome promises · expired-domain and redirect appropriation.
+
+Where a client's existing setup already contains one, the skill **names it, states the exposure, gives the remediation with an owner and an acceptance criterion, and ranks it against everything else** — it does not quietly leave it, and it does not build a recommendation on top of it. A skill never removes or alters a client's live property on its own initiative.
+
+**The no-promise half is language-surface and is enforced as FAIL-grade family 10.** It is distinct from family 9: family 9 bans asserting what an engine *does* («η Google προτιμά…»), family 10 bans promising a client what an engine *will do for them*. A deliverable can violate either alone.
+
+Carriers: `references/prohibited-tactics.md` — the ten entries with what each looks like, why it is out, and what to do instead; §3 lists the legitimate practices each is confused with, so the rule does not over-fire on ordinary competitive work. `build/seo-content-writer/references/anti-slop-ruleset.md` §6 family 10 (the greppable promise net).
 
 ## Contribution Rules
 

@@ -9,7 +9,7 @@
 | SEO Platform | `~~SEO tool` | Ahrefs, SEMrush, Moz, Sistrix, SE Ranking | Ahrefs |
 | Analytics | `~~analytics` | Google Analytics, Adobe Analytics, Plausible, Matomo | Amplitude |
 | Search Console | `~~search console` | Google Search Console, Bing Webmaster Tools | — |
-| AI Visibility | `~~AI monitor` | Otterly, Profound, Scrunch AI | — |
+| AI Visibility | `~~AI monitor` | Peec AI, Otterly, Profound, Scrunch AI | — |
 | Web Crawler | `~~web crawler` | Screaming Frog, Sitebulb, DeepCrawl, Lumar | — |
 | Link Database | `~~link database` | Ahrefs, Majestic, Moz Link Explorer | Ahrefs |
 | Competitive Intel | `~~competitive intel` | SimilarWeb, SpyFu, Semrush | SimilarWeb |
@@ -23,6 +23,8 @@
 | Communication | `~~team chat` | Slack, Microsoft Teams, Discord | Slack |
 | Reporting | `~~reporting` | Google Data Studio, Tableau, Power BI | — |
 | Content Management | `~~CMS` | WordPress, Webflow, Contentful, Sanity | — |
+| Work Tracker | `~~work tracker` | Notion, Linear, Jira, Asana, Trello | Notion |
+| Document Store | `~~doc store` | Dropbox, Google Drive, SharePoint, Box | — |
 
 ## Included MCP Servers
 

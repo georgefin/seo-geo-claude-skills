@@ -257,6 +257,16 @@ Shared references used by multiple skills:
 | [core-eeat-benchmark.md](./references/core-eeat-benchmark.md) | 80 | content-quality-auditor, seo-content-writer, geo-content-optimizer, content-refresher, on-page-seo-auditor |
 | [cite-domain-rating.md](./references/cite-domain-rating.md) | 40 | domain-authority-auditor, backlink-analyzer, competitor-analysis, performance-reporter |
 
+Shared conventions — the rules a deliverable is held to, rather than items it is scored against:
+
+| Reference | What it governs | Used by |
+|-----------|-----------------|---------|
+| [ai-visibility-measurement.md](./references/ai-visibility-measurement.md) | AI visibility measured at the **prompt**, not the keyword: the prompt set, the twelve recorded fields, the N≥3 sampling rule, engine precedence, and the derived metrics with their population rules | rank-tracker, performance-reporter, alert-manager, geo-content-optimizer |
+| [query-cluster-ownership.md](./references/query-cluster-ownership.md) | One owning property and one owning URL per query cluster, the five property roles in a multi-site portfolio, collision detection, and the resolution ladder | keyword-research, content-gap-analysis, internal-linking-optimizer |
+| [action-output-contract.md](./references/action-output-contract.md) | The seven fields every recommended action carries — including the owner and the acceptance criterion that make it checkable by someone who was not in the room | on-page-seo-auditor, technical-seo-checker, content-quality-auditor, domain-authority-auditor, performance-reporter |
+| [prohibited-tactics.md](./references/prohibited-tactics.md) | The floor under every recommendation: ten tactics no skill will propose, what to do instead, and the legitimate practices each is confused with | backlink-analyzer, entity-optimizer, seo-content-writer |
+| [inter-skill-handoff.md](./references/inter-skill-handoff.md) | The payload one run passes to the next, and the operator block it travels in | all 20 skills |
+
 Most skills also include `references/` subdirectories with skill-specific templates, rubrics, and checklists (e.g. http-status-codes, robots-txt, kpi-definitions, report-templates).
 
 ## Finding the Right Skill

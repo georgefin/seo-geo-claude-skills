@@ -292,7 +292,7 @@ The written protocol is what makes it reproducible either way.
 
   | CQ id | Query text (verbatim) | Base keyword id | Form (keyword / conversational) |
   |---|---|---|---|
-  | CQ1 | [TBD at lock] | | |
+  | CQ1 | to be set at lock | | |
 
 - **Engines**: Google AI Mode and/or AI Overviews (record WHICH surface answered),
   ChatGPT (search-enabled), Perplexity. Greek locale where applicable — AI Mode in
@@ -305,16 +305,35 @@ The written protocol is what makes it reproducible either way.
   logged-out where the engine allows; ChatGPT requires an account — use the same one
   throughout and record it). Consistency matters more than purity; note any forced
   deviation in the row.
-- **Recording format** — one row per query × engine per session, append-only at
+- **Recording format** — one row per query × engine × **repeat** per session, append-only at
   `docs/loop/pilot/citations/citations-log.md` (or `.csv`, same columns):
 
-  | Date | CQ id | Engine (+surface) | AI answer shown? (y/n) | Cited/linked domains (display order, ≤10) | Our property cited? (y/n) | Note |
-  |---|---|---|---|---|---|---|
+  | Date | CQ id | Engine (+surface) | Sample n of N | AI answer shown? (y/n) | Brand mentioned? (y/n) | Our property cited? (y/n) | Cited URLs (verbatim, full, display order) | Recommendation position (or "not a recommendation answer") | Owning URL matched? (y/n/no owner assigned) | Competitors named (in order) | Sentiment (pos/neu/neg) | Answer excerpt (verbatim) | Capture conditions | Note |
+  |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 
-  "No AI module shown" is a valid, required row (`shown = n`, domains n/a) — absence
-  is data.
-- **Metric**: citation-appearance rate = our-property-yes rows ÷ rows with an AI answer
-  shown, reported per engine AND pooled, always with both raw counts alongside the rate.
+  "No AI module shown" is a valid, required row (`shown = n`, the rest n/a) — absence
+  is data. A refused, rate-limited or empty capture is likewise a row with its reason,
+  and it **reduces N** rather than disappearing.
+- **Metric**: reported per engine, with N and the population beside each figure. Mention
+  rate, citation rate and owned-URL citation rate are **three separate figures** and are
+  never merged into one. A pooled cross-engine figure may be shown **in addition**, never
+  instead, and is labelled as pooled.
+
+**§3 was upgraded 2026-08-17 to match `references/ai-visibility-measurement.md`, which is
+now the governing specification** — read it, not this section, for field definitions and the
+sampling discipline. Three things this protocol was getting wrong before the reference
+existed, each of which would have cost the pilot a real finding:
+
+1. **It recorded cited *domains*.** "They cited us" and "they cited our comparison page
+   instead of the product page" are different findings and only the second is actionable.
+   URLs are recorded verbatim and in full.
+2. **It took one capture per query × engine.** Generated answers vary run to run, so a
+   single capture is an observation and not a measurement — N ≥ 3, reported `k of N`, or
+   week-to-week movement cannot be distinguished from noise.
+3. **It collapsed mention, citation and recommendation into one yes/no.** The pilot's own
+   headline observation is exactly the case that collapse hides: products named by model
+   while the citations went to four third-party sites and none to the client. Under the old
+   columns that logs as "our property cited: n" and the finding disappears.
 
 ---
 
