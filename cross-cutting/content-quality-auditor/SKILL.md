@@ -1,6 +1,6 @@
 ---
 name: content-quality-auditor
-version: "4.6.0"
+version: "4.6.1"
 description: 'Run the full 80-item CORE-EEAT audit across 8 dimensions with content-type weighted scoring, veto checks, and prioritized fix plans. Use when the user asks to "audit content quality", "EEAT score", "CORE-EEAT audit", "content quality check", "how good is my content", "content improvement plan", "is my content AI-citation worthy", "GEO quality score". For SEO page element audits, see on-page-seo-auditor. For domain-level authority, see domain-authority-auditor.'
 license: Apache-2.0
 allowed-tools: WebFetch
@@ -8,7 +8,7 @@ compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, 
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.6.0"
+  version: "4.6.1"
   geo-relevance: "high"
   tags:
     - seo
@@ -305,12 +305,12 @@ Every action this audit recommends, in one place, ordered by weighted gain ÷ ef
 | 2 | [next action] | … | … | … | … | … | … |
 ```
 
-The client's report ends there. Follow-up runs go in a **separate fence of their own**, carrying the label **inside** the fence — a model copies the fence, not the heading above it (`CLAUDE.md` § The Value Rule, clause 2; the handoff sub-rule is [inter-skill-handoff.md § 3.1](../../references/inter-skill-handoff.md)). Payload fields, the hyphenated framework-first ID form, and the drop-and-name rule for a field you cannot source are all in that file.
+The client's report ends there. Follow-up runs go in a **separate fence of their own**, carrying **two labels**: the in-fence comment, because a model copies the fence and not the heading above it, and a visible line the client actually sees, because an HTML comment renders to nothing in the delivered report (`CLAUDE.md` § The Reader Test, clause 2; the handoff sub-rule is [inter-skill-handoff.md § 3.1](../../references/inter-skill-handoff.md)). Payload fields, the hyphenated framework-first ID form, and the drop-and-name rule for a field you cannot source are all in that file.
 
 ```markdown
 <!-- OPERATOR BLOCK — for the client's team, not part of the report above. Every row names a
      library run and carries its payload. Nothing in this fence goes to the client as written. -->
-### Next steps for your team
+**Next steps for your team** — *operator block; not part of the client report*
 
 | Run | Why | Payload |
 |-----|-----|---------|
@@ -344,7 +344,7 @@ Drop any row whose run this audit did not actually motivate; a standing list of 
 - [ ] Every Partial/Fail note and every priority improvement carries a confidence label (Confirmed / Likely / Hypothesis); each Hypothesis names its verification step
 - [ ] No quotation in the report attributes words to a named person or organisation without a checkable source beside it; Evidence quotes are verbatim from the audited content, and no Fix or Action Plan step drafts a quote in a real person's name
 - [ ] Anti-slop scans (AS-1 to AS-4) run, with hits recorded in the evidenced items' notes (O09, O06, C02, E06, E08, R01, R02, R04, Ept03)
-- [ ] The client report fence carries its own label as its FIRST line — `<!-- SKELETON … -->` while slots are unfilled, `<!-- ILLUSTRATIVE FILL … -->` once demo numbers are in — and the follow-up-run block is a separate fence carrying `<!-- OPERATOR BLOCK … -->` as its first line; **no skill slug or command slug appears anywhere inside the client report fence**, and **no framework item ID appears in the client-facing prose** — a reader who copies only that fence must be able to tell it is not for the client. **The scored per-item table keeps its ID column** (ruled 2026-08-13): there the ID is a row label sitting beside the item's plain-language name, so the client reads "Intent Alignment" and the ID is only a stable handle for the row. In prose the ID *is* the referent — "Items R02 and R03 failed" tells a client nothing — and that is the form the rule bans. **A bare list of IDs inside a cell does not qualify either**: "C02, C03 Pass; C01 Partial" is the referent form wearing a table's clothes, because no plain-language name sits against any of them. The earlier fence-wide wording was unsatisfiable: the checkbox above it requires every item scored, and the per-item table is the instrument the client bought.
+- [ ] The client report fence carries its own label as its FIRST line — `<!-- SKELETON … -->` while slots are unfilled, `<!-- ILLUSTRATIVE FILL … -->` once demo numbers are in — and the follow-up-run block is a separate fence carrying **both** labels: `<!-- OPERATOR BLOCK … -->` as its first line **and** a visible `**Next steps for your team** — *operator block; not part of the client report*` line directly under it. Both, because a comment alone renders to nothing in the delivered report and a heading alone is lost when a model copies the fence; **no skill slug or command slug appears anywhere inside the client report fence**, and **no framework item ID appears in the client-facing prose** — a reader who copies only that fence must be able to tell it is not for the client. **The scored per-item table keeps its ID column** (ruled 2026-08-13): there the ID is a row label sitting beside the item's plain-language name, so the client reads "Intent Alignment" and the ID is only a stable handle for the row. In prose the ID *is* the referent — "Items R02 and R03 failed" tells a client nothing — and that is the form the rule bans. **A bare list of IDs inside a cell does not qualify either**: "C02, C03 Pass; C01 Partial" is the referent form wearing a table's clothes, because no plain-language name sits against any of them. The earlier fence-wide wording was unsatisfiable: the checkbox above it requires every item scored, and the per-item table is the instrument the client bought.
 
 ## Example
 

@@ -271,17 +271,17 @@ its pass count never enters the /100 overall, the client's worked report does no
 ([audit-example.md](./audit-example.md)), and its ID column is the input the escalation payload
 below is built from — a 17-item scan travels as failing item IDs and never as a dimension score
 ([inter-skill-handoff.md § 4.3](../../../references/inter-skill-handoff.md)). A framework item ID
-is a coordinate in a document the client has never opened, so the label goes **inside** the fence,
-in that fence's own syntax — a model copies the fence, not the heading above it (`CLAUDE.md`
-§ The Reader Test, clause 2). What the client gets from this scan is Step 11's Priority Issues,
-in plain words.
+is a coordinate in a document the client has never opened, so the block carries **two labels**: the
+in-fence comment, because a model copies the fence and not the heading above it, and a visible line,
+because an HTML comment renders to nothing in the delivered report (`CLAUDE.md` § The Reader Test,
+clause 2). What the client gets from this scan is Step 11's Priority Issues, in plain words.
 
 ```markdown
 <!-- OPERATOR BLOCK — for whoever runs this audit, not part of the client report. The ID column
      is a coordinate into the 80-item benchmark and feeds the escalation payload below. Nothing
      in this fence goes to the client as written: its findings reach them as plain-language
      Priority Issues in Step 11. -->
-### CORE-EEAT quick scan — operator triage
+**CORE-EEAT quick scan** — *operator triage; not part of the client report*
 
 Content-relevant items from the 80-item benchmark:
 
@@ -309,15 +309,15 @@ Content-relevant items from the 80-item benchmark:
 ```
 
 The escalation to a full audit is a **handoff** carrying its own payload, so it stays in a fence
-of its own rather than folded into the scan above — separately copyable, separately labelled,
-with the label **inside** it. A model copies the fence, not the sentence beneath it (`CLAUDE.md`
-§ The Value Rule, clause 2; handoff sub-rule:
-[inter-skill-handoff.md § 3.1](../../../references/inter-skill-handoff.md)).
+of its own rather than folded into the scan above — separately copyable, separately labelled, and
+carrying **both** labels. A model copies the fence and not the sentence beneath it, and an HTML
+comment renders to nothing in the delivered report (`CLAUDE.md` § The Reader Test, clause 2;
+handoff sub-rule: [inter-skill-handoff.md § 3.1](../../../references/inter-skill-handoff.md)).
 
 ```markdown
 <!-- OPERATOR BLOCK — for the client's team, not part of the report above. Nothing in this fence
      goes to the client as written. -->
-### Next steps for your team
+**Next steps for your team** — *operator block; not part of the client report*
 
 | Run | Why | Payload |
 |-----|-----|---------|

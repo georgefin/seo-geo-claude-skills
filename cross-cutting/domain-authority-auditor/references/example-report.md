@@ -143,16 +143,17 @@ raw point buys more score, and the factor rescales every gain in that dimension 
 § 6 covers the different operation of an N/A item becoming measurable, which is a projection with
 two recomputed endpoints and not a gain at all.
 
-The follow-up runs go in a **separate fence of their own**, and the label lives **inside** it —
-a model copies the fence, not the heading above it
-(`CLAUDE.md` § The Value Rule, clause 2; the handoff sub-rule is
+The follow-up runs go in a **separate fence of their own**, carrying **two labels**: the in-fence
+comment, because a model copies the fence and not the heading above it, and a visible line the
+client actually sees, because an HTML comment renders to nothing in the delivered report
+(`CLAUDE.md` § The Reader Test, clause 2; the handoff sub-rule is
 [inter-skill-handoff.md § 3.1](../../../references/inter-skill-handoff.md)). Continuing the same
 example:
 
 ```markdown
 <!-- OPERATOR BLOCK — for the client's team, not part of the report above. Every row names a
      library run and carries its payload. Nothing in this fence goes to the client as written. -->
-### Next steps for your team
+**Next steps for your team** — *operator block; not part of the client report*
 
 | Run | Why | Payload |
 |-----|-----|---------|

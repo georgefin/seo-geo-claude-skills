@@ -1,6 +1,6 @@
 ---
 name: on-page-seo-auditor
-version: "4.4.1"
+version: "4.4.2"
 description: 'Audit on-page HTML elements including title tags, headers, image alt text, and internal links with a scored SEO report. Use when the user asks to "audit page SEO", "on-page SEO check", "SEO score", "page optimization", "what SEO issues does this page have", "score my page", "why is this page not ranking", or "check my page". For server, speed, and crawl issues, see technical-seo-checker. For full EEAT content quality scoring, see content-quality-auditor.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.4.1"
+  version: "4.4.2"
   geo-relevance: "medium"
   tags:
     - seo
@@ -315,7 +315,7 @@ unverified-criterion worked case and the grade bands:
 
    > **Reference**: See [references/audit-templates.md](./references/audit-templates.md) for the technical on-page template (Step 9).
 
-10. **CORE-EEAT Content Quality Quick Scan** — 17 on-page-relevant items from the 80-item CORE-EEAT benchmark. **An operator triage step, not a client report section**: its pass count never enters the /100 overall, its item IDs are the input to the escalation payload, and the scan therefore ships as an operator block whose label sits inside its own fence. The client sees these findings as Step 11 Priority Issues, in plain words.
+10. **CORE-EEAT Content Quality Quick Scan** — 17 on-page-relevant items from the 80-item CORE-EEAT benchmark. **An operator triage step, not a client report section**: its pass count never enters the /100 overall, its item IDs are the input to the escalation payload, and the scan therefore ships as an operator block in a fence of its own carrying **both** labels — the in-fence comment and a visible line under it. The client sees these findings as Step 11 Priority Issues, in plain words.
 
     > **Reference**: See [references/audit-templates.md](./references/audit-templates.md) for the CORE-EEAT quick scan template (Step 10). Full benchmark: [CORE-EEAT Benchmark](../../references/core-eeat-benchmark.md).
 
@@ -343,7 +343,7 @@ unverified-criterion worked case and the grade bands:
 - [ ] Every acceptance criterion is observable, binary at the moment of checking, attached to a named artefact or measurement, and dated or triggered — checkable by someone who was not part of this engagement, six weeks on, without asking what was meant. **None of them requires an engine to do something**: an AI-surface action is accepted on the work shipped plus the measurement re-run and recorded beside its dated baseline, never on an appearance in a generated answer
 - [ ] The ordering rule is stated once in the report, and actions run by expected impact ÷ effort with dependencies respected inside the existing Critical / Important / Minor severity bands — no second priority vocabulary appears beside them
 - [ ] No quotation attributes words to a named person or organisation without a checkable source beside it; page quotes are verbatim from the audited HTML/content, and no Fix drafts an expert quote for the writer
-- [ ] The Step 10 quick scan and the follow-up-run block are each their own fence carrying `<!-- OPERATOR BLOCK … -->` as the first line inside it, and no framework item ID or skill slug appears in the client report — a reader who copies only a fence must be able to tell who it is for
+- [ ] The Step 10 quick scan and the follow-up-run block are each their own fence carrying **both** labels — `<!-- OPERATOR BLOCK … -->` as the first line inside it **and** a visible *operator block; not part of the client report* line directly under it, because a comment alone renders to nothing in the delivered report and a heading alone is lost when a model copies the fence — and no framework item ID or skill slug appears in the client report: a reader who copies only a fence, and a reader handed only the rendered report, must each be able to tell who it is for
 - [ ] Schema recommendations name **one primary type** for the page; no second content type is recommended or scored as extra credit, and FAQ credit rests on the visible on-page Q&A block rather than on FAQPage markup
 
 ## Example

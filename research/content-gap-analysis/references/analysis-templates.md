@@ -449,14 +449,17 @@ The runs that act on this analysis. The convention and its six payload fields ar
 the shape the block takes when a gap analysis is the producing run.
 
 **Emit it as its own fence, after the client report's fence has closed** (handoff §3.1, form 1),
-because a model copies the fence and not the heading above it. The label below lives inside the
-fence for the same reason.
+because a model copies the fence and not the heading above it. It carries **two labels**: the
+in-fence comment below, for the copy, and the visible line under it, for the render — an HTML
+comment resolves to nothing in the delivered report, so a comment alone leaves the block unlabelled
+exactly where the client reads it.
 
 ````markdown
-<!-- SKELETON · OPERATOR BLOCK — for whoever operates the library, not part of the client report
-     above. Replace every bracket with a real value before this block is used; a field this run
-     cannot source is deleted from the row and named in the note beneath, never left bracketed. -->
-### Next runs
+<!-- SKELETON — replace every bracket with a real value before this block is used; a field this run
+     cannot source is deleted from the row and named in the note beneath, never left bracketed.
+     Delete THIS line when the block is filled; keep the two labels below. -->
+<!-- OPERATOR BLOCK — for whoever operates the library, not part of the client report above. -->
+**Next runs** — *operator block; not part of the client report*
 
 | # | Run | Why | Payload |
 |---|-----|-----|---------|

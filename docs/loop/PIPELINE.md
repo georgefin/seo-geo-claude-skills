@@ -47,9 +47,9 @@ verdict; ledgered failures must not be repeated — repeating one is an incident
    completes against its frozen SHAs and its findings land fix-forward on the
    successor accumulator. The review is never skipped, only its landing point
    moves. Branch naming
-   per `CLAUDE.md:142` ("Branch naming") (`feature/…`, `fix/…`, `docs/…`); cloud sessions
+   per `CLAUDE.md:143` ("Branch naming") (`feature/…`, `fix/…`, `docs/…`); cloud sessions
    use their assigned `claude/*` branch. Skill edits trigger the 5-tracking-file sync
-   (`CLAUDE.md:141` ("update all 5 tracking files")); docs-only changes (this directory)
+   (`CLAUDE.md:142` ("update all 5 tracking files")); docs-only changes (this directory)
    do NOT. Both pointers refreshed and anchor-tagged 2026-08-17: `:62`/`:61` had drifted
    onto the connector-resolution paragraph and a blank line respectively — the second
    silent drift of this same pair (the first, to `:53`/`:54`, is recorded in GATED-ITEMS

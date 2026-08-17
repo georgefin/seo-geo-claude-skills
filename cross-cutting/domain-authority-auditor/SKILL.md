@@ -1,13 +1,13 @@
 ---
 name: domain-authority-auditor
-version: "4.5.0"
+version: "4.5.1"
 description: 'Run the full 40-item CITE domain authority audit across 4 dimensions with domain-type weighting and veto checks. Use when the user asks to "audit domain authority", "domain trust score", "CITE audit", "how authoritative is my site", "domain credibility check", "is my domain trustworthy", "domain credibility score", "domain rating". For content-level assessment, see content-quality-auditor. For link profile details, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.5.0"
+  version: "4.5.1"
   geo-relevance: "medium"
   tags:
     - seo
@@ -316,12 +316,12 @@ For a complete assessment, pair this CITE audit with a CORE-EEAT content audit:
 - Low CITE + Low CORE-EEAT → Start with content, then domain
 ```
 
-The client's report ends there. Follow-up runs go in a **separate fence of their own**, carrying the label **inside** the fence, because a model copies the fence and not the heading above it (`CLAUDE.md` § The Value Rule, clause 2):
+The client's report ends there. Follow-up runs go in a **separate fence of their own**, carrying **two labels** — the in-fence comment, because a model copies the fence and not the heading above it, and a visible line the client actually sees, because an HTML comment renders to nothing in the delivered report (`CLAUDE.md` § The Reader Test, clause 2):
 
 ```markdown
 <!-- OPERATOR BLOCK — for the client's team, not part of the report above. Every row names a
      library run and carries its payload. Nothing in this fence goes to the client as written. -->
-### Next steps for your team
+**Next steps for your team** — *operator block; not part of the client report*
 
 | Run | Why | Payload |
 |-----|-----|---------|
@@ -353,7 +353,7 @@ Drop any row whose run this audit did not actually motivate; a standing list of 
 - [ ] Every recommended action — each Top 5 entry and every Action Plan row — carries all seven fields (action, owner, acceptance criterion, expected impact, effort, dependencies, risk if done wrong), with a stated-absence value wherever an answer does not exist (`not estimated — no baseline data`, `none`, `low — reversible, no downstream effect`); no action ships without an owner-role and an acceptance criterion, the owner is a role from the closed list (`Client decision` and `unassigned — needs an owner` both count, the second being itself a finding), and where an action appears in both views its fields say the same thing
 - [ ] Every acceptance criterion is observable, binary at the moment of checking, attached to a named artefact or measurement, and dated or triggered — checkable by someone who was not part of this engagement, six weeks on, without asking what was meant. **None of them requires an engine to do something**: an appearance in a generated answer, a knowledge panel or a citation is never the criterion, and an AI-surface action is accepted on the work shipped plus the measurement re-run and recorded beside its dated baseline. The ordering rule is stated once, and the existing weight × points-lost sort and the Quick/Medium/Strategic effort bands are the only priority and effort vocabularies used
 - [ ] Any prohibited tactic found in the audited setup is named plainly, its exposure stated, its remediation given with an owner and an acceptance criterion, and ranked against everything else — never quietly left in place, never built on, and never removed or altered on this skill's own initiative
-- [ ] The client report fence carries its own label as its FIRST line — `<!-- SKELETON … -->` while slots are unfilled, `<!-- ILLUSTRATIVE FILL … -->` once demo numbers are in — and the follow-up-run block is a separate fence carrying `<!-- OPERATOR BLOCK … -->` as its first line; **no skill slug or command slug appears anywhere inside the client report fence**, and **no framework item ID appears in the client-facing prose** — a reader who copies only that fence must be able to tell it is not for the client. **The scored per-item table keeps its ID column** (ruled 2026-08-13): there the ID is a row label sitting beside the item's plain-language name, so the client reads "Intent Alignment" and the ID is only a stable handle for the row. In prose the ID *is* the referent — "Items R02 and R03 failed" tells a client nothing — and that is the form the rule bans. **A bare list of IDs inside a cell does not qualify either**: "C02, C03 Pass; C01 Partial" is the referent form wearing a table's clothes, because no plain-language name sits against any of them. The earlier fence-wide wording was unsatisfiable: the checkbox above it requires every item scored, and the per-item table is the instrument the client bought.
+- [ ] The client report fence carries its own label as its FIRST line — `<!-- SKELETON … -->` while slots are unfilled, `<!-- ILLUSTRATIVE FILL … -->` once demo numbers are in — and the follow-up-run block is a separate fence carrying **both** labels: `<!-- OPERATOR BLOCK … -->` as its first line **and** a visible `**Next steps for your team** — *operator block; not part of the client report*` line directly under it. Both, because a comment alone renders to nothing in the delivered report and a heading alone is lost when a model copies the fence; **no skill slug or command slug appears anywhere inside the client report fence**, and **no framework item ID appears in the client-facing prose** — a reader who copies only that fence must be able to tell it is not for the client. **The scored per-item table keeps its ID column** (ruled 2026-08-13): there the ID is a row label sitting beside the item's plain-language name, so the client reads "Intent Alignment" and the ID is only a stable handle for the row. In prose the ID *is* the referent — "Items R02 and R03 failed" tells a client nothing — and that is the form the rule bans. **A bare list of IDs inside a cell does not qualify either**: "C02, C03 Pass; C01 Partial" is the referent form wearing a table's clothes, because no plain-language name sits against any of them. The earlier fence-wide wording was unsatisfiable: the checkbox above it requires every item scored, and the per-item table is the instrument the client bought.
 
 ## Example
 

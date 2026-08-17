@@ -148,27 +148,53 @@ is meant to read.** Three shapes are sanctioned:
 | **Handoff table** | Two or more runs, each with its own payload — the default |
 | **Appendix of follow-up runs** | Long reports, where the block would otherwise interrupt the client's reading |
 
-Whichever shape, the block is **labelled as operator-addressed**, and — the part that actually
-decides it — **the label lives inside the fence**. Section 3.1.
+Whichever shape, the block is **labelled as operator-addressed** — and it takes **two** labels, one
+the copier sees and one the reader sees. Section 3.1.
 
-### 3.1 The label lives inside the fence
+### 3.1 Two labels — one inside the fence, one the reader can see
 
-**Sub-rule (binding).** A block sitting inside a client deliverable is an operator surface **only if
-it is labelled inside the fence, in that fence's own syntax**. An unlabelled one is family 8, whatever
-the prose above the fence says.
+**Sub-rule (binding; amended 2026-08-17).** A block sitting inside a client deliverable is an
+operator surface **only if it carries both labels**:
 
-The mechanism is not a style preference and is not new here. It is the same one that produces the
-skeleton exception in `CLAUDE.md` § **The Value Rule**, clause 2: **a model copies the fence, not the
-heading above it.** A paragraph outside the fence saying "the block below is for your team" is
-invisible the moment anyone copies the fence — and copying the fence is what a report template is
-*for*. So the label goes where the copy takes it:
+1. **An in-fence label, in that fence's own syntax** — `<!-- OPERATOR BLOCK — … -->` as the first
+   line inside a `markdown` or HTML fence. This is the one that survives a **copy**.
+2. **A visible line the reader sees rendered** — `**Next steps for your team** — *operator block;
+   not part of the client report*`. This is the one that survives **delivery**.
 
-| Fence syntax | Label form |
-|--------------|------------|
-| `markdown` (report templates) | `<!-- OPERATOR BLOCK — … -->` as the first line inside the fence |
-| HTML | `<!-- OPERATOR BLOCK — … -->` |
-| JSON / JSON-LD | `"_OPERATOR": "…"` as the first member |
-| Text formats (`robots.txt`, config, plain) | `# OPERATOR BLOCK — …` |
+**Neither stands in for the other, because the two failure modes are mirror images: a comment alone
+is invisible in a rendered report, and a heading alone is lost when a model copies the fence and not
+the heading above it.** A block carrying one label is family 8, whatever the prose above the fence
+says.
+
+**Why the in-fence label.** Not a style preference, and not new here. It is the same mechanism that
+produces the skeleton exception in `CLAUDE.md` § **The Value Rule**, clause 2: **a model copies the
+fence, not the heading above it.** A paragraph outside the fence saying "the block below is for your
+team" is invisible the moment anyone copies the fence — and copying the fence is what a report
+template is *for*. So the label goes where the copy takes it.
+
+**Why the visible line.** The in-fence label has the mirror defect, and it is the worse of the two.
+`<!-- … -->` is HTML comment syntax. In a **skill file** it is *displayed*, because it sits inside a
+fenced `markdown` block and nothing renders it. In the **delivered report** it is *rendered*, and an
+HTML comment renders to nothing: the client sees the heading, the slugs, the score strings and the
+item IDs, and no label at all. The distinction that makes this urgent is which labels are meant to
+survive. `SKELETON` and `ILLUSTRATIVE FILL` are **deleted before delivery**, so their invisibility is
+a missed tripwire in a failure case. `OPERATOR BLOCK` is the one label meant to **survive into the
+delivered report**, written in the one syntax that is invisible there — **so it failed on every
+correctly-produced deliverable, not just the botched ones.** The visible line closes that, and the
+block is then never an unexplained table of slugs. Promoted 2026-08-17 from `monitor/rank-tracker`,
+the one skill that already required both and had the reasoning written (`SKILL.md` step 8;
+`references/ranking-analysis-templates.md` § 8).
+
+| Fence syntax | In-fence label — survives a **copy** | Visible line — survives **delivery** |
+|--------------|--------------------------------------|--------------------------------------|
+| `markdown` (report templates) | `<!-- OPERATOR BLOCK — … -->` as the first line inside the fence | `**Next steps for your team** — *operator block; not part of the client report*`, immediately under it |
+| HTML | `<!-- OPERATOR BLOCK — … -->` | a rendered line inside the block — `<p><em>Operator block; not part of the client report</em></p>` |
+| JSON / JSON-LD | `"_OPERATOR": "…"` as the first member | **same surface** — JSON is read as source, so the member is both labels; the prose handing the file over says so too |
+| Text formats (`robots.txt`, config, plain) | `# OPERATOR BLOCK — …` | **same surface** — displayed and rendered are the same thing in these formats, so the `#` line is both labels |
+
+**Where source and rendered output are the same surface, one label does both** — the rule is two
+*guarantees*, not two lines for their own sake. It bites exactly where a format has a rendered form
+distinct from its source, which for this library means `markdown` and HTML.
 
 **The label vocabulary is a CLOSED list of three, ruled 2026-08-17 (finding 112).** Three labels,
 because a fence can be non-client for three different reasons and a reader needs to know which:
@@ -187,18 +213,28 @@ rule whose vocabulary is open**, and an open vocabulary turns every new synonym 
 positive that trains people to ignore the checker. `bash scripts/fence-nesting-check.sh --labels`
 reports any label word outside these three.
 
-Two ways to satisfy the rule, in order of preference:
+**The visible line is prose, not a fourth label.** It is written in ordinary lower-case words for the
+reader — *operator block; not part of the client report* — and adds nothing to the closed list, which
+governs the in-fence label **word** only. `--labels` reads the in-fence form and correctly ignores
+the prose.
+
+Two ways to place the block, in order of preference. **Both carry both labels** — placement is not a
+substitute for either, and form 1 is where the visible line does most of its work: a fence lifted out
+of the client report is, in the rendered deliverable, no fence at all, so the in-fence comment is the
+only marker there and it is the invisible one.
 
 1. **Lift it out.** Close the client report's fence before the handoff and emit the operator block as
-   a *separate fence of its own*, with its own in-fence label. Structurally separate, so a copy of
-   the report fence cannot pick it up at all. Prefer this wherever the template allows it.
-2. **Keep it inside, labelled.** Where the block must stay in the same fence, the in-fence label is
-   the whole of the fix — and it names the block, says who it is for, and says what to do with it
-   before the deliverable ships.
+   a *separate fence of its own*, carrying its in-fence label **and** its visible line. Structurally
+   separate, so a copy of the report fence cannot pick it up at all. Prefer this wherever the
+   template allows it.
+2. **Keep it inside, labelled.** Where the block must stay in the same fence, both labels sit at the
+   top of the block — the comment first, the visible line directly under it — and between them they
+   name the block, say who it is for, and say what to do with it before the deliverable ships.
 
-**The test — apply it to every handoff block.** *Could a reader who copies only the fence tell this
-block is not for the client?* If no, it is not fixed. Prose outside the fence never answers this
-question, so it never settles it.
+**The test — two questions, and every handoff block answers both.** *Could a reader who copies only
+the fence tell this block is not for the client? Could a reader handed only the rendered report?* If
+either answer is no, it is not fixed. Prose outside the fence never answers the first; an HTML
+comment never answers the second.
 
 ### 3.2 Worked example — the operator block
 
@@ -208,7 +244,7 @@ in it is invented for this file.
 ```markdown
 <!-- OPERATOR BLOCK — for the client's team, not part of the report above. Every row names a
      library run and carries its payload. Nothing in this fence goes to the client as written. -->
-### Next steps for your team
+**Next steps for your team** — *operator block; not part of the client report*
 
 | # | Run | Why | Payload |
 |---|-----|-----|---------|
@@ -221,9 +257,11 @@ want the combined 120-item picture; without it, "great content, invisible domain
 ruled in nor out.
 ```
 
-The same block **without** its first two lines is the failure: a copied fence that opens on a table
-of skill slugs and item IDs, sitting in a document the client was handed. Nothing else about it
-would need to change for it to be a FAIL.
+The same block **without its comment** is the failure a *copy* produces: a fence that opens on a table
+of skill slugs and item IDs, sitting in a document the client was handed. The same block **without its
+visible line** is the failure a *render* produces, and it is the quieter one — the comment resolves to
+nothing, the table remains, and nothing the client can see says who the table is for. Nothing else
+about either would need to change for it to be a FAIL.
 
 ### 3.3 The same handoff, in the client's report
 
@@ -251,7 +289,9 @@ work, and it would tell you whether this page is being held back by the site aro
 | "Items R02 and R03 failed." | "Claims are under-sourced: fewer than one external citation per 500 words, and no primary sources." |
 | "Your CORE-EEAT scores are C:70 O:85 R:40 E:30." | Name the four measures in plain words with their scores, or gloss the framework on first use, then use the label — the gloss-on-first-use exemption in family 8 |
 | A handoff table pasted into the report body | The table moves to an operator block or an appendix, labelled **inside its fence** (3.1) |
-| An operator block inside the report fence, announced only by a paragraph above the fence | The label moves inside the fence, or the block moves out into a fence of its own (3.1) |
+| An operator block inside the report fence, announced only by a paragraph above the fence | The comment label moves inside the fence, the visible line goes directly under it, and preferably the block moves out into a fence of its own (3.1) |
+| An operator block whose only label is `<!-- OPERATOR BLOCK … -->` | Add the visible line under it. An HTML comment renders to nothing, so in the *delivered* report that block carries no label at all (3.1) |
+| An operator block whose only label is a heading — "Next steps for your team", "operator triage" | Add the in-fence comment above it. A heading is lost the moment a model copies the fence and not the heading above it (3.1) |
 
 A **framework name** the client is actually buying (CORE-EEAT, CITE, a named audit methodology) may
 appear on a client surface **if it is glossed on first use** — the family-8 exemption. A framework
@@ -414,7 +454,9 @@ Recorded as found. Each is a real handoff the six-field payload does not fit.
       content type
 - [ ] Every unavailable field is **absent and named**, never a token, a bracket, `TBD`, or a guess
 - [ ] No `~~category` token sits in a payload value position
-- [ ] The handoff sits in a block labelled operator-addressed, outside any client-read fence
+- [ ] The handoff sits in a block carrying **both** labels — the in-fence `<!-- OPERATOR BLOCK — … -->`
+      comment **and** the visible `**Next steps for your team** — *operator block; not part of the
+      client report*` line — and preferably outside any client-read fence (§ 3.1)
 - [ ] No skill slug, framework item ID, or internal artefact name appears anywhere in client prose;
       framework names that do appear are glossed on first use
 - [ ] The client-facing version of the same recommendation names the *work*, in the client's own

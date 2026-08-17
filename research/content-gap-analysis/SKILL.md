@@ -1,13 +1,13 @@
 ---
 name: content-gap-analysis
-version: "4.3.0"
+version: "4.3.1"
 description: 'Find content opportunities by identifying topics and keywords your competitors cover that you don''t. Use when the user asks to "find content gaps", "what am I missing", "topics to cover", "content opportunities", "what topics am I missing", "where are my content blind spots", "untapped topics", or "content strategy gaps". For broader competitive intelligence, see competitor-analysis. For general keyword discovery, see keyword-research.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.0"
+  version: "4.3.1"
   geo-relevance: "medium"
   tags:
     - seo
@@ -350,9 +350,10 @@ bind here:
   are hyphenated and framework-first, one prefix per ID — `CORE-EEAT-R02, CITE-C01` — because a
   bare `C01` names a different item in each framework. A score string carries the framework as one
   leading token: `CORE-EEAT C:75 O:60 R:80 E:45` (handoff §2.2, §2.3).
-- **The block is an operator surface and is labelled inside its own fence.** Lift it out of the
-  client report's fence and open it with `<!-- OPERATOR BLOCK — … -->`; a skill slug or an item ID
-  never appears in client prose in any language (handoff §3.1).
+- **The block is an operator surface and carries two labels, neither standing in for the other.** Lift it
+  out of the client report's fence, open it with `<!-- OPERATOR BLOCK — … -->` (for whoever copies the fence)
+  and add a visible `**Next runs** — *operator block; not part of the client report*` line under it (an HTML
+  comment renders to nothing). A skill slug or an item ID never appears in client prose, in any language (handoff §3.1).
 
 ## Related Skills
 

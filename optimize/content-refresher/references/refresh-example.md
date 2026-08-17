@@ -55,13 +55,15 @@ rather than a nice-to-have, so the disclosure ships with the refresh and not aft
 ```
 
 The item IDs behind those eight scores are a coordinate into the 80-item benchmark, so they stay off
-the client's table (anti-slop family 8) and travel in a fence of their own, labelled inside it:
+the client's table (anti-slop family 8) and travel in a fence of their own under **two labels**: the
+in-fence comment, for whoever copies the fence, and the visible line under it, for whoever reads the
+rendered report — where an HTML comment resolves to nothing and would leave the block unlabelled:
 
 ```markdown
 <!-- OPERATOR BLOCK — for whoever ran this refresh, not part of the client report above. The ID
      column is a coordinate into the 80-item benchmark and is what a handoff carries. Nothing in
      this fence goes to the client as written. -->
-### CORE-EEAT quick scan — operator triage
+**CORE-EEAT quick scan** — *operator triage; not part of the client report*
 
 | Dimension | Score | Items graded (Pass 10 / Partial 5 / Fail 0 · N/A held out) |
 |---|---|---|
