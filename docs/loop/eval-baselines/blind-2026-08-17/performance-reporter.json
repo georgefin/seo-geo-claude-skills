@@ -1,0 +1,670 @@
+{
+  "suite": "performance-reporter",
+  "skill": "performance-reporter",
+  "suite_path": "monitor/performance-reporter",
+  "skill_version_under_test": "4.5.0 (SKILL.md frontmatter version and metadata.version, in lockstep; raised from 4.4.2 the same day by 0dfe52f and 5a1516c)",
+  "run_label": "blind-2026-08-17",
+  "run_date": "2026-08-17",
+  "method": "blind",
+  "method_detail": {
+    "executor": "blind, separate agent; deliverables e1.md .. e5.md under the scratchpad path in grader_working_files",
+    "grader": "informed, this agent; produced no performance-reporter output of its own at any point and did not re-run the skill",
+    "blindness_enforcement": "MECHANICAL, NOT SELF-REPORTED. The executor was served each eval through `scripts/eval-prompt.sh monitor/performance-reporter <id>`, which drops `expectations` and `expected_output` before printing, so the blind half holds by construction rather than by intention. The grader used the `--grade` form of the same command, which is the visibly different call the script's header describes. No claim in this record rests on the executor asserting it did not look.",
+    "grader_did_not_read": "The executor's transcript and reasoning were not read, per the task brief. Verdicts are on the artefacts only.",
+    "editor_referral": "e5.3 is referred to the binding greek-content-editor; the register/terminology items to put in front of it travel with the referral in that expectation's evidence field."
+  },
+  "repo_head_at_open": "61ac57acb08f6e75ae25f509297c3b657e526822",
+  "repo_head_at_close": "9e5cd43dccf72c48557ce6adbd4b220d3ab4564b",
+  "input_drift_during_the_grading": {
+    "checked": "`git rev-parse HEAD` and `git status --porcelain` at open and at close; `git log` on monitor/performance-reporter/{SKILL.md,references/,evals/} and on docs/loop/SETTLED-RULINGS.md",
+    "result": "ONE commit landed while grading: 9e5cd43 (2026-08-17T11:56:00Z), 'fix(technical-seo-checker): the split-stance robots.txt template left eight named agents free to crawl the paths it appeared to block'. It touches VERSIONS.md, optimize/technical-seo-checker/SKILL.md and that skill's robots-txt reference. `git diff --name-only 61ac57a HEAD` scoped to monitor/performance-reporter/, docs/loop/SETTLED-RULINGS.md, CLAUDE.md, references/ and build/seo-content-writer/references/ returns EMPTY. `git status --porcelain` at close shows exactly one untracked path, docs/loop/eval-baselines/blind-2026-08-17/, which is this record.",
+    "effect_on_verdicts": "NONE. Not one file this grading read as an input changed between open and close: the SKILL.md, the three references, evals.json, the four fixtures, SETTLED-RULINGS.md (R4, which e1.5 turns on) and root CLAUDE.md are byte-identical across 61ac57a..9e5cd43. The one commit belongs to a different skill in another lane.",
+    "subject_stability": "monitor/performance-reporter last changed at 5a1516c (2026-08-17), before this grading opened; byte-identical throughout.",
+    "suite_stability": "monitor/performance-reporter/evals/evals.json last changed at 3a8d62c, 2026-08-10T21:26:54Z. Byte-identical throughout this grading. IMPORTANT for comparability: that commit landed AFTER the prior blind record was committed (c1c2662, 2026-08-10T17:47:48Z) and it rewrote e5.3 - see regressions_vs_baseline."
+  },
+  "per_eval": {
+    "e1": {
+      "passed": 7,
+      "failed": 0,
+      "editor_pending": 0,
+      "instrument_defect": 0,
+      "total": 7,
+      "expectations": [
+        {
+          "id": "e1.1",
+          "text": "configuration + executive-summary shape per the report-output templates, with a July/June key-metrics table and a change column",
+          "verdict": "PASS",
+          "passed": true,
+          "evidence": "e1.md L3-8 carries the configuration template's fields: '**Domain:** elia-thymari.gr', '**Reporting period:** 1-31 July 2026', '**Comparison period:** 1-30 June 2026', '**Report type:** Monthly', '**Audience:** the founders' investors - an executive pack, plus one short technical-health note included at the consultant's request'. Executive-summary shape per report-output-templates.md §2: L45 the Overall Performance heading with its tally, L73 'Wins', L88 'Watch areas', L99 'Action required', L52-61 '### Key metrics at a glance' - six rows, July and June side by side, a Change column showing both the absolute and the percentage with its division ('+510 = **+21.4%** (510 / 2,380)'), plus Target and Status columns."
+        },
+        {
+          "id": "e1.2",
+          "text": "period-over-period deltas fixture-exact; GA4 sessions and GSC clicks kept as two distinct metrics",
+          "verdict": "PASS",
+          "passed": true,
+          "evidence": "All four recomputed by grader script from the fixtures: 510/2,380 = 21.4286% printed '+21.4%'; 512/2,000 = 25.6000% printed '+25.6%'; 20,000/50,000 = 40.0% printed at L75 'Organic clicks grew 25.6% and impressions 40.0%'; 7/46 = 15.2174% printed '+15.2%'. Populations kept apart: the at-a-glance table carries 'Organic sessions | 2,890 | 2,380' and 'Organic clicks from search | 2,512 | 2,000' as separate rows, and L63-64 attributes them separately - 'rows 1, 3, 4 and 5 from your hand-transcribed GA4 export (5 Aug 2026); rows 2 and 6 from your hand-transcribed Search Console export'. No sentence in the file presents 2,512 as sessions or visits."
+        },
+        {
+          "id": "e1.3",
+          "text": "ratio KPIs on their own populations - CTR = clicks/impressions, CVR = purchases/organic sessions",
+          "verdict": "PASS",
+          "passed": true,
+          "evidence": "CTR: L164 site-wide row prints clicks '2,000 -> 2,512', impressions '50,000 -> 70,000' and CTR '**4.00% -> 3.59%**' in the same row; recomputed 2,000/50,000 = 4.0000% and 2,512/70,000 = 3.5886%. L166-168 states 'Shares are shares of **impressions** - the denominator CTR is computed on'. CVR: L60 '**1.83%** (53 of 2,890 sessions)' vs '**1.93%** (46 of 2,380 sessions)', repeated at L257 as '1.83% (53 / 2,890)' and '1.93% (46 / 2,380)'; recomputed 1.8339% and 1.9328%. Glossary L467: 'Organic conversion rate - purchases / sessions from unpaid search'. No ratio anywhere is computed off the wrong population."
+        },
+        {
+          "id": "e1.4",
+          "text": "SEO ROI by the kpi-definitions formula with the derivation visible and the 12+ month horizon caveat",
+          "verdict": "PASS",
+          "passed": true,
+          "evidence": "L292-293: 'ROI = (organic revenue - investment) / investment = (EUR 2,060 - EUR 900) / EUR 900 = EUR 1,160 / EUR 900 = 1.2889 = 129%'. Recomputed 128.8889% -> 129%. The revenue/investment trap is named and priced at L300-302: 'Revenue / investment on the same July figures is EUR 2,060 / EUR 900 = 229%' (recomputed 228.8889%). Horizon caveat quoted verbatim from kpi-definitions.md L569 at L306-308: 'SEO ROI should be measured over 12+ month horizons. Short-term ROI calculations are misleading because SEO benefits compound over time', with the annual >200% band explicitly held non-comparable to a month."
+        },
+        {
+          "id": "e1.5",
+          "text": "technical health judged on the exact R4 Core Web Vitals Good thresholds, scoped to the one tested page, FID never live",
+          "verdict": "PASS",
+          "passed": true,
+          "evidence": "L320-324. All three bands reproduced verbatim against kpi-definitions.md L453-455 (settled ruling R4): 'Good <=2.5s . Needs Improvement 2.5-4.0s . Poor >4.0s'; 'Good <=200ms . Needs Improvement 200-500ms . Poor >500ms'; 'Good <=0.1 . Needs Improvement 0.1-0.25 . Poor >0.25'. Verdicts: LCP 3.1 s -> 2.8 s = '**Needs Improvement** in both runs, improving'; INP 205 ms -> 190 ms = '**Needs Improvement -> Good**'; CLS 0.08 = '**Good** in both runs'. Units carried on every cell. Scope stated first, L316-318: 'One page has been measured: the homepage, on mobile, twice. Both runs are **lab** runs in PageSpeed Insights; the tool returned no field rows for this origin, so nothing here describes what your visitors actually experienced'. FID: zero occurrences in the file (scripted scan). See ambiguity A1: the section's presence in an executive pack is underdetermined by the skill, and the deliverable declares the deviation in its own Audience line rather than leaving it implicit."
+        },
+        {
+          "id": "e1.6",
+          "text": "unsupported sections scoped honestly rather than filled - CITE, CORE-EEAT, backlinks, rankings, AI citations, competitive standing",
+          "verdict": "PASS",
+          "passed": true,
+          "evidence": "§7 table L346-357, ten rows, none filled. CORE-EEAT carries the expectation's phrase verbatim: 'Page-quality review | **Not yet evaluated.** No page-by-page content-quality review has been run on this site'. CITE does NOT use the literal phrase - 'Domain strength | **No data.** No domain-strength score has ever been recorded for elia-thymari.gr' - and is graded PASS on the expectation's operative test ('scoped honestly per the skill's own notes ... rather than filled in'), because report-output-templates.md L412-413 instructs the writer to mark that section 'in the client's own words', and §8's P3 row names the export that would supply it. Backlinks 'No link export was collected for either month'; rankings beyond the GSC averages 'SERP features, keyword volumes, rank tracking | **No data.** Nothing beyond the Search Console transcription exists on the search side'; AI citations 'No AI-visibility tool is connected and no prompts were captured by hand'; competitors 'No competitor positions, visibility or link figures were collected'. The wording variance on CITE is recorded as eval-improvement item A3."
+        },
+        {
+          "id": "e1.7",
+          "text": "no fabrication - every number traces to the fixtures or to visible arithmetic on them, source-labelled user-provided",
+          "verdict": "PASS",
+          "passed": true,
+          "evidence": "43 derived figures recomputed from the two fixtures by grader script; all reconcile (arithmetic_check). Every table carries its own source line ('Source: your hand-transcribed Search Console export (5 Aug 2026)'), and L432-433 closes the appendix: 'Every figure in this report is therefore **user-provided**. None is tool-measured inside this session, and none is estimated.' No year-over-year (L355 'No data. 2025 figures were not collected, so every comparison in this report is month-on-month only'), no targets invented (every Target cell reads 'none agreed'), no third-party or industry metric passed off as a measurement - the only external bands quoted are kpi-definitions' own, each named as such and quoted verbatim. Zero '~~' tokens (scripted scan). NOTE: one non-numeric claim in the executive summary does not reconcile with the fixture - defect D1 - but it invents no figure, so it does not fail this expectation."
+        }
+      ]
+    },
+    "e2": {
+      "passed": 5,
+      "failed": 0,
+      "editor_pending": 0,
+      "instrument_defect": 0,
+      "total": 5,
+      "expectations": [
+        {
+          "id": "e2.1",
+          "text": "CTR figures fixture-exact as clicks/impressions per month, sessions never substituted",
+          "verdict": "PASS",
+          "passed": true,
+          "evidence": "L24-27 segment table plus L33-36. Recomputed: overall 2,000/50,000 = 4.0000% and 2,512/70,000 = 3.5886% (printed '4.00% -> 3.59%'); brand 1,200/10,000 = 12.0% -> 1,170/9,000 = 13.0%; established non-brand 800/40,000 = 2.0% -> 989/43,000 = 2.2999% (printed 2.3%); new cluster 353/18,000 = 1.9611% (printed 1.96%). The population is stated at L29-31: 'Shares are shares of **impressions** - the denominator a click-through rate is computed on. A share of clicks answers a different question and does not substitute for it.' The deliverable contains no session figure at all (the GA4 fixture is not in this eval), so no substitution is possible."
+        },
+        {
+          "id": "e2.2",
+          "text": "the mix shift named as the explanation, with impression shares 80.0% -> 87.1% and the snippets diagnosis refused",
+          "verdict": "PASS",
+          "passed": true,
+          "evidence": "L45-48: '**Every segment that existed in June clicked through better in July than it did in June.** Brand 12.0% -> 13.0%. Established non-brand 2.0% -> 2.3%. Neither fell. The site-wide rate fell anyway, 4.00% -> 3.59% - a move of **-0.41 pp** - because a segment that clicks at 1.96% took a quarter of the impressions.' Shares with arithmetic at L33-36: 'non-brand went 40,000/50,000 = **80.0%** -> 61,000/70,000 = **87.1%**, a shift of **+7.1 pp**' (recomputed 80.0000% and 87.1429%). The new cluster's 18,000 of 70,000 is in the table and again at L65. The investors' reading is refuted head-on in a two-row table at L62-65 and by a mix-standardised counterfactual at L54 (0.200 x 13.0% + 0.800 x 2.30% = 4.44%, recomputed exact) - 'the mix-standardised figure above is **higher** than June's actual, not lower'."
+        },
+        {
+          "id": "e2.3",
+          "text": "average position handled as an impression-weighted directional indicator; the site-wide rise not read as rankings collapsing",
+          "verdict": "PASS",
+          "passed": true,
+          "evidence": "L78-93. The mechanism is stated ('Search Console weights average position by impressions, so a new cluster entering the results deep raises the site-wide average without any existing ranking having moved'), both months reconstructed from the segments - July (9,000x1.2 + 43,000x6.5 + 18,000x14.9)/70,000 = 558,500/70,000 = 7.98 and June (10,000x1.2 + 40,000x6.8)/50,000 = 284,000/50,000 = 5.68, both recomputed exact - and the ex-cluster counterfactual gives 290,300/52,000 = 5.58 against June's 5.68, i.e. 'July's average position improved by 0.10'. Brand held 1.2, established non-brand improved 6.8 -> 6.5, both printed. Nothing reads the rise as a collapse. Distribution is paired at query level (12.4 and 16.8 at L114-116). NOTE: the expectation's quoted clause 'pair with keyword distribution' is met only through the segment and query rows; the phrase itself is not reproduced - see eval-improvement A4."
+        },
+        {
+          "id": "e2.4",
+          "text": "the removal question answered from the fixture against the 11-20 CTR band; outside causes only as labelled hypotheses",
+          "verdict": "PASS",
+          "passed": true,
+          "evidence": "L111 places the cluster against the band quoted verbatim: 'Non-brand - new guides | 14.9 | 1.96% (353 of 18,000) | \"#11-20 | 0.5-2%\" | Inside the band, **near its top**', and L120-122 draws the conclusion: 'The guides' listings are being clicked at close to the most this benchmark expects from where they sit ... What the cluster has is a **position** problem'. The recommendation is explicit at L177: '**Recommendation: keep the six /odigoi/ guides live.**' L132-142 prices removal from the fixture (353 clicks = 14.1% of July's 2,512; recomputed 14.0525%). Outside causes: the algorithm option is closed from the fixture's own note, correctly scoped to a *listed* update - L71-72 'Google's Search Status Dashboard was checked on 5 August 2026 and lists no core or spam update inside the June-July window' - and the one unexplained figure is held as an open question with its confirming check attached, L159-163: 'This report offers no cause for it. Nothing in this data set can supply one ... It is raised here as an open question with a measurement attached in §7, not as a finding.' No SERP-feature, AI-Overview or seasonality cause is asserted anywhere."
+        },
+        {
+          "id": "e2.5",
+          "text": "no fabrication; populations labelled; section labelled user-provided; no sessions, revenue, SERP-feature or competitor figures",
+          "verdict": "PASS",
+          "passed": true,
+          "evidence": "Every figure recomputed from the GSC fixture alone; all reconcile, including the click decomposition at L38-39 ('brand **-30**, established non-brand **+189**, new guides **+353**', summing to the +512 site-wide) and the two query rows (96/4,300 = 2.233% and 74/5,100 = 1.451%). Populations are labelled in every column header and restated at L222-223 ('A share or a rate moves in **percentage points**; the count underneath it moves in **percent**'). Source stated at L7-12: 'your hand-transcribed Search Console export ... *User-provided.* No search or SEO tool is connected to this report'. Scripted scan: no session, user, revenue, conversion, search-volume, SERP-feature or competitor figure appears anywhere in the file; zero '~~' tokens."
+        }
+      ]
+    },
+    "e3": {
+      "passed": 6,
+      "failed": 0,
+      "editor_pending": 0,
+      "instrument_defect": 0,
+      "total": 6,
+      "expectations": [
+        {
+          "id": "e3.1",
+          "text": "headline AI referral sessions 50 -> 95 (+90%) and AI share of TOTAL sessions 1.23% -> 2.04%",
+          "verdict": "PASS",
+          "passed": true,
+          "evidence": "L28-34: 'AI referral sessions (floor - at least this many) | **95** | **50** | +45 = **+90.0%** (45 / 50)' and 'AI share of total sessions (floor) | 95 / 4,664 = **2.04%** | 50 / 4,072 = **1.23%** | **+0.81 pp**', followed by 'Denominator in both periods: total sessions across all channels on the same property and window - 4,664 in July, 4,072 in June, from your hand-transcribed GA4 export'. Recomputed: 90.0000%, 2.0369%, 1.2279%, +0.8090 pp. The referral-channel totals (310/356) appear only as the non-assistant remainder at L48-49 and are never used as a denominator."
+        },
+        {
+          "id": "e3.2",
+          "text": "the roster count rule stated and applied; non-assistant referral sources excluded; roster treated as operational config",
+          "verdict": "PASS",
+          "passed": true,
+          "evidence": "L55-65 lists exactly the four roster hostnames with their counts (29->58, 12->22, 6->10, 3->5) and states the exclusion: 'All four hostnames sit on the assistant roster this report matches referrers against; every other referral source in the drilldown (skroutz.gr, pagkritio-forum.gr, and the aggregated remainder) is outside it and is not counted here.' Roster churn is carried at L291-295: 'That roster is operational matching configuration rather than a fixed fact: assistant referrer hostnames change, so it is re-checked against current traffic each cycle before the next figure is relied on.' No completeness claim is made anywhere - the floor rule at L23-26 states the opposite."
+        },
+        {
+          "id": "e3.3",
+          "text": "the board claim answered as delta-vs-control (+194.4% vs +33.3%, ~161 pp), confound acknowledged, causal language held at consistent-with",
+          "verdict": "PASS",
+          "passed": true,
+          "evidence": "L104-109 control table: reworked +194.4% (18->53), holdout '/odigoi/thymarisio-meli, unedited since March' +33.3% (15->20), second cohort +29.4% (17->22), '**Delta vs. control** | **+161.1 pp** (194.4 - 33.3) | The only figure to attribute'. Recomputed 194.4444%, 33.3333%, 29.4118%, 161.1111 pp. Same-week confound named at L226: 'Six brand-new guides also went live in the same three days, so the window carries more than one change even if the landing-page cut keeps them off this page's own count.' Causal language: L204 '**No - not in that form**', L222-224 'It does **not** rule out anything specific to that page or that topic in the same window', and the board wording at L242-248 'It does not prove the rework caused the rise ... Our working model is that the answer-first opening gives an assistant a directly liftable sentence - a model, not documented behaviour.' The raw doubling is refused at L43-45 with the arithmetic ('50 -> 95 is **+90.0%**, not a doubling')."
+        },
+        {
+          "id": "e3.4",
+          "text": "the linked-not-cited caveat carried in substance beside the win claim, with citation checking as the named next step",
+          "verdict": "PASS",
+          "passed": true,
+          "evidence": "L182-186, section 8: '**Referral is not citation.** A session with an assistant hostname as its referrer proves that an assistant answer *linked* this site and that someone clicked the link. It does not show that the answer cited the shop prominently, that it named the brand, or that it recommended it. Those are three separate facts and none of them is in this data.' Repeated inside the board answer at L214-217. The next step is named and specified as manual capture (no tool is connected): L285 P3 row - 'A dated, version-numbered set of at least 30 Greek prompts exists; each is run 3 times per assistant ... mention rate, citation rate and owned-URL citation rate are recorded **per assistant**'. The expectation's '~~AI monitor' alternative is correctly NOT reproduced on the client surface - see eval-improvement A5."
+        },
+        {
+          "id": "e3.5",
+          "text": "GSC AI-surface slot carries the fixture's actual state; every figure labelled hand-transcribed user-provided",
+          "verdict": "PASS",
+          "passed": true,
+          "evidence": "Section 7, L171-175: '**Not exposed for this property**, checked 5 August 2026. There is therefore no second, independent count of assistant-surface activity to set beside the GA4 figures', and the same state is carried in the sources table at L13. No simulated Search Console AI-surface row appears anywhere. Labelling: L12 'Your hand-transcribed GA4 referral drilldown, transcribed 5 August 2026. *User-provided* - no analytics tool is connected to this report', and L14 records the third leg as unavailable ('Logs were not pulled for this comparison'). Nothing is presented as live tool-fetched."
+        },
+        {
+          "id": "e3.6",
+          "text": "no fabrication; AI conversion rates from fixture counts; engagement row unfilled; no citation counts, positions or coverage figures",
+          "verdict": "PASS",
+          "passed": true,
+          "evidence": "Conversion rates printed with both counts and recomputed: L158 '3 of 95 = 3.2%' (3.1579%) against organic '53 of 2,890 = 1.83%', and L143-144 gives June's '2.0%' from 1 of 50 with the one-order perturbation (2/95 = 2.1%, 4/95 = 4.2%, 0/50 = 0.0%, 2/50 = 4.0%) - all exact. Engagement row left unfilled and labelled: L159 'Engagement rate | **not available** - engaged sessions were not transcribed | **not available** - same'. No citation figure of any kind: L188-192 states 'this report states **no mention rate, no citation rate, no owned-URL citation rate, no average recommendation position and no share of voice**, for any assistant, in either month', and L194-198 refuses a composite. Every session and purchase count traces to the two fixtures (grader recomputation of all 24 figures reconciles)."
+        }
+      ]
+    },
+    "e4": {
+      "passed": 4,
+      "failed": 1,
+      "editor_pending": 0,
+      "instrument_defect": 0,
+      "total": 5,
+      "expectations": [
+        {
+          "id": "e4.1",
+          "text": "the data gap named with its count rule before any numbers - 1 of 3 months for Q3, 1 of 3 for Q2",
+          "verdict": "PASS",
+          "passed": true,
+          "evidence": "The first content in the file, L13-19, is the coverage table: 'Q3 2026 | 1 Jul - 30 Sep 2026 | 92 | 31 (July only) | **33.7%** - and the quarter itself is only 41 of 92 days old today (44.6%). August is 10 days in and untranscribed; September has not started' and 'Q2 2026 | 1 Apr - 30 Jun 2026 | 91 | 30 (June only) | **33.0%** - April and May were never transcribed'. The conclusion is stated immediately: 'A \"Q3 vs Q2\" table built from this would be one month of each quarter, labelled as three, with two of Q3's three months **not yet having happened**.' Recomputed: 31/92 = 33.6957%, 30/91 = 32.9670%, 41/92 = 44.5652%. No performance figure appears before this."
+        },
+        {
+          "id": "e4.2",
+          "text": "no fabricated quarterly figures under the make-it-look-complete pressure; declining the QoQ table is the passing behaviour",
+          "verdict": "PASS",
+          "passed": true,
+          "evidence": "L22-23: 'the pack below contains no quarterly table and no invented cells - no estimate standing in for August, no \"projected\" September, no Q2 average extrapolated from June.' Verified by scan: the file contains no Q3 total, no Q2 total, no quarter-over-quarter percentage and no run-rate anywhere; the only quarter-scoped percentages are the two data-coverage shares (33.7% / 33.0%), which measure transcription coverage, not performance. The request is declined explicitly and the reason is recorded for the file at L351-356. No forward projection of any metric appears, labelled or otherwise."
+        },
+        {
+          "id": "e4.3",
+          "text": "the honestly scoped alternative delivered - July-vs-June MoM with sessions +21.4%, GSC clicks +25.6%, purchases +15.2% - framed as month one of Q3, quarterly scheduled, missing inputs named",
+          "verdict": "FAIL",
+          "passed": false,
+          "evidence": "FAIL on the enumerated clicks figure. Raw output inspected at the flagged location before reporting (ledger F7). Two of the three named deltas are present in the Performance at a Glance table: 'Organic sessions | 2,890 | 2,380 | +510 = **+21.4%** (510 / 2,380)' and 'Organic purchases | 53 | 46 | +7 = **+15.2%** (7 / 46)'. The GSC clicks delta is absent: a scripted scan of e4.md for '25.6' returns ZERO hits, the at-a-glance table has no clicks row at all (its six rows are revenue, sessions, purchases, conversion rate, organic share of sessions, non-brand share of clicks), and the counts 2,000 -> 2,512 appear only inside the appendix A1 segment table's Site-wide row (L177) with no percentage beside them. The same executor printed '+25.6%' in e1 (L57) and in e5 (L86) from the same fixture, so this is an omission in this deliverable rather than a principled exclusion - the pack's own scoping note (L42-44) excludes only the PageSpeed check and the query-level detail. THE OTHER CLAUSES PASS: the report is delivered as July-vs-June and labelled as one (L25, L64); July is placed inside Q3 by the coverage table and by L64-68; the quarterly is scheduled at '**5 October 2026**' with its five-day reconciliation reason (report-templates.md §4 Data Freshness); and the missing inputs are named twice (L31-35 and the A3 table L216-221) as August and September plus the April/May back-fill."
+        },
+        {
+          "id": "e4.4",
+          "text": "the configuration states what the report actually is - July 2026 vs June 2026, executive/board - not Q3 vs Q2",
+          "verdict": "PASS",
+          "passed": true,
+          "evidence": "L55-57 inside the client fence: '**Period:** 1-31 July 2026', '**Comparison:** 1-30 June 2026 (month over month - see the note on the quarterly below)', '**Prepared for:** the investor group'. L64-68 is an explicit note headed '**Note on the reporting period.** This is a monthly report, not the quarterly one requested.' No 'Q3 2026 vs Q2 2026' label appears on the pack. Every quarter-to-date statement is scoped to July: 'only July is transcribed' (L66), 'Q3 2026 has 31 of its 92 days transcribed' (L308)."
+        },
+        {
+          "id": "e4.5",
+          "text": "no fabrication; no August-to-date, YoY, target or revenue-projection numbers; sections without fixture data stay honest",
+          "verdict": "PASS",
+          "passed": true,
+          "evidence": "Every figure recomputed and reconciled (arithmetic_check). No August-to-date figure exists in the file; YoY is refused explicitly at L94-95 ('no 2025 figures were collected, so no year-on-year column appears anywhere in this pack'); every Target cell reads 'none agreed'; no revenue projection appears. Honest no-data sections: 'Investment and ROI | **Not reported this period.** No SEO investment figure ... was supplied ... Nothing is estimated in its place' (L136-140), 'Competitive position | **Not reported.**' (L144), 'AI visibility | **Not reported.**' (L149), and the A2 absent-inputs list (L209-212) naming backlink and referring-domain data, domain-strength scores, competitor data, AI-visibility captures, rank tracking, SERP features, search volumes and the GA4 landing-page/device/engagement rows. GAP NAMED: content quality / CORE-EEAT is the one category in the expectation's list that appears nowhere - not as a section and not in the A2 list (defect D4). Graded PASS because the expectation's operative test is 'no fabrication' and nothing is filled in or invented, and because the pack states and applies a board-row scoping decision (L42-44); recorded as D4 so the omission is not lost."
+        }
+      ]
+    },
+    "e5": {
+      "passed": 5,
+      "failed": 0,
+      "editor_pending": 1,
+      "instrument_defect": 0,
+      "total": 6,
+      "expectations": [
+        {
+          "id": "e5.1",
+          "text": "a Greek client-facing July-vs-June report in the skill's shape, headline numbers fixture-exact, populations kept distinct",
+          "verdict": "PASS",
+          "passed": true,
+          "evidence": "Shape: contents list (L17-28), summary (§2 'Συνολικη εικονα' with 'Τι πηγε καλα' and 'Τι χρειαζεται προσοχη'), an eight-row key-metrics table with July, June and a Change column (L79-88), a goals check (§1), and August recommendations (§8) plus a goals table (§9). Headline numbers all fixture-exact: '2.890' organic sessions, '2.512' clicks, '70.000' impressions (§4 site-wide row), '53' purchases, '2.060 EUR' revenue. Populations kept distinct in the Greek labels and on separate rows: 'Οργανικες συνεδριες | 2.890', 'Κλικ απο την αναζητηση | 2.512 | 2.000 | +512 = **+25,6%**', 'Οργανικες παραγγελιες | 53'; the glossary distinguishes them again (L467-469). No cell presents the 2,512 clicks as επισκεψεις or συνεδριες. Thousands convention: the Greek point form used throughout - scripted scan finds 115 instances of d.ddd and zero English d,ddd thousands separators, and zero point-decimals in percentages."
+        },
+        {
+          "id": "e5.2",
+          "text": "both goals checked honestly - sessions met at 2,890 vs 2,800, orders missed at 53 of 60 - and any quotation of the goal lines verbatim",
+          "verdict": "PASS",
+          "passed": true,
+          "evidence": "§1 table L37-40: '2.800 συνεδριες απο οργανικη αναζητηση | **2.890** | 2.890 / 2.800 = **103,2%** | **Εντος στοχου**' and '60 παραγγελιες απο οργανικη αναζητηση | **53** | 53 / 60 = **88,3%** | **Εκτος στοχου**'. Recomputed 103.2143% and 88.3333%. The miss is stated plainly and quantified twice - L46-47 'Οι παραγγελιες εμειναν πισω κατα 7' - and is carried into the summary's watch list (L114) rather than spun; the sessions win is also stated in count terms ('90 συνεδριες πανω απο τον στοχο'). The verbatim-quotation clause is satisfied without exception because no goal line is placed inside quotation marks anywhere in the file (scan of all guillemet spans: the quoted strings are KPI bands, the brand/non-brand regex, and internal labels - no goal text). The two table cells reproduce the note's wording minus the trailing time phrase and are not presented as quotations."
+        },
+        {
+          "id": "e5.3",
+          "text": "Greek output quality - the binding greek-content-editor's grade, plus the mechanical layer",
+          "verdict": "EDITOR-PENDING",
+          "passed": false,
+          "evidence": "Recorded per the expectation's own instruction: 'If no greek-content-editor report on this eval's output is in front of the grader, this expectation is UNGRADED: record it EDITOR-PENDING, keep it inside the suite's total, and never record it as passed.' No editor report on e5.md exists. WHICH EDITOR VERDICT SETTLES IT: NATIVE or MINOR-EDITS -> PASS; NON-NATIVE or FAIL -> FAIL. MECHANICAL LAYER, screened by the grader on the client body (lines 1-485, i.e. excluding the operator fence) with Python character classes rather than shell ranges: (a) final sigma - zero misuses, both directions (no sigma-final followed by a Greek letter, no word-final non-final sigma); (b) diacritics - a missing-accent heuristic over every multi-syllable Greek token returned six candidates and all six are correctly unaccented in modern orthography (Ποιος/ποιος/ποια/ποιες by convention, the monosyllables βγει and τοις); (c) headings - all 14 client-surface headings are Greek, with Latin script confined to product names, hostnames, URLs and the domain; (d) number formatting - one convention throughout (115 Greek thousands separators, comma decimals, zero mixed forms). Nothing mechanical surfaced, so the mechanical half does not pre-empt the editor. ITEMS TO PUT IN FRONT OF THE EDITOR, all register/terminology-fit calls this grader forms no opinion on: the Latin common noun 'domain' used twice in client prose for a non-technical reader ('Κυρος του domain', L346); 'Email' as a channel label (L136); the column headings «Κοπος», «Ποιος την αναλαμβανει», «Πως φαινεται οτι εγινε» as renderings of Effort / Owner / Acceptance criterion; and the rendering of the status band words as «Εντος στοχου» / «Σε παρακολουθηση» / «Εκτος στοχου» and the Overall Performance word «Κρισιμη»."
+        },
+        {
+          "id": "e5.4",
+          "text": "anti-slop §6 placement - no totality-with-numeral calque, no agency-provenance labels or placeholders in the client body",
+          "verdict": "PASS",
+          "passed": true,
+          "evidence": "Scripted scan of the client body: the banned pattern «Ολα τα [0-9]» returns zero hits. The two «Ολ...» constructions present are legal - 'Ολα τα νουμερα προερχονται' (L9, no numeral) and 'Ολες οι υπολοιπες σελιδες' (L281, a table row label) - and the native totality form is produced where a numeral is in scope: L378 'Ελεγχος οτι **και οι εξι** νεοι οδηγοι', plus 'Και τα δυο κομματια' (L171) and 'Και τα δυο εξηγουνται' (L156). Placeholders: zero bracket tokens of any kind in the client body, zero 'TBD'/'XX', zero «απαιτουνται στοιχεια», zero '~~' tokens. Missing data is voiced as client-facing prose throughout - §7's ten-row table and lines such as L331-334 '**Πινακας \"καλυτερες σελιδες\" δεν υπαρχει σε αυτη την αναφορα.** Για να δειξουμε επισκεψεις και παραγγελιες ανα σελιδα χρειαζονται οι γραμμες σελιδων προορισμου απο το Google Analytics 4, που δεν μεταγραφηκαν.'"
+        },
+        {
+          "id": "e5.5",
+          "text": "kpi-definitions fidelity in Greek for CTR and conversion rate; unsupported sections named as unmeasured; any CWV line on the exact R4 thresholds",
+          "verdict": "PASS",
+          "passed": true,
+          "evidence": "CTR: the §4 site-wide row (L164) prints clicks '2.000 -> 2.512', impressions '50.000 -> 70.000' and 'Ποσοστο κλικ 4,00% -> 3,59%' on one line, with L166-167 stating the denominator ('Τα μεριδια ειναι μεριδια **εμφανισεων** - δηλαδη του αριθμου πανω στον οποιο υπολογιζεται το ποσοστο κλικ') and the glossary repeating the formula (L469 'Ποσοστο κλικ - κλικ δια εμφανισεις'). Conversion rate: L84 'Ποσοστο μετατροπης | **1,83%** (53 απο 2.890) | **1,93%** (46 απο 2.380)', glossary L474 'Ποσοστο μετατροπης - παραγγελιες δια συνεδριες'. Both recomputed exact. Unsupported sections: §7's table marks AI answer behaviour, backlinks, domain standing, page quality, competitors, year-ago data, landing-page/device/engagement rows and ROI as unmeasured in natural Greek. The CWV clause is conditional and not triggered: the report omits the PageSpeed line and says so (L352), so no threshold is quoted and FID appears nowhere."
+        },
+        {
+          "id": "e5.6",
+          "text": "no fabrication; derivations visible; sources described as the consultant's hand-entered data; no SEO ROI computed without a spend figure",
+          "verdict": "PASS",
+          "passed": true,
+          "evidence": "All 30 figures recomputed from the four fixtures and reconciled (arithmetic_check), including the two the expectation names: the -7 goal gap (L46-47) and '+510 = **+21,4%** (510 / 2.380)' (L81). Derivations print beside the figures throughout ('2.890 x 0,019328 = 55,9 παραγγελιες', '60 / 0,018339 = **3.272 συνεδριες**', '60 παραγγελιες x 38,87 EUR ... = 2.332 EUR'). Sources in client Greek: 'Μεταγραφη με το χερι απο τον συμβουλο στις 5 Αυγουστου 2026 - οχι συνδεση εργαλειου. *Στοιχεια που παρειχατε εσεις.*' (L422-424), closed at L438-439 with 'Κανενας αριθμος σε αυτη την αναφορα δεν προερχεται απο συνδεδεμενο εργαλειο και κανενας δεν ειναι εκτιμηση.' ROI is refused, not computed: §7 'Αποδοση της επενδυσης | **Δεν υπολογιζεται.** Δεν δοθηκε μηνιαιο κοστος για τον Ιουνιο η τον Ιουλιο, και χωρις κοστος δεν υπαρχει αποδοση επενδυσης να αναφερθει' (L351) - no percentage anywhere, and no invested figure imported from eval 1's prompt."
+        }
+      ]
+    }
+  },
+  "summary": {
+    "passed": 27,
+    "failed": 1,
+    "editor_pending": 1,
+    "instrument_defect": 0,
+    "total": 29,
+    "pass_rate": 0.931,
+    "editor_slot_convention": {
+      "which_slot": "e5.3",
+      "counted_in_total": true,
+      "how_scored": "EDITOR-PENDING: inside `total`, in NEITHER `passed` NOR `failed`, per the expectation's own text ('keep it inside the suite's total, and never record it as passed') and per the task brief's four-verdict scheme. The published pass_rate therefore treats the slot as not-passed, which is the conservative reading (ledger F15: a guard must not pass by matching nothing).",
+      "rate_if_the_slot_were_counted_passed": "28/29 = 0.9655",
+      "comparability_warning": "The prior record for this suite (blind-2026-08-10b) was written against the PREVIOUS wording of e5.3, which made it gradeable by the Mode B grader on the mechanical layer alone. Do not compare the two records on this slot without reading INSTRUMENT-CHANGES.md."
+    },
+    "passed_plus_failed_vs_total": "27 + 1 = 28, one short of 29. The gap is exactly the e5.3 editor slot, which is inside the total and is neither passed nor failed pending the binding editor's report (ledger F16-r1(c)).",
+    "instrument_defect_denominator": "No expectation in this suite was graded INSTRUMENT-DEFECT, so the adjusted denominator is unchanged at 29. Two suite-level ambiguities were found and are recorded under suite_findings_step_7; neither meets the bar of grading an unstated rule, demanding what the skill forbids, or contradicting another expectation, because in each case a path exists that satisfies both readings and the deliverables took it.",
+    "schema_note": "summary.passed/failed/total/pass_rate per F16-r1(a). No second schema introduced; verified with scripts/eval-corpus-report.sh.",
+    "headline_caution": "A 93.1% figure quoted alone understates and overstates in different directions. It understates because the single FAIL is one enumerated figure missing from an otherwise fully compliant deliverable; it overstates because the suite predates a 356-line rewrite of the skill and grades almost none of it - see coverage_gaps, which is the load-bearing part of this record.",
+    "close_out_note": "Close-out pass 2026-08-17: drift fields filled, and the four required sections extended with per-behaviour graded/ungraded mappings, the explicit 'checked, none' for instrument defects, the six named defect screens with their results, and the derived-vs-copied split. NO verdict, count, pass_rate or convention was changed; the editor-slot convention and the prior-record comparability warning stand exactly as first written."
+  },
+  "regressions_vs_baseline": {
+    "status": "NOT PERFORMED - the required input was out of scope for this run, and that is reported rather than downgraded to 'none'.",
+    "prior_record_exists": "docs/loop/eval-baselines/blind-2026-08-10b/performance.json",
+    "why_not_performed": "The task brief scoped this grader to exactly one readable file under docs/loop/eval-baselines/ ('Match the shape of docs/loop/eval-baselines/blind-2026-08-13/alertmanager.json ... That is the only file under eval-baselines you may read'). A per-expectation regression comparison requires reading the prior record. It was not read, so no expectation is claimed to have regressed and none is claimed not to have.",
+    "what_is_known_from_metadata_only": {
+      "prior_record_commit": "c1c2662, 2026-08-10T17:47:48Z, subject 'docs(loop): blind performance-reporter record (28/29) and two defects no expectation reaches'",
+      "prior_headline": "28/29 = 0.9655 per that subject line; composition unknown to this grader",
+      "this_run": "27/29 = 0.9310 passed, 1 failed, 1 editor-pending"
+    },
+    "three_reasons_the_two_numbers_are_not_comparable_as_they_stand": [
+      "INSTRUMENT CHANGED. Commit 3a8d62c landed 2026-08-10T21:26:54Z - three and a half hours AFTER the prior record was committed - and rewrote e5.3 from 'mechanically checkable layer only ... that pass, not this expectation, issues the naturalness verdict' into the current text, which makes the binding editor's grade the verdict and mandates EDITOR-PENDING when no editor report is in front of the grader. Under the old wording e5.3 was gradeable by the Mode B grader; under the new one it cannot be passed here. At minimum one of the 29 slots is not comparable across the two records, and it is plausible that the whole of the 28-vs-27 difference is this.",
+      "SUBJECT CHANGED. The prior record graded the 4.2.x line; this run grades 4.5.0, after two same-day rewrites (0dfe52f, 5a1516c) that added 356 lines across SKILL.md and two references.",
+      "The suite itself is otherwise unchanged since 2026-08-10, so any expectation other than e5.3 IS comparable - which is precisely why the comparison is worth doing by someone with read access to both records."
+    ],
+    "recommendation_to_the_coordinator": "Run the per-expectation diff against blind-2026-08-10b/performance.json before this record is used as a baseline, and record the e5.3 wording change in docs/loop/eval-baselines/INSTRUMENT-CHANGES.md if it is not already there. Until that is done, treat 27/29 as a fresh measurement of a rewritten skill, not as a movement."
+  },
+  "suite_findings_step_7": [
+    {
+      "id": "S1",
+      "class": "expectation and a stated skill rule pull in opposite directions; the skill is silent on which wins",
+      "expectations": [
+        "e1.5",
+        "e1.6",
+        "e4.5"
+      ],
+      "quoted_expectation": "e1.5 'The technical-health section judges the developer's PageSpeed hand-check against exactly the Core Web Vitals Good thresholds ...'; e1.6 'domain authority / CITE marked \"Not yet evaluated\", content quality / CORE-EEAT marked not yet evaluated, and backlinks, rankings ..., AI citations, and competitive standing reported as no data available'; e4.5 '... sections without fixture data (backlinks, AI citations, CITE, CORE-EEAT) stay honest per the skill's not-yet-evaluated pattern'.",
+      "quoted_skill_rule": "report-templates.md §4 assembly table: 'CEO / Board | Executive template only | All technical detail'. SKILL.md step 11: 'Assemble only the sections this report's audience actually receives ... Sections outside that audience's row are left out, not compressed into the pack.' Output Validation checkbox: 'Sections included match the audience's row in report-templates.md §4 - a board pack is the executive template alone.'",
+      "the_collision": "Both evals name an executive/board/investor audience. Eval 1's prompt then explicitly asks for 'technical health from the developer's PageSpeed hand-check', and eval 4's e4.5 asks for four no-data sections. Under a strict reading of step 11 all of those are outside the row, so a deliverable that ticks the Output Validation box fails e1.5 and part of e1.6/e4.5. Nothing in the skill states whether an explicit client request overrides the row, or whether a requested area becomes a step-1 'Focus Area' that redefines the pack.",
+      "why_it_is_NOT_graded_as_an_instrument_defect": "A path exists that satisfies both, and both deliverables found it independently and in opposite directions - which is itself the evidence that the rule is underdetermined rather than broken. e1 includes the section and declares the deviation inside the configuration block ('an executive pack, plus one short technical-health note included at the consultant's request'). e4, whose prompt does NOT ask for it, applies the row and says so ('Two rows in the July transcription are outside a board pack's scope and are not in it: the developer's PageSpeed check of the homepage and the query-level search detail'). Same executor, opposite outcomes, each driven by the prompt and each stated in-report. Graded on the brief's test - defensible, consistently applied, stated in-report - all three expectations pass.",
+      "for_the_coordinator_to_rule": "Add one sentence to SKILL.md step 11 settling whether an explicitly requested area is added to the audience's row (and, if so, whether the addition must be declared in the configuration block, which is what both deliverables did unprompted). Without it, this suite rewards one reading and the skill's own checklist rewards the other."
+    },
+    {
+      "id": "S2",
+      "class": "a computed rating with no minimum denominator, beside two neighbouring rules in the same file that impose one",
+      "expectations": [
+        "none - the Overall Performance rating is graded by no expectation in this suite"
+      ],
+      "quoted_skill_rule": "report-output-templates.md §2: '**Overall Performance**, one rating for the pack, is a tally of those statuses and nothing else: **Excellent** = every scored row On track . **Good** = no row Off track . **Needs Attention** = at least one Off track, but fewer than half the scored rows . **Critical** = half or more of the scored rows Off track.' No minimum number of scored rows is stated. Two neighbouring rules in the same file do impose one: §5 'withhold it below three rather than publishing a mean of one' (average citation position) and §7 'Two pages is not an average worth printing: below three audited pages, list the page scores instead'.",
+      "what_it_produced": "Eval 5 is the only eval with agreed targets, and it has exactly two. One of the two came in at 88.3% of target, which is 'half or more of the scored rows Off track', so the band returns **Critical**. The client-facing Greek report therefore tells an owner who beat her sessions goal by 90 and landed 53 of 60 orders that overall performance is «Κρισιμη». The arithmetic is right and the word is not obviously wrong - but it is produced by a two-row denominator that the same file forbids for two other statistics.",
+      "how_the_deliverable_handled_it": "Defensibly and in the open. It applies the band, prints the tally beside the word as the template requires ('2 δεικτες βαθμολογηθηκαν: 1 εντος στοχου, 0 σε παρακολουθηση, 1 εκτος στοχου'), states the fragility to the client in bold ('**Με δυο μονο δεικτες, μια αστοχια αρκει για να βγει αυτη η λεξη**'), explains why the tally is printed beside the word rather than the word alone, proposes three further KPIs so the next rating rests on more than two numbers, and repeats the caution in the operator block. Evals 1 and 4, which have no targets at all, take the other end of the same gap: with zero scored rows 'Excellent = every scored row On track' is vacuously true, so both decline to rate and print 'Overall Performance: not rated - 0 of 6 KPIs scored', a fifth value the template does not define.",
+      "for_the_coordinator_to_rule": "Give the Overall Performance band a floor and a zero case, in the words the two neighbouring rules already use: below three scored rows, print the per-KPI statuses and no overall word; with no scored rows, 'not rated' with the reason. Both behaviours were invented independently by the executor because the rule stops short; writing them down costs one sentence and removes the invention."
+    }
+  ],
+  "coverage_gaps": {
+    "headline": "The suite was authored 2026-08-10 and last touched 2026-08-10T21:26Z. The skill was rewritten today: 4.4.2 -> 4.5.0 added 356 lines across SKILL.md and two references and added SEVEN Output Validation checkboxes. Not one of the seven is graded by any expectation. The 93.1% pass rate is therefore a measurement of the 4.2-era skill's behaviours, taken on a 4.5.0 subject.",
+    "gaps": [
+      {
+        "id": "C1",
+        "gap": "The entire prompt-level AI-visibility instrument. Mention rate, citation rate, owned-URL citation rate, average recommendation position, prompt-level share of voice; per engine and never pooled; N and its population printed beside every figure; N >= 3 repeats before a rate is printed as a rate; failed captures counted with their reason; a single capture written as an *observation* with its timestamp; the prompt-set version stated once; and NO composite score, ever.",
+        "where_the_skill_states_it": "SKILL.md step 5 (the whole 'The unit is a prompt, not a keyword' and 'One capture is an observation' blocks) + Output Validation checkboxes 8, 9 and 10; kpi-definitions.md §2 (five metric tables plus three binding rules); report-output-templates.md §5a; references/ai-visibility-measurement.md.",
+        "graded_by": "NOTHING. e3.6 grades only the ABSENCE path ('no citation counts, citation positions, or answer-coverage figures appear'), because every fixture is a zero-AI-visibility scenario - the ai-referrals fixture states 'No ~~AI monitor runs exist'.",
+        "what_would_pass_today": "A deliverable that invented an 'AI Visibility Score', pooled ChatGPT and Perplexity into one rate, printed 62% off a single capture, or reported an average recommendation position over all captures would pass this suite unmarked. The suite cannot fail any of the four errors the skill spent 150 lines forbidding.",
+        "fix_shape": "One eval with a fixture of captured answers - 3 engines x ~10 prompts x 3 repeats, including at least one refusal and one recommendation-free answer - is the only thing that exercises this. Without such a fixture the largest single behaviour in the skill is untested.",
+        "per_behaviour_verdict": {
+          "mention rate, per engine, with k of N and its population": "UNGRADED - no expectation in the suite mentions mention rate",
+          "citation rate, reported beside mention rate and never instead of it": "UNGRADED",
+          "owned-URL citation rate, reported beside citation rate": "UNGRADED",
+          "average recommendation position over recommendation answers only, withheld below three": "UNGRADED",
+          "prompt-level share of voice with the competitor set named": "UNGRADED",
+          "per engine, never silently pooled": "UNGRADED",
+          "N and its population printed beside every figure": "UNGRADED",
+          "N >= 3 repeats before a rate is printed as a rate": "UNGRADED",
+          "failed captures counted with their reason and reducing N": "UNGRADED",
+          "a single capture written as an *observation* with its timestamp": "UNGRADED",
+          "the prompt-set version stated once per report": "UNGRADED",
+          "no composite AI visibility score, ever": "PARTIALLY reached, in the negative only, by e3.6 ('no citation counts, citation positions, or answer-coverage figures appear') - that clause fails a deliverable which INVENTS AI figures from a zero-data fixture, but it cannot fail a deliverable that blends real captures into a composite, because no fixture supplies captures to blend",
+          "mention, citation and recommendation kept as three separate figures": "UNGRADED"
+        },
+        "summary_line": "12 of 13 behaviours UNGRADED; the 13th reached only in its negative form by a no-fabrication clause. This is the largest block the 4.5.0 wave added and the suite cannot see any of it."
+      },
+      {
+        "id": "C2",
+        "gap": "The seven-field action contract: action . owner . acceptance criterion . expected impact . effort . dependencies . risk if done wrong; the three required fields; the stated-absence values ('not estimated - no baseline data', 'none', 'low - reversible, no downstream effect', 'unassigned - needs an owner'); the closed owner-role list with 'Client decision' as a real owner; the acceptance-criterion test (observable, binary, named artefact, dated); the rule that an AI-surface criterion is a measurement criterion and never an outcome criterion; the three permitted shapes of expected impact; and the ordering rule stated once rather than implied.",
+        "where_the_skill_states_it": "SKILL.md step 10 (three dense paragraphs) + Output Validation checkboxes 11 and 12; report-output-templates.md §10; references/action-output-contract.md.",
+        "graded_by": "NOTHING. All five deliverables produced seven-column tables (e4 as labelled blocks, per the too-narrow-surface clause) with stated-absence values and role owners, and every one of it is ungraded.",
+        "what_would_pass_today": "A recommendations table with three columns and no acceptance criterion passes this suite. So does one whose acceptance criterion is 'the brand appears in the assistant's answer' - the exact outcome-criterion form the skill names as turning an action into a promise.",
+        "per_behaviour_verdict": {
+          "all seven fields present on every recommendation": "UNGRADED",
+          "action, owner and acceptance criterion required - a row missing either does not ship": "UNGRADED",
+          "stated-absence values rather than blanks ('not estimated - no baseline data', 'none', 'low - reversible, no downstream effect')": "UNGRADED",
+          "owner is a role from the closed list, with 'Client decision' and 'unassigned - needs an owner' as legitimate values": "UNGRADED",
+          "acceptance criterion observable, binary, attached to a named artefact, dated or triggered": "UNGRADED",
+          "an AI-surface criterion is a measurement criterion, never an outcome criterion": "UNGRADED",
+          "expected impact takes one of exactly three shapes and never a fourth": "UNGRADED",
+          "ordering by expected impact / effort with dependencies respected, stated once rather than implied": "UNGRADED"
+        },
+        "summary_line": "8 of 8 behaviours UNGRADED. All five deliverables produced full seven-field tables (e4 as labelled blocks per the narrow-surface clause) and not one field is measured by this suite."
+      },
+      {
+        "id": "C3",
+        "gap": "P0-P3 and the priority/horizon split: a Priority column holds a P-level and nothing else; never High / Medium / Planned; a schedule word is never a priority; a row with no work reads 'no action -' plus the reason; a row booked past its priority's default horizon states the reason in the same line.",
+        "where_the_skill_states_it": "SKILL.md step 10 'Priority and horizon are two columns, not one' + Output Validation checkbox 5; report-output-templates.md §10; report-templates.md §2 and §3.",
+        "graded_by": "NOTHING.",
+        "observed_in_this_run": "e1, e2 and e3 each contain exactly the late-deadline row this rule exists for, each carrying its reason inline - e1's P2 LCP row ('**booked past the P2 month because the change plus its verification run needs a development cycle**'), e2's P1 template row, e3's P1 August re-run. Three correct executions of a rule nothing measures."
+      },
+      {
+        "id": "C4",
+        "gap": "Family 10 - what the report never promises. No section promises a position, citation, inclusion, recommendation or share of voice on any surface on any timeline, including in the Goals table; what is stated instead (mechanism as a working model, leading indicator with a measurement plan, dated baseline with its N, comparable evidence with its limits).",
+        "where_the_skill_states_it": "SKILL.md '### What This Report Never Promises' (added today) + Output Validation checkbox 13; report-output-templates.md §10 closing note; anti-slop-ruleset.md §6 family 10.",
+        "graded_by": "NOTHING, in a suite where three of five evals ask for recommendations and two produce a Goals table.",
+        "observed_in_this_run": "e1 §9 and e5 §9 both open with an explicit no-promise sentence, and e3's board wording closes with one. Zero credit available for any of them, and zero penalty had they promised."
+      },
+      {
+        "id": "C5",
+        "gap": "The assistant-referral FLOOR rule: every figure labelled a floor in the words the skill gives ('at least N sessions in the window; the true figure is higher by an unmeasured amount'), the label travelling to any share derived from it, and a period-over-period change between two floors read as such.",
+        "where_the_skill_states_it": "SKILL.md step 5 'Every assistant-referral figure is a floor, and is labelled as one' (added today) + Output Validation checkbox 11; kpi-definitions.md 'AI Referral Sessions & Share' measurement rules; report-output-templates.md §5b.",
+        "graded_by": "NOTHING. e3.1 requires the sessions and the share and says nothing about the floor; e3.3, e3.4 and e3.5 cover the control, the caveat and the GSC slot.",
+        "why_this_one_stings": "It is the single most distinctive rule in the AI-referrals section and the one most likely to be dropped by a model optimising for a clean headline. e3 carried it thoroughly (six separate statements, including 'the +90.0% is a change **between two lower bounds**, not a measured delta') and e5 carried it into Greek («κατω οριο», with a glossary entry). Both would have scored identically without any of it.",
+        "per_behaviour_verdict": {
+          "every assistant-referral session count labelled a floor, in the skill's own words": "UNGRADED - e3.1 requires the counts 50 -> 95 and the +90% and is silent on the label",
+          "the floor label travelling to any share derived from the count": "UNGRADED - e3.1 requires the 1.23% -> 2.04% share and its denominator, and is silent on the label",
+          "a period-over-period change between two floors read as a change between two lower bounds": "UNGRADED",
+          "conversion linkage stated as correlation inside a named window": "GRADED, in substance, by e3.6's derivation clause and by e3.3's causal-language clause; the named-window form itself is not required by either",
+          "never a per-mention or per-citation value": "UNGRADED as a stated prohibition; a deliverable inventing one would be caught by e3.6's no-fabrication clause only because no fixture supplies the inputs"
+        },
+        "summary_line": "3 of 5 behaviours fully UNGRADED, including the two the wave added today. e3 carried all five thoroughly; it would have scored 6/6 with none of them."
+      },
+      {
+        "id": "C6",
+        "gap": "The KPI Status bands (at or above target = On track . 90-99% = Watch . below 90% = Off track), the Overall Performance tally, and the 'no target set' row-exclusion rule.",
+        "where_the_skill_states_it": "report-output-templates.md §2; SKILL.md Output Validation checkbox 4.",
+        "graded_by": "NOTHING, and eval 5 is the only eval where it is computable at all (its goals note supplies the only targets in the fixture set). See suite finding S2."
+      },
+      {
+        "id": "C7",
+        "gap": "The `~~category` resolution rule on client-read surfaces (family 7): resolve to the real tool name, or to the export/hand-check the figure came from, or state plainly that nothing supplied it.",
+        "where_the_skill_states_it": "SKILL.md Output Validation, final checkbox; report-output-templates.md §11 appendix note; kpi-definitions.md's opening 'Reading the Data Source rows' paragraph; root CLAUDE.md Tool Connector Pattern.",
+        "graded_by": "NOTHING - and the trap is already built. The ai-referrals fixture carries a live token at line 33 ('No ~~AI monitor runs exist'), used by evals 3 and 5, so a model that copies its source line onto a client surface produces a family-7 violation from the fixture itself.",
+        "observed_in_this_run": "Both deliverables resolved it correctly - e3 §8 'No AI-visibility monitoring tool is connected and no answers were captured by hand', e5 §7 «Δεν ειναι συνδεδεμενο εργαλειο ... και δεν καταγραφηκαν απαντησεις με το χερι» - and zero '~~' tokens appear in any of the five files. This is the cheapest coverage gap in the list to close: one clause on e3.5 and e5.6."
+      },
+      {
+        "id": "C8",
+        "gap": "The Reader Test / family 8: no skill slug, command slug, framework item ID or repo path in client prose; an operator block inside a client deliverable is labelled INSIDE its own fence.",
+        "where_the_skill_states_it": "report-output-templates.md §6 and §7 client-read notes ('never the internal item code', 'the report never names the audit tool or the command'), §10 ('The action table is **client-read**: no run handles, no framework item IDs, no skill slugs'); root CLAUDE.md Reader Test.",
+        "graded_by": "NOTHING.",
+        "observed_in_this_run": "All five deliverables put every slug inside a fenced operator block whose first line is an in-fence `<!-- OPERATOR BLOCK ... -->` comment - the compliant form, and using the correct label from the closed list of three. Nothing in the suite would have caught a bare 'domain-authority-auditor' in client prose, which is a live risk because the skill's own §6/§7 notes place their **Operator:** routing lines immediately outside the template fence."
+      },
+      {
+        "id": "C9",
+        "gap": "The Figure Discipline trio: a benchmark reproduced verbatim with the multiplier shown for anything derived from it; a counterfactual that names its exact perturbation and reconciles with it; every rate, mean, ROI and word-rating showing its working where it is printed.",
+        "where_the_skill_states_it": "SKILL.md '### Figure Discipline' + Output Validation checkboxes 2, 3 and 4; kpi-definitions.md 'Quoting a Benchmark From This File' and 'Small Bases and Counterfactual Figures'.",
+        "graded_by": "e1.4 reaches the ROI subtraction and e2.4 reaches one band. The multiplier rule, the perturbation rule and the word-rating rule are ungraded.",
+        "observed_in_this_run": "e1 and e5 both print '2,890 x 1.03 = 2,977 ... 2,890 x 1.10 = 3,179'; e1, e2, e3 and e5 each carry at least one named perturbation with its arithmetic (e3 runs a four-row two-session sensitivity table). All ungraded."
+      },
+      {
+        "id": "C10",
+        "gap": "The technical Status-word movement band (Normal / Monitor / Investigate reading the movement, not the KPI target bands, and printing the comparison in its own cell), and the 'no baseline - first measurement' honest cell.",
+        "where_the_skill_states_it": "report-templates.md §3 preamble + SKILL.md Output Validation checkbox 6.",
+        "graded_by": "NOTHING. e1.5, the only technical expectation in the suite, grades the CWV thresholds and stops there.",
+        "observed_in_this_run": "e1 §6 declines the three Status words with a stated reason ('Two lab runs a month apart are not a measured range of normal variation for this site, so there is no observed range to call a movement large or small against') and restates the published band in the Status cell instead - which is one of the three forms the rule permits. Correct, and unmeasured."
+      },
+      {
+        "id": "C11",
+        "gap": "Every eval in this suite is a zero-connector Tier 1 scenario. There is no fixture in which a tool IS connected, so the 'tool-measured' half of the source-label discipline, the three-source triangulation for AI referrals, and the rule for quoting a connected tool's own composite unchanged are all unexercised in principle, not just unexpected."
+      },
+      {
+        "id": "C12",
+        "gap": "Discriminating power: several fixture-exact expectations can be satisfied by COPYING the skill's own reference file rather than by computing from the fixture. kpi-definitions.md's 'Aggregate vs. segment divergence' worked example pre-prints 40,000/50,000 = 80.0% -> 61,000/70,000 = 87.1%, +7.1 pp, brand 12.0% -> 13.0%, established 2.0% -> 2.3%, new cluster 1.96%, and 'a new cluster entering at position 14.9'. Its 'Quoting a Benchmark' example pre-prints '2,890 x 1.03 = 2,977 ... 2,890 x 1.10 = 3,179'. Its 'Small Bases' example pre-prints '15 -> 20 sessions is +33.3%' - the AI holdout. The fixtures were built on those numbers, so e2.2, part of e2.1, part of e3.3 and the goals-band clause cannot separate a model that derived them from one that transcribed them.",
+        "not_a_defect_in_this_run": "The deliverables show independent work around those numbers - e2's mix-standardised 4.44% counterfactual, its June position reconstruction 284,000/50,000, e3's four-row perturbation table and e1's 55.9-order gap are all absent from the references - so this run gives no reason to think copying happened. It is a property of the instrument, recorded so a future record is not read as stronger evidence than it is.",
+        "fix_shape": "Change one fixture number that the reference's worked example also carries (e.g. make July impressions 72,000), and the copy path stops producing the right answer."
+      }
+    ],
+    "how_to_read_this_section": "Each behaviour below is listed individually with either the expectation id that grades it or the word UNGRADED. A behaviour is counted as graded only where an expectation would FAIL a deliverable that omitted it - an expectation that merely permits the behaviour is not a grader of it."
+  },
+  "defects_outside_the_graded_set": {
+    "what_was_looked_for": [
+      "every derived figure in all five deliverables recomputed from the four fixtures by a grader script that reads the fixtures, not the deliverables' own arithmetic (43 canonical values plus per-file spot checks)",
+      "fabrication: any number, date, name, organisation or benchmark with no source in the fixtures or the prompt",
+      "'~~' connector tokens on client-read surfaces, with the ai-referrals fixture's own live token at line 33 as the positive control - ZERO found in all five files, and both deliverables that used that fixture resolved it into plain language",
+      "run handles in client prose per the Reader Test - skill slugs, command slugs, framework item IDs, repo paths (all occurrences are inside in-fence-labelled OPERATOR BLOCKs, which is the compliant form; label vocabulary checked against the closed list of three)",
+      "promised outcomes on a search or AI surface (family 10) - none; the only 'guarantee' string in the corpus is e3's correct negative, 'none guarantees the same answer twice'",
+      "engine-disposition claims ('Google prefers ...', 'assistants favour ...') - none; e5 states the opposite explicitly, «καμια μηχανη δεν δημοσιευει τα κριτηρια παραθεσης»",
+      "causal claims about AI referrals where only correlation is available - none; e3 §5 and e5 §5 both state the window-correlation form and refuse a per-mention value",
+      "assistant-referral figures not labelled a floor - none; both AI deliverables label the count, the share and the change",
+      "value-position placeholder tokens - '[...]', TBD, XX, 'to supply' - zero across all five files",
+      "Greek ruled regression families: totality-with-numeral calque, agency-provenance labels, placeholders - zero, with a live non-vacuity control (the native «και οι εξι» form is produced)",
+      "internal contradictions, unreconciled counts and arithmetic-in-prose errors"
+    ],
+    "found": [
+      {
+        "id": "D1",
+        "where": "e1.md L75-78, Executive summary, Wins item 1",
+        "severity": "medium - highest-visibility sentence in the highest-visibility section",
+        "defect": "'**Organic clicks grew 25.6% and impressions 40.0%** ... **The whole of the impression growth** and 69% of the click growth (353 of the 512 extra clicks) comes from the six guide articles.' The impressions half does not reconcile. Total impression growth is 70,000 - 50,000 = 20,000. The new cluster contributed 18,000; established non-brand contributed +3,000 and brand -1,000. The cluster is 90.0% of the growth, not the whole of it. The click half of the same sentence is exact (353/512 = 68.95%).",
+        "why_no_expectation_reaches_it": "e1.7 is a no-fabrication expectation about NUMBERS, and no number here is invented - the failure is a quantitative claim in prose that contradicts a table two sections below it in the same document (§3's segment table carries all three contributions).",
+        "corroborating_contrast": "The same executor performs the identical decomposition correctly for clicks in a different deliverable: e2.md L38-39, 'Where the extra clicks came from, adding to the site-wide +512: brand **-30**, established non-brand **+189**, new guides **+353**.' The habit exists; it was not applied to impressions in e1."
+      },
+      {
+        "id": "D2",
+        "where": "e2.md L92-93",
+        "severity": "low",
+        "defect": "'The site-wide rise of **+2.30** is entirely the new cluster's arrival at 14.9.' Strictly the cluster's own contribution is +2.40 position points and the pre-existing segments contributed -0.10 (5.68 -> 5.58), which the deliverable prints in the immediately preceding sentence. 'Entirely' overstates by 0.10. Reconcilable from the document's own numbers, which is why it is low rather than medium."
+      },
+      {
+        "id": "D3",
+        "where": "e3.md L116-119, the two-session perturbation table",
+        "severity": "informational",
+        "defect": "Two of the four delta-vs-control cells are subtracted from the DISPLAYED rounded percentages rather than from the exact values: printed +177.5 pp where 231.25 - 53.846 = 177.40, and printed +213.7 pp where 231.25 - 17.647 = 213.60. The other two cells agree on both paths, as does the headline +161.1 pp. Both operands print in every row, so a reader can reconcile; recorded because the range endpoints (+111.2 to +213.7) are quoted three further times, including in §9's board answer."
+      },
+      {
+        "id": "D4",
+        "where": "e4.md - absence, checked across the whole file",
+        "severity": "low",
+        "defect": "Content quality / page-quality review is the one 'not yet evaluated' category that appears NOWHERE in the board pack - not as a section, not in the A2 'Not connected and not supplied' list, which does name backlink and referring-domain data, domain-strength scores, competitor data, AI-visibility captures, rank tracking, SERP features, search volumes and the GA4 landing-page/device/engagement rows. Nothing is fabricated, and the omission is defensible under the pack's stated board-row scoping, so e4.5 passes - but it is a silent disappearance where its four siblings are named, and a reader cannot tell the category was considered."
+      },
+      {
+        "id": "D5",
+        "where": "e5.md L352",
+        "severity": "low",
+        "defect": "«Τεχνικες μετρησεις ταχυτητας του ιστοτοπου | Υπαρχουν δυο μετρησεις της αρχικης σελιδας απο την προγραμματιστρια σας, αλλα **δεν μπαινουν σε αυτη την αναφορα**: πηγαινουν σε οποιον συντηρει τον ιστοτοπο, **οπως ζητησατε**.» - 'as you asked'. The client asked no such thing. The prompt says only «δεν εχουμε σχεση με τα τεχνικα» (we have nothing to do with the technical side). The routing decision is sound; attributing it to a request the client did not make is a small over-attribution inside a document that is otherwise scrupulous about where every statement comes from. 'οπως μας ειπατε οτι δεν ασχολειστε με τα τεχνικα' would be true.",
+        "why_no_expectation_reaches_it": "e5.6 grades fabrication of FIGURES and source labelling; no expectation grades attributed statements about what the client said."
+      },
+      {
+        "id": "D6",
+        "where": "e5.md L49-56 (also e1.md L45-50 and e4.md L74-78, the mirror case)",
+        "severity": "informational - a finding about the rule, recorded here because it lands in client-facing output",
+        "defect": "The client-facing Overall Performance word is «Κρισιμη» (Critical) on a denominator of two scored KPIs, one of which came in at 88.3% of target while the other beat its target by 90 sessions. Mechanically exact per report-output-templates.md §2 ('Critical = half or more of the scored rows Off track'), stated in-report with its tally and its fragility, and therefore not a failure of the deliverable - see suite finding S2. The mirror case is evals 1 and 4, which print 'Overall Performance: not rated - 0 of 6 KPIs scored', a fifth rating value the template does not define, because with zero scored rows the Excellent test is vacuously true."
+      }
+    ],
+    "notable_absences_worth_recording": [
+      "Zero fabricated statistics, organisations, people or benchmarks across all five deliverables - the F3 class this suite exists to guard is clean. The only external bands quoted are kpi-definitions' own, each reproduced verbatim and attributed to 'our KPI reference' / «το σημειωμα δεικτων μας».",
+      "The unsourced '>20% / <5%' AI citation-rate band in kpi-definitions.md (a pre-existing conflict recorded as an open threshold decision, sitting 60 lines below prompt-level rows that state 'No published benchmark exists and none is supplied from memory') is quoted in NONE of the five deliverables. No expectation demands it either, so it produced no instrument defect in this suite. Recorded as a known skill-side conflict, not a finding of this run.",
+      "e4 declines the 'make it look complete' instruction outright and records the refusal for the file, with the coverage arithmetic as the load-bearing line. The pressure eval worked as designed."
+    ],
+    "screen_results_for_the_classes_named_by_the_coordinator": [
+      {
+        "class": "unresolved `~~category` connector token on a client-read surface",
+        "screened": "scripted count of '~~' in all five deliverables, then a manual check of the boundary case",
+        "result": "ZERO in all five files, client body and operator blocks alike. POSITIVE CONTROL: the ai-referrals fixture carries a live token at line 33 ('No ~~AI monitor runs exist') and is used by evals 3 and 5, so a model transcribing its source line would have produced one. Both deliverables resolved it into plain language instead - e3 §8 'No AI-visibility monitoring tool is connected and no answers were captured by hand'; e5 §7 «Δεν ειναι συνδεδεμενο εργαλειο ... και δεν καταγραφηκαν απαντησεις με το χερι». The screen was capable of firing and did not."
+      },
+      {
+        "class": "run handle - skill slug, command slug, framework item ID, repo path - in client prose",
+        "screened": "regex sweep of all five files for the 20 skill slugs, the /seo: command slugs, CORE-EEAT, CITE, ruling ids, SKILL.md and reference paths; every hit then located relative to the operator fence",
+        "result": "NONE IN CLIENT PROSE. Every hit sits inside a fenced operator block whose FIRST LINE is an in-fence comment label, e.g. e1.md L482 '<!-- OPERATOR BLOCK - for the consultant, not part of the report above ... it carries library run handles, which have no referent for a client. -->'. All five use 'OPERATOR BLOCK', which is the correct member of the closed three-label list. e5's label is written in Greek prose under the same English marker. This is the compliant form of the Reader Test, including its 'a model copies the fence, not the heading above it' clause."
+      },
+      {
+        "class": "causal claim about AI referrals where only correlation is available",
+        "screened": "read of every sentence in e3 and e5 §5 linking assistant referrals to the rework or to purchases",
+        "result": "NONE. e3 §9 answers the board question '**No - not in that form**' and states 'It does not prove the rework caused the rise'; the mechanism is offered as 'our working model ... a model, not documented behaviour'. Purchases are stated as co-occurrence only: 'the 3 purchases recorded on assistant-referred sessions fall in the same 1-31 July window as the 95'. e5 mirrors both in Greek. No per-mention or per-citation value appears in either."
+      },
+      {
+        "class": "assistant-referral figure not labelled a floor",
+        "screened": "every session count, share and change in e3 and e5 checked for the label",
+        "result": "NONE UNLABELLED. e3 labels the count, the share, the change ('a change **between two lower bounds**, not a measured delta'), every table total and the board wording. e5 carries «κατω οριο» on the count, the share and the summary row, adds a why-paragraph and a glossary entry. Note this is a gap in the SUITE, not a risk that materialised - see coverage gap C5."
+      },
+      {
+        "class": "engine-disposition claim (what an engine does or prefers)",
+        "screened": "regex sweep for 'Google prefers/rewards/likes', 'ChatGPT favours', 'assistants prefer', «η Google προτιμα» and neighbours, plus a read of every AI-mechanism sentence",
+        "result": "NONE. The corpus states the opposite where the question arises: e3 'no assistant publishes how it chooses what to link, the counts are small enough that the size of the gap moves a lot on a few sessions'; e5 «**καμια μηχανη δεν δημοσιευει τα κριτηρια παραθεσης**»."
+      },
+      {
+        "class": "promised outcome on a search or AI surface (family 10)",
+        "screened": "regex sweep for will-rank / will-appear / will-be-cited / guarantee / «εγγυ» / «θα εμφανιστει», plus a read of both Goals tables and every 'expected impact' cell",
+        "result": "NONE. Both Goals tables open with an explicit disclaimer - e1 §9 'Nothing in this table commits any search engine or AI assistant to anything, and no position, citation or recommendation is promised anywhere in this report'; e5 §9 the same in Greek. Every expected-impact cell takes one of the skill's three permitted shapes or reads 'not estimated - no baseline data'. The one 'guarantee' string in the corpus is e3's correct negative."
+      }
+    ],
+    "net": "Six defects found (D1-D6), all outside the graded set; none of them in the six classes above. The one that matters is D1, a prose claim in the executive summary contradicted by the fixture arithmetic."
+  },
+  "instrument_defects": {
+    "count": 0,
+    "adjusted_denominator": "29 - unchanged, because no expectation was excluded from the pass rate.",
+    "statement": "No expectation in this suite grades a rule the skill never states, demands something the skill's own permitted path forbids, or contradicts another expectation in the same suite in a way that admits no satisfying deliverable. Two underdetermined rules WERE found and are recorded as suite findings S1 and S2 rather than as instrument defects, on the ground that in each case a path exists that satisfies both readings and the deliverables took it - S1 in opposite directions in two evals, each driven by its own prompt and each declared in-report.",
+    "carrier_check": "Every expectation's demanded behaviour was traced to a statement inside monitor/performance-reporter (SKILL.md or its three references) or to a settled ruling the skill's own reference reproduces (R4, at kpi-definitions.md L453-455). No F13-recurrence-4 shape - an expectation whose rule lives only in a sibling skill - was found in this suite.",
+    "near_misses_recorded_as_eval_improvement_instead": [
+      "A3 (e1.6's quoted phrase vs the skill's 'in the client's own words' instruction)",
+      "A5 (e3.4's '~~AI monitor' phrasing on a client surface)"
+    ],
+    "is_this_a_finding_or_an_unfilled_field": "A FINDING. Every one of the 29 expectations was read against the skill and its three references before this count was written, and the two items flagged to this grader as genuinely underdetermined were each examined specifically and resolved to 'not a defective expectation'. The field is not blank and was not defaulted.",
+    "the_two_flagged_items_answered_individually": [
+      {
+        "flagged_item": "the audience assembly table vs an explicitly requested section (evals 1 and 4)",
+        "verdict": "CHECKED, NOT AN INSTRUMENT DEFECT",
+        "reasoning": "report-templates.md §4 excludes technical detail from a CEO/Board pack and SKILL.md step 11 says excluded sections are 'left out, not compressed into the pack', while eval 1's prompt explicitly asks for technical health and e1.5 grades it. That is a real collision, but the skill is SILENT rather than contradictory: step 1 makes 'Focus Areas' a configuration input, so treating an explicitly requested area as scoping the pack is a permitted reading, not a forbidden one. The decisive evidence is that a satisfying path exists and was taken twice, in opposite directions, by the same executor - e1 includes the section and declares the deviation in its Audience line; e4, whose prompt does not ask for it, applies the row and says which two areas it dropped and why. An expectation that can be satisfied without breaking a stated rule is not defective. Recorded as suite finding S1 with a one-sentence fix for step 11."
+      },
+      {
+        "flagged_item": "the Overall Performance bands with no minimum denominator (eval 5 has exactly two scored KPIs)",
+        "verdict": "CHECKED, NOT AN INSTRUMENT DEFECT - AND NOT AN EXPECTATION AT ALL",
+        "reasoning": "No expectation in this suite grades the Overall Performance rating, in any eval. There is therefore no expectation that could be defective on this point; the underdetermination is a gap in the SKILL's rule, not in the instrument. It is real and it reached client-facing output - the Greek report prints «Κρισιμη» off a two-row denominator while two neighbouring rules in the same reference file impose a floor of three for exactly this reason - so it is recorded twice, as suite finding S2 (with the fix) and as defect D6 (as an observed output property), and as coverage gap C6 (as the reason no expectation caught it)."
+      }
+    ],
+    "how_the_other_27_were_checked": "Each expectation's demanded behaviour was traced to a statement inside monitor/performance-reporter/ - SKILL.md or one of its three references - or to settled ruling R4, which kpi-definitions.md L453-455 reproduces in full. No F13-recurrence-4 shape was found: there is no expectation in this suite whose rule lives only in a sibling skill the executor was never routed to. No pair of expectations inside one eval was found that cannot both be satisfied."
+  },
+  "arithmetic_check": {
+    "method": "A grader script recomputed 43 canonical values from the four fixture files alone - never from the deliverables' own working - and then located each in the files that should carry it. Deliverable-specific figures (channel shares, AOV, revenue per session, users, the perturbation tables, the quarter-coverage arithmetic, the Greek goals arithmetic) were recomputed by hand against the fixtures on top of that. Script: modeb-perfreporter-arith.py.",
+    "result": "EVERY derived figure in all five deliverables reconciles with the fixtures, to the precision printed. No figure was found that does not trace to fixture arithmetic.",
+    "spot_values_confirmed": {
+      "deltas": "sessions +21.4286% (printed 21.4), clicks +25.6000% (25.6), impressions +40.0% (40.0), purchases +15.2174% (15.2), revenue +15.0838% (15.1)",
+      "ratios": "CTR 4.0000/3.5886 (4.00/3.59); CVR 1.9328/1.8339 (1.93/1.83); brand CTR 13.0000; established 2.2999 (2.3); new cluster 1.9611 (1.96)",
+      "roi": "(2060-900)/900 = 128.8889 (129); (1790-900)/900 = 98.8889 (99); the named trap 2060/900 = 228.8889 (229)",
+      "mix": "non-brand impression share 80.0000 -> 87.1429 (80.0/87.1); brand 20.0/12.857 (12.9); established 80.0/61.429 (61.4); cluster 25.714 (25.7)",
+      "weighted_positions": "July 558,500/70,000 = 7.9786 (7.98); June 284,000/50,000 = 5.6800 (5.68); ex-cluster 290,300/52,000 = 5.5827 (5.58); mix-standardised CTR 0.2x13.0 + 0.8x2.3 = 4.4400 (4.44)",
+      "ai_referrals": "50->95 = +90.0000%; shares 1.2279/2.0369 (1.23/2.04), +0.8090 pp (0.81); reworked +194.4444 (194.4); holdout +33.3333 (33.3); other +29.4118 (29.4); delta vs control 161.1111 pp (161.1); AI CVR 2.0000 and 3.1579 (2.0/3.2)",
+      "quarters": "Q3 31/92 = 33.6957 (33.7); Q2 30/91 = 32.9670 (33.0); Q3 elapsed 41/92 = 44.5652 (44.6); the 61-day remainders both check",
+      "greek_goals": "2,890/2,800 = 103.2143 (103,2); 53/60 = 88.3333 (88,3); 2,890 x 0.019328 = 55.858 (55,9 -> 56); 60/0.018339 = 3271.70 (3.272); 60/0.019328 = 3104.35 (3.104); 60 x 38.868 = 2332.08 (2.332, presented as a 2.330 target 'rounded down')",
+      "band_derivations": "2,890 x 1.03 = 2976.7 (2,977) and 2,890 x 1.10 = 3179.0 (3,179), with the multiplier shown in both e1 and e5 as the Figure Discipline rule requires"
+    },
+    "multipliers_and_shares_specifically_checked": "Every percentage-point figure was checked as a pp difference rather than a percentage of a percentage (-0.41 pp on CTR, -0.10 pp on CVR, +3.5 pp organic share, +13.4 pp non-brand clicks share, +7.1 pp mix, +0.81 pp AI share, +19.8/-8.9/-10.8 pp landing-page shares). All correct. Every share prints its two counts.",
+    "only_discrepancies_found": [
+      "D3 - two cells of e3's perturbation table subtract displayed-rounded rather than exact percentages (177.5 vs 177.40; 213.7 vs 213.60). 0.1 pp, operands printed.",
+      "D1 - not an arithmetic error but a prose claim contradicted by the arithmetic: 'the whole of the impression growth' where the cluster is 18,000 of 20,000."
+    ],
+    "derived_vs_copied": {
+      "why_this_distinction_exists": "references/kpi-definitions.md carries worked examples built on the same numbers as the fixtures, so a figure can be simultaneously CORRECT and COPIED. Every figure below was recomputed from the fixture by the grader and reconciles; the split records which ones a copying model could also have produced.",
+      "figures_pre_printed_in_the_skill_and_therefore_NOT_discriminating": [
+        "kpi-definitions.md 'Aggregate vs. segment divergence' pre-prints: 10,000 + 40,000 = 50,000 and 9,000 + 43,000 + 18,000 = 70,000; non-brand 40,000/50,000 = 80.0% -> 61,000/70,000 = 87.1%; +7.1 pp; brand CTR 12.0% -> 13.0%; established 2.0% -> 2.3%; new cluster 1.96%; 'a new cluster entering at position 14.9'. These are the core of e2.2 and part of e2.1.",
+        "kpi-definitions.md 'Quoting a Benchmark From This File' pre-prints, verbatim: 'From July's 2,890 sessions that is 2,890 x 1.03 = 2,977 at the low end and 2,890 x 1.10 = 3,179 at the high end for August.' e1 L404 and e5 L398 both reproduce this, phrasing included.",
+        "kpi-definitions.md 'Small Bases and Counterfactual Figures' pre-prints '15 -> 20 sessions is +33.3%', which is the AI holdout in e3.3 and e5.",
+        "SKILL.md step 4 repeats the 80.0% -> 87.1% / +7.1 pp decomposition in the skill body."
+      ],
+      "figures_that_appear_in_NO_reference_and_are_therefore_evidence_of_actual_computation": [
+        "e1/e2/e4/e5: the mix-standardised counterfactual 0.200 x 13.0% + 0.800 x 2.30% = 2.60% + 1.84% = 4.44% - the perturbation is named and the arithmetic is the executor's own.",
+        "e2: the June weighted-position reconstruction (10,000 x 1.2 + 40,000 x 6.8) / 50,000 = 284,000 / 50,000 = 5.68, and the ex-cluster 290,300 / 52,000 = 5.58.",
+        "e2 §5: the whole removal table - 2,159 / 52,000 = 4.15% and 353 / 2,512 = 14.1%.",
+        "e1 §4: 2,890 x 0.019328 = 55.9 -> 56 orders, the three-order gap, and the one-order perturbation 54/2,890 = 1.87% and 52/2,890 = 1.80%.",
+        "e1 §2: the full six-channel share table with both periods and every pp movement; users 1,905 -> 2,310 = +21.3% and 1.25 sessions per user.",
+        "e3 §4: the four-row two-session perturbation table (+147.4 / +177.5 / +111.2 / +213.7 pp) and the +165.0 pp second-cohort delta.",
+        "e3 §2-3: every per-assistant share of AI sessions and its pp movement; 35 of 45 = 77.8% of the month's increase.",
+        "e4: the entire quarter-coverage arithmetic - 92 and 91 days, 33.7%, 33.0%, 41/92 = 44.6%, the two 61-day remainders.",
+        "e5 §9: 60 / 0.018339 = 3,272 sessions and 60 / 0.019328 = 3,104 sessions, set against the 3,179 band ceiling; 60 x 38.87 = 2,332 EUR.",
+        "e1: AOV 38.91 -> 38.87, revenue per session 0.75 -> 0.71 and the -5.2% decomposition."
+      ],
+      "verdict": "The copy path cannot be excluded for the four items in the first list - that is a property of the instrument, recorded as coverage gap C12 with a one-number fixture fix. It is not a suspicion about this run: the second list is long, spans all five deliverables, and includes multi-step derivations (the weighted-position reconstructions, the two sensitivity tables, the quarter arithmetic, the Greek target back-solves) that no reference contains and that all reconcile exactly. A model transcribing the reference could not have produced them."
+    }
+  },
+  "tool_correctness": {
+    "tool_errors_encountered": [
+      "scripts/eval-prompt.sh rejects `e1` as an id for this suite ('no eval with id e1 in monitor/performance-reporter') - the ids in this suite's evals.json are the bare integers 1-5, while the script's own usage line and the ids in some sibling suites use the `eN` form. Recovered by passing `1`..`5`. Worth a line in the script's usage or a normalisation, because a blind executor hitting this has no way to tell a bad id from a bad suite path.",
+      "No other tool errors. The grader's own value matcher initially reported five false negatives for figures printed with thousands separators (2,977 / 2.977); caught by inspecting the raw output at each flagged location before recording anything (ledger F7), and confirmed present by targeted grep. No verdict was ever based on the unverified scan."
+    ],
+    "expectations_not_gradable_as_written": [
+      "e5.3 - by design; EDITOR-PENDING pending the binding greek-content-editor report on e5.md."
+    ],
+    "checker_verification": "Every failure and every defect was confirmed by reading the raw deliverable at the flagged location and quoting it before it was recorded (ledger F7). The single FAIL (e4.3) was verified three ways: a scan for '25.6' returning zero hits in e4.md, a manual read of the Performance at a Glance table confirming it carries no clicks row, and a cross-check that the same figure IS present in e1.md L57 and e5.md L86 from the same fixture.",
+    "scope_drift": "None. The grader produced no performance-reporter output at any point, did not re-run the skill, did not read the executor's transcript, and read exactly one file under docs/loop/eval-baselines/ (blind-2026-08-13/alertmanager.json, for the schema) as the task scoped it.",
+    "repository_writes": "One: this file. No skill, reference, register or tracking file was edited; no git command other than read-only log/diff/status/show was run.",
+    "grader_working_files": [
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-perfreporter-arith.py",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-perfreporter-greek-mech.py",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-perfreporter-greek-accents.py",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-perfreporter-write.py",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-perfreporter-write2.py"
+    ]
+  },
+  "ambiguous_expectations_eval_improvement": [
+    {
+      "id": "A1",
+      "expectation": "e1.5 / e1.6 / e4.5",
+      "issue": "See suite finding S1. These three expectations require sections that report-templates.md §4 excludes from an executive/board pack, and the skill never says whether an explicit request overrides the row. Either rule the override in SKILL.md step 11, or add a clause to the expectations acknowledging the assembly row so a strict-row deliverable is not failed for compliance."
+    },
+    {
+      "id": "A2",
+      "expectation": "e4.3",
+      "issue": "This expectation bundles four clauses - three named MoM figures, the month-one-of-Q3 framing, the post-30-September scheduling, and the missing inputs - into one pass/fail. The deliverable satisfies everything except the GSC clicks percentage. A grader with partial credit would score it high; the four-verdict scheme records a FAIL. Split it into 'the MoM report carries the three headline deltas' and 'the scope correction is delivered with its schedule and its missing inputs', and the next record will say which half moved."
+    },
+    {
+      "id": "A3",
+      "expectation": "e1.6",
+      "issue": "The expectation quotes a literal phrase - \"domain authority / CITE marked 'Not yet evaluated'\" - while report-output-templates.md §6 tells the writer to mark that section 'in the client's own words'. The two pull apart for any non-English deliverable and pulled apart here (the deliverable wrote 'No data. No domain-strength score has ever been recorded for elia-thymari.gr'). Grade the behaviour ('the section is present, unfilled, and names what would supply it') rather than the string."
+    },
+    {
+      "id": "A4",
+      "expectation": "e2.3",
+      "issue": "The expectation opens by quoting kpi-definitions' 'a directional indicator, not an absolute measure ... pair with keyword distribution' and then states its own operative test after the em dash. It is not clear whether the quoted clause is a second requirement (the deliverable must say those words, or must print a position distribution) or context for the test that follows. Graded on the operative test. Say which."
+    },
+    {
+      "id": "A5",
+      "expectation": "e3.4",
+      "issue": "The expectation names 'an ~~AI monitor pass or manual assistant checks' as the acceptable next step. Taken literally, the first option is a family-7 violation on the client surface the eval asks for, and a grader reading quickly could mark down a deliverable that correctly resolved the token. The alternative is offered, so nothing broke here - but the phrasing should be 'a monitoring pass with the tool named, or manual assistant checks'."
+    },
+    {
+      "id": "A6",
+      "expectation": "e3.2",
+      "issue": "'echoing its churn/[VERIFY] caveat is a plus; asserting roster completeness as fact fails' mixes a bonus and a failure condition in one clause with no stated weight. A deliverable that says nothing at all about the roster's stability neither earns the plus nor trips the fail - which is probably not the intent, given the roster carries a live [VERIFY] tag in kpi-definitions.md."
+    }
+  ]
+}
