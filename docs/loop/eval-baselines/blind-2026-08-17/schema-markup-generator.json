@@ -1,0 +1,657 @@
+{
+ "suite": "schema",
+ "skill": "schema-markup-generator",
+ "suite_path": "build/schema-markup-generator",
+ "skill_version_under_test": "4.2.10 (SKILL.md:3 top-level `version` and SKILL.md:11 `metadata.version`, in lockstep; validate-skill.sh confirms 'legacy lockstep')",
+ "run_label": "blind-2026-08-17",
+ "run_date": "2026-08-17",
+ "method": "blind",
+ "method_detail": {
+  "executor": "blind, separate agent; five deliverables e1.md..e5.md under /tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-2026-08-17/schema-markup-generator/",
+  "grader": "informed, this agent. Produced no schema-markup-generator output at any point, did not re-run the skill, did not write or repair any markup, did not generate a comparison block. Every verdict is against what is on the page.",
+  "grader_inputs_declared_at_open": [
+   "build/schema-markup-generator/SKILL.md (md5 b9c5e8979e0213307c1919f2f4e38f96)",
+   "build/schema-markup-generator/evals/evals.json (md5 92be8738aea66299885e4245905458d6)",
+   "build/schema-markup-generator/references/{schema-templates,schema-decision-tree,validation-guide}.md",
+   "build/schema-markup-generator/evals/files/ (5 fixtures)",
+   "build/seo-content-writer/references/anti-slop-ruleset.md (md5 1a54639249cdd4464022529923d55786)",
+   "docs/loop/FAILURE-LEDGER.md, docs/loop/SETTLED-RULINGS.md, docs/loop/OPEN-FINDINGS.md",
+   "references/action-output-contract.md, references/prohibited-tactics.md",
+   "docs/loop/eval-baselines/blind-2026-08-10b/schema.json (the prior blind record)"
+  ],
+  "expectation_service": "bash scripts/eval-prompt.sh build/schema-markup-generator <1..5> --grade",
+  "editor_referral": "e2.10 is the binding greek-content-editor slot. No editor report on this run's e2.md was in front of the grader; recorded EDITOR-PENDING, inside the total, never passed."
+ },
+ "repo_head_at_open": "eedbeee505fd7e556dc69becad8c96ca12679570",
+ "repo_head_at_close": "f24a7b7c88226e0cc4287dc2f28b6897eb6cced7",
+ "input_drift_during_the_grading": {
+  "detected": true,
+  "checked": "git rev-parse HEAD at open and close; git status --porcelain at both; md5sum of every graded input at both; git diff --name-only eedbeee..HEAD over the graded paths.",
+  "head_moved": "YES, twice: eedbeee -> 794724d (entity-optimizer/backlink-analyzer R3-9a sweep) -> f24a7b7 (four truncated templates + fence-check extension).",
+  "graded_inputs_that_moved": "NONE. `git diff --name-only eedbeee..HEAD -- build/schema-markup-generator/ build/seo-content-writer/references/anti-slop-ruleset.md references/action-output-contract.md` returns EMPTY, and every md5 recorded at open is byte-identical at close (SKILL.md, evals.json, all three references, anti-slop-ruleset.md, FAILURE-LEDGER.md).",
+  "one_graded_input_DID_change_and_here_is_why_it_does_not_matter": "docs/loop/SETTLED-RULINGS.md md5 moved 6db14bfd -> 548222e7. `git diff --numstat` = 5 changed lines, and `git diff | grep '^[+-][^+-]'` shows all five are `VERSIONS.md:<line>` pointer coordinates being re-anchored after a changelog insertion (277->283 twice, 281->287, 282->288, plus the same token inside the AI-Mode row) — the F12 mechanical repair. ZERO characters of R1-R5 ruling text changed. R2's stacking boundary and R3's amendment 9a, the two rulings this suite turns on, are byte-identical.",
+  "effect_on_verdicts": "NONE. Every verdict was formed against the eedbeee tree and every graded input is byte-identical at close except for five line-number pointers in a register whose substantive text did not move."
+ },
+ "regressions_vs_baseline": {
+  "baseline": "docs/loop/eval-baselines/blind-2026-08-10b/schema.json — subject 4.1.1, method blind-execute/split-grader, 44 expectations, summary 44/44 = 1.0.",
+  "suite_changed_between_the_two_runs": true,
+  "suite_diff": "evals.json moved: 44 -> 45 expectations (+51/-? lines vs da16893). Aligned by best text similarity: 34 expectations are BYTE-IDENTICAL (e1.1,1.2,1.4,1.5,1.6,1.7 · e2.1,2.2,2.4,2.5,2.6,2.7,2.8 · e3.1,3.2,3.4,3.5,3.6,3.7 · e4.1-4.7 · e5.1-5.8); 4 are reworded with the same substance (e1.3, e1.8, e2.3, e3.9); 6 are materially rewritten (e1.9, e2.9, e3.3, e3.8, e4.8, e5.9); 1 is genuinely new (e2.10, the greek-content-editor slot). ALL FIVE PROMPTS AND ALL FIVE `files` LISTS ARE IDENTICAL — verified programmatically against `git show da16893:build/schema-markup-generator/evals/evals.json`.",
+  "the_one_reversal_worth_naming": "e3.8 did not merely reword, it INVERTED. Baseline text: 'states that Google retired FAQ rich results in 2026 and frames the markup's remaining value as AI-engine/GEO parsing'. Current text: 'frames the markup as valid, zero-cost schema.org with NO benefit attached … Framing it as AI-engine/GEO parsing value FAILS: settled ruling R3 amendment 9a withdrew that warrant.' The baseline run PASSED it by writing the GEO-parsing claim (baseline evidence quotes 'That is a parsing and citation-surface benefit'). The same deliverable would FAIL today. Movement on this expectation is void in both directions; the suite repair is the news, not the score.",
+  "denominator_note": "Like-for-like on the 34 byte-identical expectations: 33 passed / 34 = 97.06% now, against 34/34 = 100.00% then. The headline 43/45 = 95.56% is not comparable to the baseline's 44/44 = 100.00%, because 11 of 45 expectations differ in text and one of the two non-passes is an editor slot that did not exist in the baseline.",
+  "count": 1,
+  "items": [
+   {
+    "id": "e1.7",
+    "moved": "PASS -> FAIL",
+    "expectation_text_identical": true,
+    "expectation_text": "The telephone value is in international format: it contains the +30 country code and the digit sequence 210 976 5432 from the fixture (spacing/dashes may vary).",
+    "prompt_identical": true,
+    "fixture_identical": true,
+    "then": "Baseline deliverable emitted \"telephone\": \"+30 210 976 5432\" and disclosed the normalisation in prose ('with `+30` prefixed because Google asks for international dialling format').",
+    "now": "e1.md:36 emits \"telephone\": \"210 976 5432\". Programmatic: '+30' in value = False. Grep across the WHOLE file for '+30' / 'international' / 'διεθν' returns zero lines, so it is absent from prose as well. e1.md:76 states the choice: 'in the exact form the page prints it'.",
+    "skill_text_confounder": "NONE that would void it, and the absence is itself the finding. `git diff da16893..HEAD -- build/schema-markup-generator/` shows no telephone-format guidance was added OR removed. The skill has never carried one: validation-guide.md:197 is the whole of it — '| telephone | Recommended | Phone number |'. The only country-code signal in the tree is an illustrative slot value, schema-templates.md:275 `\"telephone\": \"[Phone number: +1-555-555-5555]\"`, which models a form and states no rule.",
+    "satisfiable": "YES, demonstrably — the prior blind run at 4.1.1 satisfied this exact text on this exact fixture. Not an instrument defect.",
+    "verdict": "REAL REGRESSION, do-not-merge. It outranks the pass rate. Additionally an UNCARRIED expectation (F13-r3/r4 signature): the rule the expectation grades is stated nowhere in the skill, so the baseline pass rested on the executor supplying '+30' from general knowledge — and on an unsourced engine claim while doing it ('Google asks for international dialling format' has no source in the skill either). A carrier that passes once by luck is not a carrier."
+   }
+  ],
+  "improvements_same_comparison": [],
+  "unchanged_verdicts": "33 of the 34 byte-identical expectations held their prior verdict, all PASS -> PASS. 33 + 1 regression = 34.",
+  "headline_delta": "Like-for-like 100.00% (34/34) -> 97.06% (33/34), -2.94 points, one regression. Full-suite headline this run: 43/45 = 95.56%."
+ },
+ "summary": {
+  "passed": 43,
+  "failed": 1,
+  "editor_pending": 1,
+  "instrument_defect": 0,
+  "total": 45,
+  "pass_rate": 0.9556,
+  "passed_plus_failed_vs_total": "43 + 1 = 44, one short of 45. The gap is exactly the e2.10 editor slot, which is inside the total and is neither passed nor failed. See editor_slot_convention.",
+  "editor_slot_convention": {
+   "which_slot": "e2.10",
+   "counted_in_total": true,
+   "how_scored": "EDITOR-PENDING, recorded NOT-PASSED, kept inside the denominator, per the expectation's own text: 'record it EDITOR-PENDING, keep it inside the suite's total, and never record it as passed — an expectation whose evidence is absent does not pass by default (ledger F15)'. pass_rate = passed / total = 43/45.",
+   "rate_if_the_slot_were_counted_passed": "44/45 = 0.9778. Reported so the convention's effect is visible; the headline stays 43/45 = 0.9556.",
+   "why_not_excluded": "F16-r1(d): excluding it silently would make this record incomparable with the suites that counted the slot in total, which is the defect that made the corpus incomparable with itself."
+  },
+  "schema_note": "summary.passed/failed/total/pass_rate per F16-r1(c). Verified with scripts/eval-corpus-report.sh before reporting."
+ },
+ "per_eval": {
+  "1": {
+   "passed": 8,
+   "failed": 1,
+   "editor_pending": 0,
+   "instrument_defect": 0,
+   "total": 9
+  },
+  "2": {
+   "passed": 9,
+   "failed": 0,
+   "editor_pending": 1,
+   "instrument_defect": 0,
+   "total": 10
+  },
+  "3": {
+   "passed": 9,
+   "failed": 0,
+   "editor_pending": 0,
+   "instrument_defect": 0,
+   "total": 9
+  },
+  "4": {
+   "passed": 8,
+   "failed": 0,
+   "editor_pending": 0,
+   "instrument_defect": 0,
+   "total": 8
+  },
+  "5": {
+   "passed": 9,
+   "failed": 0,
+   "editor_pending": 0,
+   "instrument_defect": 0,
+   "total": 9
+  }
+ },
+ "expectations": [
+  {
+   "id": "e1.1",
+   "text": "The response contains a JSON-LD code block that parses as valid JSON (no trailing commas, all property names quoted).",
+   "verdict": "PASS",
+   "evidence": "json.loads of the sole ```json fence (e1.md:29-64) returns dict; trailing-comma scan `,\\s*[}\\]]` = 0. Independently parsed by the grader, not taken from the deliverable's own claim at e1.md:151."
+  },
+  {
+   "id": "e1.2",
+   "text": "The JSON-LD declares \"@context\": \"https://schema.org\" and its top-level \"@type\" is \"LocalBusiness\" or a schema.org LocalBusiness subtype fitting an HVAC company (e.g. \"HVACBusiness\" or \"HomeAndConstructionBusiness\").",
+   "verdict": "PASS",
+   "evidence": "Parsed @context='https://schema.org' (e1.md:30); top-level @type='HVACBusiness' (e1.md:31) — named in the expectation as an accepted LocalBusiness subtype for an HVAC company."
+  },
+  {
+   "id": "e1.3",
+   "text": "Exactly one top-level schema object is produced for the page — the output is not a JSON array of multiple schema types, and no additional top-level types (Organization, WebSite, BreadcrumbList, FAQPage) are emitted (settled ruling R2: one accurate primary type per page). R2's clarified boundary does permit a documented auxiliary — BreadcrumbList for a real trail is the standing example — but only where the page data warrants it, and this contact-page fixture records no breadcrumb trail, so a second top-level object here would rest on data nobody supplied.",
+   "verdict": "PASS",
+   "evidence": "Exactly one ```json fence in the file; parsed container is dict, not list; top-level keys = ['@context','@type','@id','name','description','url','telephone','email','address','areaServed','openingHoursSpecification'] — no Organization, WebSite, BreadcrumbList or FAQPage. Declined explicitly at e1.md:22: 'A breadcrumb list would be the usual companion here, but the copy you sent shows no breadcrumb trail, so there is nothing real to mark up.'"
+  },
+  {
+   "id": "e1.4",
+   "text": "All required LocalBusiness properties are present: name, and address as a PostalAddress with streetAddress, addressLocality, addressRegion, postalCode, and addressCountry \"GR\".",
+   "verdict": "PASS",
+   "evidence": "Parsed address (e1.md:38-45) = {'@type':'PostalAddress','streetAddress':'Λεωφόρος Βουλιαγμένης 274','addressLocality':'Άγιος Δημήτριος','addressRegion':'Αττική','postalCode':'173 43','addressCountry':'GR'}; 'name' present at e1.md:33. All six required members present, addressCountry == 'GR'."
+  },
+  {
+   "id": "e1.5",
+   "text": "The \"name\" value is exactly \"Κλιματισμός Οικονόμου Ο.Ε.\" — Greek script preserved with correct tonos diacritics; the business name is not transliterated to Latin characters (no \"Klimatismos Oikonomou\" as the name value).",
+   "verdict": "PASS",
+   "evidence": "Parsed name == 'Κλιματισμός Οικονόμου Ο.Ε.' — byte-equal to the fixture's «Επωνυμία» line (klimatismos-oikonomou-contact.md:8). Programmatic equality check returned True. No Latin transliteration anywhere in a value position."
+  },
+  {
+   "id": "e1.6",
+   "text": "Address values reproduce the fixture's Greek data: streetAddress \"Λεωφόρος Βουλιαγμένης 274\", addressLocality \"Άγιος Δημήτριος\", postalCode \"173 43\" (or \"17343\"), addressRegion \"Αττική\".",
+   "verdict": "PASS",
+   "evidence": "All four reproduce the fixture (klimatismos-oikonomou-contact.md:9) exactly: streetAddress 'Λεωφόρος Βουλιαγμένης 274', addressLocality 'Άγιος Δημήτριος', postalCode '173 43' (the spaced form the expectation permits), addressRegion 'Αττική'."
+  },
+  {
+   "id": "e1.7",
+   "text": "The telephone value is in international format: it contains the +30 country code and the digit sequence 210 976 5432 from the fixture (spacing/dashes may vary).",
+   "verdict": "FAIL",
+   "evidence": "**REGRESSION.** e1.md:36 reads verbatim: `  \"telephone\": \"210 976 5432\",`. Programmatic check: '+30' in value = False; digits after stripping = '2109765432' (10 digits, no country code). Raw output inspected at the cited line before reporting (ledger F7). The prefix is absent from the whole file, not only the block — grep for '+30' / 'international' / 'διεθν' across e1.md returns ZERO lines. The deliverable states the choice deliberately at e1.md:76: '| `telephone` | 210 976 5432 | Recommended | «Τηλέφωνο» line, in the exact form the page prints it |'. The digit sequence required by the expectation is present; the +30 country code the same sentence requires is not, so the conjunction fails."
+  },
+  {
+   "id": "e1.8",
+   "text": "openingHoursSpecification matches the fixture: Monday–Friday opens \"08:00\" closes \"16:00\", and Saturday opens \"09:00\" closes \"14:00\"; no opening hours are asserted for Sunday in the emitted openingHoursSpecification — Sunday is either absent from it or present only as an explicitly-closed entry (opens and closes both \"00:00\"). A prose suggestion about how Sunday could be marked does not count either way; only the emitted array is graded.",
+   "verdict": "PASS",
+   "evidence": "Parsed openingHoursSpecification (e1.md:50-63) = [{'dayOfWeek':['Monday','Tuesday','Wednesday','Thursday','Friday'],'opens':'08:00','closes':'16:00'},{'dayOfWeek':'Saturday','opens':'09:00','closes':'14:00'}] — matches the fixture hours table (klimatismos-oikonomou-contact.md:18-19). Substring test: 'Sunday' in json.dumps(the array) = False, so Sunday is absent from the emitted array, which is the expectation's first permitted route. The prose at e1.md:86 discusses Sunday but adds nothing to the array, and the expectation says prose does not count either way."
+  },
+  {
+   "id": "e1.9",
+   "text": "No fabricated values appear: the fixture supplies no coordinates, ratings, or price range, so geo, aggregateRating, and priceRange are handled by the skill's missing-data rule — omitted from the emitted JSON-LD with the gap named in prose, which is the preferred remedy and what a finished deliverable does: name the property, say what leaving it out costs, and state exactly what to send. A bracketed slot survives only in a block that says it is not ready to paste and carries the standing in-fence label (\"_SKELETON\" as its first member) — the label lives inside the fence because a model copies the fence, not the heading above it — and this prompt asks for markup to install on a live URL, so a bracket token in a block presented as that markup fails the value rule. Where the bracket route is taken at all the notation is SCREAMING-KEBAB in square brackets (e.g. \"[LATITUDE]\", \"[PRICE-RANGE]\"), never any other stand-in shape. An unbracketed stand-in inside a JSON-LD value (\"TBD\", \"your latitude here\") fails, and a concrete invented number fails outright. The rule governs values inside the emitted JSON-LD only — prose that names the missing data, including an illustrative URL shown with an ellipsis, needs no brackets.",
+   "verdict": "PASS",
+   "evidence": "Membership checks on the parsed object: 'geo' = False, 'aggregateRating' = False, 'priceRange' = False, 'review' = False — all omitted. Bracket-token scan over json.dumps of the emitted object: NONE. TBD/XX/your-/'to supply'/_SKELETON scan: NONE. No invented coordinate or price appears. Gap named in prose with cost and exact ask, in a dedicated table at e1.md:90-99: geo at e1.md:97 ('...plausible-looking coordinates for the wrong side of Λεωφόρος Βουλιαγμένης are worse than none' / 'The pin you already use on your own map listing, as a latitude/longitude pair'); priceRange at e1.md:98 ('Nothing in the markup indicates the cost bracket you sit in' / 'The band you would be comfortable stating publicly'). aggregateRating is addressed at e1.md:88 ('no rating or review property appears anywhere in the block, because the page shows no ratings'). GRADING NOTE: aggregateRating gets a reason-for-absence rather than a what-to-send row, because there is nothing for the client to send; recorded in eval_improvement_feedback rather than failed, since the expectation's enumerated failure modes (bracket token in a paste-ready block, unbracketed stand-in, concrete invented number) are all absent."
+  },
+  {
+   "id": "e2.1",
+   "text": "The response contains a JSON-LD code block that parses as valid JSON.",
+   "verdict": "PASS",
+   "evidence": "json.loads of the sole ```json fence (e2.md:29-50) returns dict; trailing-comma scan = 0 matches. Parsed by the grader independently of the deliverable's own claim at e2.md:134."
+  },
+  {
+   "id": "e2.2",
+   "text": "The JSON-LD declares \"@context\": \"https://schema.org\" and exactly one top-level \"@type\": \"Product\".",
+   "verdict": "PASS",
+   "evidence": "Parsed @context='https://schema.org' (e2.md:30); container is dict (not array); top-level @type='Product' (e2.md:31) and there is exactly one top-level @type."
+  },
+  {
+   "id": "e2.3",
+   "text": "The Offer appears only nested under the Product's \"offers\" property (\"@type\": \"Offer\") — not as a separate top-level object — and no extra top-level types (Organization, BreadcrumbList, FAQPage) are stacked on the page (settled ruling R2 — its clarified boundary allows a documented auxiliary such as BreadcrumbList only where real page data warrants one, and this product fixture records no breadcrumb trail).",
+   "verdict": "PASS",
+   "evidence": "offers is a nested member of the Product with '@type':'Offer' (e2.md:39-40); seller is nested one level deeper inside offers (e2.md:45-48), not top-level. Top-level keys = ['@context','@type','name','description','sku','brand','offers'] — no Organization, BreadcrumbList or FAQPage. Breadcrumb declined for lack of data at e2.md:22: «στο αρχείο που μας στείλατε δεν φαίνεται τέτοια διαδρομή»."
+  },
+  {
+   "id": "e2.4",
+   "text": "Price-display properties are complete: offers.price, offers.priceCurrency, and offers.availability are all present, alongside the Product's required name.",
+   "verdict": "PASS",
+   "evidence": "Parsed offers.price='12.90', offers.priceCurrency='EUR', offers.availability='https://schema.org/InStock' (e2.md:42-44); Product.name present at e2.md:32. All four present."
+  },
+  {
+   "id": "e2.5",
+   "text": "The Greek price notation \"12,90 €\" is converted correctly: \"price\": \"12.90\" (decimal point, no currency symbol inside the value) with \"priceCurrency\": \"EUR\".",
+   "verdict": "PASS",
+   "evidence": "Parsed price == '12.90' — decimal point, no '€' inside the value; priceCurrency == 'EUR'. Fixture prints «Τιμή: 12,90 € (με ΦΠΑ)» (eshop-product-elaiolado.md:7). Conversion explained to the client at e2.md:68."
+  },
+  {
+   "id": "e2.6",
+   "text": "The Greek availability phrase \"Άμεσα διαθέσιμο\" is mapped to \"availability\": \"https://schema.org/InStock\".",
+   "verdict": "PASS",
+   "evidence": "Parsed availability == 'https://schema.org/InStock' (e2.md:44), mapped from the fixture's «Διαθεσιμότητα: Άμεσα διαθέσιμο» (eshop-product-elaiolado.md:8); the mapping is stated in the provenance table at e2.md:65."
+  },
+  {
+   "id": "e2.7",
+   "text": "The product name is exactly \"Εξαιρετικό Παρθένο Ελαιόλαδο Καλαμάτας ΠΟΠ 750ml\" with all diacritics intact — not transliterated to Latin script and not translated to English.",
+   "verdict": "PASS",
+   "evidence": "Programmatic equality: parsed name == 'Εξαιρετικό Παρθένο Ελαιόλαδο Καλαμάτας ΠΟΠ 750ml' returned True against the fixture heading (eshop-product-elaiolado.md:5). Greek script and every diacritic intact; no transliteration, no translation."
+  },
+  {
+   "id": "e2.8",
+   "text": "Fixture data is carried over faithfully: sku \"EL-KAL-750\", brand name \"Ελαιώνες Μεσσηνίας\", and a Greek-language description drawn from the fixture's Περιγραφή text.",
+   "verdict": "PASS",
+   "evidence": "Parsed sku == 'EL-KAL-750' (e2.md:34); brand.name == 'Ελαιώνες Μεσσηνίας' (e2.md:37). description (e2.md:33) whitespace-normalised equals the fixture's «Περιγραφή» paragraph (eshop-product-elaiolado.md:15-17) — programmatic string equality returned True."
+  },
+  {
+   "id": "e2.9",
+   "text": "Nothing is fabricated: the fixture provides no image URL, no ratings, no reviews, and no price expiry date. image is handled by the skill's missing-data rule — omitted from the emitted JSON-LD with the gap named in prose and the URL requested from the user, which is the preferred remedy and what a finished deliverable does; a bracketed slot (\"[IMAGE-URL]\", SCREAMING-KEBAB in square brackets) survives only in a block that says it is not ready to paste and carries the standing in-fence label (\"_SKELETON\" as its first member), never in a block handed over as the markup to install. An unbracketed stand-in inside a JSON-LD value fails and an invented URL fails outright. The rule governs values inside the emitted JSON-LD only — prose that names the missing data, including an illustrative URL shown with an ellipsis, needs no brackets. aggregateRating, review, and priceValidUntil carry no invented values.",
+   "verdict": "PASS",
+   "evidence": "Membership checks on the parsed object: 'image' = False, 'aggregateRating' = False, 'review' = False, and 'priceValidUntil' in offers = False. Bracket-token scan over the emitted JSON: NONE. TBD/XX/_SKELETON scan: NONE. No invented image URL. The gap is named and the URL requested in a dedicated table at e2.md:74-81 — image at e2.md:78: «Μία απόλυτη διεύθυνση (`https://www.elaiones-messinias.gr/...`) για τη φωτογραφία του μπουκαλιού … Δεν τη συμπληρώσαμε μόνοι μας μαντεύοντας τη διαδρομή του αρχείου». The illustrative URL sits in prose with an ellipsis, which the expectation explicitly permits. priceValidUntil at e2.md:79 and aggregateRating/review at e2.md:80."
+  },
+  {
+   "id": "e2.10",
+   "text": "Greek naturalness verdict — the binding greek-content-editor slot: this expectation's verdict is the binding greek-content-editor's grade on the Greek this response composes — the report prose, the implementation notes and the price-display explanation it writes in answer to this eval's Greek prompt (.claude/agents/greek-content-editor.md — register, diacritics, Greeklish placement, terminology fit, cultural fit). PASS = the grade is NATIVE or MINOR-EDITS. FAIL = the grade is NON-NATIVE or FAIL. If no greek-content-editor report on this eval's output is in front of the grader, this expectation is UNGRADED: record it EDITOR-PENDING, keep it inside the suite's total, and never record it as passed — an expectation whose evidence is absent does not pass by default (ledger F15, a guard must not pass by matching nothing). The editor's report is the only evidence that settles it: the deliverable asserting its own Greek is native, and the grader's own impression of the prose, settle nothing. The Greek strings reproduced from the fixture (product name, brand, description) are graded for exactness by expectations 7 and 8 above and are not what this expectation grades; the composed Greek is. Those required strings guarantee the deliverable always carries Greek for the editor to read, so this slot never grades an empty set.",
+   "verdict": "EDITOR-PENDING",
+   "evidence": "No greek-content-editor report on this run's e2.md was in front of the grader, so per the expectation's own instruction this is recorded EDITOR-PENDING, kept inside the total, and NOT recorded as passed. The grader screened the mechanical layer only so the editor's time goes to register and naturalness (see greek_editor_referral): anti-slop §6 families 1, 2, 5, 6, 7, 9 and 10 all screened on e2.md under LC_ALL=C.UTF-8, nothing surfaced. Family 6's net returned one hit (e2.md:151 «επιστρέφει μηδέν σφάλματα») which is hand-cleared — the rank stem `κοστίζ` is absent and 'returns zero errors' is not the costs-zero calque. Family 5's net returned 13 n-word candidates, every one hand-checked for a preverbal «δεν» in its own clause: all licensed, or verbless nominal parallels which family 5's own protected list covers. Register, naturalness, terminology fit and cultural fit remain the binding editor's call and are not graded here."
+  },
+  {
+   "id": "e3.1",
+   "text": "The skill DOES generate FAQPage JSON-LD (settled ruling R3: FAQPage is kept despite the 2026 rich-result retirement) — it does not refuse or substitute a different schema type.",
+   "verdict": "PASS",
+   "evidence": "FAQPage JSON-LD is generated (e3.md:41-78, parsed @type='FAQPage'). No refusal and no substitution — the type is recommended by name at e3.md:33 ('**Primary type (ONE per page)**: `FAQPage`'). The response declines the SERP feature the user asked for, not the markup."
+  },
+  {
+   "id": "e3.2",
+   "text": "The JSON-LD parses as valid JSON and declares \"@context\": \"https://schema.org\" with top-level \"@type\": \"FAQPage\".",
+   "verdict": "PASS",
+   "evidence": "json.loads returns dict; @context='https://schema.org' (e3.md:42); top-level @type='FAQPage' (e3.md:43); trailing-comma scan = 0."
+  },
+  {
+   "id": "e3.3",
+   "text": "Exactly one schema type is emitted for the page — no Article, BreadcrumbList, or Organization stacked alongside the FAQPage (settled ruling R2; its clarified boundary allows a documented auxiliary such as BreadcrumbList only where real page data warrants one, and this fixture records no breadcrumb trail). FAQPage is the correct single type here because the fixture is a dedicated Q&A page at /pricing/faq, which is exactly the case the skill's own worked example separates from an FAQ section inside a page that already carries an accurate type — that one would be stacking.",
+   "verdict": "PASS",
+   "evidence": "Exactly one ```json fence; container is dict; top-level keys = ['@context','@type','mainEntity'] — no Article, BreadcrumbList or Organization. Auxiliary declined for lack of data at e3.md:34. The dedicated-Q&A-page rationale the expectation describes is stated at e3.md:33."
+  },
+  {
+   "id": "e3.4",
+   "text": "mainEntity is an array of exactly 4 objects of \"@type\": \"Question\", each with a \"name\" and an \"acceptedAnswer\" of \"@type\": \"Answer\" containing \"text\".",
+   "verdict": "PASS",
+   "evidence": "Parsed mainEntity is a list of length 4; each element has @type='Question', a 'name', and an 'acceptedAnswer' with @type='Answer' and a non-empty 'text' (lengths 211, 157, 167, 157 chars). Programmatic per-element check printed all four."
+  },
+  {
+   "id": "e3.5",
+   "text": "The four question names match the fixture's headings verbatim, including \"How much does TidyBooks cost?\" and \"Do you offer a discount for annual billing?\".",
+   "verdict": "PASS",
+   "evidence": "All four question names compared programmatically against the fixture's H3 headings (faq-pricing-page.md:7,13,18,23) — four exact matches including 'How much does TidyBooks cost?' and 'Do you offer a discount for annual billing?'."
+  },
+  {
+   "id": "e3.6",
+   "text": "Each answer text matches the fixture's visible answer copy (content-match policy) — no rewritten, shortened, or invented answers, and no fifth Q&A pair added.",
+   "verdict": "PASS",
+   "evidence": "All four answer texts compared whitespace-normalised against the fixture paragraphs — four exact matches, no rewriting or shortening. Count check: 4 Question objects vs 4 fixture headings, so no fifth pair was added. The line-break join is disclosed at e3.md:88."
+  },
+  {
+   "id": "e3.7",
+   "text": "The response nowhere claims the markup is eligible for FAQ rich results, SERP dropdowns/accordions, or any Google rich-result appearance — despite the user explicitly asking for \"those FAQ dropdowns\". Labels and headers are not claims: a table header, row label, or section heading that merely names the concept (e.g. a status-table row labeled \"FAQ rich results\") does not count; only prose asserting eligibility or promising such an appearance counts as a claim — and that same assert-or-promise test governs any novel phrasing this list does not anticipate.",
+   "verdict": "PASS",
+   "evidence": "No eligibility or appearance claim anywhere. The opposite is stated in the lead: e3.md:5 ('the expandable FAQ dropdowns under your result — is not something this markup can give you') and e3.md:96 ('**Eligible for**: nothing in Google Search for an ordinary site … So this markup produces no dropdown accordion under your listing.'). The only surviving occurrence of the concept is the table row LABEL at e3.md:28 ('| FAQ | None for an ordinary site …'), which the expectation explicitly exempts. Screened for assert-or-promise phrasings across the file; none found."
+  },
+  {
+   "id": "e3.8",
+   "text": "The response states that an ordinary site gets no FAQ rich result (Google restricted them to government and health websites on 2023-08-08) and frames the markup as valid, zero-cost schema.org with NO benefit attached — neither a SERP feature nor a citation or parsing gain. Framing it as AI-engine/GEO parsing value FAILS: settled ruling R3 amendment 9a withdrew that warrant, so an expectation requiring it would fail a correct skill for being right.",
+   "verdict": "PASS",
+   "evidence": "The 2023-08-08 restriction stated at e3.md:7 ('On 8 August 2023 Google restricted FAQ rich results to well-known, authoritative government and health websites'). Valid, zero-cost framing at e3.md:12 ('valid Schema.org … it costs nothing to keep'). The benefit is refused in BOTH directions, which is what this expectation now requires: e3.md:11 ('I am not going to tell you it earns you a mention in an AI assistant\\'s answer either. Nothing I can point to establishes that in either direction') and e3.md:100 ('no engine promises to use this, and nothing establishes a citation benefit in either direction'). No AI-parsing/GEO warrant is claimed. The permission-not-recommendation distinction is drawn at e3.md:12."
+  },
+  {
+   "id": "e3.9",
+   "text": "The response does not instruct the user to monitor FAQ rich results in Search Console or to test FAQ eligibility in Google's Rich Results Test (neither route serves FAQPage — the Rich Results Test does not test it, and an ordinary site has no FAQ rich result to report on since the 2023-08-08 restriction); if validation is suggested, it points to the Schema.org validator.",
+   "verdict": "PASS",
+   "evidence": "Both banned instructions are actively countermanded, at the lines cited, read raw before reporting: e3.md:134 ('**Rich Results Test** — skip it. The tool does not test FAQPage, so running the URL through it tells you nothing about this block.') and e3.md:136 ('**Search Console** → Enhancements — nothing to watch here. With no FAQ rich result available to an ordinary site, there is no FAQ report to read'). Validation is pointed at the Schema.org validator at e3.md:131-132."
+  },
+  {
+   "id": "e4.1",
+   "text": "The response picks exactly ONE schema type for the page and says so explicitly: Event is recommended as the single type, and the user's suggestion to add both Event and Organization is declined with a one-accurate-type-per-page rationale (settled ruling R2).",
+   "verdict": "PASS",
+   "evidence": "One type picked and stated in the first line of the body, e4.md:5: '**Event, not Organization, and not both.**' The 'both' option is declined with a one-accurate-type rationale at e4.md:7 ('one version says \"this page is a workshop, run by Wildbird Yoga\", and the other says \"this page is a workshop *and also* a company\", which is not true of this page') and e4.md:9 ('no engine documents a gain from extra types')."
+  },
+  {
+   "id": "e4.2",
+   "text": "The JSON-LD parses as valid JSON and declares \"@context\": \"https://schema.org\" with a single top-level \"@type\": \"Event\" — the output is not an array containing an Organization or any second top-level object.",
+   "verdict": "PASS",
+   "evidence": "json.loads returns dict (not list); @context='https://schema.org' (e4.md:37); single top-level @type='Event' (e4.md:38). Only one ```json fence in the file. No second top-level object of any kind."
+  },
+  {
+   "id": "e4.3",
+   "text": "Required Event properties are present: name, startDate, and location.",
+   "verdict": "PASS",
+   "evidence": "Membership check on the parsed object: name, startDate and location all present (e4.md:39, :42, :47)."
+  },
+  {
+   "id": "e4.4",
+   "text": "startDate is ISO 8601 and encodes 19 September 2026 at 10:00 — the bare local form (\"2026-09-19T10:00\", with or without seconds), the same datetime with a timezone offset (e.g. \"2026-09-19T10:00:00+01:00\"), and the equivalent UTC instant with the Z designator (\"2026-09-19T09:00:00Z\") all pass; if endDate is present it encodes 13:00 on the same date.",
+   "verdict": "PASS",
+   "evidence": "Parsed startDate == '2026-09-19T10:00' — the bare local form the expectation lists first. endDate == '2026-09-19T13:00', which encodes 13:00 on the same date. The deliberate absence of an offset is explained at e4.md:92. Fixture source: workshop-event-page.md:9-10."
+  },
+  {
+   "id": "e4.5",
+   "text": "location is a Place named \"The Loft Studio\" with a PostalAddress matching the fixture: streetAddress \"14 Ropewalk Lane\", addressLocality \"Norwich\", postalCode \"NR1 3EX\", and addressCountry exactly \"GB\" (the ISO 3166-1 alpha-2 code) — \"UK\" or \"United Kingdom\" fails.",
+   "verdict": "PASS",
+   "evidence": "Parsed location == {'@type':'Place','name':'The Loft Studio','address':{'@type':'PostalAddress','streetAddress':'14 Ropewalk Lane','addressLocality':'Norwich','postalCode':'NR1 3EX','addressCountry':'GB'}} (e4.md:47-57). addressCountry is exactly 'GB'; 'UK' appears nowhere in a value position, and the reason is given to the client at e4.md:94."
+  },
+  {
+   "id": "e4.6",
+   "text": "The £35 ticket is nested as offers (\"@type\": \"Offer\") with \"price\": \"35\" or \"35.00\" and \"priceCurrency\": \"GBP\", using the booking URL from the fixture.",
+   "verdict": "PASS",
+   "evidence": "Parsed offers == {'@type':'Offer','url':'https://www.wildbirdyoga.co.uk/book/aerial-beginners-autumn','price':'35','priceCurrency':'GBP'} (e4.md:58-63). price is the accepted '35' form; the URL is the fixture's «Booking» line (workshop-event-page.md:13)."
+  },
+  {
+   "id": "e4.7",
+   "text": "Wildbird Yoga appears, if at all, only as the nested \"organizer\" property of the Event — never as a separate top-level Organization schema object.",
+   "verdict": "PASS",
+   "evidence": "'Wildbird Yoga' appears in the emitted JSON only inside organizer (e4.md:64-68), which is a nested property of the Event. Parsed top-level keys contain no second object. Stated at e4.md:7: 'it sits *inside* the Event as the `organizer`'."
+  },
+  {
+   "id": "e4.8",
+   "text": "No data is fabricated: the fixture supplies no event image, no performer, and no ticket-sale start date, so image, performer, and offers.validFrom are handled by the skill's missing-data rule — omitted from the emitted JSON-LD with the gap named in prose, which is the preferred remedy and what a finished deliverable does. The user asked for \"the final JSON-LD to paste into the page\", so that block carries resolved values only: a bracketed slot (\"[EVENT-IMAGE-URL]\", SCREAMING-KEBAB in square brackets) is correct notation only inside a block explicitly marked not ready to paste by the standing in-fence label (\"_SKELETON\" as its first member), and a skeleton is never introduced with paste-ready framing. An unbracketed stand-in inside a JSON-LD value fails and an invented value fails outright. The rule governs values inside the emitted JSON-LD only — prose that names the missing data, including an illustrative URL shown with an ellipsis, needs no brackets.",
+   "verdict": "PASS",
+   "evidence": "Membership checks: 'image' = False, 'performer' = False, 'validFrom' in offers = False — all three omitted, nothing invented. Bracket-token scan over the emitted JSON: NONE; TBD/XX/_SKELETON scan: NONE, so the paste-ready block carries resolved values only. Gaps named in prose in the table at e4.md:98-105: image at e4.md:102, performer at e4.md:105, plus two the expectation does not ask for (offers.availability e4.md:103, addressRegion e4.md:104, the latter declining a postcode-derived guess). GRADING CALL, stated because it could have gone the other way: `offers.validFrom` is omitted but is named NOWHERE in the prose — grep for 'validFrom|ticket.?sale|on sale|sale start' across e4.md returns zero lines. Graded PASS because (a) the expectation's enumerated failure modes are 'an unbracketed stand-in inside a JSON-LD value fails and an invented value fails outright', neither of which occurs, and (b) the skill's missing-data rule is scoped at SKILL.md:189 to 'a **required or recommended** property', and offers.validFrom is neither in any table in this skill — there is in fact no Event property table at all (see coverage_gaps). Failing it would mark the deliverable down for not naming a property the skill never told it to consider. Recorded in eval_improvement_feedback."
+  },
+  {
+   "id": "e5.1",
+   "text": "The corrected JSON-LD parses as valid JSON — the trailing comma after the author's \"name\" property is removed.",
+   "verdict": "PASS",
+   "evidence": "json.loads of the corrected block (e5.md:54-72) returns dict; trailing-comma scan = 0. The fixture's block was independently re-parsed by the grader and DOES fail: json.JSONDecodeError 'Expecting property name enclosed in double quotes: line 11 column 5 (char 298)', caused by the comma at blog-existing-schema.md:28 (`\"name\": \"Dana Okafor\",`). Removing that one comma makes the fixture block parse (verified: returns a 2-element array ['BlogPosting','Product']), which confirms it was the only syntax defect. The corrected output at e5.md:62 has no trailing comma."
+  },
+  {
+   "id": "e5.2",
+   "text": "The corrected output contains exactly one top-level schema object of \"@type\": \"BlogPosting\" (or \"Article\") — the stacked Product object is removed and the output is no longer an array of multiple types (settled ruling R2).",
+   "verdict": "PASS",
+   "evidence": "Parsed container is dict, not list; top-level @type == 'BlogPosting' (e5.md:56). Substring test: 'Product' does not occur anywhere in the emitted JSON. Removal stated at e5.md:20 ('Remove the block entirely') and e5.md:86 ('the second `Product` block | **removed entirely**')."
+  },
+  {
+   "id": "e5.3",
+   "text": "The response explicitly flags the Product markup as inappropriate/spammy for a blog post (schema must match visible page content; a consulting service marked up as Product on an article page violates that policy).",
+   "verdict": "PASS",
+   "evidence": "Flagged explicitly and twice. e5.md:13: 'the second block, which says this blog post is a **Product** called \"Northbeam Retail Ops Consulting\". That block describes a consulting service that is not what this page is.' e5.md:20 names it a policy problem: 'Structured data that does not match what the reader sees is a policy problem'. The correct home is given: 'it belongs on the service\\'s own page, where the type would be `Service` rather than `Product`'."
+  },
+  {
+   "id": "e5.4",
+   "text": "The response identifies all three syntax/format defects by name: the trailing comma, the non-ISO date format, and the relative image URL.",
+   "verdict": "PASS",
+   "evidence": "All three named individually in the numbered defect table: trailing comma at e5.md:19 ('Trailing comma after the author\\'s name | `\"name\": \"Dana Okafor\",`'); non-ISO date at e5.md:21 ('`\"datePublished\": \"03/12/2025\"` … Not a valid date format'); relative image URL at e5.md:22 ('`\"image\": \"/img/fulfilment-hero.jpg\"` … A relative path. Structured data needs absolute URLs')."
+  },
+  {
+   "id": "e5.5",
+   "text": "datePublished is corrected to ISO 8601 for 12 March 2025 — it begins with \"2025-03-12\", not \"2025-12-03\" (the visible byline disambiguates \"03/12/2025\").",
+   "verdict": "PASS",
+   "evidence": "Parsed datePublished == '2025-03-12' — begins '2025-03-12', not '2025-12-03'. The disambiguation is stated from the visible byline at e5.md:21 and again at e5.md:90 ('Your markup said `03/12/2025` and your page says 12 March 2025. I have followed the page'). Fixture byline: blog-existing-schema.md:9."
+  },
+  {
+   "id": "e5.6",
+   "text": "The image URL is made absolute on the site's own domain: \"https://www.northbeam-consulting.com/img/fulfilment-hero.jpg\" — not left relative and not moved to an invented domain.",
+   "verdict": "PASS",
+   "evidence": "Parsed image == 'https://www.northbeam-consulting.com/img/fulfilment-hero.jpg' — exactly the expectation's string, on the site's own domain (blog-existing-schema.md:3), not relative and not moved to an invented host. The resolution arithmetic is shown at e5.md:88 with a check-it instruction."
+  },
+  {
+   "id": "e5.7",
+   "text": "Required Article properties are present in the corrected markup: headline, image, datePublished, and author (\"@type\": \"Person\", \"name\": \"Dana Okafor\").",
+   "verdict": "PASS",
+   "evidence": "Membership checks on the parsed object: headline (e5.md:57), image (e5.md:58), datePublished (e5.md:59), author (e5.md:60-63) all present; author == {'@type':'Person','name':'Dana Okafor'}."
+  },
+  {
+   "id": "e5.8",
+   "text": "The headline value matches the visible post title exactly: \"How Mid-Market Retailers Can Cut Fulfilment Costs by 18%\".",
+   "verdict": "PASS",
+   "evidence": "Parsed headline == 'How Mid-Market Retailers Can Cut Fulfilment Costs by 18%'; substring test against the fixture's visible title (blog-existing-schema.md:7) returned True. Byte-identical, including the trailing '%'."
+  },
+  {
+   "id": "e5.9",
+   "text": "The publisher is not fabricated: publisher.name, if present, is accepted only when traceable to fixture branding (e.g. \"Northbeam Consulting\", matching the fixture's domain and existing brand markup); a publisher name not traceable to the fixture fails. publisher.logo is handled by the skill's missing-data rule — omitted from the corrected JSON-LD with the gap named in prose and explicitly requested from the user, which is the preferred remedy and what a finished deliverable does; a bracketed slot (\"[PUBLISHER-LOGO-URL]\", SCREAMING-KEBAB in square brackets) survives only in a block that says it is not ready to paste and carries the standing in-fence label (\"_SKELETON\" as its first member), which corrected markup handed back for installation is not. An unbracketed stand-in inside a JSON-LD value fails and an invented logo URL fails outright. The rule governs values inside the emitted JSON-LD only — prose that names the missing data, including an illustrative URL shown with an ellipsis, needs no brackets.",
+   "verdict": "PASS",
+   "evidence": "Parsed publisher == {'@type':'Organization','name':'Northbeam Consulting'} — traceable to the fixture in two places (the domain at blog-existing-schema.md:3 and the existing Product block's brand at :36), which is the expectation's own accepted example. Membership check: 'logo' in publisher = False, so it is omitted from the corrected block; bracket-token scan over the emitted JSON = NONE. The gap is named with its cost and an explicit request at e5.md:96: '`publisher.logo` | This is a required property, and it is the one thing still standing between this markup and a clean bill of health … The absolute URL of your logo image, no wider than 600px and no taller than 60px.' Also carried as an open checklist item at e5.md:152 and as action 2 at e5.md:168."
+  }
+ ],
+ "instrument_defects": {
+  "count": 0,
+  "statement": "No expectation in this suite was found to be broken. e1.7 was examined hardest and is NOT an instrument defect: the prior blind run satisfied the identical text on the identical fixture, which is proof of satisfiability. It is an uncarried expectation, which is a finding about the SKILL, not about the suite.",
+  "unsatisfiable_pairs_checked": "None found within the suite. The nearest miss is e1.4 (addressCountry must be 'GR') against the e1 prompt's 'use exactly the details listed there, nothing else' — the fixture never names a country. Not ruled a pair, because the expectation itself supplies the resolution and the skill carries the rule at validation-guide.md:198 ('ISO 3166-1 alpha-2 code — GR, GB, US, DE'). Recorded in eval_improvement_feedback instead. A genuine unsatisfiable pair DOES exist between the SKILL's own Output Validation and its own missing-data rule, but it is not between two expectations — see skill_level_contradictions.",
+  "adjusted_denominator": "45 — unchanged. No expectation was excluded from the pass rate."
+ },
+ "skill_level_contradictions": {
+  "note": "Findings about the skill that the suite cannot see. Each verified at source before reporting.",
+  "a_worked_example_asserts_what_the_skill_forbids": {
+   "claim": "SKILL.md:170 forbids the local-pack claim in either direction; validation-guide.md:235 — the example SKILL.md:186 routes the model to — writes the banned negative.",
+   "verdict": "CONFIRMED, and the pattern holds here.",
+   "evidence": "SKILL.md:170: '`[VERIFY]` **LocalBusiness SERP effect** — unsettled here … no Google-primary source is on file that either supports or refutes the \"Local pack, knowledge panel\" line this library has carried … **Asserting the opposite would be the same unsourced move in reverse.** Say what the markup demonstrably does … and promise no placement.' SKILL.md:186 routes to '[validation-guide.md → Rich-result eligibility note]' for 'Shape, worked examples'. validation-guide.md:235, the LocalBusiness worked example: '**Caveat**: this markup supports how the business is understood; **it does not by itself place you in the local pack**, and no placement is promised.' That is the banned negative, in the model text.",
+   "the_sharpest_part": "The SAME line contradicts itself. Its own trailing parenthetical reads '(Skill-side note, not for the deliverable: … write the caveat as above and **assert nothing either way**.)' — instructing the model to assert nothing while the caveat immediately above it asserts the negative. A model copying the example ships the banned form.",
+   "did_it_bite_this_run": "NO — and only because the executor chose the SKILL over the example. e1.md:107: 'What drives placement in the local map results specifically is not something I can evidence in either direction, so I am not going to tell you this markup does it, or that it does not.' That is the correct non-asserting form. The next executor may copy the example instead.",
+   "class": "F3's shape (an example teaching what the rule forbids), third instance today per the task brief."
+  },
+  "b_output_validation_vs_the_missing_data_rule": {
+   "claim": "SKILL.md:263 requires all Required properties present; SKILL.md:191 prescribes omitting a property that cannot be sourced.",
+   "verdict": "CONFIRMED — the checklist has no state for its own prescribed outcome.",
+   "evidence": "SKILL.md:263: '- [ ] All required properties present for chosen schema type'. SKILL.md:191: '**Omit the property and name the gap in prose** — preferred, and what a finished deliverable does.' In e2 the unsourceable property is `image` (Required for Product, validation-guide.md:172); in e5 it is `publisher.logo` (Required for Article, validation-guide.md:162). Following SKILL.md:191 produces output that cannot tick SKILL.md:263.",
+   "how_the_executor_resolved_it": "By leaving the box unticked and naming the reason — e2.md:135 '- [ ] Όλες οι υποχρεωτικές ιδιότητες παρούσες — λείπει η `image`, και είναι η μοναδική' and e5.md:152 '- [ ] All required properties present — `publisher.logo` is still missing and is the only one'. This is the honest reading and it is what a client should see, but the checklist offers no third state, so a correct deliverable must ship a failed checkbox. A 'present, or correctly absent with the gap named' wording would close it. NOT resolved here — reported for a ruling."
+  },
+  "c_skeleton_contradiction_status": {
+   "claim": "The `_SKELETON` contradiction is CLOSED at 4.2.10.",
+   "verdict": "CLOSED — confirmed, with one correction to the version attribution.",
+   "evidence": "SKILL.md:266 carries the scoped form: '**In paste-ready JSON-LD** — the default, and anything not explicitly labelled a skeleton — no unfilled slot survives … **In a skeleton the user asked for**, brackets are the correct notation and `\"_SKELETON\"` must be the object's first member … *(Scoped 2026-08-13: this read \"no unfilled slot survives in the emitted JSON-LD\" flat, which contradicted step 2's own fill-in-template route — the skill banned what it prescribed one screen earlier.)*' docs/loop/OPEN-FINDINGS.md row 63 records 'CLOSED 2026-08-17 as written — the named contradiction was resolved on 2026-08-13'. CORRECTION: the repair landed at 4.2.6 (VERSIONS.md:185), the three siblings at 4.2.9, and 4.2.10 is the fence-nesting/in-fence-label wave (VERSIONS.md:366). So the scoped form is PRESENT at 4.2.10 but was not made there. The register's pointer `SKILL.md:256` has drifted to :266 — the 4.2.10 fence repair inserted lines above it.",
+   "did_the_run_exercise_it": "No block in any of the five deliverables is a skeleton the user asked for, so the permissive half was never used. The restrictive half held perfectly: bracket-token scan over all five emitted JSON objects returns NONE."
+  }
+ },
+ "coverage_gaps": [
+  {
+   "id": "CG1",
+   "severity": "high",
+   "gap": "NO Required/Recommended property table exists for Event — CONFIRMED. validation-guide.md §125 'Required vs Recommended Properties' covers FAQPage (:127), HowTo (:138), Article (:153), Product (:167), LocalBusiness (:184), Organization (:202) and then stops at §215. SKILL.md:174 declares ten supported types, so SIX have no table: Event, BreadcrumbList, Recipe, VideoObject, SoftwareApplication, Course. e4 is an Event, so every 'Required / Recommended' label in its provenance table (e4.md:74-90) and its claim that `image` is 'the one recommended property for this type' (e4.md:102) are the executor's own construction with nothing behind them."
+  },
+  {
+   "id": "CG2",
+   "severity": "high",
+   "gap": "NO telephone-format rule anywhere in the skill. validation-guide.md:197 is the entirety: '| telephone | Recommended | Phone number |'. schema-templates.md:275 shows `\"telephone\": \"[Phone number: +1-555-555-5555]\"` — a slot value that models a country code without stating a rule. e1.7 grades international format. This is the carrier gap behind the one regression, and it is the sharpest kind: the expectation is not merely unstated, the skill's OTHER rule pushes the opposite way (SKILL.md:267 'Schema content matches visible page content exactly'), which is exactly the justification the executor wrote at e1.md:76."
+  },
+  {
+   "id": "CG3",
+   "severity": "medium",
+   "gap": "NOTHING states how to encode a closed day — CONFIRMED. grep for 'closed'/'00:00'/'dayOfWeek' across the skill and its three references returns only schema-templates.md:293 and :299, a Mon-Fri object and a Saturday object, with no closed day and no rule. The fixture prints «Κυριακή — Κλειστά». The executor chose omission (e1.md:86) and the suite anticipated the gap by permitting both routes (e1.8), so the suite is ahead of the skill here."
+  },
+  {
+   "id": "CG4",
+   "severity": "medium",
+   "gap": "NO subtype-preference rule. Three files mention subtypes — validation-guide.md:188 ('LocalBusiness or subtype'), schema-decision-tree.md:25 ('LocalBusiness (or subtype: Restaurant, HVACBusiness, HomeAndConstructionBusiness, ...)'), schema-templates.md:313 ('Use more specific types when applicable') — and none says PREFER the subtype, or when. 'When applicable' is the closest and it decides nothing. The prompt said LocalBusiness; the executor emitted HVACBusiness and offered a one-line revert (e1.md:21)."
+  },
+  {
+   "id": "CG5",
+   "severity": "medium",
+   "gap": "schema-templates.md:156 invites an unknowable assertion: `\"dateModified\": \"[ISO 8601, same precision rule - same value as published if never modified]\"`. Whether an article has ever been modified is not derivable from a fixture that does not say, so the template's own guidance produces a fabricated editorial fact. The executor refused it and said why (e5.md:97: 'I have deliberately not copied `datePublished` into this field: that would assert the post has never been touched since publication, which is a claim about your editorial history that I have no way to check'). The template still says it."
+  },
+  {
+   "id": "CG6",
+   "severity": "high",
+   "gap": "The seven-field action contract (references/action-output-contract.md, binding 2026-08-17) has ZERO carrier in this skill — grep for 'action-output-contract|acceptance criter|risk-if-done-wrong' across build/schema-markup-generator/ returns nothing but `[VERIFY]` false positives on the words 'owner-read'/'owner check'. It also has zero grader: `grep -ci 'acceptance|owner|effort|risk-if' evals.json` = 0, so no expectation in the suite grades it. Neither of the other three 2026-08-17 binding references (prohibited-tactics.md, query-cluster-ownership.md, ai-visibility-measurement.md) is referenced either."
+  },
+  {
+   "id": "CG7",
+   "severity": "medium",
+   "gap": "The action contract's role list is closed and English-only, and the file states no language rule — grep for 'greek|language|translat' in references/action-output-contract.md returns ZERO lines. references/action-output-contract.md:74 lists `Content · SEO/technical · Developer · Designer · Product/merchandising · Customer service · Legal/compliance · Agency · Client decision`. e2 is a Greek client surface and the executor translated them («Απόφαση πελάτη», «Προγραμματιστής», «Τεχνικό SEO»). Nothing tells it whether the closed list is a vocabulary to translate or a set of tokens to preserve — and the two answers have opposite consequences for a checker."
+  },
+  {
+   "id": "CG8",
+   "severity": "high",
+   "gap": "anti-slop-ruleset.md:188 declares family 7's net exempt from hand-checking — '`~~` (the double tilde is unique to this convention in the library — no hand-checking needed to spot it; the hand-check is only whether the surface is client-read)'. It is not unique. `~~text~~` is GitHub-Flavored-Markdown strikethrough and every deliverable in this library is Markdown. Reproduced at the shell on a 3-line probe: `grep -- '~~'` returned all three lines, of which only one is a connector token; the other two are ordinary strikethrough («The old price was ~~12,90 €~~», 'We ~~guarantee~~ estimate'). The false-positive class is cheaply stated — an even count of `~~` on one line is a strikethrough pair — and the same probe partitions 1/2 correctly on that rule. Either the class is stated or the uniqueness claim retires; the current text tells a grader not to look."
+  },
+  {
+   "id": "CG9",
+   "severity": "high",
+   "gap": "F18 LEAK in a required executor read. anti-slop-ruleset.md:187 (family 8's pattern column) reads: '**Short-form addition, 2026-08-17 — a measured escape, found by reading and not by grep.** Both finding-80 patterns require the literal word *ruling* or *amendment*, so the abbreviated citation `(R3 + 9a)` matched neither — and that exact string was standing inside `schema-markup-generator`'s **client-read Schema Analysis fence**.' That names THIS skill, the exact client-read surface, and the exact defect once found there. The ruleset's own boundary at :171 states: '**What is never here: the run a rule came from.** No suite name, no eval or deliverable label, no quoted expectation, no count tied to any of them.' Naming the skill plus the fence plus the defect is a run identification by any reading of that sentence — it tells the next executor of this suite where to look and what to avoid. BREACH CONFIRMED. It is not a quoted expectation, which is the narrower half of the boundary, but it is squarely 'the run a rule came from'. The provenance belongs in anti-slop-provenance.md with the rest."
+  },
+  {
+   "id": "CG10",
+   "severity": "medium",
+   "gap": "SKILL.md:263's Output Validation checkbox has no state for a correctly-absent required property — see skill_level_contradictions.b. A correct deliverable must ship a failed checkbox."
+  },
+  {
+   "id": "CG11",
+   "severity": "high",
+   "gap": "validation-guide.md:235's LocalBusiness worked example asserts the negative SKILL.md:170 forbids, and contradicts itself in the same line — see skill_level_contradictions.a."
+  },
+  {
+   "id": "CG12",
+   "severity": "low",
+   "gap": "Nothing in the skill establishes that a content mismatch on one page puts markup elsewhere on the site at risk. validation-guide.md §344 'Content Mismatch' states the violation, an example and the fix, and stops; the only nearby mention is a debugging step, validation-guide.md:416 'Check for manual actions'. Four of the five deliverables assert the site-wide exposure as fact — see defects_outside_the_graded_set D1."
+  }
+ ],
+ "defects_outside_the_graded_set": {
+  "what_was_looked_for": [
+   "fabricated statistics, quotations and attributions (F3): the four check-(h) attribution shapes plus a real-vendor/analyst name list",
+   "every number in every deliverable traced back to its fixture or recomputed",
+   "self-contradictions between two statements in the same deliverable",
+   "unresolvable template cells and leftover slots",
+   "arithmetic errors in prose (character counts, weekday claims, currency conversion)",
+   "unsourced engine-behaviour and tool-capability claims",
+   "anti-slop §6 families 1,2,5,6,7,8,9,10 (Greek families under LC_ALL=C.UTF-8)",
+   "Value Rule: bracket tokens in value positions; in-fence labels from the closed list of three",
+   "Reader Test with the 2026-08-17 carve-outs: skill slugs, framework item IDs, ruling IDs, repo paths",
+   "settled ruling R2 (schema stacking) and R3 + amendment 9a (engine claims)",
+   "prohibited-tactics compliance",
+   "seven-field action-contract compliance including the stated-absence values"
+  ],
+  "found": [
+   {
+    "id": "D1",
+    "where": "e1.md:88 · e2.md:72 · e3.md:90 · e5.md:20 and :179",
+    "severity": "HIGH",
+    "defect": "An unsourced claim about Google's enforcement scope, asserted as fact in four of the five deliverables, in the load-bearing why-you-should-care position. e5.md:20: 'Structured data that does not match what the reader sees is a policy problem, and **the exposure is not limited to this page — it puts markup elsewhere on the site at risk**.' e1.md:88: 'that is the kind of error that costs a site its markup elsewhere too.' e3.md:90: 'it is the one error in this area that reaches beyond the page it is on.' e2.md:72: «αυτού του είδους το λάθος δεν μένει τοπικό — βάζει σε κίνδυνο τη σήμανση και στις υπόλοιπες σελίδες του καταστήματος».",
+    "why_it_is_a_defect": "Nothing in the skill or its three references states it — validation-guide.md §344 gives violation/example/fix and stops. It is a claim about what a search engine DOES in response to a policy breach, stated in the indicative with no hedge, on a client surface. It may well be true of manual actions; that is not the test. The library's own standing rule is that an engine's behaviour is not asserted without a primary source (R3 amendment 9a; anti-slop family 9 in Greek).",
+    "why_no_expectation_sees_it": "Every no-fabrication expectation is scoped to values inside the emitted JSON-LD. None reaches report prose.",
+    "direction": "The claim makes the correct recommendation MORE persuasive, which is exactly why it is worth catching — a fabrication that argues for the right answer is the hardest kind to notice."
+   },
+   {
+    "id": "D2",
+    "where": "e1.md:76 vs e1.md:82",
+    "severity": "HIGH",
+    "defect": "The deliverable applies two opposite rules to the same question, five rows apart in one table. e1.md:82 normalises the country to an ISO code and justifies it: 'The two-letter country code the standard expects, read off the address itself … **It is a code for what the page already says, not a new fact**.' e1.md:76 refuses the identical normalisation for the phone: '210 976 5432 | Recommended | «Τηλέφωνο» line, **in the exact form the page prints it**.' A Greek landline printed without its country code is the same fact as `+30 210 976 5432`, exactly as Άγιος Δημήτριος is the same fact as `GR`.",
+    "why_no_expectation_sees_it": "e1.7 catches the OUTCOME (no +30) and nothing catches the INCONSISTENCY, which is the diagnosis. The two live in different expectations (e1.4 and e1.7) and no expectation reads them together.",
+    "direction": "This is the mechanism of the run's only regression, and it is why the fix is a skill rule and not a nudge."
+   },
+   {
+    "id": "D3",
+    "where": "e4.md:22 vs e4.md:102",
+    "severity": "MEDIUM",
+    "defect": "Internal contradiction about whether `image` gates Event eligibility. The eligibility table row at e4.md:22 reads '| Event | **Yes, once an image is added** | Shows the date, the venue and the ticket price beside the result |', which makes image a gate. The gap table at e4.md:102 calls it '**the one recommended property** for this type that your copy does not supply'. A recommended property does not gate eligibility. Both statements are the executor's own — CG1 shows the skill has no Event property table at all — so neither is sourced.",
+    "why_no_expectation_sees_it": "e4 has no expectation about the eligibility note's content; e4.8 grades only what is absent from the block.",
+    "direction": "Overstates what the client must do before the markup is worth shipping."
+   },
+   {
+    "id": "D4",
+    "where": "e1.md:143-144",
+    "severity": "MEDIUM",
+    "defect": "An unsourced tool-capability claim, on the page that undercuts it. e1.md:144: 'Run the live URL here as well. **This type is supported by the tool**, so it reports parse errors and any property it cannot read.' The same deliverable says at e1.md:103 '**Eligible for**: no rich result of its own that I would put in front of you', and the Rich Results Test's stated purpose in the skill is 'Check if your schema is eligible for Google rich results' (validation-guide.md:14). The skill names exactly one type-specific carve-out for that tool (FAQPage, validation-guide.md:18) and says nothing about LocalBusiness support either way.",
+    "why_no_expectation_sees_it": "Only e3.9 grades tool routing, and only for FAQPage.",
+    "direction": "Sends the client to a tool that may return nothing, on a type the same document says has no rich result."
+   },
+   {
+    "id": "D5",
+    "where": "e2.md:151, last column",
+    "severity": "MEDIUM",
+    "defect": "A stated-absence value in the wrong field. The action table's eighth column is «Κίνδυνος αν γίνει λάθος» (Risk if done wrong, field 7) and the cell reads `δεν εκτιμήθηκε — δεν υπάρχουν δεδομένα βάσης`. That is the Greek of field 4's stated-absence value. references/action-output-contract.md:24-30 assigns `not estimated — no baseline data` to Expected impact and `low — reversible, no downstream effect` to Risk if done wrong. The same row's impact cell is filled with a real mechanism, so the two are not merely swapped — one field lost its own vocabulary. The other four deliverables use the correct risk value in that slot (e1.md:167, e3.md:158, e4.md:177, e5.md:170 and :173), so this is one slip and not a systematic misreading.",
+    "why_no_expectation_sees_it": "CG6 — the contract is graded by no expectation in this suite.",
+    "direction": "Reports a risk as unmeasurable when the contract's answer is that it is low."
+   },
+   {
+    "id": "D6",
+    "where": "e2.md — the whole Greek action table, e2.md:147-154",
+    "severity": "MEDIUM-open-question",
+    "defect": "The action contract's role list is closed (references/action-output-contract.md:74) and the executor translated it: «Απόφαση πελάτη» = Client decision, «Προγραμματιστής» = Developer, «Τεχνικό SEO» = SEO/technical. Every mapping is faithful and the Greek reads as a role rather than a person, which is the substance of §3. The defect is not the choice; it is that the choice was unavoidable and unguided — see CG7. Recorded as an open question, not a fault, because a closed vocabulary with no translation rule cannot be complied with in Greek in only one way, and a checker built on the English tokens will not find these.",
+    "why_no_expectation_sees_it": "CG6.",
+    "direction": "Neutral for the client, breaking for any future automated check."
+   },
+   {
+    "id": "D7",
+    "where": "e5.md:5-11",
+    "severity": "LOW — checked and correct",
+    "defect": "A first-person process claim in client prose: 'I ran the exact text you pasted through a JSON parser before writing anything else', followed by a quoted error. The grader re-ran it independently: the fixture block DOES fail, with `json.JSONDecodeError: Expecting property name enclosed in double quotes: line 11 column 5 (char 298)`. The quoted half is exactly right, and the executor quoted only the message and NOT the line/column coordinates, which is the honest choice — inventing coordinates is the usual failure here and it did not happen. The mechanism claim at e5.md:11 ('the parser stops at the closing brace on the next line and discards the whole script tag') is correct for JSON. Named because the class matters, not because this instance is wrong."
+   },
+   {
+    "id": "D8",
+    "where": "e4.md:96 and e5.md:80",
+    "severity": "NONE — recomputed, both correct",
+    "defect": "Two volunteered arithmetic claims, both recomputed by the grader. e4.md:96 '19 September 2026 does fall on a Saturday' — datetime.date(2026,9,19).strftime('%A') = 'Saturday'. CORRECT. e5.md:80 headline '56 characters, comfortably inside the 110-character limit' — len('How Mid-Market Retailers Can Cut Fulfilment Costs by 18%') = 56, and validation-guide.md:157 sets the cap at 110. CORRECT. Recorded so the defects list is not read as 'nothing was checked here'."
+   }
+  ],
+  "notable_absences": "Named so this list is not read as everything the run was screened for. ZERO `~~category` tokens in any of the five deliverables (family 7 net run on all five). ZERO skill slugs — the net was built from .claude-plugin/plugin.json's 20 entries and run over all five files. ZERO framework item IDs (`CORE-EEAT`, `\\bCITE\\b`, `\\b[ACEIORT][0-9]{2}\\b`, `\\bEpt[0-9]{2}\\b`, `\\bExp[0-9]{2}\\b`). ZERO ruling IDs or repo paths (`ruling R[0-9]`, `amendment [0-9]`, `docs/loop/`, `references/`, and the 2026-08-17 short form `\\bR[0-9]\\b`) — notable because anti-slop-ruleset.md:187 records `(R3 + 9a)` standing in THIS skill's client-read Schema Analysis fence as the escape that forced the short-form net, and this run's five Schema Analysis sections are clean. ZERO bracket tokens in any value position of any of the five emitted JSON objects. ZERO `TBD`/`XX`/`your-`/'to supply'/`_SKELETON` in any emitted JSON. All ten HTML placement fences carry `<!-- SKELETON …` as the FIRST in-fence line, in HTML's own comment syntax, using the `SKELETON` label from the closed list of three — no `OPERATOR HANDOFF`, no unlabelled bracket fence. ZERO family-10 promises: the net returned 3 lines, of which 2 survived the rank step and both are Google's own quoted 2023 statement ('will no longer be shown regularly'), a negative, not a promise. ZERO family-9 ranked hits in the Greek deliverable. ZERO fabricated attributions: the four F13/check-(h) attribution shapes and a real-vendor/analyst name list returned no hits (the only `says ` matches are 'the page says', 'your page says'). Every number in e1, e3, e4 and e5 traced to its fixture, the skill's own reference tables, or a recomputation. ZERO prohibited tactics — and e2.md:80 and :154 actively refuse review incentivisation and review gating («χωρίς ανταμοιβή και χωρίς φιλτράρισμα των αρνητικών»), which is references/prohibited-tactics.md obeyed by a skill that does not reference it."
+ },
+ "ruling_compliance": {
+  "R2_schema_stacking": "COMPLIANT in all five. Each deliverable emits exactly one top-level JSON object — parsed containers are dict in every case, never list. Supporting entities are nested throughout: offers+seller inside Product (e2), organizer+location+offers inside Event (e4), author+publisher inside BlogPosting (e5). Every deliverable declines the available auxiliary by name for want of real page data (e1.md:22, e2.md:22, e3.md:34, e4.md:29, e5.md:45), which is R2's clarified boundary applied correctly rather than recited. e5 removes a stacked Product object, which is R2 enforced on the client's existing markup.",
+  "R3_and_amendment_9a": "COMPLIANT. e3 states only the sourced 2023-08-08 restriction (e3.md:7) and refuses a benefit claim in BOTH directions (e3.md:11, :100), which is what 9a requires and what the CURRENT e3.8 grades. No deliverable states the unverified 2026 dates that R3's own text still asserts — correct, because SKILL.md:240 and validation-guide.md:245 both instruct the skill to say only the 2023 restriction pending the owner check in docs/loop/r3-decision-brief.md. NOTE FOR THE COORDINATOR, not a finding against this run: SETTLED-RULINGS R3's headline sentence still reads 'the search appearance, the rich result report and Rich Results Test support were dropped June 2026', which the skill it governs now tells its executors not to state. The register and the skill disagree, the disagreement is documented on the skill's side, and this run followed the skill.",
+  "value_rule": "COMPLIANT. Paste-ready blocks carry resolved values only (bracket-token scan over all five emitted objects: NONE). Bracket tokens appear only inside the ten HTML placement fences, every one of which carries `<!-- SKELETON …` as its first in-fence line, in that fence's own syntax, using a label from the closed list of three.",
+  "reader_test": "COMPLIANT. No run handle of any class reaches client prose in any of the five deliverables. The 'Next actions' tables are client-addressed and contain no slugs, item IDs, ruling IDs or repo paths, so the labelled-operator-block question does not arise."
+ },
+ "seven_field_action_contract": {
+  "fact_1_is_it_carried_in_this_skill": "NO. grep over build/schema-markup-generator/ for 'action-output-contract|acceptance criter|risk-if-done-wrong' returns zero real hits; the only matches on 'owner' are 'owner-read' and 'owner check' inside `[VERIFY]` provenance notes. The skill has never heard of the contract, and neither has it heard of prohibited-tactics.md, query-cluster-ownership.md or ai-visibility-measurement.md.",
+  "fact_2_is_it_graded_by_any_expectation": "NO. Zero of the 45 expectations mention owner, acceptance criterion, effort, dependencies, risk-if-done-wrong or expected impact. `grep -ci 'acceptance|owner|effort|risk-if' evals.json` = 0.",
+  "why_the_two_facts_are_reported_separately": "Because together they would look like F13 and they are its mirror. F13's failure is an expectation grading a rule the skill never states; here neither the skill nor the suite carries it, and the deliverables comply anyway. Filing it as F13 would credit a carrier that does not exist and hide the real question, which is why an obligation binding 'every recommended action, in every deliverable' reaches this skill through no artefact at all.",
+  "what_the_run_shows_anyway": "All five deliverables added a seven-column action table with the contract's exact column set and its exact stated-absence vocabulary. 31 actions across the five files. Fields 1-3 are present and non-empty in all 31 — every acceptance criterion is observable and binary ('View-source on the live page shows one `<script type=\"application/ld+json\">` element containing `\"@type\": \"Event\"`, and no second copy anywhere in the source', e4.md:176). `Client decision` is used 12 times, which is §3's own instruction. Two defects survive: D5 (one stated-absence value in the wrong field) and D6 (the Greek translation of a closed English role list, which nothing governs). An uncarried, ungraded rule was obeyed to two slips out of 31 rows — which is evidence about this executor, not about the library, and the next one has nothing to read."
+ },
+ "arithmetic_check": {
+  "method": "Every number in every deliverable was extracted and traced to a fixture, to a table in the skill's own references, or recomputed from first principles. Every JSON fence was parsed by the grader rather than trusted.",
+  "results": [
+   "e1: tokens 00,08,09,14,16,173,43,210,976,5432,274,1998 — all in klimatismos-oikonomou-contact.md. `GR` is the only value not literally in the fixture and it is required by e1.4 and by validation-guide.md:198.",
+   "e2: 12.90 / EUR converted from «12,90 €» (eshop-product-elaiolado.md:7) — correct; 750, 0,3% and EL-KAL-750 all fixture-verbatim.",
+   "e3: 12, 29, 79, 30, 20%, 10 all from faq-pricing-page.md; 2023 (8 August) is the sourced restriction date.",
+   "e4: 2026-09-19, 10:00, 13:00, 35, GBP, 12, NR1 3EX all from workshop-event-page.md. '19 September 2026 does fall on a Saturday' RECOMPUTED = Saturday, correct. The declined `+01:00` is correctly never emitted.",
+   "e5: 2025-03-12 from the visible byline; 18% from the headline; 12-20% quoted verbatim from blog-existing-schema.md:11; 56 RECOMPUTED = 56, correct; 110 / 600 / 60 all match validation-guide.md:157 and :162.",
+   "All five ```json fences parsed independently by the grader: 5 of 5 valid, 0 trailing commas, container dict in all five."
+  ],
+  "summary": "Every derived figure in all five deliverables recomputes exactly. No arithmetic defect found."
+ },
+ "greek_editor_referral": {
+  "file": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-2026-08-17/schema-markup-generator/e2.md",
+  "expectation": "e2.10",
+  "mechanical_layer_graded_here": "Screened by the grader so the editor's time goes to register and naturalness. anti-slop §6 families run under LC_ALL=C.UTF-8: family 1 (`Όλα τα [0-9]`) nothing; family 2 (`απαιτούνται στοιχεία`, `[CLIENT DATA`, `[SOURCE NEEDED`) nothing; family 5 net returned 13 n-word candidates, each hand-checked in its own clause — all licensed by a preverbal «δεν» or verbless nominal parallels that family 5's protected list covers («Δευτερεύοντες τύποι: κανένας.», «Καμία» as a Dependencies cell); family 6 net returned 1 hit, e2.md:151 «επιστρέφει μηδέν σφάλματα», hand-cleared (the rank stem `κοστίζ` is absent and 'returns zero errors' is not the costs-zero calque); family 7 nothing across all five deliverables; family 8 nothing; family 9 net returned 6 engine-token lines and the rank step returned ZERO — e2.md:160 «καμία μηχανή αναζήτησης δεν έχει τεκμηριώσει όφελος» is a claim about published documentation, not an engine disposition, and it is carried by SKILL.md:181; family 10 nothing in Greek.",
+  "for_the_editor": [
+   "Register and naturalness of the composed Greek report prose — everything except the fixture-reproduced product name, brand and description, which expectations 7 and 8 grade for exactness.",
+   "e2.md:68 and :70, the two number-format notes — technical explanation written for a non-technical shop owner; does it read as Greek or as translated English?",
+   "e2.md:89, the eligibility caveat — «η επιλεξιμότητα δεν είναι εμφάνιση» is a coined distinction; does it land?",
+   "e2.md:147-154, the action table's translated role names («Απόφαση πελάτη», «Προγραμματιστής», «Τεχνικό SEO») — see D6/CG7. Are these the roles a Greek client would recognise, and is «Απόφαση πελάτη» a natural owner label or an English calque?",
+   "e2.md:151 «δεν εκτιμήθηκε — δεν υπάρχουν δεδομένα βάσης» — a translated stated-absence token; whether the Greek is idiomatic is a separate question from D5's field-slot error.",
+   "e2.md:154, the review-collection risk cell — «αθέμιτη εμπορική πρακτική» is a legal register; is it right for this reader?",
+   "Terminology fit throughout for «σήμανση», «μπλοκ», «διαδρομή πλοήγησης», «επικυρωτής»."
+  ]
+ },
+ "tool_correctness": {
+  "tool_errors_encountered": [
+   "None. All greps, all JSON parses, all git operations and validate-skill.sh ran first time."
+  ],
+  "checker_discipline": "Every screen printed matched evidence with file and line, never bare booleans. The one FAIL (e1.7) had its raw line read at source — e1.md:36 and e1.md:76 — before it was reported, and was then widened to a whole-file grep for '+30' to make sure the prefix was not merely elsewhere. Ledger F7 satisfied. The fence parser was written by the grader and re-derived every @type, every container type and every bracket token independently of the executor's own claims (which were correct in every case tested).",
+  "expectations_not_gradable_as_written": 0,
+  "grading_calls_that_could_have_gone_the_other_way": [
+   "e4.8 — `offers.validFrom` is omitted from the block but named nowhere in prose (grep for 'validFrom|ticket.?sale|on sale|sale start' across e4.md = zero lines), while the expectation says all three properties should be 'omitted from the emitted JSON-LD with the gap named in prose'. Graded PASS on the expectation's enumerated failure modes (all absent) plus SKILL.md:189's scoping of the missing-data rule to required-or-recommended properties, of which validFrom is neither in any table this skill has. A stricter grader would FAIL it, and the wording invites that; see eval_improvement_feedback.",
+   "e1.9 — aggregateRating gets a reason-for-absence at e1.md:88 rather than a what-to-send row like geo and priceRange. Graded PASS because there is nothing for the client to send.",
+   "e3.8 — e3.md:98 says 'Any consumer that chooses to read the page's structured data can read them', which is one step from the AI-parsing warrant the expectation now fails. Graded PASS because it asserts a capability of a hypothetical reader, not a benefit to the client, and e3.md:100 immediately refuses the benefit in both directions. This is the closest call in the suite.",
+   "e1.7 — considered and REJECTED as an instrument defect. The prior blind run satisfied the identical text on the identical fixture, which settles satisfiability."
+  ],
+  "scope_drift": "None. The grader produced no schema-markup-generator output, did not re-run the skill, did not modify any deliverable, and edited no SKILL.md, reference or tracking file. One file written: this record.",
+  "corpus_reader_check": "scripts/eval-corpus-report.sh run before reporting; this record uses the `summary` schema per F16-r1(c)."
+ },
+ "eval_improvement_feedback": [
+  {
+   "id": "EI1",
+   "expectation": "e4.8",
+   "issue": "The clause 'omitted from the emitted JSON-LD with the gap named in prose' is applied to three properties of which one — `offers.validFrom` — is neither Required nor Recommended anywhere in this skill, and Event has no property table at all (CG1). The expectation therefore demands prose about a property the skill never tells the writer to consider. Either scope the prose requirement to the properties the skill marks required/recommended, or give Event a property table so 'recommended' means something."
+  },
+  {
+   "id": "EI2",
+   "expectation": "e1.7",
+   "issue": "The expectation grades a rule the skill states nowhere (CG2), and the skill's SKILL.md:267 content-match rule pushes the opposite way. `expectation-carrier-check.sh` cannot see it — 'international format' is prose in the expectation, not a quoted phrase — which is precisely the behaviour-shaped half its own header declares it cannot find. The fix belongs in the skill (a phone-format rule beside validation-guide.md:197), not in the expectation."
+  },
+  {
+   "id": "EI3",
+   "expectation": "e1.4 vs the e1 prompt",
+   "issue": "The prompt says 'use exactly the details listed there, nothing else' and the fixture never states a country, while e1.4 requires addressCountry 'GR'. Not unsatisfiable — validation-guide.md:198 carries the alpha-2 rule and the expectation names the value — but the two sentences pull against each other and a literal-minded executor could reasonably omit the property. One clause in the prompt ('normalise codes and formats where the standard requires it') would remove the tension, and would incidentally have carried e1.7."
+  },
+  {
+   "id": "EI4",
+   "expectation": "e1.9",
+   "issue": "Three properties are named but only two can have a 'what to send'. `aggregateRating` has no data to request — the correct treatment is to say the page shows no ratings and stop, which is what the deliverable did. Consider splitting the clause so the request-what-to-send obligation attaches only to properties the client can supply."
+  },
+  {
+   "id": "EI5",
+   "expectation": "e3.8",
+   "issue": "'NO benefit attached — neither a SERP feature nor a citation or parsing gain' has to coexist with the skill's own instruction to state what the emitted properties DO (SKILL.md:186's second sentence, 'which of the emitted properties feed it'). e3.md:98 walks that line and passes, but the boundary between 'a machine can read these' and 'a parsing gain' is not drawn anywhere. Worth one sentence in the expectation, since the whole suite turns on it."
+  },
+  {
+   "id": "EI6",
+   "expectation": "suite-wide",
+   "issue": "No expectation anywhere grades the rich-result eligibility note that SKILL.md:186 makes mandatory for every schema generated ('three sentences in a fixed shape'). All five deliverables wrote one; two of them contain defects nothing could catch (D3, D4). A single expectation per eval requiring the three-part shape with no unsourced gate would cover it."
+  },
+  {
+   "id": "EI7",
+   "expectation": "suite-wide",
+   "issue": "Nothing grades report prose for unsourced engine-behaviour claims. D1 — a claim about Google's enforcement scope, in four of five deliverables — passed a suite with nine no-fabrication expectations, because every one of them is scoped to values inside the JSON. The suite's fabrication net has a hole exactly the shape of the persuasive sentence."
+  }
+ ],
+ "notes_for_coordinator": [
+  "ONE REGRESSION, e1.7, do-not-merge. It is real, it is on byte-identical expectation text with a byte-identical prompt and fixture, and the prior blind run proves it satisfiable.",
+  "The regression's cause is a coverage gap, not a lapse: the skill has never stated a phone-format rule (CG2). Increment nothing in the ledger for the executor; the F13-recurrence signature (an expectation grading a rule stated nowhere in the skill, which a prior run passed by supplying it from general knowledge) is the entry that fits, and F13-r3 is its nearest sibling — that entry's own words, 'a carrier that passes informed and fails blind was never a working carrier', apply here to a carrier that never existed and passed blind once anyway.",
+  "F18 RECURRENCE CANDIDATE, CG9: anti-slop-ruleset.md:187 names this skill, its client-read Schema Analysis fence and the defect once found there, inside a file the ledger itself puts on every blind executor's required-read list, and in direct contradiction of the same file's :171 boundary. The line is 2026-08-17 work, so the boundary was breached AFTER the guard was written. Whether it increments F18 is the coordinator's call; the breach is verified at source.",
+  "CG8 is a guard-quality finding of the F15 family: family 7's net is declared to need 'no hand-checking' and has an undeclared false-positive class (GFM strikethrough) in the exact file format every deliverable uses. Reproduced at the shell. It does not need the rule changed, only the claim.",
+  "Two skill-level contradictions are reported for a ruling and NOT resolved here: (a) validation-guide.md:235 asserting the local-pack negative that SKILL.md:170 forbids, in the worked example SKILL.md:186 routes to, and contradicting itself within the same line; (b) SKILL.md:263's Output Validation checkbox having no state for a property that SKILL.md:191 correctly prescribes omitting. (b) forced both e2 and e5 to ship a failed checkbox in order to be correct.",
+  "The `_SKELETON` item is CLOSED and verified at source. One correction: the repair landed at 4.2.6 on 2026-08-13, siblings at 4.2.9; 4.2.10 carries it but did not make it. OPEN-FINDINGS row 63's pointer `SKILL.md:256` has drifted to :266.",
+  "SETTLED-RULINGS R3's headline still asserts the June 2026 events that the skill it governs now instructs executors not to state. The skill documents the divergence (validation-guide.md:245, SKILL.md:240) and this run followed the skill. The register is the side that is stale."
+ ]
+}
