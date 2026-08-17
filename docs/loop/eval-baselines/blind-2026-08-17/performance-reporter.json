@@ -293,20 +293,54 @@
     "close_out_note": "Close-out pass 2026-08-17: drift fields filled, and the four required sections extended with per-behaviour graded/ungraded mappings, the explicit 'checked, none' for instrument defects, the six named defect screens with their results, and the derived-vs-copied split. NO verdict, count, pass_rate or convention was changed; the editor-slot convention and the prior-record comparability warning stand exactly as first written."
   },
   "regressions_vs_baseline": {
-    "status": "NOT PERFORMED - the required input was out of scope for this run, and that is reported rather than downgraded to 'none'.",
-    "prior_record_exists": "docs/loop/eval-baselines/blind-2026-08-10b/performance.json",
-    "why_not_performed": "The task brief scoped this grader to exactly one readable file under docs/loop/eval-baselines/ ('Match the shape of docs/loop/eval-baselines/blind-2026-08-13/alertmanager.json ... That is the only file under eval-baselines you may read'). A per-expectation regression comparison requires reading the prior record. It was not read, so no expectation is claimed to have regressed and none is claimed not to have.",
-    "what_is_known_from_metadata_only": {
-      "prior_record_commit": "c1c2662, 2026-08-10T17:47:48Z, subject 'docs(loop): blind performance-reporter record (28/29) and two defects no expectation reaches'",
-      "prior_headline": "28/29 = 0.9655 per that subject line; composition unknown to this grader",
-      "this_run": "27/29 = 0.9310 passed, 1 failed, 1 editor-pending"
-    },
-    "three_reasons_the_two_numbers_are_not_comparable_as_they_stand": [
-      "INSTRUMENT CHANGED. Commit 3a8d62c landed 2026-08-10T21:26:54Z - three and a half hours AFTER the prior record was committed - and rewrote e5.3 from 'mechanically checkable layer only ... that pass, not this expectation, issues the naturalness verdict' into the current text, which makes the binding editor's grade the verdict and mandates EDITOR-PENDING when no editor report is in front of the grader. Under the old wording e5.3 was gradeable by the Mode B grader; under the new one it cannot be passed here. At minimum one of the 29 slots is not comparable across the two records, and it is plausible that the whole of the 28-vs-27 difference is this.",
-      "SUBJECT CHANGED. The prior record graded the 4.2.x line; this run grades 4.5.0, after two same-day rewrites (0dfe52f, 5a1516c) that added 356 lines across SKILL.md and two references.",
-      "The suite itself is otherwise unchanged since 2026-08-10, so any expectation other than e5.3 IS comparable - which is precisely why the comparison is worth doing by someone with read access to both records."
+    "status": "PERFORMED 2026-08-17 by the stale-and-uncompared lane. This field previously read NOT PERFORMED because the grading brief scoped that grader to one unrelated record; the comparison has now been run per expectation id and this object replaces the earlier placeholder in full.",
+    "baseline": "docs/loop/eval-baselines/blind-2026-08-10b/performance.json (subject 4.1.3, method blind-execute with a split informed grader, 29 expectations, 28 passed / 1 failed = 0.9655). Its own regression_check records it as the FOUNDING blind datum for this suite: no prior blind record existed, and the 2026-08-10-e2345.json informed record at 29/29 was correctly refused as a comparand on method grounds.",
+    "comparison_performed": true,
+    "comparison_granularity": "per expectation id, both directions. The prior record keys expectations as {eval:N, n:M}; this record keys them eN.M. The mapping is mechanical (eval 1 / n 1 -> e1.1) and was applied by script over all 29, not by eye.",
+    "suite_changed_between_the_two_runs": true,
+    "suite_diff": "monitor/performance-reporter/evals/evals.json moved exactly once between the two records: 3a8d62c (author 2026-08-10T21:26:54Z, committed 21:40:26Z, 'feat(evals): library-wide sweep - the Greek editor's verdict becomes a scored slot in all 20 suites'), which landed 3h39m AFTER the prior record's commit c1c2662 (2026-08-10T17:47:48Z). Structural diff of the two JSON states (git show c1c2662:<path> vs HEAD): 28 of 29 expectation texts BYTE-IDENTICAL, one reworded (e5.3), zero added, zero removed; all five prompts byte-identical; all five expected_output byte-identical; every files[] array byte-identical. The four fixtures under evals/files/ are byte-identical across c1c2662..HEAD (empty diff) and across the prior run's own opening SHA 122bc1b..HEAD. So every movement below except e5.3 is attributable to the deliverable or to the skill, and never to rewording.",
+    "expectations_reworded": [
+      {
+        "id": "e5.3",
+        "was": "'Greek output quality ... mechanically checkable layer only: correct diacritics and final-sigma use throughout, no untranslated English boilerplate section headings ... - fluency, idiomatic naturalness, translation-ese, and register are judged by the binding greek-content-editor pass ...; that pass, not this expectation, issues the naturalness verdict.'",
+        "now": "'Greek output quality ..., mechanical layer plus the binding editor's verdict ... PASS = the mechanical clauses above hold AND the grade is NATIVE or MINOR-EDITS ... If no greek-content-editor report on this eval's output is in front of the grader, this expectation is UNGRADED: record it EDITOR-PENDING, keep it inside the suite's total, and never record it as passed.'",
+        "why": "3a8d62c made the binding editor's grade the verdict itself rather than a separate downstream pass. Under the old wording the Mode B grader could and did settle it on the mechanical layer alone; under the new one it cannot be passed without an editor report in hand.",
+        "comparison_status": "VOID. The prior record scored it PASS on the mechanical layer, which was the whole of what it then asked; this record scores it EDITOR-PENDING because no editor report exists. These are answers to two different questions and NO delta is claimed in either direction. This is the confound the record's own editor_slot_convention.comparability_warning predicted, and it is confirmed here rather than assumed."
+      }
     ],
-    "recommendation_to_the_coordinator": "Run the per-expectation diff against blind-2026-08-10b/performance.json before this record is used as a baseline, and record the e5.3 wording change in docs/loop/eval-baselines/INSTRUMENT-CHANGES.md if it is not already there. Until that is done, treat 27/29 as a fresh measurement of a rewritten skill, not as a movement."
+    "count": 1,
+    "items": [
+      {
+        "id": "e4.3",
+        "moved": "PASS -> FAIL",
+        "expectation_text_identical": true,
+        "prompt_identical": true,
+        "fixtures_identical": true,
+        "clause_that_moved": "the enumerated GSC clicks delta - 'GSC clicks 2,000 -> 2,512 +25.6%' - one of three named month-over-month figures the expectation requires the honestly-scoped alternative to carry.",
+        "then": "blind-performance-out-e4.md:162 - '| Clicks | 2,512 | 2,000 | +512 (+25.60%) |' - and again at :306 in the derivation appendix, '| Search click growth | (2,512 - 2,000) / 2,000 | +25.60% |'. The prior grader's PASS evidence cited SS4.1 L124-127 and SS4.3 L162; L162 is the row quoted here and it was re-read at source by this lane rather than taken from the prior record.",
+        "now": "modeb-2026-08-17/performance-reporter/e4.md - scripted scan for the substring '25.6' returns ZERO hits in the whole file. The Performance at a Glance table (L79-88) has six rows - organic revenue, organic sessions, organic purchases, organic conversion rate, organic share of all sessions, non-brand share of organic clicks - and no clicks row at all. The counts 2,000 -> 2,512 appear only inside the appendix segment table's Site-wide row (L177) with no percentage beside them. The other two named deltas ARE present: '+510 = **+21.4%** (510 / 2,380)' and '+7 = **+15.2%** (7 / 46)'.",
+        "arithmetic_recomputed_by_this_lane": "(2,512 - 2,000) / 2,000 = 0.256 = 25.6%. The figure the prior deliverable printed is correct; the current deliverable prints no figure.",
+        "skill_text_confounder": "PARTIAL, named rather than buried, and it does not carry the movement. The skill moved 4.1.3 -> 4.5.0 across the window, and the one new rule that could pull toward a leaner board pack is SKILL.md step 11 ('Assemble only the sections this report's audience actually receives ... Sections outside that audience's row are left out, not compressed into the pack'), with its matching Output Validation checkbox. Three things say it is not the cause. (i) Step 11 governs SECTIONS, and the missing item is one metric row inside a section the pack does include. (ii) The deliverable states its own scoping decision at L42-44 and it excludes exactly two things - 'the developer's PageSpeed check of the homepage and the query-level search detail' - neither of which is a headline clicks delta. (iii) The same executor printed '+25.6%' in e1 (L57) and in e5 (L86) from the same fixture in the same run, so the figure was available and was not withheld on principle.",
+        "verdict": "GENUINE REGRESSION. Do-not-merge class per docs/loop/PIPELINE.md: a previously-passing expectation now fails, on byte-identical expectation text, a byte-identical prompt and byte-identical fixtures.",
+        "severity_stated_honestly": "One enumerated figure omitted from an otherwise compliant deliverable that invents nothing. It is a completeness failure, not a fabrication failure, and it should be read as such - but the expectation names the three deltas explicitly and two of three is not the requirement."
+      }
+    ],
+    "statement": "ONE REGRESSION, e4.3, and it is the finding of this comparison rather than the pass rate. The pass rate hides it completely: see headline_delta.",
+    "improvements_same_comparison": [
+      {
+        "id": "e2.2",
+        "moved": "FAIL -> PASS",
+        "expectation_text_identical": true,
+        "what_moved": "The expectation requires the mix shift named with impression shares 80.0% (40,000/50,000) -> 87.1% (61,000/70,000). PRIOR: scripted scan of blind-performance-out-e2.md returns ZERO hits for '87.1' and zero for '80.0' - the prior grader's FAIL evidence is reproduced exactly by this lane's independent scan, and every share in that file is a share of clicks. NOW: e2.md:36 - 'went 40,000/50,000 = **80.0%** -> 61,000/70,000 = **87.1%**, a shift of **+7.1 pp** toward non-brand', with the per-segment shares also printed at L25 and L34.",
+        "arithmetic_recomputed_by_this_lane": "40,000/50,000 = 80.0000%; 61,000/70,000 = 87.142857% -> printed 87.1%; the shift is 7.142857 pp -> printed +7.1 pp. All three correct.",
+        "attribution": "Mixed, leaning deliverable-side. No rule in the 4.1.3 -> 4.5.0 window names impression share specifically; the closest carrier is report-output-templates.md's population discipline, which existed before. Recorded as an improvement, not as a validated carrier - per ledger F13-r3 a carrier is only demonstrated when a blind run exercises the rule that names it, and no such rule is nameable here."
+      }
+    ],
+    "unchanged_verdicts": "26 of the 29 held their prior verdict, all PASS -> PASS: e1.1-e1.7, e2.1, e2.3, e2.4, e2.5, e3.1-e3.6, e4.1, e4.2, e4.4, e4.5, e5.1, e5.2, e5.4, e5.5, e5.6. Arithmetic: 26 unchanged + 1 regression (e4.3) + 1 improvement (e2.2) + 1 void (e5.3) = 29.",
+    "headline_delta": "28/29 = 0.9655 -> 27/29 = 0.9310, -3.45 points. THE RATE IS NOT THE FINDING AND IS ACTIVELY MISLEADING HERE. On the 28 expectations that are comparable at all - everything but the reworded e5.3 - the prior record reads 27 passed / 1 failed = 0.9643 and this record reads 27 passed / 1 failed = 0.9643. THE LIKE-FOR-LIKE PASS RATE IS IDENTICAL TO FOUR DECIMAL PLACES while a different expectation fails in each run: e2.2 then, e4.3 now. A pass-rate comparison on this suite would have reported no movement and concealed both the regression and the improvement. Every figure here was recomputed by this lane: 27/28 = 0.964286, 28/29 = 0.965517, 27/29 = 0.931034.",
+    "clean_verdict": "NOT CLEAN. One genuine regression (e4.3), one improvement (e2.2), one void comparison (e5.3). The regression is do-not-merge class and outranks everything else in this record.",
+    "what_this_lane_did_not_do": "It did not re-run the skill and did not re-grade any expectation whose verdict is unchanged. The two moved verdicts and the one void were each re-read at the raw location in BOTH deliverables and quoted (ledger F7) before being recorded; the surviving 2026-08-10 deliverables under scratchpad/blind-performance-out-e*.md made that possible on the prior side rather than forcing a comparison of two records' prose about themselves.",
+    "subject_moved_too": "Recorded so the comparison is not over-read: the prior record graded 4.1.3 (verified at that record's own repo_head_at_open 122bc1b by reading the frontmatter, NOT taken from any record's prose) and this record grades 4.5.0. This record's earlier placeholder text said the prior record 'graded the 4.2.x line'; that was wrong and is corrected here to 4.1.3. HEAD's performance-reporter frontmatter is now 4.6.1, so this record is two minor versions behind its subject and is NOT current under ruling M2 regardless of anything in this field."
   },
   "suite_findings_step_7": [
     {
@@ -718,5 +752,17 @@
       "direct_relevance": "5266d39's rating-band rounding is the subject of this record's own D6 and suite finding S2 — the «Κρίσιμη» rating on a two-KPI denominator, and the undefined fifth rating value 'not rated'. The instrument this record grades against has moved underneath exactly the finding it raised, which is the case M2 exists to catch. Note also this record's headline_caution: 'the suite predates a 356-line rewrite of the skill and grades almost none of it' — the coverage gap it flags is now one wave wider.",
       "denominator_drift": "NONE. evals.json at HEAD carries 29 expectations (7/5/6/5/6), the record's total; monitor/performance-reporter/evals/ untouched since 3a8d62c (2026-08-10)."
     }
-  }
+  },
+  "post_grading_source_repairs": [
+    {
+      "id": "SR1",
+      "file": "monitor/performance-reporter/references/kpi-definitions.md:453-455",
+      "quoted_by_this_record_at": "per_eval.e1.5.evidence, which reads 'All three bands reproduced verbatim against kpi-definitions.md L453-455 (settled ruling R4)' and then quotes the DELIVERABLE's rendering: 'Good <=2.5s . Needs Improvement 2.5-4.0s . Poor >4.0s'; 'Good <=200ms . Needs Improvement 200-500ms . Poor >500ms'; 'Good <=0.1 . Needs Improvement 0.1-0.25 . Poor >0.25'.",
+      "defect_found_after_grading": "Every boundary value in that table was graded twice: <=2.5s claimed 2.5s for Good while 2.5-4.0s claimed it again for Needs Improvement, and likewise 0.1 and 200ms. That also contradicted settled ruling R4 (docs/loop/SETTLED-RULINGS.md:158, verified at source by the repairing lane), which fixes Good at LCP <=2.5s / INP <=200ms / CLS <=0.1 - and R4's own 'Encoded in repo' pointer is these very lines.",
+      "repair_applied": "2026-08-17, performance-reporter 4.6.0 -> 4.6.1. The middle band's lower bound is made exclusive - '>2.5-4.0s', '>0.1-0.25', '>200-500ms' - with a note stating the convention, the no-threshold-moves guarantee, and the per-row precision (one decimal LCP, two CLS, whole ms INP). NO ENDPOINT MOVES. Same resolution the sibling repair used at optimize/on-page-seo-auditor/references/scoring-rubric.md SS Page Speed Benchmarks.",
+      "this_record_was_NOT_rewritten_to_match": "Deliberate. The e1.5 evidence is a dated quotation of what a deliverable said on 2026-08-17 against the text that existed then, and rewriting a quotation to match a later repair would record a state nobody observed (ledger F4 / F11-r2 discipline). The quote stands as graded; this entry is the annotation that keeps it honest.",
+      "effect_on_any_verdict": "NONE, and this was checked rather than assumed. No graded value in this suite sits on a repaired boundary: the fixture's CWV values are LCP 3.1s and 2.8s, INP 205ms and 190ms, CLS 0.08. Under BOTH the old and the repaired table, 2.8 is Needs Improvement, 205 is Needs Improvement, 190 is Good and 0.08 is Good. e1.5 stays PASS and e5.5's conditional CWV clause stays untriggered. Recorded explicitly because a band repair under a record that quotes the band is exactly where a PASS/FAIL can flip on the repair rather than on behaviour - here it cannot, and that is a checked negative, not an assumption.",
+      "residual_for_the_coordinator": "monitor/performance-reporter/evals/evals.json e1.5 writes the middle band inclusively in its own prose ('2.8 s reported as improved from 3.1 s but still not Good (2.5-4.0 s = needs improvement)'). It grades no boundary value so nothing fails today, but the suite's wording now trails the repaired reference by one character. Left untouched by this lane - a grader does not edit the instrument (Mode B step 7)."
+    }
+  ]
 }

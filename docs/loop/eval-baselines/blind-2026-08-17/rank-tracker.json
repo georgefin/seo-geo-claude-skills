@@ -280,16 +280,79 @@
     }
   },
   "regressions_vs_baseline": {
-    "baseline_exists": true,
-    "baseline_path": "docs/loop/eval-baselines/blind-2026-08-10c/ranktracker.json",
-    "comparison_performed": false,
-    "why_not": "The launching task scoped this grader's reads under docs/loop/eval-baselines/ to a single file - blind-2026-08-13/alertmanager.json, 'read for structure, not for its verdicts'. The prior rank-tracker record was therefore not opened. This is recorded rather than omitted: standing Mode B step 5 makes the per-expectation regression comparison mandatory where a prior record exists, and it does exist.",
-    "required_follow_up": "The coordinator (or a grader whose brief permits the read) should diff this record's 28 verdicts against blind-2026-08-10c/ranktracker.json per expectation id. The comparison is clean to run: evals.json is byte-identical between the two runs (last changed 1a1b55d, 2026-08-10, before both), so any verdict that moved is attributable to the deliverable or to the 4.3.0 skill change and never to expectation rewording.",
-    "candidate_hotspots_for_that_diff": [
-      "e2.1 - failed here on the uncounted URL-flip clause; if it passed in the prior record this is a regression and outranks the pass rate.",
-      "e3.6 - failed here on a single arithmetic slip in Greek prose; a prior pass would make this a regression of the F3-guard family.",
-      "e3.5 - EDITOR-PENDING here; check whether the prior record used the same convention before comparing rates."
-    ]
+    "status": "PERFORMED 2026-08-17 by the stale-and-uncompared lane. This field previously read comparison_performed: false because the grading brief scoped that grader's eval-baselines reads to one unrelated file; the comparison has now been run per expectation id and this object replaces the earlier placeholder in full.",
+    "baseline": "docs/loop/eval-baselines/blind-2026-08-10c/ranktracker.json (subject 4.1.3, method blind-execute, 28 expectations, 25 passed / 3 failed = 0.8929, failed_ids e1.5 / e2.4 / e3.6). Its own regression_status records it as the founding blind datum for this suite: the only prior record was informed (2026-08-10-e2345.json, 28/28 at 4.1.1) and was correctly refused as a comparand on method grounds.",
+    "comparison_performed": true,
+    "comparison_granularity": "per expectation id, both directions, over all 28. Both records key expectations as eN.M, so the mapping is direct; the prior record's per_eval.verdicts arrays and its fails[] list were read together and reconciled against each other before any verdict was compared.",
+    "suite_changed_between_the_two_runs": true,
+    "correction_to_this_record_as_first_written": "The earlier placeholder asserted 'The comparison is clean to run: evals.json is byte-identical between the two runs (last changed 1a1b55d, 2026-08-10, before both).' THAT IS FALSE AND IS CORRECTED HERE. 1a1b55d is dated 2026-08-10T22:08:33Z and the prior record was committed at 2026-08-10T19:59:11Z (a6ca7274), with that run's own head_sha_at_close 95fc938 at 19:54:09Z - so 1a1b55d landed after the prior run AND after its record, not before both. A second commit, 3a8d62c (author 21:26:54Z), sits in the same gap. Two expectations were reworded across those two commits. The claim was recorded from the file's most-recent-commit date without checking it against the prior record's timestamp, which is exactly the class this corpus's second-read pass exists to catch: a stated number in this corpus is not evidence of itself.",
+    "suite_diff": "Structural diff of monitor/rank-tracker/evals/evals.json between the prior record's commit (a6ca7274) and HEAD: 26 of 28 expectation texts BYTE-IDENTICAL, two reworded (e1.3, e3.5), zero added, zero removed; all five prompts byte-identical; all five expected_output byte-identical; every files[] array byte-identical. The four fixtures under evals/files/ are byte-identical across a6ca7274..HEAD (empty diff). So every movement below except e3.5 is attributable to the deliverable or to the skill, and never to rewording - and e1.3, whose text moved but whose verdict did not, is flagged so a later reader does not treat its PASS -> PASS as like-for-like.",
+    "expectations_reworded": [
+      {
+        "id": "e1.3",
+        "was": "'... a report that files it under the 'Drop 1-3 positions' / 'Wait 1-2 weeks' monitor row, or ranks it below the antlia thermotitas 21<->22 wobble in priority, fails.'",
+        "now": "'... a report that files it under the size band it would otherwise fall in ('Drop 1-2 positions' / 'Wait 1-2 weeks', the monitor row), or ranks it below the antlia thermotitas 21<->22 wobble in priority, fails. The response protocol forecloses that reading outright: the page-1-exit row is read first and overrides every size row, so on the skill's own worked case 'a 1-position drop from #10 to #11 is a page-1 exit and not a monitor case'.'",
+        "why": "The 1a1b55d reconciliation sweep - 'suites that had become fossils of the bugs we fixed'. The old text named a band ('Drop 1-3 positions') the skill no longer has, and the addition states the precedence the skill had gained.",
+        "comparison_status": "NO DELTA CLAIMED. PASS in both records, but on materially different wording: the current text hands the executor the precedence rule the old text left it to infer, so a PASS here is a weaker signal than a PASS there. Recorded rather than counted."
+      },
+      {
+        "id": "e3.5",
+        "was": "'... mechanically checkable layer only: ... fluency, idiomatic naturalness, and register are judged by the binding greek-content-editor pass ... - that pass, not this expectation, issues the naturalness verdict; this expectation covers only the layer gradable from the text alone.'",
+        "now": "'... mechanical layer plus the binding editor's verdict ... PASS = the mechanical clauses above hold AND the grade is NATIVE or MINOR-EDITS ... If no greek-content-editor report on this eval's output is in front of the grader, this expectation is UNGRADED: record it EDITOR-PENDING, keep it inside the suite's total, and never record it as passed.'",
+        "why": "3a8d62c, the library-wide sweep that made the Greek editor's grade the verdict itself in all 20 suites.",
+        "comparison_status": "VOID. The prior record scored it PASS on the mechanical layer - which was the whole of what it then asked, and its editor_slot_convention says so explicitly ('COUNTED ... the mechanically-checkable layer passes on quoted evidence and is counted as PASSED'). This record scores it EDITOR-PENDING because no editor report exists. Two different questions; NO delta is claimed in either direction. The two records' editor-slot conventions therefore differ, and any rate comparison that does not exclude this slot is comparing two instruments."
+      }
+    ],
+    "count": 1,
+    "items": [
+      {
+        "id": "e2.1",
+        "moved": "PASS -> FAIL",
+        "expectation_text_identical": true,
+        "prompt_identical": true,
+        "fixtures_identical": true,
+        "clause_that_moved": "'the alternation counted as 5 URL changes across the 8 consecutive check pairs, all 5 after the 2026-06-24 publication'.",
+        "recomputed_from_the_fixture_by_this_lane": "The log holds 9 checks and therefore 8 adjacent pairs. Shown-URL by date: 06-08 category, 06-15 category, 06-22 category, 06-29 category, 07-06 blog, 07-13 category, 07-20 blog, 07-27 category, 08-03 blog. URL changes: 06-29/07-06, 07-06/07-13, 07-13/07-20, 07-20/07-27, 07-27/08-03 = FIVE, all after the 2026-06-24 publication. Both records' recomputations agree with this and with each other.",
+        "then": "blind-ranktracker-out-e2.md:101 - '**Since 2026-06-29 the two URLs have alternated on every single check** - category, blog, category, blog, category, blog.' That names SIX checks beginning 29 June, hence FIVE transitions, all of them flips and all post-publication. The numeral 5 is absent, and the prior grader said so in its own PASS evidence: 'the numeral 5 for flips appears nowhere (grep ... UNMATCHED); passed because the expectation's fact is stated in complete equivalent form and every check pair is tabulated for the reader.'",
+        "now": "modeb-2026-08-17/rank-tracker/e2.md:89-91 - 'From 6 July the log alternates perfectly - guide, category, guide, category, guide. We are flagging that as an observation and **not** building anything on it: five points alternating can happen by coincidence.' That names FIVE checks beginning 6 July, hence FOUR transitions. The first flip, 06-29 -> 07-06, sits outside the stated stretch. The 'five' in that sentence counts CHECKS, not URL changes. The numeral 5 for flips and the 8-pair denominator are both absent.",
+        "why_this_is_not_purely_a_grader_threshold_difference": "It is partly one, and the honest form is to state both halves. THE THRESHOLD DID MOVE: the prior grader accepted a complete enumeration in place of the numeral, this grader required the count (its own eval_improvement entry for e2.1 says the clause carries two readings). BUT THE DELIVERABLE MOVED TOO, and further: the prior enumeration covers all five flips, the current one covers four of five. So under the PRIOR grader's own stated standard - 'complete equivalent form' - the current deliverable fails as well, because its equivalent form is incomplete. The current deliverable fails under BOTH standards; the prior passes under one and fails under the other. That is what makes this a movement in the artefact rather than only in the ruler.",
+        "skill_text_confounder": "None found that runs toward the omission. git diff 1a1b55d..af230bb -- monitor/rank-tracker/ is SKILL.md +128/-22, ranking-analysis-templates.md +113, metric-derivations.md +41; nothing in that window removes a counting instruction or adds a rule that would discourage stating a summary count. The Metric Derivation Contract in the same window pushes the other way, toward printing derivations.",
+        "verdict": "REGRESSION. Do-not-merge class per docs/loop/PIPELINE.md. Recorded with the threshold caveat above stated in the same breath rather than in a footnote, because a reader who acts on this entry needs both halves: the artefact genuinely covers less than its predecessor, AND the expectation's wording is ambiguous enough that two competent graders could split on it.",
+        "what_would_settle_it_cheaply": "The suite fix this record already proposes under ambiguous_expectations_eval_improvement: split the count into its own clause with the failure condition stated, as e1.5 and e4.4 do. That removes the threshold half entirely and leaves only the artefact question."
+      }
+    ],
+    "statement": "ONE REGRESSION (e2.1), TWO IMPROVEMENTS (e1.5, e2.4), ONE PERSISTING FAILURE (e3.6), ONE VOID (e3.5). The headline rate moved by exactly nothing while four of the 28 verdicts changed - see headline_delta.",
+    "improvements_same_comparison": [
+      {
+        "id": "e1.5",
+        "moved": "FAIL -> PASS",
+        "expectation_text_identical": true,
+        "what_moved": "The failing conjunct was 'top-10 composition change named'. PRIOR: blind-ranktracker-out-e1.md:34 - '| Keywords in top 10 | 6 of 10 | 6 of 10 | 0 | Flat |' - a flat count with no churn note anywhere; this lane re-read the surrounding block (L32-46) and confirms no line names both keywords. NOW: e1.md:31-33 - '**Keywords in positions 1-10: 6 -> 6 (change 0).** Counted over the same 9 keywords. The composition changed even though the count did not: <<antlia thermotitas epidotisi>> came in, <<endodapedia thermansi>> went out.'",
+        "attribution": "Deliverable-side or skill-side, not separable from here. The prior record named the skill-side cause as 'ranking-analysis-templates.md:100-105 - Template 3 tabulates aggregate rows with a Change column and no rule that a flat count must name its composition', and that file gained +113 lines in the window. Whether the specific composition rule is among them was not verified by this lane, so no carrier is claimed validated (ledger F13-r3)."
+      },
+      {
+        "id": "e2.4",
+        "moved": "FAIL -> PASS",
+        "expectation_text_identical": true,
+        "what_moved": "The failing conjunct was 'with a Related Skills hand-off'. PRIOR: zero occurrences of content-refresher, serp-analysis, 'Related Skills' or any routing to a named capability in blind-ranktracker-out-e2.md - independently re-grepped by this lane and confirmed zero. The prior record diagnosed it as a CARRIER CONFLICT rather than a missing carrier: SKILL.md instructed the hand-off while anti-slop family 8 forbade a slug on a client-read surface, so the executor suppressed it everywhere. NOW: e2.md:440-451 carries a labelled operator block after the client report with content-refresher and serp-analysis rows, each with its payload, plus alert-manager and memory-management.",
+        "attribution": "SKILL-SIDE, and this is the one place in this comparison where a named carrier can be pointed at. The window's SKILL.md change adds the operator handoff block with its two-label contract and the sentence that it is 'the **only** place in the deliverable where a run handle appears' - which is precisely the rule whose absence produced the prior conflict. Per ledger F13-r3 this is a blind-EXERCISED carrier, which is the only kind the ledger accepts as evidence; note that no expectation in this suite grades the block, so the evidence comes from this comparison rather than from the instrument (see coverage_gaps CG2)."
+      }
+    ],
+    "persisting_failures_not_regressions": [
+      {
+        "id": "e3.6",
+        "moved": "FAIL -> FAIL",
+        "expectation_text_identical": true,
+        "then": "blind-ranktracker-out-e3.md:85 asserted a ranking-URL mapping the export does not supply, while the same run's own snapshot recorded the mapping as absent.",
+        "now": "e3.md:84 - '<<spora gkazon fthinoporo>> - 44 emfaniseis, mesi thesi 7,9.' followed by '**Dekapente** emfaniseis kato apo to katofli mas.' Fifteen, where the fixture gives 44 impressions against the deliverable's own stated floor of 50, so the figure is SIX. Re-read at the raw location and recomputed by this lane from monitor/rank-tracker/evals/files/gsc-queries-kipos-fysi-el.md:21 ('spora gkazon fthinoporo,2,44,7.9'): 50 - 44 = 6.",
+        "classification": "NOT A REGRESSION - it did not pass before. It is a REPEAT FAILURE of the same expectation and the same ledger class (F3, fabrication / a figure with nothing behind it) across two consecutive blind runs, with a different instance each time. For the coordinator: repeat-failure count is a loop KPI, and this is a datum for it. The two instances differ in kind - an unsupported claim then, a wrong derived figure now - so the guard is not failing in one narrow way that a single wording fix would close."
+      }
+    ],
+    "unchanged_verdicts": "24 of the 28 held their prior verdict: 23 PASS -> PASS (e1.1, e1.2, e1.3*, e1.4, e1.6, e2.2, e2.3, e2.5, e2.6, e3.1, e3.2, e3.3, e3.4, e4.1-e4.6, e5.1-e5.4) and one FAIL -> FAIL (e3.6). *e1.3's text was reworded, so its PASS -> PASS is not like-for-like - see expectations_reworded. Arithmetic: 24 unchanged + 1 regression (e2.1) + 2 improvements (e1.5, e2.4) + 1 void (e3.5) = 28.",
+    "headline_delta": "25/28 = 0.8929 -> 25/28 = 0.8929. THE HEADLINE RATE IS IDENTICAL TO FOUR DECIMAL PLACES, and four of the 28 verdicts moved underneath it: two failures closed, one new failure opened, one slot voided by a rewording. A pass-rate comparison on this suite would have reported 'no change' and concealed a do-not-merge regression, two closures and an instrument change at once. On the 26 expectations comparable at all - everything but the reworded e1.3 and e3.5 - the prior record reads 23 passed / 3 failed = 0.8846 and this record reads 24 passed / 2 failed = 0.9231, +3.85 points. Every figure here was recomputed by this lane: 25/28 = 0.892857, 23/26 = 0.884615, 24/26 = 0.923077.",
+    "clean_verdict": "NOT CLEAN. One regression (e2.1, with its threshold caveat stated in the item), two improvements, one persisting failure, one void comparison.",
+    "what_this_lane_did_not_do": "It did not re-run the skill and did not re-grade any expectation whose verdict is unchanged. Every moved verdict was re-read at the raw location in BOTH deliverables and quoted (ledger F7) before being recorded; the 2026-08-10 deliverables survive under scratchpad/blind-ranktracker-out-e*.md, so the prior side rests on the artefact rather than on a record's prose about itself. The prior record's grading.json (modeb-ranktracker-blind-2026-08-10c-grading.json) supplied the prior PASS evidence for e2.1, which the prior record's own summary does not carry.",
+    "subject_moved_too": "Recorded so the comparison is not over-read: the prior record graded 4.1.3 (verified at that record's own head_sha_at_open 36d2f18 by reading the frontmatter, NOT taken from any record's prose) and this record grades 4.3.0. HEAD's rank-tracker frontmatter is 4.3.0 as this was written, with an uncommitted 4.4.0 in another lane's working tree - so this record is current at HEAD today and will not be once that lands (ruling M2)."
   },
   "coverage_gaps": {
     "framing": "The suite is seven days older than the skill it graded. `git diff --stat 1a1b55d af230bb -- monitor/rank-tracker/` returns SKILL.md +128/-22, ranking-analysis-templates.md +113, metric-derivations.md +41, evals.json unchanged. Everything below is behaviour the skill states at 4.3.0 that no expectation in this suite can see. All five deliverables voluntarily performed most of it, so the run contains real evidence about the new rules - evidence the instrument discards.",

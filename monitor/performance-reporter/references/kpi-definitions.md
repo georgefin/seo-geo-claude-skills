@@ -450,9 +450,22 @@ it may not carry one under the other's name.
 
 | Metric | Definition | Good | Needs Improvement | Poor |
 |--------|-----------|------|-------------------|------|
-| **LCP** (Largest Contentful Paint) | Time to render largest content element | <=2.5s | 2.5-4.0s | >4.0s |
-| **CLS** (Cumulative Layout Shift) | Visual stability during page load | <=0.1 | 0.1-0.25 | >0.25 |
-| **INP** (Interaction to Next Paint) | Responsiveness to user interactions | <=200ms | 200-500ms | >500ms |
+| **LCP** (Largest Contentful Paint) | Time to render largest content element | <=2.5s | >2.5-4.0s | >4.0s |
+| **CLS** (Cumulative Layout Shift) | Visual stability during page load | <=0.1 | >0.1-0.25 | >0.25 |
+| **INP** (Interaction to Next Paint) | Responsiveness to user interactions | <=200ms | >200-500ms | >500ms |
+
+**The middle band's lower bound is exclusive.** The Good column already claims the boundary value
+with its own `<=`, so a measurement of exactly 2.5s, 0.1 or 200ms is Good and nothing else — the
+added `>` says so instead of leaving each of those three values graded twice, once as Good and
+once as Needs Improvement. **No threshold moves**, and none may: settled ruling R4
+(`docs/loop/SETTLED-RULINGS.md`) fixes Good at LCP <=2.5s / INP <=200ms / CLS <=0.1 and reopens on
+Google-primary evidence only. This is the same convention the Poor column has always used, and the
+same one `optimize/on-page-seo-auditor/references/scoring-rubric.md` § Page Speed Benchmarks uses.
+
+**Read each metric at the precision its own endpoints carry** — one decimal for LCP, two for CLS,
+whole milliseconds for INP — not harmonised to one house precision. A measurement is rounded to
+that precision, half up, before the band is read off it: 2.54s reads 2.5s and is Good, 0.104 reads
+0.10 and is Good, 200.4ms reads 200ms and is Good.
 
 **Data Source:** ~~search console (Core Web Vitals report), Chrome UX Report, PageSpeed Insights
 
