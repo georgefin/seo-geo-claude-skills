@@ -47,9 +47,21 @@
     "improvements": "NONE. No expectation moved FAIL -> PASS. Four expectations failed in both runs — e2.1, e4.3, e5.1, e5.3 — and two of them failed for a materially narrower reason this time (e5.3 missed 4 of its 5 sub-requirements in the founding run and misses 1 of 5 here; e4.3 omitted both the gains/losses input AND the collection date there, and supplies the collection date here). Neither improvement crosses the verdict line.",
     "persistent_failures_worth_more_than_the_count": "e2.1, e4.3, e5.1 and e5.3 have now failed under two independent blind executors, seven days apart, on byte-identical expectation text, with the skill unchanged in the ways these four turn on. On e2.1 and e5.1 the two runs even failed the same way: e2.1 both times left exactly one of the five flagged domains carrying the worksheet's own description in place of a named rubric element (spin-arthra-blog then, pharma-discount-24 now), and e5.1 both times omitted the 68-of-74 backlink quantification while getting the 10-domain count. A defect that survives two independent cold runs is a carrier problem or an expectation problem, not executor variance — see coverage_gaps and eval_improvement_feedback.",
     "voided_comparisons": [
-      {"id": "e2.2", "reason": "reworded 566 -> 1275 chars; the new text adds the counted-share shape, the tool-name-and-pull-date rule and the 'never an [X]/100 index' clause", "verdict_movement": "PASS -> PASS (no movement to void, recorded for completeness)"},
-      {"id": "e3.5", "reason": "reworded 693 -> 1580 chars by the library-wide editor-slot sweep; the old text scoped the expectation to the mechanical layer ONLY, the new text makes the editor's grade the verdict and mandates EDITOR-PENDING in its absence", "verdict_movement": "PASS (mechanical, prior convention) -> EDITOR-PENDING (mandated by the new text). This is a CONVENTION change, not a quality change: the mechanical layer is clean in both runs."},
-      {"id": "e4.4", "reason": "reworded 646 -> 697 chars; the old text quoted a stale 'Source of each data point clearly stated (~~link database data, ~~SEO tool data, user-provided, or estimated)' line that no longer exists in the skill (the F9-r2 stale-anchor class), the new text quotes the current Output Validation rule", "verdict_movement": "PASS -> PASS (no movement to void, recorded for completeness)"}
+      {
+        "id": "e2.2",
+        "reason": "reworded 566 -> 1275 chars; the new text adds the counted-share shape, the tool-name-and-pull-date rule and the 'never an [X]/100 index' clause",
+        "verdict_movement": "PASS -> PASS (no movement to void, recorded for completeness)"
+      },
+      {
+        "id": "e3.5",
+        "reason": "reworded 693 -> 1580 chars by the library-wide editor-slot sweep; the old text scoped the expectation to the mechanical layer ONLY, the new text makes the editor's grade the verdict and mandates EDITOR-PENDING in its absence",
+        "verdict_movement": "PASS (mechanical, prior convention) -> EDITOR-PENDING (mandated by the new text). This is a CONVENTION change, not a quality change: the mechanical layer is clean in both runs."
+      },
+      {
+        "id": "e4.4",
+        "reason": "reworded 646 -> 697 chars; the old text quoted a stale 'Source of each data point clearly stated (~~link database data, ~~SEO tool data, user-provided, or estimated)' line that no longer exists in the skill (the F9-r2 stale-anchor class), the new text quotes the current Output Validation rule",
+        "verdict_movement": "PASS -> PASS (no movement to void, recorded for completeness)"
+      }
     ]
   },
   "per_eval": [
@@ -446,5 +458,71 @@
     "e2.3 — the expectation illustrates kredit's concentration as '55.4% of the 74' while the deliverable printed '71.9% of the 57 toxic backlinks'. Both are legitimate counted shares with printed populations and the binding rule is satisfied either way, but the specific percentage reads as required on first parse. Mark it as an illustrative derivation, the way e1.4 marks its '≈83.6%'.",
     "e2.5 — 'labeled user-reported handover context' does not say WHERE. This deliverable labelled it at first mention and dropped the label in a later section (defect D3), and passed. If the label is meant to travel with every restatement, say 'labelled user-reported wherever it is restated'.",
     "SUITE-LEVEL, THE MOST ACTIONABLE ITEM: the suite grades none of the skill's three most distinctive disciplines — score derivation, the seven-field action contract, and the acquisition floor — while spending 6 of 28 expectations on no-fabrication clauses that four deliverables now satisfy comfortably. This run applied all three disciplines correctly and unprompted and scored nothing for any of them; a deliverable that dropped all three would score 28/28. That is the coverage shape most worth changing before the next wave."
-  ]
+  ],
+  "second_read": {
+    "date": "2026-08-17",
+    "reader": "second-reader narrowed pass (not a re-grade); one of four records in this lane",
+    "repo_head_at_second_read": "b5135d431aeef7910426d03c82bcf5828d6ece99",
+    "scope": "Deliberately NOT a full second grading. Three moves only: (1) recompute every figure, count, tally, percentage or derivation the record QUOTES inside its own evidence and defect entries; (2) a spelled-out-number sweep in English and Greek against the fixtures (ledger F15-r5 instance 2 — the fabrication screens in this corpus enumerate digits, so a number written as a word passes them); (3) currency at HEAD, on two independent axes — ruling M2 version currency and expectation-count drift. No expectation was re-graded and no skill, script, suite or register was edited.",
+    "f7_discipline": "Every finding below was taken to the source file and read there before it was written down. Three candidate findings were reached by recomputation or grep and then CLEARED by opening the source; they are listed under `nearly_recorded_then_cleared` because a narrowed pass that manufactures findings is worse than no pass.",
+    "move_1_numbers_recomputed": {
+      "verdict": "41 of 41 quoted figures reproduce. No arithmetic error found.",
+      "recomputed_from_the_csv_and_the_aggregate_tabs": [
+        "Top-25 CSV re-parsed: 25 rows. DR values sum to 1,217, mean 48.68 — the record's ':138 ... their DR values sum to 1,217 ÷ 25' and 'grader-recomputed sum 1,217, mean 48.68' are exact.",
+        "412 × 21 = 8,652; (8,652 − 1,217) ÷ 387 = 19.2119 → the deliverable's 19.2, and 412 − 25 = 387. The stated uncertainty band also checks: DR 21 to whole-number precision puts the true mean between 18.68 and 19.74, printed 18.7–19.7.",
+        "DR bands over 25 rows: 1 at DR≥70, 8 at 50-69, 16 below 50 — the record's '1/8/16 over 25'. 9 of 25 at DR 50+.",
+        "Traffic median 22,000 and it is the 13th of 25 by sort. Bottom six by traffic are 2,000/3,500/4,000/5,000/6,000/7,000, so 'bottom six' is correct for the 3,500/4,000/7,000 the record names.",
+        "21 of 25 first seen before March 2026 (4 fall inside the campaign window) — exact.",
+        "Anchor and profile shares: 489/1,437 = 34.03% → 34.0%; 412/1,437 = 0.2867 → 0.29; 241/1,437 = 16.77% → 16.8%; 1,308/1,437 = 91.0%. All match the fixture's own tab.",
+        "Velocity: the six months' new backlinks sum to 525; April+May = 439; 439/525 = 83.62% → the deliverable's 83.6%.",
+        "Petcare worksheet: 16 rows sum to 74 backlinks; domains 1-5 carry 41+3+2+4+7 = 57 and all five are dofollow; 74 − 57 = 17 across the remaining 11 domains. 5/16 = 31.25 → 31.3%; 57/74 = 77.03 → 77.0%; 41/57 = 71.93 → 71.9%. Every figure exact.",
+        "First-seen span of the five flagged domains: 2024-08-19 to 2024-11-07 = 80 days = 11.43 weeks, printed 'eleven weeks'. (This is also a Move-2 hit and it traces.)",
+        "Meli export: 402 + 8 − 3 = 407 and 118 + 7 − 3 = 122, both as the deliverable prints them; 118/402 = 0.29353 → 0,294; 122/407 = 0.29975 → 0,300, and the record is right that the unrounded value is BELOW the 0.3 threshold. Lost-domain DR mean (26+17+8)/3 = 17.0. Anchor split 5/2/1 of 8 = 62.5/25.0/12.5%."
+      ],
+      "the_two_contradiction_findings_re_derived_at_source": [
+        "e1.5 finding (2), 'It is the most-linked single page in the sample' is false: re-counted target URLs over the 25 CSV rows — homepage 10, /blog/ypnos-kai-ygeia 3, /category/stromata 3, and nine pages at 1, summing to 25. The record's counts are exact and the deliverable's claim at e1.md:247 is indeed contradicted by its own source data.",
+        "e1.5 finding (3), 'All three Premium-scoring links are among them' (e1.md:245): the deliverable's own table at e1.md:219-222 bands FOUR links Premium — ygeia-portal 4.7, onlife-magazine 4.4, spiti-diakosmisi-mag 4.2, guest-arthra-network 4.0. Confirmed at source. guest-arthra-network was first seen 2026-04-14, inside the campaign window, so it is not among the 21 pre-campaign links — the contradiction is real and is exactly as described.",
+        "Bonus check the record did not claim and which holds: all seven link scores in that table recompute from the printed factor scores and weights — 4.00/3.75/3.55/3.40/3.25/2.90/2.90, each ÷ 0.85 giving 4.71/4.41/4.18/4.00/3.82/3.41/3.41, printed 4.7/4.4/4.2/4.0/3.8/3.4/3.4. The renormalised weight set sums to 0.85 as stated."
+      ],
+      "the_e5_1_failure_verified_at_source_per_f7": "The record fails e5.1 for a missing '68 of the 74 reviewed backlinks' costing. Confirmed: `grep -n '68' e5.md` returns nothing at all. The '68' hits in e2.md are the consultant's '68 out of 100' toxicity score, a different object, which the record itself correctly separates. 68/74 = 91.9% → the record's '92% of the reviewed backlinks' is right.",
+      "suite_stability_claim_verified": "'all 5 evals hold the same expectation counts (6/6/7/4/5 = 28), and 25 of the 28 expectation strings are BYTE-IDENTICAL' against 2ab6854 — re-derived: counts 6/6/7/4/5 = 28, 25 byte-identical, exactly three changed (e2.2, e3.5, e4.4), all 5 prompts identical. Exact, including which three.",
+      "taken_on_trust_not_re_verified": [
+        "The Greek register judgements in the e3.5 editor-pending slot.",
+        "The qualitative link-quality factor scores themselves (whether a given source deserves relevance 4 rather than 3); only the arithmetic built on them was recomputed.",
+        "The prior-run per-expectation comparison against the founding 2026-08-10 record, which this pass did not open."
+      ]
+    },
+    "move_2_spelled_out_numbers": {
+      "result": "NO fabrication found. Every spelled-out quantity traces.",
+      "checked_and_cleared": [
+        "e2.md 'eleven weeks' — 2024-08-19 to 2024-11-07 = 11.43 weeks, from the worksheet's own first-seen column.",
+        "e1.md:63 'two months' — the April+May velocity spike, from the fixture's velocity tab.",
+        "e1.md:120 and e4.md:99 'the top ten sites' in a vertical — this is a description of what the rubric's own referring-domain band covers, and both passages exist precisely to REFUSE an industry-average reading ('nothing in this data set supports an industry-average statement'). Not an asserted external statistic.",
+        "e1.md:156 'Two of the eight benchmark rows could not be scored' with 3.0 ÷ 6 × 100 = 50 — internally consistent, and the 40/100 sensitivity at e1.md:175 recomputes as 2.0 ÷ 5 × 100.",
+        "e3.md:276 'one month' and the various 'three or more in a week' thresholds — threshold definitions, not counts of anything observed."
+      ],
+      "class_specifically_searched_for_and_absent": "No prior-engagement, other-client or unnamed-study claim in any of the five deliverables (F15-r5 instance-2 shape). Zero hits in English and Greek."
+    },
+    "move_3_currency_at_head": {
+      "version": {
+        "graded": "4.2.0",
+        "head": "4.4.0",
+        "verdict": "NOT CURRENT under ruling M2, and by two minor versions rather than one. Between them: 8555ffe (acquisition floor, review integrity, an engine claim withdrawn), fba166c (the disavow warning moved inside the file), 794724d (R3-9a sweep), 5266d39 (rating-band rounding) and 6c14e35 (+27 lines to SKILL.md and +21 to analysis-templates.md, whose message reports the backlink fabrication regression traced to a missing target-URL column in the skill's own field list — i.e. aimed at this record's e1.5 finding). The suite is re-run; no lane may waive it."
+      },
+      "denominator": {
+        "record_total": 28,
+        "head_total": 28,
+        "verdict": "CURRENT. `git diff 206f2d3..HEAD -- monitor/backlink-analyzer/evals/evals.json` is empty; the suite has not moved since 2026-08-10. 28 = 28, per-eval 6/6/7/4/5 unchanged."
+      }
+    },
+    "corrections_made": "None. No quoted number in this record is wrong.",
+    "checked_and_deliberately_not_raised_as_findings": [
+      "`summary.pass_rate` is 0.786, a 3-decimal rounding of 22/28 = 0.785714, where the three sibling records in this lane use 4 decimals (0.8276 / 0.8966 / 0.8889). 0.786 is a correct rounding and every alternative rate the summary quotes is also correct (22/27 = 0.815, 23/28 = 0.821, 24/28 = 0.857). Recorded as a precision inconsistency across the corpus, not as an error in this record, and NOT changed — rewriting a correct figure to match a sibling's convention would be a cosmetic edit to a frozen baseline.",
+      "The e1.5 evidence says the Premium table sits '32 lines earlier' than the claim at :245. Measured, the table body spans :219-:225, so it is 20-26 lines earlier and the section heading is 34 earlier; nothing is exactly 32. Every precise citation in that sentence (:245, :231, and all four Premium scores) is exact and the substantive finding is verified, so this is a loose locator phrase and not a falsified count. Left as written."
+    ],
+    "nearly_recorded_then_cleared": [
+      "`~~` connector tokens. A raw grep over the five deliverables returns EIGHT occurrences (e1.md:405, e2.md:357, e3.md:257, e4.md:195), against a record that reports the run clean on family 7 — which reads as a flat contradiction of a binding CLAUDE.md rule. Opening those four lines shows every one of them sits inside a fence opened by '# OPERATOR BLOCK — not part of the client report' (and its Greek equivalent at e3.md:252), labelled in the fence's own comment syntax. The record's claim is scoped exactly right — it says 'zero `~~` tokens on any CLIENT SURFACE' and 'all `~~` tokens ... sit inside operator fences labelled in each fence's own syntax', never zero occurrences. Under the family-7 reader test the tokens are correctly retained. Cleared, and the record's precision is the reason it survives the check."
+    ],
+    "disposition": "IT HOLDS. This is the cleanest of the four on Move 1 — 41 quoted figures, 41 reproduce, including two self-contradiction findings that required re-deriving the deliverable's own tables to confirm. Nothing corrected. NOT CURRENT on version by two minor releases."
+  }
 }

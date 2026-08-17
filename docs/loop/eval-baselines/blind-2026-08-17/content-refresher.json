@@ -664,5 +664,66 @@
    "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-refresher-grader-fences.py"
   ],
   "greek_editor_referral": "e3.md — the two publish-ready blocks §8.1 (e3.md:327-344) and §8.2 (e3.md:355-393) for register, naturalness and fluency; specifically «τραβάει η αντίσταση» (e3.md:374-375), «βγαίνει από το πόσα άτομα» (e3.md:334, 367) and «τα εισερχόμενα links» (e3.md:265). e3.5 stays EDITOR-PENDING until that report exists."
+ },
+ "second_read": {
+  "date": "2026-08-17",
+  "reader": "second-reader narrowed pass (not a re-grade); one of four records in this lane",
+  "repo_head_at_second_read": "b5135d431aeef7910426d03c82bcf5828d6ece99",
+  "scope": "Deliberately NOT a full second grading. Three moves only: (1) recompute every figure, count, tally, percentage or derivation the record QUOTES inside its own evidence and defect entries; (2) a spelled-out-number sweep in English and Greek against the fixtures (ledger F15-r5 instance 2 — the fabrication screens in this corpus enumerate digits, so a number written as a word passes them); (3) currency at HEAD, on two independent axes — ruling M2 version currency and expectation-count drift. No expectation was re-graded and no skill, script, suite or register was edited.",
+  "f7_discipline": "Every finding below was taken to the source file and read there before it was written down. Three candidate findings were reached by recomputation or grep and then CLEARED by opening the source; they are listed under `nearly_recorded_then_cleared` because a narrowed pass that manufactures findings is worse than no pass.",
+  "move_1_numbers_recomputed": {
+   "verdict": "The record claims '47 figures checked, 47 reproduce'. 45 of the 47 were re-derived here independently from the fixtures, plus 3 further counts the record quotes elsewhere. All reproduce. No arithmetic error found.",
+   "re_derived": [
+    "e1 word counts 27/62/29/46/21/25 sum to 210 = the printed body total; +21 headings = 231 as printed.",
+    "e1: 1,673 ÷ 210 = 7.9667 → printed 8.0×; 1,463 ÷ 1,673 = 87.4477% → printed 87.4%.",
+    "e1 composite (75×30)+(100×25)+(75×15)+(100×15) = 7,375; ÷85 = 86.7647 → 86.8. Renormalised display 30/85 = 35.29, 25/85 = 29.41, 15/85 = 17.65 → printed 35.3/29.4/17.6/17.6.",
+    "e1 CTR 4.1 → 2.6 = −36.5854% relative → printed −36.6%. Playbook 185 + (60-90) + 20 = 265-295 min = 4.4167-4.9167 h → 'about 4.4 to 4.9 hours', midpoint 280.",
+    "e3 word counts 27/33/18/21/34/21 = 154 = printed. 1.660 ÷ 154 = 10.7792 → 10,8×; 1.506 ÷ 1.660 = 90.7229% → 90,7%; 1.310 → 560 = −57.2519% → −57,3%.",
+    "e3 composite (75×30)+(100×25)+(100×15) = 6.250; ÷70 = 89.2857 → 89,3. Renormalised 42.86/35.71/21.43 → 42,9/35,7/21,4.",
+    "e4 all eight traffic deltas exact: −55.122, −52.821, −33.621, +3.125, −93.617, −64.773, −24.211, −13.636, −55.556, +12.745 against the printed −55.12/−52.82/−33.62/+3.125/−93.62/−64.77/−24.21/−13.64/−55.56/+12.75.",
+    "e4 composites 5,500÷70 = 78.5714, 3,125÷70 = 44.6429, 375÷70 = 5.3571 → printed 78.6/44.6/5.4. Priorities 685÷80 = 8.5625, 355÷80 = 4.4375, 315÷80 = 3.9375 → printed 8.6/4.4/3.9.",
+    "e4 effort 205-265 ×2 + 90 = 500-620 min = 8.33-10.33 h → printed 'roughly 8.3 to 10.3 hours'; difficulty mid 235 min = 3.92 h.",
+    "e2 CTR mean 226 ÷ 6 = 37.667% → printed −37.7%; page-level 0.62 ÷ 1.04 → −40.38% → printed −40.4%; composite 3,000 ÷ 85 = 35.2941 → 35.3.",
+    "e2 largest single position move |2.2 − 2.5| = 0.3, and it is genuinely the largest of the six (others 0.2/0.1/0.2/0.0/0.2) — the record's 'Largest single move: 0.3 of a position' is right, and so is 'twelve positions' (6 queries × 2 columns).",
+    "e2 'Present on 5 of the 6 queries you pulled on 6 Aug' — the fixture's manual-SERP table shows an Overview on queries 1-5 and none on query 6. Exact.",
+    "e2 '0.4 of a point past a band edge' — 40.38 against a 40 edge."
+   ],
+   "the_sharpest_count_re_derived": "The record's defect entry quotes '18 occurrences of metaphorical unlock/unlocks/the unlock across e1, e2, e4 and e5'. Re-counted at the shell: e1 = 3 (lines 54, 147, 675), e2 = 5, e3 = 0, e4 = 2 (407, 476), e5 = 8 — total exactly 18, present in exactly the four files named and absent from e3, and every one of the eleven example line numbers the record cites is a real occurrence. This is the kind of count a first reader would take on trust; it is exact.",
+   "line_citations": "228 `eN.md:LINE` citations in this record resolved against the deliverables: 228 in range, 0 dangling.",
+   "taken_on_trust_not_re_verified": [
+    "The e3.5 greek-content-editor slot's register judgements.",
+    "The eleven mechanical anti-slop screens and their live controls were not re-run; the record documents each with its control and its matched evidence, which is the standard the F15 guard asks for.",
+    "The five signals' qualitative scoring inputs; only the arithmetic built on them was recomputed."
+   ]
+  },
+  "move_2_spelled_out_numbers": {
+   "result": "One real instance, already caught by the record, plus one addition of the same class in the same location.",
+   "already_caught_by_the_record": "Defect D2 — e1.md:426-427, inside a paste-ready fence: 'Fifteen minutes a month is enough to catch a page that has started sliding, which is roughly ten months before you would notice it in a revenue figure.' Both quantities are spelled out, both are unsourced, and neither appears in any fixture — re-checked, 0 hits for 'fifteen', 'ten months' and 'conversion tracking' across all four fixture files. This is the F15-r5 instance-2 shape and this record's screen caught it without a digit to key on.",
+   "addition_found_by_this_sweep": "The SAME fence carries a third spelled-out unsourced quantity two lines earlier, at e1.md:422: 'Configure it before you start optimising, or you will spend three months improving traffic to a page that has never produced a lead.' Same class, same paste-ready block, traceable to nothing in the fixtures. It is weaker than D2's two because it is framed as a hypothetical consequence rather than asserted as a measured fact, which is why it is recorded as an extension of D2 rather than as a new defect. No verdict depends on it; e1.6's clauses do not reach drafted prose, which is D2's own stated reason.",
+   "checked_and_cleared": [
+    "'fifteen minutes' at e1.md:599 and e4.md:479 are Effort-field values in the seven-field action contract — the expected benign class, not claims.",
+    "'six months', 'two years', 'three-year', 'one-day' across e5 and e4 are cadence and snapshot descriptions traceable to the inventory fixture's date columns.",
+    "Greek cardinals in e3 were swept; every quantity traces to the Greek fixture."
+   ],
+   "class_specifically_searched_for_and_absent": "No prior-engagement, other-client or unnamed-study count anywhere in the five deliverables."
+  },
+  "move_3_currency_at_head": {
+   "version": {
+    "graded": "4.3.7",
+    "head": "4.4.0",
+    "verdict": "NOT CURRENT under ruling M2. The record already documents, honestly and under ledger F8, that SKILL.md was edited WHILE it was grading (sha256 fc80343d… at open, cd0ede1a… at close) and that its verdicts are against the open state. Two further commits have landed since: ccb1a72 (the operator-block label made visible in the rendered report) and 3ce98c9 (three carrier defects, two run-at-fault left alone, one suite defect referred). The record's own supersession note anticipates the first of these. Under M2 none of that is waivable and the suite is re-run."
+   },
+   "denominator": {
+    "record_total": 27,
+    "head_total": 27,
+    "verdict": "CURRENT. `git diff 8d342e8..HEAD -- optimize/content-refresher/evals/evals.json` is empty; the suite last moved at a76706d on 2026-08-13, before this run. 27 = 27, per-eval 6/6/6/5/4 unchanged. The record's own comparability note — compare 0.8889 against the 2026-08-13 record's secondary 24/27, not its headline 25/27 — still stands unchanged."
+   }
+  },
+  "corrections_made": "None. No quoted number in this record is wrong.",
+  "nearly_recorded_then_cleared": [
+   "The e3 word-count reconciliation. The record states that the Επιδότηση row 'reconciles only if the fixture's own editorial parenthetical ... is excluded, which is correct ... but the report does not state that exclusion'. That reads at first like a grader excusing an off-by-N. It is the opposite: the record is flagging an undisclosed convention while confirming the arithmetic, and the six section counts do sum to the printed 154. Left exactly as written — it is the honest form.",
+   "'44.6428' in arithmetic_check.e4, where 3,125 ÷ 70 = 44.642857 and rounds to 44.6429. The record truncated rather than rounded at the fourth decimal. The printed deliverable value is 44.6 under either, no verdict touches it, and correcting a fourth decimal in a frozen baseline would be noise. Recorded, not changed."
+  ],
+  "disposition": "IT HOLDS. 48 quoted figures re-derived, 48 reproduce, including the 18-occurrence count that a first reader would have taken on trust. Nothing corrected. The Move-2 sweep added one same-class instance to an existing defect entry rather than a new finding. NOT CURRENT on version; denominator sound."
  }
 }

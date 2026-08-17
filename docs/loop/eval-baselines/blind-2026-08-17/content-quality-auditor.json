@@ -406,10 +406,10 @@
     {
       "n": 1,
       "eval": "e2",
-      "severity": "HIGH — a dimension score, the GEO score and the reported final are all wrong, and the final crosses a rating band",
+      "severity": "MEDIUM-HIGH — a dimension score, the GEO score and the reported final are all wrong. [CORRECTED 2026-08-17 by the second-reader pass, DOWN from 'HIGH ... and the final crosses a rating band': the band-crossing half is false at HEAD, see why_it_matters_beyond_the_decimal.]",
       "defect": "e2 Report 1's Organization tally line contradicts its own table. The table (e2.md:126-135) grades O01 Pass, O02 Partial, O03 Fail, O04 Pass, O05 N/A, O06 Pass, O07 Fail, O08 Fail, O09 Partial, O10 Fail — 3 Pass, 2 Partial, 4 Fail. The tally line at e2.md:137 reads '4 Pass · 2 Partial · 3 Fail = 50 points over 9 scored items (500/9 = 55.56).' One Fail has been counted as a Pass.",
       "recomputation": "Correct Organization = (3×10 + 2×5) ÷ (10×9) × 100 = 40/90 = 44.44, not 55.56 — overstated by 11.11. GEO = (70.0 + 44.44 + 38.89 + 10.0)/4 = 40.83, not the 43.6 printed at e2.md:54 and :86. Weighted total = 70×0.2941 + 44.44×0.1176 + 38.89×0.1176 + 10×0.2353 + 15×0.1176 + 45×0.1176 = 39.80, not the 41.11 printed at e2.md:78 and :53.",
-      "why_it_matters_beyond_the_decimal": "39.80 sits in the Poor band (0-39... 39.80 rounds to 39.8, below the 40 floor of Low), so the page is published to the client as '41.1/100 (Low)' when its own tables say Poor. The skill's own pre-send pass would have caught it: score-arithmetic.md:139 'Each dimension score recomputes from its own item table', and :151 'Where a sentence and a table disagree, the table wins — fix the sentence.'",
+      "why_it_matters_beyond_the_decimal": "[CORRECTED 2026-08-17 by the second-reader pass. This field originally read: '39.80 sits in the Poor band (0-39... 39.80 rounds to 39.8, below the 40 floor of Low), so the page is published to the client as \"41.1/100 (Low)\" when its own tables say Poor.' That is FALSE against HEAD and must not be quoted. references/core-eeat-benchmark.md:185-197, added by commit 5266d39 at 16:51 — two hours after this record closed at 14:51 — rules the band off the ROUNDED figure: 'Round the score to a whole number, half up, and read the band off the rounded figure.' Under the rule now in force 39.80 → 40 → Low, and the benchmark's own worked example IS this number: 'A blind run produced a corrected weighted total of 39.80 and the scale had nowhere to put it.' So the corrected total and the printed total fall in the SAME band and no band is crossed. THE ARITHMETIC IS UNTOUCHED AND WAS INDEPENDENTLY RE-DERIVED: the tally at e2.md:137 is miscounted, Organization is overstated by 11.11 points (44.44 correct, 55.56 printed), GEO is wrong by 2.78 (40.83 vs 43.6) and the weighted total by 1.31 (39.80 vs 41.11). The defect is real, client-facing and ungraded at the time; only the severity that rested on the band crossing is reduced.] The skill's own pre-send pass would still have caught it: score-arithmetic.md:139 'Each dimension score recomputes from its own item table', and :151 'Where a sentence and a table disagree, the table wins — fix the sentence.'",
       "graded_by": "Nothing. e2 has no arithmetic expectation; e1.5 and e3.4 are the only two in the suite and they are scoped to their own evals. All six e2 expectations pass with this error in place.",
       "verification": "Extracted and recomputed by script from the raw item rows, then the flagged location was opened and read verbatim before this was written (ledger F7)."
     },
@@ -516,5 +516,77 @@
     ],
     "prior_baseline_compared_against": "docs/loop/eval-baselines/blind-2026-08-10/quality.json",
     "this_record": "docs/loop/eval-baselines/blind-2026-08-17/content-quality-auditor.json"
+  },
+  "second_read": {
+    "date": "2026-08-17",
+    "reader": "second-reader narrowed pass (not a re-grade); one of four records in this lane",
+    "repo_head_at_second_read": "b5135d431aeef7910426d03c82bcf5828d6ece99",
+    "scope": "Deliberately NOT a full second grading. Three moves only: (1) recompute every figure, count, tally, percentage or derivation the record QUOTES inside its own evidence and defect entries; (2) a spelled-out-number sweep in English and Greek against the fixtures (ledger F15-r5 instance 2 — the fabrication screens in this corpus enumerate digits, so a number written as a word passes them); (3) currency at HEAD, on two independent axes — ruling M2 version currency and expectation-count drift. No expectation was re-graded and no skill, script, suite or register was edited.",
+    "f7_discipline": "Every finding below was taken to the source file and read there before it was written down. Three candidate findings were reached by recomputation or grep and then CLEARED by opening the source; they are listed under `nearly_recorded_then_cleared` because a narrowed pass that manufactures findings is worse than no pass.",
+    "move_1_numbers_recomputed": {
+      "verdict": "30 quoted figures recomputed; 29 reproduce. The one that no longer holds is not an arithmetic error but a BAND reading superseded by a ruling that landed after this record closed — corrected below.",
+      "independent_re_extraction": "The record's central claim is that all 480 item grades across six reports were re-extracted by script and that 47 of 48 dimension scores reproduce. This was re-done from scratch with a different parser rather than checked by reading: all 42 tally blocks across e1, e2, e3 and e4 were re-counted row by row from the raw item tables. Result — 41 of 42 tally lines MATCH their own table, and the single mismatch is exactly the one the record names.",
+      "the_confirmed_defect": "e2 Report 1 Organization, e2.md:126-135. Re-counted independently: O01 Pass, O02 Partial, O03 Fail, O04 Pass, O05 N/A, O06 Pass, O07 Fail, O08 Fail, O09 Partial, O10 Fail = 3 Pass · 2 Partial · 4 Fail over 9 scored items. The tally line at e2.md:137 states '4 Pass · 2 Partial · 3 Fail'. Correct score = 40 ÷ 90 × 100 = 44.4444, not the printed 55.56. Recomputed downstream: GEO = (70.0 + 44.44 + 38.89 + 10.0)/4 = 40.8336, not 43.6; weighted total = 39.7961, not 41.11. Every figure in the record's `recomputation` field is exact.",
+      "other_quoted_figures_verified": [
+        "e1 page 1: C 75.0000, O 61.1111, R 72.2222, E 30.0000 → mean 59.5833 against the printed 59.6, delta 0.0167 → the record's 'delta 0.017'.",
+        "e3: C 95.0000, O 77.7778, R 77.7778, E 60.0000 → 77.6389, and the deliverable's '310.56 ÷ 4 = 77.64' reproduces.",
+        "The deliverable's own 41.11 also reproduces from its own (wrong) dimension scores — 41.1033 — so the report is internally consistent below the miscounted tally, which is what makes the defect invisible to a consistency check.",
+        "e3 confidence labels re-screened: 19 Partial/Fail item rows, 0 with no label, 0 with more than one — exactly the record's '19 ... 0 ... 0'. The five Top-5 entries at e3.md:275/:295/:311/:329/:342 are all labelled.",
+        "Quote-fidelity tallies are internally consistent: 33 verbatim + 12 non-matches = 45 spans; 26 + 10 = 36 spans.",
+        "Every `eN.md:LINE` citation in the record was resolved against the deliverables: 125 citations, 0 out of range, spot-checked contents matching.",
+        "Renormalised weight profiles: Product Review 12.5/12.5/18.75/25/25/6.25 sums to exactly 100.",
+        "Potential-gain worked examples: 100/9 × 11.76% = 1.307 → printed 1.31; 2.35+2.35+1.31+1.31 = 7.32; 50/9 × 11.76% × 4 = 2.61; 12.5% at n=9 → 1.389 → 1.39. All exact."
+      ],
+      "the_word_count_checked_at_the_shell_per_f7": "The record states 'the fixture body is 321 words (grader count)' and derives 3 hits = 9.3 per 1,000 against a 3-per-1,000 threshold. This is the tokenisation trap the brief warns about and it was tested rather than judged: `wc -w` on greek-blog-two-veto-el.md returns 52 in this environment's default (unset) locale and 324 under LC_ALL=C.UTF-8; Python `\\w+` runs return 321 over the whole file, `\\S+` runs 324, body-only 288. The 321 is reproducible. The word 'body' is imprecise — 321 is the whole-file count — but the substantive claim holds under BOTH readings: 3/321 = 9.35 per 1,000 and 3/288 = 10.42 per 1,000, i.e. 3.1× and 3.5× the threshold, so the deliverable's '~320 λέξεις' and 'τριπλάσιο' both reproduce either way. All three flagged phrases are present in the fixture exactly once. Not corrected: the number is right and the label costs no reader anything.",
+      "taken_on_trust_not_re_verified": [
+        "The e4.7 greek-content-editor slot's register judgements.",
+        "The individual item GRADES themselves — whether O03 deserves Fail rather than Partial is an auditor judgement; only the tallies and the arithmetic built on them were recomputed.",
+        "The anti-slop family 5/6/9/10 hand-checks (96 n-word candidates, 31 unlicensed) were not re-run; family 7 was, and returns 0 across all five deliverables as claimed."
+      ]
+    },
+    "move_2_spelled_out_numbers": {
+      "result": "One real instance, and the record had already found it. No NEW fabrication found.",
+      "already_caught_by_the_record": "e5.md:18 'Ninety per cent of what the score measures is exactly the part that differs between your page and a generic one' — the record's defect #2, correctly identified as an invented proportion sitting four lines from the document's own 'Nothing above is estimated or assumed'. This is precisely the F15-r5 instance-2 shape (a digit-based fabrication screen cannot see 'Ninety'), and this record's screen DID see it. Worth recording as a positive: the class is unfixed corpus-wide, and this grader caught it by reading rather than by grepping.",
+      "checked_and_cleared": [
+        "e3.md:47 'divided by ten times the number of items actually scored' — the scoring formula, not a claim.",
+        "e5.md:42 'ten minutes' — an effort estimate in an action row, the expected benign class.",
+        "The Greek deliverable e4.md was swept for Greek cardinals; every quantity traces to the fixture or to a CORE-EEAT item count."
+      ],
+      "class_specifically_searched_for_and_absent": "No prior-engagement or other-client count anywhere in the five deliverables."
+    },
+    "move_3_currency_at_head": {
+      "version": {
+        "graded": "4.5.0",
+        "head": "4.8.0",
+        "verdict": "NOT CURRENT under ruling M2, and by three minor versions — the largest version gap of the four records in this lane. b13ce22 (owner + acceptance criterion on every action), eedbeee (the score screen), ccb1a72 (the operator-block label), 5266d39 (rating-band rounding) and 39d56f1 (the quote rule at the failing cell) all landed after the graded state. The suite is re-run."
+      },
+      "denominator": {
+        "record_total": 29,
+        "head_total": 31,
+        "verdict": "DRIFTED. The suite GREW by two expectations after this record closed. This is the axis that changes what the record's number means.",
+        "established_precisely": "At the record's own close commit bd22bdc the suite held 29 expectations with sha256 972beb63…, which is byte-identical to the hash the record recorded — so the record's drift check was correct and honest at the time. eedbeee (15:10) added the two, after the record was written (14:51). All 29 graded expectations survive BYTE-IDENTICAL at HEAD and all five prompts are unchanged, so nothing the record graded was reworded; the drift is purely additive.",
+        "the_two_added": [
+          "e2.7 — a six-clause arithmetic expectation graded on both e2 reports.",
+          "e4.7 — the same instrument scoped to the BLOCK case, five clauses."
+        ],
+        "would_the_deliverables_pass_them": {
+          "e2.7": "NO — FAILS, on at least three clauses, and the expectation was evidently written from this very defect. Clause (a) is decisive and self-executing: 'Where a tally sentence and its own table disagree, the table wins: the report fails this expectation even when the tally line is internally consistent and every other figure in the report is correct.' e2.md:137 states 4/2/3 where its table shows 3/2/4. Clause (b) fails: printed Organization 55.56 against a recomputed 44.44. Clause (c) fails: printed GEO 43.6 against a recomputed 40.83. Clause (e)'s 'Both figures appear, and neither replaces the other' also fails on its face — the report prints '41.1/100 (Low)' and never the computed-plus-rounded pair. Clause (f)'s gains do reproduce.",
+          "e4.7": "YES — PASSES. Independently re-counted: all seven of e4's tally blocks match their tables row by row (0/5/5, 1/2/6, 1/1/7, 0/0/10, 0/2/8, 0/4/6, 0/0/3), every dimension score recomputes, and because e4 is the BLOCK case with no final score and no weighted total there is nothing for the band and weighted clauses to check — which the new expectation explicitly says satisfies it."
+        },
+        "indicative_effect_on_the_headline": "Recorded: 26 passed / 2 failed / 1 editor-pending of 29 = 0.8966. Against HEAD's 31-expectation suite the same deliverables read 27 passed / 3 failed / 1 editor-pending of 31 = 0.8710. So the record's 89.7% reads 87.1% at HEAD. THIS IS AN INDICATIVE CURRENCY READING, NOT A RE-GRADE: `summary` and `per_eval` are deliberately left at 29, because the two added expectations were not in the graded set when the run executed and scoring them here would be a second reader grading work against a rule written after it. The re-run that M2 already requires is where they get graded."
+      }
+    },
+    "correction_made": {
+      "field": "defects_outside_the_graded_set[0].severity and .why_it_matters_beyond_the_decimal",
+      "what_was_falsified": "The entry argued the defect's severity from a band crossing: '39.80 sits in the Poor band (0-39... 39.80 rounds to 39.8, below the 40 floor of Low), so the page is published to the client as 41.1/100 (Low) when its own tables say Poor.' That reading is superseded at HEAD.",
+      "why": "`references/core-eeat-benchmark.md:185-197`, added by 5266d39 at 16:51 — two hours AFTER this record closed at 14:51 — rules the opposite: 'Round the score to a whole number, half up, and read the band off the rounded figure.' Under the rule now in force 39.80 → 40 → Low, and the benchmark's own worked example is this very number: 'A blind run produced a corrected weighted total of 39.80 and the scale had nowhere to put it.' So the corrected total and the printed total land in the SAME band, and the 'crosses a rating band' aggravation is gone.",
+      "what_survives_untouched": "The arithmetic, all of it, independently re-derived above: the tally is miscounted, Organization is overstated by 11.11 points, GEO is wrong by 2.78 and the weighted total is wrong by 1.31. The defect is real, it is client-facing, and it was ungraded at the time. Only the band claim and the severity that rested on it are corrected. Severity moved from HIGH to MEDIUM-HIGH with the reason stated in the field.",
+      "note_on_direction": "This correction makes the record's own finding slightly less damning, which is the direction a second reader should be most willing to go and least likely to reach for. It is made because the sentence is false at HEAD and quotable, not because the defect is doubted."
+    },
+    "eval_improvement_observed_in_passing": "New clause (d) of e2.7 requires that 'any renormalised weight set sums to 100%'. The Blog Post profile renormalises 25/10/10/20/10/10 over 85, which is exactly 100% in fractions but whose printed 2-decimal values (29.41 + 11.76 + 11.76 + 23.53 + 11.76 + 11.76) sum to 99.98. A grader applying clause (d) literally to printed values would fail a correct report on a rounding artefact. The clause needs a tolerance, or should say it applies to the exact renormalisation. Raised for the coordinator; not acted on here.",
+    "nearly_recorded_then_cleared": [
+      "The 321-word count — see `move_1 ... the_word_count_checked_at_the_shell_per_f7`. Nine tokenisations disagree with each other and `wc -w` returns 52 under the default locale. Testing at the shell rather than judging showed the record's figure is reproducible and its conclusion holds under every reading. This is the brief's worked warning reproduced exactly."
+    ],
+    "disposition": "IT HOLDS on arithmetic — the record's headline claim was re-derived from scratch with an independent parser and confirmed, including the single defect it found among 480 item grades. One sentence corrected, in the direction of leniency, because a ruling landed after the record was written. NOT CURRENT on BOTH axes: version 4.5.0 vs 4.8.0, and a denominator that grew 29 → 31, which moves the honest reading from 89.7% to 87.1%."
   }
 }

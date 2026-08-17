@@ -456,7 +456,7 @@
       "an expectation demanding a settled number for one of the thirteen rows the skill's own 'Open threshold decisions' table leaves open (OPEN-FINDINGS row 65) - checked row by row against all 29 expectations: none does. No expectation reaches the DA/DR authority scale, the crawl-error 50% trigger, the four page-level traffic rows, the two citation-rate priorities, the single-daily-5xx question, the monthly referring-domain row, or any of the four prompt-level k values.",
       "an expectation whose satisfaction would breach a binding repo rule - specifically e4.4's 'hands ... to content-refresher's AI Overview recovery playbook' against the Reader Test's ban on skill slugs in client prose. NOT a defect: the playbook name is not a slug, client-language routing satisfies the clause, and a labelled in-fence operator block is the ruling's own sanctioned alternative (and is what the prior run used).",
       "two expectations in one suite that cannot both be satisfied - e2.6 (add a site-down/5xx alert) against e2.7 (invent no current site metrics): compatible. e1.3 (no unlabelled non-derived threshold) against e1.4 (-30% kept only as a labelled backstop): compatible. e5.3 against e5.4: the conflict the two previous graders raised was RULED and removed on 2026-08-17 by the carve-out now in e5.3's text.",
-      "an expectation grading a rule no skill surface states (F13/F17 shape) - each failing clause traced to its carrier before the FAIL was recorded: e2.6's site-down row to alert-configuration-templates.md L165; e3.1's uncertainty requirement to the skill's own hypothesis discipline and guide §9.3; e4.4's response path to SKILL.md L352, the guide's GEO Response path and templates L405; e4.5's tunable-defaults label to the guide's GEO section opening and SKILL.md L352. All four are carried.",
+      "an expectation grading a rule no skill surface states (F13/F17 shape) - each failing clause traced to its carrier before the FAIL was recorded: e2.6's site-down row to alert-configuration-templates.md L165; e3.1's uncertainty requirement to guide §9.3 for its re-glossing half ONLY; e4.4's response path to SKILL.md L352, the guide's GEO Response path and templates L405; e4.5's tunable-defaults label to the guide's GEO section opening and SKILL.md L352. THREE OF THE FOUR ARE CARRIED. [CORRECTED 2026-08-17 by the second-reader pass — this field originally read '... to the skill's own hypothesis discipline and guide §9.3 ... All four are carried', and that was wrong for e3.1. Re-checked at the exact graded version 61ac57a across SKILL.md and both reference files: 'hypothesis' 0 hits, 'probable' 0, 'root cause' 0, 'verification' 0, 'unverified' 0, 'leading explanation' 0 — there is no hypothesis discipline in this skill to trace to. Guide §9.3 at that version is titled 'A quoted definition is quoted once' and governs re-glossing a client's own definition, which is exactly and only what the e3.1 EVIDENCE field cites it for (reason 4). The three other traces were re-verified present at the exact lines named. The e3.1 VERDICT is unchanged and was not re-graded; what changes is its classification — e3.1 is an UNCARRIED-RULE failure, which is why commit 6c14e35 subsequently added the rule to the skill. See second_read.correction_made.]",
       "the two suite findings the prior record raised (S2 on the missing 2.5 s carrier, S3 on the missing R3 carrier): S2 is CLOSED - alert-threshold-guide.md now carries the numeric CWV boundaries beside the status words and SKILL.md states the settled set with R4 named. S3 is CLOSED - the guide's never-fired-row triage now carries the FAQ rich-result case and R3 by name."
     ],
     "found": []
@@ -687,5 +687,81 @@
       "expectation": "e3.3",
       "issue": "Resolved rather than ambiguous, recorded to close the prior record's A1. 'Verification precedes diagnosis' failed three consecutive blind runs and passes here without any change to the guide's playbooks, so the prior recommendation (add a ranking-incident playbook, or grade presence rather than position) can be reconsidered on this evidence rather than acted on."
     }
-  ]
+  ],
+  "second_read": {
+    "date": "2026-08-17",
+    "reader": "second-reader narrowed pass (not a re-grade); one of four records in this lane",
+    "repo_head_at_second_read": "b5135d431aeef7910426d03c82bcf5828d6ece99",
+    "scope": "Deliberately NOT a full second grading. Three moves only: (1) recompute every figure, count, tally, percentage or derivation the record QUOTES inside its own evidence and defect entries; (2) a spelled-out-number sweep in English and Greek against the fixtures (ledger F15-r5 instance 2 — the fabrication screens in this corpus enumerate digits, so a number written as a word passes them); (3) currency at HEAD, on two independent axes — ruling M2 version currency and expectation-count drift. No expectation was re-graded and no skill, script, suite or register was edited.",
+    "f7_discipline": "Every finding below was taken to the source file and read there before it was written down. Three candidate findings were reached by recomputation or grep and then CLEARED by opening the source; they are listed under `nearly_recorded_then_cleared` because a narrowed pass that manufactures findings is worse than no pass.",
+    "move_1_numbers_recomputed": {
+      "verdict": "35 of 35 quoted figures reproduce. No arithmetic error found.",
+      "fixture_arithmetic": [
+        "gsc-clicks-baseline six week totals recompute from their own daily cells: 1972/1971/1676/1973/1977/1943 — all six exact.",
+        "Six weekly CTRs recomputed from clicks÷impressions: 3.3767/3.4041/2.8263/3.3959/3.3508/3.3733; e1.md:219-224 prints 3.377/3.404/2.826/3.396/3.351/3.373 — exact at the rounding shown.",
+        "Weekday population: 30 cells, 29 used, mean 310.3448 → printed 310.3; sample sd 11.9082 → printed 11.9 (e1.md:38). Weekend: 12 cells, mean 205.9167 → 205.9, sd 11.4134 → 11.4. Weekly: mean 1967.2, sample sd 13.7186 → 13.7. All as printed.",
+        "CTR baseline mean 3.3802 → printed 3.380; sd 0.0209 → printed 0.021; aggregate 9,836 ÷ 291,000 = 3.3801% → 3.380% — the two routes agree as the deliverable claims.",
+        "Fire log: 118+9+0+0+0+0+1+28+4 = 160 fires; 6+1+0+0+0+0+1+2+0 = 10 actionable. 150/160 = 93.75 → 93.8%; 112/118 = 94.92 → 94.9%; 8/9 = 88.89%; 26/28 = 92.86 → 92.9%; 4/4 = 100%; 0/1 = 0%; rows 1+8 = 146/160 = 91.25 → 91.3% carrying 8 of the 10 actionable. Every one exact.",
+        "e3 incident: 3 of 12 keywords moved, deltas 12/13/10 (4→16, 6→19, 5→15), all on /trofes-skylou/ — exact. The 8 stable keywords have five-day ranges of 0/1/1/1/2/1/2/1, so 'no stable keyword moved more than 2 positions' holds.",
+        "e3 500-count citations 05/08=44 and 06/08=51 match the fixture rows exactly.",
+        "e4 citation window recount from the brief: exactly 5 priority-1 rows; exactly 2 yes→no flips (ξηρά τροφή σκύλου, τροφή κουταβιού); exactly 1 no→yes win (ενυδρείο για αρχάριους); the never-cited grain-free row correctly excluded. 2 < 3, so the cluster rung is correctly refused."
+      ],
+      "deliverable_internal_tallies": [
+        "e4.md:220-229 alert-count table recounted cell by cell: rows 4/7/18/0/0/13/2 = 44; columns 8/16/18/2 = 44; every row's own cells sum to its stated total. 44 − 13 = 31 live (e4.md:231). P0 column = 8, matching 'Only 8 of the 44 can ever reach a phone' (e4.md:235). The record's claim reconciles both ways, as stated.",
+        "Cross-check the record did not make and which holds: the GEO category's 13 = 9 citation rows (e4.md:180-188) + 4 prompt-level rows, so the category total reconciles with the sections beneath it.",
+        "e2.md:307-318's sibling table also reconciles (rows 4/3/10/4/0/0/1 = 22; columns 4/10/7/1 = 22; 22 − 6 CWV = 16 live). Ungraded and unquoted by the record; checked because the record's claim had to be scoped to the right eval.",
+        "e4 traffic ladder recomputed from mean 1,967 / sd 13: 1,954 / 1,947.5 / 1,941 / 1,928 and the +1.5sd spike bound 1,986.5 — all exact against e4.md:113-117. Derived percentages: 19.5/1967 = 0.99% (printed '1.0% shortfall') and 39/1967 = 1.98% (printed '2.0% weekly drop').",
+        "e5 row counts recounted from the section tables: 15 ranking rows, 24 technical rows (22 minus the 2 index-coverage rows held to week 6), 2 traffic boundary rows, 6 percentage steps in §4 — every one matching the §8 summary at e5.md:283-284.",
+        "Scripted scans re-run: e2 returns 0 hits for 'site down', 'site-down', 'Site unreachable', '5xx', 'uptime', 'unreachable', 'downtime', 'server error'. e4 returns 0 for 'content-refresher', 'recovery playbook', 'AI Overview recovery', 'refresh', 'operator block'. 'proposed default' returns exactly 1 hit, in e4 only, at the line the record names.",
+        "Suite-stability claim '27 of 29 expectation texts byte-identical between the two runs' verified against the suite blobs: 27 identical, e2.3 and e5.3 changed, all 5 prompts identical. Exact."
+      ],
+      "taken_on_trust_not_re_verified": [
+        "The Greek register and naturalness judgements in the e3.5 editor-pending slot — outside a second reader's remit and correctly referred to the greek-content-editor.",
+        "The qualitative reasoning in each PASS verdict. Only quoted quantities were recomputed.",
+        "The prior-run comparisons against blind-2026-08-11, which this pass did not open (the 2026-08-13 comparison WAS re-derived, above)."
+      ]
+    },
+    "move_2_spelled_out_numbers": {
+      "method": "English and Greek cardinals swept across all five deliverables, then filtered to quantities attached to a countable noun and checked against the four fixtures and the skill.",
+      "result": "NO fabrication found. Every spelled-out quantity traces to the fixture, to the skill, or to the deliverable's own table.",
+      "checked_and_cleared": [
+        "e4.md:24 'The standard routing vocabulary has ten roles' — traceable: alert-threshold-guide.md:562-563 lists exactly ten (SEO Lead · SEO Analyst · SEO Team · Content Lead · Engineering Lead · Engineering Team · DevOps · Marketing Manager · Marketing VP · Legal), and the deliverable's own table names the same ten.",
+        "e4.md:411 'Nikos holds five of the ten standard hats' — the role table assigns him SEO Lead, SEO Analyst, SEO Team, Content Lead and Marketing Manager = 5 of 10.",
+        "e1.md:16 'twenty-two standard deviations below normal' — (41 − 310.3) ÷ 11.9 = −22.63, printed beside it in digits.",
+        "e1.md:174 'Four mentions in 30 days is roughly fifty a year' — 4 × 365/30 = 48.7, hedged 'roughly'.",
+        "e2.md:119 'Five months of silence' — the CWV feed lapsed March 2026, log window ends August 2026.",
+        "e2.md:186 'Twenty-two rows against the old nine' and e4.md:233 'Forty-four rows' — both match their own count tables; the old nine is the fixture's configuration row count.",
+        "e4.md:444 'Ten queries × three repeats is 30 captures' and 'three repeats on the five priority-1 queries only — 15 captures' — the sheet has 10 rows and 5 priority-1 rows; both products exact."
+      ],
+      "class_specifically_searched_for_and_absent": "No claim about the agency's own history, prior engagements, other clients or unnamed studies appears anywhere in the five deliverables, in either language (the F15-r5 instance-2 shape). Zero hits."
+    },
+    "move_3_currency_at_head": {
+      "version": {
+        "graded": "4.4.0",
+        "head": "4.5.0",
+        "verdict": "NOT CURRENT under ruling M2. The record is stale and the suite is re-run; no lane may clear it by judging the bump empty.",
+        "and_the_bump_is_not_empty": "6c14e35 (2026-08-17 18:01) changed 3 files, +88 lines, and it lands directly on this record's own failures. It adds site-availability floor coverage to alert-configuration-templates.md and to SKILL.md Output Validation — the e2.6 failing clause — and adds 'an explanation the run has not verified is the leading explanation and never settled fact' — the e3.1 failing clause. Two of this record's four FAILs were graded against a skill that has since been edited because of them, so the per-expectation diff this record's own headline_caution says is the only informative layer is the part most affected."
+      },
+      "denominator": {
+        "record_total": 29,
+        "head_total": 29,
+        "verdict": "CURRENT. `git diff 206f2d3..HEAD -- monitor/alert-manager/evals/evals.json` is empty, so no expectation was added, removed or reworded after this run closed. The pass rate's denominator is sound; only the version axis fails."
+      }
+    },
+    "correction_made": {
+      "field": "instrument_defects.what_was_looked_for[3]",
+      "was": "'... e3.1's uncertainty requirement to the skill's own hypothesis discipline and guide §9.3 ... All four are carried.'",
+      "finding": "The e3.1 half of that trace does not reproduce, and 'All four are carried' is therefore false. Checked at the exact version the record graded (61ac57a, 4.4.0), across SKILL.md and BOTH reference files: 'hypothesis' 0 hits, 'probable' 0, 'root cause' 0, 'verification' 0, 'unverified' 0, 'leading explanation' 0. There is no hypothesis discipline in this skill to trace to. And §9.3 at that version is titled 'A quoted definition is quoted once' and governs re-glossing a client's own definition — which is what the e3.1 EVIDENCE field correctly and narrowly cites it for (reason 4, the re-definition of «—»). The overreach is only in this summary field, which generalised a narrow correct citation into a carrier for the whole uncertainty requirement.",
+      "the_other_three_verified_present": "e2.6 → alert-configuration-templates.md:165, the Site Down row, present at that exact line. e4.4 → SKILL.md:352, the citation-loss response path naming content-refresher, present. e4.5 → SKILL.md:352's 'tunable operational defaults' sentence and alert-configuration-templates.md:405/407, present. So the claim is right for three of four and wrong for one.",
+      "independent_corroboration": "Commit 6c14e35's own message reports the same thing from the other side — 'One grader error recorded: on the hypothesis expectation, that record's instrument-defects field traces all four failing clauses to a carrier, and for this one the trace is wrong -- the carrier it names does not exist.' Reached here independently by grepping the graded tree before that message was read, and it agrees.",
+      "action": "The sentence is corrected in place, because a falsified sentence left standing is quotable. The e3.1 VERDICT is unchanged and was not re-graded: the deliverable did assert the artifact as settled fact either way. What changes is the classification — e3.1 is an UNCARRIED-RULE failure (F13/F17 shape), not a run-at-fault one, which is why the skill was edited afterwards. summary and per_eval are untouched because no verdict moved."
+    },
+    "nearly_recorded_then_cleared": [
+      "The 44-row alert-count table. Grepping e2.md first found a 22-row table whose totals are 22/22, not the record's 44 with rows 4/7/18/0/0/13/2 — which reads as a fabricated tally inside a sentence the record vouches for. Opening the other deliverables shows the 44-row table is in e4.md:220-229 and the record files it under `arithmetic_check.e4` and under expectation index 24 (an e4 slot). Correctly attributed; my grep was scoped to the wrong eval.",
+      "Standard deviation 13. The five clean weekly totals give a sample sd of 13.7186 and a population sd of 12.2703, and neither rounds to 13 — so 'mean 1,967 / SD 13' looked like an unsourced figure. It is not: the fixture states it itself at alert-system-brief-petshop-mikroulis-en.md:28, 'Mean ≈ 1,967 clicks/week, standard deviation ≈ 13'. The deliverable is carrying the client's own stated baseline and the expectation prescribes the same numbers. Cleared by reading the fixture, which is the F7 step exactly.",
+      "'27 of 29 expectation texts are byte-identical between the two runs.' Comparing the two RECORDS' `text` fields returns 0 of 29 identical, which looks like a flat falsification. Those fields are each grader's own abbreviation of the expectation, not the suite text. Compared against the suite blobs, the claim is exactly right: 27 identical, e2.3 and e5.3 reworded."
+    ],
+    "eval_improvement_observed_in_passing": "e4.6's text prescribes 'mean 1,967 / SD 13'. That is the fixture's own rounded figure and is the right thing for the deliverable to carry, but a run that recomputed the sample sd from the five weekly totals would get 13.7 — as this run's own e1 correctly does at e1.md:40 — and could read the expectation as demanding 13. Worth one clause saying the brief's stated baseline is the authority for e4. Not a defect in this record and no verdict rests on it.",
+    "disposition": "IT HOLDS on the numbers. Every quantity the record quotes reproduces from the fixture or the deliverable, including the two large internal tables it vouches for. One non-numeric claim in a summary field is corrected. The record is NOT CURRENT on version under M2 and the intervening bump is materially aimed at two of its four failures."
+  }
 }
