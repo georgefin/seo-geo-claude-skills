@@ -217,6 +217,15 @@ library goes in an operator block, labelled inside its own fence.
 > **Header fixes**: any `add_header` block the report hands over names its file, its server block
 > and its position, and carries the HSTS and inheritance cautions —
 > [server-config-fixes.md](./server-config-fixes.md) §5.
+>
+> **A failing "HTTPS enforced" row is the highest-risk fix in this whole audit.** The port-80
+> redirect that closes it is an edit to whatever block is already listening on 80, never a
+> replacement of it, and the block carries the `/.well-known/acme-challenge/` exception *inside
+> the fence* — that path is how an HTTP-01 certificate renewal reaches its token, and a blanket
+> redirect over it fails at the next renewal rather than at deploy. Never pair this fix with an
+> acceptance criterion that only requests `/`: it passes while the site is broken. The block, the
+> Apache form, and the probe-file check that sees it: [server-config-fixes.md](./server-config-fixes.md)
+> §3E, §4 block 1, §8 step 5.
 
 ---
 
@@ -267,7 +276,8 @@ library goes in an operator block, labelled inside its own fence.
 > **Redirect fixes**: every rule handed over states the file, the server block, its position
 > relative to the directives already there, and the `nginx -t` / `curl -sSIL` check that proves
 > it landed — [server-config-fixes.md](./server-config-fixes.md). A redirect pasted into the
-> wrong block either never fires or takes the site down (§3 there).
+> wrong block either never fires or takes the site down (§3 there) — and a site-wide HTTP → HTTPS
+> redirect carries §3E's certificate-renewal carve-out in the fence with it.
 
 ---
 

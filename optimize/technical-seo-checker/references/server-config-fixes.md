@@ -5,7 +5,7 @@ config block — nginx, Apache, `robots.txt`, response headers.
 
 A redirect rule with no placement is not a fix. The same three lines can redirect one URL,
 never run at all, or take the whole site down, depending only on which file and which block
-they land in. This file states the placement for the snippets this skill emits, and the four
+they land in. This file states the placement for the snippets this skill emits, and the five
 mechanisms by which a pasted block breaks a site.
 
 Every snippet below is written out on the reserved `example.com` host so it is complete as
@@ -16,7 +16,7 @@ handed to a client carries that site's values, never `example.com` and never a b
 
 ## 1. The paste-ready rule
 
-A config block is deliverable only when all six are true (placement discipline,
+A config block is deliverable only when all seven are true (placement discipline,
 `docs/loop/FAILURE-LEDGER.md` F13):
 
 - [ ] **File** — which file it goes in, with the distro path (`/etc/nginx/sites-available/<site>`
@@ -24,6 +24,12 @@ A config block is deliverable only when all six are true (placement discipline,
       document root or the `<VirtualHost>` for Apache).
 - [ ] **Block** — which block it goes *inside* (which `server { }`, which `location { }`), or
       that it is a new top-level `server` block in the `http` context.
+- [ ] **What is already there** — where a block for that listener already exists, the audit
+      reads it first and the delivered version keeps every `location` exception it carries,
+      naming each preserved exception and why in the report prose. Where the existing config
+      could not be read, the deliverable says so and hands over an **addition to be merged by
+      whoever holds the config — never a replacement**. See §3E: the exception that made
+      certificate renewal work is the one most often deleted this way.
 - [ ] **Position** — where it sits relative to the directives already there (see §3C: order
       decides whether the rule ever runs).
 - [ ] **Real values** — the audited site's hosts, paths and targets. No bracketed placeholders,
@@ -66,7 +72,7 @@ working redirect, a dead rule, and a server that will not come back up on its ne
 
 ---
 
-## 3. Four ways a pasted redirect takes a site down
+## 3. Five ways a pasted redirect takes a site down
 
 ### A. A catch-all redirect inside the block that serves the canonical host
 
@@ -132,6 +138,59 @@ not removed. **Correct form**: delete the opposite-direction rule in the same ch
 in the report which existing line has to go. Then confirm with the chain check in §8 that the
 final URL answers `200`.
 
+### E. A port-80 block replaced wholesale, taking the certificate-renewal path with it
+
+```nginx
+# BROKEN EXAMPLE — DO NOT DEPLOY as a replacement for a live port-80 block.
+# Nothing here is wrong as nginx. What is wrong is what it does not carry.
+server {
+    listen 80;
+    server_name example.com www.example.com;
+    return 301 https://www.example.com$request_uri;
+}
+```
+
+**Mechanism**: this is the block an audit reaches for when HTTP does not redirect to HTTPS, and
+handed over as *"replace your existing port-80 block with this"* it deletes every `location` the
+old block carried. The one that matters is the ACME challenge exception. A certificate issued
+over the HTTP-01 challenge is renewed by the same route: the certificate authority requests
+`http://<each name on the certificate>/.well-known/acme-challenge/<token>` on port 80, and a
+webroot-mode client (`certbot --webroot`, `acme.sh -w`, most panel integrations) answers by
+writing the token file into a directory the port-80 block serves. Delete the `location` that
+served it and the token is no longer reachable at that path.
+
+State the failure precisely, because overclaiming it is its own defect: **the 301 is not itself
+the break.** On the record this library holds, Let's Encrypt follows redirects during HTTP-01
+validation, which would mean a challenge request redirected to HTTPS still validates *if the
+token is served at the end of the redirect*
+`[VERIFY vendor-primary at next sweep — redirect-following during HTTP-01 recorded from the
+blind-run analysis of 2026-08-17, docs/loop/eval-baselines/blind-2026-08-17, not re-checked
+against a CA-primary source]`. The break is that it usually is not: the redirect sends the
+challenge path to the HTTPS application block, which serves the site's own document root and
+answers `404` for a token the ACME client wrote somewhere else entirely. Note what this means for
+the fix — the carve-out below is correct whichever way that verification lands, because it keeps
+the token reachable without depending on redirect-following at all.
+
+Two properties make this the worst item in this section. It is **silent** — nothing changes at
+deploy, the site serves normally, and the failure surfaces at the next renewal: on a 90-day
+certificate, 60–90 days later, long after anyone connects it to this change. And it is
+**invisible to the ordinary verification step** — `curl -sSIL https://example.com/` returns
+exactly the one 301 and the 200 the audit asked for, so the report says the fix landed. Where the
+same audit also reports the certificate's expiry date, or asks the client to confirm that renewal
+is automatic, it is asking about the mechanism the block it just handed over may have removed.
+
+**Correct form**: three things, and the first two are not substitutes for each other.
+
+1. **Read the existing port-80 block before writing a new one** and keep every `location` it
+   carries — challenge paths, health checks, `.well-known` endpoints of any kind (`security.txt`,
+   Apple and Android app-association files), ACL blocks. Name each preserved exception in the
+   report prose. Where you cannot read it, hand over an addition to be merged by whoever holds
+   the config and say plainly that it is not a replacement (§1).
+2. **Ship the challenge exception inside the block itself**, above the redirect — §4, block 1.
+   A warning in the prose around the fence does not survive the paste.
+3. **Verify against a challenge path, not the site root** — §8, step 5. A check that only
+   requests `/` cannot see this failure mode.
+
 ---
 
 ## 4. Placement-complete redirect skeleton (nginx)
@@ -139,17 +198,44 @@ final URL answers `200`.
 Three server blocks: one for HTTP, one for the non-canonical HTTPS host, one for the canonical
 host that serves the site. Per-URL redirects live in the third.
 
+**Step 0, before any of them — read what is on the server now.** `nginx -T` prints the whole
+running configuration, included files and all; `grep -n 'listen .*80' -A30` over its output shows
+every port-80 block and what each one contains. The blocks below are written as if none exists.
+**Where one already exists, this is an edit to that block, not a second block beside it** — two
+`server` blocks with the same `listen` and `server_name` leave nginx serving the first and
+logging a conflict, and deleting the old one loses whatever it carried (§3E).
+
 ```nginx
 # FILE: /etc/nginx/sites-available/example.com   (RHEL/Alma: /etc/nginx/conf.d/example.com.conf)
 # This snippet ADDS blocks 1 and 2 and ADDS the marked lines to block 3.
 # It does not replace the application config already inside block 3.
+# NOR does it replace a port-80 block that already exists: read that block first
+# (`nginx -T`), keep every `location` in it, and change only the redirect line.
 
-# --- Block 1: HTTP, both hosts -> one hop to canonical HTTPS. Nothing else belongs here. ---
+# --- Block 1: HTTP, both hosts -> one hop to canonical HTTPS, with the certificate
+#     challenge path served rather than redirected. Nothing else belongs here. ---
 server {
     listen 80;
     listen [::]:80;
     server_name example.com www.example.com;
-    return 301 https://www.example.com$request_uri;
+
+    # KEEP THIS, AND KEEP IT FIRST. HTTP-01 certificate renewal fetches its token from
+    # this path on port 80; a block-wide redirect over it is how a renewal breaks 60-90
+    # days after this paste (see this file's section 3E). `^~` so no regex location can
+    # take the path back. The `root` is COPIED from the port-80 block already on the
+    # server, or from the ACME client's own webroot setting (`certbot --webroot -w ...`,
+    # `acme.sh -w ...`) — it is a value to read off the server, never one to guess.
+    # Harmless when renewal runs some other way (DNS-01, TLS-ALPN-01, a proxy in front).
+    location ^~ /.well-known/acme-challenge/ {
+        root /var/www/example.com/public;
+    }
+
+    # The redirect sits in `location /`, NOT at server level: a server-level `return`
+    # runs before nginx selects a location (section 3C) and the exception above would
+    # never be reached.
+    location / {
+        return 301 https://www.example.com$request_uri;
+    }
 }
 
 # --- Block 2: HTTPS on the non-canonical host -> one hop to the canonical host. ---
@@ -181,6 +267,11 @@ server {
 
 Notes that decide whether this works on a given site:
 
+- **The challenge `root` in block 1 is read off the server, never chosen.** It has to be the
+  directory the ACME client writes into, which is the existing block's own challenge `location`
+  or the client's `-w` / `--webroot-path` setting. If that value cannot be read, the block-1
+  redirect is not deliverable as a replacement at all: hand over the exception as an addition to
+  merge into the existing block, and say in the prose which value you need back (§1, §3E).
 - **Exact match.** `location = /old-page` matches that one URL. `location /old-page` (no `=`)
   is a prefix match and would also move `/old-page-archive` and `/old-page/sub`.
 - **Absolute target on the canonical host.** A relative target (`return 301 /new-page;`) keeps
@@ -248,6 +339,33 @@ RedirectMatch 301 ^/old-page$ https://www.example.com/new-page
 - A syntax error in `.htaccess` returns **500 on every page under that directory** — Apache's
   equivalent of §2's breakage, and the reason §8's verification step is not optional.
 
+### The Apache HTTP → HTTPS redirect, with the same carve-out
+
+§3E is not an nginx property — it is a property of any blanket port-80 redirect, so the Apache
+form carries the exception too, in the same fence:
+
+```apache
+# FILE: .htaccess at the document root (or the site's <VirtualHost *:80>).
+# Position: at the top of the rewrite rules, above any other RewriteRule.
+# Read the file first: keep any rule already there that exempts a path, and keep any
+# existing Alias for the challenge directory. This ADDS rules; it replaces nothing.
+RewriteEngine On
+
+# KEEP THIS CONDITION. HTTP-01 certificate renewal fetches its token from this path over
+# plain HTTP; without the exemption the redirect below takes it (see section 3E). The
+# condition is evaluated with the ones under it, so it stays directly above the rule.
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://www.example.com%{REQUEST_URI} [R=301,L]
+```
+
+- `mod_alias`'s `Redirect / https://www.example.com/` has **no exemption syntax** — it matches by
+  prefix and takes every path under it, challenge path included. Where a site-wide HTTP → HTTPS
+  redirect is the fix, it is a `mod_rewrite` job for that reason alone.
+- `%{HTTPS}` needs `mod_ssl` loaded to be meaningful; behind a terminating proxy or load balancer
+  the value to test is the forwarded-protocol header the proxy sets, and which header that is has
+  to be read off the proxy rather than assumed.
+
 ---
 
 ## 7. robots.txt and meta-robots snippets
@@ -275,10 +393,31 @@ curl -sSIL https://example.com/old-page | grep -iE '^HTTP/|^location:'
 
 # 4. Headers actually sent by the canonical host.
 curl -sSI https://www.example.com/ | grep -iE 'strict-transport|x-content-type|referrer-policy'
+
+# 5. THE CERTIFICATE-RENEWAL PATH (§3E). Run wherever a port-80 block was added or edited.
+#    Steps 1-4 all pass while this one fails, which is the whole reason it is written down.
+#    Drop a probe file in the challenge directory, on the server, then read it back over
+#    plain HTTP on every hostname the certificate covers:
+mkdir -p /var/www/example.com/public/.well-known/acme-challenge
+echo renewal-probe > /var/www/example.com/public/.well-known/acme-challenge/probe
+curl -sSi http://example.com/.well-known/acme-challenge/probe     | head -1
+curl -sSi http://www.example.com/.well-known/acme-challenge/probe | head -1
+rm /var/www/example.com/public/.well-known/acme-challenge/probe
 ```
 
 Expected in step 3: exactly one `301` line followed by the final `200`. Two or more `301`s means
 the chain survived; a repeating `location:` means §3A or §3D.
+
+Expected in step 5: **`HTTP/1.1 200 OK` from both hostnames, no `-L`, no redirect.** A `301` or
+`302` on either line is the §3E failure sitting in the config right now — the one failure in this
+section that costs a certificate rather than a redirect, and the only one the other four steps
+cannot see. Put the exception in before going further. Two things it does not settle, both worth
+saying in the report: a `200` on the probe shows the path is served, not that the ACME client writes into that
+same directory; and where `certbot` is the client, `certbot renew --dry-run` exercises the real
+validation against the staging endpoint and is the check that settles both at once — name it as
+the acceptance criterion when certbot is what the site runs, and where renewal is handled by a
+panel, a proxy or a host you cannot see, say that the step-5 probe is as far as the check reaches
+and hand the renewal check to whoever holds that system.
 
 **Rollback**: keep the previous file (`cp example.com example.com.bak` before editing), and roll
 back with `cp example.com.bak example.com && nginx -t && systemctl reload nginx`. For Apache,
@@ -293,5 +432,8 @@ Inside the code fence: the site's real hosts, paths and targets, and `#` comment
 file, block and position. Nothing else.
 
 In the report prose around the fence: the confidence label for each finding the block fixes,
-what was not checked, which existing lines have to be deleted, and what the developer should
-send back after deploying (the `curl` output from §8) so the audit can confirm the fix landed.
+what was not checked, which existing lines have to be deleted, **which `location` exceptions the
+delivered block preserves from the block already on the server and what each one is for** (§3E),
+whether the block is an edit or an addition to be merged by whoever holds the config, and what
+the developer should send back after deploying (the `curl` output from §8, step 5 included) so
+the audit can confirm the fix landed.

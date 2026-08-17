@@ -75,6 +75,13 @@ a site down, are in [server-config-fixes.md](./server-config-fixes.md).
   the document root or in the site's `<VirtualHost>`, above any `RewriteRule` that touches the
   same path. Plain `Redirect 301 /old-page /new-page` matches by **prefix**, so it also moves
   `/old-page-archive` and everything under `/old-page/`.
+- **Site-wide HTTP → HTTPS** is a different job from a per-URL redirect and carries its own
+  failure mode. The port-80 block has to keep serving `/.well-known/acme-challenge/`: that path is
+  how an HTTP-01 certificate renewal reaches its token, and a blanket redirect over it surfaces at
+  the next renewal rather than at deploy. Edit whatever is already listening on port 80 — never
+  replace it — and verify against a challenge path, not the site root. Both the nginx and Apache
+  forms carry the exception inside the fence: [server-config-fixes.md](./server-config-fixes.md)
+  §3E, §4 block 1, §6, and §8 step 5 for the probe check.
 - **Application code**: send a `Location:` header with the 301 status before any output.
 
 ---
