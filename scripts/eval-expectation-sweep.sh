@@ -31,17 +31,22 @@
 # the same words asserted as a rule, so this script does not grep the file at all —
 # it parses the JSON, then classifies every token hit by ROLE:
 #
-#   RULE  — the hit is in the expectation's own voice. Legal only if the sentence
-#           also denies/qualifies the claim (the marker sets below, which are the
-#           same design as check (f)'s R3_LEGAL). Otherwise FAIL.
-#   QUOTE — the hit is entirely inside a quoted span ('…', "…", «…», `…`) AND the
-#           sentence around it carries a detection verb (flagged, caught, corrected,
-#           identified, fails, must not, defect, stale, fixture, no longer). That is
+#   RULE  — the hit is in the expectation's own voice. Legal only if a denial or an
+#           evidence qualifier sits NEAR it (the marker sets below, same design as
+#           check (f)'s R3_LEGAL). Otherwise FAIL.
+#   QUOTE — the hit is entirely inside a quoted span ('…', "…", «…», `…`) AND a
+#           detection verb (flagged, caught, corrected, identified, fails, must not,
+#           defect, stale, fixture, no longer) sits just outside that span. That is
 #           fixture text the model is graded on catching. PASS.
-#   AMBIGUOUS — quoted, but with no detection verb anywhere in the sentence. The
-#           script cannot tell whether the suite is quoting a page or restating a
-#           rule, and it says so: WARN, listed, never silently passed and never
-#           failed. Guessing in either direction would make the census a lie.
+#   AMBIGUOUS — quoted, but with no detection verb near it. The script cannot tell
+#           whether the suite is quoting a page or restating a rule, and it says so:
+#           WARN, listed, never silently passed and never failed. Guessing in either
+#           direction would make the census a lie.
+#
+# "NEAR", not "anywhere in the sentence", and the change is load-bearing — see MISS B
+# below. A sentence here is routinely an 800-character comma-spliced paragraph
+# covering six subjects, so sentence scope let a qualifier written about one claim
+# excuse a different one. Every marker test in this script is bounded by PROXIMITY.
 #
 # The `prompt` field is NOT swept. It is the user's message — the fictional client
 # who believes the stale thing — and sweeping it would fail suites for having a
@@ -161,6 +166,13 @@
 #   5. It never opens `evals/files/**`, so it says nothing about fixtures. That is
 #      deliberate and is the whole reason check (f) excluded `evals/` in the first
 #      place; it is also a blind spot by construction.
+#   6. THE CANARIES PROVE A CLASS STILL FIRES, NOT THAT EVERY ALTERNATIVE IN IT DOES.
+#      Each class is canaried through ONE of its alternatives. Mutation-testing on
+#      2026-08-17 deleted `expandable q&a below` from (f2) and every check stayed
+#      green, because nothing in the canaries or the fixtures exercises that branch.
+#      Measured honestly: 5 classes are canaried, ~20 alternatives exist across them,
+#      so a silent deletion inside a class is detectable for the canaried alternative
+#      only. Adding a canary per alternative is the fix; it has not been done.
 #
 # Usage:   scripts/eval-expectation-sweep.sh [repo-root]
 #          scripts/eval-expectation-sweep.sh --suite <path/to/evals.json>   (probe mode)
@@ -261,8 +273,26 @@ NEG = (r"nothing in the response|nowhere (claims|states|promises|instructs)|"
 F1_TOK = r"\bFID\b|First Input Delay|Affiliate links disclosed"
 F1_LEG = (r"corrected to|replaced by inp|inp[- ]only|retired|deprecated|"
           r"instead of|rather than|" + NEG)
-F2_TOK = (r"faq.*rich[- ]?(result|snippet)|rich[- ]?(result|snippet)s?.*faq|eligib[^.|]*faq|"
-          r"faq[^.|]*eligib|expandable q&a below|faq (accordion|dropdown|drop-down)|serp accordion")
+# THE ONE DELIBERATE DIVERGENCE FROM check (f)'s PATTERN, and why it is not a paste
+# error (2026-08-17, found by the negative-control fixture).
+# check (f) is `grep -E` over MARKDOWN LINES: `.` never crosses a newline, and a line
+# is ~85 characters, so `faq.*rich-result` can only ever span one line's worth. Here
+# the same regex runs over 800-character sentences, where `.*` is greedy across whole
+# clauses — and on the negative-control fixture it matched
+# «FAQ rich results as expandable questions right in the SERP' is flagged as n», a
+# span that STARTS INSIDE a quotation and ENDS OUTSIDE it. classify() tests whether a
+# match is contained in a quoted span, so a match that straddles the closing quote can
+# never be classified QUOTE: the guard's whole fixture/rule distinction switches off
+# for the commonest token shape, and the expectation is saved only if F2_LEG happens
+# to match too. Bounded to 60 characters, non-greedy, and forbidden from crossing a
+# quote delimiter, so a match is either wholly inside a quotation or wholly outside.
+# If check (f)'s R3_TOKENS widens, widen the ALTERNATIVES here in the same commit —
+# but do not restore the unbounded `.*`.
+_Q = r"'\"«»`“”"
+F2_TOK = (rf"faq[^{_Q}]{{0,60}}?rich[- ]?(result|snippet)|"
+          rf"rich[- ]?(result|snippet)s?[^{_Q}]{{0,60}}?faq|"
+          rf"eligib[^.|{_Q}]*faq|faq[^.|{_Q}]*eligib|"
+          r"expandable q&a below|faq (accordion|dropdown|drop-down)|serp accordion")
 F2_LEG = (r"retired|retirement|ended|ceased|discontinued|no longer|non-faq|"
           r"no faq (support|eligibility)|faq(:| has) none|dropped faq support|"
           r"do not run it through|no evidenced citation benefit|"
@@ -281,7 +311,18 @@ F2_LEG = (r"retired|retirement|ended|ceased|discontinued|no longer|non-faq|"
           # was NOT added as a marker — that would endorse a claim about a tool R3 does
           # not source, and the denial alone is enough.
           r"not (google'?s? )?(rich results? test|search console)|" + NEG)
-F3_TOK = r"advises against ([a-z]+ )?remov"
+# PARITY RE-SYNC, 2026-08-17. check (f)'s R3_OVERSTATE was widened in a concurrent
+# commit after a Mode A pass measured the original at 3 of 8 constructed variants: it
+# caught "advises against removing" and two siblings, and missed the past tense,
+# "recommends against", "discourages", "tells you not to remove" and "says you should
+# keep". This class is a COPY of (f)'s, so it is re-synced here rather than left as a
+# fossil of the narrower form — the header's standing instruction, honoured the first
+# time it came due. Widening is safe whichever way the sibling commit lands: every
+# variant below is a RECOMMENDATION Google never made, and none of them becomes true
+# if the other patch is dropped.
+F3_TOK = (r"(advis|recommend|counsel)(es|s|ed)? against ([a-z]+ )?(remov|delet|drop)|"
+          r"discourages? ([a-z]+ )?(remov|delet|drop)|"
+          r"tells you not to (remove|delete|drop)|says you should keep")
 F3_LEG = r"(?!x)x"          # never legal: Google made no such recommendation (B2, 2026-08-13)
 
 # (e1) the unsourced 2026 FAQ-ending date, asserted with no evidence qualifier.
@@ -538,10 +579,32 @@ if _nm is not None and not re.compile(QUAL_E2, re.I).search(window(_near, _nm)):
          "longer excuses its token. PROXIMITY is too narrow; this fails corrected text")
     selftest_ok = False
 
+# --- qualifier-asymmetry canary --------------------------------------------
+# MISS C, pinned directly rather than left to a transcript diff. Mutation-testing on
+# 2026-08-17 showed the other two fixes are caught by the canaries above the moment
+# they are reverted, but putting `ruling r3` back into the (e2) set left check (0)
+# GREEN — the regression showed up only as 13 fixture FAILs becoming 12, which nobody
+# notices unless they are already comparing counts. A design decision this subtle
+# needs an assertion, not a diff. Read it as: naming R3 warrants the DATE, because
+# R3's Statement asserts the date; it does not warrant the AI-PARSING BENEFIT, because
+# amendment 9a withdrew R3's warrant from that clause in terms.
+_r3cite = "framed for AI-engine/GEO parsing only with no SERP-feature promise (ruling R3)"
+if not re.compile(QUAL_E1, re.I).search(_r3cite):
+    fail("(0) qualifier-asymmetry canary FAILED — (e1) no longer accepts a ruling citation "
+         "as a warrant for the date claim; this fails suites that correctly cite R3")
+    selftest_ok = False
+if re.compile(QUAL_E2, re.I).search(_r3cite):
+    fail("(0) qualifier-asymmetry canary FAILED — (e2) accepts `ruling R3` as a warrant for "
+         "the AI-parsing benefit claim. R3 amendment 9a withdrew that warrant explicitly "
+         "('It may not say it earns AI citations'), so this marker IS its own pass "
+         "condition — the B2 failure mode, and the miss this guard had against a76706d^")
+    selftest_ok = False
+
 if selftest_ok:
     pas(f"(0) all {len(CLASSES)} token classes match their positive canary, are not exempted "
         f"by their own markers, and clear their negative canary; "
-        f"{len(CLASSIFIER_CANARIES)} classifier canaries and both proximity canaries hold")
+        f"{len(CLASSIFIER_CANARIES)} classifier canaries, both proximity canaries and the "
+        f"(e1)/(e2) qualifier asymmetry hold")
 else:
     print("")
     print("==============================================")

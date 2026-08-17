@@ -431,7 +431,7 @@ fi
 # vet it like shipped prose.** Marker replaced with the faithful phrasing, and
 # the overstatement is now a hard fail below.
 R3_TOKENS='faq.*rich[- ]?(result|snippet)|rich[- ]?(result|snippet)s?.*faq|eligib[^.|]*faq|faq[^.|]*eligib|expandable q&a below|faq (accordion|dropdown|drop-down)|serp accordion'
-R3_LEGAL='retired|retirement|ended|ceased|discontinued|no longer|non-faq|no faq (support|eligibility)|faq(:| has) none|dropped faq support|do not run it through|"add faq rich results"|no evidenced citation benefit|no need to (proactively )?remove|scheduled for august 2026|has none since|no faq rich result|government (and|/)ted?health|government and health|government/health|restricted (them )?to|2023-08-08|aug 2023|does not (support|test) faqpage|not (the route|supported) for faqpage|unverified'
+R3_LEGAL='retired|retirement|ended|ceased|discontinued|no longer|non-faq|no faq (support|eligibility)|faq(:| has) none|dropped faq support|do not run it through|"add faq rich results"|no evidenced citation benefit|no need to (proactively )?remove|scheduled for august 2026|has none since|no faq rich result|government and health|government/health|restricted (them )?to|2023-08-08|aug 2023|does not (support|test) faqpage|not (the route|supported) for faqpage|unverified'
 R3_HITS=$(grep -rniE "$R3_TOKENS" \
     research build optimize monitor cross-cutting commands references \
     --include='*.md' 2>/dev/null | grep -v 'evals/' | grep -viE "$R3_LEGAL" || true)
@@ -449,7 +449,13 @@ fi
 # and a guard that fails a correct sentence about a different subject is the
 # same design error the note above is about. The check is grep-AND by pipe —
 # grep -E has no conjunction.
-R3_OVERSTATE='advises against ([a-z]+ )?remov'
+# Widened 2026-08-13 after a Mode A pass measured the first form at **3 of 8**
+# constructed variants — it caught `advises against removing` and two siblings and
+# missed `advised against removing` (past tense), `recommends against`, `discourages`,
+# `tells you not to remove`, `says you should keep`. That is F15's own root cause: a
+# pattern written from its founding instance. The probe recorded with the original
+# discharged only guard (a) — it fires on the known defect — and left (b) undone.
+R3_OVERSTATE='(advis|recommend|counsel)(es|s|ed)? against ([a-z]+ )?(remov|delet|drop)|discourages? ([a-z]+ )?(remov|delet|drop)|tells you not to (remove|delete|drop)|says you should keep'
 R3_OVER_HITS=$(grep -rniE "$R3_OVERSTATE" \
     research build optimize monitor cross-cutting commands references \
     --include='*.md' 2>/dev/null | grep -v 'evals/' \

@@ -266,7 +266,7 @@ watching), G4 harvest merged (PR #4).**
     schema has **no `schemaVersion`/`id`** (only `name` required), and `commands`/`skills`
     are documented as path strings/arrays, not `{name, description, path}` objects — repo
     mandates the opposite (`CLAUDE.md:59`; fields present at `.claude-plugin/plugin.json:2-3`;
-    added deliberately in v3.0.0, `VERSIONS.md:283` ("### v3.0.0" section —
+    added deliberately in v3.0.0, `VERSIONS.md:285` ("### v3.0.0" section —
     pointer anchor-tagged per F12, token authoritative on mismatch; had silently
     drifted from :79-88; refreshed 2026-08-10, +2 from the entity-optimizer 4.1.5 /
     backlink-analyzer 4.0.4 bullet)).
@@ -629,6 +629,36 @@ watching), G4 harvest merged (PR #4).**
 - **What Sani decides**: (i) accept 9a as drafted, (ii) accept 9b and authorize the
   purge, (iii) hold either pending an owner read of the two Google URLs, which takes
   about two minutes in a browser and would upgrade the evidence grade.
+
+### G9 — VERDICT, 2026-08-13. Option C (split), given verbatim; recorded late.
+
+**Sani's words, quoted rather than summarised**: *"Do C i think is the best choise"* — in
+response to `docs/loop/r3-decision-brief.md`, whose Option C reads: stop asserting the
+unverified 2026 dates on client-facing skill text now; keep R3's operating instruction
+unchanged; **hold the formal supersession** for his browser check.
+
+**What was applied on it**: nine files across six skills and one command moved off the
+unsourced 2026 dates and onto the sourced 2023-08-08 restriction (`VERSIONS.md`, Option C
+entry). `SETTLED-RULINGS.md` R3 was **not** amended — the held half — so the shipped skills
+are now deliberately **narrower** than the ruling. That is recorded at `OPEN-FINDINGS.md`
+G-D9 and resolves when he rules.
+
+**Recorded late, and the lateness is the finding.** The verdict was quoted in a commit body
+and a changelog entry on the day, and **entered no gate register for several hours**. An
+adversarial reviewer found it: *"A gate verdict is asserted in the changelog and recorded in
+no gate register… The decision may well have been made. The repository holds no record of
+it, and the register that holds thirteen prior owner verdicts does not hold this one."*
+It was right to stop on that. **A verdict that exists only in a commit message is a verdict
+the next session cannot find** — the same defect as `OPEN-FINDINGS.md`'s own founding
+reason, one register over. Ledger **F4** ("never record a state change without the
+confirming response") and **F11**'s gate-entry clause both bite; the fix is this entry.
+
+**Still open at G9, unchanged by this verdict**: 9b (the HowTo ruling and its four-locus
+purge) stays held. The owner read that was expected to upgrade its evidence instead
+**removed** it — see `WATCH-ITEMS.md` W12, verification withdrawn 2026-08-13, and
+`r3-supersession-candidate.md` §4. What would settle it is Check 1 of
+`r3-owner-verification-pack.md`: Google's Search Central changelog, the page the disputed
+claims actually came from, which nobody has opened.
 
 ---
 

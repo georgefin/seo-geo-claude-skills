@@ -16,7 +16,7 @@ parameters:
 
 # Generate Schema Command
 
-Generates valid **Schema.org JSON-LD** structured data markup so search and answer engines can parse the page's entities. Rich-result eligibility depends on the type -- FAQPage has none since Google's 2026 change and is generated because it stays valid and Google says there is no need to proactively remove it — a permission to leave existing markup alone, not Google advising anyone to keep it (settled ruling R3 + amendment 9a; no evidenced citation benefit either way, so claim none).
+Generates valid **Schema.org JSON-LD** structured data markup so search and answer engines can parse the page's entities. Rich-result eligibility depends on the type -- FAQPage has none for an ordinary site since Google's 2023-08-08 restriction to government and health websites and is generated because it stays valid and Google says there is no need to proactively remove it — a permission to leave existing markup alone, not Google advising anyone to keep it (settled ruling R3 + amendment 9a; no evidenced citation benefit either way, so claim none).
 
 ## Usage
 
@@ -77,9 +77,11 @@ IMPLEMENTATION INSTRUCTIONS
 3. Types that still have a Google rich result: also run
    https://search.google.com/test/rich-results, then submit the URL in Search Console and
    allow 2-4 weeks for the result to appear if Google chooses to show one
-4. FAQPage: stop after step 2. Google ended FAQ rich results in 2026 -- Rich Results Test
-   support and Search Console reporting are both gone (API support scheduled August 2026,
-   not yet observed), so there is nothing to test and nothing to wait for. Keep the markup
+4. FAQPage: stop after step 2. An ordinary site has no FAQ rich result -- Google restricted
+   them to well-known government and health websites on 2023-08-08 -- so there is nothing to
+   test and nothing to wait for. (This library also carried a set of 2026 dates for the Rich
+   Results Test, Search Console reporting and an August 2026 API cut; those are **unverified**
+   and must not be stated -- see `docs/loop/r3-decision-brief.md`.) Keep the markup
    because it stays valid and Google says there is no need to proactively remove it. Do NOT
    report that as Google advising anyone to keep it -- Google's words permit dropping it and
    say only that removing it is not worth doing on purpose. Do NOT tell the user it earns AI

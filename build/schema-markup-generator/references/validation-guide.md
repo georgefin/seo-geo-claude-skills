@@ -477,6 +477,6 @@ Validate FAQPage at https://validator.schema.org/ (syntax + Schema.org semantics
 
 - **Schema.org Documentation**: https://schema.org/
 - **Google Search Central**: https://developers.google.com/search/docs/appearance/structured-data
-- **Rich Results Test**: https://search.google.com/test/rich-results (no FAQ support since 2026)
+- **Rich Results Test**: https://search.google.com/test/rich-results (does not test FAQPage — validate that with the Schema.org Validator)
 - **Schema Validator**: https://validator.schema.org/ (use this for FAQPage)
 - **JSON-LD Playground**: https://json-ld.org/playground/

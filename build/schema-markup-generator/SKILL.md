@@ -1,6 +1,6 @@
 ---
 name: schema-markup-generator
-version: "4.2.6"
+version: "4.2.7"
 description: 'Generate Schema.org JSON-LD structured data — one accurate primary type per page (FAQPage, HowTo, Article, Product, LocalBusiness, and 6 other types) plus documented auxiliaries only where warranted. Use when the user asks to "add schema markup", "generate structured data", "JSON-LD", "FAQ schema", "rich snippets", "I want star ratings in Google", or "structured data validation errors". Produces validated markup for Google rich results where still offered (no FAQ rich result for ordinary sites — government/health only, Aug 2023 — FAQPage is kept because it stays valid and Google says there is no need to proactively remove it), Bing structured data, and machine-readable input for any consumer that reads it. Validates via the Schema.org validator, plus Rich Results Test for non-FAQ types. For broader technical SEO, see technical-seo-checker. For meta tag optimization, see meta-tags-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.2.6"
+  version: "4.2.7"
   geo-relevance: "medium"
   tags:
     - seo
@@ -333,7 +333,7 @@ _Implementation: Wrap the above JSON-LD in `<script type="application/ld+json">.
 3. **Don't spam** - Only add schema for relevant content; more types is not more citations
 4. **Keep updated** - Update dates and prices when they change
 5. **Test thoroughly** - Validate before deploying
-6. **Monitor Search Console** - Watch for errors and warnings (non-FAQ types — FAQ reporting was cut in 2026)
+6. **Monitor Search Console** - Watch for errors and warnings (non-FAQ types — an ordinary site has no FAQ rich result to report on since the 2023-08-08 restriction)
 
 ## Schema Type Decision Tree
 
