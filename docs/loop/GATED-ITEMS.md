@@ -625,7 +625,7 @@ watching), G4 harvest merged (PR #4).**
   2023 and purge the four library loci still teaching them as a current SERP feature
   (`research/serp-analysis/references/serp-feature-taxonomy.md:30`
   ("How-To, Review Stars, Recipe, Event, Product") and `~:291`,
-  `research/content-gap-analysis/references/gap-analysis-frameworks.md:169`
+  `research/content-gap-analysis/references/gap-analysis-frameworks.md:182`
   ("Step-by-step tutorials"),
   `build/meta-tags-optimizer/references/ctr-and-social-reference.md:121`), shipping the
   check (f) token row in the same wave per the F9-r2 backfill rule.

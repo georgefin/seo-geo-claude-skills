@@ -84,6 +84,19 @@ every keyword in a proxied run "carries the named proxy" equally, so a proxy wit
 this row empty. Nothing downstream refills it: §4's Quick Win Score *adds* Search Demand rather than
 gating on it, so a gap at the bottom Demand band still reaches the moderate quick-win band.
 
+**A floor is only as fine as its unit, and the commonest gap is finer.** A cluster-depth floor tests
+clusters. A depth gap, an angle gap, or one sub-topic of six is scored *inside* a cluster, so it
+clears the floor on its parent's count rather than on its own subject's — inheritance, not evidence.
+Excluding those rows is the wrong repair: the ownership screen calls the depth gap on an owning URL
+"the honest and most common outcome", and a rule that failed them would push runs back toward
+proposing new pages for clusters somebody already owns. **Disclose instead.** A row scoped below the
+floor's unit prints **two readings** — the cluster's, which is what the Search Demand cell was scored
+from and what the floor was tested against, and the subject's own: `cluster 7 articles · this row's
+subject 2 — floor cleared on the cluster's reading`. The floor is still tested where it is measured,
+so nothing about the gate changes; what changes is that a reader can see which rows passed on
+inheritance and which carried their own demand evidence. A run whose rows are all cluster-scoped
+prints one reading and says so.
+
 **After filtering, categorize remaining gaps:**
 
 | Category | Description | Example |
@@ -264,7 +277,11 @@ scores the *room* available — 5 is "no competitor covers it", 1 is "all of the
 Both therefore enter every score in this section **added, never subtracted**. Subtracting either
 one inverts the ranking and buries the cheapest, least-contested gaps at the bottom of the list,
 which is the opposite of what both scores exist to find. Check the direction of any scoring
-column you add against this line before you sum anything.
+column you add against this line before you sum anything. **Competitive Density's band wording
+above holds on the volume path only.** Where Search Demand is proxied from competitor cluster depth
+and Density is mirrored against it, the factor is re-glossed and "no competitor covers it" stops
+being true of any row — see *Mirroring re-glosses Competitive Density* below, and state the
+re-glossed reading on the row. The scores themselves are unaffected.
 
 **Gap Priority Score** = Σ (Factor Weight x Score)
 
@@ -312,6 +329,36 @@ Effort 4 / Conversion Potential 3:
 Same tier, **identical** Quick Win Score, and both land in Tier 1 — on demand evidence as far apart
 as this scale goes. **So on the proxy path the screen is not the demand test**; §1 Step 4's proxy
 floor is, which is why the proxy has to carry a floor in its own units and not merely a name.
+
+Those two rows demonstrate the arithmetic at the ends of the scale; the Shallow-cluster row would
+not survive a floor of 3 or more, and where a floor of 1 or 2 does let such a row through, the
+re-gloss below is what keeps its Density cell honest.
+
+**Mirroring re-glosses Competitive Density, and the factor table above does not say so.** Three
+surfaces would otherwise disagree about one cell: the factor table scores Density on a **count of
+competitors** (5 = "no competitor covers it"), the mirrored proxy path makes it a **function of the
+proxy reading** (`Density = 6 − Demand`), and SKILL.md's Scoring & Derivation section states the
+first of those as binding. Under mirroring, Density 5 requires Demand 1 — and on this path Demand
+*is* the competitor article count, so the top band arrives where competitors have published the
+**fewest** articles, never where none has. The Shallow-cluster row above is the demonstration: two
+competitor articles, Density 5, on a band whose own row asserts nobody covers it.
+
+**The resolution is the re-gloss, not a band change and not a suppressed value.** No endpoint,
+weight or band moves, and no row's Density figure is overridden — under mirroring that figure is
+*derived*, so changing it would change the score rather than the gloss. What changes is what the
+cell may be reported to mean. On the proxy path Competitive Density reads as **room left given the
+depth they have already published**, every gap scored there cleared a floor that guarantees
+competitor coverage, and therefore **no cell on this path is reported as "no competitor covers
+it"** — a row printing Density 5 prints the re-glossed reading beside it ("most room left, on the
+N articles already counted"). State it on the row or in the note its reader necessarily meets,
+alongside the non-independence disclosure.
+
+Whether 5 is reachable at all is a property of the run, not of the model: it depends on where the
+run set its Demand bands against its floor. A floor of 2 or more, banded so that the thinnest
+scored cluster reads Demand 2, puts 5 out of reach and the contradiction stays latent — which is
+why it has not yet shipped. It goes live at a floor of 1, or on a single-artefact format gap (one
+calculator, one glossary), where a real competitor artefact would otherwise be described to a
+client as ground nobody covers.
 
 ### Priority Tiers
 

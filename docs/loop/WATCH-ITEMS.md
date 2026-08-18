@@ -231,7 +231,7 @@ authoritative.
 
 - **Where**: `research/serp-analysis/references/serp-feature-taxonomy.md` (:30
   Rich Results row and the How-To playbook rows ~:291),
-  `research/content-gap-analysis/references/gap-analysis-frameworks.md:169` ("Step-by-step tutorials" — refreshed from :161 and re-tagged in check (g)'s own `("token")` form 2026-08-17; the earlier `(token …)` spelling was never parseable by the check),
+  `research/content-gap-analysis/references/gap-analysis-frameworks.md:182` ("Step-by-step tutorials" — refreshed from :161 and re-tagged in check (g)'s own `("token")` form 2026-08-17; the earlier `(token …)` spelling was never parseable by the check),
   `build/meta-tags-optimizer/references/ctr-and-social-reference.md:155` ("Rich results (schema)" — line unchanged, re-tagged in the parseable form 2026-08-17) — all
   still teach HowTo rich results as a current SERP feature. Surfaced 2026-08-09 by
   the R3-purge implementer as an out-of-scope observation: training-knowledge

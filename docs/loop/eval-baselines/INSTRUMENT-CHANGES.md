@@ -84,6 +84,41 @@ directory first, and the comparison is where the harm happens.
 
 ---
 
+## 2026-08-18 — three expectation texts repaired; no denominator moved
+
+Suites: `serp-analysis` e3.1, `entity-optimizer` e3.2, `performance-reporter` e1.5. Written by the
+`suite-contradictions` lane; the commit is the one that changed exactly those three `evals.json`
+files on this date. **Expectation counts unchanged in all four suites examined** — 29 / 33 / 29 / 29,
+each still matching its `blind-2026-08-17` record's `summary.total`, so per-expectation comparison
+against that wave stays valid. Three texts moved, which is not a denominator change, but a later
+reader must not mistake it for skill drift.
+
+**`serp-analysis` e3.1.** Used to anchor on the taxonomy cell *"Google sees this as high-information
+query"*. Now anchors on the cell's current text, requires the read to be present in the deliverable
+in its own words, and fails a response that asserts an engine disposition. The old text was deleted
+at `1675e11` under settled ruling **R3 amendment 9a**; the expectation still graded it.
+**Direction**: no recorded verdict moves — the 08-17 FAIL stands, the 08-10 PASS stands. What closes
+is the 08-17 record's printed lenient alternative: **27/29 is void, 26/29 is the only reading.** A
+response writing the retracted sentence now moves PASS → FAIL.
+
+**`entity-optimizer` e3.2.** Used to *license* repeating, untimed and attributed, the claim that a
+complete Wikidata entry "often precedes panel creation". The skill retracted that claim at `f944d24`
+under the same ruling and makes no such observation anywhere at HEAD — so the expectation
+**licensed a deliverable to tell a client an unsourced claim about what Google does.** Now the
+prohibition is kept and widened (not untimed, not attributed, not as a general observation, not as a
+retraction) and the licence is replaced with what the skill does say. All five original graded
+demands survive. **Direction**: both recorded runs stay PASS; neither deliverable used the licence.
+
+**`performance-reporter` e1.5.** Used to write the Core Web Vitals middle band inclusively
+(`2.5–4.0 s`) in the same sentence that opens `LCP ≤2.5s` — **double-grading 2.5 s against itself**,
+independently of any reference. Now exclusive, matching `kpi-definitions.md:453-455` as repaired at
+`db83ee9` under settled ruling **R4**. **Direction**: zero movement on any record — fixture values
+are 3.1 s, 2.8 s, 205 ms, 190 ms, 0.08, none on a boundary.
+
+**Owed**: re-runs of all four suites once the tree is frozen. Three findings registered alongside
+these did **not** hold at HEAD and nothing was changed for them — `serp-analysis` e4.2,
+`geo-content-optimizer` e2.1 and e1.5.
+
 ## How to add a row here
 
 One heading per change, carrying: the commit, the suites, what the expectation used to require,

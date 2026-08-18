@@ -322,6 +322,27 @@ search-engine behaviour. The reopening condition is Sani's own word, not primary
 - **Reopens on**: a measured case where two writers' archive rows genuinely conflict in a way
   `merge=union` does not resolve.
 
+### M5 — `domain-authority-auditor` e4.7: the FAIL does not survive the current text, and the record's FAIL still stands
+
+- **Statement**, and the two halves are not in tension:
+  1. **Against the expectation as it reads at HEAD, the FAIL does not survive.** Its only explicit
+     failure trigger is *"a derived figure that contradicts the report's own tables"*, and no figure
+     did — every number in that deliverable recomputes. The grader's stated basis was a **skill**
+     rule and a `score-arithmetic` section, not any clause of e4.7.
+  2. **The record's FAIL stands as a correct grade of what it graded.** The expectation was rewritten
+     at `e06073a`, hours after the run. This is a statement about a re-run, not a correction of the
+     record, and the record is **not** to be edited to match.
+- **Decided**: 2026-08-18, by the coordinator, on facts the `auditor-outputval` lane established and
+  deliberately did not act on — it stated both readings and refused to pick, which was correct.
+- **The defect that outlives the ruling, and is the part worth keeping**: **no clause anywhere in
+  that suite grades "the report states a rule it then contradicts."** The FAIL was reaching for a
+  property — document self-consistency — that the instrument never asks about. If that is to be
+  graded it must be **written**, not inferred into an expectation that does not say it. Until it is,
+  a deliverable may print one method and apply another and pass.
+- **Not relitigable on**: a preference between the two readings. Reopen only on a written expectation
+  that grades stated-versus-applied method, at which point this ruling is superseded rather than
+  argued with.
+
 ---
 
 ## Pinned baselines (drift watch — not rulings)

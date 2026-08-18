@@ -1,6 +1,6 @@
 ---
 name: content-quality-auditor
-version: "4.8.0"
+version: "4.9.0"
 description: 'Run the full 80-item CORE-EEAT audit across 8 dimensions with content-type weighted scoring, veto checks, and prioritized fix plans. Use when the user asks to "audit content quality", "EEAT score", "CORE-EEAT audit", "content quality check", "how good is my content", "content improvement plan", "is my content AI-citation worthy", "GEO quality score". For SEO page element audits, see on-page-seo-auditor. For domain-level authority, see domain-authority-auditor.'
 license: Apache-2.0
 allowed-tools: WebFetch
@@ -8,7 +8,7 @@ compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, 
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.8.0"
+  version: "4.9.0"
   geo-relevance: "high"
   tags:
     - seo
@@ -152,12 +152,12 @@ Score each item:
 
 | ID | Check Item | Score | Notes |
 |----|-----------|-------|-------|
-| C01 | Intent Alignment | Pass/Partial/Fail | [observation — anything quoted from the content is copied verbatim, any cut marked …; on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
-| C02 | Direct Answer | Pass/Partial/Fail | [observation — anything quoted from the content is copied verbatim, any cut marked …; on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
+| C01 | Intent Alignment | Pass/Partial/Fail, or N/A | [observation — an N/A names the reason the item could not be evaluated; anything quoted from the content is copied verbatim, any cut marked …; on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
+| C02 | Direct Answer | Pass/Partial/Fail, or N/A | [observation — an N/A names the reason the item could not be evaluated; anything quoted from the content is copied verbatim, any cut marked …; on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
 | ... | ... | ... | ... |
-| C10 | Semantic Closure | Pass/Partial/Fail | [observation — anything quoted from the content is copied verbatim, any cut marked …; on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
+| C10 | Semantic Closure | Pass/Partial/Fail, or N/A | [observation — an N/A names the reason the item could not be evaluated; anything quoted from the content is copied verbatim, any cut marked …; on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
 
-[P] Pass · [Q] Partial · [F] Fail = [points] over [n] scored items → **C Score**: [X]/100
+[P] Pass · [Q] Partial · [F] Fail · [S] N/A = [points] over [n] scored items (n = 10 − [S]) → **C Score**: [X]/100
 ```
 
 Count that tally line off the rows you just wrote, every time — never off the tally you expected to write. Where a tally line and its table disagree, **the table wins**: fix the line, then re-derive everything downstream of it (the dimension score, GEO, SEO, the weighted total, and the rating band beside the total). Repeat the same table format for **O** (Organization), **R** (Referenceability), and **E** (Exclusivity), scoring all 10 items per dimension. **The Notes column is an evidence cell, and every quotation inside it is verbatim** — the same requirement Step 4's Quote discipline puts on a Top-5 **Evidence** field, restated here because the item tables are written before Step 4 is read and a run copies the table, not the paragraph downstream of it. Copy the span out of the content: never retype it from memory, never tighten it, never quote from your own summary of it. **A shortened quote marks the cut with `…`, or it is not presented as a quote at all** — an interior word dropped inside the quotation marks changes what the page is recorded as saying while still looking like a faithful copy, and the elision mark is the only thing that tells a reader something was removed. Where a span will not survive being copied whole, describe it unquoted instead. This holds in every language the audit is written in — Greek guillemets « » are quotation marks and carry the identical requirement — and one sentence quoted twice in one report is quoted the same way both times.
@@ -170,10 +170,10 @@ Count that tally line off the rows you just wrote, every time — never off the 
 
 | ID | Check Item | Score | Notes |
 |----|-----------|-------|-------|
-| Exp01 | First-Person Narrative | Pass/Partial/Fail | [observation — anything quoted from the content is copied verbatim, any cut marked …; on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
+| Exp01 | First-Person Narrative | Pass/Partial/Fail, or N/A | [observation — an N/A names the reason the item could not be evaluated; anything quoted from the content is copied verbatim, any cut marked …; on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
 | ... | ... | ... | ... |
 
-[P] Pass · [Q] Partial · [F] Fail = [points] over [n] scored items → **Exp Score**: [X]/100
+[P] Pass · [Q] Partial · [F] Fail · [S] N/A = [points] over [n] scored items (n = 10 − [S]) → **Exp Score**: [X]/100
 ```
 
 Repeat the same table format for **Ept** (Expertise), **A** (Authority), and **T** (Trust), scoring all 10 items per dimension.
@@ -237,21 +237,21 @@ The worked case — an Authority dimension with 8 items N/A and 2 scored, the co
 - **Audit Date**: [date]
 - **Total Score**: [computed score, e.g. 39.80] → **[rounded score]/100** ([rating]) — the rating word is read off the rounded figure; the computed figure stays beside it
 - **GEO Score**: [score]/100 | **SEO Score**: [score]/100
-- **Veto Status**: ✅ No triggers / ⚠️ [item] triggered — final score capped at 59 / ⛔ BLOCK ([items]) — final score suppressed / ❓ [item] unassessable — no final score issued
+- **Veto Status**: ✅ No triggers / ⚠️ [the triggered item's plain-language name, never its ID] triggered — final score capped at 59 / ⛔ BLOCK ([the triggered items' plain-language names, never their IDs]) — final score suppressed / ❓ [the item's plain-language name, never its ID] unassessable — no final score issued
 
 ### Dimension Scores
 
-| Dimension | Score | Rating | Weight | Weighted |
-|-----------|-------|--------|--------|----------|
-| C — Contextual Clarity | [X]/100 | [rating] | [X]% | [X] |
-| O — Organization | [X]/100 | [rating] | [X]% | [X] |
-| R — Referenceability | [X]/100 | [rating] | [X]% | [X] |
-| E — Exclusivity | [X]/100 | [rating] | [X]% | [X] |
-| Exp — Experience | [X]/100 | [rating] | [X]% | [X] |
-| Ept — Expertise | [X]/100 | [rating] | [X]% | [X] |
-| A — Authority | [X]/100 | [rating] | [X]% | [X] |
-| T — Trust | [X]/100 | [rating] | [X]% | [X] |
-| **Weighted Total** | | | | **[X]/100** |
+| Dimension | Score | Items (Pass/Partial/Fail/N/A) | Rating | Weight | Weighted |
+|-----------|-------|:-----------------------------:|--------|--------|----------|
+| C — Contextual Clarity | [X]/100 over [n] scored | [p]/[q]/[r]/[s] | [rating] | [X]% | [X] |
+| O — Organization | [X]/100 over [n] scored | [p]/[q]/[r]/[s] | [rating] | [X]% | [X] |
+| R — Referenceability | [X]/100 over [n] scored | [p]/[q]/[r]/[s] | [rating] | [X]% | [X] |
+| E — Exclusivity | [X]/100 over [n] scored | [p]/[q]/[r]/[s] | [rating] | [X]% | [X] |
+| Exp — Experience | [X]/100 over [n] scored | [p]/[q]/[r]/[s] | [rating] | [X]% | [X] |
+| Ept — Expertise | [X]/100 over [n] scored | [p]/[q]/[r]/[s] | [rating] | [X]% | [X] |
+| A — Authority | [X]/100 over [n] scored | [p]/[q]/[r]/[s] | [rating] | [X]% | [X] |
+| T — Trust | [X]/100 over [n] scored | [p]/[q]/[r]/[s] | [rating] | [X]% | [X] |
+| **Weighted Total** | | | | | **[X]/100** |
 
 **Score Calculation**:
 - Dimension score = points earned ÷ (10 × scored items) × 100, counted from that dimension's own rows above
@@ -262,7 +262,7 @@ The worked case — an Authority dimension with 8 items N/A and 2 scored, the co
 
 **Rating Scale**: 90-100 Excellent | 75-89 Good | 60-74 Medium | 40-59 Low | 0-39 Poor — read off the rounded score, with the computed score shown beside it
 
-**Items not evaluated**: named in the per-item tables with their reason, excluded from that dimension's denominator rather than scored zero; a dimension with more than half its items unevaluated is reported as Insufficient Data instead of carrying a score.
+**Items not evaluated**: named in the per-item tables with their reason, counted as the N/A figure in that dimension's row above, and excluded from its denominator rather than scored zero — scored + not evaluated = 10 in every dimension, 80 across the report. A dimension with more than half its items unevaluated reads Insufficient Data in place of a score, is excluded from the weighted total, and carries no potential gain; the remaining weights are renormalised to sum to 100%.
 
 ### Per-Item Scores
 
@@ -270,15 +270,15 @@ The worked case — an Authority dimension with 8 items N/A and 2 scored, the co
 
 | ID | Check Item | Score | Notes |
 |----|-----------|-------|-------|
-| C01 | Intent Alignment | [Pass/Partial/Fail] | [observation — anything quoted from the content is copied verbatim, any cut marked …; on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
-| C02 | Direct Answer | [Pass/Partial/Fail] | [observation — anything quoted from the content is copied verbatim, any cut marked …; on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
+| C01 | Intent Alignment | [Pass/Partial/Fail, or N/A] | [observation — an N/A names the reason the item could not be evaluated; anything quoted from the content is copied verbatim, any cut marked …; on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
+| C02 | Direct Answer | [Pass/Partial/Fail, or N/A] | [observation — an N/A names the reason the item could not be evaluated; anything quoted from the content is copied verbatim, any cut marked …; on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
 | ... | ... | ... | ... |
 
 #### EEAT — Source Credibility (40 Items)
 
 | ID | Check Item | Score | Notes |
 |----|-----------|-------|-------|
-| Exp01 | First-Person Narrative | [Pass/Partial/Fail] | [observation — anything quoted from the content is copied verbatim, any cut marked …; on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
+| Exp01 | First-Person Narrative | [Pass/Partial/Fail, or N/A] | [observation — an N/A names the reason the item could not be evaluated; anything quoted from the content is copied verbatim, any cut marked …; on Partial/Fail add Confirmed/Likely/Hypothesis; a Hypothesis names its check] |
 | ... | ... | ... | ... |
 
 ### Top 5 Priority Improvements
@@ -298,7 +298,7 @@ Sorted by: weight × points lost (highest impact first), with dependencies respe
 
 ### Action Plan
 
-Every action this audit recommends, in one place, ordered by weighted gain ÷ effort with dependencies respected. Effort bands: Quick (<30 min) · Medium (1–2 h) · Strategic (needs planning). A field with no answer carries its stated-absence value, never a blank.
+Every action this audit recommends, in one place, ordered by weighted gain ÷ effort with dependencies respected. Effort bands: Quick (<30 min) · Medium (1–2 h) · Strategic (needs planning). A field with no answer carries its stated-absence value, never a blank. A prohibited tactic found in the audited content is a row here like any other — named plainly, its exposure in the risk column — never dropped because it was already in place.
 
 | # | Action | Owner | Acceptance criterion | Expected gain | Effort | Depends on | Risk if done wrong |
 |---|--------|-------|----------------------|---------------|--------|------------|--------------------|
@@ -332,7 +332,7 @@ Drop any row whose run this audit did not actually motivate; a standing list of 
 - [ ] If comparative audit, competitor content also provided
 
 ### Output Validation
-- [ ] All 80 items scored (or marked N/A with reason)
+- [ ] All 80 items scored, or marked N/A naming the reason it could not be evaluated; each dimension prints its scored-item denominator beside its score and its Pass/Partial/Fail/N/A tally beside that, and scored + N/A = 10 in every dimension
 - [ ] **Pre-send recompute pass run against the finished report** (Step 4; § 7 of the score-arithmetic reference): every one of the 8 dimension scores recounted off the Pass/Partial/Fail rows of its own item table, and every tally line agreeing with the table it summarises. **The attainable-value screen does not stand in for this recount** — each score is also an exact multiple of 50 / scored items (see N/A Item Handling), but a miscounted tally is usually itself a possible tally, so it clears that screen and only the recount catches it
 - [ ] Weighted total matches content-type weight configuration and reproduces from the printed dimension scores and printed weights (renormalised weights sum to 100%); GEO and SEO are each the mean of the four dimension scores as printed; the rating beside the total is the band that total falls in on the scale the report prints. The published bands have whole-number endpoints and a weighted mean is not a whole number, so **the band is read off the total rounded to a whole number, half up** — 39.80 reads 40, Low. Both figures are printed: the computed total with its derivation, at enough precision that a reader can see which side of the boundary it fell on and reproduce the rounding, and the rounded total carrying the rating word. Rounding is a reading step for the band only and never replaces the computed figure
 - [ ] Every prose statement of how many items were not evaluated, and why, matches the N/A rows in the tables it describes — a count and a reason, never a list of item IDs
@@ -342,6 +342,7 @@ Drop any row whose run this audit did not actually motivate; a standing list of 
 - [ ] Action plan includes concrete steps with effort estimates
 - [ ] Every recommended action — each Top 5 entry and every Action Plan row — carries all seven fields (action, owner, acceptance criterion, expected impact, effort, dependencies, risk if done wrong), with a stated-absence value wherever an answer does not exist (`not estimated — no baseline data`, `none`, `low — reversible, no downstream effect`); no action ships without an owner-role and an acceptance criterion, the owner is a role from the closed list (`Client decision` and `unassigned — needs an owner` both count, the second being itself a finding), and where an action appears in both views its fields say the same thing
 - [ ] Every acceptance criterion is observable, binary at the moment of checking, attached to a named artefact or measurement, and dated or triggered — checkable by someone who was not part of this engagement, six weeks on, without asking what was meant. **None of them requires an engine to do something**: an AI-surface action is accepted on the work shipped plus the measurement re-run and recorded beside its dated baseline, never on an appearance in a generated answer. The ordering rule is stated once, and the existing weight × points-lost sort and the Quick/Medium/Strategic effort bands are the only priority and effort vocabularies used
+- [ ] Any prohibited tactic found in the audited content is named plainly, its exposure stated, its remediation given with an owner and an acceptance criterion, and ranked against everything else — never quietly left in place, never built on, and never removed or altered on this skill's own initiative
 - [ ] Every Partial/Fail note and every priority improvement carries a confidence label (Confirmed / Likely / Hypothesis); each Hypothesis names its verification step
 - [ ] No quotation in the report attributes words to a named person or organisation without a checkable source beside it, and no Fix or Action Plan step drafts a quote in a real person's name. **Every quotation of the audited content is verbatim on all three quote surfaces** — a per-item Notes cell as much as a Top-5 Evidence field — **and any shortening is marked at the cut with `…`**: a quoted span with an interior word dropped and no elision mark is a paraphrase presented as a quote, and it fails this check even where the same sentence is quoted correctly elsewhere in the same report. Greek guillemets « » are quotation marks and are checked identically; where one sentence is quoted more than once, the copies match each other and the source
 - [ ] Anti-slop scans (AS-1 to AS-4) run, with hits recorded in the evidenced items' notes (O09, O06, C02, E06, E08, R01, R02, R04, Ept03)

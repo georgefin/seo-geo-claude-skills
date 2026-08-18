@@ -140,8 +140,9 @@ PY
 #      to the next tagged fence or EOF. Reading (a) needs "this one opens a nested block, a
 #      later one closes it, the last one closes the container" — which requires an ODD run of
 #      at least 3. An even run means reading (a) would leave the container open to EOF, which
-#      is the default scan's second mechanism, not this one. Measured: 307 bare-closes-tagged
-#      sites repo-wide, 18 survive this condition.
+#      is the default scan's second mechanism, not this one. Measured 2026-08-17, pre-repair —
+#      these are measurement (A)'s funnel, not a current count: 307 bare-closes-tagged sites
+#      repo-wide, 18 survive this condition.
 #   3. The material CommonMark pushes OUT of the container carries markdown BLOCK syntax — an
 #      ATX heading, a table row, a blockquote, a list item, or a leading bold/italic/link. A
 #      fence with no info string declares "literal text, no language"; markdown block syntax
@@ -149,7 +150,14 @@ PY
 #      container. This is the corroboration that separates a real truncation from a document
 #      that simply happens to use several standalone bare blocks in a row.
 #
-# MEASURED, 2026-08-17, over 247 markdown files, BEFORE the four in-scope repairs:
+# TWO NUMBERS LIVE BELOW AND THEY ARE NOT THE SAME KIND OF NUMBER. (A) is a PRECISION
+# measurement, taken once against a fixed tree; it does not decay when the tree moves. (B) is an
+# INVENTORY of what stands right now, and it moves every time a lane clears a site. Quote (A) to
+# answer "is this check trustworthy"; quote (B) only to answer "how much is left", and prefer
+# re-running the mode — (B) is only as fresh as the last lane that edited it. Never edit (A) to
+# agree with (B): they are answers to different questions, taken on different days.
+#
+# (A) PRECISION — measured 2026-08-17, over 247 markdown files, BEFORE the four in-scope repairs:
 #   307 bare-closes-tagged sites → 18 pass condition 2 → 11 also pass condition 3
 #   → 10 after condition 1. All 10 hand-checked: 10 true positives, 0 false positives.
 # A first draft used only {heading, table row} for condition 3 and scored 9 — it MISSED
@@ -157,19 +165,28 @@ PY
 # lead-in and no heading. The wider block-syntax class is what recovered it. Precision is
 # therefore measured at 10/10 and recall is NOT claimed to be 1: condition 3 is corroboration,
 # and a truncation whose escaped material is plain unformatted prose is invisible to it.
+# The 10 is a count taken THAT DAY, not a standing inventory. It is quoted because 10 of 10 were
+# hand-checked true, and that ratio — not the 10 — is what justifies the check existing.
 #
-# AFTER the four in-scope repairs (outer fence widened to four backticks): 10 → 6 sites in
-# 5 files. All 6 are true positives left standing because they are outside the repairing lane's
-# file scope, not because they are disputed:
-#   monitor/backlink-analyzer/references/analysis-templates.md:36        (§1, another lane's file)
+# (B) CURRENT INVENTORY — re-run 2026-08-18 at b86b86d, over 251 markdown files: 3 sites in
+# 2 files. The 3 sites that stand, in the 2 files that carry them:
 #   optimize/internal-linking-optimizer/references/linking-templates.md:29
-#   optimize/on-page-seo-auditor/SKILL.md:268
-#   optimize/technical-seo-checker/SKILL.md:147
-#   research/serp-analysis/references/analysis-templates.md:18 and :338
-# THIS IS WHY THE MODE IS NOT GATED. It is not crying wolf — 0 of 10 findings were false. It is
-# not gated because the tree does not yet satisfy it, and a leg wired in while six true findings
+#   research/serp-analysis/references/analysis-templates.md:18 and :353
+# Trajectory 10 → 6 → 3, all of it repair and none of it a change to the detector: 10 at (A);
+# then 6 sites in 5 files the same day, after four outer fences were widened to four backticks;
+# then 3, after three more were cleared on 2026-08-17 by 6c14e35 (backlink-analyzer/references/
+# analysis-templates.md:36), 8e35e30 (on-page-seo-auditor/SKILL.md:268) and 0758fa0
+# (technical-seo-checker/SKILL.md:147). The `:353` above is the site the 6-count listed as
+# `:338`: 1675e11 added content above it and the line moved. Same defect, not a new one —
+# checked by running this mode against 1675e11^, which reports :18 and :338 in that file and
+# nothing else. Both remaining sites are true positives left standing because they sit outside
+# the repairing lanes' file scope, not because they are disputed.
+#
+# THIS IS WHY THE MODE IS NOT GATED. It is not crying wolf — 0 of 10 findings were false (A). It
+# is not gated because the tree does not yet satisfy it, and a leg wired in while true findings
 # stand would block every lane's push. Wire it into pre-push-gate.sh only when this mode exits 0
-# on a clean tree; until then a lane that clears one of the six should re-run and re-count here.
+# on a clean tree; until then a lane that clears one of the remaining sites re-runs the mode and
+# updates (B) here, leaving (A) alone.
 bare_inner() {
   python3 - "$@" <<'PY'
 import os, re, sys

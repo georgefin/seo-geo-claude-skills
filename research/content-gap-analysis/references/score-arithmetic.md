@@ -45,6 +45,15 @@ If a table elsewhere in the deliverable expresses a factor in the opposite direc
 "Estimated Effort: High" column, for instance — say which score it maps to in the same row:
 **High effort is Creation Effort 1, not 5.**
 
+**One gloss changes on the proxy path.** Where Search Demand is proxied from competitor cluster
+depth and Density is mirrored against it (`Density = 6 − Demand`), Density is no longer a count of
+competitors: its top band arrives where they have published the fewest articles, never where none
+has, so **"no competitor covers it" is not what the cell means there**. It reads as room left given
+the depth already published, and the row says so. The figure itself is not adjusted — under
+mirroring it is derived, so overriding it would change the score and not the gloss (frameworks §4).
+The direction is unchanged: 5 is still the favourable value and the factor is still added, never
+subtracted.
+
 ## 3. Gap Priority Score: attainable values and rounding
 
 With the published weights (0.25 / 0.20 / 0.25 / 0.15 / 0.15) and integer factor scores:
@@ -186,15 +195,32 @@ Run this against the finished report, not the working notes.
 4. Where a factor was dropped, the renormalised weights are printed, they sum to 1.00, and the
    dropped factor is named. Where a factor was proxied, the proxy's basis is named **and the demand
    floor that proxy set is printed in the proxy's own units** — a proxy with no floor left the gap
-   filter empty, and neither score re-applies it (frameworks §1 Step 4, §4).
+   filter empty, and neither score re-applies it (frameworks §1 Step 4, §4). Every row scoped
+   narrower than the floor's unit prints **both readings** — the cluster's, which the Demand cell
+   was scored from, and its own subject's — and names which one cleared the floor, so no row passes
+   on inherited demand evidence unseen. And on a mirrored proxy path no Competitive Density cell is
+   reported as "no competitor covers it": every scored gap cleared a floor that guarantees
+   competitor coverage, so a row printing Density 5 prints the re-glossed reading beside it rather
+   than suppressing the value, which would change the score (§2 above).
 5. Every mean states its n; every Gap Size shows both inputs; the funnel stage counts sum to the
-   stated total.
+   stated total. **Every count in prose names the rows it counted, and every superlative or "the two
+   lowest / the largest" claim names each row tied at the extreme** — "three depth gaps: A, C, F",
+   "the lowest Conversion Potential: B, D and G at 1 each". This is the derivation half of item 8:
+   the check below catches a sentence that already disagrees with its table, and this stops it being
+   writable, because a writer who has to list the rows counts them. It is the same rule the Gap
+   Priority Score obeys when it prints its factor row — a count over the report's own rows is a
+   derived figure, and a derived figure carries its derivation.
 6. Every GEO Value carries the rubric band it was scored against and is labelled a judgement; no
    blended SEO+GEO number appears.
 7. No traffic projection and no competitor per-page or per-type traffic figure appears anywhere.
 8. Where a sentence and a table disagree, the table wins — fix the sentence. This one is repeated
    deliberately, because this pass runs while the scores are computed and the breach happens later,
-   while the prose about them is written. It therefore stands at **three** sites and they are one
+   while the prose about them is written. It therefore stands at **four** sites and they are one
    rule — change them together: here; SKILL.md → **Content Gap Report**, as a pre-send check in the
-   output-format section; and `analysis-templates.md` → **Prioritized Report Template**, against the
-   two prose slots that fail it most often, *Key Findings* and *Why prioritize*.
+   output-format section; `analysis-templates.md` → **Prioritized Report Template**, against the
+   two prose slots that fail it most often, *Key Findings* and *Why prioritize*; and, since 4.5.0,
+   inside that template's own *Key Findings* block as an HTML comment, because the check has to
+   reach the writer at the moment the sentence is drafted and a model copies the fence, not the
+   prose beside it. Two further instances of the class shipped after the three-site placement —
+   which is why item 5 now carries the derivation half: a count that names its rows is the part
+   a re-read cannot be relied on to catch.

@@ -334,6 +334,11 @@ does not reconcile has double-counted a page or dropped one.
 2. [Second significant gap]
 3. [Third significant gap]
 
+<!-- These three are written from memory after the tables are built, which is where this report's
+     counts and superlatives go wrong. Any count here names the rows it counted ("three depth gaps:
+     rows A, C and F") and any superlative names every row tied at the extreme. Then read each line
+     back against its table: where the two disagree, the table wins — fix the sentence. -->
+
 **Total Opportunity**:
 - Keyword gaps identified: [X]
 - Combined search volume across those gaps: [X]/month — search volume, not visits
@@ -460,15 +465,37 @@ largest gap", "none of them cover it") gets written against a figure printed fur
 *Why prioritize* under each tier, where the count of rows in the tier is restated in words. Read
 each one back against the table it describes and correct the sentence, never the table. Same rule
 as [score-arithmetic.md](./score-arithmetic.md) §7 item 8 and SKILL.md → **Content Gap Report**;
-three sites, one rule, changed together.
+four sites, one rule, changed together — the fourth being the comment inside the *Key Findings*
+block above, which is where the sentence is actually written and the only one of the four that
+travels with the fence a model copies.
 
-**Where Search Demand was proxied, two things ride the row itself** (SKILL.md Step 9,
-gap-analysis-frameworks.md §4). The *Volume* cell carries the proxy and its basis in place of a
-figure — "cluster depth: 23 + 41 articles across the two competitors; a coverage proxy, not a volume
-measurement" — and, where the proxy is the same competitor count Competitive Density reads, the
-*Quick Win Score* cell says the two legs cancelled: `5+4+4+1 − 12 = +2 (demand and density legs
-cancel — read as Relevance + Effort)`. The weights are not adjusted to compensate; the dependency
-is disclosed and the demand test sits in the gap filter's proxy floor instead.
+**Write those two slots so the check has less to catch.** The check is a re-read and it has missed
+the failure twice; the derivation rule is what makes the sentence hard to write wrong. **A count
+names the rows it counted and a superlative names every row tied at the extreme** — "three depth
+gaps: rows A, C and F", not "three depth gaps"; "the lowest Conversion Potential: B, D and G at 1
+each", not "the two lowest". A writer who has to list the rows counts them, and a tie that would
+have been swallowed by "the two lowest" shows up as a third name. This is a separate rule from the
+check above and is stated with the derivation rules, not with it: SKILL.md → **Scoring & Derivation
+Rules** and [score-arithmetic.md](./score-arithmetic.md) §7 item 5.
+
+**Where Search Demand was proxied, four things ride the row itself** (SKILL.md Steps 4 and 9,
+gap-analysis-frameworks.md §1 Step 4 and §4). The *Volume* cell carries the proxy and its basis in
+place of a figure — "cluster depth: 23 + 41 articles across the two competitors; a coverage proxy,
+not a volume measurement" — and, where the proxy is the same competitor count Competitive Density
+reads, the *Quick Win Score* cell says the two legs cancelled: `5+4+4+1 − 12 = +2 (demand and density
+legs cancel — read as Relevance + Effort)`. The weights are not adjusted to compensate; the
+dependency is disclosed and the demand test sits in the gap filter's proxy floor instead.
+
+Third: **a row scoped narrower than the floor's unit prints its own subject's reading beside the
+cluster's**, in the same *Volume* cell — "cluster depth: 23 + 41 articles; this row's own subject
+(re-waterproofing) 2 — floor cleared on the cluster's reading". Depth and angle gaps are the
+commonest rows this template carries and they inherit their parent cluster's demand evidence, so
+without the second reading a reader cannot tell which rows carried their own. Fourth: **the
+*Factor scores* cell's Density figure carries its re-gloss on this path** — room left given the
+depth already published, not "how many of them cover it". No Density cell here is reported as "no
+competitor covers it": every scored gap cleared the floor, so competitors demonstrably cover it. A
+row that does print Density 5 prints the re-glossed reading beside it and leaves the figure alone —
+the mirrored value is derived, and overriding it would change the score (frameworks §4).
 
 **Two rows in the Success Metrics table are conditional.** *Traffic from new content* carries no plan-time target
 number: the pages do not exist, so a figure there would be a forecast with no baseline and no
