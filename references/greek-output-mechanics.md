@@ -85,14 +85,21 @@ Three notes that stop the rule being mis-applied:
 - **Uppercase has one sigma.** Greek capitals use **Σ** throughout, including at the end of a
   word: «ΘΕΣΕΙΣ», never «ΘΕΣΕΙς». Uppercasing Greek is the one place where a word-final ς
   correctly becomes σ-shaped.
-- **A hyphen or an apostrophe does not end a word** for this purpose; the sigma inside a
-  compound's first element stays medial.
+- **A hyphen ends a word.** The first element of a hyphenated compound is a complete word and
+  takes final **ς** — «λέξεις-κλειδιά», never «λέξεισ-κλειδιά». This is what the corpus does:
+  `grep -rho 'ς-' --exclude-dir=.git --exclude=greek-output-mechanics.md .` returns **24** across
+  this repository's Greek fixtures and references — «λέξεις-κλειδιά» among them at
+  [`pack-klimatechniki-eshop-el.md:72`](../cross-cutting/domain-authority-auditor/evals/files/pack-klimatechniki-eshop-el.md).
+  (This file is excluded from its own count; the examples in this bullet would otherwise inflate
+  the figure it cites.) A screen that treats the ς before a hyphen as word-internal therefore
+  flags 24 correct strings, which is the failure mode a screen exists to avoid.
 - **Verbatim quotation wins.** Where a deliverable quotes fixture text, a source page, or a
   client's own string, it reproduces what is there character-for-character — including a defect.
   Silently correcting a quoted string is a fidelity failure, which is the worse one.
 
-**Screening it**: a scan for a word-final `σ` and a word-internal `ς` finds the whole class. Run
-it with an explicit UTF-8 locale and **record a non-vacuity control beside the result** — the
+**Screening it**: a scan for a word-final `σ` and a word-internal `ς` finds the whole class —
+with the hyphen counted as a word boundary, so «λέξεις-κλειδιά» is not a hit. Run it with an
+explicit UTF-8 locale and **record a non-vacuity control beside the result** — the
 count of correct word-final ς in the same text. A screen that returns zero because it matched
 nothing looks identical to a screen that returns zero because the text is clean.
 
