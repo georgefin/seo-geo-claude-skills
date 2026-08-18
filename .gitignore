@@ -23,7 +23,12 @@ docs/plans/
 # Node (if any tooling added later)
 node_modules/
 
-# Register write-lock journal (scripts/register-lock.sh) — live session state,
+# Register write-lock journal (scripts/register-lock.sh) — LIVE session state,
 # never committed: it records who had which shared register path open, and a
-# committed copy would be another actor's stale state in your tree.
+# committed copy would be another actor's stale state in your tree. Pulling
+# someone else's open ACQUIRE rows would make YOUR `acquire` refuse paths nobody
+# holds. That reason is about the live half only.
+# The EVIDENCE half IS tracked, at docs/loop/register-locks-archive/<date>.tsv —
+# written by `register-lock.sh archive`, read by nobody as live state, and the
+# durable answer to GOALS-SCORECARD G1-C5. See that script's do_archive comment.
 .register-locks*

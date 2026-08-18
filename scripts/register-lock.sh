@@ -15,7 +15,9 @@
 # flight") and names sequencing as vigilance, which the no-manual-vigilance
 # directive rejects as a guard. This script is the code that entry asked for.
 #
-# MODEL — an append-only TSV JOURNAL of lock events, gitignored, never committed:
+# MODEL — an append-only TSV JOURNAL of lock events. The live journal is
+# gitignored and never committed (see .gitignore for why); its rows are copied to
+# a TRACKED dated archive by `archive`, which is the durable evidence half:
 #     ACQUIRE <iso> <epoch> <holder> <path>
 #     RELEASE <iso> <epoch> <holder> <path>
 #     BREAK   <iso> <epoch> <breaker> <path> <victim> <stale|steal>
@@ -74,6 +76,10 @@
 #         Print open tenures with age and live/stale state.
 #   gate-check [<base-ref>]
 #         Pre-push check over outgoing commits (base arg, else @{upstream}).
+#   archive
+#         Copy journal rows to docs/loop/register-locks-archive/<date>.tsv, filed
+#         by each row's own date. Tracked, append-only, idempotent. Evidence only:
+#         no command reads it, so a stale row there cannot block anyone.
 #   --probe
 #         Fault injection over scripts/fixtures/register-lock/ (see below).
 #
@@ -158,6 +164,47 @@ trailer_region() {
       }
       for (i = m; i >= 1; i--) print out[i]
     }'
+}
+
+# do_archive — copy journal rows into a TRACKED, dated, append-only archive.
+#
+# WHY THIS IS A SEPARATE FILE AND NOT `git add .register-locks`. The journal has
+# two jobs and only one of them should be committed:
+#   * LIVE STATE — who holds which path right now. `.gitignore` is right that this
+#     must never be committed: pulling another session's open ACQUIRE rows makes
+#     YOUR `acquire` refuse paths nobody is actually holding, and `status` print
+#     phantom tenures. That is a functional break, not untidiness.
+#   * EVIDENCE — that a multi-lane wave journalled its disjoint scope at all. This
+#     is what GOALS-SCORECARD G1-C5 asks for, and until 2026-08-18 it lived only
+#     in the container, so the criterion was unverifiable from a clone: the wave
+#     that finally journalled its scope produced evidence nobody could check.
+# The archive carries the evidence and none of the hazard, because NOTHING reads
+# it as live state — `acquire`, `release`, `status` and `gate-check` all read
+# `$LOCKFILE` and never this directory. A stale row here cannot block anyone.
+#
+# Rows are filed under the date in their own timestamp, so a wave that spans
+# midnight lands in two files exactly as it happened. Re-running is safe: existing
+# rows are not duplicated. `merge=union` in .gitattributes keeps two sessions
+# appending on the same day from conflicting.
+do_archive() {
+    local dir="$ROOT/docs/loop/register-locks-archive"
+    [ -f "$LOCKFILE" ] || { echo "no journal at $LOCKFILE — nothing to archive"; return 0; }
+    mkdir -p "$dir"
+    local dates added=0 total=0
+    dates=$(awk -F'\t' 'NF>=2 { print substr($2,1,10) }' "$LOCKFILE" | sort -u)
+    for d in $dates; do
+        case "$d" in [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]) ;; *) continue ;; esac
+        local out="$dir/$d.tsv" n_before=0
+        [ -f "$out" ] && n_before=$(wc -l < "$out")
+        awk -F'\t' -v D="$d" 'NF>=2 && substr($2,1,10)==D' "$LOCKFILE" \
+            | { [ -f "$out" ] && grep -vxF -f "$out" - || cat; } >> "$out" 2>/dev/null || true
+        local n_after; n_after=$(wc -l < "$out")
+        added=$((added + n_after - n_before)); total=$((total + n_after))
+        echo "  $d.tsv — $((n_after - n_before)) new row(s), $n_after total"
+    done
+    echo "archived to docs/loop/register-locks-archive/ — $added new row(s) across $(echo "$dates" | wc -w) date(s)"
+    echo "(evidence only; nothing reads this as live state — the live journal stays gitignored)"
+    return 0
 }
 
 set -uo pipefail
@@ -913,6 +960,7 @@ case "$CMD" in
         ;;
     status)     do_status; exit $? ;;
     gate-check) do_gate_check "${1:-}"; exit $? ;;
+    archive)    do_archive; exit $? ;;
     ""|-h|--help|help) usage ;;
     *)          echo "ERROR: unknown command '$CMD'" >&2; usage ;;
 esac

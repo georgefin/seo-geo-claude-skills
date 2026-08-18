@@ -22,6 +22,16 @@ repo paths are all correct here.
    claim; a figure with its command is a measurement. Several summaries in this repo were wrong
    on 2026-08-17 and were caught only by recomputation (ledger F16 recurrences 2 and 3).
 
+> **G1-C5's check was rewritten on 2026-08-18 under rule 2's own carve-out** — *"a criterion
+> that cannot be checked as written."* It pointed at `.register-locks`, which is gitignored, so
+> the evidence lived only inside the container that produced it and no one cloning this repo
+> could verify the criterion at all. The 2026-08-17 wave journalled its scope for every one of
+> its eight lanes and the proof would have vanished with the container. The bar did not move:
+> the same rows, the same dates, the same pass condition — only the durable location changed,
+> to `docs/loop/register-locks-archive/`, written by `scripts/register-lock.sh archive`. The
+> working journal stays gitignored for the reason `.gitignore` already gave, which is about
+> session state and not about evidence.
+
 **Where the criteria come from.** They are derived from what this repository already treats as
 evidence — the gate legs (`scripts/pre-push-gate.sh`), the eval corpus schema fixed by ledger
 F16 recurrence 1, the frozen-input manifest in `PIPELINE.md` stage 4, the learning metrics in
@@ -51,7 +61,7 @@ without asking the coordinator anything.
 | **G1-C2** | Every record of the newest blind wave names the *mechanical* channel by which the executor received its prompts | grep each record in `docs/loop/eval-baselines/blind-<date>/` for `eval-prompt.sh` in a non-`--grade` executor context | All records in the wave |
 | **G1-C3** | Executor/grader separation rests on an artefact fact (deliverable mtimes, or a served-vs-source hash), not only on the grader's assertion | grep each record for `mtime`/`sha256`/`md5` beside the separation statement | All records in the wave |
 | **G1-C4** | Every review or grading lane records a frozen open SHA, a close SHA, and an input-drift re-check (F8 / `PIPELINE.md` stage 4 frozen-input manifest) | `repo_head_at_open`, `repo_head_at_close`, and a drift field present in each record | All records in the wave |
-| **G1-C5** | Multi-lane waves journal their disjoint scope | For each date on which two or more lanes wrote to the tree, `.register-locks` carries ACQUIRE/RELEASE rows dated that day | Every such date |
+| **G1-C5** | Multi-lane waves journal their disjoint scope | For each date on which two or more lanes wrote to the tree, `docs/loop/register-locks-archive/<date>.tsv` carries ACQUIRE/RELEASE rows | Every such date |
 | **G1-C6** | Coordinator conduct is ledgered on the same terms as a lane's — entry, recurrence increment, and a rule | `FAILURE-LEDGER.md` entries whose subject is coordinator conduct in the round under measurement | Every identified breach has an entry with a rule |
 | **G1-C7** | Zero coordinator-attributable recurrences in the round under measurement (`PIPELINE.md` learning metric 2, target 0) | Count recurrence entries in `FAILURE-LEDGER.md` dated to the round whose subject is the coordinator | 0 |
 | **G1-C8** | Gate catches on the coordinator's own commits are counted in the `KPI.md` row for every fire | `KPI.md` `caught pre-push vs post-push` column | Every row carries a number, not `n/a` |
