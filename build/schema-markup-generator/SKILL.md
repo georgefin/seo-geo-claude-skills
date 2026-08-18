@@ -1,6 +1,6 @@
 ---
 name: schema-markup-generator
-version: "4.3.1"
+version: "4.3.2"
 description: 'Generate Schema.org JSON-LD structured data — one accurate primary type per page (FAQPage, HowTo, Article, Product, LocalBusiness, and 6 other types) plus documented auxiliaries only where warranted. Use when the user asks to "add schema markup", "generate structured data", "JSON-LD", "FAQ schema", "rich snippets", "I want star ratings in Google", or "structured data validation errors". Produces validated markup for Google rich results where still offered (no FAQ rich result for ordinary sites — government/health only, Aug 2023 — FAQPage is kept because it stays valid and Google says there is no need to proactively remove it), Bing structured data, and machine-readable input for any consumer that reads it. Validates via the Schema.org validator, plus Rich Results Test for non-FAQ types. For broader technical SEO, see technical-seo-checker. For meta tag optimization, see meta-tags-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.3.1"
+  version: "4.3.2"
   geo-relevance: "medium"
   tags:
     - seo
@@ -237,7 +237,7 @@ When a user requests schema markup:
     3. **Search Console**
        - Monitor rich results in Search Console
        - Check Enhancements reports for issues
-       - FAQ exception: **sourced** — Google restricted FAQ rich results to well-known government and health websites on 2023-08-08, so an ordinary site gets no FAQ rich result and there is nothing to monitor. **Unverified, do not state as fact** — this library also carried a set of 2026 dates (appearance, report and Rich Results Test dropped June 2026; API cut scheduled August 2026). The two URLs settled ruling R3 cites do not contain them, and the page they actually came from has never been read. Pending an owner check (`docs/loop/r3-decision-brief.md`), say only the 2023 restriction. FAQPage still generates: basis is schema.org validity, not a citation benefit — no primary source establishes one either way.
+       - FAQ exception: **sourced** — Google restricted FAQ rich results to well-known government and health websites on 2023-08-08, and has since ended the feature outright: it stopped appearing in Google Search on 2026-05-07, and the documentation was removed in June 2026. Both dates read on Google's own changelog (`developers.google.com/search/updates`, the May 8 and June 15 2026 entries; re-read 2026-08-18), and FAQ is absent from the current structured-data gallery. So an ordinary site gets no FAQ rich result and there is nothing to monitor. **Reported, not owner-read** — Google's staged-retirement note ("We will be dropping the FAQ search appearance, rich result report, and support in the Rich results test in June 2026. To allow time for adjusting your API calls, support for the FAQ rich result in the Search Console API will be removed in August 2026.") is quoted identically by two independent outlets citing `developers.google.com/search/docs/appearance/structured-data/faqpage`, a page Google has since removed — quote it as reported, never as read. FAQPage still generates: basis is schema.org validity, not a citation benefit — no primary source establishes one either way.
 
     ### Validation Checklist
 

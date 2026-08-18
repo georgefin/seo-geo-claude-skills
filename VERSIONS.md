@@ -15,7 +15,7 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 | seo-content-writer | build | 4.8.0 | 2026-08-17 |
 | geo-content-optimizer | build | 4.6.2 | 2026-08-18 |
 | meta-tags-optimizer | build | 4.3.0 | 2026-08-17 |
-| schema-markup-generator | build | 4.3.1 | 2026-08-18 |
+| schema-markup-generator | build | 4.3.2 | 2026-08-18 |
 | on-page-seo-auditor | optimize | 4.5.3 | 2026-08-18 |
 | technical-seo-checker | optimize | 4.6.3 | 2026-08-17 |
 | internal-linking-optimizer | optimize | 4.6.1 | 2026-08-18 |
