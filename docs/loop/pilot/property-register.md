@@ -96,21 +96,20 @@ test applies before the domain choice: what can a buyer do there that they canno
 property?
 
 **The brand-ownership check this section asked for has now been run, and it corrected the premise.**
-The earlier note here said *"Nobo is a Glamox brand"*. That is wrong, and it was recall, which is
-why it was flagged. What the check returned:
+The earlier note here said *"Nobo is a Glamox brand"*. **That is wrong**, and it was recall, which
+is why this section had flagged it as needing a source before anything was decided on it.
 
-| Brand | Group | Evidence grade |
-|---|---|---|
-| Nobo | **Glen Dimplex**, acquired 2002 (NOBO Electro, Stjørdal) | `[VERIFY]` — four independent 2002 press reports |
-| Glamox Heating | manufactured by **Adax AS**; Adax acquired by **Glen Dimplex in 2023** | `[VERIFY]` — Adax's own about page; Glen Dimplex lists both brands |
+**The conclusion survives; the reasoning is replaced.** The worry was that two brand sites in one
+product category split the authority one of them could have built alone. That worry never needed a
+corporate-structure claim to stand up, and it does not rest on one now:
 
-`[obs:2026-08-18 web search only — glamox.com, gdhv.com and en.wikipedia.org are all
-EGRESS_BLOCKED from this environment, so no source page was opened. Snippet-grade, not primary.]`
+> **Nobo and Glamox Heating are both electric panel heater brands, and a Nobo brand site already
+> exists.** That is the overlap. It is observable from the two brands' own product ranges, it is
+> what a search engine and a buyer both see, and it is true regardless of who owns what.
 
-**The conclusion survives; the reasoning does not.** Nobo and Glamox Heating do sit in one group —
-but that group is **Glen Dimplex, not Glamox** — so the original worry (two properties splitting
-one group's authority in one product category) still stands, and now stands on a fact rather than
-on a misremembered one. Both brands make electric panel heaters, which is the actual overlap.
+**Manufacturing and corporate-ownership relationships between these brands are deliberately not
+recorded here and are not to be stated in any deliverable** — see the standing note in §6. Nothing
+in this register's advice depends on them.
 
 **And the check surfaced a second problem the earlier note did not see.** "Glamox" as a search term
 principally denotes **Glamox ASA, a large Norwegian lighting company** — a different business from
@@ -157,3 +156,21 @@ inventory observed a prices page, a selection guide, a tips section and brand hi
 makes it the estate's clearest instance of §3's risk, not merely a markup question. Both readings
 point at the same two checks: does it claim the owner's head term in title or H1, and does every
 page link in-body to the shop.
+
+---
+
+## 6. Standing note — what is never written about the brands
+
+**Instructed by the client, 2026-08-18.** No deliverable, register, report, commit message or
+internal note produced by this library states which company **manufactures** Glamox Heating, or any
+contract-manufacturing relationship behind any brand in this estate.
+
+This is a commercial matter, not a factual dispute, and it needs no exception path: **nothing in the
+SEO or GEO work depends on it.** Where a manufacturing or ownership relationship seemed to carry an
+argument, the argument was rebuilt on what is directly observable — the product categories the
+brands compete in — which is stronger evidence for this purpose anyway, because it is what a search
+engine and a buyer actually see.
+
+The rule binds the surface, not just the client report: an operator block, a commit message and a
+research note are all covered. A run that finds such a relationship records only that the question
+was checked and that it changed nothing.

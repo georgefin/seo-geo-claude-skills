@@ -1296,11 +1296,12 @@ takes the citation may be the one with no conversion path. Named at four sites (
 output* rather than any claim about engine selection — ruling R3 amendment 9a, and family 9 in
 Greek.
 
-**[VERIFY: Nobo and Glamox Heating both sit under Glen Dimplex — Nobo acquired 2002, Adax AS
-(maker of Glamox Heating) acquired 2023; and "Glamox" as a search term principally denotes Glamox
-ASA, a Norwegian lighting company. Source: web-search snippets only, 2026-08-18. `glamox.com`,
-`gdhv.com` and `en.wikipedia.org` were EGRESS_BLOCKED from this environment, so no manufacturer
-page was opened.]** The client-read text in §8.1.1 states the snippet-grade provenance in plain
+**[VERIFY: "Glamox" as a search term principally denotes Glamox ASA, a Norwegian lighting company
+— a different business from the heating brand. Source: web-search snippets only, 2026-08-18;
+`glamox.com`, `gdhv.com` and `en.wikipedia.org` were EGRESS_BLOCKED from this environment, so no
+source page was opened.] Manufacturing and corporate-ownership relationships between the brands in
+this estate are not recorded — client instruction, 2026-08-18, `property-register.md` §6. The
+argument does not need them: it rests on both brands making electric panel heaters.** The client-read text in §8.1.1 states the snippet-grade provenance in plain
 Greek and does not name the group; action 23 makes manufacturer confirmation a dependency before
 budget is committed. **An earlier draft of that warning asserted Nobo was a Glamox brand — wrong,
 and corrected.** The conclusion (two brand sites in one product category split the authority)
