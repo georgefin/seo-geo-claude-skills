@@ -71,6 +71,10 @@ in the operator block, labelled inside its own fence.
 ## Step 5: Audit Content Quality
 
 ```markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from the
+     page you audited; a criterion you could not verify is named as unverified and excluded
+     from both the numerator and the maximum, never scored 0. Delete this comment before the
+     section goes to the client. -->
 ## Content Quality Analysis
 
 **Word Count**: [X] words (visible body text; navigation, footer and boilerplate excluded)
@@ -124,6 +128,10 @@ Step 11 recommendations; same rule as SKILL.md "Finding Format & Confidence Labe
 ## Step 6: Audit Keyword Usage
 
 ```markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from the
+     page you audited; a criterion you could not verify is named as unverified and excluded
+     from both the numerator and the maximum, never scored 0. Delete this comment before the
+     section goes to the client. -->
 ## Keyword Optimization Analysis
 
 **Primary Keyword**: "[keyword]"
@@ -177,6 +185,10 @@ percentage is unusable: the same page yields wildly different figures under diff
 ## Step 7: Audit Internal Links
 
 ```markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from the
+     page you audited; a criterion you could not verify is named as unverified and excluded
+     from both the numerator and the maximum, never scored 0. Delete this comment before the
+     section goes to the client. -->
 ## Internal Linking Analysis
 
 **Total Internal Links**: [X]
@@ -211,6 +223,10 @@ percentage is unusable: the same page yields wildly different figures under diff
 ## Step 8: Audit Images
 
 ```markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from the
+     page you audited; a criterion you could not verify is named as unverified and excluded
+     from both the numerator and the maximum, never scored 0. Delete this comment before the
+     section goes to the client. -->
 ## Image Optimization Analysis
 
 **Total Images**: [X]
@@ -268,6 +284,10 @@ back to the client and scored the page down for it.
 ## Step 9: Audit Technical On-Page Elements
 
 ```markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from the
+     page you audited; a criterion you could not verify is named as unverified and excluded
+     from both the numerator and the maximum, never scored 0. Delete this comment before the
+     section goes to the client. -->
 ## Technical On-Page Analysis
 
 | Element | Current Value | Status | Recommendation |
@@ -363,6 +383,10 @@ score is a separate count from the eight section scores — it never enters the 
 ## Step 11: Generate Audit Summary
 
 ````markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from this
+     audit's own findings. No ranking, CTR or traffic forecast is added to it: the projected
+     score is the one forward-looking figure, recomputed from this report's own rubric.
+     Delete this comment before the report goes to the client. -->
 # On-Page SEO Audit Report
 
 **Page**: [URL]

@@ -11,6 +11,10 @@ Referenced from [SKILL.md](../SKILL.md).
 **Output**:
 
 ```markdown
+<!-- ILLUSTRATIVE FILL — a worked example. Every URL, score, count, quotation and date below
+     is invented to show the shape of a finished audit; none of it describes a real page.
+     Nothing here is reused as a finding. Delete this comment when you replace the contents
+     with measured findings from the page you actually audited. -->
 # On-Page SEO Audit Report
 
 **Page**: https://example.com/best-noise-cancelling-headphones

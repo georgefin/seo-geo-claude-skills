@@ -75,6 +75,10 @@ library goes in an operator block, labelled inside its own fence.
 ## Step 3: Audit Site Speed & Core Web Vitals
 
 ```markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from what
+     you measured; a row you could not check is excluded from the denominator and counted in
+     the derivation, never entered as a fail, and a section with no checkable row is written
+     "not scored — no data". Delete this comment before the section goes to the client. -->
 ## Performance Analysis
 
 ### Core Web Vitals
@@ -138,6 +142,10 @@ library goes in an operator block, labelled inside its own fence.
 ## Step 4: Audit Mobile-Friendliness
 
 ```markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from what
+     you measured; a row you could not check is excluded from the denominator and counted in
+     the derivation, never entered as a fail, and a section with no checkable row is written
+     "not scored — no data". Delete this comment before the section goes to the client. -->
 ## Mobile Optimization Analysis
 
 ### Mobile-Friendly Test
@@ -183,6 +191,10 @@ library goes in an operator block, labelled inside its own fence.
 ## Step 5: Audit Security & HTTPS
 
 ```markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from what
+     you measured; a row you could not check is excluded from the denominator and counted in
+     the derivation, never entered as a fail, and a section with no checkable row is written
+     "not scored — no data". Delete this comment before the section goes to the client. -->
 ## Security Analysis
 
 ### HTTPS Status
@@ -232,6 +244,10 @@ library goes in an operator block, labelled inside its own fence.
 ## Step 6: Audit URL Structure
 
 ```markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from what
+     you measured; a row you could not check is excluded from the denominator and counted in
+     the derivation, never entered as a fail, and a section with no checkable row is written
+     "not scored — no data". Delete this comment before the section goes to the client. -->
 ## URL Structure Analysis
 
 ### URL Pattern Review
@@ -288,6 +304,10 @@ library goes in an operator block, labelled inside its own fence.
 > That recommendation is a handoff, and both the slug and the item ID make it operator-addressed — it belongs in the report's operator block, not in a client-read paragraph. Pass the URLs to audit and their content types. Payload format, placement and the drop-and-name rule for a field you cannot source: [inter-skill-handoff.md](../../../references/inter-skill-handoff.md).
 
 ```markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from what
+     you measured; a row you could not check is excluded from the denominator and counted in
+     the derivation, never entered as a fail, and a section with no checkable row is written
+     "not scored — no data". Delete this comment before the section goes to the client. -->
 ## Structured Data Analysis
 
 ### Schema Markup Found
@@ -328,6 +348,10 @@ library goes in an operator block, labelled inside its own fence.
 ## Step 8: Audit International SEO (if applicable)
 
 ```markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from what
+     you measured; a row you could not check is excluded from the denominator and counted in
+     the derivation, never entered as a fail, and a section with no checkable row is written
+     "not scored — no data". Delete this comment before the section goes to the client. -->
 ## International SEO Analysis
 
 ### Hreflang Implementation
@@ -370,6 +394,10 @@ library goes in an operator block, labelled inside its own fence.
 > Rules: [score-rubric.md](./score-rubric.md).
 
 ````markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from this
+     audit's own findings. Sections that could not be scored are named under the breakdown,
+     never entered as 0/10, and if no section could be scored this block carries no health
+     score at all. Delete this comment before the report goes to the client. -->
 # Technical SEO Audit Report
 
 **Domain**: [domain]

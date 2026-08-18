@@ -7,6 +7,10 @@ Complete reference for creating, testing, and troubleshooting robots.txt files.
 ### Basic Structure
 
 ```
+# SKELETON — directive syntax only, not a deployable file. Every [bracket] is a slot; a
+# path or agent you cannot name is left out of the file rather than guessed at, and this
+# comment goes when you write the real directives.
+
 User-agent: [bot name]
 Disallow: [path to block]
 Allow: [path to allow]

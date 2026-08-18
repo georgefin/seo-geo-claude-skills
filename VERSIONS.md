@@ -9,20 +9,20 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 | Skill | Category | Version | Last Updated |
 |-------|----------|---------|--------------|
 | keyword-research | research | 4.6.0 | 2026-08-17 |
-| competitor-analysis | research | 4.3.0 | 2026-08-17 |
+| competitor-analysis | research | 4.3.1 | 2026-08-17 |
 | serp-analysis | research | 4.4.0 | 2026-08-17 |
 | content-gap-analysis | research | 4.5.0 | 2026-08-17 |
 | seo-content-writer | build | 4.8.0 | 2026-08-17 |
 | geo-content-optimizer | build | 4.6.1 | 2026-08-17 |
 | meta-tags-optimizer | build | 4.3.0 | 2026-08-17 |
 | schema-markup-generator | build | 4.3.0 | 2026-08-17 |
-| on-page-seo-auditor | optimize | 4.5.1 | 2026-08-17 |
-| technical-seo-checker | optimize | 4.6.2 | 2026-08-17 |
+| on-page-seo-auditor | optimize | 4.5.2 | 2026-08-17 |
+| technical-seo-checker | optimize | 4.6.3 | 2026-08-17 |
 | internal-linking-optimizer | optimize | 4.6.0 | 2026-08-17 |
 | content-refresher | optimize | 4.5.0 | 2026-08-17 |
 | rank-tracker | monitor | 4.4.0 | 2026-08-17 |
 | backlink-analyzer | monitor | 4.4.0 | 2026-08-17 |
-| performance-reporter | monitor | 4.6.1 | 2026-08-17 |
+| performance-reporter | monitor | 4.6.2 | 2026-08-17 |
 | alert-manager | monitor | 4.6.0 | 2026-08-17 |
 | content-quality-auditor | cross-cutting | 4.9.0 | 2026-08-17 |
 | domain-authority-auditor | cross-cutting | 4.6.2 | 2026-08-17 |

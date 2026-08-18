@@ -1,13 +1,13 @@
 ---
 name: competitor-analysis
-version: "4.3.0"
+version: "4.3.1"
 description: 'Analyze competitor SEO and GEO strategies including ranking keywords, content approaches, backlink profiles, and AI citation patterns. Use when the user asks to "analyze competitors", "competitive analysis", "what are my competitors doing", "why do they rank higher", "competitor keywords", "competitor backlinks", or "spy on competitor SEO". For content-focused gap analysis, see content-gap-analysis. For link profile specifics, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.0"
+  version: "4.3.1"
   geo-relevance: "medium"
   tags:
     - seo
@@ -319,7 +319,7 @@ shapes of expected impact: [Action Output Contract](../../references/action-outp
 
 ### Output Validation
 - [ ] Every recommendation cites specific data points (not generic advice)
-- [ ] Competitor strengths backed by measurable evidence (metrics, rankings)
+- [ ] Competitor strengths backed by measurable evidence (metrics, rankings) **wherever the source data carries it**. Where it does not, the strength is still backed — by the observation it rests on, shown with the count it was drawn from, and labelled per the confidence item below — and never by a hard metric the source data left empty. A zero-data or manual-only session in which every competitor strength is a **Likely** or a **Hypothesis** (Πιθανό / Υπόθεση) carrying its named confirming check **satisfies this item**; what fails it is a strength with no evidence at all, or one propped up on a reconstructed figure. Scoped 2026-08-18: unscoped, this item and the two below (source-of-each-data-point, hard-metric) could not all be satisfied in the manual-data mode this skill's own Data Sources section permits — the same unsatisfiable-pair shape ruled for the auditors on 2026-08-13, and given the same treatment, the requirement scoped to the tier that can meet it rather than either half deleted
 - [ ] Opportunities based on identifiable gaps, not assumptions
 - [ ] Action plan items are specific and actionable (not vague strategies)
 - [ ] Every Action Plan item carries all seven fields — action, owner, acceptance criterion, expected impact, effort, dependencies, risk if done wrong — with a stated-absence value wherever an answer does not exist (`not estimated — no baseline data`, `none`, `low — reversible, no downstream effect`); none ships without an owner-role and an acceptance criterion, and the owner is a role from the closed list (`Client decision` and `unassigned — needs an owner` both count, the second being itself a finding)

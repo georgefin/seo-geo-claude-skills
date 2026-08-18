@@ -250,6 +250,37 @@ not a normalisation.
 
 ---
 
+## 2026-08-18 — `content-refresher` e2.6 rewritten; a standing FAIL is now a PASS, and the re-grade is NOT issued here
+
+Suite: `optimize/content-refresher` e2.6. Denominator **unchanged at 27** — the edit rewrites text
+inside an existing expectation and adds none.
+
+**Used to require** a remediation shipped complete, with a fabrication clause scoped to attributed
+statistics. **Now requires** the same, with two changes pulling in opposite directions: the Value
+Rule's skeleton carve-out is opened for a slot the fixture cannot fill (a labelled skeleton whose
+label sits *inside* its own fence PASSES; a bracket slot with no in-fence label, or a skeleton
+labelled only in prose outside the fence, FAILS), and the blind spot ledger **F13 recurrence 5**
+identified is closed — inventing the substantive answer the fixture withholds and shipping it as
+client copy FAILS, bracketed or not, attributed or not.
+
+**Direction: FAIL → PASS on `blind-2026-08-17`.** That record's graded artefact carries the
+skeleton label inside its fence, so it satisfies the repaired text. **Records made non-comparable
+on this expectation**: `blind-2026-08-17`, `blind-2026-08-13`, `blind-2026-08-11`,
+`blind-2026-08-10c`. Per-expectation comparison stays valid for every *other* expectation in the
+suite — only e2.6's verdict is affected.
+
+**The re-grade is deliberately not issued.** The lane that repaired the instrument declined to
+grade against it, on the ground that authoring and grading the same instrument is self-review —
+the bias the executor/grader split exists to remove, and the same discipline ruling M3 records for
+a fix written by the party that wrote the rule. **The record stands at 24/27 = 0.8889 until a
+fresh grader issues it.** A summary that quietly advanced the number would be the defect this file
+exists to make visible.
+
+**Why the fixture leg was not taken.** F13-r5 offered two remedies — supply the missing input, or
+carry the carve-out in the expectation. Filling the fixture would have deleted the test: the
+withholding is precisely what exposes invention. F13-r5's own words, *"a pass rate that can only
+be earned by inventing client-facing content is measuring the wrong thing."*
+
 ## How to add a row here
 
 One heading per change, carrying: the commit, the suites, what the expectation used to require,

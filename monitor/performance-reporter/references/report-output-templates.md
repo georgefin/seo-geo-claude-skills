@@ -7,6 +7,9 @@ Detailed output templates for each step of the performance reporting workflow. U
 ## 1. Report Configuration Template
 
 ```markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from
+     measured data; a figure no connected tool or supplied export covers comes out of the
+     report and is named as unavailable. Delete this comment before the report goes out. -->
 ## Report Configuration
 
 **Domain**: [domain]
@@ -42,6 +45,9 @@ Detailed output templates for each step of the performance reporting workflow. U
   revenue, say which part.
 
 ```markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from
+     measured data; a figure no connected tool or supplied export covers comes out of the
+     report and is named as unavailable. Delete this comment before the report goes out. -->
 # SEO Performance Report
 
 **Domain**: [domain]
@@ -90,6 +96,9 @@ Action Required:
 ## 3. Organic Traffic Analysis Template
 
 ````markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from
+     measured data; a figure no connected tool or supplied export covers comes out of the
+     report and is named as unavailable. Delete this comment before the report goes out. -->
 ## Organic Traffic Analysis
 
 ### Traffic Overview
@@ -148,6 +157,9 @@ mix effect, and the shares are the evidence for saying so (SKILL.md step 4;
 `kpi-definitions.md` → "Aggregate vs. segment divergence").
 
 ```markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from
+     measured data; a figure no connected tool or supplied export covers comes out of the
+     report and is named as unavailable. Delete this comment before the report goes out. -->
 ## Keyword Ranking Performance
 
 ### Search Performance by Segment
@@ -201,6 +213,9 @@ does not answer this question.
 ## 5. GEO/AI Visibility Template
 
 ```markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from
+     measured data; a figure no connected tool or supplied export covers comes out of the
+     report and is named as unavailable. Delete this comment before the report goes out. -->
 ## GEO (AI Visibility) Performance
 
 ### AI Citation Overview
@@ -261,6 +276,9 @@ in the prose beneath — with that tool's name attached, unchanged and unblended
 recomputed into a figure of ours.
 
 ```markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from
+     measured data; a figure no connected tool or supplied export covers comes out of the
+     report and is named as unavailable. Delete this comment before the report goes out. -->
 ## AI Visibility — Prompt Set [version], [N] prompts, captured [dates], [R] repeats per prompt per engine
 
 | Engine | Mention rate | Citation rate | Owned-URL citation rate | Avg. recommendation position | Prompt-level share of voice |
@@ -316,6 +334,9 @@ is reportable; "each AI mention is worth EUR X" is not, because nothing in this 
 ([ai-visibility-measurement.md](../../../references/ai-visibility-measurement.md) §5.1).
 
 ```markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from
+     measured data; a figure no connected tool or supplied export covers comes out of the
+     report and is named as unavailable. Delete this comment before the report goes out. -->
 ## AI Referral Traffic
 
 **Sources**: [GA4: tool-measured] · [GSC AI-surface: tool-measured or "not exposed"] · [server logs: tool-measured] · [note any user-provided rows]
@@ -381,6 +402,10 @@ next step in the client's own words; the routing instruction belongs in the oper
 underneath, not inside the report.
 
 ```markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from
+     measured data; a figure no source covers comes out of the report and is named as
+     unavailable. This block is read by the client: no framework item ID, no skill or
+     command slug goes inside this fence. Delete this comment before the report goes out. -->
 ## Domain Authority
 
 Domain authority here is the **CITE score**: a 40-check review of how well this domain is
@@ -422,6 +447,10 @@ label; never print a framework item ID (`O05`, `C01`, `Ept03`) or a command slug
 report body (anti-slop-ruleset.md §6 family 8).
 
 ```markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from
+     measured data; a figure no source covers comes out of the report and is named as
+     unavailable. This block is read by the client: no framework item ID, no skill or
+     command slug goes inside this fence. Delete this comment before the report goes out. -->
 ## Content Quality
 
 Content quality here is the **CORE-EEAT score**: an 80-check read of each audited page —
@@ -486,6 +515,9 @@ the audit tool or the command. **Operator**: run `content-quality-auditor`
 ## 8. Backlink Performance Template
 
 ```markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from
+     measured data; a figure no connected tool or supplied export covers comes out of the
+     report and is named as unavailable. Delete this comment before the report goes out. -->
 ## Backlink Performance
 
 ### Link Profile Summary
@@ -523,6 +555,9 @@ Your referring domains rank #[X] of [Y] competitors.
 ## 9. Content Performance Template
 
 ```markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from
+     measured data; a figure no connected tool or supplied export covers comes out of the
+     report and is named as unavailable. Delete this comment before the report goes out. -->
 ## Content Performance
 
 ### Content Publishing Summary
@@ -640,6 +675,10 @@ a blank and never a bare word that reads like a level ("Clean", "Verify intentio
 scanning a Priority column cannot tell a level they do not recognise from a level they missed.
 
 ```markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from
+     measured data. Action, owner and acceptance criterion are required in every row; the
+     other four fields carry their stated-absence value, never a blank. Delete this comment
+     before the report goes out. -->
 ## Recommendations & Next Steps
 
 Ordered by expected impact ÷ effort, with dependencies respected — an action waiting on another sorts below it.
@@ -701,6 +740,9 @@ operator, and the founding instance of this defect was a report's own source col
 `CLAUDE.md` Tool Connector Pattern; anti-slop-ruleset.md §6 family 7).
 
 ```markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from
+     measured data; a figure no connected tool or supplied export covers comes out of the
+     report and is named as unavailable. Delete this comment before the report goes out. -->
 # [Company] SEO & GEO Performance Report
 
 ## [Month/Quarter] [Year]

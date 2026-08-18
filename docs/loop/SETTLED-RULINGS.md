@@ -343,6 +343,36 @@ search-engine behaviour. The reopening condition is Sani's own word, not primary
   that grades stated-versus-applied method, at which point this ruling is superseded rather than
   argued with.
 
+### M6 — a fixture that withholds an answer scopes every expectation graded against it, not one
+
+- **Statement**: where a fixture deliberately withholds a value, the Value Rule's skeleton carve-out
+  applies to **every** expectation in that eval which would otherwise require the withheld value in
+  composed prose — not only to the expectation someone happened to register. A labelled skeleton
+  whose label sits inside its own fence satisfies those expectations; inventing the withheld
+  substance and shipping it as client copy fails them, bracketed or not, attributed or not.
+- **Decided**: 2026-08-18, by the coordinator, on facts the `step7-suites` lane established and
+  correctly refused to act on. It repaired `content-refresher` e2.6 as dispatched, then found e2.3
+  is the same fixture collision one expectation over, stated both readings, and declined to extend
+  a carve-out into an undispatched expectation on its own initiative — *manufacturing a ruling*.
+  That was the right call and this is the answer to it.
+- **Why fixture-scoped and not expectation-scoped**: the collision is a property of **the fixture**,
+  not of the sentence that trips over it. Scoping the carve-out per expectation leaves every
+  unregistered sibling punishing the behaviour the ruling sanctions, and leaves the reading to
+  whoever grades next. That already happened: the 2026-08-17 grader **passed e2.3 and failed e2.6**
+  on the same deliverable and the same withheld value — a difference produced by improvisation, not
+  by the instrument. *A half-repaired suite that still punishes the same behaviour one line down is
+  not a repaired suite.*
+- **What it does NOT license**: the carve-out reaches the *placement* of a value the fixture does
+  not carry. It never reaches a value the fixture **does** carry, and it never excuses inventing the
+  substance. The blind spot F13 recurrence 5 identified — a fabrication clause scoped to attributed
+  statistics, unable to see invented domain advice — stays closed in every expectation it touches.
+- **Owed**: `content-refresher` e2.3 carries the carve-out in the same words e2.6 now does, applied
+  by a lane that did not write this ruling. Any other expectation in that eval graded against the
+  same withheld value is in scope; the applying lane enumerates them rather than taking this list
+  on trust.
+- **Reopens on**: a fixture whose withholding turns out to be an authoring accident rather than a
+  designed test, in which case the fixture is completed and the carve-out lapses for it.
+
 ---
 
 ## Pinned baselines (drift watch — not rulings)

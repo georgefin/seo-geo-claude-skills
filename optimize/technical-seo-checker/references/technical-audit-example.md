@@ -16,6 +16,11 @@ this example line by line.
 **Output**:
 
 ````markdown
+<!-- ILLUSTRATIVE FILL — a worked example, and an abridged one. Every domain, figure, date
+     and finding below is invented to show the shape of a finished audit; none of it describes
+     a real site, and its small denominators are the abridgement, not a real scope. Nothing
+     here is reused as a finding. Delete this comment when you replace the contents with what
+     you measured. -->
 # Technical SEO Audit Report
 
 **Domain**: cloudhosting.example

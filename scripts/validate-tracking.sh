@@ -762,28 +762,66 @@ fi
 [ "$F_OK" -eq 1 ] && pass "(f) no deprecated tokens (FID / First Input Delay / affiliate-only T04) and no un-acknowledged FAQ rich-result claims (R3) in live skill, command, or framework files"
 
 # ---------------------------------------------------------------------------
-# i_unreachable_dirs — the measurement behind check (i), as a function
+# i_record_dirs / i_dir_note / i_unreachable_dirs — the measurement behind check (i)
 # ---------------------------------------------------------------------------
 # Defined here, above --probe, for the same reason f_r3_hits is a function: the probe must run
 # THIS code over a temporary tree, not a second copy of it. $1 = baselines root.
-# Prints one record-holding directory per line that cannot reach INSTRUMENT-CHANGES.md.
 #
-# REACHABLE means: the directory holds the file itself, or some file in that directory NAMES it.
-# Not "a key inside each record" — the records are machine-written and INSTRUMENT-CHANGES.md says
-# so in its own closing section, so a hand-added JSON key would be erased by the next run that
-# writes the record. A sibling note in the directory survives, and `ls` is what a grader sent to a
-# record BY PATH actually does.
-i_unreachable_dirs() {
-    _base="$1"
-    _ic_dir="$_base"
-    find "$_base" -type f -name '*.json' 2>/dev/null | while IFS= read -r rec; do
+# REACHABLE means, and this is the entire content of the check: the directory HOLDS
+# INSTRUMENT-CHANGES.md itself, or a SIBLING NOTE beside the records — a file at depth 1 of that
+# directory which is not itself a record — names it. `ls` is what a grader sent to a record BY
+# PATH actually does, and a sibling note is what `ls` shows. Depth 1, never recursive: a note
+# buried in a subdirectory is not on that `ls` either.
+#
+# A RECORD'S OWN PROSE NAMING THE FILE COUNTS FOR NOTHING. Decided here 2026-08-18, after the leg
+# was measured blind. The implementation was `grep -rlq 'INSTRUMENT-CHANGES' "$d"` — a recursive
+# search of the DIRECTORY — so `blind-2026-08-17/`, twenty records with no README at all, printed
+# "PASS: (i) all 54 baseline record(s) sit in a directory that names INSTRUMENT-CHANGES.md",
+# because 5 of its 20 records happened to mention the string in their own grader prose. The
+# comment this one replaces already said REACHABLE meant a sibling note and explicitly not "a key
+# inside each record"; the code asked a question one noun over, and read green while doing it.
+# Three reasons a record mention is not reachability, in increasing order of weight:
+#   * it is per-record. A grader opening `alert-manager.json` is never shown what
+#     `content-refresher.json` happens to say, and 15 of those 20 records say nothing at all.
+#   * the records are machine-written, so a mention inside one is erased by the next run that
+#     writes it — the original comment's own stated reason for wanting a sibling file.
+#   * the mentions are frequently not pointers. Two of the five say INSTRUMENT-CHANGES.md carries
+#     NO row for the change that moved their own numbers, which is a reader reporting the file is
+#     incomplete, not a reader being told where to look.
+# The number is not discarded: check (i) prints it beside the WARN as an explicitly
+# non-qualifying signal, because "graders in this wave reached for the file by hand" is worth a
+# maintainer's attention even though it closes nothing.
+i_record_dirs() {
+    find "$1" -type f -name '*.json' 2>/dev/null | while IFS= read -r rec; do
         dirname "$rec"
-    done | sort -u | while IFS= read -r d; do
-        [ "$d" = "$_ic_dir" ] && continue
-        if ! grep -rlq 'INSTRUMENT-CHANGES' "$d" 2>/dev/null; then
-            printf '%s\n' "$d"
-        fi
+    done | sort -u
+}
+
+# Prints the ONE file that makes $1 reachable, or nothing at all. It prints the file rather than
+# returning a boolean so check (i) can show its evidence per directory: coverage that arrived by
+# accident is then visible in the output instead of hiding behind a green line (F7's discipline —
+# a check prints what it matched, never a bare verdict).
+i_dir_note() {
+    _d="$1"
+    if [ -f "$_d/INSTRUMENT-CHANGES.md" ]; then
+        printf '%s\n' "$_d/INSTRUMENT-CHANGES.md"
+        return 0
+    fi
+    find "$_d" -maxdepth 1 -type f ! -name '*.json' -exec grep -l 'INSTRUMENT-CHANGES' {} + 2>/dev/null \
+        | sort | sed -n '1p'
+}
+
+# Prints one record-holding directory per line that cannot reach INSTRUMENT-CHANGES.md.
+i_unreachable_dirs() {
+    i_record_dirs "$1" | while IFS= read -r d; do
+        [ -n "$(i_dir_note "$d")" ] || printf '%s\n' "$d"
     done
+}
+
+# How many records directly in $1 name the file in their own prose. Reported, never counted.
+i_self_naming_records() {
+    find "$1" -maxdepth 1 -type f -name '*.json' -exec grep -l 'INSTRUMENT-CHANGES' {} + 2>/dev/null \
+        | grep -c '.'
 }
 
 # ---------------------------------------------------------------------------
@@ -1295,40 +1333,87 @@ if [ "$PROBE" -eq 1 ]; then
     echo ""
     echo "Live tree, this commit: R3 $r3_seen lines match the tokens, $r3_surv survive the allowlist."
     echo "                        FID $fid_seen lines match the tokens, $fid_surv survive the allowlist."
-    # CHECK (i) FAULT INJECTION (OPEN-FINDINGS 95). Two synthetic trees, one of each shape: a
-    # records directory with no way up to INSTRUMENT-CHANGES.md must be REPORTED, and the same
-    # directory carrying a one-line pointer must go quiet. A census that cannot go quiet is a
-    # nag, and a census that cannot speak is decoration; this asserts both directions.
+    # CHECK (i) FAULT INJECTION (OPEN-FINDINGS 95). One synthetic tree, five record directories,
+    # one shape each: a directory with no way up to INSTRUMENT-CHANGES.md must be REPORTED, and a
+    # directory that reaches it must go quiet. A census that cannot go quiet is a nag, and a
+    # census that cannot speak is decoration; this asserts both directions, per clause.
     echo ""
-    # The synthetic tree carries three traps, each from a way this could pass while broken:
-    #   * the INSTRUMENT-CHANGES.md file NAMES ITSELF in its own text, so a reachability test
-    #     scoped to the baselines ROOT rather than to the record's own directory silences the
-    #     whole census. That exact fault was injected on 2026-08-17 and the FIRST version of this
-    #     probe passed through it, because the synthetic file happened not to contain the token.
-    #     A probe that passes on a broken guard is the guard's failure mode wearing a rosette.
-    #   * one covered subdirectory alongside the uncovered one, so "reports everything" fails too;
-    #   * a record at the top level, which is reachable by construction and must never be listed.
+    # Each directory is a control for one clause of the reachability rule, and each doubles as
+    # the fault injection for the way that clause has been, or could be, broken:
+    #   01  record only, nothing else                  -> REPORTED. The baseline shape.
+    #   02  record + sibling note naming the file      -> SILENT. Positive control for the note
+    #       clause; it must SURVIVE every stage, or a guard that reports everything also passes.
+    #   03  two records, ONE of whose prose names the  -> REPORTED. This is the founding
+    #       file                                             blindness, and the second record
+    #       is there for two reasons: it makes the point that a mention reaches only the record
+    #       carrying it, and it is the only directory with more than one record, so a
+    #       `sort -u` dropped from the enumeration turns the scope control red instead of
+    #       walking free. Measured 2026-08-18: `grep -r` over the directory read a machine-written
+    #       record as a directory pointer, and `blind-2026-08-17/` — 20 records, no README —
+    #       passed on 5 incidental mentions. A probe without this control passes on that code.
+    #   04  record + a note one level DOWN in sub/     -> REPORTED. Recursive descent is not
+    #       reachability: `ls` in the record's own directory does not show it.
+    #   05  record + its own copy of INSTRUMENT-CHANGES.md whose TEXT never names the file
+    #                                                  -> SILENT. Positive control for the
+    #       holds-the-file clause specifically; it is the only directory that clause covers, so
+    #       deleting the clause turns it red rather than passing unnoticed.
+    #   top.json beside INSTRUMENT-CHANGES.md          -> never listed, covered by the same
+    #       holds-the-file clause rather than by a hardcoded exemption for the root.
+    # And one standing trap kept from the first version of this probe: the synthetic
+    # INSTRUMENT-CHANGES.md NAMES ITSELF in its own text, so a reachability test scoped to the
+    # baselines ROOT instead of to the record's own directory silences the whole census. That
+    # fault was injected on 2026-08-17 and the FIRST version of this probe passed through it,
+    # because the synthetic file happened not to contain the token. A probe that passes on a
+    # broken guard is the guard's failure mode wearing a rosette.
+    # Finally a SCOPE control (F15-r3's rule): the enumeration itself is asserted, so a change
+    # that makes the scan find no records at all — a renamed suffix, a wrong root — turns the
+    # probe red instead of reporting a perfectly clean census over nothing.
     i_probe="$tmp/icheck"
-    mkdir -p "$i_probe/blind-1999-01-01" "$i_probe/blind-1999-01-02"
+    rm -rf "$i_probe"
+    mkdir -p "$i_probe/blind-1999-01-01" "$i_probe/blind-1999-01-02" "$i_probe/blind-1999-01-03" \
+             "$i_probe/blind-1999-01-04/sub" "$i_probe/blind-1999-01-05"
+    i_rec='{"summary":{"passed":1,"failed":0,"total":1,"pass_rate":1.0}}'
+    i_note='See ../INSTRUMENT-CHANGES.md before differencing any two records here.'
     printf '# Instrument changes\n\nRows in INSTRUMENT-CHANGES.md are one per change.\n' \
         > "$i_probe/INSTRUMENT-CHANGES.md"
-    printf '{"summary":{"passed":1,"failed":0,"total":1,"pass_rate":1.0}}\n' > "$i_probe/top.json"
-    printf '{"summary":{"passed":1,"failed":0,"total":1,"pass_rate":1.0}}\n' > "$i_probe/blind-1999-01-01/rec.json"
-    printf '{"summary":{"passed":1,"failed":0,"total":1,"pass_rate":1.0}}\n' > "$i_probe/blind-1999-01-02/rec.json"
-    printf 'See ../INSTRUMENT-CHANGES.md before differencing any two records here.\n' \
-        > "$i_probe/blind-1999-01-02/README.md"
-    i_before="$(i_unreachable_dirs "$i_probe")"
-    i_before_n=$(printf '%s\n' "$i_before" | grep -c '.')
-    i_named_wrong=$(printf '%s\n' "$i_before" | grep -c 'blind-1999-01-02' || true)
-    printf 'See ../INSTRUMENT-CHANGES.md before differencing any two records here.\n' \
-        > "$i_probe/blind-1999-01-01/README.md"
+    printf '%s\n' "$i_rec"  > "$i_probe/top.json"
+    printf '%s\n' "$i_rec"  > "$i_probe/blind-1999-01-01/rec.json"
+    printf '%s\n' "$i_rec"  > "$i_probe/blind-1999-01-02/rec.json"
+    printf '%s\n' "$i_note" > "$i_probe/blind-1999-01-02/README.md"
+    printf '{"summary":{"passed":1,"failed":0,"total":1,"pass_rate":1.0},"note":"docs/loop/eval-baselines/INSTRUMENT-CHANGES.md carries no row for this change"}\n' \
+        > "$i_probe/blind-1999-01-03/rec.json"
+    printf '%s\n' "$i_rec"  > "$i_probe/blind-1999-01-03/rec2.json"
+    printf '%s\n' "$i_rec"  > "$i_probe/blind-1999-01-04/rec.json"
+    printf '%s\n' "$i_note" > "$i_probe/blind-1999-01-04/sub/NOTE.md"
+    printf '%s\n' "$i_rec"  > "$i_probe/blind-1999-01-05/rec.json"
+    printf '# Instrument changes\n\nRows below are one per change; read before differencing.\n' \
+        > "$i_probe/blind-1999-01-05/INSTRUMENT-CHANGES.md"
+    i_dirs_seen=$(i_record_dirs "$i_probe" | grep -c '.')
+    i_want='blind-1999-01-01 blind-1999-01-03 blind-1999-01-04'
+    i_got="$(i_unreachable_dirs "$i_probe" | sed "s|^$i_probe/||" | sort | tr '\n' ' ' | sed 's/ *$//')"
+    # The advisory count check (i) prints beside its WARN is asserted too: 1 of the 2 records in
+    # 03 names the file, 0 of the 1 in 01 does. A number a gate prints and nothing checks is the
+    # shape F16 keeps catching.
+    i_self3=$(i_self_naming_records "$i_probe/blind-1999-01-03")
+    i_self1=$(i_self_naming_records "$i_probe/blind-1999-01-01")
+    printf '%s\n' "$i_note" > "$i_probe/blind-1999-01-01/README.md"
+    printf '%s\n' "$i_note" > "$i_probe/blind-1999-01-03/README.md"
+    printf '%s\n' "$i_note" > "$i_probe/blind-1999-01-04/README.md"
     i_after=$(i_unreachable_dirs "$i_probe" | grep -c '.')
-    if [ "$i_before_n" -eq 1 ] && [ "$i_named_wrong" -eq 0 ] && [ "$i_after" -eq 0 ]; then
-        echo "check (i) reachability: 1 of 2 records dirs reported (the uncovered one), pointer added -> silent (0)"
+    if [ "$i_dirs_seen" -eq 6 ] && [ "$i_got" = "$i_want" ] && [ "$i_after" -eq 0 ] \
+       && [ "$i_self3" -eq 1 ] && [ "$i_self1" -eq 0 ]; then
+        echo "check (i) reachability: 6 record dirs enumerated; reported exactly [$i_got] —"
+        echo "                        uncovered / record-prose-only / note-in-a-subdirectory;"
+        echo "                        silent on the sibling-note and holds-the-file directories"
+        echo "                        and on the root; notes added -> silent (0);"
+        echo "                        advisory self-naming count 1 of 2 in the mixed dir, 0 of 1 elsewhere"
     else
-        echo "PROBE FAIL — check (i) does not measure what it claims. Uncovered dir must be the only"
-        echo "             one reported: got $i_before_n dir(s), $i_named_wrong of them the COVERED one;"
-        echo "             after adding the missing pointer, $i_after (want 0)"
+        echo "PROBE FAIL — check (i) does not measure what it claims."
+        echo "             record dirs enumerated: $i_dirs_seen (want 6; a low count means the scan found no records)"
+        echo "             reported: [$i_got]"
+        echo "             want:     [$i_want]"
+        echo "             after adding the missing sibling notes: $i_after (want 0)"
+        echo "             advisory self-naming count: $i_self3 in blind-1999-01-03 (want 1), $i_self1 in blind-1999-01-01 (want 0)"
         probe_fail=1
     fi
 
@@ -1630,6 +1715,24 @@ done < <(cd "$ROOT" && grep -rnoE "$QA_TOKENS" \
 # Vacuity is reported rather than passed: if the directory or the file is absent, this check
 # measured nothing and says so, because "no unreachable records" and "no records" print the same
 # green otherwise (F15's founding shape).
+#
+# WHAT CHECK (i) STILL CANNOT SEE — recorded 2026-08-18 with the repair below, because a green
+# (i) is otherwise read as "the instrument record is in good order", and it says nothing of the
+# kind. It tests one fact: is there a note beside these records naming the file.
+#   * Presence, never accuracy or currency. A note proves a pointer exists, never that
+#     INSTRUMENT-CHANGES.md holds a row for the change that made THESE records non-comparable.
+#     `blind-2026-08-17/seo-content-writer.json` records that exact gap in its own evidence —
+#     no row for `3a8d62c`, the sweep that rewrote one expectation in all 20 suites — and this
+#     check would pass that directory the moment any note landed in it.
+#   * Presence, never resolvability. It matches the token, not a working link: a note reading
+#     "see INSTRUMENT-CHANGES.md" with no path, or with a path that does not resolve, is counted
+#     as covered. Whether to promote that to a link check is a deliberate non-decision here —
+#     the check's stated semantics are "names it", and widening them silently is how a check
+#     ends up measuring something other than what its comment claims.
+#   * Presence, never reading. `ls` showing a README is not a grader opening it.
+#   * `docs/loop/eval-baselines/` only. A record saved anywhere else — a workspace path handed
+#     to a Mode B run, an agent scratchpad — is outside the scan by construction.
+#   * It cannot fail the gate. A WARN is skippable, and this one has been skipped before.
 echo ""
 echo "[i] instrument-change reachability (OPEN-FINDINGS 95; census, never fails the gate)"
 I_BASE="$ROOT/docs/loop/eval-baselines"
@@ -1646,12 +1749,17 @@ else
         warn "(i) INSTRUMENT-CHANGES.md exists but there are no baseline records under it — this check measured nothing"
     elif [ "$I_UNREACH_N" -gt 0 ]; then
         I_BELOW=$(printf '%s\n' "$I_UNREACH" | while IFS= read -r d; do [ -n "$d" ] && find "$d" -maxdepth 1 -name '*.json' | grep -c '.'; done | awk '{s+=$1} END {print s+0}')
-        warn "(i) $I_BELOW baseline record(s), in $I_UNREACH_N director$( [ "$I_UNREACH_N" -eq 1 ] && echo y || echo ies) below docs/loop/eval-baselines/, cannot reach INSTRUMENT-CHANGES.md — a grader sent to one of these BY PATH is never shown that its instrument moved; one line naming the file, in each directory, closes it"
+        warn "(i) $I_BELOW baseline record(s), in $I_UNREACH_N director$( [ "$I_UNREACH_N" -eq 1 ] && echo y || echo ies) below docs/loop/eval-baselines/, cannot reach INSTRUMENT-CHANGES.md — a grader sent to one of these BY PATH is never shown that its instrument moved; one line naming the file, in a sibling note in each directory, closes it. A record naming the file in its OWN prose does not count and is listed below only as a signal: it reaches the one record that carries it, and the next run that rewrites that record erases it"
         printf '%s\n' "$I_UNREACH" | while IFS= read -r d; do
-            [ -n "$d" ] && printf '      %s\n' "${d#$ROOT/}"
+            [ -z "$d" ] && continue
+            printf '      %s — %s of %s record(s) name the file in their own prose (not counted)\n' \
+                "${d#$ROOT/}" "$(i_self_naming_records "$d")" "$(find "$d" -maxdepth 1 -type f -name '*.json' | grep -c '.')"
         done
     else
-        pass "(i) all $I_RECORDS baseline record(s) sit in a directory that names INSTRUMENT-CHANGES.md"
+        pass "(i) all $I_RECORDS baseline record(s) sit in a directory carrying a sibling note that names INSTRUMENT-CHANGES.md"
+        i_record_dirs "$I_BASE" | while IFS= read -r d; do
+            printf '      %s <- %s\n' "${d#$ROOT/}/" "$(i_dir_note "$d" | sed "s|^$ROOT/||")"
+        done
     fi
 fi
 
