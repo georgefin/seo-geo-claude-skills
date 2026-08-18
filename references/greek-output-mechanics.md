@@ -148,10 +148,10 @@ from a summary here.
 
 | Rule | Owner |
 |---|---|
-| Totality-with-numeral calque — «Όλα τα [N]…» → «Και τα [N]…» | [anti-slop-ruleset.md](../build/seo-content-writer/references/anti-slop-ruleset.md) §6, FAIL-grade **family 1** |
+| Totality-with-numeral calque | [anti-slop-ruleset.md](../build/seo-content-writer/references/anti-slop-ruleset.md) §6, FAIL-grade **family 1** |
 | Agency provenance labels and placeholders inside publishable copy or schema | same file, §6 FAIL-grade **family 2** |
 | English residue in Greek prose — untranslated artefact names, unfinished English sentences, English boilerplate headings | same file, §6 advisory families |
-| Greeklish and unaccented forms belong in metadata and technical fields, never in visible copy | [greek-keyword-coverage.md](../research/keyword-research/references/greek-keyword-coverage.md) |
+| Greeklish and unaccented-form placement | [greek-keyword-coverage.md](../research/keyword-research/references/greek-keyword-coverage.md) |
 
 The remaining §6 families (negative concord, "costs-zero" calque, mechanically translated UI
 labels, query-style article-less labels, connector placeholders, run handles on client surfaces,
@@ -173,7 +173,7 @@ there.
       (§4)
 - [ ] Quoted fixture, page or client strings reproduced character-for-character, defects included
       (§3)
-- [ ] Greeklish and unaccented forms nowhere in visible copy (§5)
+- [ ] Greeklish and unaccented-form placement checked against its owner file (§5)
 - [ ] §6 FAIL-grade families screened, families 1 and 2 included (§5)
 - [ ] Register matched to the audience, and the naturalness verdict left to the binding editor
       rather than asserted by the author (§2)
