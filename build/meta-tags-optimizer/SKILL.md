@@ -1,13 +1,13 @@
 ---
 name: meta-tags-optimizer
-version: "4.3.0"
+version: "4.3.1"
 description: 'Create and optimize title tags, meta descriptions, Open Graph tags, and Twitter cards for maximum click-through rates. Use when the user asks to "optimize title tag", "write meta description", "improve CTR", "Open Graph tags", "social media preview", "fix my meta tags", or "OG tags not showing". Produces optimized meta tags with character counting, A/B test variations, and CTR analysis. For a broader on-page audit, see on-page-seo-auditor. For structured data markup, see schema-markup-generator.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.3.0"
+  version: "4.3.1"
   geo-relevance: "low"
   tags:
     - seo
@@ -122,7 +122,7 @@ When a user requests meta tag optimization:
    ### Title Tag Optimization
    
    **Requirements**:
-   - Length: 50-60 characters (displays fully in SERP)
+   - Length: 50-60 characters — a house working range, not an engine limit. Google states "there's no limit on how long a `<title>` element can be" and truncates the title link "typically to fit the device width", so the target is a title that survives a narrow viewport, never a character count that guarantees display
    - Include primary keyword (preferably near front)
    - Make it compelling and click-worthy
    - Match search intent
@@ -153,7 +153,7 @@ When a user requests meta tag optimization:
    ### Meta Description Optimization
    
    **Requirements**:
-   - Length: 150-160 characters (displays fully in SERP)
+   - Length: 150-160 characters — a house working range, not an engine limit. Google states "There's no limit on how long a meta description can be" and truncates "typically to fit the device width"; it also creates snippets "primarily from the page content itself" and uses the meta description only where it judges it more accurate
    - Include primary keyword naturally
    - Include clear call-to-action
    - Match page content accurately
@@ -295,7 +295,7 @@ For EL/EN/DE (or any multi-language) page sets. Hreflang implementations commonl
 - [ ] Unique value proposition articulated
 
 ### Output Validation
-- [ ] Title length 50-60 characters (displays fully in SERP)
+- [ ] Title length inside the 50-60 character house range, stated as a house range and never as "displays fully in SERP" (Google publishes no length limit; truncation is by device width)
 - [ ] Meta description length 150-160 characters
 - [ ] Primary keyword appears in both title and description
 - [ ] Open Graph image specified as a real absolute URL (1200x630px recommended) — if no asset exists, the tag is omitted and the gap noted in the report, never filled with a placeholder

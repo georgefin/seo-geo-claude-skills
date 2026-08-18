@@ -1,6 +1,6 @@
 ---
 name: on-page-seo-auditor
-version: "4.5.3"
+version: "4.5.4"
 description: 'Audit on-page HTML elements including title tags, headers, image alt text, and internal links with a scored SEO report. Use when the user asks to "audit page SEO", "on-page SEO check", "SEO score", "page optimization", "what SEO issues does this page have", "score my page", "why is this page not ranking", or "check my page". For server, speed, and crawl issues, see technical-seo-checker. For full EEAT content quality scoring, see content-quality-auditor.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.5.3"
+  version: "4.5.4"
   geo-relevance: "medium"
   tags:
     - seo
@@ -220,7 +220,7 @@ bands: [references/scoring-rubric.md](./references/scoring-rubric.md).
    |-----------|--------|--------|-------|
    | Keyword included | ✅/⚠️/❌ | [X]/3 | Position: [front/middle/end] |
    | Keyword at front | ✅/⚠️/❌ | [X]/2 | [notes] |
-   | Length (50-60 chars) | ✅/⚠️/❌ | [X]/2 | [notes] |
+   | Length (50-60 chars — house range, not an engine limit) | ✅/⚠️/❌ | [X]/2 | [notes] |
    | Unique across site | ✅/⚠️/❌ | [X]/2 | [notes] |
    | Compelling/clickable | ✅/⚠️/❌ | [X]/2 | [notes] |
    | Matches intent | ✅/⚠️/❌ | [X]/2 | [notes] |
@@ -250,7 +250,7 @@ bands: [references/scoring-rubric.md](./references/scoring-rubric.md).
    | Criterion | Status | Points | Notes |
    |-----------|--------|--------|-------|
    | Keyword included | ✅/⚠️/❌ | [X]/1 | [notes] |
-   | Length (150-160 chars) | ✅/⚠️/❌ | [X]/1 | [notes] |
+   | Length (150-160 chars — house range, not an engine limit) | ✅/⚠️/❌ | [X]/1 | [notes] |
    | Call-to-action present | ✅/⚠️/❌ | [X]/1 | [notes] |
    | Unique across site | ✅/⚠️/❌ | [X]/1 | [notes] |
    | Accurately describes page | ✅/⚠️/❌ | [X]/1 | [notes] |

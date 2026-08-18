@@ -1,6 +1,6 @@
 ---
 name: serp-analysis
-version: "4.4.0"
+version: "4.4.1"
 description: 'Analyze search engine results pages to understand ranking factors, SERP features, user intent patterns, and AI overview triggers. Use when the user asks to "analyze search results", "SERP analysis", "what ranks for", "SERP features", "why does this page rank", "featured snippets", "AI overviews", or "what does Google show for". For tracking rankings over time, see rank-tracker. For keyword discovery, see keyword-research.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ allowed-tools: WebFetch
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.4.0"
+  version: "4.4.1"
   geo-relevance: "high"
   tags:
     - seo
@@ -52,7 +52,7 @@ This skill analyzes Search Engine Results Pages to reveal what's working for ran
 - Before creating content for a target keyword
 - Understanding why certain pages rank #1
 - Identifying SERP feature opportunities (featured snippets, PAA)
-- Analyzing AI Overview/SGE patterns
+- Analyzing AI Overviews and AI Mode patterns
 - Evaluating keyword difficulty more accurately
 - Planning content format based on what ranks
 - Identifying ranking factors for specific queries

@@ -31,18 +31,20 @@ Specifies which bot the rules apply to.
 **Bot-role roster** — every AI vendor ships more than one agent, and each agent has a
 different job (training vs. search/citation discovery vs. user-triggered fetching).
 Decide access **per role**, never per vendor name alone.
-`[VERIFY vendor-primary at next sweep — bot rosters churn]` (roster compiled 2026-08-08).
+`[VERIFY vendor-primary at next sweep — bot rosters churn]` (roster compiled 2026-08-08; swept against each operator's own documentation 2026-08-18).
 
 | User-agent token | Operator | Role |
 |------------------|----------|------|
 | `Googlebot` | Google | Search indexing |
 | `Google-Extended` | Google | AI-training opt-out control |
+| `Google-CloudVertexBot` | Google | Site-owner-requested crawls for building Vertex AI Agents — no effect on Google Search |
 | `Bingbot` | Microsoft | Search indexing (feeds the Copilot ecosystem) |
 | `GPTBot` | OpenAI | Model training |
 | `OAI-SearchBot` | OpenAI | Search / citation discovery |
 | `ChatGPT-User` | OpenAI | User-triggered fetching |
+| `OAI-AdsBot` | OpenAI | Ad-page safety validation — not training, not search discovery |
 | `ClaudeBot` | Anthropic | Crawling / training |
-| `anthropic-ai` | Anthropic | Crawling / training (second Anthropic token — address both) |
+| `anthropic-ai` | Anthropic | Legacy token — not listed in Anthropic's current crawler documentation (checked 2026-08-18, which documents ClaudeBot, Claude-User and Claude-SearchBot only). Harmless to keep in a robots.txt; do not present it to a client as a currently-documented agent |
 | `Claude-SearchBot` | Anthropic | Search / citation discovery |
 | `Claude-User` | Anthropic | User-triggered fetching |
 | `PerplexityBot` | Perplexity | Answer retrieval / citation |
