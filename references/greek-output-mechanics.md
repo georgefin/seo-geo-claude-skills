@@ -50,11 +50,13 @@ The judge grades five dimensions. An author writing Greek is being measured on a
    Translation-ese is the named failure: English syntax carrying Greek words, calqued idioms,
    stacked passives, English punctuation conventions where Greek differs.
 2. **Diacritics (τόνοι).** Every polysyllabic word carries its tonos. The single-syllable
-   disambiguating forms — **ή** (or), **πού** (where, interrogative/relative), **πώς** (how,
-   interrogative) — are accented and their unaccented twins (η, που, πως) are different words, not
-   sloppier spellings of the same one. **ALL-CAPS is correctly unaccented.** No mixed Latin/Greek
-   homoglyphs inside a word: a Latin `o`, `a`, `e`, `p`, `y`, `x` or `v` sitting inside a Greek
-   word looks identical and is a different string to every machine that reads it.
+   disambiguating forms — **ή** (or), **πού** (where, interrogative only — the relative «που» is
+   never accented), **πώς** (how, interrogative) — are accented, and their unaccented twins
+   (η, που, πως) are different words, not sloppier spellings of the same one. **ALL-CAPS is correctly unaccented.** No mixed Latin/Greek
+   homoglyphs inside a word. The criterion is the open one — *any* Latin letter inside a Greek
+   word — and not a closed list: `o`, `a`, `e` are examples only, and `i`, `k`, `n` and `u`
+   collide with Greek letters just as readily. Such a letter looks identical and is a different
+   string to every machine that reads it.
 3. **Greeklish placement.** Class A — see §5. The judge grades it; the rule is
    `keyword-research`'s.
 4. **Terminology fit.** Sector terms match what the Greek market actually uses, judged by
@@ -64,8 +66,11 @@ The judge grades five dimensions. An author writing Greek is being measured on a
    formats used as formats rather than invented values. Nothing reads as US-market advice with a
    Greek city pasted into it.
 
-**Grades**: NATIVE · MINOR-EDITS · NON-NATIVE · FAIL. A deliverable passes at NATIVE or
-MINOR-EDITS. Rule-3 violations in visible copy are a FAIL on their own.
+**Grades**, from that judge file: NATIVE · MINOR-EDITS · NON-NATIVE · FAIL, and rule-3 violations
+in visible copy are a FAIL on their own. **The pass threshold is not the judge's** — that file
+defines the four grades and stops there. It is the eval suites that set the bar, scoring the
+editor slot PASS at NATIVE or MINOR-EDITS and FAIL below — e.g.
+[`content-refresher/evals/evals.json:48`](../optimize/content-refresher/evals/evals.json).
 
 ---
 
@@ -159,8 +164,9 @@ there.
 
 - [ ] Final sigma correct throughout — screened with a locale set and a non-vacuity control
       recorded beside the result (§3)
-- [ ] Every polysyllable carries its tonos; ή / πού / πώς distinguished from η / που / πως;
-      ALL-CAPS unaccented; no Latin homoglyph inside any Greek word (§2)
+- [ ] Every polysyllable carries its tonos; ή / πού / πώς accented only in their disambiguating
+      senses — πού and πώς as interrogatives, the relative «που» never accented — and distinguished
+      from η / που / πως; ALL-CAPS unaccented; no Latin homoglyph inside any Greek word (§2)
 - [ ] One number, thousands-separator and date convention, held across prose, tables and
       derivations — stated once (§4)
 - [ ] Spec-defined values (markup, ISO dates, currency inside markup) left in their own notation
