@@ -13,8 +13,14 @@
 #   5. scripts/register-lock.sh gate-check — F14 second mechanism: no commit may
 #      touch a path another writer had open in the register write-lock ledger
 #      without declaring that holder (same per-push scope; silent when nobody
-#      announced a path).
-# Push only when all five pass. With Actions disabled on this fork, this gate
+#      announced a path);
+#   6. scripts/register-lock.sh archive — G1-C5 evidence durability: runs the
+#      archive automatically at wave end and REFUSES the push while
+#      docs/loop/register-locks-archive/ is dirty. It writes, which no other leg
+#      does, so it never lets the push proceed on its own writes -- the rows must
+#      land in a commit or they die with the container. Passes silently when the
+#      archive is clean, which is every push that journalled nothing.
+# Push only when all six pass. With Actions disabled on this fork, this gate
 # is the effective CI (docs/loop/PIPELINE.md stage 4).
 #
 # Usage: ./scripts/pre-push-gate.sh [base-ref]   (default: origin/main)
@@ -91,6 +97,46 @@ echo "== register-lock gate-check (F14 second mechanism: shared-register write c
 # nothing to assert and passes, so a solo session pays zero friction; it only
 # speaks when two workstreams overlapped on one file.
 bash "$ROOT/scripts/register-lock.sh" gate-check || overall=1
+
+echo ""
+echo "== register-lock archive (G1-C5 evidence durability)"
+# Runs the archive automatically at wave end, then REFUSES the push if it produced
+# rows that are not in a commit. It does not "fix and continue", for the reason
+# root CLAUDE.md gives about reanchor-pointers: a push must not silently rewrite
+# what it is validating. Writing the rows and letting the push succeed would leave
+# them dirty in a worktree the container is about to reclaim — which is the exact
+# failure this leg exists to prevent, dressed as a pass.
+#
+# Why here and not only on `release`: the 2026-08-17 wave was journalled by the
+# coordinator appending rows to the file directly, never calling the CLI, so a
+# release-only hook would have archived nothing for the very wave that motivated
+# this. `release` archives too (its natural wave-end point); this is the backstop
+# for hand-journalled rows.
+#
+# Zero friction when there is nothing to do: with no journal, or no new rows, it
+# prints one line and passes.
+#
+# THE CONDITION IS "IS THE ARCHIVE COMMITTED", NOT "DID THIS RUN WRITE ANYTHING".
+# The first draft asked the second question and was caught by its own selftest: run
+# one wrote the rows and FAILed correctly, run two found nothing new to write and
+# PASSED — with the rows still sitting uncommitted in the worktree, and printing
+# "evidence already committed" while that was false. A check that clears itself on
+# a second look is worse than no check. `git status --porcelain` is asked instead,
+# so the verdict is the same however many times the leg runs.
+_arch_out=$(bash "$ROOT/scripts/register-lock.sh" archive 2>&1) || true
+_arch_dirty=$(cd "$ROOT" && git status --porcelain -- docs/loop/register-locks-archive/ 2>/dev/null)
+if [ -n "$_arch_dirty" ]; then
+    printf '%s\n' "$_arch_out"
+    echo "  FAIL: lock-journal evidence is not committed:"
+    printf '%s\n' "$_arch_dirty" | sed 's/^/        /'
+    echo "        G1-C5 is checked against docs/loop/register-locks-archive/, not the"
+    echo "        gitignored journal, so uncommitted rows die with this container."
+    echo "        Stage them into this push, then re-run:"
+    echo "            git add docs/loop/register-locks-archive/ && git commit --amend --no-edit"
+    overall=1
+else
+    echo "register-lock archive: up to date and committed"
+fi
 
 echo ""
 if [ "$overall" -ne 0 ]; then

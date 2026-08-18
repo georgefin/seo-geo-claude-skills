@@ -80,6 +80,12 @@
 #         Copy journal rows to docs/loop/register-locks-archive/<date>.tsv, filed
 #         by each row's own date. Tracked, append-only, idempotent. Evidence only:
 #         no command reads it, so a stale row there cannot block anyone.
+#         RUNS AUTOMATICALLY at two points, so nobody has to remember it: at the
+#         end of `release` (a release IS that holder's wave end), and as leg 6 of
+#         the pre-push gate, which also refuses the push while the archive is
+#         uncommitted. The gate leg is the one that matters, because rows appended
+#         to the journal by hand never pass through `release` at all -- which is
+#         exactly how the 2026-08-17 wave was journalled.
 #   --probe
 #         Fault injection over scripts/fixtures/register-lock/ (see below).
 #
@@ -717,6 +723,15 @@ do_release() {
         return 0
     fi
     printf '%s' "$records" >> "$LOCKFILE"
+    # A release IS the end of that holder's wave, so archive here rather than
+    # asking anyone to remember a second command. Silent unless it wrote something.
+    # Skipped when REGISTER_LOCK_FILE is overridden — that is the probe and the
+    # acceptance scenarios running against scratch journals, whose rows are
+    # fixtures and must never reach docs/loop/. The pre-push gate carries the
+    # backstop for rows appended to the journal by hand, without this CLI.
+    if [ -z "${REGISTER_LOCK_FILE:-}" ]; then
+        do_archive | sed -n 's/^archived to \(.*\)$/  archived: \1/p'
+    fi
     return 0
 }
 
