@@ -1,6 +1,6 @@
 ---
 name: schema-markup-generator
-version: "4.3.2"
+version: "4.3.3"
 description: 'Generate Schema.org JSON-LD structured data — one accurate primary type per page (FAQPage, HowTo, Article, Product, LocalBusiness, and 6 other types) plus documented auxiliaries only where warranted. Use when the user asks to "add schema markup", "generate structured data", "JSON-LD", "FAQ schema", "rich snippets", "I want star ratings in Google", or "structured data validation errors". Produces validated markup for Google rich results where still offered (no FAQ rich result for ordinary sites — government/health only, Aug 2023 — FAQPage is kept because it stays valid and Google says there is no need to proactively remove it), Bing structured data, and machine-readable input for any consumer that reads it. Validates via the Schema.org validator, plus Rich Results Test for non-FAQ types. For broader technical SEO, see technical-seo-checker. For meta tag optimization, see meta-tags-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.3.2"
+  version: "4.3.3"
   geo-relevance: "medium"
   tags:
     - seo
@@ -150,7 +150,7 @@ When a user requests schema markup:
    | Rich Result Type | Eligibility | Impact |
    |------------------|-------------|--------|
    | FAQ | ❌ (none for an ordinary site — government/health only since Aug 2023) | No SERP result. Valid markup, and no citation benefit is claimed either way — nothing establishes one |
-   | How-To | Unconfirmed — no appearance claimed | HowTo still generated for step-by-step content |
+   | How-To | ❌ (not a Google-documented feature — absent from the structured-data gallery, checked 2026-08-18) | No SERP result. HowTo still generated for genuinely step-by-step content on schema.org validity alone |
    | Product | ✅/❌ | High - Shows price, availability |
    | Review | ✅/❌ | High - Shows star ratings |
    | Article | ✅/❌ | Medium - Shows publish date, author |
@@ -166,7 +166,7 @@ When a user requests schema markup:
 
    Keep only the rows that bear on this page and add a row for any other type you emit — LocalBusiness and Event are as common here as Article. Every row reports an *eligibility*, never an appearance: Google decides per query whether to show anything. The two rows below are worded the way they are for reasons that stay in this file; `[VERIFY]` is an in-repo tag and never appears in a deliverable.
 
-   - `[VERIFY]` **How-To rich results** — a 2023-08-08 Google Search Central post (title: "Changes to HowTo and FAQ rich results"; its FAQ half is superseded here by ruling R3, which has FAQ retired outright) is quoted as taking How-to results desktop-only and then dropping them "as of September 13", with the How-to report and Rich Results Test support withdrawn. Read at search-snippet grade over the primary domain (2026-08-10), not owner-read, and no ruling has issued (WATCH-ITEMS W12 → gated item G9). Until it resolves: still generate HowTo for genuinely step-by-step pages, and promise no How-to SERP appearance either way.
+   - **How-To rich results — settled on the gallery, not on the 2023 post.** HowTo is absent from Google's current structured-data gallery ("Structured data markup that Google Search supports", `developers.google.com/search/docs/appearance/structured-data/search-gallery`, read 2026-08-18), so there is no How-to SERP appearance to promise. The older account of *how* it ended — desktop-only, then dropped "as of September 13", per the 2023-08-08 Search Central post — remains **not owner-read** and is not repeated to clients. Behaviour is unchanged: still generate HowTo for genuinely step-by-step pages, on schema.org validity alone, and promise no appearance.
    - `[VERIFY]` **LocalBusiness SERP effect** — unsettled here. Local-pack placement is widely attributed to the business's Google Business Profile rather than to page JSON-LD, and no Google-primary source is on file that either supports or refutes the "Local pack, knowledge panel" line this library has carried (searched 2026-08-10, none found). Asserting the opposite would be the same unsourced move in reverse. Say what the markup demonstrably does — corroborates NAP and hours for entity understanding — and promise no placement.
 
 2. **Generate Schema Markup**
