@@ -238,17 +238,31 @@ string, a row for it measures nothing, and a "clean pass" on it would be a false
 about Gemini access.** Whoever runs the probe should open that page first. Gemini/Google access
 is better read off the `Googlebot` row and off Search Console until this is resolved.
 
-### 8.3 Anthropic publishes no IP ranges — which changes what "verified" can mean
+### 8.3 Anthropic *does* publish crawler IP ranges — correcting 8.3 as first written
 
-The brief assumed all four operators publish crawler IP ranges. OpenAI and Perplexity do.
-**Anthropic states it does not currently publish IP ranges, because its crawlers use service
-provider public IPs** (its own help-centre article; `[VERIFY]` — snippet-grade, page not opened).
+**This section previously stated the opposite and was wrong.** It read that Anthropic does not
+publish IP ranges because its crawlers use service-provider public IPs. That was true of the
+2024–mid-2025 documentation and is **not true now.**
 
-This is not pedantry. Cloudflare's Verified Bots allowlist admits a crawler on one of three
-grounds: a published IP list, reverse DNS, or a cryptographic Web Bot Auth signature. An operator
-that publishes no IP list must qualify by one of the other two. So **for the tier-4 agents, an
-IP-allowlist remedy of the kind Perplexity documents for AWS WAF is not available** — the fix, if
-one is wanted, is a user-agent rule or Cloudflare's own verified-bot category controls.
+`[obs:2026-08-18, client-supplied, pulled live] https://claude.com/crawling/bots.json exists and
+is dated 2026-05-01, carrying 20 published IPv4 prefixes. Anthropic's support article states that
+a crawler with a source IP on that list is coming from Anthropic.`
+
+The original claim was marked `[VERIFY]` and snippet-grade, which was the correct hedge — but the
+hedge does not make the substance any less wrong, and the conclusion drawn from it **was** wrong:
+
+**All four operators now publish IP ranges.** OpenAI (`openai.com/searchbot.json`,
+`chatgpt-user.json`, `gptbot.json`), Perplexity (`perplexity.com/perplexitybot.json`,
+`perplexity-user.json`) and Anthropic (`claude.com/crawling/bots.json`). So the IP-allowlist
+remediation this section ruled out for the tier-4 agents **is available**, on the same footing as
+for OpenAI and Perplexity — the pattern Perplexity documents for AWS WAF (IP set AND matching
+user-agent, action Allow) generalises to all four.
+
+**The lesson for this file's method, not just its content:** a vendor's crawler-verification policy
+is a moving target with a publication date on it. Any claim of the form "operator X does not
+publish Y" must be pinned to a dated retrieval of X's own file, never to a recalled or
+snippet-summarised general statement. Every operator fact in §8.2 and §8.3 now carries its source
+URL for exactly this reason.
 
 ### 8.4 The reframe: this is a two-hypothesis test, and H1 is not an emergency
 
@@ -276,6 +290,29 @@ challenge rather than a wall. That is the H1 pattern. It is one row and it is no
 arrangement". That holds under H2. **Under H1 it does not hold at all**, and §5 should be read as
 conditional on which control is enabled, not on whether any is. The alarm in §5 was pitched at the
 worse of two readings before the category distinction was known.
+
+#### 8.4a The measurement arrived, and it needs a third hypothesis
+
+**Superseded in part by §9.** The client ran the eight-agent probe from a working connection the
+same day. The row-level H1 predictions above held — every search and assistant agent returned
+`403` with `cf-mitigated: challenge`, exactly as the H1 column states. **But so did plain desktop
+Chrome**, and that is the fact neither hypothesis accounts for.
+
+A uniform challenge across every unverified identity, browser included, is not the AI toggle
+acting at all. It is a **general** bot-management layer — Bot Fight Mode or Super Bot Fight Mode —
+sitting *underneath* the AI-specific control and independent of it. So:
+
+**H3 — a general challenge layer, with the AI toggle a separate question on top of it.** Every
+unverified client is challenged regardless of category; whether a *verified* crawler skips that
+challenge depends on the zone's Verified Bots configuration, which is a different setting from
+the AI toggle and can be wrong on its own.
+
+**H3 breaks the "H1 means nothing to fix" conclusion, and that conclusion should not have been
+drawn.** Under H1-plus-H3, the training toggle could be configured exactly as intended and real
+OAI-SearchBot traffic could *still* be swallowed by the general challenge, if Verified Bots is not
+set to let verified crawlers bypass it. **Two settings have to be right, not one.** §7 action 1
+and §8.7 action 8 are amended accordingly: the dashboard check must confirm **both** the AI
+toggle's state **and** that Verified Bots is allowed to bypass the challenge.
 
 ### 8.5 What no probe run from anywhere can settle
 
@@ -331,3 +368,73 @@ a table pasted into a report cannot arrive without it.
 
 **Nothing has been changed on any property.** §8 is a re-test that failed for network reasons, a
 documentation check, and a script. No setting was altered and no page edited.
+
+---
+
+## 9. The measurement, run by the client — and what it settles
+
+`[obs:2026-08-18, client-run from a working connection: real curl, real headers, control site
+included]` This is the first **measured** eight-agent result. It supersedes the predictions in
+§8.4 wherever they disagree, and it retires the "two worlds" framing in favour of §8.4a's H3.
+
+| Priority | Identity | Measured | Verdict |
+|---|---|---|---|
+| 1 | `OAI-SearchBot` | 403 + `cf-mitigated: challenge` | challenged |
+| 1 | `ChatGPT-User` | 403 + `cf-mitigated: challenge` | challenged |
+| 2 | `Googlebot` | 403 + `cf-mitigated: challenge` | challenged |
+| 3 | `PerplexityBot` | 403 + `cf-mitigated: challenge` | challenged |
+| 3 | `Perplexity-User` | 403 + `cf-mitigated: challenge` | challenged |
+| 4 | `Claude-User` | 403 + `cf-mitigated: challenge` | challenged |
+| 4 | `Claude-SearchBot` | 403 + `cf-mitigated: challenge` | challenged |
+| control | plain desktop Chrome | 403 + `cf-mitigated: challenge` | challenged |
+| training | `GPTBot`, `ClaudeBot` (§3) | 403, **no** `cf-mitigated` | hard-blocked |
+
+### 9.1 What it establishes
+
+1. **No search or assistant agent is hard-blocked.** The wall is confined to the two training
+   crawlers. The distinction §8.4 drew is real and is now measured, not inferred.
+2. **The challenge is not aimed at AI crawlers.** Plain Chrome got it too. A layer that challenges
+   an ordinary browser is a general bot-management setting, not the AI toggle — which is why the
+   row that matters most in this table is the control row.
+3. **Two settings govern the outcome, and only one of them was ever in question.** The AI toggle
+   decides the training block; **Verified Bots decides whether a real, IP-verified crawler skips
+   the general challenge.** They are configured separately and either can be wrong alone.
+
+### 9.2 What it still cannot establish, and this has not changed
+
+Every row above is an **unverified** request. It carries a claimed user-agent string from an
+ordinary address, with no published-range IP, no matching reverse DNS and no Web Bot Auth
+signature. **A challenge here is the expected and correct treatment of an impostor.** It says
+nothing about what the real crawler receives, because the real crawler arrives with credentials
+none of these requests had.
+
+**This is now the whole remaining question, and it is a dashboard question.** §8.5 stands
+unamended.
+
+### 9.3 `Google-Extended` — confirmed, and struck from the probe
+
+§8.2 flagged this as `[VERIFY]`. It is now settled from Google's own developer documentation:
+**"Google-Extended doesn't have a separate HTTP request user agent string. Crawling is done with
+existing Google user agent strings."** No request ever carries it, so a pass or a block on that
+row is meaningless in both directions. The row is removed from `scripts/crawler-access-probe.sh`.
+
+**But it does not disappear as a question — it moves.** `Google-Extended` is a robots.txt
+permission flag consumed *after* an ordinary Googlebot crawl. So a site can be perfectly
+reachable by Googlebot and still have its content withheld from Gemini grounding and training,
+purely by a `robots.txt` line. **That is a content-permission question, not a network-reachability
+one**, and it is invisible to every test in this file. It is checked by reading the estate's
+`robots.txt` files for a `Google-Extended` disallow — §1 records that all four brand sites
+explicitly `Allow` it, and that `sanihellas.gr` names no AI agent at all, so all of them fall
+under `*` and are permitted. **On current evidence there is nothing to fix here**; it is recorded
+so the question is not re-opened as if it were a firewall matter.
+
+### 9.4 Actions, amended
+
+| # | Action | Owner | Acceptance criterion |
+|---|---|---|---|
+| 1′ | *(amends §7 action 1 and §8.7 action 8)* In the `sanihellas.gr` zone confirm **both**: (a) which AI bot setting is enabled — training-only or broad; (b) that **Verified Bots is allowed to bypass** the general challenge | Client decision — needs zone admin | Both settings' states recorded and dated, **plus** 30-day verified-crawler request/block counts by category for OAI-SearchBot, ChatGPT-User, PerplexityBot and Googlebot, by 2026-08-25 |
+| 9′ | *(closes §8.7 action 9)* Settled — see §9.3. `Google-Extended` struck from the probe | Library operator | **Done 2026-08-18** |
+| 11 | Do not treat a training-only toggle as "nothing to fix" until (b) above is confirmed | Library operator | No deliverable states the access question is closed while the Verified Bots state is unknown |
+
+**Nothing has been changed on any property.** §9 records a measurement and two documentation
+checks.

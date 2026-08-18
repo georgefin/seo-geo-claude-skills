@@ -25,10 +25,28 @@
 # H1 and H2 produce identical results on the original five agents. They differ ONLY on the
 # agents this script adds. That is why it exists.
 #
+# MEASURED 2026-08-18, and it needed a third hypothesis. Every search and assistant agent
+# returned 403 + `cf-mitigated: challenge` — the H1 prediction — AND SO DID PLAIN DESKTOP
+# CHROME. A layer that challenges an ordinary browser is not the AI toggle; it is a general
+# bot-management setting (Bot Fight Mode / Super Bot Fight Mode) sitting underneath it.
+#
+#   H3  GENERAL CHALLENGE LAYER. Every unverified client is challenged whatever its category.
+#       Whether a VERIFIED crawler skips that challenge is a separate zone setting from the
+#       AI toggle, and can be misconfigured on its own.
+#
+# The consequence is the one to carry: a training-only AI toggle does NOT mean "nothing to
+# fix". Two settings have to be right — the AI toggle AND Verified Bots bypass — and this
+# script can measure neither. Read the control row first: if plain Chrome is challenged, the
+# rest of the table is mostly telling you about a general layer, not about AI policy.
+#
 # WHAT A RESULT HERE CANNOT TELL YOU. Every request this script sends is UNVERIFIED: it
 # carries a claimed user-agent string from an arbitrary IP. Cloudflare's Verified Bots
 # allowlist recognises real crawlers by published IP list, reverse DNS, or a Web Bot Auth
-# signature — none of which a spoofed request has. So a `challenge` row does NOT prove the real
+# signature — none of which a spoofed request has. All four operators publish IP ranges as
+# of 2026-08-18: openai.com/{searchbot,chatgpt-user,gptbot}.json,
+# perplexity.com/{perplexitybot,perplexity-user}.json, claude.com/crawling/bots.json
+# (dated 2026-05-01, 20 IPv4 prefixes). An earlier draft of the finding said Anthropic
+# published none; that was outdated and is corrected in the finding's section 8.3. So a `challenge` row does NOT prove the real
 # crawler is challenged (a verified bot may skip the challenge entirely), and a `hard-blocked`
 # row does not prove the real crawler is blocked either. The script measures USER-AGENT-STRING
 # MATCHING at the edge. Only the zone's own Bot Analytics, which logs verified crawlers by
@@ -57,7 +75,12 @@ TIMEOUT="${TIMEOUT:-20}"
 AGENTS=(
 "OAI-SearchBot|1|Mozilla/5.0 (compatible; OAI-SearchBot/1.0; +https://openai.com/searchbot)"
 "ChatGPT-User|1|Mozilla/5.0 (compatible; ChatGPT-User/1.0; +https://openai.com/bot)"
-"Google-Extended|2|Mozilla/5.0 (compatible; Google-Extended)"
+# Google-Extended is deliberately ABSENT. Google's developer documentation states it "doesn't
+# have a separate HTTP request user agent string. Crawling is done with existing Google user
+# agent strings" — it is a robots.txt permission flag consumed after an ordinary Googlebot
+# crawl, so no request ever carries it and a row for it would be meaningless in both
+# directions. Gemini content permission is checked by reading robots.txt for a Google-Extended
+# disallow, which is a content-permission question this network probe cannot see.
 "Googlebot|2|Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
 "PerplexityBot|3|Mozilla/5.0 (compatible; PerplexityBot/1.0; +https://perplexity.ai/perplexitybot)"
 "Perplexity-User|3|Mozilla/5.0 (compatible; Perplexity-User/1.0; +https://perplexity.ai/perplexity-user)"
