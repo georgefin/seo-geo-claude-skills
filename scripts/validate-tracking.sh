@@ -844,6 +844,28 @@ if [ "$PROBE" -eq 1 ]; then
     probe_fail=0
     FIXDIR="$ROOT/scripts/fixtures/r3-allowlist"
     [ -d "$FIXDIR" ] || { echo "PROBE ERROR: fixture directory missing: $FIXDIR" >&2; exit 2; }
+    # CAPABILITY DECLARATION (2026-08-18). Same convention as commit-scope-check.sh's
+    # `command -v git` line: a precondition this probe cannot run without is refused here,
+    # loudly, instead of being discovered halfway through.
+    #
+    # WHAT WENT WRONG WITHOUT IT. `mapfile` is a bash 4+ builtin. macOS ships bash 3.2, where
+    # it does not exist, so probe_corpus's `mapfile -t entries` failed, `entries` stayed unset,
+    # and `${#entries[@]}` tripped `set -u` (line 25). A `set -u` expansion error inside a
+    # function does not stop this shell — it abandons the enclosing TOP-LEVEL command, which
+    # here is this whole `if [ "$PROBE" -eq 1 ]` block. Execution resumed at check (g), ran the
+    # ordinary checks to completion, printed "validate-tracking PASSED with warnings" and
+    # exited 0. So `--probe` reported success having injected no fault, graded no corpus and
+    # reached no verdict of its own: a check that cannot fail (R297), and the green it printed
+    # belonged to a different run than the one the caller asked for.
+    #
+    # This declaration does NOT make the probe work on bash 3.2 — that is a portability
+    # question and deliberately not answered here. It makes the probe REFUSE, so the absence
+    # of a measurement can never again be read as a measurement of absence.
+    command -v mapfile >/dev/null 2>&1 || {
+        echo "PROBE ERROR: the fault injection needs the bash 4+ 'mapfile' builtin, which this shell does not have (BASH_VERSION=${BASH_VERSION:-unknown})." >&2
+        echo "PROBE ERROR: nothing was injected, no corpus was graded and no verdict was reached. Re-run under bash >= 4; do NOT read this as a pass." >&2
+        exit 2
+    }
 
     # FROZEN HISTORY. Not live allowlists, never used by check (f) — copies of the R3/FID marker
     # strings as they stood at the two commits whose rates were published, so those rates stay
