@@ -522,7 +522,14 @@ since has sharpened the plan without taking the reading.
 Recorded here rather than by editing Round 1, per this file's rule 2. Six items, in descending order
 of how much they change what a reader would conclude.
 
-1. **G3-C7's live instance is closed.** The R3 overstatement surviving at
+1. **G3-C7's surviving instance is closed** `[obs:2026-08-18 python whitespace-flattened multiline
+   regex "advises\s+against\s+(?:proactively\s+)?removing" over all .md — 7 hits: VERSIONS.md ×3,
+   GOALS-SCORECARD.md ×2, r3-supersession-candidate.md ×1, FAILURE-LEDGER.md ×1; SHIPPED-SKILL hits
+   = 0]`. Re-measured by the coordinator rather than carried from the row above, and the totals
+   differ for a reason worth keeping: the row's own figure was **6**, mine is **7**, because writing
+   Round 2's finding down added a further occurrence of the very phrase being counted (R290 — an
+   instrument that enters its own scan set). The load-bearing half — **zero in a shipped skill** —
+   reproduces exactly. The R3 overstatement surviving at
    `refresh-templates.md`:464-465 — Round 1's single most-consequential Goal 3 finding, a class
    certified closed whose certifying instrument could not see the surviving member — was fixed by
    `3ce98c9`. The general half of the lesson stands and is now ledgered as F15 Recurrence 5.
