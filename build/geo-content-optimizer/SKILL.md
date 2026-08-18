@@ -1,13 +1,13 @@
 ---
 name: geo-content-optimizer
-version: "4.6.2"
-description: 'Optimize content for AI citation across Google AI Mode (default search surface, incl. AI Overviews), ChatGPT, Perplexity, and Gemini with quotable statements and structured Q&A. Use when the user asks to "optimize for AI", "get cited by ChatGPT", "GEO optimization", "appear in AI answers", "make content AI-quotable", "Google AI Overview optimization", or "Google AI Mode optimization". Adds quotable statements, structured Q&A, precise statistics with sources, expert attribution, and a structured FAQ. Uses CORE-EEAT GEO-First items as optimization targets. For SEO-focused writing, see seo-content-writer. For entity and brand AI presence, see entity-optimizer.'
+version: "4.6.3"
+description: 'Optimize content for AI citation across Google AI surfaces (AI Mode and AI Overviews), ChatGPT, Perplexity, and Gemini with quotable statements and structured Q&A. Use when the user asks to "optimize for AI", "get cited by ChatGPT", "GEO optimization", "appear in AI answers", "make content AI-quotable", "Google AI Overview optimization", or "Google AI Mode optimization". Adds quotable statements, structured Q&A, precise statistics with sources, expert attribution, and a structured FAQ. Uses CORE-EEAT GEO-First items as optimization targets. For SEO-focused writing, see seo-content-writer. For entity and brand AI presence, see entity-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.6.2"
+  version: "4.6.3"
   geo-relevance: "high"
   tags:
     - geo
@@ -42,7 +42,7 @@ This skill optimizes content to appear in AI-generated responses. As AI systems 
 
 - Optimizing existing content for AI citations
 - Creating new content designed for both SEO and GEO
-- Improving chances of appearing in Google AI Mode (default surface; AI Overviews folded in)
+- Improving chances of appearing in Google's AI surfaces (AI Mode and AI Overviews)
 - Making content more quotable by AI systems
 - Adding authority signals a reader can check — a named author, a dated source, a linkable credential
 - Structuring content for AI comprehension
@@ -134,7 +134,7 @@ When a user requests GEO optimization:
    | 4 | Google organic search | Foundation | Measured as ranking, not as prompt response — the technical and authority substrate, not deprioritised by this table |
    | 5 | Other assistants (Claude, Copilot, and what follows) | Monitored channel | R04, Ept08, Exp10, R03 |
 
-   **Engine Model (2026 baseline)**: Google AI Mode is Google's default search surface (AI Overviews folded in; live for Greek queries since 08-10-2025) — organic CTR baselines shift accordingly. ChatGPT, Perplexity, Gemini, Claude remain separate engines, each with its own selection behavior.
+   **Engine Model (2026 baseline)**: Google's AI surfaces are AI Mode and AI Overviews (AI Mode live for Greek queries since 08-10-2025), and Google has been folding them toward one experience. What Google itself said at I/O 2026 is narrower than "AI Mode is the default search surface": Gemini 3.5 Flash is "the new default model in AI Mode for everyone globally" — a default *model within* AI Mode — and the same post says "You'll continue to get a range of results from Search, just like you do today" (blog.google, Search I/O 2026, read 2026-08-18). Whether AI Mode has become Google's *default surface* is **not established by any Google source read here**, so treat any CTR-baseline argument resting on it as unmeasured. AI Overviews "are only shown when our systems determine that it is additive to classic Search, and as such, often don't trigger" (developers.google.com/search/docs/appearance/ai-features). ChatGPT, Perplexity, Gemini, Claude remain separate engines, each with its own selection behavior.
 
    **Per-Engine Reality Check** [VERIFY – 2026 industry studies]: ~11% ChatGPT↔Perplexity domain overlap; community/UGC content (Reddit-type) ≈40% of citations, cross-engine. Optimize and track citation presence **per engine**, not as one "AI traffic" bucket — community threads (Reddit, niche forums; Greece: insomnia.gr-type where topically relevant) are a first-class AIO/AI Mode quote surface (Google-announced quote-preview module, 2026-05-06; rollout scope [VERIFY] — see ai-citation-patterns.md); the overlap/share magnitudes stay directional. **A `[VERIFY]` tag does not travel, so the claim it sits on does not travel either**: a call this library carries tagged — here, or in a benchmark row you are leaning on for a type mapping — may guide what you do, and never reaches client copy in the indicative. State what the page is and what you did with it, or route the call; where the caveat cannot travel with the claim, the claim stays out. Same test as the engine-mechanic rule above, applied to this library's own open questions.
 

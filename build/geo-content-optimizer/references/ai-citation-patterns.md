@@ -30,9 +30,9 @@ they quote, and what to put on a page in response.
 > client copy, and **never attribute a statement to a real named individual without a record
 > of them making it**.
 
-## Google AI Mode (Default Surface, incl. AI Overviews)
+## Google AI Surfaces (AI Mode and AI Overviews)
 
-**Baseline shift**: AI Mode is now Google's default search surface (Google I/O 2026) — AI Overviews folded in, no longer a separate peer feature. Live for Greek-language queries since 08-10-2025. Organic CTR baselines shift accordingly: classic "10 blue links" click-through is no longer the default outcome, so optimize primarily for in-surface citation, not just ranking position.
+**Baseline shift**: Google's AI surfaces are AI Mode and AI Overviews, and Google has been folding them toward one experience. What Google actually said at I/O 2026 is narrower than the claim this line used to carry: Gemini 3.5 Flash is "the new default model in AI Mode for everyone globally" — a default *model within* AI Mode, not a statement that AI Mode is the default search surface — and the same post says "You'll continue to get a range of results from Search, just like you do today" (blog.google, Search I/O 2026, read 2026-08-18). Google's AI-features documentation adds that AI Overviews "are only shown when our systems determine that it is additive to classic Search, and as such, often don't trigger". Live for Greek-language queries since 08-10-2025. So optimize for in-surface citation as well as ranking position — but do not baseline CTR on a claim no Google source states.
 
 ### Citation Behavior
 
