@@ -1968,7 +1968,52 @@ picking one is not reconciliation.**
 
 ---
 
-## F13 — Recurrence 3 (2026-08-17) · The lift exclusion was stated in prose and contradicted on every surface a run copies
+## F13 — Recurrence 6 (2026-08-17) · The lift exclusion was stated in prose and contradicted on every surface a run copies
+
+**Renumbered 2026-08-18: recorded as *Recurrence 3*, now *Recurrence 6*. Nothing else in this
+entry moved** — not a word of the finding, the evidence, the guard or the status; only the label
+and this note. It was written as *Recurrence 3* at `2a21389` (2026-08-17 07:45:13Z) while label 3
+was already held by the 2026-08-10 entry *"a carrier that passes informed and fails blind was
+never a working carrier"*, so `F13-r3` resolved to two different mechanisms and rule 3's
+recurrence count double-booked one slot. **By date this is the sixth F13 instance** — r1
+2026-08-09, r2 / r3 / r4 2026-08-10, r5 2026-08-11, this one 2026-08-17 07:45Z, r7 2026-08-17
+14:55Z — and label 6 is the slot the *F13 — Recurrence 7* entry below deliberately left free
+for it, in its own words *"the true count of recorded F13 instances runs one ahead of the highest
+label"*. The 2026-08-10 entry keeps label 3 by prior claim: of the 47 `F13-r3` citations in the
+tree, **39 mean it and 4 mean this one** [obs:2026-08-18 regex `F13[- —]*(r3|Recurrence 3)|F13 → 3`
+over every tracked `.md` and `.json` at `5909552`: 51 hits, 4 of them the two entries' own labels],
+so moving it instead would have broken ten times as many pointers.
+
+**Citations checked before the move — every one in the tree, read in context and classified one at
+a time, because a renumber that breaks a pointer still resolving is worse than the collision it
+fixes.** At
+`5909552` the string occurs **51** times: 4 are the two entries' own headings, counters and
+trailers, and 47 are citations. **39 of the 47 mean the 2026-08-10 carrier entry** — 32 of the 35
+occurrences under `docs/loop/eval-baselines/**`, and 7 of the 16 in the registers. They cite it
+verbatim in most cases (*"a carrier that passes informed and fails blind"*, *"unproven until a
+blind run exercises it"*, *"only a blind run separates them"*);
+so do `VERSIONS.md`'s competitor-analysis 4.1.0 and performance-reporter rows, `GOALS-SCORECARD.md`
+G2-C6, `OPEN-FINDINGS.md`'s F13-r3 standing-rule and F13-r3/r4 signature references, this file's
+own F3-recurrence paragraph, and the *Unproven leg* bullet of the r7 entry below. **Four citations
+mean this entry, a fifth site describes the collision, a sixth is outside the tree entirely, and
+none of them is corrected here.**
+
+- **Three are frozen run records** of the 2026-08-17 blind wave, each quoting this entry's
+  mechanism and none of them the carrier one: `blind-2026-08-17/content-quality-auditor.json`
+  (*"the F13-r3 shape (a rule stated fully in one paragraph and abbreviated in the checklist a run
+  copies)"*), `blind-2026-08-17/content-refresher.json` (*"a rule stated in one paragraph and
+  contradicted in the example a run copies has no carrier"*) and
+  `blind-2026-08-17/serp-analysis.json` (*"a ruling stated in one paragraph and contradicted on the
+  surface a run copies"*). A graded run record states what its grader wrote on the day; editing one
+  to fit a later renumber would be rewriting evidence, so they stand and this note is their
+  redirect.
+- **The fourth is `KPI.md`'s 2026-08-17 repeat-failure row**, which lists the wave's increments as
+  *"F13 r3/r7"* and means this entry by *r3*. A fifth site, `OPEN-FINDINGS.md` row 164 (4
+  occurrences on one line), states the collision as open rather than citing either mechanism. Both
+  files are outside the lane that moved the label and both need the coordinator.
+- **One can never be corrected at all**: `2a21389`'s commit trailer reads `FLIP: F13-r3 -- none`
+  and is immutable history. The trailer at the foot of this entry now reads `F13-r6` so this
+  register and the entry agree, and the two deliberately disagree with that commit message.
 
 The plan-denominator ruling excluded two factors from the headline lift %. It was written in one
 paragraph of §3 and carried to **none** of the six places a run computing the lift actually reads:
@@ -1985,9 +2030,9 @@ binding in root `CLAUDE.md`, applied here to a checklist rather than a fence. A 
 only in the paragraph that announced it has no carrier at all.
 
 - **Found by**: Mode A, by recomputing the file's own example under the file's own new rule.
-- **Recurrence**: F13 → 3.
+- **Recurrence**: F13 → 6.
 - **Status**: carried to §1, §5 and §8 item 6; the excluded factors named beside the figure.
-  FLIP: F13-r3 -- none
+  FLIP: F13-r6 -- none
 
 ---
 
@@ -2440,3 +2485,60 @@ see it.
   skill file, so there is nothing to reflow or reword in the library; what is owed is the screen
   extension and the coverage decision above.
   FLIP: F3-r2-2026-08-17 -- none
+
+---
+
+## Correction — 2026-08-18 · the duplicate F13 recurrence label (OPEN-FINDINGS 164)
+
+Rule 4 makes entries append-only, and a renumber is the one exception that has to be stated rather
+than performed quietly. This is that statement.
+
+**What moved.** The entry headed *F13 — Recurrence 6 (2026-08-17) · The lift exclusion was stated
+in prose and contradicted on every surface a run copies* was recorded as *Recurrence 3* at
+`2a21389`. It is now *Recurrence 6*. Its heading, its `- **Recurrence**: F13 →` counter and its
+`FLIP:` trailer carry the new label; a note under its own heading says so where a reader of that
+entry meets it. **Nothing else in that entry changed, and no other entry changed.**
+
+**What did not move, and why.** The 2026-08-10 keyword-research entry *"a carrier that passes
+informed and fails blind was never a working carrier"* keeps label 3 by prior claim — it is nine
+days earlier and it is what 39 of the tree's 47 `F13-r3` citations mean. Measured and classified
+one at a time, not assumed [obs:2026-08-18 same regex over every tracked `.md` and `.json` at
+`5909552`, each hit read in context] — 51 occurrences, of which 4 are the two entries' own
+headings, counters and trailers:
+
+| where | occurrences | mean the carrier entry | mean the renumbered entry | neither |
+|---|---|---|---|---|
+| `docs/loop/eval-baselines/**` | 35 | 32 | 3 | 0 |
+| registers (`VERSIONS.md` ×2, this file ×6, `GOALS-SCORECARD.md` ×1, `KPI.md` ×1, `OPEN-FINDINGS.md` ×6) | 16 | 7 | 1 | 4 self-labels + 4 in OPEN-FINDINGS row 164, which describes the collision |
+
+**Renumbering the 2026-08-10 entry instead would have invalidated 39 citations rather than 4.**
+
+**What this pass could not correct — six sites, in three classes.** (i) `2a21389`'s commit
+trailer `FLIP: F13-r3 -- none` is in git history and is immutable; the ledger's trailer for that
+entry now reads `F13-r6` and the mismatch is deliberate and recorded here. (ii) Three frozen
+2026-08-17 blind records — `content-quality-auditor.json`, `content-refresher.json`,
+`serp-analysis.json` — cite `F13-r3` for the renumbered entry's mechanism, and a graded run record
+is not edited to fit a later renumber; they are listed under the entry itself, which is where a
+reader following one of them lands. (iii) `KPI.md`'s 2026-08-17 repeat-failure row lists *"F13
+r3/r7"* among that wave's 16 increments and means the renumbered entry by *r3*, and
+`OPEN-FINDINGS.md` row 164 states the collision as open with *"A human decides whether to renumber
+or to leave the gap"* — both files are outside the lane that made this correction and are handed to
+the coordinator.
+
+**What the F13-r7 entry says about the collision stays true of the day it was written.** Its
+*"the colliding pair is **not** renumbered here; it is filed for a human as OPEN-FINDINGS 164"* is
+an accurate record of 2026-08-17 and is left byte-identical. This note supersedes it as of
+2026-08-18.
+
+- **Recurrence**: none — this corrects a label, it records no new failure.
+- **Guard**: the count of F13 instances now equals the highest F13 label (7) with no gap and no
+  double-booking, so rule 3's quarterly repeat-failure KPI can be read off the labels. The general
+  defect — nothing checks that a recurrence label is free before an entry claims it — is not
+  closed by this note: three entries in this file (*F13 — Recurrence 7*, *F15 — Recurrence 5*,
+  *F3 — Recurrence 2*) each had to derive their own label by hand from a heading census, which is
+  where the collision was found in the first place. A one-line census over `^## F<N>` headings
+  would decide it mechanically and does not exist.
+- **Status**: label corrected; the six sites that still carry the old label — three frozen run
+  records, two live registers in other lanes, one immutable commit trailer — are named above and
+  none was silently rewritten.
+  FLIP: F13-r6 -- none

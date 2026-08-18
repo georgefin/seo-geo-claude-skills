@@ -27,7 +27,7 @@ written as its stated-absence value, never left blank and never invented.
 | 2 | **Owner** | The role that will do it — §3 | `unassigned — needs an owner` |
 | 3 | **Acceptance criterion** | The observable state that proves it is done — §2 | — (an action with no criterion is not a row) |
 | 4 | **Expected impact** | What should change, with the basis for saying so — §4 | `not estimated — no baseline data` |
-| 5 | **Effort** | A band (S / M / L) with what it covers, or hours where the client works that way | `not estimated` |
+| 5 | **Effort** | A band on this deliverable's own scale, with what each band covers stated in the deliverable — `S / M / L` where the skill states no scale of its own (§8), or hours where the client works that way | `not estimated` |
 | 6 | **Dependencies** | What must be true or done first, named specifically | `none` |
 | 7 | **Risk if done wrong** | The realistic failure mode and its cost | `low — reversible, no downstream effect` |
 
@@ -82,6 +82,11 @@ Two rules:
    nowhere to go, which is more useful than a plausible guess that quietly nobody owns. It is never
    used to avoid making an obvious assignment.
 
+What the rule requires is a **role from a closed list**, not this particular list. Where a skill
+already carries its own closed role list for its own domain, that list is the owner field there and
+this one is not run beside it — `alert-manager` reads the owner off its routing matrix, and this list
+takes over at the point work leaves the alerting system. §8.
+
 ---
 
 ## 4. Expected Impact
@@ -111,6 +116,15 @@ dependency is unmet sorts below the thing it waits on, whatever its score. Where
 already computed a priority band, that band is used rather than a second vocabulary invented beside
 it.
 
+**That is the default, not an override.** Where a skill states its own ordering rule, that rule
+governs its deliverables and this one does not run beside it (§8). One skill states the
+**lexicographic** form as binding — `entity-optimizer`, whose Top 5 runs impact band first, then
+ascending effort. That is a *different order*, not a restatement of this one: a ratio can lift a
+Medium-impact, Low-effort action above a High-impact, High-effort one, and a lexicographic rule
+never will. The two sentences do not contradict each other in words — one divides, the other
+declines to multiply — so a reader reconciling the two files gets no warning unless it is written
+down, which is what this paragraph is for. Read that skill for its current wording.
+
 The order is stated, not implied: a numbered list is ordered by priority, and that is said once.
 
 ---
@@ -136,4 +150,46 @@ library goes in the operator block, labelled inside its own fence — the reader
 - No acceptance criterion that requires an engine to do something.
 - Every expected-impact figure carries its derivation and its basis.
 - The ordering rule is stated once per deliverable.
+- The effort scale, the ordering rule and the owner list are the skill's own where it states one and
+  this file's where it does not — one of each per deliverable, defined where it is used (§8).
 - Prohibited tactics never appear as actions — [Prohibited Tactics](./prohibited-tactics.md).
+
+---
+
+## 8. Where a Skill States Its Own Vocabulary
+
+This contract fixes **what an action must carry**. It does not fix the **notation** a deliverable
+carries it in, and three of its parts are notation: the effort scale (§1 row 5), the ordering rule
+(§5), and the owner-role list (§3). For each of those, **a vocabulary a skill states for itself
+governs that skill's deliverables, and this file's is the default for a skill that states none.**
+
+The reason is not deference for its own sake. **A run reads the template it is filling, not the
+reference the template cites** — the effort band is printed inside the cell it is written into, so a
+vocabulary here that a skill has already overridden does not get followed instead of the skill's. It
+gets imported *beside* it, as a second scale in the same report. That is the failure this rule
+exists to stop: not a wrong band, an extra one.
+
+Three conditions make a local scale legitimate rather than a private one:
+
+1. **One scale per deliverable** — one effort vocabulary, one ordering rule, one owner list. Two is
+   the defect, whichever two.
+2. **The scale is defined where it is used.** Band labels do not travel: `Quick` means *under 30
+   minutes* in `content-quality-auditor` and *under a week* in `domain-authority-auditor` — the same
+   three words, one scale in minutes and one in weeks. A band label with no definition beside it in
+   the deliverable cannot be scheduled against.
+3. **No translation between scales.** An `S` is not converted into a `Quick`, and a ratio order is
+   not re-sorted lexicographically to make two reports look alike. A deliverable drawing on two
+   skills says which scale it is using and uses that one throughout.
+
+**What this does not reach.** The seven fields, the requirement that 1–3 are present, the
+stated-absence values, the acceptance-criterion test and its AI-surface rule (§2), the permitted
+shapes of expected impact and what an impact may never claim (§4), and the bar on prohibited tactics
+appearing as actions. None of those is notation and no skill overrides them. A skill chooses its
+labels; it does not choose whether an action has an owner, a criterion, or a claim it can support.
+
+**The ruled instance**: `alert-manager`'s routing matrix already assigns one role per alert category
+per priority, from its own closed list, and that assignment *is* the owner field there — running §3's
+list beside it would recreate the exact defect that skill had already fixed. It satisfies the rule
+in root `CLAUDE.md` ("the owner is a role, not a person, from a closed list"), because the rule asks
+for a closed list and not for this one. This section is that decision stated generally, so the next
+field it happens to does not need re-arguing from scratch.

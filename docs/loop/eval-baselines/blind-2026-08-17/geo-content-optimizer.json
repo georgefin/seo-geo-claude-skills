@@ -71,8 +71,8 @@
     {
       "id": "e1.6",
       "text": "Greek output quality (watch-item W4 guard) — the binding greek-content-editor's grade decides fluency, idiomatic naturalness, translation-ese and register. UNGRADED and recorded EDITOR-PENDING if no editor report is in front of the grader.",
-      "passed": false,
-      "status": "EDITOR-PENDING",
+      "passed": null,
+      "verdict": "EDITOR-PENDING",
       "evidence": "No greek-content-editor report on this deliverable is in front of this grader, so the expectation's own instruction binds: 'record it EDITOR-PENDING, keep it inside the suite's total, and never record it as passed'. NOT recorded as passed and NOT recorded as a content failure. Mechanical layer screened and reported FOR THE EDITOR, never as a verdict (anti-slop §6 governing note — a pattern's silence is evidence only once you know the pattern ran): family 1 `Όλα τα [0-9]` — nothing surfaced, whole file 0; family 2 markers — 0 in the published span; family 5 n-word net (`κανέν|καμί|κανείς|τίποτα|ποτέ|ούτε`) — 0 hit-lines inside the published span, 24 whole-file, all in report prose; family 6 `μηδ[εέ]ν` — 0 in the published span (the single `κοστίζ` hit is the ordinary FAQ heading «Πόσο κοστίζει η συντήρηση κλιματιστικού στην Αθήνα;»); family 7 `~~` — 0; family 8 — every skill slug, framework ID, ruling ID and repo path sits at or below L276, inside the fence opened with `<!-- OPERATOR BLOCK — για την ομάδα που τρέχει τη βιβλιοθήκη… -->` in that fence's own comment syntax, zero in client prose; Greek Tier-1 calques (`ξεκλειδ`, `απογειώ`, `πληθώρα`, `σημερινή ψηφιακή`, `απρόσκοπτ`, «όταν έρχεται στο», «κάνει νόημα», «στο τέλος της ημέρας») — nothing surfaced; final-sigma probe — 0. All screens run under `LC_ALL=C.UTF-8` explicitly (geo-score-arithmetic §9). REFERRED TO THE EDITOR, strings named: the published block L17-L86 as a whole; specifically the four service definitions L34/L46/L50/L54 (whether «προγραμματισμένος έλεγχος», «όδευση σωληνώσεων», «σύνδεση αποχέτευσης συμπυκνωμάτων» read as consumer-facing Greek); the price qualification L58 («τιμή εκκίνησης … όχι ενιαία τιμή για κάθε εγκατάσταση»); and the five FAQ answers L70-L86."
     },
     {
@@ -114,8 +114,8 @@
     {
       "id": "e2.6",
       "text": "Greek output quality (watch-item W4 guard) — the binding greek-content-editor's grade decides; EDITOR-PENDING if no editor report is present.",
-      "passed": false,
-      "status": "EDITOR-PENDING",
+      "passed": null,
+      "verdict": "EDITOR-PENDING",
       "evidence": "No greek-content-editor report in front of this grader; recorded EDITOR-PENDING per the expectation's own instruction, kept inside the total, not recorded as passed and not recorded as failed. Screens reported FOR THE EDITOR: family 1 `Όλα τα [0-9]` — nothing surfaced, whole file 0, AND the ruled native form «Και τα 18» is produced three times in the published copy (L20, L74, L82) — this is now COLD carrier evidence rather than primed, because the F18 leak is closed: `grep '18 μοντέλα|geo-content-optimizer|αφυγραντ|Κλιματεχνικ'` over anti-slop-ruleset.md returns 0 hits, the provenance having moved to anti-slop-provenance.md (142 `[PROVENANCE — not a rule]` lines). Family 2 markers — 0 inside the published fence; family 5 n-word net — 0 hit-lines inside the published fence, 30 whole-file, all report prose; family 6 `μηδ[εέ]ν` — nothing surfaced whole-file, the single `κοστίζ` hit is the ordinary FAQ heading «Πόσο κοστίζει ένας αφυγραντήρας;»; family 7 `~~` — 0; family 8 — every handle sits at or below L281 inside the labelled operator fence, zero in client prose; Greek Tier-1 calques — nothing surfaced; final-sigma probe — 0. All under `LC_ALL=C.UTF-8`. REFERRED TO THE EDITOR, strings named: the retail register of the whole published block L18-L82; specifically the four definitions L35/L37/L41/L43, the four-step numbered procedure L57-L60, the five FAQ answers L66-L82, and the client-read refusal section Β6 L209-L221 (whether «δεύτερος τύπος πάνω από τον σωστό» and «λίστα αντικειμένων» read as natural Greek to a shop owner). Also for the editor rather than for me: whether reusing «Στην κατηγορία …» as the opening frame is acceptable e-shop copy or fixture residue — see e2.1, where it is graded as a structural failure independent of register."
     },
     {

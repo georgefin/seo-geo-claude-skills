@@ -128,7 +128,8 @@
     {
       "id": "e3.5",
       "text": "Greek output quality - binding editor's grade",
-      "passed": false,
+      "verdict": "EDITOR-PENDING",
+      "passed": null,
       "evidence": "EDITOR-PENDING - recorded per this expectation's own instruction: 'If no greek-content-editor report on this eval's output is in front of the grader, this expectation is UNGRADED: record it EDITOR-PENDING, keep it inside the suite's total, and never record it as passed.' No greek-content-editor report on blind4-alertmgr-e3.md exists; the artefact is referred, and the executor's own declined register calls travel with it («βαθμίδα» x4, the bilingual band labels 'Κρίσιμο (Critical)', «Tier 1» kept under the client's-own-paperwork exemption, the loanword mix, and family-5 verbless nominals). MECHANICAL LAYER, screened by the grader (grade4-alertmgr-checks.py section E, Python character classes rather than grep ranges - see tool correctness): family-1 totality calque screened in 8 variants including the gender and spelled-out forms this expectation puts in scope («Όλες οι τρεις», «Όλα τα τρία», «Όλες οι 3»): 0 hits, with a live non-vacuity control - the native shape is produced 4x, e.g. L11 «Και οι τρεις λέξεις» and L15 «Και οι 9 υπόλοιπες λέξεις». Final sigma: 0 suspects against a control of 324 correct word-final ς. Headings: 17 on the client surface, 0 without a Greek character, with technical tokens (HTTP 500, URLs, Tier 1, plugin, uptime, site:) retained as the expectation permits. Family-2 provenance markers 0, family-7 '~~' 0. Screened, nothing surfaced. The verdict is the editor's."
     },
     {

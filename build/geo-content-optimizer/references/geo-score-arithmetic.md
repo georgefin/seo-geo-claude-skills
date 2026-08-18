@@ -441,14 +441,68 @@ bracket tokens inside paste-ready blocks, `~~` connector tokens, a Greek regress
 of that instrument were observed in the field on 2026-08-13, and both produced the same
 report — *nothing surfaced*.
 
-- **Read the exit status, not only the output — and do not stop there.** A screen that aborts
-  prints nothing, and a check that reads only stdout records it as clean. `[α-ω]` fails with
-  `Invalid collation character` and exit status 2, and the field run added that the abort is
-  **silent to the harness**, which goes on reporting clean. **A screen that exits non-zero has
-  not run** — record the status beside the result and treat it as UNSCREENED, never as a pass.
+- **Read the exit status, not only the output — and read it as three states, not two.** A screen
+  that aborts prints nothing, and a check that reads only stdout records it as clean. `[α-ω]`
+  fails with `Invalid collation character` and exit status 2, and the field run added that the
+  abort is **silent to the harness**, which goes on reporting clean.
 
-  **Corrected 2026-08-17, and the correction is the more dangerous half.** This paragraph
-  asserted the abort as unconditional. It is **locale-dependent**, and the default locale here
+  **Corrected 2026-08-18 — the rule this bullet used to state was backwards.** It said *a screen
+  that exits non-zero has not run*, and sent every non-zero status to UNSCREENED. But `grep`
+  exits **1** when it matches nothing, and matching nothing is exactly what a clean screen looks
+  like. So the rule classified every clean screen as unscreened: the guard's success and its
+  non-execution became indistinguishable, and it announced the alarming one on every good run.
+  A guard that cries wolf on every clean run gets switched off, and then it is not a guard.
+  Measured at this shell, GNU grep 3.11 — ripgrep 14.1.0 maps identically:
+
+  | exit | what happened | how it is reported |
+  |---|---|---|
+  | **0** | ran, **matched** — the hits are on stdout | `FOUND — n hit(s), exit 0`, then triage every hit |
+  | **1** | ran, **matched nothing** | `CLEAN — screened <file> (<n> lines), no match, exit 1` |
+  | **2 or more** | **did not run** — `2` invalid collation, bad regex, missing or unreadable file; `127` command not found; `130`+ killed | `UNSCREENED` — never clean, never a pass |
+
+  Hold the three apart in both directions. Folding 1 into "did not run" is the defect above.
+  Folding "did not run" into 1 is the worse one, because a screen that never ran then passes
+  silently and nobody ever finds out. Two words cannot carry three facts, so the report carries
+  the number: `exit 1` in the line, not the word "clean" standing on its own.
+
+  **The idiom that keeps all three.** Under `set -e` a bare `grep` that matches nothing kills the
+  script — which is how state 1 usually gets "fixed", by being suppressed. `|| status=$?` puts the
+  screen in a context `errexit` does not act on, and asks nothing of the caller's shell:
+
+  ```bash
+  # Runnable as written. Safe under `set -e` and under `set -u`; needs no `pipefail`,
+  # sets no shell option and restores none — nothing here depends on how the caller
+  # was invoked. Verified against all three states, 2026-08-18.
+  file=deliverable.md
+  pattern='\[[A-Z ]+\]'                 # one screen, one pattern: the bracket-token net
+  status=0
+  hits=$(LC_ALL=C.UTF-8 grep -nE "$pattern" "$file") || status=$?
+  case "$status" in
+    0) printf 'FOUND — %s hit(s) in %s, exit 0\n' "$(printf '%s\n' "$hits" | wc -l)" "$file"
+       printf '%s\n' "$hits" ;;
+    1) printf 'CLEAN — screened %s (%s lines), no match, exit 1\n' "$file" "$(wc -l < "$file")" ;;
+    *) printf 'UNSCREENED — screen did not run on %s, exit %s\n' "$file" "$status" ;;
+  esac
+  ```
+
+  Three ways the status is thrown away before anyone reads it, all of them silent:
+
+  - **`grep -q`** exits 0 on a match *even when an error also occurred* (measured: `grep -q p
+    good-file missing-file` → 0). It cannot express state 2 at all. Never classify a screen you
+    ran with `-q`.
+  - **A pipe** — `grep … | wc -l` — carries the *last* command's status, so the screen's own is
+    gone unless `set -o pipefail`, which is the caller's option and not yours to assume. Capture
+    the output first, count it afterwards.
+  - **`local status=$(…)`** inside a function takes `local`'s status, which is always 0. Declare
+    on one line, assign on the next.
+
+  State 1 has a blind spot of its own: **exit 1 on the wrong file, on an empty file, or on a path
+  that never held the deliverable is byte-identical to exit 1 on the right one.** So a clean line
+  records what was screened — the path and its line count — beside the status. A screen of nothing
+  is a third way of not running, wearing state 1's clothes.
+
+  **Corrected 2026-08-17, and the correction is the more dangerous half.** The abort example
+  above asserted the abort as unconditional. It is **locale-dependent**, and the default locale here
   is the one where it does *not* fire. Measured at the shell, this environment, `LANG` empty and
   `LC_CTYPE=POSIX`:
 
@@ -485,6 +539,7 @@ report — *nothing surfaced*.
   them as a reason to hand-check, not as a measured hit rate. Write the pattern against the
   unaccented stem or bracket the vowel that moves, and hand-check a sample regardless.
 
-**Report a screen the way it behaved** — "screened, nothing surfaced, exit 0" — never "clean".
+**Report a screen the way it behaved** — "screened deliverable.md, 214 lines, nothing surfaced,
+exit 1" — never "clean" on its own.
 A pattern's silence is evidence only once you know the pattern ran, and only about what that
 pattern can reach.

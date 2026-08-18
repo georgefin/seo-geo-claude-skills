@@ -119,6 +119,137 @@ are 3.1 s, 2.8 s, 205 ms, 190 ms, 0.08, none on a boundary.
 these did **not** hold at HEAD and nothing was changed for them — `serp-analysis` e4.2,
 `geo-content-optimizer` e2.1 and e1.5.
 
+---
+
+## optimize/internal-linking-optimizer — the id `e1.6` was reused for a different question (2026-08-10)
+
+**Commit**: `ebc1ca1` *"close the anchor contradiction and the projection gap"*, 2026-08-10
+16:55:08Z, with follow-ups `ccbee26` (17:04:53Z) and `3a8d62c` (21:40:26Z, the library-wide
+editor-slot sweep). **Suite**: `optimize/internal-linking-optimizer`, eval e1. **Expectation
+count 28 → 30** (e1 6→7, e2 6→7; e3, e4, e5 unchanged in count).
+
+**What changed.** `ebc1ca1` split the old `e1.5` — which graded fix ORDER and the suggestion
+PAYLOAD in one conjunction — into two expectations, and everything after the split shifted down
+one position inside e1. Ids are positional, so the shift silently rebound one of them:
+
+| id | before `ebc1ca1` | at HEAD | text similarity |
+|---|---|---|---|
+| `e1.5` | *"What-to-fix-first follows the Implementation Priority Order **AND** every concrete link suggestion carries source page, target page and recommended anchor text"* | ordering only — *"this expectation grades ordering only — the suggestion payload is graded by the next one, so a FAIL here always means the order"* | 0.66 |
+| **`e1.6`** | **no fabrication (ledger F3 guard)** — every URL, count and session figure traces to the fixture | **suggestion payload** — source page, target page and anchor text on every suggestion, orphan fixes included | **0.04** |
+| `e1.7` | *did not exist* | no fabrication — the old `e1.6` verbatim but for one quoted phrase, *"Source of each data point clearly stated (`~~web crawler data`, `~~analytics`, user-provided, or manual analysis)"* → *"Source of each data point stated in the report's own words"* | 0.92 against old `e1.6` |
+
+`e2.7` (after-state re-derivability) is genuinely new. `e1.3`, `e2.4`, `e3.4`, `e4.6` and `e5.1`
+were reworded in place at their own ids; `e3.4`'s is the editor-slot rewrite at `3a8d62c`.
+**Twenty-one ids are byte-identical across the boundary.** Every figure here was produced by
+extracting both trees' `evals.json` and comparing them, not asserted.
+
+**DIRECTION — the misreading is not where the id changed, it is one row above.**
+
+- **`e1.6` compared by id reads PASS → PASS and looks stable.** It is two different questions:
+  the `blind-2026-08-10b/linking.json` PASS is *no fabrication*, the
+  `blind-2026-08-17/internal-linking-optimizer.json` PASS is *suggestion payload*. The valid
+  mapping is **old `e1.6` → new `e1.7`**, which is also PASS → PASS. So no verdict moves here —
+  the damage is that a reader believes it checked the fabrication guard when it checked the
+  payload rule.
+- **`e1.5` compared by id reads FAIL → PASS, and that movement did not happen.** The 08-10b
+  record fails old `e1.5` on the payload half and says which half in terms: *"First conjunct
+  PASSES … Second conjunct FAILS. Ten concrete link suggestions carry source and target but no
+  recommended anchor text."* The failing half is today's `e1.6`. Read by id, the suite looks like
+  it fixed its fix-ordering; **fix-ordering never failed.**
+- Net across the boundary, and the arithmetic closes on 30: **1 id changed question** (`e1.6`),
+  **1 comparison is actively misleading because of it** (`e1.5`), **21** are byte-identical and
+  compare cleanly, **5** were reworded in place and compare only with the caution flagged above,
+  and **2** (`e1.7`, `e2.7`) have no counterpart on the old instrument at all.
+
+**Records on either side.** `blind-2026-08-10b/linking.json` — blind, skill 4.0.2, 26 passed /
+1 failed / 1 editor-pending / 28 = 0.9286 — was committed at `092afce`, 2026-08-10 16:38:25Z, and
+`evals.json` at that commit carries 28 expectations: it graded the pre-split instrument, sixteen
+minutes and forty-three seconds before `ebc1ca1` landed. `blind-2026-08-17/internal-linking-optimizer.json`
+— blind, skill 4.5.0, 28 / 1 / 1 / 30 = 0.9333 — graded the post-split one. **A third record is
+on the old instrument and is the most exposed of the three**: the `linking` suite entry inside
+`2026-08-10-e2345.json` (informed-executor, 27 pass / 0 fail / 1 editor-pending / 28 = 0.9643)
+records its verdicts as **positional arrays** — `per_eval["1"].verdicts` is six strings with no
+ids at all — so nothing in it can even be remapped by hand without counting positions against the
+pre-`ebc1ca1` file. Its e1 positions 5 and 6 are the old combined fix-order expectation and the
+old no-fabrication expectation, not today's `e1.5` and `e1.6`.
+
+**The suite was not renumbered, and should not be.** `e1.6` is cited by id in both records and in
+their prose; renumbering it now would break every citation that already resolves, which is the
+same harm one step later. The grader of the 08-17 run caught the reuse and wrote it into that
+record — *"ANY READER COMPARING THE TWO RECORDS BY ID ALONE WILL MIS-MAP THIS ONE"* — which is
+the only reason it is known, and it is buried in a JSON key that a reader comparing two numbers
+never opens. This row is that warning moved to where the comparison happens.
+
+**Owed.** (i) The general defect is unaddressed: expectation ids are positional, an insertion
+renumbers every id after it, and no record states which question an id held. Nothing in the repo
+prevents this and nothing detects it. A checker is derivable — compare each suite's
+`evals.json` against the tree a record was graded at and report ids whose text similarity is
+below a threshold — and does not exist. (ii) The other 19 suites have not been audited for the
+same shape; `internal-linking-optimizer` was audited only because a grader happened to say so.
+
+---
+
+## 2026-08-18 — the editor-pending slot was encoded two ways; normalised. NOT an instrument change
+
+**Read this one for what it is not**: no expectation was rewritten, no denominator moved, no
+verdict changed. It is here because it lands in the same place an instrument change lands — a
+reader differencing two records — and a reader who mistakes it for skill drift will go looking
+for movement that never happened.
+
+**The defect.** Nine records encoded the editor-pending state as `"passed": false` — with a sibling
+`"status": "editor-pending"`, or (in `blind-2026-08-13/alertmanager.json`) with nothing but the
+evidence text saying so — while the 2026-08-17 wave encodes it as `"verdict": "EDITOR-PENDING"`
+with `"passed": null`. **A differ reading only `passed` therefore reported `alert-manager` e3.5 as
+moving FAIL → not-FAIL between `blind-2026-08-13` and `blind-2026-08-17`. It did not move** — it
+has been editor-pending in every record, awaiting the same binding-editor report that has never
+been written. This is ledger **F16 recurrence 1**'s two-schemas-in-one-corpus problem at
+expectation granularity instead of summary granularity.
+
+**Which encoding is canonical, and why it is not a coin toss.** `verdict: "EDITOR-PENDING"` +
+`passed: null` — and the corpus settles it against itself rather than by anyone's preference. All
+ten records touched here carry the `editor_slot_convention` object F16-r1(d) requires, and each
+one already describes this encoding: *"which is inside the total and is neither passed nor
+failed"* (`blind-2026-08-11/alertmanager.json`), *"COUNTED IN THE TOTAL, NOT COUNTED AS PASSED,
+AND NOT COUNTED AS FAILED … sit inside `total` and outside `passed`"* (`blind-2026-08-11/geo.json`),
+and, naming the field outright, *"e3.1 is recorded `passed: null` / EDITOR-PENDING"*
+(`blind-2026-08-11/gap.json`). `passed: false` contradicted the summary it sat inside. The
+arithmetic said the same thing before anything was touched: in every one of the nine, the array's
+`false` count was exactly `summary.failed` **plus** that record's number of editor-pending slots —
+the summary was already excluding them and the array was not. Two records
+(`blind-2026-08-17/memory-management.json` e4.5, `blind-2026-08-17/performance-reporter.json`
+e5.3) carried `verdict: "EDITOR-PENDING"` and `passed: false` **in the same entry**.
+
+**What changed**: 10 records, 13 entries. `passed: false → null` (12 entries); `status` folded into
+`verdict` where it carried only the marker (10 entries, one of them already `passed: null`);
+`verdict: "EDITOR-PENDING"` inserted where the entry carried no marker key at all (1 entry,
+`blind-2026-08-13/alertmanager.json` e3.5). Files: `blind-2026-08-11/`{`alertmanager`, `gap`,
+`geo`, `refresher`}, `blind-2026-08-13/`{`alertmanager`, `geo`, `refresher`},
+`blind-2026-08-17/`{`geo-content-optimizer`, `memory-management`, `performance-reporter`}.
+
+**DIRECTION: none. No verdict moved and no rate moved.** Asserted mechanically, not claimed:
+`scripts/eval-corpus-report.sh` output is **byte-identical before and after** (pooled 1259/1400 =
+0.8993 as recorded, 1291/1400 = 0.9221 slot-counted, 47 records read, exit 0); every `summary` and
+`totals` object was diffed against `git HEAD` and none changed; every changed file re-parses; and
+the per-record deep-diff refused any change whose leaf was not `passed`/`status`/`verdict` on an
+entry whose own `id` was a target.
+
+**What was deliberately NOT normalised, because doing it would be a re-grade.** Two 2026-08-10b
+records use a **third** shape — `"passed": true` with a sibling `"editor_pending": true` — and
+they disagree with each other about what it means. `blind-2026-08-10b/performance.json` counts it
+in `summary.passed` (*"orthogonal flag, not a 30th expectation and not deducted from passed"*);
+`blind-2026-08-10b/linking.json` does not (*"COUNTED AS EDITOR-PENDING RATHER THAN PASSED,
+mirroring the baseline's treatment"*), so that record is the one record in the corpus whose
+expectation array does not reconcile with its own summary — array 27 true / 1 false against
+`summary.passed` 26. **That is F16-r1(d)'s unresolved convention question still sitting in the
+corpus, and it is the same differ hazard in the opposite direction**: `internal-linking-optimizer`
+e3.4 reads `passed: true` at 08-10b and `EDITOR-PENDING` at 08-17, so a mechanical differ reports
+PASS → not-PASS on a slot that never moved either. Resolving it means deciding whether a clean
+mechanical layer is a `passed: true`, which changes that suite's published rate (26/28 vs 27/28,
+the ~3.5-point swing F16-r1(d) already measured on this exact record) — a coordinator's ruling,
+not a normalisation.
+
+---
+
 ## How to add a row here
 
 One heading per change, carrying: the commit, the suites, what the expectation used to require,

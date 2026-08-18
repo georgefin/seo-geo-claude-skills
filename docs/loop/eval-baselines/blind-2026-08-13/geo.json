@@ -88,8 +88,8 @@
     {
       "id": "e1.6",
       "text": "Greek output quality (watch-item W4 guard) — the binding greek-content-editor's grade decides fluency, idiomatic naturalness, translation-ese and register. UNGRADED and recorded EDITOR-PENDING if no editor report is in front of the grader.",
-      "passed": false,
-      "status": "EDITOR-PENDING",
+      "passed": null,
+      "verdict": "EDITOR-PENDING",
       "evidence": "No greek-content-editor report on this deliverable is in front of this grader, so the expectation's own instruction binds: 'record it EDITOR-PENDING, keep it inside the suite's total, and never record it as passed'. NOT recorded as passed and NOT recorded as a content failure. Mechanical layer screened and reported FOR THE EDITOR, not as a verdict (anti-slop §6 governing note — a pattern's silence is not evidence): family 1 net `Όλα τα [0-9]` — nothing surfaced; family 2 nets — nothing surfaced; family 5 — 15 n-word lines, EVERY ONE hand-checked at source and licensed, either by a preverbal «δεν» in its own clause (L4 «Καμία μέτρηση δεν αντλήθηκε», L99, L101, L159 «Κανένας ισχυρισμός δεν έμεινε», L187, L215, L218, L219, L256) or by a listed alternative licenser (L118 «στέκονται **χωρίς** κανένα στοιχείο») or as a protected verbless nominal (L217/L224 «Καμία εξωτερική παραπομπή»); family 6 net `μηδ[εέ]ν` — nothing surfaced (the 1 `κοστίζ` hit is the ordinary FAQ question «Πόσο κοστίζει…», no numeral-zero frame); family 7 `~~` — 0 hits; family 8 — every skill slug and framework ID sits at L251-254, inside the operator fence opened at L245 with the in-fence label «<!-- ΣΗΜΕΙΩΜΑ ΓΙΑ ΤΗΝ ΟΜΑΔΑ ΠΟΥ ΤΡΕΧΕΙ ΤΗ ΒΙΒΛΙΟΘΗΚΗ — δεν αποτελεί μέρος της αναφοράς προς τον πελάτη -->», zero in client prose; final-sigma probe (`σ` word-final / `ς` word-internal, PCRE, LC_ALL=C.UTF-8) — 0 hits, and the probe was fault-injection-tested first (see tool_correctness). Advisory 'process machinery' tokens («εκτέλεση», L247/L251/L256) occur only inside that operator fence, where family 8's reader test exempts them. REFERRED TO THE GREEK EDITOR, strings named: the published copy L13-82 as a whole; specifically the three service definitions L30-42 (register of «ψυκτικές γραμμές», «αποχέτευση συμπυκνωμάτων», «ηλεκτρονικής πλακέτας» in consumer-facing copy), the table cell «Δεν υπάρχει δημοσιευμένη τιμή — επικοινωνήστε μαζί μας» (L49-50), and the four FAQ answers L56-82."
     },
     {
@@ -125,8 +125,8 @@
     {
       "id": "e2.6",
       "text": "Greek output quality (watch-item W4 guard) — the binding greek-content-editor's grade decides; EDITOR-PENDING if no editor report is present.",
-      "passed": false,
-      "status": "EDITOR-PENDING",
+      "passed": null,
+      "verdict": "EDITOR-PENDING",
       "evidence": "No greek-content-editor report in front of this grader; recorded EDITOR-PENDING per the expectation's own instruction, kept in the total, not recorded as passed, not recorded as failed. Mechanical screens reported FOR THE EDITOR: family 1 net `Όλα τα [0-9]` — nothing surfaced, AND the ruled native form is produced three times («Και τα 18 μοντέλα», L17, L90, L165); family 2 nets — nothing surfaced; family 5 — 14 n-word lines hand-checked at source, all licensed by a preverbal «δεν» in their own clause (L4, L109 «Καμία μηχανή δεν τεκμηριώνει», L128, L130, L141, L147, L183, L197, L225, L228, L229, L264) or protected verbless nominals (L148 «Καμία ερώτηση, κανένας πίνακας, καμία υποενότητα.», L234); family 6 net `μηδ[εέ]ν` — nothing surfaced (3 `κοστίζ` hits are all ordinary price prose); family 7 `~~` — 0 hits; family 8 — every handle sits at L260-268 inside the operator fence opened at L254, zero in client prose; final-sigma probe — 0 hits, probe fault-injection-tested first. REFERRED TO THE GREEK EDITOR, strings named: the retail register of the whole published block L13-99; specifically the three definitions L30-40, the numbered selection procedure L55-62 («Βάλτε τον προϋπολογισμό σας μέσα στο εύρος 129-449 €»), the five FAQ answers L66-99, and the client-read refusal section Μέρος Β L104-112 (whether «στοίβαξη τύπων» / «δεύτερος πλήρης τύπος» read as natural Greek to a shop owner). Also for the editor rather than for this grader: whether reusing the fixture's “Στην κατηγορία αυτή θα βρείτε” frame at L15 is good Greek e-shop copy or residue — see e2.1."
     },
     {

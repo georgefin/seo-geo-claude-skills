@@ -23,3 +23,17 @@ RELEASE	2026-08-18T05:38:10Z	1787031490	suite-contradictions	research/serp-analy
 RELEASE	2026-08-18T05:38:10Z	1787031490	suite-contradictions	build/geo-content-optimizer/evals
 RELEASE	2026-08-18T05:38:10Z	1787031490	suite-contradictions	cross-cutting/entity-optimizer/evals
 RELEASE	2026-08-18T05:38:10Z	1787031490	suite-contradictions	monitor/performance-reporter/evals
+ACQUIRE	2026-08-18T05:41:44Z	1787031704	register-reconcile	docs/loop/OPEN-FINDINGS.md
+ACQUIRE	2026-08-18T05:41:44Z	1787031704	contract-conflicts	references/action-output-contract.md
+ACQUIRE	2026-08-18T05:41:44Z	1787031704	guard-and-reader	build/geo-content-optimizer
+ACQUIRE	2026-08-18T05:41:44Z	1787031704	guard-and-reader	cross-cutting/domain-authority-auditor
+ACQUIRE	2026-08-18T05:41:44Z	1787031704	corpus-hygiene	docs/loop/FAILURE-LEDGER.md
+ACQUIRE	2026-08-18T05:41:44Z	1787031704	corpus-hygiene	docs/loop/eval-baselines
+ACQUIRE	2026-08-18T05:41:44Z	1787031704	corpus-hygiene	optimize/internal-linking-optimizer/evals
+RELEASE	2026-08-18T05:49:53Z	1787032193	contract-conflicts	references/action-output-contract.md
+RELEASE	2026-08-18T05:51:57Z	1787032317	guard-and-reader	build/geo-content-optimizer
+RELEASE	2026-08-18T05:51:57Z	1787032317	guard-and-reader	cross-cutting/domain-authority-auditor
+RELEASE	2026-08-18T06:11:37Z	1787033497	corpus-hygiene	docs/loop/FAILURE-LEDGER.md
+RELEASE	2026-08-18T06:11:37Z	1787033497	corpus-hygiene	docs/loop/eval-baselines
+RELEASE	2026-08-18T06:11:37Z	1787033497	corpus-hygiene	optimize/internal-linking-optimizer/evals
+RELEASE	2026-08-18T06:17:25Z	1787033845	register-reconcile	docs/loop/OPEN-FINDINGS.md

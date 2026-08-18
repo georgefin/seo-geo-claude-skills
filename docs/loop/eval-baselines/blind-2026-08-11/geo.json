@@ -64,8 +64,8 @@
     {
       "id": "e1.6",
       "text": "Greek output quality (watch-item W4 guard) — binding greek-content-editor's grade decides fluency/register; UNGRADED and recorded EDITOR-PENDING if no editor report is in front of the grader.",
-      "passed": false,
-      "status": "EDITOR-PENDING",
+      "passed": null,
+      "verdict": "EDITOR-PENDING",
       "evidence": "No greek-content-editor report on this deliverable is in front of this grader, so the expectation's own instruction binds: 'record it EDITOR-PENDING, keep it inside the suite's total, and never record it as passed'. NOT recorded as passed and NOT recorded as a content failure. Mechanical layer screened and clean, reported for the editor rather than as a verdict: final sigma — 0 word-final 'σ', 0 word-internal 'ς'; headings all Greek, no untranslated English boilerplate; anti-slop §6 screens on this file — family 1 net `Όλα τα [0-9]` 0 hits, family 2 net `απαιτούνται στοιχεία`/`[CLIENT DATA`/`[SOURCE NEEDED` 0 hits, family 5 n-words 21 hits all hand-checked and licensed by a preverbal «δεν» in their own clause or protected verbless nominals (L22 «N/A: κανένας»), family 6 net `μηδ[εέ]ν` 1 hit at L24 («το μηδέν δίνει 1 και όχι 0») ranked clean by `κοστίζ` = 0 hits and correct nominal Greek, family 7 `~~` 0 hits, family 8 0 handles in client prose. Referred to the greek-content-editor: register and naturalness of the published copy L54-110 and of the four FAQ answers."
     },
 
@@ -102,8 +102,8 @@
     {
       "id": "e2.6",
       "text": "Greek output quality (watch-item W4 guard) — binding greek-content-editor's grade decides; EDITOR-PENDING if no editor report is present.",
-      "passed": false,
-      "status": "EDITOR-PENDING",
+      "passed": null,
+      "verdict": "EDITOR-PENDING",
       "evidence": "No greek-content-editor report in front of this grader; recorded EDITOR-PENDING per the expectation's own instruction, kept in the total, not recorded as passed. Mechanical screens, reported for the editor: final sigma 0 errors; family 1 net `Όλα τα [0-9]` 0 hits AND the ruled native form produced three times («Και τα 18 μοντέλα», L114/L183 and the L98 sibling construction); family 2 net 0 hits; family 5 — 14 n-word lines hand-checked, all licensed by a preverbal «δεν» in their own clause or protected verbless nominals (L22 «N/A: κανένας», L217 elliptical table cell); family 6 net `μηδ[εέ]ν` 0 hits; family 7 `~~` 0 hits; family 8 0 handles in client prose. IMPORTANT CHANGE OF EVIDENCE GRADE vs 2026-08-10c: those family-1 and family-2 results are now COLD, not primed — see contamination_status."
     },
 

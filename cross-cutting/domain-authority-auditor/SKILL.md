@@ -1,13 +1,13 @@
 ---
 name: domain-authority-auditor
-version: "4.6.1"
+version: "4.6.2"
 description: 'Run the full 40-item CITE domain authority audit across 4 dimensions with domain-type weighting and veto checks. Use when the user asks to "audit domain authority", "domain trust score", "CITE audit", "how authoritative is my site", "domain credibility check", "is my domain trustworthy", "domain credibility score", "domain rating". For content-level assessment, see content-quality-auditor. For link profile details, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.6.1"
+  version: "4.6.2"
   geo-relevance: "medium"
   tags:
     - seo
@@ -127,11 +127,7 @@ source]" (see Step 3) — do not downgrade them into Hypothesis scores.
 
 **Domain**: [domain]
 **Domain Type**: [auto-detected or user-specified]
-**Dimension Weights**: [from domain-type weight table below]
-
-#### Domain-Type Weight Table
-
-> **Read the weights from [`references/cite-domain-rating.md`](../../references/cite-domain-rating.md) § domain-type weights.** The inline copy that stood here was labelled "for convenience" and was a second place for the same numbers to drift — the defect class this library has already paid for twice. One source, traversed.
+**Dimension Weights**: [C x% · I x% · T x% · E x% — the four percentages for this domain type, written out]
 
 #### Veto Check (Emergency Brake)
 
@@ -141,6 +137,8 @@ source]" (see Step 3) — do not downgrade them into Hypothesis scores.
 | T05: Backlink Profile Uniqueness | ✅ Pass / ⚠️ VETO | [If VETO: "Flag as manipulation network; investigate link sources"] |
 | T09: Penalty & Deindex History | ✅ Pass / ⚠️ VETO | [If VETO: "Address penalty first; all other optimization is futile"] |
 ```
+
+**The weights come from one place, and the pointer to it stays out of the client's block.** Read the four percentages for this domain type off [`references/cite-domain-rating.md`](../../references/cite-domain-rating.md) § domain-type weights, then write them out in the slot above — the client's report states which profile was applied and what its four percentages are, which is the part they can check the score against. There is deliberately no second copy of the table here: the inline one that used to sit *inside* that skeleton was labelled "for convenience", was a second place for the same numbers to drift, and carried a repo path plus this library's own defect history into the delivered report under a heading the client cannot use. A file path names a register they cannot open (`CLAUDE.md` § The Reader Test, clause 1); if a run needs the pointer recorded, it goes in an operator block with both of its labels, never in the report's own prose.
 
 If any veto item triggers, flag it at the top of the report; CITE Score caps at 39 (Poor) regardless of other scores.
 
