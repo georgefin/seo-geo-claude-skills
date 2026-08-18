@@ -90,6 +90,21 @@
 > claimed paths, and add your own claim line here in the same commit that starts the work —
 > not the one that finishes it. A claim written afterwards protects nobody.
 >
+> **MAC STUDIO SESSION CLAIMS (2026-08-18, opening commit — Sani confirmed the cloud session ENDED,
+> from its own status line "session end requested", not inferred from push silence):**
+> `references/greek-output-mechanics.md` (new) · the Greek-carrier pointer lines only in
+> `optimize/content-refresher/SKILL.md`, `optimize/internal-linking-optimizer/SKILL.md`,
+> `monitor/performance-reporter/SKILL.md`, `build/schema-markup-generator/SKILL.md`,
+> `optimize/on-page-seo-auditor/SKILL.md` · the five tracking files those bumps require
+> (`VERSIONS.md`, `.claude-plugin/plugin.json`, `marketplace.json`, `README.md`, `CLAUDE.md`).
+> — covering the Greek-mechanics carrier gap, then the 9 rubric repairs named by the
+> 2026-08-18 pre-flight audit.
+>
+> ⚠️ **Three of those five skills sit inside paths the 2026-08-11 cloud claim above still
+> names.** That claim is stale — its session has ended — but it is left standing rather than
+> deleted, per this file's own convention that a superseded line is corrected in place. This
+> claim supersedes it for the five pointer lines ONLY, and touches nothing else in those trees.
+>
 > **Neither session merges PR #9.** The condition is unmet and the gates are unrun.
 
 **Why this file exists.** These lived only in a session-local task list, which no other session
