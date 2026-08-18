@@ -996,7 +996,28 @@ intervals() {
 open_tenures() { intervals | awk -F'\t' '$6 !~ /^closed/'; }
 
 # Exact match, or directory-prefix match when the LOCKED path ends in "/".
+#
+# ONE CARVE-OUT: the archive directory is never covered by any tenure (ruled
+# 2026-08-18, M4). A lane holding the `docs/loop/` prefix held
+# `docs/loop/register-locks-archive/` with it, so the commit leg 6 REQUIRES was the
+# commit leg 5 REFUSES — two gate legs deadlocked, measured in a temp repo rather
+# than derived. The carve-out is narrow and it is about what the directory IS:
+#   * F14's defect is one writer's AUTHORED hunk swept into another writer's commit
+#     describing unrelated work. Nobody authors an archive row. `do_archive` copies
+#     them mechanically out of the journal, so the hunk carries no one's intent and
+#     there is nothing to sweep.
+#   * Concurrent appends there are expected and safe by design — .gitattributes
+#     gives the directory `merge=union` for exactly that reason.
+#   * The alternative was routing it through the `Register-Lock: none` escape, which
+#     asserts "no holder's content rides in this commit". For an archive commit that
+#     is FALSE: the holder's rows are precisely what is being committed. This file's
+#     own header records that the pre-escape check "taught lying"; sending the one
+#     unavoidable case through an escape that requires a false claim would teach it
+#     again, and M3 repaired that escape three commits ago to carry a true one.
+# The journal itself is NOT carved out — it is gitignored and never in a commit.
+archive_dir_path() { case "$1" in docs/loop/register-locks-archive/*|docs/loop/register-locks-archive/) return 0 ;; esac; return 1; }
 path_overlap() {   # $1 = locked path, $2 = candidate path
+    archive_dir_path "$2" && return 1
     [ "$1" = "$2" ] && return 0
     case "$1" in */) case "$2" in "$1"*) return 0 ;; esac ;; esac
     case "$2" in */) case "$1" in "$2"*) return 0 ;; esac ;; esac

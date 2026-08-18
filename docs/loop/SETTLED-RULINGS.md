@@ -285,6 +285,43 @@ search-engine behaviour. The reopening condition is Sani's own word, not primary
 - **Reopens on**: a measured false positive against a declaration form in real use. A
   preference for a different dash is not grounds.
 
+### M4 — the lock-journal archive directory is never covered by a tenure
+
+- **Statement**: `path_overlap` returns "no overlap" for any candidate path under
+  `docs/loop/register-locks-archive/`, so no `Register-Lock` tenure — however broad the prefix —
+  ever covers it. The journal itself needs no carve-out: it is gitignored and never in a commit.
+- **Decided**: 2026-08-18, by the coordinator on Sani's instruction, from a defect the
+  archive-faultinject lane measured and deliberately did not fix, on the grounds that which
+  escape is correct was a coordination call rather than a code one. It was right to hand it back.
+- **The defect**: a lane holding the `docs/loop/` prefix held `docs/loop/register-locks-archive/`
+  with it, so **the commit gate leg 6 requires was the commit gate leg 5 refuses** — two legs of
+  one gate deadlocked. Measured in a throwaway repo, not derived
+  `[obs:2026-08-18 temp repo, lane-b holding docs/loop/, commit adding only
+  docs/loop/register-locks-archive/<date>.tsv inside that tenure -> gate-check exit 1]`.
+- **Why a carve-out and not the escape hatch.** The alternative was routing every archive commit
+  through `Register-Lock: none — <reason>`. That trailer asserts *"no holder's content rides in
+  this commit."* For an archive commit the statement is **false** — the holder's rows are exactly
+  what is being committed. `register-lock.sh`'s own header records that the pre-escape check
+  *"taught lying"*, and M3 repaired that escape three commits earlier precisely so it carries an
+  auditable true claim. Sending the one unavoidable case through it would teach the same lying the
+  escape exists to stop.
+- **Why the carve-out is safe, stated as what the directory IS.** F14's defect is one writer's
+  **authored** hunk swept into another writer's commit describing unrelated work. Nobody authors an
+  archive row: `do_archive` copies them mechanically out of the journal, so the hunk carries no
+  one's intent and there is nothing to sweep. Concurrent appends there are expected and safe by
+  design — `.gitattributes` gives the directory `merge=union` for that reason.
+- **Held by a pair, not a single case.** `gate-archive-dir-never-locked` (must pass) and
+  `gate-inside-tenure-undeclared` (same journal, same `docs/loop/` prefix lock, non-archive file,
+  must fail). Only the pair separates *"the archive is carved out"* from *"the prefix branch stopped
+  working"*, and a carve-out nobody asserts is one a later reader deletes as dead code. Mutation-
+  tested: removing the carve-out turns the case red
+  `[obs:2026-08-18 carve-out line replaced with a no-op -> PROBE FAIL gate-archive-dir-never-locked,
+  expected exit 0 got 1]`.
+- **Scope**: this is a carve-out in the *collision* check only. It says nothing about who may write
+  the archive, and it does not exempt any other path under `docs/loop/`.
+- **Reopens on**: a measured case where two writers' archive rows genuinely conflict in a way
+  `merge=union` does not resolve.
+
 ---
 
 ## Pinned baselines (drift watch — not rulings)
