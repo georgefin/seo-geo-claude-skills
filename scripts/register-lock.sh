@@ -86,6 +86,14 @@
 #         uncommitted. The gate leg is the one that matters, because rows appended
 #         to the journal by hand never pass through `release` at all -- which is
 #         exactly how the 2026-08-17 wave was journalled.
+#         The SOURCE journal is overridable (REGISTER_LOCK_FILE), the DESTINATION is
+#         not: `archive` always writes under $ROOT. `release` therefore skips its
+#         archive call whenever the source is overridden; `archive` run directly does
+#         not, so an operator archiving a journal from elsewhere still files it here.
+#         A row whose field 2 carries no YYYY-MM-DD cannot be filed and is reported by
+#         count rather than dropped in silence -- this is the half whose whole job is
+#         that rows do not disappear. Nothing here dates an undated row: a guess would
+#         put invented evidence in the durable record.
 #   --probe
 #         Fault injection over scripts/fixtures/register-lock/ (see below).
 #
@@ -98,8 +106,8 @@
 # Exit: 0 = ok/pass, 1 = refused/FAIL, 2 = usage error. No network access.
 # Dependencies: bash, git (gate-check only), awk, date; flock(1) when available.
 #
-# ── FAULT INJECTION (--probe), added for G3-C5 ────────────────────────────────
-# Two surfaces, probed two ways, because they fail differently.
+# ── FAULT INJECTION (--probe), G3-C5; archive + gate leg 6 added 2026-08-18 ───
+# Three surfaces, probed three ways, because they fail differently.
 #   * The LIFECYCLE (acquire / release / status) is a state machine over a
 #     journal file. The probe drives it through the real CLI with
 #     REGISTER_LOCK_FILE pointed at a scratch journal, and asserts the refusals
@@ -111,9 +119,24 @@
 #     (so `${BASH_SOURCE[0]}` resolves ROOT to the temp repo — nothing is copied
 #     and no history is rewritten), materialises a journal fixture, and writes
 #     each case's commit at a controlled `GIT_COMMITTER_DATE`.
+#   * ARCHIVE + GATE LEG 6 WRITE, which no other probed surface does, and they
+#     write to `$ROOT/docs/loop/register-locks-archive` — a destination NOTHING
+#     overrides, since REGISTER_LOCK_FILE moves the source journal only. That was
+#     the stated reason this half shipped unprobed, and it is not a reason:
+#     moving ROOT moves the destination, and the symlink harness above has been
+#     moving ROOT since the day it landed. So the archive cases run the real
+#     `archive` subcommand in a second throwaway root, and the leg-6 cases run
+#     the real `pre-push-gate.sh` in a third — a real git repository, with legs
+#     1-5 stubbed to `exit 0` so that the gate's own exit code IS leg 6's
+#     verdict. A leg that cannot veto a push is decoration, and that is the
+#     assertion stubbing buys.
 # Journal fixtures carry OFFSETS FROM NOW, never timestamps: staleness is defined
 # relative to now, so a frozen timestamp would decay from live to stale over the
-# life of the file and the fixture would stop meaning what it says.
+# life of the file and the fixture would stop meaning what it says. ONE family is
+# exempt and it is a FILE boundary, not a judgment call: `rawjournal-*.tsv` is
+# copied byte-for-byte, because its subject is a field 2 that is not a timestamp
+# at all — there is nothing for an offset to express, and materialising it would
+# destroy the only property under test.
 #
 # WHAT THIS PROBE DOES NOT PROVE:
 #   1. ATTRIBUTION — the same thing the header above already refuses to claim. A
@@ -123,8 +146,13 @@
 #   2. CONCURRENCY. `with_journal_lock`/flock exists to serialise two acquires
 #      issued in the same instant. Every probe case is sequential, so the race is
 #      not reproduced — only the code path around it runs.
-#   3. The DEFAULT journal path. Every case sets REGISTER_LOCK_FILE, so
-#      `<root>/.register-locks` is exercised by real sessions and by nothing here.
+#   3. The DEFAULT journal path IN THIS REPOSITORY. Amended 2026-08-18: until then
+#      this entry read "every case sets REGISTER_LOCK_FILE", which stopped being
+#      true when the archive cases landed. `release`'s own archive call is reachable
+#      ONLY with the variable unset, so two of those cases run against
+#      `<root>/.register-locks` with ROOT moved to a throwaway root. The code path is
+#      covered; this repository's own journal is still written by real sessions and
+#      read by nothing here.
 #   4. The DEFAULT base ref. The gate calls `gate-check` with no argument and it
 #      resolves `@{upstream}`; a temp repo has no upstream, so every case passes an
 #      explicit base and that branch is never taken.
@@ -137,6 +165,24 @@
 #      (Until 2026-08-17 this entry read that the `none` escape was not implemented
 #      as documented. It now is — ruling M3 — and the two cases that hold it there
 #      are gate-bare-none-rejected.txt and gate-none-prose-is-not-a-trailer.txt.)
+#   7. That the archived ROWS ARE TRUE. `archive` copies what the journal says, and
+#      the journal is what writers announced. A wave that never ran `acquire`
+#      archives nothing, and the resulting file is honest about a wave that did not
+#      journal — never evidence that no wave happened. Same standing as the trailer.
+#   8. CALENDAR VALIDITY of a date, and DEDUP ACROSS RUNS. Both are measured, and
+#      both are asserted as limits in the probe's STATED LIMITS block instead of
+#      being described here, so that they turn red if they ever change.
+#   9. THAT LEG 6 AND LEG 5 CAN BOTH BE SATISFIED BY ONE COMMIT. Leg 6 requires the
+#      archive rows to be committed; leg 5 FAILs a commit touching a path inside
+#      another holder's tenure. Any lane holding the `docs/loop/` PREFIX therefore
+#      covers docs/loop/register-locks-archive/, so the commit leg 6 demands is the
+#      commit leg 5 refuses
+#      `[obs:2026-08-18 temp repo, lane-b holding docs/loop/, a commit adding only
+#      docs/loop/register-locks-archive/<date>.tsv inside that tenure -> gate-check
+#      exit 1, "touched docs/loop/register-locks-archive/<date>.tsv inside another
+#      holder's tenure"]`. It is escapable, not deadlocked — `Register-Lock: none --
+#      <reason>` is exactly the auditable claim for it — but which escape is correct
+#      is a coordination decision, so it is recorded here rather than decided in code.
 # ──────────────────────────────────────────────────────────────────────────────
 
 # trailer_region — print the message's TRAILER REGION (stdin -> stdout).
@@ -196,19 +242,50 @@ do_archive() {
     local dir="$ROOT/docs/loop/register-locks-archive"
     [ -f "$LOCKFILE" ] || { echo "no journal at $LOCKFILE — nothing to archive"; return 0; }
     mkdir -p "$dir"
-    local dates added=0 total=0
+    local dates added=0 total=0 n_dates=0 d out n_before n_after unfilable
     dates=$(awk -F'\t' 'NF>=2 { print substr($2,1,10) }' "$LOCKFILE" | sort -u)
-    for d in $dates; do
+    # A row's first ten characters of field 2 become a FILENAME, so this loop reads
+    # them as data and never as shell words: `for d in $dates` word-splits and then
+    # PATHNAME-EXPANDS them, so a journal row whose field 2 begins `*` would have the
+    # loop iterating over the repo root's directory listing. The `case` glob below is
+    # the guard that keeps the name a date; this is the guard that keeps it one word.
+    while IFS= read -r d; do
         case "$d" in [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]) ;; *) continue ;; esac
-        local out="$dir/$d.tsv" n_before=0
-        [ -f "$out" ] && n_before=$(wc -l < "$out")
+        out="$dir/$d.tsv"; n_before=0
+        if [ -f "$out" ]; then
+            # A pre-existing file whose last line has no terminator would otherwise take
+            # the first appended row onto the END of that line: two rows in, one corrupt
+            # row out, and the older one is the wave whose evidence was already durable.
+            # Reachable without anyone hand-editing: `merge=union` resolves a same-day
+            # collision between two sessions, and git's own history is full of blobs with
+            # no final newline. Repair before counting, or n_before is short by one too.
+            [ -s "$out" ] && [ -n "$(tail -c 1 "$out")" ] && printf '\n' >> "$out"
+            n_before=$(wc -l < "$out")
+        fi
         awk -F'\t' -v D="$d" 'NF>=2 && substr($2,1,10)==D' "$LOCKFILE" \
             | { [ -f "$out" ] && grep -vxF -f "$out" - || cat; } >> "$out" 2>/dev/null || true
-        local n_after; n_after=$(wc -l < "$out")
-        added=$((added + n_after - n_before)); total=$((total + n_after))
+        n_after=$(wc -l < "$out")
+        added=$((added + n_after - n_before)); total=$((total + n_after)); n_dates=$((n_dates + 1))
         echo "  $d.tsv — $((n_after - n_before)) new row(s), $n_after total"
-    done
-    echo "archived to docs/loop/register-locks-archive/ — $added new row(s) across $(echo "$dates" | wc -w) date(s)"
+    done <<< "$dates"
+    # A row whose field 2 is not a date cannot be filed, and until 2026-08-18 it was
+    # dropped in silence -- in the half of this script whose whole job is that rows do
+    # not disappear. The count is printed, not repaired: guessing a date for an
+    # undated row would put invented evidence in the durable record.
+    unfilable=$(awk -F'\t' '
+        /^[[:space:]]*$/ { next }
+        { d = substr($2, 1, 10)
+          if (d !~ /^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$/) c++ }
+        END { print c + 0 }' "$LOCKFILE")
+    if [ "${unfilable:-0}" -gt 0 ]; then
+        echo "  NOTE: $unfilable journal row(s) carry no YYYY-MM-DD in field 2 — NOT archived."
+        echo "        Fix the rows in $LOCKFILE and re-run; nothing here can date them for you."
+    fi
+    # $n_dates counts dates actually FILED. The old count was `echo "$dates" | wc -w`,
+    # which counted the skipped ones too -- "1 new row(s) across 4 date(s)" on a run
+    # that wrote one file. An evidence tool overstating its own coverage is the defect
+    # class this directory exists to catch.
+    echo "archived to docs/loop/register-locks-archive/ — $added new row(s) across $n_dates date(s)"
     echo "(evidence only; nothing reads this as live state — the live journal stays gitignored)"
     return 0
 }
@@ -226,17 +303,28 @@ if [ "${1:-}" = "--probe" ]; then
     shopt -s nullglob
     CASES=("$FIXDIR"/gate-*.txt "$FIXDIR"/gap-*.txt)
     JOURNALS=("$FIXDIR"/journal-*.tsv)
+    # Two journal families, and the split is a file boundary, not a convention anyone
+    # has to remember: journal-*.tsv is materialised from OFFSETS, rawjournal-*.tsv is
+    # copied byte-for-byte because its subject is a field 2 that is not a timestamp.
+    RAWJOURNALS=("$FIXDIR"/rawjournal-*.tsv)
+    ARCHJOURNALS=("$FIXDIR"/journal-archive-*.tsv)
     shopt -u nullglob
-    # Scope control (F15-r3: a probe that scans nothing must fail, not pass).
-    if [ "${#CASES[@]}" -eq 0 ] || [ "${#JOURNALS[@]}" -eq 0 ]; then
-        echo "PROBE ERROR: empty corpus (${#CASES[@]} cases, ${#JOURNALS[@]} journals) — a probe" >&2
+    # Scope control (F15-r3: a probe that scans nothing must fail, not pass). Named per
+    # family: a corpus that loses one family while keeping the others would otherwise
+    # report health for the surface it stopped scanning.
+    if [ "${#CASES[@]}" -eq 0 ] || [ "${#JOURNALS[@]}" -eq 0 ] \
+       || [ "${#RAWJOURNALS[@]}" -eq 0 ] || [ "${#ARCHJOURNALS[@]}" -eq 0 ]; then
+        echo "PROBE ERROR: empty corpus (${#CASES[@]} cases, ${#JOURNALS[@]} journals," >&2
+        echo "             ${#ARCHJOURNALS[@]} of them archive journals, ${#RAWJOURNALS[@]} raw journals) — a probe" >&2
         echo "             with nothing to run measures nothing and must not report health" >&2
         exit 2
     fi
 
     PNOW="$(date -u +%s)"
-    TR="$(mktemp -d)"; JD="$(mktemp -d)"; trap 'rm -rf "$TR" "$JD"' EXIT
-    probe_fail=0; n_pos=0; n_neg=0; n_gap=0; n_life=0; GAPS=""; USED_JOURNALS=""
+    TR="$(mktemp -d)"; JD="$(mktemp -d)"; TA="$(mktemp -d)"; TG="$(mktemp -d)"
+    trap 'rm -rf "$TR" "$JD" "$TA" "$TG"' EXIT
+    probe_fail=0; n_pos=0; n_neg=0; n_gap=0; n_life=0; n_arch=0; n_leg6=0
+    GAPS=""; USED_JOURNALS=""; ALIMITS=""
     export REGISTER_LOCK_HOLDER=""   # so the "holder required" case tests the code, not the env
 
     head_of() { awk '/^# ---8<---/{exit} {print}' "$1"; }
@@ -492,11 +580,326 @@ if [ "${1:-}" = "--probe" ]; then
         probe_fail=1
     fi
 
+    # ── ARCHIVE — the durable-evidence half, in its own throwaway root ────────────
+    # `do_archive` writes to "$ROOT/docs/loop/register-locks-archive" and NOTHING
+    # overrides that destination: REGISTER_LOCK_FILE moves the SOURCE journal only.
+    # That missing destination override was the whole of the case for calling this
+    # surface unprobeable, and it does not survive contact with the harness already in
+    # this file: moving ROOT moves the destination, and the gate-check half has been
+    # moving ROOT by symlinking this script into a temp repo since the day it landed.
+    # The real `archive` subcommand runs here, through the same symlink, over the real
+    # fixtures. Nothing below re-implements a line of it (F15-r3: exercising a
+    # component is not exercising the system).
+    echo ""
+    echo "ARCHIVE — dated, append-only, idempotent evidence copy, in a throwaway root"
+
+    mkdir -p "$TA/scripts" "$TA/docs/loop"
+    ln -s "$SELF" "$TA/scripts/register-lock.sh"
+    RA="$TA/scripts/register-lock.sh"
+    AR="$TA/docs/loop/register-locks-archive"
+    # These two files exist so that a write escaping the archive directory would LAND.
+    # A traversal into a directory that does not exist dies on the redirect, and a case
+    # that "passes" because the write had nowhere to go has measured the filesystem
+    # instead of the guard.
+    printf 'base\n' > "$TA/docs/loop/KPI.md"
+    printf 'base\n' > "$TA/VERSIONS.md"
+    # …and this one exists so that the `*` row in the raw fixture can DIVERGE. The loop
+    # over dates runs with the CWD at ROOT, so `for d in $dates` word-splits AND
+    # pathname-expands: a field 2 of `*` becomes the root's directory listing, and any
+    # entry shaped like a date is then filed — creating an empty date file for a date no
+    # row ever carried. Without a date-shaped name on disk the two readings agree and
+    # the case measures nothing, which is how this hazard survived its first mutation
+    # round. The file's CONTENT is irrelevant; its NAME is the whole fixture.
+    printf 'not a journal\n' > "$TA/1999-01-01"
+
+    copy_raw_journal() {   # <fixture> <destination> — VERBATIM; comments/blanks stripped
+        grep -v '^#' "$1" | grep -v '^[[:space:]]*$' > "$2"
+    }
+    ar_sig() {   # a stable, readable signature of the whole archive directory
+        find "$AR" -type f 2>/dev/null | sort | while IFS= read -r f; do
+            printf '%s %s\n' "${f#"$AR"/}" "$(cksum < "$f")"
+        done
+    }
+    arch_run() {   # <journal> — run the REAL archive subcommand; sets AOUT/ARC
+        AOUT="$(REGISTER_LOCK_FILE="$1" bash "$RA" archive 2>&1)"; ARC=$?
+    }
+    a_ok()  { n_arch=$((n_arch + 1)); printf '  ok  %-10s %-52s %s\n' "$1" "$2" "$3"; }
+    a_bad() { n_arch=$((n_arch + 1)); echo "  PROBE FAIL  $1"
+              printf '%s\n' "${2:-}" | sed 's/^/      | /' | head -14; probe_fail=1; }
+
+    D0="$(date -u -d "@$PNOW" +%Y-%m-%d)"
+    D1="$(date -u -d "@$((PNOW - 86400))" +%Y-%m-%d)"
+    D2="$(date -u -d "@$((PNOW - 172800))" +%Y-%m-%d)"
+
+    # 1. no journal — the zero-friction branch. Must not create the directory either:
+    #    an empty untracked directory is invisible to git, but leg 6 asks git, and a
+    #    leg whose subject can be conjured by running it is not measuring the wave.
+    rm -rf "$AR"
+    arch_run "$JD/no-such.journal"
+    if [ "$ARC" -eq 0 ] && printf '%s\n' "$AOUT" | grep -qF "no journal at" && [ ! -d "$AR" ]; then
+        a_ok "negative" "no journal: exit 0, says so, creates nothing" "exit $ARC"
+    else
+        a_bad "no journal — exit $ARC, directory created=$([ -d "$AR" ] && echo yes || echo no)" "$AOUT"
+    fi
+
+    # 2. empty journal — a file with no rows is not an error and files nothing.
+    rm -rf "$AR"; : > "$JD/empty.journal"
+    arch_run "$JD/empty.journal"
+    n_tsv=$(find "$AR" -name '*.tsv' 2>/dev/null | wc -l)
+    if [ "$ARC" -eq 0 ] && [ "$n_tsv" -eq 0 ] \
+       && printf '%s\n' "$AOUT" | grep -qF "0 new row(s) across 0 date(s)"; then
+        a_ok "negative" "empty journal: exit 0, 0 rows, 0 date files" "exit $ARC"
+    else
+        a_bad "empty journal — exit $ARC, $n_tsv date file(s) created" "$AOUT"
+    fi
+
+    # 3. PARTITIONING BY THE ROW'S OWN DATE, not by today. Three rows exactly 86400
+    #    apart must produce three files, and every row inside a file must carry that
+    #    file's date. A reading that filed everything under today passes nothing here.
+    rm -rf "$AR"
+    materialise_journal "$FIXDIR/journal-archive-three-dates.tsv" "$JD/arch3.journal"
+    USED_JOURNALS="$USED_JOURNALS journal-archive-three-dates.tsv"
+    arch_run "$JD/arch3.journal"
+    misfiled=""
+    for dd in "$D0" "$D1" "$D2"; do
+        [ -f "$AR/$dd.tsv" ] || { misfiled="$misfiled missing:$dd.tsv"; continue; }
+        misfiled="$misfiled$(awk -F'\t' -v D="$dd" -v F="$dd.tsv" \
+            'substr($2,1,10) != D { print " " F " holds a " substr($2,1,10) " row" }' "$AR/$dd.tsv")"
+        [ "$(wc -l < "$AR/$dd.tsv")" -eq 1 ] || misfiled="$misfiled $dd.tsv:$(wc -l < "$AR/$dd.tsv")rows"
+    done
+    if [ "$ARC" -eq 0 ] && [ -z "$misfiled" ] \
+       && printf '%s\n' "$AOUT" | grep -qF "3 new row(s) across 3 date(s)"; then
+        a_ok "positive" "filed by each row's OWN date ($D2/$D1/$D0)" "exit $ARC"
+    else
+        a_bad "date partitioning —$misfiled" "$AOUT"
+    fi
+
+    # 4. IDEMPOTENCY — a second run adds nothing and changes no byte. The archive is
+    #    run by leg 6 on every push, so "safe to re-run" is the load-bearing property.
+    sig_before="$(ar_sig)"
+    arch_run "$JD/arch3.journal"
+    sig_after="$(ar_sig)"
+    if [ "$ARC" -eq 0 ] && [ "$sig_before" = "$sig_after" ] \
+       && printf '%s\n' "$AOUT" | grep -qF "0 new row(s) across 3 date(s)"; then
+        a_ok "positive" "second run: 0 new rows, archive byte-identical" "exit $ARC"
+    else
+        a_bad "idempotency — the archive changed on a re-run" \
+              "$(diff <(printf '%s\n' "$sig_before") <(printf '%s\n' "$sig_after"); printf '%s\n' "$AOUT")"
+    fi
+
+    # 5. APPEND, NOT OVERWRITE — a second lane archiving into today's file keeps the
+    #    first lane's row. `>` in place of `>>` passes cases 1-4 and fails only here.
+    sig_d1_before="$(cksum < "$AR/$D1.tsv")"
+    materialise_journal "$FIXDIR/journal-archive-same-day-later.tsv" "$JD/archb.journal"
+    USED_JOURNALS="$USED_JOURNALS journal-archive-same-day-later.tsv"
+    arch_run "$JD/archb.journal"
+    n_rows=$(wc -l < "$AR/$D0.tsv"); n_old=$(grep -cF "	lane-arch	" "$AR/$D0.tsv")
+    n_new=$(grep -cF "	lane-arch-b	" "$AR/$D0.tsv")
+    if [ "$ARC" -eq 0 ] && [ "$n_rows" -eq 2 ] && [ "$n_old" -eq 1 ] && [ "$n_new" -eq 1 ] \
+       && [ "$sig_d1_before" = "$(cksum < "$AR/$D1.tsv")" ]; then
+        a_ok "positive" "second wave appends; the earlier row survives" "exit $ARC"
+    else
+        a_bad "append — $D0.tsv has $n_rows row(s): lane-arch x$n_old, lane-arch-b x$n_new" \
+              "$(cat "$AR/$D0.tsv")"
+    fi
+
+    # 6. A PRE-EXISTING FILE WITH NO FINAL NEWLINE is repaired before the append, not
+    #    concatenated with it. Measured 2026-08-18: before the repair the seeded row and
+    #    the appended row became ONE line, destroying a row that was already durable.
+    rm -rf "$AR"; mkdir -p "$AR"
+    seed="ACQUIRE	${D0}T09:00:00Z	1	lane-prior	docs/loop/KPI.md"
+    printf '%s' "$seed" > "$AR/$D0.tsv"     # deliberately no trailing newline
+    arch_run "$JD/arch3.journal"
+    n_rows=$(wc -l < "$AR/$D0.tsv")
+    if [ "$ARC" -eq 0 ] && [ "$n_rows" -eq 2 ] && [ "$(head -1 "$AR/$D0.tsv")" = "$seed" ]; then
+        a_ok "positive" "unterminated last line is repaired, not run together" "exit $ARC"
+    else
+        a_bad "trailing newline — $D0.tsv has $n_rows row(s), first line is not the seed" \
+              "$(cat -A "$AR/$D0.tsv")"
+    fi
+
+    # 7. UNFILABLE FIELD 2 — the filename guard. Rows 1-2 of the raw fixture would land
+    #    at <root>/x.tsv and <root>/docs/loop/KPI.md.tsv if the `case` glob went away,
+    #    and both target directories exist here so the write would succeed. Valid rows
+    #    in the same journal must still be filed: a guard that drops the good rows with
+    #    the bad ones is a different defect, not a fix.
+    rm -rf "$AR"
+    copy_raw_journal "$FIXDIR/rawjournal-archive-unfilable-dates.tsv" "$JD/raw.journal"
+    USED_JOURNALS="$USED_JOURNALS rawjournal-archive-unfilable-dates.tsv"
+    cat "$JD/arch3.journal" "$JD/raw.journal" > "$JD/mixed.journal"
+    arch_run "$JD/mixed.journal"
+    stray=$(find "$TA" -type f -not -path "$AR/*" \
+                 -not -path "$TA/docs/loop/KPI.md" -not -path "$TA/VERSIONS.md" \
+                 -not -path "$TA/1999-01-01" 2>/dev/null | sort)
+    good=1
+    for dd in "$D0" "$D1" "$D2"; do [ -f "$AR/$dd.tsv" ] || good=0; done
+    # A zero-row date file is junk evidence that still dirties the tree for leg 6;
+    # 1999-01-01.tsv is the one the `*` row conjures if the loop expands paths.
+    empty_tsv=$(find "$AR" -name '*.tsv' -size 0 2>/dev/null | sort | tr '\n' ' ')
+    if [ "$ARC" -eq 0 ] && [ -z "$stray" ] && [ ! -e "$TA/x.tsv" ] \
+       && [ ! -e "$AR/1999-01-01.tsv" ] && [ -z "$empty_tsv" ] \
+       && [ ! -e "$TA/docs/loop/KPI.md.tsv" ] && [ "$good" -eq 1 ] \
+       && printf '%s\n' "$AOUT" | grep -qF "NOTE: 8 journal row(s) carry no YYYY-MM-DD" \
+       && printf '%s\n' "$AOUT" | grep -qF "4 new row(s) across 4 date(s)"; then
+        # The summary counts DATES FILED. Counting the skipped ones too reported
+        # "across 10 date(s)" on this journal, from a run that wrote four files.
+        a_ok "positive" "8 unfilable rows: none escapes, none silent, good rows filed" "exit $ARC"
+    else
+        a_bad "unfilable dates — stray writes: [${stray:-none}], empty date files: [${empty_tsv:-none}]" "$AOUT"
+    fi
+    # …and the calendar is NOT checked, only the shape. 9999-99-99 gets its own file.
+    if [ -f "$AR/9999-99-99.tsv" ]; then
+        a_ok "limit" "the guard tests SHAPE: 9999-99-99.tsv is filed" "exit $ARC"
+        ALIMITS="$ALIMITS  [archive] the date guard is a 10-character shape glob, not a calendar:
+            a row dated 9999-99-99 is filed under 9999-99-99.tsv. It cannot escape the
+            archive directory (case 7 holds that), and leg 6 makes the junk file visible
+            in git status, so it is loud rather than silent — but it is not rejected.
+"
+    else
+        a_bad "9999-99-99 was NOT filed — the shape/calendar limit above has changed;
+              re-word the limit rather than deleting this case" "$AOUT"
+    fi
+
+    # 8. THE DEDUP LIMIT, stated as a limit and not repaired. `grep -vxF` can only see
+    #    bytes, so two DISTINCT events that serialise identically are one row to it.
+    rm -rf "$AR"
+    materialise_journal "$FIXDIR/journal-archive-identical-rows.tsv" "$JD/dup.journal"
+    USED_JOURNALS="$USED_JOURNALS journal-archive-identical-rows.tsv"
+    head -1 "$JD/dup.journal" > "$JD/dup1.journal"
+    DD="$(awk -F'\t' 'NR==1 { print substr($2,1,10) }' "$JD/dup.journal")"
+    arch_run "$JD/dup1.journal"; n_first=$(wc -l < "$AR/$DD.tsv")
+    arch_run "$JD/dup.journal";  n_second=$(wc -l < "$AR/$DD.tsv")
+    rm -rf "$AR"
+    arch_run "$JD/dup.journal";  n_same_run=$(wc -l < "$AR/$DD.tsv")
+    if [ "$n_first" -eq 1 ] && [ "$n_second" -eq 1 ] && [ "$n_same_run" -eq 2 ]; then
+        a_ok "limit" "identical rows: 2 in one run, 1 across two runs" "exit $ARC"
+        ALIMITS="$ALIMITS  [archive] dedup is byte equality against what is already in the date file,
+            so a genuinely NEW event that serialises identically to an archived one is
+            dropped: measured 2 rows when both are archived in one run, 1 row when the
+            second arrives in a later run. Reachable, because \`release\` archives at wave
+            end: acquire/release/acquire inside one clock second leaves the third row
+            byte-identical to the first, already archived by the release. Not repaired —
+            a fix means changing the row format, which is a contract decision.
+"
+    else
+        a_bad "dedup limit — 1st run:$n_first 2nd run:$n_second same run:$n_same_run" "$AOUT"
+    fi
+
+    # 9. SCRATCH-JOURNAL ISOLATION, both ways. `release` archives at wave end, and that
+    #    call is skipped when REGISTER_LOCK_FILE is set, because those rows are fixtures.
+    #    ONE `-z` test carries it, and if it is inverted every probe run and every
+    #    acceptance scenario writes fixture rows into the repository's real register
+    #    directory. Both directions are asserted: the guard that never fires and the
+    #    guard that always fires are the same broken guard.
+    rm -rf "$AR"
+    ROUT="$(REGISTER_LOCK_FILE="$JD/archb.journal" bash "$RA" release --as lane-arch-b 2>&1)"; RRC=$?
+    if [ "$RRC" -eq 0 ] && printf '%s\n' "$ROUT" | grep -qF "RELEASED" \
+       && [ ! -d "$AR" ] && ! printf '%s\n' "$ROUT" | grep -qF "archived:"; then
+        a_ok "positive" "release on a scratch journal writes NO archive" "exit $RRC"
+    else
+        a_bad "scratch isolation — release with REGISTER_LOCK_FILE set touched the archive" "$ROUT"
+    fi
+    rm -rf "$AR"
+    materialise_journal "$FIXDIR/journal-archive-same-day-later.tsv" "$TA/.register-locks"
+    ROUT="$(env -u REGISTER_LOCK_FILE bash "$RA" release --as lane-arch-b 2>&1)"; RRC=$?
+    n_rows=$([ -f "$AR/$D0.tsv" ] && wc -l < "$AR/$D0.tsv" || echo 0)
+    if [ "$RRC" -eq 0 ] && printf '%s\n' "$ROUT" | grep -qF "archived:" && [ "$n_rows" -eq 2 ]; then
+        a_ok "negative" "release on the DEFAULT journal does archive (2 rows)" "exit $RRC"
+    else
+        a_bad "release/archive — default-journal release archived $n_rows row(s), expected 2" "$ROUT"
+    fi
+    rm -f "$TA/.register-locks"; rm -rf "$AR"
+
+    # ── GATE LEG 6 — the real pre-push gate, in a second throwaway repository ─────
+    echo ""
+    echo "GATE LEG 6 — pre-push-gate.sh's archive leg, run whole against a real git repo"
+    GATE="$(cd "$(dirname "$SELF")" && pwd)/pre-push-gate.sh"
+    if [ ! -f "$GATE" ]; then
+        echo "  PROBE FAIL  leg 6 cannot be exercised: no pre-push-gate.sh beside $SELF"
+        probe_fail=1
+    else
+        mkdir -p "$TG/scripts" "$TG/docs/loop"
+        ln -s "$GATE" "$TG/scripts/pre-push-gate.sh"
+        ln -s "$SELF" "$TG/scripts/register-lock.sh"
+        # Legs 1-5 are stubbed to exit 0. The subject here is leg 6 alone, and with the
+        # others silent the GATE'S OWN EXIT CODE is leg 6's verdict — which is the
+        # assertion that matters, because a leg that cannot veto a push is decoration.
+        for _s in validate-skill validate-tracking fence-nesting-check claims-gate commit-scope-check; do
+            printf '#!/usr/bin/env bash\nexit 0\n' > "$TG/scripts/$_s.sh"
+        done
+        git -C "$TG" init -q
+        git -C "$TG" config user.email "probe@invalid.example"
+        git -C "$TG" config user.name  "probe"
+        git -C "$TG" config commit.gpgsign false
+        git -C "$TG" config core.hooksPath "$TG/.no-hooks"
+        printf 'scripts/\n.register-locks\n' > "$TG/.git/info/exclude"
+        printf 'base\n' > "$TG/README.md"
+        git -C "$TG" add -A
+        git -C "$TG" commit -q -m "base: leg 6 fixture root"
+
+        l_ok()  { n_leg6=$((n_leg6 + 1)); printf '  ok  %-10s %-52s %s\n' "$1" "$2" "$3"; }
+        l_bad() { n_leg6=$((n_leg6 + 1)); echo "  PROBE FAIL  $1"
+                  printf '%s\n' "${2:-}" | sed 's/^/      | /' | tail -16; probe_fail=1; }
+        g6() {   # run the WHOLE gate; sets GOUT/GRC. Scope control: the leg must have run.
+            GOUT="$(bash "$TG/scripts/pre-push-gate.sh" 2>&1)"; GRC=$?
+            printf '%s\n' "$GOUT" | grep -qF "== register-lock archive (G1-C5 evidence durability)"
+        }
+
+        # L1 — nothing journalled: the leg passes and says nothing else. Zero friction is
+        #      a property, not an accident; without this control the leg could be
+        #      tightened into one that blocks every push in a repo with no journal.
+        if g6 && [ "$GRC" -eq 0 ] \
+           && printf '%s\n' "$GOUT" | grep -qF "register-lock archive: up to date and committed" \
+           && ! printf '%s\n' "$GOUT" | grep -qF "FAIL: lock-journal evidence is not committed"; then
+            l_ok "negative" "no journal: leg 6 passes, gate exits 0" "exit $GRC"
+        else
+            l_bad "no journal — expected a silent pass, got exit $GRC" "$GOUT"
+        fi
+
+        # L2 — THE VERDICT MUST NOT DECAY ACROSS RUNS. The first draft of this leg asked
+        #      "did THIS run write anything?", so run 1 FAILed and run 2 PASSed with the
+        #      rows still uncommitted, printing "up to date and committed" while that was
+        #      false. Three consecutive runs, because two would have caught that bug and
+        #      three catches a verdict that decays one run later.
+        materialise_journal "$FIXDIR/journal-archive-three-dates.tsv" "$TG/.register-locks"
+        for _i in 1 2 3; do
+            if g6 && [ "$GRC" -eq 1 ] \
+               && printf '%s\n' "$GOUT" | grep -qF "FAIL: lock-journal evidence is not committed"; then
+                l_ok "positive" "run $_i of 3, rows uncommitted: gate REFUSES the push" "exit $GRC"
+            else
+                l_bad "run $_i of 3 with uncommitted rows did not fail (exit $GRC)" "$GOUT"
+            fi
+        done
+
+        # L3 — and clears the moment the rows are in a commit. Without this the leg could
+        #      be one that fails unconditionally, which is unpushable-by-design.
+        git -C "$TG" add docs/loop/register-locks-archive/
+        git -C "$TG" commit -q -m "chore: archive lock-journal rows"
+        if g6 && [ "$GRC" -eq 0 ] \
+           && printf '%s\n' "$GOUT" | grep -qF "register-lock archive: up to date and committed"; then
+            l_ok "negative" "rows committed: leg 6 clears, gate exits 0" "exit $GRC"
+        else
+            l_bad "committed rows still blocked the push (exit $GRC)" "$GOUT"
+        fi
+
+        # L4 — the production shape. Once the archive is tracked, new rows arrive as a
+        #      MODIFIED file, not an untracked directory; `git status --porcelain` reports
+        #      a different code and a leg matching on the wrong one would pass here.
+        materialise_journal "$FIXDIR/journal-archive-same-day-later.tsv" "$JD/leg6b.journal"
+        cat "$JD/leg6b.journal" >> "$TG/.register-locks"
+        if g6 && [ "$GRC" -eq 1 ] \
+           && printf '%s\n' "$GOUT" | grep -qE "^ *M +docs/loop/register-locks-archive/$D0\.tsv"; then
+            l_ok "positive" "new row into a TRACKED date file: gate REFUSES" "exit $GRC"
+        else
+            l_bad "a modified tracked archive file did not block the push (exit $GRC)" "$GOUT"
+        fi
+    fi
+
     # ── journal mirror: a checked-in journal nobody runs is decoration ──
     echo ""
     echo "JOURNAL MIRROR — every checked-in ledger fixture must be exercised"
     njr=0; njh=0
-    for j in "${JOURNALS[@]}"; do
+    for j in "${JOURNALS[@]}" "${RAWJOURNALS[@]}"; do
         jb="$(basename "$j")"; njr=$((njr + 1))
         case " $USED_JOURNALS " in
             *" $jb "*) njh=$((njh + 1)) ;;
@@ -508,11 +911,19 @@ if [ "${1:-}" = "--probe" ]; then
     echo ""
     echo "STATED LIMITS — behaviour this check gets wrong, asserted so it stays measured"
     printf '%s' "$GAPS"
-    echo "  (what the probe itself does not prove: sed -n '89,124p' $SELF)"
+    printf '%s' "$ALIMITS"
+    # Anchored on the heading, never on line numbers: this pointer used to read
+    # `sed -n '89,124p'` and by 2026-08-18 it printed the list's first item and a half,
+    # stopping mid-sentence inside item 2 — F12's shape (a line-number pointer rots on
+    # the first insertion above it, and nothing tells you).
+    echo "  (what the probe itself does not prove:"
+    echo "     sed -n '/^# WHAT THIS PROBE DOES NOT PROVE/,/^# ─/p' $SELF)"
     echo ""
     if [ "$probe_fail" -eq 0 ]; then
         echo "PROBE PASS — $n_life lifecycle assertions; ${#CASES[@]} ledger cases plus 2 built inline:"
         echo "             $n_pos positive, $n_neg negative controls, $n_gap known-gap, $njr journals."
+        echo "             $n_arch archive assertions and $n_leg6 gate-leg-6 assertions, both run"
+        echo "             through the real subcommand/gate in throwaway roots."
         exit 0
     fi
     echo "PROBE FAILED"

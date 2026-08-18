@@ -14,7 +14,8 @@
 #      touch a path another writer had open in the register write-lock ledger
 #      without declaring that holder (same per-push scope; silent when nobody
 #      announced a path);
-#   6. scripts/register-lock.sh archive — G1-C5 evidence durability: runs the
+#   6. scripts/register-lock.sh archive — G1-C5 evidence durability (this leg is
+#      itself fault-injected: `bash scripts/register-lock.sh --probe`): runs the
 #      archive automatically at wave end and REFUSES the push while
 #      docs/loop/register-locks-archive/ is dirty. It writes, which no other leg
 #      does, so it never lets the push proceed on its own writes -- the rows must
@@ -123,6 +124,28 @@ echo "== register-lock archive (G1-C5 evidence durability)"
 # "evidence already committed" while that was false. A check that clears itself on
 # a second look is worse than no check. `git status --porcelain` is asked instead,
 # so the verdict is the same however many times the leg runs.
+#   THAT SENTENCE IS NOW MEASURED, not reasoned. `scripts/register-lock.sh --probe`
+#   runs THIS FILE whole in a throwaway git repository, with legs 1-5 stubbed to
+#   exit 0 so the gate's exit code is this leg's verdict, and asserts three
+#   CONSECUTIVE runs with rows uncommitted (the old defect cleared itself on run
+#   two), the flip to pass once they are committed, and the `M `-status shape a
+#   second wave produces once the archive is tracked
+#   `[obs:2026-08-18 probe section "GATE LEG 6": 6 assertions, and the reverted
+#   "did this run write anything" condition is one of the mutations the probe
+#   catches — the mutant FAILs run 1 correctly and then clears itself on runs 2
+#   and 3, which is the original defect exactly]`.
+#
+# LEG 6 CAN DEMAND A COMMIT LEG 5 REFUSES, and an operator hitting it should not
+# have to rediscover why. Leg 5 FAILs a commit that touches a path inside another
+# holder's tenure undeclared; a lane holding the `docs/loop/` PREFIX holds
+# docs/loop/register-locks-archive/ with it, so the archive commit this leg demands
+# is exactly the commit leg 5 blocks
+# `[obs:2026-08-18 temp repo, lane-b holding docs/loop/, commit adding only
+# docs/loop/register-locks-archive/<date>.tsv inside that tenure -> gate-check exit
+# 1]`. It is escapable, not deadlocked: the archive rows are evidence, not that
+# holder's content, which is precisely the auditable claim `Register-Lock: none --
+# <reason>` exists to make. Which escape is right is a coordination call, so it is
+# named here instead of being decided by whichever leg happens to run first.
 _arch_out=$(bash "$ROOT/scripts/register-lock.sh" archive 2>&1) || true
 _arch_dirty=$(cd "$ROOT" && git status --porcelain -- docs/loop/register-locks-archive/ 2>/dev/null)
 if [ -n "$_arch_dirty" ]; then

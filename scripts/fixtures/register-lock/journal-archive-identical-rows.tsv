@@ -1,0 +1,15 @@
+# journal-archive-identical-rows.tsv — two BYTE-IDENTICAL journal rows.
+# Layout: EVENT<TAB>OFFSET-SECONDS-FROM-NOW<TAB>HOLDER<TAB>PATH
+#
+# Same offset => same ISO and same epoch => the two rows serialise to the same bytes,
+# which is the only thing do_archive's `grep -vxF` dedup can see. It exists to MEASURE
+# a stated limit, not to assert a repair: two distinct events that serialise
+# identically are indistinguishable to the archive.
+#
+# Reachable, not hypothetical: `release` archives at wave end, so
+#   acquire(T) -> [A] ; release(T) -> [A,R] + archive ; acquire(T) again -> [A,R,A]
+# leaves a second, genuinely new ACQUIRE that the next archive run drops as a
+# duplicate of the first. All three commands inside one clock second is the only
+# requirement, and a scripted wave does that.
+ACQUIRE	-3600	lane-dup	docs/loop/KPI.md
+ACQUIRE	-3600	lane-dup	docs/loop/KPI.md
