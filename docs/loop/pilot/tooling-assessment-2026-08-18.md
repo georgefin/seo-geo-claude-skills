@@ -213,6 +213,57 @@ route to a crawl from inside a session. Until one exists, every measurement of a
 the rule-4 audit on the four brand sites, the URL-behaviour checks, the answer-engine captures —
 happens on your side and arrives here as an export or a paste.
 
+### 4.2 A route around the block opened the same day, and it changes §2's verdict
+
+`[obs:2026-08-18 a Perplexity tool became available in-session; asked to open
+https://www.sanihellas.gr/el-gr/thermansi-thermopompoi it returned page metadata, having reached
+the host that is EGRESS_BLOCKED from this container]`
+
+**Why it works when nothing else does.** It is not a connector into this container — it is an agent
+running on Perplexity's own infrastructure. This session sends it an instruction and receives text.
+The blocked hop is never attempted, so the allow-list in §4.1 is not circumvented, it is simply not
+on the path.
+
+**This is a third use of Perplexity, and §2 assessed only two.** §2.1 judged it as a *tracked engine*
+(adds nothing, contamination risk) and §2.2 as an *operator research tool* (earns its cost). Both
+stand. Neither is this. **The third use is page access** — the precondition for the rule-4 audit, the
+URL-behaviour checks and every "read the page and tell me what it says" step the pilot has been
+unable to run. On the tool-vs-operator-time axis of §4, that moves work out of the manual column
+that §4's arithmetic had assumed could never leave it.
+
+**Three limits, before this is treated as solved.**
+
+1. **It obeys `robots.txt`, and one of the client's own properties refused it.** The first fetch of
+   `noboadvantage.gr/nobo-heaters-prices/` came back `disallow_by_robots`. Scope unknown at time of
+   writing — path-specific, agent-specific or site-wide are three very different findings, and the
+   third would mean a brand property that **cannot be cited by an answer engine at all**, which
+   inverts §8.7 of the keyword deliverable for that property rather than merely qualifying it.
+2. **A rendered DOM read is slower and less certain than a fetch.** The browser pass for the same two
+   pages had not returned within the observation window, and the agent correctly declined to state an
+   H1 it had not confirmed. Metadata came back in seconds; `<h1>` did not come back at all.
+3. **It is a second model reading a page and reporting on it, not a crawler.** Anything it returns is
+   a report *about* a page. For a title or an H1 that distinction is thin; for "does this page have a
+   cart" it is not, and the honest grade for its output is one notch below a direct read.
+
+**A discrepancy it surfaced, and the resolution — which is the point of this subsection.** The
+non-browser fetch returned the heaters category page's title as the single word «Θερμοπομποί»,
+against the 17 August inventory's «Θερμοπομποί NOBO & Atlantic χαμηλής κατανάλωσης». The rendered
+DOM then settled it:
+
+`[obs:2026-08-18 browser, after a Cloudflare interstitial cleared — <title> = «Θερμοπομποί NOBO &
+Atlantic χαμηλής κατανάλωσης | sani»; exactly one h1, outerHTML `<h1>Θερμοπομποί</h1>`]`
+
+**The 17 August record was right and the fresh fetch was wrong.** The finding it bears on — one page
+claiming both the category term and the low-consumption term — stands unchanged, and the suffix
+`| sani` is new information the older record did not carry.
+
+This is limit 3 above, demonstrated rather than argued, and it sets the standing rule for this route:
+**a non-browser fetch of a Cloudflare-fronted host is not evidence about that page.** It returned a
+plausible, well-formed, entirely wrong title, with no error and no warning — the failure mode this
+repository keeps meeting, a check aimed slightly beside the target that reads green while doing it.
+Title and H1 claims come from a rendered DOM read or they are not made. Had the discrepancy been
+taken at face value, a correct finding would have been retracted on the strength of a challenge page.
+
 ---
 
 ## 5. RECOMMENDATION
