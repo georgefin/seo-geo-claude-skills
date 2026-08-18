@@ -1208,7 +1208,7 @@ that skill's other fixes. FLIP: F18-r1 -- none
   `research/content-gap-analysis` e4 (three expectations), `research/keyword-research` e5.
   Three of them name the source in the expectation text: *"per the library's inter-skill
   handoff convention (CLAUDE.md)"*. The convention's only statement in the repository is in
-  the three coordination documents — root `CLAUDE.md:36`, `README.md:244`, `AGENTS.md:218`.
+  the three coordination documents — root `CLAUDE.md:46`, `README.md:244`, `AGENTS.md:218`.
   A sweep of all 20 `SKILL.md` files for any handoff convention returns **2**:
   `content-quality-auditor` and `domain-authority-auditor`. The 18 others, including all four
   whose suites grade it, state none.
