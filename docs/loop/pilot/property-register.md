@@ -93,11 +93,36 @@ cannot be is left running as a second Greek-language brand site.**
 
 **`glamoxheating.gr` — not yet created, and the prior question is whether it should be.** Rule 3's
 test applies before the domain choice: what can a buyer do there that they cannot do on an existing
-property? **Nobo is a Glamox brand and `noboadvantage.gr` already exists**, so the two would share
-query territory unless Glamox covers a distinct product line. If it does, the property is
-justified and the URL question follows. If it does not, a Glamox section on an existing property is
-the better structure. *(Brand-ownership relationship to be confirmed from a primary source before
-this is decided — not from recall.)*
+property?
+
+**The brand-ownership check this section asked for has now been run, and it corrected the premise.**
+The earlier note here said *"Nobo is a Glamox brand"*. That is wrong, and it was recall, which is
+why it was flagged. What the check returned:
+
+| Brand | Group | Evidence grade |
+|---|---|---|
+| Nobo | **Glen Dimplex**, acquired 2002 (NOBO Electro, Stjørdal) | `[VERIFY]` — four independent 2002 press reports |
+| Glamox Heating | manufactured by **Adax AS**; Adax acquired by **Glen Dimplex in 2023** | `[VERIFY]` — Adax's own about page; Glen Dimplex lists both brands |
+
+`[obs:2026-08-18 web search only — glamox.com, gdhv.com and en.wikipedia.org are all
+EGRESS_BLOCKED from this environment, so no source page was opened. Snippet-grade, not primary.]`
+
+**The conclusion survives; the reasoning does not.** Nobo and Glamox Heating do sit in one group —
+but that group is **Glen Dimplex, not Glamox** — so the original worry (two properties splitting
+one group's authority in one product category) still stands, and now stands on a fact rather than
+on a misremembered one. Both brands make electric panel heaters, which is the actual overlap.
+
+**And the check surfaced a second problem the earlier note did not see.** "Glamox" as a search term
+principally denotes **Glamox ASA, a large Norwegian lighting company** — a different business from
+the heating brand. A property at `glamoxheating.gr` would be competing for an entity name it does
+not own, against an established company in another category. That is an entity-disambiguation
+problem, not a keyword problem, and it does not exist for Nobo, Kullhaus, Atlantic or Meaco.
+
+So the decision now has three parts, in order: **(a)** does Glamox Heating cover a product line
+Nobo does not — if not, a section on `noboadvantage.gr` is the better structure and no domain is
+needed; **(b)** if it does, is the entity collision with Glamox ASA acceptable; **(c)** only then
+the URL. *(Both rows above should be confirmed against the manufacturers' own pages before money is
+spent — this environment cannot open them.)*
 
 ---
 
@@ -108,3 +133,19 @@ Those are produced by the keyword research now in flight and land here when it d
 
 **And the rule-4 audit has not been run on any brand site.** Until it has, we know the structure is
 sound in intent and nothing about whether it holds in the markup.
+
+**It cannot be run from here.** Every client domain is `EGRESS_BLOCKED` from this environment —
+`www.noboadvantage.gr` was tried on 2026-08-18 and refused at the network layer, same as
+`www.sanihellas.gr`. The audit needs either a browser on the client's side or an execution
+environment with a wider network policy. See `tooling-assessment-2026-08-18.md` §4.1.
+
+**One URL already in our evidence should be first in the queue when it can be run.** The 17 August
+inventory recorded `noboadvantage.gr/nobo-heaters-prices/` — a **prices** path on a property with
+no conversion path. Prices are commercial intent, and rule 4 condition 3 forbids a supporting
+property from claiming the owner's head query in title, H1 or schema.
+
+*What we are not saying:* we have not opened that page and do not know what is on it. A page named
+for prices may carry an RRP table, a "where to buy" pointer, or nothing of the kind. The finding is
+that **this is the single most likely condition-3 breach in the estate and it is checkable in two
+minutes**, not that a breach has occurred. It is also the exact shape §3 warns about: the property
+that wins the citation is the one that cannot take the order.

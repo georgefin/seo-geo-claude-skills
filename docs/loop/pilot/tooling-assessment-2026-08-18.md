@@ -176,6 +176,43 @@ refusal. The cost **scales linearly with captures**; a tool's cost does not scal
 And the manual path is **superior in one respect**: it is the only route that captures the surface a
 buyer actually meets. That is why the recommendation keeps a manual leg after purchase.
 
+### 4.1 The manual leg is not a preference here — this environment cannot reach the web at all
+
+Measured 2026-08-18. Every attempt to read a page from this container is refused by the
+environment's own network policy, **before** any login, key or authorisation is involved:
+
+| Host attempted | Result |
+|---|---|
+| `www.sanihellas.gr` | `EGRESS_BLOCKED` |
+| `www.noboadvantage.gr` | `EGRESS_BLOCKED` |
+| `www.glamox.com`, `www.gdhv.com` | `EGRESS_BLOCKED` |
+| `en.wikipedia.org` | `EGRESS_BLOCKED` |
+| `mcp.similarweb.com`, `api.ahrefs.com`, `mcp.hubspot.com`, `mcp.amplitude.com`, `mcp.notion.com`, `mcp.slack.com` | gateway `403` to `CONNECT` |
+
+`[obs:2026-08-18 curl "$HTTPS_PROXY/__agentproxy/status" -> "selective": false, and a
+recentRelayFailures list whose entries are all kind "connect_rejected", detail "gateway answered 403
+to CONNECT (policy denial or upstream failure)"]`
+
+**Three consequences, and the third is the one that costs money.**
+
+1. **This was mis-stated earlier as a `sanihellas.gr`-specific block.** It is not host-specific. It
+   is an allow-list that admits package registries and Anthropic's own API and denies the rest of
+   the internet. Retrying a client URL will never succeed, and no lane should spend time on it.
+2. **Web *search* still works; web *reading* does not.** Search runs through the model API rather
+   than this proxy, so a lane can find that a page exists and cannot open it. Anything sourced that
+   way is snippet-grade evidence and is labelled `[VERIFY]`, never quoted as an observed page.
+3. **The six MCP connectors in `.mcp.json` cannot work from here even if someone authorises them.**
+   The refusal is at the network layer, so an OAuth grant would produce an authorised client that
+   still cannot open a socket. **Buying a tool does not change this.** A Peec subscription bought
+   today would be operated from a browser on your side and its CSV pasted in — which is exactly the
+   manual leg above, and it is why §5's recommendation does not depend on any connector.
+
+**The fix is not in this repository.** The network policy belongs to the execution environment and
+is chosen when that environment is created; a second environment with a wider policy is the only
+route to a crawl from inside a session. Until one exists, every measurement of a live page —
+the rule-4 audit on the four brand sites, the URL-behaviour checks, the answer-engine captures —
+happens on your side and arrives here as an export or a paste.
+
 ---
 
 ## 5. RECOMMENDATION
