@@ -149,3 +149,11 @@ for prices may carry an RRP table, a "where to buy" pointer, or nothing of the k
 that **this is the single most likely condition-3 breach in the estate and it is checkable in two
 minutes**, not that a breach has occurred. It is also the exact shape §3 warns about: the property
 that wins the citation is the one that cannot take the order.
+
+**The keyword research reached the same property from the other direction**, and its framing is the
+better one. `keyword-research-thermopompoi-afygrantires-2026-08-18.md` §8.7 notes that the 17 August
+inventory observed a prices page, a selection guide, a tips section and brand history all on
+`noboadvantage.gr` — so the property does **everything a buyer needs except take the order**. That
+makes it the estate's clearest instance of §3's risk, not merely a markup question. Both readings
+point at the same two checks: does it claim the owner's head term in title or H1, and does every
+page link in-body to the shop.

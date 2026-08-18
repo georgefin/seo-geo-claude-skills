@@ -70,7 +70,7 @@
 | Πηγή | Τι πήραμε από αυτήν |
 |---|---|
 | Καταγραφή σελίδων, 11 Αυγούστου 2026 | Τις 17 σελίδες της κατηγορίας θερμοπομπών: τύπο σελίδας, μέγεθος κειμένου, μήκος περιγραφής, δομημένα δεδομένα, και σε ποιες σελίδες εμφανίζεται ο όρος «θερμοπομπ*». Από εδώ προκύπτουν οι ομάδες ΘΠ-6, ΘΠ-8, ΘΠ-9 και τα ελαττώματα που αναφέρονται στη §8.3 |
-| Τεχνική αξιολόγηση διευθύνσεων και ταυτότητας, 17 Αυγούστου 2026 | Τις πραγματικές διευθύνσεις και τους τίτλους σελίδων και για τις δύο κατηγορίες, τις έξι ιδιοκτησίες, τις τέσσερις μορφές διευθύνσεων, τις τέσσερις λατινικές γραφές της λέξης «αφυγραντήρες», τις πέντε διευθύνσεις με τον ίδιο τίτλο, και το αμφισβητούμενο ζήτημα της αντιπροσώπευσης Meaco |
+| Τεχνική αξιολόγηση διευθύνσεων και ταυτότητας, 17 Αυγούστου 2026 | Τις πραγματικές διευθύνσεις και τους τίτλους σελίδων και για τις δύο κατηγορίες, τις έξι ιδιοκτησίες που είχαν εντοπιστεί τότε, τις τέσσερις μορφές διευθύνσεων, τις τέσσερις λατινικές γραφές της λέξης «αφυγραντήρες», τις πέντε διευθύνσεις με τον ίδιο τίτλο, και το αμφισβητούμενο ζήτημα της αντιπροσώπευσης Meaco |
 | Σύνολο ερωτημάτων για τις μηχανές απαντήσεων, 17 Αυγούστου 2026 | Τις πραγματικές διατυπώσεις των αγοραστών — 36 ελληνικές και 14 αγγλικές, που δεν έχουν ακόμη χρησιμοποιηθεί σε καμία μέτρηση. Οι ομάδες ΑΦ-7, ΑΦ-8, ΑΦ-9, ΘΠ-2, ΘΠ-3 και ΘΠ-4 στηρίζονται σε αυτές τις διατυπώσεις |
 
 **Τι δεν χρησιμοποιήθηκε, γιατί δεν υπάρχει.** Δεν συνδέθηκε εργαλείο έρευνας λέξεων-κλειδιών,
@@ -1276,14 +1276,47 @@ prompt moves every derived rate.
   arithmetic printed beside its own inputs (§6.3, and the 236 = 118 × 2 in §11). The unsourced
   seasonality percentage from the pairing analysis is **not** reproduced.
 
+**Estate confirmed mid-run, and §8 was revised rather than appended to.** The client confirmed
+`www.sanihellas.gr` as the only selling property, with `noboadvantage.gr`, `atlantic-heating.gr`,
+`kullhaus.gr`, `kullhaus.com`, `meaco.gr` and a planned `glamoxheating.gr` as non-selling brand
+properties for branding, brand and knowledge authority, and referral to the shop. Applied per
+`references/query-cluster-ownership.md` §6.1: one conversion path, so every commercial and
+transactional cluster resolves to the shop **by determination, not proposal** — §8.1.1 says so in
+those words. Brand sites are support properties under §4.1's three conditions; §8.6 takes the two
+purely informational clusters (ΑΦ-7, ΑΦ-8) to `kullhaus.gr` under a stated criterion, which is the
+role table's editorial/advice row applied. Register status moved from 17/4/6 to **21 assigned,
+4 contested, 2 unowned**; §8.5 shrank from six rows to two, and both survivors are demand
+questions, not ownership questions.
+
+**§8.7 is the finding the coordinator asked to be raised, and it is §2 of the ownership reference
+turned on this client's own estate**: one cited source per generated answer, so the property that
+takes the citation may be the one with no conversion path. Named at four sites (ΘΠ-5, ΘΠ-2, ΕΠ-1,
+ΑΦ-7) with the in-body link as the controlling condition, and written from the *shape of the
+output* rather than any claim about engine selection — ruling R3 amendment 9a, and family 9 in
+Greek.
+
+**[VERIFY: Nobo and Glamox Heating both sit under Glen Dimplex — Nobo acquired 2002, Adax AS
+(maker of Glamox Heating) acquired 2023; and "Glamox" as a search term principally denotes Glamox
+ASA, a Norwegian lighting company. Source: web-search snippets only, 2026-08-18. `glamox.com`,
+`gdhv.com` and `en.wikipedia.org` were EGRESS_BLOCKED from this environment, so no manufacturer
+page was opened.]** The client-read text in §8.1.1 states the snippet-grade provenance in plain
+Greek and does not name the group; action 23 makes manufacturer confirmation a dependency before
+budget is committed. **An earlier draft of that warning asserted Nobo was a Glamox brand — wrong,
+and corrected.** The conclusion (two brand sites in one product category split the authority)
+survived the correction because it never rested on the group; it rests on both brands making
+electric panel heaters.
+
 **Handoff.** Target keyword set: the 118 rows in §4. Content type: category, sub-category, guide,
-comparison, entity page. Priority items: ΘΠ-1, ΘΠ-5, ΑΦ-1, ΑΦ-10, ΕΠ-1 (the five contested).
-Content URLs: as per §8.3. Next runs, in order: `serp-analysis` on the five contested clusters
-once check 1 has run, then `seo-content-writer` + `geo-content-optimizer` for actions 9, 10, 13,
-14, then `rank-tracker` for the capture in action 8. No CORE-EEAT or CITE scores are carried —
-none was run here.
+comparison, entity page. Priority items: ΘΠ-1, ΑΦ-1, ΑΦ-10, ΕΠ-1 (the four contested), plus ΘΠ-5,
+whose owner is determined but whose row splits three ways once the brand pages exist. Content
+URLs: as per §8.3. Next runs, in order: `serp-analysis` on the four contested clusters once check
+1 has run, then `seo-content-writer` + `geo-content-optimizer` for actions 9, 10, 13, 14, then
+`rank-tracker` for the capture in action 8. `competitor-analysis` is the right home for anything
+about the zesta.gr Meaco claim — it was deliberately not characterised here. No CORE-EEAT or CITE
+scores are carried; none was run.
 
 **Not done, deliberately.** No file outside this one was written. No register was updated —
 `docs/loop/pilot/` gains one file and nothing else. `VERSIONS.md`, `KPI.md`, `WATCH-ITEMS.md` and
-`PILOT.md` are untouched, and the cluster→property assignments remain open in
-`docs/loop/CLIENT-MANDATE.md` §4 until Sani returns §8.3 with decision dates.
+`PILOT.md` are untouched. `docs/loop/CLIENT-MANDATE.md` §4 lists the cluster→property assignment
+as open; the *property* half is now settled by the estate confirmation, and the *URL* half stays
+open until Sani returns §8.3 with decision dates.
