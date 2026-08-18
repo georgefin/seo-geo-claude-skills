@@ -1,0 +1,27 @@
+# CASE: gate-none-prose-is-not-a-trailer
+# ROLE: positive
+# JOURNAL: journal-live-two-holders.tsv
+# COMMIT-AT: -450
+# FILE: docs/loop/KPI.md
+# EXPECT-EXIT: 1
+# EXPECT-MATCH: inside another holder's tenure
+# EXPECT-ABSENT: asserts no holder content
+# WHY: a trailer is only a trailer in the TRAILER BLOCK (ruling M3). The declaration
+#      read used `grep -i '^Register-Lock:'` over the whole message, so any line of
+#      prose starting with those characters became a declaration. Found on this
+#      repo's own history, not hypothesised: the commit that documented the bare-none
+#      bug carries the sentence below at line-start, and the grep matched it. It
+#      escaped becoming a FALSE `none` declaration only because its author happened
+#      to type a full stop after the word — the arm tested `*" none "*`, which needs a
+#      space on both sides, and "none." has a period. One punctuation mark either way
+#      decided whether a gated leg waived the commit. That is a coin flip, not a check.
+#      `git interpret-trailers --parse` reads only the trailer block; verified on that
+#      same commit to return its two real trailers and not this line.
+#      The prose below deliberately writes the word with a SPACE after it, which is
+#      the form that WOULD have fired under the old reader. If this case ever passes
+#      by exit 0, the whole-message grep is back.
+# ---8<--- commit message
+docs(loop): weekly numbers
+
+Any commit can wave itself past this gated leg with a bare
+Register-Lock: none with no reason at all, which is the defect.

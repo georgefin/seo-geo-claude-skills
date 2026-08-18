@@ -231,6 +231,60 @@ search-engine behaviour. The reopening condition is Sani's own word, not primary
   tier. The list is **14 of 20**, not 13.
 - **Reopens on**: Sani's explicit word only.
 
+### M3 — a gated leg's escape hatch must work, and a trailer is only a trailer in the trailer block
+
+- **Statement**, three parts, all now enforced in `scripts/register-lock.sh` and held by
+  fixtures:
+  1. **The documented rule stands: a `Register-Lock: none` declaration must carry a reason.**
+     Only the implementation was broken, and the header was right about what it should do.
+  2. **The separator is a closed list of three — em dash, en dash, `--` — and the em dash is
+     canonical**, because it is the form this repo's only real `none` declaration actually uses
+     (`Register-Lock: none — new directory, no shared register`). The `--` of the original doc
+     string appears in the history only on a `<holder>` declaration, never on a `none` one.
+  3. **A trailer is only a trailer in the trailer region.** The region is the trailing run of
+     paragraphs in which every non-blank line is trailer-shaped or a continuation; walking
+     stops at the first paragraph containing a line of ordinary prose. Never a
+     `grep '^Register-Lock:'` over the whole message.
+- **Decided**: 2026-08-17, by the coordinator on Sani's instruction to rule it, after the
+  fault-injection lane reported the defect and deliberately declined to fix it.
+- **THE FIRST IMPLEMENTATION OF PART 3 WAS WRONG, AND MEASUREMENT CAUGHT IT.** It used
+  `git interpret-trailers --parse`, which is git's own reader and looks obviously correct.
+  Measured against **all 45 `Register-Lock` declarations in this repository's history, it saw
+  4.** Git honours only the *final* paragraph, and this repo's convention puts the declaration
+  in its own paragraph above `Co-Authored-By:` — so **41 true declarations would have gone
+  unseen, and every one of those commits would then have been FAILed for declaring nothing.**
+  That is a far worse defect than the bare-`none` hole it was fixing: the original bug let
+  commits through, this one would have blocked them
+  `[obs:2026-08-17 for each of the 45 commits whose message matches ^Register-Lock:, compared
+  grep -ci against git interpret-trailers --parse | grep -ci -> 4 seen, 41 unseen; the same
+  comparison against the shipped trailer_region -> 43 seen, 2 unseen]`. The replacement is the
+  paragraph walk in part 3, measured on the same 45: **43 preserved, 2 dropped, both drops the two
+  revisions of the single commit whose *prose* carries the string** — which is the defect being
+  closed, not a loss. *The lesson is not about git: a fix that looks obviously right, written
+  by the same party that wrote the ruling, is exactly the one nobody else will re-measure.*
+- **Why the lane was right not to fix it, and right to report it**: the fix changes what a
+  **gated** leg accepts, and applying it mid-wave would have stopped lanes that were still
+  pushing. It asserted the shipped behaviour in a known-gap fixture instead, so the gap stayed
+  measured rather than described. That fixture has now flipped to `gate-bare-none-rejected.txt`,
+  which is what a known-gap case is for: it turns red the moment the gap closes, and the flip is
+  the evidence the fix landed.
+- **The second defect was found while ruling the first, in this repo's own history.** The
+  commit that documents the bare-`none` bug carries the sentence *"...wave itself past this
+  gated leg with a bare Register-Lock: none. Not fixed here because..."* at line-start, and the
+  old whole-message grep matched it. It escaped becoming a **false `none` declaration** only
+  because its author happened to type a full stop after the word — the arm tested `*" none "*`,
+  which needs a space on both sides, and `none.` has a period. **One punctuation mark decided
+  whether a gated leg waived a commit.** A guard whose outcome turns on incidental punctuation
+  in unrelated prose is a coin flip, not a check. Held by
+  `gate-none-prose-is-not-a-trailer.txt`, whose fixture prose deliberately writes the form that
+  *would* have fired.
+- **What is still NOT claimed**: that a declaration is *true*. It is an auditable claim, the
+  same standing as `claims-gate`'s FLIP trailer — the leg requires that a claim be made and be
+  well-formed, and never asks whether the diff bears it out. That limit is stated in the
+  script's own header, item 6.
+- **Reopens on**: a measured false positive against a declaration form in real use. A
+  preference for a different dash is not grounds.
+
 ---
 
 ## Pinned baselines (drift watch — not rulings)

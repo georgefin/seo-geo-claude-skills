@@ -118,10 +118,47 @@
 #      explicit base and that branch is never taken.
 #   5. A writer who never runs `acquire`. Invisible to the check by construction,
 #      and therefore invisible to any fixture the check could ever be given.
-#   6. That the `Register-Lock: none` escape is implemented as documented. It is
-#      not — see gap-bare-none-accepted.txt, which asserts the behaviour that
-#      actually ships.
+#   6. That a `Register-Lock: <holder>` or `none` declaration is TRUE. It is an
+#      auditable claim, not a proof — the same standing as claims-gate's FLIP
+#      trailer. The check requires that a claim be made and be well-formed; whether
+#      the diff bears it out is a question for a reader, and this leg never asks it.
+#      (Until 2026-08-17 this entry read that the `none` escape was not implemented
+#      as documented. It now is — ruling M3 — and the two cases that hold it there
+#      are gate-bare-none-rejected.txt and gate-none-prose-is-not-a-trailer.txt.)
 # ──────────────────────────────────────────────────────────────────────────────
+
+# trailer_region — print the message's TRAILER REGION (stdin -> stdout).
+# The region is the trailing run of paragraphs in which every non-blank line is
+# trailer-shaped (`Key: value`) or a continuation (leading whitespace). Walking stops
+# at the first paragraph containing a line of ordinary prose, which is what makes a
+# sentence beginning "Register-Lock: ..." mid-message unable to become a declaration.
+# Deliberately NOT `git interpret-trailers --parse`: that honours only the final
+# paragraph and, measured against all 45 declarations in this repo's history, saw 4.
+trailer_region() {
+    awk '
+    { L[NR] = $0 }
+    END {
+      n = NR
+      while (n > 0 && L[n] ~ /^[[:space:]]*$/) n--
+      end = n
+      while (end > 0) {
+        start = end
+        while (start > 1 && L[start-1] !~ /^[[:space:]]*$/) start--
+        ok = 1
+        for (i = start; i <= end; i++) {
+          if (L[i] ~ /^[[:space:]]*$/) continue
+          if (L[i] ~ /^[A-Za-z][A-Za-z0-9_-]*:/) continue
+          if (L[i] ~ /^[[:space:]]+[^[:space:]]/) continue
+          ok = 0; break
+        }
+        if (!ok) break
+        for (i = start; i <= end; i++) out[++m] = L[i]
+        end = start - 1
+        while (end > 0 && L[end] ~ /^[[:space:]]*$/) end--
+      }
+      for (i = m; i >= 1; i--) print out[i]
+    }'
+}
 
 set -uo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -743,9 +780,31 @@ do_gate_check() {
         ct=$(git log -1 --format=%ct "$sha")
         subject=$(git log -1 --format=%s "$sha")
         files=$(git diff-tree --no-commit-id --name-only -r "$sha")
-        declared=$(git log -1 --format=%B "$sha" | grep -i '^Register-Lock:' | sed 's/^[Rr]egister-[Ll]ock:[[:space:]]*//' | tr ',' ' ')
+        # A TRAILER IS ONLY A TRAILER IN THE TRAILER BLOCK (ruling M3, 2026-08-17).
+        # This read used `grep -i '^Register-Lock:'` over the whole message, so any
+        # line of PROSE beginning with those characters became a declaration. Measured
+        # on this repo's own history: the commit that documents the bug below contains
+        # the sentence "...wave itself past this gated leg with a bare
+        # Register-Lock: none. Not fixed here because..." at line-start, and it was
+        # matched. It escaped becoming a false `none` declaration only because the
+        # author happened to write a full stop after the word — `*" none "*` needs a
+        # space on both sides, and "none." has a period. Change one punctuation mark
+        # in a commit message and the guard silently waives the commit. That is a coin
+        # flip, not a check.
+        #   `git interpret-trailers --parse` was the first fix for this AND IT WAS
+        #   WRONG. Measured against all 45 Register-Lock declarations in this repo's
+        #   history: it saw 4. It honours only the FINAL paragraph, and this repo's
+        #   convention puts `Register-Lock:` in its own paragraph above the sign-offs,
+        #   so 41 true declarations went unseen — every one of those commits would then
+        #   be FAILed for declaring nothing. That is a far worse defect than the one
+        #   being fixed, and only measuring against real history caught it.
+        #   `trailer_region` keeps the principle and repairs the mechanism: it walks
+        #   paragraphs from the end and stops at the first containing a line of ordinary
+        #   prose. On the same 45 it preserves 43, and the 2 it drops are the two
+        #   revisions of the one commit whose PROSE carries the string — the defect.
+        declared=$(git log -1 --format=%B "$sha" | trailer_region | grep -i '^Register-Lock:' | sed 's/^[Rr]egister-[Ll]ock:[[:space:]]*//' | tr ',' ' ')
         # A commit may instead assert that NO holder's content rides in it, with a
-        # reason: `Register-Lock: none -- <why you know>`. Added 2026-08-10 after the
+        # reason: `Register-Lock: none — <why you know>`. Added 2026-08-10 after the
         # first production block, which was a false positive: this check fails any
         # commit touching a locked path during ANY tenure, whether or not the holder's
         # content is actually present — it cannot tell, as the header states. Without
@@ -755,17 +814,29 @@ do_gate_check() {
         # claim someone can later check against the diff — in the same shape as
         # claims-gate's FLIP trailer, which also declares rather than proves. A bare
         # `none` with no reason is NOT accepted.
-        #   MEASURED 2026-08-17, and it IS accepted: `^[^-]*--` can never reach the
-        #   `--`, because "Register-Lock" carries a hyphen first, so this sed never
-        #   fires and `none_reason` is the whole trailer line. See
-        #   scripts/fixtures/register-lock/gap-bare-none-accepted.txt, which asserts
-        #   the behaviour that ships rather than the behaviour described above.
-        local none_reason=""
-        case " $declared " in
-            *" none "*)
-                none_reason=$(git log -1 --format=%B "$sha" \
-                    | grep -i '^Register-Lock:[[:space:]]*none' \
-                    | sed 's/^[^-]*--[[:space:]]*//' )
+        #   MEASURED 2026-08-17: it WAS accepted. `^[^-]*--` can never reach the `--`,
+        #   because "Register-Lock" carries a hyphen first, so that sed never fired,
+        #   `none_reason` became the whole trailer line, which is non-empty and not
+        #   equal to "none", and any commit could wave itself past this gated leg with
+        #   a bare `Register-Lock: none`. Fixed below under ruling M3.
+        # SEPARATOR IS A CLOSED LIST OF THREE: em dash, en dash, `--`. The em dash is
+        # canonical because it is the form this repo's only real `none` declaration
+        # actually uses (`Register-Lock: none — new directory, no shared register`);
+        # the `--` of the original doc string appears only in a `<holder>` declaration.
+        # A guard that rejects the form in use disciplines the repo instead of serving
+        # it, so all three are accepted and none is preferred in the error text.
+        local none_reason="" none_decl=""
+        case "$declared" in
+            none|none[[:space:]]*)
+                none_decl=$(git log -1 --format=%B "$sha" | trailer_region \
+                    | grep -iE '^Register-Lock:[[:space:]]*none([[:space:]]|$)' | head -1)
+                none_reason=$(printf '%s' "$none_decl" \
+                    | sed -E 's/^[Rr]egister-[Ll]ock:[[:space:]]*none[[:space:]]*(—|–|--)[[:space:]]*//')
+                # If no separator matched, the substitution did not fire and the whole
+                # declaration is still sitting in the variable. That is a bare `none`.
+                case "$none_reason" in
+                    [Rr]egister-[Ll]ock:*) none_reason="" ;;
+                esac
                 ;;
         esac
         if [ -n "$none_reason" ] && [ "$none_reason" != "none" ]; then
