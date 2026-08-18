@@ -2542,3 +2542,53 @@ an accurate record of 2026-08-17 and is left byte-identical. This note supersede
   records, two live registers in other lanes, one immutable commit trailer — are named above and
   none was silently rewritten.
   FLIP: F13-r6 -- none
+
+---
+
+## F11 — Recurrence 9 (2026-08-18) · A universal written into a register, disproved by the same session's own `git push`
+
+- **Recurrence**: F11 → 9
+- **Subject**: the coordinator
+- **Surface**: `docs/loop/RESUME.md` §2, written, gated and pushed at `fc41319`
+
+**What was written.** *"This container cannot reach any host on the open internet. The proxy runs
+an allow-list admitting package registries and Anthropic's API; everything else gets
+`curl: (56) CONNECT tunnel failed, response 403`."*
+
+**Why it is false.** `github.com` completes the tunnel and returns HTTP 400
+[obs:2026-08-18T09:20Z `curl -o /dev/null -w %{http_code} https://github.com/` → `400`;
+`https://www.sanihellas.gr/` → `000` with `(56) CONNECT tunnel failed`]. The disproof did not need
+a new measurement: **the same session pushed six commits over HTTPS to github.com while the
+sentence sat in the file.** The second clause names the allow-list correctly and then omits its
+most-used member; the third clause generalises from the members that were tested to every host
+that was not.
+
+**How it passed the gate.** `claims-gate` anchors hard-lexicon tokens. The paragraph's tokens —
+`blocked`, `succeed`, `works` — were each given an `[obs:]` anchor during the same session, in
+response to the gate's own FAILs. **The overstatement rode inside a sentence the gate had just
+certified.** An anchor asserts *"this claim has a dated observation behind it"*; it cannot assert
+that the claim does not reach further than the observation does. That gap is the mechanism here
+and it is not a defect in the gate.
+
+**Why it is F11 and not a new class.** F11 is register-drafting integrity: a register stating more
+than its evidence supports. The distinctive feature of this instance is that the evidence and the
+counter-evidence were **both produced by the same session, minutes apart**, and the counter-evidence
+was the routine act of pushing the file that carried the claim.
+
+**Aggravating.** This is the third different mis-statement of one fact:
+
+| when | what was claimed | wrong how |
+|---|---|---|
+| Round 1, 2026-08-17 | "Host-specific refusal" — specific to `sanihellas.gr` | too narrow; `kullhaus.gr`, an unrelated control, is refused identically |
+| 2026-08-18, earlier | environment-wide, total | too broad; `github.com` is reachable |
+| this entry's fix | an allow-list admitting `github.com`, package registries and Anthropic's API, denying client and unrelated third-party hosts alike | the tested members, named |
+
+**The rule.** *A claim about a set states which members were tested and stops there.* Where a
+register must generalise, it names the mechanism (an allow-list) and its **tested members**, never
+"any", "every" or "everything else". An `[obs:]` anchor licenses the observation it cites and
+nothing wider — **anchoring a sentence is not evidence for the sentence's quantifier.**
+
+**Fixed.** `RESUME.md` §2 corrected in place at this round, with the false version quoted inside
+the correction rather than deleted, so the three-way history is readable where the fact is used.
+Recorded against G1-C7 in `GOALS-SCORECARD.md` Round 2, which is why that criterion reads 1 rather
+than 0.

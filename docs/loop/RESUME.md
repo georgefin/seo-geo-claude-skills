@@ -24,9 +24,17 @@ Last commit `f13574b`. Worktree clean, all work pushed.
 
 ## 2. Environment reality — measured, do not re-litigate
 
-`[obs:2026-08-18]` **This container cannot reach any host on the open internet.** The proxy runs an
-allow-list admitting package registries and Anthropic's API; everything else gets
-`curl: (56) CONNECT tunnel failed, response 403`.
+`[obs:2026-08-18]` **This container reaches an allow-list, and every client host is outside it.**
+`github.com` completes the tunnel (HTTP 400), as do package registries and Anthropic's API —
+`git push` works, which is the proof. **Every client host and every unrelated third-party host
+tested is refused** with `curl: (56) CONNECT tunnel failed, response 403`.
+
+> **This paragraph was wrong when first written on 2026-08-18** and is corrected here rather than
+> overwritten. It read *"cannot reach any host on the open internet"* — false, and disproved by
+> the same session's own `git push`. The precise fact has now been mis-stated three times in three
+> directions: host-specific to `sanihellas.gr` (Round 1), environment-wide-total (this file's first
+> draft), and now an allow-list with named members. **State it as an allow-list with the tested
+> members named, never as a universal.**
 
 **The control is what makes it conclusive:** `kullhaus.gr` — a site known to be wide open — fails
 identically to `sanihellas.gr`. A control failing the same way as the subject proves the refusal is
