@@ -1,13 +1,13 @@
 ---
 name: entity-optimizer
-version: "4.5.0"
+version: "4.5.1"
 description: 'Audit and build entity presence across Google Knowledge Graph, Wikidata, and AI systems for brand recognition and AI citations. Use when the user asks to "optimize entity presence", "build knowledge graph", "improve knowledge panel", "entity audit", "establish brand entity", "Google doesn''t know my brand", "no knowledge panel", "establish my brand as an entity". For structured data implementation, see schema-markup-generator. For content-level AI optimization, see geo-content-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.5.0"
+  version: "4.5.1"
   geo-relevance: "high"
   tags:
     - seo
@@ -188,6 +188,11 @@ Evaluate each signal as Pass ✅ / Partial ⚠️ / Fail ❌ — the same three 
 
 > **Google review-solicitation policy (reported addition ~2026-04-17; policy text + enforcement page verified 2026-08-09 by owner live-page read)**: Google's "Prohibited & restricted content" policy (Fake engagement section) bans "Merchants requesting that staff solicit a certain number of reviews" (staff review quotas) and "Merchants requesting that staff solicit reviews that include specific content, including content that identifies a staff member." The ban attaches to the merchant's directive; spontaneous customer mentions of staff remain fine. Never set per-staff review targets; never script customers to include staff names or other specified content. Violations count as fake engagement: removal of the violative reviews + Business Profile restrictions (new-review freeze for a set period, existing reviews unpublished for a set period, public warning telling consumers fake reviews were removed), with email notice and an appeal path — not automatic suspension. Primary: support.google.com/contributionpolicy/answer/7400114 (reported same text at support.google.com/business/answer/7400114 — mirror not separately verified); enforcement: support.google.com/business/answer/14114287.
 
+> **Not entity-citation levers — a schema pile and an `llms.txt`.** Both reach an entity audit in the same shape, as "more markup, more citations", and both are already settled in [SETTLED-RULINGS.md](../../docs/loop/SETTLED-RULINGS.md). Cite the ruling when refusing one; do not re-argue it, and do not restate more of it than the refusal needs.
+>
+> - **Schema stacking — ruling R2.** Piling schema types onto a page adds no citation signal. Keep **one accurate primary type per page** — Organization on the homepage, a page's genuine content type only where the page genuinely is that thing. **Documented auxiliary types alongside it are not stacking**: Organization/Person nested as publisher or author identity, `WebSite` on the homepage, `BreadcrumbList` where a real trail exists — each has its own documented, non-citation job, so none of them is what this ruling bans. A **second full content type** on the same page — FAQPage bolted onto a service page, Article and Product both as primaries — is stacking and stays banned, unless the page genuinely is both things and each type is complete, accurate and independently justified. Where a "the more types, the more citations" recommendation is found in the client's setup or memo, refuse it as a citation lever and redirect the effort at the structured-data gaps that are real: one consistent `@id` across the entity's markup, conflicting Organization blocks reconciled, `Person` markup for people the site names and never marks up.
+> - **`llms.txt` — ruling R1.** It is not an AI-citation lever: no engine is confirmed to honour it. So do not recommend publishing one, and do not wave it through as cheap-and-might-help. That sentence states what is **confirmed**, which is the permitted form — it is not a claim about what any engine does or does not do (the rule below on engine claims still binds here), and the ruling reopens only on engine-official documentation of llms.txt ingestion.
+
 > **Markup describes what is on the page.** Entity markup states in machine-readable form what a reader can already see. A property with no counterpart in the visible page is not a stronger entity signal — it is a mismatch that invalidates the markup, and it is the entity-work form of hidden content: a founding date, an award, a `sameAs` profile or an `aggregateRating` that exists only inside the JSON-LD. Serving a crawler something a visitor does not get is the same defect one step further. So fix the page first and mark it up second; where a property matters and the page does not carry it, the recommendation is to put it on the page, not into the markup alone. This is [prohibited-tactics.md](../../references/prohibited-tactics.md) entry 6, and it stands beside settled ruling R2's one-accurate-primary-type rule as the other half of "the markup tells the truth about this page". Property-level detail: [knowledge-graph-guide.md](./references/knowledge-graph-guide.md) → "Markup describes what is on the page".
 
 > **Reference**: Use the audit template in [references/entity-signal-checklist.md](./references/entity-signal-checklist.md) for the full 47-signal checklist with verification methods for categories 1-6.
@@ -325,6 +330,7 @@ Sequencing only — this says *when*, never *whether*. Anything the audit recomm
 - [ ] No cost-per-mention, cost-per-link, ROI, or payback figure derived from a fee, retainer, or budget
 - [ ] No recommendation asks for written, bought or incentivised reviews, sets a per-staff review quota, scripts what a review should say, or filters who gets asked — the review action is ask every customer, reward none, gate nothing, reply to negatives in public
 - [ ] Every property recommended for entity markup has a counterpart in content visible on the page it marks up, and nothing is recommended for the markup alone
+- [ ] No schema type is recommended in order to raise citation odds and no `llms.txt` is recommended — the page keeps one accurate primary type plus documented auxiliaries (settled ruling R2), and a type-pile or an llms.txt line already in the client's setup is refused in the report with the ruling named (R2 and R1, [SETTLED-RULINGS.md](../../docs/loop/SETTLED-RULINGS.md))
 - [ ] A prohibited tactic found in the client's existing setup is reported as a named finding with its exposure, an owner-role, an acceptance criterion and a priority rank against the rest of the report — never left unstated, and no recommendation left standing that depends on it
 - [ ] Every recommendation is specific and actionable
 - [ ] Roadmap includes concrete steps with timeframes
