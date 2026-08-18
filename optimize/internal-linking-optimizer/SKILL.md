@@ -1,13 +1,13 @@
 ---
 name: internal-linking-optimizer
-version: "4.6.0"
+version: "4.6.1"
 description: 'Analyze and optimize internal link structure to improve site architecture, distribute page authority, and fix orphan pages. Use when the user asks to "fix internal links", "improve site architecture", "link structure", "distribute page authority", "internal linking strategy", "orphan pages", "site architecture is messy", or "pages have no links pointing to them". For a broader on-page audit, see on-page-seo-auditor. For external link analysis, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.6.0"
+  version: "4.6.1"
   geo-relevance: "low"
   tags:
     - seo
@@ -358,6 +358,7 @@ would produce one — baseline the affected pages now, re-measure 4-8 weeks afte
 - [ ] Every acceptance criterion is observable, binary at the moment of checking, attached to a named artefact or measurement, and dated or triggered — a phase week and a priority band are neither of them criteria, and "orphan pages fixed" is not one either. The four-field link rows satisfy the suggestion contract; they do not satisfy this one, and a fully specified set of links with nobody named to add them is a specification rather than a plan
 - [ ] Every projected or after-state figure is re-derivable from the changes this report itself proposes, with the addition shown; a model-produced figure prints its model, parameters and input graph
 - [ ] Source of each data point stated in the report's own words — the resolved tool name (Screaming Frog, Google Analytics 4), "user-provided", or "manual analysis"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
+- [ ] Greek analyses and every proposed Greek anchor string carry their mechanics: final sigma, τόνοι (ALL-CAPS unaccented, no Latin homoglyph inside a Greek word), one number-formatting convention held throughout, Greeklish kept out of visible anchor copy, and anti-slop-ruleset.md §6 **families 1 and 2** screened alongside family 7 — [Greek Output Mechanics](../../references/greek-output-mechanics.md)
 - [ ] Each score prints its derivation — Structure Score as [points] ÷ [rows scored] with the model it was scored against and the unchecked rows named; Anchor Score as [points] ÷ [link instances graded] with the excluded template links named. A score with nothing checkable reads "not scored — no link data", never 0/10; no site data at all means no score in the report
 - [ ] Every total names its population and every derived figure shows its arithmetic (`14 ÷ 8 = 1.75`, `3/5 = 60%`); the Authority column states its cut and carries no external DA/DR/PA figure unless a named tool supplied it
 - [ ] No traffic or ranking outcome is stated as this site's expected number; the reference's ROI ranges appear only with their "typical ranges, not a projection for your site" attribution attached, and never in the executive summary's metrics list

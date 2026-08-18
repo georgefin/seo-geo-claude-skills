@@ -1,6 +1,6 @@
 ---
 name: on-page-seo-auditor
-version: "4.5.2"
+version: "4.5.3"
 description: 'Audit on-page HTML elements including title tags, headers, image alt text, and internal links with a scored SEO report. Use when the user asks to "audit page SEO", "on-page SEO check", "SEO score", "page optimization", "what SEO issues does this page have", "score my page", "why is this page not ranking", or "check my page". For server, speed, and crawl issues, see technical-seo-checker. For full EEAT content quality scoring, see content-quality-auditor.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.5.2"
+  version: "4.5.3"
   geo-relevance: "medium"
   tags:
     - seo
@@ -345,6 +345,7 @@ bands: [references/scoring-rubric.md](./references/scoring-rubric.md).
 - [ ] No ranking, CTR or traffic outcome is predicted as a number for this page — expected results are stated as what to re-measure and when, not as a forecast
 - [ ] All suggested changes include specific locations (title tag, H2 #3, paragraph 5, etc.)
 - [ ] Source of each data point stated in the report's own words — the resolved tool name (Google Search Console, Ahrefs, Screaming Frog), "the HTML you provided", or "manual review"; where no tool was connected and nothing was supplied, the report says exactly that and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
+- [ ] Greek audits carry their mechanics: final sigma and τόνοι correct in the audit's own new Greek (ALL-CAPS unaccented, no Latin homoglyph inside a Greek word) while quoted fixture strings stay character-for-character verbatim, one number-formatting convention held throughout, Greeklish kept out of visible copy, and anti-slop-ruleset.md §6 **families 1 and 2** screened alongside family 7 — [Greek Output Mechanics](../../references/greek-output-mechanics.md)
 - [ ] Every finding carries a Confidence label (Confirmed / Likely / Hypothesis); Hypothesis findings name what would confirm them
 - [ ] Every recommended action carries all seven fields — action, owner, acceptance criterion, expected impact, effort, dependencies, risk if done wrong — with a stated-absence value wherever an answer does not exist (`not estimated — no baseline data`, `none`, `low — reversible, no downstream effect`); no action ships without an owner-role and an acceptance criterion, and the owner is a role from the closed list (`Client decision` and `unassigned — needs an owner` both count, the second being itself a finding)
 - [ ] Every acceptance criterion is observable, binary at the moment of checking, attached to a named artefact or measurement, and dated or triggered — checkable by someone who was not part of this engagement, six weeks on, without asking what was meant. **None of them requires an engine to do something**: an AI-surface action is accepted on the work shipped plus the measurement re-run and recorded beside its dated baseline, never on an appearance in a generated answer

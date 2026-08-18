@@ -1,13 +1,13 @@
 ---
 name: content-refresher
-version: "4.5.0"
+version: "4.5.1"
 description: 'Refresh old blog posts and outdated content with current statistics, new information, and freshness signals to restore search rankings. Use when the user asks to "update old content", "refresh content", "content is outdated", "improve declining rankings", "revive old blog posts", "traffic is declining on this page", "rankings dropped for this article", or "this post is outdated". For writing new content from scratch, see seo-content-writer. For auditing without rewriting, see on-page-seo-auditor.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.5.0"
+  version: "4.5.1"
   geo-relevance: "medium"
   tags:
     - seo
@@ -357,6 +357,7 @@ When a user requests content refresh help:
 - [ ] Outdated elements identified with specific examples and replacement data
 - [ ] All suggested additions include word counts and section locations
 - [ ] Source of each data point stated in the report's own words — the resolved tool name (Google Analytics 4, Google Search Console, Ahrefs), "user-provided", or "estimated"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
+- [ ] Greek refreshes carry their mechanics: final sigma, τόνοι (ALL-CAPS unaccented, no Latin homoglyph inside a Greek word), one number-formatting convention held across prose, tables and derivations, Greeklish kept out of visible copy, and anti-slop-ruleset.md §6 **families 1 and 2** screened alongside family 7 — [Greek Output Mechanics](../../references/greek-output-mechanics.md)
 - [ ] Every score in the deliverable carries its derivation beside it — the inputs, the arithmetic, the weights — for all four this skill emits: CORE-EEAT quick scores (Step 1), the composite decay score, the refresh priority score, and any ROI figure. A signal or factor with no input is shown N/A with the missing input named and the remaining weights renormalised; it is never estimated into a number (ledger F9-r3, [references/content-decay-signals.md](./references/content-decay-signals.md) "When a signal has no input")
 - [ ] No third-party claim — a competitor's rank, publication date, coverage or "newer guide" — appears without the dated observation it came from
 - [ ] Every line of the refresh plan carries all seven fields — action, owner, acceptance criterion, expected impact, effort, dependencies, risk if done wrong — with a stated-absence value wherever an answer does not exist (`not estimated — no baseline data`, `none`, `low — reversible, no downstream effect`); no line ships without an owner-role and an acceptance criterion, and the owner is a role from the closed list (`Client decision` and `unassigned — needs an owner` both count, the second being itself a finding). The step-4 update checkboxes are not actions until this plan gives them the other six fields

@@ -1,13 +1,13 @@
 ---
 name: performance-reporter
-version: "4.6.2"
+version: "4.6.3"
 description: 'Generate consolidated SEO and GEO performance dashboards combining rankings, traffic, backlinks, and AI visibility metrics for stakeholders. Use when the user asks to "generate SEO report", "performance report", "SEO dashboard", "report to stakeholders", "show me the numbers", "monthly SEO report", "traffic report", or "present SEO results to my boss". For detailed rank tracking, see rank-tracker. For link-specific analysis, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.6.2"
+  version: "4.6.3"
   geo-relevance: "medium"
   tags:
     - seo
@@ -235,6 +235,7 @@ do for this client*, and a report can violate either one alone.
 - [ ] Nothing in the report — summary, goals, expected impact, next steps — promises a position, citation, inclusion, recommendation or share of voice on any surface, on any timeline (anti-slop-ruleset.md §6 family 10)
 - [ ] Sections included match the audience's row in report-templates.md §4 — a board pack is the executive template alone
 - [ ] Source of each data point stated in the report's own words — the resolved tool name (Google Analytics 4, Google Search Console, Ahrefs), "user-provided", or "estimated"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
+- [ ] Greek reports carry their mechanics: final sigma, τόνοι (ALL-CAPS unaccented, no Latin homoglyph inside a Greek word), **one** number-formatting convention held across prose, metrics tables and derivations, Greeklish kept out of visible copy, and anti-slop-ruleset.md §6 **families 1 and 2** screened alongside families 7 and 10 — [Greek Output Mechanics](../../references/greek-output-mechanics.md)
 
 ## Example
 

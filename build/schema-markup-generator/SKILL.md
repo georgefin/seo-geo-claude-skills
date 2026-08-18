@@ -1,6 +1,6 @@
 ---
 name: schema-markup-generator
-version: "4.3.0"
+version: "4.3.1"
 description: 'Generate Schema.org JSON-LD structured data — one accurate primary type per page (FAQPage, HowTo, Article, Product, LocalBusiness, and 6 other types) plus documented auxiliaries only where warranted. Use when the user asks to "add schema markup", "generate structured data", "JSON-LD", "FAQ schema", "rich snippets", "I want star ratings in Google", or "structured data validation errors". Produces validated markup for Google rich results where still offered (no FAQ rich result for ordinary sites — government/health only, Aug 2023 — FAQPage is kept because it stays valid and Google says there is no need to proactively remove it), Bing structured data, and machine-readable input for any consumer that reads it. Validates via the Schema.org validator, plus Rich Results Test for non-FAQ types. For broader technical SEO, see technical-seo-checker. For meta tag optimization, see meta-tags-optimizer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.3.0"
+  version: "4.3.1"
   geo-relevance: "medium"
   tags:
     - seo
@@ -292,6 +292,7 @@ Field definitions, stated-absence values, the closed role list, worked criteria 
 - [ ] Schema content matches visible page content exactly — **the same fact, not necessarily the same spelling**. Properties with a documented notation are written in it even where the page prints another form: `addressCountry` as an ISO 3166-1 alpha-2 code, `offers.priceCurrency` as an ISO 4217 code, dates as ISO 8601, `telephone` in international dialling format with the country code (`+30 2310 555 000`). Re-notating a fact the page states is not a mismatch; adding a fact it does not state is, so where the page does not establish what the notation needs, the property is dropped and the gap named ([validation-guide.md → Required vs Recommended Properties](./references/validation-guide.md#required-vs-recommended-properties))
 - [ ] Passes ~~schema validator with no errors
 - [ ] Source of each data point stated in the deliverable's own words — the resolved tool name (a Screaming Frog extraction), "user-provided", or "manual entry"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
+- [ ] Greek values and Greek prose carry their mechanics: final sigma and τόνοι intact in every Greek string (no transliteration into Latin script, no Latin homoglyph inside a Greek word), spec-notated values left in their own notation rather than the prose's, and anti-slop-ruleset.md §6 **families 1 and 2** screened alongside family 7 — [Greek Output Mechanics](../../references/greek-output-mechanics.md)
 - [ ] Every recommendation carries all seven fields — action, owner, acceptance criterion, expected impact, effort, dependencies, risk if done wrong — with a stated-absence value wherever an answer does not exist; none ships without an owner-role and an acceptance criterion, the owner is a role from the closed list (`Client decision` and `unassigned — needs an owner` both count, the second being itself a finding), and every field sits in the report rather than as a member of the emitted JSON-LD
 - [ ] Every acceptance criterion is observable, binary at the moment of checking, attached to a named artefact or measurement, and dated or triggered — block live in source at the named URL, validator returns zero errors, every property matches visible content, all checked on a stated date. **None requires an engine to do something**: a rich result, a knowledge panel, a local-pack placement or a citation is never the criterion. Ordering is expected impact ÷ effort with dependencies respected, stated once, inside the P0-P4 tiers rather than a second priority vocabulary
 
