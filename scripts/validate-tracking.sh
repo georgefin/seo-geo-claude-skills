@@ -1475,8 +1475,18 @@ fi
 # VERSIONS-only parser. A range target (`file.md:309-310`) passes when the token
 # appears anywhere inside the span.
 #
-# Scope (F12 rationale, unchanged): scan ONLY the live registers —
-# SETTLED-RULINGS.md, GATED-ITEMS.md, WATCH-ITEMS.md, PIPELINE.md.
+# Scope (F12 rationale): scan ONLY the live registers — SETTLED-RULINGS.md,
+# GATED-ITEMS.md, WATCH-ITEMS.md, PIPELINE.md, OPEN-FINDINGS.md.
+# OPEN-FINDINGS.md was ABSENT from this list until 2026-08-18, which meant the
+# check reported green over a population that excluded the GOVERNING register —
+# the one finding 103 says lane briefs must be compiled from. Its omission was
+# not a scoping decision anyone wrote down; the four-name list simply predated
+# the scope extension beyond VERSIONS.md and was never revisited. Adding it
+# immediately surfaced a real anchored defect the old set could not see (a
+# skill-relative path where the contract is repo-root-relative), which is the
+# argument for its inclusion in one line. NOTE the asymmetry it exposes: this
+# register's rows overwhelmingly cite SKILL-relative paths (`SKILL.md:170`),
+# which are bare and therefore land in the census as warnings, not failures.
 # FAILURE-LEDGER.md is EXCLUDED: it is an append-only ledger that legitimately
 # quotes historical pointer examples (its F12 entry keeps `VERSIONS.md:93`
 # ("non-levers") as a worked example that was correct at writing time) and must
@@ -1497,7 +1507,7 @@ G_COUNT=0
 G_VCOUNT=0
 G_UNTAG_N=0
 G_UNTAG_LIST=""
-G_REGISTERS="SETTLED-RULINGS.md GATED-ITEMS.md WATCH-ITEMS.md PIPELINE.md"
+G_REGISTERS="SETTLED-RULINGS.md GATED-ITEMS.md WATCH-ITEMS.md PIPELINE.md OPEN-FINDINGS.md"
 for reg in $G_REGISTERS; do
     reg_file="$ROOT/docs/loop/$reg"
     if [ ! -f "$reg_file" ]; then

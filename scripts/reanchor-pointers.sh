@@ -37,7 +37,12 @@ import re, sys, pathlib
 
 root = pathlib.Path(sys.argv[1])
 mode = sys.argv[2]
-registers = ["SETTLED-RULINGS.md", "GATED-ITEMS.md", "WATCH-ITEMS.md", "PIPELINE.md"]
+# Must stay identical to validate-tracking.sh check (g)'s G_REGISTERS: this is the
+# fixer for exactly the pointers that check verifies, so a register the gate scans
+# but this script does not is a pointer the operator is told to refresh and has no
+# tool to refresh with. OPEN-FINDINGS.md joined both lists on 2026-08-18.
+registers = ["SETTLED-RULINGS.md", "GATED-ITEMS.md", "WATCH-ITEMS.md", "PIPELINE.md",
+             "OPEN-FINDINGS.md"]
 
 # Mirrors check (g)'s grammar: `path:start[-end]`, optional whitespace/newline, then ("token…
 # The closing paren is deliberately NOT required. Real pointers carry explanatory prose
