@@ -3,7 +3,7 @@
 [![ClawHub](https://img.shields.io/badge/ClawHub-20_skills-purple)](https://clawhub.ai/u/aaron-he-zhu)
 [![Skills](https://img.shields.io/badge/skills.sh-20_skills-blue)](https://skills.sh/aaron-he-zhu/seo-geo-claude-skills)
 [![License](https://img.shields.io/badge/license-Apache%202.0-green)](./LICENSE)
-[![Version](https://img.shields.io/badge/version-4.6.0-orange)](./VERSIONS.md)
+[![Version](https://img.shields.io/badge/version-4.6.1-orange)](./VERSIONS.md)
 
 > **Fork notice.** This repository is a fork of [aaron-he-zhu/seo-geo-claude-skills](https://github.com/aaron-he-zhu/seo-geo-claude-skills) (Apache-2.0), maintained by Sani Hellas with an automated weekly review loop. The ClawHub and skills.sh badges above link to the upstream project's published listings; this fork installs from GitHub. The CORE-EEAT and CITE frameworks are separate upstream projects and keep their own attribution throughout.
 
@@ -266,6 +266,7 @@ Shared conventions — the rules a deliverable is held to, rather than items it 
 | [action-output-contract.md](./references/action-output-contract.md) | The seven fields every recommended action carries — including the owner and the acceptance criterion that make it checkable by someone who was not in the room | on-page-seo-auditor, technical-seo-checker, content-quality-auditor, domain-authority-auditor, performance-reporter |
 | [prohibited-tactics.md](./references/prohibited-tactics.md) | The floor under every recommendation: ten tactics no skill will propose, what to do instead, and the legitimate practices each is confused with | backlink-analyzer, entity-optimizer, seo-content-writer |
 | [inter-skill-handoff.md](./references/inter-skill-handoff.md) | The payload one run passes to the next, and the operator block it travels in | all 20 skills |
+| [greek-output-mechanics.md](./references/greek-output-mechanics.md) | The mechanical layer of Greek output the eval suites grade: final sigma, the binding editor's five criteria restated author-side, and one number-formatting convention held throughout — with the rules other files already own cited rather than copied | content-refresher, internal-linking-optimizer, performance-reporter, schema-markup-generator, on-page-seo-auditor |
 
 Most skills also include `references/` subdirectories with skill-specific templates, rubrics, and checklists (e.g. http-status-codes, robots-txt, kpi-definitions, report-templates).
 

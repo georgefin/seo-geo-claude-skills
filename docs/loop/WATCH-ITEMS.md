@@ -293,7 +293,7 @@ authoritative.
 
 ## W13 — Does an installed plugin carry root `CLAUDE.md`? [VERIFY]
 
-- **Where**: root `CLAUDE.md:36` ("When a skill recommends running another") — the
+- **Where**: root `CLAUDE.md:46` ("When a skill recommends running another") — the
   inter-skill handoff convention, and by the same
   mechanism every other standing ruling recorded there. Anchor-tagged 2026-08-17, line
   unchanged and re-read at source. Opened by ledger **F17**

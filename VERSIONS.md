@@ -15,14 +15,14 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 | seo-content-writer | build | 4.8.0 | 2026-08-17 |
 | geo-content-optimizer | build | 4.6.1 | 2026-08-17 |
 | meta-tags-optimizer | build | 4.3.0 | 2026-08-17 |
-| schema-markup-generator | build | 4.3.0 | 2026-08-17 |
-| on-page-seo-auditor | optimize | 4.5.2 | 2026-08-17 |
+| schema-markup-generator | build | 4.3.1 | 2026-08-18 |
+| on-page-seo-auditor | optimize | 4.5.3 | 2026-08-18 |
 | technical-seo-checker | optimize | 4.6.3 | 2026-08-17 |
-| internal-linking-optimizer | optimize | 4.6.0 | 2026-08-17 |
-| content-refresher | optimize | 4.5.0 | 2026-08-17 |
+| internal-linking-optimizer | optimize | 4.6.1 | 2026-08-18 |
+| content-refresher | optimize | 4.5.1 | 2026-08-18 |
 | rank-tracker | monitor | 4.4.0 | 2026-08-17 |
 | backlink-analyzer | monitor | 4.4.0 | 2026-08-17 |
-| performance-reporter | monitor | 4.6.2 | 2026-08-17 |
+| performance-reporter | monitor | 4.6.3 | 2026-08-18 |
 | alert-manager | monitor | 4.6.0 | 2026-08-17 |
 | content-quality-auditor | cross-cutting | 4.9.0 | 2026-08-17 |
 | domain-authority-auditor | cross-cutting | 4.6.2 | 2026-08-17 |
@@ -30,6 +30,13 @@ Current versions of all skills. Agents can fetch this file from `https://raw.git
 | memory-management | cross-cutting | 4.3.0 | 2026-08-17 |
 
 ## Changelog
+
+### v4.6.1 (2026-08-18)
+
+- **The Greek mechanics five eval suites grade and no skill stated — one new shared reference, five pointer lines (2026-08-18)**: `optimize/content-refresher`, `optimize/internal-linking-optimizer`, `monitor/performance-reporter`, `build/schema-markup-generator` and `optimize/on-page-seo-auditor` are all graded on Greek output mechanics — final sigma, τόνοι, register, Greeklish placement, formatting consistency — that none of them stated anywhere in `SKILL.md` or `references/`. Measured with `evals/` excluded from the scan set, because the rubric text lives there and including it scores the gap closed. All five already cited `anti-slop-ruleset.md` §6 families 7-10 and never 1 or 2, so this **extends a pointer that exists** rather than starting a habit.
+- **New carrier `references/greek-output-mechanics.md`**, and it is deliberately thin. It **states** only what nothing carried: the final-sigma rule (ς word-final, σ elsewhere, with the uppercase-Σ and verbatim-quotation carve-outs that stop it being mis-applied) and the number-formatting **consistency** requirement. It **restates** the binding judge's five criteria from `.claude/agents/greek-content-editor.md` — register, diacritics, Greeklish placement, terminology fit, cultural/legal fit — labelled as a restatement, with that file named as the authority that wins on disagreement. Everything else is **cited, not restated**: §6 families 1 and 2, the English-residue advisory family, and `keyword-research`'s Greeklish-placement rule.
+- **One graded phrase was NOT turned into a rule.** The suites ask for "one number-formatting convention used consistently" — a consistency requirement, not a locale decision, and `performance-reporter`'s own eval says either thousands convention passes and comma or point decimals are both acceptable. The carrier therefore states the consistency requirement and **explicitly declines to mandate which convention**, naming that as an owner call rather than settling it quietly. Two skill-local carriers already state the Greek decimal separator permissively (`domain-authority-auditor/references/score-arithmetic.md` §2, `seo-content-writer/references/seo-score-rubric.md`); both are cited and neither is reopened.
+- **Body-length note**: `internal-linking-optimizer` now sits at **exactly 350 lines**, the cap. It has no headroom left and the next line added to it must be paid for by moving something to `references/`.
 
 ### v4.6.0 (2026-08-17)
 

@@ -31,6 +31,16 @@ This plugin provides **20 skills and 9 commands** for Search Engine Optimization
 - **CORE-EEAT** (`references/core-eeat-benchmark.md`): 80-item content quality framework (8 dimensions). GEO Score = CORE avg; SEO Score = EEAT avg. Three veto items: T04 (conditional — applies only when a material connection exists), C01, R10 (material self-contradiction, not broken links). One verified veto caps the final score at 59; two or more = BLOCK (no final score).
 - **CITE** (`references/cite-domain-rating.md`): 40-item domain authority framework (4 dimensions). Three veto items: T03, T05, T09.
 
+## Greek Output Mechanics (carrier added 2026-08-18 — not a new ruling)
+
+Five suites grade the mechanical layer of Greek output and their skills stated none of it: `content-refresher`, `internal-linking-optimizer`, `performance-reporter`, `schema-markup-generator`, `on-page-seo-auditor`. The rules were real but lived **grader-side only**, in `.claude/agents/greek-content-editor.md` — a file the judge reads and the author never does, so a skill failed a test it had never been told about. Measure a carrier gap with `evals/` excluded from the scan set: the rubric text lives there, and including it scores every gap closed.
+
+Nothing here is newly ruled. The carrier **states** two things nothing carried — the final-sigma rule (ς word-final, σ elsewhere, with the uppercase-Σ and verbatim-quotation carve-outs) and the requirement that **one** number-formatting convention is held throughout a deliverable. It **restates**, labelled as such, the binding editor's five criteria (register · diacritics · Greeklish placement · terminology fit · cultural/legal fit), with that agent file named as the authority that wins on disagreement. Everything else is **cited, never copied** — `anti-slop-ruleset.md` §6 families 1 and 2 and its English-residue advisory family, and `keyword-research`'s Greeklish-placement rule.
+
+**Which** number convention is not settled and was deliberately not invented. The suites ask for consistency, and `performance-reporter`'s own eval accepts either thousands convention and either decimal mark — so the carrier states the consistency requirement and names the locale choice an owner call. Two skill-local carriers already treat the Greek comma as acceptable in score arithmetic (`domain-authority-auditor/references/score-arithmetic.md` §2, `seo-content-writer/references/seo-score-rubric.md`); both are cited and neither is reopened.
+
+Carrier: `references/greek-output-mechanics.md` — the three-class split (cited / restated / stated), the final-sigma table with its screening rule and its mandatory non-vacuity control, the formatting-consistency rule with the spec-notation exception, and the pre-delivery checklist.
+
 ## Inter-Skill Handoff
 
 When a skill recommends running another, pass: target keyword, content type, CORE-EEAT dimension scores (e.g., `C:75 O:60 R:80 E:45`), CITE scores, priority item IDs, and content URL.
