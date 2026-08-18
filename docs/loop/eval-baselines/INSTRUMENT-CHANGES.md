@@ -250,6 +250,44 @@ not a normalisation.
 
 ---
 
+## 2026-08-18 — `content-refresher` e2.3 gains the same carve-out its sibling already had; the verdict does not move, and the re-grade is NOT issued here
+
+Suite: `optimize/content-refresher` e2.3, plus eval 2's `expected_output`. Denominator **unchanged
+at 27** — text rewritten inside an existing expectation, none added.
+
+**Used to require** the remediation ship a bolded direct answer of roughly 30 words, an expansion
+carrying a specific anchor, jump-linked H2s, quotable sentences and a 40-60-word FAQ — with no
+carve-out, against a fixture that withholds the page's own timing answer. **Now requires** the
+same, with ruling M6's skeleton carve-out reaching the four slots that answer the withheld
+question, and an explicit statement that the jump-linked H2s get **no** carve-out (the fixture
+records the current H2s and the query list, so that slot is fillable). The forbidden-widening
+clause travels verbatim from e2.6: the carve-out never reaches a value the fixture does carry and
+never excuses inventing the substance.
+
+Eval 2's `expected_output` is repaired in the same commit. It read *"ships complete — no
+placeholders"*, which flatly contradicted the carve-out e2.6 has held since `d135129` and would
+pull a grader back to the pre-repair reading. It now bans **unlabelled** placeholders and names the
+labelled-skeleton route, keeping "no invented statistics" and "no fabricated recovery numbers"
+intact.
+
+**Direction: PASS → PASS on `blind-2026-08-17`** `[obs:2026-08-18 that record's e2.3 carries
+"verdict": "PASS"]`. The carve-out is permissive on the one slot at issue, so it cannot turn a
+recorded PASS into a FAIL, and the added H2 exclusion restates what that artefact already did.
+**This is the weaker of the two claims a direction can make**: the verdict does not move, but the
+graded text did, so a strict reading still makes pre-`53dcc29` records non-comparable on this
+expectation. Every *other* expectation in the suite is unaffected.
+
+**The re-grade is deliberately not issued**, on the same ground as the e2.6 row below: the lane
+that repairs an instrument does not grade against it. **The record stands at 24/27 = 0.8889** —
+unchanged by this row, because a PASS → PASS direction moves no number. What this row exists to
+prevent is a later reader inferring from the unchanged total that the instrument also went
+unchanged.
+
+**Why `memory-management` gets no row here despite shipping the same day** (`d8a44c9`): that change
+edits the SKILL, not the instrument — no expectation, fixture or denominator moved. Its record is
+stale for the ordinary reason ruling M2 already covers, the graded version being behind HEAD, which
+is true of all 20 records and is not an instrument change.
+
 ## 2026-08-18 — `content-refresher` e2.6 rewritten; a standing FAIL is now a PASS, and the re-grade is NOT issued here
 
 Suite: `optimize/content-refresher` e2.6. Denominator **unchanged at 27** — the edit rewrites text
