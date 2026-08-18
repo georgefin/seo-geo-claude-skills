@@ -127,10 +127,16 @@ owner decision, not an implementer's — so it is named as open here rather than
 
 Two things are already settled and are **not** reopened by this section:
 
-- Score arithmetic states the comma is acceptable in Greek and not a defect —
+- Score arithmetic has already fixed the separator for scores, and **declaratively, not
+  permissively**:
   [`domain-authority-auditor/references/score-arithmetic.md`](../cross-cutting/domain-authority-auditor/references/score-arithmetic.md)
-  §2 and [`seo-content-writer/references/seo-score-rubric.md`](../build/seo-content-writer/references/seo-score-rubric.md).
-  Both are permissive about the separator and neither mandates it beyond their own scores.
+  §2 and [`seo-content-writer/references/seo-score-rubric.md`](../build/seo-content-writer/references/seo-score-rubric.md)
+  each state that in a Greek-language deliverable the decimal separator **is** a comma («68,5»,
+  «8,3») — what the notation is, not one of two options. Neither reaches past its own scores on
+  its own, but this section's one-convention-throughout rule carries it the rest of the way:
+  **a Greek deliverable that prints any score is thereby committed to the comma as its decimal
+  separator everywhere in that deliverable.** What is genuinely open is narrower than it looks —
+  the thousands separator, the date format, and Greek deliverables that print no score at all.
 - A value with a **notation defined by a specification** is written in that notation whatever the
   prose around it does. Structured-data numeric values, ISO 8601 dates and currency amounts inside
   markup follow the spec, not the report's house style, and switching them to match the prose is a
