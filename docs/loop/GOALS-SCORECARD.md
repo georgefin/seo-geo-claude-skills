@@ -622,6 +622,68 @@ sits in; the rest narrow a reason without moving its conclusion.
    number.** Recording a disagreement is honest; picking a side without measuring is how the original
    defect was made.
 
+### Round 4 — 2026-08-19 (correction to Round 3's item 6; no criterion re-scored)
+
+Appended, never edited; Round 3 is now frozen exactly as it froze Round 2. **This is the second
+consecutive correction round to carry a defect**, which is the finding, not a footnote — see 3.
+
+**Every figure below is pinned to a SHA and read with `git grep <sha>`, never scanned from the
+working tree.** That is the direct remedy for what went wrong in Round 3 item 6(a): a bare `.` scan
+measures the tree the round *creates*, so a round that scans is guaranteed to publish a number that
+was true only before it was written. Round 4's own text adds further occurrences of the string
+counted in 1; the pinned figures below are therefore deliberately NOT re-checkable by re-running the
+command at this round's own tree, and that is the point.
+
+1. 🔴 **Round 3 item 6(a) is wrong, and wrong in the way item 6 existed to avoid.** It printed
+   `grep -rn 'F8 r3' --include="*.md" . | wc -l -> 2` and declined to correct the review's figure of
+   3 on the grounds that 3 could not be reproduced. **3 is reproducible two independent ways, and
+   the printed 2 is false at the tree Round 3 publishes.**
+
+   `[obs:2026-08-19 git grep -h 'F8 r3' <sha> -- '*.md', lines via wc -l and occurrences via
+   grep -o 'F8 r3' | wc -l -> 9e53cc6 (parent): 2 lines / 3 occurrences · 45e6635 (the tree Round 3
+   publishes): 3 lines / 4 occurrences, at GOALS-SCORECARD.md :267 :268 :450]`
+
+   * **Lines are not occurrences.** `:267` carries the string **twice**, so the parent's 2 lines are
+     3 occurrences. Round 3 answered an occurrence question with `wc -l`.
+   * **The scope was silently narrowed.** Round 2's G1-C6 stamp was declared over tracked
+     `.md/.tsv/.json/.sh`. At that scope, at the parent, the line count is **3**
+     `[obs:2026-08-19 git grep -n 'F8 r3' 9e53cc6 -- '*.md' '*.tsv' '*.json' '*.sh' -> 3:
+     GOALS-SCORECARD.md:267, :268, register-locks-archive/2026-08-17.tsv:29]`. Round 3 measured a
+     narrower population than the stamp it was auditing and reported the difference as the other
+     party's error.
+   * **`:450` is Round 3's own stamp.** Round 3 therefore did precisely what its item 1 denied Round
+     2 the excuse of — an instrument entering its own scan set (R290) — undisclosed, in the one
+     measurement it did not pin, three lines after refusing that excuse to someone else.
+
+   Both reconciliations land on 3. There was never a disagreement to record; there was an
+   unmeasured claim.
+
+2. 🔴 **Round 3 item 6(b) declined to measure something that takes one command, and the review was
+   right.** Round 2 line 310 prints *"`PROBE FAILED`, 21 PROBE FAILs, each preceded by a BSD `sed`
+   error"*. Both halves are wrong `[obs:2026-08-19 bash scripts/engine-claim-sweep.sh --probe, exit 1
+   -> grep -c 'PROBE FAIL' = 21 · grep -c '^PROBE FAIL —' = 20 · grep -c 'PROBE FAILED' = 1 ·
+   grep -c 'sed:' = 17]`.
+
+   * **21 is a `grep -c` substring artefact** — the summary line `PROBE FAILED` contains the
+     substring `PROBE FAIL`. There are **20** individual failures plus **1** summary.
+   * **"each" is false** — 17 `sed` errors against 20 failures.
+
+   The same root cause as 1: a substring/line count read as an item count. **Round 2, Round 3 and the
+   Round 3 correction of it all failed on one confusion**, in three different places.
+
+3. **The finding that outranks both: "I could not reproduce it" is itself a measurement claim, and
+   it was not held to the standard of the numbers it was declining to state.** Round 3's items 1–5
+   were re-measured exactly, including an instrument sweep. The defect landed in item 6 — the item
+   whose stated purpose was refusing to assert what had not been measured. Declining to correct
+   *reads* as restraint while functioning as an unverified assertion about the world, which is why it
+   passed its own author's review. **The honest form of restraint is not a softer claim; it is the
+   same command, run.** Proposed as a rule for the owner, not adopted here: a round may record a
+   disagreement only after running the other party's command at the other party's stated scope.
+
+4. **Not re-scored, and nothing above touches a verdict.** G1-C6's verdict rested on the ledger
+   entry being absent, not on the occurrence count; G3-C7's partial-population question raised in
+   Round 3 item 4 remains open and still belongs to the owner.
+
 ---
 
 ## Part C — What closes each gap
