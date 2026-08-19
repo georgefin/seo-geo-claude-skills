@@ -970,6 +970,96 @@ trust it.
    states: **quote the base-pinned figure, or stamp the tip the figure was measured at.** The
    amendment is local and unpushed; no history was rewritten on any published ref.
 
+### Round 12 — 2026-08-19 (full re-measurement; first since Round 5)
+
+- **Round number**: this round was commissioned as "Round 3" by a scheduled check armed on
+  2026-08-18, before Rounds 3–11 existed. **3 is taken, and so is everything up to 11**, so it is
+  appended as 12. Rounds 3 and 4 are not headings in this file — they were renumbered into 5+ by
+  the collision fix at `1b2e2e7`. Recorded because a second same-number collision is the exact
+  defect that fix was written to prevent `[obs:2026-08-19 grep -nE "^### Round [0-9]+" docs/loop/GOALS-SCORECARD.md -> Rounds 1, 2, 5, 6, 7, 8, 9, 10, 11]`
+- **Tree measured**: open and close HEAD **`509c7bb`**, working tree clean at open
+  `[obs:2026-08-19 git rev-parse --short HEAD -> 509c7bb; git status --short -> empty]`
+- **Distance from the previous full measurement**: **28 commits** since Round 2's close at
+  `673716d` `[obs:2026-08-19 git rev-list --count 673716d..HEAD -> 28]`, of which 6 touch
+  `scripts/` — `claims-gate.sh`, `commit-scope-check.sh`, `pre-push-gate.sh`, `reanchor-pointers.sh`,
+  `register-lock.sh`, `validate-tracking.sh`
+  `[obs:2026-08-19 git diff --name-only 673716d..HEAD | grep scripts/]`
+- **Rounds 6–11 re-scored no criterion.** They are correction rounds. **The last full
+  measurement of all criteria was Round 5**, so the comparison column below is against **Round 2**
+  (this lane's own last full pass) with Round 5 named where the two disagree.
+- **Wave under measurement**: still `blind-2026-08-17/`, 20 records, **byte-identical since
+  Round 2** `[obs:2026-08-19 git diff --name-only 673716d..HEAD -- docs/loop/eval-baselines/ | wc -l -> 0]`.
+  So every Goal 2 record-shape reading is expected to be unchanged, and is.
+- **Probes were run twice each**, per Round 11's discipline. It changed one verdict — see G3-C5.
+
+#### Goal 1 — **4 of 9 criteria met** (Round 2: 4 of 9 · Round 5: 3 of 9)
+
+| ID | Result | Movement | Evidence |
+|---|---|---|---|
+| G1-C1 | **MET** | = | `SELFTEST PASS` `[obs:2026-08-19 509c7bb bash scripts/eval-prompt.sh --selftest]` |
+| G1-C2 | **13 of 20** | = | Same 7 records carry `eval-prompt.sh` only in its `--grade` form: content-refresher, memory-management, meta-tags-optimizer, on-page-seo-auditor, schema-markup-generator, seo-content-writer, serp-analysis `[obs:2026-08-19 509c7bb python context scan, ±160 chars]` |
+| G1-C3 | **18 of 20** | = | keyword-research and performance-reporter still prose-only `[obs:2026-08-19 509c7bb]` |
+| G1-C4 | **MET, 20 of 20** | = | Accepting any drift-named key, as corrected in Round 2 `[obs:2026-08-19 509c7bb]` |
+| G1-C5 | **3 of 5 wave dates** | ▼ denominator | Archives: `2026-08-10.tsv`, `2026-08-17.tsv`, `2026-08-18.tsv`. **`2026-08-19` has 19 commits and no archive.** Unlike 08-13 (historical, mechanism not running), this one is current. **Stated rather than scored either way**: all 19 carry a single author, so whether they are "two or more lanes" or one operator working sequentially is not decidable from the log, and the criterion turns on that word `[obs:2026-08-19 ls docs/loop/register-locks-archive/ -> 3 files; git log --since="2026-08-19 00:00" --format=%an | sort -u -> 1 author, 19 commits]` |
+| G1-C6 | **MET** | = | 51 ledger entries, coordinator conduct among them with rules attached `[obs:2026-08-19 509c7bb grep -cE "^#{2,3} (F[0-9]+\|Correction\|Ruling\|M[0-9])" -> 51]` |
+| G1-C7 | **MET — 0** | ▲ from 1 | **Zero recurrence entries dated to the round under measurement.** Round 2 recorded 1 (its own F11 r9) `[obs:2026-08-19 grep -cE "^#{2,3} F[0-9]+ — Recurrence.*2026-08-19" docs/loop/FAILURE-LEDGER.md -> 0]` |
+| G1-C8 | **2 of 4 rows** | = | `KPI.md` rows at 2026-08-10 (`8/0`), 08-13 (`11/3`), 08-17 (`n/a`), 08-17-corrected (`n/a`). **Still no row for 08-18 or 08-19** `[obs:2026-08-19 grep -cE "^\| 2026-08-[0-9]+ \|" docs/loop/KPI.md -> 4]` |
+| G1-C9 | **13 of 20** | = | Same 7 without a named second reader `[obs:2026-08-19 509c7bb]` |
+
+#### Goal 2 — **6 of 9 criteria met** (Round 2: 6 of 9 · Round 5: 6 of 9)
+
+| ID | Result | Movement | Evidence |
+|---|---|---|---|
+| G2-C1 | **MET, 20 of 20** | = | `[obs:2026-08-19 ls -d */*/evals/evals.json | wc -l -> 20]` |
+| G2-C2 | **MET, 20 of 20** | = | `[obs:2026-08-19 ls blind-2026-08-17/*.json | wc -l -> 20]` |
+| G2-C3 | **0 of 20** | = (distance grew) | Still zero, and it cannot fall further. **The distance grew again**: the 28 commits include a freshness sweep across six skills and edits to schema-markup-generator and geo-content-optimizer, none of which is reflected in any record. **This is the third consecutive round at zero** `[obs:2026-08-19 509c7bb per-record git diff <repo_head_at_open>..HEAD over each skill dir -> 0 records with an empty diff]` |
+| G2-C4 | **MET, 20 of 20** | = | Records unchanged since Round 2 `[obs:2026-08-19]` |
+| G2-C5 | **MET, 20 of 20** | = | Records unchanged since Round 2 `[obs:2026-08-19]` |
+| G2-C6 | **NOT MET — 21 open** | = | Same 21 across the same 12 suites. **No later blind run exists to re-exercise any of them**, which is the only thing that closes this `[obs:2026-08-19 509c7bb python count over all 8 field shapes -> 21/12]` |
+| G2-C7 | **20 of 21** | = | The single gap is still **performance-reporter `e4.3`** — its id is in a register but not within 300 characters of its own suite name `[obs:2026-08-19 509c7bb]` |
+| G2-C8 | **MET, 20 of 20** | = | `[obs:2026-08-19 bash scripts/eval-corpus-report.sh]` |
+| G2-C9 | **MET, 20 of 20** | = | `[obs:2026-08-19]` |
+
+#### Goal 3 — **5 of 8 criteria met** (Round 2: 6 of 8 · Round 5: 3 of 8 with 2 not measured)
+
+**The round's only fraction movement, and it is backwards.**
+
+| ID | Result | Movement | Evidence |
+|---|---|---|---|
+| G3-C1 | **MET** | = | `PRE-PUSH GATE: PASSED`, exit 0, and it now prints its base every run: `Diff base: origin/claude/scheduled-skills-web-search-8zaz3j (resolved from: upstream)` `[obs:2026-08-19 509c7bb bash scripts/pre-push-gate.sh; echo $? -> 0]` |
+| G3-C2 | **MET, 20 of 20** | = | `15 passed, 0 warnings, 0 failed` each `[obs:2026-08-19 loop over 20 skill dirs]` |
+| G3-C3 | **MET** | = | `10 passed, 15 warnings, 0 failed` `[obs:2026-08-19 bash scripts/validate-tracking.sh .]` |
+| G3-C4 | **NOT MET** | = | 2 legs report *"no outgoing commits — nothing to check"*; closing line `PASSED — but NOTHING WAS OUTGOING` `[obs:2026-08-19 grep -c "nothing to check" -> 2; grep -c "NOTHING WAS OUTGOING" -> 1]` |
+| G3-C5 | **NOT MET — 5 of 6 as found** | ▼▼ from 6 of 6 | **`commit-scope-check.sh --probe` printed `PROBE FAILED` on both runs, exit 1.** 18 of its 19 cases pass; one fails: `scope-base-unresolvable — expected exit 0, got 2`. **The guard is not broken — its own test is stale.** `c35f0ee` (2026-08-19, *"an explicit-but-unresolvable base skipped and exited 0"*) deliberately changed that branch from SKIP-at-0 to ERROR-at-2, closing a false green. The fixture still carried `EXPECT-EXIT: 0` **and a `WHY` block arguing the old behaviour was correct**, so from `c35f0ee` until this round the leg's probe reported failure against corrected behaviour. The other five legs pass twice each `[obs:2026-08-19 509c7bb each probe run twice: validate-tracking PASS/PASS · fence-nesting-check PASS/PASS · validate-skill PASS/PASS · register-lock PASS/PASS · commit-scope-check FAILED/FAILED, exit 1]` |
+| G3-C6 | **MET, 5 of 5** | = | `fence-nesting-check --bare-inner` → **3 sites in 2 files**, matching its header (B) block · `citation-divergence-check` → `1 passed, 1 warnings, 6 failed`, all six on R3 · `check-freshness` → all tracked state within window · `engine-claim-sweep --probe` → `PROBE PASS — 7/7 exclusive family canaries` · `expectation-carrier-check` prints its coverage footer `[obs:2026-08-19 509c7bb five advisory runs]` |
+| G3-C7 | **MET** | = | R3 class re-tested by flattened multiline regex: **4 files, none in a skill tree** (down from 6 as `VERSIONS.md` consolidated); gated fence scan `0 with problems` `[obs:2026-08-19 509c7bb python flattened regex over all .md]` |
+| G3-C8 | **NOT MET** | = | Still no `KPI.md` row for the round under measurement — none for 08-18 or 08-19. The 08-17 correcting row's own figures remain drifted: it states 19 regressions across 18 compared suites; the wave yields **21 across 20** `[obs:2026-08-19 KPI.md date column -> 08-10, 08-13, 08-17, 08-17]` |
+
+**Fixed by this round, and scored as found rather than as fixed.** The `scope-base-unresolvable`
+fixture was rewritten here to `EXPECT-EXIT: 2`, `ROLE: positive`, with a second `EXPECT-MATCH` on
+`refusing to run` and a `WHY` block recording why it changed. Verified twice: `PROBE PASS`, exit 0.
+**G3-C5 is nevertheless recorded NOT MET at 5 of 6**, because the round scores the tree it measured;
+scoring the repair would be the laundering this file recorded against itself at Round 7. The next
+round should find 6 of 6.
+
+#### Goal 4 — **4A: 3 of 4 criteria met (Round 2: 3 of 4 · Round 5: 2 of 4). 4B: 0 of 4 cleared, all owner-gated**
+
+| ID | Result | Movement | Evidence |
+|---|---|---|---|
+| G4-C1 | **MET, 20 of 20** | = | 20 of 20 carry path and vocabulary; 19 of 20 inside an output-shaped section; the exception is memory-management, which states it does not author actions `[obs:2026-08-19 509c7bb section-attributed scan of all 20 SKILL.md]` |
+| G4-C2 | **MET, 20 of 20** | = | `[obs:2026-08-19]` |
+| G4-C3 | **MET** | = (+1 artefact) | 8 artefacts under `docs/loop/pilot/`, plus `docs/loop/reports/citation-landscape_18-08-2026.md`, new since Round 2 `[obs:2026-08-19 ls docs/loop/pilot/ | wc -l -> 8; ls docs/loop/reports/]` |
+| G4-C4 | **NOT MET — 0 captures** | = | No capture log exists. **Third consecutive round at zero** `[obs:2026-08-19 ls docs/loop/pilot/ | grep -icE capture -> 0]` |
+
+**4B — owner-gated, unchanged and reported as blocked, not as zero.** B1 `0 of 3 inputs cleared` ·
+B2 `unlocked` · B3 `empty` · B4 `refused at gateway` for client hosts, allow-list admits
+`github.com`. Nothing in 4B moved because nothing in 4B is the library's to move.
+
+**Round 12 in one line.** Three goals held exactly; Goal 3 fell 6 → 5 on a stale test rather than a
+broken guard; and the two criteria that have now sat at zero for three consecutive rounds — G2-C3
+and G4-C4 — each wait on one decision: freeze the tree and re-run the wave, and take one capture
+against the v1 prompt set.
+
 ---
 
 ## Part C — What closes each gap
