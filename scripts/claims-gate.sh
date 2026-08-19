@@ -15,8 +15,9 @@
 # gate's reach (limitation on record, plan 1b).
 #
 # DIFF BASE (the "outgoing diff"): committed outgoing work `<base>...HEAD` (base =
-# $1, else @{upstream}, else origin/main, else skipped with a note) PLUS staged +
-# worktree changes (`git diff HEAD`). Untracked files enter the scan once staged.
+# $1, else @{upstream}, else REFUSED -- see DIFF BASE RESOLUTION below) PLUS staged
+# + worktree changes (`git diff HEAD`). Untracked files enter the scan once staged.
+# The base and the provenance that chose it are printed on every run.
 #
 # RULES
 #   (1) anchored claims — an added line matching the risk lexicon must carry, on
@@ -69,7 +70,8 @@
 #   Fixtures for every recorded F11 instance live in scripts/fixtures/claims-gate/.
 #
 # EVERY failure prints the offending line (house evidence-print rule, ledger F7 —
-# no bare booleans). Exit: 0 = pass (warnings allowed), 1 = any FAIL, 2 = usage.
+# no bare booleans). Exit: 0 = pass (warnings allowed), 1 = any FAIL, 2 = usage or
+# an unresolvable diff base (refused, no verdict).
 # No network access. Dependencies: bash, git (repo mode), grep, sed, awk, date.
 
 set -u
@@ -103,6 +105,47 @@ warn() { printf 'WARN: %s\n' "$1"; WARN_N=$((WARN_N + 1)); }
 evline() { printf '      + %s\n' "$1"; }   # offending-line evidence print
 
 # ---------------------------------------------------------------------------
+# DIFF BASE RESOLUTION (2026-08-19). The base is $1, else @{upstream}, else the
+# run is REFUSED. It is PRINTED on every run, with the provenance that chose it.
+#
+# WHAT WENT WRONG WITHOUT IT. The chain used to end `... else origin/main, else
+# nothing`, and it chose silently. On a DETACHED HEAD `@{upstream}` does not
+# resolve, so an ordinary-looking run quietly re-based itself on origin/main --
+# 350 commits behind this branch's real base when this was measured. This gate
+# then reported 24 FAILs on a tree that reports 0 against its real base, in the
+# same second, and two readers reproduced that 24 independently and believed it.
+# The verdict was an artefact of a base nobody chose and nothing printed.
+#
+# A guessed base is not merely noisy, it is unsound IN BOTH DIRECTIONS: it can
+# invent failures against unrelated history, and it can hide real ones by
+# reading a range that does not contain the work. So it refuses rather than
+# proceeds -- an unreached verdict must never be readable as a pass.
+#
+# GATE_ALLOW_UNRESOLVED_BASE=1 downgrades the refusal to a loud stderr notice,
+# for fixture/probe harnesses that run this file inside a throwaway repository
+# where no base can exist (see scripts/register-lock.sh --probe, GATE LEG 6).
+# It never silences the disclosure and it is never set by ordinary runs.
+# ---------------------------------------------------------------------------
+refuse_unresolved_base() {   # <how-to-invoke-this-script>
+    if [ "${GATE_ALLOW_UNRESOLVED_BASE:-}" = "1" ]; then
+        echo "WARNING: no diff base resolved, and GATE_ALLOW_UNRESOLVED_BASE=1 is set -- proceeding" >&2
+        echo "WARNING: WITHOUT a base ref. Fixture/probe harnesses only. Whatever follows is not a" >&2
+        echo "WARNING: verdict about any commit; do NOT read it as a pass." >&2
+        return 0
+    fi
+    echo "ERROR: no diff base could be resolved -- refusing to run rather than guessing one." >&2
+    echo "ERROR:   No base was given as \$1, and '@{upstream}' does not resolve here (detached" >&2
+    echo "ERROR:   HEAD, or a branch with no upstream configured)." >&2
+    echo "ERROR:   The removed fallback was 'origin/main', which on this repo sits hundreds of" >&2
+    echo "ERROR:   commits behind the working branch's real base: a diff against unrelated" >&2
+    echo "ERROR:   history, reported as though it were yours." >&2
+    echo "ERROR: fix: pass the base explicitly            ->  $1 <base-ref>" >&2
+    echo "ERROR:      or run from a branch with an upstream ->  git branch --set-upstream-to=origin/<branch>" >&2
+    echo "ERROR: nothing was checked and no verdict was reached; do NOT read this as a pass." >&2
+    exit 2
+}
+
+# ---------------------------------------------------------------------------
 # Gather: the diff text, the commit-message/trailer source, the clock, and the
 # register set the rule-2 sweep runs over.
 # ---------------------------------------------------------------------------
@@ -117,15 +160,15 @@ if [ -n "$FIXTURE" ]; then
     fi
     REGROOT="$FIXTURE/registers"
     BASE_DESC="fixture diff.patch"
+    BASE=""; BASE_SRC="fixture mode -- no git base is used"
 else
     if [ -n "$BASE_ARG" ]; then
-        BASE="$BASE_ARG"
+        BASE="$BASE_ARG"; BASE_SRC="explicit argument"
     elif git -C "$ROOT" rev-parse --verify --quiet '@{upstream}' >/dev/null 2>&1; then
-        BASE='@{upstream}'
-    elif git -C "$ROOT" rev-parse --verify --quiet origin/main >/dev/null 2>&1; then
-        BASE='origin/main'
+        BASE='@{upstream}'; BASE_SRC="upstream"
     else
-        BASE=""
+        refuse_unresolved_base "scripts/claims-gate.sh"
+        BASE=""; BASE_SRC="NOTHING -- unresolved, fixture override in force"
     fi
     DIFF_TEXT=""
     MSG_TEXT=""
@@ -158,6 +201,7 @@ else
     echo "Repo root: $ROOT"
 fi
 echo "Diff source: $BASE_DESC | Gate clock: $NOW"
+echo "Diff base: ${BASE:-(none)} (resolved from: $BASE_SRC)"
 echo "=============================================="
 
 # ---------------------------------------------------------------------------

@@ -284,20 +284,66 @@ fi
 RED=$'\033[0;31m'; GREEN=$'\033[0;32m'; YELLOW=$'\033[1;33m'; NC=$'\033[0m'
 pass=0; fail=0; warn=0
 
+# ---------------------------------------------------------------------------
+# DIFF BASE RESOLUTION (2026-08-19). The base is $1, else @{upstream}, else the
+# run is REFUSED. It is PRINTED on every run, with the provenance that chose it.
+#
+# WHAT WENT WRONG WITHOUT IT. This check used to SKIP -- and exit 0 -- when no
+# base and no upstream could be found, printing no base at all. On a DETACHED
+# HEAD that is every run: the guard read nothing, said so in one yellow line
+# among many, and returned success. A sibling gate on the same tree took the
+# other branch of the same defect, silently falling back to origin/main (350
+# commits behind the real base) and reporting 24 FAILs that vanish against the
+# right base, in the same second.
+#
+# Both shapes are the same fault: a base nobody chose and nothing printed. A
+# guessed or absent base is unsound IN BOTH DIRECTIONS -- it can invent findings
+# against unrelated history and hide real ones by reading a range that does not
+# contain the work. So it refuses rather than proceeds; an unreached verdict
+# must never be readable as a pass.
+#
+# GATE_ALLOW_UNRESOLVED_BASE=1 downgrades the refusal to a loud stderr notice,
+# for fixture/probe harnesses that run this file inside a throwaway repository
+# where no base can exist. It never silences the disclosure.
+# ---------------------------------------------------------------------------
+refuse_unresolved_base() {   # <how-to-invoke-this-script>
+    if [ "${GATE_ALLOW_UNRESOLVED_BASE:-}" = "1" ]; then
+        echo "WARNING: no diff base resolved, and GATE_ALLOW_UNRESOLVED_BASE=1 is set -- proceeding" >&2
+        echo "WARNING: WITHOUT a base ref. Fixture/probe harnesses only. Whatever follows is not a" >&2
+        echo "WARNING: verdict about any commit; do NOT read it as a pass." >&2
+        return 0
+    fi
+    echo "ERROR: no diff base could be resolved -- refusing to run rather than guessing one." >&2
+    echo "ERROR:   No base was given as \$1, and '@{upstream}' does not resolve here (detached" >&2
+    echo "ERROR:   HEAD, or a branch with no upstream configured)." >&2
+    echo "ERROR:   This check used to SKIP and exit 0 here, which reported success for having" >&2
+    echo "ERROR:   read no commits at all." >&2
+    echo "ERROR: fix: pass the base explicitly            ->  $1 <base-ref>" >&2
+    echo "ERROR:      or run from a branch with an upstream ->  git branch --set-upstream-to=origin/<branch>" >&2
+    echo "ERROR: nothing was checked and no verdict was reached; do NOT read this as a pass." >&2
+    exit 2
+}
+
+
 echo "commit-scope-check: F14 declared-scope check on outgoing commits"
 echo "Repo root: $ROOT"
 echo "=============================================="
 
 BASE="${1:-}"
+if [ -n "$BASE" ]; then
+  BASE_SRC="explicit argument"
+elif BASE=$(git rev-parse --abbrev-ref --symbolic-full-name '@{upstream}' 2>/dev/null); then
+  BASE_SRC="upstream"
+else
+  refuse_unresolved_base "scripts/commit-scope-check.sh"
+  BASE=""; BASE_SRC="NOTHING -- unresolved, fixture override in force"
+fi
+echo "Diff base: ${BASE:-(none)} (resolved from: $BASE_SRC)"
 if [ -z "$BASE" ]; then
-  if BASE=$(git rev-parse --abbrev-ref --symbolic-full-name '@{upstream}' 2>/dev/null); then
-    :
-  else
-    echo "${YELLOW}  SKIP${NC}: no base ref and no upstream — nothing outgoing to check"
-    echo "=============================================="
-    echo "Results: ${GREEN}0 passed${NC}, ${YELLOW}1 warning${NC}, ${RED}0 failed${NC}"
-    exit 0
-  fi
+  echo "${YELLOW}  SKIP${NC}: no base ref and no upstream — nothing outgoing to check"
+  echo "=============================================="
+  echo "Results: ${GREEN}0 passed${NC}, ${YELLOW}1 warning${NC}, ${RED}0 failed${NC}"
+  exit 0
 fi
 
 if ! git rev-parse --verify --quiet "$BASE" >/dev/null; then

@@ -75,7 +75,8 @@
 #   status
 #         Print open tenures with age and live/stale state.
 #   gate-check [<base-ref>]
-#         Pre-push check over outgoing commits (base arg, else @{upstream}).
+#         Pre-push check over outgoing commits (base arg, else @{upstream}, else
+#         REFUSED -- see DIFF BASE RESOLUTION). The base is printed every run.
 #   archive
 #         Copy journal rows to docs/loop/register-locks-archive/<date>.tsv, filed
 #         by each row's own date. Tracked, append-only, idempotent. Evidence only:
@@ -155,7 +156,12 @@
 #      read by nothing here.
 #   4. The DEFAULT base ref. The gate calls `gate-check` with no argument and it
 #      resolves `@{upstream}`; a temp repo has no upstream, so every case passes an
-#      explicit base and that branch is never taken.
+#      explicit base and that branch is never taken. Since 2026-08-19 the no-base
+#      branch REFUSES (exit 2) instead of skipping, so GATE LEG 6 below -- which
+#      runs the real gate whole in a throwaway repo, with no arg and no upstream --
+#      sets GATE_ALLOW_UNRESOLVED_BASE=1 to reach leg 6 at all. That override is
+#      therefore exercised here and nowhere else; the refusal itself is NOT probed
+#      by this file, only by the base-resolution proofs kept with the change.
 #   5. A writer who never runs `acquire`. Invisible to the check by construction,
 #      and therefore invisible to any fixture the check could ever be given.
 #   6. That a `Register-Lock: <holder>` or `none` declaration is TRUE. It is an
@@ -841,7 +847,7 @@ if [ "${1:-}" = "--probe" ]; then
         l_bad() { n_leg6=$((n_leg6 + 1)); echo "  PROBE FAIL  $1"
                   printf '%s\n' "${2:-}" | sed 's/^/      | /' | tail -16; probe_fail=1; }
         g6() {   # run the WHOLE gate; sets GOUT/GRC. Scope control: the leg must have run.
-            GOUT="$(bash "$TG/scripts/pre-push-gate.sh" 2>&1)"; GRC=$?
+            GOUT="$(GATE_ALLOW_UNRESOLVED_BASE=1 bash "$TG/scripts/pre-push-gate.sh" 2>&1)"; GRC=$?
             printf '%s\n' "$GOUT" | grep -qF "== register-lock archive (G1-C5 evidence durability)"
         }
 
@@ -931,6 +937,45 @@ if [ "${1:-}" = "--probe" ]; then
 fi
 
 RED=$'\033[0;31m'; GREEN=$'\033[0;32m'; YELLOW=$'\033[1;33m'; NC=$'\033[0m'
+
+# ---------------------------------------------------------------------------
+# DIFF BASE RESOLUTION (2026-08-19). gate-check's base is $1, else @{upstream},
+# else the run is REFUSED. It is PRINTED on every run, with its provenance.
+#
+# WHAT WENT WRONG WITHOUT IT. gate-check used to SKIP -- and return 0 -- when no
+# base and no upstream could be found, printing no base at all. On a DETACHED
+# HEAD that is every run: the check read no commits, said so in one yellow line,
+# and reported success. A sibling gate on the same tree took the other branch of
+# the same defect, silently falling back to origin/main (350 commits behind the
+# real base) and reporting 24 FAILs that vanish against the right base.
+#
+# Both are one fault: a base nobody chose and nothing printed. It is unsound IN
+# BOTH DIRECTIONS -- inventing findings against unrelated history, and hiding
+# real ones by reading a range that does not contain the work. So it refuses;
+# an unreached verdict must never be readable as a pass.
+#
+# GATE_ALLOW_UNRESOLVED_BASE=1 downgrades the refusal to a loud stderr notice,
+# for fixture/probe harnesses running this file inside a throwaway repository
+# where no base can exist -- including THIS file's own --probe GATE LEG 6, which
+# runs the real pre-push-gate.sh in a temp repo. It never silences the disclosure.
+# ---------------------------------------------------------------------------
+refuse_unresolved_base() {   # <how-to-invoke-this-script>
+    if [ "${GATE_ALLOW_UNRESOLVED_BASE:-}" = "1" ]; then
+        echo "WARNING: no diff base resolved, and GATE_ALLOW_UNRESOLVED_BASE=1 is set -- proceeding" >&2
+        echo "WARNING: WITHOUT a base ref. Fixture/probe harnesses only. Whatever follows is not a" >&2
+        echo "WARNING: verdict about any commit; do NOT read it as a pass." >&2
+        return 0
+    fi
+    echo "ERROR: no diff base could be resolved -- refusing to run rather than guessing one." >&2
+    echo "ERROR:   No base was given as \$1, and '@{upstream}' does not resolve here (detached" >&2
+    echo "ERROR:   HEAD, or a branch with no upstream configured)." >&2
+    echo "ERROR:   This check used to SKIP and return 0 here, which reported success for having" >&2
+    echo "ERROR:   read no commits at all." >&2
+    echo "ERROR: fix: pass the base explicitly            ->  $1 <base-ref>" >&2
+    echo "ERROR:      or run from a branch with an upstream ->  git branch --set-upstream-to=origin/<branch>" >&2
+    echo "ERROR: nothing was checked and no verdict was reached; do NOT read this as a pass." >&2
+    exit 2
+}
 
 LOCKFILE="${REGISTER_LOCK_FILE:-$ROOT/.register-locks}"
 TTL_MIN="${REGISTER_LOCK_TTL_MIN:-90}"
@@ -1202,13 +1247,21 @@ do_gate_check() {
     echo "Journal: ${LOCKFILE#"$ROOT"/} | staleness horizon: ${TTL_MIN}m"
     echo "=============================================="
 
+    local base_src
+    if [ -n "$base" ]; then
+        base_src="explicit argument"
+    elif base=$(git rev-parse --abbrev-ref --symbolic-full-name '@{upstream}' 2>/dev/null); then
+        base_src="upstream"
+    else
+        refuse_unresolved_base "scripts/register-lock.sh gate-check"
+        base=""; base_src="NOTHING -- unresolved, fixture override in force"
+    fi
+    echo "Diff base: ${base:-(none)} (resolved from: $base_src)"
     if [ -z "$base" ]; then
-        if ! base=$(git rev-parse --abbrev-ref --symbolic-full-name '@{upstream}' 2>/dev/null); then
-            echo "${YELLOW}  SKIP${NC}: no base ref and no upstream — nothing outgoing to check"
-            echo "=============================================="
-            echo "Results: ${GREEN}0 passed${NC}, ${YELLOW}1 warning${NC}, ${RED}0 failed${NC}"
-            return 0
-        fi
+        echo "${YELLOW}  SKIP${NC}: no base ref and no upstream — nothing outgoing to check"
+        echo "=============================================="
+        echo "Results: ${GREEN}0 passed${NC}, ${YELLOW}1 warning${NC}, ${RED}0 failed${NC}"
+        return 0
     fi
     if ! git rev-parse --verify --quiet "$base" >/dev/null; then
         echo "${YELLOW}  SKIP${NC}: base ref '$base' does not resolve"

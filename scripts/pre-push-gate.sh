@@ -24,14 +24,74 @@
 # Push only when all six pass. With Actions disabled on this fork, this gate
 # is the effective CI (docs/loop/PIPELINE.md stage 4).
 #
-# Usage: ./scripts/pre-push-gate.sh [base-ref]   (default: origin/main)
-# Exit:  0 = gate passed, 1 = gate failed
+# Usage: ./scripts/pre-push-gate.sh [base-ref]   (leg 1 default: origin/main; the
+#        branch's real base must still resolve from $1 or @{upstream} -- see
+#        DIFF BASE RESOLUTION below. Both refs are printed on every run.)
+# Exit:  0 = gate passed, 1 = gate failed, 2 = refused (no resolvable base, no verdict)
 
 set -u
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 BASE="${1:-origin/main}"
 overall=0
+
+# ---------------------------------------------------------------------------
+# DIFF BASE RESOLUTION (2026-08-19). TWO bases exist in this file and they have
+# always been different refs. Both are now PRINTED, with provenance, every run.
+#
+#   VBASE -- the branch's real base: $1, else @{upstream}, else REFUSED.
+#   BASE  -- leg 1's skill-SELECTION base ($1, else origin/main). Unchanged.
+#
+# WHAT WENT WRONG WITHOUT IT. Nothing printed either one. Legs 3-5 resolve
+# @{upstream} for themselves; leg 1 defaulted to origin/main, which on this repo
+# is 350 commits behind the branch's real base. On a DETACHED HEAD @{upstream}
+# stops resolving and the three scoped legs silently changed what they measured:
+# claims-gate fell through to origin/main and reported 24 FAILs on a tree that
+# reports 0 against its real base in the same second, while commit-scope-check
+# and register-lock skipped and returned 0 having read nothing. Two readers
+# reproduced the 24 and believed it. A base nobody chose and nothing printed.
+#
+# WHY LEG 1 KEEPS origin/main. Its base does not decide a verdict, only WHICH
+# skills get fully validated, and validate-skill.sh judges each file as it
+# stands. origin/main is an ancestor of this branch, so a three-dot diff against
+# it over-selects: it can only validate more skills, never fewer. Re-pointing it
+# at @{upstream} would have cut leg 1 from 20 skills to 0 on a fully-pushed
+# branch -- a coverage regression smuggled in as a disclosure fix. The two refs
+# are printed side by side instead, which is what OPEN-FINDINGS 128 asked for.
+#
+# GATE_ALLOW_UNRESOLVED_BASE=1 downgrades the refusal to a loud stderr notice,
+# for fixture/probe harnesses that run this gate inside a throwaway repository
+# (scripts/register-lock.sh --probe, GATE LEG 6). It never silences either line.
+# ---------------------------------------------------------------------------
+refuse_unresolved_base() {   # <how-to-invoke-this-script>
+    if [ "${GATE_ALLOW_UNRESOLVED_BASE:-}" = "1" ]; then
+        echo "WARNING: no diff base resolved, and GATE_ALLOW_UNRESOLVED_BASE=1 is set -- proceeding" >&2
+        echo "WARNING: WITHOUT a base ref. Fixture/probe harnesses only. Whatever follows is not a" >&2
+        echo "WARNING: verdict about any commit; do NOT read it as a pass." >&2
+        return 0
+    fi
+    echo "ERROR: no diff base could be resolved -- refusing to run rather than guessing one." >&2
+    echo "ERROR:   No base was given as \$1, and '@{upstream}' does not resolve here (detached" >&2
+    echo "ERROR:   HEAD, or a branch with no upstream configured)." >&2
+    echo "ERROR:   Legs 3-5 would each silently re-scope themselves: claims-gate onto origin/main," >&2
+    echo "ERROR:   commit-scope-check and register-lock onto nothing at all, exiting 0 for having" >&2
+    echo "ERROR:   read no commits. The gate would print PASSED on top of that." >&2
+    echo "ERROR: fix: pass the base explicitly            ->  $1 <base-ref>" >&2
+    echo "ERROR:      or run from a branch with an upstream ->  git branch --set-upstream-to=origin/<branch>" >&2
+    echo "ERROR: nothing was validated and no verdict was reached; do NOT read this as a pass." >&2
+    exit 2
+}
+
+if [ -n "${1:-}" ]; then
+    VBASE="$1"; VBASE_SRC="explicit argument"
+elif VBASE=$(git -C "$ROOT" rev-parse --abbrev-ref --symbolic-full-name '@{upstream}' 2>/dev/null); then
+    VBASE_SRC="upstream"
+else
+    refuse_unresolved_base "scripts/pre-push-gate.sh"
+    VBASE=""; VBASE_SRC="NOTHING -- unresolved, fixture override in force"
+fi
+echo "Diff base: ${VBASE:-(none)} (resolved from: $VBASE_SRC)"
+echo "Skill-diff base (leg 1): $BASE (over-selects by design; see DIFF BASE RESOLUTION)"
 
 skill_dirs_from() { grep -oE '^(research|build|optimize|monitor|cross-cutting)/[^/]+' | sort -u; }
 
@@ -175,10 +235,15 @@ fi
 # matching nothing. The checks are right to be scoped this way; the summary was
 # wrong to hide it. State what was actually scanned.
 outgoing_n=0
-if up=$(git rev-parse --abbrev-ref --symbolic-full-name '@{upstream}' 2>/dev/null); then
-    outgoing_n=$(git rev-list --count "$up..HEAD" 2>/dev/null || echo 0)
+# `git -C "$ROOT"`, not bare `git`: this file never cd's to ROOT (its siblings all
+# do), so run from any other directory these two commands silently reported 0 and 0
+# and the gate closed with "NOTHING WAS OUTGOING" on a branch that had outgoing
+# commits -- the same class of defect as the unprinted base, in the very block that
+# exists to disclose scope. Measured 2026-08-19 with cwd outside the repo.
+if up=$(git -C "$ROOT" rev-parse --abbrev-ref --symbolic-full-name '@{upstream}' 2>/dev/null); then
+    outgoing_n=$(git -C "$ROOT" rev-list --count "$up..HEAD" 2>/dev/null || echo 0)
 fi
-dirty_n=$(git status --porcelain 2>/dev/null | wc -l | tr -d ' ')
+dirty_n=$(git -C "$ROOT" status --porcelain 2>/dev/null | wc -l | tr -d ' ')
 
 if [ "$outgoing_n" -eq 0 ] && [ "$dirty_n" -eq 0 ]; then
     echo "PRE-PUSH GATE: PASSED — but NOTHING WAS OUTGOING."
