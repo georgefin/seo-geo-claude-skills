@@ -681,8 +681,11 @@ command at this round's own tree, and that is the point.
    disagreement only after running the other party's command at the other party's stated scope.
 
 4. **Not re-scored, and nothing above touches a verdict.** G1-C6's verdict rested on the ledger
-   entry being absent, not on the occurrence count; G3-C7's partial-population question raised in
-   Round 3 item 4 remains open and still belongs to the owner.
+   entry being absent, not on the occurrence count. G3-C7's partial-population question, raised in
+   Round 3 item 4, is neither answered nor re-scored here: **this round records no ruling on it and
+   asserts nothing about its status anywhere else.** That is a claim about this round only, and it is
+   checkable against the text above — where Round 3's version asserted a current world-state without
+   an anchor, which is the defect this whole round is about.
 
 ---
 
