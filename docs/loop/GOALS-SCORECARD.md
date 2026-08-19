@@ -627,12 +627,28 @@ sits in; the rest narrow a reason without moving its conclusion.
 Appended, never edited; Round 3 is now frozen exactly as it froze Round 2. **This is the second
 consecutive correction round to carry a defect**, which is the finding, not a footnote — see 3.
 
-**Every figure below is pinned to a SHA and read with `git grep <sha>`, never scanned from the
-working tree.** That is the direct remedy for what went wrong in Round 3 item 6(a): a bare `.` scan
-measures the tree the round *creates*, so a round that scans is guaranteed to publish a number that
-was true only before it was written. Round 4's own text adds further occurrences of the string
-counted in 1; the pinned figures below are therefore deliberately NOT re-checkable by re-running the
-command at this round's own tree, and that is the point.
+**The figures below are anchored two different ways, and the difference is stated rather than
+blurred** — an earlier draft of this paragraph claimed all of them were SHA-pinned, which was false
+for four of the nine and was caught in review before this round was pushed.
+
+* **Item 1's figures are SHA-pinned**, read with `git grep <sha>`, never scanned from the working
+  tree. That is the direct remedy for Round 3 item 6(a): a bare `.` scan measures the tree the round
+  *creates*, so a scanning round is guaranteed to publish a number that was true only before it was
+  written. Round 4's own text adds further occurrences of the string counted in 1, so those figures
+  are deliberately NOT re-checkable by re-running the command at this round's own tree.
+* **Item 2's four figures come from re-running a script against the working tree, and they ARE
+  re-checkable here.** What makes that legitimate is a different anchor: the instrument is constant.
+  `scripts/engine-claim-sweep.sh` is one blob across every commit in this range
+  `[obs:2026-08-19 git ls-tree <sha> -- scripts/engine-claim-sweep.sh over 0371f43, 650a245, 9e53cc6,
+  45e6635, 87bd16e, ac5aa7e, 7d9c051 -> b59fa9c2a3506110f07621197d80b429be46d108 at all seven;
+  distinct blobs = 1]`. **This is weaker than SHA-pinning and is not claimed to be equivalent**: the
+  script asserts directory presence against the tree it runs in, so the count does move if the tree
+  is perturbed — demonstrated in review, where hiding a directory took it from 21 to 22.
+
+The general rule this round is willing to state: **a re-run is reproducible when the instrument is
+constant, and a scan is reproducible only when the scanned population is.** Round 3 conflated the
+two. So did the first draft of this paragraph, which is the more useful evidence of how easy the
+conflation is.
 
 1. 🔴 **Round 3 item 6(a) is wrong, and wrong in the way item 6 existed to avoid.** It printed
    `grep -rn 'F8 r3' --include="*.md" . | wc -l -> 2` and declined to correct the review's figure of
