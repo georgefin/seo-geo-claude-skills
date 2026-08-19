@@ -84,9 +84,13 @@ while [ $# -gt 0 ]; do
     case "$1" in
         --probe)           PROBE=1; shift ;;
         --emit-f-patterns) EMIT=1;  shift ;;
-        --*)
+        # `-?*` as well as `--*`: dropping ONE dash is at least as common a typo as
+        # transposing two letters, and without this leg `-probe` fell through to ROOT and
+        # died with "not a directory" -- the misleading diagnostic this parser exists to
+        # remove. Bare `-` is deliberately NOT matched, so it can still be a positional.
+        --*|-?*)
             echo "ERROR: unrecognised flag '$1' -- refusing to run rather than treating it as a repo root." >&2
-            echo "ERROR: usage: validate-tracking.sh [--probe] [--emit-f-patterns] [repo-root]" >&2
+            echo "ERROR: usage: validate-tracking.sh [--probe | --emit-f-patterns] [repo-root]" >&2
             echo "ERROR: nothing was validated and no verdict was reached; do NOT read this as a pass." >&2
             exit 2
             ;;
@@ -99,6 +103,25 @@ while [ $# -gt 0 ]; do
             ROOT="$1"; shift ;;
     esac
 done
+
+# --probe and --emit-f-patterns are MUTUALLY EXCLUSIVE MODES, and accepting both is a
+# silent green -- the exact defect the loop above was written to remove.
+#
+# The emit branch exits 0 long before the probe block is reached, so `--emit-f-patterns
+# --probe` printed 13 pattern lines, exit 0, zero stderr, zero probe verdicts: a probe
+# request answered by a run that never probed. The OLD single-argument parser failed this
+# loudly (the second flag became a repo root and died on the -d test), so accepting both
+# was a REGRESSION introduced by the multi-argument loop.
+#
+# Rejecting an unknown flag while silently discarding a KNOWN one is the harder failure to
+# defend: the parser here does not fail open because it cannot recognise the token -- it
+# recognises it, accepts it, and throws it away. Two mutually exclusive modes get the same
+# treatment as two positional roots, for the same reason.
+if [ "$PROBE" -eq 1 ] && [ "$EMIT" -eq 1 ]; then
+    echo "ERROR: --probe and --emit-f-patterns are mutually exclusive modes -- --emit-f-patterns exits before the probe ever runs." >&2
+    echo "ERROR: nothing was validated and no verdict was reached; do NOT read this as a pass." >&2
+    exit 2
+fi
 
 ROOT="${ROOT:-.}"
 
@@ -1586,7 +1609,15 @@ for reg in $G_REGISTERS; do
     # case that never happens; this one tests the case that does. Retiring a register is a
     # deliberate act, so it should cost a deliberate edit to this list, not pass silently.
     if [ ! -f "$reg_file" ]; then
-        fail "(g) declared live register is MISSING: docs/loop/$reg — the scanned population no longer matches the declared one. Restore the file, or remove it from G_REGISTERS deliberately; do NOT read the remaining registers' PASS as covering it."
+        fail "(g) declared live register is MISSING: docs/loop/$reg — the scanned population no longer matches the declared one. Restore the file, or remove it from G_REGISTERS deliberately."
+        # G_OK=0 suppresses the check's own PASS line. Without it this was the ONLY
+        # `fail "(g)` in the check not paired with it, so a failed run still printed
+        # `PASS: (g) all 37 ... pointers ... verified` -- the exact green this fail exists
+        # to prevent, sitting three lines below the FAIL. The first draft mitigated that in
+        # PROSE ("do NOT read the remaining registers' PASS as covering it"), which is the
+        # shape this very file rejects at the head of the F-pattern block: a disclaimer is
+        # not a mechanism when a one-word assignment is available.
+        G_OK=0
         continue
     fi
     # Flatten the register to one string first so a pointer whose ("token")
