@@ -852,10 +852,12 @@ before this round was written.
    changing method establishes more than both of them together did.
 
 3. **The citation-count item: CORRECTED WITH SOURCE, not retracted.** A fresh grader could find no
-   trace of the four "Part B proposals" in the repo or in Notion, and correctly blocked a figure with
-   no path attached. **They live in the session scratchpad**, at
-   `…/17663f2a-0c31-41cb-b298-b165b7251395/scratchpad/`, and were never committed — deliberately, the
-   owner having asked for proposals that touch no live file. Re-measured there with controls
+   trace of the four "Part B proposals" in the repo or in Notion, and correctly refused a figure with
+   no path attached. **The four files are in the session scratchpad and were never committed**
+   `[obs:2026-08-19 ls -la <session>/scratchpad/PROPOSED_*.md -> 4 files: off-site-citations-function
+   14701 B · source-of-truth-map 26566 B · telemetry-log-spec 24506 B · two-track-cadence-rule 15318 B;
+   git ls-files over the repo returns none of them]` — deliberately, the
+   owner having asked for proposals that touch no file under version control. Re-measured there with controls
    `[obs:2026-08-19 grep -c and grep -o over scratchpad/PROPOSED_*.md → off-site-citations-function
    8 lines / 8 occurrences; source-of-truth-map, telemetry-log-spec, two-track-cadence-rule 0 each;
    control "Owner" → 12 lines, control "zzqqxx" → 0]`. So: **8 occurrences in one of four proposals**,
