@@ -765,6 +765,57 @@ remapped so each round still points at the round it was written about.
    as the evidence base for the claim-before-write reservation and the anchored-token convention now
    proposed; **neither is adopted by this entry, and this entry may not be cited as adopting them.**
 
+### Round 9 — 2026-08-19 (gate override, recorded before the push; no criterion measured)
+
+**This branch was pushed while the pre-push gate exits 1. That is a deliberate override, authorised,
+and recorded here before the push rather than after.**
+
+1. **What was pushed.** The parent of this entry is `1b147e2`; the tip pushed is this entry's own
+   commit. 19 commits ahead of `d05ab0f`, fast-forward, no force.
+
+2. **The inherited failure signature, measured at `d05ab0f` standalone — the state already public on
+   the remote before this branch existed** `[obs:2026-08-19 git checkout --detach d05ab0f; bash
+   scripts/pre-push-gate.sh → exit 1; claims-gate "Results: 1 passed, 86 warnings, 24 failed"]`:
+
+   | file | fails | | check | fails |
+   |---|---|---|---|---|
+   | `GATED-ITEMS.md` | 6 | | (1) unanchored hard-lexicon token | 23 |
+   | `PILOT.md` | 5 | | (2) stale claim | 1 |
+   | `ADVERSARIAL-LAYER.md` | 5 | | **total** | **24** |
+   | `MASTER-IMPROVEMENT-PLAN.md` | 4 | | | |
+   | `FAILURE-LEDGER.md` | 3 | | | |
+   | `WATCH-ITEMS.md` | 1 | | | |
+
+   ⚠️ **Two corrections to the signature as it was put to the coordinator**, made rather than
+   inherited: it is **six** files, not five — `WATCH-ITEMS.md` carries one — and the 24 are **23
+   hard-lexicon plus one stale-claim** (`WATCH-ITEMS.md:285`, token *"is Sani's call"*), not 24
+   hard-lexicon. Restating a signature received from someone else without re-measuring it is the
+   defect this file has recorded four times; it is not repeated in the entry that attests to it.
+
+3. **Attribution, measured per file** `[obs:2026-08-19 git log --name-only
+   d05ab0f..HEAD -- docs/loop/<file> → 0 for each of the six]`. None of this branch's 19 commits
+   touches any file carrying an inherited failure. The failure-signature diff between `d05ab0f` and
+   this tip is **empty**: this branch adds no new failure and removes none.
+
+4. **Authorisation chain.** The coordinator escalated rather than deciding — the standing rule is
+   gate-before-push, the authorisation to push predated knowledge that the base was red, and the
+   decision-authority rule routes novel conflicts to the owner instead of inferring consent from an
+   earlier instruction. The owner independently re-ran the same test through a separate agent on a
+   fresh clone, reproduced the signature, and gave an explicit go-ahead. **The stated reasoning: the
+   red state is already public on the remote, so withholding 19 clean commits does not un-publish it.**
+
+5. **What this override does NOT license.** It is scoped to a base that was already red and already
+   pushed, and to a branch measured to add nothing to it. It is not a precedent for pushing through a
+   gate a branch made red itself, and it does not discharge the inherited 24 — those remain the other
+   session's, unfixed, and untouched by this branch.
+
+6. **The mechanical successor, proposed and NOT adopted here.** The gate has no concept of inherited
+   versus newly-introduced red: it reports pass/fail against a working tree, never who made the base
+   fail, which is why tonight's call needed a human at all. The owner has commissioned an extension
+   that computes the failure-signature diff automatically, blocks on new failures, and surfaces
+   inherited ones as a loud warning. **That work is not done, this entry does not do it, and this
+   entry may not be cited as adopting it** — it records the requirement and the evidence for it.
+
 ---
 
 ## Part C — What closes each gap
