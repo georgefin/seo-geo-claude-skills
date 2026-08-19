@@ -867,6 +867,109 @@ before this round was written.
    third instance of that shape recorded here. It is also the correct outcome: **a measured figure
    with no locator is not checkable, and blocking it was right even though the figure was right.**
 
+### Round 11 — 2026-08-19 (addendum to Round 10; a fabricated control, and two corrected counts)
+
+Round 10 is committed, so its corrections land here. Opened at `c35f0ee`; every figure below was
+re-run at that tip, and every command is named so the next grader can re-run it rather than
+trust it.
+
+1. 🔴 **Round 10's citation `[obs:...]` block carried two numbers its commands did not produce,
+   and the worse of the two was the control.** A fresh grader re-ran the recorded command and got
+   9, not 8. Re-running the whole block rather than only the challenged figure
+   `[obs:2026-08-19 c35f0ee]`:
+
+   | figure as recorded in Round 10 | re-run | verdict |
+   |---|---|---|
+   | 4 byte sizes 14701 / 26566 / 24506 / 15318 | identical | ✅ real |
+   | `git ls-files` → none of the four tracked | none tracked | ✅ real |
+   | three other proposals → 0 each | 0 each | ✅ real |
+   | control `zzqqxx` → 0 | 0 | ✅ real |
+   | **`citation-landscape` → 8 lines / 8 occurrences** | **9 / 9** | ❌ **wrong** |
+   | **control `Owner` → 12 lines** | **5** | ❌ **wrong** |
+
+   **There is no innocent state explanation.** The file's mtime is `2026-08-19 09:37:13`; Round 10
+   was committed at `11:01:52`. The file did not change between the measurement and the claim, so
+   the numbers were not produced by the commands the block attributes them to.
+
+   **The control is the serious half.** A positive control exists to prove the instrument could
+   have returned a different number; a control written from expectation proves nothing, and it
+   proves nothing *while displaying the exact evidence a reader checks for*. That is R297 — a check
+   that cannot fail — reproduced inside the round whose own subject was instruments that measure
+   something other than what they claim. Round 10 diagnosed the defect in four scripts and
+   committed it in its own prose in the same pass.
+
+   **Structural consequence, for a ruling rather than a fix here.** `[obs:...]` is load-bearing in
+   this file: it asserts literal tool output, and every round's credibility rests on it. If it can
+   carry a remembered number, it is devalued retroactively across all eleven rounds. The cheap
+   mechanical remedy is the one that just worked — an obs block over a grep must name the command
+   and its scan set so a grader can re-run it. This grader did exactly that, and it caught both
+   errors in one pass.
+
+2. **Corrected count: 9, by both instruments, with controls that fire.**
+   `[obs:2026-08-19 c35f0ee · grep -n "citation-landscape" PROPOSED_off-site-citations-function.md
+   → 9 lines (33, 34, 39, 56, 141, 159, 162, 176, 184) · grep -o … | wc -l → 9 occurrences ·
+   the other three PROPOSED_*.md → 0 each · control "citation" → 14 · control
+   "zzqq-impossible-token" → 0]`. Lines and occurrences agree at 9, which rules out the usual
+   cause of a discrepancy of this shape: `grep -c` counts lines, `grep -o | wc -l` counts
+   occurrences, and here every mention sits on its own line.
+
+   **Definition, stated so it is checkable:** every line containing the literal string
+   `citation-landscape`, in any role — pinpoint `file:line` evidence citations, prose describing
+   the file's location, and register rows naming it as a decision object. No line is excluded.
+
+   **And no narrower definition was in play.** Excluding the two prose lines (39, 176) yields 7;
+   excluding only 39 yields 8, but nothing recorded at the time says that was the intent, and
+   retro-fitting a definition now to make a wrong number defensible is the laundering failure
+   already on this file's record at Round 7. **8 is retracted as wrong, not reinterpreted.**
+
+3. **Commit counts, fetched and confirmed** `[obs:2026-08-19 git fetch origin exit 0; local
+   origin/main 3f22f23 == git ls-remote origin refs/heads/main 3f22f23, so the base is current]`:
+
+   | command | count | status |
+   |---|---|---|
+   | `git log --oneline origin/main..d05ab0f \| wc -l` | **328** | confirmed, matches Round 9 |
+   | `git log --oneline origin/main..HEAD \| wc -l` | **354** | **corrected from 353** |
+
+   **The 353 was right when it was said, and the delta is proven rather than asserted**
+   `[obs:2026-08-19 origin/main..428ad26 → 353 · origin/main..c35f0ee → 354]`: 428ad26 was the tip
+   when 353 was reported, and the single added commit is `c35f0ee`. `origin/main..d05ab0f` returns
+   328 at both tips, so the base did not move — only the tip did.
+
+   This is the same tree-sensitivity Round 10 recorded about item 2's figures, now applying to a
+   figure of my own: **a count measured to a moving tip is stale the moment another commit lands,
+   and only the base-pinned figure (328) is stable enough to quote without a timestamp.**
+
+4. **Incidental defect, found while recounting.** `PROPOSED_off-site-citations-function.md:176`
+   states the landscape file "is cited four times above"; the actual figure is 7
+   `[obs:2026-08-19 head -175 … | grep -c → 7 at lines 33, 34, 39, 56, 141, 159, 162; control
+   "zzqq-nothing" → 0]`. That file is proposed for commit under its own decision D3, so the figure
+   should be corrected before it is committed, not after.
+
+5. **This addendum's own status line turned the gate red, and that is the gate working.** The
+   claims-gate flip-manifest sweep flagged `GOALS-SCORECARD.md:948` — a Status line asserting a
+   verdict with no `FLIP:` trailer declaring what it flipped
+   `[obs:2026-08-19 bash scripts/pre-push-gate.sh → exit 1; claims-gate "Results: 2 passed,
+   2 warnings, 1 failed"; the other legs 5/0/0 and 1/0/0 PASSED]`.
+
+   Recorded rather than quietly fixed, for two reasons. It is **a red proved against the pre-fix
+   state on this very entry** — the R297 discipline item 1 found violated, demonstrated one section
+   later. And the line as first drafted read "gate green" **before the gate had been run**: a
+   verdict written from expectation, which is item 1's defect exactly, caught this time by a machine
+   rather than by a grader. The machine is the cheaper of the two, and it is the argument for the
+   mechanical remedy item 1 proposes.
+
+6. **Status, measured rather than expected** `[obs:2026-08-19 bash scripts/pre-push-gate.sh
+   unpiped, exit code read directly → 0, "PASSED — scanned 6 outgoing commit(s), 0 changed
+   path(s) in the worktree", after the FLIP: trailer was supplied]`: **gate green, 6 outgoing
+   commits including this entry, nothing pushed, awaiting explicit push authorization.**
+
+   ⚠️ **Drafted as "5 outgoing commits" and corrected to 6 by amendment, because this entry is
+   itself the sixth.** A status line cannot count the commit that carries it: the figure is true
+   when written and false the instant it is committed. Third instance in this round of the same
+   shape — item 1's control, item 3's 353, and now this — and the common cure is the one item 3
+   states: **quote the base-pinned figure, or stamp the tip the figure was measured at.** The
+   amendment is local and unpushed; no history was rewritten on any published ref.
+
 ---
 
 ## Part C — What closes each gap
