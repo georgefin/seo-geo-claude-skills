@@ -316,7 +316,7 @@ Weekly skill-update-check findings applied (7-lane research sweep of 2026-08-08)
 
 - **keyword-research 4.1.0**: Greek dual-coverage step (accented/unaccented/Greeklish/EN as one demand cluster with per-form placement rules); GBP surface mapping; new `references/greek-keyword-coverage.md`
 - **serp-analysis 4.1.0**: Skroutz second-SERP module for Greek e-commerce; new `references/skroutz-visibility-factors.md` (observable levers, algorithm framed as unpublished)
-- **geo-content-optimizer 4.1.0**: Google AI Mode re-baselined as default search surface (Greek live since 2025-10-08); per-engine citation split; llms.txt/schema-stacking encoded as non-levers
+- **geo-content-optimizer 4.1.0**: Google AI Mode re-baselined — ⚠️ the "default search surface" framing this entry shipped was RETRACTED in 4.6.3; no Google source read states it, see that entry (Greek live since 2025-10-08 stands); per-engine citation split; llms.txt/schema-stacking encoded as non-levers
 - **meta-tags-optimizer 4.1.0**: six-point hreflang checklist with EL/EN/DE example
 - **seo-content-writer 4.1.0**: per-locale E-E-A-T adaptation step for EL/EN/DE variants
 - **entity-optimizer 4.1.0**: full NAP restored (Address/Phone, Greek directories, script variants); Google Business Profile added as seventh signal category
