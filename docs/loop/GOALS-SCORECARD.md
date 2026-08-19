@@ -808,6 +808,63 @@ chooses a base when none is given.** The draft is not preserved; what it got wro
    meaning depends on an unstated default is not a verdict. **Proposed, not adopted; this entry may
    not be cited as adopting it.**
 
+### Round 10 — 2026-08-19 (base-selection fix, and the first real independent verification)
+
+Round 9 is pushed and frozen, so its follow-up lands here. Figures pinned to `70a281c`, the tip
+before this round was written.
+
+1. **The base-selection defect is fixed in all four scripts that had it.** Audited before the fix:
+   `claims-gate.sh` printed a base but did not guard; `commit-scope-check.sh`, `register-lock.sh` and
+   `pre-push-gate.sh` printed **no base at all** and did not guard. So three of four never said what
+   they measured against, and none refused to guess.
+
+   Every script now prints the base and how it was chosen, every run, and refuses rather than
+   guessing when no `$1` and no resolvable `@{upstream}` is available
+   `[obs:2026-08-19 detached-HEAD invocation with the new scripts → claims-gate 2 · commit-scope-check 2
+   · register-lock 2 · pre-push-gate 2, all emitting "no diff base could be resolved -- refusing to run
+   rather than guessing one" and "nothing was checked and no verdict was reached; do NOT read this as
+   a pass"]`.
+
+   **Counter-test, old and new against the same tree from the same root, timestamps filtered
+   `[obs:2026-08-19 diff of full stdout]`:** `claims-gate.sh` both exit 0, diff is exactly one added
+   line (`Diff base: @{upstream} (resolved from: upstream)`); `pre-push-gate.sh` both exit 0, diff is
+   exactly two added lines (its own base, plus the second-leg `origin/main` base now announced as
+   over-selection by design). Ordinary output is otherwise unchanged, which is the property that
+   decides whether a guard gets routed around.
+
+   ⚠️ **My first attempt at that counter-test was invalid and nearly passed.** Running the old script
+   from `/tmp` made it resolve its repo root to `/` and report "no added lines — nothing to scan":
+   two runs, two different trees, a green that meant nothing. Recorded because it is the same defect
+   family the round is about — an instrument silently measuring something other than what was asked.
+
+2. 🔴 **The first genuinely independent verification in this file, and it is worth separating from
+   the four that preceded it.** Round 9 recorded that two parties reproduced `1 passed, 86 warnings,
+   24 failed` and that the agreement was worthless, because both had checked out detached and
+   inherited the same silent `origin/main` fallback. The owner has now re-run the same check
+   **non-detached, on the real branch, with an explicit `base=d05ab0f`**, and reproduced the
+   corrected result: claims-gate PASSED, 0 failed. He also confirms his earlier 24-failure check
+   shared the identical blind spot.
+
+   **The distinction is the whole lesson.** The first instance had one agent and one commissioned
+   agent running the *same method*; the second has a *different method* reaching the same true
+   result. Independence is not a property of who runs a check — it is a property of whether the runs
+   share an unstated input. Two operators with one blind spot corroborate nothing; one operator
+   changing method establishes more than both of them together did.
+
+3. **The citation-count item: CORRECTED WITH SOURCE, not retracted.** A fresh grader could find no
+   trace of the four "Part B proposals" in the repo or in Notion, and correctly blocked a figure with
+   no path attached. **They live in the session scratchpad**, at
+   `…/17663f2a-0c31-41cb-b298-b165b7251395/scratchpad/`, and were never committed — deliberately, the
+   owner having asked for proposals that touch no live file. Re-measured there with controls
+   `[obs:2026-08-19 grep -c and grep -o over scratchpad/PROPOSED_*.md → off-site-citations-function
+   8 lines / 8 occurrences; source-of-truth-map, telemetry-log-spec, two-track-cadence-rule 0 each;
+   control "Owner" → 12 lines, control "zzqqxx" → 0]`. So: **8 occurrences in one of four proposals**,
+   superseding the "cited four times across the Part B proposals" originally relayed.
+
+   The grader's negative was accurate about its scan set and wrong as a general claim, which is the
+   third instance of that shape recorded here. It is also the correct outcome: **a measured figure
+   with no locator is not checkable, and blocking it was right even though the figure was right.**
+
 ---
 
 ## Part C — What closes each gap
