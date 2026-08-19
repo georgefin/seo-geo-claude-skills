@@ -56,12 +56,51 @@ set -u
 # in a separately named set so the derived part stays byte-comparable to what is emitted here.
 PROBE=0
 EMIT=0
-case "${1:-}" in
-    --probe)           PROBE=1; shift ;;
-    --emit-f-patterns) EMIT=1;  shift ;;
-esac
+ROOT=""
+# Flags are accepted in ANY position, and an unrecognised --flag is a HARD ERROR.
+#
+# Both halves are load-bearing, and neither is stylistic:
+#
+#   1. POSITION. This parser previously examined only "$1". The repo's own calling
+#      convention puts the root FIRST -- pre-push-gate.sh:62 is
+#      `bash "$ROOT/scripts/validate-tracking.sh" "$ROOT"` -- so a trailing `--probe`
+#      matched nothing, was consumed by nothing, and was silently discarded. The run
+#      then exited 0 with an ordinary `validate-tracking PASSED with warnings` and zero
+#      stderr. That is a request for a measurement answered by a green belonging to a
+#      run that never measured: the precise failure the probe exists to prevent, reached
+#      through the front door, and QUIETER than the bug it replaced -- that one at least
+#      printed two stderr lines before exiting 0.
+#
+#   2. UNRECOGNISED FLAGS. Without the `--*` leg a typo (`--prboe`) does not fail as a
+#      flag; it falls through and becomes the repo root, then dies on the -d test with a
+#      message about a directory. The operator reads "not a directory", fixes a path that
+#      was never wrong, and never learns the probe did not run. A hand-rolled parser that
+#      cannot reject what it does not know fails OPEN, and here the open direction is a
+#      green (R291's shape, applied to a read-only tool).
+#
+# Verified RED before this fix, at the parent commit's tree:
+#   `validate-tracking.sh . --probe` -> exit 0, 0 stderr lines, 0 PROBE verdicts.
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --probe)           PROBE=1; shift ;;
+        --emit-f-patterns) EMIT=1;  shift ;;
+        --*)
+            echo "ERROR: unrecognised flag '$1' -- refusing to run rather than treating it as a repo root." >&2
+            echo "ERROR: usage: validate-tracking.sh [--probe] [--emit-f-patterns] [repo-root]" >&2
+            echo "ERROR: nothing was validated and no verdict was reached; do NOT read this as a pass." >&2
+            exit 2
+            ;;
+        *)
+            if [ -n "$ROOT" ]; then
+                echo "ERROR: more than one repo root given ('$ROOT' then '$1')" >&2
+                echo "ERROR: nothing was validated and no verdict was reached; do NOT read this as a pass." >&2
+                exit 2
+            fi
+            ROOT="$1"; shift ;;
+    esac
+done
 
-ROOT="${1:-.}"
+ROOT="${ROOT:-.}"
 
 if [ ! -d "$ROOT" ]; then
     echo "ERROR: repo root '$ROOT' is not a directory" >&2
@@ -1532,8 +1571,22 @@ G_UNTAG_LIST=""
 G_REGISTERS="SETTLED-RULINGS.md GATED-ITEMS.md WATCH-ITEMS.md PIPELINE.md OPEN-FINDINGS.md"
 for reg in $G_REGISTERS; do
     reg_file="$ROOT/docs/loop/$reg"
+    # A NAMED register that is absent is a FAILURE, not a warning.
+    #
+    # G_REGISTERS is a DECLARED population, so a member going missing means the declared
+    # population and the scanned population have silently diverged -- and the divergence
+    # runs in the direction that makes the check easier to pass. Measured on this repo:
+    # hide OPEN-FINDINGS.md and the old `warn`+`continue` printed
+    #   WARN: (g) live register missing, skipped ... / PASS: all 37 ... / 8 un-anchored, exit 0
+    # where 37/8 are EXACTLY the figures from before this register was added to the list.
+    # A rename, or a move into docs/loop/archive/, therefore reverted check (g) to the very
+    # state it was rewritten to eliminate -- reported as a PASS, behind a warning nobody reads.
+    #
+    # The all-missing leg was already fenced (G_COUNT -eq 0 below). That fence tested the
+    # case that never happens; this one tests the case that does. Retiring a register is a
+    # deliberate act, so it should cost a deliberate edit to this list, not pass silently.
     if [ ! -f "$reg_file" ]; then
-        warn "(g) live register missing, skipped: docs/loop/$reg"
+        fail "(g) declared live register is MISSING: docs/loop/$reg — the scanned population no longer matches the declared one. Restore the file, or remove it from G_REGISTERS deliberately; do NOT read the remaining registers' PASS as covering it."
         continue
     fi
     # Flatten the register to one string first so a pointer whose ("token")
