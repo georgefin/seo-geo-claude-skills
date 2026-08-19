@@ -517,7 +517,7 @@ reconstructed later. The prompt set cannot be *locked* without the client, but a
 labelled as against a draft set has been executable since Round 1 said so, and the tooling work done
 since has sharpened the plan without taking the reading.
 
-#### What Round 2 supersedes in Round 1
+#### What Round 5 supersedes in Round 1
 
 Recorded here rather than by editing Round 1, per this file's rule 2. Six items, in descending order
 of how much they change what a reader would conclude.
@@ -527,7 +527,7 @@ of how much they change what a reader would conclude.
    GOALS-SCORECARD.md ×2, r3-supersession-candidate.md ×1, FAILURE-LEDGER.md ×1; SHIPPED-SKILL hits
    = 0]`. Re-measured by the coordinator rather than carried from the row above, and the totals
    differ for a reason worth keeping: the row's own figure was **6**, mine is **7**, because writing
-   Round 2's finding down added a further occurrence of the very phrase being counted (R290 — an
+   Round 5's finding down added a further occurrence of the very phrase being counted (R290 — an
    instrument that enters its own scan set). The load-bearing half — **zero in a shipped skill** —
    reproduces exactly. The R3 overstatement surviving at
    `refresh-templates.md`:464-465 — Round 1's single most-consequential Goal 3 finding, a class
@@ -561,9 +561,9 @@ of how much they change what a reader would conclude.
 - **The whole population of ledger classes recorded closed (G3-C7).** Two were re-tested; the
   criterion is quantified over all of them, and the two were chosen by the lane writing the round.
 
-### Round 3 — 2026-08-19 (correction round; no criterion re-scored)
+### Round 6 — 2026-08-19 (correction round; no criterion re-scored)
 
-Round 2 is now under the same append-only rule that protected Round 1, so nothing below edits it.
+Round 5 is now under the same append-only rule that protected Round 1, so nothing below edits it.
 Every figure here was re-measured by the coordinator against the tree, not carried from the
 adversarial review that raised them — a correction bullet that repeats someone else's number is the
 defect it exists to fix.
@@ -580,11 +580,11 @@ sits in; the rest narrow a reason without moving its conclusion.
    -> content-gap-analysis.json]`. The sentence's conclusion — that this is the same wave read at a
    later state, not a new wave — is untouched and still holds.
 
-   This is the class Round 2 itself indicts. Its own supersession item 2 records a G4-B2 stamp that
+   This is the class Round 5 itself indicts. Its own supersession item 2 records a G4-B2 stamp that
    "never matched its figure, not a movement", and its rule 3 states that a figure carrying someone
    else's command is back to being a claim. **A round can diagnose a defect and carry a case of it in
    the same document**, and one self-disclosed stamp error is not evidence the others were checked.
-   Neither innocent explanation available elsewhere in Round 2 applies here: it is not stale-at-close
+   Neither innocent explanation available elsewhere in Round 5 applies here: it is not stale-at-close
    (see 3) and not self-instrumentation (R290), because no tree produces 18.
 
 2. **"every one of its five `eval-prompt.sh` occurrences carries `--grade`" is wrong — four of five
@@ -597,7 +597,7 @@ sits in; the rest narrow a reason without moving its conclusion.
 
 3. **"56 commits … 21 dated 2026-08-17 and 35 dated 2026-08-18" is measured at the round's OPEN head,
    not its stated close head** `[obs:2026-08-19 git rev-list --count 5266d39..<t> and git log --date=short
-   -> f5ad43e: 56 (21/35) · 0371f43: 57 (21/36)]`. Round 2 promises that every check whose subject a
+   -> f5ad43e: 56 (21/35) · 0371f43: 57 (21/36)]`. Round 5 promises that every check whose subject a
    commit touched was re-run at the new HEAD; a commit-range distance is touched by definition, and
    this one was not re-run. The staleness point the figure was making is strengthened, not weakened.
 
@@ -622,9 +622,9 @@ sits in; the rest narrow a reason without moving its conclusion.
    number.** Recording a disagreement is honest; picking a side without measuring is how the original
    defect was made.
 
-### Round 4 — 2026-08-19 (correction to Round 3's item 6; no criterion re-scored)
+### Round 7 — 2026-08-19 (correction to Round 6's item 6; no criterion re-scored)
 
-Appended, never edited; Round 3 is now frozen exactly as it froze Round 2. **This is the second
+Appended, never edited; Round 6 is now frozen exactly as it froze Round 5. **This is the second
 consecutive correction round to carry a defect**, which is the finding, not a footnote — see 3.
 
 **The figures below are anchored two different ways, and the difference is stated rather than
@@ -632,9 +632,9 @@ blurred** — an earlier draft of this paragraph claimed all of them were SHA-pi
 for four of the nine and was caught in review before this round was pushed.
 
 * **Item 1's figures are SHA-pinned**, read with `git grep <sha>`, never scanned from the working
-  tree. That is the direct remedy for Round 3 item 6(a): a bare `.` scan measures the tree the round
+  tree. That is the direct remedy for Round 6 item 6(a): a bare `.` scan measures the tree the round
   *creates*, so a scanning round is guaranteed to publish a number that was true only before it was
-  written. Round 4's own text adds further occurrences of the string counted in 1, so those figures
+  written. Round 7's own text adds further occurrences of the string counted in 1, so those figures
   are deliberately NOT re-checkable by re-running the command at this round's own tree.
 * **Item 2's four figures come from re-running a script against the working tree, and they ARE
   re-checkable here.** What makes that legitimate is a different anchor: the instrument is constant.
@@ -646,36 +646,36 @@ for four of the nine and was caught in review before this round was pushed.
   is perturbed — demonstrated in review, where hiding a directory took it from 21 to 22.
 
 The general rule this round is willing to state: **a re-run is reproducible when the instrument is
-constant, and a scan is reproducible only when the scanned population is.** Round 3 conflated the
+constant, and a scan is reproducible only when the scanned population is.** Round 6 conflated the
 two. So did the first draft of this paragraph, which is the more useful evidence of how easy the
 conflation is.
 
-1. 🔴 **Round 3 item 6(a) is wrong, and wrong in the way item 6 existed to avoid.** It printed
+1. 🔴 **Round 6 item 6(a) is wrong, and wrong in the way item 6 existed to avoid.** It printed
    `grep -rn 'F8 r3' --include="*.md" . | wc -l -> 2` and declined to correct the review's figure of
    3 on the grounds that 3 could not be reproduced. **3 is reproducible two independent ways, and
-   the printed 2 is false at the tree Round 3 publishes.**
+   the printed 2 is false at the tree Round 6 publishes.**
 
    `[obs:2026-08-19 git grep -h 'F8 r3' <sha> -- '*.md', lines via wc -l and occurrences via
-   grep -o 'F8 r3' | wc -l -> 9e53cc6 (parent): 2 lines / 3 occurrences · 45e6635 (the tree Round 3
+   grep -o 'F8 r3' | wc -l -> 9e53cc6 (parent): 2 lines / 3 occurrences · 45e6635 (the tree Round 6
    publishes): 3 lines / 4 occurrences, at GOALS-SCORECARD.md :267 :268 :450]`
 
    * **Lines are not occurrences.** `:267` carries the string **twice**, so the parent's 2 lines are
-     3 occurrences. Round 3 answered an occurrence question with `wc -l`.
-   * **The scope was silently narrowed.** Round 2's G1-C6 stamp was declared over tracked
+     3 occurrences. Round 6 answered an occurrence question with `wc -l`.
+   * **The scope was silently narrowed.** Round 5's G1-C6 stamp was declared over tracked
      `.md/.tsv/.json/.sh`. At that scope, at the parent, the line count is **3**
      `[obs:2026-08-19 git grep -n 'F8 r3' 9e53cc6 -- '*.md' '*.tsv' '*.json' '*.sh' -> 3:
-     GOALS-SCORECARD.md:267, :268, register-locks-archive/2026-08-17.tsv:29]`. Round 3 measured a
+     GOALS-SCORECARD.md:267, :268, register-locks-archive/2026-08-17.tsv:29]`. Round 6 measured a
      narrower population than the stamp it was auditing and reported the difference as the other
      party's error.
-   * **`:450` is Round 3's own stamp.** Round 3 therefore did precisely what its item 1 denied Round
+   * **`:450` is Round 6's own stamp.** Round 6 therefore did precisely what its item 1 denied Round
      2 the excuse of — an instrument entering its own scan set (R290) — undisclosed, in the one
      measurement it did not pin, three lines after refusing that excuse to someone else.
 
    Both reconciliations land on 3. There was never a disagreement to record; there was an
    unmeasured claim.
 
-2. 🔴 **Round 3 item 6(b) declined to measure something that takes one command, and the review was
-   right.** Round 2 line 310 prints *"`PROBE FAILED`, 21 PROBE FAILs, each preceded by a BSD `sed`
+2. 🔴 **Round 6 item 6(b) declined to measure something that takes one command, and the review was
+   right.** Round 5 line 310 prints *"`PROBE FAILED`, 21 PROBE FAILs, each preceded by a BSD `sed`
    error"*. Both halves are wrong `[obs:2026-08-19 bash scripts/engine-claim-sweep.sh --probe, exit 1
    -> grep -c 'PROBE FAIL' = 21 · grep -c '^PROBE FAIL —' = 20 · grep -c 'PROBE FAILED' = 1 ·
    grep -c 'sed:' = 17]`.
@@ -684,11 +684,11 @@ conflation is.
      substring `PROBE FAIL`. There are **20** individual failures plus **1** summary.
    * **"each" is false** — 17 `sed` errors against 20 failures.
 
-   The same root cause as 1: a substring/line count read as an item count. **Round 2, Round 3 and the
-   Round 3 correction of it all failed on one confusion**, in three different places.
+   The same root cause as 1: a substring/line count read as an item count. **Round 5, Round 6 and the
+   Round 6 correction of it all failed on one confusion**, in three different places.
 
 3. **The finding that outranks both: "I could not reproduce it" is itself a measurement claim, and
-   it was not held to the standard of the numbers it was declining to state.** Round 3's items 1–5
+   it was not held to the standard of the numbers it was declining to state.** Round 6's items 1–5
    were re-measured exactly, including an instrument sweep. The defect landed in item 6 — the item
    whose stated purpose was refusing to assert what had not been measured. Declining to correct
    *reads* as restraint while functioning as an unverified assertion about the world, which is why it
@@ -698,10 +698,70 @@ conflation is.
 
 4. **Not re-scored, and nothing above touches a verdict.** G1-C6's verdict rested on the ledger
    entry being absent, not on the occurrence count. G3-C7's partial-population question, raised in
-   Round 3 item 4, is neither answered nor re-scored here: **this round records no ruling on it and
+   Round 6 item 4, is neither answered nor re-scored here: **this round records no ruling on it and
    asserts nothing about its status anywhere else.** That is a claim about this round only, and it is
-   checkable against the text above — where Round 3's version asserted a current world-state without
+   checkable against the text above — where Round 6's version asserted a current world-state without
    an anchor, which is the defect this whole round is about.
+
+### Round 8 — 2026-08-19 (post-rebase re-verification; no criterion measured or re-scored)
+
+**This round records a repair to the file's own numbering and to the resolvability of Rounds 5–7's
+stamps. It measures no criterion.**
+
+**What happened.** Two sessions independently authored a "Round 2 — 2026-08-18" against the same
+append-only file. The other session pushed first (`d05ab0f`). This session's Rounds 2, 3 and 4 were
+rebased on top and renumbered **2→5, 3→6, 4→7**, authorised by the owner on 2026-08-19. Their Round 2
+and its two sub-sections are untouched and remain at their original position. Bodies below Round 5's
+heading are unchanged apart from the heading, the renumber note, and internal cross-references
+remapped so each round still points at the round it was written about.
+
+1. 🔴 **Rounds 5–7's `[obs:]` stamps cite PRE-REBASE SHAs, which no longer exist on this branch.**
+   This is a defect the rebase introduced, not one it found, and it is recorded rather than
+   silently repaired — rewriting the stamps would replace measurements with numbers nobody took.
+   The mapping restores resolvability:
+
+   | cited in Rounds 5–7 | equivalent after rebase | | cited | equivalent |
+   |---|---|---|---|---|
+   | `0371f43` | `ef6d02f` | | `9e53cc6` | `727049e` |
+   | `492505d` | `3dbff52` | | `45e6635` | `0c83bb9` |
+   | `650a245` | `13b41a1` | | `87bd16e` | `020ea64` |
+   | `0805ca7` | `a561925` | | `ac5aa7e` | `5166881` |
+   | `9458fa3` | `3097ead` | | `7d9c051` | `5340fcb` |
+   | `ef768d2` | `bf99acd` | | `7e8a6f6` | `8dfc812` |
+   | `8031df6` | `449398a` | | `9277f2c` | `dae5c3f` |
+   | `60704cd` | `0c180ee` | | `19cbde1` | `3c085b8` |
+   | | | | `baf926f` | `bef8aa2` |
+
+   ⚠️ **The old SHAs resolve only where the local branch `backup-pre-rebase-19-08-2026` exists.**
+   That branch has not been pushed, so for any other reader the left column is unreachable and the
+   right column is the only usable form. Push that branch, or treat this table as the anchor.
+
+2. **What the mapping preserves, measured rather than assumed.** For every commit that did not touch
+   this file, the rebase preserved content exactly, so a stamp about those files stays true under the
+   mapping `[obs:2026-08-19 git ls-tree <sha> -- scripts/validate-tracking.sh, old vs new →
+   0371f43/ef6d02f f23e3384 · 9e53cc6/727049e 9ec12b1b · 87bd16e/020ea64 and 9277f2c/dae5c3f
+   eb8c8a8c — identical in all four pairs]`. `docs/loop/GOALS-SCORECARD.md` itself necessarily
+   differs, because the other session's Round 2 is now merged in beneath Round 1.
+
+3. **The one absolute line citation into this file is now stale, and is superseded here rather than
+   edited in place.** Round 7 item 1 cites `GOALS-SCORECARD.md:267, :268` and `:450` for the `F8 r3`
+   string. Those were correct pre-rebase. Re-measured at the rebased tip, before this round was
+   written `[obs:2026-08-19 git grep -n 'F8 r3' bef8aa2 -- '*.md' → 7 lines / 8 occurrences, all in
+   docs/loop/GOALS-SCORECARD.md at :435 :436 :618 :654 :658 :659 :666]`. **Round 7's reasoning is
+   unaffected** — it turned on lines-versus-occurrences and on a scope narrowing, neither of which
+   depends on where the lines sit. Only the coordinates moved.
+
+4. **Pinned to `bef8aa2`, the tip before this round existed, for the reason Round 7 gives.** Writing
+   this round adds further occurrences of the string counted in 3, so a working-tree scan here would
+   publish a number true only before it was written. This is the third time that trap has been live
+   in this file and the second time pinning has been the remedy.
+
+5. **The structural finding, which is the durable part.** Nothing in this repository stopped two
+   sessions choosing the same round number, and nothing detected it until a push was rejected at the
+   remote. Line-number cross-references between rounds are a second casualty: they are correct only
+   until someone inserts text above them, which an append-only file invites. Both are recorded here
+   as the evidence base for the claim-before-write reservation and the anchored-token convention now
+   proposed; **neither is adopted by this entry, and this entry may not be cited as adopting them.**
 
 ---
 
