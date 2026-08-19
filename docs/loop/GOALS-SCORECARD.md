@@ -753,8 +753,10 @@ remapped so each round still points at the round it was written about.
 
 4. **Pinned to `bef8aa2`, the tip before this round existed, for the reason Round 7 gives.** Writing
    this round adds further occurrences of the string counted in 3, so a working-tree scan here would
-   publish a number true only before it was written. This is the third time that trap has been live
-   in this file and the second time pinning has been the remedy.
+   publish a number true only before it was written. This is not the first instance in this file:
+   Round 5 item 1 records a phrase count that grew because the finding was written down, and Round 6
+   item 6(a) records a stamp that was true at its parent and false at the tree it published. Both are
+   checkable above without leaving this file, and pinning is the remedy in each case.
 
 5. **The structural finding, which is the durable part.** Nothing in this repository stopped two
    sessions choosing the same round number, and nothing detected it until a push was rejected at the
