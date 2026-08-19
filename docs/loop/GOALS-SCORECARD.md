@@ -561,6 +561,67 @@ of how much they change what a reader would conclude.
 - **The whole population of ledger classes recorded closed (G3-C7).** Two were re-tested; the
   criterion is quantified over all of them, and the two were chosen by the lane writing the round.
 
+### Round 3 — 2026-08-19 (correction round; no criterion re-scored)
+
+Round 2 is now under the same append-only rule that protected Round 1, so nothing below edits it.
+Every figure here was re-measured by the coordinator against the tree, not carried from the
+adversarial review that raised them — a correction bullet that repeats someone else's number is the
+defect it exists to fix.
+
+**Nothing in this round changes a verdict.** One correction (1) is disqualifying for the sentence it
+sits in; the rest narrow a reason without moving its conclusion.
+
+1. 🔴 **"18 of the 20 records were amended after Round 1" is wrong. It is 19, and the one that was
+   not amended is `content-gap-analysis.json`.** The figure reproduces at no tree in the round's own
+   window `[obs:2026-08-19 git diff --name-only 5266d39..<t> -- docs/loop/eval-baselines/blind-2026-08-17/
+   | grep -c '\.json$' -> 19 at each of t = f5ad43e (round open), 0371f43 (round close), HEAD;
+   paths incl. README.md = 20 at each]`, and the omitted record is named by
+   `[obs:2026-08-19 comm -13 <(amended|xargs -n1 basename|sort) <(ls *.json|xargs -n1 basename|sort)
+   -> content-gap-analysis.json]`. The sentence's conclusion — that this is the same wave read at a
+   later state, not a new wave — is untouched and still holds.
+
+   This is the class Round 2 itself indicts. Its own supersession item 2 records a G4-B2 stamp that
+   "never matched its figure, not a movement", and its rule 3 states that a figure carrying someone
+   else's command is back to being a claim. **A round can diagnose a defect and carry a case of it in
+   the same document**, and one self-disclosed stamp error is not evidence the others were checked.
+   Neither innocent explanation available elsewhere in Round 2 applies here: it is not stale-at-close
+   (see 3) and not self-instrumentation (R290), because no tree produces 18.
+
+2. **"every one of its five `eval-prompt.sh` occurrences carries `--grade`" is wrong — four of five
+   do** `[obs:2026-08-19 python re.finditer over docs/loop/eval-baselines/blind-2026-08-17/entity-optimizer.json,
+   '--grade' within a 90-char window of each occurrence -> #1 True #2 True #3 True #4 False #5 True]`.
+   Occurrence 4 sits inside an input-drift file list and is excluded by a different filter, so
+   **G1-C2's headline of 11 and its eleven named records are unaffected, and the verdict against Part
+   A's wording still stands.** Only the stated mechanism was wrong, and it was stated twice — in the
+   G1-C2 row and again in supersession item 3.
+
+3. **"56 commits … 21 dated 2026-08-17 and 35 dated 2026-08-18" is measured at the round's OPEN head,
+   not its stated close head** `[obs:2026-08-19 git rev-list --count 5266d39..<t> and git log --date=short
+   -> f5ad43e: 56 (21/35) · 0371f43: 57 (21/36)]`. Round 2 promises that every check whose subject a
+   commit touched was re-run at the new HEAD; a commit-range distance is touched by definition, and
+   this one was not re-run. The staleness point the figure was making is strengthened, not weakened.
+
+4. **G3-C7 is scored MET on a partial population, and the round says so without letting it affect the
+   score.** Part A quantifies the criterion over *each* closed class; two were re-tested, both chosen
+   by the lane writing the round. The same round recorded G3-C1 and G3-C4 as `NOT MEASURED` and
+   excluded them rather than inferring. **Partial evidence is therefore handled two ways inside one
+   round.** Recorded, not re-scored: which treatment is correct is a rule question for the owner, and
+   a correction round is the wrong place to settle it. Under the stricter reading Goal 3 reads 2 of 8
+   met with 3 not measured.
+
+5. **Nit, no consequence:** the G2-C3 row calls `4.2.1 → 4.3.1` and `4.3.0 → 4.4.0` a gap of "one
+   patch". Both are one **minor**. The row's finding — 0 of 20 records current on any reading — does
+   not depend on it.
+
+6. **Raised and deliberately NOT written in as fact — two figures the coordinator could not
+   reproduce.** The review reported (a) a G1-C6 self-instrumentation effect at three hits, where the
+   coordinator measures two `[obs:2026-08-19 grep -rn 'F8 r3' --include="*.md" . | wc -l -> 2, both in
+   docs/loop/GOALS-SCORECARD.md]`, and (b) a probe-output count of 20 `PROBE FAIL` lines plus one
+   summary against a printed 21, with 17 preceding `sed` errors against a printed "each", which was
+   not re-run here at all. **Both stay open rather than being corrected to a second unverified
+   number.** Recording a disagreement is honest; picking a side without measuring is how the original
+   defect was made.
+
 ---
 
 ## Part C — What closes each gap
