@@ -346,9 +346,21 @@ if [ -z "$BASE" ]; then
   exit 0
 fi
 
+# An explicit base that does not resolve is an ERROR, not a skip.
+#
+# By the time control reaches here the fallback above has already refused when NO
+# base could be resolved, so a non-empty $BASE that fails rev-parse means the caller
+# named a ref that does not exist -- a typo, a deleted branch, a stale remote name.
+# Skipping there and exiting 0 printed a green for a run that compared nothing: the
+# same false-green class this script's base guard was written to close, one branch
+# over. A caller who names a base is asserting it exists; disagreeing silently is
+# the failure mode, not the safe default.
 if ! git rev-parse --verify --quiet "$BASE" >/dev/null; then
-  echo "${YELLOW}  SKIP${NC}: base ref '$BASE' does not resolve"
-  exit 0
+  echo "ERROR: base ref '$BASE' does not resolve -- refusing to run rather than skipping." >&2
+  echo "ERROR:   It was supplied explicitly, so this is a bad ref rather than a missing default:" >&2
+  echo "ERROR:   check for a typo, a deleted branch, or a remote-tracking ref that needs a fetch." >&2
+  echo "ERROR: no commits were compared and no verdict was reached; do NOT read this as a pass." >&2
+  exit 2
 fi
 
 COMMITS=$(git rev-list "$BASE..HEAD" 2>/dev/null)
