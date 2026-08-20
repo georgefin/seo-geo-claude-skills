@@ -1060,6 +1060,72 @@ broken guard; and the two criteria that have now sat at zero for three consecuti
 and G4-C4 — each wait on one decision: freeze the tree and re-run the wave, and take one capture
 against the v1 prompt set.
 
+### Round 13 — 2026-08-20 (verification round; one criterion moved)
+
+**Short by design.** Every criterion was re-run, and one moved. A round that re-states twenty-nine
+unchanged readings to look thorough buries the one figure that is news.
+
+- **Round number**: 13, taken by grepping the file rather than trusting the commissioning prompt,
+  which said only "next round" `[obs:2026-08-20 grep -oE "^### Round [0-9]+" docs/loop/GOALS-SCORECARD.md | grep -oE "[0-9]+" | sort -n | tail -1 -> 12]`
+- **Tree measured**: open and close HEAD **`5df68d8`**, working tree clean, nothing unpushed, and
+  **the remote had not moved** `[obs:2026-08-20 git rev-parse --short HEAD -> 5df68d8; git status --short -> empty; git fetch then git log --oneline HEAD..origin/... -> empty]`
+- **Distance from Round 12**: **one commit — Round 12's own**, touching exactly two paths
+  `[obs:2026-08-20 git diff --name-only 509c7bb..HEAD -> docs/loop/GOALS-SCORECARD.md, scripts/fixtures/commit-scope-check/scope-base-unresolvable.txt]`
+- **Wave under measurement**: `blind-2026-08-17/`, 20 records, unchanged.
+
+#### The one movement — Goal 3: **5 of 8 → 6 of 8**
+
+**G3-C5 is MET, 6 of 6, and the repair is verified rather than assumed.** Round 12 rewrote the
+`scope-base-unresolvable` fixture and scored itself NOT MET anyway, on the rule that a round scores
+what it found. This round is the independent confirmation that rule exists to require:
+
+| leg | run 1 | run 2 |
+|---|---|---|
+| `validate-tracking --probe` | PROBE PASS | PROBE PASS |
+| `fence-nesting-check --probe` | PROBE PASS | PROBE PASS |
+| `validate-skill --probe` | PROBE PASS | PROBE PASS |
+| **`commit-scope-check --probe`** | **PROBE PASS** | **PROBE PASS** |
+| `register-lock --probe` | PROBE PASS | PROBE PASS |
+
+`[obs:2026-08-20 5df68d8 each probe invoked twice, verdict read from the PROBE line and not from a pipeline's exit status]`
+
+`claims-gate` was checked for **discrimination, not just execution** — the failure mode a fixture
+corpus is most likely to hide. Its 8 defect fixtures each fail (1–2 failures apiece) and
+`negative-control-clean` passes at `3 passed, 0 warnings, 0 failed`
+`[obs:2026-08-20 5df68d8 nine fixture runs, Results line per fixture]`.
+
+#### Everything else — held exactly
+
+| Goal | Round 12 | Round 13 |
+|---|---|---|
+| 1 — Structural & Coordinator Defenses | 4 of 9 | **4 of 9** |
+| 2 — Skill Evaluation & Verification | 6 of 9 | **6 of 9** |
+| 3 — Loop Durability & Scripted Rigor | 5 of 8 | **6 of 8** |
+| 4A — Outcome Quality | 3 of 4 | **3 of 4** |
+
+Re-run and identical to Round 12 in every cell
+`[obs:2026-08-20 5df68d8]`: G1-C1 `SELFTEST PASS` · G1-C2 13/20 · G1-C3 18/20 · G1-C4 20/20 ·
+G1-C5 three archives (`08-10`, `08-17`, `08-18`) · G1-C6 51 ledger entries · G1-C7 **0** recurrences
+dated to this round · G1-C8 2 of 4 KPI rows · G1-C9 13/20 · G2-C1 20/20 · G2-C2 20/20 ·
+**G2-C3 0 of 20** · G2-C4 20/20 · G2-C5 20/20 · **G2-C6 21 across 12 suites** · G2-C7 20 of 21,
+the gap still performance-reporter `e4.3` · G2-C8 `1259/1400 = 0.8993` as recorded and
+`1291/1400 = 0.9221` counting the editor slot, every record read · G2-C9 20/20 · G3-C1 gate exit 0 ·
+G3-C2 20/20 · G3-C3 `10 passed, 15 warnings, 0 failed` · G3-C4 2 legs with no subject ·
+G3-C6 5 of 5 advisories reproduce · G3-C7 R3 class 4 files, none in a skill tree ·
+G3-C8 no KPI row for 08-18, 08-19 or 08-20 · G4-C1 20/20 (19 of 20 strict) · G4-C2 20/20 ·
+G4-C3 8 pilot artefacts · **G4-C4 0 captures**.
+
+#### What this round establishes about the two long-zero criteria
+
+**G2-C3 and G4-C4 are now at zero for a fourth consecutive round.** This round adds one fact about
+them that the previous three could not: **the tree did not move at all between Round 12 and Round 13,
+and neither criterion moved either.** Every prior round could attribute a zero to churn — a wave
+landing, references shifting, records aging. This one cannot. Nothing happened, and nothing changed,
+which is the cleanest available demonstration that neither is waiting on work in the tree. G2-C3
+needs the tree frozen and the wave re-run; G4-C4 needs one capture taken. Both are decisions.
+
+**4B unchanged**, owner-gated throughout, reported as such and not as zero.
+
 ---
 
 ## Part C — What closes each gap
