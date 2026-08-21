@@ -1126,6 +1126,84 @@ needs the tree frozen and the wave re-run; G4-C4 needs one capture taken. Both a
 
 **4B unchanged**, owner-gated throughout, reported as such and not as zero.
 
+### Round 14 — 2026-08-21 (nothing moved; one correction, and a fifth zero)
+
+- **Round number**: 14, from the file `[obs:2026-08-21 grep -oE "^### Round [0-9]+" docs/loop/GOALS-SCORECARD.md | grep -oE "[0-9]+" | sort -n | tail -1 -> 13]`
+- **Tree**: open and close HEAD **`3b67d0c`**, clean, nothing unpushed, **remote unmoved**
+  `[obs:2026-08-21 git status --short -> empty; git fetch then git log --oneline HEAD..origin/... -> empty]`
+- **Distance from Round 13**: one commit — Round 13's own — touching **one path**, this file
+  `[obs:2026-08-21 git diff --name-only 5df68d8..HEAD -> docs/loop/GOALS-SCORECARD.md]`
+
+#### No fraction moved
+
+| Goal | Round 13 | Round 14 |
+|---|---|---|
+| 1 — Structural & Coordinator Defenses | 4 of 9 | **4 of 9** |
+| 2 — Skill Evaluation & Verification | 6 of 9 | **6 of 9** |
+| 3 — Loop Durability & Scripted Rigor | 6 of 8 | **6 of 8** |
+| 4A — Outcome Quality | 3 of 4 | **3 of 4** |
+
+Every criterion re-run at `3b67d0c`, every cell identical `[obs:2026-08-21]`: G1-C1 `SELFTEST PASS` ·
+G1-C2 13/20 · G1-C3 18/20 · G1-C4 20/20 · G1-C5 three archives · G1-C6 51 entries · G1-C7 **0**
+recurrences dated to this round · G1-C8 2 of 4 KPI rows · G1-C9 13/20 · G2-C1 20/20 · G2-C2 20/20 ·
+**G2-C3 0 of 20** · G2-C4 20/20 · G2-C5 20/20 · **G2-C6 21 across 12** · G2-C7 20 of 21
+(performance-reporter `e4.3`) · G2-C8 both rates, every record read · G2-C9 20/20 · G3-C1 exit 0 ·
+G3-C2 20/20 · G3-C3 `10 / 15 warn / 0 fail` · G3-C4 2 legs with no subject · **G3-C5 5 legs
+PROBE PASS twice each** · G3-C6 5 of 5 · G3-C7 4 files, none in a skill tree · G3-C8 no KPI row for
+08-18, 08-19, 08-20 or 08-21 · G4-C1 20/20 (19 strict) · G4-C2 20/20 · G4-C3 8 artefacts ·
+**G4-C4 0 captures**. 4B unchanged, owner-gated.
+
+#### Correction to Round 13 — a summary of mine that overstated its own evidence
+
+Round 13 wrote of the `claims-gate` fixture corpus: *"Its 8 defect fixtures each fail (1–2 failures
+apiece)."* **That is wrong, and the data contradicting it was in the same run.** Re-measured:
+
+| fixture | failures |
+|---|---|
+| `f11-founding-forward-timestamp` | 2 |
+| `f11-r5-register-wide-stale-claims` | 2 |
+| `f11-founding-stale-sibling` | 1 |
+| `f11-r3-end-to-end-overclaim` | 1 |
+| `f11-r4-post-flip-stale-sibling` | 1 |
+| **`f11-founding-attribution-gloss`** | **0** — warning only |
+| **`f11-r1-word-level-graduated`** | **0** — warning only |
+| **`f11-r2-mechanism-in-observed-frame`** | **0** — warning only |
+| `negative-control-clean` | 0 — correct |
+
+`[obs:2026-08-21 3b67d0c nine runs of bash scripts/claims-gate.sh --fixture <dir>, failure count read from each Results line]`
+
+**Five of eight defect fixtures fail; three register a WARN and no FAIL.** Corrected, not
+reinterpreted — those three are WARN-tier by design and the corpus is sound; the error is that a
+round summarised "each fail" over a set where three did not, while displaying the numbers that
+disprove it. **This is the same shape as Round 11's fabricated control and this file's F11 class**:
+not an invented figure, but a summary sentence claiming more uniformity than its own table shows.
+Round 2's line 281 (*"fires on all 8 defect fixtures"*) is looser and survives, because a WARN is a
+firing; **"each fail" is not.**
+
+#### 🔴 G2-C3 and G4-C4: a fifth consecutive round at zero, and no decision recorded
+
+Stated plainly, per this round's own commissioning condition, **because a fifth identical row is not
+progress and should not be allowed to read as it.**
+
+| | rounds at zero | what would move it | recorded decision |
+|---|---|---|---|
+| **G2-C3** — no graded record describes a skill version that still exists | **5** (Rounds 2, 5, 12, 13, 14) | freeze the tree at one wave-wide SHA, re-run the blind wave | **none** |
+| **G4-C4** — no AI-visibility capture has ever been taken, once | **5** (Rounds 1, 5, 12, 13, 14) | one capture against prompt-set v1 under the N ≥ 3 protocol, labelled as against a draft set | **none** |
+
+**Neither is waiting on work in the tree, and Rounds 13 and 14 together are the proof.** Across both,
+the tree moved by two commits, both of them edits to this file. Nothing else changed, and neither
+criterion changed. Every earlier zero could be attributed to churn — a wave landing, references
+shifting, records aging. **Two consecutive still rounds cannot be.**
+
+**What that costs, stated once.** G2-C3 at zero means the library has no current evidence that any
+skill does what its suite says — the 21 regressions under G2-C6 are the last measurement anyone
+took, and they are five rounds stale. G4-C4 at zero means Goal 4's name — *Proof of Utmost
+Quality* — rests on zero observations of the surface the engagement targets.
+
+**This round makes no recommendation about priority between them**; both are owner decisions and
+`CLIENT-MANDATE.md` §4 governs. It records that the decisions have been outstanding for five
+measured rounds.
+
 ---
 
 ## Part C — What closes each gap
