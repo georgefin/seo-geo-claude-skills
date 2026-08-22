@@ -6,9 +6,12 @@ Reference tables for click-through rate optimization, Open Graph best practices,
 
 ## Page-Type Meta Tag Templates
 
+Skeletons, not deliverables: `[bracket tokens]` are slots to fill from the page's own data. A delivered tag carries a resolved value or is omitted with the gap named in the report prose — never a bracket, `TBD`, or a data-needed note inside `content=` (ledger F13 placement rule; see `meta-tag-code-templates.md` for the filled example).
+
 ### Homepage
 
 ```html
+<!-- SKELETON — fill every [slot] from the page's data; never deliver a bracket -->
 <title>[Brand Name] - [Primary Value Proposition]</title>
 <meta name="description" content="[Brand] helps [audience] [achieve goal]. [Key feature/benefit]. [CTA]">
 ```
@@ -16,6 +19,7 @@ Reference tables for click-through rate optimization, Open Graph best practices,
 ### Product Page
 
 ```html
+<!-- SKELETON — fill every [slot] from the page's data; never deliver a bracket -->
 <title>[Product Name] - [Key Benefit] | [Brand]</title>
 <meta name="description" content="[Product] [key features]. [Price/offer if applicable]. [Social proof]. [CTA]">
 ```
@@ -23,6 +27,7 @@ Reference tables for click-through rate optimization, Open Graph best practices,
 ### Blog Post
 
 ```html
+<!-- SKELETON — fill every [slot] from the page's data; never deliver a bracket -->
 <title>[How to/What is/Number] [Keyword] [Benefit/Year]</title>
 <meta name="description" content="[What they'll learn]. [Key points covered]. [CTA]">
 ```
@@ -30,6 +35,7 @@ Reference tables for click-through rate optimization, Open Graph best practices,
 ### Service Page
 
 ```html
+<!-- SKELETON — fill every [slot] from the page's data; never deliver a bracket -->
 <title>[Service] in [Location] - [Brand] | [Differentiator]</title>
 <meta name="description" content="[Service description]. [Experience/credentials]. [Key benefit]. [CTA]">
 ```
@@ -105,20 +111,53 @@ Reference tables for click-through rate optimization, Open Graph best practices,
 
 ---
 
-## CTR Optimization Data
+## CTR Techniques — the single carrier
 
-### Factors That Increase Organic CTR
+**This section is this skill's only carrier for what raises click-through rate.** `SKILL.md` step 9,
+the test-priority table in `meta-tag-formulas.md`, and the `/seo:optimize-meta` scaffold all point
+here and none of them restates it. A change to the guidance is made here, once.
 
-| Factor | CTR Impact | Implementation |
-|--------|-----------|----------------|
-| Number in title | +20-30% | "7 Ways", "15 Tips", "2026" |
-| Question in title | +14% | Start with How, What, Why |
-| Emotional words | +7% | "Proven", "Essential", "Mistake" |
-| Brackets/parentheses | +38% | "[Guide]", "(With Examples)" |
-| Current year | +10-15% | "Best SEO Tools 2026" |
-| Power words | +12% | See Power Words table above |
-| Match search intent | +15-25% | Align title with SERP expectations |
-| Rich results (schema) | +30% | FAQ, HowTo, Review stars |
+### Why no percentage appears below
+
+Through 4.1.4 this skill quoted CTR uplift percentages on four surfaces — the report table in
+`SKILL.md`, this file, the A/B test-priority table, and the command scaffold — and **they
+contradicted each other**. Three techniques carried three different ranges apiece; on one of them
+the largest figure was roughly four times the smallest, and the outlier was the one printed in the
+client's report. **Not one of the four surfaces named a publisher, a year, or a sample size**, so
+there was no internal way to tell which was authoritative — and no reason to believe any of them
+was. They were removed rather than reconciled: choosing a survivor from four unsourced numbers
+manufactures an authority instead of citing one.
+
+The rule that replaces them binds every surface of this skill:
+
+1. **A CTR effect size is quoted only with its source** — publisher, year, and what was measured.
+   No such source is on file here for any title or description technique, so no percentage is
+   quoted for any of them.
+2. **A client-facing surface carries no unsourced number.** An uplift figure reads to a client as a
+   forecast; inventing one is the fabrication class this library already rules on (ledger F3, and
+   the statistics rule in the root `CLAUDE.md`). If the number cannot be sourced, the sentence says
+   so and the figure stays out.
+3. **Direction is a weaker claim than size, and this skill can stand behind it.** The table states
+   what a technique does to a SERP entry. It states no magnitude, because magnitude depends on the
+   query, the position, and what the other nine results look like — which is what the A/B protocol
+   in `meta-tag-formulas.md` measures on the page in front of you.
+
+### Factors associated with higher organic CTR
+
+| Factor | What it does to the SERP entry | Implementation |
+|--------|--------------------------------|----------------|
+| Match search intent | Structural, not cosmetic — decides whether the result answers the query at all | Align the title with the intent the live SERP's existing results serve |
+| Number in title | Commits to a concrete scope before the click; the reader knows the size of the read | "7 Ways", "15 Tips" |
+| Current year | Signals recency where staleness is the reader's main risk | "Best SEO Tools 2026" |
+| Brackets/parentheses | Adds a second, visually separated information unit without lengthening the main clause | "[Guide]", "(With Examples)" |
+| Question in title | Mirrors the query's own wording when the query is itself a question | Start with How, What, Why |
+| Power words / emotional words | Tone only — differentiates a title otherwise interchangeable with its neighbours | "Proven", "Essential", "Mistake"; see Power Words table above |
+| Rich results (schema) | Changes the listing's size and visual weight rather than its wording | Review stars. Google restricted FAQ rich results to government and health sites in Aug 2023, and whether How-to results are still offered is `[VERIFY]`-tagged in `schema-markup-generator` — promise no How-to appearance |
+
+**The order is this skill's judgement, not a measured ranking**: intent match first because it is the
+only structural change in the list; then the elements that change what the entry promises (number,
+year, brackets, question); tone last, because a title that promises the wrong thing is not rescued
+by a power word. When two candidate changes compete for one test slot, test the higher one.
 
 ---
 

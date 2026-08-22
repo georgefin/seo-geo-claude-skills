@@ -1,0 +1,288 @@
+{
+  "suite": "entity",
+  "skill": "entity-optimizer",
+  "run": "2026-08-10 founding Mode B (post-fixes dad411c; blind-execute method)",
+  "method": "Expectations AND expected_output were withheld until each deliverable was written and saved. Only id/prompt/files were extracted up front (scratchpad/prompts-only.json); each eval's expectations were opened only after that eval's modeb-entity-out-e<N>.md existed on disk, and no later eval's expectations were read early. The Mode A review file scratchpad/modea-e5-entity.md was never opened. Held to in full for all five evals.",
+  "skill_version_under_test": "entity-optimizer 4.1.4 (frontmatter version and metadata.version both 4.1.4)",
+  "baseline": "none — no prior entity-optimizer record in docs/loop/eval-baselines/ (all five files checked; the only 'entity' string in 2026-08-09-e1.json is an eval_feedback note about a different suite). This run is the founding baseline; regression rate is undefined by construction.",
+  "totals": {
+    "pass": 18,
+    "fail": 11,
+    "editor_pending": 0,
+    "total": 29,
+    "pass_rate": 0.6207
+  },
+  "per_eval": {
+    "1": "4/6",
+    "2": "3/6",
+    "3": "3/6",
+    "4": "4/6",
+    "5": "4/5"
+  },
+  "evals": [
+    {
+      "id": "1",
+      "expectations": [
+        {
+          "n": 1,
+          "verdict": "FAIL",
+          "evidence": "Address section reads in full: «**b) Address.** `Ακτή Μιαούλη 47` on the EL page, the footer, Facebook, GBP, vrisko.gr, xo.gr **and the ΓΕΜΗ έδρα**. `45 Akti Miaouli` on /en/about and `Ακτή Μιαούλη 45` in the /etaireia JSON-LD. **47 is correct** (ΓΕΜΗ is the authority); the two \"45\" instances are wrong.» Phone section reads: «Three surfaces still publish the dead number: /en/about ... /etaireia JSON-LD ... vrisko.gr». grep -E 'seven|of the 7|four (surfaces|show)|five (surfaces|show)' on modeb-entity-out-e1.md returned NO MATCH.",
+          "note": "Met: nine distinct name strings stated over the twelve inventoried surfaces with the table that derives them, and the folding rule stated ('9 different name strings' + the ΓΕΜΗ pair separated); the two '45' surfaces named exactly; the three dead-phone surfaces named exactly; the fixture's March-2023 note carried verbatim; the founding-year conflict reported surface by surface with ΓΕΜΗ 14/03/2019. Missing: the expectation's main-clause denominators 'of the seven surfaces that carry a street address, five show Ακτή Μιαούλη 47' and 'of the seven that carry a phone, four show the live line ending 250'. Neither the 5-of-7 nor the 4-of-7 population count appears. The named fail condition (collapsing populations into one undifferentiated count) was NOT triggered."
+        },
+        {
+          "n": 2,
+          "verdict": "PASS",
+          "evidence": "sameAs table: «linkedin.com/company/pharos-marine-data | Your LinkedIn page, active, links back | **KEEP**» ; «facebook.com/pharosmarinedata ... **KEEP**» ; «twitter.com/pharosmarine | \"This account doesn't exist.\" Handle never registered | **REMOVE NOW.**» ; «crunchbase.com/organization/pharos-marine-data | 404 | **REMOVE NOW**, then create the Crunchbase profile properly and re-add the *real* URL ... the markup must follow the profile, never precede it.» ; «el.wikipedia.org/wiki/Φάρος_της_Αλεξάνδρειας | The Greek Wikipedia article on the ancient Lighthouse of Alexandria | **REMOVE TODAY**». Additions: «Your YouTube channel youtube.com/@pharosmarinedata», «the **Green Corridors EU** member-entry URL», «The vrisko.gr and xo.gr listing URLs», «The **Wikidata item URL — first in the list — as soon as the item exists.** It does not exist yet, so it cannot be added yet.» Founder LinkedIn routed to a Person node: «linkedin.com/in/dimitris-zacharopoulos-pharos belongs in a `Person` node's `sameAs`». The emitted canonical JSON-LD sameAs contains only LinkedIn, Facebook, YouTube — all fixture-verified to exist."
+        },
+        {
+          "n": 3,
+          "verdict": "PASS",
+          "evidence": "«**Rejected. Do not implement.** The premise is wrong: piling schema types on a page is not an AI-citation lever.» ; «The rule to give Στέλιος is **one accurate primary type per page**» ; «**What is *not* banned — do not overcorrect.** ... **`BreadcrumbList`** — a documented site-structure feature ... **`Organization` (and later `Person`) nested as `publisher` / `author`** ... **`WebSite`** on the homepage.» Effort redirected to the fixture's real gaps: «Replace the two conflicting blocks with **one canonical Organization node** ... \"@id\": \"https://pharosmarine.example/#organization\"», «Correct the /etaireia JSON-LD (address, phone, foundingDate)», «`Person` markup + real by-lines for Δημήτρης and Ειρήνη». No rich-result-eligibility claim is made in either direction."
+        },
+        {
+          "n": 4,
+          "verdict": "PASS",
+          "evidence": "«### Line 2: \"publish an llms.txt at the root so the AI crawlers know what to quote\" — **Rejected. Do not implement.** No engine is confirmed to honour `llms.txt` — there is no Google/OpenAI/Perplexity documentation of ingesting it. Publishing one is not harmful, but it buys nothing, and it consumes the one thing you are short of: Στέλιος's template time.»",
+          "note": "The 'not harmful' clause is immediately subordinated to 'Do not implement' and 'it buys nothing', so it is a refusal, not the 'cheap, might help' wave-through the expectation names as failing."
+        },
+        {
+          "n": 5,
+          "verdict": "PASS",
+          "evidence": "Not-evaluated table: «Branded search volume, impressions, clicks, rankings | \"nothing is connected and we have never exported Search Console\" | Connect Search Console / ~~SEO tool» ; «Backlinks, referring domains, branded anchor text | \"No backlink or referring-domain data of any kind\" | ~~link database export» ; «Knowledge Panel presence | No branded-SERP capture in these three files». Wikidata: «❌ **Absent** | Searched by hand 2026-08-06 on four strings — `Pharos Marine Data`, `Faros Marine`, «Φάρος Ναυτιλιακή Πληροφορική» and the ΓΕΜΗ number — \"**no item exists for this company**\"». Wikipedia: «❌ **Absent** | \"no article, and no mention of the company inside any existing article\"». GBP as its own category (§7 + presence row): «Claimed + verified; primary category \"Software company\", **no secondary category**; 6 reviews, avg 4,7, last 2026-03-18; **owner responses 0 of 6**; Posts never published; Q&A unseeded; Products/Services empty; 3 photos, all from 2019».",
+          "note": "Score leg graded met in substance: no CORE-EEAT or CITE score is produced anywhere, and the CITE items needing absent data are marked unscoreable — «**I02** (Brand Search Volume), **I03** (Brand SERP Ownership), **I09** (Unlinked Brand Mentions) and **I10** (Query-Brand Association) cannot be scored from this pack.» The expectation does not say whether an explicit 'no score computed' line is additionally required (logged as eval feedback)."
+        },
+        {
+          "n": 6,
+          "verdict": "FAIL",
+          "evidence": "Digit scan of modeb-entity-out-e1.md, line 183: «It asserts your company is a 3rd-century-BC monument, and it does so on the homepage, in the exact property engines use to resolve identity.» The century attribution is a dated claim about the Lighthouse of Alexandria that appears in none of the three fixtures (which say only 'The Greek Wikipedia article on the ancient Lighthouse of Alexandria') and is not arithmetic derived from fixture numbers.",
+          "note": "Every client-data figure checked clean: 9 name strings / 12 surfaces, 2 of 38 pages with the derivation shown, 14 employees, ΓΕΜΗ 158234701000, 14/03/2019, both addresses, all three phone renderings, 6 reviews / 4,7 / 0 of 6, 3 photos from 2019, team-table arithmetic (2 of 6 bios, 5 of 6 photos, 0 of 6 outbound links) all trace to the fixtures; no KG ID, QID, search volume, DA or numeric entity score appears. The single failing span is an external historical date, low consequence but outside the expectation's 'traces to the three fixtures or is arithmetic derived solely from those fixture numbers' carve-out."
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "expectations": [
+        {
+          "n": 1,
+          "verdict": "FAIL",
+          "evidence": "Chain block: «29 alert rows fired in the window / −3 not this company at all (C3, C4 = Faros Logistics ΑΕ, the Thessaloniki freight forwarder; C5 = the ancient Lighthouse of Alexandria) / = 26 alert rows that are actually about Pharos Marine Data / −2 about us, but not third-party (C1 = our own LinkedIn post; C2 = our own press release, paid distribution, republished verbatim) / = 24 third-party mentions of the company in two months». Split table: «Mention with a link to pharosmarine.example | **7** | Table A (A1–A7) — 6 dofollow, 1 nofollow (A4...)» and «Mention with no link | **17** | Table B (B1–B17)». Distinctness: «**One refinement on the 17.** They sit on 15 distinct sources: Forum Ναυτιλίας appears twice (B3, B4 ...) and Shipping Ops Podcast twice (B5, B6 ...)». grep for '22 distinct' / '7 distinct domains' returns only line 39: «questions, and neither is 22.» — which rebuts the CEO's implied 22, and is not the required 22-distinct-domain aggregate.",
+          "note": "Met: both exclusion steps kept separate with their rules and rows, the arithmetic shown, linked and unlinked reported separately, 15 distinct sources for the unlinked set with both doubled sources named. Missing: the main-clause aggregates '7 linked mentions from 7 distinct domains' and '22 distinct third-party domains in all'. None of the four named fail conditions was triggered."
+        },
+        {
+          "n": 2,
+          "verdict": "PASS",
+          "evidence": "«**Unlinked brand mentions are a scored entity and AI-visibility signal.** They are not links, they do not pass link equity, and nobody should tell you they are worth the same. But \"does nothing for search\" is not right, for three concrete reasons: 1. **They are how machines learn the entity exists.** ... 2. **They are scored explicitly in the domain-authority framework we use.** CITE item **I09, Unlinked Brand Mentions** ... 3. **Co-occurrence is the mechanism.**» And on the cancellation: «Before you decide, give it one cycle with a different brief». No unlinked row is called a backlink anywhere; the linked/unlinked split is kept in every table."
+        },
+        {
+          "n": 3,
+          "verdict": "PASS",
+          "evidence": "«Your 17 (or 15 distinct sources) sits in the **Partial** band — with one honest caveat below.» Bands stated: «≥50 distinct third-party unlinked mentions = Pass, 10–49 = Partial, <10 = Fail.» Bound: «the log covers 1 June – 31 July only, because \"the alerts were only set up on 29 May 2026, so this window is the entire recorded history, not a lifetime count.\" I09 is a lifetime-ish state measure, so 17 is a **floor**, not your score. Your true unlinked-mention count is 17 *or more*, and the Partial band is the most that can be claimed from this file — reading it as a final I09 grade would be overreading a two-month window.» Closing table: «What is our real CITE I09 grade? | Needs a lifetime mention count, not a two-month window.»"
+        },
+        {
+          "n": 4,
+          "verdict": "FAIL",
+          "evidence": "quotecheck.py over every guillemet and double-quote span in modeb-entity-out-e2.md: line 67 «Πειραιώτικη» — VERBATIM-IN-FIXTURE=False; longest matching substring in the fixture is 'ειραιώτικη', because the saved B1 snippet reads «Η πειραιώτικη Φάρος Marine Data υπολογίζει...» with a lower-case π. The output re-cased it to Π inside quotation marks. Same sentence also puts two trimmed fragments of the same logged snippet inside guillemets: «Φάρος Marine Data» and «κατανάλωση καυσίμου ανά ταξίδι».",
+          "note": "The three fully-quoted logged mentions are byte-exact: B9 'Pharos Marine Data, founded in 2015, sits in the same bracket as the larger noon-report vendors.' TRUE, B12 'Pharos Marine Data PC — Piraeus, Greece — voyage fuel analytics' TRUE, B4 «Δοκιμάσαμε τον Φάρο πέρυσι· η ενσωμάτωση με το ERP μας πήρε τρεις μήνες.» TRUE. The failure is confined to the re-cased and trimmed B1 fragments, which the expectation names explicitly ('a trimmed clause, a silently corrected fact ... inside quotation marks fails')."
+        },
+        {
+          "n": 5,
+          "verdict": "PASS",
+          "evidence": "Row-level reclamation: «**B12, Green Corridors EU member list** — \"directory entry, no link field filled\" ... Ask the association to fill the website field»; «**B5 and B6, Shipping Ops Podcast transcripts**»; «**B2, Ελληνική Ναυτιλιακή Λέσχη**»; «B13 ..., B14 ..., B16 ..., B11 ..., B17». Unworked state carried: «No outreach has been attempted on any Table B row. That is the actual finding: this is unworked inventory, not exhausted inventory.» Error flagged with publisher: «Marine Tech Digest, 2026-06-23, states verbatim: \"Pharos Marine Data, founded in 2015, sits in the same bracket...\" You were not founded in 2015 ... Send a correction with the ΓΕΜΗ incorporation date attached.» Name forms as entity-resolution: «journalists wrote you seven different ways: ... That fragmentation is yours to fix, not theirs». Negative row carried: «**Priority 5 — The one negative row** B4, Forum Ναυτιλίας, 2026-07-14 ... Not a reputation crisis. But it is a real customer objection». Not-us rows as disambiguation: «Three of 29 alert rows ... were other Φάρος/Faros entities. That is not a PR problem, it is the same name-collision problem» + «Do not ask for links on C1–C5. C1 and C2 are yours; C3, C4 and C5 are other entities.» Sentiment labelled: «Do not treat the Sentiment column as data. Ναταλία is explicit: \"No sentiment tool was used; the Sentiment column is my own reading of each page.\"»",
+          "note": "The parenthetical distribution (16 positive, 7 neutral, 1 negative) is not reported. Graded PASS under a stated rule applied uniformly in this run: figures in an expectation's main clause are required, figures inside a parenthetical gloss are not. The parenthetical's own operative requirement — sentiment labelled as the freelancer's reading, not a tool's — is met verbatim. The expectation also requires the ΓΕΜΗ date 14/03/2019, which is not derivable from eval 2's only fixture (see eval_feedback)."
+        },
+        {
+          "n": 6,
+          "verdict": "FAIL",
+          "evidence": "modeb-entity-out-e2.md line 150: «On your figure of €1,100/month, the window cost €2,200, which is €2,200 ÷ 24 ≈ **€92 per recorded mention**.» The expectation bans exactly this: 'no ROI, cost-per-mention or payback figure built on the €1,100 retainer'.",
+          "note": "The hedge that follows ('That is a cost ratio and nothing more — it is not a return, because no traffic, click or referring-domain data exists for any of these pages') does not cure it: the banned artefact is the figure, not the interpretation. Everything else in the expectation holds — no DR, referring-domain, traffic, impression or reach figure appears, the pre-June absence is stated, and the value of the unlinked set is given qualitatively."
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "expectations": [
+        {
+          "n": 1,
+          "verdict": "FAIL",
+          "evidence": "Query table rows as written: «| `Faros` | #1 and #2 are `faros-logistics.example` (Faros Logistics ΑΕ, the Thessaloniki freight forwarder); #3–#10 are beaches, a village and a taverna. Not in the top 20 | ...|» and «| «φάρος ναυτιλιακό λογισμικό» | **You are #3**, behind two international vendors' Greek landing pages | ...|» — neither reports panel status, although the fixture states 'No knowledge panel.' for `Faros` and 'No knowledge panel, no AI Overview.' for the qualified query.",
+          "note": "Met: «| `Pharos Marine Data` | **No knowledge panel at all** in the right-hand rail...|»; «| «Φάρος» | Knowledge panel present — **Φάρος της Αλεξάνδρειας, «Αρχαίο μνημείο»**...|»; the claim route closed with the fixture quote «**Claiming** a panel ... only becomes available once a panel already exists. Your capture confirms it does not: \"There is no panel anywhere for our company to claim.\"»; and the snapshot framing «this is *one* capture — one day, one location (Athens), one device, logged out, each AI answer run once. It is a snapshot, not a measurement.» The global 'no panel anywhere for our company' quote entails the two missing rows but does not report them per query as the expectation requires."
+        },
+        {
+          "n": 2,
+          "verdict": "PASS",
+          "evidence": "«I cannot give you a date, a probability, or a \"yes\". Not because the work is uncertain in effort, but because the decision is not ours to make» ; «There is **no submission form** for the Knowledge Graph and no application process for a panel» ; «Nothing in this pack, or anywhere else, would let me forecast when Google will generate one. Any date, any percentage, any \"should be live by\" is invented.» ; «\"a panel by 31 October\" is not a deliverable anybody can own.» ; «Whether Google then draws one, and when, is Google's call». grep for 'within weeks|weeks|probability|percent|%|likely|good chance|guarantee' returns only the two refusal lines above — the skill's 'often triggers Knowledge Panel creation within weeks' phrasing appears nowhere in any form. Groundwork named concretely from the material at hand: «a registry record and an industry-association membership are the kind of references it wants», and Wikipedia sufficiency explicitly denied («**You do not currently clear the bar.**»)."
+        },
+        {
+          "n": 3,
+          "verdict": "PASS",
+          "evidence": "«**This cannot be done, and it should not be attempted.**» ; «There is no mechanism to remove or demote another entity's result, and I am not going to propose one ... **Do not use the feedback link at the foot of that panel to report it** ... **No complaints, takedown requests or disputes** aimed at the lighthouse article, the freight forwarder or any other Φάρος ... the freight forwarder is not doing anything wrong, and nothing in this plan touches their listings, their name or their rankings.» Structural lever with the collision named: «**Make your own markup say who you are and only who you are.** A single Organization node with a stable `@id` ... and a `sameAs` list containing only profiles that actually exist. Ambiguity in your own data is the one part of this collision you fully control.» Qualified naming: «**Never publish the bare name again.** ... the company is **«Φάρος Ναυτιλιακή Πληροφορική»** or **Pharos Marine Data** — never «Φάρος» alone.» Topic-qualified ground: «**Qualified queries are winnable now.** «φάρος ναυτιλιακό λογισμικό» has you at #3» against «You do not appear at all; you clicked through five result pages, roughly the top 50»."
+        },
+        {
+          "n": 4,
+          "verdict": "PASS",
+          "evidence": "«**Do not do this.** Three separate reasons, any one of which is sufficient: 1. **It violates Wikipedia's policies.** Paid editing without disclosure is prohibited outright, and the Conflict of Interest policy prohibits organisations from creating or commissioning articles about themselves ... 2. **You do not currently clear the bar.** Wikipedia requires significant coverage in reliable, independent sources ... 3. **It is the wrong item on the list anyway.** Wikipedia is the last step in this sequence, not the first. **Wikidata** is the editable knowledge base that feeds knowledge graphs directly, its notability bar is far lower ... creating a properly referenced item about your own company is legitimate there in a way that commissioning a Wikipedia article about yourself is not.» Verified state carried: «**No item.** Searched 2026-08-06 for `Pharos Marine Data`, `Faros Marine`, «Φάρος Ναυτιλιακή Πληροφορική» and the ΓΕΜΗ number — nothing for this company» and «The inventory records \"no article, and no mention of the company inside any existing article\"». No pricing, no outline of the paid route.",
+          "note": "The named 'Requested Articles process' is not used; the equivalent route is given as «independent coverage first, article last, written by someone with no relationship to the company». Graded PASS because that clause sits under an explicit 'if warranted' conditional."
+        },
+        {
+          "n": 5,
+          "verdict": "FAIL",
+          "evidence": "grep for '9 (recorded )?cells|3 assistants|3 × 3|couldn't find' over modeb-entity-out-e3.md returns no match for the count rule and no match for ChatGPT's third cell. The AI paragraph reads in full: «Perplexity resolved you correctly on all three questions, including the founders, citing your own site, `techstartup-gr.example` and `naftiliaki-epitheorisi.example`. ChatGPT recognised the Latin name but attached two wrong facts — \"Athens\" and \"founded in 2015\" — and when asked the same question in Greek («Τι είναι η Φάρος Ναυτιλιακή Πληροφορική;») answered about the ancient lighthouse. Google's AI Overview did not appear for two of the three questions, and on \"Who founded Pharos Marine Data?\" it answered about the lighthouse too.» The fixture's third ChatGPT cell — 'I couldn't find information about the founders of a company by that name.' — is not reported.",
+          "note": "Met: the single-run limits («each AI answer run once», «Each answer was run once; single runs vary»), the one-date framing, and the 2015 trace to its publisher («Your own note records that the year in ChatGPT's answer matches, word for word, what `marinetechdigest.example` published about you in June»). Missing: the 9-cell count rule and one of the nine cells."
+        },
+        {
+          "n": 6,
+          "verdict": "FAIL",
+          "evidence": "modeb-entity-out-e3.md line 133: «**No \"Φάρος\" content built to outrank the monument** — an unwinnable and pointless spend against a 3,000-strong corpus about a world monument.» No corpus size for the lighthouse exists in either fixture; the figure is invented.",
+          "note": "Also recorded, not separately counted: line 110 «That is a 2027 conversation, not a 31 October one» attaches a year with no fixture basis — outside E3.6's named list (it is not a panel timeline) but the same class. Everything else scans clean: all SERP positions, the 'roughly the top 50' and 'top 20' phrasings, the four queries, the panel transcription, the assistant answers and the profile facts trace to the two fixtures, and no KG ID, QID, panel probability, panel timeline or traffic effect appears."
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "expectations": [
+        {
+          "n": 1,
+          "verdict": "PASS",
+          "evidence": "«**Σύνολο Α — οι δικές μας επιφάνειες.** Το φύλλο της Άννας καταγράφει **12 επιφάνειες** ... Σε αυτές τις 12 επιφάνειες το όνομα δημοσιεύεται με **εννέα διαφορετικές γραφές**» followed by the nine-row table. Folding rule stated: «Μετρώ τις συμβολοσειρές όπως ακριβώς δημοσιεύονται. Αν θεωρήσουμε ότι τα κεφαλαία «ΦΑΡΟΣ ΝΑΥΤΙΛΙΑΚΗ ΠΛΗΡΟΦΟΡΙΚΗ ΙΚΕ» και τα πεζά «Φάρος Ναυτιλιακή Πληροφορική ΙΚΕ» είναι το ίδιο όνομα με δύο γραφές, οι μορφές γίνονται οκτώ.» Second population: «μένουν **24 αναφορές τρίτων**. Σε αυτές τις 24 ... μάς έγραψαν με **επτά διαφορετικές μορφές**: Φάρος Ναυτιλιακή Πληροφορική · Pharos Marine Data · Φάρος · Pharos · Φάρος Marine Data · Faros Marine Data · Pharos Marine Data PC.» Separation stated: «**Τα δύο σύνολα δεν προστίθενται.** Το πρώτο μετρά πού γράφουμε εμείς το όνομά μας, το δεύτερο πώς μας γράφουν οι άλλοι.» Independent recount of the log's name-form columns confirms 8/5/4/3/2/1/1 = 24 across exactly those seven forms."
+        },
+        {
+          "n": 2,
+          "verdict": "FAIL",
+          "evidence": "grep -E 'legalName|alternateName|`name`|schema|Organization' over greek-out-entity-e4.md returns NO MATCH. The structured-data fix is stated only as: «**4. Τα δομημένα δεδομένα.** Η αρχική σελίδα δηλώνει όνομα «Pharos» — σκέτο. Η /etaireia δηλώνει άλλο όνομα, άλλη διεύθυνση, άλλο τηλέφωνο και έτος 2018. Μία εγγραφή, ένα όνομα, τα σωστά στοιχεία.» The legal and alternate forms are never routed to `legalName` / `alternateName` beside one consistent `name`.",
+          "note": "The other legs hold: one canonical Greek form and one canonical Latin form chosen and mapped register by register (§2.1, §2.2, «Δεν φτιάχνουμε τρίτη»); the ΓΕΜΗ επωνυμία reserved for legal and footer contexts («μπαίνει **μόνο** όπου ζητείται το νομικό πρόσωπο: υποσέλιδο, τιμολόγια, συμβάσεις, ΓΕΜΗ, τραπεζικά, vrisko.gr»); «PHAROS MARINE DATA» identified as the registered διακριτικός τίτλος; xo.gr named as a directory transliteration to correct; and the inflected press form handled as ordinary Greek usage to steer — «Στο ημερολόγιο αναφορών υπάρχει ήδη σχόλιο χρήστη γραμμένο στο αρσενικό — αυτό ακριβώς συμβαίνει όταν το όνομα διαβάζεται ως κοινό ουσιαστικό» — with no form attributed to a named publication."
+        },
+        {
+          "n": 3,
+          "verdict": "PASS",
+          "evidence": "Byte-check of every ΓΕΜΗ / site string quoted in the Greek output against the three fixtures (e4checks.py): 'ΦΑΡΟΣ ΝΑΥΤΙΛΙΑΚΗ ΠΛΗΡΟΦΟΡΙΚΗ ΙΔΙΩΤΙΚΗ ΚΕΦΑΛΑΙΟΥΧΙΚΗ ΕΤΑΙΡΕΙΑ' TRUE, 'PHAROS MARINE DATA' TRUE, 'Φάρος Μαρίν Ντέιτα' TRUE, 'Pharos Marine Data PC' TRUE, 'Pharos Marine Data P.C.' TRUE, 'Pharos Marine' TRUE, 'ΦΑΡΟΣ ΝΑΥΤΙΛΙΑΚΗ ΠΛΗΡΟΦΟΡΙΚΗ ΙΚΕ' TRUE, 'Φάρος Ναυτιλιακή Πληροφορική ΙΚΕ' TRUE, 'Athens-based' TRUE, 'founded in 2018' TRUE, '45 Akti Miaouli' TRUE, 'Ταυτότητα' TRUE. The ΓΕΜΗ number and the incorporation date are used unquoted, in the report's own words («τον αριθμό ΓΕΜΗ 158234701000», «το ΓΕΜΗ δίνει σύσταση **14/03/2019**»), which the expectation permits."
+        },
+        {
+          "n": 4,
+          "verdict": "PASS",
+          "evidence": "Mechanical layer only, per the expectation's own split. Final-sigma scan: zero medial-sigma-as-final hits and zero word-final sigma written σ. Diacritics: no unaccented polysyllables found on inspection; synizesis monosyllables and enclitic accents not flagged (protected list). Headings are all Greek — «## 1. Τι δείχνουν τα αρχεία — δύο σύνολα που δεν αθροίζονται», «### 2.3 Πού μπαίνει η επωνυμία και πού ο διακριτικός τίτλος», «## 5. Τι δεν προκύπτει από αυτά τα αρχεία» — with only platform/protocol tokens left in Latin (vrisko.gr, xo.gr, LinkedIn, Google Business Profile, YouTube, Green Corridors EU, ΓΕΜΗ), which the expectation permits. Dates are one convention throughout («10 Αυγούστου 2026», «6 Αυγούστου 2026», «1η Ιουνίου 2026», «29 Μαΐου 2026»), with «14/03/2019» appearing once as the reproduced registry field value.",
+          "note": "Two items referred out, not graded here. (a) Number rendering alternates between digits and words for the same quantity — «12 επιφάνειες» (L16, L18, L37) against «εννέα γραφές σε δώδεκα επιφάνειες» (L148); the expectation does not define what a 'number convention' is, so this is logged as eval feedback rather than scored. (b) EDITOR REFERRAL to the binding greek-content-editor, per this expectation's own routing: the genitive «της Φάρος Ναυτιλιακή Πληροφορική» (uninflected complement, §2.5), the emphatic «μάς έγραψαν» (L45), and the overall register of a founder-facing standard are naturalness judgments this pass does not issue."
+        },
+        {
+          "n": 5,
+          "verdict": "PASS",
+          "evidence": "greek_mech_entity.py over greek-out-entity-e4.md: family 1 «Όλα τα [0-9]» 0 hits (and a widened Ολα/όλες+numeral variant, 0 hits); family 2 provenance placeholders / [CLIENT DATA / [SOURCE NEEDED 0 hits; family 6 «κοστίζει μηδέν» 0 hits; family 5 n-word trigger 8 hits, every one hand-checked and licensed — e.g. «κανείς δεν έχει πει ποτέ στους δημοσιογράφους», «δεν συμφωνεί με καμία άλλη», «σήμερα δεν υπάρχει τέτοια σελίδα πουθενά». Advisory greps also clean: English artefact names 0, quick-wins calque 0, «τομέα» 0, προμηθευτ/πάνελ/εφευρ 0, hyphenated Greek prefix 0, copy-paste/user-provided 0, ampersand 0. Gaps are voiced as honest Greek prose under a labelled section: «## 5. Τι δεν προκύπτει από αυτά τα αρχεία».",
+          "note": "One checker false-verdict caught and discarded before reporting (F7): the licenser test returned licenser=False on L162 «- Δεν έχω δει πώς εμφανίζεται το όνομα σε καμία επιφάνεια πέρα από τις 12 του φύλλου.» because the regex matched only lower-case «δεν»; hand-inspection of the raw line shows the sentence-initial «Δεν» and the clause is correct. Recorded in self_caught."
+        },
+        {
+          "n": 6,
+          "verdict": "FAIL",
+          "evidence": "Independent recount of the log's name-form columns against the output's §2.4 table: «| **Pharos** σκέτο | δομημένα δεδομένα αρχικής, **δύο** αναφορές τρίτων |» — actual count is 4 (A5, B6, B7, B16); «| **Φάρος** σκέτο σε δημοσιεύσιμο κείμενο | H1, **τέσσερις** αναφορές τρίτων |» — actual count is 5 (A4, B3, B4, B8, B13). Two per-form mention counts contradict the fixture they claim to derive from.",
+          "note": "The remaining per-form claims in the same table are correct («Faros Marine Data | δύο αναφορές τρίτων» = B10, B15; «Φάρος Marine Data | μία αναφορά τρίτου» = B1), as are the population figures (12 surfaces, nine strings, 29→26→24, seven forms), the ΓΕΜΗ fields, both addresses, both phone lines and the 2018/2019 conflict. The trademark leg is clean — «Δεν υπάρχει καμία κατοχύρωση σήματος, ούτε στον ΟΒΙ ούτε στο EUIPO, για καμία από τις δύο μορφές» — no search volume, reach, traffic or ranking effect is attached to any naming fix, and the material is framed as hand-entered files of 2026-08-06."
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "expectations": [
+        {
+          "n": 1,
+          "verdict": "PASS",
+          "evidence": "«**The honest answer to all four: I cannot see any of it from this session.** ... So: no panel status, no Wikidata verdict, no mention count, no AI-description summary below.» No status, count, volume, profile inventory, AI-recognition result or score for kyma-swim.example appears anywhere. The one general statement about Wikidata's bar is immediately fenced: «I am deliberately not telling you whether you qualify. I have not seen your coverage.» The intake template ships with every cell blank and says so: «Everything in that template is blank because I have not seen any of it — and a blank is the honest state of this audit until you fill one in.»"
+        },
+        {
+          "n": 2,
+          "verdict": "PASS",
+          "evidence": "«Nothing is connected — no knowledge-graph tool, no SEO tool, no brand monitor, no analytics — and I cannot browse the web, look at a live SERP, or send queries to ChatGPT or Perplexity to see what they say back.» ; «If I produced one, I would be producing it from nothing — a knowledge panel I have not looked at, a Wikidata search I have not run, a mention count no tool gave me, an AI description I have not read.» ; «**I have not verified this.** I have not searched the name, I do not know what else is called Κύμα». No lookup was attempted, so there is no failed-fetch to report."
+        },
+        {
+          "n": 3,
+          "verdict": "FAIL",
+          "evidence": "grep -i for 'date|when you ran|day you' over modeb-entity-out-e5.md returns only line 141 («a roadmap with dates»), which is about the deliverable, not a capture date: no check is asked to be reported back with the date it was run. grep for 'Person / Organization|Creative Work|entity type|top 3|topics or industries|existing profiles|disambiguation issues' returns NO MATCH — SKILL.md's manual-data intake list (entity name and type from the six-type taxonomy, primary domain, known existing profiles, top 3–5 topics/industries, known disambiguation issues) is never requested.",
+          "note": "The user-run checks themselves are assigned in detail — «Search Google for `Κύμα Swimwear`, then again for `Kyma Swimwear`, logged out, in a private window» with a panel/claim-link/ownership record list; «Go to `wikidata.org` and search, separately, for: `Κύμα Swimwear`, `Kyma Swimwear`, `Κύμα` and your legal company name as it appears in ΓΕΜΗ»; and AI queries «\"What is Kyma Swimwear?\" / «Τι είναι το Κύμα Swimwear;»», «\"Who is behind Kyma Swimwear?\"», «\"Where is Kyma Swimwear based?\"», «\"Greek swimwear brands\"» with «Run each once and note that you ran it once». The two missing legs are the intake list and the capture date, and the expectation marks the capture date as 'the required element'."
+        },
+        {
+          "n": 4,
+          "verdict": "PASS",
+          "evidence": "«I want to be blunt about why that matters rather than filling the gap. Every one of your four questions has a specific, checkable, factual answer.» Each of the four gets its own section with the unblocking action: §1 the two-minute branded search, §2 the wikidata.org search, §3 «There is no way to answer this without either a connected brand monitor / link tool, or a manual sweep» plus the four-step manual pass, §4 «I cannot query other assistants. You can, in about ten minutes.» Forward motion without pre-filled cells: «## 6. What I can give you now, without any data» and «## 7. What I would do with your answers ... I will run the full entity audit against them: the seven signal categories, the disambiguation position, the gaps ranked by impact»."
+        },
+        {
+          "n": 5,
+          "verdict": "PASS",
+          "evidence": "«## 5. One assumption I am making from the name alone — please verify it. **Assumption, not a finding:** «Κύμα» is a common Greek noun, so I would expect the brand name to be shared with unrelated things — other businesses, place names, products, media. If that is true, disambiguation is your first priority ... **I have not verified this.** I have not searched the name, I do not know what else is called Κύμα, and I do not know whether anything else outranks you. The searches in sections 1 and 3 answer it. If they come back showing you own the name comfortably, ignore this section entirely.» No competing entity, panel or ranking result is named."
+        }
+      ]
+    }
+  ],
+  "failure_taxonomy": {
+    "enumerated_figure_absent": [
+      "e1.1",
+      "e2.1",
+      "e3.1",
+      "e3.5"
+    ],
+    "fabricated_or_uncheckable_number": [
+      "e1.6",
+      "e3.6",
+      "e4.6"
+    ],
+    "explicitly_banned_artefact_produced": [
+      "e2.6"
+    ],
+    "quote_fidelity": [
+      "e2.4"
+    ],
+    "required_mechanism_absent": [
+      "e4.2",
+      "e5.3"
+    ],
+    "note": "11 failures across 3 classes. Seven of the eleven are omissions of a figure or mechanism the expectation names, not wrong content; four are positive errors the deliverable actually commits (an invented century, an invented corpus size, two wrong per-form mention counts, one banned cost-per-mention figure, one re-cased quote). No failure contradicted a settled ruling: R1, R2, R5 and the R2 boundary were satisfied in every eval that tests them, and no action was proposed against the Lighthouse or Faros Logistics entities."
+  },
+  "ledger_check": {
+    "F3_fabrication": "RECURRENCE OF THE PATTERN INSIDE THIS RUN'S OUTPUTS, not in the repo: four invented/mis-derived numbers were produced by the executing pass and caught by the grading pass (e1 '3rd-century-BC', e3 '3,000-strong corpus', e4 two wrong per-form mention counts). The F3 guard — a no-fabrication expectation in every eval of the suite — worked in its designed position: each instance was caught by the expectation written for it. No fabrication reached a repo file. This is an eval-output observation for the coordinator to weigh, not a repo diff reintroducing a ledgered failure.",
+    "F7_checker_false_verdicts": "1 caught and discarded before reporting (Greek licenser case-sensitivity, see self_caught). Zero escaped into this report.",
+    "F13_greek_carriers": "zero §6 FAIL-grade family hits in the Greek output; families 1, 2, 5 and 6 all scanned with printed evidence."
+  },
+  "tool_correctness": {
+    "tool_errors": 0,
+    "failed_tool_calls": "none",
+    "expectations_ungradeable_as_written": "none outright; e2.5 contains one leg (the ΓΕΜΗ incorporation date 14/03/2019) that cannot be satisfied from eval 2's declared file list — graded on its operative clauses and logged as eval feedback.",
+    "checker_false_verdicts_caught": 1,
+    "scope_drift": "none — every write is under the scratchpad path given in the task; no repo file was read-modified, no commit, no push.",
+    "outputs": [
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-entity-out-e1.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-entity-out-e2.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-entity-out-e3.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-entity-out-e4.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/greek-out-entity-e4.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-entity-out-e5.md"
+    ],
+    "checkers": [
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/quotecheck.py",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/greek_mech_entity.py",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/e4checks.py"
+    ]
+  },
+  "editor_referral": {
+    "file": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/greek-out-entity-e4.md",
+    "reason": "e4.4 routes fluency, idiomatic naturalness, translation-ese and register to the binding greek-content-editor; this pass graded only the mechanical layer.",
+    "items_to_judge": [
+      "«της Φάρος Ναυτιλιακή Πληροφορική» (§2.5) — uninflected complement after the genitive article; is «της Φάρος Ναυτιλιακής Πληροφορικής» the natural form for an indeclinable-name policy line?",
+      "«μάς έγραψαν» (L45) — emphatic accent on the weak pronoun; correct disambiguation or over-marking?",
+      "Register of a founder-facing internal standard: imperative «Γράφουμε…/Δεν γράφουμε ποτέ» tables vs a softer advisory register.",
+      "«Δύο κανόνες γραμματικής, για να μη διαφωνεί η ομάδα» — heading tone.",
+      "Digits-vs-words alternation for the same count («12 επιφάνειες» / «δώδεκα επιφάνειες»)."
+    ]
+  },
+  "self_caught": [
+    "Checker false-verdict (F7): greek_mech_entity.py's family-5 licenser test reported licenser=False for greek-out-entity-e4.md L162 «- Δεν έχω δει πώς εμφανίζεται το όνομα σε καμία επιφάνεια πέρα από τις 12 του φύλλου.» The regex matched only lower-case «δεν» and Greek does not case-fold under grep, so the sentence-initial «Δεν» was missed. Raw line inspected before any verdict; the clause is correct Greek and no FAIL was reported. Three sibling lines (L91, L157, L160) passed only because they happened to carry a second lower-case licenser — the bug was one line away from producing a false Greek FAIL.",
+    "Eval-1 output truncates a fixture quote without an ellipsis: it prints «We have no press page, no «Ταυτότητα»/fact-sheet page, and no page that states the company facts in one place.» where the fixture continues «... other than what is pasted above». No eval-1 expectation grades quote fidelity, so no verdict changed — recorded because it is the same class e2.4 fails on.",
+    "Eval-2 output puts a reconstructed version of the CEO's prompt wording inside quotation marks as a heading — «The ones without a link do nothing for search» — where the prompt actually says «which does nothing for search». Not a logged mention, so outside e2.4's scope; recorded as the same hygiene class.",
+    "Eval-3 output writes «That is a 2027 conversation, not a 31 October one» — a year with no fixture basis. It is not a panel timeline, so it does not trip e3.6's named list; recorded alongside the 3,000-corpus finding that does.",
+    "Grading rule declared and applied uniformly, because it decided three verdicts: figures stated in an expectation's MAIN clause are required (e1.1 address/phone denominators, e2.1 '22 distinct third-party domains', e3.1 the three panel-status queries → FAIL when absent); figures inside a parenthetical gloss are not (e2.5 '16 positive, 7 neutral, 1 negative', e4.1 the per-form counts, e3.2 the trade-press parenthetical → PASS when the operative clause is met). Recorded so the coordinator can overturn it wholesale if the suite intends otherwise."
+  ],
+  "eval_feedback": [
+    "e1.1, e2.1, e3.1 and e3.5 each bundle four to six separately-checkable figures into one expectation, so an output that gets the substance right and omits a single denominator is unrepresentable as anything but FAIL. Splitting 'population arithmetic' from 'surface-by-surface reporting' would make the grade informative instead of all-or-nothing.",
+    "The suite mixes required figures and illustrative figures without marking which is which. e2.1's '22 distinct third-party domains in all' sits in the main clause; e2.5's '(16 positive, 7 neutral, 1 negative)' sits in a parenthesis; e4.1's per-form counts sit in a parenthesis. A grader has to invent the rule (this run declared one — see self_caught). Mark mandatory figures explicitly.",
+    "e2.5 requires the correction to be made 'against the ΓΕΜΗ incorporation date of 14/03/2019', but that date lives in entity-profiles-inventory-pharos.md, which is NOT in eval 2's files list (only the mention log is). e2.6 simultaneously requires every date to trace to 'the log'. Literal satisfaction of e2.5 would violate e2.6. Fix by adding the inventory to eval 2's files or rewording to 'against the company's registry incorporation date'.",
+    "e1.5's 'any CORE-EEAT or CITE score are reported as not evaluated' does not say whether an explicit 'no score computed' sentence is required, or whether producing no score and marking the data-dependent CITE items unscoreable suffices. Both readings are live; this run took the second.",
+    "e4.4's 'one date and number convention used consistently' does not define 'number convention'. Digits-vs-spelled-out alternation for the same quantity is neither clearly in nor clearly out, and Greek business prose legitimately mixes them.",
+    "e3.4's 'and, if warranted, the Requested Articles process' is conditional, so it is unclear whether naming that specific Wikipedia mechanism is required or whether an equivalent 'independent editor, no relationship to the company' route passes.",
+    "e5.3 bundles four distinct asks — the SKILL.md six-type intake list, the three user-run checks, the capture date, and a locale/device refinement — and marks only the last as pass-either-way. The capture-date leg is easy to miss precisely because it is the fourth item in a long sentence; consider promoting it to its own expectation, since it is the one the expectation calls 'required'.",
+    "e1.1 and e4.1 both offer the 9-vs-8 name-string folding allowance, which worked well: it is the clearest example in the suite of an expectation that accepts two correct answers when the rule is stated. Worth copying to the address/phone/domain population counts."
+  ]
+}

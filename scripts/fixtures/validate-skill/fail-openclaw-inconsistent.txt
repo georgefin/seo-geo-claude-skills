@@ -1,0 +1,23 @@
+# CASE: fail-openclaw-inconsistent
+# ROLE: positive
+# DIR: probe-openclaw-inconsistent
+# EXPECT-EXIT: 1
+# EXPECT-MATCH: declares primaryEnv but requires.env is empty
+# ---8<--- SKILL.md
+---
+name: probe-openclaw-inconsistent
+description: 'Probe fixture whose ClawHub block declares a primary env with no requirement. Use when the user asks to "validate an inconsistent openclaw block".'
+license: Apache-2.0
+compatibility: "Claude Code >=1.0."
+metadata:
+  author: probe-fixture
+  version: "1.0.0"
+  openclaw:
+    primaryEnv: AHREFS_API_KEY
+    requires:
+      env: []
+---
+
+# Probe OpenClaw Inconsistent
+
+Body content.

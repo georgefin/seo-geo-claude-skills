@@ -1,15 +1,14 @@
 {
   "name": "seo-geo-claude-skills",
-  "version": "4.4.0",
+  "version": "4.6.1",
   "displayName": "SEO & GEO Skills Library",
   "description": "20 skills and 9 commands for Search Engine Optimization (SEO) and Generative Engine Optimization (GEO). Content quality powered by CORE-EEAT (80 items). Domain authority powered by CITE (40 items). Tool-agnostic — works with or without integrations.",
   "author": {
-    "name": "Aaron He Zhu",
-    "email": "hello@zhuhe.io",
-    "url": "https://github.com/aaron-he-zhu"
+    "name": "Sani Hellas",
+    "url": "https://github.com/georgefin"
   },
-  "homepage": "https://github.com/aaron-he-zhu/seo-geo-claude-skills",
-  "repository": "https://github.com/aaron-he-zhu/seo-geo-claude-skills",
+  "homepage": "https://github.com/georgefin/seo-geo-claude-skills",
+  "repository": "https://github.com/georgefin/seo-geo-claude-skills",
   "license": "Apache-2.0",
   "keywords": [
     "seo",

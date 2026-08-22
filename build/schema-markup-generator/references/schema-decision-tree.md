@@ -2,6 +2,8 @@
 
 Guidelines for selecting the ONE primary schema type a page needs, what to nest inside it, and when a documented auxiliary type is justified.
 
+**The value rule (applies to every example in this file and to anything generated from it)**: a JSON-LD block handed to a user carries resolved values only. A property whose value cannot be sourced from the page is dropped from the block and named in the report prose — never filled with an invented value or an unbracketed stand-in. Bracket tokens (`[LATITUDE]`) belong only in a block explicitly labelled a skeleton. Full rule: SKILL.md step 2, *Missing data — the value rule*.
+
 **Ground rule (settled ruling R2, CORE-EEAT O05)**: one accurate primary content type per page. Supporting entities are nested properties of that type, not separate top-level objects. A second top-level type is legitimate only when it has its own engine-documented, non-citation job and the page data warrants it. Adding types because "more schema = more AI citations" is citation-lever stacking — banned: no engine documents a citation gain from extra types, and every extra type adds maintenance surface and content-mismatch (spam-policy) risk.
 
 ---
@@ -15,19 +17,37 @@ Pick the ONE row that matches the page. The "Nest Inside It" column lists entiti
 | Blog post / article | Article / BlogPosting | author (Person), publisher (Organization + logo), image | Article rich result (date, author) |
 | Product page | Product | offers (Offer), brand, aggregateRating, review | Price/rating snippet |
 | Service page | Service | provider (Organization/LocalBusiness), areaServed, offers | No dedicated rich result; accurate type still aids entity understanding |
-| How-to guide | HowTo | step, totalTime, supply, tool | How-to rich result with steps |
-| FAQ page | FAQPage | mainEntity (Question → acceptedAnswer) | None — FAQ rich results retired 2026; type kept for AI-engine/GEO parsing (ruling R3) |
+| How-to guide | HowTo | step, totalTime, supply, tool | Unconfirmed — see the [VERIFY] note below; claim no How-to appearance |
+| FAQ page | FAQPage | mainEntity (Question → acceptedAnswer) | None — no FAQ rich result for ordinary sites — government/health only, Aug 2023; type kept because it stays valid and Google says there is no need to proactively remove it (ruling R3 + amendment 9a — a permission to leave it, not advice to keep it; no evidenced citation benefit either way) |
 | Recipe | Recipe | recipeIngredient, recipeInstructions, nutrition, aggregateRating | Recipe carousel |
 | Event | Event | location (Place + PostalAddress), offers, organizer (Organization) | Event snippet with date/location |
 | Video page | VideoObject | thumbnailUrl, duration, interactionStatistic | Video carousel, key moments |
-| Local business page | LocalBusiness (or subtype: Restaurant, HVACBusiness, ...) | address (PostalAddress), geo, openingHoursSpecification, review | Local pack, knowledge panel |
+| Local business page | LocalBusiness (or subtype: Restaurant, HVACBusiness, HomeAndConstructionBusiness, ...) | address (PostalAddress), geo, openingHoursSpecification, review | Corroborates the business entity — see the [VERIFY] note below; claim no local-pack placement |
 | Author/person page | Person | affiliation (Organization), sameAs | Knowledge panel |
 | Homepage | Organization (or WebSite) | contactPoint, logo, sameAs | Knowledge panel |
 | Course page | Course | provider (Organization), hasCourseInstance | Course rich result |
 | Job posting | JobPosting | hiringOrganization, jobLocation | Google for Jobs listing |
 | Software/app page | SoftwareApplication | offers, aggregateRating, operatingSystem | App snippet |
 
+**Reading the SERP Note column**: it names the appearance a correctly-marked page becomes *eligible* for where one is offered. None of them is a guarantee — Google decides per query and per device — and two rows are open questions rather than facts:
+
+- **How-To — settled on the gallery, not on the 2023 post.** HowTo is absent from Google's current structured-data gallery ("Structured data markup that Google Search supports", `developers.google.com/search/docs/appearance/structured-data/search-gallery`, read 2026-08-18), so there is no How-to SERP appearance to promise. The older account of *how* it ended — desktop-only, then dropped "as of September 13", with the How-to report and Rich Results Test support withdrawn, per the 2023-08-08 Search Central post — is **search-snippet grade, not owner-read**, and is not repeated to clients. Behaviour unchanged: keep generating HowTo for genuinely step-by-step pages on schema.org validity alone, and promise no appearance either way. **Scope**: this states the gallery reading only. It does not settle proposal 9b, whose named loci are in other skills and remain the owner's call at gated item G9.
+- `[VERIFY]` **LocalBusiness** — this file previously read "Local pack, knowledge panel" with no source behind it. Local-pack placement is widely attributed to the business's Google Business Profile rather than to page JSON-LD, but no Google-primary source is on file that either supports or refutes the old line (searched 2026-08-10, none found), and flatly asserting the reverse would repeat the unsourced move. What the markup demonstrably does is corroborate name, address, phone and hours for entity understanding; say that, and promise no placement.
+
 **"Should it be X or Y — or both?"** Pick the one type that matches what the page IS, and nest the other entity inside it (a workshop page is an Event with the studio nested as `organizer` — not Event + Organization side by side). Two content types as co-primaries are justified only if the page genuinely is both things and each type is complete, accurate, and independently justified.
+
+### Key Properties at a Glance (moved from SKILL.md)
+
+The two or three properties that identify each type, for recognising a mis-typed page quickly.
+They are a lookup, not a required-property list — what a type actually requires is in
+[validation-guide.md](./validation-guide.md), and a property with no value on the page is dropped
+rather than filled.
+
+BlogPosting/Article — `headline`, `datePublished`, `author` · Product — `name`, `price` (inside
+`offers`), `availability` · FAQPage — `Question`, `Answer` · HowTo — `step`, `totalTime` ·
+LocalBusiness — `address`, `geo`, `openingHours` · Recipe — `recipeIngredient`, `cookTime` ·
+Event — `startDate`, `location` · VideoObject — `uploadDate`, `duration` · Course — `provider`,
+`name` · Review — `itemReviewed`, `ratingValue`.
 
 ---
 
@@ -79,7 +99,7 @@ Primary type per page across a typical site — NOT a list of types to combine o
 | Issue | Impact | Fix |
 |-------|--------|-----|
 | Missing required property | Schema ignored by Google | Add all required fields (check schema.org) |
-| Invalid date format | Warning, may lose rich result | Use ISO 8601: "2026-02-11" |
+| Invalid date format | Warning, may lose rich result | Use ISO 8601 at the page's own precision: "2026-02-11" when no time is shown; "2026-02-11T09:00:00+02:00" when it is |
 | Incorrect @type | Schema misinterpreted | Match @type exactly to schema.org |
 | Self-referencing sameAs | Warning | sameAs should link to EXTERNAL profiles |
 | Missing image for Article | Loses article rich result | Add image property with valid URL |

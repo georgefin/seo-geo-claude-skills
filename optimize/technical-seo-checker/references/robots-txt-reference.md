@@ -7,6 +7,10 @@ Complete reference for creating, testing, and troubleshooting robots.txt files.
 ### Basic Structure
 
 ```
+# SKELETON — directive syntax only, not a deployable file. Every [bracket] is a slot; a
+# path or agent you cannot name is left out of the file rather than guessed at, and this
+# comment goes when you write the real directives.
+
 User-agent: [bot name]
 Disallow: [path to block]
 Allow: [path to allow]
@@ -27,18 +31,20 @@ Specifies which bot the rules apply to.
 **Bot-role roster** — every AI vendor ships more than one agent, and each agent has a
 different job (training vs. search/citation discovery vs. user-triggered fetching).
 Decide access **per role**, never per vendor name alone.
-`[VERIFY vendor-primary at next sweep — bot rosters churn]` (roster compiled 2026-08-08).
+`[VERIFY vendor-primary at next sweep — bot rosters churn]` (roster compiled 2026-08-08; swept against each operator's own documentation 2026-08-18).
 
 | User-agent token | Operator | Role |
 |------------------|----------|------|
 | `Googlebot` | Google | Search indexing |
 | `Google-Extended` | Google | AI-training opt-out control |
+| `Google-CloudVertexBot` | Google | Site-owner-requested crawls for building Vertex AI Agents — no effect on Google Search |
 | `Bingbot` | Microsoft | Search indexing (feeds the Copilot ecosystem) |
 | `GPTBot` | OpenAI | Model training |
 | `OAI-SearchBot` | OpenAI | Search / citation discovery |
 | `ChatGPT-User` | OpenAI | User-triggered fetching |
+| `OAI-AdsBot` | OpenAI | Ad-page safety validation — not training, not search discovery |
 | `ClaudeBot` | Anthropic | Crawling / training |
-| `anthropic-ai` | Anthropic | Crawling / training (second Anthropic token — address both) |
+| `anthropic-ai` | Anthropic | Legacy token — not listed in Anthropic's current crawler documentation (checked 2026-08-18, which documents ClaudeBot, Claude-User and Claude-SearchBot only). Harmless to keep in a robots.txt; do not present it to a client as a currently-documented agent |
 | `Claude-SearchBot` | Anthropic | Search / citation discovery |
 | `Claude-User` | Anthropic | User-triggered fetching |
 | `PerplexityBot` | Perplexity | Answer retrieval / citation |
@@ -186,8 +192,9 @@ stance behind it.
 **The bot-pair rule (core of this section)**: every AI vendor ships a bot pair or triple —
 one agent for model *training*, one for *search/citation discovery*, and often one for
 *user-triggered* fetching (see the bot-role roster above). Each role must be decided
-**separately**. Blocking a vendor's training bot while never explicitly allowing its
-search bot silently forfeits that engine's citations.
+**separately**. Blocking a vendor's training bot while never naming its search bot leaves
+that agent's access to whatever `User-agent: *` happens to grant — inherited, not decided,
+and it changes the next time somebody edits the wildcard group.
 
 **Audit finding to flag**: *"training bot blocked but sibling search bot not explicitly
 allowed."* Raise it whenever a robots.txt disallows any training agent (GPTBot, ClaudeBot,
@@ -200,10 +207,28 @@ vendor's search/citation and user-triggered agents.
 | **Default-closed** | Licensed/paid/private content, or a deliberate text-and-data-mining reservation | All AI agents (training AND search/citation AND user-triggered) disallowed; the site accepts losing AI citations |
 | **Split (search yes, training no)** | Search indexing and AI citations wanted; model-training use refused | Training agents disallowed; search/citation and user-triggered agents explicitly allowed |
 
+> **Read this before editing any multi-group file below — a crawler obeys ONE group, and
+> groups are NOT merged.** Per RFC 9309, a crawler selects the single most specific group whose
+> user-agent matches it and follows only that group. It never falls back to `User-agent: *` for
+> rules it did not find there. **Consequence: every directory you want kept out of a named
+> agent's reach must be repeated inside that agent's own group.** Utility blocks placed only in
+> the `*` group protect the site from unnamed crawlers and from nobody else.
+>
+> This is not a style note. It is why the split-stance example below repeats
+> `Disallow: /admin/` and `Disallow: /private/` in four groups instead of writing them once —
+> and the repetition must not be "tidied" away. **The earlier form of this example put them in
+> the `*` group alone, which left Googlebot, Bingbot and six named AI agents free to crawl both
+> paths while appearing to block them.** Found 2026-08-17 by a blind executor that declined to
+> paste a block it could not verify.
+
 **Split-stance example** (search + citations kept, training refused):
 
 ```
+# ILLUSTRATIVE FILL — every value below is invented. Replace example.com and the
+# directory list with the site's own before this file is deployed.
+
 # --- AI model training: refused ---
+# Disallow: / covers everything, so the utility paths need no repeat here.
 User-agent: GPTBot
 User-agent: ClaudeBot
 User-agent: anthropic-ai
@@ -211,22 +236,25 @@ User-agent: CCBot
 User-agent: Google-Extended
 Disallow: /
 
-# --- AI search / citation discovery: allowed ---
+# --- AI search / citation discovery: allowed, minus the utility paths ---
 User-agent: OAI-SearchBot
 User-agent: Claude-SearchBot
 User-agent: PerplexityBot
-Disallow:
+Disallow: /admin/
+Disallow: /private/
 
-# --- User-triggered fetchers: allowed ---
+# --- User-triggered fetchers: allowed, minus the utility paths ---
 User-agent: ChatGPT-User
 User-agent: Claude-User
 User-agent: Perplexity-User
-Disallow:
+Disallow: /admin/
+Disallow: /private/
 
-# --- Search engines: allowed ---
+# --- Search engines: allowed, minus the utility paths ---
 User-agent: Googlebot
 User-agent: Bingbot
-Disallow:
+Disallow: /admin/
+Disallow: /private/
 
 # --- Everyone else ---
 User-agent: *
@@ -235,6 +263,12 @@ Disallow: /private/
 
 Sitemap: https://example.com/sitemap.xml
 ```
+
+**Verify after deploying any multi-group file**, per group rather than per file — a whole-file
+test answers the wrong question. In Search Console's robots.txt report, test `/admin/` as
+Googlebot specifically; for the rest, confirm by reading that each named group carries the
+utility lines. A file that tests clean as `*` and was never tested as a named agent has not
+been tested.
 
 **Ops checks (run for ANY stance)**:
 
@@ -602,10 +636,13 @@ User-agent: BadBot
 Crawl-delay: 60
 Disallow: /
 
-# Good bots - full access
+# Good bots - full access except the utility paths.
+# /admin/ is repeated here on purpose: this group is the only one Googlebot and
+# Bingbot read, so omitting it leaves both free to crawl /admin/. See the
+# one-group rule above.
 User-agent: Googlebot
 User-agent: Bingbot
-Disallow:
+Disallow: /admin/
 
 # Default for others
 User-agent: *

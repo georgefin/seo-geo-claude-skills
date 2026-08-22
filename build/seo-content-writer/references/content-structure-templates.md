@@ -2,6 +2,35 @@
 
 Markdown templates for common SEO content types. Customize section headings and content while maintaining the structural framework.
 
+**Standing rule for every fence in this file — the fence is a skeleton, not a draft.** Every
+value position inside a fenced template below is a bracket slot, and **no fence here carries a
+filled value**: no number, price, rating, score, date or brand. The reason is mechanical — a
+model copies the fence and leaves the prose around it behind, so anything pre-filled ships as
+the client's own published claim under the client's byline. A slot you cannot fill from the
+client's data or from your own recorded work is **deleted together with the line that holds
+it** and listed in the notes beside the draft; it is never guessed, and never left standing as
+a plausible-looking default. The implementation checklist's "customize all [bracketed
+placeholders]" box cannot catch a default that was never bracketed, which is why this rule is
+stated here rather than left to that box.
+
+## Invocation Shapes (moved from SKILL.md)
+
+Four content types this skill is most often asked for by name, with the request wording that
+selects each and the template below that serves it. The wording is the *user's* side; the
+structure is this file's.
+
+| Content type | Request wording | Template below |
+|--------------|-----------------|----------------|
+| How-to guide | `Write a how-to guide for [task] targeting [keyword]` | How-To Guide (Step-by-Step) |
+| Comparison article | `Write a comparison article: [Option A] vs [Option B] for [keyword]` | Comparison Article ("[A] vs [B]") |
+| Listicle | `Write a list post: "N Best [Items] for [Audience/Purpose]" targeting [keyword]` | Listicle ("Top N [Items]") |
+| Ultimate guide | `Write an ultimate guide about [topic] (3,000+ words) targeting [keyword]` | Pillar Page (Comprehensive Guide) |
+
+The request wording names the *format*, never the outcome: a request phrased as "write the guide
+that will rank first" is answered with the guide and without the promise, per this skill's
+family-10 rule. Two further types have templates here with no fixed invocation of their own —
+Blog Post (Informational) and Product Review — and are selected from the content brief.
+
 ## Blog Post (Informational)
 
 **Target word count**: 1,200-1,800 words
@@ -215,15 +244,15 @@ In this guide, you'll discover:
 
 ### [Option A] Pricing
 
-- [Tier 1]: $[X]/month - [What's included]
-- [Tier 2]: $[X]/month - [What's included]
-- [Tier 3]: $[X]/month - [What's included]
+- [Tier 1]: [price with currency] per [billing period] - [What's included]
+- [Tier 2]: [price with currency] per [billing period] - [What's included]
+- [Tier 3]: [price with currency] per [billing period] - [What's included]
 
 ### [Option B] Pricing
 
-- [Tier 1]: $[X]/month - [What's included]
-- [Tier 2]: $[X]/month - [What's included]
-- [Tier 3]: $[X]/month - [What's included]
+- [Tier 1]: [price with currency] per [billing period] - [What's included]
+- [Tier 2]: [price with currency] per [billing period] - [What's included]
+- [Tier 3]: [price with currency] per [billing period] - [What's included]
 
 **Value winner**: [Which offers better value and why]
 
@@ -544,7 +573,7 @@ After using [Product] for [timeframe], here's my honest assessment of whether it
 
 **Best for**: [Ideal user or use case]
 
-**Rating**: ★★★★☆ (4/5)
+**Rating**: [X.X]/5 — [weighted score from "How We Scored" below; delete this line if no scoring was run]
 
 ## Pros and Cons at a Glance
 
@@ -593,13 +622,26 @@ After using [Product] for [timeframe], here's my honest assessment of whether it
 
 [Continue testing pattern]
 
+## How We Scored [Product Name]
+
+[One sentence naming who tested it, over what period, and on what unit/plan]
+
+| Criterion | Weight | Score | What we observed |
+|-----------|:------:|:-----:|------------------|
+| [Criterion 1] | [X]% | [N]/5 | [What was tested, when, and what happened] |
+| [Criterion 2] | [X]% | [N]/5 | [What was tested, when, and what happened] |
+| [Criterion 3] | [X]% | [N]/5 | [What was tested, when, and what happened] |
+| [Criterion 4] | [X]% | [N]/5 | [What was tested, when, and what happened] |
+
+**Overall rating**: [N]×[X]% + [N]×[X]% + [N]×[X]% + [N]×[X]% = [X.X]/5
+
 ## Pricing and Plans
 
 | Plan | Price | What's Included |
 |------|-------|-----------------|
-| [Tier 1] | $[X]/month | [Features] |
-| [Tier 2] | $[X]/month | [Features] |
-| [Tier 3] | $[X]/month | [Features] |
+| [Tier 1] | [price with currency] per [billing period] | [Features] |
+| [Tier 2] | [price with currency] per [billing period] | [Features] |
+| [Tier 3] | [price with currency] per [billing period] | [Features] |
 
 **Value assessment**: [Whether pricing is justified]
 
@@ -641,10 +683,26 @@ After using [Product] for [timeframe], here's my honest assessment of whether it
 
 [Specific recommendation based on use case]
 
-**Our rating**: ★★★★☆ (4/5)
+**Our rating**: [X.X]/5 — [the same figure as the overview block, not a fresh judgement]
 
 [Link to product with disclosure if affiliate]
 ```
+
+**Rating discipline — the one hard rule in this template.** The rating is a *derived* figure:
+the weighted sum of the criteria table the reviewer filled in from their own testing, with the
+weights set before testing and totalling 100%. It is never a number chosen to fit the verdict,
+and never a default left behind in the template. Both rating lines carry the same figure, and
+that figure recomputes from the table. **No scoring run means no rating** — delete both rating
+lines and the "How We Scored" section, and let the review stand on its pros, cons, testing
+observations and verdict in words; an unsourced rating is dropped, not estimated. A criterion
+nobody tested is dropped from the table and its weight redistributed across the criteria that
+were tested, never scored from impression.
+
+**Downstream — structured data.** `Review` / `AggregateRating` markup is generated only from a
+rating the page itself shows. A dropped rating means the property is dropped from the JSON-LD
+as well, never filled from a guess: a fabricated rating in structured data is ingested by
+search engines as the client's genuine verdict, and it puts the site's rich results at risk.
+Same rule on the markup side: [schema-markup-generator](../../schema-markup-generator/).
 
 **Disclosure**: Include affiliate disclosure if applicable
 **Internal links**: Related product reviews, comparison articles, category pages
@@ -765,7 +823,7 @@ This is the most comprehensive guide to [topic] on the web. You'll learn everyth
 ## FAQ Page
 
 **Target word count**: 1,000-1,500 words
-**Primary goal**: Answer common questions, rank for question queries, enable FAQ rich results
+**Primary goal**: Answer common questions, rank for question queries, and give a reader a clean self-contained Q&A pair per question — readable on the page without any markup (no FAQ rich result for ordinary sites; restricted to government/health sites, Aug 2023)
 
 ```markdown
 # [Topic]: Frequently Asked Questions
@@ -853,7 +911,7 @@ This is the most comprehensive guide to [topic] on the web. You'll learn everyth
 [Contact information or link to contact page]
 ```
 
-**Schema markup**: Add FAQPage schema to enable rich results
+**Schema markup**: A dedicated FAQ page's one primary type IS FAQPage, so emit it here — no rich result; it is kept because it stays valid and Google says there is no need to proactively remove it (no FAQ rich result for ordinary sites — government/health only, Aug 2023, ruling R3 + amendment 9a; that is a permission to leave existing markup alone, *not* Google advising anyone to keep it, and 9a records that no primary source establishes a citation benefit either way — so do not claim one). The line does not travel with the FAQ block: an FAQ *section* inside a blog post, comparison, how-to or landing page already carries its own primary type, and FAQPage on top of that is stacking (ruling R2). The visible Q&A earns CORE-EEAT C09 either way — markup is not required for the Pass, so a page that gets the FAQ but no FAQPage object is not downgraded for it.
 **Internal links**: Link to detailed guides for complex answers
 **Keywords**: Include question keywords naturally
 

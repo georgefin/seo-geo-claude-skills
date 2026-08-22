@@ -1,0 +1,22 @@
+# CASE: warn-short-description
+# ROLE: positive
+# DIR: probe-short-description
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: description may be too short for effective
+# EXPECT-ABSENT: FAIL
+# WHY: 40 chars — over the 10-char floor, under the 50-char discovery threshold,
+#      and it carries `Use when` so the trigger branch stays quiet.
+# ---8<--- SKILL.md
+---
+name: probe-short-description
+description: Save data. Use when asked to save it.
+license: Apache-2.0
+compatibility: "Claude Code >=1.0."
+metadata:
+  author: probe-fixture
+  version: "1.0.0"
+---
+
+# Probe Short Description
+
+Body content.

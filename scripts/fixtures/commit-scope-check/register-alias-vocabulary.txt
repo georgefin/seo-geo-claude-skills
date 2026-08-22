@@ -1,0 +1,23 @@
+# CASE: register-alias-vocabulary
+# ROLE: negative
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: 1 passed
+# EXPECT-ABSENT: FAIL
+# FILE: docs/loop/FAILURE-LEDGER.md
+# FILE: docs/loop/GATED-ITEMS.md
+# FILE: docs/loop/WATCH-ITEMS.md
+# FILE: docs/loop/SETTLED-RULINGS.md
+# FILE: docs/loop/PIPELINE.md
+# FILE: docs/loop/KPI.md
+# FILE: docs/loop/PILOT.md
+# FILE: docs/loop/ADVERSARIAL-LAYER.md
+# FILE: docs/loop/MASTER-IMPROVEMENT-PLAN.md
+# FILE: VERSIONS.md
+# WHY: ten registers, and the subject names NONE of them by basename — every one is
+#      satisfied by an alias, one alias per register. This is the alias table's only
+#      exercise, and it covers all ten `register_aliases` keys in one commit. The probe
+#      mirrors those keys out of the script's own source and requires each to appear in
+#      this file, so an eleventh register added without an alias canary fails the probe.
+#      Verify by hand before editing the subject: no basename may appear in it.
+# ---8<--- commit message
+chore(shared): ledger, gated, watch, ruling, stage, changelog, metric, input, adversarial and directive touch-ups

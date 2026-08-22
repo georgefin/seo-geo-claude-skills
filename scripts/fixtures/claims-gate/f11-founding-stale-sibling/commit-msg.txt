@@ -1,0 +1,3 @@
+docs(loop): close G3 — retire the WP/CVE advisory feed (option c)
+
+Register-only close-out; no trigger changes.

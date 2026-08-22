@@ -1,0 +1,111 @@
+# FIXTURE — legitimate R3 lines, drawn VERBATIM from the live tree (2026-08-17)
+#
+# The other half of the probe. A guard that only ever fires proves nothing (ledger F15), and the
+# direction this fix took — NARROWER excuses — can only be judged against the lines the library
+# WANTS. Every line below is a real, corrected, wanted line: it names FAQ near a rich-result token
+# AND denies the eligibility claim in the same breath. Each must survive check (f) untouched.
+#
+# Provenance is `path:line` as of 2026-08-17. The tree WILL drift from these copies; that is fine
+# and expected — a frozen corpus is meant to outlive the lines it came from. It is NOT fine for
+# the citation to rot unnoticed, so `--probe` re-checks all 20 provenance lines on every run and
+# prints which are verbatim, which MOVED, and which are GONE. One was gone within the hour: entry
+# 13 below, rewritten by a parallel workstream on 2026-08-17 while this file was being written.
+# The frozen copy stands; the probe says the citation no longer resolves. Read the probe, not
+# this header, for the current state.
+#
+# Selection is not a sample: 15 of the 17 were, when measured on 2026-08-17 against the whole-line
+# allowlist as it then stood, every line in the tree that survived on ONE marker only (row 94's
+# sole-excuse concentration — losing that marker un-excuses the line, so these are the fragile
+# ones), plus the 2 lines that set the proximity window (they need the longest gap between claim
+# and marker of anything in the tree: 50 and 31 characters). That concentration is itself a
+# snapshot; `--probe` recomputes the per-member weight on the live tree every run.
+#
+# FORMAT: `# ` comment, `>>> ` data (everything after the 4-char prefix is the line, verbatim,
+# including leading whitespace). Anything else is a format error and the probe says so.
+# EXPECT for every line in this file: EXCUSED.
+#
+# COUNT: 17
+#
+# research/serp-analysis/references/serp-feature-taxonomy.md:310
+#   sole excuse: `does not (support|test) faqpage`. Names the tool gap in the same clause as the
+#   claim — the marker is bound to FAQPage, not floating on the line.
+>>> 1. **Validate before publishing** -- Rich Results Test for the types it still covers; Schema.org Validator for syntax, and for FAQPage that validator is the only check left (Rich Results Test does not support FAQPage, ruling R3)
+#
+# research/serp-analysis/references/serp-feature-taxonomy.md:313
+#   sole excuse: `no faq rich result`. Denies the appearance for an ordinary site outright.
+>>> 4. **Monitor in Search Console** -- Check Enhancement reports for errors (an ordinary site has no FAQ rich result to report on -- nothing to monitor there)
+#
+# build/schema-markup-generator/references/validation-guide.md:255
+#   sole excuse: `do not run it through`. The marker sits INSIDE the token span (between `FAQPage`
+#   and `Rich Results Test`), which is why it stays a whole-line marker — see the tier note in the
+#   script. Bind it by proximity and this line becomes a false positive.
+>>> Validate FAQPage at https://validator.schema.org/ (syntax + Schema.org semantics). Do not run it through the Rich Results Test or look for it in Search Console.
+#
+# build/schema-markup-generator/references/validation-guide.md:312
+#   sole excuse: `non-faq`.
+>>> 3. **Test at Google Rich Results Test (non-FAQ types only)**
+#
+# build/schema-markup-generator/references/validation-guide.md:322
+#   sole excuse: `non-faq`.
+>>> 1. **Test on staging URL with Rich Results Test** (non-FAQ types)
+#
+# build/schema-markup-generator/references/validation-guide.md:438
+#   sole excuse: `non-faq`.
+>>> - [ ] Verify rich results are still appearing (non-FAQ types)
+#
+# build/schema-markup-generator/references/validation-guide.md:443
+#   sole excuse: `non-faq`.
+>>> - [ ] Test key pages with Rich Results Test (non-FAQ types); FAQPage via Schema.org validator
+#
+# build/schema-markup-generator/references/validation-guide.md:450
+#   sole excuse: `non-faq`.
+>>> - [ ] Re-validate: Schema.org validator; Rich Results Test for non-FAQ types
+#
+# build/schema-markup-generator/references/validation-guide.md:480
+#   sole excuse: `does not (support|test) faqpage`.
+>>> - **Rich Results Test**: https://search.google.com/test/rich-results (does not test FAQPage — validate that with the Schema.org Validator)
+#
+# build/schema-markup-generator/SKILL.md:33
+#   sole excuse: `"add faq rich results"`. A How-to-Use trigger phrase — the USER's words, quoted,
+#   not the library asserting anything (the same shape engine-claim-sweep excuses by SHAPES).
+>>>     - "add FAQ rich results"
+#
+# build/schema-markup-generator/SKILL.md:52
+#   sole excuse: `non-faq`.
+>>> - Any page where a non-FAQ rich result is available, or where stating the page's type and entities unambiguously is worth doing on its own
+#
+# build/schema-markup-generator/SKILL.md:307
+#   sole excuse: `does not (support|test) faqpage`.
+>>> _Implementation: Wrap the above JSON-LD in `<script type="application/ld+json">...</script>` and place in `<head>` or before `</body>`. Validate syntax with Schema.org Validator — Google's Rich Results Test does not support FAQPage._
+#
+# optimize/content-refresher/references/ai-overview-recovery.md:66
+#   sole excuse: `\bretired\b`, and it is the SAME marker Mode A's escape rides. The difference is
+#   position: here `retired` predicates the FAQ rich results (gap 6 chars, after the claim); in the
+#   escape it modifies a template one clause earlier. That contrast is the whole fix, and it is the
+#   reason this entry is KEPT after the source line stopped existing: on 2026-08-17, hours after it
+#   was copied, a parallel workstream rewrote the sentence (it now denies the claim through
+#   `no FAQ rich result` + the sourced date instead of through `retired`). The probe reports this
+#   entry as GONE on every run. It stays because the pair — this line and r3-violations.txt #13 —
+#   is the minimal evidence that position, not vocabulary, is what the guard now reads.
+>>>    advising anyone to keep it. Google's FAQ rich results are retired, so promise no SERP
+#
+# monitor/alert-manager/references/alert-threshold-guide.md:626
+#   sole excuse: `\bended\b`, 2 characters after the token match. This is the line the 2026-08-17
+#   word-bounding was one rewording away from breaking.
+>>> **The FAQ rich-result alert is the dead-report case: those rich results ended in 2026**, per
+#
+# commands/generate-schema.md:80
+#   sole excuse: `no faq rich result`.
+>>> 4. FAQPage: stop after step 2. An ordinary site has no FAQ rich result -- Google restricted
+#
+# commands/generate-schema.md:19
+#   WINDOW SETTER, not a sole-excuse line. The nearest marker (`2023-08-08`) sits 50 characters
+#   after the token with no sentence break between — the longest legitimate gap in the tree. The
+#   proximity window is 60 because of this line; drop below 50 and check (f) fails a correct line.
+>>> Generates valid **Schema.org JSON-LD** structured data markup so search and answer engines can parse the page's entities. Rich-result eligibility depends on the type -- FAQPage has none for an ordinary site since Google's 2023-08-08 restriction to government and health websites and is generated because it stays valid and Google says there is no need to proactively remove it — a permission to leave existing markup alone, not Google advising anyone to keep it (settled ruling R3 + amendment 9a; no evidenced citation benefit either way, so claim none).
+#
+# build/schema-markup-generator/references/validation-guide.md:231
+#   WINDOW SETTER #2, gap 31, and the reason the window ALLOWS commas. Its markers
+#   (`government and health`, `2023-08-08`) sit past two commas inside one sentence. A comma-blocking
+#   window catches one more constructed escape and costs this real line — measured, and refused.
+>>> > **Eligible for**: nothing in Google Search for an ordinary site — Google restricted FAQ rich results to well-known, authoritative government and health websites on 2023-08-08, and for everyone else the result "will no longer be shown regularly" (Google's words). **What feeds it**: the four `Question`/`acceptedAnswer` pairs are valid schema.org and machine-readable by any consumer that chooses to read them. **Caveat**: no engine promises to use it and no primary source establishes a citation benefit either way (ruling R3, amendment 9a) — this is machine-readable input, not a placement and not a lever.

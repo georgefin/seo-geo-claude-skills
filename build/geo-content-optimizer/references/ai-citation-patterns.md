@@ -1,10 +1,38 @@
 # AI Citation Patterns
 
-How different AI systems select and cite content. Understanding these patterns helps optimize content for AI visibility.
+This library's working model of how different AI systems present and attribute the content
+they quote, and what to put on a page in response.
 
-## Google AI Mode (Default Surface, incl. AI Overviews)
+> **Evidence grade — read before quoting anything in this file.** No engine publishes its
+> citation-selection mechanics. What is genuinely observable is the **citation style** each
+> product visibly uses in its own output — inline numbers, a footnoted Sources list, named
+> attribution — and that is what the per-engine sections below record. The **"what gets
+> cited" / "prefers" / "values" lists beside them are this library's judgement about where to
+> spend effort**, not a preference any engine has stated. Ruling R3 amendment 9a retracted a
+> claim of exactly this shape — that FAQPage markup earns AI citations — on the ground that
+> **no primary source establishes it in either direction**; that absence is not narrower here.
+>
+> **In a deliverable**: use these sections to order work, and justify every recommendation by
+> what it puts on the page — a standalone definition that can be lifted and quoted intact, a
+> comparison a reader can scan, a source a reader can follow. Never by an asserted engine
+> mechanic. "Engines extract from the first paragraph" is not a sentence this library can
+> source; "the answer is in the first 150 words, where a reader and any extractive consumer
+> both reach it without scrolling" is.
 
-**Baseline shift**: AI Mode is now Google's default search surface (Google I/O 2026) — AI Overviews folded in, no longer a separate peer feature. Live for Greek-language queries since 08-10-2025. Organic CTR baselines shift accordingly: classic "10 blue links" click-through is no longer the default outcome, so optimize primarily for in-surface citation, not just ranking position.
+> **Standing rule for every example in this file.** The per-engine sections below
+> describe real systems and carry `[VERIFY]` tags where the evidence is weak — read those
+> tags as written. The **worked examples** are a different genre and follow a different rule:
+> an illustrative example never attributes data or a quotation to a real organisation or a
+> real person. Their sources are fictional stand-ins built on the reserved `Example` name,
+> and the figures beside them are invented to show the *shape* of a citable sentence. The
+> only alternative is to cite something genuinely verifiable — a named, dated, locatable
+> publication you have read. Never copy a source name, figure or quote out of an example into
+> client copy, and **never attribute a statement to a real named individual without a record
+> of them making it**.
+
+## Google AI Surfaces (AI Mode and AI Overviews)
+
+**Baseline shift**: Google's AI surfaces are AI Mode and AI Overviews. What Google actually said at I/O 2026 is narrower than the claim this line used to carry: Gemini 3.5 Flash is "the new default model in AI Mode for everyone globally" — a default *model within* AI Mode, not a statement that AI Mode is the default search surface — and the same post says "You'll continue to get a range of results from Search, just like you do today" (blog.google, Search I/O 2026, read 2026-08-18). Google's AI-features documentation adds that AI Overviews "are only shown when our systems determine that it is additive to classic Search, and as such, often don't trigger". Live for Greek-language queries since 08-10-2025. So optimize for in-surface citation as well as ranking position — but do not baseline CTR on a claim no Google source states.
 
 ### Citation Behavior
 
@@ -36,7 +64,7 @@ How different AI systems select and cite content. Understanding these patterns h
 - Author credentials visible
 - Citations to other authoritative sources
 
-**Citation frequency**: Typically cites 3-8 sources per AI Overview
+**Citation frequency**: Typically cites 3-8 sources per AI Overview [VERIFY — no engine-published figure; an observed range with no stated methodology, unverified as of 2026-08-10]
 
 ---
 
@@ -71,7 +99,7 @@ How different AI systems select and cite content. Understanding these patterns h
 - Combines information from multiple sources
 - Attributes specific claims to sources
 
-**Citation frequency**: 1-6 sources per response depending on complexity
+**Citation frequency**: 1-6 sources per response depending on complexity [VERIFY — same status as the AI Mode figure above: observed, no published source, unverified as of 2026-08-10]
 
 ---
 
@@ -107,7 +135,7 @@ How different AI systems select and cite content. Understanding these patterns h
 - Recency of content
 - Depth of coverage
 
-**Citation frequency**: Typically 5-10 sources per response (more than others)
+**Citation frequency**: Typically 5-10 sources per response (more than others) [VERIFY — observed, no published source, unverified as of 2026-08-10]
 
 **Unique behavior**: Often shows "Follow-up Questions" that can reveal additional citation opportunities
 
@@ -117,7 +145,7 @@ How different AI systems select and cite content. Understanding these patterns h
 
 ### Citation Behavior
 
-**Note**: Claude typically relies on training data rather than live web access, but understanding preferences helps create citeable content.
+**Note**: [VERIFY — 2026-08-17] This library has carried "Claude typically relies on training data rather than live web access, but understanding preferences helps create citeable content." Both halves are withdrawn from assertion: **how a product sources its answers** is an engine mechanic no primary source read here establishes, and the second clause claims a benefit from "understanding preferences" that this file's own head note says no engine has stated. Web access varies by product surface and configuration in any case, so a single disposition is the wrong shape of claim. Do not state either to a client. What survives is the observable: **what a page puts on the page.** A standalone definition can be lifted and quoted intact whether or not anything fetched it, and that is the reason to write one.
 
 **Format preferences**:
 - When citing, uses clear attribution phrases
@@ -146,7 +174,7 @@ How different AI systems select and cite content. Understanding these patterns h
 ### Universal Citation Factors
 
 **Content quality**:
-- Factual accuracy (incorrect info won't be cited)
+- Factual accuracy (an incorrect figure is a liability wherever it is repeated)
 - Clear, unambiguous language
 - Proper grammar and spelling
 - Comprehensive coverage
@@ -202,9 +230,9 @@ According to [Source], [specific statistic] as of [timeframe].
 ```
 
 **Example**:
-> According to HubSpot's 2024 State of Marketing Report, 82% of marketers actively invest in content marketing, making it the most widely adopted digital marketing strategy.
+> According to the Example Marketing Council's 2026 State of Marketing survey (2,300 marketers), 82% of respondents actively invest in content marketing — the most widely adopted strategy in the sample.
 
-**Why it works**: Specific, attributed, recent, verifiable.
+**Why it works**: Specific, attributed, dated, scoped to what the survey actually measured, and checkable because the source is named. (`Example Marketing Council` is a fictional stand-in per the standing rule above — in real copy, name a survey you have read and link it.)
 
 ---
 
@@ -228,11 +256,13 @@ Question-answer formats match AI query patterns.
 
 **Why it works**: Matches query format, provides concise answer, includes qualifiers.
 
+**On the 40-60 words**: 40 is a floor, not an average. A shorter answer is a fragment an engine cannot lift on its own — count the words.
+
 ---
 
 ### 4. Comparison Tables
 
-Structured comparisons are easy for AI to parse and cite.
+A structured comparison turns values into addressable cells instead of prose a reader has to reassemble.
 
 **Structure**:
 ```markdown
@@ -311,8 +341,8 @@ Concrete examples showing transformation.
 
 **Example**:
 > **Before**: "Email marketing is pretty effective."
-> **After**: "Email marketing delivers an average ROI of $42 for every $1 spent, according to the Data & Marketing Association."
-> **Why it's better**: Specific statistic, attributed source, quantifiable claim.
+> **After**: "Email marketing returned an average of $36 for every $1 spent across 620 small-business campaigns (Example Marketing Council, 2026 channel benchmark)."
+> **Why it's better**: Specific statistic, attributed source with a year and a sample size, quantifiable claim.
 
 **Why it works**: Shows concrete improvement, demonstrates principle.
 
@@ -328,9 +358,9 @@ Highlighted important points.
 ```
 
 **Example**:
-> **Key insight**: According to Google's John Mueller, internal linking is one of the most underutilized SEO tactics, with properly structured internal links often delivering faster ranking improvements than external link building.
+> **Key insight**: Internal linking is the authority lever you own outright — every page you publish can be linked, on the day it ships, from the pages that already rank, without asking anyone's permission.
 
-**Why it works**: Visually distinct, authoritative, quotable.
+**Why it works**: Visually distinct, quotable, and it needs no borrowed authority. A callout that opens "according to [well-known name]" without a link to where that person said it is a fabrication wearing a citation's clothes — and it is the shape this file used to model here.
 
 ---
 
@@ -408,9 +438,19 @@ Highlighted important points.
 
 ---
 
-## Citation Likelihood Factors
+## Citation-Readiness Factors
 
-### High Citation Likelihood
+> **Renamed 2026-08-17, and the rename is the point.** These tiers previously read *High /
+> Medium / Low Citation Likelihood*, which states a probability that an engine will cite the
+> page — a claim about engine behaviour that no primary source establishes in either
+> direction (ruling R3 amendment 9a), and one that
+> [geo-score-arithmetic.md](./geo-score-arithmetic.md) §6 lets a run **print in a client
+> report**. Every factor below is unchanged and still right; each is a property of the page a
+> reader can confirm by opening it. What the count reports is how far the page is set up to
+> be quoted — not how likely any engine is to quote it. Whether it was quoted is **measured**
+> (CITE C05-C08, rank-tracker's citation counts), never predicted.
+
+### Full readiness — the ten-factor set
 
 - [ ] Content from recognized authority domains
 - [ ] Published or updated within 12 months
@@ -423,7 +463,7 @@ Highlighted important points.
 - [ ] Technical accuracy verified
 - [ ] Consensus with other sources
 
-### Medium Citation Likelihood
+### Partial readiness
 
 - [ ] Content from less-known but quality domains
 - [ ] Published 1-2 years ago
@@ -434,7 +474,7 @@ Highlighted important points.
 - [ ] No author listed but quality content
 - [ ] Some supporting evidence
 
-### Low Citation Likelihood
+### Low readiness
 
 - [ ] Content from unknown/low-authority domains
 - [ ] Published 3+ years ago without updates
@@ -460,6 +500,8 @@ Highlighted important points.
 | **Domain trust** | Very high | High | Medium | High |
 | **Factual density** | High | High | Very high | Very high |
 
+**Source note** [VERIFY — 2026-08-10]: every cell above is an observational summary, not an engine-published metric. No engine documents how it weights freshness, authority, structure or domain trust, and none publishes its citation counts — the numbers repeat the ranges tagged in the sections above and inherit their status. Treat the whole table as a directional prior to test per engine on your own pages, never as a specification to quote to a client.
+
 ---
 
 ## Per-Engine Overlap & Community Citations
@@ -475,7 +517,12 @@ Engines don't share sources as much as "AI traffic" framing assumes. [VERIFY –
 
 **AIO/AI Mode quote-preview module** (Google-announced 2026-05-06, blog.google "How AI Mode and AI Overviews help you explore the web"): AI responses can include a section — labeled "Expert Advice", "Community Perspectives", or similar depending on the query — that previews verbatim quotes from forum/social UGC (Reddit, niche forums, blogs) with the creator's name/handle/community and a link to the source thread. Being the quoted voice in a relevant thread is therefore a direct AIO/AI Mode surface, not just a background citation signal. [VERIFY – rollout scope: US/English first (2026-05-06/07, vendor-reported); el-GR availability unconfirmed; Google post full text unread from cloud (blog.google egress-blocked). Resolves when: local read of the blog.google post confirms wording/scope AND/OR first el-GR SERP sighting of the module.]
 
-**Not citation levers**: llms.txt is a dead lever — do not add one expecting citation gains. Schema stacking (piling on multiple schema types per page) is not a citation lever either — one accurate JSON-LD type (O05) is enough; more schema for its own sake adds no citation signal.
+**Not citation levers**: llms.txt is a dead lever — do not add one expecting citation gains (settled ruling R1). Schema stacking is not a citation lever either (settled ruling R2): adding types on the theory that more types raise citation odds buys nothing, and no engine documents a gain from extra markup. The boundary that ruling draws — teach it, not "pile on types" and not "one object, never two":
+
+- **One PRIMARY content type per page** (O05), chosen by what the page is.
+- **Documented auxiliaries are not stacking**: BreadcrumbList where a real breadcrumb trail exists (a Google-documented site-structure feature), Organization/Person nested as publisher or author, WebSite on the homepage. Each has its own engine-documented, non-citation job — none of them is added for citations, which is why the ruling permits them.
+- **A second full content type is stacking and stays banned**: FAQPage bolted onto a service or product page, Article and Product both as primaries. The one exception is narrow — the page genuinely is both things and each type is complete, accurate and independently justified.
+- **FAQ**: the visible Q&A block stands on its own — it is readable text on the page, reachable by any consumer with or without markup, and the markup adds no wording a reader or a parser cannot already see. (Not "engines parse it": no primary source establishes what any engine does with either form — ruling R3 amendment 9a.) FAQPage markup is emitted only where FAQPage is the page's one primary type. Type selection and emission live in `build/schema-markup-generator/`, which carries the same boundary — hand the decision there.
 
 ---
 

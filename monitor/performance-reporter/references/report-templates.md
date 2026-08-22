@@ -1,6 +1,22 @@
 # SEO/GEO Report Templates
 
-Copy-ready report templates for executive, marketing, and technical audiences. Each template includes example data to illustrate proper formatting and data presentation.
+Copy-ready report templates for executive, marketing, and technical audiences. Copy the
+structure, not the contents.
+
+> **Illustrative example — the figures below are not measurements.** Every number,
+> domain, publisher and period in these templates was made up to show the shape of a
+> report; nobody measured any of it. In real output each figure comes from a named,
+> dated source — ~~analytics, ~~search console, ~~SEO tool, ~~link database or a
+> user-supplied export — and the report says which. Two rules the templates model on
+> purpose, because a report that breaks them is checkable and will be checked:
+>
+> - **Never assign an authority score, a traffic figure or a link count to a real
+>   named company or publication you have no data for.** The linking sites below use
+>   the reserved `.example` TLD so no cell describes a real business; replace them with
+>   the real domains you measured, each carrying the tool the score came from.
+> - **Every derived number states the arithmetic that produces it**, in the report,
+>   where the reader can redo it. A ratio whose own inputs sit two columns away is the
+>   first thing an executive recomputes.
 
 ---
 
@@ -11,11 +27,18 @@ Use this template for C-suite, VP-level, or board reporting. Focuses on business
 ---
 
 ```markdown
+<!-- ILLUSTRATIVE FILL — every number, domain and date below is invented to show the
+     shape of the report. Replace all of them with measured figures before this goes to
+     anyone, and delete this comment. A figure you cannot source comes out of the
+     report and is named as unavailable in the Data sources line. -->
 # SEO & GEO Performance Summary
 
 **Period:** January 2025
 **Prepared for:** Leadership Team
 **Prepared by:** [Name], SEO Lead
+**Data sources:** [analytics platform, rank tracker and link database used, each with its
+pull date] — every figure below traces to one of them, and a metric no source covers is
+reported as unavailable rather than estimated
 
 ---
 
@@ -27,12 +50,18 @@ Use this template for C-suite, VP-level, or board reporting. Focuses on business
 | Organic Sessions | 285,000 | 261,000 | +9.2% | +28% | 270,000 | On track |
 | Keywords in Top 10 | 187 | 172 | +15 | +62 | 180 | On track |
 | AI Citations | 34 | 28 | +21.4% | N/A | 30 | On track |
-| Domain Rating | 52 | 51 | +1 | +8 | 55 | In progress |
+| Domain Rating | 52 | 51 | +1 | +8 | 55 | Watch (94.5% of target) |
 | Organic CVR | 2.8% | 2.6% | +0.2pp | +0.5pp | 2.5% | On track |
 
 ## Competitive Position
 
 **Share of Voice Ranking:** #2 of 5 tracked competitors (up from #3 in Q3)
+
+Visibility Share below is each site's share of the tracked visibility across **these five sites on
+the 240 tracked keywords** — the rank tracker's own visibility metric, named with its pull date in
+the sources line. It is not share of a market: adding a sixth competitor changes every row. The
+five shares sum to 100% by construction, so a rise for one site is a fall for another and neither
+half of that means growth on its own.
 
 | Rank | Competitor | Visibility Share |
 |------|-----------|-----------------|
@@ -44,9 +73,9 @@ Use this template for C-suite, VP-level, or board reporting. Focuses on business
 
 ## Key Wins
 
-1. **Achieved #1 ranking for "project management software"** — estimated $18K/month traffic value
-2. **AI citation rate increased to 34%** — up from 22% in Q3, now cited in AI responses for core product queries
-3. **Published research report generated 45 backlinks** — from sites including TechCrunch (DR 94) and Forbes (DR 95)
+1. **Achieved #1 ranking for "project management software"** — $18K/month traffic value, which is the rank-tracking tool's modelled estimate for this keyword at position 1, not booked revenue
+2. **AI citations rose from 28 to 34** (+21% MoM) — 34 of the 78 tracked queries returning an AI Overview cited us, a citation rate of 43.6%, up from 28 of 72 (38.9%) in December: **+4.7 percentage points**, on a query set that grew by six
+3. **Published research report generated 45 backlinks** — including industrynews.example (DR 94) and businessmagazine.example (DR 95); see the link table for how each DR was sourced
 
 ## Risks & Mitigation
 
@@ -56,12 +85,18 @@ Use this template for C-suite, VP-level, or board reporting. Focuses on business
 
 ## Investment & ROI
 
-| Item | Jan Spend | Organic Revenue | Cumulative ROI (12mo) |
-|------|----------|----------------|----------------------|
-| SEO team | $12,000 | $142,000 | 418% |
-| Content production | $8,000 | (included above) | (included above) |
-| Tools & data | $2,500 | (included above) | (included above) |
-| **Total** | **$22,500** | **$142,000** | **418%** |
+| Item | Jan Spend | Jan Organic Revenue | Jan ROI |
+|------|----------|--------------------|---------|
+| SEO team | $12,000 | (not split by line item) | (not split by line item) |
+| Content production | $8,000 | (not split by line item) | (not split by line item) |
+| Tools & data | $2,500 | (not split by line item) | (not split by line item) |
+| **Total** | **$22,500** | **$142,000** | **531%** |
+
+ROI = (organic revenue − spend) / spend = ($142,000 − $22,500) / $22,500 = 531%. Both
+columns cover the same month, January. State the formula and the period every time: on
+the same figures, revenue ÷ spend gives 631%, and a reader who assumes the other
+definition is out by 100 points. Revenue is not attributable to individual cost lines,
+so no per-line ROI is shown rather than repeating the total in each row.
 
 ## Ask for Next Period
 
@@ -78,6 +113,10 @@ Use this template for marketing managers, content teams, and channel leads. Prov
 ---
 
 ```markdown
+<!-- ILLUSTRATIVE FILL — every number, domain and date below is invented to show the
+     shape of the report. Replace all of them with measured figures before this goes to
+     anyone, and delete this comment. Linking sites stay on the reserved `.example` TLD
+     until you have a real, dated export to name. -->
 # Monthly SEO & GEO Performance Report
 
 **Domain:** yoursite.com
@@ -141,6 +180,11 @@ Use this template for marketing managers, content teams, and channel leads. Prov
 | agile methodology guide | 4,400 | 22 | 9 | +13 | +180/mo |
 | remote work software | 5,100 | 15 | 7 | +8 | +210/mo |
 
+Est. Traffic is the rank tracker's modelled click estimate for the new position at the
+listed volume — a model output, not measured sessions. Name the model or the CTR curve
+behind it; an estimate with neither stated does not belong in a column headed with a
+number.
+
 ### Top 5 Ranking Declines
 
 | Keyword | Volume | Old Rank | New Rank | Change | Action |
@@ -178,7 +222,7 @@ Use this template for marketing managers, content teams, and channel leads. Prov
 | Queries with AI Overview | 78/500 | 72/500 | +6 |
 | Your citations in AI | 34 | 28 | +6 |
 | Citation rate | 43.6% | 38.9% | +4.7pp |
-| Avg citation position | 2.1 | 2.4 | +0.3 (better) |
+| Avg citation position | 2.1 | 2.4 | -0.3 (better — cited higher) |
 
 ### New AI Citations Won
 
@@ -197,22 +241,36 @@ Use this template for marketing managers, content teams, and channel leads. Prov
 
 ### Notable New Links
 
-| Source | DR | Type |
-|--------|-----|------|
-| TechCrunch | 94 | Press mention (research report) |
-| Forbes | 95 | Expert quote in roundup |
-| HubSpot Blog | 93 | Resource citation |
+| Source | DR | DR source | Type |
+|--------|-----|-----------|------|
+| industrynews.example | 94 | Link database export, Feb 3 | Press mention (research report) |
+| businessmagazine.example | 95 | Link database export, Feb 3 | Expert quote in roundup |
+| vendorblog.example | 93 | Link database export, Feb 3 | Resource citation |
+
+Linking sites appear on the reserved `.example` TLD here because nobody measured a DR for
+a real publication to put in this table. Your own report names the real domains — and
+keeps the DR source column: a DR with no named, dated export behind it is not reportable,
+and a DR attached to a real publisher on no evidence is a checkable falsehood in a
+document the client may forward.
 
 ## 6. Action Items
 
 | Priority | Action | Owner | Deadline |
 |----------|--------|-------|----------|
-| P0 | Fix mobile LCP issue (currently 3.8s) | Engineering | Feb 15 |
+| P0 | Fix mobile LCP issue (currently 3.8s) | Engineering | Feb 15 — later than P0 implies: the fix ships with the engineering sprint that opens Feb 10 |
 | P1 | Refresh kanban board software article | Content | Feb 10 |
 | P1 | Publish 2025 trends article (replace 2023 version) | Content | Feb 14 |
 | P2 | Build links to CRM comparison page (target: 5 new) | SEO | Feb 28 |
 | P2 | Optimize 3 pages for AI citation (add structured data) | SEO | Feb 21 |
 | P3 | Research new keyword opportunities in "AI tools" space | SEO | Feb 28 |
+
+Priority is P0-P3 and only P0-P3 — the single scheme this skill grades actions on
+(`report-output-templates.md` §10, which carries the definitions and the default
+priority-to-horizon map). The Deadline column is the other axis: when the work is booked, set
+from capacity and dependencies rather than from impact. They come apart, and the first row is
+why the two columns exist — the highest-priority item here has the latest deadline of the top
+three, so it says so in its own cell. A deadline later than its priority's default horizon
+carries that reason; earlier needs no note.
 ```
 
 ---
@@ -221,9 +279,48 @@ Use this template for marketing managers, content teams, and channel leads. Prov
 
 Use this template for engineering teams, dev leads, and technical stakeholders. Focuses on crawlability, indexation, performance, and error resolution.
 
+**Status words here are a movement band, not a target comparison.** These tables have no target
+column — a crawl rate or a response time has no agreed number it is supposed to be at — so the
+On track / Watch / Off track bands that govern the KPI tables (`report-output-templates.md` §2)
+do not reach them and must not be borrowed. What a technical Status word grades is how far the
+metric moved from its own baseline and what that movement obliges: the same axis `alert-manager`
+calls a threshold band, read three steps coarse for a periodic report rather than as a firing
+threshold.
+
+- **Normal** — inside the range this metric normally varies in, or moving in the improving
+  direction. Nothing to do.
+- **Monitor** — outside normal variation, but no threshold with a known cost has been crossed.
+  Name what will be re-checked and when. It does not produce an action item.
+- **Investigate** — a threshold with a known cost was crossed, or the cause is unknown and the
+  metric gates something downstream (crawl, indexation, rendering). It produces a row in the
+  action-items table with a priority and an owner. Investigate is the finding; P0-P3 is what
+  happens about it; neither word substitutes for the other.
+
+**Each Status word prints the comparison that produced it, in its own cell** — the same rule the
+KPI statuses follow when they print their percentage of target (SKILL.md, Figure Discipline: a
+word-rating shows its working where it is printed). That comparison is one of three things and
+nothing else: a published band quoted verbatim **with its window** (Core Web Vitals against the
+CrUX bands in `kpi-definitions.md`; a band borrowed from the alert configuration keeps the window
+it was defined on — `>10 new crawl errors/day` does not grade a period total of 18); or this
+site's own observed variation with the span it was measured over; or, where neither exists, no
+Status word at all — "no baseline — first measurement" is the honest cell. Where the band is
+already printed beside the figure, as in the Core Web Vitals rows, the Status cell restates it
+and needs nothing further.
+
+Two neighbouring columns are deliberately **not** this scale, and folding them into it would lose
+information: a **workflow state** (Pending · Investigating · Redirect created Jan 8, in the
+error-resolution table) says where the work has got to, not how a metric moved; and **Effort and
+Impact sized Low · Medium · High** in the technical debt tracker size the job, not its urgency.
+Neither is a priority and neither becomes a P-level.
+
 ---
 
 ```markdown
+<!-- ILLUSTRATIVE FILL — every number, domain and date below is invented to show the
+     shape of the report. Replace all of them with measured figures before this goes to
+     anyone, and delete this comment. Each Status word keeps the comparison that produced
+     it in its own cell; a metric with no baseline and no published band gets
+     "no baseline — first measurement" rather than a Status word. -->
 # Technical SEO Health Report
 
 **Domain:** yoursite.com
@@ -238,10 +335,10 @@ Use this template for engineering teams, dev leads, and technical stakeholders. 
 
 | Metric | Jan 2025 | Dec 2024 | Change | Status |
 |--------|----------|----------|--------|--------|
-| Total pages crawled | 12,400 | 11,800 | +5.1% | Normal |
-| Avg crawl rate (pages/day) | 400 | 381 | +5.0% | Normal |
-| Avg response time | 320ms | 290ms | +10.3% | Monitor |
-| Crawl errors | 18 | 12 | +6 | Investigate |
+| Total pages crawled | 12,400 | 11,800 | +5.1% | Normal — inside the ±8% month-to-month range this site has held since Aug |
+| Avg crawl rate (pages/day) | 400 | 381 | +5.0% | Normal — same ±8% range, and moving the useful way |
+| Avg response time | 320ms | 290ms | +10.3% | Monitor — first move outside that range; re-check on the Mar 3 pull |
+| Crawl errors | 18 | 12 | +6 | Investigate — 18 vs 12 is +50%, cause unknown, and crawl errors gate indexation → action item below |
 
 ### Crawl Budget Efficiency
 
@@ -272,9 +369,9 @@ Use this template for engineering teams, dev leads, and technical stakeholders. 
 |--------|-------|--------|----------|
 | Crawled, not indexed | 34 | +8 | P1 — improve content quality |
 | Duplicate without canonical | 15 | +2 | P2 — add canonical tags |
-| Blocked by robots.txt | 12 | 0 | Verify intentional |
+| Blocked by robots.txt | 12 | 0 | P3 — confirm the block is still intentional |
 | Soft 404 | 6 | +2 | P1 — fix or redirect |
-| Server error (5xx) | 0 | 0 | Clean |
+| Server error (5xx) | 0 | 0 | no action — none open |
 
 ## 3. Core Web Vitals
 
@@ -282,7 +379,7 @@ Use this template for engineering teams, dev leads, and technical stakeholders. 
 
 | Metric | Mobile | Desktop | Status |
 |--------|--------|---------|--------|
-| LCP | 3.8s (Poor) | 2.1s (Good) | Mobile needs fix |
+| LCP | 3.8s (Needs Improvement) | 2.1s (Good) | Mobile needs fix |
 | CLS | 0.08 (Good) | 0.05 (Good) | Passing |
 | INP | 180ms (Good) | 120ms (Good) | Passing |
 
@@ -353,6 +450,11 @@ Use this template for engineering teams, dev leads, and technical stakeholders. 
 
 ### How to Combine Templates
 
+This table decides which sections a pack contains — it governs step 11 of the skill, and the
+twelve-section compilation in `report-output-templates.md` §11 is the full-detail assembly
+rather than the default. A board pack is the executive template alone: sections its row
+excludes are left out, not summarised into it.
+
 | Audience | Include Sections | Exclude |
 |----------|-----------------|---------|
 | CEO / Board | Executive template only | All technical detail |
@@ -380,4 +482,7 @@ Use this template for engineering teams, dev leads, and technical stakeholders. 
 - [ ] Report tailored to audience (no jargon for executives, full detail for technical)
 - [ ] Visualizations are clear and labeled
 - [ ] Sources cited for all external benchmarks
+- [ ] Every band, range or threshold quoted from the KPI reference reproduced verbatim — checked against the reference line, not from memory — with the multiplier shown for any figure derived from it, and the same band stated identically wherever it recurs
+- [ ] Every sensitivity or "what if" figure names the exact perturbation it assumes and is computed from it
+- [ ] Sections match the audience's row in the assembly table above
 - [ ] Draft reviewed for accuracy before distribution

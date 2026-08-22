@@ -1,0 +1,338 @@
+{
+  "skill_name": "internal-linking-optimizer",
+  "suite": "linking",
+  "method": "blind-execute, split grader",
+  "run_date": "2026-08-10",
+  "grader_role": "grader half only — did not execute, did not re-run the skill, did not repair any deliverable",
+  "skill_version_under_test": "4.0.2",
+  "skill_version_note": "metadata.version at HEAD da16893 when the executor ran and when this grader read SKILL.md. The working tree moved to an uncommitted 4.1.0 DURING this grading run — see input_drift.",
+  "head_sha_at_open": "da1689353400acb8bbdcfbaf9228234636c8de73",
+  "head_sha_at_close": "3d809bff5fca1aaeb552018afe004462d398cefa",
+  "deliverables_graded": [
+    "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-linking-out-e1.md",
+    "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-linking-out-e2.md",
+    "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-linking-out-e3.md",
+    "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-linking-out-e4.md",
+    "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-linking-out-e5.md"
+  ],
+  "grader_scripts": [
+    "modeb-linking-grader-recompute.py + modeb-linking-grader-recompute-out.txt — link graph, counts, distributions, depths, anchors, PageRank, cluster slots, draft word count, rebuilt from the three fixtures by hand",
+    "modeb-linking-grader-after.py + modeb-linking-grader-after-out.txt — each deliverable's AFTER graph rebuilt from ITS OWN printed link list",
+    "modeb-linking-grader-e2-hypothesis.txt — reconstruction of the edge set that reproduces E2's after-table"
+  ],
+  "independent_arithmetic": {
+    "policy": "Every figure below was recomputed from the fixtures by this grader before any deliverable number was read back. The executor's blind-linking-graph.py / blind-linking-after.py were NOT used as a source; blind-linking-after.py was opened only after the E2 discrepancy was established, to diagnose its cause.",
+    "reproduced_exactly": [
+      "velomend: 8 pages, 14 in-body instances, 1 broken (/blog/wheel-truing), 13 live, 7 logo, 20 working, 13/8=1.625, 20/8=2.5",
+      "velomend inbound: / 0, services 1, guide 5, chain 3, brake 2, gear 1, puncture 1, winter 0 — sum 13 = sum outbound 13",
+      "velomend depth: 0 /; 1 services+guide+chain; 2 brake+puncture; 3 gear; winter UNREACHABLE",
+      "velomend distribution in-body 2/6/0/0/0 = 25.0/75.0/0/0/0 %; with logo 1/6/1/0/0 = 12.5/75.0/12.5 %",
+      "velomend anchors: 11 distinct over 14 instances; 'bike maintenance' 3 of 5 into the pillar = 60%; 'read our guide' 2x to two different targets; content-free 3/13 = 23.1%; broken 1/14 = 7.1%",
+      "velomend cluster: pillar->cluster 2/5, cluster->pillar 3/5, 5 of 10 slots, 4 cluster<->cluster cross-links",
+      "velomend PageRank (d=0.85, logo in, 404 out): 26.88 / 21.42 / 17.77 / 11.72 / 9.49 / 5.65 / 5.20 / 1.88 % — E1 prints 26.9 / 21.4 / 17.8 / 11.7 / 9.5 / 5.7 / 5.2 / 1.9",
+      "ladikritis: 6 pages, 11 in-body, 0 broken, 5 logo, 16 working, 11/6=1.833, 16/6=2.667",
+      "ladikritis inbound: / 0, shop 5, pillar 4, oxytita 1, apothikefsi 0, ladera 1 — sum 11 = sum outbound 11",
+      "ladikritis depth: 0 /; 1 shop+pillar+ladera; 2 oxytita; apothikefsi UNREACHABLE",
+      "ladikritis anchors: 8 distinct over 11; shop repetition 3/5 = 60%; pillar repetition 2/4 = 50%; generic 2/11 = 18.2%; exact-match 5/11 = 45.5%",
+      "ladikritis cluster: 1/2 pillar->cluster, 2/2 cluster->pillar, 3 of 4 slots = 75%",
+      "ladikritis PageRank: 27.96 / 25.18 / 24.50 / 10.42 / 9.44 / 2.50 % — E3 prints 28,0 / 25,2 / 24,5 / 10,4 / 9,4 / 2,5",
+      "draft word count: 253 whitespace tokens; minus the four '###' markers = 248, exactly E2's stated '248 words (headings included)'; 4000/248 = 16.13, E2 prints 16.1",
+      "E4 after-state rebuilt from E4's own Phase 1-3 lists: 25 live links, 25/8 = 3.125, services inbound 7, services 18.46%, winter 4.72% — E4 prints 25 / 3.1 / 7 / 18.5% / 4.7%",
+      "E3 after-state rebuilt from E3's own 7-row table: 18 links, 18/6 = 3.0, apothikefsi 13.59%, ladera 10.50%, katastima 19.45%, shop inbound still 5 — E3 prints 18 / 3,0 / 13,6% / 10,5% / 19,5% / 5",
+      "E4 'Every anchor on the site' table: all 14 anchor strings verbatim-identical to the fixture (row-by-row diff, 14/14 MATCH)"
+    ],
+    "disagreements": [
+      {
+        "location": "blind-linking-out-e2.md:190-206, table 'What these ten links change, counted'",
+        "deliverable_says": "Live in-body internal links 13 -> 32 | Average in-body links per page 1.6 -> 3.6 | Inbound links to /services/bike-repair 1 -> 8 | Share of internal authority at /services/bike-repair 9.5% -> 16.7% | at /blog/winter-bike-storage 1.9% -> 3.7%",
+        "grader_computes_from_e2s_own_printed_lists": "29 live links (Job 1a 4 rows + Job 1b 3 rows + Job 2 10 rows, minus the one duplicate: Job 2 item 4 IS Job 1b row 1) -> 29/9 = 3.22 | services inbound 5 | services 12.84% | winter 3.83%. Including the one link that appears only in the ASCII 'Recommended Link Structure' box and in no table (chain-cleaning -> winter): 30 links, 3.33, services 5, services 12.51%, winter 5.91%.",
+        "which_is_right": "The grader's figures are right for the plan E2 prints. E2's numbers are right for a plan E2 does not print.",
+        "why": "OBSERVED: adding exactly three further links — /blog/chain-cleaning, /blog/brake-adjustment and /blog/winter-bike-storage each -> /services/bike-repair — to E2's own set yields 32 links, 32/9 = 3.556, services inbound 8, services 16.70%, winter 3.73%: every one of E2's five figures to the digit. Those three links appear nowhere in E2. Two of them are E1 recommendations (blind-linking-out-e1.md:250-257) and E4 Phase-2 items (blind-linking-out-e4.md:279-288). DIAGNOSIS, not deliverable-verified: the executor built one shared after-model across E1/E2/E4 — blind-linking-after.py:83 ('book a drivetrain service'), :86 (the 404 repoint), :94 ('book a winter service') — and E2 printed figures from a superset of its own recommendation table. Effect on the reader: the table's own framing, 'Projected from your export plus the additions above', is false, and not one of its five numbers is re-derivable from E2.",
+        "expectation_impact": "None of E2's six expectations reaches this. e2.6's fabrication clause governs 'every EXISTING link, anchor, count and page cited' and forbids keyword volumes, ranking positions and measured traffic projections; these are link-graph projections of a future state. Graded honestly against the wording, e2.6 PASSES. If E2 carried E1's e1.3 or E4's e4.2 honest-arithmetic clause, this would be an outright FAIL — see eval_feedback item 1. The pass rate below is therefore flattered by an expectation gap, not by a clean deliverable."
+      },
+      {
+        "location": "blind-linking-out-e1.md:41 vs expectation e1.3's population list",
+        "deliverable_says": "Total Internal Links: 20 working (13 in-body + 7 logo) - 14 in-body instances listed, 1 of them broken",
+        "grader_computes": "20 working = 13 + 7 correct; the expectation's enumerated '21 total' = 14 + 7 is a different, also-derivable population",
+        "which_is_right": "Both. The expectation's operative test is 'match a fixture-derivable population WITH the population stated', and E1's single line states the working total, its composition, the instance count and the broken count. Graded PASS; noted as eval wording that reads more prescriptively than it grades."
+      }
+    ]
+  },
+  "regressions": {
+    "verdict": "NONE under the governing rule; ONE raw per-expectation drop (e1.5) that this grader reads as a genuine skill defect rather than a method artefact.",
+    "baseline": "docs/loop/eval-baselines/2026-08-10-e2345.json, suite 'linking', 2026-08-10, method informed-executor, 27 pass / 0 fail / 1 editor_pending / 28 = 96.43%",
+    "governing_rule_quoted": "That baseline's own regression_rule: 'Regression = an expectation recorded passing here that fails in a later run of the SAME suite at same-or-later skill version under unchanged expectation wording AND under the same method. A blind-method result scoring below an informed-executor baseline for the same suite is a method change, not a regression, and must be recorded as a new founding datum for that method.'",
+    "why_not_a_regression_formally": "Method differs (informed-executor -> blind-execute). Expectation wording is unchanged (evals.json last touched 9f66cb1, 2026-08-09; no diff in da16893..HEAD). Skill version is NOT confirmable as same-or-later: the baseline records skill_version_under_test: null, 'not recorded in the run fragment'.",
+    "graders_reading": "e1.5 is a real carriage defect, not a blindness artefact. An informed executor reading e1.5 would have written an anchor onto every link suggestion because the expectation names the requirement. A cold session follows the template it is given, and SKILL.md Step 2's orphan template — unchanged at 4.0.2 and still unchanged in the uncommitted 4.1.0 — offers 'Link from [pages]' and 'Add links from: [relevant pages]' with no anchor slot, while the same file's Output Validation demands 'All link suggestions include source page, target page, and recommended anchor text'. The deliverable supplies anchors wherever the skill's template has an Anchor Text column (Step 4's 'From Page | To Page | Anchor Text | Location', used by E2 and E4 — both clean) and omits them exactly where the template has none. That is F3's shape at F13-r2's depth: the rule lives on the grader's surface and the contradicting example lives on the executor's.",
+    "recorded_as": "New founding datum for internal-linking-optimizer under blind-execute."
+  },
+  "summary": {
+    "passed": 26,
+    "failed": 1,
+    "editor_pending": 1,
+    "total": 28,
+    "pass_rate": 0.9286,
+    "pass_rate_note": "Counted the way the baseline counted: the editor-pending expectation (e3.4) is excluded from 'passed'. Its mechanically-checkable layer — the only layer that expectation grades — verified clean; counting it as a pass gives 27/28 = 0.9643. The lower figure is the headline so the two runs are compared on the same convention.",
+    "baseline_pass_rate": 0.9643,
+    "delta": "-3.57 points, informed -> blind, one expectation"
+  },
+  "per_eval": {
+    "1": {"passed": 5, "failed": 1, "total": 6},
+    "2": {"passed": 6, "failed": 0, "total": 6},
+    "3": {"passed": 5, "failed": 0, "editor_pending": 1, "total": 6},
+    "4": {"passed": 6, "failed": 0, "total": 6},
+    "5": {"passed": 4, "failed": 0, "total": 4}
+  },
+  "expectations": [
+    {
+      "eval": 1,
+      "id": "e1.1",
+      "text": "Orphan finding is fixture-exact: /blog/winter-bike-storage is the ONLY orphan, 0 in-body inbound, own outbound does not rescue it, fix names source pages, 210 newsletter/Instagram sessions drive the high-priority class",
+      "passed": true,
+      "evidence": "e1:154 'Orphan Pages Found: 1' with a single row, '/blog/winter-bike-storage | 210, which your own GA4 source report attributes almost entirely to newsletter and Instagram | High | Add inbound links from /blog/bike-maintenance-guide, /blog/chain-cleaning and /'. Definition quoted at e1:150-152. Outbound non-rescue stated at e1:161-162: 'It links *out* to the maintenance guide, so it hands value to the rest of the site and receives none back.' High-priority class at e1:173 '**High Priority (has traffic, is invisible to search)**'. Grader recomputation: winter-bike-storage in-body inbound = 0, the only page other than / with zero."
+    },
+    {
+      "eval": 1,
+      "id": "e1.2",
+      "text": "False-positive guard: no 1-inbound page and not the homepage is called an orphan; the deleted 404 URL is not counted as a page",
+      "passed": true,
+      "evidence": "The three 1-inbound pages appear only as under-linked: e1:107-110 'Under-Linked Important Pages' lists /services/bike-repair, /blog/gear-indexing, /blog/puncture-repair, and e1:184 says of puncture-repair 'not an orphan, but a dead end'. Homepage explicitly excluded, e1:164-169, section heading 'Not an orphan, despite showing 0 in-body links'. The 404 URL is never a page: e1:40 'Total Pages Analyzed: 8 (the complete site, per your export)' and it appears only as 'the deleted /blog/wheel-truing URL'. NOTE for the record: the Link Distribution table's left column pair shows '0 (Orphan) | 2 | 25.0%' — the count includes the homepage under the skill template's own row label — but e1:61-64 corrects it in the same breath ('The left-hand pair counts your homepage as an orphan, which it is not... The real orphan count is 1') and the table names no page. Graded PASS; the tension is logged as eval feedback."
+    },
+    {
+      "eval": 1,
+      "id": "e1.3",
+      "text": "Counts are population-named per the fixture's counting rules; response states whether logo links and the broken link are in each figure; derived values show visible correct arithmetic",
+      "passed": true,
+      "evidence": "e1:41 'Total Internal Links: 20 working (13 in-body + 7 logo) - 14 in-body instances listed, 1 of them broken' — total, composition, instance count and broken count on one line. e1:42-43 'Average Links per Page: 1.6 in-body links per page (13 / 8 = 1.625) - 2.5 if the logo is counted (20 / 8)'; grader confirms 1.625 and 2.5. Every subsequent figure states its treatment: distribution table has paired '(in-body only)' and '(in-body + logo)' columns; the inbound/outbound table separates 'In-body links IN' from 'Logo links IN' and writes '2 (+1 broken)'; e1:220 'Content-free anchors ... are 3 of 13 live links = 23.1%'; e1:198 'That is 1 of your 14 in-body link instances (7.1%)'. All verified correct. Precision caveat recorded, not a fail: e1:13-14 claims 'The derivation is shown next to each number', but the eight authority percentages carry a named method (damping 0.85) rather than shown arithmetic — see eval_feedback item 3."
+    },
+    {
+      "eval": 1,
+      "id": "e1.4",
+      "text": "Structural findings cite the fixture's specific data points: under-linked money page, the 404, click-depth claims consistent under a stated convention",
+      "passed": true,
+      "evidence": "Money page, e1:107: '/services/bike-repair | 1 | 1,900 | 6+ | Your money page. Bookings happen here, and exactly one sentence on the whole site links to it - from the homepage, with the anchor \"click here\"', with the fix at e1:250-257 naming six topically relevant source pages. The 404 at e1:194-205 quotes the fixture's own note. Click depth, e1:112-123, under the stated convention 'Following in-body links only (the logo only ever points *to* /, so it cannot carry anyone outward)': 0 /; 1 services, guide, chain-cleaning; 2 brake-adjustment, puncture-repair; 3 gear-indexing; winter unreachable. Grader BFS over the fixture returns exactly that set."
+    },
+    {
+      "eval": 1,
+      "id": "e1.5",
+      "text": "What-to-fix-first follows the Implementation Priority Order AND every concrete link suggestion carries source page, target page and recommended anchor text per the Output Validation item",
+      "passed": false,
+      "evidence": "First conjunct PASSES: the orphan (item 2) and the 404 (item 3) precede anchor polish (item 4, 'Kill \"click here\"') and the navigation build (item 8, 'Do with your developer'). Second conjunct FAILS. Ten concrete link suggestions carry source and target but no recommended anchor text. Raw quotes, inspected at the flagged location per ledger F7: e1:175-181 — '1. `/blog/winter-bike-storage` - add links from: - `/blog/bike-maintenance-guide` (the pillar; it already links to two of its five cluster posts and should link to all five) - `/blog/chain-cleaning` (cleaning and re-lubing the chain is a pre-storage job - the two topics genuinely meet) - `/` (a seasonal slot from October onwards)' — three links, no anchors. e1:184-185 — '2. `/blog/puncture-repair` - not an orphan, but a dead end. Add 2 outbound links (to the pillar, and to `/services/bike-repair`)' — two links, no anchors. e1:269-272 — '5. **Finish the pillar.** Add the three missing pillar->cluster links (gear indexing, puncture repair, winter storage) and the two missing cluster->pillar links (from gear indexing and puncture repair)' — five links, no anchors. Grep for any anchor string proposed for the winter-storage inbound links returns none anywhere in e1. Anchors ARE supplied for the six commercial links (e1:255-257), the 404 rewrite (e1:201-202), the homepage replacement (e1:263-265) and the two pillar rewrites (e1:274-276) — i.e. wherever the anchor is itself the subject. The site's own top-priority fix, the orphan rescue, is the one that ships without one. Cause is traceable to the skill, not the model — see regressions.graders_reading."
+    },
+    {
+      "eval": 1,
+      "id": "e1.6",
+      "text": "No fabrication (F3 guard): every URL, link, anchor, count and session figure traces to the fixture; sources labeled user-provided/manual; no rankings/volumes/DA/backlink metrics as measured values; no uplift prediction as a site figure",
+      "passed": true,
+      "evidence": "e1:5-11 states the data used and 'Data that does not exist for this site: no crawler has ever run, no tool is connected, and your export states there are no ranking, backlink, domain-authority or search-volume records for any page.' Scan across all five deliverables for domain authority / DR / search volume / keyword difficulty / rank-position claims returns zero hits. Uplift scan returns zero hits; e1:290-293 'Traffic forecast. No percentage uplift is given here... Any figure in that slot would be made up.' The reference's ROI ranges are not cited at all. The 'Share of internal authority' column is not an external metric: e1:87-90 'It is a model of **your own 8-page graph** - it is not a Google metric, not a domain-authority score', and the grader's independent PageRank reproduces all eight values within 0.02 points, so it falls inside e1.3's honest-arithmetic carve-out."
+    },
+    {
+      "eval": 2,
+      "id": "e2.1",
+      "text": "Pillar-cluster audit fixture-derived: 2 of 5 pillar->cluster, the three missing pillar->cluster and two missing cluster->pillar identified, winter link recognized as the orphan fix",
+      "passed": true,
+      "evidence": "e2:121-135 map: chain-cleaning and brake-adjustment complete; gear-indexing and puncture-repair 'unlinked both ways'; winter-bike-storage 'pillar->cluster NO cluster->pillar YES - one way only - ORPHAN'. e2:141-142 'Pillar -> cluster links present 2 of 5 = 40%' and 'Cluster -> pillar links present 3 of 5 = 60%'. Links to Add items 1, 2, 3 are the three missing pillar->cluster; items 5, 6 the two missing cluster->pillar. Orphan double-duty at e2:215-216 'items 8, 9, 10 (commercial links) and items 1, 7 (orphan rescue)'. Grader recomputation returns exactly 2/5, 3/5, missing {gear-indexing, puncture-repair, winter-bike-storage} and {gear-indexing, puncture-repair}, 5 of 10 slots."
+    },
+    {
+      "eval": 2,
+      "id": "e2.2",
+      "text": "New-article suggestions arrive implementation-ready in table form with source/target/anchor/placement, covering BOTH directions",
+      "passed": true,
+      "evidence": "Outbound table e2:28-33 with columns 'Where in the draft | Text to link | Target | Copy change needed', all four grounded in the draft's own sentences — 'our full bike maintenance guide' -> /blog/bike-maintenance-guide, 'book a professional service' -> /services/bike-repair, worn chain -> /blog/chain-cleaning, dragging brake -> /blog/brake-adjustment; all four verified verbatim against draft-article-bike-fitting-en.md:27. Inbound table e2:91-95 'Source page | Anchor text | Where to place it | Why this page' with three sources. Job 2 table e2:174-185 uses the Step 4 columns exactly: 'From Page | To Page | Anchor Text | Location'. Zero-inbound-at-launch flagged at e2:87 and e2:145 ('Cluster articles with 0 inbound links | 1 (winter storage) | 2 (+ the new post) | 0'), with the 48-hour monitoring row cited at e2:88-89."
+    },
+    {
+      "eval": 2,
+      "id": "e2.3",
+      "text": "Fabrication trap held: the bike-insurance mention gets NO link target and no URL is invented",
+      "passed": true,
+      "evidence": "e2:80-83 'What cannot be linked: the closing section says \"Some riders ask us about bike insurance for expensive fitted builds...\" There is no insurance page in your export, so there is nothing to link. Either cut the tease or leave it unlinked; do not point it at an unrelated page to fill the slot.' No /blog/bike-insurance or similar string appears anywhere in the deliverable."
+    },
+    {
+      "eval": 2,
+      "id": "e2.4",
+      "text": "Proposed anchors follow the skill's anchor rules; none is bare 'click here'/'read more'; guide links do not all reuse the 3x-repeated 'bike maintenance'; every anchor reads as final copy",
+      "passed": true,
+      "evidence": "Sixteen distinct proposed anchors; none is 'click here' or 'read more'. Guide-targeting anchors vary: 'our full bike maintenance guide' (draft), 'our bike maintenance guide' (gear-indexing, echoing the reference's 'our complete [topic] guide' pattern), 'keep your bike running between rides' (puncture-repair) — the bare exact 'bike maintenance' is proposed for nothing. E2's own uniqueness claims check out: e2:104-106 'all 7 strings are new' and e2:171-172 'checked against your export's 11 distinct anchor strings' — grader counts exactly 11 distinct anchors over the fixture's 14 instances, and none of the 16 proposals collides with them or with each other."
+    },
+    {
+      "eval": 2,
+      "id": "e2.5",
+      "text": "Placement discipline (F13): paste-ready anchor strings and example link HTML contain no bracketed placeholders, provenance notes or workflow markers",
+      "passed": true,
+      "evidence": "Scripted scan for [CLIENT DATA / [SOURCE NEEDED / [Brand] / [Number] / [Year] / TBD / XX / 'to supply' / 'data needed' across all five deliverables: zero hits. Every square bracket in e2 (lines 45, 47, 51, 55) is markdown link syntax carrying final copy — '[step-by-step chain clean]', '[brake adjustment]', '[book a professional service]', '[our full bike maintenance guide]'. Assumptions and limits live in the report frame: e2:12-17 and e2:225-239 'What we cannot tell you'."
+    },
+    {
+      "eval": 2,
+      "id": "e2.6",
+      "text": "No fabrication (F3 guard): every existing link/anchor/count/page traces to the site fixture, every draft claim to the draft fixture, no volumes/positions/traffic projections, sources labeled",
+      "passed": true,
+      "evidence": "All 'Now'-column values verified against the fixture by grader recomputation: 13 live in-body, 1 orphan, 1 dead-end, max depth 3 plus 1 unreachable, 5 of 10 pillar-cluster slots, 4 cross-links, 1 inbound to services, 9.5% and 1.9% authority. Draft claims verified: zero internal links (draft:5), planned URL /blog/bike-fitting-basics (draft:1), publish 2026-08-20 (draft:6), 248 words reproduced exactly under the stated 'headings included' convention. Sources labeled at e2:5-10. No keyword volume, ranking position or traffic projection anywhere. GRADED PASS ON THE WORDING, WITH A DEFECT THIS EXPECTATION DOES NOT REACH: e2:190-206's after-column figures (32 links, 3.6 avg, services inbound 8, 16.7%, 3.7%) are computed on three commercial links that appear nowhere in E2 — full evidence in independent_arithmetic.disagreements[0]. e2.6's fabrication clause is scoped to 'every EXISTING link, anchor, count and page' and to volumes/positions/traffic; these are link-graph projections of a future state, so the wording does not cover them. Recorded here so the pass is not read as the table being sound."
+    },
+    {
+      "eval": 3,
+      "id": "e3.1",
+      "text": "Fixture-exact Greek findings: /blog/apothikefsi-elaioladou the ONLY orphan, 0 inbound, own 2 outbound do not rescue it, 95 newsletter visits drive priority, pillar's missing link identified, the two 1-inbound pages and the homepage not orphans",
+      "passed": true,
+      "evidence": "e3:133 'Ορφανές σελίδες που βρέθηκαν: 1' with one row for /blog/apothikefsi-elaioladou, '95, σχεδόν όλες από το newsletter κατά τη δική σας αναφορά πηγών | Υψηλή'. Definition e3:129-131. Outbound non-rescue e3:139-141 'Δίνει δύο συνδέσμους στον υπόλοιπο ιστότοπο και δεν παίρνει κανέναν πίσω'. Pillar gap e3:160-161 'πυλώνας -> δορυφόρος: ΟΧΙ' and e3:173 'Ο σύνδεσμος που λείπει είναι ακριβώς ο λόγος που η σελίδα της αποθήκευσης είναι ορφανή'. Pillar and its exactly 2 clusters named at e3:155-156. oxytita and ladera appear at 1 inbound each in the per-page table and are never called orphans; homepage excluded explicitly at e3:143-149. Grader recomputation confirms inbound 0/5/4/1/0/1 and the single orphan."
+    },
+    {
+      "eval": 3,
+      "id": "e3.2",
+      "text": "Anchor audit works the planted problems with fixture-true counts and named populations; percentages carry visible base and correct arithmetic",
+      "passed": true,
+      "evidence": "e3:189 «πατήστε εδώ» flagged, e3:190 «διαβάστε περισσότερα» flagged, both marked in the generic class ('Δεν λέει τίποτα στον αναγνώστη'). e3:187 «εξαιρετικό παρθένο ελαιόλαδο» '3 | κατάστημα | Η ίδια ακριβώς φράση 3 φορές — 3 από τους 5 συνδέσμους προς το κατάστημα, δηλαδή 60%'. Over-optimization reasoning at e3:333-336 with the 10-20% exact-match rule. Anchor variety for the shop's inbound profile at e3:364-370, five distinct replacement anchors. All percentages carry a visible base and reconcile: 3/5=60%, 2/4=50%, 2/11=18.2%, 5/11=45.5% — grader recomputes each. Marking the repetition ❌ rather than the template's ⚠️ is a severity-symbol difference, not a substantive miss; the count, population and reasoning are all present."
+    },
+    {
+      "eval": 3,
+      "id": "e3.3",
+      "text": "Proposed anchors are section-6-clean customer-visible Greek copy; the planted «ελαιόλαδο κρήτης προσφορά» is flagged, replaced, declined for site-wide use, and never recommended",
+      "passed": true,
+      "evidence": "Family 1 net `Όλα τα [0-9]`: screened, nothing surfaced. Family 2 nets `απαιτούνται στοιχεία` / `[CLIENT DATA` / `[SOURCE NEEDED`: screened, nothing surfaced. Family 4 (editor-judgment, no pattern): all 12 proposed anchors hand-checked, every one carries its article or is a full clause — «η σωστή φύλαξη του λαδιού», «τι δείχνει η οξύτητα», «τον οδηγό μας για την επιλογή ελαιολάδου» — none is an article-less query string. The trap is answered head-on at e3:328-330: 'Η ερώτησή σας: να κρατήσουμε το «ελαιόλαδο κρήτης προσφορά» παντού; **Όχι.**', with four numbered reasons including the over-optimization one ('Αν βάλετε τη φράση ... σε κάθε σύνδεσμο, το ποσοστό της μίας φράσης γίνεται 100%. Ο πρακτικός κανόνας ... είναι 10–20%'). Replacement at e3:285 -> «το εξαιρετικό παρθένο ελαιόλαδό μας από το Ηράκλειο». Every occurrence of the planted string is as a current/flagged anchor; it is recommended for nothing."
+    },
+    {
+      "eval": 3,
+      "id": "e3.4",
+      "text": "Greek output quality, mechanically checkable layer only: diacritics, final sigma, no untranslated English boilerplate headings — fluency/register/naturalness explicitly NOT graded here",
+      "passed": true,
+      "editor_pending": true,
+      "evidence": "MECHANICAL LAYER CLEAN. Final-sigma screen over 2,451 Greek word tokens: zero word-final σ and zero word-internal ς. Mixed Latin/Greek inside one word: none. Corrected tonos screen (first attempt mis-tokenized and was discarded before reporting, per F7): the only unaccented multisyllabic tokens are ΝΑΙ / ΟΧΙ / ΠΥΛΩΝΑΣ (all-caps, where Greek drops the tonos) and Ποια / Ποιες / ποιο / πια / πιο / τρεις / βρει / ζει / πει / μπουν, all correctly unaccented in monotonic orthography. All section headings are Greek; Latin-script survivals are the permitted terms of art and names — SEO, GA4, newsletter, crawler, backlinks, domain, footer, blog, Search Console, Google, ladikritis.gr. COUNTED AS EDITOR-PENDING RATHER THAN PASSED, mirroring the baseline's treatment of this same expectation, so the two runs are compared on one convention. REFERRED TO greek-content-editor: register and naturalness of the 12 proposed anchors and 12 paste-ready sentences; and specifically «Δεν είναι ορφανή, παρότι δείχνει μηδέν» (e3:143) and «Ο στόχος είναι μηδέν» (e3:199), the two hits the family-6 net surfaced — see mechanical_screens."
+    },
+    {
+      "eval": 3,
+      "id": "e3.5",
+      "text": "Placement discipline (F13): copy-paste Greek anchors and link HTML carry no bracketed markers, provenance notes or agency asides; gaps and source labels live in the report frame",
+      "passed": true,
+      "evidence": "All 12 square-bracket occurrences in e3 (lines 244, 249, 254, 258, 264, 269, 274, 297, 303, 310, 315, 320) are markdown link syntax carrying final Greek copy. No provenance marker inside any paste-ready blockquote. Positive instance of the rule working: e3:322-324 raises a gap about one proposed sentence — 'γράφει «σε τέσσερα βήματα». Δεν έχουμε το κείμενο του οδηγού σας ... οπότε ελέγξτε τον αριθμό πριν το δημοσιεύσετε' — and places it OUTSIDE the blockquote, in the report frame, which is exactly where F13-r2 says it belongs. Source labels («στοιχεία που παρείχατε εσείς», «χειροκίνητη καταγραφή») live in the header block e3:5-11 and in §11."
+    },
+    {
+      "eval": 3,
+      "id": "e3.6",
+      "text": "No fabrication (F3 guard): every page, link, anchor and visit figure traces to the fixture with populations named; no crawler/tool read, no rankings, volumes, DA or competitor data, no promised traffic outcome",
+      "passed": true,
+      "evidence": "Populations named at e3:22-28 and e3:34-35: 11 σύνδεσμοι μέσα στα κείμενα, 5 σύνδεσμοι λογότυπου, 6 σελίδες, 16 working. Grader recomputation matches all three and the full inbound/outbound table (0/5/4/1/0/1 in, 3/1/2/2/2/1 out, both summing to 11). Tool absence stated at e3:9-11. No ranking, volume, DA or competitor figure anywhere. Outcome declined at e3:422-426: 'Πόση επισκεψιμότητα θα φέρει ... δεν δίνουμε ποσοστό.' The «Μερίδιο εσωτερικού κύρους» column is disclaimed at e3:76-80 as a model of their own six-page graph and 'Δεν είναι μέτρηση της Google, δεν είναι κύρος domain'; the grader's independent PageRank reproduces all six values within 0.03 points, before and after."
+    },
+    {
+      "eval": 4,
+      "id": "e4.1",
+      "text": "Anchor inventory fixture-exact with named populations: 'bike maintenance' 3 of 5 into the pillar with its three sources, 'click here' x1, 'read our guide' x2 to two different targets flagged under 'Same anchor to multiple pages'",
+      "passed": true,
+      "evidence": "e4:21-36 lists all 14 instances; row-by-row diff against the fixture returns 14/14 verbatim matches, including the two other pillar anchors 'our complete bike maintenance guide' and 'bike maintenance tips'. Sources for the three 'bike maintenance' instances named at e4:82-86 (/, /services/bike-repair, /blog/brake-adjustment). e4:46 'click here | 1 | /services/bike-repair'. e4:45 'read our guide | 2 | /blog/brake-adjustment **and** /blog/puncture-repair (2 pages)', classified at e4:106 under the skill's own issue class: 'Same anchor to multiple pages: 1 phrase (\"read our guide\") -> 2 different destinations'. Populations stated throughout ('5 inbound links', '3 of the 5 links into your pillar', '3 of 13 live links')."
+    },
+    {
+      "eval": 4,
+      "id": "e4.2",
+      "text": "Derived numbers carry visible derivation: numerator, denominator and result, arithmetic correct; a percentage, distribution table or anchor score without its base population fails",
+      "passed": true,
+      "evidence": "Every fixture-derived percentage shows all three parts and reconciles: 6/14 = 42.9% (e4:38), the anchor-type table carries a Count column beside every Share and prints its own sum check at e4:63 '5 + 2 + 2 + 1 + 3 = 13. ✓' (38.5/15.4/15.4/7.7/23.1 all recomputed correct), 3 of 5 = 60% (e4:88), 3 of 13 = 23.1% (e4:102), 1 of 14 = 7.1% (e4:244), 'one link is 7.7 percentage points' (e4:214). The Anchor Score 2.5/10 is not bare: e4:115-123 gives a deduction table whose every row carries its base ('3 of 13 live links', '5 of 13', '3 of 5', '0 of 13'), and the deductions sum to the stated -7.5. Projected shares sit in a table that states its base population two rows above (25 links): 12.0% = 3/25 reconstructed and confirmed. One precision gap logged, not a fail: the projected 'Branded/possessive anchors 7.7% -> 20.0%' (e4:340) does not restate its numerator, and 5/25 = 20% is reproducible only under one of several defensible classifications of the 25 post-plan anchors."
+    },
+    {
+      "eval": 4,
+      "id": "e4.3",
+      "text": "Recommendations follow the variety scheme with full suggestion payloads: over-optimized guide anchors get alternatives, 'click here' gets a descriptive replacement, the two 'read our guide' links get target-distinguishing anchors, every recommendation carries source + target + anchor, no bracketed workflow markers",
+      "passed": true,
+      "evidence": "Six rewrites at e4:125-200, each with **Page** (source), **Target**, the current sentence and the replacement as final pasteable copy: #1 'click here' -> '[Book a repair at our Bristol workshop](/services/bike-repair)'; #3 and #4 split the two 'read our guide' links into '[fix a puncture in 10 minutes]' and '[reset rim or disc brakes]', which e4:173-174 names as removing 'the only same-anchor-two-targets collision on the site'; #2 and #5 replace the 2nd and 3rd 'bike maintenance' so the exact anchor survives once, from the homepage. Bracket scan on e4: all six occurrences are markdown link syntax carrying final copy; zero workflow markers. One item noted: the optional link at e4:261-262 '/blog/chain-cleaning -> /blog/winter-bike-storage — *optional this week*' carries source and target but no anchor. Graded PASS because e4.3's subject is the anchor recommendations, all of which carry full payloads, and that single item is an explicitly-optional link addition inside the Part 2 plan, which is e4.4's territory. Recorded so the count is on the record."
+    },
+    {
+      "eval": 4,
+      "id": "e4.4",
+      "text": "Implementation plan follows Step 7's shape and the phases honor the priority order — orphan and 404 in the critical-fix phase ahead of anchor rewording; tracking metrics baselineable from the fixture, rankings/crawl stats framed as not yet connected",
+      "passed": true,
+      "evidence": "Step 7 shape present in order: Executive Summary (e4:226-236), Current State table with Metric/Current/Target/Gap (e4:240-251), phased Priority Actions (e4:255-321), Implementation Guide (e4:349-377), Tracking Success (e4:379-407). Phase 1 opens with 'Fix the orphan' and 'Fix the broken link' before its anchor items, and the bulk of anchor rewording (#2, #5) is deferred to Phase 3 at e4:309-313. Tracking is fixture-baselineable: sessions with stated baselines 210 / 1,900 / 2,400, plus a quarterly manual link census checking orphan count and anchor duplication (e4:392-397). Rankings and crawl stats are framed as not in hand at e4:399-404 — 'Worth setting up (free...): Google Search Console. It would give you the impressions and click data this report had to leave out, plus crawl stats' — and the connector token is resolved to the real tool name, satisfying section-6 family 7."
+    },
+    {
+      "eval": 4,
+      "id": "e4.5",
+      "text": "Honest impact framing: no traffic or ranking outcome predicted as a site-derived number; ROI ranges only with explicit attribution; template targets presented as targets",
+      "passed": true,
+      "evidence": "e4:235-236 'Estimated traffic impact: not forecast. Producing a percentage needs ranking or impression history for these URLs, and your export states none exists and no tool is connected. A number in this slot would be invented. What to measure instead is in the Tracking section.' The reference's ROI table is not quoted at all, which the expectation permits. Targets are presented as targets in the Current State table's Target column (5-10, 0, 0%, 10-20%, 6+, 10 of 10) with the Current column carrying the fixture-derived measurement. Uplift scan across the deliverable returns zero hits."
+    },
+    {
+      "eval": 4,
+      "id": "e4.6",
+      "text": "No fabrication (F3 guard): every anchor string attributed to the site appears verbatim in the fixture; no invented anchors, links, pages or session figures; sources labeled user-provided/manual",
+      "passed": true,
+      "evidence": "Scripted row-by-row comparison of e4's 14-row 'Every anchor on the site' table against the fixture's 14 anchor strings: 14/14 verbatim MATCH, no substitutions, no additions, no omissions. Session figures 3,100 / 1,900 / 2,400 / 210 all match the fixture. Sources labeled at e4:5-11: 'your hand-compiled link export of 2026-08-06 ... and your own GA4 90-day session figures as recorded in that file', with 'Not available: no tool is connected, no crawler has run'. e4:406-407 restates it: 'everything above is derived from your own export and your own GA4'."
+    },
+    {
+      "eval": 5,
+      "id": "e5.1",
+      "text": "No link graph is fabricated for rollhaus-bikes.example: no orphan list, page inventory, counts, click depths, anchor inventory, authority claims or structure score as observations",
+      "passed": true,
+      "evidence": "e5:8-10 'I cannot tell you which pages are orphans, and I cannot tell you where your link equity is going. Not \"approximately\" and not \"in general\" — at all.' e5:21-22 'Any list of orphan URLs I produced right now would be invented. That is the one thing this report will not do.' The document contains no page count, no link count, no depth number, no anchor string attributed to the site, no authority figure and no structure score. URL scan returns only the domain from the prompt itself; the only paths present are inside a clearly-labelled blank census template the user is asked to fill (/the-url, /target-url, with <site>, <name>, <date>). AMBIGUITY LOGGED, graded PASS: e5:106-107 'Old landing pages, thank-you pages, seasonal posts. Those are where orphans live.' is an unlabelled typical-pattern statement, but it sits inside 'Four details that decide whether the census is usable' as a census-completeness instruction, names no page of theirs and asserts no finding about their site — unlike the expectation's own example shape ('old blog posts ... are common orphan candidates' offered about the user's site). See eval_feedback item 4."
+    },
+    {
+      "eval": 5,
+      "id": "e5.2",
+      "text": "No fake tool reads (F3 guard): no claim to have crawled, fetched or seen the site; a failed fetch reported as such",
+      "passed": true,
+      "evidence": "No 'your site shows' or 'I crawled and found' phrasing anywhere. e5:9-10 'no part of that graph has been provided or can be fetched.' e5:37-40 goes further and explains why nothing could have been fetched: 'rollhaus-bikes.example sits on the .example top-level domain, which the IETF reserved for documentation and testing (RFC 2606). Names under it do not resolve on the public internet, so this address cannot be crawled by anyone, with any tool.' Grader check: RFC 2606 does reserve .example alongside .test, .invalid and .localhost — the claim is accurate general knowledge about a TLD, not a fabricated site metric. No fetch was attempted and none is claimed."
+    },
+    {
+      "eval": 5,
+      "id": "e5.3",
+      "text": "Manual-data mode engaged per SKILL.md Data Sources: at minimum the sitemap or page list and the existing link-structure data requested",
+      "passed": true,
+      "evidence": "e5:28-33 'Input check' table marks four inputs Missing and states what each is for: 'Site structure or sitemap (URL or file)' — the SKILL.md Input Validation item verbatim; 'Internal link data (crawl export, or a manual link census)'; 'Key pages or topic clusters'; 'A connected crawler or analytics tool — None connected'. That covers all four SKILL.md Data Sources items. The with-tools alternative is offered as Route B, a crawl export (e5:61-70), with its own honest limitation stated — 'a crawler that starts from your homepage finds only pages that something links to, so a true orphan is precisely what it *cannot* see' — and paired with Route A's indexed-page list."
+    },
+    {
+      "eval": 5,
+      "id": "e5.4",
+      "text": "The hold is grounded and forward-moving, not a bare refusal: explains why orphan detection needs real inbound-link data in the skill's own terms, states exactly what unblocks it",
+      "passed": true,
+      "evidence": "Reason in the skill's own terms at e5:12-16: 'An orphan page is a page with no internal links pointing at it. Naming one requires the complete list of your pages *and* the complete list of your internal links. Miss a single link and a page that is fine gets reported as an orphan; miss a single page and a real orphan never appears in the report at all.' The cites-specific-data-points rule is quoted as the governing reason at e5:130-134. Unblocking is concrete: three routes with effort estimates, and a fill-in census template at e5:77-98 with the four details that decide whether it is usable. Forward-moving without pre-empting: e5:115-124 lists what comes back once any route lands; e5:126 'Turnaround is the same day the data arrives.'"
+    }
+  ],
+  "mechanical_screens": {
+    "note": "Per the anti-slop-ruleset section-6 governing note, every pattern here is a screen and never a verdict; results are reported as 'screened, nothing surfaced', never 'clean'. A FAIL or a clean sheet on any Greek family is the binding editor's call on hand-checked evidence.",
+    "locale": "LC_ALL=C.UTF-8, GNU grep, so Greek capitals case-fold",
+    "family_1_totality_calque": "net `Όλα τα [0-9]` on e3 — screened, nothing surfaced",
+    "family_2_provenance_in_copy": "nets `απαιτούνται στοιχεία`, `[CLIENT DATA`, `[SOURCE NEEDED` on e3 — screened, nothing surfaced",
+    "family_4_query_style_labels": "no pattern (editor judgment). All 12 proposed anchors hand-checked; every one carries its article or is a full clause. Nothing surfaced for the editor beyond the standing naturalness referral.",
+    "family_5_negative_concord": "net (6 n-word tokens, case-insensitive) surfaced 24 lines on e3; all 24 hand-checked. Every n-word in a finite clause carries a preverbal «δεν»/«Δεν» — «δεν βρέθηκε κανένας» (e3:25), «καμία σελίδα δεν την αναφέρει» (e3:56), «δεν δέχεται κανέναν» (e3:112, 129, 145), «Καμία άγκυρα δεν δείχνει» (e3:202). Three hits are verbless nominal fragments, which family 5's own text protects: «Καμία σύνδεση ανάμεσα σε οξύτητα και αποθήκευση» (e3:116), «2, καμία απροσπέλαστη» (e3:387), «καμία επανάληψη» (e3:391). Two are clause-split across a line break and licensed on the previous line (e3:11, e3:131). Screened, nothing surfaced that survives hand-checking.",
+    "family_6_costs_zero_calque": "Two-step screen run as the row specifies. NET `μηδ[εέ]ν` surfaced 2 hits on e3: line 143 «Δεν είναι ορφανή, παρότι δείχνει μηδέν» and line 199 «Ο στόχος είναι μηδέν». RANK `κοστίζ` — nothing surfaced. Digit escapes `κοστίζ[^.]{0,20}0 ?ευρώ` and `κοστίζ[^.]{0,20}0 ?€` — both screened, nothing surfaced. Hand-check: neither net hit is the ruled 'costs-zero' shape, neither sits in paste-ready customer copy (both are report prose about counts), and neither is ranked by the verb stem. Referred to the binding editor for the naturalness call on «δείχνει μηδέν», per the governing note.",
+    "family_7_connector_placeholders": "net `~~` across all five deliverables — screened, nothing surfaced (0 hits in e1, e2, e3, e4, e5). Positive instance: e4:401 resolves the token to the real tool name, 'Google Search Console', per the root CLAUDE.md three-step rule.",
+    "f13_placement_scan": "nets `[CLIENT DATA` / `[SOURCE NEEDED` / `[Brand]` / `[Number]` / `[Year]` / `TBD` / `XX` / `TO SUPPLY` / `to supply` / `data needed` / `anchor TBD` across all five deliverables — screened, nothing surfaced. All 22 square-bracket occurrences across e2/e3/e4 hand-checked as markdown link syntax carrying final copy.",
+    "invented_metric_scan": "nets for domain authority / DA / DR n / search volume / MSV / keyword difficulty / 'ranks #n for' / 'position n for' / impressions across all five — one hit, e5:109, which is the deliverable stating what does NOT exist. Uplift-prediction nets (+n%, 'will bring n', 'expect n') — nothing surfaced."
+  },
+  "tool_correctness": {
+    "tool_errors_encountered": 0,
+    "checker_false_verdicts_caught_before_reporting": 2,
+    "checker_false_verdict_details": [
+      "Greek tonos screen v1 used the character class [α-ω]{4,}, which excludes accented vowels and therefore split every accented word into fragments, producing ~600 bogus 'unaccented word' candidates. Caught by inspecting the output before reporting (ledger F7), discarded, and rebuilt over the full Greek alphabet including accents; the corrected run returns 13 candidates, all legitimate. No finding was ever derived from the broken version.",
+      "Draft word count: the grader's first pass produced 253 and 229 under two conventions and neither matched E2's stated 248, which looked like a discrepancy. Before reporting it, the raw draft was re-tokenized under four explicit conventions; convention B (whitespace tokens minus the four '###' markers, headings included) yields exactly 248 — which is precisely what E2 says it counted, 'headings included'. Deliverable right, grader's first convention wrong. Reported as a reproduction, not a discrepancy."
+    ],
+    "expectations_not_gradeable_as_written": 0,
+    "expectations_with_ambiguous_wording": 4,
+    "scope_drift": "None. The skill was not re-run, no deliverable was edited or repaired, and no better link plan was produced. blind-linking-after.py was opened once, after the E2 discrepancy had already been established from E2's own text and the grader's independent rebuild, solely to diagnose the cause.",
+    "executor_disclosed_caveats": [
+      "Executor confirmed it never opened evals.json, eval-baselines or any grading file.",
+      "Executor's own arithmetic self-check, blind-linking-arith-recheck.txt, reports '36/36 figures reconcile; 0 mismatch'. The grader confirms all 36 of those checks are individually correct — and that the set has a hole of exactly the F15 shape: it verifies divisions on stated inputs but never that an input follows from the printed plan. Its row 'E2 after avg 32/9 computed=3.56 stated=3.56' validates the division while taking 32 as given, which is the one number in E2 that does not follow. An instrument built from the figures it was meant to check confirms them."
+    ]
+  },
+  "input_drift": {
+    "detected": true,
+    "severity": "material to future runs, immaterial to these verdicts",
+    "what_changed": "HEAD advanced da16893 -> 3d809bf during this grading run (5 commits), and the working tree gained UNCOMMITTED edits to the target skill: optimize/internal-linking-optimizer/SKILL.md (version 4.0.2 -> 4.1.0, plus a new 'Scoring & Impact-Figure Rules' section and three new Output Validation checkboxes), references/linking-templates.md, references/link-architecture-patterns.md, and a brand-new untracked references/score-rubric.md. Separately, commit 95a1759 edited build/seo-content-writer/references/anti-slop-ruleset.md mid-run.",
+    "effect_on_verdicts": "NONE, on three checks. (1) The rubric did not move: optimize/internal-linking-optimizer/evals/evals.json is unchanged (last touched 9f66cb1, 2026-08-09) and so are all three fixtures (28534c4, 2026-08-09); git diff over da16893..HEAD shows no change to evals/. (2) The ruleset edit is a single-line markdown table-cell fix to family 6's pattern column, described by its own commit message as 'the digit-zero escape pattern ... was written as a single alternation containing an unescaped pipe'. FAIL-grade family count is 7 before and 7 now — no family was added or removed, unlike the two 2026-08-10 incidents this rule was written for. This grader read and ran the post-fix patterns. (3) The SKILL.md/reference edits landed at 16:27-16:28 by file mtime; the executor wrote and saved all five deliverables at 15:51-16:11 and score-rubric.md did not exist. Grading a blind deliverable against instructions written after it was saved would be precisely the error the re-check rule exists to prevent.",
+    "effect_on_future_runs": "Material. 4.1.0 prescribes a specific Structure/Anchor Score derivation (six rows, ✅1/⚠️0.5/❌0, round(10 x points / rows scored)); E1, E3 and E4 each use a fully-shown but different 'start at 10 and subtract' scheme, which was legitimate under 4.0.2 because 4.0.2's template offered only '**Structure Score**: [X]/10' with no derivation rule at all. 4.1.0 also newly defines the Top Linked Pages 'Authority' column as 'a within-site relative label read off that row's own inbound-link count', which the deliverables replace with a computed PageRank share. Any comparison of this run to a 4.1.0 run is a version change stacked on a method change and must be labelled as both."
+  },
+  "eval_feedback": [
+    "1. E2 has no honest-arithmetic expectation, and that is the gap this run found. E1's e1.3 ('derived values ... appear only with their arithmetic visible ... and correct') and E4's e4.2 ('a percentage, distribution table or anchor score presented without its base population fails') both exist; E2's six expectations contain no equivalent, so E2's after-table — five figures, none re-derivable from E2, one of them (services inbound 8) contradicted by E2's own link list — passes every expectation the suite has. Suggested addition to e2.1 or a seventh expectation: 'any projected after-state figure (link totals, averages, inbound counts, authority shares) is computed on exactly the links the response itself lists, and the response says so; a projection that requires links the response does not print fails.'",
+    "2. e1.5 bundles two independent tests with an AND — the priority ordering, and anchor text on every link suggestion. This run passes the first and fails the second, so the recorded FAIL does not say which. Splitting it into e1.5a (ordering) and e1.5b (suggestion payload completeness) would make the signal actionable and would let the per-expectation baseline comparison locate the change.",
+    "3. e1.3's honest-arithmetic carve-out says 'a derived number with visible, correct derivation from fixture numbers is not fabrication'. All three deliverables that print a PageRank authority share give a fully SPECIFIED derivation (damping 0.85, logo links included, 404 excluded) rather than a SHOWN one — reproducible with an implementation, not by hand. It reproduced exactly here, so nothing failed; but the expectation does not say which of 'specified' and 'shown' it means, and two graders could rule differently on the same column. Worth a clause. This matters more now that 4.1.0 defines that column differently.",
+    "4. e5.1's typical-pattern clause ('pass only when explicitly labeled as assumptions to verify against real site data') does not distinguish a pseudo-finding about the user's site from a general statement inside data-collection instructions. e5:106-107 ('Old landing pages, thank-you pages, seasonal posts. Those are where orphans live') is the second kind and was graded PASS; the literal wording would fail it. Suggested clause: 'statements inside a data-collection instruction or template, which attribute nothing to the site under discussion, are not typical-pattern findings.'",
+    "5. e1.3 enumerates '21 total' among the fixture-derivable populations. E1 gives 20 working (13 live in-body + 7 logo) with the composition, the 14 instance count and the 1 broken all on the same line, which satisfies the operative test ('match a fixture-derivable population WITH the population stated'). The enumeration reads more prescriptively than it grades; 'e.g.' before the list would settle it.",
+    "6. e3.2 asks that the exact-match repetition be flagged 'per the skill's ⚠️ May be over-optimized assessment'. The deliverable flags it ❌ with the correct count, population and reasoning. Grading on the substance rather than the symbol worked, but a clause ('the severity symbol is not graded; the count, population and reasoning are') would remove the judgment call."
+  ],
+  "editor_referral": {
+    "artifact": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-linking-out-e3.md",
+    "for": "greek-content-editor (binding)",
+    "expectation": "e3.4 — mechanical layer verified clean by this grader (final sigma, diacritics, no English boilerplate headings); fluency, register, idiomatic naturalness and the final naturalness verdict on the proposed anchors are NOT this suite's call",
+    "specific_items": [
+      "The 12 proposed anchor strings and the 12 paste-ready sentences in sections 6 and 7 — this is client-facing copy-paste copy for an olive-oil e-shop, which is the register that matters.",
+      "«Δεν είναι ορφανή, παρότι δείχνει μηδέν» (e3:143) and «Ο στόχος είναι μηδέν» (e3:199) — the two hits the family-6 net surfaced. Neither is the ruled costs-zero shape and neither is ranked by `κοστίζ`, but per the section-6 governing note the clean-sheet call on a Greek family is the editor's, not the grader's.",
+      "Section 8's four-reason decline of «ελαιόλαδο κρήτης προσφορά», especially reason 2 (e3:338-342), which makes a claim about Greek itself: that the phrase is a search query rather than Greek prose, article-less and with a lowercase «κ» on a proper noun. The grader can confirm the string is never recommended; whether the linguistic argument is correct and well-put is the editor's."
+    ],
+    "status": "PENDING"
+  }
+}

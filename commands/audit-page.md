@@ -41,19 +41,22 @@ A combined **on-page SEO** + **CORE-EEAT content quality** audit. For full site-
 ## Output Format
 
 ```
+# SKELETON -- scaffold, not output. Every [bracket] and XX is a slot filled from this
+# audit's own arithmetic; a criterion nobody could verify is named as excluded, never
+# shipped as XX and never scored 0.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ON-PAGE SEO AUDIT: [Page Title or URL]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-OVERALL SCORE: XX/100
+OVERALL SCORE: XX/100 — XX criterion points awarded of XX scored, XX criteria unverified and excluded from both; the eight section scores below add to this figure, rescaled as round(100 x awarded / points scored) whenever criteria were excluded
 
-[████████████████████░░░░░░░░░░░░░░░░░░░░] XX%
+[████████████████████░░░░░░░░░░░░░░░░░░░░] XX% — the same figure as the Overall Score
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 SECTION SCORES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-[8 area scores with bar charts]
+[8 area scores with bar charts, each on its own maximum — Title /15, Meta /5, Headers /10, Content /25, Keywords /15, Links /10, Images /10, Technical /10 — and each printed as awarded points over points scored, with the count of criteria excluded as unverified; the eight sum to the Overall Score]
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 PRIORITY ACTION LIST
@@ -73,19 +76,19 @@ CORE-EEAT CONTENT QUALITY
 
 Content Type: [type]
 Veto Status: Pass / Capped — 1 veto failed [item], final score ≤59 / BLOCK — 2+ vetoes failed [items], no final score / T04 N/A (no material connection)
-Weighted Score: XX/100 ([rating]) — suppressed on BLOCK; "no score issued" if veto evidence unassessable
+Weighted Score: XX/100 ([rating]) — sum of (dimension score x content-type weight) over the eight rows below, each weight printed beside its row and renormalised to 100% if a dimension is excluded as Insufficient Data; capped at 59 on one verified veto (cap flagged, any uncapped figure labelled as such); suppressed on BLOCK; "no score issued" if veto evidence unassessable
 
-GEO Score (CORE): XX/100    SEO Score (EEAT): XX/100
+GEO Score (CORE): XX/100 — mean of the C, O, R, E rows    SEO Score (EEAT): XX/100 — mean of the Exp, Ept, A, T rows
 
-Dimension Scores:
-C  -- Contextual Clarity  [████████░░] XX/100
-O  -- Organization        [████████░░] XX/100
-R  -- Referenceability    [████████░░] XX/100
-E  -- Exclusivity         [████████░░] XX/100
-Exp -- Experience         [████████░░] XX/100
-Ept -- Expertise          [████████░░] XX/100
-A  -- Authority           [████████░░] XX/100
-T  -- Trust               [████████░░] XX/100
+Dimension Scores — score = points earned / (10 x scored items) x 100, on the Pass 10 / Partial 5 / Fail 0 item scale; an N/A item leaves the denominator, never scores 0:
+C  -- Contextual Clarity  [████████░░] XX/100  (XX pts / XX scored, XX N/A, weight XX%)
+O  -- Organization        [████████░░] XX/100  (XX pts / XX scored, XX N/A, weight XX%)
+R  -- Referenceability    [████████░░] XX/100  (XX pts / XX scored, XX N/A, weight XX%)
+E  -- Exclusivity         [████████░░] XX/100  (XX pts / XX scored, XX N/A, weight XX%)
+Exp -- Experience         [████████░░] XX/100  (XX pts / XX scored, XX N/A, weight XX%)
+Ept -- Expertise          [████████░░] XX/100  (XX pts / XX scored, XX N/A, weight XX%)
+A  -- Authority           [████████░░] XX/100  (XX pts / XX scored, XX N/A, weight XX%)
+T  -- Trust               [████████░░] XX/100  (XX pts / XX scored, XX N/A, weight XX%)
 
 Top 5 Content Quality Improvements:
 1. [ID] [Item] -- [specific action]
@@ -101,6 +104,8 @@ DETAILED FINDINGS
 NOTE: For technical SEO (speed, crawl, HTTPS), run: /seo:check-technical
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
+
+**Every score is printed with its arithmetic beside it.** An on-page section score is the criterion points awarded over the points actually scored on that section's own maximum, and the Overall Score is the plain sum of the eight when every criterion could be scored, or `round(100 x awarded / points scored)` once any were excluded -- a criterion nobody could verify leaves both the numerator and the maximum, and is never scored 0. A CORE-EEAT dimension score is `points earned / (10 x scored items) x 100`; GEO is the mean of the four printed CORE dimensions and SEO the mean of the four printed EEAT dimensions; the Weighted Score reproduces from the printed dimension scores and their weights. A dimension with more than 5 N/A items is flagged Insufficient Data, excluded, and the remaining weights renormalised to 100%. Nothing measurable at all means **no score** -- name which input unlocks which section and stop. Full rules: [scoring-rubric.md](../optimize/on-page-seo-auditor/references/scoring-rubric.md) for the eight on-page sections, [score-arithmetic.md](../cross-cutting/content-quality-auditor/references/score-arithmetic.md) for the CORE-EEAT figures and the veto overrides.
 
 ## Tips
 

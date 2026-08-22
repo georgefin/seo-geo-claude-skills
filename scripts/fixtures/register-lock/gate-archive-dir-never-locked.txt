@@ -1,0 +1,25 @@
+# CASE: gate-archive-dir-never-locked
+# ROLE: negative
+# JOURNAL: journal-live-two-holders.tsv
+# COMMIT-AT: -450
+# FILE: docs/loop/register-locks-archive/2026-08-10.tsv
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: none landed inside another holder's tenure undeclared
+# EXPECT-ABSENT: FAIL
+# WHY: ruling M4, 2026-08-18. lane-a holds the `docs/loop/` PREFIX in this journal,
+#      which before the carve-out covered `docs/loop/register-locks-archive/` too —
+#      so the commit gate leg 6 REQUIRES was the commit this leg REFUSES. Two gate
+#      legs deadlocked, measured in a temp repo rather than derived.
+#      The carve-out is about what the directory IS: nobody authors an archive row,
+#      `do_archive` copies them mechanically out of the journal, so there is no
+#      author's hunk to sweep and F14's defect cannot occur there. The rejected
+#      alternative was the `Register-Lock: none` escape, which asserts "no holder's
+#      content rides in this commit" — FALSE for an archive commit, where the
+#      holder's rows are exactly what is being committed.
+#      Pairs with gate-inside-tenure-undeclared, which uses the SAME journal and the
+#      SAME prefix lock on a non-archive file and must still FAIL. That pair is what
+#      separates "the archive is carved out" from "the prefix branch stopped working"
+#      — this case alone cannot tell those apart, and a carve-out nobody asserts is
+#      one a later reader deletes as dead code.
+# ---8<--- commit message
+chore(loop): archive lock-journal rows

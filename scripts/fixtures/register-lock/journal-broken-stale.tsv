@@ -1,0 +1,8 @@
+# journal-broken-stale.tsv — lane-b broke a STALE tenure with --force.
+# The horizon bounds it, NOT the break time: lane-a acquired 3h ago (horizon 90m),
+# and lane-b broke it 10 minutes ago. The tenure ends at acquire+90m, because what
+# made it stale was the horizon passing, not somebody noticing. Using the break
+# time instead would silently extend the tenure by 2h20m over a window in which
+# nobody was writing.
+ACQUIRE	-10800	lane-a	docs/loop/PILOT.md
+BREAK	-600	lane-b	docs/loop/PILOT.md	lane-a	stale

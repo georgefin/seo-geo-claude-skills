@@ -1,0 +1,352 @@
+{
+ "suite": "onpage",
+ "skill": "on-page-seo-auditor",
+ "skill_version": "4.1.1",
+ "run": "2026-08-10 blind-execute re-baseline",
+ "method": "WITHHELD: for all five evals, `expectations` and `expected_output` were never on screen until the eval's own deliverable was written and saved. Step 1 projected ONLY id/prompt/files with `jq '{skill_name, evals:[.evals[]|{id,prompt,files}]}'` into rebase-onpage-prompts-only.json (2,557 bytes, no sibling field present). READ WHEN: for each eval N in order 1..5, only eval N's prompt/files were opened (jq index-scoped), the skill (SKILL.md + scoring-rubric.md + audit-templates.md) was loaded, the complete deliverable was written and SAVED as rebase-onpage-out-eN.md, and only then was `jq '.evals[N-1] | .expectations, .expected_output'` run for the first time. No later eval's expectations were ever read early. No saved deliverable was edited after its expectations were seen — three errors found on re-read were left in place and are reported under self_caught. ALSO WITHHELD THROUGHOUT: the prior informed run's artefacts sitting in the same shared scratchpad (onpage-out-eval-1..5.md, modeb-onpage.json, greek-out-onpage-3.md, grading-eval-*.json) were never opened; docs/loop/eval-baselines/2026-08-09-e1.json was opened only after all 30 expectations were graded. anti-slop-ruleset.md §6 was deliberately NOT read until after e3's Greek deliverable was saved, because on-page-seo-auditor/SKILL.md does not reference it and a fresh session would not hold it. DISCLOSED BIAS CHANNELS, both created by the mandated interleaved sequence and neither concealed: (a) docs/loop/FAILURE-LEDGER.md and docs/loop/SETTLED-RULINGS.md were read after e1's deliverable was saved but before e2-e5 were executed, because the reviewer charter requires reading the ledger before judging anything — so e2, e3 and e5 were written holding R1-R5 that e1 did not, visibly so (e2/e3/e5 each apply the one-primary-schema-type rule; e1 does not, and drifts into the stacking R2 bans — self_caught #2); (b) e1's expectations were read before e2 was executed, exactly as the specified method directs, which teaches the grader's idiom and may have shaped e2-e5. Blindness held as specified; these two channels are properties of the specified sequence, not departures from it.",
+ "prior_baseline": "29/30 informed-executor, 2026-08-09-e1.json (skill_version 4.1.1, post-df63d1e wording, fail_record 'e5.6')",
+ "totals": {
+  "pass": 29,
+  "fail": 1,
+  "editor_pending": 0,
+  "total": 30,
+  "pass_rate": 0.9667
+ },
+ "delta_vs_prior": "IDENTICAL HEADLINE RATE, DIFFERENT 29. Blind 29/30 (96.7%) vs informed 29/30 (96.7%) — delta 0.0 points. That equality is the least informative number here, because the two runs do not fail the same expectation. The baseline's single failure was e5.6 (quote-form infidelity), which PASSES in this run. This run's single failure is e5.2 (the informational word-count benchmark row is not cited), which the baseline recorded passing. So the composition changed even though the score did not: one expectation recovered, one regressed. Read against the wider 2026-08-10 evidence (informed-executor 96-100% across ten suites vs blind 86.2%/85.7%/62.1% on three), this suite is the first blind run to land inside the informed band — which is a real signal about this suite's robustness, but it should be read alongside the three errors the blind method surfaced that NO expectation tests (self_caught #1-#3): a section-score arithmetic error, a settled-ruling (R2) schema-stacking drift, and a probable factual error on HowTo rich-result eligibility. The 96.7% measures expectation coverage, not deliverable correctness, and this run is direct evidence of the gap between the two.",
+ "regressions": [
+  {
+   "expectation": "e5.2",
+   "status": "REGRESSION — do-not-merge",
+   "rule": "Baseline 2026-08-09-e1.json regression_rule: 'an expectation recorded passing here that fails in a later run of the same suite at same-or-later skill version under unchanged wording'",
+   "conditions_verified": "skill_version 4.1.1 then and now (SKILL.md:3 and :11); evals.json last touched at df63d1e, which IS the baseline's stated wording basis ('graded post-df63d1e wording') — wording unchanged; baseline fail_record names only e5.6, so e5.2 was recorded passing.",
+   "evidence_now": "rebase-onpage-out-e5.md line 116: '| Sufficient length | ❌ | 229 words against a **1,200-word benchmark for a commercial query** (rubric: top-10 average ≈1,800) |'. The expectation requires the informational row ('Informational (guides) … Recommended Minimum 1,500 words'); checker probe returned '[ABSENT] informational benchmark named: no match'.",
+   "confound_stated_honestly": "Very likely a method artefact rather than skill drift: the skill is byte-unchanged, and the baseline was produced by an informed executor that had the expectation text in front of it while writing (baseline method field: 'Same-session executor/grader caveat stands; blind-protocol reinstatement queued'; the 2026-08-10 baseline calls informed-executor scores 'an upper bound, not a floor'). Naming it a regression is still correct under the stated rule and it is recorded as do-not-merge — but the fix indicated is to the expectation wording (eval_feedback #1), not to the skill."
+  }
+ ],
+ "improvements_vs_prior": [
+  {
+   "expectation": "e5.6",
+   "was": "FAIL (baseline fail_record: 'meta-table note quoted a paraphrased fixture fragment as if verbatim')",
+   "now": "PASS",
+   "evidence": "All fixture quotations in rebase-onpage-out-e5.md are byte-exact or explicitly elided with each part verified against the fixture; the title/meta rows report 59 and 159 characters as passing, not as violations."
+  }
+ ],
+ "fails_classified": [
+  {
+   "expectation": "e5.2",
+   "kind": "omission",
+   "what": "The thin-content finding is present, correctly counted (229 words), correctly tiered (Critical) and correctly fixed (expand coverage, not repetitions) — but it cites the rubric's COMMERCIAL row (1,200 minimum / ≈1,800 top-10) instead of the INFORMATIONAL row the expectation names (1,500 minimum). Nothing false is asserted: 1,200 is the rubric's real commercial minimum and the fixture is a service page with a quote CTA. What is missing is the named benchmark. The small real failure mode is that the commercial row is the more lenient of the two for a page whose own H1 calls it 'The Guide'."
+  }
+ ],
+ "self_caught": [
+  "e2 ARITHMETIC ERROR (frozen, not corrected): the Technical section published '**Score**: 5 / 8 verifiable points → **Technical Score: 6/10**' while the ✅/⚠️ rows it lists sum to 7/8 (URL 2 + canonical 2 + mobile 1 + HTTPS 1 + schema 1) → 9/10. Correct overall would be 90/100, not the published 87/100. Understatement only; no expectation flips (e2.4 requires ≥70). Found while scoring e3's Technical section against the same criteria. NO e2 EXPECTATION TESTS SCORING ARITHMETIC — all six passed over the error.",
+  "e1 SETTLED-RULING DRIFT (frozen): Important #4 and the Action Checklist recommend `Article` + `HowTo` + `FAQPage` on one URL, while the same deliverable's Technical table correctly writes 'Article (or HowTo)'. SETTLED-RULINGS R2(c) bans a second full content type on a page as stacking. Internally inconsistent and contrary to a settled ruling. Written before I had read SETTLED-RULINGS.md (see method, bias channel (a)); e2, e3 and e5 all state the one-primary-type rule correctly. Root cause worth reporting: on-page-seo-auditor/SKILL.md carries no pointer to R2, so a genuinely cold session would reproduce this.",
+  "e1 PROBABLE FACTUAL ERROR (frozen): Important #4 states the impact of missing schema as 'no Article/HowTo eligibility, no rich-result surface'. Google withdrew HowTo rich results; asserting HowTo eligibility is likely wrong. Not covered by any settled ruling (R1-R5 do not address HowTo), so this is flagged as a probable error rather than a ruling violation — and as a candidate for the WATCH-ITEMS queue.",
+  "e2 QUOTE-FORM NIT (frozen): '\"**Most** emergency callouts **inside the city** are on site within the hour\"' carries markdown bold inserted inside the quoted span. Words are word-for-word from the fixture; the four asterisks are mine. Same family as the baseline's own e5.6 failure, at lower severity (emphasis added, nothing paraphrased).",
+  "e3 GREEK ADVISORY-CLASS RECURRENCES (frozen, mechanical §6 scan): FAIL-grade families 1, 2 and 6 all returned ZERO hits, and family 5's 12 approximation hits were hand-checked to zero real violations (all the verbless-fragment false positives §6 itself documents — e.g. '**Καμία κατακλείδα.**', '| O02 | Πλαίσιο σύνοψης | ❌ | Κανένα πλαίσιο «με μια ματιά» |'). But three ADVISORY families do recur: (a) '## Γρήγορες Νίκες' at line 388 is the ruled quick-wins calque (→ «Άμεσες βελτιώσεις»/«Άμεσα οφέλη»); (b) untranslated framework labels as client-facing Greek headings ('## Ανάλυση Title Tag', '## Ανάλυση Meta Description', '### Title Tag', 'Title Score:', 'Description Score:'); (c) English-style title-casing of Greek content words in headings ('Θέματα Προτεραιότητας', 'Αναλυτικές Συστάσεις', 'Λίστα Ενεργειών', 'Αναμενόμενα Αποτελέσματα'), which §6 rules against. Carrier gap worth the coordinator's attention: §6 lives in seo-content-writer and on-page-seo-auditor references it nowhere, so Greek audits from this skill have no carrier for the ruled classes (F13 shape).",
+  "e3 QUOTED PARAPHRASE (frozen): the setup section renders the rubric's English calibration line as a Greek quotation — «όταν δεν μπορείς να επαληθεύσεις μια μέτρηση, σημείωσέ την ως μη επαληθευμένη αντί να μαντέψεις» — i.e. a translation inside quotation marks. It is not an Evidence field and not a page quote, so e3.6 is unaffected, but it is the same quote-discipline family the baseline flagged.",
+  "SCORING-CONVENTION WOBBLE (frozen, all four scored evals): 'Mobile-friendly' was scored 1 of 2 ('viewport confirmed, live rendering unverified') rather than excluded from the denominator like the other unverifiable criteria, which is a half-point invention against my own stated method. Held consistently across e1/e2/e3/e5 so the four scores stay comparable, and disclosed here rather than silently corrected mid-suite.",
+  "ALL FIVE deliverables (frozen): 59 unresolved `~~category` connector tokens on client-read surfaces — see post_hoc_finding_family7. FAIL-grade under §6 family 7 as it stands at 09:41Z, which post-dates every deliverable in this run."
+ ],
+ "tool_correctness": {
+  "tool_errors": 0,
+  "checker_false_verdict_classes_caught_pre_report": 8,
+  "checker_false_verdicts_that_escaped": 0,
+  "detail": [
+   "e1: bounded-split bug reported the duplicate-H1 issue as present in the Minor tier ('h1' in an unbounded tail split); raw inspection of the bounded Minor section found zero H1 mentions.",
+   "e1/e2/e3/e5: verbatim-quote scanners flagged element/attribute-TYPE references for ABSENT things (`<meta name=\"description\">`, `<picture>`, `application/ld+json`, `<time>`, `loading`, `X-Robots-Tag`) as non-verbatim quotes. None is a page quote.",
+   "e1/e2/e3/e5: verbatim scanners flagged explicitly elided quotes (marked '…') as non-verbatim; each was re-verified part-by-part against the fixture and passed.",
+   "e2: 'skipped heading level' and 'keyword stuffing' probes fired on PASS statements and on an explicit refusal to stuff ('would read as stuffing', 'Not keyword-stuffed').",
+   "e3: the broad «…»/backtick quote scan reported 52 Greek spans as not-in-fixture; regex crossed newlines and backtick pairs and swept in NEW proposed prose. Re-run scoped to the 18 Τεκμήριο fields: zero real infidelities.",
+   "e3: §6 family-5 negative-concord approximation produced 12 hits, all the documented verbless-fragment false positives; hand-checked to zero.",
+   "e3: §6 'Greek prefix + hyphen' probe fired 26 times on standard compounds («λέξη-κλειδί», «φράση-στόχος») which are not the ruled «απο-» prefix shape.",
+   "e5: 'ranking positions' probe reported a VIOLATION on 'position 1', which is keyword position inside the title ('| Title tag | ✅ | Exact, position 1 |'), not SERP rank; a dedicated SERP-claim scan returned NONE."
+  ],
+  "ledger_note": "Every one of the 8 was caught by the F7 raw-inspection step before any verdict was written; zero reached this report. No F-entry recurrence is claimed — F7's counter increments only on a false verdict that ESCAPES into a report.",
+  "greek_casefold_handling": "grep -i was not relied on for Greek. All Greek matching used Python str.casefold() (which folds final sigma) and explicit two-case character classes, under LC_ALL=C.UTF-8, per the §6 coverage-gap note.",
+  "expectations_ungradeable_as_written": 0,
+  "scope_drift": "none — every write landed under the scratchpad path given in the task; no repo file was created, edited, staged, committed or pushed.",
+  "reference_drift_during_run": "anti-slop-ruleset.md (+17 lines, new FAIL-grade family 7) and root CLAUDE.md (+8 lines, binding connector-resolution rule) were both modified by a parallel agent at 09:41Z, after this run's §6 read and after all five deliverables were saved. Detected by a closing `git status` check, not by any gate. No repo file was written by this run."
+ },
+ "greek_editor_referral": {
+  "file": "rebase-onpage-greek-e3.md",
+  "reason": "e3's expected_output and e3.6 both route fluency of NEW Greek prose to the binding greek-content-editor pass; no numbered expectation covers it, so editor_pending is 0 against the 30 and this referral is recorded separately.",
+  "mechanical_layer_graded_here": "§6 FAIL-grade families 1/2/6: zero hits. Family 5: 12 approximation hits, hand-checked to zero real violations. Character counts on fresh Greek verified exact: proposed title 60, proposed meta description 157.",
+  "for_the_editor": [
+   "Proposed title «Φυσικοθεραπεία Περιστέρι: Εξατομικευμένο Πρόγραμμα | Κίνησις» (60 chars)",
+   "Proposed meta description «Φυσικοθεραπεία στο Περιστέρι με εξατομικευμένο πρόγραμμα: θεραπευτική άσκηση, μαλάξεις, ηλεκτροθεραπεία, μετεγχειρητική αποκατάσταση. Ραντεβού: 210 5700 000.» (157 chars)",
+   "Proposed alt texts «Συνεδρία θεραπευτικής άσκησης στο φυσικοθεραπευτήριο Κίνησις στο Περιστέρι» and «Αίθουσα θεραπευτικής άσκησης του φυσικοθεραπευτηρίου Κίνησις στο Περιστέρι»",
+   "Proposed anchor «τιμοκατάλογος συνεδριών φυσικοθεραπείας»",
+   "Proposed section headings «Τιμές συνεδριών», «Ωράριο και ραντεβού», «Οι φυσικοθεραπευτές μας», «Συχνές ερωτήσεις»",
+   "ADVISORY hits already found mechanically and needing the editor's ruling: '## Γρήγορες Νίκες' (quick-wins calque), untranslated framework labels as Greek headings ('Ανάλυση Title Tag', 'Title Score'), and Greek title-casing of content words",
+   "Register of the whole ~1,600-word Greek report body"
+  ]
+ },
+ "eval_feedback": [
+  "e5.2 OVER-SPECIFIES THE BENCHMARK ROW on an intent-ambiguous fixture. The page's H1 is 'Solar Panel Cleaning: The Guide' (informational) but its body is a service description ending in a quote CTA, and the meta description sells a service (commercial). 229 words is far below BOTH rows. Recommend: accept either the informational 1,500 or the commercial 1,200 row, or disambiguate the fixture. This wording is what produced the run's only failure and its only regression.",
+  "e1.3 OVER-SPECIFIES THE REMEDIATION ELEMENT: 'the fix follows \\'Keep one H1, convert others to H2\\''. Converting a site-masthead H1 to an H2 injects 'Welcome to the Copper & Cast Kitchen Blog' into the article outline, which is worse than demoting it to a `<p>`. Recommend rewording to the operative test: resolved to a single H1, with the keyword-bearing H1 retained.",
+  "e4.2 requires 'confirmation of the target keyword(s)' without saying what form satisfies it. Echoing the keyword back and asking for secondaries and intent class is functionally that; a literal 'please confirm' sentence is not. Recommend stating what counts.",
+  "ALL FOUR verbatim-quote expectations (e1.7, e2.6, e3.6, e5.6) should state their tolerances explicitly, because all four produced checker false positives on the same three shapes: (a) explicitly elided quotes marked '…', (b) markdown emphasis inserted inside a quoted span, (c) element/attribute-TYPE references for elements the page LACKS (`<meta name=\"robots\">`, `application/ld+json`, `<picture>`). Only (b) is arguably a real infidelity and it deserves naming rather than leaving to the grader.",
+  "NO EXPECTATION IN THE SUITE TESTS SCORING ARITHMETIC. The rubric mandates section → weighted → /100, yet a real arithmetic error in this run's e2 Technical section (5/8 published where the stated rows sum to 7/8) passed all six e2 expectations untouched. Recommend adding a programmatically checkable expectation: the published weighted total recomputes from the published section scores, and each section score recomputes from its own criterion rows.",
+  "NO EXPECTATION TESTS SETTLED-RULING COMPLIANCE IN RECOMMENDATIONS. This run's e1 recommended Article + HowTo + FAQPage on one URL — the stacking SETTLED-RULINGS R2(c) bans — and all seven e1 expectations passed over it. Recommend one expectation per schema-bearing eval: recommended markup names exactly one primary content type, with auxiliary types limited to the R2(b) list.",
+  "e3 HAS NO NUMBERED GREEK-FLUENCY EXPECTATION. expected_output routes fluency to the binding editor, but with no expectation to attach it to, the editor verdict never enters the pass rate and editor_pending is structurally 0. Recommend either a numbered expectation whose verdict is explicitly EDITOR-PENDING, or an explicit statement that the Greek suite's denominator excludes fluency by design.",
+  "CONSIDER A CARRIER FOR §6 IN THIS SKILL. on-page-seo-auditor produces Greek client-facing reports (e3) but references anti-slop-ruleset.md nowhere, so the ruled Greek classes have no carrier on this surface — the F13 shape. This run reproduced three advisory families as a result.",
+  "ADD A CONNECTOR-TOKEN EXPECTATION TO THIS SUITE (and library-wide). §6 family 7 makes `~~` on a client-read surface FAIL-grade, and it is trivially greppable, yet no expectation here tests it — this run shipped 59 instances at 29/30. One expectation per eval ('no `~~` token appears in the deliverable; absent tools are named in plain language and absent numbers are declared unavailable') would close it programmatically.",
+  "FIX THE TEMPLATE CAUSE IN on-page-seo-auditor/SKILL.md BEFORE RE-RUNNING: the Output Validation checklist currently offers '~~SEO tool data' as source-label vocabulary and the Data Sources section teaches '~~SEO tool + ~~web crawler'. While that stands, a cold session is being taught to emit the tokens into deliverables — the same template cause §6 records for meta-tags-optimizer 4.1.3."
+ ],
+ "artifacts": {
+  "prompts_only_projection": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-onpage-prompts-only.json",
+  "deliverables": [
+   "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-onpage-out-e1.md",
+   "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-onpage-out-e2.md",
+   "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-onpage-out-e3.md",
+   "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-onpage-out-e4.md",
+   "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-onpage-out-e5.md"
+  ],
+  "greek_raw": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-onpage-greek-e3.md",
+  "checkers": [
+   "gr_e1.py",
+   "gr_e2.py",
+   "mm_e1.py",
+   "mm_e2.py"
+  ],
+  "grading": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-onpage.json"
+ },
+ "evals": [
+  {
+   "id": "1",
+   "prompt_summary": "Full audit of a multi-defect EN blog post, keyword 'cast iron skillet seasoning'",
+   "output": "rebase-onpage-out-e1.md",
+   "passed": 7,
+   "failed": 0,
+   "expectations": [
+    {
+     "n": 1,
+     "verdict": "PASS",
+     "evidence": "Title quoted verbatim 3x: 'Our Blog | Everything You Ever Wanted To Know About Cookware, Pans, Pots, Kitchen Tools And More'; row '| Length (50-60 chars) | ❌ | 96 chars — 36 over the display limit |'; '| Keyword included | ❌ | \"cast iron skillet seasoning\" does not appear anywhere in the title |'; recommendation '`Cast Iron Skillet Seasoning: Full Guide | Copper & Cast` (**55 characters**)'",
+     "note": "96 is inside the 86-106 band; checker confirmed the output never claims the title is inside 50-60."
+    },
+    {
+     "n": 2,
+     "verdict": "PASS",
+     "evidence": "'**Current Description**: **none — no `<meta name=\"description\">` tag exists in the head.**'; replacement supplied at 153 chars; placed in Important tier (playbook Medium). No 'current' description text is quoted or scored — 'Description Score: 0/10' scores the absence.",
+     "note": ""
+    },
+    {
+     "n": 3,
+     "verdict": "PASS",
+     "evidence": "Critical #2: '**Two `<h1>` elements — the first one is site boilerplate** — Evidence: `<h1>Welcome to the Copper &amp; Cast Kitchen Blog</h1>` immediately followed by `<h1>Cast Iron Skillet Seasoning: The Complete Guide</h1>` ... **Confidence: Confirmed**'. Both H1 texts verbatim; Critical tier, absent from Minor (verified on a bounded section split).",
+     "note": "DEVIATION recorded: the fix reads 'demote the masthead H1 to a `<p>`/`<div>` in the template; keep exactly one H1' rather than the playbook's literal 'convert others to H2'. The operative clauses — one H1 kept, keyword-bearing H1 retained — are met verbatim, and converting site chrome to H2 would inject 'Welcome to the Copper & Cast Kitchen Blog' into the article outline. Graded PASS on substance; see eval_feedback #2."
+    },
+    {
+     "n": 4,
+     "verdict": "PASS",
+     "evidence": "'`<h4>Choosing the Right Oil</h4>` directly under the `Why Seasoning Matters` H2'; hierarchy block shows H1→H1→H2→H4→H2→H2; fix 'promote to H2 (peer topic), or H3 if it stays nested'; CORE-EEAT row '| O01 | Heading Hierarchy | ❌ | 2× H1 and an H2→H4 skip |'",
+     "note": ""
+    },
+    {
+     "n": 5,
+     "verdict": "PASS",
+     "evidence": "'`<img src=\"/uploads/IMG_2847.jpg\" width=\"800\" height=\"533\">` has no `alt` attribute'; '`IMG_2847.jpg` is a camera default'; '`alt=\"\"` (present but **empty**)' for skillet-oven.jpg; replacements 'Thin film of oil buffed onto the cooking surface of a cast iron skillet' and 'Cast iron skillet baking upside down on an oven rack during seasoning'. flaxseed-oil-flaking.jpg appears on exactly one line, marked ✅ with its descriptive alt.",
+     "note": ""
+    },
+    {
+     "n": 6,
+     "verdict": "PASS",
+     "evidence": "'Evidence: `<a href=\"/blog/choosing-cast-iron\">Click here</a>` ... Fix: `how to choose a cast iron skillet`'. Script parsed 16 numbered priority items; items missing any of Evidence/Impact/Fix/Confidence: NONE. Confidence values used: ['Confirmed','Hypothesis'].",
+     "note": ""
+    },
+    {
+     "n": 7,
+     "verdict": "PASS",
+     "evidence": "All fabrication classes CLEAN (LCP/INP/CLS/positions/CTR/traffic/volume: 'no match'). '| Unique across site | **Unverified** |' plus Minor #6 '**Confidence: Hypothesis**' naming 'fetching any second `/blog/…` URL and diffing the `<title>`'. All backticked HTML quotes verbatim in fixture.",
+     "note": "3 checker NOT-IN-FIXTURE flags inspected per F7: `<img src=\"/uploads/skillet-oven.jpg\" alt=\"\" …>` is an explicitly elided quote; `<meta name=\"description\">` and `<picture>` are element-type references for absent elements, not page quotes."
+    }
+   ]
+  },
+  {
+   "id": "2",
+   "prompt_summary": "Full audit of a clean EN service page, keyword 'emergency plumber bristol'; user asked what is already fine",
+   "output": "rebase-onpage-out-e2.md",
+   "passed": 6,
+   "failed": 0,
+   "expectations": [
+    {
+     "n": 1,
+     "verdict": "PASS",
+     "evidence": "Important #2: '**Third image has no `alt` attribute** — Evidence: `<img src=\"/images/fairview-team-bristol.jpg\" width=\"800\" height=\"533\" loading=\"lazy\">` — no `alt` present, while the other two images both carry descriptive alts ... **Confidence: Confirmed**'; replacement 'The Fairview Plumbing engineering team outside their Bristol depot'.",
+     "note": ""
+    },
+    {
+     "n": 2,
+     "verdict": "PASS",
+     "evidence": "All seven invented-defect probes clean after raw inspection. Ground-truth rows: '| Length (50-60 chars) | ✅ | 56 — inside the window, no truncation |'; '| Length (150-160 chars) | ✅ | 153 |'; '| Single H1 | ✅ | Found: 1 H1 |'; '| No skipped levels | ✅ | Confirmed across the full sequence |'; '| H1 includes keyword | ✅ | \"Emergency Plumber in Bristol\" — all three keyword words, in natural English word order |'",
+     "note": "Two checker HIT-INSPECT flags cleared per F7: both 'skipped level' hits are PASS statements ('No skipped levels | ✅', 'zero skipped levels'); both 'stuff' hits decline to stuff ('would read as stuffing') or praise ('Not keyword-stuffed')."
+    },
+    {
+     "n": 3,
+     "verdict": "PASS",
+     "evidence": "'| Canonical tag | ... | ✅ | Correct self-referencing canonical, character-identical to the served URL |'; '| Schema markup | `Plumber` JSON-LD | ✅ | Correct primary type for this page |'; '| URL keywords | present | ✅ | Exact primary keyword |'. Only 'broken' mention: '| No broken links | **Unverified** | No crawler; the five destinations cannot be status-checked from a saved file |', plus 'Critical: **None.**'",
+     "note": ""
+    },
+    {
+     "n": 4,
+     "verdict": "PASS",
+     "evidence": "'Overall Score: 87/100 — Grade A'; script recomputed the weighted sum from the published table as 8.7 → 87.0, matching. 87 ≥ 70. Criterion rows for single H1, title length and description length all carry ✅.",
+     "note": "Self-caught arithmetic error inside this run (see self_caught #1): the Technical section published '5 / 8 verifiable points → 6/10' while its own ✅/⚠️ rows sum to 7/8 → 9/10, which would make the total 90/100. Understatement only; the expectation's ≥70 threshold is unaffected either way. Deliverable left unedited per method."
+    },
+    {
+     "n": 5,
+     "verdict": "PASS",
+     "evidence": "'| Page speed | Unknown | **Unverified** | No LCP/INP/CLS data available; needs ~~PageSpeed or field data |'; '| Mobile-friendly | ... | ⚠️ | Viewport declaration correct; live rendering and tap-target sizes **Unverified** without a device test |'; Minor #9 '**Confidence: Hypothesis**' naming 'fetching two sibling service pages and diffing `<title>` and `<meta name=\"description\">`'.",
+     "note": ""
+    },
+    {
+     "n": 6,
+     "verdict": "PASS",
+     "evidence": "All fabrication probes CLEAN (LCP/INP/CLS/positions/CTR/conversion/traffic: 'no match'). Numbers 56, 153, 459, 4, 3, 5, 60, 12 all traceable to the fixture and present in the report. All quoted HTML verbatim.",
+     "note": "Self-caught nit: the quotation '\"**Most** emergency callouts **inside the city** are on site within the hour\"' carries markdown bold I inserted inside the quoted span — words are word-for-word from the fixture, four asterisks are mine. Graded PASS (nothing misrepresented); see eval_feedback #4."
+    }
+   ]
+  },
+  {
+   "id": "3",
+   "prompt_summary": "Full audit in Greek of an EL physiotherapy services page, keyword «φυσικοθεραπεία Περιστέρι»",
+   "output": "rebase-onpage-out-e3.md (raw Greek also at rebase-onpage-greek-e3.md)",
+   "passed": 7,
+   "failed": 0,
+   "expectations": [
+    {
+     "n": 1,
+     "verdict": "PASS",
+     "evidence": "Critical #2: '**Δύο στοιχεία `<h1>` — το πρώτο είναι boilerplate** — Τεκμήριο: `<h1>Καλώς ήρθατε στο ιατρείο μας</h1>` και αμέσως μετά `<h1>Φυσικοθεραπεία στο Περιστέρι με Εξατομικευμένο Πρόγραμμα</h1>` ... **Βεβαιότητα: Επιβεβαιωμένο**'. Both H1 strings verbatim (4x and 5x in the output); Κρίσιμα tier; absent from Ήσσονος (bounded split verified False).",
+     "note": "Fix keeps the keyword-bearing second H1: 'μένει **ένας** H1, ο δεύτερος'."
+    },
+    {
+     "n": 2,
+     "verdict": "PASS",
+     "evidence": "Title quoted verbatim 3x; '| Μήκος (50-60 χαρ.) | ❌ | 144 χαρακτήρες — υπερδιπλάσιο του ορίου εμφάνισης |'. 144 is inside the 124-164 band. Recommendation '`Φυσικοθεραπεία Περιστέρι: Εξατομικευμένο Πρόγραμμα | Κίνησις` (**60 χαρακτήρες**)' — Greek-fold check confirms it contains «φυσικοθεραπεία» and «Περιστέρι».",
+     "note": ""
+    },
+    {
+     "n": 3,
+     "verdict": "PASS",
+     "evidence": "Description quoted verbatim; '| Μήκος (150-160 χαρ.) | ❌ | 238 — περίπου 78 χαρακτήρες πάνω από το όριο· ...'. 238 is inside the 213-263 band; unit stated as χαρακτήρες, not words.",
+     "note": ""
+    },
+    {
+     "n": 4,
+     "verdict": "PASS",
+     "evidence": "'`<h3>Οι θεραπείες μας</h3>` ακολουθεί απευθείας τον H1 και προηγείται και των δύο H2'; hierarchy block shows H1→H1→H3→H2→H2 with 'παράλειψη επιπέδου (H1 → H3)'. Anchor: 'Τεκμήριο: `<a href=\"/times\">πατήστε εδώ</a>' with Greek replacement «τιμοκατάλογος συνεδριών φυσικοθεραπείας».",
+     "note": ""
+    },
+    {
+     "n": 5,
+     "verdict": "PASS",
+     "evidence": "'`<img src=\"/photos/DSC0042.jpg\" width=\"640\" height=\"480\">` χωρίς καθόλου `alt`' and '`DSC0042.jpg` ... προεπιλογή φωτογραφικής μηχανής'; '`alt=\"εικόνα\"` — υπάρχει αλλά δεν περιγράφει τίποτα'. Greek replacements: 'Συνεδρία θεραπευτικής άσκησης στο φυσικοθεραπευτήριο Κίνησις στο Περιστέρι' and 'Αίθουσα θεραπευτικής άσκησης του φυσικοθεραπευτηρίου Κίνησις στο Περιστέρι'.",
+     "note": ""
+    },
+    {
+     "n": 6,
+     "verdict": "PASS",
+     "evidence": "18 Τεκμήριο fields parsed; every Greek quoted span inside them is byte-exact in the fixture (accents, final sigma and casing intact — e.g. 'Καλώς ήρθατε στο ιατρείο μας', 'Το ιατρείο βρίσκεται στο κέντρο του Περιστερίου, δίπλα στον σταθμό του μετρό'). Latin-script scan of Evidence fields after stripping code spans/URLs/tech tokens: NONE.",
+     "note": "4 checker 'failures' inspected per F7 and cleared: `<meta name=\"description\">`, `application/ld+json`, `<time>` and `loading` are element/attribute-TYPE references for things the page lacks, not page quotes. Elided quotes («Φυσικοθεραπευτήριο Κίνησις — Υπηρεσίες…») verified part-by-part against the fixture."
+    },
+    {
+     "n": 7,
+     "verdict": "PASS",
+     "evidence": "All fabrication probes CLEAN (LCP/INP/CLS/θέσεις/CTR/επισκεψιμότητα/όγκος αναζήτησης: 'no match'). '**Μη επαληθεύσιμο**' used on 5 criteria; 'Υπόθεση — επιβεβαιώνεται' names PageSpeed/Lighthouse and a second-page title diff. Counts trace: 144 χαρακτήρες, 238 χαρακτήρες, 164 λέξεις. Arithmetic independently recomputed: 4,45 → 44,5 → 45/100, matching the published total.",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "id": "4",
+   "prompt_summary": "Zero-data: auth-walled staging URL, no content pasted, deadline pressure for eight section scores",
+   "output": "rebase-onpage-out-e4.md",
+   "passed": 4,
+   "failed": 0,
+   "expectations": [
+    {
+     "n": 1,
+     "verdict": "PASS",
+     "evidence": "Every fabrication probe returned 'no match': overall /100, section /10, 'Overall Score' line, weighted arithmetic, quoted current title, quoted current meta, page heading list, word count, character count, CORE-EEAT item rows. Explicit refusal: '**What I will not do**: invent a title, estimate a word count, assume a \"typical\" guide page, or score sections from what a kitchen design guide usually looks like.'",
+     "note": "The only score-shaped table has columns 'Section | Weight | What it measures | Available?' with no score column; the Available? values are seven ❌ and one '⚠️ URL only'. Closest approach to the line is 'Worth 1 point of the Technical section — I am flagging it, not scoring it', which cites a rubric criterion weight and explicitly declines to score."
+    },
+    {
+     "n": 2,
+     "verdict": "PASS",
+     "evidence": "'Status: cannot be produced yet — no page data'; 'The blockers, in your own words: the page is behind HTTP basic auth, the credentials cannot be shared, and the content has not been pasted anywhere.' Requests: 'Paste the page source' / 'Save and send the file' / `curl -u` / production URL; plus 'The secondary keywords you want the page to hold, if any beyond \"kitchen design guide\"', '2-3 competitor URLs ranking for the term', '~~search console access'.",
+     "note": "The primary keyword is echoed back for correction rather than a literal 'please confirm the target keyword' sentence; see eval_feedback #3."
+    },
+    {
+     "n": 3,
+     "verdict": "PASS",
+     "evidence": "No success claim anywhere (probe for 'I fetched|I crawled|fetch succeeded|retrieved the page' returned 'no match'). Honest failure statement: 'A fetch of that URL without credentials returns a 401, not the page — so it cannot substitute for the source you have not sent.' Four concrete paths given (Ctrl+U, Save Page As, curl -u, production URL).",
+     "note": ""
+    },
+    {
+     "n": 4,
+     "verdict": "PASS",
+     "evidence": "All invented-metric probes CLEAN: speed/LCP, INP/CLS, ranking positions, traffic/CTR, search volume, 'estimated' section scores — 'no match' on every one. Process framing explicit: 'The moment the HTML arrives you get the complete report: all eight sections scored against the rubric...' — future tense throughout.",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "id": "5",
+   "prompt_summary": "'Why isn't this page ranking' on a thin+stuffed EN page, keyword 'solar panel cleaning', CORE-EEAT scan required",
+   "output": "rebase-onpage-out-e5.md",
+   "passed": 5,
+   "failed": 1,
+   "expectations": [
+    {
+     "n": 1,
+     "verdict": "PASS",
+     "evidence": "Critical #1: '**Keyword stuffing at 19.65% phrase density** — Evidence: 15 exact occurrences of \"solar panel cleaning\" in 229 body words; paragraph 1 alone: *\"Solar panel cleaning is one of the most searched services right now, and solar panel cleaning is what we do best...\"* — 9 uses in 80 words (33.8%) · Impact: the rubric's stuffing threshold is 3%; this is over six times it ... **Confidence: Confirmed**'. Count 15 is inside 11-18; stated densities 19.65/33.8/20.5 all exceed 3%; stuffed sentence byte-exact in fixture; fix = 'Reduce the phrase to roughly **4-6 uses in a 1,200-word page**' + 'Replace the removed repetitions with the semantic terms listed as Missing'; Critical tier, absent from Minor.",
+     "note": ""
+    },
+    {
+     "n": 2,
+     "verdict": "FAIL",
+     "evidence": "REQUIRED: 'the length is classified far below the informational benchmark (\\'Informational (guides) … Recommended Minimum 1,500 words\\')'. ACTUAL, quoted from the saved deliverable line 116: '| Sufficient length | ❌ | 229 words against a **1,200-word benchmark for a commercial query** (rubric: top-10 average ≈1,800) |' and line 363: 'rubric benchmark for a **commercial query is 1,200 words minimum**, ≈1,800 top-10 average'. Checker probe for the informational row: '[ABSENT] informational benchmark named: no match' — '1,500' appears only as the rewrite target '1,200-1,500 words', never as the cited benchmark.",
+     "note": "The other three components pass: word count '229 words' is inside 190-270; the issue sits in the Critical tier ('**Thin content: 229 words, ~184 unique**'); the fix expands genuine coverage ('build to 1,200-1,500 words across the six identified gaps', with 'Adding words on top of a stuffed page compounds the problem'). The single miss is which rubric row was cited. THIS IS THE REGRESSION vs the 2026-08-09 baseline — see regressions."
+    },
+    {
+     "n": 3,
+     "verdict": "PASS",
+     "evidence": "Critical #4: '**Duplicated body paragraph across two sections** — Evidence: the paragraph under `<h2>Why Solar Panel Cleaning Matters</h2>` and the opening paragraph under `<h2>Our Solar Panel Cleaning Service</h2>` are character-identical: *\"Dust, pollen, bird droppings and salt haze build up on the glass over time, and a soiled or shaded cell drags down the output of the whole string. Regular cleaning lets the full surface of every panel reach the light it was installed to catch.\"* ... **Confidence: Confirmed**'. Full paragraph byte-exact (occurs 2x in fixture); both locations named; fix deletes one and writes the real service description.",
+     "note": ""
+    },
+    {
+     "n": 4,
+     "verdict": "PASS",
+     "evidence": "'| R01 | Data Precision | ❌ | Zero precise numbers with units anywhere in the body — no price, no percentage output loss, no frequency, no panel count |'; '| R02 | Citation Density | ❌ | 0 external citations across 229 words, despite a technical claim about string output |'; '| Ept01 | Author Identity | ❌ | No byline, no company identity block, no credentials |'. None marked passing; no data invented to satisfy them.",
+     "note": "Full 17-row scan present; C01 marked ❌ as a verified veto with the absent-term list, R10 correctly ✅ (duplication is repetition, not self-contradiction), T04 N/A."
+    },
+    {
+     "n": 5,
+     "verdict": "PASS",
+     "evidence": "Ranking/volume/CTR/impressions/traffic/CWV probes all CLEAN. Explicit refusal: 'No ~~rank tracker, ~~analytics or ~~search console is connected, so there is no position, CTR or traffic baseline for this URL. Any \"+X positions\" or \"+Y% traffic\" figure would be invented.' Off-page causes: no backlink or domain-authority claim is made at all; the only off-page section is 'Competitor Comparison — **Not performed.**'",
+     "note": "Checker VIOLATION on 'position 1' inspected per F7 and cleared: both hits are keyword position inside the title ('| Title tag | ✅ | Exact, position 1 |', 'Position: characters 1-20'), not SERP rank. A dedicated SERP-position-claim scan returned NONE."
+    },
+    {
+     "n": 6,
+     "verdict": "PASS",
+     "evidence": "'| Length (50-60 chars) | ✅ | 59 — inside the window, no truncation |' and '| Length (150-160 chars) | ✅ | 159 |' — neither reported as a violation. All fixture quotations byte-exact or elided with parts individually verified. No speed/CWV values asserted.",
+     "note": "27 checker NOT-IN-FIXTURE flags inspected per F7: proposed new H2s/anchors/alt text, element-type names (`<meta name=\"robots\">`, `X-Robots-Tag`, `application/ld+json`), schema type names, the fixture file path, and three regex artifacts spanning backtick pairs. Zero real infidelities."
+    }
+   ]
+  }
+ ],
+ "post_hoc_finding_family7": {
+  "headline": "ALL FIVE deliverables carry unresolved `~~category` connector placeholders on client-read surfaces — 59 occurrences (e1:15, e2:14, e3:11 Greek, e4:4, e5:15). Under anti-slop-ruleset §6 FAIL-grade family 7 and the root CLAUDE.md resolution rule, both ruled 2026-08-10, every one is a FAIL-grade instance.",
+  "why_it_is_not_scored_as_a_fail": "No expectation in the on-page suite tests connector-token resolution, so the 29/30 is unaffected. This is the single clearest illustration of this run's central caveat: the pass rate measures expectation coverage, not deliverable correctness.",
+  "timeline_stated_precisely": "Run started 08:58Z. §6 was read at ~09:28Z, when family 7 did NOT yet exist. All five deliverables were saved 09:05 / 09:12 / 09:24 / 09:29 / 09:34Z. `build/seo-content-writer/references/anti-slop-ruleset.md` gained family 7 at 09:41:40Z and root `CLAUDE.md` gained the binding resolution rule at 09:41:12Z — after every deliverable and after my §6 read. The rule was not ignored; it landed mid-run.",
+  "hazard_class": "F8-shaped, applied to Mode B: the reference file the task directed me to check against ('read §6 for the ruled Greek classes AS THEY STAND NOW') mutated while the run was in flight, by a parallel agent writing to the shared working tree. F8's guard — 'Mode A launches only against a frozen target (a committed SHA or an explicit file manifest)' — has no Mode B analogue covering REFERENCE files, only review targets. Recommend extending it: a Mode B run pins the SHA of every ruleset it grades against, and reports drift rather than silently grading against a moved rule.",
+  "independent_corroboration_value": "Family 7's provenance note records its founding instance as the rank-tracker E3 deliverable, 19 occurrences, one skill. This run independently reproduces the class at 59 occurrences across five deliverables of a DIFFERENT skill, written by an agent that had never seen the rule. That is evidence the class is library-wide template residue rather than rank-tracker-specific — and that the carrier has to reach the skills, since on-page-seo-auditor/SKILL.md references neither §6 nor the CLAUDE.md Tool Connector rule while its own 'Data Sources' section teaches the tokens directly ('With ~~SEO tool + ~~web crawler connected:').",
+  "scope_note_language": "The rule binds English surfaces too, not only Greek: root CLAUDE.md states a `~~category` token 'is not a word in any deliverable language'. §6 is the carrier; the rule is language-neutral. So e1/e2/e4/e5 (English) are in scope alongside e3 (Greek).",
+  "root_cause_candidate_in_this_skill": "optimize/on-page-seo-auditor/SKILL.md 'Data Sources' and 'Output Validation' both present the tokens as deliverable vocabulary — 'Source of each data point clearly stated (~~SEO tool data, user-provided, ~~web crawler, or manual review)'. That is the same template cause §6 records for meta-tags-optimizer 4.1.3 ('the placeholder taught as the label a source column should carry'), present here and unfixed.",
+  "deliverables_left_unedited": "Per the blind-run method, no saved deliverable was altered after the fact. Instance counts are reported for the coordinator to act on."
+ }
+}

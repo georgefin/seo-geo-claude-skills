@@ -1,0 +1,6 @@
+# journal-live-two-holders.tsv — two writers, both inside the staleness horizon.
+# Layout: EVENT<TAB>OFFSET-SECONDS-FROM-NOW<TAB>HOLDER<TAB>PATH [<TAB>VICTIM<TAB>REASON]
+# lane-a holds a DIRECTORY PREFIX; lane-b holds an exact file. The two path-overlap
+# branches are different code and each needs its own case.
+ACQUIRE	-600	lane-a	docs/loop/
+ACQUIRE	-300	lane-b	VERSIONS.md

@@ -2,6 +2,8 @@
 
 Complete glossary of SEO and GEO key performance indicators with calculation formulas, data sources, benchmark ranges by industry, and interpretation guidance.
 
+**Reading the Data Source rows**: they name a tool *category* (`~~analytics`, `~~search console`, …), because which product measures a KPI differs by organisation — see [CONNECTORS.md](../../../CONNECTORS.md). The category is for you, not for the reader of a report: when a Data Source row is carried into a deliverable, it resolves to the tool actually used, by name, or to the export or hand-check the figure came from, or to a plain statement that nothing supplied it and the figure is absent. A report's own source column is where this defect was first found (root `CLAUDE.md` Tool Connector Pattern; anti-slop-ruleset.md §6 family 7).
+
 ---
 
 ## 1. Organic Search KPIs
@@ -48,7 +50,7 @@ Complete glossary of SEO and GEO key performance indicators with calculation for
 
 **Interpretation:**
 - High impressions but low CTR = title tags and meta descriptions need optimization.
-- CTR declining for stable positions = SERP features (AI Overview, PAA) stealing clicks.
+- Site-wide CTR falling while every segment's CTR holds or rises = an impression-mix shift, not a snippet problem — decompose by share of impressions before blaming titles (see "Aggregate vs. segment divergence" under Trend Analysis Framework). Only where the segments themselves fell at stable positions is SERP features (AI Overview, PAA) stealing clicks the live hypothesis.
 - CTR higher than position benchmarks = strong brand recognition or compelling snippets.
 
 ---
@@ -149,6 +151,141 @@ Complete glossary of SEO and GEO key performance indicators with calculation for
 
 ## 2. GEO / AI Visibility KPIs
 
+**The unit of every metric in this section is a prompt, not a keyword**, and the population is one
+row per (prompt × engine × capture date). A rank is an ordinal position in a list an engine
+assembles from an index; an AI answer is generated text that may name the brand without citing it,
+cite a page without naming the brand, or answer the same prompt differently twice. The fields, the
+prompt-set sources, the sampling protocol and the manual zero-tool capture protocol live in
+[ai-visibility-measurement.md](../../../references/ai-visibility-measurement.md); the definitions
+below are this skill's reporting forms of its §5 derived metrics.
+
+**Three rules bind every figure in this section:**
+
+1. **Per engine, never pooled.** Each rate is reported for one named engine. Pooling hides the
+   engine that is failing, and the fix differs by engine.
+2. **N and its population print beside the figure.** `62% (23 of 37 successful captures, 13 prompts
+   × 3 repeats, 2 failed captures excluded from N)` is a measurement; `62%` is an assertion. N ≥ 3
+   repeats per prompt per engine per cycle before any rate is reported as a rate; a single capture
+   is an **observation**, reported with the word and its timestamp. Failed captures — refusals,
+   rate limits, empty responses — are logged with their reason and reduce N; dropping them silently
+   inflates every rate.
+3. **No composite.** This library defines no "AI visibility score", and none is computed here. One
+   number across engines, prompts and three different facts (mention, citation, recommendation)
+   cannot be attributed when it moves and recovers no action. Where a connected tool reports its
+   own composite, quote it with that tool's name attached, unchanged, and never recompute or blend
+   it into a figure of ours.
+
+**The prompt set is a versioned artefact.** Adding or rewording a prompt changes the population and
+moves every rate below without anything having happened in the world — the same trap the keyword
+population rule names for tracked keywords. Version the set, date each version, and state which
+version a figure covers.
+
+---
+
+### Mention Rate (prompt-level)
+
+| Attribute | Detail |
+|-----------|--------|
+| **Definition** | Share of successful captures, for one engine, in which the brand name appears in the answer text at all |
+| **Formula** | Captures naming the brand ÷ total successful captures, reported as `k of N` alongside the percentage |
+| **Data Source** | ~~AI monitor, or the manual capture protocol (fully sufficient for a 30-prompt set) |
+| **Good Range** | No published benchmark exists and none is supplied from memory — the reference point is this site's own dated baseline |
+| **Warning** | Falling across two consecutive cycles; a fall inside one cycle is a candidate, not a result |
+| **Segmentation** | By engine (always), by cluster, by language where the audience is bilingual |
+
+**Mentioned is not cited.** A brand can be recommended first with nothing of its own cited — that
+is an authority result with a content gap, and it is a different finding with a different fix.
+
+---
+
+### Citation Rate (prompt-level)
+
+| Attribute | Detail |
+|-----------|--------|
+| **Definition** | Share of successful captures, for one engine, in which a URL on a client property appears in the answer's sources or inline links |
+| **Formula** | Captures citing any client URL ÷ total successful captures, as `k of N` plus the percentage |
+| **Data Source** | ~~AI monitor, or the manual capture protocol |
+| **Good Range** | This site's own dated baseline; no industry figure is held by this library |
+| **Warning** | Citation rate holding while mention rate falls, or the reverse — the two are separate facts and diverge |
+| **Segmentation** | By engine, by cluster |
+
+**Always reported beside mention rate, never instead of it.** Cited-but-not-mentioned is an entity
+and brand problem (the page earned its place, the brand did not stick); mentioned-but-not-cited is
+a content and authority problem on the owning URL.
+
+**Cited URLs are recorded verbatim, not as domains.** "They cited us" and "they cited our
+comparison page instead of our product page" are different findings and only the second is
+actionable.
+
+---
+
+### Owned-URL Citation Rate
+
+| Attribute | Detail |
+|-----------|--------|
+| **Definition** | Of the captures that cited any client URL, the share that cited the URL the ownership register assigns to that cluster |
+| **Formula** | Captures citing the cluster's owning URL ÷ captures citing any client URL |
+| **Data Source** | The captured citation URLs, matched against the client's cluster-ownership register |
+| **Good Range** | This site's own baseline; the figure is diagnostic rather than benchmarked |
+| **Warning** | **A low figure against a high citation rate** — the engine is citing the wrong property of the client's. That is a cannibalisation finding, not an AI one, and it routes to the ownership contest |
+| **Segmentation** | By cluster (always — the metric is meaningless site-wide), by engine |
+
+Where no owner has been assigned for the cluster, the value is `no owner assigned` and that is
+itself the finding — not a blank, and not a zero.
+
+---
+
+### Average Recommendation Position
+
+| Attribute | Detail |
+|-----------|--------|
+| **Definition** | Where an answer presents an ordered or enumerated set of options, the client's ordinal within it, averaged over the captures where such a set existed |
+| **Formula** | Mean of the recorded positions ÷ **count of recommendation answers only** |
+| **Data Source** | ~~AI monitor, or the manual capture protocol |
+| **Good Range** | This site's own baseline |
+| **Warning** | Worsening across two consecutive cycles, or a shrinking count of recommendation answers underneath a stable mean |
+| **Segmentation** | By engine, by cluster |
+
+**The denominator is recommendation answers, not all captures** — computing it over all captures is
+the most common error on this metric, and it silently rewards answers that recommended nothing.
+Two further rules: an answer that recommends nothing has **no position** (not a zero, not a blank),
+and `1` is never written for "the only brand mentioned" — that is a mention, recorded as one. State
+the count the mean averages, and withhold a mean of fewer than three positions rather than printing
+it.
+
+**This is not a ranking and is never compared to one.** A recommendation ordinal and a search
+position are different measurements on different instruments.
+
+---
+
+### Prompt-Level Share of Voice
+
+| Attribute | Detail |
+|-----------|--------|
+| **Definition** | The client's share of all brand mentions across the captures for a cluster, on one engine |
+| **Formula** | Client mentions ÷ (client mentions + all named competitors' mentions) |
+| **Data Source** | The captured answers — the competitors the answers actually named, in the order named |
+| **Good Range** | This site's own baseline |
+| **Warning** | Falling while mention rate holds — the answer set is widening around the client |
+| **Segmentation** | By engine and by cluster (both, always) |
+
+**The competitor set is named wherever the figure appears**, because it *is* the denominator:
+adding one competitor to the count moves the share without anything changing in the answers.
+
+---
+
+### Query-level AI-surface metrics — a different population, kept separate
+
+The four definitions below measure **tracked keywords on AI answer surfaces**: does an AI Overview
+appear for this query, and is the site cited in it. That is a SERP-feature reading of a keyword
+list. The five prompt-level metrics above measure **generated answers to prompts**, captured with
+repeats. Two populations, two instruments, and near-identical names — so every figure says which
+one it is ("prompt-level mention rate", "tracked-query citation rate"), and **the two are never
+averaged, blended, or compared as though they moved the same quantity.** A report may carry both;
+it may not carry one under the other's name.
+
+---
+
 ### AI Citation Rate
 
 | Attribute | Detail |
@@ -205,8 +342,8 @@ Complete glossary of SEO and GEO key performance indicators with calculation for
 
 | Attribute | Detail |
 |-----------|--------|
-| **Definition** | Sessions arriving via a link inside an AI assistant's answer, identified by referral hostname |
-| **Formula** | Count of sessions whose referral source matches the hostname roster below; Share = (AI referral sessions / total sessions) x 100 |
+| **Definition** | Sessions arriving via a link inside an AI assistant's answer, identified by referral hostname. **A floor, not a total** — see the rule below |
+| **Formula** | Count of sessions whose referral source matches the hostname roster below; Share = (AI referral sessions / total sessions) x 100. Both are lower bounds |
 | **Data Source** | Three-source triangulation: ~~analytics (GA4 session source/medium + conversions), ~~search console AI-surface query/click data where exposed, server-log referrer + user-agent rows |
 | **Good Range** | Share growing period-over-period |
 | **Warning** | Share falling while AI citation metrics hold steady (the answer may still cite you but no longer link you) |
@@ -222,6 +359,20 @@ Complete glossary of SEO and GEO key performance indicators with calculation for
 
 **Measurement rules:**
 
+- **Every figure here is a floor, labelled as one.** Referrer-host identification is **partial by
+  construction**: some assistant surfaces send no referrer, some strip it, and some of that traffic
+  arrives as direct. The count is therefore a lower bound and is written as one — "at least 340
+  sessions from assistant referrers in the window; the true figure is higher by an unmeasured
+  amount" — never "340 sessions came from AI answers", which claims a total this method cannot
+  produce. The label travels: a share whose numerator is a floor is itself a floor, and a
+  period-over-period change between two floors is a change between two lower bounds, not a measured
+  delta.
+- **Conversion linkage is a correlation inside a named window, never causation and never a
+  per-mention value.** "The 41 conversions on those landing pages fall in the same 28-day window as
+  the referral sessions" is reportable. "Each AI mention is worth EUR X", "AI answers drove EUR Y",
+  and any per-mention or per-citation revenue figure are not — nothing in this method measures a
+  single answer's contribution
+  ([ai-visibility-measurement.md](../../../references/ai-visibility-measurement.md) §5.1).
 - **Control rule**: never attribute a traffic movement to AI answers from a raw delta. Keep a parallel holdout — an unchanged page of your own, a sibling URL, or a competitor page — and report delta-vs-control.
 - **Caveat**: AI referral traffic proves an AI answer *linked* the site; it does not prove a prominent citation. Treat referral spikes as leads for citation checking (~~AI monitor or rank-tracker's GEO step), not as citation proof.
 - **Labels**: GA4/GSC/log-derived counts are tool-measured; figures the client pastes in are user-provided; projections are estimated.
@@ -299,9 +450,22 @@ Complete glossary of SEO and GEO key performance indicators with calculation for
 
 | Metric | Definition | Good | Needs Improvement | Poor |
 |--------|-----------|------|-------------------|------|
-| **LCP** (Largest Contentful Paint) | Time to render largest content element | <=2.5s | 2.5-4.0s | >4.0s |
-| **CLS** (Cumulative Layout Shift) | Visual stability during page load | <=0.1 | 0.1-0.25 | >0.25 |
-| **INP** (Interaction to Next Paint) | Responsiveness to user interactions | <=200ms | 200-500ms | >500ms |
+| **LCP** (Largest Contentful Paint) | Time to render largest content element | <=2.5s | >2.5-4.0s | >4.0s |
+| **CLS** (Cumulative Layout Shift) | Visual stability during page load | <=0.1 | >0.1-0.25 | >0.25 |
+| **INP** (Interaction to Next Paint) | Responsiveness to user interactions | <=200ms | >200-500ms | >500ms |
+
+**The middle band's lower bound is exclusive.** The Good column already claims the boundary value
+with its own `<=`, so a measurement of exactly 2.5s, 0.1 or 200ms is Good and nothing else — the
+added `>` says so instead of leaving each of those three values graded twice, once as Good and
+once as Needs Improvement. **No threshold moves**, and none may: settled ruling R4
+(`docs/loop/SETTLED-RULINGS.md`) fixes Good at LCP <=2.5s / INP <=200ms / CLS <=0.1 and reopens on
+Google-primary evidence only. This is the same convention the Poor column has always used, and the
+same one `optimize/on-page-seo-auditor/references/scoring-rubric.md` § Page Speed Benchmarks uses.
+
+**Read each metric at the precision its own endpoints carry** — one decimal for LCP, two for CLS,
+whole milliseconds for INP — not harmonised to one house precision. A measurement is rounded to
+that precision, half up, before the band is read off it: 2.54s reads 2.5s and is Good, 0.104 reads
+0.10 and is Good, 200.4ms reads 200ms and is Good.
 
 **Data Source:** ~~search console (Core Web Vitals report), Chrome UX Report, PageSpeed Insights
 
@@ -437,6 +601,29 @@ Complete glossary of SEO and GEO key performance indicators with calculation for
 
 ---
 
+## Quoting a Benchmark From This File
+
+Every band, range and threshold in this file — the per-KPI **Good Range** and **Warning**
+rows above as much as the summary tables below — is quoted into a report **verbatim**. Copy
+it from the line, do not retype it from memory, and do not narrow, widen or round it on the
+way: "3-10% MoM growth is healthy" is not "4-10%", and a report that states the band
+correctly in one section and differently in another has contradicted itself in front of the
+client.
+
+Any figure **derived** from a band prints the arithmetic that produced it, multiplier
+included, in the report where the reader can redo it:
+
+> Our KPI reference calls 3-10% month-over-month growth healthy. From July's 2,890 sessions
+> that is 2,890 × 1.03 = **2,977** at the low end and 2,890 × 1.10 = **3,179** at the high
+> end for August.
+
+A bare "3,006-3,179" fails this twice over: the reader cannot check it, and 3,006 is
+2,890 × 1.04 — a band this file does not state. The rule holds inside goal tables and
+proposal tables, which is exactly where the observed defect landed; a band that is being
+*proposed* as a target is still being *quoted* as a benchmark.
+
+---
+
 ## SEO/GEO Metric Definitions and Benchmarks
 
 ### Organic Search Metrics
@@ -537,6 +724,51 @@ Complete glossary of SEO and GEO key performance indicators with calculation for
 | Gradual decline | Content decay, competition, technical debt | Comprehensive audit needed |
 | Flat line | Plateau — existing strategy maxed out | New content areas, new link strategies |
 | Seasonal pattern | Industry/demand cycles | Plan content calendar around peaks |
+
+### Aggregate vs. Segment Divergence (Mix Shift)
+
+A site-wide ratio can fall while every one of its parts rises, because the aggregate is
+weighted by the size of each part. Whenever a site-wide CTR, conversion rate or average
+position moves against the segments underneath it, the mix is the first explanation to test
+and usually the right one — **run this decomposition before offering any mechanism**
+(snippets, titles, SERP features, AI Overviews, an algorithm update).
+
+The decomposition, on the ratio's own denominator — for CTR that denominator is
+**impressions**, and a share of clicks answers a different question:
+
+| Step | Prior period | Current period |
+|------|--------------|----------------|
+| 1. Segment the denominator (brand / non-brand / any new cluster) | 10,000 + 40,000 = 50,000 | 9,000 + 43,000 + 18,000 = 70,000 |
+| 2. Each segment's share of it | non-brand 40,000/50,000 = **80.0%** | non-brand 61,000/70,000 = **87.1%** |
+| 3. State the shift in percentage points | — | **+7.1 pp toward non-brand** |
+| 4. Check each segment's own ratio | brand CTR 12.0%, established non-brand 2.0% | brand 13.0%, established non-brand 2.3%, new cluster 1.96% |
+
+Read: every segment improved, and the site-wide CTR still fell, because a structurally
+lower-CTR segment took 7.1 pp more of the impressions. That sentence — with the shares and
+the pp shift printed — *is* the finding, and "our snippets got worse" is refuted by the same
+table rather than merely left unsaid.
+
+Average position takes the same treatment: Search Console weights it by impressions, so a
+new cluster entering at position 14.9 raises the site-wide average with no existing ranking
+having moved. Report the weighted arithmetic, not the site-wide number alone.
+
+### Small Bases and Counterfactual Figures
+
+A percentage computed on a small base moves violently, and saying so is worth a line — but
+the line has to be arithmetically true. State the **exact perturbation** you are modelling
+and compute the figure from it:
+
+- Correct: "15 → 20 sessions is +33.3%, and one session either way moves it a long way: a
+  June base of 16 gives +25.0% and 14 gives +42.9%; a July figure of 21 gives +40.0% and 19
+  gives +26.7%."
+- Wrong, and shipped once: "its own +33.3% is five sessions and would read as +20% or +47%
+  if one session had fallen either way." Those two figures are 3/15 and 7/15 — a **two**-unit
+  move with the base frozen. The arithmetic is reconstructible and the stated cause is still
+  false by a factor of two.
+
+If the perturbation you named and the number you printed do not reconcile, the number does
+not go in the report. The same applies to run-rates, break-evens and any other "what if"
+figure: name the assumption, then derive from it.
 
 ## SEO Attribution Guidance
 

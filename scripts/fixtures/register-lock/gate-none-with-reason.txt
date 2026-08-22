@@ -1,0 +1,15 @@
+# CASE: gate-none-with-reason
+# ROLE: negative
+# JOURNAL: journal-live-two-holders.tsv
+# COMMIT-AT: -450
+# FILE: docs/loop/KPI.md
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: asserts no holder content
+# WHY: the `none` escape exists because this check cannot tell whose content is in a
+#      commit — it can only demand an auditable claim. Removing the escape would make
+#      the only ways past a FALSE holder trailer or a broken lock, i.e. the check
+#      would teach lying.
+# ---8<--- commit message
+docs(loop): weekly numbers
+
+Register-Lock: none -- the KPI row is mine; lane-a is working in PILOT.md

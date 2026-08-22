@@ -3,7 +3,9 @@
 [![ClawHub](https://img.shields.io/badge/ClawHub-20_skills-purple)](https://clawhub.ai/u/aaron-he-zhu)
 [![Skills](https://img.shields.io/badge/skills.sh-20_skills-blue)](https://skills.sh/aaron-he-zhu/seo-geo-claude-skills)
 [![License](https://img.shields.io/badge/license-Apache%202.0-green)](./LICENSE)
-[![Version](https://img.shields.io/badge/version-4.4.0-orange)](./VERSIONS.md)
+[![Version](https://img.shields.io/badge/version-4.6.1-orange)](./VERSIONS.md)
+
+> **Fork notice.** This repository is a fork of [aaron-he-zhu/seo-geo-claude-skills](https://github.com/aaron-he-zhu/seo-geo-claude-skills) (Apache-2.0), maintained by Sani Hellas with an automated weekly review loop. The ClawHub and skills.sh badges above link to the upstream project's published listings; this fork installs from GitHub. The CORE-EEAT and CITE frameworks are separate upstream projects and keep their own attribution throughout.
 
 Claude Skills and Commands for Search Engine Optimization (SEO) and Generative Engine Optimization (GEO). 20 skills, 9 commands, tool-agnostic, works with or without integrations. Content quality powered by the [CORE-EEAT Content Benchmark](https://github.com/aaron-he-zhu/core-eeat-content-benchmark). Domain authority powered by the [CITE Domain Rating](https://github.com/aaron-he-zhu/cite-domain-rating).
 
@@ -18,7 +20,7 @@ Claude Skills and Commands for Search Engine Optimization (SEO) and Generative E
    | Your tool | Install command |
    |-----------|----------------|
    | **OpenClaw** | `clawhub install aaron-he-zhu/<skill-name>` â [browse all 20](https://clawhub.ai/u/aaron-he-zhu) |
-   | **Claude Code** | `/plugin marketplace add aaron-he-zhu/seo-geo-claude-skills` (all 20) |
+   | **Claude Code** | `/plugin marketplace add georgefin/seo-geo-claude-skills` (all 20) |
    | **Cursor / Windsurf / other** | `npx skills add aaron-he-zhu/seo-geo-claude-skills` (all 20) |
 
    > All installation methods remain available at all times. If any marketplace is temporarily unavailable, use an alternative method.
@@ -48,7 +50,7 @@ Claude Skills and Commands for Search Engine Optimization (SEO) and Generative E
    Add as a submodule for version-pinned updates within an existing project:
 
    ```bash
-   git submodule add https://github.com/aaron-he-zhu/seo-geo-claude-skills.git .claude/skills/seo-geo
+   git submodule add https://github.com/georgefin/seo-geo-claude-skills.git .claude/skills/seo-geo
    ```
 
    Update to the latest version:
@@ -85,7 +87,7 @@ Claude Skills and Commands for Search Engine Optimization (SEO) and Generative E
    <summary>Manual install (without CLI)</summary>
 
    ```bash
-   git clone https://github.com/aaron-he-zhu/seo-geo-claude-skills.git
+   git clone https://github.com/georgefin/seo-geo-claude-skills.git
    mkdir -p ~/.claude/skills/ && cp -r seo-geo-claude-skills/* ~/.claude/skills/
    ```
 
@@ -255,6 +257,17 @@ Shared references used by multiple skills:
 | [core-eeat-benchmark.md](./references/core-eeat-benchmark.md) | 80 | content-quality-auditor, seo-content-writer, geo-content-optimizer, content-refresher, on-page-seo-auditor |
 | [cite-domain-rating.md](./references/cite-domain-rating.md) | 40 | domain-authority-auditor, backlink-analyzer, competitor-analysis, performance-reporter |
 
+Shared conventions — the rules a deliverable is held to, rather than items it is scored against:
+
+| Reference | What it governs | Used by |
+|-----------|-----------------|---------|
+| [ai-visibility-measurement.md](./references/ai-visibility-measurement.md) | AI visibility measured at the **prompt**, not the keyword: the prompt set, the twelve recorded fields, the N≥3 sampling rule, engine precedence, and the derived metrics with their population rules | rank-tracker, performance-reporter, alert-manager, geo-content-optimizer |
+| [query-cluster-ownership.md](./references/query-cluster-ownership.md) | One owning property and one owning URL per query cluster, the five property roles in a multi-site portfolio, collision detection, and the resolution ladder | keyword-research, content-gap-analysis, internal-linking-optimizer |
+| [action-output-contract.md](./references/action-output-contract.md) | The seven fields every recommended action carries — including the owner and the acceptance criterion that make it checkable by someone who was not in the room | on-page-seo-auditor, technical-seo-checker, content-quality-auditor, domain-authority-auditor, performance-reporter |
+| [prohibited-tactics.md](./references/prohibited-tactics.md) | The floor under every recommendation: ten tactics no skill will propose, what to do instead, and the legitimate practices each is confused with | backlink-analyzer, entity-optimizer, seo-content-writer |
+| [inter-skill-handoff.md](./references/inter-skill-handoff.md) | The payload one run passes to the next, and the operator block it travels in | all 20 skills |
+| [greek-output-mechanics.md](./references/greek-output-mechanics.md) | The mechanical layer of Greek output the eval suites grade: final sigma, the binding editor's five criteria restated author-side, and one number-formatting convention held throughout — with the rules other files already own cited rather than copied | content-refresher, internal-linking-optimizer, performance-reporter, schema-markup-generator, on-page-seo-auditor, memory-management |
+
 Most skills also include `references/` subdirectories with skill-specific templates, rubrics, and checklists (e.g. http-status-codes, robots-txt, kpi-definitions, report-templates).
 
 ## Finding the Right Skill
@@ -310,12 +323,12 @@ Not sure which skill to use? Search by what you're trying to do:
 |--------|---------|----------|
 | **ClawHub** | `clawhub install aaron-he-zhu/<skill-name>` | OpenClaw users, individual skills |
 | **Skills CLI** | `npx skills add aaron-he-zhu/seo-geo-claude-skills` | Most users, 35+ agents, all 20 at once |
-| **Claude Code Plugin** | `/plugin marketplace add aaron-he-zhu/seo-geo-claude-skills` | Claude Code plugin system |
+| **Claude Code Plugin** | `/plugin marketplace add georgefin/seo-geo-claude-skills` | Claude Code plugin system |
 | **Git Submodule** | `git submodule add ... .claude/skills/seo-geo` | Version-pinned team installs |
 | **Fork & Customize** | Fork + `npx skills add YOUR-ORG/...` | Teams with custom needs |
 | **Manual** | `git clone` + copy | No CLI needed |
 
-Browse all 20 skills: [GitHub](https://github.com/aaron-he-zhu/seo-geo-claude-skills) Â· [ClawHub](https://clawhub.ai/u/aaron-he-zhu) Â· [skills.sh](https://skills.sh/aaron-he-zhu/seo-geo-claude-skills)
+Browse all 20 skills: [GitHub](https://github.com/georgefin/seo-geo-claude-skills) Â· [ClawHub](https://clawhub.ai/u/aaron-he-zhu) Â· [skills.sh](https://skills.sh/aaron-he-zhu/seo-geo-claude-skills)
 
 ```bash
 # Install all skills (skills.sh)

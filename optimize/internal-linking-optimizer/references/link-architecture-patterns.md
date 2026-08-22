@@ -265,8 +265,8 @@ The mesh model allows free-form linking between any related pages, regardless of
 
 ### Common Migration Paths
 
-| From | To | Reason | Difficulty |
-|------|----|--------|-----------|
+| Migration | Reason | Difficulty |
+|-----------|--------|-----------|
 | Flat → Hub-and-Spoke | Site grew beyond 100 pages | Medium |
 | Silo → Hub-and-Spoke | Silos too rigid, need cross-topic links | Medium |
 | Pyramid → Hub-and-Spoke | Want to build topical clusters | High |
@@ -320,6 +320,16 @@ The mesh model allows free-form linking between any related pages, regardless of
 
 ### ROI Estimation
 
+**These ranges are illustrative magnitudes, not evidence, and never a client's number.**
+`[VERIFY no primary source — the ranges below are uncited practitioner estimates carried by
+this file since its first version; checked 2026-08-10, no engine-official documentation or
+published study backing them was found]`. They may be quoted only with that status attached in
+the same sentence ("typical ranges published in this skill's architecture reference, not a
+projection for your site"), never in a plan's executive summary metrics, never multiplied by a
+site's sessions to produce a figure, and never restated as "expected". A site-specific forecast
+needs a traffic and ranking baseline plus a re-measure — see
+[score-rubric.md](./score-rubric.md) §6 for what the report says instead.
+
 | Architecture Change | Typical Impact | Timeline to See Results |
 |--------------------|---------------|----------------------|
 | Fix orphan pages | +15-30% traffic to those pages | 2-4 weeks |
@@ -360,3 +370,10 @@ Homepage
 5. Monitor and iterate
 
 This order ensures each phase builds on a solid foundation rather than optimizing details on a broken structure.
+
+**It orders the work; it does not describe the payload.** Every item above that resolves into
+concrete links is written out one link at a time, each carrying source page, target page, anchor
+text and placement (SKILL.md § Instructions, the suggestion contract). "Fix structural issues
+first" is a phase; the phase's checkboxes name each inbound link and the exact words it will use.
+The same holds for the Monthly Monitoring Checklist above — "Add internal links immediately" is
+the action class, and what you hand the site owner is the individual links with their anchors.

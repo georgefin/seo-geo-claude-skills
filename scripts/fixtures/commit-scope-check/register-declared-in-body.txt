@@ -1,0 +1,13 @@
+# CASE: register-declared-in-body
+# ROLE: negative
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: 1 passed
+# EXPECT-ABSENT: FAIL
+# FILE: docs/loop/KPI.md
+# WHY: the register leg reads subject AND body (`%s%n%b`), unlike the skill leg. A
+#      `Registers touched:` trailer is the established way of declaring one, and it
+#      lives in the body.
+# ---8<--- commit message
+docs: weekly numbers for the round
+
+Registers touched: kpi.

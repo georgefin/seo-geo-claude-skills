@@ -1,0 +1,9 @@
+Ledger instance: F11 recurrence 3 — "end-to-end" overclaim: the v4.3.5 changelog
+bullet (and PR #7 body; GATED-ITEMS queued-row variant "succeed with the
+upstream-attributed manifests") stated "local path-add + install succeed end-to-end"
+on the evidence of two mutation RESPONSES; the deeper probe minutes later showed
+cache-miss / install-rejection (the W8 trio). Pushed 10:10Z, contradicted 10:17Z.
+Expect: exit 1 — rule 1 hard FAIL on the changelog line, naming BOTH hard tokens
+[succeed(s), end-to-end], with the offending line printed. An honest form exists and
+passes: the same sentence with an [obs:] end-state anchor (e.g. `claude plugin list`
+output) or "historical as of" wording — see the negative control.

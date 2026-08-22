@@ -2,16 +2,84 @@
 
 Detailed output templates for on-page-seo-auditor steps 5-11. Referenced from [SKILL.md](../SKILL.md).
 
+**Every score below is scored on its own maximum** — Content Quality /25, Keyword Optimization
+/15, Internal/External Links /10, Image Optimization /10, Page-Level Technical /10 — from the
+per-criterion point tables in [scoring-rubric.md](./scoring-rubric.md): ✅ full points · ⚠️ half ·
+❌ 0, with any criterion you could not verify named as unverified and excluded from both the
+numerator and that section's maximum rather than scored 0. Each score prints its numerator, its
+denominator and the count of excluded criteria; the Overall Score in Step 11 is the sum of the
+eight section scores.
+
+---
+
+## Recommended Actions — the Seven Fields
+
+The rule is stated in [SKILL.md](../SKILL.md) § Recommended Actions. This is the working detail
+every template below draws on. Full field table, the three permitted shapes of expected impact
+and more worked criteria: [Action Output Contract](../../../references/action-output-contract.md).
+
+| # | Field | In these templates | Stated-absence value |
+|---|---|---|---|
+| 1 | Action | the **Fix** line, or the Action column | — (an action with no action is not a row) |
+| 2 | Owner | Owner | `unassigned — needs an owner` |
+| 3 | Acceptance criterion | **Done when** in a per-action block, **Acceptance criterion** as a table column — one field, two labels, no third | — (an action with no criterion is not a row) |
+| 4 | Expected impact | the **Impact** line, or the Expected impact column | `not estimated — no baseline data` |
+| 5 | Effort | Effort | `not estimated` |
+| 6 | Dependencies | Depends on | `none` |
+| 7 | Risk if done wrong | Risk if done wrong | `low — reversible, no downstream effect` |
+
+**Owner roles — the closed list.** `Content` · `SEO/technical` · `Developer` · `Designer` ·
+`Product/merchandising` · `Customer service` · `Legal/compliance` · `Agency` · `Client decision`.
+A person's name appears only where the client supplied one, beside the role. `Client decision`
+is the right owner for anything the agency cannot decide — whether a page goes live, which
+property owns a term — and assigning it makes the decision visible instead of leaving the action
+stalled with no explanation. `unassigned — needs an owner` surfaces work with nowhere to go,
+which is more useful than a plausible guess that quietly nobody owns; it is never used to dodge
+an obvious assignment.
+
+**Effort bands.** **S** — one element, ≤30 min, no release. **M** — ≤2 h, or a content pass over
+the page. **L** — needs planning, a release, or somebody else's calendar. Hours instead of bands
+where the client works that way.
+
+**Acceptance criteria — this skill's shapes.** The test is whether someone who was not part of
+this engagement could check it six weeks from now without asking what was meant.
+
+| Not a criterion | A criterion |
+|---|---|
+| "Title tag optimised" | "The production URL's `<title>` is 50–60 characters, contains the head term in the first 30, and is unique against the sitemap export" |
+| "Better internal linking" | "At least 6 in-body links with descriptive anchor text point to this URL from the category and guide pages, verified in a crawl export" |
+| "Fix the images" | "Every `<img>` in the article body carries alt text describing the image; verified by view-source on the live page" |
+| "Improve AI visibility" | "The rewritten opening ships, and the mention rate for the tracked prompts is re-measured on the same repeat protocol and recorded beside the dated baseline" |
+
+**An AI-surface criterion is a measurement criterion, never an outcome criterion.** "The brand
+appears in an assistant's answer" is not in anyone's gift to deliver, and writing it turns the
+action into a promise. What is acceptable is the work shipped, and the measurement re-run and
+recorded.
+
+**Ordering.** Expected impact ÷ effort, dependencies respected, *inside* the Critical /
+Important / Minor severity bands this skill already uses — an action whose dependency is unmet
+sits below the thing it waits on, whatever its score. No second priority vocabulary is invented
+beside severity, and the ordering rule is stated once per report.
+
+**The action table is client-read.** No framework item IDs, no skill or command slugs, no repo
+paths, no ruling IDs, no `~~category` tokens in it — an action that exists because a scan item
+failed names the job ("the page has no author and no date"), not the item. Operator content goes
+in the operator block, labelled inside its own fence.
+
 ---
 
 ## Step 5: Audit Content Quality
 
 ```markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from the
+     page you audited; a criterion you could not verify is named as unverified and excluded
+     from both the numerator and the maximum, never scored 0. Delete this comment before the
+     section goes to the client. -->
 ## Content Quality Analysis
 
-**Word Count**: [X] words
+**Word Count**: [X] words (visible body text; navigation, footer and boilerplate excluded)
 **Reading Level**: [Grade level]
-**Estimated Read Time**: [X] minutes
+**Estimated Read Time**: [X] minutes ([word count] ÷ [words per minute you divided by])
 
 | Criterion | Status | Notes |
 |-----------|--------|-------|
@@ -31,11 +99,11 @@ Detailed output templates for on-page-seo-auditor steps 5-11. Referenced from [S
 - [ ] Images/visuals
 - [ ] Examples/case studies
 - [ ] Statistics with sources
-- [ ] Expert quotes
+- [ ] Expert quotes, each with a checkable source
 - [ ] FAQ section
 - [ ] Conclusion with CTA
 
-**Content Score**: [X]/10
+**Content Score**: [X]/25 ([awarded] ÷ [points scored]; [N] criteria unverified and excluded)
 
 **Gaps Identified**:
 - [Missing topic/section 1]
@@ -46,15 +114,28 @@ Detailed output templates for on-page-seo-auditor steps 5-11. Referenced from [S
 2. [Specific improvement]
 ```
 
+**Quote discipline**: the two elements above are things to *observe* on the page, not things
+to write for the client. When a missing quote becomes a Recommendation, ask the writer to
+source one — never draft it. A quotation attributed to a named person or organisation needs a
+real, checkable source in the same breath: speaker, role, where and when they said it, and a
+link that opens. Without one, do not attribute it — paraphrase it unattributed, or drop it,
+and never invent a name, credential or institution to carry a line (statistics rule: sourced,
+cited, or placeholder, never invented). Applies again at the Step 10 Ept01/R02 rows and the
+Step 11 recommendations; same rule as SKILL.md "Finding Format & Confidence Labels".
+
 ---
 
 ## Step 6: Audit Keyword Usage
 
 ```markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from the
+     page you audited; a criterion you could not verify is named as unverified and excluded
+     from both the numerator and the maximum, never scored 0. Delete this comment before the
+     section goes to the client. -->
 ## Keyword Optimization Analysis
 
 **Primary Keyword**: "[keyword]"
-**Keyword Density**: [X]%
+**Keyword Density**: [X]% ([occurrences] ÷ [words in the base], counting [what counted as an occurrence] over [which words are the base])
 
 ### Keyword Placement
 
@@ -82,20 +163,32 @@ Detailed output templates for on-page-seo-auditor steps 5-11. Referenced from [S
 **Present**: [list of related terms found]
 **Missing**: [important related terms not found]
 
-**Keyword Score**: [X]/10
+**Keyword Score**: [X]/15 ([awarded] ÷ [points scored]; [N] criteria unverified and excluded)
 
 **Issues**:
-- [Issue 1]
+- [Issue 1] — Confidence: [Confirmed/Likely/Hypothesis; a Hypothesis names what would confirm it]
 
 **Recommendations**:
 - [Suggestion 1]
 ```
+
+**Density has no single convention, so the report states the one it used.** Two choices move the
+number: what counts as an occurrence (the exact phrase only, or inflections and near-matches too;
+headings and alt text in, or body paragraphs only) and which words form the base (visible body
+text, or every word in the HTML). Print both alongside the percentage — "24 exact-phrase
+occurrences including headings ÷ 2,000 visible words = 1.2%" — so the density bands in
+[scoring-rubric.md](./scoring-rubric.md) are applied to a number the reader can reproduce. A bare
+percentage is unusable: the same page yields wildly different figures under different counts.
 
 ---
 
 ## Step 7: Audit Internal Links
 
 ```markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from the
+     page you audited; a criterion you could not verify is named as unverified and excluded
+     from both the numerator and the maximum, never scored 0. Delete this comment before the
+     section goes to the client. -->
 ## Internal Linking Analysis
 
 **Total Internal Links**: [X]
@@ -115,7 +208,7 @@ Detailed output templates for on-page-seo-auditor steps 5-11. Referenced from [S
 2. "[Anchor text]" → [URL]
 3. "[Anchor text]" → [URL]
 
-**Internal Linking Score**: [X]/10
+**Internal Linking Score**: [X]/10 ([awarded] ÷ [points scored]; [N] criteria unverified and excluded)
 
 **Recommended Additional Links**:
 1. Add link to "[Related page]" with anchor "[suggested anchor]"
@@ -130,6 +223,10 @@ Detailed output templates for on-page-seo-auditor steps 5-11. Referenced from [S
 ## Step 8: Audit Images
 
 ```markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from the
+     page you audited; a criterion you could not verify is named as unverified and excluded
+     from both the numerator and the maximum, never scored 0. Delete this comment before the
+     section goes to the client. -->
 ## Image Optimization Analysis
 
 **Total Images**: [X]
@@ -150,19 +247,47 @@ Detailed output templates for on-page-seo-auditor steps 5-11. Referenced from [S
 | Modern formats (WebP) | ✅/⚠️/❌ | [notes] |
 | Lazy loading enabled | ✅/⚠️/❌ | [notes] |
 
-**Image Score**: [X]/10
+**Image Score**: [X]/10 ([awarded] ÷ [points scored]; [N] criteria unverified and excluded)
 
 **Recommendations**:
-1. Add alt text to image [X]: "[suggested alt text]"
+1. Image [X]: set `alt="[the drafted description]"` — drafted from [what on the page it came from]; whoever can open the file confirms or corrects it before publishing
 2. Compress image [Y]: Currently [X]KB, should be under [Y]KB
 3. Rename [filename] to [better-filename]
 ```
+
+**Alt text is drafted, not withheld** (author's rule, not report copy). Recommendation 1 ships a
+*string*, not an instruction to go and write one. The file itself is not the only evidence about
+what an image shows: the section it sits in, the sentence beside it, a caption, a descriptive
+filename and the article's subject all say something, and a description drawn from those is a
+proposal grounded in the page — not the invented fact the Quote-discipline rule bans
+([SKILL.md](../SKILL.md) § Finding Format & Confidence Labels). Three conditions make it safe:
+
+- **Draft only what the page establishes.** No brand, model, person, place, colour, count or
+  activity the page does not support. A true general description beats a specific invented one.
+- **The confirm-condition rides on the string, not beside it.** The recommendation is copied into
+  a CMS on its own and the report frame stays behind on somebody's screen, so a caveat living in
+  the surrounding prose is missing at the moment somebody pastes the alt (Value Rule clause 3,
+  root `CLAUDE.md`). Both carriage points, and neither instead of the other: the condition is also
+  stated in the recommendation prose.
+- **One drafted string per image, named by file**, so nothing is applied to the wrong picture.
+
+**The one case where no draft is possible** is a page that establishes nothing at all about the
+image — no caption, no adjacent copy, nothing in the subject matter. Then the recommendation names
+that image, says exactly what is missing, and assigns the draft to whoever can open the file, with
+an acceptance criterion. It is a **per-image** finding and a last resort: "this audit cannot see
+the photograph" is the reason the confirm-condition exists, never a reason to skip the draft. An
+audit that finds a missing alt and leaves the page with no proposed text has moved the whole job
+back to the client and scored the page down for it.
 
 ---
 
 ## Step 9: Audit Technical On-Page Elements
 
 ```markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from the
+     page you audited; a criterion you could not verify is named as unverified and excluded
+     from both the numerator and the maximum, never scored 0. Delete this comment before the
+     section goes to the client. -->
 ## Technical On-Page Analysis
 
 | Element | Current Value | Status | Recommendation |
@@ -176,7 +301,7 @@ Detailed output templates for on-page-seo-auditor steps 5-11. Referenced from [S
 | HTTPS | [yes/no] | ✅/⚠️/❌ | [notes] |
 | Schema markup | [types or "none"] | ✅/⚠️/❌ | [notes] |
 
-**Technical Score**: [X]/10
+**Technical Score**: [X]/10 ([awarded] ÷ [points scored]; [N] criteria unverified and excluded)
 ```
 
 ---
@@ -185,8 +310,22 @@ Detailed output templates for on-page-seo-auditor steps 5-11. Referenced from [S
 
 Run a quick scan of on-page-relevant CORE-EEAT items. Reference: [CORE-EEAT Benchmark](../../references/core-eeat-benchmark.md)
 
+**This scan is an operator surface, and its fence says so.** It is triage, not a report section:
+its pass count never enters the /100 overall, the client's worked report does not print it
+([audit-example.md](./audit-example.md)), and its ID column is the input the escalation payload
+below is built from — a 17-item scan travels as failing item IDs and never as a dimension score
+([inter-skill-handoff.md § 4.3](../../../references/inter-skill-handoff.md)). A framework item ID
+is a coordinate in a document the client has never opened, so the block carries **two labels**: the
+in-fence comment, because a model copies the fence and not the heading above it, and a visible line,
+because an HTML comment renders to nothing in the delivered report (`CLAUDE.md` § The Reader Test,
+clause 2). What the client gets from this scan is Step 11's Priority Issues, in plain words.
+
 ```markdown
-## CORE-EEAT Quick Scan
+<!-- OPERATOR BLOCK — for whoever runs this audit, not part of the client report. The ID column
+     is a coordinate into the 80-item benchmark and feeds the escalation payload below. Nothing
+     in this fence goes to the client as written: its findings reach them as plain-language
+     Priority Issues in Step 11. -->
+**CORE-EEAT quick scan** — *operator triage; not part of the client report*
 
 Content-relevant items from the 80-item benchmark:
 
@@ -194,7 +333,7 @@ Content-relevant items from the 80-item benchmark:
 |----|-----------|--------|-------|
 | C01 | Intent Alignment | ✅/⚠️/❌ | Title promise = content delivery |
 | C02 | Direct Answer | ✅/⚠️/❌ | Core answer in first 150 words |
-| C09 | FAQ Coverage | ✅/⚠️/❌ | Structured FAQ present |
+| C09 | FAQ Coverage | ✅/⚠️/❌ | Visible Q&A block covering long-tail follow-ups; markup not required for the Pass |
 | C10 | Semantic Closure | ✅/⚠️/❌ | Conclusion answers opening |
 | O01 | Heading Hierarchy | ✅/⚠️/❌ | H1→H2→H3, no skipping |
 | O02 | Summary Box | ✅/⚠️/❌ | TL;DR or Key Takeaways |
@@ -210,45 +349,93 @@ Content-relevant items from the 80-item benchmark:
 | Ept01 | Author Identity | ✅/⚠️/❌ | Byline + bio present |
 | T04 | Disclosure Statements | ✅/⚠️/❌/N/A | Material connections disclosed (conditional veto; N/A when none exist) |
 
-**CORE-EEAT Quick Score**: [X]/17 items passing
-
-> For a complete 80-item audit with weighted scoring, use [content-quality-auditor](../../cross-cutting/content-quality-auditor/).
+**CORE-EEAT Quick Score**: [X]/[Y] items passing ([Z] N/A or unverifiable, excluded)
 ```
+
+The escalation to a full audit is a **handoff** carrying its own payload, so it stays in a fence
+of its own rather than folded into the scan above — separately copyable, separately labelled, and
+carrying **both** labels. A model copies the fence and not the sentence beneath it, and an HTML
+comment renders to nothing in the delivered report (`CLAUDE.md` § The Reader Test, clause 2;
+handoff sub-rule: [inter-skill-handoff.md § 3.1](../../../references/inter-skill-handoff.md)).
+
+```markdown
+<!-- OPERATOR BLOCK — for the client's team, not part of the report above. Nothing in this fence
+     goes to the client as written. -->
+**Next steps for your team** — *operator block; not part of the client report*
+
+| Run | Why | Payload |
+|-----|-----|---------|
+| `content-quality-auditor` | Full 80-item audit with weighted scoring; this scan covers 17 on-page-visible items | [keyword] · [content type] · [URL] · quick-scan items that failed, as `CORE-EEAT-[ID]` |
+```
+
+**This quick scan is not a dimension score and never travels as one** — it is a pass count over 17
+items, so it goes into the payload as the failing item IDs, never as a `CORE-EEAT C:… O:…` string.
+Payload fields and the drop-and-name rule for a field you cannot source are in the same file.
+
+**Counting the quick score.** Only ✅ counts as passing; ⚠️ and ❌ do not. The denominator starts
+at 17 and shrinks: T04 is N/A when no material connection exists, and any item you could not
+settle from the content in front of you is excluded rather than marked ❌. So `14/16 items
+passing (1 N/A)` is a complete answer and `14/17` would be a different, wrong one. This quick
+score is a separate count from the eight section scores — it never enters the /100 overall.
 
 ---
 
 ## Step 11: Generate Audit Summary
 
-```markdown
+````markdown
+<!-- SKELETON — structure only, not paste-ready. Every [bracket] is a slot filled from this
+     audit's own findings. No ranking, CTR or traffic forecast is added to it: the projected
+     score is the one forward-looking figure, recomputed from this report's own rubric.
+     Delete this comment before the report goes to the client. -->
 # On-Page SEO Audit Report
 
 **Page**: [URL]
 **Target Keyword**: [keyword]
 **Audit Date**: [date]
 
-## Overall Score: [X]/100
+## Overall Score: [X]/100 ([awarded] ÷ [points scored]; [N] criteria unverified and excluded)
 
 ```
-Score Breakdown:
-████████░░ Title Tag: 8/10
-██████░░░░ Meta Description: 6/10
-█████████░ Headers: 9/10
-███████░░░ Content: 7/10
-██████░░░░ Keywords: 6/10
-█████░░░░░ Internal Links: 5/10
-████░░░░░░ Images: 4/10
-████████░░ Technical: 8/10
+Score Breakdown (bar = share of that section's scored maximum):
+████████░░ Title Tag:        12/15
+████████░░ Meta Description:  4/5
+█████████░ Headers:           9/10
+████████░░ Content:          20/25
+████████░░ Keywords:         12/15
+█████░░░░░ Internal Links:    5/10
+██████░░░░ Images:            6/10
+███████░░░ Technical:         7/10
+                      Total: 75/100
 ```
+
+The eight section scores add up to the overall — print the addition if the summary table does
+not make it obvious. If a section could not be scored at all, its row reads
+`not scored — no data` and it leaves the total on both sides; if no section could be scored,
+there is no Overall Score line in the report.
 
 ## Priority Issues
 
 Each issue carries Finding / Evidence / Impact / Fix plus a Confidence label
 (Confirmed = directly observed in provided data or crawl · Likely = strong indirect
 evidence · Hypothesis = plausible, needs verification — name what would confirm it).
+**Where the finding is about particular words on the page — a repeated phrase, a vague
+heading, a claim with no source, a promise the content does not keep — those words are
+quoted verbatim in Evidence**, from the source in front of you. A count and a paraphrase
+describe the defect to a reader who already believes it; the quote is what lets the client
+see it and find it on their own page. Take the shortest span that shows it and elide the
+rest with an ellipsis.
+The Fix is the action and the Impact is its expected impact; each issue adds the owner,
+the acceptance criterion, the effort, the dependencies and the risk of getting it wrong,
+so it can be picked up and proved done by somebody who was not in the room.
+Issues are ordered inside each severity band by expected impact ÷ effort with dependencies
+respected — an action whose dependency is unmet sits below the thing it waits on.
 
 ### 🔴 Critical (Fix Immediately)
-1. **[Finding]** — Evidence: [observed data] · Impact: [effect] · Fix: [specific change] · Confidence: [Confirmed/Likely/Hypothesis]
-2. **[Finding]** — Evidence: [observed data] · Impact: [effect] · Fix: [specific change] · Confidence: [Confirmed/Likely/Hypothesis]
+1. **[Finding]** — Evidence: [observed data; where the finding is about page text, the offending words quoted verbatim] · Impact: [effect] · Fix: [one imperative sentence naming the element and the change] · Confidence: [Confirmed/Likely/Hypothesis]
+   - Owner: [role] · Effort: [S / M / L] · Depends on: [named blocker, or "none"]
+   - Done when: [observable, binary, attached to a named artefact or measurement, dated or triggered]
+   - Risk if done wrong: [realistic failure mode and its cost, or "low — reversible, no downstream effect"]
+2. **[Finding]** — [same format]
 
 ### 🟡 Important (Fix Soon)
 1. [Important issue 1 — same format]
@@ -260,23 +447,24 @@ evidence · Hypothesis = plausible, needs verification — name what would confi
 
 ## Quick Wins
 
-These changes will have immediate impact:
+The smallest-effort rows of the Action Plan below — the S-effort actions whose dependencies are
+already met. Their owner, acceptance criterion and risk are stated once, in that table.
 
-1. **[Change 1]**: [Why and how]
-2. **[Change 2]**: [Why and how]
-3. **[Change 3]**: [Why and how]
+1. **[Change 1]** — [why it is worth doing first]
+2. **[Change 2]** — [why it is worth doing first]
+3. **[Change 3]** — [why it is worth doing first]
 
 ## Detailed Recommendations
 
 ### Title Tag
 - **Current**: [current title]
 - **Recommended**: [new title]
-- **Impact**: [expected improvement]
+- **Impact**: [which criteria this converts and the points they return — no ranking, CTR or traffic forecast]
 
 ### Meta Description
 - **Current**: [current description]
 - **Recommended**: [new description]
-- **Impact**: [expected improvement]
+- **Impact**: [which criteria this converts and the points they return — no ranking, CTR or traffic forecast]
 
 ### Content Improvements
 1. [Specific content change with location]
@@ -299,21 +487,33 @@ These changes will have immediate impact:
 | Images | [X] | [Y] | [+/-Z] |
 | H2 headings | [X] | [Y] | [+/-Z] |
 
-## Action Checklist
+## Action Plan
 
-- [ ] Update title tag
-- [ ] Rewrite meta description
-- [ ] Add keyword to H1
-- [ ] Add [X] more internal links
-- [ ] Add alt text to [X] images
-- [ ] Add [X] more content sections
-- [ ] Implement FAQ schema
-- [ ] [Additional action items]
+Every action this audit recommends, in one place. **Ordered by expected impact ÷ effort with
+dependencies respected, inside the severity bands above** — an action whose dependency is unmet
+sits below the thing it waits on. Effort: S ≤30 min, one element, no release · M ≤2 h or a
+content pass · L needs planning, a release, or somebody else's calendar. A field with no answer
+carries its stated-absence value, never a blank.
+
+| # | Action | Owner | Acceptance criterion | Expected impact | Effort | Depends on | Risk if done wrong |
+|---|--------|-------|----------------------|-----------------|--------|------------|--------------------|
+| 1 | [imperative sentence naming the element and the change] | [role, or "unassigned — needs an owner"] | [observable, binary, dated or triggered — checkable by someone who was not part of this engagement] | [which criteria this converts and the points they return, or "not estimated — no baseline data"] | [S/M/L] | [named blocker, or "none"] | [failure mode and cost, or "low — reversible, no downstream effect"] |
+| 2 | [next action] | … | … | … | … | … | … |
 
 ## Expected Results
 
-After implementing these changes:
-- Estimated ranking improvement: [X] positions
-- Estimated CTR improvement: [X]%
-- Estimated traffic increase: [X]%
-```
+After implementing these changes, re-measure — this audit predicts no numbers:
+- Criteria this plan converts: [N] of the [M] currently failing (name them, with the points they
+  return: e.g. "alt text on 3 images returns 1.5 of Image Optimization's 10")
+- Projected score after the fixes: [X]/100, computed by re-scoring only the criteria the plan
+  changes and leaving every other criterion where it is
+- What to re-measure, and when: impressions, average position and CTR for this page in Search
+  Console, 4-8 weeks after the changes ship, against the 28 days before them
+````
+
+**No ranking, CTR or traffic forecast appears here.** A "+18% traffic" or "+4 positions" figure
+for a named page needs a baseline plus a counterfactual, and an on-page audit has neither — the
+number would be invented, which is precisely what the Confidence labels and the statistics rule
+exist to prevent. The projected score above is the one legitimate forward-looking figure,
+because it recomputes from this report's own rubric and a reader can check it. Say what the
+client should watch and when, and let the re-measure produce the number.

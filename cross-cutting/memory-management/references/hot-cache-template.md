@@ -4,10 +4,21 @@ Use this template when initializing memory for a new SEO project.
 
 ### 2. Hot Cache (CLAUDE.md) Structure
 
+**Before writing: no secret value goes in this file, and none goes in a substitute file either.**
+The hot cache auto-loads into every session for everyone on the project, and it is
+version-controlled, so a credential committed once survives its deletion. Record that a credential
+exists, who holds it and which secret store it lives in — never the value, and never a value the
+user has pasted. Moving one to `memory/`, a `.env` or a gitignored file is not compliance. Full
+rule, including the personal-data judgement: `SKILL.md` → **Data-Handling Floor**.
+
 Create or update CLAUDE.md with this template:
 
 ```markdown
 # [Project Name] - SEO Memory (Hot Cache)
+
+<!-- No credentials, API keys, passwords, tokens or personal data in this file. It auto-loads into
+     every session and is version-controlled, so a secret committed once survives its deletion.
+     Record who holds a credential and which secret store it is in — never the value. -->
 
 **Last Updated**: [Date]
 **Project Status**: [Active/Maintenance/Growth]
@@ -41,14 +52,29 @@ _Detailed analyses: memory/competitors/_
 
 ## Current Optimization Priorities
 
-1. **[Priority 1]** - [Brief description]
+<!-- Each entry is a stored action and keeps the seven fields it arrived with. Owner and
+     "Done when" are the two that make it implementable and the two a one-line summary drops;
+     without them a later run re-issues this item with an owner nobody agreed to and nothing
+     checkable. Where a field has no answer, write its stated-absence value — `unassigned —
+     needs an owner`, `not estimated — no baseline data`, `not estimated`, `none`, `low —
+     reversible, no downstream effect` — never a blank and never a guess. Hold fewer actions
+     to stay inside the ~100-line budget; never hold them with fields stripped. -->
+
+1. **[Priority 1]** — [one imperative sentence naming the artefact and the change]
+   - Owner: [role from the closed list, or `unassigned — needs an owner`]
+   - Done when: [observable, binary at the moment of checking, attached to a named artefact or
+     measurement, dated or triggered]
    - Status: [not started/in progress/completed]
-   - Expected impact: [high/medium/low]
+   - Expected impact: [what should change and on what basis, or `not estimated — no baseline data`]
+   - Effort: [S / M / L, or `not estimated`] · Depends on: [named blocker, or `none`] ·
+     Risk if done wrong: [failure mode, or `low — reversible, no downstream effect`]
    - Deadline: [date]
 
-2. **[Priority 2]** - [Brief description]
+2. **[Priority 2]** — [action sentence]
+   - Owner: [role] · Done when: [criterion]
    - Status: [not started/in progress/completed]
-   - Expected impact: [high/medium/low]
+   - Expected impact: [with its basis] · Effort: [band] · Depends on: [blocker or `none`] ·
+     Risk if done wrong: [failure mode or the stated-absence value]
    - Deadline: [date]
 
 ## Key Metrics Snapshot

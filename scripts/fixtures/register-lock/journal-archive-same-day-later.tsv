@@ -1,0 +1,9 @@
+# journal-archive-same-day-later.tsv — one row on TODAY's date, a different holder and
+# a different path from journal-archive-three-dates.tsv's today row.
+# Layout: EVENT<TAB>OFFSET-SECONDS-FROM-NOW<TAB>HOLDER<TAB>PATH
+#
+# Archived AFTER that journal, into a date file that already has a row, it is the
+# append-not-overwrite control: a second lane's wave-end must not erase the first
+# lane's evidence. `>` instead of `>>` in do_archive passes every other archive case
+# in this corpus and fails only this one.
+ACQUIRE	0	lane-arch-b	docs/loop/PIPELINE.md

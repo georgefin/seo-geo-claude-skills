@@ -1,0 +1,5 @@
+# journal-closed.tsv — one acquire/release pair, for the RELEASE-closed bound.
+# Tenure is [acquire, release): the release second itself is on the released side.
+# The two boundary cases differ by ONE SECOND and must land on opposite verdicts.
+ACQUIRE	-3600	lane-c	docs/loop/PIPELINE.md
+RELEASE	-1800	lane-c	docs/loop/PIPELINE.md

@@ -1,0 +1,767 @@
+{
+  "suite": "alert-manager",
+  "skill": "alert-manager",
+  "suite_path": "monitor/alert-manager",
+  "skill_version_under_test": "4.4.0 (SKILL.md frontmatter version and metadata.version, in lockstep)",
+  "run_label": "blind-2026-08-17",
+  "run_date": "2026-08-17",
+  "method": "blind",
+  "method_detail": {
+    "executor": "blind, separate agent; deliverables at /tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-2026-08-17/alert-manager/e1..e5.md",
+    "grader": "informed, this agent. Produced no alert-manager output at any point and did not re-run the skill.",
+    "blindness_enforcement": "MECHANICAL, NOT SELF-REPORTED. Blindness was enforced by scripts/eval-prompt.sh, which drops `expectations` and `expected_output` before printing anything, so the executor was given a command rather than a file and the blind half of the protocol holds by construction. The grader's own reads used `--grade`, which is the visibly different call the script exists to make checkable after the fact. This grader did not read the executor's transcript, its reasoning, or any other agent's output.",
+    "grader_inputs_at_open": [
+      "docs/loop/FAILURE-LEDGER.md (F3, F7, F9, F13, F15-F19 and the 2026-08-13/08-17 recurrences)",
+      "docs/loop/SETTLED-RULINGS.md (R3 incl. amendment 9a, R4, R5)",
+      "docs/loop/OPEN-FINDINGS.md rows 65, 75, 86, 127, 144, 145, 229-242",
+      "CLAUDE.md (the ~~category resolution rule, the Value Rule, the Reader Test)",
+      "monitor/alert-manager/SKILL.md and both references, at HEAD",
+      "the four fixtures under monitor/alert-manager/evals/files/",
+      "docs/loop/eval-baselines/blind-2026-08-13/alertmanager.json (the only eval-baselines file read, for schema and for the regression comparison)"
+    ],
+    "editor_referral": "e3.5 is referred to the binding greek-content-editor. Mechanical layer screened clean by this grader (see the e3.5 evidence field); the fluency, register and naturalness verdict is the editor's and this grader formed no second opinion on it."
+  },
+  "repo_head_at_open": "61ac57acb08f6e75ae25f509297c3b657e526822",
+  "repo_head_at_close": "206f2d33633ce2fd3333ff700a5b835b6ef073c3",
+  "input_drift_during_the_grading": {
+    "checked": "git rev-parse HEAD at open and again at close; git log and git diff --name-only across the whole window scoped to monitor/alert-manager/, docs/loop/SETTLED-RULINGS.md, docs/loop/FAILURE-LEDGER.md and CLAUDE.md; deliverable mtimes at close; and a git status of the working tree.",
+    "result": "HEAD MOVED, and it is recorded rather than glossed: 61ac57a at open, 206f2d3 at close. Two commits landed while grading. 9e5cd43 fixes a split-stance robots.txt template in optimize/technical-seo-checker (another lane, another suite). 206f2d3 adds two other agents' 2026-08-17 blind records (performance-reporter.json, rank-tracker.json) plus a VERSIONS.md line. `git diff --name-only 61ac57a..206f2d3` scoped to this grading's inputs returns EMPTY: monitor/alert-manager/ (SKILL.md, both references, evals.json, all four fixtures), SETTLED-RULINGS.md, FAILURE-LEDGER.md and CLAUDE.md are byte-identical across the whole window. The subject under test therefore did not move while it was being judged, and neither did any rulebook a verdict rests on.",
+    "effect_on_verdicts": "NONE. Every graded input is byte-identical between open and close.",
+    "subject_stability": "monitor/alert-manager was last changed before this grading opened and is unchanged through it - verified by diff across the window, not by mtime.",
+    "artefact_stability": "Deliverable mtimes at close (11:07:45 / 11:13:49 / 11:23:33 / 11:31:58 / 11:36:01) all predate the grading and are unchanged, so no artefact was revised while it was being judged.",
+    "note_on_the_two_sibling_records": "206f2d3 contains two other agents' output files. They were NOT read: the coordinator's correction lifted the restriction on this suite's own prior baselines only, and another agent's record is another agent's output."
+  },
+  "instrument_change_since_the_comparison_baseline": {
+    "note": "REQUIRED READING BEFORE ANY RATE COMPARISON. The suite is NOT byte-identical to the one the blind-2026-08-13 record graded, contrary to that record's own suite_stability field, which was true when written.",
+    "checked": "git diff 7dd9cb3..HEAD -- monitor/alert-manager/evals/evals.json, then a per-expectation text comparison in Python.",
+    "result": "Expectation COUNT unchanged at 29 at every revision and every prompt unchanged, so the denominator is comparable across all four runs. TWO expectation texts were rewritten, each attributed to its own commit by a per-revision comparison rather than a net diff: e5.3 by 3d0b592 (2026-08-17 sweep, 403 -> 1499 chars, adding the fixed-threshold carve-out both prior graders raised as a suite finding) and e2.3 by dcabd6b (2026-08-17 B-4, 478 -> 716 chars, adding the clause that fails an AI-parsing warrant for FAQPage markup). Nothing changed after dcabd6b, so this run graded exactly that state. Both rewrites are open finding C4's shape - an expectation rewritten between runs - and both comparisons are marked VOID in regressions_vs_baseline rather than reported as flat.",
+    "effect_on_verdicts": "NONE ON THE REGRESSION LIST. Both rewritten expectations were PASS in the prior run and are PASS now, so neither contributes a regression or an improvement. The three regressions and three improvements below all sit on expectations whose text is byte-identical between the two runs.",
+    "skill_change_across_the_same_window": "monitor/alert-manager changed substantially: SKILL.md 136 lines, alert-configuration-templates.md +135, alert-threshold-guide.md +220. 4.3.2 -> 4.4.0. Most of that surface (the whole prompt-level answer category and its sampling rule) is ungraded by this suite - see coverage_gaps."
+  },
+  "expectations": [
+    {
+      "id": "e1.1",
+      "text": "2026-07-08 outage day excluded as the known-cause outlier, exclusion stated not silent, not re-diagnosed as an SEO problem",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "e1.md L16-20, headed 'Step 1 - The outage day was removed from the baseline': '2026-07-08 (Wed) recorded 41 clicks against a weekday average of 310.3 ... you have the provider's written confirmation and a service credit for it. A day with a known, non-recurring cause is removed before the mean and the standard deviation are calculated'. Stated, not applied silently, and the weekly consequence is carried through: 'the week 2026-07-06 - 07-12 (1,676 clicks) is excluded from the weekly baseline entirely'. Not re-diagnosed: the day appears only as a detection test at L179 ('Would this have caught 2026-07-08? Yes ... z = -22.6'). Grader-recomputed: (41 - 310.3)/11.9 = -22.63, exact."
+    },
+    {
+      "id": "e1.2",
+      "text": "baseline arithmetic fixture-exact for whichever population the response names, population defined before averaging",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "The L37-41 table names each population, its recorded count, its used count and its exclusion before any figure: 'Weekday (Mon-Fri, 2026-06-22 -> 2026-07-31) | 30 | 29 - 2026-07-08 removed as a confirmed outage | 310.3 | 11.9'. Grader-recomputed from the fixture alone: weekday n=29 sum=9000 mean=310.3448 (band 309-312), weekend n=12 sum=2471 mean=205.9167 (band 205-207), weekly totals n=5 mean=1967.2 (band 1966-1968). All three fixture-exact; no mean appears that matches none of the four permitted populations. All six fixture week sums independently verified against the stated weekly totals. NOTED for eval improvement, not penalised: the mean's own division (9000 / 29) is never printed - the population, the n and the exclusions are, and every downstream bound is printed with its multiplier."
+    },
+    {
+      "id": "e1.3",
+      "text": "levels justified from measured variance on the guide's SD ladder at 1/1.5/2/3, mapping shown, no unlabelled non-derived threshold",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Ladder and mapping printed in full at L61-62: 'Full working, low side: 1 sd -> 310.3 - 11.9 = 298.4 . 1.5 sd -> 310.3 - 17.85 = 292.5 . 2 sd -> 310.3 - 23.8 = 286.5 . 3 sd -> 310.3 - 35.7 = 274.6', with the band map restated as z-ranges at L97-101 exactly as the guide states them (|z|<1 everyday, 1-1.5 Info, 1.5-2 Warning, 2-3 Critical, >=3 Emergency) and the boundary rule ('a value sitting exactly on a boundary takes the more severe level'). Grader-recomputed sample SDs match the stated population in all three cases: weekday 11.9082 (expected 11-12), weekend 11.4134 (10-12), weekly 13.7186 (12-14). The pooled-population trap is avoided by construction, not by luck - the split is argued at L22-27 with the pooling test run and shown. Every other number in the document is either fixture arithmetic or an explicitly labelled generic default (-15%/-30% at L189-191) or a skill-stated figure (the guide's >30%-noise tuning signal, the 4-week / 8-12-week baseline periods)."
+    },
+    {
+      "id": "e1.4",
+      "text": "the -30% 'industry standard' answered with threshold sanity, visible comparison arithmetic, population named",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Provenance refused in both directions at L187: 'This methodology holds no industry norms, and we will not supply one from memory to support or to contradict your old agency.' Identified as the skill's own generic default at L189: 'The generic week-over-week steps we start from before any site data exists are -15% for a Warning and -30% for a Critical', and labelled at L191 ('both of those are explicitly generic defaults'). Comparison arithmetic visible with the population named ('Clicks/week' against the weekly baseline) at L195-203: 'Worked: -30% of 1,967.2 = 1,377.0 clicks; (1,377.0 - 1,967.2) / 13.7 = -43.0'. Grader-recomputed: 1377.04 and -43.08 (sample SD 13.72); -15% -> 1672.12, z = -21.54. Both inside the expectation's stated 43-sigma / 48-sigma envelope. The rule is retired rather than kept, which the expectation permits, and the miss is demonstrated on fixture data at L205: '1,676 clicks is a 14.8% drop and would not have triggered it' (recomputed 14.80%)."
+    },
+    {
+      "id": "e1.5",
+      "text": "day-of-week discipline: the weekend dip cannot fire false alerts, mechanism named",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Mechanism named and chosen: L22-27 'Step 2 - Weekdays and weekends were split before anything was averaged', with the guide's pooling test run and shown ('Weekend mean 205.9 -> z = (205.9 - 310.3) / 11.9 = -8.8 ... nowhere near inside |z| < 1, so ... the two populations get separate baselines'; grader-recomputed -8.77). Like-for-like stated at L31: 'a day is graded against its own population: Monday against the weekday baseline, Saturday against the weekend baseline. Day-over-day comparisons are Monday to Monday, never Monday to Sunday.' Separate ladders ship (L51-74). The guide's weekend adjustment is explicitly NOT stacked on the split (L33: 'You have split baselines, so do not apply a weekend adjustment as well - that would loosen your weekend thresholds twice'), which is the precedence reading the guide itself supports."
+    },
+    {
+      "id": "e1.6",
+      "text": "no fabrication; CTR answered from the fixture with no invented pet-industry benchmark; sources labelled",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Grader recomputed every CTR from the fixture: per-week 3.3767 / 3.4041 / 2.8263(outage) / 3.3959 / 3.3508 / 3.3733 - the deliverable's L217-224 table prints 3.377 / 3.404 / 2.826 / 3.396 / 3.351 / 3.373, all exact to the rounding shown and all inside the required 3.3508-3.4041 band. Clean-weeks aggregate recomputed 9836/291000 = 3.38007%; L226 prints '9,836 / 291,000 = 3.380%' and the mean of the five weekly CTRs 3.380% with sd 0.021 pp (recomputed 3.38017 and 0.02086). The benchmark question is refused without a number at L213: 'We cannot answer the question as asked, and we are not going to estimate it. There is no pet-retail, e-commerce or vertical click-through-rate benchmark in this methodology.' No sessions, revenue, ranking or per-day impressions figure appears, and the absence is explained at L235 ('You have no daily impressions, only weekly totals, so a daily CTR series does not exist and cannot be reconstructed'). Source and collection date labelled at L5."
+    },
+    {
+      "id": "e2.1",
+      "text": "FID flagged as a dead-metric config defect, zero fires explained, replaced with an INP rule at the 200 ms Good boundary, config row quoted verbatim",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "FIXES the 2026-08-13 regression. Verbatim quote at L102: 'Your row reads, verbatim: \"Core Web Vitals - FID | FID > 100 ms | Warning | Email\".' - byte-identical to the four cells of fixture row 3. Dead-metric diagnosis at L104: 'that metric was retired in March 2024 and replaced by Interaction to Next Paint (INP) ... The row has not been quiet. It has been impossible', tied to the fixture's own note ('the column disappeared from the tools a long time ago'). The replacement is a rule with a threshold, which is the clause that failed at 4.3.2 - L110-111: 'INP (field, mobile) above 200 ms - leaves \"Good\" | Warning | P2' and 'above 500 ms - \"Poor\" | Critical | P1', carried into the revised Technical table at L277-278. Nothing treats FID as live: the verdict is 'Replace the metric - dead metric' and the triage table states 'Retuning the number changes nothing'."
+    },
+    {
+      "id": "e2.2",
+      "text": "LCP corrected to 2.5 s, CLS 0.1 recognised as already correct and not 'fixed', corrected set uses LCP 2.5 / INP 200 / CLS 0.1 with an optional Poor tier above",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "FIXES the 2026-08-13 regression and closes the F19 recurrence recorded against it. L125: '4 - LCP | LCP > 2.0 s, priority \"Critical\" | above 2.5 s -> Warning band -> P2, and a second rung above 4.0 s -> Critical band -> P1 | 2.5 s is the boundary of \"Good\". A trigger at 2.0 s fires on pages that are fine - a false positive built into the number.' CLS recognised as already correct and kept: L126 'The threshold is correct - the only correct threshold in the entire inherited configuration. 0.1 is the boundary of \"Good\". Only the label needed fixing, and the \"Poor\" rung was missing.' The complete set is stated as fixed definitions at L128: 'The three boundaries for \"Good\" are LCP <= 2.5 s . INP <= 200 ms . CLS <= 0.1', reinforced at L113 ('Those boundaries are fixed definitions, not something we need your data or a connected tool to state'). Poor tiers sit on top, never instead (4.0 s / 500 ms / 0.25 at L275-280). No 'confirm the boundary when you reconnect the feed' abstention appears anywhere - scripted scan for 'confirm ... boundary' returns zero."
+    },
+    {
+      "id": "e2.3",
+      "text": "FAQ rich-result alert retired per R3, zero fires read as a dead sensor, no replacement monitoring, retirement not extended to the markup, no AI-parsing warrant claimed",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "NOTE: this expectation's text was rewritten since the prior baseline (see instrument_change_since_the_comparison_baseline); it was PASS then and is PASS now. Retired not retuned, at L134: 'FAQ rich results ended in 2026 - the search appearance was dropped and the report went with it, which is what your note observed. There is no sensor left behind that alert, so it is retired rather than retuned, and no replacement monitor is proposed for it.' Verdict row 6 reads 'Kill - dead report'. Both boundaries explicitly held. Markup: L138 'Do not remove the FAQ markup from your pages. The alert is dead; the markup is not. It remains valid, and there is no need to proactively remove it.' AI-parsing warrant refused, which is amendment 9a's exact requirement and the clause that FAILS this expectation if breached: L139 'And we are not going to sell that markup back to you on some other ground either. It is not claimed here to earn you mentions or citations in AI answers.'"
+    },
+    {
+      "id": "e2.4",
+      "text": "fatigue arithmetic defines its population, 92-95% with the 150-of-160 derivation visible, judged against the >30% signal, Nikos named as the alert-fatigue failure",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Population fixed before the count at L5 (the nine config rows, 'the alert email folder for 2026-07-05 - 2026-08-03 (30 days), counted by hand'), and the derivation printed at L14: 'the system sent 160 emails, of which 10 pointed at something you had to do. That is 150 of 160 fires closed with no action - 93.8% in the window 2026-07-05 - 2026-08-03. The working target for that figure is under 30%.' Grader-recomputed 150/160 = 93.75%, inside the required 92-95% band. Every per-row rate independently recomputed and matched: 112/118 = 94.9%, 8/9 = 88.9%, 26/28 = 92.9%, 0/1 = 0%, 4/4 = 100%. Alert fatigue named as the failure mode at L320 ('Row count is not what causes alert fatigue; fire count is') and the mechanism at L16 ('A muted channel does not mute the noise selectively - it takes the alerts that work with it'), with the standing measure of success at L380 ('The test of this cleanup is whether Nikos opens the folder')."
+    },
+    {
+      "id": "e2.5",
+      "text": "the two noisiest rules retuned not deleted: tiered ranking thresholds plus batching and cooldown; the weekend fires diagnosed like-for-like with the 08/07 true positive honoured",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Ranking rule retuned to the guide's tiers at L161-166: Tier-1 3+ Warning / 5+ Critical, Tier 2 5+/10+, Tier 3 10+/off page 3 - consistent with alert-threshold-guide.md's Ranking Thresholds table. Coverage kept alive rather than deleted ('Retune + re-deliver'). Delivery clauses both present: L168 'one batched digest per day for the Tier-2/Tier-3 rows, not one email per keyword' and L337 'Duplicate cooldown: do not re-alert on the same metric for 24 hours', plus 'Batch by category' at L338. Traffic rule diagnosed as a like-for-like failure at L174: '8 of the 9 fires landed on Saturdays and Sundays - 11-12/07, 18-19/07, 25-26/07, 01-02/08 ... The alert is comparing Saturday against Friday ... It is not detecting a drop; it is detecting the calendar', with the fix drawn from the guide (L178 'Compare like for like. Monday against Monday, Saturday against Saturday'). The true positive is honoured explicitly and tied to keeping the rule: L176 'The remaining fire is the one that mattered: Wed 08/07, your confirmed hosting outage. This row is the only thing in the whole configuration that caught the outage. Keep it, and fix it in three steps.'"
+    },
+    {
+      "id": "e2.6",
+      "text": "estate triage names its populations: 4 zero-fire rows as dead sensors, LCP/CLS needing a rewired feed, SSL a keeper, missing Critical coverage added per the templates (at minimum a security/manual-action alert at any-detection AND a site-down/5xx alert), unlinked mentions kept per R5",
+      "verdict": "FAIL",
+      "passed": false,
+      "evidence": "FAIL on the missing-Critical-coverage clause, specifically its site-down/5xx leg. REGRESSION vs blind-2026-08-13, whose e2.6 evidence records 'Missing Criticals added at L200-201: security issue / manual action \"Paged on any detection\" at P0, and site-unreachable/5xx at Emergency P0.' Raw output inspected at the flagged location before reporting (ledger F7): the revised Technical table at L273-284 carries ten rows - LCP x2, INP x2, CLS x2, SSL x2, Security issue, Manual action - and NO site-down and no 5xx row. Scripted scan of the whole 31 KB deliverable: 'site down' 0 hits, 'site-down' 0, 'Site unreachable' 0, '5xx' 0, 'uptime' 0, 'unreachable' 0, 'downtime' 0, 'server error' 0. The gap is sharper because the deliverable's own narrative sets it up and never closes it - L176 states that the day-over-day traffic row 'is the only thing in the whole configuration that caught the outage', and L288 says 'The two security rows are new, and their absence was the most serious gap in the inherited setup', naming two of the three missing criticals as the complete set. alert-configuration-templates.md L165 carries the row it needed ('Site Down | Site unreachable, or 5xx at the guide's Emergency trigger (>20/day) | Emergency | P0'), so this is a skill-stated rule the deliverable did not apply, not an uncarried one. EVERY OTHER CLAUSE PASSES: exactly 4 zero-fire rows named as dead sensors ('3-6 | The four zero-fire rows', with per-row diagnosis at L100-134); LCP/CLS as dead feed requiring a rewire ('The fix is to rewire the source, not to edit the numbers ... the separate subscription that fed these rows lapsed in March 2026'); SSL a keeper ('The one row that worked. Fired 14/07, certificate renewed the same day, nothing to criticise'); and R5 answered on both required legs - premise rejected at L230 ('No - keep it. The premise is backwards ... It is handing you the address of somebody who already thinks you are worth mentioning') and the capture path concrete at L242 ('Goes into a weekly digest, never an immediate email. Worked in a fixed weekly slot')."
+    },
+    {
+      "id": "e2.7",
+      "text": "no fabrication in fire counts, dates, thresholds or conditions; derived rates carry visible arithmetic; no invented current site metrics; no simulated tool output",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Every fire count, date, threshold and condition traces to the fixture, verified by an independent grader script that recomputes from the fixture rather than from the deliverable: 160/10/150 and 93.8%; 112-of-118 94.9%; 8-of-9 88.9%; 26-of-28 92.9%; 4-of-4 100%; 1-of-1 0%; rows 1+8 = 146 of 160 = 91.25% (printed 91.3%) carrying 8 of the 10 actionable. All reconcile. No current site metric is invented: L119 states outright that 'Five months of silence is not five months of good page performance - it is five months with no measurement at all', and the fix proposed is to rewire and re-measure rather than to assert a value. No rankings and no traffic figures appear. Zero '~~' tokens and zero simulated tool reads (scripted scan). The one extrapolation, L236's 'Four mentions in 30 days is roughly fifty a year', is fixture arithmetic (4 x 365/30 = 48.7) explicitly hedged as 'roughly', and it is immediately followed by a refusal to quote an outreach conversion rate ('anyone quoting you a conversion rate for outreach is guessing')."
+    },
+    {
+      "id": "e3.1",
+      "text": "the «άμμος γάτας» reading triaged artifact-first with honest uncertainty: connected to the maintenance notice and to the unchanged position 7, classified a PROBABLE artifact, cheap verification prescribed, the artifact explanation NOT asserted as confirmed fact, notice quoted verbatim if quoted",
+      "verdict": "FAIL",
+      "passed": false,
+      "evidence": "FAIL on the clause 'does not assert the artifact explanation as confirmed fact', and the failure is compounded by contradicting the fixture's own definition. REGRESSION vs blind-2026-08-13, which passed this expectation with the explanation held as probable ('Τέσσερα ανεξάρτητα στοιχεία δείχνουν προς την ίδια εξήγηση') and recorded the definitional slip only as defect D6. Raw output inspected before reporting (ledger F7). The explanation is asserted flatly and in bold, four times: L15 '**Ψευδής συναγερμός:** η «άμμος γάτας» **δεν** εξαφανίστηκε'; L117 '**Σχεδόν καθόλου. Δεν είναι πτώση· είναι μέτρηση που δεν έγινε.**'; L121 'Τέσσερις λόγοι, και ο καθένας τους αρκεί από μόνος του'; L255 '**Η «άμμος γάτας» δεν έχει πρόβλημα**'. Nothing hedges the explanation - «Σχεδόν καθόλου» and «σχεδόν μηδενική» hedge the WORRY level, not the diagnosis. Reason 4 of the four is a direct negation of the client's own file: fixture L24 states «Το «—» στην «άμμος γάτας» σημαίνει «δεν βρέθηκε στα αποτελέσματα» εκείνο το πρωί», and L126 answers «**Το «—» δεν σημαίνει «θέση 0» και δεν σημαίνει «εκτός αποτελεσμάτων».** Σημαίνει ότι το εργαλείο δεν επέστρεψε τιμή.» That is the load-bearing step that converts 'probable artifact' into 'definite artifact', and alert-threshold-guide.md §9.3 forbids even the milder form of it ('Where the client's own file defines a term, quote it verbatim and then use those words ... do not restate it'). The asymmetry is internal to the same document: the plugin hypothesis is handled exactly right at L85 ('το γράφουμε ως μοντέλο εργασίας, όχι ως τεκμηριωμένη συμπεριφορά μηχανής') and L87 ('Αν δεν πέσουν, το μοντέλο ήταν λάθος'), so the discipline exists in the deliverable and is not applied here. EVERY OTHER CLAUSE PASSES: the maintenance notice is quoted byte-exact against fixture L24 (L123 «Προγραμματισμένη συντήρηση 05/08 03:00–09:00 — ορισμένες μετρήσεις ενδέχεται να λείπουν ή να είναι ελλιπείς»); the unchanged position on both sides is stated (L15 'Θέση 7 στις 04/08, κενό στις 05/08, θέση 7 ξανά στις 06/08 και στις 07/08'); a cheap verification is prescribed instead of a recovery plan (L142, manual incognito check, google.gr, desktop, from Greece, 'Σήμερα, 5 λεπτά') and L146 states plainly that no page work is needed."
+    },
+    {
+      "id": "e3.2",
+      "text": "the genuine incident counted with its rule stated: exactly 3 of 12, deltas 12/13/10 with visible arithmetic, all mapped to /trofes-skylou/, graded Critical on the Tier-1 rule, no stable keyword manufactured into a problem",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Exactly 3 named and tabled at L66-70 with the 03/08 and 07/08 readings and the delta in its own column: ξηρά τροφή σκύλου 4 -> 16 = 12; τροφή σκύλου grain free 6 -> 19 = 13; τροφή κουταβιού 5 -> 15 = 10. Grader-recomputed from the fixture: 12, 13, 10 - all inside the required 10-13 band, and the same three figures are restated with their comparison period inside the alert block at L215-217 ('03/08: θέση 4 → 07/08: θέση 16 (πτώση 12)'). Persistence across all three snapshots is shown twice, once with 05/08 included and once with it excluded (L132-136), so the drop is demonstrated to be independent of the unreliable column. All three carry /trofes-skylou/ in the table's own column. Graded Critical with the rule stated on the row: 'Κρίσιμο — το Tier 1 γίνεται Κρίσιμο σε πτώση 5+', raised to P0 with the reason in the same line ('P0 — ένα επίπεδο πάνω από P1: λέξη Tier 1'). None of the 8 stable keywords is manufactured into a problem - L93-106 tables all eight with their five-day range and the verdict «Καθημερινός θόρυβος», against their own tier thresholds; grader-verified against the fixture that no stable keyword moved more than 2 positions."
+    },
+    {
+      "id": "e3.3",
+      "text": "ordered incident sequence detect/verify/diagnose/escalate, verification before diagnosis via named checks proposed not reported, diagnosis built from the uptime windows, the homepage's 100%, the server-log climb and the 03/08 deploy, plugin held as hypothesis",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "FIXES the failure that stood in three consecutive prior blind runs. Every named piece of fixture evidence is present and correctly attributed: the five HTTP 500 windows with start times and durations from 04/08 22:41 (L58), the homepage's clean 100% (L60 'Η αρχική σελίδα ήταν διαθέσιμη 100% και τις πέντε ημέρες. Άρα αυτό δεν είναι διακοπή λειτουργίας του καταστήματος· είναι μία διεύθυνση που σπάει'), the server-log climb 0/6/44/51/47 (L50-56) and the 03/08 evening filter-plugin deploy (L80). The ordered sequence runs at L154-163 with a 'Πώς ξέρουμε ότι έγινε' acceptance column on every step. Checks are proposed, never reported as results: step 1's acceptance is 'Η σελίδα φορτώνει κανονικά σε 5 συνεχόμενους χειροκίνητους ελέγχους', step 3 is a manual 200-check from mobile and desktop, and the indexation check is proposed at step 8 and gated on step 7's Search Console transfer, which the fixture says is outstanding. The plugin is held as a hypothesis in the strongest form this grader has seen in the suite - L85 separates what the data shows from what is inferred and says «Δεν δημοσιεύει καμία μηχανή αναζήτησης τα ακριβή κριτήριά της», and L87 states the falsification test and its timescale. NOTED for eval improvement, not penalised: the indexation check is routed only through Search Console, which the fixture says is unavailable; a `site:` query needs no access and is the check both SKILL.md's own example and the guide's notification template name."
+    },
+    {
+      "id": "e3.4",
+      "text": "escalation concrete on who, when and with what: the developer engaged same day at the top of the axis, a specific evidence package, the business-decision owner named as informed, and a calibrated worry answer",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Who and when: L179 routes the server-error alert to «Θοδωρής (τεχνικός υπεύθυνος)» at P0 by «Τηλέφωνο ή SMS. Όχι email», with the templates' P0 clock on the row ('Επιβεβαίωση σε 15 λεπτά, πρώτη ενέργεια σε 1 ώρα'), and L156 puts the plugin rollback at «Τώρα (μέσα σε 1 ώρα)» assigned to him. Why not email is argued at L184. With what: the fenced alert message at L188-204 carries the category URL, the current and previous 500 counts with their dates, the boundary crossed, the last outage window with its duration, the source of each number, and the first step naming the 03/08 deploy; the second block at L208-227 carries all three rank deltas with their comparison period and the reason the 05/08 column is ignored. Business-decision owner: the escalation hop is defined functionally and its emptiness flagged rather than filled - L182 «η ειδοποίηση πηγαίνει σε όποιον μπορεί να εγκρίνει την απενεργοποίηση του plugin ... **Αυτό το κελί είναι κενό στα στοιχεία που έχουμε** ... ρόλος χωρίς όνομα από πίσω δεν είναι διαδρομή» - and «Ο ιδιοκτήτης του καταστήματος» is named as the decision-holder at step 7. The fixture names no owner and the expectation accepts a role. Calibrated worry answer on both sides: «Πραγματικό, και επείγον» for the category incident against «Σχεδόν καθόλου» for the artifact, with its verification pending."
+    },
+    {
+      "id": "e3.5",
+      "text": "Greek output quality - mechanical layer plus the binding greek-content-editor's grade (W4 guard)",
+      "verdict": "EDITOR-PENDING",
+      "passed": null,
+      "evidence": "EDITOR-PENDING, recorded per this expectation's own instruction: 'If no greek-content-editor report on this eval's output is in front of the grader, this expectation is UNGRADED: record it EDITOR-PENDING, keep it inside the suite's total, and never record it as passed.' No greek-content-editor report on e3.md exists. WHICH EDITOR VERDICT SETTLES IT: PASS if the grade is NATIVE or MINOR-EDITS; FAIL if NON-NATIVE or FAIL. MECHANICAL LAYER, screened by this grader in Python with explicit character classes (never grep ranges - see tool_correctness) and with live non-vacuity controls: (1) family-1 totality calque screened in all barred variants including the gender and spelled-out forms this expectation puts in scope - «Όλα τα [0-9]», «Όλες οι [0-9]», «Όλες οι τρεις», «Όλα τα τρία», «Όλες οι 3»: 0 hits, against a live control showing the ruled NATIVE shape produced four times (L64, L72, L74 «Και οι τρεις», L60 and L110 «και τις πέντε»). (2) Final sigma: 0 word-final σ and 0 medial ς. (3) Diacritics: every unaccented Greek word of 4+ characters is a legitimately unaccented form (στις, τρεις, στην, πριν, ποια, στον, τους, Ποιος, ποιο, στους, προς, μπει, Ποιον) plus one all-caps heading. (4) Section headings: all nine in Greek, zero untranslated English boilerplate; Latin tokens are confined to the permitted technical set (HTTP, Tier, uptime, plugin, robots.txt, google.gr, URLs, the band names glossed bilingually once at L28 and used in Greek thereafter). (5) Agency-provenance placeholders in client text: 0. (6) '~~' tokens: 0. Screened, nothing surfaced. The verdict is the editor's. NOTE FOR THE EDITOR: the deliverable's assertion at L126 about what the client's tool's «—» means contradicts the client's own note (see e3.1 and defect D3) - that is a content finding this grader already recorded, not a register question."
+    },
+    {
+      "id": "e3.6",
+      "text": "no fabrication in positions, deltas, timestamps, availability figures or error counts; no traffic/revenue quantified; no index status or Google-side cause asserted as observed; data labelled as what it is",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Every figure re-derived by this grader from the fixture: the five outage windows with exact starts and durations (04/08 22:41 / 18', 05/08 03:12 / 41', 05/08 14:55 / 26', 06/08 09:03 / 33', 07/08 11:47 / 22'), the daily 500 counts 0/6/44/51/47, the twelve keywords' five daily readings, and the only derived aggregate, L58's «οι πραγματικές αποκρίσεις είναι 148», which recomputes as 0+6+44+51+47 = 148. No traffic, click, revenue or conversion impact is quantified anywhere. No index status or crawl result is asserted as observed - the Search Console checks are proposed at steps 7-8 and the account's inaccessibility is carried as the reason. No algorithm update is claimed as confirmed; L111 rules one out by reasoning from the fixture's own scope, which is argument rather than assertion. The data is labelled as exactly what it is at L5 - the hand-kept morning log, the pasted free uptime monitor excerpt, and Thodoris's server-log count - and again inside both alert blocks ('Κανένα εργαλείο παρακολούθησης δεν είναι συνδεδεμένο — και οι δύο αριθμοί διαβάστηκαν με το χέρι'). §9.5 handled exemplarily at L248: the two domain forms in the client's own sources are copied as written and the canonical form is asked for rather than assumed."
+    },
+    {
+      "id": "e4.1",
+      "text": "routing and escalation defined over the three real people, phantom roles adapted, P0-P3 clocks per the default map, no High/Medium/Low, an if-no-response chain naming who and after how long",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "L26-34 maps all ten routing roles onto Katerina, Nikos and Thodoris and prints '| Legal | **nobody - deleted from this system** |'. The inherited template is confronted at L38: 'The old template routes P0 to \"VP Marketing + DevOps + SEO Lead\". Translated into your actual people, that is Katerina + Thodoris + Nikos - literally everybody in the company', with the fix stated as routing by category as well as priority. Every route in the §5 matrix names one of the three. Clocks at L79-84 are the guide's default map exactly (P0 <15 min / 1 h; P1 <4 h / same day; P2 48 h; P3 weekly). Third vocabulary retired explicitly at L75: 'There is no third vocabulary. Nothing in this system is graded High, Medium or Low.' The if-no-response chain at L402-409 gives both the next name and the interval on every hop (P0 15 min -> SMS Katerina; P0 60 min -> Katerina calls the emergency line if site-down-level; P1 4 h -> SMS Nikos, then email Katerina by end of day; P2 48 h -> P1; P3 1 month -> P2), and L411 names the structural limit honestly ('An escalation that names the same person twice is not an escalation')."
+    },
+    {
+      "id": "e4.2",
+      "text": "channel assignments respect the fixture's stated availability and cost constraints",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Constraints derived first at L14-16 from the brief's own words, then applied. Katerina reached by SMS not the evenings-only email, and rationed: L253 'Katerina's SMS is used by exactly two categories: Traffic P0 and Security P0 ... A priority-1 ranking drop at 22:00 on a Saturday does not reach her phone, by design, and that is why her phone still works when something does.' Thodoris's per-incident line reserved for site-down-class technical P0s with the authorisation rule written in advance (L405 'Katerina calls the emergency line if the incident is site-down-level, which is the boundary Thodoris set'), while routine technical work rides the 48-hour SLA and the clock that cannot be met is named rather than papered over (L413-415). Nikos's Slack/email carries the business-hours load throughout the §5 matrix. P2/P3 batched with the cooldown at L270-271: 'Duplicate cooldown: no re-alert on the same metric for 24 hours' and 'all P2 and P3 items become one daily email and one Friday digest'."
+    },
+    {
+      "id": "e4.3",
+      "text": "the one-list rule enforced: the five priority-1 queries serve both ranking and citation alerts, Tier-1 thresholds attach to exactly those five, looser tiers cover everything else",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "L50: 'They are the same list you use for rank tracking, and this system uses that same list for both ranking alerts and AI-citation alerts - one list, not two, so the two never fire on different sets of terms', with all five tabled at L52-58 exactly as the brief lists them. Guide Tier-1 thresholds attach to the set: L102-103 'Any of the four money keywords drops 3 or more positions | Warning | P1 - raised from P2: priority-1 set' and 'drops 5 or more | Critical | P0'. The brand term is graded on the guide's own stricter dedicated brand row (any drop from #1 / below #3) with the disjointness argued at L105 under the one-observation-graded-once rule, so coverage of the five is complete. Looser tiers are stated with their numbers rather than invented into the live config, and the reading is flagged for confirmation at L62: 'Your brief says these five are \"the same list we use for rank tracking\", which we have read as these five are the tracked set ... If you actually track more keywords than these, tell us and the wider ladder is two lines: Tier 2 warns at a drop of 5 and turns Critical at 10; Tier 3 warns at 10 and turns Critical when it falls off page 3' - all four figures matching alert-threshold-guide.md's Ranking Thresholds table."
+    },
+    {
+      "id": "e4.4",
+      "text": "citation-window math defines its count rule and population: exactly 2 of 5, Warning band at P1 under the override, explicitly NOT the 3-or-more cluster, and the response path hands each affected query and its cited source page to content-refresher's AI Overview recovery playbook",
+      "verdict": "FAIL",
+      "passed": false,
+      "evidence": "FAIL on the response-path clause. REGRESSION vs blind-2026-08-13, whose e4.4 evidence records 'the operator block row 1 (L308) hands both queries and the cited source page /trofes-skylou/ to content-refresher's AI Overview recovery playbook.' Raw output inspected before reporting (ledger F7): scripted scan of the whole 44 KB deliverable returns 'content-refresher' 0 hits, 'recovery playbook' 0, 'AI Overview recovery' 0, 'refresh' 0, and 'operator block' 0 - this run carries no operator block at all, which is the device the prior run used to satisfy the clause compliantly. What appears instead is a technical check on the shared page (L309 'check that the page loads, that it still returns products, that it is still indexed, and whether anything on it changed in the last fortnight' and action item 5 'Check /trofes-skylou/ - loads, indexed, unchanged'), which is a different remedy. Nothing in §7's response plans covers a citation loss either: L394 lists 'a confirmed priority-1 citation loss' among the P1 items and supplies no actions for it. THE RULE IS CARRIED THREE TIMES in the skill the executor read - SKILL.md L352 ('hand the affected query and its source page to content-refresher and run its AI Overview recovery playbook'), alert-threshold-guide.md's GEO Response path, and alert-configuration-templates.md L405 - so this is not an F13/F17 uncarried-rule case. It is also satisfiable without a Reader Test breach: the playbook name is not a skill slug, and a labelled in-fence operator block is the sanctioned alternative. PARTIAL MITIGATION, recorded because it bears on how the coordinator should read this: the deliverable's own (defensible) sampling position is that the loss is a candidate rather than a fired alert, so on its reading the response path is not yet triggered. It still writes trigger, band and priority for all 13 GEO rows and a response plan for none, so the row is priced and not planned. EVERY OTHER CLAUSE PASSES, and precisely: the count rule is stated before the count and the population named (L305 'Written as it would fire once the sampling is right, this is the Priority-1 citation lost row - 2 queries is the \"1 or 2\" rung, which is the Warning band and P1 under the priority-1 override'); grader recount from the fixture of priority-1 rows flipping yes (w/c 27/07) -> no (w/c 03/08) = exactly 2, «ξηρά τροφή σκύλου» and «τροφή κουταβιού», the two the deliverable names at L302-303 with /trofes-skylou/ in its own column; the cluster grade is explicitly refused with the comparison visible (L305 'It is not the Critical rung: that needs three or more priority-1 queries losing citations in one window, and you have two'); and the never-cited «τροφή σκύλου grain free» is correctly excluded at L313 with the counting error named ('Grouping it with them would turn \"two priority-1 queries changed this week\" into \"three\", which is the counting error a client can check against the table for themselves')."
+    },
+    {
+      "id": "e4.5",
+      "text": "the week's other events graded per the event table with honest threshold labelling: the win logged positive with its earning page, the AI Overview graded Warning/P2 with the click-landscape rationale and no invented competitors, and the GEO/AI thresholds presented as tunable operational defaults on a weekly window to be calibrated against the site's own citation baseline",
+      "verdict": "FAIL",
+      "passed": false,
+      "evidence": "FAIL on the tunable-defaults clause. REPEAT FAILURE, not a regression - e4.5 also failed in blind-2026-08-13 and in blind-2026-08-11, but the mechanism has narrowed: the click-landscape clause that failed the two prior runs is FIXED here (L325 'An Overview appearing on a query reshapes the click landscape for it in either direction'), and only the labelling clause remains. Raw output inspected before reporting (ledger F7). Scripted scan of the deliverable: 'tunable' 0 hits, 'operational default' 0, 'calibrat'/'recalibrat' 0, 'proposed default' 1 hit. That single hit is L192, scoped to the four prompt-level rows only ('Every threshold below is a proposed default awaiting your confirmation. None of them is a measured constant, and no baseline for these metrics exists'), and it is excellent. The NINE citation rows above it at L180-188 carry their thresholds - down 10 or more percentage points, a 10% absolute floor, a 2-or-more-slot position slip, the 1-or-2 and 3-or-more count rungs - with no tunability label and no calibration statement anywhere; the only note attached to them (L190) concerns the two rate rows' PRIORITIES, not their thresholds, and action item 15 likewise reads 'the four proposed AI thresholds and the two citation-rate priorities'. The rule is carried in the skill in those words: alert-threshold-guide.md's GEO section opens 'All GEO/AI thresholds run on a weekly check window. The values below are tunable operational defaults, not measured constants - start here, then calibrate against the site's own citation baseline', and SKILL.md L352 repeats it. NOTE ON THE PATTERN: the deliverable misses both sentences of that same SKILL.md paragraph - the citation-loss response path (e4.4) and the tunable-defaults label - which is one paragraph of the skill body not reaching the deliverable, rather than two unrelated slips. THE OTHER TWO PARTS PASS: the «ενυδρείο για αρχάριους» flip is logged as the Citation won row, Info band, P3, with its earning page /odigos-enydreio/ named and the replicable-pattern question asked rather than answered (L329-333), and is never raised as a problem; the AI Overview on «καλύτερη άμμος για γατάκια» is graded on both axes as Warning band at P2 with no override, with the one-event-one-row call written down (L321 'Two rows could fire ... Graded as AI Overview change - Warning band, P2'), and the competitor state is reported from the fixture without invention and with the gap named in the same phrase (L319 'its sources are two competitor sites, which the sheet does not name', reinforced at L325: '\"two competitors\" that the sheet cannot identify is not something anyone can act on') - which is threshold guide §9.2 applied correctly."
+    },
+    {
+      "id": "e4.6",
+      "text": "no fabrication in names, channels, keywords, citation statuses or baseline figures; traffic thresholds derived from mean 1,967 / SD 13 with the multiplier and derivation visible; nothing presented as tool-fetched",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Traffic ladder arithmetic printed with the multiplier on every rung (L111-117) and independently recomputed by this grader: 1,967 - 1x13 = 1,954; -1.5x13 = 1,947.5; -2x13 = 1,941; -3x13 = 1,928; spike +1.5x13 = 1,986.5 - all exact against the stated values, and the two derived percentages check too (Warning 0.99% -> stated '1.0% shortfall'; Emergency 1.98% -> stated '2.0% weekly drop'). The population is named before the figures ('the five clean weekly click totals from your six-week Search Console analysis (1,972 / 1,971 / 1,973 / 1,977 / 1,943); the sixth week was excluded'). Every name, channel, keyword and citation status traces to the brief - the grader reproduced the whole citation table row by row and confirmed 2 losses, 1 win and the never-cited row. No citation rate, search volume, traffic value, competitor identity or AI-answer status beyond the sheet is invented; the two unnamed competitors and the missing engine column are named as gaps rather than filled (L294 'the sheet does not record which engine answered'). Nothing is presented as tool-fetched: L6 'No feed reaches this system automatically. Every alert below is a manual check by a named person on a stated day.' INDEPENDENTLY VERIFIED AND NOT GRADED BY ANY EXPECTATION: the 44-row alert-count table reconciles both ways (row sums 4/7/18/0/0/13/2 = 44; column sums 8/16/18/2 = 44; grand total 44 = the stated Total Active Alerts), and 44 - 13 = 31 matches the stated live count."
+    },
+    {
+      "id": "e5.1",
+      "text": "no normal range invented; the 'you know what normal looks like, just fill the numbers in' authorization refused; generic patterns pass only when explicitly labelled, hedges are not labels",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "No site-specific baseline mean, normal range, expected position or variance figure for keri-melisses.gr appears. The authorization is refused head-on at L20: '\"You know what normal looks like for small e-shops, just fill the numbers in\" - I don't, and neither does anybody who tells you they do. There is no daily-traffic figure for \"a small Greek e-shop\" that would mean anything for your shop. Not a hedged one, not an approximate one, not a range.' The hedge-is-not-a-label rule is stated in the deliverable's own words at L48: 'a hedge is not a source - \"roughly\", \"typically\" and \"usually\" add no provenance to a number that has none', with a named exclusion list covering daily traffic, CTR, conversion rate and top-10 counts. The one generic pattern offered carries an explicit label at L46: 'Beeswax candles are very likely a seasonal category for you - that is a working assumption about your business, not something derived from any data, and it is stated as an assumption on purpose.' This is a clean pass, not a borderline one: the three unlabelled generic assertions the prior run was marked down for under defects ('most candle businesses have a very pronounced one', 'what most shops run') do not recur - scripted scan for 'most shops', 'most businesses', 'almost always', 'in practice' returns the labelled form only."
+    },
+    {
+      "id": "e5.2",
+      "text": "the baseline gap stated and closed with the guide's plan: collection periods, collection steps, and the new-site posture from the threshold-evolution table",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Gap stated at L18 ('The normal daily-traffic range you should expect | No. That number does not exist yet, and I will not invent one') with three reasons at L42-46, the second of which is a real methodological point rather than a hedge ('at three weeks old, your traffic has no stable average to have a range around ... There is no stationary mean here yet'). Collection steps are the guide's own seven, in order, at L185-191 (record daily values; mean; standard deviation; identify outliers beyond 2 sd; remove the known-cause ones; recalculate; note seasonality), with the guide's three method choices reproduced at L197-199 including the pooling test expressed as a computable rule. Collection periods at L219-226: 'Week 4 ... First real baseline'; 'Week 8 - Recompute. Four weeks is the minimum; eight is where a weekly figure starts to be trustworthy'; 'Week 12 ... Ideal baseline for organic traffic is 8-12 weeks'; plus the post-migration 2-4 week rebuild. New-site posture from the threshold-evolution table at L88 ('A new site wants wide thresholds and few alerts; the point of alerting at this age is to catch a disaster, not to watch normal volatility') and again at L228 for the first six months. Step 0 at L161-171 is a genuine addition rather than a restatement: it checks whether Search Console or analytics already hold the three weeks, which is the difference between a four-week wait and next week. NOTED for eval improvement: the guide's separate 2-4 week rankings baseline is not stated as such; the deliverable instead handles rankings with fixed tier thresholds today and a one-month observation before adding the Warning rungs, which is the skill-correct treatment for a threshold that needs no baseline."
+    },
+    {
+      "id": "e5.3",
+      "text": "every threshold number is a fixed absolute, or an explicitly labelled generic default, or absent - and leaving a row's fixed trigger out, or deferring it to 'when you connect a tool', FAILS exactly as an unlabelled generic default does (RULED 2026-08-17)",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "NOTE: this expectation was rewritten on 2026-08-17 to add the fixed-threshold carve-out the two prior graders raised as a suite finding (see instrument_change_since_the_comparison_baseline). The deliverable satisfies BOTH halves of the narrowed rule. Fixed absolutes stated plainly with nothing connected, and stated as definitions: L34 'Withholding a fixed threshold because nothing is connected is exactly as wrong as inventing a baseline', with the guide's own three-kinds table reproduced at L28-32. The §3 tables carry every one of them - tier drops 3/5, 5/10, 10/off page 3; brand #1 and below #3; top-3 any and 3+; top-10 -10%/-20%; snippets any and 3+; 5xx >1/>5/>20 per day; 4xx >5/>20/>100 per day; index coverage -5%/-15%; SSL <30/<7 days; server response 500/1000 ms; LCP 2.5/4.0 s; INP 200/500 ms; CLS 0.1/0.25 - all verified by this grader against alert-threshold-guide.md's Absolute Value Method and Technical Thresholds tables and against ruling R4. L121 states the CWV set as definitions, not benchmarks. No row is left with its trigger out and nothing is deferred to a tool connection: the two staged rollouts (index coverage at week 6, ranking Warning rungs after the first month) both print the trigger and defer only the switch-on, each with a stated reason. The generic defaults are labelled three times over: the section heading itself ('generic defaults, and labelled as such deliberately'), L140 ('They are a guess for a site nobody has measured. They are not your numbers'), and an instruction to carry the label into the artefact at L149 ('Write \"generic default - recalibrate\" in the spreadsheet cell, next to each one'). Scripted row counts confirm the summary's own arithmetic: 15 ranking rows, 24 technical rows (22 today, 2 held to week 6), 2 traffic boundary rows, 6 percentage steps."
+    },
+    {
+      "id": "e5.4",
+      "text": "the hold is forward-moving with no fake tool reads; manual-data mode engaged per SKILL.md's Data Sources list; process offered, never findings",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "No tool access claimed and no data simulated: L6 'Data available: none. No tool is connected and no Search Console or analytics export exists in this session. Every number below is labelled with where it comes from, and nothing is filled in from memory.' No observation-implying phrasing about this site's traffic appears. All of SKILL.md's Data Sources intake items are engaged: (1) baseline metrics - §5 Step 0 and Step 1's daily sheet; (2) critical keywords or pages - L62 'the one input you owe is a tiered keyword list, which you can write this afternoon without any tool'; (3) priority levels and notification preferences - §7, which is the leg ledger F19 records as this suite's founding abstention defect and which is now closed twice over: L264 'Every alert needs a recipient or it is not an alert. Your message names no people, so the routing table is left empty rather than filled with plausible-looking job titles', with both the channel column and the fill-in rules supplied; (4) historical data for fluctuation ranges - the whole of §5. Process is delivered and findings are not: the alert framework (§3), the collection checklist and spreadsheet design (§5-§6), and dated recalibration points ('Week 4 (approx 2026-09-14)', Week 6, Week 8, Week 12 - grader-checked, 2026-08-17 + 4 weeks = 2026-09-14). The prior run's residual on leg 3 (channel preference never requested, only the person) is also closed: §7's table carries a Channel column per priority."
+    }
+  ],
+  "summary": {
+    "passed": 24,
+    "failed": 4,
+    "editor_pending": 1,
+    "instrument_defect": 0,
+    "total": 29,
+    "pass_rate": 0.8276,
+    "editor_slot_convention": {
+      "which_slot": "e3.5",
+      "counted_in_total": true,
+      "how_scored": "EDITOR-PENDING: inside the denominator, recorded in NEITHER passed nor failed, per this task's four-verdict rule and per the expectation's own text ('keep it inside the suite's total, and never record it as passed'). This is the same convention the blind-2026-08-13 and blind-2026-08-11 records for this suite used, so all three are directly comparable.",
+      "mechanical_layer_result": "clean - see the e3.5 evidence field; screens run in Python with explicit Greek character classes and live non-vacuity controls (4 native «Και οι …» constructions produced, 0 barred calques, 0 final-sigma errors).",
+      "rate_if_the_slot_were_counted_passed": "25/29 = 0.8621",
+      "rate_if_the_slot_were_excluded_from_total": "24/28 = 0.8571"
+    },
+    "passed_plus_failed_vs_total": "24 + 4 = 28, one short of 29. The gap is exactly the e3.5 editor slot, which is inside the total and is neither passed nor failed pending the binding editor's report (ledger F16-r1(d)).",
+    "instrument_defect_note": "Zero instrument defects found. What was looked for is stated in the instrument_defects field below - this is not an empty list by default.",
+    "schema_note": "summary.passed/failed/total/pass_rate per F16-r1(c). No second schema introduced. Verified readable by scripts/eval-corpus-report.sh's `summary` schema row.",
+    "headline_caution": "THE RATE HAS NOW BEEN 24/29 = 0.8276 FOR THREE CONSECUTIVE BLIND RUNS ACROSS THREE SKILL VERSIONS (4.2.0, 4.3.2, 4.4.0) - verified by reading each prior record's own summary, not inferred. The composition changed every time. This run: three expectations fixed (e2.1, e2.2, e3.3 - two of them the do-not-merge regressions open findings G-R2 and G-R3 left open) and three regressed (e2.6, e3.1, e4.4), each of which had held across BOTH prior runs. A rate quoted without that sentence reports a third flat result where six expectations moved. The earlier blind-2026-08-10b record reads 0.931 at 4.1.2 but carries no per-expectation array and records a different closing ruleset, so it is not comparable at any granularity. For this suite the pass rate is measuring nothing; only the per-expectation diff carries information."
+  },
+  "per_eval": {
+    "1": {
+      "passed": 6,
+      "failed": 0,
+      "editor_pending": 0,
+      "total": 6,
+      "verdicts": {
+        "e1.1": "PASS",
+        "e1.2": "PASS",
+        "e1.3": "PASS",
+        "e1.4": "PASS",
+        "e1.5": "PASS",
+        "e1.6": "PASS"
+      },
+      "note": "The strongest deliverable in the set. Every one of ~40 numeric claims re-derived from the fixture by an independent grader script and every one reconciles, including the six-week back-test at L164-168, whose band counts (3 weekday Warnings on 2026-07-01, 07-10 and 07-17; 7 weekday Info; 2 weekend Warnings on 07-12 and 07-25; 2 weekend Info; 1 weekly Warning) this grader reproduced exactly by re-running the deliverable's own ladder over the 41 clean days."
+    },
+    "2": {
+      "passed": 6,
+      "failed": 1,
+      "editor_pending": 0,
+      "total": 7,
+      "verdicts": {
+        "e2.1": "PASS",
+        "e2.2": "PASS",
+        "e2.3": "PASS",
+        "e2.4": "PASS",
+        "e2.5": "PASS",
+        "e2.6": "FAIL",
+        "e2.7": "PASS"
+      },
+      "note": "Both 4.3.2 do-not-merge regressions (e2.1, e2.2) are closed here, and the F19 abstention that caused e2.2 does not recur - the deliverable states the settled CWV numbers as definitions with nothing connected. The single failure is a coverage omission (no site-down/5xx row) in a document whose own narrative names the need for it."
+    },
+    "3": {
+      "passed": 4,
+      "failed": 1,
+      "editor_pending": 1,
+      "total": 6,
+      "verdicts": {
+        "e3.1": "FAIL",
+        "e3.2": "PASS",
+        "e3.3": "PASS",
+        "e3.4": "PASS",
+        "e3.5": "EDITOR-PENDING",
+        "e3.6": "PASS"
+      },
+      "note": "e3.3 is fixed after three consecutive blind failures. e3.1 regresses, and the mechanism is the escalation of a defect the previous record logged outside the graded set (its D6)."
+    },
+    "4": {
+      "passed": 4,
+      "failed": 2,
+      "editor_pending": 0,
+      "total": 6,
+      "verdicts": {
+        "e4.1": "PASS",
+        "e4.2": "PASS",
+        "e4.3": "PASS",
+        "e4.4": "FAIL",
+        "e4.5": "FAIL",
+        "e4.6": "PASS"
+      },
+      "note": "Both failures trace to one paragraph of SKILL.md (L352: the citation-loss response path and the tunable-operational-defaults label) not reaching the deliverable. Everything the deliverable did carry it carried unusually well - the count table reconciles both ways at 44 rows, the citation arithmetic is exact, and the sampling discipline is applied thoroughly and is entirely ungraded."
+    },
+    "5": {
+      "passed": 4,
+      "failed": 0,
+      "editor_pending": 0,
+      "total": 4,
+      "verdicts": {
+        "e5.1": "PASS",
+        "e5.2": "PASS",
+        "e5.3": "PASS",
+        "e5.4": "PASS"
+      },
+      "note": "Clean sweep, and the first run of this suite to pass e5.3 against the NARROWED wording ruled 2026-08-17 - the deliverable states every fixed absolute plainly with nothing connected and labels every generic default, which is exactly the distinction the rewrite was made to test. The three unlabelled generic assertions the prior run was marked down for under defects do not recur."
+    }
+  },
+  "regressions_vs_baseline": {
+    "baseline": "docs/loop/eval-baselines/blind-2026-08-13/alertmanager.json (subject 4.3.2, blind, same editor-slot convention) is the primary comparison. blind-2026-08-11/alertmanager.json (4.2.0) is used as a second point because it carries a full per-expectation array and grades a byte-identical suite. blind-2026-08-10b/alertmanager.json (4.1.2) records 27/2/29 = 0.931 but has NO per-expectation array - its top-level keys carry `evals` and `summary` and no `expectations` list - so no expectation-level comparison to it is possible and none is asserted here.",
+    "expectation_text_comparability": "Verified per-expectation in Python, not assumed. 27 of 29 expectation texts are byte-identical between the two runs; e2.3 and e5.3 were rewritten and are PASS in both, so no item on either list below sits on changed wording.",
+    "count": 3,
+    "class": "DO-NOT-MERGE until reviewed",
+    "items": [
+      {
+        "id": "e2.6",
+        "was": "PASS at 4.2.0 (blind-2026-08-11) and PASS at 4.3.2 (blind-2026-08-13)",
+        "now": "FAIL",
+        "what_moved": "The prior run added the missing Criticals in full - 'security issue / manual action \"Paged on any detection\" at P0, and site-unreachable/5xx at Emergency P0'. This run adds the security and manual-action rows and no site-down or 5xx row anywhere; scripted scan returns 0 hits for 'site down', 'site-down', 'Site unreachable', '5xx', 'uptime', 'unreachable', 'downtime' and 'server error' across the whole deliverable.",
+        "genuine_or_consequence": "GENUINE REGRESSION. The carrier is unchanged and present: alert-configuration-templates.md L165 carries the Site Down row at Emergency/P0 in both versions. Aggravating rather than mitigating: this same deliverable identifies the 08/07 hosting outage as the only true positive in the log and says the traffic day-drop row 'is the only thing in the whole configuration that caught the outage', so the need is established in the document and not met.",
+        "prior_run_verification": "Both prior verdicts read from each record's own per-expectation array; both graded byte-identical wording. blind-2026-08-11's e2.6 evidence also records the site-down leg satisfied."
+      },
+      {
+        "id": "e3.1",
+        "was": "PASS at 4.2.0 (blind-2026-08-11) and PASS at 4.3.2 (blind-2026-08-13)",
+        "now": "FAIL",
+        "what_moved": "The prior run classified the «άμμος γάτας» reading as probable and said so ('Τέσσερα ανεξάρτητα στοιχεία δείχνουν προς την ίδια εξήγηση'; 'Δεν το αφήνουμε στην πίστη ότι το εργαλείο έχει δίκιο'). This run asserts it as fact four times in bold - «Δεν είναι πτώση· είναι μέτρηση που δεν έγινε», «Ψευδής συναγερμός», «Τέσσερις λόγοι, και ο καθένας τους αρκεί από μόνος του», «Η «άμμος γάτας» δεν έχει πρόβλημα».",
+        "genuine_or_consequence": "GENUINE REGRESSION, AND THE MOST INSTRUCTIVE ITEM IN THIS RECORD. It is the escalation of a defect the previous record logged OUTSIDE the graded set as D6 ('re-glosses the fixture's own definition of «—» one clause after quoting it'). Here the same slip is not a re-gloss but a negation - the fixture says «Το «—» ... σημαίνει «δεν βρέθηκε στα αποτελέσματα»» and the deliverable answers «δεν σημαίνει «εκτός αποτελεσμάτων». Σημαίνει ότι το εργαλείο δεν επέστρεψε τιμή» - and it is load-bearing, because it is what upgrades 'probable artifact' to 'definite artifact'. A defect recorded outside the graded set in one run became a graded failure in the next, which is the argument for reporting them at all.",
+        "prior_run_verification": "Both prior verdicts read at source. The 2026-08-13 record additionally logged the definitional slip as defect D6 while passing the expectation, which is the escalation this entry records."
+      },
+      {
+        "id": "e4.4",
+        "was": "PASS at 4.2.0 (blind-2026-08-11) and PASS at 4.3.2 (blind-2026-08-13)",
+        "now": "FAIL",
+        "what_moved": "The prior run satisfied the response-path clause inside a labelled operator block ('the operator block row 1 hands both queries and the cited source page /trofes-skylou/ to content-refresher's AI Overview recovery playbook'). This run has no operator block at all and no citation-loss response path in any form: 0 hits for 'content-refresher', 'recovery playbook', 'AI Overview recovery', 'refresh' and 'operator block'.",
+        "genuine_or_consequence": "GENUINE REGRESSION. The rule is carried three times over in the skill (SKILL.md L352, the guide's GEO Response path, templates L405) and is satisfiable without a Reader Test breach. Partly attributable to the deliverable's own sampling position - it reads the loss as an unfired candidate - but the row is priced with a trigger, a band and a priority and given no response plan, so the omission is not explained by that reading alone. The disappearance of the operator-block device between the two runs is the mechanism worth noting: nothing in the skill tells a writer to use one.",
+        "prior_run_verification": "Both prior verdicts read at source. Each is a two-version, two-executor hold, so none of the three is a first-time-graded expectation breaking on debut."
+      }
+    ],
+    "improvements_same_comparison": [
+      {
+        "id": "e2.1",
+        "was": "FAIL at 4.3.2 (blind-2026-08-13); PASS at 4.2.0 (blind-2026-08-11)",
+        "now": "PASS",
+        "what_moved": "The prior run named INP once as context with no rule and no threshold ('a scan for 200 returns zero hits'). This run writes two INP rows with numbers - above 200 ms Warning/P2, above 500 ms Critical/P1 - and carries them into the revised Technical table. CLOSES open finding G-R2.",
+        "restoration_not_gain": "Verified at source: both passed at 4.2.0, failed at 4.3.2, and pass again now. They are the do-not-merge regressions open findings G-R2 and G-R3 recorded, and this run RESTORES the pre-4.3.x behaviour rather than achieving something new. That is still the outcome those open findings asked for, and it is the first blind evidence that the 2026-08-13 carrier fix holds."
+      },
+      {
+        "id": "e2.2",
+        "was": "FAIL at 4.3.2 (blind-2026-08-13); PASS at 4.2.0 (blind-2026-08-11)",
+        "now": "PASS",
+        "what_moved": "The prior run rebuilt LCP status-only and deferred the number ('confirm the current boundary numbers against the field-data definition when you reconnect the feed'), which was logged as ledger F19 recurrence 1. This run corrects 2.0 s to 2.5 s explicitly, keeps CLS 0.1 as already correct, and states the complete set as definitions needing no data or feed. CLOSES open finding G-R3 and confirms the 2026-08-13 carrier fix (numeric boundaries beside the status words) works under blind conditions - which is exactly the validation ledger F13-r3 says a carrier owes.",
+        "restoration_not_gain": "Verified at source: both passed at 4.2.0, failed at 4.3.2, and pass again now. They are the do-not-merge regressions open findings G-R2 and G-R3 recorded, and this run RESTORES the pre-4.3.x behaviour rather than achieving something new. That is still the outcome those open findings asked for, and it is the first blind evidence that the 2026-08-13 carrier fix holds."
+      },
+      {
+        "id": "e3.3",
+        "was": "FAIL at 4.2.0 and FAIL at 4.3.2",
+        "now": "PASS",
+        "what_moved": "Failed three consecutive blind runs (2026-08-10b, 2026-08-11, 2026-08-13) on 'verification precedes diagnosis'. This run supplies an ordered sequence with an acceptance criterion on every step, proposes both live-state and indexation checks as checks rather than results, and separates observed data from inferred model explicitly at L78-87.",
+        "prior_run_verification": "Two consecutive prior failures verified at source. A third, at blind-2026-08-10b, is asserted by the 2026-08-13 record's prose and CANNOT be verified here because that record carries no per-expectation array - so this entry claims two, not three."
+      }
+    ],
+    "repeat_failures_not_regressions": [
+      {
+        "id": "e4.5",
+        "note": "Third consecutive failure among the three records that carry expectation-level data (4.2.0, 4.3.2, 4.4.0), on byte-identical wording, by three different executors - all verified at each record's own per-expectation array. The failing clause moved: 2026-08-11 and 2026-08-13 failed the click-landscape rationale, which is FIXED here; the tunable-operational-defaults clause fails instead, and the 2026-08-13 record had already flagged that clause as 'only partly met' while failing on the other. Each failing clause lives in exactly one guide sentence with nothing instructing a writer to reproduce it - see ambiguous_expectations_eval_improvement A2."
+      }
+    ],
+    "ledger_recurrences_to_record": [
+      {
+        "entry": "F19",
+        "status": "NO RECURRENCE THIS RUN, and the founding instance is closed",
+        "detail": "F19's founding second instance was this suite's e5 declining to ask who should be notified while assigning priorities. e5 §7 now asks explicitly and supplies the channel column too. F19 recurrence 1 (the CWV abstention on R4's values) does not recur either: e2 states LCP 2.5 s / INP 200 ms / CLS 0.1 with nothing connected and says in terms that they are definitions requiring no data. e5 states every fixed absolute in the skill. Scripted scan of all five deliverables for the abstention shape ('confirm ... when you connect', 'when you reconnect the feed') returns zero. Recorded because a ledgered class that stops recurring under blind conditions is the evidence the carrier fix worked."
+      },
+      {
+        "entry": "F3",
+        "status": "no recurrence",
+        "detail": "Zero fabricated statistics, zero attributions to a real organisation or person, zero invented benchmarks across all five deliverables. Every industry-norm question (pet-e-commerce CTR in e1, small-e-shop traffic in e5, outreach conversion rate in e2) is refused with the reason stated rather than hedged."
+      }
+    ],
+    "scope_of_comparison": "EXPANDED after a mid-run coordinator correction lifted the read restriction on prior baselines. This suite has three prior blind records - blind-2026-08-10b (4.1.2), blind-2026-08-11 (4.2.0), blind-2026-08-13 (4.3.2) - and all three were read for this comparison. Every verdict below is taken from the record's own per-expectation array, not from a later record's prose about it.",
+    "did_evals_json_change_between_the_two_runs": {
+      "answer": "YES - twice, both on 2026-08-17, both before this run executed.",
+      "method": "git log on monitor/alert-manager/evals/evals.json, then a per-expectation text comparison in Python across each revision, so each rewrite is attributed to its commit rather than inferred from a net diff.",
+      "history": "1a1b55d (2026-08-10) is the state BOTH the 2026-08-11 and the 2026-08-13 runs graded - byte-identical across those two, so every verdict move between them is attributable to the deliverable or the skill and never to rewording. Then 3d0b592 (2026-08-17, 'sweep - two regressions whose root cause was the same shape') rewrote e5.3 and nothing else. Then dcabd6b (2026-08-17, 'B-4 closed - three suites graded a claim their own ruling forbids') rewrote e2.3 and nothing else. Nothing has changed since dcabd6b, so this run graded exactly dcabd6b's suite.",
+      "expectation_count": "29 at every revision. No expectation was added or removed, so the denominator is comparable across all four runs.",
+      "byte_identical_expectations": "27 of 29 between the 2026-08-13 run and this one.",
+      "comparisons_marked_VOID": [
+        {
+          "id": "e2.3",
+          "reason": "Text rewritten by dcabd6b on 2026-08-17 (478 -> 716 chars), adding the clause that FAILS a response claiming an AI-engine or parsing value for FAQPage markup - the R3 amendment 9a requirement. PASS in the prior record and PASS here, so no delta is being reported, but the two passes answer different questions and the comparison is void rather than flat. This is open finding 86's own subject: that commit is named there as rewriting e2 in alert-manager, and the record it names as needing a re-run is the one this file supersedes."
+        },
+        {
+          "id": "e5.3",
+          "reason": "Text rewritten by 3d0b592 on 2026-08-17 (403 -> 1499 chars), adding the fixed-threshold carve-out that the 2026-08-11 and 2026-08-13 graders both raised as a suite finding (S1 in the latter). The rewrite moves in the FAIL->PASS direction for a deliverable that states settled absolutes, which is finding C4's shape. PASS in both records, no delta reported, comparison void."
+        }
+      ],
+      "consequence": "Neither void comparison sits on any item in the regression or improvement lists below. All six moved expectations - e2.1, e2.2, e2.6, e3.1, e3.3, e4.4 - carry byte-identical wording across all three per-expectation records, so each move is attributable to the deliverable or to the skill."
+    },
+    "editor_slot_encoding_warning": "READ BEFORE DIFFING THESE FILES MECHANICALLY. The blind-2026-08-11 and blind-2026-08-13 records encode the e3.5 editor slot as `passed: false` in the per-expectation array while their prose and their summaries treat it as EDITOR-PENDING and count it in neither passed nor failed (both summaries: passed 24, failed 4, total 29, editor_pending 1). This record encodes it honestly as `verdict: EDITOR-PENDING` with `passed: null`, matching what all three summaries already do. A differ reading only the `passed` field will therefore report e3.5 as having moved FAIL -> not-FAIL between 2026-08-13 and 2026-08-17. IT DID NOT MOVE: it has been EDITOR-PENDING in every record, awaiting the same binding editor report, and it is not in the regression or improvement lists. This is ledger F16's two-schemas-in-one-corpus problem one level down, at expectation granularity rather than summary granularity, and it is worth a coordinator decision on which encoding the corpus standardises.",
+    "four_run_trajectory": {
+      "note": "Verdicts read from each record's own per-expectation array. '-' means the record carries no expectation-level data. Suite wording is byte-identical at 2026-08-11 and 2026-08-13; e2.3 and e5.3 differ at 2026-08-17 and are marked void above.",
+      "versions": "2026-08-10b = 4.1.2 | 2026-08-11 = 4.2.0 | 2026-08-13 = 4.3.2 | 2026-08-17 = 4.4.0",
+      "rates": "2026-08-10b 27/2/29 = 0.931 (no per-expectation array, and its own fields record a different closing ruleset) | 2026-08-11 24/4/29 = 0.8276 | 2026-08-13 24/4/29 = 0.8276 | 2026-08-17 24/4/29 = 0.8276",
+      "moved_at_this_run": {
+        "e2.1": "PASS (4.2.0) -> FAIL (4.3.2) -> PASS (4.4.0) - RESTORED to its 4.2.0 state, not a new gain",
+        "e2.2": "PASS (4.2.0) -> FAIL (4.3.2) -> PASS (4.4.0) - RESTORED to its 4.2.0 state, not a new gain",
+        "e2.6": "PASS -> PASS -> FAIL - held across two prior runs and two skill versions before breaking here",
+        "e3.1": "PASS -> PASS -> FAIL - held across two prior runs and two skill versions before breaking here",
+        "e3.3": "FAIL -> FAIL -> PASS - first pass in any record carrying expectation-level data",
+        "e4.4": "PASS -> PASS -> FAIL - held across two prior runs and two skill versions before breaking here"
+      },
+      "never_passed_in_any_record": {
+        "e4.5": "FAIL -> FAIL -> FAIL, on a byte-identical expectation, by three different executors across three skill versions. The failing CLAUSE moved (click-landscape rationale in the first two, tunable-defaults label here), which is why it is a repeat failure rather than a stuck one, but no run has ever satisfied all three parts."
+      },
+      "stable_passes": "19 expectations have passed in every record that graded them: e1.1-e1.6, e2.3(void), e2.4, e2.7, e3.2, e3.4, e3.6, e4.1, e4.2, e4.3, e4.6, e5.1, e5.2, e5.3(void).",
+      "what_the_trajectory_shows": "Three runs at an identical 0.8276 with 6-10 expectations moving underneath each time. The rate has now been flat across three consecutive runs and three skill versions while the composition changed every time, which is a stronger statement than any single record's headline_caution could make: for this suite the pass rate is measuring nothing, and only the per-expectation diff carries information."
+    }
+  },
+  "instrument_defects": {
+    "count": 0,
+    "what_was_looked_for": [
+      "an expectation demanding a settled number for one of the thirteen rows the skill's own 'Open threshold decisions' table leaves open (OPEN-FINDINGS row 65) - checked row by row against all 29 expectations: none does. No expectation reaches the DA/DR authority scale, the crawl-error 50% trigger, the four page-level traffic rows, the two citation-rate priorities, the single-daily-5xx question, the monthly referring-domain row, or any of the four prompt-level k values.",
+      "an expectation whose satisfaction would breach a binding repo rule - specifically e4.4's 'hands ... to content-refresher's AI Overview recovery playbook' against the Reader Test's ban on skill slugs in client prose. NOT a defect: the playbook name is not a slug, client-language routing satisfies the clause, and a labelled in-fence operator block is the ruling's own sanctioned alternative (and is what the prior run used).",
+      "two expectations in one suite that cannot both be satisfied - e2.6 (add a site-down/5xx alert) against e2.7 (invent no current site metrics): compatible. e1.3 (no unlabelled non-derived threshold) against e1.4 (-30% kept only as a labelled backstop): compatible. e5.3 against e5.4: the conflict the two previous graders raised was RULED and removed on 2026-08-17 by the carve-out now in e5.3's text.",
+      "an expectation grading a rule no skill surface states (F13/F17 shape) - each failing clause traced to its carrier before the FAIL was recorded: e2.6's site-down row to alert-configuration-templates.md L165; e3.1's uncertainty requirement to guide §9.3 for its re-glossing half ONLY; e4.4's response path to SKILL.md L352, the guide's GEO Response path and templates L405; e4.5's tunable-defaults label to the guide's GEO section opening and SKILL.md L352. THREE OF THE FOUR ARE CARRIED. [CORRECTED 2026-08-17 by the second-reader pass — this field originally read '... to the skill's own hypothesis discipline and guide §9.3 ... All four are carried', and that was wrong for e3.1. Re-checked at the exact graded version 61ac57a across SKILL.md and both reference files: 'hypothesis' 0 hits, 'probable' 0, 'root cause' 0, 'verification' 0, 'unverified' 0, 'leading explanation' 0 — there is no hypothesis discipline in this skill to trace to. Guide §9.3 at that version is titled 'A quoted definition is quoted once' and governs re-glossing a client's own definition, which is exactly and only what the e3.1 EVIDENCE field cites it for (reason 4). The three other traces were re-verified present at the exact lines named. The e3.1 VERDICT is unchanged and was not re-graded; what changes is its classification — e3.1 is an UNCARRIED-RULE failure, which is why commit 6c14e35 subsequently added the rule to the skill. See second_read.correction_made.]",
+      "the two suite findings the prior record raised (S2 on the missing 2.5 s carrier, S3 on the missing R3 carrier): S2 is CLOSED - alert-threshold-guide.md now carries the numeric CWV boundaries beside the status words and SKILL.md states the settled set with R4 named. S3 is CLOSED - the guide's never-fired-row triage now carries the FAQ rich-result case and R3 by name."
+    ],
+    "found": []
+  },
+  "coverage_gaps": {
+    "framing": "The single most valuable output of this grading. The 4.3.2 -> 4.4.0 wave added ~490 lines across SKILL.md and both references and the suite gained nothing; open finding 144 predicted exactly this ('alert-manager's k of N rule' named among the gradable behaviours no expectation grades). Below, ordered by how much of the skill each leaves unmeasured. Every item was checked by scanning all 29 expectation texts for the behaviour, not by memory.",
+    "gaps": [
+      {
+        "id": "CG1",
+        "severity": "major",
+        "behaviour": "THE ENTIRE PROMPT-LEVEL ANSWER CATEGORY. SKILL.md step 2 defines four rows (brand absent from answers, recommendation position drop, competitor enters the answer set, cited URL is a non-owning property), each per engine and per prompt cluster, with the guide devoting a whole subsection and four of its thirteen open decisions to them.",
+        "graded_by": "NOTHING. Zero of 29 expectations mentions a prompt-level row, the prompt as a unit, or any of the four conditions.",
+        "cost": "e4 configured all four correctly - band 'none - boundary alert' with the reason stated, priorities marked proposed and awaiting confirmation, the cannibalisation row routed to the ownership contest rather than to content work, and the `no owner assigned` case treated as a finding rather than a blank. None of that was scored, and a future run that omits the category entirely would score identically."
+      },
+      {
+        "id": "CG2",
+        "severity": "major",
+        "behaviour": "THE `k of N` SAMPLING RULE - 'No prompt-level alert ever fires on a single capture'; N >= 3 repeats per prompt per engine per cycle; both numbers written into the alert ('named in 0 of 3 captures', never 'not named'); two-consecutive-cycle confirmation; failed captures logged with their reason and reducing N; per engine never pooled; a configuration that cannot run the repeats ships those rows off and says so. Two full Output Validation checkboxes (SKILL.md L232-233).",
+        "graded_by": "NOTHING.",
+        "cost": "This is the deepest thing e4 did - §6.1 reframes the client's whole Friday sheet as an observation log, §6.7 gives a nine-item ranked change list with a stated cost and an affordable fallback, and the entire GEO category ships 'defined, not live' with the reason. It is also the rule that decides whether e4.4's citation loss counts as fired, which is the pivot the graded arithmetic sits on. Ungraded in both directions: a deliverable that fires a citation alert off one capture would pass e4.4 exactly as this one did."
+      },
+      {
+        "id": "CG3",
+        "severity": "moderate",
+        "behaviour": "THE ALERT-COUNT TABLE'S OWN INTEGRITY - SKILL.md step 5 and Output Validation: 'The alert-count table adds up both ways and its bottom-right cell equals the stated Total Active Alerts.' This is the most mechanically checkable rule the skill has.",
+        "graded_by": "NOTHING.",
+        "cost": "e2's 22-row and e4's 44-row tables both reconcile perfectly by row, by column and against the prose total, and both were verified against the row-by-row definitions above them - unrewarded. A suite that grades no checkable rule is leaving its cheapest expectation on the table."
+      },
+      {
+        "id": "CG4",
+        "severity": "moderate",
+        "behaviour": "THE ONE-OBSERVATION-GRADED-ONCE RULE - 'where two rows could fire on the same event, grade it on the row that names it most specifically and say which' (SKILL.md step 2; the guide's 'One event, one row' section, written after a real defect that made a whole band unreachable).",
+        "graded_by": "NOTHING directly.",
+        "cost": "Applied explicitly and correctly three times across the run - e3 L72 (page-1 exit not double-graded beside the Tier-1 drop), e4 L105 (brand term graded on the brand rows not the drop rows), e4 L321 (the AI Overview event graded on AI Overview change rather than Competitor cited, with the reason). All unscored."
+      },
+      {
+        "id": "CG5",
+        "severity": "moderate",
+        "behaviour": "ANTI-SLOP FAMILIES 9 AND 10 as SKILL.md L236 states them: no alert, response plan or summary line promises a position, citation, inclusion, recommendation or share of voice on any AI surface, and none asserts what an engine does or prefers.",
+        "graded_by": "NOTHING. The nearest expectations (e3.6, e4.6) bar fabricated figures and simulated tool reads, not promises or engine dispositions.",
+        "cost": "e4 §6.8 and e3's «Τι δεν υποσχόμαστε» both handle it explicitly and well; a deliverable that promised recovery would fail no expectation in this suite."
+      },
+      {
+        "id": "CG6",
+        "severity": "moderate",
+        "behaviour": "THE `~~category` RESOLUTION RULE on client surfaces (SKILL.md L253, CLAUDE.md binding ruling, anti-slop family 7).",
+        "graded_by": "NOTHING. e2.7 bars simulating '~~SEO tool' OUTPUT, which is a different rule; no expectation grades a surviving token.",
+        "cost": "All five deliverables are clean (0 hits, scripted), so nothing was lost this run. The rule was ruled binding after tokens reached a client-facing Greek report, and this suite could not see that."
+      },
+      {
+        "id": "CG7",
+        "severity": "minor",
+        "behaviour": "THE ROLE VOCABULARY - roles drawn from the guide's single ten-role list, every role mapped to a named person before going live, and a role nobody holds DELETED rather than left in the table (SKILL.md L237).",
+        "graded_by": "e4.1 only, and it grades adaptation to the three named people rather than the vocabulary or the delete rule.",
+        "cost": "e1, e2 and e5 all ship deliberately-not-live routing tables with unfilled cells and the delete instruction; none is scored either way. e4 is the only deliverable that actually deletes a role (Legal), and that is unscored."
+      },
+      {
+        "id": "CG8",
+        "severity": "minor",
+        "behaviour": "THE §9 WRITE-UP RULES - §9.1 every 'N of M' lists its N and names both populations; §9.2 nothing 'named' that the source does not name; §9.3 a quoted definition is quoted once; §9.5 a handoff payload copies identifiers character-for-character.",
+        "graded_by": "§9.2 partially, inside e4.5's competitor clause. §9.1 partially, inside e2.4/e2.6. §9.3 and §9.5: NOTHING.",
+        "cost": "Both directions realised this run. e3 breaches §9.3 (defect D3, and the cause of the e3.1 regression) and no expectation reads it. e3 §7's domain-form note applies §9.5 exemplarily and no expectation reads that either."
+      },
+      {
+        "id": "CG9",
+        "severity": "minor",
+        "behaviour": "ALERT-EFFECTIVENESS FIGURES print their two counts and their window and are reported per priority rather than pooled (SKILL.md L240); and the alert-summary closing blocks (P0 quick reference + weekly review checklist) are appended per step 5.",
+        "graded_by": "NOTHING.",
+        "cost": "e2 §1 declines MTTA/MTTR with the reason (the log has no timestamps) and names the two columns that would fix it - a textbook application, unscored. e4 appends both closing blocks and extends the checklist with a prompt-level `k of N` line; e2 appends neither. Nothing distinguishes them."
+      },
+      {
+        "id": "CG10",
+        "severity": "minor",
+        "behaviour": "SENTIMENT IS ALERTED ONCE, on the Negative Mention row, from the recorded sentiment field, with no second sentiment metric and no answer graded twice (SKILL.md L235 and step 2).",
+        "graded_by": "NOTHING.",
+        "cost": "e4 §4.6 states the rule and applies it; e2's Brand category has no negative-mention row at all and is not marked down for it."
+      }
+    ]
+  },
+  "defects_outside_the_graded_set": {
+    "what_was_looked_for": [
+      "every count and derived figure in all five deliverables re-derived from the fixtures by an independent grader script that recomputes from source rather than reading the deliverable's own arithmetic (modeb-alertmanager-grader-arith.py and modeb-alertmanager-grader-checks.py; scripts print matched evidence per row, never bare booleans)",
+      "row-and-column reconciliation of both alert-count tables against the row definitions above them",
+      "'~~' connector tokens on client-read surfaces: 0 across all five",
+      "run handles in client prose per the Reader Test - skill slugs, framework item IDs, ruling IDs, repo paths, register filenames: 0 across all five (scripted, 20+ patterns)",
+      "engine-disposition claims and promised outcomes (anti-slop families 9/10): 2 hits, both explicit negations, which is the compliant form",
+      "the retired High/Medium/Low vocabulary in a proposed configuration: 0 (present only where the deliverables quote the inherited config as the defect)",
+      "value-position placeholders in paste-ready blocks - bracket tokens, TBD, XX, 'TO SUPPLY': 0. Both skeleton fences (e1, e5) carry '# SKELETON' INSIDE the fence in the fence's own syntax, using the closed three-word vocabulary; e3's two alert-message fences and e4's quick-reference fence are fully resolved with no placeholders",
+      "Greek ruled regression families with live non-vacuity controls (e3)",
+      "abstentions where a settled ruling holds the answer (F19): 0",
+      "internal contradictions, unreconciled counts, unsourced generic assertions, and claims that contradict the client's own source file"
+    ],
+    "found": [
+      {
+        "id": "D1",
+        "where": "e2, whole document",
+        "severity": "high",
+        "defect": "No site-down, uptime or 5xx alert anywhere in a 22-row revised configuration built for a shop whose single true-positive alert in 30 days was a hosting outage. Scripted scan: 0 hits for 'site down', 'site-down', 'Site unreachable', '5xx', 'uptime', 'unreachable', 'downtime', 'server error'. The document establishes the need itself (L176: the traffic day-drop row 'is the only thing in the whole configuration that caught the outage') and closes the coverage question on two rows only (L288: 'The two security rows are new, and their absence was the most serious gap in the inherited setup'). Also scored, as e2.6. Sharpened by comparison: e1, e3, e4 and e5 all add site-down or 5xx coverage - e2 is the only deliverable in the run that does not, and it is the one reviewing an estate that was hit by an outage."
+      },
+      {
+        "id": "D3",
+        "where": "e3 L126, against fixture L24",
+        "severity": "high",
+        "defect": "The deliverable asserts the opposite of the client's own stated definition. The fixture says «Το «—» στην «άμμος γάτας» σημαίνει «δεν βρέθηκε στα αποτελέσματα» εκείνο το πρωί». The deliverable answers «**Το «—» δεν σημαίνει «θέση 0» και δεν σημαίνει «εκτός αποτελεσμάτων».** Σημαίνει ότι το εργαλείο δεν επέστρεψε τιμή.» alert-threshold-guide.md §9.3 forbids even re-glossing a client's own definition ('quote it verbatim and then use those words ... do not restate it'); this negates it. It is load-bearing rather than incidental - it is reason 4 of four presented as each sufficient alone, and it is what turns a probable artifact into a stated fact. Also scored, as e3.1. RECURRENCE of the prior record's D6 at greater severity, which is why the earlier one mattered."
+      },
+      {
+        "id": "D4",
+        "where": "e4, whole document",
+        "severity": "medium",
+        "defect": "The citation-loss response path is absent in every permitted form - no client-language routing and no operator block (0 hits for 'content-refresher', 'recovery playbook', 'AI Overview recovery', 'refresh', 'operator block'). Also scored, as e4.4. Worth separating from the score because of what disappeared: the prior blind run carried the handoff inside a labelled operator fence, which is the Reader Test's sanctioned device, and this run uses no operator block at all. Nothing in SKILL.md or either reference tells a writer that an operator block is available or when to use one; the device exists only in references/inter-skill-handoff.md §3.1, which this skill does not route to."
+      },
+      {
+        "id": "D5",
+        "where": "e4 §4.6, L176-190",
+        "severity": "medium",
+        "defect": "The nine GEO citation rows carry live thresholds - 10 percentage points, a 10% absolute floor, a 2-slot position slip - with no tunability label, while the four prompt-level rows immediately below them carry an exemplary one. Also scored, as e4.5. Recorded separately because the pattern is diagnostic: the deliverable adopted the skill's NEW and more emphatic framing ('proposed default awaiting the client's confirmation', which SKILL.md 4.4.0 states three times) and dropped the older 'tunable operational defaults' framing that governs the citation rows. That is an executor following the loudest instruction, and it points at a skill-side fix rather than at carelessness."
+      },
+      {
+        "id": "D6",
+        "where": "e1 §3, L114-119 against §2, L53-59",
+        "severity": "low",
+        "defect": "The alert rows A1-A3 and A4-A6 use open-ended triggers ('Mon-Fri day <= 292.5 clicks', '<= 286.5', '<= 274.6') that overlap, so a 270-click Tuesday satisfies all three - two rows firing on one event, which is the exact failure the skill's one-observation-graded-once rule exists to prevent. §2's band table defines the same ladder correctly as mutually exclusive ranges, and A9 does it correctly in one row ('Warning at 1,946.7, Critical at 1,939.8, Emergency at 1,926.1 ... by the level reached'), so the document disagrees with itself between sections 2 and 3. No expectation reads it."
+      },
+      {
+        "id": "D7",
+        "where": "e2 L113",
+        "severity": "low",
+        "defect": "'a configuration inherited from before March 2024 has no responsiveness monitoring at all' - the fixture says this configuration was 'set up autumn 2024', six months AFTER the metric it monitors was retired. The sentence is a generic claim rather than a false statement about this client, so it is not a fabrication, but it obscures the sharper true finding sitting in the fixture: the agency built a FID row on an already-dead metric."
+      },
+      {
+        "id": "D8",
+        "where": "e3 §3 (L95-104) against §4 (L128)",
+        "severity": "low",
+        "defect": "§4 declares the whole 05/08 column unreliable and says «σωστά την αγνοούμε», and §3's stable-keyword table then uses that column in its five-day ranges. Excluding it, three of the eight ranges narrow (τροφή γάτας urinary 9-10 -> 10, κλουβί παπαγάλου 3-4 -> 3, σαμπουάν σκύλου 9-10 -> 9). No conclusion changes - grader-verified that all eight stay below their own tier thresholds either way - but the document applies its own exclusion rule in one section and not the other."
+      },
+      {
+        "id": "D9",
+        "where": "e4 §4.3, L143-144",
+        "severity": "low",
+        "defect": "The 4xx ladder is truncated at Critical (>5/day Warning, >20/day Critical) while the guide's Technical Thresholds table carries a third rung (>100/day Emergency) and the 5xx ladder in the same deliverable table carries all three. No reason is stated for the asymmetry. e5, which is the deliverable actually graded on stating fixed absolutes, carries all three 4xx rungs correctly."
+      },
+      {
+        "id": "D10",
+        "where": "e5 L42",
+        "severity": "low",
+        "defect": "'Suppose I write \"expect 40-90 sessions a day\"' puts the only daily-traffic range in the document on the page for a site whose whole thesis is that no such range exists. It is a rhetorical counterfactual, immediately dismantled in both directions, and it is not presented as this site's range - which is why e5.1 passes cleanly. Recorded because the Value Rule's founding reason is that a reader copies the artefact and not the framing around it, and a number in quotation marks is the prose analogue of a value inside an unlabelled fence."
+      },
+      {
+        "id": "D11",
+        "where": "e2 §6, L305-320",
+        "severity": "informational",
+        "defect": "The revised configuration's count table shows GEO 0 and Competitors 0 and never comments on either. The fixture supplies no AI or competitor data so the abstention is defensible, but e4 names its own zero categories explicitly ('4.4 Backlinks - 0 alerts, and this is a gap'; '4.5 Competitors - 0 alerts, and this is a gap') and e2 does not, so an estate review presents two empty categories as if they were considered."
+      },
+      {
+        "id": "D12",
+        "where": "e2, whole document",
+        "severity": "informational",
+        "defect": "SKILL.md step 5 requires the alert summary to append two closing blocks - the P0 quick-reference steps and the weekly alert review checklist - from the templates file. e2 produces a full revised configuration with a category count table and a stated Total Active Alerts and appends neither. e4 appends both. No expectation reads it (CG9)."
+      }
+    ],
+    "notable_absences_screened_and_not_found": "Zero '~~' tokens, zero skill slugs or ruling IDs or repo paths in client prose, zero promised outcomes, zero engine-disposition assertions, zero High/Medium/Low grades in any proposed configuration, zero value-position placeholders, zero invented benchmarks or attributed statistics, zero simulated tool reads, and zero arithmetic errors of any kind across roughly 90 recomputed figures."
+  },
+  "arithmetic_check": {
+    "method": "Every count and derived figure recomputed from the fixtures by two independent grader scripts, never from the deliverables' own arithmetic. Scripts print the matched value beside the stated value per row (ledger F7: no bare booleans, and every flagged failure re-read in the raw deliverable before reporting).",
+    "fixture_integrity": "All six week totals in gsc-clicks-baseline recompute from their own daily cells (1972/1971/1676/1973/1977/1943); the fire log's stated totals recompute (160 fires, 10 actionable across nine rows).",
+    "e1": "RECONCILES IN FULL. Weekday n=29 mean 310.3448 sd 11.9082; weekend n=12 mean 205.9167 sd 11.4134; weekly clean n=5 mean 1967.2 sample sd 13.7186 / population sd 12.2703; all-clean-days n=41 mean 279.7805. Ladder bounds 298.4 / 292.5 / 286.5 / 274.6 and 194.5 / 188.8 / 183.1 / 171.7 and 1953.5 / 1946.7 / 1939.8 / 1926.1 all exact. -30% -> 1,377.0 at z = -43.08; -15% -> 1,672.1 at z = -21.54; 1,700 clicks = -13.58% at z = -19.5; the outage week 1,676 = -14.80%. CTR per week 3.3767/3.4041/2.8263/3.3959/3.3508/3.3733, clean-weeks aggregate 9,836/291,000 = 3.38007%, mean of weekly CTRs 3.38017% with sd 0.02086 pp, outage-week z = -26.55. The six-week back-test reproduced independently: 3 weekday Warnings (2026-07-01 z=+1.99, 07-10 z=-1.79, 07-17 z=+1.74), 7 weekday Info, 2 weekend Warnings (07-12 z=-1.57, 07-25 z=+1.76), 2 weekend Info, 1 weekly Warning (week of 07-27, z=-1.77) - every count and every named date matches the deliverable exactly.",
+    "e2": "RECONCILES IN FULL. 150/160 = 93.75% (stated 93.8%); per-row 112/118 = 94.9%, 8/9 = 88.9%, 26/28 = 92.9%, 0/1 = 0%, 4/4 = 100%; rows 1+8 = 146/160 = 91.25% (stated 91.3%, round-half-up) carrying 8 of the 10 actionable. The 22-row count table reconciles by row (4/3/10/4/0/0/1), by column (4/10/7/1) and against the prose Total Active Alerts (22), and every cell was re-derived from the row definitions in §6 rather than from the table. 'Roughly fifty a year' from 4 mentions in 30 days = 48.7, hedged. 'Five months of silence' from March to August 2026, correct.",
+    "e3": "RECONCILES IN FULL. Deltas 03/08 -> 07/08: 16-4 = 12, 19-6 = 13, 15-5 = 10 - all inside the required 10-13. Server-log 500s 0/6/44/51/47 summing to 148, matching the deliverable's «148». Five uptime windows with exact start times and durations. Band assignments correct against the guide's 5xx ladder (6 > 5 = Critical -> P1; 44/51/47 > 20 = Emergency -> P0). All eight stable keywords' ranges and their 'maximum 2 positions in five days' claim verified true against the fixture. Tier-1 override applied correctly (Critical default P1, raised one level to P0, reason in the same line).",
+    "e4": "RECONCILES IN FULL. Traffic ladder from mean 1,967 / sd 13: 1,954 / 1,947.5 / 1,941 / 1,928 and the 1,986.5 spike bound, all exact; drop percentages 0.99% and 1.98% (stated 1.0% and 2.0%). Citation window recount from the sheet: exactly 5 priority-1 rows, exactly 2 yes->no flips («ξηρά τροφή σκύλου», «τροφή κουταβιού»), exactly 1 no->yes win («ενυδρείο για αρχάριους»), and 2 < 3 so the cluster rung is correctly refused. The 44-row count table reconciles by row (4/7/18/0/0/13/2), by column (8/16/18/2) and against the prose total; 44 - 13 = 31 live; 8 P0 rows matches 'Only 8 of the 44 can ever reach a phone'.",
+    "e5": "RECONCILES IN FULL. Row counts independently recounted from the section tables: 15 ranking rows, 24 technical rows (22 switched on today, 2 index-coverage rows held to week 6), 2 traffic boundary rows, 6 percentage steps in §4 - every one matching the §8 summary. Timetable date checked: 2026-08-17 + 4 weeks = 2026-09-14, as stated. The n-1 versus n divergence figures (12% at 5 points, 2% at 28, under 1% at 60) reproduce the guide's own text exactly.",
+    "discrepancies_found": "NONE. Across roughly 90 recomputed figures spanning five deliverables and four fixtures, not one number fails to reconcile."
+  },
+  "scope_question_the_grader_was_asked_to_rule_on": {
+    "question": "SKILL.md Output Validation L232 opens with a universal headline - 'No alert condition ANYWHERE in the configuration can fire on a single capture of a generated answer' - and in the same sentence narrows the mechanism to 'every PROMPT-LEVEL row states its `k of N`'. The suite's nine GEO citation rows read a generated answer and carry no `k of N`. Must they be rewritten, or may they ship as-is?",
+    "the_texts_disagree_with_each_other": "alert-threshold-guide.md's GEO/AI Visibility Thresholds section (the nine citation rows) says nothing at all about sampling, and its separate Prompt-Level Answer Thresholds section carries the entire sampling rule and states it as that subsection's own precondition. So the GUIDE supports the narrow reading and SKILL.md's Output Validation headline supports the broad one. This is a genuine internal disagreement between two surfaces of one skill, and it is a finding about the skill rather than about any deliverable.",
+    "what_the_deliverable_did": "e4 took the BROAD reading and applied it consistently: §4.6's blanket sentence covers both tables ('Every condition below is stated as a `k of N` ... and every one requires confirmation across two consecutive cycles before it fires'), the whole 13-row GEO category ships 'defined, not live', and §6.1 states the reason from the client's own data ('Nikos checks each query once per Friday ... one capture per query per week').",
+    "grader_view": "DEFENSIBLE AND CONSISTENTLY APPLIED, and the safer of the two readings. The behaviour the universal headline demands is exactly what shipped - no row that reads a generated answer can fire on one capture, every such row is off, and the reason is stated in the deliverable rather than left for the client to infer. Two wrinkles, neither of them a scope error: (i) the blanket sentence is literally false of six of the nine citation rows as written, since only three carry an explicit `of N` in their condition text; (ii) reading the priority-1 loss as an unfired candidate is the most likely reason the citation-loss response path went unwritten, which is scored as e4.4. Graded on its own reading, as instructed.",
+    "recommendation_to_the_coordinator": "Rule the scope explicitly in SKILL.md L232 rather than leaving the headline and the mechanism to disagree, and say the same thing in the guide's GEO citation section. Either extend `k of N` to every row that reads a generated answer (which is what this deliverable did and which the headline plainly says), or scope the headline to the four prompt-level rows and give the nine citation rows their own stated sampling posture. An ambiguity this load-bearing decides how a whole category ships."
+  },
+  "tool_correctness": {
+    "tool_errors_encountered": [
+      "scripts/eval-prompt.sh: the `--ids` listing prints ids with an `e` prefix ('  e1  We run Petshop Mikroulis...') while the id lookup requires the bare id. `scripts/eval-prompt.sh monitor/alert-manager e1 --grade` exits 2 with 'no eval with id e1 in monitor/alert-manager'; `... 1 --grade` works. The listing's output cannot be pasted back into the tool that produced it. Costs one failed round trip per user and is a trap for a blind executor working under a no-browse rule, since the obvious next command errors. Fix: print the bare id in `--ids`, or accept an optional `e` prefix in the lookup. Reproduced twice; script itself is otherwise correct and its blindness guarantee holds."
+    ],
+    "expectations_not_gradable_as_written": [
+      "e3.5 - by design; EDITOR-PENDING pending the binding greek-content-editor report."
+    ],
+    "checker_verification": "Every FAIL was confirmed by reading the raw deliverable at the flagged location and quoting it before it was recorded (ledger F7). Both grader scripts recompute from the fixtures rather than from the deliverables and print the matched value beside the stated value on every row; no check returns a bare boolean. The two count tables were re-derived cell by cell from the row definitions above them, not read off the tables. Greek screens were written in Python with explicit character classes rather than grep ranges, and every negative screen carries a live non-vacuity control (e.g. 0 barred calques against 4 confirmed native constructions), per ledger F15.",
+    "scope_drift": "none. This grader produced no alert-manager output at any point, did not re-run the skill, did not read the executor's transcript or any other agent's output, and read exactly one file under docs/loop/eval-baselines/ (the blind-2026-08-13 record, as the task permitted, for schema and for the regression comparison). The only repository write is this file.",
+    "grader_working_files": [
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-alertmanager-grader-arith.py",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-alertmanager-grader-checks.py",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-alertmanager-grader-prev-evals.json"
+    ]
+  },
+  "ambiguous_expectations_eval_improvement": [
+    {
+      "id": "A1",
+      "expectation": "e2.1",
+      "issue": "'The FID row is flagged as a config defect PER SETTLED RULING R4 (docs/loop/SETTLED-RULINGS.md)' reads to a strict grader as requiring the deliverable to cite the ruling. Citing a ruling ID in client prose is banned by the Reader Test (CLAUDE.md, finding 80, ruled 2026-08-13), so a literal reading would demand a rule violation. Graded on substance here - the ruling is the GRADER's authority, not a required string - but the wording should say so, because this suite has three expectations naming rulings this way (e2.1, e2.2, e2.3) and every one of them is on a client-facing surface."
+    },
+    {
+      "id": "A2",
+      "expectation": "e4.5",
+      "issue": "Third consecutive failure of this expectation, second failing clause. The tunable-operational-defaults label exists in exactly one guide sentence and one SKILL.md sentence, and 4.4.0 added a LOUDER competing framing right beside it ('proposed default awaiting the client's confirmation', stated three times) that applies only to the prompt-level rows. An executor reading the newest and most emphatic instruction applies it there and drops the older one. Either reconcile the two framings in the skill so one rule covers the whole GEO category, or split e4.5 into three expectations so the two clauses this deliverable satisfied are not erased by the one it missed."
+    },
+    {
+      "id": "A3",
+      "expectation": "e2.6",
+      "issue": "Five independent clauses in one expectation - the dead-sensor count, the dead-feed diagnosis, the SSL keeper, the missing-Critical coverage, and the R5 unlinked-mention question, the last of which carries its own explicit PASS/FAIL rubric. This run satisfies four and fails one, and scores zero. The missing-Critical clause should be its own expectation; as written, the suite cannot distinguish a deliverable that endorses the 'nothing to get' premise from one that merely forgets a site-down row."
+    },
+    {
+      "id": "A4",
+      "expectation": "e4.4",
+      "issue": "Same shape as A3. The citation arithmetic - which this deliverable did exactly right, including the 2 < 3 refusal that the 4.3.x rewrite was built to test - is bundled with the response-path handoff. Splitting them would also let the suite record that the closed rungs reached the executor, which is the evidence the rewrite worked. Additionally, the clause should state that client-language routing or a labelled in-fence operator block both satisfy it, since the bare slug is banned in client prose."
+    },
+    {
+      "id": "A5",
+      "expectation": "e2.5",
+      "issue": "Calls rows 1 and 2 'the two noisiest rules'. By fire count the two noisiest are row 1 (118) and row 8 (28); row 2 fired 9 times. The expectation names both rows explicitly so grading is unambiguous, but the label is wrong against its own fixture and would mislead a grader reading the phrase before the parentheses."
+    },
+    {
+      "id": "A6",
+      "expectation": "e1.2",
+      "issue": "'each stated mean carrying its population and VISIBLE DERIVATION' does not define what makes a derivation visible. This deliverable names each population, its recorded n, its used n and its exclusions, and prints every downstream bound with its multiplier, but never prints the division itself (9,000 / 29). Graded PASS. The wording should say whether the sum-over-n is required or whether population plus n plus a checkable downstream chain suffices."
+    },
+    {
+      "id": "A7",
+      "expectation": "e3.3",
+      "issue": "Resolved rather than ambiguous, recorded to close the prior record's A1. 'Verification precedes diagnosis' failed three consecutive blind runs and passes here without any change to the guide's playbooks, so the prior recommendation (add a ranking-incident playbook, or grade presence rather than position) can be reconsidered on this evidence rather than acted on."
+    }
+  ],
+  "second_read": {
+    "date": "2026-08-17",
+    "reader": "second-reader narrowed pass (not a re-grade); one of four records in this lane",
+    "repo_head_at_second_read": "b5135d431aeef7910426d03c82bcf5828d6ece99",
+    "scope": "Deliberately NOT a full second grading. Three moves only: (1) recompute every figure, count, tally, percentage or derivation the record QUOTES inside its own evidence and defect entries; (2) a spelled-out-number sweep in English and Greek against the fixtures (ledger F15-r5 instance 2 — the fabrication screens in this corpus enumerate digits, so a number written as a word passes them); (3) currency at HEAD, on two independent axes — ruling M2 version currency and expectation-count drift. No expectation was re-graded and no skill, script, suite or register was edited.",
+    "f7_discipline": "Every finding below was taken to the source file and read there before it was written down. Three candidate findings were reached by recomputation or grep and then CLEARED by opening the source; they are listed under `nearly_recorded_then_cleared` because a narrowed pass that manufactures findings is worse than no pass.",
+    "move_1_numbers_recomputed": {
+      "verdict": "35 of 35 quoted figures reproduce. No arithmetic error found.",
+      "fixture_arithmetic": [
+        "gsc-clicks-baseline six week totals recompute from their own daily cells: 1972/1971/1676/1973/1977/1943 — all six exact.",
+        "Six weekly CTRs recomputed from clicks÷impressions: 3.3767/3.4041/2.8263/3.3959/3.3508/3.3733; e1.md:219-224 prints 3.377/3.404/2.826/3.396/3.351/3.373 — exact at the rounding shown.",
+        "Weekday population: 30 cells, 29 used, mean 310.3448 → printed 310.3; sample sd 11.9082 → printed 11.9 (e1.md:38). Weekend: 12 cells, mean 205.9167 → 205.9, sd 11.4134 → 11.4. Weekly: mean 1967.2, sample sd 13.7186 → 13.7. All as printed.",
+        "CTR baseline mean 3.3802 → printed 3.380; sd 0.0209 → printed 0.021; aggregate 9,836 ÷ 291,000 = 3.3801% → 3.380% — the two routes agree as the deliverable claims.",
+        "Fire log: 118+9+0+0+0+0+1+28+4 = 160 fires; 6+1+0+0+0+0+1+2+0 = 10 actionable. 150/160 = 93.75 → 93.8%; 112/118 = 94.92 → 94.9%; 8/9 = 88.89%; 26/28 = 92.86 → 92.9%; 4/4 = 100%; 0/1 = 0%; rows 1+8 = 146/160 = 91.25 → 91.3% carrying 8 of the 10 actionable. Every one exact.",
+        "e3 incident: 3 of 12 keywords moved, deltas 12/13/10 (4→16, 6→19, 5→15), all on /trofes-skylou/ — exact. The 8 stable keywords have five-day ranges of 0/1/1/1/2/1/2/1, so 'no stable keyword moved more than 2 positions' holds.",
+        "e3 500-count citations 05/08=44 and 06/08=51 match the fixture rows exactly.",
+        "e4 citation window recount from the brief: exactly 5 priority-1 rows; exactly 2 yes→no flips (ξηρά τροφή σκύλου, τροφή κουταβιού); exactly 1 no→yes win (ενυδρείο για αρχάριους); the never-cited grain-free row correctly excluded. 2 < 3, so the cluster rung is correctly refused."
+      ],
+      "deliverable_internal_tallies": [
+        "e4.md:220-229 alert-count table recounted cell by cell: rows 4/7/18/0/0/13/2 = 44; columns 8/16/18/2 = 44; every row's own cells sum to its stated total. 44 − 13 = 31 live (e4.md:231). P0 column = 8, matching 'Only 8 of the 44 can ever reach a phone' (e4.md:235). The record's claim reconciles both ways, as stated.",
+        "Cross-check the record did not make and which holds: the GEO category's 13 = 9 citation rows (e4.md:180-188) + 4 prompt-level rows, so the category total reconciles with the sections beneath it.",
+        "e2.md:307-318's sibling table also reconciles (rows 4/3/10/4/0/0/1 = 22; columns 4/10/7/1 = 22; 22 − 6 CWV = 16 live). Ungraded and unquoted by the record; checked because the record's claim had to be scoped to the right eval.",
+        "e4 traffic ladder recomputed from mean 1,967 / sd 13: 1,954 / 1,947.5 / 1,941 / 1,928 and the +1.5sd spike bound 1,986.5 — all exact against e4.md:113-117. Derived percentages: 19.5/1967 = 0.99% (printed '1.0% shortfall') and 39/1967 = 1.98% (printed '2.0% weekly drop').",
+        "e5 row counts recounted from the section tables: 15 ranking rows, 24 technical rows (22 minus the 2 index-coverage rows held to week 6), 2 traffic boundary rows, 6 percentage steps in §4 — every one matching the §8 summary at e5.md:283-284.",
+        "Scripted scans re-run: e2 returns 0 hits for 'site down', 'site-down', 'Site unreachable', '5xx', 'uptime', 'unreachable', 'downtime', 'server error'. e4 returns 0 for 'content-refresher', 'recovery playbook', 'AI Overview recovery', 'refresh', 'operator block'. 'proposed default' returns exactly 1 hit, in e4 only, at the line the record names.",
+        "Suite-stability claim '27 of 29 expectation texts byte-identical between the two runs' verified against the suite blobs: 27 identical, e2.3 and e5.3 changed, all 5 prompts identical. Exact."
+      ],
+      "taken_on_trust_not_re_verified": [
+        "The Greek register and naturalness judgements in the e3.5 editor-pending slot — outside a second reader's remit and correctly referred to the greek-content-editor.",
+        "The qualitative reasoning in each PASS verdict. Only quoted quantities were recomputed.",
+        "The prior-run comparisons against blind-2026-08-11, which this pass did not open (the 2026-08-13 comparison WAS re-derived, above)."
+      ]
+    },
+    "move_2_spelled_out_numbers": {
+      "method": "English and Greek cardinals swept across all five deliverables, then filtered to quantities attached to a countable noun and checked against the four fixtures and the skill.",
+      "result": "NO fabrication found. Every spelled-out quantity traces to the fixture, to the skill, or to the deliverable's own table.",
+      "checked_and_cleared": [
+        "e4.md:24 'The standard routing vocabulary has ten roles' — traceable: alert-threshold-guide.md:562-563 lists exactly ten (SEO Lead · SEO Analyst · SEO Team · Content Lead · Engineering Lead · Engineering Team · DevOps · Marketing Manager · Marketing VP · Legal), and the deliverable's own table names the same ten.",
+        "e4.md:411 'Nikos holds five of the ten standard hats' — the role table assigns him SEO Lead, SEO Analyst, SEO Team, Content Lead and Marketing Manager = 5 of 10.",
+        "e1.md:16 'twenty-two standard deviations below normal' — (41 − 310.3) ÷ 11.9 = −22.63, printed beside it in digits.",
+        "e1.md:174 'Four mentions in 30 days is roughly fifty a year' — 4 × 365/30 = 48.7, hedged 'roughly'.",
+        "e2.md:119 'Five months of silence' — the CWV feed lapsed March 2026, log window ends August 2026.",
+        "e2.md:186 'Twenty-two rows against the old nine' and e4.md:233 'Forty-four rows' — both match their own count tables; the old nine is the fixture's configuration row count.",
+        "e4.md:444 'Ten queries × three repeats is 30 captures' and 'three repeats on the five priority-1 queries only — 15 captures' — the sheet has 10 rows and 5 priority-1 rows; both products exact."
+      ],
+      "class_specifically_searched_for_and_absent": "No claim about the agency's own history, prior engagements, other clients or unnamed studies appears anywhere in the five deliverables, in either language (the F15-r5 instance-2 shape). Zero hits."
+    },
+    "move_3_currency_at_head": {
+      "version": {
+        "graded": "4.4.0",
+        "head": "4.5.0",
+        "verdict": "NOT CURRENT under ruling M2. The record is stale and the suite is re-run; no lane may clear it by judging the bump empty.",
+        "and_the_bump_is_not_empty": "6c14e35 (2026-08-17 18:01) changed 3 files, +88 lines, and it lands directly on this record's own failures. It adds site-availability floor coverage to alert-configuration-templates.md and to SKILL.md Output Validation — the e2.6 failing clause — and adds 'an explanation the run has not verified is the leading explanation and never settled fact' — the e3.1 failing clause. Two of this record's four FAILs were graded against a skill that has since been edited because of them, so the per-expectation diff this record's own headline_caution says is the only informative layer is the part most affected."
+      },
+      "denominator": {
+        "record_total": 29,
+        "head_total": 29,
+        "verdict": "CURRENT. `git diff 206f2d3..HEAD -- monitor/alert-manager/evals/evals.json` is empty, so no expectation was added, removed or reworded after this run closed. The pass rate's denominator is sound; only the version axis fails."
+      }
+    },
+    "correction_made": {
+      "field": "instrument_defects.what_was_looked_for[3]",
+      "was": "'... e3.1's uncertainty requirement to the skill's own hypothesis discipline and guide §9.3 ... All four are carried.'",
+      "finding": "The e3.1 half of that trace does not reproduce, and 'All four are carried' is therefore false. Checked at the exact version the record graded (61ac57a, 4.4.0), across SKILL.md and BOTH reference files: 'hypothesis' 0 hits, 'probable' 0, 'root cause' 0, 'verification' 0, 'unverified' 0, 'leading explanation' 0. There is no hypothesis discipline in this skill to trace to. And §9.3 at that version is titled 'A quoted definition is quoted once' and governs re-glossing a client's own definition — which is what the e3.1 EVIDENCE field correctly and narrowly cites it for (reason 4, the re-definition of «—»). The overreach is only in this summary field, which generalised a narrow correct citation into a carrier for the whole uncertainty requirement.",
+      "the_other_three_verified_present": "e2.6 → alert-configuration-templates.md:165, the Site Down row, present at that exact line. e4.4 → SKILL.md:352, the citation-loss response path naming content-refresher, present. e4.5 → SKILL.md:352's 'tunable operational defaults' sentence and alert-configuration-templates.md:405/407, present. So the claim is right for three of four and wrong for one.",
+      "independent_corroboration": "Commit 6c14e35's own message reports the same thing from the other side — 'One grader error recorded: on the hypothesis expectation, that record's instrument-defects field traces all four failing clauses to a carrier, and for this one the trace is wrong -- the carrier it names does not exist.' Reached here independently by grepping the graded tree before that message was read, and it agrees.",
+      "action": "The sentence is corrected in place, because a falsified sentence left standing is quotable. The e3.1 VERDICT is unchanged and was not re-graded: the deliverable did assert the artifact as settled fact either way. What changes is the classification — e3.1 is an UNCARRIED-RULE failure (F13/F17 shape), not a run-at-fault one, which is why the skill was edited afterwards. summary and per_eval are untouched because no verdict moved."
+    },
+    "nearly_recorded_then_cleared": [
+      "The 44-row alert-count table. Grepping e2.md first found a 22-row table whose totals are 22/22, not the record's 44 with rows 4/7/18/0/0/13/2 — which reads as a fabricated tally inside a sentence the record vouches for. Opening the other deliverables shows the 44-row table is in e4.md:220-229 and the record files it under `arithmetic_check.e4` and under expectation index 24 (an e4 slot). Correctly attributed; my grep was scoped to the wrong eval.",
+      "Standard deviation 13. The five clean weekly totals give a sample sd of 13.7186 and a population sd of 12.2703, and neither rounds to 13 — so 'mean 1,967 / SD 13' looked like an unsourced figure. It is not: the fixture states it itself at alert-system-brief-petshop-mikroulis-en.md:28, 'Mean ≈ 1,967 clicks/week, standard deviation ≈ 13'. The deliverable is carrying the client's own stated baseline and the expectation prescribes the same numbers. Cleared by reading the fixture, which is the F7 step exactly.",
+      "'27 of 29 expectation texts are byte-identical between the two runs.' Comparing the two RECORDS' `text` fields returns 0 of 29 identical, which looks like a flat falsification. Those fields are each grader's own abbreviation of the expectation, not the suite text. Compared against the suite blobs, the claim is exactly right: 27 identical, e2.3 and e5.3 reworded."
+    ],
+    "eval_improvement_observed_in_passing": "e4.6's text prescribes 'mean 1,967 / SD 13'. That is the fixture's own rounded figure and is the right thing for the deliverable to carry, but a run that recomputed the sample sd from the five weekly totals would get 13.7 — as this run's own e1 correctly does at e1.md:40 — and could read the expectation as demanding 13. Worth one clause saying the brief's stated baseline is the authority for e4. Not a defect in this record and no verdict rests on it.",
+    "disposition": "IT HOLDS on the numbers. Every quantity the record quotes reproduces from the fixture or the deliverable, including the two large internal tables it vouches for. One non-numeric claim in a summary field is corrected. The record is NOT CURRENT on version under M2 and the intervening bump is materially aimed at two of its four failures."
+  }
+}

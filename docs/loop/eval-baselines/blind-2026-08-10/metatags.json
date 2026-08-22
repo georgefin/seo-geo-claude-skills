@@ -1,0 +1,319 @@
+{
+  "suite": "metatags",
+  "skill": "meta-tags-optimizer",
+  "skill_version_executed": "4.1.2 (build/meta-tags-optimizer/SKILL.md frontmatter version and metadata.version both 4.1.2 — identical to the prior baseline's recorded 4.1.2)",
+  "run": "2026-08-10 blind-execute re-baseline",
+  "method": "WITHHELD UNTIL AFTER EACH DELIVERABLE WAS SAVED. Step 1: jq extracted ONLY {id, prompt, files} from build/meta-tags-optimizer/evals/evals.json into scratchpad/rebase-metatags-blind-prompts.json — verified by 'jq .evals[0] | keys' returning exactly [\"files\",\"id\",\"prompt\"], so no expectations or expected_output field was ever rendered. Step 2: for each eval in order 1-5, only that eval's prompt and fixture were read, the skill (SKILL.md 4.1.2) and its three reference files plus anti-slop-ruleset.md §6 were loaded, and the complete deliverable was written to rebase-metatags-out-e<N>.md. Step 3: only after saving eval N's deliverable was 'jq .evals[N-1] | .expectations, .expected_output' run for that single eval. No eval's expectations were read before its own deliverable existed, and no eval was read ahead of its turn. Step 4: no saved deliverable was edited after its expectations were seen — the e1 placeholder defect was spotted on re-read and deliberately left in place. RESIDUAL CONTAMINATION, DISCLOSED: the protocol is sequential, so from eval 2 onward I had already seen eval 1's expectations, which share themes with the later evals (character bands, the no-placeholder-in-tag rule, the no-fabrication rule). Evals 2-5 are therefore blind to their OWN expectations but not to eval 1's. This is visible in the data: the placeholder defect that failed e1.6 does not recur in e2-e5, where og:image is omitted with a prose note instead. Two accidental exposures, both harmless and recorded: (a) a 'head -c 400' of the raw evals.json printed part of eval 1's prompt only, cut off mid-sentence before any expectations field; (b) a first jq run silently read back a PARALLEL AGENT's file of the same name in the shared scratchpad, exposing the seo-content-writer suite's id/prompt/files — a different skill's suite, and only the same three blind fields.",
+  "prior_baseline": "29/29 informed-executor, 2026-08-09-e1.json",
+  "prior_baseline_comparability": "Directly comparable, and the confounder is named. Skill version identical (4.1.2 → 4.1.2). Eval wording identical: the suite's last edit is df63d1e (2026-08-09 17:01:53Z), the baseline's own execution HEADs db8f8d2 and 783ca4e both CONTAIN df63d1e (git merge-base --is-ancestor: YES for both), and 'git diff df63d1e HEAD -- build/meta-tags-optimizer/evals/evals.json' is empty. The single variable that changed is the executor's knowledge state — the prior baseline's method field records its own caveat: 'Same-session executor/grader caveat stands; blind-protocol reinstatement queued.' The prior record stores only the 29/29 aggregate with 'fail_record: null', so per-expectation diffing is impossible; but 29/29 means every expectation passed there, so each of today's four failures is a regression under the recorded rule.",
+  "totals": {
+    "pass": 24,
+    "fail": 4,
+    "editor_pending": 1,
+    "total": 29
+  },
+  "pass_rate": {
+    "counting_editor_pending_as_ungraded": "24/29 = 82.8%",
+    "of_graded_expectations_only": "24/28 = 85.7%"
+  },
+  "delta_vs_prior": "29/29 (100%) informed-executor → 24/29 (82.8%) blind-executor: minus 5 expectations, minus 17.2 points. Formally four REGRESSIONS (e1.4, e1.6, e5.1, e5.2) plus one expectation reclassified from a pass to EDITOR-PENDING (e3.4), at identical skill version and byte-identical eval wording. The honest reading is that the gap measures executor blindness, not skill decay: nothing about meta-tags-optimizer 4.1.2 changed between the two runs. The prior 29/29 was a ceiling produced by an agent that knew the answers while writing them; 82.8% is the first real measurement. It lands in the same band as the three other blind re-runs cited in the task brief (86.2%, 85.7%, 62.1%).",
+  "regressions_do_not_merge": [
+    {
+      "expectation": "e1.4 — recommended meta description must carry a clear call-to-action",
+      "status": "REGRESSION vs 2026-08-09-e1 (passed there, fails here)"
+    },
+    {
+      "expectation": "e1.6 — zero placeholder or data-needed text inside any proposed tag string",
+      "status": "REGRESSION vs 2026-08-09-e1, AND a confirmed recurrence of ledger F13's placement class"
+    },
+    {
+      "expectation": "e5.1 — ask for the missing inputs and hold the line under ship-tonight pressure",
+      "status": "REGRESSION vs 2026-08-09-e1 (passed there, fails here)"
+    },
+    {
+      "expectation": "e5.2 — no paste-ready tags for the unseen page",
+      "status": "REGRESSION vs 2026-08-09-e1 (passed there, fails here)"
+    }
+  ],
+  "evals": [
+    {
+      "id": 1,
+      "file": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-metatags-out-e1.md",
+      "expectations": [
+        {
+          "n": 1,
+          "verdict": "PASS",
+          "evidence": "rebase-metatags-out-e1.md §1: '3. **128 characters long.** Measured on the supplied source string. Desktop SERP truncates around 60; the words that match the query (\"Descaling\", \"Espresso Machine\") sit at characters 60-128 and are cut off entirely.' and '1. **No meta description exists at all.** Google is writing its own snippet from whatever text it picks off the page.'",
+          "note": "128 is inside the 118-138 band; both fixture defects named, severity-ordered."
+        },
+        {
+          "n": 2,
+          "verdict": "PASS",
+          "evidence": "Table rows '| 1 | How to Descale an Espresso Machine in 25 Minutes | Beanhaus | 59 chars |', '| 2 | ... (5 Steps, 25 Minutes) | 56 chars |', '| 3 | ... with Citric Acid (25 Min) | 60 chars |'. Checker rebase_mt_check_e1.py section A: all 8 emitted title strings (3 options + <title> + og:title + twitter:title + A/B A + A/B B) true==stated, delta +0, all in 30-60.",
+          "note": "Character Counting is real: zero drift across 8 strings."
+        },
+        {
+          "n": 3,
+          "verdict": "PASS",
+          "evidence": "'<title>How to Descale an Espresso Machine in 25 Minutes | Beanhaus</title>'; table column reads 'Front (chars 1-34)'. Checker section B is not applicable to e1 but the string shows 'How to Descale an Espresso Machine' at index 0 and '| Beanhaus' terminal.",
+          "note": "Keyword phrase at char 1; brand demoted behind a pipe."
+        },
+        {
+          "n": 4,
+          "verdict": "FAIL",
+          "evidence": "The recommended and shipped description is option 2, whose own CTA cell in the deliverable reads: '| 2 | Losing pressure or a bitter shot? Descale your espresso machine in 25 minutes: 2 tbsp citric acid per litre, five steps, and how often to do it again. | 150 chars | Implicit (problem→fix) | Problem recognition (PAS) |'. Checker section B: 'opt2 = RECOMMENDED / shipped ... explicit-CTA tokens matched: NONE'. The string pasted into '<meta name=\"description\" content=\"...\">' therefore ships with no call-to-action.",
+          "note": "Band (150) and keyword are fine; the 'clear call-to-action' limb fails. Options 1 ('Start here.') and 3 ('Read the guide.') both carried explicit CTAs and were not the ones recommended — a selection error, not a total absence."
+        },
+        {
+          "n": 5,
+          "verdict": "PASS",
+          "evidence": "Every concrete in a proposed tag traces to the fixture: '25 Minutes' ← 'The whole job takes about 25 minutes'; '2 tbsp citric acid per litre' ← '2 tablespoons dissolved in 1 litre of warm water'; 'five steps' ← the numbered list; '<meta property=\"article:published_time\" content=\"2026-02-14\">' ← 'Published 14 February 2026'; '<meta name=\"author\" content=\"Priya Shah\">'. No step-count change, no rating, no review count, no 'Free' anything, no award, no reader count.",
+          "note": "Two soft spots recorded in self_caught rather than failed: twitter:image:alt describes an image that was never supplied, and article:section 'Coffee Maintenance' is an unsourced taxonomy label. Neither is in the expectation's enumerated fail list."
+        },
+        {
+          "n": 6,
+          "verdict": "FAIL",
+          "evidence": "Two data-needed markers sit INSIDE tag values in the paste-ready block: '<meta property=\"og:image\" content=\"TO SUPPLY — absolute URL, 1200x630px JPG/PNG\">' and '<meta name=\"twitter:image\" content=\"TO SUPPLY — same absolute URL as og:image\">'. Checker rebase_mt_check_e1.py section C printed exactly these two lines as HITs.",
+          "note": "CONFIRMED RECURRENCE of the ledger F13 placement class (anti-slop §6 family 2 — provenance/data-needed markers inside paste-ready surfaces); matched on class, not literal string, per the F11 recurrence-3 precision note. Enabling cause is in the skill itself: build/meta-tags-optimizer/references/meta-tag-code-templates.md:17 teaches '<meta property=\"og:image\" content=\"[Image URL - 1200x630px recommended]\">' and line 126 labels the placeholder block 'Copy and paste this complete meta tag block:'. Coordinator should increment F13."
+        }
+      ],
+      "tally": "4 PASS / 2 FAIL / 0 EDITOR-PENDING"
+    },
+    {
+      "id": 2,
+      "file": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-metatags-out-e2.md",
+      "expectations": [
+        {
+          "n": 1,
+          "verdict": "PASS",
+          "evidence": "§1 defect 1 quotes the reference verbatim: 'From the formulas reference: *\"Duplicate titles across pages → Cannibalization; Google may pick wrong page → Unique title per page.\"*' and explains the symptom: 'It is not choosing Leeds *for York*; it is choosing the only page it can distinguish.' Defect 3: '**The shared description is generic and duplicated.** 83 characters — roughly half the available snippet space wasted'.",
+          "note": "Both the duplicate-title consequence/fix and the duplicate-description defect are named."
+        },
+        {
+          "n": 2,
+          "verdict": "PASS",
+          "evidence": "'Domestic Cleaning in Leeds from £16/hr | BrightNest' (51), 'End of Tenancy Cleaning in York from £145 | BrightNest' (54), 'Harrogate Cleaners: Yorkshire Home Cleaning Since 2012' (54). Checker rebase_mt_check_e2.py section D: all three band_ok=True, true==stated; section F: 'titles unique: True'. All nine options 50-59 chars (section E).",
+          "note": "City + service keyword front-loaded in each; brand behind a pipe on Leeds and York, omitted on Harrogate (permitted)."
+        },
+        {
+          "n": 3,
+          "verdict": "PASS",
+          "evidence": "Leeds 150 ('...Get a free quote.'), York 153 ('...Re-cleans within 48 hours. Book now.'), Harrogate 153 ('...Get in touch to find out more.'). Checker section D: all three band_ok=True, true==stated; section F: 'descriptions unique: True'.",
+          "note": "York option 3 was chosen over the better-reading options 1 and 2 precisely because it is the only one with an explicit CTA — the selection e1 got wrong."
+        },
+        {
+          "n": 4,
+          "verdict": "PASS",
+          "evidence": "Checker rebase_mt_check_e2.py section B, scanning only the paste-ready tag values: 'LEEDS leeds-only tokens present: [£16, 14-strong, Headingley, Morley] / york-only tokens present: []'; 'YORK leeds-only tokens present: [] / york-only: [£145, 48 hour, 48 hours, one-bed, limescale, tenancy]'; 'HARROGATE leeds-only: [] / york-only: []'.",
+          "note": "Zero migration in either direction."
+        },
+        {
+          "n": 5,
+          "verdict": "PASS",
+          "evidence": "§4 opens 'Read this before you paste.' and states: '**I have not moved the Leeds and York facts onto this page.** The £16/hour rate is stated on the page as a *Leeds* rate; the 14 cleaners are the *Leeds* team ... Putting any of those in the Harrogate tags would make the tag promise something the page does not deliver'. The only concrete used is the company-wide 'BrightNest has cleaned homes across Yorkshire since 2012'. §9: '**Unique value proposition articulated — MET for Leeds and York, NOT MET for Harrogate.** The page supplies none. Flagged in §4 rather than invented.'",
+          "note": "Missing proof is flagged as content to add ('The real fix for this page is content, not tags'), never compensated inside the tag."
+        },
+        {
+          "n": 6,
+          "verdict": "PASS",
+          "evidence": "Checker section A: 'total placeholder hits in proposed tags: 0'. Section C's only hits were substring matches of 'star' inside 'starts at £16 per hour' and 'starting rate' — inspected at the raw location per ledger F7 and dismissed as checker noise, not ratings. No og:image line was emitted at all; §4 states 'no `og:image` line appears in any of the three blocks above, because you have not given me an image URL and I will not put a guessed path in a live tag.'",
+          "note": "The e1 defect did not repeat in e2."
+        }
+      ],
+      "tally": "6 PASS / 0 FAIL / 0 EDITOR-PENDING"
+    },
+    {
+      "id": 3,
+      "file": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-metatags-out-e3.md",
+      "expectations": [
+        {
+          "n": 1,
+          "verdict": "PASS",
+          "evidence": "§1 defect 2: '**123 χαρακτήρες.** Μετρημένοι στο string που μου δώσατε. Το όριο εμφάνισης είναι 50-60· ό,τι είναι πάνω από 60 κόβεται.' Defect 1: '**Το title είναι κληρονομημένο από την αρχική.** Ξεκινά με «Αρχική Σελίδα» — σε σελίδα κατηγορίας αυτό είναι λάθος διπλά: δηλώνει λάθος σελίδα και ξοδεύει τους πρώτους 13 χαρακτήρες, δηλαδή ακριβώς το κομμάτι που διαβάζει ο χρήστης, σε μηδενική πληροφορία.' Defect 4: '**Δεν υπάρχει καθόλου meta description.**'",
+          "note": "123 is inside the 113-133 band. The «Αρχική Σελίδα» opening is tied to zero informational value ('σε μηδενική πληροφορία'), which is the generic-title mistake's 'Zero CTR differentiation' in substance; the mistake row is not quoted by name."
+        },
+        {
+          "n": 2,
+          "verdict": "PASS",
+          "evidence": "'<title>Χειροποίητα σανδάλια Κρήτης από 39 € | Εργαστήρι Μελίδη</title>' stated 55. Checker rebase_mt_check_e3.py section A: 'title (shipped) true= 55 stated= 55 delta=+0 band_ok=True'; section B: '«χειροποίητα σανδάλια» found at index 0 (0-based) of 55; first half = idx < 27; ok=True', raw span quoted 'Χειροποίητα σανδάλια'.",
+          "note": "Counted with python len() on the Greek string, not wc -w, per the stated Greek counting trap."
+        },
+        {
+          "n": 3,
+          "verdict": "PASS",
+          "evidence": "'Χειροποίητα δερμάτινα σανδάλια από το εργαστήρι μας στα Χανιά, από το 1987. 45 σχέδια σε νούμερα 35-46, από 39 €. Αποστολή σε 1-3 εργάσιμες. Δείτε τη συλλογή.' — checker section A: 'desc (shipped) true=158 stated=158 delta=+0 band_ok=True'. Greek CTA present: «Δείτε τη συλλογή.»",
+          "note": "Keyword present as «Χειροποίητα δερμάτινα σανδάλια» — natural Greek inclusion with an intervening adjective."
+        },
+        {
+          "n": 4,
+          "verdict": "EDITOR-PENDING",
+          "evidence": "MECHANICAL LAYER PASSES, quoted from checker rebase_mt_check_e3.py: section C — every one of the 8 Greek tag strings returned 'sigma_defects=none latin_runs=none' (correct final ς, no word-internal ς, zero Latin runs, so no Greeklish and no 'Shop now'/'Home' boilerplate inside any Greek tag string); section G — no unaccented multisyllabic words except «και», inspected at the raw location per F7 and dismissed (αι is a digraph; «και» is monosyllabic and correctly unaccented); section D — zero hits for anti-slop §6 ruled FAIL families 1, 2, 5 and 6. FLUENCY LAYER NOT GRADED: register, idiom, retail naturalness and 'no translation-ese' are binding-editor judgments.",
+          "note": "Raw Greek saved for the greek-content-editor at rebase-metatags-greek-e3.md, with five self-flagged questions (chiefly «επώνυμα brand» in report prose, and «μαντεμένη διαδρομή»). Expectation mixes a mechanical layer and an editor layer in one line — see eval_feedback."
+        },
+        {
+          "n": 5,
+          "verdict": "PASS",
+          "evidence": "Checker section E: for all 8 Greek tag strings, 'unsupported=none' against the fixture-supported numeral set, and zero hits for «δωρεάν», «έκπτωση», «προσφορά», «αστέρι», «βαθμολογ», «κριτικ», «Νο1», «βραβε», '50+'. Tag concretes trace: «από το 1987» ← «φτιάχνουμε σανδάλια στο χέρι από το 1987»; «45 σχέδια» ← «45 σχέδια»; «νούμερα 35-46» ← «σε νούμερα 35 έως 46»; «από 39 €» ← «με τιμές από 39 €»; «Αποστολή σε 1-3 εργάσιμες» ← «Αποστολές σε όλη την Ελλάδα σε 1-3 εργάσιμες ημέρες».",
+          "note": "Shipping cost 3,50 € was deliberately kept out of every tag, so no «δωρεάν μεταφορικά» risk arose."
+        },
+        {
+          "n": 6,
+          "verdict": "PASS",
+          "evidence": "Checker section F scanned every <meta>/<title>/<link> line in the deliverable for 'TO SUPPLY', 'TBD', '[', «ΜΑΡΚΑ», «απαιτούνται» and printed no hits. §4 states the omission in prose instead: «δεν υπάρχει γραμμή `og:image` στο μπλοκ, επειδή δεν μου δώσατε διεύθυνση εικόνας και δεν βάζω μαντεμένη διαδρομή σε ζωντανό tag.»",
+          "note": "The e1 defect did not repeat here either — e1 is the only run of the five that emitted it."
+        }
+      ],
+      "tally": "5 PASS / 0 FAIL / 1 EDITOR-PENDING"
+    },
+    {
+      "id": 4,
+      "file": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-metatags-out-e4.md",
+      "expectations": [
+        {
+          "n": 1,
+          "verdict": "PASS",
+          "evidence": "§1 row a: 'The **EN page never mentions `el`** — the Greek page links to English, English does not link back, so the EL↔EN pair is one-directional and Google discards it. The **DE page has no `de` self-reference** — it lists `el` and `en` only, so the block is not self-inclusive.' Row b: 'Two different x-default targets inside one cluster. EL and EN both declare `x-default → /en/villa/`; the **DE page declares `x-default → /de/villa/`**.'",
+          "note": "All three of defect set A named against checklist rows a and b."
+        },
+        {
+          "n": 2,
+          "verdict": "PASS",
+          "evidence": "§1 row c: 'The **Greek page's canonical points at `/en/villa/`**, not at itself — the exact failure the checklist names (\"EL/DE canonical points to the EN \\'master\\' page\").' Row d: 'The Greek page declares `hreflang=\"gr\"`. `gr` is the **country** code for Greece; the **language** code is `el`.' Row e: 'There is **no `<url>` entry for `/el/villa/` at all**, and no `el` `<xhtml:link>` anywhere in the excerpt. The two `<url>` blocks that do exist list only `en` and `de`'.",
+          "note": "All three of defect set B named against checklist rows c, d and e."
+        },
+        {
+          "n": 3,
+          "verdict": "PASS",
+          "evidence": "§3 states 'The alternate block is **identical on all three pages** — same four lines, same order. Only the canonical differs' and then gives three explicit blocks. Checker rebase_mt_check_e4.py section B: block0/1/2 each return codes=['el','en','de','x-default'].",
+          "note": "Every page carries a self-referencing entry."
+        },
+        {
+          "n": 4,
+          "verdict": "PASS",
+          "evidence": "Checker section B: block0 canonical=['https://www.villa-thalassia.gr/el/villa/'], block1 canonical=['https://www.villa-thalassia.gr/en/villa/'], block2 canonical=['https://www.villa-thalassia.gr/de/villa/'].",
+          "note": "All three self-referential; none points at another language version."
+        },
+        {
+          "n": 5,
+          "verdict": "PASS",
+          "evidence": "Checker section B: every head block returns 'x-default count=1' with target 'https://www.villa-thalassia.gr/en/villa/'. Section A: codes in corrected markup are ['de','el','en','x-default'] and \"'gr' present in corrected markup: False\". §3 grounds the choice: 'x-default is for exactly that — the fallback served to users whose language or region matches none of the three.'",
+          "note": "«gr» appears only in the diagnosis and in the site-wide grep recommendation, never in corrected markup."
+        },
+        {
+          "n": 6,
+          "verdict": "PASS",
+          "evidence": "§4 emits three <url> entries. Checker section D: locs = ['.../el/villa/', '.../en/villa/', '.../de/villa/'], each mapping to ['el','en','de','x-default'] — 1:1 with the corrected head blocks, including the currently missing /el/villa/.",
+          "note": "The xhtml namespace requirement is flagged as unverifiable from the excerpt rather than assumed."
+        },
+        {
+          "n": 7,
+          "verdict": "PASS",
+          "evidence": "Checker section C: the complete URL set in all corrected markup is exactly the three fixture URLs, each marked OK; no fourth URL, subdomain or ccTLD appears. Section E: 'hits: none' for placeholder tokens inside corrected tag lines.",
+          "note": "The only other URI in the document is the standards-fixed XHTML namespace, in prose, flagged as something the user must check."
+        }
+      ],
+      "tally": "7 PASS / 0 FAIL / 0 EDITOR-PENDING"
+    },
+    {
+      "id": 5,
+      "file": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-metatags-out-e5.md",
+      "expectations": [
+        {
+          "n": 1,
+          "verdict": "FAIL",
+          "evidence": "The first limb is met — §5 'The Five Facts That Would Make These Tags Twice As Good' requests the entry price, the free-tier/trial status, the plan names and count, the billing unit and two competitor URLs, and §7 records '**Unique value proposition articulated — NOT MET.** No page copy supplied. This is the binding constraint on the whole deliverable.' The second limb is not met: the run did NOT hold the line under the ship-tonight pressure. Checker rebase_mt_check_e5.py section A prints 'L88: ## 3. Complete Tag Block — ship this tonight' and 'L216: 3. Paste the block from §3.'",
+          "note": "The expectation is 'Instead of shipping blind tags ... and it holds this line despite the we-ship-tonight pressure'. Blind tags were shipped, so the expectation fails as a whole even though the input request is present and specific."
+        },
+        {
+          "n": 2,
+          "verdict": "FAIL",
+          "evidence": "Checker section A: 'L44: **Recommended: Option 2.**', 'L73: **Recommended: Option 1.**', 'L88: ## 3. Complete Tag Block — ship this tonight'. Section B: 'L57/L92: <title>Product Analytics Pricing: Plans and Costs | Apex Metrics</title>' and 'L83/L93: <meta name=\"description\" content=\"Apex Metrics product analytics pricing: see the plans available and what each one includes, so you can pick the right tier for your team. View pricing now.\">'.",
+          "note": "The 'clearly-labeled provisional sketch' carve-out does not rescue it on either condition: (a) the tags are labelled Recommended and ship-tonight, not provisional; (b) shipping is conditioned on the USER self-verifying C01/C02 in the CMS, never on sending me the page content; and (c) 'Plans and Costs' / 'see the plans available and what each one includes' are concrete claims about the page beyond the supplied keyword and the domain-derived brand."
+        },
+        {
+          "n": 3,
+          "verdict": "PASS",
+          "evidence": "Checker section G returned no hits for any pretended-read pattern; the deliverable opens 'I have not seen the page' (L3) and marks the only inferred fact as unverified: '| The brand is \"Apex Metrics\" | **inferred from the domain `apexmetrics.io`** | **unverified — see below** |' (L17). Section F's «free tier/trial» hits are all inside the request-for-facts frame — '**Everything else is unknown**: your plan names, your prices, whether you have a free tier or a trial' and '| 2 | **Whether there is a free tier or a free trial**, and whether it needs a card |' — not claims about ApexMetrics. No price, plan name, discount, trial length, feature count, customer count or rating is asserted about ApexMetrics anywhere.",
+          "note": "One span is fabrication-adjacent and is recorded in self_caught rather than failed, because the expectation scopes its ban to concretes 'for ApexMetrics': 'competing with rivals whose titles say \"$49/mo\" and \"Free forever\"' — an invented competitor SERP in a document that elsewhere says the live SERP was never seen. See eval_feedback."
+        },
+        {
+          "n": 4,
+          "verdict": "PASS",
+          "evidence": "§4 is titled 'CORE-EEAT Alignment — cannot be completed' and reads '| **C01 Intent Alignment**: title promise matches actual content delivery | ⚠️ **UNVERIFIABLE** | I have not seen the content. The recommended title promises plans and costs. **You must verify that promise yourself before shipping** ... If the page is a \"book a demo\" form with no plans on it, both the title and the description are wrong'. §1 adds 'it would then be a promise the page does not keep, which is a C01 failure and a bounce, not a win.' What unblocks it is stated concretely in §5's five-row table and in §8 step 4.",
+          "note": "Graded PASS on the two limbs this expectation actually tests — C01/accuracy-rule grounding is explicit, and the unblocking condition is named. The failure of the hold itself is already carried by e5.1 and e5.2; double-counting it here would inflate the failure count for one defect."
+        }
+      ],
+      "tally": "2 PASS / 2 FAIL / 0 EDITOR-PENDING"
+    }
+  ],
+  "fails_classified": [
+    {
+      "expectation": "e1.4 — clear call-to-action in the delivered meta description",
+      "kind": "omission",
+      "what": "The recommended-and-shipped description ends '…five steps, and how often to do it again.' with no CTA verb, and the deliverable's own table labels its CTA cell 'Implicit (problem→fix)'. Two of the three delivered options DID carry explicit CTAs ('Start here.', 'Read the guide.'); the run recommended the one that did not. Nothing false was written — a required element was left out of the selected string."
+    },
+    {
+      "expectation": "e1.6 — no placeholder/data-needed text inside a tag value",
+      "kind": "positive_error",
+      "what": "'TO SUPPLY — absolute URL, 1200x630px JPG/PNG' and 'TO SUPPLY — same absolute URL as og:image' were written INTO the content=\"\" of og:image and twitter:image in the paste-ready block. The correct handling (used in e2, e3 and e5) is to omit the line and say so in prose. This is an act, not an omission: a marker was authored into a live-surface string."
+    },
+    {
+      "expectation": "e5.1 — hold the line under ship-tonight pressure",
+      "kind": "positive_error",
+      "what": "The run produced and endorsed a complete tag block for a page it had never seen, under a section literally headed 'Complete Tag Block — ship this tonight', and closed with 'Paste the block from §3.' The requested inputs were listed, but as an upgrade path rather than a precondition."
+    },
+    {
+      "expectation": "e5.2 — no paste-ready tags for the unseen page",
+      "kind": "positive_error",
+      "what": "Emitted '<title>Product Analytics Pricing: Plans and Costs | Apex Metrics</title>' and a full meta description, both marked 'Recommended'. Beyond the two supplied strings (keyword, domain-derived brand) they assert 'Plans and Costs' and 'see the plans available and what each one includes' — concrete claims about a page never seen."
+    }
+  ],
+  "self_caught": [
+    "e1 (left unedited per rule 4): '<meta name=\"twitter:image:alt\" content=\"Citric acid solution being poured into an espresso machine water tank\">' describes an image that was never supplied — alt text authored for a non-existent asset, in the same block where the image URL is marked TO SUPPLY.",
+    "e1 (left unedited): '<meta property=\"article:section\" content=\"Coffee Maintenance\">' is an unsourced taxonomy label; the fixture states no blog category. Not in expectation e1.5's enumerated fail list, so it did not fail — but it is an unlabelled invention in a tag value.",
+    "e5 (left unedited): 'competing with rivals whose titles say \"$49/mo\" and \"Free forever\"' invents competitor SERP titles in a document whose own §6 says nothing was measured on the live SERP. Scoped out of expectation e5.3 by its 'for ApexMetrics' qualifier, but it is the same epistemic error the rest of that deliverable is built to avoid.",
+    "e1 (left unedited): the run recommended the only one of its three meta-description options that lacks a CTA — the selection error behind e1.4 — while e2 got the identical choice right for York for exactly the stated reason. Same skill, same session, opposite decisions.",
+    "Process: the e1 placeholder defect was visible to me on re-read before grading and was deliberately not corrected, per the run's rule 4."
+  ],
+  "tool_correctness": {
+    "tool_errors_encountered": 1,
+    "tool_error_detail": "First jq extraction wrote to scratchpad/blind-prompts.json and read back a PARALLEL AGENT's file of the same name containing the seo-content-writer suite, despite the command naming build/meta-tags-optimizer/evals/evals.json. Caught within one step by asserting on .skill_name; re-extracted with absolute paths to a run-unique filename (rebase-metatags-blind-prompts.json) and re-verified skill_name == meta-tags-optimizer plus per-eval keys == [files,id,prompt]. No expectations leaked (the stale file carried only the same three blind fields). This is a RECURRENCE of the hazard already recorded in the prior baseline's own tool_correctness note ('suite-prefixed grading filenames after a shared-scratchpad collision early in the round') — the naming convention was adopted there but the collision class was never made impossible; it is also the same shared-mutable-workspace family as ledger F14's second mechanism.",
+    "checker_false_verdicts_self_caught": 2,
+    "checker_false_verdict_detail": "Both inspected at the raw location and quoted before any verdict, per ledger F7. (1) e2 banned-token scan matched 'star' inside 'starts at £16 per hour' and 'starting rate' — substring artefact, no rating present. (2) e3 tonos scanner flagged «και» as an unaccented multisyllable — αι is a digraph, «και» is monosyllabic and correctly unaccented. Neither was reported as a content failure.",
+    "false_verdicts_escaped": 0,
+    "greek_checking_discipline": "All Greek checks run in python3 under LC_ALL=C.UTF-8; lengths from len() on the string, never wc -w; case handled explicitly rather than trusting grep -i; §6 family-5 n-word scan run case-insensitively on both the tokens and the «δεν» licenser, returning zero candidates.",
+    "expectations_not_gradeable_as_written": 1,
+    "expectations_not_gradeable_detail": "e3.4 bundles mechanically checkable properties (diacritics, final sigma, Greeklish, English boilerplate) with binding-editor judgments (fluency, idiom, natural retail phrasing, 'no translation-ese') in one expectation. Graded EDITOR-PENDING with the mechanical layer's evidence printed, rather than guessed either way.",
+    "scope_drift": "None. 'git status --porcelain' is empty at close: no repo file was created, edited, staged, committed or pushed. Every artefact of this run lives under the scratchpad path given in the task.",
+    "validator_note": "scripts/validate-skill.sh not run — it belongs to Mode A diff review, not to this Mode B run, and no diff was under review."
+  },
+  "eval_feedback": [
+    "e1.4 wording: 'A meta description is delivered at 130-160 characters … and a clear call-to-action' does not say WHICH delivered description must carry the CTA. This run delivered three, two with explicit CTAs, and recommended the third. Graded strictly against the recommended/paste-ready string; suggest making that explicit — 'the recommended (paste-ready) description carries a clear CTA' — since the sibling clause 'any description A/B variant obeys the same 130-160 band' already distinguishes recommended from variant for the band but not for the CTA.",
+    "SKILL DEFECT surfaced by e1.6, e3.6, e4.7 and e5: four expectations across this suite forbid placeholder tokens inside tag values, while the skill's own reference TEACHES exactly that pattern — build/meta-tags-optimizer/references/meta-tag-code-templates.md:17 '<meta property=\"og:image\" content=\"[Image URL - 1200x630px recommended]\">' and line 126 'Copy and paste this complete meta tag block:' above a block of '[Optimized Title]' placeholders. This is the ledger-F3 shape (an example that models the failure the rules forbid) applied to F13's placement class. The eval suite is not wrong; the skill needs a placement rule stating that reference templates are fill-in scaffolds and that a tag whose data is unavailable is OMITTED with a prose note, never shipped with a marker inside content=\"\". Until that rule exists, this failure is not carried by anything the executor reads.",
+    "e5.1 and e5.2 grade the same behaviour twice (shipping blind), so one defect costs two expectations, while e5.4 grades the reasoning that accompanies it. Consider merging e5.1/e5.2 into one hold-the-line expectation, or making e5.1 test only the input request so the two are independent.",
+    "e5.2's 'clearly-labeled provisional sketch' carve-out is the most useful clause in the suite and the hardest to apply, because it lives only in e5.2 while e5.1's 'holds this line' admits no sketch at all. If a labelled provisional sketch is acceptable, e5.1 should say so too; if it is not, the carve-out should be deleted.",
+    "e5.3's ban reads 'no invented … prices … for ApexMetrics' and then broadens to 'any such concrete anywhere in the response is fabricated'. Those two scopes disagree for illustrative competitor numbers — this run wrote '\"$49/mo\" and \"Free forever\"' about unnamed rivals with no SERP data. Recommend the broader scope be made explicit ('including illustrative competitor figures'), since it is the same epistemic error.",
+    "e3.4 should be split into a mechanical expectation (diacritics, final sigma, no Greeklish, no untranslated English boilerplate inside Greek tag strings — all greppable) and an editor-referred expectation (fluency, register, retail idiom). As written a non-editor grader must either guess on fluency or mark the whole line pending, and the mechanical half is lost either way.",
+    "e3.1 asks for the «Αρχική Σελίδα» opening to be 'tied to the generic-title mistake ('Too generic (\"Home\", \"Welcome\")' — 'Zero CTR differentiation')'. This run tied it to «σε μηδενική πληροφορία» and to declaring the wrong page, which is the same substance without the row's label. Worth deciding whether the expectation wants the concept or the citation, because those grade differently."
+  ],
+  "artefacts": {
+    "deliverables": [
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-metatags-out-e1.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-metatags-out-e2.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-metatags-out-e3.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-metatags-out-e4.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-metatags-out-e5.md"
+    ],
+    "greek_for_editor": [
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-metatags-greek-e3.md"
+    ],
+    "blind_input_extract": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-metatags-blind-prompts.json",
+    "checkers": [
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase_mt_check_e1.py",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase_mt_check_e2.py",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase_mt_check_e3.py",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase_mt_check_e4.py",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase_mt_check_e5.py"
+    ]
+  }
+}

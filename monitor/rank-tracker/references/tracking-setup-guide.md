@@ -169,6 +169,13 @@ Before setting alerts, establish a baseline by tracking for 2-4 weeks without al
 | Keywords in top 10 | 4 weeks | +/- 5% | Drops >10% |
 | Keywords in top 3 | 4 weeks | +/- 3% | Drops >5% |
 
+**The band between the two columns is not a gap in the data — it is a reporting zone, and saying
+so is the point.** A 7% fall in the top-10 count is past the +/- 5% normal band and under the
+>10% alert threshold; a 4% fall in the top-3 count sits the same way. Neither fires an alert.
+Both are listed in the weekly summary with the movement stated, so the change is on the record
+before it reaches an alerting size. Without this row an operator reads the two columns as
+exhaustive and silently drops everything in between.
+
 ### Alert Configuration by Keyword Tier
 
 | Keyword Tier | Drop Alert | Gain Alert | Competitor Alert |
@@ -251,6 +258,26 @@ Before setting alerts, establish a baseline by tracking for 2-4 weeks without al
 
 Position changes do not translate linearly to traffic changes.
 
+**[VERIFY — the click-loss ranges in the table below carry no citation here and none elsewhere
+in this repository (grepped 2026-08-10; no external search was made, which is stated so the gap
+is not read as a negative finding). They are a position-CTR curve of exactly the class already
+tagged as watch-item W14 on `build/meta-tags-optimizer/references/meta-tag-formulas.md:210-219`
+— plausible, widely circulated, and unsourced, which is the kind of number this library has
+twice found to be wrong in transit. Left in place rather than deleted: unlike the figures W14
+was opened beside, these contradict nothing, and deleting an unsourced figure is a different act
+from deleting figures that disagree. Resolves on a named study with a year and a sample size, or
+on replacement by the site's own measured curve. This tag has no register row of its own —
+report it to the coordinator for W14's "Where" list rather than treating it as covered.]**
+
+Two limits on how this table may be used:
+
+1. **It is a generic estimate, never this site's measured loss.** Cite it as the guide's range
+   and label it as such. A figure attributed to a specific site needs that site's own clicks
+   data behind it — see the Traffic Impact rule in the change-analysis template.
+2. **It covers the listed transitions only.** A move it does not list (e.g. #1 to #4, or
+   anything past #20) is not interpolated into a number here: describe the direction, or chain
+   the adjacent rows and say that is what you did.
+
 | Position Change | Estimated Traffic Impact |
 |----------------|------------------------|
 | #1 to #2 | -50% to -60% click loss |
@@ -264,7 +291,15 @@ Position changes do not translate linearly to traffic changes.
 
 ### Interpreting Visibility Score
 
-Visibility score combines position and search volume into a single metric.
+A visibility score combines position and search volume into a single metric. **This skill defines
+no visibility score of its own**, because any such score needs a position-CTR curve and this
+library has none it can source (see the tag above). So a visibility figure appears in a
+deliverable only when a connected tool reports it, carrying that tool's name — different tools
+compute it differently, and two tools' figures never share a column or a trend line. Where no
+tool reports one, use the countable substitutes the workflow already collects: keywords in the
+top 3 and top 10, and the top-10 share of voice defined in the competitor template.
+
+The table below reads a tool-reported visibility trend; it is not a way to produce one.
 
 | Visibility Change | Interpretation |
 |-------------------|---------------|
@@ -342,7 +377,7 @@ Queries at average positions ~5-20 (page-one tail plus page two) combine two pro
 
 | Aspect | Practice |
 |--------|----------|
-| Source | ~~search console Search Analytics (API or UI export) for the tracked property only |
+| Source | Search Console Search Analytics (API or UI export) for the tracked property only — named by its real name wherever a report repeats it, never as a `~~category` token |
 | Ordering | GSC-first: when the connector or an export is available, mine this list before consulting third-party rank data |
 | API behavior | The Search Analytics API returns rows sorted by clicks and exposes no position filter — request a high rowLimit and apply the 5-20 position window client-side |
 | Manual path | No connector: ask the user for a GSC Performance export (queries + position + impressions + clicks) and apply the same window |
@@ -378,10 +413,17 @@ Opportunity = Impressions × Position Gap        (Position Gap = current average
 
 Both formulas order the same work queue. Never mix the two scales in one ranked list — state which formula produced each ranking.
 
+**Rounding and precision.** Compute from the export's own values, unrounded: a position of 18.9 gives a gap of 17.9, not 18. Print the multiplication beside the result (`840 × 8.0 = 6,720`) so the row can be rechecked, round the printed Opportunity to a whole number, and print average positions to the export's own precision (1 decimal). Rank on the unrounded value; where two rows round to the same figure, keep their unrounded order and say so.
+
 ### Output Format
 
-| Query | Ranking URL | Avg Position | Impressions | Clicks | Opportunity (formula) | Action |
-|-------|-------------|--------------|-------------|--------|-----------------------|--------|
-| [query] | [url] | [5-20] | [X] | [Y] | [Z] ([primary/fallback]) | [refresh / on-page / internal links] |
+```markdown
+<!-- SKELETON — fill every [slot] from the export; a slot with no value means the column is dropped and the gap named in prose -->
+| Query | Ranking URL | Avg Position | Impressions | Clicks | Opportunity (formula) | Source | Action |
+|-------|-------------|--------------|-------------|--------|-----------------------|--------|--------|
+| [query, verbatim as exported] | [url] | [5-20] | [X] | [Y] | [X × gap = Z] ([primary/fallback]) | [resolved source] | [refresh / on-page / internal links] |
+```
 
-Persist the mined table as part of the dated snapshot required by SKILL.md step 1's persistence contract, so the next run can measure movement on mined queries against a baseline. Hand queries whose URL needs content work to content-refresher as refresh targets.
+Query strings are reproduced character-exact from the export — unaccented and article-less if that is how they were exported — because the table is a keyword-list surface; the prose around it is written as ordinary sentences and does not adopt query-style forms. The Source cell names the export in the deliverable's own language ("Search Console, 28-day export"), never a `~~category` token: this table is read by the client.
+
+Persist the mined table as part of the dated snapshot required by SKILL.md step 1's persistence contract, so the next run can measure movement on mined queries against a baseline. Queries whose URL needs content work go into the run's operator handoff block as content-refresher targets; the client-facing Action cell names the job ("refresh this page"), not the run handle.

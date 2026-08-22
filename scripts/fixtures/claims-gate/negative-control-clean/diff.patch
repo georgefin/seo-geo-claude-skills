@@ -1,0 +1,19 @@
+--- a/docs/loop/GATED-ITEMS.md
++++ b/docs/loop/GATED-ITEMS.md
+@@ -1,2 +1,16 @@
+ # Gated Items — Awaiting Sani's Explicit Approval
+
++> **Verdict log — 2026-08-09 (twelfth entry, logged 16:20:11Z clock-read, ~16:20Z
++> label)**: recorded per house form; the claims-gate fixture suite ran clean.
++
++- The claims-gate is live in the pre-push gate [obs:2026-08-09T16:05:00Z
++  fixture-acceptance-run exit-tally 9/9].
++- W2 stays owner-tracked: hard re-check vs aade.gr before 2026-09-01 (deadline).
++- The live registers stay in scope for check (g); scope unchanged.
++- The pre-migration manifest still drew the W8 trio until this wave merged
++  (historical as of the PR #8 merge, 2026-08-09).
++- Egress probe output, quoted:
++
++```
++curl: (7) connection to arxiv.org blocked by egress policy
++```

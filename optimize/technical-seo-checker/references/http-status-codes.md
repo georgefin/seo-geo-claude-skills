@@ -62,10 +62,27 @@ Location: https://example.com/new-page
 - Redirecting to irrelevant pages
 - Not redirecting HTTP to HTTPS
 
-**How to implement**:
-- **.htaccess** (Apache): `Redirect 301 /old-page /new-page`
-- **nginx**: `rewrite ^/old-page$ /new-page permanent;`
-- **Server-side**: Set Location header with 301 status
+**How to implement** — a redirect rule is deliverable only with its placement: which file, which
+block, and where in the block. The paste-ready blocks, and the four ways a pasted redirect takes
+a site down, are in [server-config-fixes.md](./server-config-fixes.md).
+
+- **nginx**: `location = /old-page { return 301 https://www.example.com/new-page; }` — inside the
+  `server` block that serves the canonical host, above the existing `location /`. `location`,
+  `return` and `rewrite` are not valid in the `http` context or at the top level of `nginx.conf`:
+  pasted there, nginx rejects the whole configuration (`[emerg] ... directive is not allowed
+  here`), a reload silently keeps the old config, and the next restart does not come up.
+- **Apache**: `RedirectMatch 301 ^/old-page$ https://www.example.com/new-page` — in `.htaccess` at
+  the document root or in the site's `<VirtualHost>`, above any `RewriteRule` that touches the
+  same path. Plain `Redirect 301 /old-page /new-page` matches by **prefix**, so it also moves
+  `/old-page-archive` and everything under `/old-page/`.
+- **Site-wide HTTP → HTTPS** is a different job from a per-URL redirect and carries its own
+  failure mode. The port-80 block has to keep serving `/.well-known/acme-challenge/`: that path is
+  how an HTTP-01 certificate renewal reaches its token, and a blanket redirect over it surfaces at
+  the next renewal rather than at deploy. Edit whatever is already listening on port 80 — never
+  replace it — and verify against a challenge path, not the site root. Both the nginx and Apache
+  forms carry the exception inside the fence: [server-config-fixes.md](./server-config-fixes.md)
+  §3E, §4 block 1, §6, and §8 step 5 for the probe check.
+- **Application code**: send a `Location:` header with the 301 status before any output.
 
 ---
 
@@ -172,9 +189,11 @@ http://example.com/page
 3. Review server-side redirect logic
 
 **How to fix**:
-1. Identify conflicting redirect rules
-2. Remove or correct the loop
-3. Test thoroughly
+1. Identify every rule involved — both directions, and the file each one lives in
+2. Redirect one direction and **delete the opposite-direction rule in the same change**; a loop
+   redirected from one side only is still a loop ([server-config-fixes.md](./server-config-fixes.md) §3D)
+3. Verify before reload (`nginx -t`), then follow the chain: `curl -sSIL <url>` should show one
+   `301` and a final `200`, with no repeating `location:` header
 4. Request recrawl in Search Console
 
 ---
@@ -681,7 +700,7 @@ Before launching site changes:
 
 | Root Cause | Detection | Fix |
 |-----------|-----------|-----|
-| Large hero image | PageSpeed Insights | Serve WebP, resize to container, add loading="lazy" |
+| Large hero image | PageSpeed Insights | Serve WebP, resize to container, `fetchpriority="high"` — never `loading="lazy"` on the LCP element: it defers the request and makes LCP worse |
 | Render-blocking CSS/JS | DevTools Coverage | Defer non-critical, inline critical CSS |
 | Slow server response | TTFB >800ms | CDN, server-side caching, upgrade hosting |
 | Third-party scripts | DevTools Network | Defer/async, use facade pattern |

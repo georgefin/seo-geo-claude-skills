@@ -1,0 +1,13 @@
+# CASE: gate-steal-inside-stolen-tenure
+# ROLE: positive
+# JOURNAL: journal-broken-steal.tsv
+# COMMIT-AT: -1801
+# FILE: docs/loop/PILOT.md
+# EXPECT-EXIT: 1
+# EXPECT-MATCH: inside another holder's tenure
+# EXPECT-MATCH: closed-stolen
+# WHY: `acquire --steal` prints "the stolen tenure still counts against gate-check for
+#      commits made inside it". This is the case that makes that sentence checkable.
+#      One second before the break, i.e. the last second lane-a held it.
+# ---8<--- commit message
+docs(loop): pilot scope

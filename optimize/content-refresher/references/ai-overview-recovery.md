@@ -53,14 +53,30 @@ Work top to bottom; re-measure between stages rather than shipping everything at
    number, a proper noun, or a date); structure the rest of the page under jump-linked
    H2s so each subtopic is independently addressable.
 2. **Standalone quotable sentences.** Add sentences that each make one specific, sourced
-   claim and survive being lifted out of context — these are what engines quote.
+   claim and survive being lifted out of context — the test is that the sentence still
+   says something true on its own, which you can check by cutting it out and reading it.
 3. **FAQ section.** Answer the affected queries' people-also-ask variants in 40-60-word
    answers. **R2 rule — read before touching markup**: the FAQ *content* is the port
    here. FAQPage *markup* is added ONLY if the page genuinely passes the R2 both-things
    test — the page truly is both its primary type and an FAQ resource, and each type is
    complete, accurate, and independently justified. Otherwise: add the FAQ content and
-   change no schema. (Per R3, FAQPage markup — where justified — serves AI-engine
-   parsing only; Google's FAQ rich results are retired, so promise no SERP feature.)
+   change no schema. (Per R3 and amendment 9a, FAQPage markup — where justified — is kept
+   because it is valid schema.org, costs nothing to keep, and Google says there is no need
+   to proactively remove it — a permission to leave existing markup alone, not Google
+   advising anyone to keep it. An ordinary site has no FAQ rich result — since 2023-08-08 Google
+   shows those only for well-known, authoritative government and health websites (Google Search
+   Central blog, "Changes to HowTo and FAQ rich results", 2023-08-08,
+   `https://developers.google.com/search/blog/2023/08/howto-faq-changes`; owner-read 2026-08-11 per
+   `docs/loop/WATCH-ITEMS.md` W12) — so promise no SERP feature, and give the client that date and
+   URL rather than a ruling handle. **This
+   line read "Google's FAQ rich results are retired" until 2026-08-17**, which is the library's
+   unsourced fuller claim asserted as fact, in the one file whose siblings forbid exactly that;
+   a blind run caught the contradiction between this sentence and `refresh-templates.md`.
+   [VERIFY — 2026-08-17] A 2026 completion of that retirement is a **corroborated candidate**,
+   not established: secondary sources agree on it, no primary source has been read here, and
+   `developers.google.com` is refused by this environment's egress. Do not state a 2026 date to
+   a client until an owner reads the deprecation notice; and no primary source establishes an AI-citation benefit either way, so never
+   sell the markup as a citation lever — least of all in a playbook about lost citations.)
 4. **Structured data check.** Existing markup must state only genuine claims and keep one
    primary content type per page (R2). This step never adds types to chase citations.
 

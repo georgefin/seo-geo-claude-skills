@@ -16,12 +16,12 @@ parameters:
 
 # Generate Schema Command
 
-Generates valid **Schema.org JSON-LD** structured data markup to enhance search visibility and enable rich results.
+Generates valid **Schema.org JSON-LD** structured data markup so search and answer engines can parse the page's entities. Rich-result eligibility depends on the type -- FAQPage has none for an ordinary site since Google's 2023-08-08 restriction to government and health websites and is generated because it stays valid and Google says there is no need to proactively remove it — a permission to leave existing markup alone, not Google advising anyone to keep it (settled ruling R3 + amendment 9a; no evidenced citation benefit either way, so claim none).
 
 ## Usage
 
 ```
-/seo:generate-schema FAQ for our pricing page Q&As
+/seo:generate-schema FAQ for our support FAQ page
 /seo:generate-schema Product for [product details]
 /seo:generate-schema Article for https://example.com/blog-post
 /seo:generate-schema LocalBusiness for our main location page
@@ -34,19 +34,26 @@ Generates valid **Schema.org JSON-LD** structured data markup to enhance search 
 
 ## Workflow
 
-1. **Identify Schema Requirements** -- Parse schema type, fetch URL content if provided, determine if secondary types would benefit (e.g., Article + FAQ).
-2. **Generate Schema Markup** -- Invoke `schema-markup-generator`. Select most specific type, collect required + recommended properties, generate valid JSON-LD, validate against Google rich result requirements.
+1. **Identify Schema Requirements** -- Parse schema type, fetch URL content if provided, settle the ONE primary type the page actually is, and note any documented auxiliary the page data warrants (BreadcrumbList for a real trail).
+2. **Generate Schema Markup** -- Invoke `schema-markup-generator`. Select most specific type, collect required + recommended properties, generate valid JSON-LD, validate syntax at the Schema.org validator, and check Google's rich-result requirements for the types that still have one.
 3. **Compile Output** -- Format markup with validation results and implementation instructions.
 
 ## Output Format
 
 ```
+# SKELETON -- scaffold, not output. Every [bracket] is a slot filled from the page's own
+# data; the JSON-LD itself ships resolved values only, any unsourceable property dropped
+# and the gap named in prose.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 SCHEMA.ORG MARKUP GENERATOR
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-SCHEMA TYPE: [SchemaType]
-RICH RESULT ELIGIBLE: [Yes/No]
+PRIMARY TYPE (ONE per page): [SchemaType]
+AUXILIARIES: [BreadcrumbList -- real trail | none]
+RICH RESULT ELIGIBILITY: [prose per type emitted -- what Google is eligible to show, never
+  Yes/No, never an appearance promise. FAQPage: none for an ordinary site (Google restricted
+  FAQ rich results to government and health sites, Aug 2023). State no citation benefit:
+  no primary source establishes one either way (settled ruling R3 + amendment 9a)]
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 GENERATED MARKUP
@@ -58,22 +65,37 @@ GENERATED MARKUP
 VALIDATION RESULTS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-[JSON syntax, required properties, data types, Google requirements]
+[JSON syntax, required properties, data types; Google rich-result requirements only for the
+types that still have one]
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 IMPLEMENTATION INSTRUCTIONS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 1. Add JSON-LD to page <head> in a <script type="application/ld+json"> tag
-2. Test: https://search.google.com/test/rich-results
-3. Submit URL in Google Search Console; allow 2-4 weeks for rich results
+2. Validate syntax at https://validator.schema.org -- every type, always
+3. Types that still have a Google rich result: also run
+   https://search.google.com/test/rich-results, then submit the URL in Search Console and
+   allow 2-4 weeks for the result to appear if Google chooses to show one
+4. FAQPage: stop after step 2. An ordinary site has no FAQ rich result -- Google restricted
+   them to well-known government and health websites on 2023-08-08 -- so there is nothing to
+   test and nothing to wait for. (This library also carried a set of 2026 dates for the Rich
+   Results Test, Search Console reporting and an August 2026 API cut; those are **unverified**
+   and must not be stated -- see `docs/loop/r3-decision-brief.md`.) Keep the markup
+   because it stays valid and Google says there is no need to proactively remove it. Do NOT
+   report that as Google advising anyone to keep it -- Google's words permit dropping it and
+   say only that removing it is not worth doing on purpose. Do NOT tell the user it earns AI
+   citations: ruling R3 amendment 9a records that no primary source establishes that either
+   way (settled ruling R3)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
 ## Tips
 
-- Combine multiple schemas when appropriate (Article + FAQ, Product + Review)
+- One primary content type per page (settled ruling R2, CORE-EEAT O05) -- pick the type the page IS and nest supporting entities inside it as properties: a product page is Product with `review`/`aggregateRating` nested, not Product + Review side by side
+- Documented auxiliaries are not stacking and stay welcome -- BreadcrumbList where a real trail exists, Organization/Person as publisher or author identity, WebSite on the homepage. A second full content type IS stacking and is not allowed (FAQPage bolted onto a service or pricing page, Article + Product both as primaries), unless the page genuinely is both things and each type is complete, accurate and independently justified
+- A visible on-page Q&A block earns CORE-EEAT C09 on its own -- markup is not required for it. Generate FAQPage only where FAQPage is the page's one primary type
 - Do not mark up content not visible on the page (violates Google guidelines)
 - Update schema when content changes (prices, dates, addresses)
 

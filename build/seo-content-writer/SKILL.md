@@ -1,13 +1,13 @@
 ---
 name: seo-content-writer
-version: "4.2.0"
+version: "4.8.1"
 description: 'Write search-engine-optimized blog posts, landing pages, and articles with keyword integration, header hierarchy, and featured snippet targeting. Use when the user asks to "write SEO content", "create a blog post", "write an article", "draft optimized content", "write a landing page", or "SEO copywriting". Creates keyword-optimized content using a 12-step workflow with CORE-EEAT checklist, title optimization, meta description, H1/H2/H3 hierarchy, and internal/external linking. For AI-citation optimization, see geo-content-optimizer. For updating existing content, see content-refresher.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.2.0"
+  version: "4.8.1"
   geo-relevance: "medium"
   tags:
     - seo
@@ -95,6 +95,8 @@ Ask the user to provide:
 4. Any competitor URLs or content examples to reference
 
 Proceed with the full workflow using provided data. Note in the output which metrics are from automated collection vs. user-provided data.
+
+**Resolve every `~~category` token before the deliverable leaves.** The token addresses you and the operator, never the reader: write the connected tool's real name (Ahrefs, Google Search Console), or name the actual source in plain language ("your 28-day Search Console export"), or state that no tool was connected and the figure is unavailable — never a token where a source or a number belongs. Internal surfaces keep it (this skill's own text, references, gap notes that stay in-house). See [references/anti-slop-ruleset.md](./references/anti-slop-ruleset.md) §6 family 7 and the root CLAUDE.md Tool Connector Pattern rule.
 
 ## Instructions
 
@@ -184,7 +186,7 @@ When a user requests SEO content:
    
    **Requirements**:
    - Include primary keyword (preferably at start)
-   - Under 60 characters for full SERP display
+   - Under 60 characters as a house working range — Google publishes no title length limit and truncates by device width, so this is a legibility target, not a display guarantee
    - Compelling and click-worthy
    - Match search intent
    
@@ -230,6 +232,8 @@ When a user requests SEO content:
    - **Structural bans**: uniform paragraph lengths, per-section closing summaries, rhetorical-question openers, listicle padding ("Let's dive in"/«Ας ξεκινήσουμε»)
    - **Information gain**: a sentence that could sit unchanged on any competitor's page gets specific (datum, case, mechanism, named entity) or gets cut; every section must add something not derivable from its own heading
    - **Specificity ladder**: vague → quantified → quantified + sourced; aim for the top rung using only provided/verifiable data — absent data becomes a `[CLIENT DATA: …]` placeholder, never an invented number (statistics rule)
+   - **The floor under anything this skill drafts** — three entries on the library's prohibition list sit inside this skill's own path, and no phrasing of the request lifts them ([prohibited-tactics.md](../../references/prohibited-tactics.md)). **No fabricated citation, statistic, quotation, expert, case study, testimonial or date** (entry 5): the statistics rule and the specificity ladder above are how this one is obeyed — cite a primary source with its date, or drop the claim and say what would establish it, and never attribute anything to a real person or organisation without a record you have read. **No undisclosed AI-generated content at scale** (entry 7): this skill is a drafting tool, so every draft it hands over names the **human subject-matter reviewer** who signs it off and the review step they run — a draft leaving with neither is not publishable, and the accountability gap is the defect even when nothing in the text is wrong. That naming lives in the deliverable's own report/handoff section, never as an agency aside inside the copy and never as a bracket token in a paste-ready block; where the client has assigned nobody, the unassigned reviewer is the gap to state, not a name to invent. **No scraped, spun or unreviewed machine-translated content** (entry 8): a competitor page reworded adds nothing a reader could not get from the original, and a translated variant is a first draft until a native reviewer signs it off, which is what step 9 checks. Where the client's existing content already contains one of these, name it, state the exposure, and give the remediation with an owner — never draft on top of it
+   - **No guaranteed outcome, on any surface** — this skill drafts the copy a client publishes, so it is the likeliest place in the library for "we guarantee position 1", "this will get you cited by ChatGPT" or «εγγυόμαστε την πρώτη θέση» to reach a page. No engine publishes citation criteria and none guarantees determinism, so the promise is a claim about a mechanism nobody has documented. Write the mechanism as a declared working model, a leading indicator with its measurement plan, and a dated baseline instead. FAIL-grade family 10, with the screen and the worked substitutions: [references/anti-slop-ruleset.md](./references/anti-slop-ruleset.md) §6
 
 7. **Apply On-Page SEO Best Practices**
 
@@ -260,32 +264,50 @@ When a user requests SEO content:
 
 9. **Per-Locale E-E-A-T Adaptation (EL/EN/DE)**
 
-   Each language variant is evaluated by search/AI engines as its own page, not as a translation credit of the EN version. Before publishing a non-EN variant, confirm locale-native evidence — not literal translation:
-
-   ```markdown
-   ### Per-Locale Adaptation Checklist
-
-   | Element | Requirement | Literal-Translation Failure Mode |
-   |---------|-------------|-----------------------------------|
-   | Author/entity signals | Local author, credential, or entity relevant to that locale | EN bio machine-translated; no local credibility signal |
-   | References/sources | Locale-language or locally-relevant sources, not EN-only citations | All citations point to English-only sources on a DE/EL page |
-   | Examples | Locale-specific scenarios, regulations, use cases | US/UK examples left unchanged on a DE or EL page |
-   | Pricing/figures | Local currency, locally-sourced pricing/stats | EN (USD) pricing left unconverted on EL/DE pages |
+   Each language variant is evaluated by search/AI engines as its own page, not as a translation credit of the EN version. Before publishing a non-EN variant, confirm locale-native evidence — not literal translation — across four elements: **author/entity signals** (a local author, credential or entity, not a machine-translated EN bio), **references/sources** (locale-language or locally relevant, not EN-only citations), **examples** (locale-specific scenarios and regulations, not US/UK ones left standing), and **pricing/figures** (local currency, locally sourced). Each row with its literal-translation failure mode, and why passing all four is still not a sign-off: [references/seo-writing-checklist.md](./references/seo-writing-checklist.md) → Per-Locale Adaptation Checklist.
 
    **[VERIFY – 2026, industry analysis]** Translation-only pages reportedly lose AI-engine citations to the strongest-language version ("semantic collapse") — directionally treat thin translations as a citation risk.
 
-   Do not publish a language variant until every row above is locale-native, not translated.
-   ```
+   Do not publish a language variant until every one of the four elements is locale-native, not translated.
 
    **Greek YMYL content (health/legal/finance)**: the author-signals row tightens to *registry-verifiable* — bio = full name + credential + affiliation checkable against the relevant Greek professional registry (regional ιατρικοί σύλλογοι/ΠΙΣ for medical; δικηγορικοί σύλλογοι, e.g. ΔΣΑ, for legal; ΤΕΕ for engineers; ΟΕΕ for economists/accountants; ΓΕΜΗ for company legitimacy) + registry number where public. Unverifiable credentials are omitted, never approximated. Registry landscape, bio templates, and fallbacks: [references/greek-ymyl-credentials.md](./references/greek-ymyl-credentials.md).
 
 10. **Final SEO Review and CORE-EEAT Self-Check**
 
-    Score content across 10 SEO factors (title, meta description, H1, keyword placement, H2s, internal links, external links, FAQ, readability, word count) and produce an Overall SEO Score out of 10.
+    Score the content across 10 SEO factors — title, meta description, H1, keyword placement, H2s, internal links, external links, FAQ, readability, word count. **Each factor is worth one point: met = 1 · partly met = 0.5 · not met = 0**, and the **Overall SEO Score is the plain sum of the ten, out of 10** — no weights, no conversion step, so a reader checks it by adding the ten numbers the review printed. Print every factor's grade with the one-line reason it earned it, and print the total as arithmetic (`1 + 0.5 + … = 8.0/10`).
+
+    **A factor you cannot check is excluded from the numerator and the denominator** — never scored 0, never guessed — and the score prints on the shrunken denominator with the exclusion named (`7.5/9 factors scored — internal links N/A, single-page site`). Zero means measured and failing; blank means unmeasured. Nothing checkable at all means no Overall SEO Score in the deliverable, only the list of what is missing and which input unlocks it. **A bracketed placeholder is not a citation and not a link**: a draft whose sources are all `[SOURCED STAT: …]` scores 0 on external links and says so.
+
+    Per-factor 1/0.5/0 criteria, the worked arithmetic, why the ten factors and the 23-box on-page checklist are two different instruments, and why this 0–10 number is not the 0–100 CORE-EEAT SEO/GEO score: [references/seo-score-rubric.md](./references/seo-score-rubric.md).
 
     Then verify the 16 CORE-EEAT pre-write constraints (C01, C02, C06, C10, O01, O02, O06, O09, R01, R02, R04, R07, C03, O08, O10, E07) with pass/warning/fail status. List items needing attention.
 
     _For full 80-item audit, use [content-quality-auditor](../../cross-cutting/content-quality-auditor/)_
+
+### The Handoff Actions — Seven Fields Each
+
+A draft is not the whole deliverable. This skill also hands over the things somebody still has to do: publish it, insert the links proposed in step 8, close the locale gaps step 9 found, replace every `[SOURCED STAT: …]` and `[CLIENT DATA: …]` placeholder, run the subject-matter review the draft names, fix each item step 10 flagged. **Every one of those is an action and carries seven fields**: **action · owner · acceptance criterion · expected impact · effort · dependencies · risk if done wrong**.
+
+**They live in the report/handoff section, never inside the copy.** The draft is published under the client's own byline, so an owner column or an acceptance criterion sitting inside the article is the same placement defect as an agency aside in the body text (ledger F13). The copy is for the reader; the action table is for whoever ships it.
+
+Fields 1-3 are **required** — no action ships without an owner-role and an acceptance criterion — and fields 4-7 take a stated-absence value where no answer exists (`not estimated — no baseline data`, `not estimated`, `none`, `low — reversible, no downstream effect`), never blank and never invented. **Owner is a role**: `Content` · `SEO/technical` · `Developer` · `Designer` · `Product/merchandising` · `Customer service` · `Legal/compliance` · `Agency` · `Client decision`. The **named human subject-matter reviewer** this skill already requires is the owner of the review action; where the client has assigned nobody the cell reads `unassigned — needs an owner` — the gap to state, not a name to invent.
+
+**The acceptance-criterion test: could someone who was not part of this engagement check it six weeks from now, without asking anybody what was meant?** Observable, binary at the moment of checking, attached to a named artefact or measurement, dated or triggered — "every `[SOURCED STAT: …]` placeholder is replaced by a figure carrying a named primary source and its date, or the sentence is cut, and zero bracket tokens remain on the published page", not "add sources".
+
+**A criterion never requires an engine to do something.** A ranking, a snippet, a citation or an appearance in a generated answer is nobody's to deliver, and writing one as a criterion is family 10's guaranteed-outcome promise wearing an acceptance test's clothes. The criterion is the work shipped plus the measurement re-run and recorded beside its dated baseline.
+
+**Ordering, stated once**: expected impact ÷ effort with dependencies respected — the native reviewer's sign-off is a dependency of publishing a locale variant, so publication sorts below it whatever its score.
+
+```markdown
+<!-- SKELETON — the handoff action table, which travels beside the draft and never inside it.
+     Every [slot] is filled from this run; fields 4-7 take their stated-absence value where no
+     answer exists. Delete this comment when the table is filled. -->
+| # | Action | Owner | Acceptance criterion | Expected impact | Effort | Dependencies | Risk if done wrong |
+|---|--------|-------|----------------------|-----------------|--------|--------------|--------------------|
+| 1 | [one imperative sentence naming the artefact and the change] | [role] | [observable · binary · named artefact or measurement · dated or triggered] | [a working model labelled as one, or `not estimated — no baseline data`] | [S/M/L, or `not estimated`] | [named, or `none`] | [failure mode and cost, or `low — reversible, no downstream effect`] |
+```
+
+Field definitions, stated-absence values, the closed role list, worked criteria and the three permitted shapes of expected impact: [Action Output Contract](../../references/action-output-contract.md).
 
 ## Validation Checkpoints
 
@@ -296,13 +318,19 @@ When a user requests SEO content:
 - [ ] Competitor URLs reviewed or target SERP features identified
 
 ### Output Validation
-- [ ] Keyword density within 1-2% for primary keyword (Note: Keyword density is a guideline, not a hard rule. Modern search engines prioritize semantic relevance and natural language over exact density targets. Focus on covering the topic comprehensively with semantic variants rather than hitting a specific percentage.)
+- [ ] Keyword density within 1-2% for primary keyword (Note: Keyword density is a guideline, not a hard rule. A page that covers the topic with its natural semantic variants reads as written for a reader; one tuned to a density figure reads as written for a counter, and the difference is visible on the page. Focus on covering the topic comprehensively with semantic variants rather than hitting a specific percentage.)
 - [ ] All sections from outline covered completely
 - [ ] Internal links included (2-5 relevant links)
 - [ ] FAQ section present with at least 3 questions
 - [ ] Readability score appropriate for target audience
-- [ ] Source of each data point clearly stated (~~SEO tool data, user-provided, or estimated)
+- [ ] Source of each data point clearly stated in the deliverable's own words — the resolved tool name (Ahrefs, Google Search Console), "user-provided", or "estimated"; never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
 - [ ] Anti-slop self-check passed (vocabulary tiers, structure, information gain, specificity — [references/anti-slop-ruleset.md](./references/anti-slop-ruleset.md) §5)
+- [ ] No fabricated citation, statistic, quotation, expert, case study or date anywhere in the draft — every claim sourced, converted to first-party, hedged, or cut ([prohibited-tactics.md](../../references/prohibited-tactics.md) entry 5)
+- [ ] The report/handoff section names the human subject-matter reviewer who signs the draft off and the review step they run, and any non-EN variant names its native reviewer (entries 7 and 8) — an unassigned reviewer is stated as the gap, never invented and never left blank
+- [ ] No guaranteed-outcome promise about a search or AI surface anywhere in the copy — mechanism as a declared working model, leading indicator with its measurement plan, and dated baseline instead ([references/anti-slop-ruleset.md](./references/anti-slop-ruleset.md) §6 family 10)
+- [ ] Overall SEO Score printed as arithmetic over the ten factor grades, each grade carrying its reason, with any excluded factor named and the denominator matching ([references/seo-score-rubric.md](./references/seo-score-rubric.md))
+- [ ] Every handoff action carries all seven fields — action, owner, acceptance criterion, expected impact, effort, dependencies, risk if done wrong — with a stated-absence value wherever an answer does not exist; none ships without an owner-role and an acceptance criterion, the owner is a role from the closed list (`unassigned — needs an owner` counts and is itself a finding), and the whole table sits in the report/handoff section, never inside the copy the client publishes
+- [ ] Every acceptance criterion is observable, binary at the moment of checking, attached to a named artefact or measurement, and dated or triggered — checkable six weeks on by someone who was not part of this engagement. **None requires an engine to do something**: a ranking, a snippet or a citation as a criterion is family 10's promise in another form. Ordering is expected impact ÷ effort with dependencies respected, stated once
 
 ## Example
 
@@ -314,29 +342,7 @@ The example output demonstrates: keyword in H1 and first 100 words, statistics c
 
 ## Content Type Templates
 
-### How-To Guide
-
-```
-Write a how-to guide for [task] targeting [keyword]
-```
-
-### Comparison Article
-
-```
-Write a comparison article: [Option A] vs [Option B] for [keyword]
-```
-
-### Listicle
-
-```
-Write a list post: "X Best [Items] for [Audience/Purpose]" targeting [keyword]
-```
-
-### Ultimate Guide
-
-```
-Write an ultimate guide about [topic] (3,000+ words) targeting [keyword]
-```
+The four named content types — how-to guide, comparison article, listicle, ultimate guide — with the request wording that selects each and the full structure it maps to: [references/content-structure-templates.md](./references/content-structure-templates.md) → Invocation Shapes. Blog post and product review have structures there too, selected from the brief rather than by a fixed phrase.
 
 ## Tips for Success
 
@@ -351,9 +357,11 @@ Write an ultimate guide about [topic] (3,000+ words) targeting [keyword]
 
 - [Title Formulas](./references/title-formulas.md) - Proven headline formulas, power words, CTR patterns
 - [Content Structure Templates](./references/content-structure-templates.md) - Templates for blog posts, comparisons, listicles, how-tos, pillar pages
-- [SEO Writing Checklist](./references/seo-writing-checklist.md) - On-page checklist, content writing template, snippet patterns, full worked example
+- [SEO Writing Checklist](./references/seo-writing-checklist.md) - On-page checklist (23 drafting boxes), content writing template, snippet patterns, full worked example
+- [SEO Score Rubric](./references/seo-score-rubric.md) - Step-10 Overall SEO Score: per-factor 1/0.5/0 criteria, aggregation, unscoreable factors, checklist-vs-score boundary
 - [Anti-Slop Ruleset](./references/anti-slop-ruleset.md) - Tiered vocabulary bans (EN + EL), structural bans, information-gain test, specificity ladder
 - [Greek YMYL Credentials](./references/greek-ymyl-credentials.md) - Registry-verifiable author bios for EL health/legal/finance content
+- [Action Output Contract](../../references/action-output-contract.md) - Library-wide: the seven fields every handoff action carries, their stated-absence values, the closed owner-role list, worked acceptance criteria (and the AI-surface measurement rule), the three permitted shapes of expected impact, and the ordering rule
 
 ## Related Skills
 
