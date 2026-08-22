@@ -1204,6 +1204,55 @@ Quality* — rests on zero observations of the surface the engagement targets.
 `CLIENT-MANDATE.md` §4 governs. It records that the decisions have been outstanding for five
 measured rounds.
 
+### Round 15 — 2026-08-22 · a SIXTH round at zero for G2-C3 and G4-C4, and a third still tree
+
+- **Round number**: 15, from the file `[obs:2026-08-22 highest "### Round N" heading -> 14]`
+- **Tree**: open and close HEAD **`daf391e`**, clean, nothing unpushed, remote unmoved. Distance
+  from Round 14: one commit — Round 14's own — touching **one path, this file**
+  `[obs:2026-08-22 git status --short -> empty; git log HEAD..origin/... -> empty; git diff --name-only 3b67d0c..HEAD -> docs/loop/GOALS-SCORECARD.md]`
+- Every criterion re-run rather than reasoned about, per this file's own note.
+
+#### No fraction moved, for the second consecutive round
+
+| Goal | R13 | R14 | R15 |
+|---|---|---|---|
+| 1 — Structural & Coordinator Defenses | 4 of 9 | 4 of 9 | **4 of 9** |
+| 2 — Skill Evaluation & Verification | 6 of 9 | 6 of 9 | **6 of 9** |
+| 3 — Loop Durability & Scripted Rigor | 6 of 8 | 6 of 8 | **6 of 8** |
+| 4A — Outcome Quality | 3 of 4 | 3 of 4 | **3 of 4** |
+
+All cells identical to Round 14 `[obs:2026-08-22 daf391e]`: G1-C1 `SELFTEST PASS` · C2 13/20 ·
+C3 18/20 · C4 20/20 · C5 three archives · C6 51 entries · C7 **0** recurrences dated to this round ·
+C8 2 of 4 KPI rows · C9 13/20 · G2-C1 20/20 · C2 20/20 · **C3 0 of 20** · C4 20/20 · C5 20/20 ·
+**C6 21 across 12** · C7 20 of 21 · C8 both rates · C9 20/20 · G3-C1 exit 0 · C2 20/20 ·
+C3 `10 / 15 warn / 0 fail` · C4 2 legs with no subject · C5 five legs PROBE PASS twice each ·
+C6 5 of 5 · C7 4 files, none in a skill tree · C8 no KPI row for 08-18 through 08-22 ·
+G4-C1 20/20 (19 strict) · C2 20/20 · C3 8 artefacts · **C4 0 captures**. 4B unchanged, owner-gated.
+
+**Round 14's correction holds on re-measurement.** The `claims-gate` corpus splits 5 FAIL / 3
+WARN-only, exactly as corrected, and the negative control is clean
+`[obs:2026-08-22 daf391e nine fixture runs, warnings and failures read separately: forward-timestamp 0w/2f · register-wide-stale-claims 0w/2f · founding-stale-sibling 0w/1f · end-to-end-overclaim 0w/1f · post-flip-stale-sibling 0w/1f · attribution-gloss 1w/0f · word-level-graduated 1w/0f · mechanism-in-observed-frame 1w/0f · negative-control-clean 0w/0f]`
+
+#### 🔴 Sixth round at zero — G2-C3 and G4-C4
+
+| | rounds at zero | closes by | decision recorded |
+|---|---|---|---|
+| **G2-C3** | **6** | freeze the tree at one wave-wide SHA, re-run the blind wave | **none** |
+| **G4-C4** | **6** | one capture against prompt-set v1 under the N ≥ 3 protocol | **none** |
+
+**Three consecutive rounds have now measured a tree that did not move.** Rounds 13, 14 and 15 span
+three commits, all three of them edits to this file. Nothing else in the repository changed across
+72 hours, and no criterion changed either.
+
+**A note on what this instrument can and cannot do from here.** The scorecard's value is movement
+over time; with a static tree and no decision, each round costs a full re-measurement and returns
+the previous round's numbers. That is not a fault in the file and the re-runs are not wasted —
+confirming that nothing moved is a measurement, and it is the evidence above that neither zero is
+attributable to churn. **But it does mean the next round has nothing new to find unless something
+changes**, and a reader should not mistake a lengthening column of identical rows for progress.
+The two decisions are recorded as outstanding, under `CLIENT-MANDATE.md` §4; this round re-argues
+neither and states no preference between them.
+
 ---
 
 ## Part C — What closes each gap
