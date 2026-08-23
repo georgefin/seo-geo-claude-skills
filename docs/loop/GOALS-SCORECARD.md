@@ -1253,6 +1253,73 @@ changes**, and a reader should not mistake a lengthening column of identical row
 The two decisions are recorded as outstanding, under `CLIENT-MANDATE.md` §4; this round re-argues
 neither and states no preference between them.
 
+### Round 16 — 2026-08-23 · a SEVENTH round at zero for G2-C3 and G4-C4; G3-C8's blocker removed
+
+- **Round 16**, from the file `[obs:2026-08-23 highest heading -> 15]`. Tree: open HEAD **`439a317`**,
+  clean, remote unmoved; distance from Round 15 is one commit — Round 15's own — touching this file
+  only `[obs:2026-08-23 git status --short -> empty; git log HEAD..origin/... -> empty; git diff --name-only daf391e..HEAD -> docs/loop/GOALS-SCORECARD.md]`
+- **Fourth consecutive still tree.** Every criterion re-run; the full cell list is in Round 15 and is
+  not restated here.
+
+#### No fraction moved, for the third consecutive round
+
+| Goal | R13 | R14 | R15 | R16 |
+|---|---|---|---|---|
+| 1 | 4 of 9 | 4 of 9 | 4 of 9 | **4 of 9** |
+| 2 | 6 of 9 | 6 of 9 | 6 of 9 | **6 of 9** |
+| 3 | 6 of 8 | 6 of 8 | 6 of 8 | **6 of 8** |
+| 4A | 3 of 4 | 3 of 4 | 3 of 4 | **3 of 4** |
+
+Spot-confirmed identical `[obs:2026-08-23 439a317]`: five probes PROBE PASS twice each · claims-gate
+5 FAIL / 3 WARN-only / control clean · G3-C2 20/20 · G3-C3 `10 / 15 warn / 0 fail` ·
+G1-C1 `SELFTEST PASS` · G1-C7 **0** recurrences dated to this round · **G2-C3 0 of 20** ·
+G2-C6 21 across 12 · G2-C7 20 of 21 · G4-C1 20/20 · **G4-C4 0 captures**.
+
+#### G3-C8 — the blocker is removed, and the criterion is still scored NOT MET
+
+**This round did the one unmet thing that needed no owner decision.** `KPI.md` now carries a
+**2026-08-23 correcting row**, written under that file's own rule 1 (*a wrong number is corrected by
+appending a new row that names the row it corrects*).
+
+**What the 2026-08-17 correcting row got wrong, and what it got right.** It states *"19 of 477
+previously-passing expectations across the 18 compared suites = 4.0%"*. **Two of its three counts
+are wrong** — the wave carries **21** attributed regressions across **20** compared suites — **and
+its headline percentage is right**: 19/477 = 3.98%, 21/530 = 3.96%, both rounding to 4.0%.
+
+**That is the finding worth keeping.** The rate survived while every number under it moved, which is
+exactly why the drift went unnoticed through five scorecard rounds. A percentage that is stable
+under a wrong numerator *and* a wrong denominator is not corroboration of either.
+
+Derivation, so it is checkable rather than assertable: performance-reporter and rank-tracker were
+`NOT PERFORMED` when the 08-17 row was written; both comparisons were later run and each returned
+one regression (19 → 21, 18 → 20 suites). The denominator gains those suites' own baseline passes —
+performance-reporter 28 of 29, rank-tracker 25 of 28 — so 477 + 28 + 25 = **530**
+`[obs:2026-08-23 439a317 baseline totals read from each record's regressions_vs_baseline.baseline string]`.
+`evals passed/total` was re-derived independently by summing `summary.passed` and `summary.total`
+across all 20 records and **matches the 08-17 row's 544/610 exactly**, which is the control on the
+method that produced the two corrected figures.
+
+**G3-C8 is nevertheless recorded NOT MET.** The round scores the tree it measured, not its own
+repair — the Round 7 laundering rule, applied here as it was to the fixture at Round 12. The next
+round should find it MET, and should verify the row rather than trust this note.
+
+#### 🔴 Seventh round at zero — G2-C3 and G4-C4
+
+| | rounds at zero | closes by | decision recorded |
+|---|---|---|---|
+| **G2-C3** | **7** | freeze the tree at one wave-wide SHA, re-run the blind wave | **none** |
+| **G4-C4** | **7** | one capture against prompt-set v1 under the N ≥ 3 protocol | **none** |
+
+**Four consecutive rounds have measured a tree that did not move**, across four commits, all four of
+them edits to this file. Both remain owner decisions under `CLIENT-MANDATE.md` §4; this round
+re-argues neither and states no preference.
+
+**What changed about the shape of the problem, though, is worth one line.** Before this round, three
+criteria were unmet-and-actionable-by-the-library: G3-C8, and the two zeros. **G3-C8's blocker is now
+gone.** Every remaining unmet criterion is either owner-gated, or needs a wave the owner must
+authorise freezing the tree for, or is a record-quality gap in a corpus nobody will re-run until that
+wave happens. **The library has run out of unmet criteria it can close on its own.**
+
 ---
 
 ## Part C — What closes each gap

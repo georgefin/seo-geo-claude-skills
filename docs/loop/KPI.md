@@ -188,3 +188,34 @@ it restates the same fire over the population that finished arriving after that 
   criterion that wants a number here (G1-C8) is unmet for this fire and closes only when the
   coordinator writes the cell at close-out or the column's definition narrows to what one lane can
   count.
+
+| 2026-08-23 | 21 of 530 previously-passing expectations across the 20 compared suites = 4.0% | 1 increment, 1 entry (F11 r9) | n/a — not countable from this lane; see column note | 544/610 across 20 suites | n/a — not countable from this lane; see column note | CORRECTS the counts in the 2026-08-17 correcting row above; blind-2026-08-17/*.json unchanged since; GOALS-SCORECARD.md Rounds 12-16; F11 r9 |
+
+**Column notes for the correcting 2026-08-23 row** (KPI rule 1: a wrong number is corrected by
+appending a new row that names the row it corrects — never by editing it).
+
+- **What was wrong, and what was not.** The 2026-08-17 correcting row states *"19 of 477
+  previously-passing expectations across the 18 compared suites = 4.0%"*. Two of its three counts
+  are wrong: the wave has **21** attributed regressions, not 19, and **20** compared suites, not 18.
+  **Its headline percentage is right.** 19/477 = 3.98% and 21/530 = 3.96%; both round to 4.0%, so
+  the rate survived while the numbers under it did not — which is why the drift went unnoticed
+  through five scorecard rounds and is worth naming rather than quietly fixing.
+- **Where the corrected counts come from.** performance-reporter and rank-tracker were recorded as
+  `NOT PERFORMED` when the 08-17 row was written; both comparisons were later run and each returned
+  one regression, taking 19 → 21 and 18 → 20 compared suites. The denominator grows by those two
+  suites' own baseline passes — performance-reporter `blind-2026-08-10b/performance.json`, 28
+  passed of 29; rank-tracker `blind-2026-08-10c/ranktracker.json`, 25 passed of 28 — so
+  477 + 28 + 25 = **530**.
+- **`evals passed/total` is unchanged at 544/610** and was independently re-derived here by summing
+  `summary.passed` and `summary.total` across all 20 records, matching the 08-17 row's figure
+  exactly. The 66-slot gap between 544 and 610 is editor-pending and instrument-defect slots, each
+  named inside its own record's summary object.
+- **`repeat-failure count` counts increments since the previous row**, per the column definition:
+  one, `F11 — Recurrence 9 (2026-08-18)`. The `Correction — 2026-08-18` entry is not a recurrence
+  and is not counted.
+- **Both `n/a` cells carry the same reason as the row above** — a wave's gate history and its
+  cross-lane tool-correctness sit outside any single lane's view. `n/a` because nothing was
+  measured, not because nothing fired.
+- **This row is written from artefacts, not from memory**: every figure is a re-derivation over
+  `docs/loop/eval-baselines/blind-2026-08-17/` at `439a317`, where those records are byte-identical
+  to their state when the 08-17 row was written.
