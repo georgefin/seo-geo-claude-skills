@@ -1320,6 +1320,81 @@ gone.** Every remaining unmet criterion is either owner-gated, or needs a wave t
 authorise freezing the tree for, or is a record-quality gap in a corpus nobody will re-run until that
 wave happens. **The library has run out of unmet criteria it can close on its own.**
 
+### Round 17 — 2026-08-24 · G3-C8 MET; an instrument that nearly retracted a correct row; an EIGHTH zero
+
+- **Round 17** `[obs:2026-08-24 highest heading -> 16]`. Tree: HEAD **`1b3d50f`**, clean, remote
+  unmoved; one commit from Round 16, and that commit was Round 16's own
+  `[obs:2026-08-24 git status --short -> empty; git log HEAD..origin/... -> empty; git diff --name-only 439a317..HEAD -> docs/loop/GOALS-SCORECARD.md, docs/loop/KPI.md]`
+- **Fifth consecutive still tree.**
+
+#### Goal 3: **6 of 8 → 7 of 8.** G3-C8 is MET
+
+Round 16 appended a correcting `KPI.md` row and scored the criterion NOT MET, per the rule that a
+round scores what it found. **This round verified it by re-deriving every cell rather than reading
+the row**, and all four re-derive:
+
+| cell | Round 16's row | re-derived here | method |
+|---|---|---|---|
+| attributed regressions | 21 | **21** | count over all eight `regressions_vs_baseline` shapes |
+| compared suites | 20 | **20** | records with a non-empty comparison object |
+| `evals passed/total` | 544/610 | **544/610** (41 failed) | sum of `summary.passed` / `summary.total` across 20 records |
+| **denominator** | 530 | **530** | **see below — a genuinely independent route** |
+
+**The denominator is the one that mattered, and Round 16's derivation had a hole in it.** Round 16
+computed 530 as `477 + 28 + 25`, inheriting **477 from the very row it was correcting** — a figure
+it never checked. This round derived it from scratch instead: for each of the 20 records, open the
+baseline file that record itself names, and read that baseline's own pass count. **Sum: 530, across
+20 of 20, with nothing left underivable** `[obs:2026-08-24 1b3d50f per-record baseline path extracted from regressions_vs_baseline, each baseline opened, pass count read from summary.passed or totals.pass]`.
+Two methods, one number, and it retroactively validates the 477 as well (530 − 28 − 25 = 477).
+
+#### 🔴 The instrument finding — this one nearly retracted a *correct* row
+
+The first pass at that derivation read `summary.passed` and returned **278 across 10 of 20**,
+reporting the other ten as having no pass count. Read literally, that says the denominator is not
+derivable, **which would have made Round 16's row an overclaim and G3-C8 a fail.**
+
+**It was wrong.** The ten "missing" records are the 2026-08-10 founding wave, which predates the
+corpus schema and stores its figures under **`totals.pass`, not `summary.passed`**. Accepting either
+key returns 20 of 20 and the exact 530
+`[obs:2026-08-24 1b3d50f blind-2026-08-10/technical.json top-level keys -> [... 'totals' ...], summary -> null]`.
+
+**This is the sixth instrument-aimed-beside-the-target instance recorded in this file, and the first
+whose failure direction is inverted.** The other five reported something *green* that was not
+(Rounds 2 ×4, Round 12 ×1). This one would have reported something *red* that was not — retracting a
+correct correction, and looking rigorous while doing it. **A round that only distrusts its
+optimistic readings is half-calibrated.** The rule that caught it is the same one: when a number is
+surprising, read the underlying field before believing the instrument.
+
+#### Everything else — held
+
+| Goal | R14 | R15 | R16 | R17 |
+|---|---|---|---|---|
+| 1 | 4 of 9 | 4 of 9 | 4 of 9 | **4 of 9** |
+| 2 | 6 of 9 | 6 of 9 | 6 of 9 | **6 of 9** |
+| 3 | 6 of 8 | 6 of 8 | 6 of 8 | **7 of 8** |
+| 4A | 3 of 4 | 3 of 4 | 3 of 4 | **3 of 4** |
+
+Confirmed identical `[obs:2026-08-24 1b3d50f]`: five probes PROBE PASS twice each · G3-C1 exit 0 ·
+G3-C2 20/20 · G3-C3 `10 / 15 warn / 0 fail` · G3-C4 2 legs with no subject · G1-C1 `SELFTEST PASS` ·
+G1-C2 13/20 · G1-C3 18/20 · G1-C4 20/20 · G1-C7 **0** recurrences dated to this round · G1-C9 13/20 ·
+**G2-C3 0 of 20** · G2-C6 21 across 12 · G2-C7 20 of 21 · G4-C1 20/20 · **G4-C4 0 captures**.
+
+#### 🔴 Eighth round at zero — G2-C3 and G4-C4
+
+| | rounds at zero | closes by | decision recorded |
+|---|---|---|---|
+| **G2-C3** | **8** | freeze the tree at one wave-wide SHA, re-run the blind wave | **none** |
+| **G4-C4** | **8** | one capture against prompt-set v1 under the N ≥ 3 protocol | **none** |
+
+**The structural statement from Round 16 now holds with one criterion fewer to qualify it.** G3-C8
+was the last unmet criterion the library could close on its own, and it is closed. **Every remaining
+unmet criterion is owner-gated, needs a wave the owner must authorise freezing the tree for, or is a
+record-quality gap in a corpus nobody will re-run until that wave happens.**
+
+Five consecutive rounds have measured a tree that did not move, across five commits, all five of
+them edits to this file and — once — to `KPI.md`. Both decisions remain outstanding under
+`CLIENT-MANDATE.md` §4; this round re-argues neither and states no preference.
+
 ---
 
 ## Part C — What closes each gap
