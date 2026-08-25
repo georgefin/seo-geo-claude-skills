@@ -1395,6 +1395,51 @@ Five consecutive rounds have measured a tree that did not move, across five comm
 them edits to this file and — once — to `KPI.md`. Both decisions remain outstanding under
 `CLIENT-MANDATE.md` §4; this round re-argues neither and states no preference.
 
+### Round 18 — 2026-08-25 · a NINTH round at zero; nothing moved; sixth still tree
+
+- **Round 18** `[obs:2026-08-25 highest heading -> 17]`. HEAD **`76cd7c6`**, clean, remote unmoved;
+  one commit from Round 17, and that commit was Round 17's own edit to this file
+  `[obs:2026-08-25 git status --short -> empty; git log HEAD..origin/... -> empty; git diff --name-only 1b3d50f..HEAD -> docs/loop/GOALS-SCORECARD.md]`
+
+| Goal | R15 | R16 | R17 | R18 |
+|---|---|---|---|---|
+| 1 | 4 of 9 | 4 of 9 | 4 of 9 | **4 of 9** |
+| 2 | 6 of 9 | 6 of 9 | 6 of 9 | **6 of 9** |
+| 3 | 6 of 8 | 6 of 8 | 7 of 8 | **7 of 8** |
+| 4A | 3 of 4 | 3 of 4 | 3 of 4 | **3 of 4** |
+
+**G3-C8 re-verified rather than carried.** All four figures re-derive at this tree, the denominator
+again by the independent route (each record's own named baseline, `summary.passed` or `totals.pass`
+by wave): **21 regressions across 20 compared suites · 544/610 · denominator 530 across 20 of 20**
+`[obs:2026-08-25 76cd7c6]`. Every other cell identical to Round 17: five probes PROBE PASS twice
+each · G3-C1 exit 0 · G3-C2 20/20 · G3-C3 `10 / 15 warn / 0 fail` · G1-C1 `SELFTEST PASS` ·
+G1-C7 **0** recurrences dated to this round · **G2-C3 0 of 20** · G2-C7 20 of 21 · G4-C1 20/20 ·
+**G4-C4 0 captures**.
+
+**One denominator moved without anything happening.** G1-C8 is now **2 of 5** rather than 2 of 4:
+`KPI.md` gained the 2026-08-23 correcting row, whose `caught pre-push vs post-push` cell is `n/a`
+for the reason its own column note gives. The numerator did not change; the criterion reads worse
+because a row arrived carrying the honest absence. Recorded so the fraction is not misread as a
+regression `[obs:2026-08-25 KPI.md date column -> 08-10, 08-13, 08-17, 08-17, 08-23; two rows carry a number]`.
+
+#### 🔴 Ninth round at zero — G2-C3 and G4-C4
+
+| | rounds at zero | closes by | decision recorded |
+|---|---|---|---|
+| **G2-C3** | **9** | freeze the tree at one wave-wide SHA, re-run the blind wave | **none** |
+| **G4-C4** | **9** | one capture against prompt-set v1 under the N ≥ 3 protocol | **none** |
+
+**Six consecutive rounds have measured a tree that did not move**, across six commits, five of them
+edits to this file and one to `KPI.md`.
+
+**What this instrument is now doing, stated so nobody mistakes the cadence for activity.** Since
+Round 17 closed G3-C8 there has been **no unmet criterion the library can close on its own**. A
+round can therefore no longer *improve* anything; it can only *detect* a change. That is still worth
+running — the tree can move at any time, and a stale scorecard is the failure this file exists to
+prevent — but its remaining function is change-detection, not measurement, and it will keep
+returning these numbers until a decision is taken. Both decisions are the owner's under
+`CLIENT-MANDATE.md` §4. This round re-argues neither and states no preference between them.
+
 ---
 
 ## Part C — What closes each gap
