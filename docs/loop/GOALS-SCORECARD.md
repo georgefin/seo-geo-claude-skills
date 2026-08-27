@@ -1463,6 +1463,26 @@ unamended: every unmet criterion is owner-gated or wave-dependent, so this instr
 change-detection rather than measurement. Both decisions are the owner's under
 `CLIENT-MANDATE.md` §4.
 
+### Round 20 — 2026-08-27 · an ELEVENTH round at zero; nothing moved; eighth still tree
+
+- **Round 20** `[obs:2026-08-27 highest heading -> 19]`. HEAD **`018a031`**, clean, remote unmoved;
+  one commit from Round 19, and that commit was Round 19's own edit to this file
+  `[obs:2026-08-27 git status --short -> empty; git log HEAD..origin/... -> empty; git diff --name-only ee48752..HEAD -> docs/loop/GOALS-SCORECARD.md]`
+- **No fraction moved.** Goal 1 **4 of 9** · Goal 2 **6 of 9** · Goal 3 **7 of 8** · Goal 4A **3 of 4**.
+  4B owner-gated, unchanged.
+- Every criterion re-run. G3-C8 re-derived: **21 regressions across 20 compared suites · 544/610 ·
+  denominator 530 across 20 of 20**, the denominator by the independent route
+  `[obs:2026-08-27 018a031]`. Five probes PROBE PASS twice each; gate exit 0; G3-C2 20/20;
+  G3-C3 `10 / 15 warn / 0 fail`; G1-C1 `SELFTEST PASS`; G1-C7 **0** recurrences dated to this round.
+
+| | rounds at zero | closes by | decision recorded |
+|---|---|---|---|
+| **G2-C3** | **11** | freeze the tree at one wave-wide SHA, re-run the blind wave | **none** |
+| **G4-C4** | **11** | one capture against prompt-set v1 under the N ≥ 3 protocol | **none** |
+
+**Eight consecutive rounds have measured a tree that did not move.** Both decisions are the owner's
+under `CLIENT-MANDATE.md` §4.
+
 ---
 
 ## Part C — What closes each gap
