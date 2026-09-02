@@ -1,0 +1,14 @@
+# CASE: gate-stale-after-horizon
+# ROLE: negative
+# JOURNAL: journal-stale-open.tsv
+# COMMIT-AT: -3600
+# FILE: docs/loop/KPI.md
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: stale tenure — docs/loop/KPI.md held by lane-x
+# EXPECT-MATCH: none landed inside another holder's tenure undeclared
+# WHY: the horizon bound. The commit is an hour AFTER the tenure expired, so it passes
+#      — a crashed agent's abandoned lock decays instead of blocking every later commit
+#      forever — while the WARN still fires so the abandoned lock stays visible. Drop
+#      the min(now, +TTL) bound and this case turns red.
+# ---8<--- commit message
+docs(loop): weekly numbers

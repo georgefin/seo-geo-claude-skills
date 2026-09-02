@@ -1,0 +1,21 @@
+# CASE: warn-non-text-file
+# ROLE: positive
+# DIR: probe-non-text
+# ADD-FILE: assets/diagram.png
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: non-text files found
+# EXPECT-ABSENT: FAIL
+# ---8<--- SKILL.md
+---
+name: probe-non-text
+description: 'Probe fixture carrying a binary asset. Use when the user asks to "validate ClawHub file types" or "check for binary files".'
+license: Apache-2.0
+compatibility: "Claude Code >=1.0."
+metadata:
+  author: probe-fixture
+  version: "1.0.0"
+---
+
+# Probe Non Text
+
+Body content.

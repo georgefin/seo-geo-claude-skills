@@ -1,0 +1,5 @@
+# journal-stale-open.tsv — one tenure opened 3h ago and never released.
+# Past the default 90m horizon, so the tenure is STALE and bounded at start+TTL.
+# The bound is the point: a crashed agent decays instead of poisoning every later
+# commit forever. A commit before the horizon is still caught; one after is not.
+ACQUIRE	-10800	lane-x	docs/loop/KPI.md

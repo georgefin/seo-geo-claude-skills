@@ -43,8 +43,8 @@ Use alongside the Google SERP workflow — see [SKILL.md](../SKILL.md), section 
 - [ ] Locker/delivery options listed accurately (BoxNow, ACS, ELTA Courier, home delivery) and match real fulfillment capability
 - [ ] Speed/availability badges present and accurate ("άμεσα διαθέσιμο" / express-delivery indicators)
 - [ ] Stated delivery time cross-checked against actual fulfillment history — mismatches risk shop-rating damage, which does feed buyer trust
-- Locker network context: BoxNow reportedly targeting ~300k lockers by end-2026 (reported 12 Jul 2026) — locker access is trending from "nice to have" toward a default buyer expectation, and speed badges feed buyer trust accordingly
-- **[VERIFY]** BoxNow's 300k-locker target against current BoxNow/Skroutz communications before citing a specific number to a client — infrastructure targets shift
+- Locker network context: **[VERIFY — do not quote the figure]** this file has carried "BoxNow reportedly targeting ~300k lockers by end-2026 (reported 12 Jul 2026)". Confirm against current BoxNow/Skroutz communications before any client-facing use; infrastructure targets shift. **What is usable without the number**: locker access is moving from a nice-to-have toward a default buyer expectation, so listing locker options accurately is worth doing whatever the network's size turns out to be.
+
 - **[VERIFY]** Whether delivery-speed badges function as a Skroutz ranking input, or purely a buyer-facing trust/conversion signal — not confirmed either way
 
 ## 4. Trusted Reviews Standing
@@ -65,9 +65,8 @@ Use alongside the Google SERP workflow — see [SKILL.md](../SKILL.md), section 
 ## 6. Marketplace Fee Context
 
 - [ ] Fee model treated as a competitive-cost input feeding price competitiveness (Section 2), not as a direct ranking factor
-- Skoop per-order fee reported in effect since 01 Dec 2025 — primarily affects casual/individual-seller pricing headroom; largely does not apply to professional/B2B Skroutz listings
+- Skoop per-order fee: **[VERIFY — do not quote amount, threshold or date]** this file has carried "reported in effect since 01 Dec 2025". Confirm amount, thresholds and seller-tier scope against current Skroutz/Skoop terms before any client-facing use; fee schedules change. **What is usable without the figures**: the fee bears primarily on casual and individual-seller pricing headroom and largely not on professional/B2B listings, which is the part that changes what you advise.
 - [ ] Fee delta vs. competing sellers' cost structure factored into the price-competitiveness audit (Section 2) where relevant
-- **[VERIFY]** Current Skoop fee amount, thresholds, and seller-tier scope — fee schedules change; confirm against current Skroutz/Skoop terms before quoting a figure to a client
 
 ## 7. Shop Rating & Fulfillment SLA
 

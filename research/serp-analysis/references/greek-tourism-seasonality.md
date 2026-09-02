@@ -59,6 +59,8 @@ Greek tourism demand is seasonal, but **month patterns differ by destination, or
 
 Output: a per-destination demand calendar (month × keyword cluster × language) with data source and pull date on every row. A calendar row without a source and date is an assumption, not a finding.
 
+**The rule binds sentences, not just calendar rows.** No month is characterised as peak, shoulder or trough **anywhere in the deliverable** unless it is framed as an assumption still to be measured — not in a heading, not in a caption, and above all not in an aside about the capture window. The shape that gets past this rule is a month named in passing to **discount your own data**: *"the pull was taken in [month], which is peak season, so even the competitive picture is a peak-season one."* It is one month, in an aside, argued **against** your own capture rather than sold to the client as a plan, so it does not feel like a seasonality finding. It is one, and the same sentence lands in the report a month later as a fact nobody measured. Write the observable instead — *"the pull was taken on [date]; whether that month is a demand peak for this destination and origin market is unmeasured here, and a pull from another month could show a different competitive set"* — which makes the identical argument about representativeness and asserts nothing about the curve. Common knowledge is not an exemption: if the month were measured you would have the row, and if you have the row you cite it.
+
 ## 5. Inbound-Language Split (EL / EN / DE / measured)
 
 Greek tourism queries split across domestic (EL) and inbound-market languages. Treat them as **separate SERPs**: separate keyword sets, separate SERP pulls, separate difficulty scores.

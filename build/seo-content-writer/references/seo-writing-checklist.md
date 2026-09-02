@@ -6,6 +6,12 @@ On-page SEO checklist, content writing template, and featured snippet optimizati
 
 ## On-Page SEO Checklist
 
+**These 23 boxes are a drafting pre-flight list, not the score.** They are unweighted, they have
+no scale, and a tally of ticked boxes is not an Overall SEO Score — that number comes from the
+ten scored factors in [seo-score-rubric.md](./seo-score-rubric.md), which is a different
+instrument with a different membership (eight boxes below feed no factor; the FAQ and word-count
+factors have no box here). Run both, report both, never present one as the other.
+
 **Keyword Placement**:
 - [ ] Primary keyword in title
 - [ ] Primary keyword in H1
@@ -123,6 +129,32 @@ Use comparison tables with clear headers
 
 **For How-To Snippets**:
 Number each step clearly: "Step 1:", "Step 2:", etc.
+
+---
+
+## Per-Locale Adaptation Checklist (SKILL.md Step 9)
+
+Each language variant is evaluated by search and AI engines as its own page, not as a translation
+credit of the EN version. Before a non-EN variant is published, every row below is confirmed
+locale-native — not literally translated. The failure-mode column is what a machine translation
+leaves behind, and each one is visible on the page.
+
+| Element | Requirement | Literal-translation failure mode |
+|---------|-------------|----------------------------------|
+| Author/entity signals | Local author, credential, or entity relevant to that locale | EN bio machine-translated; no local credibility signal |
+| References/sources | Locale-language or locally-relevant sources, not EN-only citations | All citations point to English-only sources on a DE/EL page |
+| Examples | Locale-specific scenarios, regulations, use cases | US/UK examples left unchanged on a DE or EL page |
+| Pricing/figures | Local currency, locally-sourced pricing/stats | EN (USD) pricing left unconverted on EL/DE pages |
+
+Two things this checklist is not. It is **not a sign-off**: a variant that passes all four rows
+still needs the native reviewer named in the handoff, because "adapted" and "read by somebody who
+speaks the language" are different claims. And it is **not a translation-quality rubric** — it
+grades whether the page carries locale-native *evidence*, which is a separate question from
+whether the sentences read well.
+
+For Greek YMYL content (health, legal, finance) the author-signals row tightens to
+registry-verifiable — see [greek-ymyl-credentials.md](./greek-ymyl-credentials.md) for the
+registries, bio templates and fallbacks.
 
 ---
 

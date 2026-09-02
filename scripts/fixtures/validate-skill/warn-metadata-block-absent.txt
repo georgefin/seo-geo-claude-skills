@@ -1,0 +1,20 @@
+# CASE: warn-metadata-block-absent
+# ROLE: positive
+# DIR: probe-no-metadata
+# EXPECT-EXIT: 1
+# EXPECT-MATCH: Missing recommended field: metadata
+# EXPECT-MATCH: no version anywhere
+# WHY: exit is 1 because dropping the metadata block also drops the version
+#      authority. The WARN is what this case exists for; the FAIL rides along and
+#      cannot be separated without inventing a shape no skill has.
+# ---8<--- SKILL.md
+---
+name: probe-no-metadata
+description: 'Probe fixture with no metadata block at all. Use when the user asks to "validate a skill without metadata".'
+license: Apache-2.0
+compatibility: "Claude Code >=1.0."
+---
+
+# Probe No Metadata
+
+Body content.

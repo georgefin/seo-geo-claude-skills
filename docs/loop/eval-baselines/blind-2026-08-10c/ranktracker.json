@@ -1,0 +1,280 @@
+{
+  "suite": "ranktracker",
+  "skill": "rank-tracker",
+  "path": "monitor/rank-tracker",
+  "run_label": "blind-2026-08-10c",
+  "date": "2026-08-10",
+  "method": "blind-execute",
+  "method_note": "Split roles. The executor received the five eval prompts verbatim and nothing else — it did not open evals.json, any baseline, or any prior run output — and saved every deliverable before grading existed. A separate informed grader (this record) graded the saved artefacts and never produced output of its own for this suite.",
+  "skill_version_under_test": "4.1.3",
+  "head_sha_at_open": "36d2f18814e1177e436cbe8949b5f1c8863e538b",
+  "head_sha_at_close": "95fc9381228d6ecc4b4bf7aaeeb8bef347d07f3a",
+  "input_drift_at_close": "HEAD MOVED DURING GRADING: 36d2f18 -> 95fc938 (3 commits: 7b2539b F18, 00487a5 F9-r3, 95fc938 geo record). Only one graded input changed — docs/loop/FAILURE-LEDGER.md, +136 lines. None of the rubric-or-instruction files moved: monitor/rank-tracker/{SKILL.md, evals/evals.json, references/*, evals/files/*} and build/seo-content-writer/references/anti-slop-ruleset.md are byte-identical at open and close (ruleset last committed 8d67906, 2026-08-10 17:51, before this run opened; its :174/:255/:286/:287 citations re-read at close and unchanged). Working-tree modifications by parallel agents touch meta-tags-optimizer, seo-content-writer, content-quality-auditor and commands/optimize-meta.md — none in this suite's graded set. EFFECT ON VERDICTS: none moves. The new F18 entry independently confirms this run's contamination finding and prescribes exactly the treatment applied here (label primed at expectation level, do not discard); F18's own reasoning that 'priming can only assist a pass, so no verdict moves' holds here too — e3.4 passed and e3.6 failed on a clause unrelated to any primed class. The new F9-r3 (derivation discipline made library-wide: 'a number emitted into a deliverable states how it was reached, or is not emitted') is the same family as defects D1 and D4 below; both are routed to it as same-family instances, not applied retroactively to this run's grading.",
+  "summary": {
+    "passed": 25,
+    "failed": 3,
+    "total": 28,
+    "pass_rate": 0.8929,
+    "editor_slot_convention": "COUNTED. e3.5's mechanically-checkable layer passes on quoted evidence and is counted as PASSED; the naturalness/register half is referred to the binding greek-content-editor as a separate verdict rather than held as an uncounted slot. Same convention as this suite's 2026-08-10 informed record and as eleven of the sixteen records in the 2026-08-10 blind corpus (FAILURE-LEDGER F16-r1(d)). Under the alternative convention (editor slot uncounted, therefore not-passed) this run reads 24/28 = 0.8571.",
+    "failed_ids": [
+      "e1.5",
+      "e2.4",
+      "e3.6"
+    ]
+  },
+  "per_eval": {
+    "1": {
+      "passed": 5,
+      "total": 6,
+      "verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS",
+        "FAIL",
+        "PASS"
+      ]
+    },
+    "2": {
+      "passed": 5,
+      "total": 6,
+      "verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "FAIL",
+        "PASS",
+        "PASS"
+      ]
+    },
+    "3": {
+      "passed": 5,
+      "total": 6,
+      "verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS",
+        "FAIL"
+      ]
+    },
+    "4": {
+      "passed": 6,
+      "total": 6,
+      "verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ]
+    },
+    "5": {
+      "passed": 4,
+      "total": 4,
+      "verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ]
+    }
+  },
+  "regression_status": "NO PRIOR BLIND BASELINE — this is the founding blind datum for the suite. A prior INFORMED record exists (2026-08-10-e2345.json, rank-tracker, 28/28 at skill 4.1.1). Per that file's own regression_rule ('A blind-method result scoring below an informed-executor baseline for the same suite is a method change, not a regression'), none of the three FAILs is a regression. Zero-regression protection for the blind method on this suite starts from this file.",
+  "method_crossing_deltas_vs_informed_2026_08_10": [
+    {
+      "id": "e2.4",
+      "informed": "PASS",
+      "blind": "FAIL",
+      "class": "F13-r3 — a carrier that passes informed and fails blind was never a working carrier",
+      "detail": "The informed deliverable carried an explicit '### Hand-offs (Related Skills)' section naming serp-analysis and content-refresher. The blind deliverable names no skill anywhere, and neither does any of the other eight artefacts: a sweep of all 20 library slugs across the five reports and four snapshots returns ZERO hits. The carrier (SKILL.md 'Related Skills' :212-219 plus step 2's explicit content-refresher hand-off at SKILL.md:121) was present and unchanged in both runs."
+    },
+    {
+      "id": "e1.5",
+      "informed": "PASS",
+      "blind": "FAIL",
+      "class": "template gap",
+      "detail": "Template 3's 'Overall Movement' table (ranking-analysis-templates.md:100-105) has a 'Keywords in Top 10' row with a Change column and no instruction to name the composition behind a flat count. The blind run reported '6 of 10 → 6 of 10 | 0 | Flat' with no churn note."
+    },
+    {
+      "id": "e3.6",
+      "informed": "PASS",
+      "blind": "FAIL",
+      "class": "F3 — unsupported site fact stated in the indicative",
+      "detail": "See fails[] below. Not a token/labelling failure: the connector-token and labelling clauses of e3.6 passed."
+    }
+  ],
+  "fails": [
+    {
+      "id": "e1.5",
+      "conjunct": "top-10 composition change named",
+      "evidence": "blind-ranktracker-out-e1.md:34 '| Keywords in top 10 | 6 of 10 | 6 of 10 | 0 | Flat |' carries no churn note. Grep for 'left the top 10|entered the top 10|composition|swapped|churn' returns zero lines; no single line names both ενδοδαπέδια θέρμανση and αντλία θερμότητας επιδότηση. The page-1 exit IS named in synonymous words (e1:52); the entry of αντλία θερμότητας επιδότηση into the top 10 is nowhere stated. The expectation's other conjunct (average) passes outright with the constant-population derivation visible (e1:41) and the new-entrant skew flagged (e1:44).",
+      "skill_side_cause": "ranking-analysis-templates.md:100-105 — Template 3 tabulates aggregate rows with a Change column and no rule that a flat count must name its composition."
+    },
+    {
+      "id": "e2.4",
+      "conjunct": "next step handed off via the skill's Related Skills",
+      "evidence": "Zero occurrences of serp-analysis / content-refresher / 'Related Skills' / any routing to a named capability in blind-ranktracker-out-e2.md; zero library slugs across all nine artefacts. The consolidation half of the expectation is exemplary (e2:52-57: primary URL designated, de-optimise + internal link, 301-redirect as fallback, delete explicitly not endorsed).",
+      "skill_side_cause": "Carrier conflict, not a missing carrier. SKILL.md:121 instructs the content-refresher hand-off and SKILL.md:212-219 lists Related Skills, while anti-slop-ruleset.md §6 family 8 (FAIL-grade since 2026-08-10) forbids a skill slug on a client-read surface. The executor read both and suppressed the hand-off on every deliverable, including the English ones where family 8 — a Greek-regression family — does not bind."
+    },
+    {
+      "id": "e3.6",
+      "conjunct": "no fabrication (ledger F3 guard)",
+      "evidence": "blind-ranktracker-out-e3.md:85 asserts «σπορα γκαζον φθινοπωρο ... οδηγεί στην ίδια σελίδα» — a ranking-URL mapping the export does not supply (gsc-queries-kipos-fysi-el.md:29-37 maps seven queries; this one is absent). The run's own snapshot records the absence at blind-ranktracker-snapshot-kipos-fysi-2026-08-10.md:24 «δεν δόθηκε αντιστοίχιση», and the same report states the absence correctly for the other two unmapped queries (e3:108, e3:110). One artefact records the gap, the other fills it, unhedged. Every click, impression, position and CTR in the run re-derived by the grader and exact.",
+      "grader_note": "Under the strictest literal reading of this expectation's enumeration ('every click, impression, and position') the URL claim is out of scope and this would pass. The three sibling F3 guards in the same suite all enumerate URLs (e1.6, e2.6, e4.6), so the omission reads as a drafting gap; the expectation's headline is the F3 guard and the ledger rule makes a reintroduced ledgered pattern an automatic FAIL on the affected expectation."
+    }
+  ],
+  "contamination": {
+    "status": "DISCLOSED AND VERIFIED",
+    "scope": "eval 3 only; evals 1, 2, 4 and 5 unaffected",
+    "verified_citations": [
+      "build/seo-content-writer/references/anti-slop-ruleset.md:254-257 — family-7 provenance: 'the rank-tracker E3 deliverable, 19 occurrences ... `~~search console` x14 ... `~~analytics` x4, `~~SEO tool` x1'",
+      "build/seo-content-writer/references/anti-slop-ruleset.md:286 — family-8 Recurrence 1: '11 occurrences in the rank-tracker E3 deliverable'",
+      "build/seo-content-writer/references/anti-slop-ruleset.md:287 — process-machinery advisory: 'ruled on the rank-tracker E3 deliverable; 7 occurrences'",
+      "build/seo-content-writer/references/anti-slop-ruleset.md:174 — family-8 table cell: 'a same-day recurrence (11 occurrences, rank-tracker E3)' and '13 in the rank-tracker E3 recurrence'"
+    ],
+    "independent_check": "The prior informed E3 artefact carries exactly 19 '~~' occurrences with the exact distribution the ruleset cites (grep: `~~search console` x14, `~~analytics` x4, `~~SEO tool` x1). The citation is accurate, and the ruleset is a required read for this skill's Greek output.",
+    "primed_expectations": [
+      "e3.4",
+      "e3.6"
+    ],
+    "reading_rule": "e3.4's clean §6 sheet and e3.6's zero-token result were produced by an executor that had read which classes a previous E3 was marked down for, with counts. They are graded normally and recorded as PRIMED: they are NOT evidence that rank-tracker's own SKILL.md and references carry the connector-resolution rule or the artefact-name rule. Only a blind run whose required reads do not name this suite's prior defects can test that."
+  },
+  "skill_defects_confirmed": [
+    {
+      "id": "D1",
+      "severity": "high",
+      "claim": "No convention for unranked keywords in average position",
+      "verdict": "CONFIRMED",
+      "evidence": "ranking-analysis-templates.md:102 '| Avg Position | [X] | [Y] | [+/-Z] |' states no rule; the only 'Not ranking' mention is a position-range count row at :67 and tracking-setup-guide.md:294 mentions 'not found' only as a data-quality error check. Repo-wide grep over the skill for an averaging rule returns nothing. Consequence measured on the fixture: the same month is 8.89 over the 9 comparable keywords or 11.80 over 10 with NF=51 — a 2.91-position spread, both presentable as 'the' average. The run published both with the convention stated (out-e1.md:39-44), which is the honest response to a silent template, not a fix for it."
+    },
+    {
+      "id": "D2",
+      "severity": "high",
+      "claim": "Response Protocol has no precedence rule for colliding rows",
+      "verdict": "CONFIRMED",
+      "evidence": "SKILL.md:199 'Drop 1-3 positions | Wait 1-2 weeks | Monitor' and SKILL.md:202 'Drop off page 1 | Emergency response' both match a 10 → 11 move. Grep for precedence|most severe|takes priority|governs|tie-break across SKILL.md and both references returns NOTHING. The executor had to invent the rule and said so: out-e1.md:175 'Two rows of the response protocol both describe this move ... The severe one governs'."
+    },
+    {
+      "id": "D3",
+      "severity": "high",
+      "claim": "Response Protocol is indexed purely on position delta and cannot see a SERP-feature-only change",
+      "verdict": "CONFIRMED",
+      "evidence": "SKILL.md:197-203 — the Change column contains only position-delta rows, and there is no row at all for a zero-delta event. The largest visibility event in eval 4 (θυμαρίσιο μέλι οφέλη holds organic 3 on both checks and loses the featured snippet to healthportal.gr) has no protocol row. The only carrier for it anywhere in the skill is Tip 5 (SKILL.md:190), a tip rather than a triage rule. The blind deliverable had to say so itself: out-e4.md:80 'Why two of these bands do not fit. The response protocol classifies by position movement, and on this SERP two of the five keywords had their real change somewhere else.'"
+    },
+    {
+      "id": "D4",
+      "severity": "medium",
+      "claim": "Section 9's four filtering defaults have no stated order of application",
+      "verdict": "CONFIRMED",
+      "evidence": "tracking-setup-guide.md:352-359 lists Position window / Impression floor / Dedup / Brand queries as an unordered table; Section 9 states no sequence. Demonstrable on this fixture: «σπορα γκαζον φθινοπωρο» (44 impressions) is a near-duplicate of «σπορος γκαζον» on the same page. Floor-first drops it and σπορος γκαζον scores 880 × 5.4 = 4,752 (what the run published). Dedup-first merges it and the same query scores 924 × 5.4 = 4,989.6 — a different published Opportunity number from the same data and the same defaults. The eval's own expectation settles the order (floor-first) where the skill does not."
+    },
+    {
+      "id": "D5",
+      "severity": "medium",
+      "claim": "ranking-analysis-templates.md:111 teaches a column that cannot be honestly filled",
+      "verdict": "CONFIRMED",
+      "evidence": "ranking-analysis-templates.md:109-112 and :119-121 — 'Est. Traffic Impact | +[X] visits/mo' in both the Improvements and Declines tables, plus 'Estimated traffic | [X] | [+/-Y]%' in Template 7 at :274. Four of the five fixtures state outright that no click, traffic or volume data exists. Same shape as the meta-tags-optimizer 4.1.3 finding already carried in the ruleset (F13-r2): a worked example modelling the value the rules forbid. The blind run refused the column on all four no-data evals and printed 'not recorded' / stated the absence instead — the right answer, produced against the template rather than with it."
+    },
+    {
+      "id": "D6",
+      "severity": "critical-for-this-skill",
+      "claim": "Sign convention inverted between prose and table twenty lines apart",
+      "verdict": "CONFIRMED",
+      "evidence": "SKILL.md:164 'Your average position improved from 15.3 to 12.8 (-2.5 positions = better)' — negative means better. SKILL.md:171 '| email marketing tips | 18 | 5 | +13 |' and SKILL.md:179 '| marketing automation | 4 | 12 | -8 |' — positive means better, negative means worse. Both inside the same worked example. On a rank-movement skill this is the single most consequential defect found: the one worked example a fresh session copies teaches two opposite conventions. The blind run had to declare its own (out-e1.md:9, out-e2.md:124, out-e4.md:9) and did so consistently, which is why every eval-1/2/4 delta expectation passed."
+    },
+    {
+      "id": "D7",
+      "severity": "medium",
+      "claim": "Template 2 has nested unescaped fences and terminates early",
+      "verdict": "CONFIRMED",
+      "evidence": "Fence-state trace of ranking-analysis-templates.md: :51 '```markdown' opens, :71 '```' CLOSES it (the inner position-distribution block), :77 '```' opens a new fence, :87 '```' closes that. Template 2 therefore cannot be copied verbatim as one block; lines 72-76 render as body text and the Detailed Rankings table at :79-86 sits inside an unlabelled code fence. Templates 1, 3, 4, 5, 6 and 7 are well-formed — this is the only broken one."
+    },
+    {
+      "id": "D8",
+      "severity": "medium",
+      "claim": "Step 1's persistence contract mandates saving and confirming a location but gives no default path or filename convention",
+      "verdict": "CONFIRMED",
+      "evidence": "SKILL.md:119 'Otherwise, save the snapshot to a file and confirm the location with the user. On every subsequent run, read the prior snapshot first' — grep for a path, filename or naming convention across SKILL.md and both references returns nothing. The contract asks a later run to find a file whose name and location the earlier run was never told how to choose. The blind run invented a convention per client and asked for confirmation each time (out-e1.md:252-256; out-e2.md:126-128; out-e3.md:160-162; out-e4.md:194-198), which is the correct behaviour and also evidence that four runs produced four ad-hoc paths."
+    }
+  ],
+  "executor_error_verified": {
+    "claim": "The executor reports it initially wrote that Search Console 'back-fills up to 16 months of history' — false — and rewrote both passages before delivery.",
+    "verdict": "SHIPPED FILES ARE CLEAN",
+    "evidence": "out-e1.md:281 'If it is verified, up to 16 months of clicks and impressions per keyword are already sitting there ... If nobody has ever verified it, do it this week: collection starts on the day of verification and does not fill in the past.' out-e2.md:41 'Search Console keeps 16 months of performance history for a property that is verified, but it does not fill in the past: collection starts on the day the property is verified, so a property verified today holds nothing from June.' out-e5.md:70 states the same distinction a third time. Retention-vs-collection is stated correctly in all three places; no back-fill claim survives.",
+    "does_e2_turn_on_the_fixture_distinction": "YES. The fixture says «no Search Console access from this machine» (rank-log-stromatex-anatomiko-el.md:5, :39) — a statement about ACCESS, not about verification. out-e2.md:41 reads exactly that distinction back ('which is a different statement from \"nobody has ever verified it\"') and branches the answer on it: e2:43 if already verified, the June/July clicks exist and the owner's number is recoverable today with a named query-and-window comparison; e2:44 if never verified, the June baseline does not exist and no figure for the past can be produced by anyone. The corrected fact is load-bearing and correctly load-bearing."
+  },
+  "checker_faults": {
+    "self_reported_by_executor": "6 of 38 arithmetic assertions first flagged as mismatches were its own regex stopping at the first number in a chained expression; it fixed the checker, not the deliverable.",
+    "grader_action": "Not trusted either way. Every arithmetic assertion in the four fixtures was re-derived independently by the grader from the fixture files: the five weekly 9-keyword sums (85/93/84/82/80) and their means, the NF=51 10-keyword series (136/144/135/128/118), all position-range counts and all snapshot deltas (eval 1); the 34/6 and 32/3 split means, the 5.33/8.33 before-after means and the 3.78/7.89 control means (eval 2); all six Opportunity products, all twelve CTRs, 600 clicks, 425 brand clicks at 70.8%, 9,912 impressions, 4,910 across the six and 74 clicks (eval 3); 31/5, 28/5, 30/4, 27/4 and the 1/0/0 → 0/1/1 ownership counts (eval 4). Every figure reproduces exactly. Zero arithmetic defects found.",
+    "grader_false_verdicts_caught_before_reporting": 2,
+    "grader_false_verdict_detail": [
+      "out-e4.md:64 'Three of the five keywords had a feature change' first read as a miscount (four keywords saw feature movement). Raw-text inspection showed the report's framing throughout is feature OWNERSHIP ('Feature ownership', 'You held'), under which snippet lost + AI citation gained + PAA answer gained is exactly three. Not reported as a failure (F7 discipline).",
+      "e2.1's flip count first read as absent because the numeral 5 never appears. Raw-text inspection showed out-e2.md:101 states the same fact exhaustively ('Since 2026-06-29 the two URLs have alternated on every single check — category, blog, category, blog, category, blog', i.e. 5 of the 8 adjacent pairs, all post-publication) with every pair tabulated at :67-78. Passed."
+    ],
+    "grader_false_verdicts_escaped": 0
+  },
+  "tool_correctness": {
+    "tool_errors_encountered": 0,
+    "screens_fault_injected_before_use": "Yes. The click/impression/visits/CTR fabrication screen was run against a constructed defect file first (3 of 3 injected lines fire) and against the GSC eval as a positive control (5 legitimate hits), so its UNMATCHED result on evals 1, 2, 4, 5 and their snapshots is load-bearing rather than vacuous (F15 direction: a pattern that matches nothing is not a clean sheet until it has been shown able to match).",
+    "anti_slop_screens": "Every §6 screen is a screen, never a verdict. Screened and nothing surfaced on families 3, 6, 7, 8 (slugs, framework IDs, CORE-EEAT/CITE, δεξιότητ), the agency-provenance label and the process-machinery advisory tokens. Family 5 surfaced 7 lines; all 7 hand-checked as correctly licensed Greek negatives and none is a defect.",
+    "expectations_not_gradable_as_written": [
+      "e3.6 (see fails[].grader_note)",
+      "e2.1 and e1.5 (see eval_feedback)"
+    ],
+    "scope_drift": "none — grader read only the nine deliverables, the suite, the skill, its two references, the four fixtures, the anti-slop ruleset, SETTLED-RULINGS, the FAILURE-LEDGER and the prior baselines; produced no eval output of its own"
+  },
+  "greek_editor_referral": {
+    "artifact": "blind-ranktracker-out-e3.md (plus blind-ranktracker-snapshot-kipos-fysi-2026-08-10.md)",
+    "expectation": "e3.5 — mechanical layer PASS on quoted evidence; naturalness, idiom and register verdict delegated",
+    "status": "PENDING",
+    "items_flagged_for_editor_judgment": [
+      "«απόσταση βολής» as the rendering of striking-distance (title and throughout) — same rendering the informed run used; the editor has not ruled on it",
+      "«εφεδρικός τύπος» for fallback score, «Απόσταση θέσης» for position gap, «Βαθμός» for the Opportunity score",
+      "«ώθηση» for push (the client's own word in the prompt is «push»)",
+      "«Ο βαθμός βάζει πρώτο το ...» and «η πιο νεκρή του στιγμή» — register of the operational metaphors",
+      "the register of the three refusals (§5 consultant, §6 net-new keywords, §7 sales projection): professional or lecturing",
+      "«Σημείωση γραφής» and «Βασικά μεγέθη για την επόμενη σύγκριση» as section labels",
+      "whether the numbered action-list items whose LABEL is a bare unaccented export query («2. **εργαλεια κηπου** — on-page ...») read as sentence Greek or as list labels — the boundary e3.4 leaves to grader judgment"
+    ]
+  },
+  "eval_feedback": [
+    "e1.5 — the composition conjunct is stated flatly while the average conjunct is given three explicit alternatives. A deliverable that names both movements prominently but does not attach them to the flat count is a coin-flip for the grader. Suggested: 'the top-10 count is 6 on both dates AND the report states somewhere that ενδοδαπέδια θέρμανση left the top 10 and αντλία θερμότητας επιδότηση entered it (any wording, any section; naming both movements without pairing them to the count does not satisfy this)'.",
+    "e2.1 — 'the alternation counted as 5 URL changes across the 8 consecutive check pairs' does not say whether the numeral must appear or whether an exhaustive equivalent ('alternated on every check since 2026-06-29', with all pairs tabulated) satisfies it. Suggested: state which, as e2.3 already does for its averages ('or, at minimum, the equivalent observation ...').",
+    "e3.3 and e3.6 — both require naming a skill slug (keyword-research, content-refresher) on a Greek CLIENT-READ deliverable, while anti-slop-ruleset.md §6 family 8 FAIL-grades exactly that and e3.4 of the same eval forbids any §6 FAIL-grade pattern in the same document. Under a literal reading the eval is unsatisfiable: e3.6 compliance breaks e3.4. This is the F13-r4 second-finding shape (a suite enforcing what another surface forbids), second recorded instance, first inside a single eval. Suggested: 'routed out of this deliverable to keyword research as a separate job (naming the internal skill slug on the client surface is a family-8 defect and is not required here)'.",
+    "e3.6 — the F3 enumeration is 'every click, impression, and position', while the three sibling F3 guards in this same suite enumerate URLs too (e1.6 'position, date, and URL'; e2.6 'position, URL, and date'; e4.6 '... holder domain, citation slot, and URL'). The one eval whose deliverable asserted an unsupported URL mapping is the one whose guard omits URLs. Suggested: add 'ranking-URL mapping' to the enumeration.",
+    "e1.4 — carried over from the informed baseline and still live: 'no exact duration in days is asserted as fact' sits immediately after 'stating the ≤14-day bracket is correct'. The run's answer ('at least 1 day, at most 13 days') is correct under the intent and trippable under the letter.",
+    "e5.1 — 'typical-pattern statements ... pass only when explicitly labelled as assumptions' was exercised this time and is still not cleanly discriminating: out-e5.md:13 uses two concrete numbers ('can sit at 4 and at 34') inside an argument that no typical pattern exists. Suggested: exempt explicitly-generic variance illustrations that attribute no number to the client's own domain, or say they are covered."
+  ],
+  "artefacts": {
+    "grading_json": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-ranktracker-blind-2026-08-10c-grading.json",
+    "grader_checks_script": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-ranktracker-grader-checks.py",
+    "deliverables": [
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-ranktracker-out-e1.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-ranktracker-out-e2.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-ranktracker-out-e3.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-ranktracker-out-e4.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-ranktracker-out-e5.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-ranktracker-snapshot-calorix-2026-08-10.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-ranktracker-snapshot-stromatex-2026-08-03.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-ranktracker-snapshot-kipos-fysi-2026-08-10.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-ranktracker-snapshot-melifera-2026-08-10.md"
+    ],
+    "note_on_durability": "Per F16(a) the scratchpad is a workspace, never a record: this file is the record and the rate above may be quoted from it. The nine deliverables live only in the session scratchpad and will not survive it."
+  },
+  "notes": [
+    "The four snapshots were graded as part of the deliverable, not as scratch — SKILL.md step 1 mandates a dated snapshot per run and three expectations (e1.6, e3.6, e4.6) reach into them. Two conjuncts pass ONLY because of snapshot content: e3.5's Action column exists in the snapshot's mined table and not in the report's, and e4.6's SERP-features column is a snapshot column.",
+    "The one instance where the snapshot contradicts its report is the e3.6 failure, and it is the snapshot that is right."
+  ],
+  "ledger_entries_relevant": [
+    "F3 — reintroduced at e3.6 (unsupported ranking-URL mapping asserted in the indicative); recurrence to be incremented by the coordinator.",
+    "F13-r3 — e2.4 is a clean instance: a carrier (SKILL.md:121 + :212-219) that passed informed and failed blind.",
+    "F13-r4 second finding ('a suite can enforce a defect') — second recorded instance, and the first inside a single eval: e3.3/e3.6 require a skill slug on a Greek client surface that e3.4 and anti-slop §6 family 8 forbid.",
+    "F16-r1(d) — this record states its editor-slot convention inside the summary object, as that entry requires.",
+    "F18 (opened during this grading window) — this suite is the entry's own worst-affected example; verified at source here independently before the entry was read.",
+    "F9-r3 (opened during this grading window) — defects D1 and D4 are same-family instances in this skill."
+  ],
+  "settled_rulings_check": "R1-R5 token sweep (llms.txt, schema-stacking, FAQPage, FID/CWV, unlinked brand mentions) across all nine artefacts: zero hits, no ruling contradicted, no [VERIFY]-tagged claim asserted as fact."
+}

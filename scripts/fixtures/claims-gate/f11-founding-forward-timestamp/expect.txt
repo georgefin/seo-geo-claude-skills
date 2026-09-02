@@ -1,0 +1,7 @@
+Ledger instance: F11 founding class (b) — forward-approximated timestamp: "~08:25Z"
+written inside a commit authored 08:17:49Z (the G2-execution round). now.txt freezes
+the gate clock at that authoring moment.
+Expect: exit 1 — two rule 3 FAILs, each printing the offending line:
+  (i) tilde-approximated "~08:25Z" in running prose (not a **bold** entry-header
+      label, no schedule marker) — the founding class caught by FORM, clock-free;
+  (ii) exact "2026-08-09T08:25:00Z" postdating the gate clock 08:17:49Z.

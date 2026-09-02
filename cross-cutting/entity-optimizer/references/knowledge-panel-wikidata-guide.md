@@ -7,8 +7,8 @@ Detailed instructions for Knowledge Panel optimization, Wikidata entry managemen
 ### Claiming and Editing
 
 1. **Google Knowledge Panel**: Claim via Google's verification process (search for entity -> click "Claim this knowledge panel")
-2. **Bing Knowledge Panel**: Driven by Wikidata and LinkedIn -- update those sources
-3. **AI Knowledge**: Driven by training data -- ensure authoritative sources describe entity correctly
+2. **Bing Knowledge Panel**: no claiming process is documented. Keep the entity's public records — Wikidata, LinkedIn, the site's own markup — accurate and consistent, because those are records you can correct. [VERIFY — 2026-08-17] This line used to say the panel is *"driven by Wikidata and LinkedIn"*; no Microsoft-primary source for that was read here, so do not state it to a client.
+3. **Answers from AI assistants**: nothing here is claimable or editable. Make the authoritative public sources describe the entity correctly, then **measure** what the assistants actually return (step 3) rather than predicting it. [VERIFY — 2026-08-17] This line used to say such answers are *"driven by training data"*; no provider-primary source for that was read here.
 
 ### Common Knowledge Panel Issues
 
@@ -49,33 +49,40 @@ Detailed instructions for Knowledge Panel optimization, Wikidata entry managemen
 
 ## AI Entity Optimization
 
-### How AI Systems Resolve Entities
+### The Working Model This Library Optimises Against
+
+> **Evidence grade — read before quoting any of this.** What follows is a **mental model
+> used to order work**, not documented engine behaviour. No engine publishes how it resolves
+> a mention to an entity or how it picks sources. This section previously stated the pipeline
+> below as fact ("AI systems follow this pipeline") and tabled "What AI Checks" per signal;
+> ruling R3 amendment 9a retracted a claim of that shape on the ground that **no primary
+> source establishes it in either direction**. The model is still how this library decides
+> what to fix first. It is never written into a client deliverable as a mechanic.
 
 ```
 User query -> Entity extraction -> Entity resolution -> Knowledge retrieval -> Answer generation
 ```
 
-AI systems follow this pipeline:
-1. **Extract** entity mentions from the query
-2. **Resolve** each mention to a known entity (or fail -> "I'm not sure")
-3. **Retrieve** associated knowledge about the entity
-4. **Generate** response citing sources that confirmed the entity's attributes
+Each stage names a way the brand can be got wrong, and that is what makes the model useful:
+the name is not recognised as a name; it is recognised but matched to something else; it is
+matched correctly but the facts retrieved are stale or contradictory; the answer is right but
+attributes it to somebody else's page.
 
-### Signals AI Systems Use for Entity Resolution
+### Where This Library Puts the Work, and What Each Item Actually Fixes
 
-| Signal Type | What AI Checks | How to Optimize |
+| Area | What the work puts in place, checkable by you | How to Optimize |
 |-------------|---------------|-----------------|
-| **Training data presence** | Was entity in pre-training corpus? | Get mentioned in high-quality, widely-crawled sources |
-| **Retrieval augmentation** | Does entity appear in live search results? | Strong SEO presence for branded queries |
-| **Structured data** | Can entity be matched to Knowledge Graph? | Complete Wikidata + Schema.org |
-| **Contextual co-occurrence** | What topics/entities appear alongside? | Build consistent topic associations across content |
-| **Source authority** | Are sources about entity trustworthy? | Get mentioned by authoritative, well-known sources |
-| **Recency** | Is information current? | Keep all entity profiles and content updated |
+| **Presence in widely-read sources** | The brand appears in records that are public, permanent and not yours to write | Get mentioned in high-quality, widely-crawled sources |
+| **Live search presence** | The brand's own pages hold page one for its own name | Strong SEO presence for branded queries |
+| **Structured data** | The entity carries stable identifiers a machine can match, instead of a name a machine has to guess at | Complete Wikidata + Schema.org |
+| **Contextual co-occurrence** | The brand and its topics appear together often enough that the pairing is visible in the record | Build consistent topic associations across content |
+| **Source quality** | The sources that describe the entity are named, dated and checkable | Get mentioned by authoritative, well-known sources |
+| **Recency** | Every profile states the same current facts, with nothing contradicting anything else | Keep all entity profiles and content updated |
 
 ### Entity-Specific GEO Tactics
 
-1. **Define clearly**: First paragraph of About page and key pages should define the entity in a way AI can quote directly
+1. **Define clearly**: The first paragraph of the About page defines the entity in 25-50 words that can be lifted out and still say what the thing is
 2. **Be consistent**: Use identical entity description across all platforms
 3. **Build associations**: Create content that explicitly connects entity to target topics
-4. **Earn mentions**: Third-party authoritative mentions are stronger entity signals than self-description
-5. **Stay current**: Outdated entity information causes AI to lose confidence and stop citing
+4. **Earn mentions**: A third-party mention is a record a competitor cannot rewrite and the client cannot author; a self-description is neither
+5. **Stay current**: An outdated profile contradicts the current ones, and the client cannot control which of the two a reader or a machine finds first

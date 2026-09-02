@@ -1,0 +1,13 @@
+# CASE: gate-boundary-at-release-second
+# ROLE: negative
+# JOURNAL: journal-closed.tsv
+# COMMIT-AT: -1800
+# FILE: docs/loop/PIPELINE.md
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: none landed inside another holder's tenure undeclared
+# WHY: the header's TENURE BOUNDS rule states RELEASE-closed is [acquire, release) —
+#      a commit written in the same second as the release is on the RELEASED side.
+#      This case and the next differ by one second and must land on opposite verdicts;
+#      if they ever agree, the interval arithmetic changed and the rule is now prose.
+# ---8<--- commit message
+docs(loop): stage 4 wording

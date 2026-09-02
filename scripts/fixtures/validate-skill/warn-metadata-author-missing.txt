@@ -1,0 +1,19 @@
+# CASE: warn-metadata-author-missing
+# ROLE: positive
+# DIR: probe-no-author
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: metadata.author not found
+# EXPECT-ABSENT: FAIL
+# ---8<--- SKILL.md
+---
+name: probe-no-author
+description: 'Probe fixture whose metadata block names no author. Use when the user asks to "validate metadata completeness".'
+license: Apache-2.0
+compatibility: "Claude Code >=1.0."
+metadata:
+  version: "1.0.0"
+---
+
+# Probe No Author
+
+Body content.

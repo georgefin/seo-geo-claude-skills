@@ -1,0 +1,11 @@
+# CASE: gate-code-declared
+# ROLE: negative
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: 1 passed
+# EXPECT-ABSENT: FAIL
+# FILE: scripts/validate-tracking.sh
+# WHY: the same file as gate-code-undeclared, named by basename. Without this control
+#      the gate leg could be tightened to something that fires on every scripts/ commit
+#      and nothing would notice — and a leg that fires wrongly gets switched off.
+# ---8<--- commit message
+fix(validate-tracking): bound two check (f) markers

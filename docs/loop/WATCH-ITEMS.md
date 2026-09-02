@@ -8,9 +8,11 @@ grep with `\[VERIFY` (not `\[VERIFY\]`) to find all of them.
 Weekly DETECT runs re-check items at their cadence and report deltas; resolution edits
 (dropping a tag, revising a claim) go through normal PR flow.
 
-**Last full inventory: 2026-08-09 (post W5+W10 closures)** — 53 matching lines in 13
-repo files (`grep -rc '\[VERIFY' research build optimize monitor cross-cutting references
-VERSIONS.md`). Delta vs the same-day post-wave count (53 in 15): −2 claim tags (W5
+**Last full inventory: 2026-08-09 (post W5+W10 closures; recount post-E1 suites)** —
+55 matching lines in 14 repo files (`grep -rc '\[VERIFY' research build optimize
+monitor cross-cutting references VERSIONS.md`); +2 vs the post-closure count are
+bookkeeping guard-references in `build/seo-content-writer/evals/evals.json`
+(`262e46a`), not claim tags. Delta vs the same-day post-wave count (53 in 15): −2 claim tags (W5
 dropped at entity-optimizer SKILL.md:185, W10-LSA dropped at
 serp-feature-taxonomy.md:233 — both resolved-primary by owner reads), +2 changelog
 bookkeeping mentions in `VERSIONS.md` (v4.3.2, v4.3.3); entity-optimizer's SKILL.md
@@ -58,14 +60,25 @@ authoritative.
 - **Claim**: ~11% ChatGPT↔Perplexity domain overlap; Reddit-type community/UGC content
   ≈40% of citations cross-engine (transcript also carried a 46x brand-citation-rate gap,
   0.59% vs 13.05% — not encoded in repo).
-- **Where**: `build/geo-content-optimizer/SKILL.md:140`;
-  `build/geo-content-optimizer/references/ai-citation-patterns.md:467-470,474,491`
-  (pointers refreshed 2026-08-09 — SKILL.md ref was stale, file refs shifted by the
-  4.1.5 module insertion).
+- **Where**: `build/geo-content-optimizer/SKILL.md:139` ("~11% ChatGPT");
+  `build/geo-content-optimizer/references/ai-citation-patterns.md:511-512`
+  ("ChatGPT ↔ Perplexity domain overlap" — the ≈40% community share is the next line).
+  Both pointers refreshed and anchor-tagged 2026-08-17, read at source: the SKILL.md ref
+  was one line late, and the reference ref was the register's only **multi-part line
+  list** (`:467-470,474,491`), which check (g) WARNs as unverifiable by construction. It
+  is rewritten as a single range because both magnitudes sit on adjacent lines at HEAD.
+  **The third part of the old list is not carried forward and needs a human**: `:491`
+  named a locus this pass could not identify at HEAD, and inventing a third pointer to
+  keep the shape would be a guess. Previously refreshed 2026-08-09 (4.1.5 module
+  insertion).
 - **Partial corroboration 2026-08-09 (W7 lane)**: the community-citation CHANNEL is now
   Google-primary — the 2026-05-06 quote-preview module announcement, encoded at
-  `ai-citation-patterns.md:476`. The ~11% overlap and ≈40% share MAGNITUDES remain the
-  open claims; their tags are unchanged and this item stays open for them alone.
+  `build/geo-content-optimizer/references/ai-citation-patterns.md:518`
+  ("quote-preview module"; refreshed 2026-08-17 from a bare `ai-citation-patterns`
+  line-476 pointer — that line is now blank, and a bare filename is not a
+  repo-root-relative path, so check (g) could not have resolved it either). The ~11% overlap and ≈40% share
+  MAGNITUDES remain the open claims; their tags are unchanged and this item stays open
+  for them alone.
 - **Source**: "680M-citation study", machinerelations.ai (2026, undated, methodology
   unverified).
 - **Resolves when**: independent second study replicates (drop tag) or contradicts (revise).
@@ -78,7 +91,7 @@ authoritative.
 
 - **Claim**: Translation-only pages lose AI-engine citations to the strongest-language
   version (often EN) — treat thin EL/DE translations as a citation risk.
-- **Where**: `build/seo-content-writer/SKILL.md:275` (pointer refreshed 2026-08-08 after the anti-slop wave).
+- **Where**: `build/seo-content-writer/SKILL.md:269` ("semantic collapse") — refreshed and anchor-tagged 2026-08-17, read at source: :277 had drifted onto a Pricing/figures table row. Previously refreshed 2026-08-10 after the 4.2.5 connector-rule insertion; before that 2026-08-08 after the anti-slop wave.
 - **Source**: searchengineland.com/multilingual-regions-ai-search-future-478282 (2026, day n/a).
 - **Resolves when**: engine-primary documentation or a robust multilingual citation study.
 - **Cadence**: quarterly.
@@ -96,7 +109,9 @@ authoritative.
   business/answer/14114287 CONFIRMED: removal of violative reviews + set-period
   new-review freeze, set-period unpublishing of existing reviews, public warning
   displayed to consumers, email notice, appeal path; no automatic
-  suspension. Encoded at `cross-cutting/entity-optimizer/SKILL.md:185`
+  suspension. Encoded at `cross-cutting/entity-optimizer/SKILL.md:189`
+  ("Prohibited & restricted content" — refreshed and anchor-tagged 2026-08-17; :185 had
+  drifted onto the category-5 mention-counting callout)
   (entity-optimizer 4.1.3, tag dropped; wording corrected to evidence-exact in
   4.1.4 after the close-out review). The business/answer/7400114 same-text
   mirror was NOT separately opened — kept in the callout as a hedged pointer only.
@@ -130,7 +145,7 @@ authoritative.
   2026-05-06; snippet-verified, direct fetch egress-blocked) + 4 independent same-day
   outlets (TechCrunch, Engadget, MacRumors, TechRadar) describing identical behavior.
   Production rollout, not a Labs test; no retirement coverage through 2026-08-09.
-- **Where**: encoded at `build/geo-content-optimizer/references/ai-citation-patterns.md:476`
+- **Where**: encoded at `build/geo-content-optimizer/references/ai-citation-patterns.md:518` ("quote-preview module" — refreshed and anchor-tagged 2026-08-17; :476 is now blank)
   (geo-content-optimizer 4.1.5) with the label-variability precision.
 - **Remaining open leg**: rollout scope only — US/English-first is vendor-reported;
   el-GR availability unconfirmed and matters for Sani Hellas clients. The encoded tag's
@@ -158,12 +173,17 @@ authoritative.
 
 ## W9 — Greek commerce-surface magnitudes (vendor cluster, 4 claims)
 
-- **Where**: `research/serp-analysis/references/greek-shopping-surfaces.md:17` (SimilarWeb:
-  BestPrice ~6.9M visits/mo, #1 in price-comparison *category*; Skroutz ~40.8M, Apr/Jun
-  2026), `:30` (BestPrice ranking-effect magnitude — nothing published), `:45`
-  (e-satisfaction claims 100+ Greek e-shop review clients, self-published);
-  `references/greek-tourism-seasonality.md:24` (free-booking-link clicks −30% under DMA,
-  vendor-reported).
+- **Where**: `research/serp-analysis/references/greek-shopping-surfaces.md:17`
+  ("SimilarWeb magnitudes") (SimilarWeb: BestPrice ~6.9M visits/mo, #1 in
+  price-comparison *category*; Skroutz ~40.8M, Apr/Jun 2026), `:30` (BestPrice
+  ranking-effect magnitude — nothing published), `:45` (e-satisfaction claims 100+ Greek
+  e-shop review clients, self-published);
+  `research/serp-analysis/references/greek-tourism-seasonality.md:24`
+  ("Free-booking-link clicks") (free-booking-link clicks −30% under DMA,
+  vendor-reported). Both anchor-tagged 2026-08-17, lines unchanged and re-read at source;
+  the tourism pointer also gained its repo-root-relative directory, which it had never
+  carried — check (g) resolves pointer paths from the repo root, so `references/…` alone
+  could never have resolved at all.
 - **Resolves when**: engine/primary or first-party data replaces the vendor figure (e.g.
   client Merchant Center/BestPrice merchant data; Google-primary DMA impact numbers).
   Until then: directional only, never client-facing as fact.
@@ -171,17 +191,21 @@ authoritative.
 
 ## W10 — el-GR feature mechanics — LSA leg RESOLVED-PRIMARY 2026-08-09 (owner read); inflection leg open
 
-- **Where**: `research/serp-analysis/references/serp-feature-taxonomy.md:233` (LSA —
-  resolved, tag dropped, serp-analysis 4.2.2);
-  `research/keyword-research/references/greek-keyword-coverage.md:103`
-  (SERP-distinctness magnitude of inflected forms per query class — the remaining
-  open claim).
+- **Where**: `research/serp-analysis/references/serp-feature-taxonomy.md:242`
+  ("Re-check on the LSA") (LSA — resolved, tag dropped, serp-analysis 4.2.2; refreshed
+  and anchor-tagged 2026-08-17, :233 had drifted onto a GBP playbook step);
+  `research/keyword-research/references/greek-keyword-coverage.md:105`
+  ("collapses inflected variants") (SERP-distinctness magnitude of inflected forms per
+  query class — the remaining open claim; anchor-tagged 2026-08-17, line unchanged and
+  re-read at source).
 - **LSA resolution (2026-08-09)**: Sani opened the LSA getting-started page's country
   picker (support.google.com/localservices/answer/6224841) and confirmed in-session:
   "Greece not listed". Claim upgraded multi-vendor + official-domain-structural →
-  owner-verified-primary; encoded at `:233` with a migration re-check note (LSA is
+  owner-verified-primary; encoded at `:242` with a migration re-check note (LSA is
   migrating into Google Ads — reported timeline: US from 2026-08, non-US 2027; the
-  page and picker may move, re-verify on migration only).
+  page and picker may move, re-verify on migration only) — the bare `:233` in this
+  sentence is the same pointer as the one above and was refreshed to `:242` with it,
+  rather than left as a stale sibling (F11).
 - **History**: the 2026-08-09 sweep had upgraded single-vendor → three unanimous
   vendor guides + Google's per-country help-variant structure; `support.google.com`
   egress-blocked from cloud (permanent) — Mode A held the tag until this owner read.
@@ -195,11 +219,136 @@ authoritative.
   `[VERIFY at build time]` tags on lookup portal/search mechanics (ΠΙΣ + regional medical
   associations, bar associations, ΤΕΕ, ΟΕΕ incl. license classes, ΓΕΜΗ, other health
   bodies); `cross-cutting/domain-authority-auditor/references/greek-eshop-compliance.md:46`
-  (exact statutory scope of the ΓΕΜΗ display obligation — a lawyer question by design).
+  ("scope of the display obligation") (exact statutory scope of the ΓΕΜΗ display
+  obligation — a lawyer question by design; anchor-tagged 2026-08-17, line unchanged and
+  re-read at source).
 - **Resolves when**: verified against the registries themselves at the first YMYL/e-shop
   client build (institutions' existence is settled; only mechanics/scope are open). The
   ΓΕΜΗ statutory question goes to the client's lawyer, never resolved in-repo.
 - **Cadence**: on-use — before the first client deliverable that relies on them.
+
+## W12 — HowTo rich results: current Google support [VERIFY]
+
+- **Where**: `research/serp-analysis/references/serp-feature-taxonomy.md` (:30
+  Rich Results row and the How-To playbook rows ~:291),
+  `research/content-gap-analysis/references/gap-analysis-frameworks.md:182` ("Step-by-step tutorials" — refreshed from :161 and re-tagged in check (g)'s own `("token")` form 2026-08-17; the earlier `(token …)` spelling was never parseable by the check),
+  `build/meta-tags-optimizer/references/ctr-and-social-reference.md:155` ("Rich results (schema)" — line unchanged, re-tagged in the parseable form 2026-08-17) — all
+  still teach HowTo rich results as a current SERP feature. Surfaced 2026-08-09 by
+  the R3-purge implementer as an out-of-scope observation: training-knowledge
+  signal that Google deprecated HowTo rich results in 2023.
+  **Historical, as recorded 2026-08-09 and superseded by the verification bullet
+  below**: at that point no ruling covered it and no dated primary source was on
+  file — **historical** "signal only, not encodable".
+- **⚠ VERIFICATION WITHDRAWN 2026-08-13 — read this before the bullet it replaces.**
+  The bullet below graded this signal **CORROBORATED** on one named source. **That
+  source has since been read in full, and it does not contain the claim it was cited
+  for.** An owner read `.../2023/08/howto-faq-changes` in a browser on 2026-08-11.
+  What the document **does** carry, and this is now owner-read rather than
+  snippet-grade — an upgrade: HowTo rich results *"will only be shown for desktop
+  users, and not for users on mobile devices"*, dated 2023-08-08. What it does
+  **not** carry: the "As of September 13" update quoted below, the 30-day
+  appearance/report/Rich-Results-Test drop, and the 180-day API cut. Worse than
+  absent — on the reports the same document says close to the opposite: *"The search
+  appearances, and the reports, will remain in Search Console for the time being."*
+  **So the desktop-only fact stands and is stronger than before; everything after it
+  is unsourced and is withdrawn.** This is the same substituted-source chain that
+  falsified settled ruling R3's evidence clause: the claims came from a third URL
+  named nowhere in the ruling or in this item (`docs/loop/r3-supersession-candidate.md`
+  §4, and `scripts/citation-divergence-check.sh`, written for exactly this). **The
+  resolve-condition is NOT met.** HowTo's status after 2023-08-08 is undocumented
+  here, and refreshed copy still asserts nothing about it in either direction — which
+  is what the `[VERIFY]` tag was always for, and the reason no eval suite has to move.
+- **Superseded bullet, kept verbatim so the next reader sees what it claimed
+  (2026-08-10 lane, ahead of the scheduled sweep)**: the signal is
+  CORROBORATED at primary-domain snippet grade — the same grade W5/W7 were accepted
+  on. Source: `https://developers.google.com/search/blog/2023/08/howto-faq-changes`
+  ("Changes to HowTo and FAQ rich results", Google Search Central Blog,
+  2023-08-08). Returned wording: HowTo rich results *"will only be shown for desktop
+  users, and not for users on mobile devices"*; then the same post's September
+  update, *"As of September 13, Google Search no longer shows How-to rich results on
+  desktop"*, with the How-to search appearance, rich result report and Rich Results
+  Test support dropped in 30 days and Search Console API support at 180 days.
+  **Grade caveat**: WebFetch is egress-restricted for `developers.google.com`, so
+  the quotes are search-index returns over the primary domain, not owner-read
+  verbatim; the year on the "As of September 13" note is contextually 2023 but not
+  independently pinned. Full lane record: the coordinator's 2026-08-10 research
+  transcription (scratchpad `research-r3-faq-timeline.md`).
+- **Status (2026-08-13)**: resolve-condition **NOT met**. The owner read happened and
+  removed the corroboration rather than confirming it — the two-minute check that was
+  expected to upgrade the grade instead found the cited document empty of the claim.
+  **What would settle it now** is a read of Google's Search Central *changelog*
+  (`/search/updates`), which is where these claims actually came from and which
+  **nobody has ever opened**; it is Check 1 of `docs/loop/r3-owner-verification-pack.md`.
+  The desktop-only 2023-08-08 fact needs no further check and may be stated.
+- **Historical status, superseded**: resolve-condition MET pending owner read. The ruling draft + purge is
+  routed to Sani as **G9** rather than applied here — creating a ruling is
+  gate-class, and a library-wide purge on snippet-grade evidence is Sani's call.
+  The E2–E5 eval suites are unaffected: every one was authored to assert nothing
+  about HowTo either way, which is what the [VERIFY] tag is for.
+- **Resolves when**: Sani's verdict on G9. If retirement is ruled: ruling drafted,
+  purge executed, and the check (f) token row ships in the same wave (F9-r2
+  backfill rule).
+- **Cadence**: next weekly research sweep (2026-08-15 solo fire) — DETECT lane, if
+  G9 has not been decided by then.
+
+## W13 — Does an installed plugin carry root `CLAUDE.md`? [VERIFY]
+
+- **Where**: root `CLAUDE.md:46` ("When a skill recommends running another") — the
+  inter-skill handoff convention, and by the same
+  mechanism every other standing ruling recorded there. Anchor-tagged 2026-08-17, line
+  unchanged and re-read at source. Opened by ledger **F17**
+  (2026-08-10), which stands on its own without this question: the convention names no
+  shipped carrier, while `CLAUDE.md`'s two other standing rulings both do.
+- **The question**: whether a session that installs this plugin from a marketplace or a
+  directory source has root `CLAUDE.md` in its context. The repo records a strict-validator
+  **root-CLAUDE.md packaging warning** as an accepted residual (`GATED-ITEMS.md` G1, :284),
+  which is the reason to ask; that warning is recorded fact, the inference from it is not.
+- **Why it cannot be settled by the eval sweep**: every run in the 20-suite blind wave
+  executed inside this repository, where `CLAUDE.md` auto-loads. For any rule stated only
+  there, a blind run scores it carried and cannot do otherwise. The method's coverage of
+  this class is zero, in both directions.
+- **Status**: unprobed, asserted nowhere. FLIP: W13 -- none
+- **Resolves when**: someone installs the plugin from a directory source into a scratch
+  session and reports whether the handoff convention text is present in that session's
+  context. One probe, one answer, no research lane needed.
+- **Cadence**: next weekly sweep (2026-08-15 solo fire) if not answered before.
+
+## W14 — CTR benchmark tables: position curve and per-vertical bands [VERIFY]
+
+- **Where**: THREE carriers, all found on 2026-08-10, each by a different agent that did not
+  know about the others:
+  1. `build/meta-tags-optimizer/references/meta-tag-formulas.md:227-236`
+     ("No source is on file for any figure in this section") — the position-by-CTR
+     curve and the per-vertical CTR bands. Anchor-tagged 2026-08-17, span unchanged and
+     re-read at source. Tagged in place during the meta-tags-optimizer 4.2.0
+     wave by the implementer, which flagged that opening a `[VERIFY]` without a register row
+     leaves it where the weekly sweep does not read — the same shape as F17. This row closes that.
+  2. `optimize/content-refresher/references/content-decay-signals.md:47-55`
+     ("Expected CTR by position") — a position-CTR
+     curve, reframed as an illustrative shape rather than a benchmark, with quoting it to a
+     client forbidden at the point of use. Anchor-tagged 2026-08-17, span unchanged and
+     re-read at source.
+  3. `monitor/rank-tracker/references/tracking-setup-guide.md` — the position-versus-traffic
+     click-loss table, tagged in place; the row strings its eval suite quotes are byte-identical
+     after tagging.
+  **That three independent skills carried the same unsourced curve is the finding, not an
+  aside.** A figure this widely circulated arrives in a library by many doors at once, so
+  resolving it in one file resolves nothing — this row exists so the sweep checks all three.
+- **The question**: these figures carry no citation here and none anywhere in the repository
+  (grepped 2026-08-10; **no external search was made**, which is stated so the gap is not read
+  as a negative finding). They are plausible and widely circulated, and that is exactly what
+  makes them the kind of number this library has twice found to be wrong in transit.
+- **Why they were left intact rather than removed**, unlike the CTR effect sizes fixed in the
+  same wave: those four surfaces **contradicted each other**, so no source was needed to know
+  something was wrong. These do not contradict anything. Deleting a figure nobody has sourced is
+  a different act from deleting figures that disagree, and the second needs evidence the first
+  does not.
+- **Status**: tagged in place, not quoted to clients, superseded in practice by the site's own
+  Search Console curve wherever one exists. FLIP: W14 -- none
+- **Resolves when**: a named study with a year and a sample size is on file, or the figures are
+  replaced by measured client data. Either resolves it; neither is urgent while the skill
+  instructs the reader to prefer their own curve.
+- **Cadence**: next weekly sweep (2026-08-15 solo fire), or on first use in a client build.
 
 ---
 

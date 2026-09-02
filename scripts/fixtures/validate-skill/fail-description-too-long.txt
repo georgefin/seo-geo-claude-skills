@@ -1,0 +1,19 @@
+# CASE: fail-description-too-long
+# ROLE: positive
+# DIR: probe-description-long
+# EXPECT-EXIT: 1
+# EXPECT-MATCH: description exceeds 1024 chars: 1100 chars
+# ---8<--- SKILL.md
+---
+name: probe-description-long
+description: Audit a page and report every finding with an owner and an acceptance criterion. Audit a page and report every finding with an owner and an acceptance criterion. Audit a page and report every finding with an owner and an acceptance criterion. Audit a page and report every finding with an owner and an acceptance criterion. Audit a page and report every finding with an owner and an acceptance criterion. Audit a page and report every finding with an owner and an acceptance criterion. Audit a page and report every finding with an owner and an acceptance criterion. Audit a page and report every finding with an owner and an acceptance criterion. Audit a page and report every finding with an owner and an acceptance criterion. Audit a page and report every finding with an owner and an acceptance criterion. Audit a page and report every finding with an owner and an acceptance criterion. Audit a page and report every finding with an owner and an acceptance criterion. Audit a page and report every finding with an owner and an acceptance criterion. Audit a page and report every finding with an o
+license: Apache-2.0
+compatibility: "Claude Code >=1.0."
+metadata:
+  author: probe-fixture
+  version: "1.0.0"
+---
+
+# Probe Description Long
+
+Body content.

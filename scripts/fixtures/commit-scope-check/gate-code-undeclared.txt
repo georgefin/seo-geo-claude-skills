@@ -1,0 +1,19 @@
+# CASE: gate-code-undeclared
+# ROLE: positive
+# EXPECT-EXIT: 1
+# EXPECT-MATCH: changes gate/guard code its message never names
+# EXPECT-MATCH: scripts/validate-tracking.sh
+# EXPECT-ABSENT: touches register(s) its message never mentions
+# FILE: docs/loop/GATED-ITEMS.md
+# FILE: docs/loop/SETTLED-RULINGS.md
+# FILE: scripts/validate-tracking.sh
+# WHY: `71345f3` reduced — the commit that motivated the gate leg. Both registers ARE
+#      declared, so the register leg passes and the gate leg is the only thing that can
+#      fire. It is also the F15 near-miss canary: the message says "gate" throughout
+#      (inside "gated-items"), so a vocabulary-matching leg would have passed it. Only
+#      the basename rule catches it. If this case ever passes, the leg has been widened
+#      back to a vocabulary and the guard is decorative again.
+# ---8<--- commit message
+docs(loop): thirteenth verdict entry
+
+Registers touched: gated-items, settled-rulings

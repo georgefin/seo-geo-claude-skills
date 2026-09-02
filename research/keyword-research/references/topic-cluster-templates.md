@@ -184,7 +184,7 @@ Use this template to evaluate whether a topic deserves a full cluster:
 |-------------|-------------|-----|
 | Footer-only links to cluster pages | Low link equity, poor UX | Move links into body content |
 | Generic anchors ("click here", "read more") | No keyword signal | Use descriptive, keyword-relevant anchors |
-| Orphan cluster pages (no inbound links) | Search engines can't discover/value them | Add contextual links from pillar and related clusters |
+| Orphan cluster pages (no inbound links) | Nothing on the site leads to them — no reader and no crawler arrives by following a link | Add contextual links from pillar and related clusters |
 | Over-linking (20+ internal links per page) | Dilutes link equity, feels spammy | Keep to 5-10 relevant internal links |
 | Linking only to pillar (ignoring sibling clusters) | Misses cross-cluster relevance | Link to 2-3 related sibling pages |
 
@@ -276,9 +276,21 @@ Rate each cluster quarterly on these dimensions:
 | Internal linking | Missing links, orphan pages | Basic linking in place | Full cross-linking with relevant anchors |
 | Completeness | <50% of subtopics covered | 50-80% covered | 80-100% covered |
 
-**Cluster Health Score** = Average of all dimension scores
+The table anchors 1, 3 and 5. **2 and 4 are legal** and mean "between these two anchors" — say
+which side of which anchor when you use them. Nothing else is on the scale: there is no 0 (a
+cluster that does not exist is not scored) and no 6.
 
-| Score Range | Health Status | Action |
+**Cluster Health Score** = sum of the dimension scores ÷ dimensions scored. A dimension you cannot
+measure this quarter (no rank data, no analytics) is **left out of both the sum and the count** and
+named beside the score — never scored 1, which asserts "poor". Round to one decimal, half up, and
+read the band off the rounded figure: six dimensions make averages like 3.9167 reachable, and only
+the rounding step puts them in a band.
+
+Print the working: `3.8 — 23 points ÷ 6 dimensions; traffic growth 3, coverage 5, top-10 5,
+freshness 3, linking 4, completeness 3`. A bare number cannot be argued with, and the dimension
+that dropped it is the whole point of scoring the cluster.
+
+| Score Range (rounded) | Health Status | Action |
 |------------|--------------|--------|
 | 4.0-5.0 | Healthy | Maintain cadence, expand to adjacent clusters |
 | 3.0-3.9 | Needs attention | Refresh outdated content, fill subtopic gaps |

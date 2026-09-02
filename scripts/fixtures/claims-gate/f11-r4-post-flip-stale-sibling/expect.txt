@@ -1,0 +1,10 @@
+Ledger instance: F11 recurrence 4 — post-flip stale sibling: the G1 continuation
+note's closing sentence "The decision itself remains Sani's…" was written
+pre-approval (39745fb, 10:20Z) and left standing while f719ada (+APPROVED) and
+c8330d7 (+EXECUTED) flipped the entry's status directly above it. Drove the
+whole-entry post-flip re-scan redesign (guard 2, third form).
+Expect: exit 1 — rule 2: the Status-line edit is a flip; the FLIP trailer names
+token "remains Sani's" @ 2026-08-09T10:24:00Z; the register sweep hits the stale
+sentence in registers/docs/loop/GATED-ITEMS.md (no post-flip timestamp, no
+"historical as of" marker, not quoted) and FAILs, printing the hit line. The F10
+house form ("historical as of <ts>") on that sentence would make the sweep pass.

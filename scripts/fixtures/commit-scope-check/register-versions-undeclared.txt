@@ -1,0 +1,9 @@
+# CASE: register-versions-undeclared
+# ROLE: positive
+# EXPECT-EXIT: 1
+# EXPECT-MATCH: touches register(s) its message never mentions: versions
+# FILE: VERSIONS.md
+# WHY: VERSIONS.md is the second branch of the register path pattern — it is not
+#      under docs/loop/ and would be invisible if that alternative were dropped.
+# ---8<--- commit message
+chore: tidy trailing whitespace

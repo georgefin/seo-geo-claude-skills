@@ -1,0 +1,29 @@
+# FIXTURE — one violation per ALTERNATIVE of check (f)'s DEPRECATED_TOKENS.
+#
+# Same role as r3-token-coverage.txt on the other leg, and the same reason: `fid-violations.txt`
+# measures the allowlist and is the denominator of a published before/after rate (0/8 -> 0/8
+# across the word-bounding commit), so it cannot grow without changing a number other records
+# quote. This file measures the TOKEN LIST instead, and it grows with the token list.
+#
+# Measured 2026-08-17: `Affiliate links disclosed` was exercised by no line in either FID corpus.
+# It could have been deleted from check (f) and every probe, gate and canary would have stayed
+# green while the affiliate-only T04 class silently stopped being swept.
+#
+# THIS LEG IS CASE-SENSITIVE. check (f) greps the FID tokens with `grep -rnE`, no `-i` (the R3 leg
+# uses `-i`), so the capitalisation below is load-bearing: `fid` in lower case is not a hit and a
+# line written that way would test nothing.
+#
+# Each line is a bare violation carrying no retirement marker, so each must be CAUGHT.
+#
+# FORMAT: `# ` comment, `>>> ` data. COUNT is asserted by the probe.
+#
+# COUNT: 3
+#
+# 1. \bFID\b
+>>> Keep FID under 100 ms on every template.
+#
+# 2. First Input Delay
+>>> Report First Input Delay in the monthly summary.
+#
+# 3. Affiliate links disclosed  — added 2026-08-17: this alternative was exercised by no line
+>>> Affiliate links disclosed once in the footer is enough for the whole site.

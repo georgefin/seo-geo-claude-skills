@@ -1,0 +1,10 @@
+Ledger instance: F11 recurrence 1 — word-level drift: the W5 close-out placed
+"graduated" (and "banner" for the page's "warning") inside BOTH owner-verified frames
+while the pasted page contains no gradation language at all ("may be subject to
+certain restrictions" + a flat example list). Caught at BLOCK by the mandatory
+close-out review; drove the word-level quote-traceability redesign.
+Expect: exit 0 with 1 WARN — rule 1 WARN tier flags "verified" (via "owner-verified")
+as an unanchored verification frame and prints the line. Word-level traceability
+INSIDE a frame is a truth check the form gate cannot do (plan §0.1) — the WARN is the
+designed detection surface; Mode A repeats the word check mechanically. With
+CLAIMS_GATE_WARN_AS_FAIL=1 the same hit is a FAIL (exit 1).

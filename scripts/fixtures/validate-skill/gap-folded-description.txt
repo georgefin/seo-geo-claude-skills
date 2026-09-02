@@ -1,0 +1,31 @@
+# CASE: gap-folded-description
+# ROLE: known-gap
+# DIR: probe-folded-description
+# EXPECT-EXIT: 1
+# EXPECT-MATCH: description too short: 2 chars
+# GAP: a YAML FOLDED description (`description: >-` + indented lines) is valid YAML and
+#      is reported as a 2-char description, i.e. a FALSE POSITIVE that would block a
+#      legitimate skill. The extractor is `grep -E '^description:'`, one line, no YAML
+#      parser. No shipped skill uses the folded form, so the defect is latent; this case
+#      pins it so it is measured rather than remembered.
+# WHY THIS IS A KNOWN-GAP CASE AND NOT A FIX: changing the extractor changes what the
+#      gate accepts for all 20 skills, which is not this lane's call. The assertion below
+#      records TODAY'S behaviour. If someone fixes it, this case fails and says so — that
+#      is the stale-declaration convention `validate-tracking --probe` already uses.
+# ---8<--- SKILL.md
+---
+name: probe-folded-description
+description: >-
+  A probe fixture whose description is a YAML folded scalar, which is the shape a long
+  description naturally takes in YAML. Use when the user asks to "validate a folded
+  description" or "check the frontmatter parser".
+license: Apache-2.0
+compatibility: "Claude Code >=1.0."
+metadata:
+  author: probe-fixture
+  version: "1.0.0"
+---
+
+# Probe Folded Description
+
+Body content.

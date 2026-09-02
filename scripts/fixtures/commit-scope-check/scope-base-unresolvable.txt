@@ -1,0 +1,17 @@
+# CASE: scope-base-unresolvable
+# ROLE: positive
+# BASE: refs/heads/zzz-no-such-ref
+# EXPECT-EXIT: 2
+# EXPECT-MATCH: does not resolve
+# EXPECT-MATCH: refusing to run
+# FILE: docs/loop/FAILURE-LEDGER.md
+# WHY: an explicitly-supplied base that does not resolve is an ERROR, not a skip. This
+#      case expected exit 0 until 2026-08-19: it encoded the pre-`c35f0ee` contract, in
+#      which an unresolvable base SKIPped and returned green while comparing nothing —
+#      and skipped a commit that WOULD have failed (the file here is the register-
+#      undeclared shape). `c35f0ee` closed that false green; this fixture was not
+#      updated with it, so from that commit until this one the leg's own probe reported
+#      PROBE FAILED against correct behaviour. The guard was right and its test was
+#      stale, which is the inverse of the usual failure and reads identically.
+# ---8<--- commit message
+fix(agent): tighten the blind-executor brief

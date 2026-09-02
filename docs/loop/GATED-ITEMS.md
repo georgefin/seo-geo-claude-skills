@@ -5,12 +5,137 @@ Lifecycle: `proposed → gated (awaiting verdict) → approved | rejected → ap
 validated`. Record every verdict here with date and wording. A gated item excluded from a
 PR must be named in that PR's body as a separate decision (as done in PR #1, 2026-08-08).
 
-**Currently gated: NONE formally gated — all four G-items resolved; Sani decisions
-flagged in the queued list (fork-manifest attribution). G1 pilot merged
-(PR #4), G2 EXECUTED 2026-08-09 (Issues enabled by Sani; queue issue #6 live; STEP 6
-amendment applied — prompt v4.2), G3 RETIRED 2026-08-09 (option c — the local loop
-owns WP vuln watching), G4 harvest merged (PR #4).**
+**Gated as of 2026-08-10: G8 deployment to a real property only (gated on Sani's
+three inputs — named target cluster, data access, publication workflow; per-input
+status in `PILOT.md` §0.1, where inputs 1 and 2 carry partial words recorded
+2026-08-10 and input 3 has none). G5–G7 and G8's executable scope RELEASED
+2026-08-09 (eleventh verdict-log entry): G5 delivered and wired into
+`pre-push-gate.sh` (integration commit, 2026-08-09), G6 delivered (`69c5f7e`),
+G7 in execution (E1–E4 suites committed; E1–E3 reviews returned with fixes
+applied), G8 preparables delivered (`9c6adb4`). The fork-manifest attribution
+question was DELEGATED back to the coordinator 2026-08-10 (twelfth verdict-log
+entry); the queued list records what was chosen.
+G1–G4 resolved: G1 pilot merged (PR #4) + continuation merged (PR #8), G2 EXECUTED
+2026-08-09 (Issues enabled by Sani; queue issue #6 live; STEP 6 amendment applied —
+prompt v4.2), G3 RETIRED 2026-08-09 (option c — the local loop owns WP vuln
+watching), G4 harvest merged (PR #4).**
 
+> **Verdict log — 2026-08-11 (thirteenth entry)**: Sani answered four drafted questions by
+> explicit selection. **Decisions, one per question (recorded)**:
+> (1) **PR #9 — CONDITIONAL MERGE AUTHORIZED.** Sani selected "Merge after checks pass",
+> whose drafted text reads: *"I run the verification tests and a second independent review.
+> If both come back clean, I merge it — keeping the full history… If anything fails, I fix it
+> and don't merge."* **This supersedes the twelfth entry's "not an order to merge" reading**,
+> and the supersession is deliberate rather than inferred: the alternative option "Verify but
+> don't merge — leave the merge for you to trigger" was drafted, offered alongside it, and not
+> chosen. Sani delegated the trigger knowingly. **The condition is strict and is NOT met as of
+> this entry**: the second Mode A pass returned **BLOCK** (F11 recurrence + F9 recurrence 4,
+> both in the coordinator's own G9 commit). No merge. The blind re-runs are still in flight and
+> Mode A must re-run against the repairs before the condition can be read as satisfied. A
+> partial pass is not a pass.
+> (2) **G9 — SPLIT VERDICT**: 9a accepted and applied, 9b held pending an owner read. See G9's
+> Status line above.
+> (3) **G8 input 1 — ADVANCED**, verbatim in `PILOT.md` §0.1: property named
+> (`www.sanihellas.gr`), cluster rule given (every NOBO and ATLANTIC page), seed keyword
+> `θερμοπομποί`. The URL list itself is still not supplied and the coordinator does not infer
+> it. **New blocker recorded the same day**: the environment's egress proxy refuses the
+> property, the shared Dropbox folder and `developers.google.com`
+> [obs:2026-08-11T03:40:00Z curl + WebFetch, both refused at the gateway]. Sani selected
+> "Unblock the site" — an environment allowlist change, his to make, with four other hosts
+> named in `PILOT.md` §0.1 for the same pass.
+> (4) **Pilot control-page design — DEFERRED by Sani** to "decide once I see the page list",
+> which is the correct order: the matched-pair split cannot be proposed before the cluster is
+> enumerable, and the cluster is not enumerable until (3) clears.
+>
+> **Verdict log — 2026-08-10 (twelfth entry, logged 03:18:04Z clock-read)**: Sani, in
+> one message, four clauses, verbatim: "I'll follow your suggestion and My suggestion:
+> the natural merge point is when the current waves finish and all 20 skills have
+> evaluated suites." / "I pick the nobo and Atlantic real pages on a Sani Hellas site
+> as a start." / "With your guidance I will authorize the analytics connectors in my
+> claude.ai settings." / "3. Fork-manifest attribution: Team choose the best, latest
+> and most effective practice". **Decision readings, one per clause (recorded)**:
+> (1) **PR #9 merge point AGREED — not an order to merge.** Sani adopts the
+> coordinator's proposed timing (waves finished + 20/20 suites carrying evaluated
+> suites). The standing rule that only Sani's explicit word merges PR #9 is NOT
+> relaxed by an agreed condition: a condition whose satisfaction the coordinator
+> itself judges would be self-authorization by the back door. Herbert reports
+> "condition met" when it is, and asks for the one-word order then.
+> (2) **G8 input 1 — PART-SUPPLIED**, recorded verbatim in `PILOT.md` §0.1 with the
+> URL-list gap named; the coordinator does not infer the page list.
+> (3) **G8 input 2 — IN PROGRESS**, recorded in §0.1 together with the finding that
+> none of this repo's six declared MCP servers is a Google Search Console or GA4
+> server, so the export path stays the primary measurement route and connector auth
+> complements it on the SEO-tool lanes.
+> (4) **Fork-manifest attribution — DELEGATED to the coordinator.** "Team choose the
+> best…practice" hands back a decision previously held for Sani precisely because it
+> is outward-facing publication class. Herbert takes it under that delegation, records
+> the chosen practice and its reasoning in the queued list below, and keeps the change
+> to a single revertible commit so Sani can overturn it on sight.
+>
+> **Verdict log — 2026-08-09 (eleventh entry, logged 16:13:33Z clock-read)**: Sani,
+> verbatim: "Herbert did you assign the am to execute in the best possible manner,
+> following the best possible practice phase 1, phase 2, phase 3, phase 4?" ("the am"
+> read as "the team"). **Decision reading (recorded)**: taken together with the
+> directive's own imperative ("Please execute the following Master Improvement
+> Directive") and the two same-day "Proceed" messages, this is execute-language
+> naming all four phases — recorded as the RELEASE of **G5, G6, G7**, and of **G8's
+> executable scope** (pilot protocol, pre-registration templates, sampling protocol,
+> KPI persistence). G8's live-site deployment stays blocked on its three FACTUAL
+> prerequisites — named target cluster, data access, publication workflow with
+> per-change HITL approval — inputs only Sani can supply per the plan's own design
+> (and the directive's own Phase 4.2), not a coordinator-imposed gate. **Execution
+> order (best practice, recorded)**: the in-flight wave close-out completes first
+> (it IS the F13 validation leg); then G5+G6 in one wave — the guard layer ships
+> before the volume work so every subsequent wave runs under scripted protection
+> (the directive's own "no manual vigilance" principle applied to the rollout
+> itself); then G7 eval waves E1→E5; G8 preparables alongside. Staged rather than
+> all-at-once fleet launch also bounds the risk demonstrated the same day: the
+> weekly API limit froze the entire team 12:20→16:00Z mid-wave.
+>
+> **Verdict log — 2026-08-09 (tenth entry, logged 12:18:14Z clock-read)**: Sani's
+> **Master Improvement Directive** arrived mid-turn (after the 12:05:23Z clock read,
+> during the Greek-editor-FAIL fix wave). Verbatim anchors: "Please execute the
+> following Master Improvement Directive"; targets "Team Structure (7→10), Skills
+> (6.5→10), and Loops (6.5→10)"; Phase 1.1 "Neutralize Coordinator Drafting Risk
+> (F11) … No manual vigilance allowed"; Phase 2.1 "Expand Behavioral Evals (3/20 →
+> 20/20)"; Phase 3.1 "Any guard currently relying on human or agent vigilance must
+> immediately be refactored into a scripted, automated check (like checks f and g)";
+> Phase 3.2 "Allow the weekly loop to run fully autonomous ('solo') starting this
+> Saturday"; Phase 4.1 "Formally authorize and scope the real-world pilot on a live
+> target (e.g., Sani Hellas property)"; closing "REQUIRED RESPONSE & DELIVERABLES:
+> Herbert, please respond with a Gated Proposal breaking this down into actionable
+> implementation phases" naming three artifacts (script specs, eval roadmap, pilot
+> plan). **Decision reading (recorded for Mode A contest)**: the message's own
+> REQUIRED RESPONSE clause governs the "execute" verb — the deliverable of this turn
+> is the Gated Proposal, delivered as `MASTER-IMPROVEMENT-PLAN.md` with G5–G8
+> registered below; each releases only on Sani's explicit per-item words. Two items
+> decide now: Phase 3.2 confirms the ALREADY-ARMED solo state (weekly v4.2, first
+> solo fire 2026-08-15 ~04:08Z — no trigger change needed or made); Phase 4.1
+> authorizes pilot SCOPING (plan §3) — deployment additionally waits on the three
+> Sani inputs named there plus per-change HITL approval, which is the directive's
+> own Phase 4.2 requirement. Phase 2.2 (watch-item verification) is standing loop
+> work, audited in plan §5, not gated. Same-turn context: the directive's
+> vigilance-to-code thesis had its first live instance minutes earlier — the binding
+> Greek-editor pass returned FAIL on the geo eval-2 output (v2's note-only lesson
+> recurred) and the fix landed structurally as geo-content-optimizer 4.1.6 + ledger
+> F13.
+>
+> **Verdict log — 2026-08-09 (ninth entry, ~10:47Z)**: Sani, verbatim: "Merge" —
+> answering the coordinator's "PR #8 is the single remaining gate" message.
+> Executed as: PR #8 marked ready and MERGED (merge commit `3f22f23`, read from
+> the merge response) — library v4.4.0 on main (G1 continuation manifest
+> migration + the covering-round fixes through `3738317`). Post-merge transition
+> per the pattern: subscription removed (merge webhook concurred), babysit
+> one-shot deleted, branch restarted from main. END STATE OBSERVED 10:47Z, full
+> remote flow against merged main from this container: `claude plugin
+> marketplace add georgefin/seo-geo-claude-skills` → "Successfully added";
+> `claude plugin install seo-geo-claude-skills@seo-geo-claude-skills` →
+> "Successfully installed"; `claude plugin list` → "Version: 4.4.0 · Scope:
+> user · Status: √ enabled"; probe state cleaned up after. The two-command
+> install flow the eighth-entry goal required is LIVE on main — per-machine
+> adoption is now Sani-side (runbook delivered in-session; each machine's
+> `claude plugin list` output is its verification artifact).
+>
 > **Verdict log — 2026-08-09 (eighth entry, ~10:24Z)**: Sani, verbatim: "1. merge
 > PR #7 to main / 2. I want all machines to have the exact same plugins and skills
 > and loops installed". Executed #1 as: PR #7 marked ready and MERGED (merge
@@ -131,24 +256,38 @@ owns WP vuln watching), G4 harvest merged (PR #4).**
 
 - **Status**: **APPROVED by Sani 2026-08-08** ("2. Yes" on the recommendation sheet).
   Pilot executed and MERGED (PR #4, `db7ebd5`); W8 resolved — see Pilot result
-  below; continuation APPROVED + EXECUTED 2026-08-09 (v4.4.0 — see Continuation
-  notes below).
+  below; continuation APPROVED + EXECUTED + MERGED 2026-08-09 (PR #8, `3f22f23`;
+  v4.4.0 on main — see Continuation notes below).
 - **Proposal**: The current spec diverges from this repo's own rules:
   - agentskills.io/specification.md (checked 2026-08-08): SKILL.md frontmatter defines
-    **no top-level `version` field** (6 fields only) — repo mandates it (`CLAUDE.md:46`,
+    **no top-level `version` field** (6 fields only) — repo mandates it (`CLAUDE.md:58`,
     `CONTRIBUTING.md:40`).
   - code.claude.com/docs/en/skills plugin docs (fetched 2026-08-08): documented plugin.json
     schema has **no `schemaVersion`/`id`** (only `name` required), and `commands`/`skills`
     are documented as path strings/arrays, not `{name, description, path}` objects — repo
-    mandates the opposite (`CLAUDE.md:47`; fields present at `.claude-plugin/plugin.json:2-3`;
-    added deliberately in v3.0.0, `VERSIONS.md:156` ("### v3.0.0" section —
+    mandates the opposite (`CLAUDE.md:59`; fields present at `.claude-plugin/plugin.json:2-3`;
+    added deliberately in v3.0.0, `VERSIONS.md:353` ("### v3.0.0" section —
     pointer anchor-tagged per F12, token authoritative on mismatch; had silently
-    drifted from :79-88)).
+    drifted from :79-88; refreshed 2026-08-10, +2 from the entity-optimizer 4.1.5 /
+    backlink-analyzer 4.0.4 bullet)).
   - Sketch if approved: fold `version` into `metadata` (keep `metadata.version`), trim
     non-spec plugin.json fields, run `claude plugin validate --strict` (watch-item W8).
+  - **Pointer note, 2026-08-17 — the four bare pointers in this Proposal block were
+    deliberately NOT anchor-tagged, and they need a human.** All four (`CLAUDE.md` lines
+    58, 59 and 58-59, and `CONTRIBUTING.md` line 40) were read at source: they now
+    resolve to the connector-resolution rules and to a `description:` example. The drift
+    is not the
+    whole problem. This Proposal records the repo state **as it stood on 2026-08-08,
+    before G1 executed**, and its claim — "repo mandates it" — is one G1 itself made
+    false: `CLAUDE.md`'s contribution rules now say a top-level `version` field is
+    *tolerated on legacy skills and absent on spec-aligned ones*. Anchoring these to
+    today's lines would attach a current token to a superseded claim and read as though
+    the repo still mandates what it no longer mandates. Either the block is marked historical
+    or the pointers are dropped; both are edits to an approved-and-executed gate record,
+    which is not a maintenance pass's call.
 - **Risk**: could break ClawHub / skills.sh marketplace listings (their tolerance of the
   spec-pure format is unproven); contradicts the repo's published contribution contract,
-  so `CLAUDE.md:46-47` + the `CONTRIBUTING.md` template must change in the same PR.
+  so `CLAUDE.md:58-59` + the `CONTRIBUTING.md` template must change in the same PR.
 - **Plan**: pilot on **one** skill first; single commit so **rollback = one `git revert`**.
 - **Rollback triggers**: validator errors post-merge; marketplace listing breakage; CI red;
   contradiction reported by the next weekly run.
@@ -189,8 +328,10 @@ owns WP vuln watching), G4 harvest merged (PR #4).**
   now SUCCEEDS against post-merge main — the reviewer's Finding 2 re-probe RUN
   rather than recorded-as-queued (adapted with the review's substance intact:
   the merge landed between the round's freeze and its return); install from
-  main's pre-migration 4.3.5 manifest still draws the W8 trio until this wave
-  merges, completing the remote flow. Revert = single commit. A `.claude/
+  main's then-current pre-migration 4.3.5 manifest still drew the W8 trio until
+  this wave merged (historical as of the PR #8 merge, 2026-08-09 ~10:47Z —
+  remote flow complete and probe-verified on main, ninth verdict-log entry).
+  Revert = single commit. A `.claude/
   settings.json` team-marketplace addition (extraKnownMarketplaces +
   enabledPlugins) was attempted and DENIED by the session permission classifier
   (that file carries the push-gate hook; diagnosed, not classifier-stated:
@@ -308,6 +449,238 @@ owns WP vuln watching), G4 harvest merged (PR #4).**
   before any port; O5 whether an NDJSON entity-registry pattern is wanted for client ops.
 - **Verdict**: HARVEST — recorded in the 2026-08-08 third verdict-log entry above.
 
+## G5 — Vigilance-to-code wave (claims-gate + archive/fragment checks + KPI persistence)
+
+- **Status**: **RELEASED 2026-08-09** (eleventh verdict-log entry) **+ DELIVERED
+  + WIRED 2026-08-09** — scripts + fixtures + `KPI.md` implemented; acceptance
+  test per the implementer's report: all five gate-detectable F11 instances
+  caught at FAIL, three truth-class instances at WARN (the plan's form/truth
+  tiering), negative control clean. Wired into `pre-push-gate.sh` on per-push
+  scope (claims-gate resolves `@{upstream}`; pre-gate branch history goes to the
+  Mode A covering round rather than being retro-anchored — anchoring pre-gate
+  drafting after the fact would fabricate drafting-time evidence)
+  [obs:2026-08-09T21:09:18Z integration commit, first gated push].
+  Proposed 2026-08-09 (`MASTER-IMPROVEMENT-PLAN.md` §1a–1b; tenth verdict-log
+  entry).
+- **Proposal**: `scripts/claims-gate.sh` wired into the pre-push gate — rule 1
+  anchored-claims lexicon (two tiers: hard-FAIL narrow, WARN broad), rule 2
+  flip-manifest whole-register sweep (F11-r5's re-scan, executed by machine), rule 3
+  timestamp sanity; plus check (h) trigger-archive presence (F10), Mode B
+  fragment-lint (F7 evidence fields), and `docs/loop/KPI.md` (append-only cold rows
+  written by the weekly routine — Phase 3.2's KPI persistence).
+- **Acceptance test**: the five recorded F11 instances reconstructed as
+  fault-injection fixtures — 5/5 caught, clean negative control (F2/F9/(g) precedent).
+- **Honest boundary**: enforces form (anchors present, sweeps run), not truth —
+  Mode A keeps the truth leg.
+- **Risk**: lexicon false positives → two-tier design with weekly tightening +
+  allowlist. **Rollback**: unhook from the gate (one commit); checks are additive.
+
+## G6 — Adversarial Sanity Layer (cross-tier contrastive review)
+
+- **Status**: **RELEASED 2026-08-09** (eleventh verdict-log entry) **+ DELIVERED**
+  same day — `ADVERSARIAL-LAYER.md` committed (`69c5f7e`); PIPELINE/CLAUDE.md
+  pointers added in the G5 integration commit (2026-08-09). Proposed 2026-08-09
+  (`MASTER-IMPROVEMENT-PLAN.md` §1c).
+- **Proposal**: defined high-stakes outputs (gate/verdict flips, releases,
+  Sani-facing numbers, external-world skill rules) get a second review lane on a
+  different Claude tier under a contrastive charter (assume-wrong, construct the
+  strongest disproof); charter templates + the high-stakes definition land in the
+  loop docs. Protocol B: a paste-ready prompt for Sani's ~5-minute monthly
+  cross-family check in a non-Anthropic model — the only true cross-family leg
+  available (in-environment models are all Claude-family; stated in the plan).
+- **Risk**: ~2× review tokens on the ~10–15% of commits that qualify.
+- **Rollback**: drop the second lane (procedural; no repo surface beyond docs).
+
+## G7 — Behavioral evals for the remaining 17 skills (3/20 → 20/20)
+
+- **Status**: **RELEASED 2026-08-09** (eleventh verdict-log entry) **+ IN
+  EXECUTION** — E1 authored and committed (`7212660`, `262e46a`, `c0e4642`,
+  `609a9a2`) with all four Mode A reviews returned (quality-auditor SHIP;
+  on-page FIX applied; writer FIX ×2 applied; meta-tags FIX applied — no fresh
+  round needed per the fix-application convention); E2 authored and
+  committed (`591acfd`, `5559474`, `e0d0c34`) with all three Mode A reviews
+  returned (FIX ×2 each; applied `4310d7c`, `c736b64`); E3 authored and
+  committed (`28534c4`, `3730ad4`, `783ca4e`, `3bb7970`) with all four Mode A
+  reviews returned (technical-seo-checker, content-refresher, and
+  domain-authority-auditor SHIP with zero findings; internal-linking FIX ×1
+  applied); E1 first Mode B baselines COMPLETE 2026-08-09 — on-page 29/30,
+  content-quality-auditor 26/28, meta-tags-optimizer 29/29, seo-content-writer
+  30/30 (114/117), six binding editor passes NATIVE ×2 / MINOR-EDITS ×4 /
+  FAIL ×0, founding records in `eval-baselines/2026-08-09-e1.json`.
+  **COVERAGE COMPLETE 2026-08-10 — 20/20.** E4 (rank-tracker,
+  backlink-analyzer, performance-reporter, alert-manager) and E5
+  (entity-optimizer, memory-management, the latter carrying the cross-skill
+  handoff eval) authored, reviewed and fixed: 41 Mode A findings across the two
+  waves, all applied. E2–E5 founding baselines recorded in
+  `eval-baselines/2026-08-10-e2345.json` (13 suites).
+  **Read that record's method block before quoting any score.** Ten suites were
+  graded by an agent that executed AND graded knowing the expectations
+  (276/282 = 0.979) and three under a blind-execute method with expectations
+  withheld until each deliverable was saved (67/86 = 0.779; memory 86.2%,
+  backlink 85.7%, entity 62.1%). The two are NOT comparable and are never
+  averaged in the record; the informed-executor figures are an upper bound on
+  what the library does, not a floor. The gap surfaced 19 real behavioural
+  FAILs — 7 positive errors (invented figures, a banned cost-per-mention
+  artefact, counts contradicting the fixture, a quote silently re-cased, a
+  disavow sequence that folded under deadline pressure) and 12 omissions. The
+  method fix is queued for the next re-baseline wave, and the wave's own
+  same-day fixes are stamped in the record (`225a3c4`, `bb6ef16`).
+  Proposed 2026-08-09 (`MASTER-IMPROVEMENT-PLAN.md` §2).
+- **Proposal**: five waves — E1 score authorities (content-quality-auditor,
+  on-page-seo-auditor, seo-content-writer, meta-tags-optimizer; eval-the-scorer
+  pattern for CORE-EEAT: veto handling, N/A discipline, cap math), E2 research
+  (serp-analysis, competitor-analysis, content-gap-analysis), E3 technical + CITE
+  (technical-seo-checker, internal-linking-optimizer, content-refresher,
+  domain-authority-auditor), E4 monitor (rank-tracker, backlink-analyzer,
+  performance-reporter, alert-manager), E5 cross-cutting + one cross-skill handoff
+  eval (entity-optimizer, memory-management). House pattern per suite: 5 evals,
+  ~25–30 expectations, no-fab in every eval, zero-data honesty eval, ≥1 Greek eval
+  where the skill produces prose, Mode B first baseline, Greek-editor binding.
+  Done per skill = suite + baseline + zero-regression protection + VERSIONS sync.
+  Cadence: ~one wave/week alongside the loop → 20/20 in ~5 weeks.
+- **Risk**: token cost per wave (batch cadence bounds it). **Rollback**: none
+  needed — suites are additive.
+
+## G8 — Real-site outcome pilot (execution)
+
+- **Status**: executable scope **RELEASED 2026-08-09** (eleventh verdict-log
+  entry) **+ DELIVERED** — `PILOT.md` committed (`9c6adb4`); deployment to a real
+  property stays gated on the three Sani inputs below, whose per-input status lives
+  in `PILOT.md` §0.1 (inputs 1 and 2 carry partial words recorded 2026-08-10;
+  input 3 has none). Scoping was AUTHORIZED by the
+  directive (tenth verdict-log entry) and delivered as `MASTER-IMPROVEMENT-PLAN.md`
+  §3.
+- **Proposal**: matched-pair (control pages held) or before/after pilot on a
+  Sani-named non-core cluster (5–15 pages); pre-registered success/null criteria
+  BEFORE deployment; three metrics at weeks 2/4/8/12 — rankings on a fixed query
+  set including Greek inflected pairs (folds in W10's open inflection leg), GSC
+  clicks/impressions, AI-citation rate under a written sampling protocol; every
+  published change passes CORE-EEAT threshold + Greek editor (EL) + **Sani approval
+  before publication** (HITL); byte-exact pre-change copies for rollback; quarterly
+  cold HITL review rides this gate (first ~2026-11, reminder Routine armed on
+  approval).
+- **Gated on (Sani, all three; §0.1 of `PILOT.md` holds the per-input status and the
+  verbatim words received 2026-08-10)**: named target cluster; data access (GSC/GA4
+  exports, or connector auth — the session's ahrefs/similarweb MCP servers are
+  unauthenticated as of 2026-08-09 and OAuth cannot run in this non-interactive
+  session: authorize in claude.ai connector settings or an interactive `/mcp`
+  session; CSV exports are a full substitute); publication workflow (who applies
+  changes). Finding recorded 2026-08-10 while answering input 2: none of the six MCP
+  servers this repo declares (ahrefs, similarweb, hubspot, amplitude, notion, slack)
+  is a Google Search Console or GA4 server, so connector authorization alone does not
+  satisfy input 2 — the export drop stays the primary measurement route (`PILOT.md`
+  §0.1).
+- **Risk**: outward-facing changes on a live property — bounded by non-core cluster
+  choice, HITL on every publish, stored rollback copies; a null result is reported
+  as a finding (pre-registration forecloses curve-fitting).
+- **Rollback**: restore stored copies; halt = stop publishing (measurement can
+  continue as observation).
+
+---
+
+## G9 — FAQ/HowTo rich-result provenance: R3 amendment + a HowTo ruling with library purge
+
+- **Status**: **SPLIT VERDICT, 2026-08-11 — 9a ACCEPTED and applied; 9b HELD.** Sani's
+  decision, given as an explicit selection between drafted options: accept the provenance
+  amendment, hold the HowTo ruling and its four-file purge until an owner read of the two
+  Google URLs upgrades the evidence grade. 9a landed in `SETTLED-RULINGS.md` R3 (commit
+  `f4c9bcf`) with the downstream skill-surface sweep following in the same wave; 9b is
+  untouched and its four loci still teach HowTo as a current SERP feature, which is the
+  known cost of the hold and is recorded rather than smoothed. The blocker on 9b is
+  unchanged and now re-tested: `developers.google.com` is refused by this environment's
+  egress proxy [obs:2026-08-11T03:40:00Z curl + WebFetch, both refused at the gateway], so
+  the upgrade cannot be done from here — it needs either a browser read or the host added to
+  the environment allowlist (`PILOT.md` §0.1 carries the same request for four other hosts).
+  **This Status line was itself an F11 recurrence**: 9a was applied to the ruling register
+  while this entry still read "GATED, proposed" and still asked Sani to decide something he
+  had decided. Caught by the second Mode A pass, not by any gate — the claims-gate's flip
+  sweep keys on `Status:`/`Verdict:` field syntax that neither register uses, so a half-moved
+  gate entry is structurally invisible to it.
+- Originally proposed 2026-08-10. Two related changes, both gate-class because
+  they touch settled rulings. Origin: the binding Greek editor, judging an unrelated
+  Greek output, flagged out-of-remit that the deliverable's "FAQ rich results were
+  retired in 2026" disagreed with its understanding that the deprecation dates to
+  August 2023. A research lane was opened the same day; its full record is the
+  coordinator's 2026-08-10 transcription (scratchpad `research-r3-faq-timeline.md`).
+- **Finding**: both events are real and distinct, so **R3 is not contradicted**.
+  2023-08-08 narrowed FAQ rich-result ELIGIBILITY to well-known government and health
+  sites; 2026-05-07 ended the display entirely, with the search appearance, rich
+  result report and Rich Results Test support dropped June 2026 and Search Console
+  API support scheduled for August 2026. Every clause of R3 checked out except two
+  precisions (below) [obs:2026-08-10T04:02:00Z research-lane return]. The reopen
+  condition is NOT triggered — FAQPage is present in schema.org v30.0, re-read
+  2026-08-10.
+- **Proposal 9a — R3 provenance amendment (settled-ruling text, so gated)**: append a
+  sentence distinguishing the 2023 eligibility narrowing from the 2026 retirement;
+  soften "API … cut" to "scheduled August 2026" until completion is observed (today is
+  2026-08-10, so that cut is in-month, not confirmed done); and cite Google's own
+  "there's no need to proactively remove it" guidance, which is newly-found primary
+  support for R3's keep-decision and is currently uncited. Also record honestly that
+  R3's rationale clause — "its value is AI-engine/GEO parsing" — has **no primary
+  source either way**, and that Google's 2026 AI-optimization guide states no special
+  structured data is needed for its own AI surfaces. That does not overturn the
+  keep-decision (schema.org validity plus non-Google engines carry it) but it does
+  constrain how confidently the library may phrase the benefit.
+- **Proposal 9b — HowTo ruling + purge (W12)**: rule that HowTo rich results ended in
+  2023 and purge the four library loci still teaching them as a current SERP feature
+  (`research/serp-analysis/references/serp-feature-taxonomy.md:30`
+  ("How-To, Review Stars, Recipe, Event, Product") and `~:291`,
+  `research/content-gap-analysis/references/gap-analysis-frameworks.md:182`
+  ("Step-by-step tutorials"),
+  `build/meta-tags-optimizer/references/ctr-and-social-reference.md:121`), shipping the
+  check (f) token row in the same wave per the F9-r2 backfill rule.
+  (Pointers read at source and anchor-tagged 2026-08-17; the gap-analysis one had drifted
+  from :150 to :169. The `ctr-and-social-reference` pointer above is **left bare and is
+  referred for a human**: its :121 is a blank line, and the only How-To text now in that
+  file is a title-formula row at :51 that does not teach a rich result, so which locus
+  proposal 9b meant cannot be settled from the file. `~:291` is shorthand, not a pointer,
+  and check (g) does not parse it.)
+- **Why gated rather than applied**: creating a ruling is gate-class by the loop's own
+  protocol, and the evidence — while consistent across independent
+  domain-restricted queries against Google's own domain — is snippet grade, not
+  owner-read verbatim, because WebFetch is egress-restricted for
+  `developers.google.com`. The coordinator will not purge four skill files
+  library-wide on evidence it could not read directly. W5 and W7 were accepted at
+  this same grade, so precedent supports acceptance; that precedent is Sani's to
+  apply, not the coordinator's to assume.
+- **Risk / rollback**: 9a is text-only in one register, revert = one commit. 9b touches
+  four reference files across three skills plus version rows; revert = one commit. The
+  eval suites need no change either way — every E2–E5 suite was authored to assert
+  nothing about HowTo, which is what the [VERIFY] tag protects.
+- **What Sani decides**: (i) accept 9a as drafted, (ii) accept 9b and authorize the
+  purge, (iii) hold either pending an owner read of the two Google URLs, which takes
+  about two minutes in a browser and would upgrade the evidence grade.
+
+### G9 — VERDICT, 2026-08-13. Option C (split), given verbatim; recorded late.
+
+**Sani's words, quoted rather than summarised**: *"Do C i think is the best choise"* — in
+response to `docs/loop/r3-decision-brief.md`, whose Option C reads: stop asserting the
+unverified 2026 dates on client-facing skill text now; keep R3's operating instruction
+unchanged; **hold the formal supersession** for his browser check.
+
+**What was applied on it**: nine files across six skills and one command moved off the
+unsourced 2026 dates and onto the sourced 2023-08-08 restriction (`VERSIONS.md`, Option C
+entry). `SETTLED-RULINGS.md` R3 was **not** amended — the held half — so the shipped skills
+are now deliberately **narrower** than the ruling. That is recorded at `OPEN-FINDINGS.md`
+G-D9 and resolves when he rules.
+
+**Recorded late, and the lateness is the finding.** The verdict was quoted in a commit body
+and a changelog entry on the day, and **entered no gate register for several hours**. An
+adversarial reviewer found it: *"A gate verdict is asserted in the changelog and recorded in
+no gate register… The decision may well have been made. The repository holds no record of
+it, and the register that holds thirteen prior owner verdicts does not hold this one."*
+It was right to stop on that. **A verdict that exists only in a commit message is a verdict
+the next session cannot find** — the same defect as `OPEN-FINDINGS.md`'s own founding
+reason, one register over. Ledger **F4** ("never record a state change without the
+confirming response") and **F11**'s gate-entry clause both bite; the fix is this entry.
+
+**Still open at G9, unchanged by this verdict**: 9b (the HowTo ruling and its four-locus
+purge) stays held. The owner read that was expected to upgrade its evidence instead
+**removed** it — see `WATCH-ITEMS.md` W12, verification withdrawn 2026-08-13, and
+`r3-supersession-candidate.md` §4. What would settle it is Check 1 of
+`r3-owner-verification-pack.md`: Google's Search Central changelog, the page the disputed
+claims actually came from, which nobody has opened.
+
 ---
 
 ## Queued slow-loop proposals (NOT yet gated — listed for continuity)
@@ -337,7 +710,9 @@ From the 08-08-2026 report's slow-loop lane; promote to gated only when concreti
   e5.9; keyword e1.5/e2.6/e3.3/e4.1/e4.5/e5.2; geo e2.2/e3.1/e3.7/e5.4); Mode B
   re-baseline runs follow in the same wave.
 - **Eval-suite v3 wording backlog** (from the v2 Mode B graders + focused rerun,
-  2026-08-08): 11 minor items recorded in `docs/loop/eval-baselines/2026-08-08-v2.json`
+  2026-08-08) — **APPLIED 2026-08-09** (`b08253d`, the 11 items as 13 in-place
+  rewords; touched indices re-baselined in
+  `docs/loop/eval-baselines/2026-08-09-v3.json`): 11 minor items recorded in `docs/loop/eval-baselines/2026-08-08-v2.json`
   `eval_feedback_v3_backlog` fields (Z-designator, placeholder prose scope, threshold-
   reference exemptions, e1.5 anywhere→above alignment, 150-word count start, etc.).
   Same one-wave rule: apply together, never piecemeal, re-baselining the touched items.
@@ -369,14 +744,20 @@ From the 08-08-2026 report's slow-loop lane; promote to gated only when concreti
   found by the implementer at the scope boundary and fixed in-wave as a declared
   coordinator extension (the guide covers SERP features only as a pitfalls row
   and reporting-cadence lines, not a setup section).
-- **Benchmark polish pair** (reviewer advisories, 2026-08-08, verdict-neutral): (a)
+- **Benchmark polish pair** (reviewer advisories, 2026-08-08, verdict-neutral) —
+  **APPLIED 2026-08-09** (`29e880c`: benchmark N/A-source clarification +
+  emergency-brake Partial-by-design line; content-quality-auditor 4.2.1,
+  performance-reporter 4.1.1): (a)
   core-eeat-benchmark scoring-table N/A row could state that rubric-granted
   conditionality (currently T04 only) is the sole rubric-level N/A source, foreclosing
   at-will N/A readings; (b) content-quality-auditor's emergency-brake veto table lists
   no Partial state (by design — full pass handles it) — one clarifying line would stop
   the question recurring. Bundle with the next framework touch.
-- **NEW — shared-framework consistency pass** (surfaced 2026-08-08 by the schema
-  reconciliation + auditor labels agents): `references/core-eeat-benchmark.md` Section 5
+- **Shared-framework consistency pass** (surfaced 2026-08-08 by the schema
+  reconciliation + auditor labels agents) — **VERIFIED ALREADY APPLIED 2026-08-09**
+  (the Section 5 R2 alignment shipped in `512b83e` the evening this was queued;
+  `29e880c` independently confirmed it and closed the bundled CWV `<`-vs-`≤` leg
+  via the bucket-mislabel fix): `references/core-eeat-benchmark.md` Section 5
   (≈ lines 216-226) still teaches the pre-clarification multi-type mapping ("Article,
   Breadcrumb | FAQ, HowTo") — skill text currently states "where they differ, R2
   governs", but the benchmark needs its own scoped pass; bundle the `<`-vs-`≤` CWV
@@ -385,14 +766,68 @@ From the 08-08-2026 report's slow-loop lane; promote to gated only when concreti
 - **check (g) scope-extension question (covering-round advisory, 2026-08-09)**:
   PIPELINE's stage-3 `CLAUDE.md:49`/`:50` pointers had silently drifted to
   :53/:54 (grep-verified, corrected in the advisory's fix-forward) — check (g)
-  verifies `VERSIONS.md` targets only. Whether to extend it to CLAUDE.md-target
-  pointers in the registers: decide at the next scripts-touching wave.
-- **NEW — fork-manifest attribution (Sani decision, flagged 2026-08-09)**: both
-  marketplace manifests' `owner`/`metadata.repository` fields and `VERSIONS.md:3`'s
-  raw-fetch URL still carry the upstream identity (aaron-he-zhu) — fork
+  verified `VERSIONS.md` targets only. **ANSWERED 2026-08-10 (`4a1d238`) — extended.**
+  Check (g) now verifies anchor-tagged pointers into ANY repo file on the same
+  contract: the token is authoritative and a line/token mismatch fails. Demonstrated
+  before wiring against five deliberate injections in a scratch copy, including this
+  advisory's own CLAUDE.md case and the E3 round's `SKILL.md:258` blank-line drift.
+  Two honest scope statements travel with it: 35 bare `file:line` pointers carry no
+  token, so the check counts and lists them per register but never fails them —
+  anchor-tagging those is queued, not assumed; and pointers using a multi-part line
+  list are WARNed as unverifiable rather than silently skipped.
+  **Anchor-tagging pass run 2026-08-17 against that census of 35: 27 anchored, 8 refused
+  and referred for a human** `[obs:2026-08-17 bash scripts/validate-tracking.sh — "(g) 8
+  un-anchored", "all 37 anchor-tagged … verified", census was 35 un-anchored / 10 anchored
+  before the pass]`. **Of the 27, only 12 were correct as written**: 14 needed the line
+  number refreshed because the target had drifted, and 1 needed its path corrected to
+  repo-root-relative (it named `references/greek-tourism-seasonality.md`, which does not
+  exist at the repo root, so the check could never have resolved it). Largest drift
+  measured: **+153 lines** (`kpi-definitions.md` CWV thresholds, :300-306 → :453-455);
+  next +78, twice, on PIPELINE's stage-3 `CLAUDE.md` pair — the second silent drift of
+  that same pair, the first being the case recorded in the bullet above.
+  That ratio is the finding: **a bare line-number pointer in this repository is more
+  often wrong than right**, and the census counted only whether a token was present, never
+  whether the number was. The eight refusals are listed at their own pointers and fall in
+  three classes:
+  a target that is now a blank line or a syntax delimiter, a pointer inside prose that
+  **quotes a historically drifted pointer as an example** (the two in this bullet's own
+  neighbourhood, the stage-3 `CLAUDE.md` pair and the bare `SKILL.md` line-258 case —
+  anchoring a record of a past wrong state would be a category error, and that bare
+  `SKILL.md` names no directory so it matches twenty files), and a pointer that still
+  resolves cleanly but whose surrounding claim is itself superseded
+  (the four in G1's Proposal block). The refusal classes are the two
+  `reanchor-pointers.sh` refuses plus one it cannot see: a pointer that resolves cleanly
+  and would still be wrong.
+- **fork-manifest attribution (flagged 2026-08-09 as a Sani decision; DELEGATED to
+  the coordinator 2026-08-10, twelfth verdict-log entry)**: both
+  marketplace manifests' `owner`/`metadata.repository` fields and `VERSIONS.md:3`
+  ("raw.githubusercontent.com")'s raw-fetch URL still carried the upstream identity
+  (aaron-he-zhu) at flag time — fork
   inheritance, surfaced when the marketplace-discovery shim landed. No functional
   impact on marketplace discovery (probed: the add succeeds with the
-  upstream-attributed manifests; installs are blocked separately by the W8
-  manifest shapes — see the G1 continuation note). Whether to re-attribute the fork's outward-facing
-  identity (and which fields) is Sani's call — outward-facing publication class,
-  never a coordinator default.
+  upstream-attributed manifests; installs were blocked separately by the W8
+  manifest shapes at flag time (historical as of the PR #8 merge, 2026-08-09
+  ~10:47Z — installs from main now succeed, ninth verdict-log entry); see the
+  G1 continuation note). **DECIDED 2026-08-10 under Sani's delegation** (twelfth
+  verdict-log entry: "Team choose the best, latest and most effective practice").
+  Practice chosen, and the principle behind it: machine-readable identity points at
+  the artifact people install and file issues against; human-readable credit names
+  the upstream project permanently and prominently. Applied in this scope —
+  (a) both manifests' `owner` + `metadata.repository` and `VERSIONS.md:3`
+  ("raw.githubusercontent.com")'s raw-fetch URL move to `georgefin/seo-geo-claude-skills`,
+  because those fields
+  drive update checks and marketplace resolution, and pointing them upstream means
+  a fork user silently reads upstream's files instead of the ones this loop
+  maintains; (b) README gains an explicit fork-credit line naming the upstream
+  repository and its author, and LICENSE is untouched; (c) the CORE-EEAT and CITE
+  framework links keep pointing at their own upstream repositories — separate
+  projects, not this fork's content, so re-attributing them would be
+  misappropriation rather than a rebrand; (d) the ClawHub and skills.sh install
+  commands keep the upstream path, since those resolve published listings this fork
+  does not own and rewriting them to `georgefin/...` would hand users a dead
+  install, while the Claude Code `/plugin marketplace add` command moves to the
+  fork because it resolves straight from GitHub. Deliberately OUT of this scope and
+  queued: the 20 `SKILL.md` frontmatter `homepage`/`metadata.author` fields, which
+  carry the same upstream identity but would touch every skill and every tracking
+  file — its own wave, so an identity change and a 20-skill version bump do not
+  ride one commit. Reversal stays cheap: the applied scope is a single commit.

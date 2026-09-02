@@ -1,0 +1,22 @@
+# CASE: clean-single-letter-name
+# ROLE: negative
+# DIR: q
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: name is valid (Agent Skills + Vercel Labs): q
+# WHY: the name test has a second branch for one-character names
+#      (`grep -qE '^[a-z]$'`). Without this case that branch is never executed and
+#      could be deleted with the probe still green.
+# ---8<--- SKILL.md
+---
+name: q
+description: 'Probe fixture with a one-character name. Use when the user asks to "validate a single-letter skill name" or "check the name branch".'
+license: Apache-2.0
+compatibility: "Claude Code >=1.0."
+metadata:
+  author: probe-fixture
+  version: "1.0.0"
+---
+
+# Q
+
+Body content.

@@ -1,0 +1,13 @@
+# CASE: gate-boundary-one-second-before-release
+# ROLE: positive
+# JOURNAL: journal-closed.tsv
+# COMMIT-AT: -1801
+# FILE: docs/loop/PIPELINE.md
+# EXPECT-EXIT: 1
+# EXPECT-MATCH: inside another holder's tenure
+# EXPECT-MATCH: closed
+# WHY: one second earlier than gate-boundary-at-release-second, and the last second
+#      the tenure covers. A closed tenure still counts — the release proves the holder
+#      lived that long, it does not erase the tenure.
+# ---8<--- commit message
+docs(loop): stage 4 wording

@@ -1,0 +1,21 @@
+# CASE: fail-version-absent
+# ROLE: positive
+# DIR: probe-version-absent
+# EXPECT-EXIT: 1
+# EXPECT-MATCH: no version anywhere: metadata.version required
+# EXPECT-MATCH: metadata.version not found
+# WHY: covers the version-authority FAIL and the metadata.version WARN together;
+#      they are one authoring mistake and cannot be separated in a fixture.
+# ---8<--- SKILL.md
+---
+name: probe-version-absent
+description: 'Probe fixture with a metadata block and no version anywhere. Use when the user asks to "validate a skill with no version".'
+license: Apache-2.0
+compatibility: "Claude Code >=1.0."
+metadata:
+  author: probe-fixture
+---
+
+# Probe Version Absent
+
+Body content.

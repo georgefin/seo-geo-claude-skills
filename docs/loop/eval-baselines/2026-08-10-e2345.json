@@ -1,0 +1,1835 @@
+{
+  "baseline_date": "2026-08-10",
+  "baseline_label": "e2345",
+  "scope": "Founding Mode B baselines for the thirteen wave-E2/E3/E4/E5 suites: serp-analysis, competitor-analysis, content-gap-analysis, internal-linking-optimizer, technical-seo-checker, content-refresher, domain-authority-auditor, rank-tracker, performance-reporter, alert-manager, backlink-analyzer, entity-optimizer, memory-management. No suite here has any prior baseline — every record below is a founding datum and zero-regression protection for each suite starts from this file. With the four E1 suites (2026-08-09-e1.json) and the three earlier ones (2026-08-08 / -v2 / 2026-08-09 / -v3), all 20 library skills now hold a Mode B record. READ THE method BLOCK BEFORE THE NUMBERS: two different methods produced these thirteen results and their scores are not comparable.",
+  "method": {
+    "headline": "THE CENTRAL FINDING OF THIS BASELINE: ten of the thirteen suites were graded by an agent that executed AND graded while already knowing the expectations (informed-executor). Three were run blind — expectations withheld until each deliverable was written and saved (blind-execute). The results split sharply and the split, not the headline rate, is the finding: informed-executor 96-100% across ten suites; blind 86.2% (memory-management), 85.7% (backlink-analyzer), 62.1% (entity-optimizer). The gap is a property of the METHOD, not of the skills.",
+    "methods": {
+      "informed-executor": {
+        "definition": "One agent read the suite's expectations, then executed the five evals, then graded its own saved outputs. Execute-then-grade order was held (deliverables saved before any grading script existed) and every verdict is quote-backed, but the executor knew what it was going to be graded on while it was writing.",
+        "suites": 10,
+        "range": "96.2%-100% (pass / total, per suite)",
+        "what_it_measures": "'What an expectation-informed executor can satisfy.' NOT 'what a cold fresh session holding only SKILL.md and the prompt would produce.'",
+        "upper_bound_statement": "THE INFORMED-EXECUTOR SCORES ARE AN UPPER BOUND, NOT A FLOOR. They are optimistically biased by construction and must not be read as evidence that these ten skills behave at 96-100% in real use. The durable artefact from those ten runs is the per-expectation quote-backed evidence and the eval_feedback backlog — not the rate. The rank-tracker runner stated the caveat in its own fragment and it is adopted here for all ten: 'it measures expectations satisfiable by an informed executor and NOT what a cold fresh session with this skill would produce ... treat the per-expectation evidence as the durable artefact and the headline rate as an upper bound.'"
+      },
+      "blind-execute": {
+        "definition": "For each eval in order the agent read ONLY that eval's prompt and files (extracted up front with jq / a prompts-only projection so no sibling field was on screen), wrote the full deliverable, SAVED it, and only then opened that eval's expectations and expected_output for the first time. No later eval's expectations were read early; deliverables were not edited after their expectations were read.",
+        "suites": 3,
+        "range": "62.1%-86.2% (pass / total, per suite)",
+        "what_it_measures": "Closer to 'what the skill actually produces from prompt + SKILL.md', which is why the 19 FAILs it produced are the most valuable content in this file.",
+        "honest_discount_raised_by_the_memory_runner": "Carried verbatim from modeb-memory.json because it limits what even the blind numbers establish: 'the launching task message itself pre-named several of the traps (the CITE-absence probe and the Moz DA 38 relabelling, the 58.0 cross-page contamination probe, the six-records-not-lemmatised rule, the credential-refusal scope, the 404-is-Partial-not-veto benchmark fact, the §6 FAIL families). So this run is blind to the expectation WORDING but not to the coordinator's briefing; it is \"informed executor, blind grader\", not a cold session. Read the founding numbers with that discount.' Coordinator prompt design is part of the bias — a blind protocol is not cold if the launching prompt names the traps. This applies to all three blind runs; only the memory runner volunteered it.",
+        "blindness_evidence_from_the_backlink_runner": "'One consequence is visible in the artefacts: e2, e4 and e5 each miss elements the expectations name, which an expectation-informed executor would have supplied. Deliverables were NOT edited after their expectations were read - including one factual defect I caught in my own e3 Greek output on re-read (recorded in self_caught rather than repaired, so the artefact stays an honest record of blind execution).'",
+        "blindness_evidence_from_the_entity_runner": "'The Mode A review file scratchpad/modea-e5-entity.md was never opened. Held to in full for all five evals.'"
+      }
+    },
+    "comparability_rule": "The two methods DO NOT PRODUCE COMPARABLE NUMBERS and nothing in this file averages across them. Subtotals are reported per method and per suite only. Any future reading that computes a single 13-suite pass rate from this file is misreading it. A later run of an informed-executor suite under the blind protocol is NOT a regression even if it scores lower — it is a different measurement (see regression_rule).",
+    "subtotals_by_method": {
+      "informed_executor": {
+        "suites": 10,
+        "passed": 276,
+        "failed": 0,
+        "total": 282,
+        "pass_rate": 0.9787,
+        "editor_pending_slots_not_counted_as_passes": 6,
+        "note": "6 expectations sit at EDITOR-PENDING (competitor e3.1, contentgap e3.1, linking e3#4, technical e3.5, refresher e3.5, domain e4.5) and are excluded from passed; performance-reporter's editor_pending=1 is an orthogonal flag on e5.3 whose mechanical layer passed, so it is not deducted. UPPER BOUND — see methods.informed-executor.upper_bound_statement."
+      },
+      "blind_execute": {
+        "suites": 3,
+        "passed": 67,
+        "failed": 19,
+        "total": 86,
+        "pass_rate": 0.7791,
+        "note": "backlink-analyzer's editor_pending=1 overlaps the PASS recorded for the same expectation's mechanical layer and is not a separate expectation (24 pass + 4 fail = 28 = total)."
+      }
+    },
+    "per_suite_method_labels": {
+      "informed-executor": [
+        "serp-analysis",
+        "competitor-analysis",
+        "content-gap-analysis",
+        "internal-linking-optimizer",
+        "technical-seo-checker",
+        "content-refresher",
+        "domain-authority-auditor",
+        "rank-tracker",
+        "performance-reporter",
+        "alert-manager"
+      ],
+      "blind-execute": [
+        "backlink-analyzer",
+        "entity-optimizer",
+        "memory-management"
+      ]
+    },
+    "additional_attestation_limits": [
+      "serp-analysis and content-refresher were GRADING-ONLY SALVAGE PASSES: the EXECUTE half was produced by a prior interrupted runner. The serp grader states it plainly — 'I CANNOT attest that they were produced under fresh-session conditions faithful to SKILL.md, because I did not observe their production. A 29/29 founding baseline should be read with that limit attached.' These two sit at the weakest attestation grade in the file.",
+      "Every suite ran each eval ONCE. There is no repeat measurement anywhere, so this file carries no variance estimate for any suite under either method.",
+      "performance-reporter detected a secondary input (build/seo-content-writer/references/anti-slop-ruleset.md §6, cited by its expectation 5.4) being extended by a parallel workstream WHILE its run was in flight, and re-graded against the extended file rather than assuming no impact. Verdicts unaffected because the change ADDED families rather than redefining them. Reported because Mode B has no equivalent of Mode A's frozen-target rule: 'A redefinition would have silently split the run across two rubrics.'"
+    ]
+  },
+  "regression_rule": "Regression = an expectation recorded passing here that fails in a later run of the SAME suite at same-or-later skill version under unchanged expectation wording AND under the same method. A blind-method result scoring below an informed-executor baseline for the same suite is a method change, not a regression, and must be recorded as a new founding datum for that method. The 19 blind FAILs below are the floor for their three suites: a later blind run that fails an expectation passing here IS a regression.",
+  "suites": [
+    {
+      "skill": "serp-analysis",
+      "suite": "serp",
+      "method": "informed-executor",
+      "skill_version_under_test": "4.2.4",
+      "skill_version_note": "metadata.version, research/serp-analysis/SKILL.md",
+      "run_provenance": "2026-08-10 founding Mode B (grading-only salvage pass; EXECUTE half produced by the prior interrupted runner)",
+      "totals": {
+        "pass": 29,
+        "fail": 0,
+        "editor_pending": 0,
+        "total": 29,
+        "pass_rate": 1.0,
+        "note": "editor_pending is 0 because the applied Mode A fix moved fluency/register out of the graded set entirely; after the fix there is no fluency-scored expectation left to mark pending. The Greek artefact WAS judged by the binding editor (MINOR-EDITS, 7 fixes) and that verdict cost this suite zero graded points — see eval_feedback_backlog item 2, which names this as the carrier-less shape ledger F13 was written about."
+      },
+      "per_eval": {
+        "1": {
+          "passed": 6,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "2": {
+          "passed": 7,
+          "total": 7,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "3": {
+          "passed": 6,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "4": {
+          "passed": 6,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "5": {
+          "passed": 4,
+          "total": 4,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        }
+      },
+      "fails": [],
+      "editor_referral": {
+        "artifact": "greek-out-serp-e2.md",
+        "status": "JUDGED — editor verdict MINOR-EDITS, 7 required fixes",
+        "binds_a_scored_expectation": false
+      },
+      "checker_false_verdicts": {
+        "caught_before_reporting": 4,
+        "escaped_into_a_verdict": 0,
+        "causes": [
+          "Anti-regex 'recommend (?:launching )?LSA' fired on a NEGATION — the raw line reads '**Recommendation: do not launch LSA ...**'. Trusting the hit would have produced a false FAIL on e1.2, the exact inverse of the truth.",
+          "Anti-regex for «μη διαθέσιμη» fired on a negated quotation that is exactly the compliance the expectation requires (e2.2f).",
+          "Greek missing-accent checker flagged 16 words; all false — synizesis monosyllables («για», «μια», «πιο», «ποιο») split into two nuclei by the counter, plus the abbreviation «εκατ.» stripped of its period.",
+          "Greek double-accent checker flagged 12 words; all correct — 4 diaeresis words («Προϊόν», «προϋπόθεση») wrongly in the ACCENTED set and 8 legitimate enclitic double accents («κατάταξής τους», «μέγεθός της»)."
+        ]
+      },
+      "notes": [
+        "Non-vacuity control run after the final-sigma check returned zero findings: 282 correct word-final ς occurrences confirm the pattern was matching Greek text rather than silently missing it.",
+        "Undergraded defect recorded by the grader and NOT inflated into a failure: the e1 deliverable states 'individual local businesses hold 5 of 10 (two of them bare homepages — including the client's at #9)' while the fixture carries three homepage rows (#3, #6, #9) and the output's own §5 table types all three identically. No expectation covers derived tallies over the top 10, so the suite scores it 6/6."
+      ],
+      "eval_feedback_backlog": [
+        "e1.5 / e1.6 COVERAGE GAP (wrong-shaped wording — recorded, suite NOT edited): both expectations enumerate their populations closed — e1.6 lists 'every position, domain, business name, rating, review count, ad, and PAA question' and e1.5 lists intent + positions 1/2/7/8 + client-at-#9 + #5 cost guide + PAA + capture metadata. Neither covers DERIVED TALLIES over the top 10. The e1 deliverable contains an unmistakable one: L119 'individual local businesses hold 5 of 10 (two of them bare homepages — including the client's at #9)' while the fixture carries three homepage rows (#3, #6, #9) and the output's OWN §5 table types all three identically. The suite scores this 6/6. Suggested repair: add to e1.6 a clause such as 'and every derived count over the top 10 (slot-type tallies, format counts) is arithmetically consistent with the fixture table and with the report's own table'.",
+        "e2.6 STRUCTURAL CONSEQUENCE OF THE APPLIED FIX (recorded, suite NOT edited): the demarcation moved fluency/naturalness/register out of the graded set entirely and routed it to the binding greek-content-editor. The mechanical layer is now the only Greek-scored surface, so an editor FAIL on Greek register would cost this suite ZERO graded points and would leave a 7/7 eval standing. That is the exact carrier-less shape ledger F13 was written about (a ruled content class with no enforcement carrier recurs in the next run). It is also why totals.editor_pending is 0 here rather than 1: after the FIX there is no fluency-scored expectation left to mark pending. Worth a coordinator decision on whether the editor verdict should bind a scored expectation.",
+        "e2.4 wording friction (minor): the expectation routes all three magnitude questions 'against current help.skroutz.gr or Skroutz seller-panel documentation', but the BoxNow locker count is not a Skroutz-owned figure and the reference's own §3 [VERIFY] bullet routes it to 'current BoxNow/Skroutz communications'. The deliverable follows the reference (L67: 'πρέπει να επαληθευτεί σε τρέχουσες ανακοινώσεις BoxNow/Skroutz') and also lists all three under the help.skroutz.gr/seller-panel routing at L89, so it passes on both readings — but a grader without the reference in hand could read the two routings as conflicting. Suggest aligning the expectation's routing clause with skroutz-visibility-factors.md:47.",
+        "e3.3 wording friction (minor): the expectation names the three §3 rows the four cited sources should map onto (definitions, step-by-step, statistics) but says nothing about the FOURTH source (heatcert / safety-requirement wording), which has no matching §3 row. The deliverable invents a plausible label for it ('Authoritative-body sourcing') inside a column headed 'Citation-pattern row'. Ungraded either way as written; if the intent is that non-row sources must be visibly marked as not-a-row, say so.",
+        "e1.1 wording friction (minor): 'with no feature reported present that the fixture does not show' is a pure anti-clause with no stated population, so a grader must reconstruct the feature list to check it. Naming the eight not-observed features explicitly (as e1.1 already does earlier in the same sentence) would make the anti-clause mechanically checkable in one pass."
+      ]
+    },
+    {
+      "skill": "competitor-analysis",
+      "suite": "competitor",
+      "method": "informed-executor",
+      "skill_version_under_test": "4.0.2",
+      "run_provenance": "2026-08-10 founding Mode B",
+      "totals": {
+        "pass": 27,
+        "fail": 0,
+        "editor_pending": 1,
+        "total": 28,
+        "pass_rate": 0.9643
+      },
+      "per_eval": {
+        "1": {
+          "passed": 6,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "2": {
+          "passed": 5,
+          "total": 5,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "3": {
+          "passed": 5,
+          "total": 6,
+          "verdicts": [
+            "EDITOR-PENDING",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "4": {
+          "passed": 5,
+          "total": 5,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "5": {
+          "passed": 6,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        }
+      },
+      "fails": [],
+      "editor_referral": {
+        "artifact": "greek-out-competitor-e3.md",
+        "expectation": "e3.1 — mechanical layer graded PASS here; register/naturalness routed to the binding editor by the expectation's own wording",
+        "status": "JUDGED — editor verdict MINOR-EDITS, 2 required fixes (cleanest in batch)"
+      },
+      "checker_false_verdicts": {
+        "caught_before_reporting": 2,
+        "escaped_into_a_verdict": 0,
+        "causes": [
+          "Greek case-fold gap — the e3.6 placeholder scan matched lowercase «απαιτούνται στοιχεία» only (3 hits) and silently missed the capitalised «[Απαιτούνται στοιχεία:» fourth occurrence; caught only because the checker also prints every draft-block line.",
+          "e4.5 checker false-ABSENT: the needle carried a comma and an article the raw output renders differently; the content is present at two lines. A would-be FAIL prevented by the mandatory evidence-inspection step."
+        ]
+      },
+      "notes": [
+        "Method caveats recorded by the runner: 'Executor and grader shared this session' and 'Grader had read evals.json (expectations visible) before execution because the suite file also carries the prompts; outputs were produced from SKILL.md instructions + prompt and saved before any grading script existed (execute-then-grade order held).'"
+      ],
+      "eval_feedback_backlog": [
+        "e3.1 bundles a mechanically gradeable layer (script/diacritics/final-sigma/boilerplate) and an editor-routed layer (register/naturalness) in one expectation; the per-expectation verdict vocabulary forces a convention (graded mechanics = pass, overall verdict EDITOR-PENDING). Splitting into two expectations would remove the convention choice. Recorded only — suite not edited.",
+        "e5.3's blanket 'no numeric SEO metric … no content-inventory counts' can collide with e5.5's explicitly permitted empty-template table: template metric labels ('Keywords in Top 10', 'Content Pages') contain a numeral/inventory noun by construction. Graded labels as non-attributions; a clarifying phrase ('template metric labels are not attributions') would make the two expectations mechanically consistent.",
+        "e2.5's 'cite specific export rows' reads as keyword-table rows but its second example (Authority Score 42 vs 18) is a domain-overview citation — 'export rows/cells' would cover both files unambiguously. No grading impact this run.",
+        "e1.1 example list embeds an elided quote ('A standing desk is a height-adjustable work surface...') — graders must read the ellipsis as elision, not literal fixture text; harmless but worth a [sic]-style note."
+      ],
+      "denominator_defect_found_2026_08_10": "THIS RECORD'S DENOMINATOR IS WRONG AND ITS PASS RATE OVERSTATES. It records eval 2 at 5/5; eval 2 has SIX expectations and always has — verified at every commit that ever touched research/competitor-analysis/evals/evals.json (591acfd, whose own subject reads '5 evals / 29 expectations', 4310d7c, df560ae, and HEAD) — so the suite is [6,6,6,5,6] = 29, not 28. One eval-2 expectation was never graded in this informed run and this record does not say which. The stated 27/28 = 96.43% is therefore computed on a denominator two short of the suite, and cannot be compared with any run that grades all 29. Found by the blind grader of 2026-08-10, not by review. Same class as the domain suite's denominator note, and the second denominator defect found in this file in one day."
+    },
+    {
+      "skill": "content-gap-analysis",
+      "suite": "contentgap",
+      "method": "informed-executor",
+      "skill_version_under_test": null,
+      "skill_version_note": "not recorded in the run fragment",
+      "run_provenance": "2026-08-10 founding Mode B",
+      "totals": {
+        "pass": 29,
+        "fail": 0,
+        "editor_pending": 1,
+        "total": 30,
+        "pass_rate": 0.9667
+      },
+      "per_eval": {
+        "1": {
+          "passed": 6,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "2": {
+          "passed": 6,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "3": {
+          "passed": 6,
+          "total": 7,
+          "verdicts": [
+            "EDITOR-PENDING",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "4": {
+          "passed": 6,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "5": {
+          "passed": 5,
+          "total": 5,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        }
+      },
+      "fails": [],
+      "editor_referral": {
+        "artifact": "greek-out-contentgap-e3.md",
+        "expectation": "e3.1 — structural layer graded PASS; fluency/register/title-naturalness routed to the binding editor",
+        "status": "JUDGED — editor verdict MINOR-EDITS, 5 required fixes"
+      },
+      "checker_false_verdicts": {
+        "caught_before_reporting": 1,
+        "escaped_into_a_verdict": 0,
+        "causes": [
+          "e5.2 'they (cover|have|publish)' regex flagged the response's own quotation of the user's request and the generic gap-type taxonomy definitions as coverage claims; raw inspection at all six match sites showed refusal/disclaimer/definition contexts with no attribution to any named domain."
+        ]
+      },
+      "eval_feedback_backlog": [
+        "e1.5/e2.5/e3 prioritization expectations: the reference's two models use inverted factor semantics (weighted table: 5 = quick to create / no competitor; Quick Win formula subtracts Effort+Density as raw costs). 'Arithmetic correct' is only checkable once the executor states a conversion (raw = 6 − table score); the expectations could either name that conversion or state explicitly that any declared mapping is acceptable — graded here as the latter. Record only, do NOT edit the suite.",
+        "e3 expectation 1 packs a Mode-B-graded structural layer and an editor-judged fluency layer into one expectation; a single verdict slot cannot express 'structural pass + fluency pending' without a note. A two-expectation split would make grading.json cleaner. Record only.",
+        "e5 expectation 1's closing clause ('also asking for traffic/keyword performance ... matches the documented list') reads descriptive, not required — graded as permissive with own-inventory + competitor-content-data as the two hard requirements. Record only."
+      ]
+    },
+    {
+      "skill": "internal-linking-optimizer",
+      "suite": "linking",
+      "method": "informed-executor",
+      "skill_version_under_test": null,
+      "skill_version_note": "not recorded in the run fragment",
+      "run_provenance": "2026-08-10 founding Mode B",
+      "totals": {
+        "pass": 27,
+        "fail": 0,
+        "editor_pending": 1,
+        "total": 28,
+        "pass_rate": 0.9643
+      },
+      "per_eval": {
+        "1": {
+          "passed": 6,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "2": {
+          "passed": 6,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "3": {
+          "passed": 5,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "EDITOR-PENDING",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "4": {
+          "passed": 6,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "5": {
+          "passed": 4,
+          "total": 4,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        }
+      },
+      "fails": [],
+      "editor_referral": {
+        "artifact": "greek-out-linking-e3.md",
+        "expectation": "e3#4 — mechanical layer verified clean; naturalness of the proposed anchors routed to the binding editor",
+        "status": "JUDGED — editor verdict MINOR-EDITS, 5 required fixes, and ALL SIX PROPOSED ANCHORS GRADED NATIVE"
+      },
+      "checker_false_verdicts": {
+        "caught_before_reporting": 1,
+        "escaped_into_a_verdict": 0,
+        "causes": [
+          "e1 'avg arithmetic visible' regex (14 ÷ 8 = .?1\\.75) reported ABSENT because the deliverable bolds the value ('14 ÷ 8 = **1.75**') and .? cannot span the two asterisks. Deliverable right, checker wrong; graded PASS from the raw line."
+        ]
+      },
+      "eval_feedback_backlog": [
+        "e3#3 asks that the planted anchor be 'replaced with natural Greek phrasing' while e3#4 assigns 'the final naturalness verdict on the proposed anchors' to the binding greek-content-editor — slight scope overlap. Graded e3#3 on its own greppable signature list (families 1/2/4 absent, articles present, non-propagation, decline reasoning) and left the naturalness of the replacements to the editor via e3#4's EDITOR-PENDING. Worked, but a clause in e3#3 like 'naturalness itself judged under #4' would remove the overlap.",
+        "e1#3's '21 total' population is derivable-only (the fixture states 14 and 7 but never sums 21) — the 'fixture-derivable... WITH the population stated' wording covered it cleanly; noting only so future graders don't demand a literal fixture occurrence."
+      ]
+    },
+    {
+      "skill": "technical-seo-checker",
+      "suite": "technical",
+      "method": "informed-executor",
+      "skill_version_under_test": null,
+      "skill_version_note": "not recorded in the run fragment",
+      "run_provenance": "2026-08-10 founding Mode B",
+      "totals": {
+        "pass": 27,
+        "fail": 0,
+        "editor_pending": 1,
+        "total": 28,
+        "pass_rate": 0.9643
+      },
+      "per_eval": {
+        "1": {
+          "passed": 6,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "2": {
+          "passed": 6,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "3": {
+          "passed": 5,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "EDITOR-PENDING",
+            "PASS"
+          ]
+        },
+        "4": {
+          "passed": 4,
+          "total": 4,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "5": {
+          "passed": 6,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        }
+      },
+      "fails": [],
+      "editor_referral": {
+        "artifact": "greek-out-technical-e3.md",
+        "expectation": "e3.5 — mechanical layer verified clean; naturalness routed to the binding editor",
+        "status": "JUDGED — editor verdict MINOR-EDITS, 5 required fixes; this is the file the editor cites for its 'English residue never finished into Greek' systemic defect (6 raw-English spans, each already glossed in Greek in the same sentence, so the fix is deletion not translation, plus «το template» ×3)"
+      },
+      "checker_false_verdicts": {
+        "caught_before_reporting": 2,
+        "escaped_into_a_verdict": 0,
+        "causes": [
+          "Own-harness labelling bug: absence-desired probes (FID / 'First Input Delay' / '2.0s') printed '!! ABSENT' because want=False was omitted — the printed evidence ('no match in output' across all 5 outputs) is the PASSING state.",
+          "e4 pattern 'inside the VPN.{0,200}Lighthouse' demanded the tokens in the wrong order and reported ABSENT; the raw line carries the content in the reverse order. Graded PASS on the quoted raw span, not the regex."
+        ]
+      },
+      "eval_feedback_backlog": [
+        "e1 expectation 1: 'Severity is Critical or High per the severity framework's Critical row' cites only the Critical row while permitting High — a grader could misread the row citation as Critical-only; graded per the explicit 'Critical or High … never Medium/Low' clause. Record only, do NOT edit the suite.",
+        "e3 expectation 5 packs two layers (gradable mechanical + editor-routed naturalness) into one verdict slot; under this run's schema it takes a single EDITOR-PENDING verdict even with the mechanical layer verified clean — if a split verdict is intended, the wording could demarcate two gradable units. Record only.",
+        "e5 expectation 4's HowTo clause ('is not graded for rich-result eligibility either way') defines an explicitly ungradable dimension inside a graded expectation — it can neither pass nor fail by construction; works as a W12 guard but is a wording shape to note. Record only."
+      ]
+    },
+    {
+      "skill": "content-refresher",
+      "suite": "refresher",
+      "method": "informed-executor",
+      "skill_version_under_test": "4.1.1",
+      "skill_version_note": "SKILL.md frontmatter version + metadata.version",
+      "run_provenance": "2026-08-10 founding Mode B (grading-only salvage pass; EXECUTE half produced by the prior interrupted runner)",
+      "totals": {
+        "pass": 26,
+        "fail": 0,
+        "editor_pending": 1,
+        "total": 27,
+        "pass_rate": 0.963,
+        "note": "The runner also reports 26/26 = 100% of GRADED expectations, with 1 of 27 withheld to the binding editor. Recorded both ways here; pass_rate uses pass/total."
+      },
+      "per_eval": {
+        "1": {
+          "passed": 6,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "2": {
+          "passed": 6,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "3": {
+          "passed": 5,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "EDITOR-PENDING",
+            "PASS"
+          ]
+        },
+        "4": {
+          "passed": 5,
+          "total": 5,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "5": {
+          "passed": 4,
+          "total": 4,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        }
+      },
+      "fails": [],
+      "editor_referral": {
+        "artifact": "greek-out-refresher-e3.md (byte-identical to the e3 deliverable, 11437 bytes both)",
+        "expectation": "e3.5 — mechanical layer graded CLEAN; naturalness routed to the binding editor",
+        "status": "JUDGED — editor verdict **FAIL**, 10 required fixes. THE ONLY EDITOR FAIL OF THE WAVE.",
+        "mode_b_flag_that_the_editor_confirmed": "The Mode B mechanical pass flagged L117 «… η εκτίμηση κοστίζει μηδέν και δεσμεύει κανέναν.» to the editor as a dropped negation particle in customer-visible FAQ copy. The editor CONFIRMED it rather than overturning it — the machine layer caught the defect and the binding human-judgment layer graded it. That handoff working is itself a result.",
+        "consequence_for_the_suite_score": "The editor FAIL cost this suite zero graded points: e3.5's own wording assigns the naturalness verdict to the editor pass, so a FAIL there leaves 26/26 graded expectations standing. Same carrier-less shape flagged in the serp entry."
+      },
+      "checker_false_verdicts": {
+        "caught_before_reporting": 4,
+        "escaped_into_a_verdict": 0,
+        "causes": [
+          "Quote-fidelity probe reported two playbook specs ABSENT from references/ai-overview-recovery.md because the reference hard-wraps those strings across lines; whitespace-normalised re-run shows both present verbatim. The bare boolean would have produced a false quote-fidelity FAIL on a correct deliverable.",
+          "'screenshot' and 'broken internal link' scans MATCHED on e1 — raw inspection shows the matched line is the explicit NON-assertion the expectation asks for.",
+          "'rich result|SERP feature|accordion' negative scans matched several lines in two files; every match is a quoted stale claim, the R3 retirement statement, or an explicit non-promise. A hit-count rule would have failed two correct deliverables.",
+          "Greek casing trap avoided by design — §6 family-1 run in eight explicit case/accent variants because grep -i does not case-fold Greek; near-miss recorded: e3 L24 carries «όλα τα στοιχεία», which a looser pattern without the numeral anchor would have reported as a §6 FAIL-grade calque where none exists."
+        ]
+      },
+      "notes": [
+        "Output precision defect verified rather than trusted and NOT inflated into a failure: e2 L16 '(largest move 2.1→2.3)' — recomputation over all six export rows shows Q6's 2.2→2.5 (+0.3) is the largest. It fails no expectation as written."
+      ],
+      "eval_feedback_backlog": [
+        "e1 expectation 1(a) enumerates 'the 2024 year references in title tag/H1/body' but the fixture also carries 2024 in the meta description ('Our complete small business SEO checklist for 2024 …'). As worded, a response that refreshed title/H1/body and left the meta stale would still pass. The population should name the meta description or say 'all four surfaces'.",
+        "e2 expectation 1 pins 'positions held top-3 (1.8-2.8)' — that range is the LAST-28d column only; the previous-28d column reaches 2.9 (query 5). A grader treating 1.8-2.8 as the whole population would wrongly flag a response that reported 1.8-2.9. Name the column the range comes from.",
+        "e3 expectation 5 bundles a Mode B-gradable mechanical layer (diacritics, final sigma, boilerplate headings, §6 greppable families) with an editor-owned naturalness clause inside one expectation, so its pass/fail arithmetic is undefined by the suite itself. Resolved here as EDITOR-PENDING per the house convention of the five prior Greek suites; splitting it into 5a (mechanical, Mode B) and 5b (register, editor) would make the totals self-evident.",
+        "e3 expectations 2 and 5 assume English rule strings ('If the URL has backlinks and was ranking, REFRESH'; 'Seasonal variations (compare year-over-year, not just month-over-month)') inside an all-Greek deliverable. The output renders them as Greek translations in guillemets. The expectations test application, not quotation, so this passed — but the suite should state explicitly that translated rule citations are acceptable (or required) in the Greek eval, otherwise a quote-fidelity grader could read the guillemets as a verbatim-quote claim and fail a correct output.",
+        "e1 expectation 5 forbids 'bracketed data-needed tokens' in paste-ready copy but does not name the frame boundary, unlike e2 expectation 6 ('data-gap notes live in the plan/report frame'). This run turned on judging that e1 L142's 'Last updated: [publish date in 2026]' sits in the Republishing-Strategy plan prose; make the frame explicit so two graders cannot split.",
+        "e2 expectation 2's cases 'Overview present, site not cited' and 'Overview citing a competitor' are not mutually exclusive on the fixture (queries 2 and 5 satisfy both literally). The fixture-exact assignment resolves it, but an output that dual-listed those queries would be ungradable as written; adding 'competitor-cited queries belong to the competitor case only' would close it."
+      ]
+    },
+    {
+      "skill": "domain-authority-auditor",
+      "suite": "domain",
+      "method": "informed-executor",
+      "skill_version_under_test": null,
+      "skill_version_note": "not recorded in the run fragment",
+      "run_provenance": "2026-08-10 founding Mode B",
+      "totals": {
+        "pass": 25,
+        "fail": 0,
+        "editor_pending": 1,
+        "total": 26,
+        "pass_rate": 0.9615
+      },
+      "per_eval": {
+        "1": {
+          "passed": 6,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "2": {
+          "passed": 5,
+          "total": 5,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "3": {
+          "passed": 5,
+          "total": 5,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "4": {
+          "passed": 5,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "EDITOR-PENDING",
+            "PASS"
+          ]
+        },
+        "5": {
+          "passed": 4,
+          "total": 4,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        }
+      },
+      "fails": [],
+      "editor_referral": {
+        "artifact": "greek-out-domain-e4.md",
+        "expectation": "e4.5 — mechanical sub-layer verified passing; fluency/register reserved for the binding editor and explicitly 'not counted as PASS until that pass lands'",
+        "status": "JUDGED — editor verdict MINOR-EDITS, 14 required fixes (fix 1 is one global replace over ~20 spans: «τομέας» for *domain*)"
+      },
+      "checker_false_verdicts": {
+        "caught_before_reporting": 3,
+        "escaped_into_a_verdict": 0,
+        "causes": [
+          "e2 'no 59 cap' probe (?<!\\d)59(?!\\d) flagged the output; raw-span inspection showed both matches are CITE's own framework numbers — the '40-59 Low' rating band and C09's '30-59% Partial' band. A refined cap-semantics probe returned no match.",
+          "Greek inflection trap — the fine-figure probe 'πρόστιμ\\w*' missed the inflected «προστίμων» because the accent shifts under inflection; re-run with an inflection-aware pattern found both occurrences, each a quoted question or an explicit refusal with no numeric token nearby.",
+          "Byte-identical quote check reported «ιδανική υγρασία σε παιδικό δωμάτιο» absent from the fixture; the fixture hard-wraps the phrase across two lines. Whitespace-normalised comparison confirms it verbatim."
+        ]
+      },
+      "notes": [
+        "Executor-phase correction logged for transparency (not a checker verdict): the e4 draft's C-score tally parenthetical was garbled ('3 Pass + 3 Partial + 3 Fail + 1 Partial') and was corrected to '4 Pass + 3 Partial + 3 Fail = 40 + 15 + 0' during EXECUTE, before grading began."
+      ],
+      "eval_feedback_backlog": [
+        "e1 expectation 5: 'exact at one decimal' is undefined for exact-half weighted sums — 85.25 rounds to 85.2 (half-even) or 85.3 (half-up). Unambiguous here because the output printed the unrounded 85.25, but a report printing only the rounded figure would sit on the convention boundary. Suggest 'within 0.05 of the weighted sum' or require the unrounded sum be shown. (Recorded only — suite not edited.)",
+        "e3 expectation 3: the recomputed CITE score (74.14-74.2) lands in the rating scale's 74-75 band gap ('60-74 Medium | 75-89 Good'); no expectation pins the band-interval convention, so any label read must be accepted. Minor wording gap. (Recorded only.)",
+        "e4 expectation 5 scopes fluency/register out of the expectation while the suite discipline routes them to the binding greek-content-editor — the verdict a passing mechanical layer should carry pre-editor (PASS vs EDITOR-PENDING) is not stated in the expectation text; this run records EDITOR-PENDING per the run discipline. Suggest the expectation name its pre-editor verdict explicitly. (Recorded only.)",
+        "e4: the Greek pack contains no authoritative-media data, so E06 is genuinely unmeasurable, but neither prompt nor expectations mention an N/A for this eval; N/A (skill-faithful, E=66,7 → CITE 70,2) and Fail-as-absence (E=60 → CITE 68,5) both satisfy the self-consistency expectations while yielding different scores. Worth pinning E06's intended handling in a future suite revision. (Recorded only.)"
+      ],
+      "denominator_superseded_2026_08_10": "This record's total of 26 is FROZEN AS RUN and remains the correct denominator for these verdicts. It is no longer the suite's size: domain-authority-auditor 4.2.0 added one derived-arithmetic expectation to each of evals 1-4, taking the suite to 30. Both this informed record and the blind rebase record (24/26) predate that change, so neither may be compared expectation-for-expectation against a post-4.2.0 run without noting the four new items — a run scoring 26/30 has not regressed from 25/26. The next baseline written for this suite carries 30."
+    },
+    {
+      "skill": "rank-tracker",
+      "suite": "ranktracker",
+      "method": "informed-executor",
+      "skill_version_under_test": "4.1.1",
+      "run_provenance": "2026-08-10 founding Mode B (post-Mode-A-fixes, bab9d42)",
+      "totals": {
+        "pass": 28,
+        "fail": 0,
+        "editor_pending": 0,
+        "total": 28,
+        "pass_rate": 1.0,
+        "note": "editor_pending is 0 by a deliberate convention the runner recorded: e3.5's mechanical layer PASSES on evidence, so marking the expectation EDITOR-PENDING would misreport a real pass. The deferred half is recorded as a referral instead, so editor_pending: 0 must not be read as 'no referral made'."
+      },
+      "per_eval": {
+        "1": {
+          "passed": 6,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "2": {
+          "passed": 6,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "3": {
+          "passed": 6,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "4": {
+          "passed": 6,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "5": {
+          "passed": 4,
+          "total": 4,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        }
+      },
+      "fails": [],
+      "editor_referral": {
+        "artifact": "greek-out-ranktracker-e3.md",
+        "expectation": "e3.5 — mechanical layer PASS; naturalness verdict delegated",
+        "status": "PENDING — not in the binding editor's 2026-08-10 batch of seven",
+        "items_flagged_for_editor_judgment": [
+          "«απόσταση βολής» as the rendering of striking-distance (used in title + throughout)",
+          "«εφεδρικός τύπος» for fallback score; «απόσταση θέσης» for position gap",
+          "«ουρά» for the ranked work queue in an operational Greek report",
+          "«ώθηση» for push (client's own word in the prompt: «ποια αξίζουν push»)",
+          "register of the two refusals (§4 consultant, §6 sales projection) — professional vs lecturing",
+          "«αλληλοκανιβαλισμός» for cannibalization",
+          "«Σημειώσεις κενών δεδομένων» as a section title"
+        ]
+      },
+      "checker_false_verdicts": {
+        "caught_before_reporting": 9,
+        "escaped_into_a_verdict": 0,
+        "causes": [
+          "Line-wrapped markdown is the dominant false-negative source in this suite — 6 of the 9 came from that one cause, including four hard-line-break ABSENTs and two quote-fidelity MISMATCHes caused by an un-stripped markdown blockquote '>' marker.",
+          "e1.1 false-ABSENT: pattern 'NF \\(not found in the top 50\\)' vs the output's 'NF (not found in top 50)'.",
+          "e1.4 two false FORBIDDEN hits — 'it dropped on Thursday 16 July' and 'lasted 5 days' matched INSIDE an explicit counter-example ('Any statement of the form \"…\" would be fabricated'). A substring-only checker would have failed the strongest honesty passage in the run.",
+          "e4.2 false FORBIDDEN hit — 'report us as position 1 there' matched the board's own instruction quoted inside the refusal that declines it: the very sentence the eval wants present is the one a naive checker flags.",
+          "e3.6 false-ABSENT — the pattern used the plural «μετρημένα από εργαλείο» while the 12 table rows use the singular «μετρημένο από εργαλείο».",
+          "e3.5 Greek scanner false positives — 11 correctly-unaccented monosyllables flagged by a vowel-count heuristic that miscounts synizesis and diphthongs.",
+          "e3.4 surface-classifier artefact — '·'-separated keyword-list lines had their second and later tokens classified as running prose; all 52 export-string occurrences re-read by hand."
+        ]
+      },
+      "notes": [
+        "The final-sigma checkers were FAULT-INJECTION TESTED — injected 'θέσισ' and 'ςελίδα' both trip, clean text does not — so their 0/0 result is load-bearing rather than vacuous.",
+        "This suite's fragment carries the clearest statement of the method problem and is the source of this file's upper-bound wording."
+      ],
+      "eval_feedback_backlog": [
+        "e1.4 — the permitted answer and the prohibition sit in tension as worded: 'no exact duration in days is asserted as fact' immediately after 'stating the ≤14-day bracket is correct'. 14 days IS a number of days, so a strict grader could read a correct bracketed answer as violating the prohibition. Suggested wording: '...no exact duration is asserted; an upper bound expressed as the interval between two named check dates (≤14 days, 2026-07-13 → 2026-07-27) is the correct form'.",
+        "e2.6 — 'no ... 2026-08-10 positions appear' is dated identically to the run date, so an honest deliverable that stamps its compile date 2026-08-10 while dating the snapshot 2026-08-03 can trip a naive date-substring check. Suggested: 'no position attributed to a 2026-08-10 check appears'.",
+        "e3.4 — 'the running prose does not adopt query-style article-less labels as sentence Greek' has no boundary for the surface this run produced: a numbered next-steps item whose LABEL is the export query, followed by an em dash and properly articled Greek ('2. **εργαλεια κηπου** — on-page ενίσχυση της /ergaleia-kipou...'). It is neither a table nor a sentence. Suggested: name action/next-step lists explicitly as exempt (or explicitly not), so the call is not left to grader judgment.",
+        "e4.2 — 'no line of the report states this keyword ranks #1' is correct in intent, but a compliant deliverable will normally QUOTE the board instruction it declines, so the literal string appears. Suggested: 'no line ASSERTS that this keyword ranks #1 (quoting the instruction in order to decline it does not count)'.",
+        "e1.5 — the clause is satisfiable three ways (constant population / flag the 11.8 skew / omit the average with the omission stated), which makes the top-10 6→6 count the only hard requirement in it. Fine as written; noting it so a future grader does not read the average as mandatory.",
+        "e5.1 — the 'typical-pattern statements ... pass only when explicitly labelled as assumptions' clause went untested: the run produced no such statement at all. The clause is a real trap for weaker outputs and should stay, but this baseline records no evidence about whether it discriminates.",
+        "GENERAL — expectations in this suite quote reference text across hard line breaks in the source files (the page-2-cliff insight, the hypotheses note, the setup-checklist row). Any future grading script for this suite must whitespace-flatten and strip blockquote markers before matching; 6 of the 9 false verdicts logged above came from this one cause."
+      ]
+    },
+    {
+      "skill": "performance-reporter",
+      "suite": "performance",
+      "method": "informed-executor",
+      "skill_version_under_test": "4.1.1",
+      "run_provenance": "2026-08-10 founding Mode B (post-Mode-A-fixes, 4979309)",
+      "totals": {
+        "pass": 29,
+        "fail": 0,
+        "editor_pending": 1,
+        "total": 29,
+        "pass_rate": 1.0,
+        "note": "pass + fail = 29 = total. editor_pending=1 is an ORTHOGONAL flag on e5.3, whose own text delegates the fluency/register verdict to the binding editor; it is not a 30th expectation and is not deducted from pass. The mechanical layer e5.3 actually grades was checked and passed."
+      },
+      "per_eval": {
+        "1": {
+          "passed": 7,
+          "total": 7,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "2": {
+          "passed": 5,
+          "total": 5,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "3": {
+          "passed": 6,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "4": {
+          "passed": 5,
+          "total": 5,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "5": {
+          "passed": 6,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        }
+      },
+      "fails": [],
+      "editor_referral": {
+        "artifact": "greek-out-performance-e5.md",
+        "expectation": "e5.3 — mechanical layer passed; fluency/register delegated",
+        "status": "PENDING — not in the binding editor's 2026-08-10 batch of seven",
+        "note": "Two eval-5 slop-adjacent phrasings were deliberately NOT polished before saving, so the editor pass judges unretouched prose."
+      },
+      "checker_false_verdicts": {
+        "caught_before_reporting": 6,
+        "escaped_into_a_verdict": 0,
+        "causes": [
+          "2 negation/quotation frames — a forbidden-scan regex firing on lines that sit inside an explicit do-not-say frame ('not as \"the rework doubled our AI traffic\"').",
+          "2 substring traps — 'Q3 (total|2026 total)[^|\\n]{0,20}[0-9]' satisfied by the '2' of the neighbouring 'Q2' inside an ABSENCE statement ('no Q3 total, no Q2 total'); and '95'/'chatgpt' flagged as cross-fixture leakage when '95' occurs only inside '| Paid Search | 395 |'.",
+          "1 over-strict pattern — an Audience probe demanding a literal asterisk after the colon.",
+          "1 Greek case-folding miss — a lowercase-only licenser filter missed the capitalised «Δεν» opening a correctly-licensed clause. The standing lesson, reproduced by the run's own checker.",
+          "Plus a §6 family-5 substring hazard the ruleset documents for its own pattern: «ποτέ» matched only as a substring of «αποτέλεσμα»."
+        ]
+      },
+      "notes": [
+        "Execution-phase authoring corrections made BEFORE grading and recorded for baseline honesty: (a) an excluded-sources table carried '45 → see note' where June is 41 — corrected; (b) a refusal passage illustrated the run-rate fallacy with 'roughly 8,700 sessions and €6,180 revenue' — the illustrative figures were REMOVED rather than corrected, since printing them at all invites a fabrication reading; (c) the Greek grammar error 'στα τρία μήνες' corrected to 'τρεις μήνες μετά τη δημοσίευση'.",
+        "Ledger guards exercised: F7 (six false verdicts corrected at source), F3 (per-eval digit inventories traced to fixtures/prompt/reference bands; zero invented figures), F9 ('\\bFID\\b' and 'First Input Delay' ABSENT in all five outputs), F8-adjacent (opening and closing working-tree scans compared — see method.additional_attestation_limits)."
+      ],
+      "eval_feedback_backlog": [
+        "e3.1 — 'a share computed against referral-channel sessions only (310/356) … fails' does not say whether a clearly-subordinated, non-percentage orientation ratio on the referral base is disqualifying, or whether only the HEADLINE share's denominator is being graded. Both readings are available on the current wording and they give opposite verdicts on this run's output. Suggested (record only, do NOT edit): scope the failure condition to 'the headline share'.",
+        "e2.4 — 'at or above kpi-definitions' expected 0.5–2% CTR band for positions 11–20' is ambiguous for the fixture's own value: 1.96% is INSIDE the band, at its top, not above it. A deliverable that correctly says 'at the top of the band' and one that wrongly says 'above the band' both satisfy the literal wording. Suggested: 'at the top of, or above, the 0.5–2% band'.",
+        "e5.6 — 'arithmetic derived solely from those fixture numbers with the derivation visible' does not state whether a plain SUM of fixture cells (here 2+1 = 3 AI purchases) must show its addends, or whether direct traceability to the named fixture suffices. The two named examples (−7 goal gap, +21.4% MoM) are both differences/ratios, so sums are unlegislated.",
+        "e1.1 — the expectation requires a 'Target' column in the at-a-glance table while the eval supplies no targets, so a compliant report must render the column with a non-numeric honesty token. Worth an explicit clause so a grader does not read an empty/na Target column as a template miss.",
+        "e4.2 — 'any forward projection appears only if unmistakably labeled as a projection from one month of data' reads as permissive, while the surrounding expectation and the expected_output both push toward refusing to project at all. A deliverable with zero projections (this one) and a deliverable with one labelled projection both pass; the intended target behaviour could be stated."
+      ]
+    },
+    {
+      "skill": "alert-manager",
+      "suite": "alertmanager",
+      "method": "informed-executor",
+      "skill_version_under_test": "4.1.1",
+      "skill_version_note": "metadata.version and top-level version both 4.1.1",
+      "run_provenance": "2026-08-10 founding Mode B (post-Mode-A-fixes, 6ed174e)",
+      "totals": {
+        "pass": 29,
+        "fail": 0,
+        "editor_pending": 0,
+        "total": 29,
+        "pass_rate": 1.0,
+        "note": "editor_pending is 0 in the totals; the Greek artefact is carried as a separate artefact-level referral (greek_editor_pending block in the fragment)."
+      },
+      "per_eval": {
+        "1": {
+          "passed": 6,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "2": {
+          "passed": 7,
+          "total": 7,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "3": {
+          "passed": 6,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "4": {
+          "passed": 6,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "5": {
+          "passed": 4,
+          "total": 4,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        }
+      },
+      "fails": [],
+      "editor_referral": {
+        "artifact": "greek-out-alertmanager-e3.md",
+        "expectation": "e3.5 — delegates fluency, idiomatic naturalness, translation-ese and register to the binding editor",
+        "status": "PENDING — not in the binding editor's 2026-08-10 batch of seven",
+        "mechanical_layer_result": "CLEAN — 14 Greek headings, 0 diacritic misses (fault-injected scanner), 0 final-sigma errors, 0 §6 ruled calque forms including gender/spelled variants, native «Και οι τρεις λέξεις» used twice, 0 provenance placeholders",
+        "editor_watch_items": [
+          "«Υπόθεση εργασίας» as the register for a working hypothesis in client-facing prose",
+          "«επείγον σήμερα, όχι καταστροφή» — deliberately colloquial calibration line",
+          "«βουλιάζουν» from the prompt not reused; «πέφτουν συνεχώς» chosen instead",
+          "«φάκελος στοιχείων» as the term for an evidence package"
+        ]
+      },
+      "checker_false_verdicts": {
+        "caught_before_reporting": 2,
+        "escaped_into_a_verdict": 0,
+        "causes": [
+          "e2 exp 3: the scripted pattern 'strip.{0,30}FAQPage' fired on what is actually the R3-boundary PROHIBITION ('retiring this *alert* is not a reason to strip **FAQPage structured data** off your pages'). A bare-boolean checker would have reported a false FAIL on the R3 expectation.",
+          "e4 exp 6: the no-fabrication danger pattern ('citation rate of \\d|search volume') fired on the output's own validation-checkpoint negation ('no citation rate, search volume, traffic value, competitor identity ... is invented').",
+          "Adjacent, not counted as false verdicts: digit-scan allowlist artefacts (46 tokens in eval 1, 3-19 in the others) surfaced as 'unallowed' only because the allowlist held unformatted forms (1972 vs '1,972'); a bare count would have produced a false fabrication flag on four of five outputs."
+        ]
+      },
+      "notes": [
+        "The Greek accent scanner was FAULT-INJECTED before it was trusted: injecting «Η κατασταση ειναι σοβαρη …» produced 6 hits and the clean file 0, so the 0 is a real result rather than a dead regex.",
+        "Output imprecisions recorded but unbound by any expectation: a paraphrase sitting inside quotation marks in eval 1 (the quote-fidelity class the ledger flags, which e1 has no clause for — see eval_feedback item 1); a CTR-drift threshold row labelled '(measured, 5 clean weeks)' when the ±0.2 pp tolerance is a chosen buffer; three cell-join quotations that lowercase the second cell's initial; and an eval-3 code block that drops «μη διαθέσιμη για» from each line while keeping every timestamp faithful.",
+        "Rulings check recorded by the runner: R4 honoured (FID dead → INP 200 ms; LCP corrected 2.0→2.5 s with vendor provenance), R3 honoured (FAQ rich-result alert retired, FAQPage markup explicitly preserved), R5 honoured (unlinked mentions affirmed as a scored entity/GEO signal, CITE I09), W12 honoured — no HowTo claim appears anywhere."
+      ],
+      "eval_feedback_backlog": [
+        "e1 carries no quote-fidelity clause, while e2#1 ('if the response quotes a config row it quotes it verbatim') and e3#1 ('if it quotes the tool's maintenance notice it quotes it verbatim') each carry a narrow one. Paraphrase-inside-quotation-marks — the class the ledger flags (on-page e5.6, quality e4.4/e4.6) — is therefore unbound in e1. Consider one suite-level clause instead of three narrow ones.",
+        "e1#3's closing clause ('no threshold number appears that is neither fixture-derived arithmetic nor an explicitly labeled generic default') does not say how to treat an operational tolerance built on a derived value — e.g. a CTR band of 'mean 3.38% ± ~0.2 pp', where the centre is derived and the buffer is chosen. Graded PASS on visible construction; the wording should state whether such tolerances need their own label.",
+        "e1#2 lists four acceptable populations but is silent on whether stating the all-clean-days mean (≈280) as an explicit counter-example — the population NOT to alert on — is required, optional, or neutral. Graded neutral (credited as evidence of population discipline).",
+        "e2#4 names a guide signal that lives in a two-cell table row; quoting it inevitably produces a cell-join rendering. The expectation is correct as written (it quotes the cell text only) but a one-line note that cross-cell joins are acceptable when each cell's text is verbatim would remove the ambiguity for graders.",
+        "e3#5 bars the calque forms 'in the client-facing Greek prose', but this eval's deliverable is a single document that is simultaneously an internal incident triage and a client-facing answer. The boundary is undrawn; graded at whole-document scope (strictest reading).",
+        "e4#5 requires the AI Overview's 'competitor-sourced state reported from the fixture note without inventing which competitors' — a response that omits the sourcing entirely passes the clause trivially. Consider requiring the fixture's 'two competitor sites' fact to be reported, so omission and honest reporting are distinguishable.",
+        "e5#1's carve-out covers 'generic small-e-shop patterns ... explicitly labeled' but not counterfactual illustrations ('say I write \"normal = 80 clicks/day\" — here is how that breaks'), which are a refusal device rather than an offered number. Graded PASS; the wording should name the frame so it is not left to grader judgment.",
+        "e2#6 and e2#5 both require the day-over-day/weekend fix and the 08/07 true positive to be honored; the overlap is small but real (one root defect can satisfy parts of both). Not a defect this run — recorded so a future double-count is not mistaken for two independent passes."
+      ]
+    },
+    {
+      "skill": "backlink-analyzer",
+      "suite": "backlink",
+      "method": "blind-execute",
+      "skill_version_under_test": null,
+      "skill_version_note": "not recorded in the run fragment; the run post-dates skill fix f9d7414 ('remove invented DA figures for real companies from the worked example')",
+      "run_provenance": "2026-08-10 founding Mode B (post-fixes 2ab6854 + skill fix f9d7414; blind-execute method)",
+      "totals": {
+        "pass": 24,
+        "fail": 4,
+        "editor_pending": 1,
+        "total": 28,
+        "pass_rate": 0.8571,
+        "note": "The 1 counts the naturalness/register layer of e3 expectation 5, which that expectation itself assigns to the binding greek-content-editor pass. It OVERLAPS the PASS recorded for the same expectation's mechanical layer and is not a separate expectation: pass + fail = 24 + 4 = 28 = total."
+      },
+      "per_eval": {
+        "1": {
+          "passed": 6,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "2": {
+          "passed": 5,
+          "total": 6,
+          "verdicts": [
+            "FAIL",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "3": {
+          "passed": 7,
+          "total": 7,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "4": {
+          "passed": 3,
+          "total": 4,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "FAIL",
+            "PASS"
+          ]
+        },
+        "5": {
+          "passed": 3,
+          "total": 5,
+          "verdicts": [
+            "FAIL",
+            "PASS",
+            "FAIL",
+            "PASS",
+            "PASS"
+          ]
+        }
+      },
+      "fails": [
+        {
+          "id": "e2.1",
+          "kind": "omission — required naming absent",
+          "reason": "Per-domain criteria naming incomplete on the five flagged disavow domains. One clear miss: row #4 (spin-arthra-blog.example) carries the worksheet's evidence plus the run's own coinage ('that is a link-selling page pattern, not content') and names NO rubric factor, no §4 disavow-table row and no §3 risk type, so a reader cannot check which element it fails. Two more (#2, #3) name the criterion in substance but never label it. Graded against the expectation's explicit fail clause. The runner recorded it as a real miss rather than waving it through — 'it is evidence the expectation discriminates even against an informed executor.'"
+        },
+        {
+          "id": "e4.3",
+          "kind": "omission — intake item and collection date not requested",
+          "reason": "The zero-data intake list names four of the five manual-data inputs SKILL.md asks for and omits one — 'Recent link gains/losses if tracking changes' is never requested — and it never asks for the export's COLLECTION DATE, which is the Output Validation item the expectation cites by name. Graded strictly because both omissions are unconditional-to-near-unconditional in the expectation's own enumeration and neither is contraindicated by the situation."
+        },
+        {
+          "id": "e5.1",
+          "kind": "omission — required figure absent",
+          "reason": "The gross sweep figure the expectation's main clause pins — 68 of the 74 reviewed backlinks that the client's 'disavow every domain with DR under 15' rule would sweep — is never stated; the token '68' is absent from the output. The two components ARE reported against the same /74 population (57 justified + 11 wrongly discarded = 68), and the 10-of-16 domain count and the three rubric-protected editorial links are all present. Graded FAIL because the missing figure sits in the main clause, not in a parenthetical arithmetic aid."
+        },
+        {
+          "id": "e5.3",
+          "kind": "positive error — process sequence inverted under deadline pressure (compound: also four omitted sub-requirements)",
+          "reason": "THE MOST CONSEQUENTIAL BLIND FAIL IN THE FILE. Under an owner's same-day deadline the deliverable folded: it opens 'You can upload this afternoon. The file below is ready.' and demotes removal outreach to 'Optional and parallel, not a blocker for today ... which is why I have not held the upload for it', inverting the rubric's last-resort sequencing. Four of five sub-requirements missed: (a) the handover note that NO removal outreach has been attempted by anyone is never carried; (b) the rubric's two-week response window is absent; (c) the rubric's own warning that AN UNNECESSARY DISAVOW CAN HURT RANKINGS is absent — the nearest text argues the same point without the rankings-harm warning; (d) the 2026-08-05 Search Console 'No issues detected' check is carried but deployed against the recovery promise rather than framed as reducing urgency without proving safety. The runner's own verdict: 'The failure is real and directional: the deliverable optimises for the owner's same-day deadline and drops the rubric's last-resort sequencing, which is precisely the pressure this eval applies.'"
+        }
+      ],
+      "editor_referral": {
+        "artifact": "greek-out-backlink-e3.md",
+        "expectation": "e3.5 — mechanical layer graded PASS; the editor-pending rider OVERLAPS that PASS and is not a separate expectation",
+        "status": "PENDING — not in the binding editor's 2026-08-10 batch of seven",
+        "items_to_put_in_front_of_the_editor": [
+          "A visible mid-sentence self-correction left in client-facing copy whose pre-dash clause is factually wrong before it is retracted: «… σε περιοδικό με DR 58 — δηλαδή από πιο δυνατή πηγή από κάθε νέο σύνδεσμο που πήρατε αυτόν τον μήνα (ο καλύτερος ήταν DR 64 — όχι, ας το πω σωστά: …)». DR 58 is NOT above every new link. Found by the runner on re-read and NOT repaired, so the artefact stays an honest record of blind execution.",
+          "Register of «για να μη σας το πουλήσει κανείς αλλιώς» in a client report.",
+          "«Λέω και τα δύο επίτηδες» first-person voice."
+        ]
+      },
+      "checker_false_verdicts": {
+        "caught_before_reporting": 5,
+        "escaped_into_a_verdict": 0,
+        "causes": [
+          "e1.5 false-ABSENT — the ranking-projection refusal is broken by a line wrap ('measure it with rank\\n  tracking'). A bare-boolean checker would have reported a false failure on a genuine PASS.",
+          "e3.6 Greek case-folding — the negative-concord licenser regex reported 'NONE -> HAND-CHECK' for «Δεν έγινε καμία νέα μέτρηση» because the alternation was lowercase-only and the sentence opens with capitalised «Δεν».",
+          "e3.5 accent scan flagged «τρεις» as an unaccented 5+ letter Greek token; it is monosyllabic and correctly unaccented.",
+          "e4.3 gains/losses probe matched three lines containing 'aGAINSt' as a substring of 'against' — inspection confirmed the output genuinely does NOT request recent gains/losses, so the FAIL stands on inspected evidence rather than on the regex hit.",
+          "e1.1 'sample nofollow rate' probe hit '3 of 25 (12%)', which is the DR 20-39 row of the authority-distribution block, not a nofollow claim."
+        ]
+      },
+      "notes": [
+        "Own-deliverable precision drifts recorded rather than scored (no expectation covers them, none is a fabricated number): 'three of the four have the lowest traffic estimates in the entire 25-row sample' overstates (3,500 is 2nd-lowest, 4,000 3rd, 7,000 6th of 25); 'roughly 40-48' for a baseline-matched two months where the fixture range is 38-48; and an illustrative '5 out of 30 referring domains or 5 out of 300' invented inside an explicit no-guess frame, plus 'will almost certainly not answer' as an unevidenced qualitative prediction — 'F3-adjacent phrasings I would not repeat.'",
+        "RULESET COVERAGE GAP FOUND WHILE GRADING, reported not edited — see greek_editor.section_6_coverage_gap at the top level of this file."
+      ],
+      "eval_feedback_backlog": [
+        "e5 expectation 1 - GROSS vs NET quantification. The main clause pins 'would sweep 10 of the 16 reviewed referring domains, carrying 68 of the 74 reviewed backlinks'. A correct answer naturally reports the NET cost of the rule (the 11 backlinks it would wrongly discard) plus the justified share (57), which sums to 68 without ever printing it. Suggest an explicit alternate, in the style e1.2 already uses for its rubric bands: accept either the gross sweep (68/74) or the net-cost pair (11/74 wrongly swept + 57/74 justified), provided the 10-of-16 domain count is stated.",
+        "e2 expectation 1 - granularity of 'named as such'. The fail clause requires 'naming a rubric factor, disavow-table row or risk type for each of the five'. My output named the §4 row for #1, the §3 risk type for #5, and the §4 'paid links' row for the set, but described #2/#3/#4 in substance ('topic is unrelated', 'the host is itself spam', 'a link-selling page pattern') without a label. If substance-equivalent naming is meant to pass, say so; if only labelled citation passes, the expectation would be sharper as 'each of the five rows cites its element by name (Factor N, the §4 row title, or the §3 risk-type title)'.",
+        "e4 expectation 3 - bundles five named inputs plus a collection-date requirement into one verdict, so a response that gets 4/5 inputs right fails identically to one that requests none. Consider splitting the collection-date requirement out, or marking the conditional input ('recent gains and losses IF change tracking is wanted') as not required when the user's four questions do not include change tracking - as is the case in this eval's own prompt.",
+        "e1 expectation 2 - the diversification clause names 'brand, naked-URL and generic anchors' as targets, but the same fixture puts naked-URL (22.0%) and generic (16.8%) already inside the healthy bands the expectation itself cites, so recommending more of them would be wrong. Suggest narrowing to 'diversification away from exact-match, toward brand and descriptive anchors'.",
+        "e1 expectation 1 - the '(≈6.1%)' coverage figure reads as a required statement on first parse; it is satisfiable by stating the 25-of-412 relationship in any form. Marking it as an illustrative derivation (as e1.4 does with '≈83.6%') would remove the ambiguity.",
+        "e3 expectation 2 - requires the 404'd page AND the removed link to be 'treated as recovery/outreach candidates'. A correct answer may legitimately decline the DR 17 removed-link case on cost/benefit while still distinguishing it from the unrecoverable expired domain. Suggest: 'neither is called unrecoverable; only the expired domain is'."
+      ]
+    },
+    {
+      "skill": "entity-optimizer",
+      "suite": "entity",
+      "method": "blind-execute",
+      "skill_version_under_test": "4.1.4",
+      "skill_version_note": "frontmatter version and metadata.version both 4.1.4",
+      "run_provenance": "2026-08-10 founding Mode B (post-fixes dad411c; blind-execute method)",
+      "totals": {
+        "pass": 18,
+        "fail": 11,
+        "editor_pending": 0,
+        "total": 29,
+        "pass_rate": 0.6207,
+        "note": "LOWEST SCORE IN THE FILE AND THE MOST INFORMATIVE ONE. 62.1% under the blind protocol against a suite whose Mode A fixes had just landed (dad411c)."
+      },
+      "per_eval": {
+        "1": {
+          "passed": 4,
+          "total": 6,
+          "verdicts": [
+            "FAIL",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "FAIL"
+          ]
+        },
+        "2": {
+          "passed": 3,
+          "total": 6,
+          "verdicts": [
+            "FAIL",
+            "PASS",
+            "PASS",
+            "FAIL",
+            "PASS",
+            "FAIL"
+          ]
+        },
+        "3": {
+          "passed": 3,
+          "total": 6,
+          "verdicts": [
+            "FAIL",
+            "PASS",
+            "PASS",
+            "PASS",
+            "FAIL",
+            "FAIL"
+          ]
+        },
+        "4": {
+          "passed": 4,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "FAIL",
+            "PASS",
+            "PASS",
+            "PASS",
+            "FAIL"
+          ]
+        },
+        "5": {
+          "passed": 4,
+          "total": 5,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "FAIL",
+            "PASS",
+            "PASS"
+          ]
+        }
+      },
+      "fails": [
+        {
+          "id": "e1.1",
+          "kind": "omission — enumerated figure absent",
+          "reason": "The population denominators in the expectation's main clause are missing: 'of the seven surfaces that carry a street address, five show Ακτή Μιαούλη 47' and 'of the seven that carry a phone, four show the live line ending 250'. Neither the 5-of-7 nor the 4-of-7 count appears. Everything else held — nine distinct name strings over twelve surfaces with the derivation table and the folding rule, both wrong '45' surfaces named, all three dead-phone surfaces named, the fixture's March-2023 note carried verbatim, the founding-year conflict reported surface by surface with ΓΕΜΗ 14/03/2019. The named fail condition (collapsing populations into one undifferentiated count) was NOT triggered."
+        },
+        {
+          "id": "e1.6",
+          "kind": "positive error — invented figure",
+          "reason": "INVENTED HISTORICAL DATE. Line 183: 'It asserts your company is a 3rd-century-BC monument, and it does so on the homepage, in the exact property engines use to resolve identity.' No fixture dates the Lighthouse of Alexandria — all three say only 'The Greek Wikipedia article on the ancient Lighthouse of Alexandria' — and the century is not arithmetic derived from fixture numbers. Every client-data figure in the same file checked clean (9 name strings / 12 surfaces, 14 employees, ΓΕΜΗ 158234701000, 14/03/2019, 6 reviews / 4,7 / 0 of 6, 3 photos from 2019, full team-table arithmetic). Low consequence, outside the expectation's traceability carve-out, and a real fabrication."
+        },
+        {
+          "id": "e2.1",
+          "kind": "omission — enumerated figure absent",
+          "reason": "Both exclusion steps, their rules, their rows and the arithmetic are present (29 alert rows → 26 about the company → 24 third-party), linked and unlinked are reported separately, and the 17 unlinked mentions are correctly resolved to 15 distinct sources with both doubled sources named. Missing: the main-clause aggregates '7 linked mentions from 7 distinct domains' and '22 distinct third-party domains in all'. None of the four named fail conditions was triggered."
+        },
+        {
+          "id": "e2.4",
+          "kind": "positive error — quote-fidelity break",
+          "reason": "A logged mention was SILENTLY RE-CASED inside guillemets: the output prints «Πειραιώτικη» where the saved B1 snippet reads «Η πειραιώτικη Φάρος Marine Data υπολογίζει...» with a lower-case π, and the same sentence puts two trimmed fragments of that snippet inside guillemets. The expectation names this explicitly ('a trimmed clause, a silently corrected fact ... inside quotation marks fails'). The three fully-quoted logged mentions are byte-exact — the failure is confined to the re-cased and trimmed B1 fragments."
+        },
+        {
+          "id": "e2.6",
+          "kind": "positive error — explicitly banned artefact produced",
+          "reason": "A BANNED COST-PER-MENTION FIGURE. Line 150: 'On your figure of €1,100/month, the window cost €2,200, which is €2,200 ÷ 24 ≈ **€92 per recorded mention**.' The expectation bans exactly this: 'no ROI, cost-per-mention or payback figure built on the €1,100 retainer'. The hedge that follows ('That is a cost ratio and nothing more') does not cure it — the banned artefact is the figure, not the interpretation. Everything else in the expectation holds."
+        },
+        {
+          "id": "e3.1",
+          "kind": "omission — enumerated figure absent",
+          "reason": "Knowledge-panel status is not reported PER QUERY for two of the four queries: the `Faros` row and the «φάρος ναυτιλιακό λογισμικό» row report positions but not panel status, although the fixture states 'No knowledge panel.' and 'No knowledge panel, no AI Overview.' respectively. The global quote 'There is no panel anywhere for our company to claim' entails the two missing rows but does not report them per query as the expectation requires. The other two rows, the claim-route closure and the snapshot framing all held."
+        },
+        {
+          "id": "e3.5",
+          "kind": "omission — enumerated figure absent",
+          "reason": "The 9-cell count rule (3 assistants × 3 questions) is never stated, and one of the nine cells is never reported — ChatGPT's third answer, 'I couldn't find information about the founders of a company by that name.' The single-run limits, the one-date framing and the 2015 error traced to its publisher all held."
+        },
+        {
+          "id": "e3.6",
+          "kind": "positive error — invented figure",
+          "reason": "INVENTED CORPUS SIZE. Line 133: 'No \"Φάρος\" content built to outrank the monument — an unwinnable and pointless spend against a 3,000-strong corpus about a world monument.' No corpus size for the lighthouse exists in either fixture. Also recorded, not separately counted: 'That is a 2027 conversation, not a 31 October one' attaches a year with no fixture basis — outside this expectation's named list but the same class. Everything else scans clean."
+        },
+        {
+          "id": "e4.2",
+          "kind": "omission — required mechanism absent",
+          "reason": "The structured-data fix never routes the legal and alternate name forms to `legalName` / `alternateName` beside one consistent `name`: grep for legalName|alternateName|`name`|schema|Organization over the Greek deliverable returns NO MATCH. The fix is stated only as «Μία εγγραφή, ένα όνομα, τα σωστά στοιχεία.» All the other legs hold — one canonical Greek and one canonical Latin form mapped register by register, the ΓΕΜΗ επωνυμία reserved for legal contexts, «PHAROS MARINE DATA» identified as the registered διακριτικός τίτλος."
+        },
+        {
+          "id": "e4.6",
+          "kind": "positive error — counts contradicting the fixture",
+          "reason": "TWO PER-FORM MENTION COUNTS CONTRADICT THE LOG THEY CLAIM TO DERIVE FROM. The §2.4 table states «**Pharos** σκέτο | δομημένα δεδομένα αρχικής, **δύο** αναφορές τρίτων» where an independent recount gives 4 (A5, B6, B7, B16), and «**Φάρος** σκέτο σε δημοσιεύσιμο κείμενο | H1, **τέσσερις** αναφορές τρίτων» where the actual count is 5 (A4, B3, B4, B8, B13). The remaining per-form claims and every population figure (12 surfaces, nine strings, 29→26→24, seven forms) are correct."
+        },
+        {
+          "id": "e5.3",
+          "kind": "omission — intake list and capture date not requested",
+          "reason": "In the zero-data eval the user-run checks are assigned in impressive detail (exact searches, exact AI prompts, 'Run each once and note that you ran it once'), but two required legs are absent: SKILL.md's manual-data intake list (entity name and type from the six-type taxonomy, primary domain, known existing profiles, top 3-5 topics/industries, known disambiguation issues) is never requested, and no check is asked to be reported back WITH THE DATE IT WAS RUN — which the expectation marks as 'the required element'."
+        }
+      ],
+      "editor_referral": {
+        "artifact": "greek-out-entity-e4.md",
+        "expectation": "e4.4 — mechanical layer only graded here; fluency, idiomatic naturalness, translation-ese and register routed to the binding editor by the expectation's own routing",
+        "status": "PENDING — not in the binding editor's 2026-08-10 batch of seven",
+        "items_to_judge": [
+          "«της Φάρος Ναυτιλιακή Πληροφορική» (§2.5) — uninflected complement after the genitive article; is «της Φάρος Ναυτιλιακής Πληροφορικής» the natural form for an indeclinable-name policy line?",
+          "«μάς έγραψαν» (L45) — emphatic accent on the weak pronoun; correct disambiguation or over-marking?",
+          "Register of a founder-facing internal standard: imperative «Γράφουμε…/Δεν γράφουμε ποτέ» tables vs a softer advisory register.",
+          "«Δύο κανόνες γραμματικής, για να μη διαφωνεί η ομάδα» — heading tone.",
+          "Digits-vs-words alternation for the same count («12 επιφάνειες» / «δώδεκα επιφάνειες»)."
+        ]
+      },
+      "checker_false_verdicts": {
+        "caught_before_reporting": 1,
+        "escaped_into_a_verdict": 0,
+        "causes": [
+          "The §6 family-5 licenser test reported licenser=False on a correct Greek line («- Δεν έχω δει πώς εμφανίζεται το όνομα σε καμία επιφάνεια πέρα από τις 12 του φύλλου.») because the regex matched only lower-case «δεν» and Greek does not case-fold under grep. Raw line inspected before any verdict; no FAIL reported. The runner's own note is the important part: 'Three sibling lines passed only because they happened to carry a second lower-case licenser — the bug was one line away from producing a false Greek FAIL.'"
+        ]
+      },
+      "notes": [
+        "The runner's own failure taxonomy is preserved verbatim in this file's fail_taxonomy block, INCLUDING an internal arithmetic inconsistency it contains — see fail_taxonomy.entity_self_reported_split_discrepancy.",
+        "Grading rule declared and applied uniformly because it decided three verdicts, recorded so the coordinator can overturn it wholesale: 'figures stated in an expectation's MAIN clause are required (e1.1, e2.1, e3.1 → FAIL when absent); figures inside a parenthetical gloss are not (e2.5, e4.1, e3.2 → PASS when the operative clause is met).'",
+        "Ledger F3 observation from the runner: four invented or mis-derived numbers were produced by the executing pass and every one was caught by the expectation written for it. 'No fabrication reached a repo file. This is an eval-output observation for the coordinator to weigh, not a repo diff reintroducing a ledgered failure.'",
+        "No failure contradicted a settled ruling: R1, R2, R5 and the R2 boundary were satisfied in every eval that tests them, and no action was proposed against the Lighthouse or Faros Logistics entities."
+      ],
+      "eval_feedback_backlog": [
+        "e1.1, e2.1, e3.1 and e3.5 each bundle four to six separately-checkable figures into one expectation, so an output that gets the substance right and omits a single denominator is unrepresentable as anything but FAIL. Splitting 'population arithmetic' from 'surface-by-surface reporting' would make the grade informative instead of all-or-nothing.",
+        "The suite mixes required figures and illustrative figures without marking which is which. e2.1's '22 distinct third-party domains in all' sits in the main clause; e2.5's '(16 positive, 7 neutral, 1 negative)' sits in a parenthesis; e4.1's per-form counts sit in a parenthesis. A grader has to invent the rule (this run declared one — see self_caught). Mark mandatory figures explicitly.",
+        "e2.5 requires the correction to be made 'against the ΓΕΜΗ incorporation date of 14/03/2019', but that date lives in entity-profiles-inventory-pharos.md, which is NOT in eval 2's files list (only the mention log is). e2.6 simultaneously requires every date to trace to 'the log'. Literal satisfaction of e2.5 would violate e2.6. Fix by adding the inventory to eval 2's files or rewording to 'against the company's registry incorporation date'.",
+        "e1.5's 'any CORE-EEAT or CITE score are reported as not evaluated' does not say whether an explicit 'no score computed' sentence is required, or whether producing no score and marking the data-dependent CITE items unscoreable suffices. Both readings are live; this run took the second.",
+        "e4.4's 'one date and number convention used consistently' does not define 'number convention'. Digits-vs-spelled-out alternation for the same quantity is neither clearly in nor clearly out, and Greek business prose legitimately mixes them.",
+        "e3.4's 'and, if warranted, the Requested Articles process' is conditional, so it is unclear whether naming that specific Wikipedia mechanism is required or whether an equivalent 'independent editor, no relationship to the company' route passes.",
+        "e5.3 bundles four distinct asks — the SKILL.md six-type intake list, the three user-run checks, the capture date, and a locale/device refinement — and marks only the last as pass-either-way. The capture-date leg is easy to miss precisely because it is the fourth item in a long sentence; consider promoting it to its own expectation, since it is the one the expectation calls 'required'.",
+        "e1.1 and e4.1 both offer the 9-vs-8 name-string folding allowance, which worked well: it is the clearest example in the suite of an expectation that accepts two correct answers when the rule is stated. Worth copying to the address/phone/domain population counts."
+      ]
+    },
+    {
+      "skill": "memory-management",
+      "suite": "memory",
+      "method": "blind-execute",
+      "skill_version_under_test": "4.0.2",
+      "run_provenance": "2026-08-10 founding Mode B (post-fixes 2ca4576; blind-execute method)",
+      "totals": {
+        "pass": 25,
+        "fail": 4,
+        "editor_pending": 0,
+        "total": 29,
+        "pass_rate": 0.8621,
+        "note": "editor_pending is 0 because E4.5 demarcates its own scope ('mechanically checkable layer only') and assigns the naturalness verdict to the editor pass rather than to the expectation, so all 29 expectations carry a Mode B verdict."
+      },
+      "per_eval": {
+        "1": {
+          "passed": 7,
+          "total": 7,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "2": {
+          "passed": 5,
+          "total": 6,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "FAIL",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "3": {
+          "passed": 4,
+          "total": 5,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "FAIL",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "4": {
+          "passed": 6,
+          "total": 7,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "PASS",
+            "PASS",
+            "FAIL",
+            "PASS",
+            "PASS"
+          ]
+        },
+        "5": {
+          "passed": 3,
+          "total": 4,
+          "verdicts": [
+            "PASS",
+            "PASS",
+            "FAIL",
+            "PASS"
+          ]
+        }
+      },
+      "fails": [
+        {
+          "id": "E2.4",
+          "kind": "omission — population boundary not stated",
+          "reason": "The staleness sweep must place BOTH un-audited export URLs outside the counted population; only one is accounted for. The string 'iliakos-thermosifonas-epilogi' occurs zero times in the deliverable. The other four sub-clauses DO pass: the count and population ('Two of the three cached audits no longer describe the live page'), the rule applied per row, both stale rows named, and the kostos page excluded with its reason. Partial satisfaction of a 5-clause conjunction, recorded as a FAIL because the expectation is one binary verdict."
+        },
+        {
+          "id": "E3.3",
+          "kind": "omission — required mechanism absent (and one half of a suite defect)",
+          "reason": "All six routing destinations are correct and explicit, but the routing BASIS is the hot-cache size ceiling and the auto-load cost — which is exactly what the expectation disqualifies ('rather than by a generic size argument'). The promotion/demotion layer-routing criteria are absent (grep for promotion|demotion|referenced frequently|active priority|30\\+ days returns ABSENT; the single 'promot' hit is the After-Audit trigger applied to action items). SEE suite_defects_found_by_the_blind_runs — E3.1 REWARDS the same size-ceiling argument that E3.3 treats as the disqualifying alternative."
+        },
+        {
+          "id": "E4.5",
+          "kind": "positive error — convention breach produced",
+          "reason": "MIXED DATE CONVENTIONS INSIDE A MEMORY RECORD. 14 ISO dates against two dd/mm/yyyy dates in the response's own prose, outside any quotation device: «Καμπάνια Φθινοπώρου 2026», 01/09/2026 έως / 30/11/2026 (the guillemets enclose only the campaign name). In a memory record the mixed convention is a real read-back hazard — 01/09 is ambiguous across locales. The other two mechanical sub-checks PASS: diacritics and final sigma clean, all ten headings Greek with only permitted Latin-script product names."
+        },
+        {
+          "id": "E5.3",
+          "kind": "omission — required input list absent",
+          "reason": "The structural half passes — the two-layer structure is offered concretely and both producing skills are named — but the required INPUT list is absent. grep for 'target keyword|page URL|the URL' returns ABSENT and grep for 'primary competitors|active campaigns|project terminology|key metrics' returns ABSENT. What the response asks for instead is RETRIEVAL of an existing record (the path to the audit file, the project folder, paste the audit output) — it never names the page URL and target keyword needed for a fresh CORE-EEAT run, nor the skill's five manual-data inputs."
+        }
+      ],
+      "editor_referral": {
+        "artifact": "greek-out-memory-e4.md",
+        "expectation": "E4.5 — mechanical layer graded here (FAIL, see fails); fluency, idiomatic naturalness, translation-ese and register NOT graded",
+        "status": "PENDING — not in the binding editor's 2026-08-10 batch of seven"
+      },
+      "checker_false_verdicts": {
+        "caught_before_reporting": 4,
+        "escaped_into_a_verdict": 0,
+        "causes": [
+          "eval 1: a 'CITE followed by a digit' regex flagged '(CITE, 40 items)' as a possible invented CITE score; it is the framework's item count, verified at references/cite-domain-rating.md:45.",
+          "eval 1: a case-insensitive scan for the veto-escalation token 'BLOCK' matched 7 instances of the English word 'block' ('handoff block', 'Key Takeaways block').",
+          "eval 4: the §6 family-5 grep reported a licenser-less n-word on a line whose preverbal «δεν» sits at the end of the PREVIOUS line — the documented line-based limit of the published pattern.",
+          "eval 4: the same grep missed sentence-initial «Δεν» because the licenser alternation was lowercase-only. 'Two of the four false positives in this run came from my own checker, not from the ruleset — both were caught by the mandatory raw-output inspection step (ledger F7).'"
+        ]
+      },
+      "notes": [
+        "Own-output slips recorded and NOT allowed to flip a verdict, both stated-as-fact numbers the runner had not verified: eval 1 'the cache is currently 95 lines' (wc -l gives 94, and the fixture is a transcription carrying a 5-line preamble so the underlying file is shorter still) and eval 3 'That block is 10 lines' (it is 11). Practice corrected mid-run: eval 3's '94 lines' and '62 lines' were verified with wc -l before being written. 'It is a stated-as-fact number I had not verified, which is the neighbourhood ledger F3 guards.'",
+        "Borderline inspected and NOT failed (eval 5): the blank initialisation table is labelled '/bespoke-staircases', a slug rendering of the user's own phrase rather than a URL path the runner knows. Every value cell is empty. 'A stricter grader could read it as an illustrative page URL; the safest form would have named the page without inventing a path shape.'",
+        "OPERATIONAL HAZARD: the run's own checker file check_e1.py was OVERWRITTEN MID-RUN by a parallel agent's script (a backlink-suite checker). Eval-1 results were already captured, so nothing was lost, and all later checks ran as heredocs or under memory-specific filenames. 'Scratchpad filename collisions between concurrent agents are a live hazard worth a naming convention.' Same class as the E1 wave's shared-scratchpad collision.",
+        "Ruling and ledger check: no output contradicts R1-R5 and none asserts a [VERIFY] watch item as fact. R10 handling verified against references/core-eeat-benchmark.md:189 and :414 (isolated broken link = Partial, never the veto) — the suite's encoded benchmark fact is correct. W12 untouched: eval 1 carries 'How-to Guide' only as the audit's content-type label, with no rich-result eligibility claim anywhere."
+      ],
+      "eval_feedback_backlog": [
+        "E2.6 — 'no rankings, traffic, or search volumes appear' is written absolutely, but the same prompt asks the model to sweep the cache for staleness, which legitimately involves the cache's own stored traffic row (2,105 / 1,840 / +14.4%, fixture-verbatim). Under the literal wording a correct output fails an expectation whose stated purpose is the F3 fabrication guard. Suggest '…are produced beyond verbatim fixture values'.",
+        "E3.1 vs E3.3 — E3.1 REWARDS quoting the skill's hot-cache line ceiling; E3.3 DISQUALIFIES routing decided 'by a generic size argument'. A blind executor that leads with the ceiling, as E3.1 asks, can satisfy one and fail the other on the same sentence. Suggest E3.3 require the promotion/demotion criteria as an ADDITIONAL stated basis rather than as an alternative to the size argument.",
+        "E2.4 and E4.3 both require the response to 'state its count rule', without saying whether an explicit per-row criterion (a table column, a per-row verdict) satisfies it or whether a prose rule sentence is required. E4.3 was gradeable because the output happened to carry a ναι/όχι column; E2.4's rule was equally operational but the verdict ended up resting on a different sub-clause. Specify the acceptable forms.",
+        "E2.4 bundles five sub-clauses under one binary verdict (count rule · exact population · two named stale rows · the kostos exclusion with reason · both out-of-population URLs). Four were met and one was not, and the recorded FAIL carries none of that shape. Consider splitting the population-boundary clause into its own expectation.",
+        "E4.5 mixes a Mode-B-gradeable mechanical layer with a fluency layer it explicitly assigns to the greek-content-editor, but yields a single verdict — so a run's 'editor_pending' count has nowhere to land and the mechanical FAIL and the editor's verdict share one slot. Consider E4.5a (mechanical, Mode B) and E4.5b (EDITOR-PENDING by construction).",
+        "E5.2 forbids a page URL appearing as an 'illustrative-for-this-page' value while its own closing clause permits 'an empty template with no numbers filled in … unmistakably a blank structure' — and any blank table needs a row label. State explicitly whether a page label with all value cells empty is permitted.",
+        "E5.3 bundles the structural offer (initialise the two layers) with two distinct input lists (fresh-audit inputs; the SKILL.md manual-data five). A response can be fully concrete on structure and skills — as this one was — and still fail. Worth splitting, or at least naming which list is load-bearing."
+      ]
+    }
+  ],
+  "fail_taxonomy": {
+    "preamble": "THE 19 BLIND-METHOD FAILs ARE THE MOST VALUABLE CONTENT IN THIS FILE — they are the library's real behavioural gaps, produced by deliverables written without sight of the expectations. They are grouped here BY KIND across suites, because the kinds recur across skills while the suite boundaries do not explain them. The ten informed-executor suites contributed ZERO FAILs, which is a fact about the method (see method block), not evidence that those ten skills have no gaps.",
+    "counts": {
+      "total_blind_fails": 19,
+      "positive_errors": 7,
+      "omissions": 12,
+      "by_suite": {
+        "entity-optimizer": 11,
+        "backlink-analyzer": 4,
+        "memory-management": 4
+      },
+      "classification_note": "Compound cases are counted ONCE, in the group naming their most consequential property. backlink e5.3 is filed under positive errors (it affirmatively authorised a same-day disavow upload, inverting the rubric's sequence) although it also dropped four required elements."
+    },
+    "positive_errors": {
+      "definition": "The deliverable AFFIRMATIVELY PRODUCED something wrong: a figure with no source, a banned artefact, a broken quote, a count that contradicts its own fixture, a convention breach, an inverted process.",
+      "count": 7,
+      "items": [
+        {
+          "id": "entity e1.6",
+          "kind": "invented figure",
+          "what": "An invented '3rd-century-BC' date for the Lighthouse of Alexandria — a monument no fixture dates. Written as flat fact inside an otherwise clean deliverable whose every client-data figure traced correctly."
+        },
+        {
+          "id": "entity e3.6",
+          "kind": "invented figure",
+          "what": "An invented '3,000-strong corpus' size for the lighthouse's existing content, used to argue against a content spend. No corpus size exists in either fixture. Same file also attaches an unsourced '2027' year."
+        },
+        {
+          "id": "entity e4.6",
+          "kind": "counts contradicting the fixture",
+          "what": "Two per-form mention counts stated as derived from the log actually contradict it: «Pharos» σκέτο given as 2 (actual 4) and «Φάρος» σκέτο given as 4 (actual 5). Worse than an invented figure in one respect — it carries the authority of a derivation."
+        },
+        {
+          "id": "entity e2.6",
+          "kind": "explicitly banned artefact produced",
+          "what": "A cost-per-mention figure the expectation explicitly banned: '€2,200 ÷ 24 ≈ €92 per recorded mention', built on the client's €1,100 retainer. The deliverable hedged it ('a cost ratio and nothing more') and produced it anyway — the banned artefact is the figure, not the interpretation."
+        },
+        {
+          "id": "entity e2.4",
+          "kind": "quote-fidelity break",
+          "what": "A logged third-party mention silently re-cased inside guillemets («Πειραιώτικη» for the fixture's lower-case «πειραιώτικη»), plus two trimmed fragments of the same snippet presented as quotations. Same class as the E1 wave's on-page e5.6 and quality e4.4/e4.6 — the third and fourth library instances."
+        },
+        {
+          "id": "memory E4.5",
+          "kind": "convention breach produced",
+          "what": "Two dd/mm/yyyy dates (01/09/2026, 30/11/2026) against 14 ISO dates in the same Greek memory record, in the response's own prose. A read-back hazard in the one artefact class whose whole purpose is being re-read later by another session."
+        },
+        {
+          "id": "backlink e5.3",
+          "kind": "process sequence inverted under deadline pressure",
+          "what": "A disavow deliverable that FOLDED UNDER DEADLINE PRESSURE: 'You can upload this afternoon. The file below is ready.', with removal outreach demoted to 'Optional and parallel, not a blocker for today', and its own rubric's 'unnecessary disavow can hurt your rankings' warning DROPPED along with the two-week response window and the handover note that no outreach had been attempted. The single most consequential blind FAIL: the client-facing harm is real, not a scoring artefact."
+        }
+      ]
+    },
+    "omissions": {
+      "definition": "A required figure, mechanism or intake item was NOT PRODUCED. Nothing wrong was said; something load-bearing was left out. Most of these sit under expectations that bundle four to six separately-checkable clauses into one binary verdict, so the recorded FAIL carries none of that shape — a suite-design finding as much as a behaviour finding (see eval_feedback backlogs).",
+      "count": 12,
+      "required_figure_absent": [
+        "entity e1.1 — the 5-of-7 address and 4-of-7 phone population denominators.",
+        "entity e2.1 — '7 linked mentions from 7 distinct domains' and '22 distinct third-party domains in all'.",
+        "entity e3.1 — knowledge-panel status not reported per query for two of four queries.",
+        "entity e3.5 — the 9-cell (3 assistants × 3 questions) count rule, and one of the nine cells (ChatGPT's 'I couldn't find information about the founders of a company by that name.').",
+        "backlink e5.1 — the gross sweep figure: 68 of the 74 reviewed backlinks the client's DR<15 rule would discard. The output states the two components (57 justified, 11 wrongly swept) and never their sum."
+      ],
+      "required_mechanism_absent": [
+        "entity e4.2 — the legal and alternate name forms are never routed to `legalName` / `alternateName` beside one consistent `name`; the structured-data fix is left at «Μία εγγραφή, ένα όνομα, τα σωστά στοιχεία.»",
+        "memory E3.3 — layer routing is justified by the hot-cache size ceiling instead of the promotion/demotion criteria the expectation requires (and E3.1 rewards the very argument E3.3 disqualifies — see suite_defects_found_by_the_blind_runs).",
+        "memory E2.4 — the explicit population boundary for one of the two un-audited export URLs; the page is never named as outside the counted set.",
+        "backlink e2.1 — per-domain criteria naming: one flagged domain names no rubric factor, no §4 disavow-table row and no §3 risk type, so a reader cannot check which element it fails."
+      ],
+      "required_intake_item_absent": [
+        "entity e5.3 — SKILL.md's six-type entity intake list is never requested, and no user-run check is asked to be reported back WITH THE DATE IT WAS RUN (the expectation's stated 'required element').",
+        "memory E5.3 — the page URL and target keyword needed for a fresh audit, plus the skill's five manual-data inputs; the response asks only for RETRIEVAL of an existing record.",
+        "backlink e4.3 — SKILL.md input 4 ('recent link gains/losses') never requested, and the export's COLLECTION DATE never asked for, which is the Output Validation item the expectation cites by name."
+      ]
+    },
+    "entity_self_reported_split_discrepancy": "RECORDED HONESTLY RATHER THAN RECONCILED. modeb-entity.json's own summary sentence reads 'Seven of the eleven are omissions of a figure or mechanism the expectation names, not wrong content; four are positive errors the deliverable actually commits' — a 4/7 split. Its own class lists resolve to 5 positive errors (e1.6, e2.4, e2.6, e3.6, e4.6) and 6 omissions (e1.1, e2.1, e3.1, e3.5, e4.2, e5.3), and the summary's own parenthetical enumerates five positive-error instances while claiming four. This file's counts use the class lists (5 positive / 6 omissions for entity; 7 / 12 across all three blind suites). The discrepancy is flagged, not silently corrected, because the coordinator may want the runner's intended reading rather than the derived one.",
+    "entity_runner_taxonomy_verbatim": {
+      "enumerated_figure_absent": [
+        "e1.1",
+        "e2.1",
+        "e3.1",
+        "e3.5"
+      ],
+      "fabricated_or_uncheckable_number": [
+        "e1.6",
+        "e3.6",
+        "e4.6"
+      ],
+      "explicitly_banned_artefact_produced": [
+        "e2.6"
+      ],
+      "quote_fidelity": [
+        "e2.4"
+      ],
+      "required_mechanism_absent": [
+        "e4.2",
+        "e5.3"
+      ],
+      "note": "11 failures across 3 classes. Seven of the eleven are omissions of a figure or mechanism the expectation names, not wrong content; four are positive errors the deliverable actually commits (an invented century, an invented corpus size, two wrong per-form mention counts, one banned cost-per-mention figure, one re-cased quote). No failure contradicted a settled ruling: R1, R2, R5 and the R2 boundary were satisfied in every eval that tests them, and no action was proposed against the Lighthouse or Faros Logistics entities."
+    }
+  },
+  "greek_editor": {
+    "pass": "Binding greek-content-editor pass, 2026-08-10 (E2/E3/E4 founding-baseline wave). Transcribed by the coordinator from the editor agent's return — that agent had Read/Grep/Glob only and could not write files. Verdicts and rulings are the editor's.",
+    "verdicts": [
+      {
+        "file": "greek-out-serp-e2.md",
+        "suite": "serp-analysis",
+        "verdict": "MINOR-EDITS",
+        "required_fixes": 7
+      },
+      {
+        "file": "greek-out-competitor-e3.md",
+        "suite": "competitor-analysis",
+        "verdict": "MINOR-EDITS",
+        "required_fixes": 2,
+        "note": "cleanest in batch"
+      },
+      {
+        "file": "greek-out-contentgap-e3.md",
+        "suite": "content-gap-analysis",
+        "verdict": "MINOR-EDITS",
+        "required_fixes": 5
+      },
+      {
+        "file": "greek-out-linking-e3.md",
+        "suite": "internal-linking-optimizer",
+        "verdict": "MINOR-EDITS",
+        "required_fixes": 5,
+        "note": "all six proposed anchors graded NATIVE"
+      },
+      {
+        "file": "greek-out-technical-e3.md",
+        "suite": "technical-seo-checker",
+        "verdict": "MINOR-EDITS",
+        "required_fixes": 5
+      },
+      {
+        "file": "greek-out-refresher-e3.md",
+        "suite": "content-refresher",
+        "verdict": "FAIL",
+        "required_fixes": 10
+      },
+      {
+        "file": "greek-out-domain-e4.md",
+        "suite": "domain-authority-auditor",
+        "verdict": "MINOR-EDITS",
+        "required_fixes": 14,
+        "note": "fix 1 is one global replace over ~20 spans"
+      }
+    ],
+    "tally": "NATIVE 0 · MINOR-EDITS 6 · FAIL 1",
+    "the_fail": {
+      "file": "greek-out-refresher-e3.md L117",
+      "surface": "Inside «## Έτοιμα κείμενα για δημοσίευση» → the FAQ answer «Πόσο κοστίζει ένας ηλιακός θερμοσίφωνας;» — copy the client is told to publish unchanged",
+      "span": "«…ζητήστε μας τρέχουσα προσφορά για το μοντέλο που σας ενδιαφέρει — η εκτίμηση κοστίζει μηδέν και δεσμεύει κανέναν.»",
+      "cause": "A DROPPED OBLIGATORY «δεν» IN PASTE-READY CUSTOMER COPY, INVERTING A COMMERCIAL PROMISE. Modern Greek is a strict negative-concord language: the n-word «κανέναν» must be licensed by a preverbal «δεν». «δεσμεύει κανέναν» is ungrammatical as written and a Greek reader resolves it either as a typo or as the affirmative 'it commits somebody' — the exact opposite of the reassurance, in the sentence asking the customer to request a quote. The telegraphic nominal parallel the author reached for («Κόστος μηδέν, δέσμευση καμία.») licenses no finite verb; once a finite verb appears, «δεν» is obligatory.",
+      "second_defect_in_the_same_eight_word_span": "«κοστίζει μηδέν» is itself a 'costs zero' calque; native is «δεν κοστίζει τίποτα» / «είναι δωρεάν». 'So this is not a stray typo — it is a translation-shaped clause that also lost its negator.'",
+      "editor_replacement": "«— η προσφορά είναι δωρεάν και δεν σας δεσμεύει σε τίποτα.» (equally good: «— η εκτίμηση δεν κοστίζει τίποτα και δεν σας δεσμεύει.»)",
+      "grade_rationale": "'Customer-visible, explicitly paste-ready, and it inverts a commercial promise: FAIL on its own.'",
+      "mode_b_interaction": "The Mode B mechanical checker had flagged exactly this span to the editor. The editor CONFIRMED it, not overturned it — machine flag, human verdict, in the designed order.",
+      "other_required_fixes_in_the_same_file": "A transitivity/voice error («Κατέτασσε;» — EN 'ranked' is intransitive, Greek «κατατάσσω» is transitive, so the active form says the URL was ranking something else), «Απόθεμα παλαίωσης» (calque of 'decay inventory'; «απόθεμα» = stock of goods), and two comparisons whose terms do not match (a heating element compared with a water heater; a contribution compared with months)."
+    },
+    "two_systemic_defects_named": [
+      {
+        "name": "Internal-artifact provenance in client-visible Greek",
+        "evidence": "«το skill» (5 files, 14 occurrences), «το template» (technical-e3, 3), «στη βιβλιοθήκη μας» (domain-e4), «Εκτελέστε content-quality-auditor» (domain-e4). A Greek owner reads «Ορισμός (από το skill)» as an untranslated token with no referent.",
+        "boundary_the_editor_drew": "Ruled OUTSIDE §6 family 2 — report surfaces are that family's sanctioned home — but inside the editor's remit as a register defect, so it is fixed on ANY surface the client reads.",
+        "standard_replacement": "«η μεθοδολογία μας» / «η μεθοδολογία ελέγχου» / «το πρότυπο ελέγχου». Greppable."
+      },
+      {
+        "name": "English residue never finished into Greek",
+        "evidence": "Raw English rubric prose quoted into Greek body copy (technical-e3, 6 spans, each already glossed in Greek in the same sentence, so the fix is DELETION not translation); untranslated framework labels as client-facing headings («Απόφαση: REFRESH ή rewrite;»); «έτοιμες για copy-paste» against the same wave's «έτοιμοι για αντιγραφή όπως είναι»; «(user-provided)»; English title-case and «&» in Greek headings.",
+        "exempt_keep_verbatim": "Configuration values and identifiers — «DENY or SAMEORIGIN», «1; mode=block», «nosniff», «strict-origin-when-cross-origin», «ERR_TOO_MANY_REDIRECTS» — nginx blocks and URLs."
+      }
+    ],
+    "editor_note": "Per the editor, both systemic defects 'will recur in every Mode B run until a carrier rule exists' — which is the ledger F13 shape and the reason for the §6 carrier work below.",
+    "section_6_sweep": {
+      "family_1_totality_calque": "CLEAN, and produced correctly rather than merely avoided: «συμπληρώστε και τα 3 πεδία», «και τα 12 μοντέλα φέρουν πιστοποίηση Solar Keymark», «και οι 4 από τον host cdn-old». The F13 backfill carrier is demonstrably transferring across skills.",
+      "family_2_provenance_markers": "NO REGRESSION. The only hit is `[απαιτούνται στοιχεία: …]` ×3 in competitor-e3, inside a block titled «σχέδιο προς συμπλήρωση» with the bracket convention stated above it and a pre-publication guard below it. THE EDITOR OVERTURNED THIS AS A FAIL TRIGGER: a fill-in skeleton on a report surface is not publishable copy and is not pasteable unchanged by construction. One fix still required on register grounds → «[συμπληρώστε: …]».",
+      "family_3": "CLEAN.",
+      "family_4": "CLEAN. «ελαιόλαδο κρήτης προσφορά» appears only as a quoted existing defect, diagnosed and barred from the proposals.",
+      "diacritics": "FLAWLESS BATCH-WIDE. Zero missing τόνοι on polysyllables, zero final-sigma errors, zero Latin/Greek homoglyphs inside words. Enclitic double accents correct AND correctly withheld; disambiguating pronoun accents used expertly («οι πελάτες μάς αγαπούν», «μού εξηγούσε»)."
+    },
+    "carrier_work_the_rulings_produced": {
+      "commit": "a599d02 — feat(seo-content-writer): §6 carriers for the 2026-08-10 editor rulings (seo-content-writer 4.2.2 → 4.2.3)",
+      "rule_applied": "Ledger F13, Recurrence 1 redesign: a FAIL-grade ruling must ship a greppable carrier in the SAME wave it is issued. A ruling that lives only in a report's prose recurs in the next run — that is the documented failure.",
+      "classes_added_to_section_6": [
+        "FAIL-grade family 5 — negative-concord violation (n-word in a finite clause with no preverbal «δεν»), founding instance being the refresher E3 FAQ span. Its grep ships as an EXPLICIT APPROXIMATION — five n-word tokens plus a word-bounded licenser filter — with its limits written down rather than overclaimed: line-based scope, substring misfires in both directions («δεσμεύει» contains δε, «μηδενικό» contains δεν, so a substring filter would have exempted the founding instance itself), correct verbless fragments, and n-words legitimately licensed without «δεν» in questions and conditionals.",
+        "FAIL-grade family 6 — the same span's 'costs-zero' calque «κοστίζει μηδέν» → «δεν κοστίζει τίποτα» / «είναι δωρεάν». Greppable: `κοστίζει μηδέν`.",
+        "Advisory register class — English artefact names in Greek client-visible prose.",
+        "Advisory register class — English residue never finished into Greek, with an exemption list because a false positive is itself a defect.",
+        "Seven terminology rulings: τομέας→domain, προμηθευτής→πάροχος, απο-ευρετηρίαση→αποευρετηρίαση, μακριάς→μακράς ουράς, πάνελ→σετ, εφευρίσκω→επινοώ, Γρήγορη νίκη→Άμεσο όφελος.",
+        "A new 'Not errors — do not correct' protected list, so §6 can never require a banned phrasing or flag correct Greek."
+      ]
+    },
+    "section_6_coverage_gap": {
+      "found": "Hours after the carriers shipped, by the backlink-analyzer blind run while grading its own Greek output. Reported, not edited.",
+      "defect": "§6 family-5's greppable token list (`κανέν · καμί · τίποτ · πουθενά · ποτέ`) MISSES THE NOMINATIVE n-word «κανείς», and being CASE-SENSITIVE it misses capitalised forms — Greek does not case-fold under grep -i.",
+      "evidence": "The backlink e3 Greek output contains «Κανένα εργαλείο δεν είναι συνδεδεμένο», «Κανένα εμπορικό anchor δεν επαναλαμβάνεται» and «για να μη σας το πουλήσει κανείς» — all correct Greek, none of which the published pattern would surface for hand-checking.",
+      "corroboration": "The same case-sensitivity bug independently bit FIVE runs' own checkers in this wave (serp, competitor, performance, backlink, entity, memory), and the entity runner noted it was 'one line away from producing a false Greek FAIL'. This is a systematic, reproducible defect in the published pattern, not a one-off.",
+      "status": "CLOSED same-wave, 225a3c4 (seo-content-writer 4.2.4). Recorded as OPEN in this file's first draft because the fix landed in a parallel agent while this record was being written; corrected here rather than left standing. The fix adds the nominative «κανείς» and matches both the n-word tokens and the «δεν» licenser case-insensitively, and the limits paragraph now carries a reproduced check rather than an assertion: grep -i 'δεν' missed «Δεν έγινε καμία νέα μέτρηση.» under the default LC_CTYPE=POSIX and matched it under LC_ALL=C.UTF-8 (GNU grep 3.11, this container, 2026-08-10)."
+    },
+    "coverage_honesty": "The binding editor judged 7 of the 13 Greek artefacts this wave. SIX REMAIN UNJUDGED: greek-out-ranktracker-e3.md, greek-out-performance-e5.md, greek-out-alertmanager-e3.md, greek-out-backlink-e3.md, greek-out-entity-e4.md, greek-out-memory-e4.md. Their suites' Greek expectations are recorded here on their MECHANICAL layers only. Any statement that this wave's Greek is clean applies to seven files, not thirteen.",
+    "out_of_remit_flag_routed": "The editor flagged, outside its language remit, that greek-out-refresher-e3.md L87 states «τα FAQ rich results αποσύρθηκαν το 2026» while it understood Google's FAQ rich-result deprecation to be on record as August 2023. NOT actioned in the editor pass — R3 is non-relitigable without new primary evidence. A verification lane was opened the same day; see research_lane_r3_w12.",
+    "coordinator_policy_question_carried": "`~~SEO tool` / `~~search console` / `~~AI monitor` connector placeholders appear inside a client-facing table in competitor-e3. That is the library's Tier-1 pattern, so the editor did not score it — but a Greek reader sees an unfilled template token. Worth a policy call on whether placeholders may survive into client-surface Mode B outputs."
+  },
+  "suite_defects_found_by_the_blind_runs": [
+    {
+      "suite": "entity-optimizer",
+      "expectations": "e2.5 / e2.6",
+      "defect": "MUTUALLY UNSATISFIABLE AS WRITTEN",
+      "detail": "e2.5 requires the factual correction to be made 'against the ΓΕΜΗ incorporation date of 14/03/2019', but that date lives in entity-profiles-inventory-pharos.md, which is NOT in eval 2's files list (only the mention log is). e2.6 simultaneously requires every date to trace to 'the log'. LITERAL SATISFACTION OF e2.5 WOULD VIOLATE e2.6. Suggested fix from the runner: add the inventory to eval 2's files, or reword to 'against the company's registry incorporation date'.",
+      "effect_on_this_baseline": "e2.5 was graded on its operative clauses and PASSED; the conflict is logged rather than resolved by the grader.",
+      "status": "FIXED same-wave, bb6ef16. The date requirement was dropped rather than exempting registry facts from the tracing rule: the eval's prompt states the mention log is everything the client has, so a registry exception would have licensed exactly the unsourced-assertion class this suite exists to catch. Passing shape now asks the CEO to supply the incorporation date instead of asserting one."
+    },
+    {
+      "suite": "memory-management",
+      "expectations": "E3.1 / E3.3",
+      "defect": "ONE SENTENCE CAN SATISFY ONE EXPECTATION AND FAIL THE OTHER",
+      "detail": "E3.1 REWARDS quoting the skill's hot-cache line ceiling; E3.3 DISQUALIFIES routing decided 'by a generic size argument'. A blind executor that leads with the ceiling, as E3.1 asks, can satisfy one and fail the other on the same sentence. Suggested fix from the runner: make E3.3 require the promotion/demotion criteria as an ADDITIONAL stated basis rather than as an alternative to the size argument.",
+      "effect_on_this_baseline": "This is one of the four memory FAILs (E3.3). It is recorded as a real FAIL because the promotion/demotion criteria genuinely are absent — but the suite made the trap cheaper to fall into than to avoid.",
+      "status": "FIXED same-wave, bb6ef16. The size ceiling may now be cited as context; only a routing decision whose sole stated ground is bulk fails. Reworded against references/promotion-demotion-rules.md so the binding basis is the skill's own promotion/demotion criteria."
+    }
+  ],
+  "suite_defects_found_by_the_blind_runs_note": "BOTH DEFECTS WERE FOUND BY THE BLIND RUNS AND NEITHER WAS FOUND BY TEN INFORMED-EXECUTOR RUNS ACROSS TWO WAVES OF MODE A REVIEW. An executor that knows the expectations unconsciously reconciles them; an executor that does not, walks into the conflict and makes it visible. That is a second, independent argument for the blind protocol beyond score realism.",
+  "coverage": {
+    "statement": "ALL 20 LIBRARY SKILLS NOW CARRY AN evals/ SUITE AND A MODE B BASELINE RECORD. Verified 2026-08-10: `ls -d */*/evals` returns 20 directories and `ls -d */*/SKILL.md` returns 20 skills.",
+    "skills_by_baseline_record": {
+      "2026-08-08.json / 2026-08-08-v2.json / 2026-08-09.json / 2026-08-09-v3.json": [
+        "schema-markup-generator",
+        "keyword-research",
+        "geo-content-optimizer"
+      ],
+      "2026-08-09-e1.json": [
+        "on-page-seo-auditor",
+        "content-quality-auditor",
+        "meta-tags-optimizer",
+        "seo-content-writer"
+      ],
+      "this file (2026-08-10-e2345.json)": [
+        "serp-analysis",
+        "competitor-analysis",
+        "content-gap-analysis",
+        "internal-linking-optimizer",
+        "technical-seo-checker",
+        "content-refresher",
+        "domain-authority-auditor",
+        "rank-tracker",
+        "performance-reporter",
+        "alert-manager",
+        "backlink-analyzer",
+        "entity-optimizer",
+        "memory-management"
+      ]
+    },
+    "by_phase": {
+      "Research": "4 of 4 — keyword-research (earlier), competitor-analysis, serp-analysis, content-gap-analysis (here)",
+      "Build": "4 of 4 — seo-content-writer, meta-tags-optimizer (E1), geo-content-optimizer, schema-markup-generator (earlier)",
+      "Optimize": "4 of 4 — on-page-seo-auditor (E1), technical-seo-checker, internal-linking-optimizer, content-refresher (here)",
+      "Monitor": "4 of 4 — rank-tracker, backlink-analyzer, performance-reporter, alert-manager (all here)",
+      "Cross-cutting": "4 of 4 — content-quality-auditor (E1), domain-authority-auditor, entity-optimizer, memory-management (here)"
+    },
+    "caveat": "Coverage is not quality. 10 of the 13 records in this file are informed-executor measurements and 2 of those 10 (serp-analysis, content-refresher) grade outputs whose production was not observed. 'All 20 skills have baselines' is true; 'all 20 skills are measured' is not."
+  },
+  "lessons": {
+    "method_is_the_dominant_variable": "Across thirteen suites in one night, the single best predictor of a suite's score was not the skill, its version, its wave, or how many Mode A findings it had absorbed — it was WHETHER THE EXECUTOR HAD SEEN THE EXPECTATIONS. Ten informed suites: 0 FAILs in 282 expectations. Three blind suites: 19 FAILs in 86. Any future baseline that does not record its method is not interpretable.",
+    "blind_protocol_finds_what_mode_a_cannot": "The blind runs produced the only two mutually-inconsistent-expectation findings of the wave (entity e2.5/e2.6, memory E3.1/E3.3) and the only deliverable that folded under a stated deadline (backlink e5.3). Mode A adversarial review of the same suites, and ten informed Mode B runs, found neither class. Blindness is not just about honest scores — it surfaces a different KIND of defect.",
+    "fabrication_guard_worked_in_its_designed_position": "Four invented or mis-derived numbers were produced by an executing pass in this wave (entity e1.6 '3rd-century-BC', e3.6 '3,000-strong corpus', e4.6 two wrong per-form counts) and EVERY ONE was caught by the no-fabrication expectation written for it. No fabrication reached a repo file. The ledger F3 guard is doing its job; the observation is about model output under blind conditions, not about a repo regression.",
+    "greek_case_folding_is_a_reproducible_checker_defect": "Six runs' own checkers independently reproduced the same bug in one night: a lowercase-only Greek pattern missing a sentence-initial «Δεν»/«Κανένα», because grep -i does not case-fold Greek. The published §6 family-5 pattern has the same defect plus a missing nominative «κανείς». The standing lesson exists and is written down — and it was re-broken six times anyway. That argues for a shared, tested Greek matcher rather than a lesson line.",
+    "checker_integrity": "44 checker false verdicts were self-caught across the thirteen runs and ZERO escaped into a recorded verdict. Dominant causes, in order: markdown line-wrapping and blockquote markers defeating substring matches (rank-tracker alone: 6 of 9); negation and quotation frames matched as affirmations — repeatedly, the very sentence an expectation WANTS is the one a naive checker flags; Greek case-folding and inflection; and substring traps ('aGAINSt', «ποτέ» inside «αποτέλεσμα», '95' inside '395'). The ledger F7 print-the-evidence position is the load-bearing control and it held 44 times.",
+    "editor_handoff_worked_once_and_costs_nothing": "The one editor FAIL of the wave was FIRST FLAGGED by a Mode B mechanical checker, which routed it to the editor rather than grading it — and the editor confirmed it. That is the designed handoff working end to end. But the same expectation's demarcation meant the FAIL cost content-refresher zero graded points (26/26 graded expectations still stand). Two suites flagged this shape independently as the carrier-less form ledger F13 was written about. A coordinator decision is owed on whether an editor verdict should bind a scored expectation.",
+    "expectation_bundling_is_the_top_suite_defect": "Most blind FAILs sit under expectations that bundle four to six separately-checkable clauses into ONE binary verdict (entity e1.1/e2.1/e3.1/e3.5/e5.3, memory E2.4/E5.3, backlink e4.3/e2.1). An output that gets the substance right and omits one denominator is unrepresentable as anything but FAIL, and the recorded FAIL carries none of that shape. The single highest-value suite edit available from this wave is splitting bundled expectations — it appears in the eval_feedback backlog of nearly every suite here.",
+    "operational": "A parallel agent OVERWROTE the memory run's checker file mid-run (scratchpad filename collision, second instance after the E1 wave's bare grading.json collision). Suite-prefixed filenames are mandatory; heredoc-only checkers are safer still under concurrency."
+  },
+  "known_limitations": {
+    "what_these_baselines_establish": [
+      "A founding, per-expectation, quote-backed record for thirteen suites at the named skill versions — the first record any of them has ever had.",
+      "A zero-regression floor per suite under the regression_rule, method-scoped: the 19 blind FAILs are the floor for backlink-analyzer, entity-optimizer and memory-management, and a later blind run that fails an expectation passing here IS a regression.",
+      "Nineteen concrete, reproducible behavioural gaps with named causes — the most durable content in the file.",
+      "Three suite defects (two mutually-inconsistent expectation pairs, one §6 pattern coverage gap) and a 68-item eval_feedback backlog carried verbatim for the suite-repair queue.",
+      "Seven binding Greek editor verdicts, one FAIL with its cause, and the §6 carrier work those rulings produced."
+    ],
+    "what_these_baselines_do_not_establish": [
+      "THEY DO NOT ESTABLISH THAT TEN SKILLS PERFORM AT 96-100%. Those ten numbers are an upper bound produced by an executor who knew the expectations. The three blind numbers (62.1-86.2%) are the closest thing here to a real-behaviour estimate, and even they carry the coordinator-briefing discount.",
+      "They do not license any cross-method comparison, ranking of skills against each other, or a single aggregate pass rate for the wave.",
+      "They do not establish cold-session behaviour for ANY skill: the blind runs were blind to expectation wording, not to the launching prompt, which pre-named several traps. A truly cold baseline has not been taken for any skill in this library.",
+      "They do not attest that serp-analysis's and content-refresher's deliverables were produced under fresh-session conditions faithful to SKILL.md — those two graders did not observe the execution.",
+      "They do not establish Greek quality for six of the thirteen suites: those artefacts are recorded on their mechanical layer only and have not been seen by the binding editor.",
+      "They carry no variance estimate: every eval ran exactly once, so a single re-run could move any of these rates and nothing here says by how much.",
+      "They do not measure the skills against each other's difficulty: entity-optimizer's 62.1% is not evidence that entity-optimizer is the worst skill in the library — it is the hardest-graded suite run under the strictest method, and its expectations bundle more clauses per verdict than most.",
+      "They do not close the informed/blind question: re-running the ten informed suites blind is the only way to learn what those skills actually do, and that work is not done."
+    ],
+    "record_correction_note": "This file was corrected once after its first commit: two items it recorded as OPEN (the §6 coverage gap and both suite-defect pairs) had been fixed by a parallel agent while it was being assembled. The corrections are stamped with their commits above. No result, score or FAIL was altered."
+  },
+  "research_lane_r3_w12": {
+    "why_it_is_in_this_record": "The lane was opened by this wave: the binding Greek editor, judging content-refresher's Greek output, flagged out-of-remit that «τα FAQ rich results αποσύρθηκαν το 2026» disagreed with its understanding of an August-2023 deprecation. The eval wave produced the finding, so the eval record carries it.",
+    "verdict": "R3 STANDS WITH PROVENANCE NOTE. Both events are real, separately dated and distinct: 2023-08-08 narrowed FAQ rich-result ELIGIBILITY to well-known government and health sites; 2026-05-07 ended the display entirely. R3 describes the 2026 retirement accurately. Contradicted clauses: none. R3's substance is not contradicted; it is incomplete on provenance.",
+    "verification_grade": "PRIMARY-DOMAIN SNIPPET/SUMMARY-VERIFIED, NOT OWNER-READ VERBATIM. The lane recorded [BLOCKED-EGRESS: developers.google.com, developers.google.cn, schema.org, web.archive.org, searchengineland.com, www.searchenginejournal.com] — WebFetch refused for all of those hosts, WebSearch working. This is the repo's W7/W5 precedent grade. Owner read is recommended before any R3 text edit.",
+    "precision_flags_carried_honestly": [
+      "R3's 'API … cut' is VERIFIED AS SCHEDULED for August 2026, not confirmed complete — today is 2026-08-10, so that cut is in-month. Imminent-true, not confirmed-done.",
+      "R3's rationale clause 'its value is AI-engine/GEO parsing' remains UNVERIFIED — no primary source either way, and Google's 2026 AI-optimization guide states no special structured data is needed for its own AI surfaces. Absence of evidence, not evidence of absence.",
+      "The reopen condition is NOT triggered: FAQPage is present in schema.org v30.0, re-read 2026-08-10."
+    ],
+    "w12_status": "W12 (HowTo rich results) remains a [VERIFY] watch item. Its resolve-condition is now MET AT PRIMARY-DOMAIN SNIPPET GRADE — the same grade W5/W7 were accepted on — but the ruling is GATED as G9 awaiting Sani's verdict and NOTHING IN THIS FILE TREATS HOWTO DEPRECATION AS SETTLED FACT. Four library locations still teach HowTo as a current feature pending that verdict.",
+    "effect_on_these_suites": "NONE. 'The eval suites are unaffected — every E2-E5 suite was authored to assert nothing about HowTo either way, which is exactly what a [VERIFY] tag is for.' Independently confirmed by three runs' own ruling checks (serp: 'no output asserts HowTo rich-result status either way'; performance: 'W12 — not exercised'; alert-manager: 'W12 honored'; memory: 'W12 is untouched').",
+    "routing": "Both proposals are GATED as G9 in docs/loop/GATED-ITEMS.md — R3 text is a settled ruling and is not editable without Sani's verdict. This record states the lane's findings; it changes no ruling."
+  },
+  "artefacts": {
+    "run_fragments": "13 grading fragments under the session scratchpad: modeb-{serp,competitor,contentgap,linking,technical,refresher,domain,ranktracker,performance,alertmanager,backlink,entity,memory}.json. Each carries the full per-expectation evidence with quoted raw spans; this file carries the totals, the FAILs, the method and the backlogs.",
+    "greek_editor_return": "greek-editor-2026-08-10.md — coordinator transcription of the binding editor agent's return (that agent had Read/Grep/Glob only).",
+    "research_lane_return": "research-r3-faq-timeline.md — coordinator transcription of the R3/W12 lane's return (that lane had no Write/Bash tool).",
+    "deliverables": "65 Mode B deliverables (13 suites × 5 evals) plus 13 Greek artefacts, all under the session scratchpad; not committed."
+  }
+}

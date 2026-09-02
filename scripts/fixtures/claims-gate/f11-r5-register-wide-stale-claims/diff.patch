@@ -1,0 +1,10 @@
+--- a/docs/loop/GATED-ITEMS.md
++++ b/docs/loop/GATED-ITEMS.md
+@@ -1,2 +1,7 @@
+ # Gated Items — Awaiting Sani's Explicit Approval
+
++> **Verdict log — 2026-08-09 (ninth entry, ~10:47Z)**: Sani, verbatim: "Merge" —
++> PR #8 marked ready and MERGED (merge commit 3f22f23, read from the merge
++> response); library v4.4.0 on main. Post-merge transition per the pattern.
++
+ ## G1 — Align SKILL.md frontmatter + plugin.json (continuation)

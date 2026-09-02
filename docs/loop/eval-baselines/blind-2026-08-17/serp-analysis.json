@@ -1,0 +1,831 @@
+{
+  "suite": "serp",
+  "skill": "serp-analysis",
+  "suite_path": "research/serp-analysis",
+  "skill_version_under_test": "4.3.7 (SKILL.md top-level version and metadata.version, in lockstep; last touched c3dc2e9, 2026-08-17T07:01:26Z)",
+  "run_label": "blind-2026-08-17",
+  "run_date": "2026-08-17",
+  "method": "blind",
+  "method_detail": {
+    "executor": "blind, separate agent. Deliverables e1.md..e5.md under scratchpad/modeb-2026-08-17/serp-analysis/. All five saved before this grader opened evals.json.",
+    "grader": "informed, this agent. Produced no serp-analysis deliverable at any point and did not re-run the skill to check anything. Every verdict below is read off the saved files.",
+    "grader_call_used": "bash scripts/eval-prompt.sh research/serp-analysis {1,2,3,4,5} --grade",
+    "editor_referral": "e2.6 is the binding greek-content-editor's slot. Its mechanical layer was screened by this grader; the naturalness verdict was NOT formed here, per the expectation's own instruction.",
+    "executor_disclosure_recorded": {
+      "what_the_executor_reported": "At its closing drift check, AFTER all five deliverables were saved, the executor ran `git log --oneline` and saw commit subjects carrying graded pass rates for five other suites. It reported this unprompted. Nothing was written afterwards.",
+      "verified_at_source_by_this_grader": "TRUE and larger than reported. `git log --oneline -40 | grep -E '[0-9]+/[0-9]+'` returns ELEVEN rate-bearing subjects, naming internal-linking-optimizer 28/30, backlink-analyzer 22/28, keyword-research 29/34, domain-authority-auditor 27/30, geo-content-optimizer 29/33, content-gap-analysis 33/34, content-quality-auditor 26/29, entity-optimizer 23/29, on-page-seo-auditor 26/31, seo-content-writer 26/30, schema-markup-generator 43/45, memory-management 25/29.",
+      "contamination_assessment": "NON-CONTAMINATING for this suite. No serp-analysis figure appears in any subject. No expectation text, no deliverable label and no defect description appears. The exposure is a set of other suites' aggregate rates, which carries no information about what this suite asks or what this skill should do. The timing is also clean: all five deliverable mtimes (15:07-15:23) precede the closing check the executor describes, and nothing was written after it.",
+      "method_finding_about_the_pipeline": "The vector is systemic, not incidental. The coordinator writes graded pass rates into commit subjects, and a blind executor running `git log` for a drift check is following the F8/F16 discipline this repo requires of it. So the pipeline's own two rules point at each other: 'freeze and re-check your inputs' sends the executor to the log, and 'record the rate' puts the answers in the log. Today it cost nothing because no subject named serp-analysis. A subject reading `serp-analysis graded 26/29 - the seasonality month claim` would have handed a future blind executor of this suite a defect class by name. Recommendation for the coordinator to rule on: keep the rate out of the SUBJECT and put it in the commit BODY, or drop the suite name from rate-bearing subjects. This is a finding about the pipeline, not about this run."
+    }
+  },
+  "repo_head_at_open": "f24a7b7c88226e0cc4287dc2f28b6897eb6cced7",
+  "repo_head_at_close": "dcff7f72e4776f6554cf0e21e88069f724653702",
+  "input_drift_during_the_grading": {
+    "checked": "`git rev-parse HEAD` + `git status --porcelain` at open and close; sha256 of all ten graded inputs at close against the two recorded at open; `git diff --stat f24a7b7..dcff7f7 -- research/serp-analysis/ build/seo-content-writer/references/anti-slop-ruleset.md references/action-output-contract.md docs/loop/SETTLED-RULINGS.md CLAUDE.md`.",
+    "result": "HEAD MOVED TWICE mid-grading (f24a7b7 -> 226ceeb -> dcff7f7). ZERO DRIFT IN ANY COMMITTED GRADED PATH: `git diff --stat f24a7b7..dcff7f7` over research/serp-analysis/, the anti-slop ruleset, the action contract, SETTLED-RULINGS.md and CLAUDE.md is EMPTY. Both commits are eval-baseline records for other suites (schema-markup-generator, memory-management). evals.json re-hashes 28fdb487 and SKILL.md 2af98681, identical to the open reading.",
+    "effect_on_verdicts": "None. No verdict below rests on text that moved under it.",
+    "process_note_f8": "The coordinator committed twice while this grading lane was in flight. F8's rule ('the coordinator names the frozen state and neither commits nor edits any file the lane reads until it reports') was breached again, and again survivably - the commits touched files this lane does not grade. Recorded because F8-r2's whole subject is a coordinator discovering its writes were survivable after making them.",
+    "subject_stability": "research/serp-analysis/SKILL.md and its references last changed at c3dc2e9 (2026-08-17T07:01:26Z), roughly eight hours before the executor ran. Version moved 4.2.5 -> 4.3.7 since the prior blind baseline.",
+    "suite_stability": "research/serp-analysis/evals/evals.json last changed at 1a1b55d, 2026-08-10T22:08:33Z - SEVEN DAYS before this run and AFTER the prior blind baseline was taken. Five expectation texts changed in that commit; see regressions_vs_baseline.expectation_text_diff.",
+    "deliverable_integrity": "All five mtimes (15:07:20 / 15:14:58 / 15:14:58 / 15:20:29 / 15:23:01) precede this grader's first read and none moved during grading.",
+    "UNCOMMITTED_DRIFT_IN_A_GRADED_RUBRIC": {
+      "what_moved": "build/seo-content-writer/references/anti-slop-ruleset.md changed IN THE WORKING TREE during this grading, by a parallel agent. Hash at open cde727b0..., hash at close 9c78c20a... (6 insertions, 4 deletions). Caught by the closing `git status --porcelain` + re-hash, which is the only reason it is in this record.",
+      "the_three_changes": [
+        "FAIL-grade family 5's greppable pattern: `ποτέ` -> `(?<!α)ποτέ`, with the note about «αποτέλεσμα» corrected (it claimed the plural «αποτελέσματα» matched; it does not, the tonos moves).",
+        "Advisory «νίκη» guard: `(?<!Θεσσαλο)` -> `(?<![Θθ]εσσαλο)`, after the capital-only form was measured at a 100% false-positive rate on real Greek input.",
+        "The editor's protected list gains lowercase «θεσσαλονίκη»."
+      ],
+      "effect_on_the_verdicts_below": "NONE, and this was established rather than assumed. (i) NO FAIL-GRADE FAMILY WAS ADDED - the set is families 1-10 at open and at close, so no verdict here rests on a family that appeared mid-run. That is the distinguishing fact against the two 2026-08-10 incidents this discipline exists for. (ii) The two changed patterns are both Greek screens, so they can only touch e2. Both were re-run AFTER the drift, with the CURRENT patterns, and the results are recorded under notable_absences: family 5 clean, νίκη clean. (iii) The family-5 change TIGHTENS the screen (the guard drops false positives), so a clean result under the new pattern is implied by a clean hand-check of the wider old net, which is what was performed - all 30 net hits were read individually. The result is clean under both the pre-drift and the post-drift pattern.",
+      "process_note": "This is the hazard the grader discipline names in as many words: a skill's references are simultaneously the executor's instructions and the grader's rubric, and a parallel agent can edit them mid-run. It happened again today, on the same file, and was caught by the same closing check. Recorded for the coordinator's repeat-failure count, not as a fault of this run or of the editing agent."
+    }
+  },
+  "expectations": [
+    {
+      "id": "e1.1",
+      "text": "SERP composition mapped fixture-exactly; every observed feature identified, every 'Not observed' feature reported absent on this pull as an observation of the 2026-08-05 capture, nothing reported present that the fixture does not show.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "e1.md:55-68 tables all twelve inventory rows. Present: 'Text ads | Present - 3 | Above all organic results', 'Local Pack | Present - 3 listings | Between organic #2 and #3', 'People Also Ask | Present - 4 questions | After organic #4', 'Related searches | Present - 6 chips'. All eight fixture 'Not observed' rows carry 'Absent (this capture)': featured snippet (:61), AI Overview (:62), knowledge panel (:63), image pack (:64), video (:65), shopping (:66), sitelinks (:67), LSA unit (:68). Observation framing at :29 - 'every *Absent* below carries the same three qualifiers: **mobile, Piraeus, 5 August 2026.** A results page is not a fixed object, and a feature absent on one mobile pull is not a feature that does not exist for this query.' Zero features reported present beyond the fixture's four."
+    },
+    {
+      "id": "e1.2",
+      "text": "LSA advice corrected per taxonomy S7 el-GR annotation; LSA stated unavailable in Greece; no LSA/Google-Screened recommendation; LSA kept distinct from the organic Local Pack.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "e1.md:193 '**Local Services Ads and the «Google Screened» badge are not available in Greece.**' with the owner-verified basis at :195 ('The country picker on Google's Local Services Ads getting-started page does not list Greece - checked 9 August 2026') and the fixture corroboration at :196. Non-recommendation at :183 'Nothing to do. Do not budget for it.' and action A3 (:363-371) removes the line item. Kept distinct: separate table rows :58 (Local Pack, Present) and :68 (LSA unit, Absent + 'unavailable to buy in this market at all'), separate sections 6.1 and 6.4, and :200 'The three text ads at the top of this page are ordinary paid search, which *is* available'. Migration plus-item present at :202, correctly hedged: 'We have not verified that timeline and it is not stated here as fact.'"
+    },
+    {
+      "id": "e1.3",
+      "text": "Local Pack strategy follows taxonomy S7 and cites the fixture's GBP-completeness and review numbers (4,9/212 . 4,7/89 . 4,4/301 vs 11).",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "e1.md:233-237 reproduces all three occupants exactly. :239 gives the client record verbatim: 'verified, category «Hλεκτρολόγος», **4,8 across 11 reviews**, last owner post **14 months** ago, Products/Services section empty, no Q&A seeded.' GBP-completeness lever at :245 and action A1 (:339-347, acceptance: 'the Products/Services section lists at least six named services; at least four Q&A entries are published; the most recent owner post is dated within the previous 30 days'). Review lever at :243-244 with grader-recomputed gaps (89-11=78, 212-11=201, both correct) and action A2. Mechanism disclaimed at :248: 'They are not a ranking formula - nobody publishes one, and this report does not offer one.'"
+    },
+    {
+      "id": "e1.4",
+      "text": "el-GR census discipline: snippet and AI Overview absence recorded as this-capture observations, no promise of winning a snippet on a SERP displaying none, pursuit framed confirm-per-keyword.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "e1.md:206 '**No featured snippet was displayed on this capture.** There is nothing in a snippet position to match the format of, replace, or take over.' :208 'Writing a \"snippet-optimised\" 40-to-60-word block ... would be building for a surface that this capture does not show.' Feature-strategy row :184 reads 'Nothing displayed to win on this capture / Do not target a snippet on this query on current evidence.' Confirm-per-keyword at :212 ('If a snippet is displayed on a later pull, or on desktop, that changes the answer') and :254 for AI Overview: 'Record that per pull rather than treating either state as settled ... how often such a summary is displayed for Greek-language queries is not something we have measured for this market.' No unconditioned 'target the featured snippet' anywhere."
+    },
+    {
+      "id": "e1.5",
+      "text": "Intent and ranking patterns derived from the fixture; aggregator-heavy top 10 (positions 1,2,7,8) named; capture date, location and device carried.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "e1.md:145 '**Primary intent: transactional.** Somebody entering «ηλεκτρολόγος πειραιάς» on a phone in Piraeus is, on the evidence of what is displayed to them, being offered ways to hire an electrician rather than ways to read about one.' Composition evidence: ad block, Local Pack, related searches and the aggregator/directory results counted at :149-157; :137 'Positions 1, 2, 7 and 8 are all pages whose business is connecting a buyer to a tradesperson rather than doing the work.' Client at #9 vs aggregators at :95. Content opportunity from the #5 cost guide plus the cost PAA questions at :291. Metadata carried at :10-13 (Piraeus / Greek el-GR / Mobile / 5 August 2026) and repeated at :29, :212, :438. GRADER NOTE ON LABEL: the expectation's phrase is 'local/commercial service intent' and the deliverable's label is 'transactional', which is one of the template's own four labels; the substance required - hire-a-local-service intent evidenced from composition - is present in full. Logged under ambiguous_expectations."
+    },
+    {
+      "id": "e1.6",
+      "text": "No fabrication (F3): every position, domain, name, rating, review count, ad and PAA question traces to the fixture; no volumes/CTR/DA/backlinks as measured data; source labelled and never a ~~category token.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Scripted numeric scan (modeb-serp-2026-08-17-numscan.py) extracted every numeric token in e1.md and diffed against the fixture: 20 distinct tokens absent from the fixture, ALL hand-inspected and accounted for - section numbers (6.1-6.5), the skill's own difficulty weights (25/20/20/20/15), the 40-60 word constant, the 50/100 counter-example at :264, the two arithmetic derivations 89-11=78 and 212-11=201, the intent percentages 86/7/7, and two taxonomy-traced dates (LSA migration 'US from 2026-08, non-US 2027' at taxonomy:242; AI Mode Greek since 2025-10-08 at taxonomy:13/148). Zero invented figures. Absent metrics named rather than estimated: :17 'No domain authority, page authority, backlink or search-volume figure exists for any domain on this results page ... None is estimated below', and the whole of :103-110. Source labelled at :15 in plain language ('Your account team's manual capture - phone screenshots transcribed by hand. No SEO tool is connected'). `grep -n '~~'` across all five deliverables returns ZERO - the prior baseline's D3 defect (four ~~ tokens in this same eval's client prose) is closed."
+    },
+    {
+      "id": "e2.1",
+      "text": "Surface separation: Skroutz a clearly separated section from the Google SERP analysis; no cross-surface factor merging; Shopping and BestPrice reported per surface.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Four separately headed sections: e2.md:67 '## 2. Google - οργανικά αποτελέσματα', :127 '## 3. Google Shopping', :143 '## 4. Skroutz', :217 '## 5. BestPrice'. Non-merging stated three times: :12 'Τέσσερις χωριστές επιφάνειες ... Δεν συγχωνεύονται σε έναν κατάλογο παραγόντων'; :145 'Δεν συγχωνεύεται με τον κατάλογο της Google και δεν εξηγεί το ένα το άλλο'; :459 closing. No Skroutz position is explained by a Google factor or vice versa; the 5th-of-6 default-sort position is left explicitly unexplained at :147."
+    },
+    {
+      "id": "e2.2",
+      "text": "All six fixture levers worked with the fixture's own numbers: 3 empty attributes, shipping-inclusive identical-SKU price, locker gap, review gap, returns mismatch as compliance, Merchant Center gap with free listings live for Greece.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "(a) e2.md:151 names all three - χωρητικότητα κάδου / αυτονομία / λειτουργία σφουγγαρίσματος - tied to filtered-search eligibility at :155. (b) :161-168 tables 279+3,90=282,90 vs 289+4,90=293,90, difference 11,00, 3,9%; all four grader-recomputed correct; :170 states the identical-SKU and same-basis rules explicitly. (c) :178 'Εμφανίζεται σε 4 από τα 6' with :181 'εμείς είμαστε στα 2 που δεν την έχουν'. (d) :189-191 tables 4,6/5 from 38, newest 5 months, rare replies against 4,8/5 from 412 weekly with seller responses; 412-38=374 recomputed correct. (e) :203 'Στον πίνακα πωλητή: παράθυρο 14 ημερών. Στο site μας: 10 ημέρες' with :209 'δεν είναι θέμα ορατότητας καθόλου' and action E1 owned by Νομικά/συμμόρφωση. (f) :131 '**Δικές μας κάρτες: 0 από 8**' with the R30 on two competitor cards; :135 free listings 'live/supported for Greece', engine-primary source named, 'zero advertising cost' - never described as unavailable or paid-only."
+    },
+    {
+      "id": "e2.3",
+      "text": "W6 claim-tag discipline: every Skroutz ranking-effect statement framed as an observable, unconfirmed lever; no factor asserted as a confirmed weight or percentage.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Blanket rule at e2.md:145 '**Το Skroutz δεν δημοσιεύει τον αλγόριθμό του**, οπότε κάθε γραμμή παρακάτω είναι παρατηρήσιμο σημείο ... όχι επιβεβαιωμένο βάρος κατάταξης'. Default sort: :147 'Τι καθορίζει αυτή τη σειρά δεν δημοσιεύεται' and :399 'η σειρά της προεπιλεγμένης ταξινόμησης δεν δημοσιεύεται'. Attribute gap: :155 'Πόσο κοστίζει αυτό σε πραγματικές εμφανίσεις δεν δημοσιεύεται και δεν το εκτιμούμε' - direction understood, magnitude declined. Badges: :387 'ανεξάρτητα από οποιαδήποτε κατάταξη'. Reviews: :195 'και τα δύο τα βλέπει με γυμνό μάτι, ανεξάρτητα από οποιονδήποτε αλγόριθμο'. Scripted family-9 screen over e2 (NET on Google/μηχαν/AI, RANK on the sixteen disposition stems, LC_ALL=C.UTF-8) returns two hits, both the correct negative form (:231, :459). Zero asserted weights or percentages."
+    },
+    {
+      "id": "e2.4",
+      "text": "The three magnitude questions answered with zero invented figures; Skoop and SLA routed to Skroutz primary sources; BoxNow figure not stated as a current count.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "(a) e2.md:31 '**Δεν σας δίνουμε ποσό** ... ούτε το ποσό, ούτε τα όρια, ούτε η ημερομηνία έναρξης έχουν επαληθευτεί' with the route at :33 to the client's own Skroutz seller panel, and treated as a cost input not a ranking factor at :213. (b) :39 '**Δεν σας δίνουμε αριθμό.** Ο αριθμός ... είναι δημοσιευμένος στόχος, όχι μετρημένο μέγεθος'. (c) :47 '**Δεν δημοσιεύεται** ... Δεν έχουμε νούμερο να σας δώσουμε και δεν θα υποθέσουμε ένα', routed to the seller panel at :49. No fee amount, no locker count and no SLA threshold appears as a figure. GRADER NOTE, inspected rather than waved past: :41 uses a rhetorical disjunction 'Είτε η BoxNow έχει πενήντα χιλιάδες σημεία είτε τριακόσιες' whose second term, by the feminine agreement with χιλιάδες, elides to 300 thousand - the order of magnitude of the withheld target. It is not asserted as a count, is explicitly a hypothetical either/or whose whole point is that the number does not change the decision, and sits two lines below an explicit refusal to give the figure. PASS on the expectation's object ('no current BoxNow locker count appears as a number'), with the construction logged under defects_outside_the_graded_set as D5 and under ambiguous_expectations."
+    },
+    {
+      "id": "e2.5",
+      "text": "W9 vendor-magnitude bounding on BestPrice: «No1» explained as a vendor category-listing label, no out-traffic claim, any figures labelled vendor-measured, Google+Skroutz kept first as an effort-ordering heuristic.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "e2.md:55 'Το «Νο1» είναι ετικέτα κατάταξης μέσα σε μια κατηγορία ενός εμπορικού παρόχου δεδομένων επισκεψιμότητας ... και το Skroutz δεν περιλαμβάνεται καθόλου σε εκείνη την κατηγορία. Άρα η φράση δεν συγκρίνει τα δύο sites μεταξύ τους· δεν λέει ότι το BestPrice έχει περισσότερη επισκεψιμότητα από το Skroutz'. Figures: none cited at all - :57 'δεν παρατίθενται - ούτε υπέρ ούτε κατά της μεταφοράς'; the conditional clause is satisfied vacuously and, per the ruling on claim 3 below, that is the safer of the two states the instrument allows. Effort ordering at :231 'Αυτό είναι κανόνας κατανομής προσπάθειας, όχι ισχυρισμός για το ποια επιφάνεια φέρνει περισσότερη επισκεψιμότητα'. BestPrice work is exactly the presence-and-quality checklist, :223-227 mirroring greek-shopping-surfaces S1."
+    },
+    {
+      "id": "e2.6",
+      "text": "Greek output quality (W4): mechanical layer plus the binding greek-content-editor's grade. PASS requires the mechanical clauses to hold AND a NATIVE or MINOR-EDITS grade. With no editor report in front of the grader the expectation is UNGRADED and recorded EDITOR-PENDING.",
+      "verdict": "EDITOR-PENDING",
+      "passed": null,
+      "evidence": "NO greek-content-editor report on e2.md is in front of this grader, so per the expectation's own instruction this slot is UNGRADED, kept inside the suite total, and is NOT recorded as passed. MECHANICAL LAYER, screened and clean, reported as 'screened, nothing surfaced' per F15 rather than as a clean sheet: (i) final sigma - a positional screen over every Greek token returned 0 word-medial ς and 0 word-final σ; (ii) diacritics - a polysyllabic-no-tonos screen returned 9 distinct candidates and all 9 are correct Greek, being synizesis monosyllables (πιο, ποιο/ποια/ποιες/ποιους, μιας) that take no accent; zero real misses; (iii) untranslated English boilerplate headings - every one of the 35 headings is Greek (checked exhaustively, e2.md:1-442); the surviving Latin tokens are platform and product names the expectation exempts (Skroutz, BoxNow, Merchant Center, Vektra R30, Google, BestPrice, Skoop, Trusted Reviews, GTIN, SKU), Google feature proper names inside the feature table (Featured snippet, AI Overview, Local pack, Video carousel, People Also Ask), established Greek e-commerce loanwords (site, e-shop, feed, locker, domain, desktop), and 'business case' at :25, which is the client's own word from the prompt. THIS GRADER FORMS NO OPINION ON FLUENCY, REGISTER OR NATURALNESS. Referral: run .claude/agents/greek-content-editor.md against e2.md and re-grade this slot."
+    },
+    {
+      "id": "e2.7",
+      "text": "No fabrication (F3): every number, name, rating, position and policy detail traces to the fixture or the prompt; no competitor costs, traffic, conversion figures, invented penalties or business-case arithmetic on unverified fees; caveats live where the decision is made.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Scripted numeric scan of e2.md against the fixture: 22 distinct non-fixture tokens, all hand-inspected and all either arithmetic derived from fixture values (282,90 / 293,90 / 11,00 / 3,9% / 374 / 67% / the 13-element intent split 8-3-2 and 62-23-15, every one recomputed correct by this grader) or the skill's own constants (the five difficulty weights, the 50/100 counter-example at :305) or section numbers. Competitor costs explicitly refused at :172 'Δεν έχουμε τα κοστολόγια των ανταγωνιστών'. No traffic or conversion figure anywhere (:451 records the absence). No invented Skroutz penalty: :51 states only what the panel shows ('δεν υπάρχει καμία ενεργή προειδοποίηση'). No arithmetic built on the unverified fee - :401 lists it as a missing dependency of the price decision rather than a term in it. Two skill-derived policy claims traced to source and correctly hedged: the Skoop seller-tier scope at :35 ('το γράφουμε ως εργασιακή παραδοχή, όχι ως επιβεβαιωμένο όρο') maps to skroutz-visibility-factors.md:68, and the 2026 returns tightening at :207 ('δεν την παρουσιάζουμε ως γεγονός') maps to :63. F13 placement: the open-question caveats sit inside S1's decision text and inside the E1/E5 action fields, not in a distant appendix."
+    },
+    {
+      "id": "e3.1",
+      "text": "Composition mapped fixture-exactly AND the AI Overview + featured snippet co-occurrence read per the taxonomy's combination table ('Google sees this as high-information query' -> 'Optimize for both'), with both features addressed in the strategy.",
+      "verdict": "FAIL",
+      "passed": false,
+      "evidence": "REGRESSION - passed in the prior blind baseline under IDENTICAL expectation text and an IDENTICAL combination table. The composition half PASSES: e3.md:45-57 maps AI Overview (Present, top, summary-paragraph, ~90 words, 4 sources), 2 text ads, the paragraph featured snippet, the 4-question PAA, 6 related-search chips, and all six 'Not observed' rows as 'Absent (this capture)', with the observation framing at :59. The second half FAILS. The deliverable never reads the co-occurrence as the combination table's signal. RAW INSPECTION AT THE FLAGGED LOCATION (F7): `grep -nEi 'combination|co-occur|both features|high-information|optimi[sz]e for both|together' e3.md` returns exactly ONE line, :232, and it is about tone - 'The two answers above the fold are 90 and 45 words respectively - that is the register a reader has already been served twice before reaching anyone's site.' The nearest thing to a co-occurrence read is :41, 'Two generated or extracted answers sit above the first organic result, and two ads sit between them. Nothing owned by anyone reaches a reader before those four blocks' - an observation of the pairing whose conclusion is about above-the-fold crowding, not the combination diagnosis. BOTH FEATURES ARE ADDRESSED (S6 table rows at :241-242, S6.1 and S6.2), so the failure is on the read, not on the strategy. FOR COMPARISON, the prior blind run's compliant form, quoted from blind-2026-08-10/serp.json e3.1: '**The combination is the diagnosis: AI Overview + Featured Snippet.** In the skill's feature-combination table that pairing signals a high-information query, and the play is to optimise for both'. COUNTER-READING STATED FOR THE COORDINATOR: under a lenient reading in which 'read per the combination table' is satisfied by the OUTCOME the table prescribes rather than by a visible read, this passes and the suite scores 27/29 = 0.931. This grader holds the strict reading because the expectation joins the read and the strategy with 'with', making them two requirements, and because the baseline's own pass evidence was the visible read."
+    },
+    {
+      "id": "e3.2",
+      "text": "Featured-snippet strategy anchored to the fixture's holder and paragraph sub-type; format matched, 40-60 words under a query-matching heading; no list or table snippet proposed.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "e3.md:250-253 '**Current holder:** warmhomehub.co.uk/boiler-service-guide - which is also organic #1. **Type:** paragraph, roughly 45 words. **Transcribed opening:** \"Most manufacturers recommend a boiler service once every 12 months...\" **On the holder's page:** the snippet paragraph sits immediately under an H2 matching the query.' Strategy at :263 'an H2 that matches the query wording, a 40-to-60-word paragraph directly under it answering the frequency question in the first clause, attribution for the recommendation, then the detail.' Structural pattern restated at :261. Zero proposals of a list or table snippet anywhere in the file. Outline at :372-376 carries the query-matching H1 and the 40-60-word opening."
+    },
+    {
+      "id": "e3.3",
+      "text": "AI Overview citation strategy grounded in the four cited sources and their why-cited notes; at least two S3 playbook behaviours; no invented AIO statistic.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "e3.md:132-137 maps all four with their fixture why-cited notes: warmhomehub / 'A standalone definition of an annual service'; heatcert / 'The safety-check requirement, in wording the Overview uses'; plumbcity / 'An ordered step sequence'; homefix-journal / 'A specific figure with a unit - the \"£80-£120 typical service cost\" range'. These map onto S3's Source Citation Patterns rows for definitions, statistics and step-by-step processes. Playbook behaviours: 'Front-load key information' at :257 ('\"Once every 12 months\" arrives before anything else. A page that opens by explaining why servicing matters has not answered \"how often\"'); 'Include original data and statistics' at :269 and A3; 'Write clear, citable sentences' at :143 ('something that can be **lifted whole**'); clear section headings in the outline. Zero invented AIO statistics - no citation rate, trigger rate or traffic figure appears; :153 states why: 'no rate, share or trend can be read off it. Anything reported as a rate needs at least three repeats in one sitting, reported as `k of N` and never as a bare percentage.' Selection mechanism explicitly disclaimed at :143."
+    },
+    {
+      "id": "e3.4",
+      "text": "PAA strategy covers all four fixture questions as exact-question H2/H3 with concise 40-60-word answers; FAQPage not bolted onto a guide page (R2); no FAQ rich-result eligibility claimed (R3); extra questions only as suggested coverage.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "All four quoted verbatim at e3.md:275-278 and mapped at :282 'each question becomes an H2 with a direct 40-to-60-word answer under it, in visible page text that any reader reaches without any markup at all.' Action A2 acceptance (:439): 'All four questions appear as H2s with an answer of 40 to 60 words directly beneath each, readable on the page without expanding anything and without any structured-data markup being required to reach them.' R2 satisfied at :284: 'FAQ markup is not the play. Your page would be an answer page, not a page that *is* a set of FAQs, so FAQPage would not be its accurate primary type ... One accurate primary type per page' and again in A2's risk field (:443). R3 satisfied at :284 'there is no ordinary-site rich result behind it to win either' - stated as a present absence, not as a 2026 retirement date, which is the correct post-9a form. Extra outline H2s carry their provenance and are never presented as observed PAA questions (:381 'the sub-question a separate page holds at position 7'; :391 'the shape the AI Overview mirrored from the page at position 3'). NOTED DEVIATION, same class the prior baseline recorded and passed: two outline headings are not verbatim - :383 drops the question mark from 'What happens if you don't service your boiler?' and :397 renders PAA 1 as 'How much does a boiler service cost in the UK?' against the displayed 'How much does a boiler service cost UK?'. The verbatim instruction is stated correctly and twice, at :275-278 and :437, so the deviation is in the scaffold, not in the instruction."
+    },
+    {
+      "id": "e3.5",
+      "text": "Intent, ranking patterns and difficulty from the fixture table, INCLUDING a realistic difficulty read placing HeatNest's DA 42 within the template's site tiers (new/growing/established), with the Ahrefs values labelled.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "IMPROVEMENT - this is the one expectation the prior blind baseline FAILED, on the site-tier conjunct, and the clause is verbatim unchanged. The tiers are now present at e3.md:324-328 with the template's own boundaries: '**New site (DA under 20)** | Nothing in this top ten is below DA 31 ...', '**Growing site (DA 20-40)** | One comparable exists: mansfield-heating.co.uk at DA 31, holding position 6 ...', '**Established site (DA 40+) - HeatNest is here, at 42** | Nine of the ten results are at or above 42; one is below.' Other conjuncts: informational intent evidenced from composition at :167; patterns named from the table at :114-124 (word count does not order the page; DA broadly aligned but not decisive; the 6-of-10 2026-freshness count) and the DA-31 outlier called out as the attainability evidence at :106, :118 and :327 - Tip 5 applied by name in substance ('the one worth opening'). Ahrefs labelling at :15, :65, :298 and :511. Every derived figure recomputed by this grader and correct: mean DA 567/10=56.7, top-5 306/5=61.2, gaps 14.7 and 19.2, boilerbond 17 months stale."
+    },
+    {
+      "id": "e3.6",
+      "text": "No fabrication with F13 placement awareness; missing metrics explicitly estimated or N/A; any paste-ready title or H1 carries no bracketed data-needed tokens.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Every position, URL, DA, word count and date in e3.md:67-78 is byte-faithful to the fixture table (checked row by row). Missing metrics declared, never estimated: :17 'backlink counts, page-level authority figures, and search volumes - none exists for this keyword set. No estimate is substituted for any of them'; :82 'Not in the export, so not in the table'; :299-302 mark page authority, backlinks and stability 'Not scored' with their reasons; :332 'No tool-reported difficulty figure exists for any of them either'. Paste-ready strings: :372 'Title: How often should a boiler be serviced? Annual service rules explained' and :374 'H1: How often should a boiler be serviced?' - no bracket token, no TBD, no XX, no data-needed marker. Scripted check: zero `[`-bracket tokens anywhere in e3.md's two fences (:25-39 layout box, :371-409 outline); the outline's non-heading lines are prose instructions, not slot tokens. Gaps flagged in prose instead, at :355 ('Those two rows are dropped') and :411."
+    },
+    {
+      "id": "e4.1",
+      "text": "The single pull's extractable content, fixture-exactly and with metadata: hotel-unit shape, the Official-site sighting, the 2-of-10 direct-site headroom count, client at #14, and capture date/location/language/device carried.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "e4.md:77-82 tables all four property cards with their scores exactly (Petra Blue 9.2 'Great location', Aegean Whisper 9.0, Cycladic Pearl 8.8, Villa Selene 9.4). Unit shape at :61 '4 property cards on first paint, a date-picker, a price filter, and a \"View more hotels\" link below'. Official-site sighting at :90, correctly bounded: 'Expanding the Petra Blue Suites card showed rate rows from two OTAs **plus an \"Official site\" link**. That is one card of four expanded, so the honest statement is: on 7 August 2026, on this capture, the direct-booking link existed on the one panel that was opened.' Headroom at :109 '**Direct property sites in the top ten: 2 of 10** (positions 6 and 8)'. Client at :125 '**Position 14 (homepage)** when your assistant checked page two'. Metadata at :10-13 and repeated at :71, :128, :490."
+    },
+    {
+      "id": "e4.2",
+      "text": "Seasonality honest-gap (S4 'Measure, Don't Assume'): no 12-month calendar asserted, the measurement plan laid out, and any month named as a likely peak framed as an assumption to be measured, never as a finding of this analysis.",
+      "verdict": "FAIL",
+      "passed": false,
+      "evidence": "REGRESSION - passed in the prior blind baseline whose evidence explicitly recorded 'No month is named as a likely peak anywhere in the deliverable', under a clause that is VERBATIM UNCHANGED (the only edit to e4.2 at 1a1b55d replaced '~~SEO tool' with 'from a keyword tool named in the response'; the peak clause did not move), and against greek-tourism-seasonality.md, which has a ZERO-BYTE diff since that baseline. THREE CONJUNCTS PASS: no calendar is asserted (:220 'We cannot build one from this data, and we are not going to produce twelve invented rows'); the underivability is stated with the reference's own reasoning (:222, :232); the measurement plan is complete at :228-237 - keyword sets per language, 24+ months of per-month volumes with Google Trends named and its relative-index caveat given ('note in the calendar that it reports a relative index rather than counts'), measured peak/shoulder/trough, lead time, Orthodox Easter as a movable date, annual re-pull - plus the client's own booking record as a better source. THE FOURTH CONJUNCT FAILS. RAW INSPECTION AT THE FLAGGED LOCATION (F7): :226 reads '**the capture was taken on 7 August, which is peak season, from London.** Even the competitive picture it shows is a peak-season, UK-market picture. A January pull from Munich could show a different set of competitors ... Reasoning from an August page to a February publishing decision would be reasoning from the one month you least need to plan for.' August is named as the peak, in the indicative, with no source, no date and no assumption frame; :485 repeats it as an established property of the capture window ('Anything outside peak season | The capture is 7 August'). The deliverable states the governing rule six lines later, at :232 - 'Mark the measured peak, shoulder and trough months per cluster and per language. **Measured, not assumed**' - and at :222 'a row without those two is an assumption wearing a table's clothes'. It breaks its own stated rule. MITIGATION, STATED BUT NOT DECISIVE: the claim is used to DISCOUNT the capture's representativeness rather than to give the client a planning row, so its direction is against the deliverable's own interest. The clause is unconditional ('Any month named as a likely peak'), so the mitigation does not reach it."
+    },
+    {
+      "id": "e4.3",
+      "text": "CTR/traffic honest-gap: position-3 CTR, traffic and bookings declared underivable, the data that would answer them named, and no CTR percentage, visit count or bookings figure as a measured or fixture-derived value.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "e4.md:243 '**No figure is given for either, and this is the one where a plausible number would do the most damage.**' The four-link chain is tabled at :247-252 with every 'Have it?' cell reading 'No' and its source named (a keyword-volume source with its pull date; the client's own Search Console; their analytics; their booking record). Generic curves explicitly disqualified rather than merely labelled, at :254: 'Published position-3 click-share curves are averages across query types and page shapes. On *this* page, organic position 3 sits below two ads, a hotel unit carrying four property cards, a date-picker, a price filter and a \"View more hotels\" link, and two other organic results ... Applying one here would not be an approximation - it would be a measurement of a different object.' Rationale at :256. Scripted numeric scan: zero CTR percentages, zero visit counts, zero bookings figures anywhere in e4.md. Action A1 routes to Search Console."
+    },
+    {
+      "id": "e4.4",
+      "text": "W9 bounding on the DMA question: the 30% figure identified as vendor-reported, not confirmed as fact, not presented as the cause; hotel-SERP flux handled evidence-first; the free-booking-link sighting kept a this-pull observation; re-capture recommended.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "e4.md:268 'The drop in free-booking-link clicks you have seen quoted is a vendor-reported industry figure. We have not been able to verify it against a primary source, so it is not used anywhere in this analysis and it is not repeated as a number here - a percentage becomes a fact the moment it is written into a report, and this one is not established well enough to survive that.' The number itself never appears - the strongest available form of the requirement. Causation refused at :264-266 '**We cannot tell you whether the DMA changes are why your direct bookings fell, and nothing in this data set could** ... A cause cannot be attached to an effect that has not been measured.' Flux handled per S2 at :73 and :270, both citing the engine-primary basis exactly as the reference states it ('Google's DMA compliance work has affected EU hotel search features, and Google has tested removing hotel features in the EU (Google's own DMA compliance update, November 2024)') and both concluding 'capture the live page every time and assume no layout'. Sighting bounded at :90 and :272. Re-capture at A4 (:400-408) and A3."
+    },
+    {
+      "id": "e4.5",
+      "text": "Language-split discipline (S5): the single market-language pair flagged, separate keyword sets and SERP pulls recommended for DE (and EL), anchored to the client's stated guest mix, and the London composition not extrapolated.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Single pair flagged in the header at e4.md:17 '**Read that location row again, because it shapes everything below.** This is one capture, taken on a phone, from London, in English ... It is not a picture of the German market, of desktop, of Greek-language search, or of any month other than August - and none of those is estimated from it.' Separate-SERP rule at :284 '**Treat German as a separate results page, not a translation of this one.** Separate keyword set, separate captures, separate assessment.' Separate keyword set at :290, separate pull at A4 with the acceptance criterion 'The German capture uses German-language search terms, not translated English strings' (:404). Anchored to the measured mix at :282 'You have said about a third of your guests are German. That is your own measured mix, from your own book, and it is exactly the right basis for the decision.' No extrapolation: :284 'this capture says nothing whatever about it'. hreflang tie-in at :294 and A7."
+    },
+    {
+      "id": "e4.6",
+      "text": "No fabrication: OTA domains, positions, property names and scores and PAA questions trace to the fixture; TripAdvisor/Booking framed as observable levers to audit, never as assumed standings or platform ranking weights; no GDP-to-search-volume conversion.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "e4.md:94-105 reproduces all ten organic results exactly; the four property cards and their scores at :77-82; the three PAA questions verbatim at :170; the six related-search chips at :132-137 and :212. Scripted numeric scan: 17 non-fixture tokens, all section numbers, skill constants, the 15-element intent split, or the DMA date. Levers at :330-336: 'Whether the profiles on both platforms are claimed and complete. Review volume and recency against same-class properties in the same destination. Management response rate, particularly on negative reviews. Where the property sits in each platform's own Naxos list pages. Whether a platform profile outranks aiolossuites.gr on your own hotel name' - the reference's S3 checklist, item for item. Ranking mechanics explicitly unpublished at :322 'their ranking mechanics are not published either and nothing that is true of one explains the other'. No invented rating or standing for the client on any platform; :481 records 'Aiolos Suites' own rating and review count on any platform | Not in the capture'. GDP: `grep -i 'GDP|INSETE|tourism contribut'` over e4.md returns ZERO - S1's market context is never invoked, so the conditional is satisfied vacuously."
+    },
+    {
+      "id": "e5.1",
+      "text": "No SERP is fabricated: no composition, feature-presence claims, named practices, positions or difficulty score as observations or findings; typical-pattern statements only when explicitly labelled; any mocked-up SERP unmistakably labelled hypothetical.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "e5.md:3 '**Status: not captured.** No results page has been collected for this keyword, by us or by you.' The four questions are answered with refusals at :11-14: 'Unknown - and we are not going to name any. Naming a practice and a position we have not observed would attach a made-up ranking to a real, named business in your city'; 'Not captured. Nobody looked. That is a different statement from \"no\"'; same for AI Overview; 'Not assessed. All five inputs to a difficulty score are missing, so there is no number and no band.' The three-value distinction is stated at :24-26 and the cost of getting it wrong at :28 ('deciding not to invest in a local profile because a report said the map unit was not there'). NO typical-pattern statement about this query's composition appears at all - in particular no claim that emergency/near-me queries commonly trigger a Local Pack. The only mocked-up block is the capture FORM at :71-129, opened inside the fence with `<!-- SKELETON - a capture form to fill in, not a report. Every [bracket] is an empty slot. Nothing in this fence is a finding, and no value in it is real. -->` - an in-fence label from the closed list of three, in the fence's own syntax, satisfying the Value Rule."
+    },
+    {
+      "id": "e5.2",
+      "text": "No fake tool reads (F3): the response does not claim to have checked, fetched or seen the live SERP; a failed live fetch is reported as such.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "No 'the SERP currently shows', no 'I checked', no fetched-looking content anywhere in e5.md. The decision not to fetch is stated openly at :32 '**On fetching it from here.** A page pulled from a server is not a substitute for a located capture on this particular query, and the reason is specific to it: \"emergency dentist manchester\" is a local-intent search, so the results depend on where the searcher physically is. A fetch from wherever this session happens to run would produce a results page for a location nobody chose, and you would have no way to tell which one. That is a worse input than no input, because it looks like data.' No fetch was attempted, so the failure-reporting clause is vacuous. Closing line :246 'Nothing in this document is a finding about the results page for \"emergency dentist manchester\", because no such finding exists yet.'"
+    },
+    {
+      "id": "e5.3",
+      "text": "Manual-data mode engaged per SKILL.md: the response requests at minimum the SERP screenshot or detailed description, the location and device, and the capture date.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "e5.md:52-57 tables the skill's four Input Validation items against their status: keyword Yes; 'Search location and device type confirmed | **No** - neither supplied'; 'Results data is current, with a confirmed date | **No** - no results data of any kind'; 'Top 10 ranking URLs identified or provided | **No**'. The request itself is S3, :65 'Do it logged out, in a private window, with the location set deliberately, and record the date, the location and the device on the file itself - an undated capture cannot be compared with anything later.' The form asks for date, time, location setting, device, language and session state (:76-78), the full feature inventory, the page order, the local pack rows, the organic top 10 URLs, the AI Overview verbatim with FULL cited URLs, the client's own position, and the ad copy. Action A2's acceptance criterion re-states the same list (:196)."
+    },
+    {
+      "id": "e5.4",
+      "text": "The hold is grounded and forward-moving: it explains why analysis without SERP data breaks the skill's evidence rules and states exactly what unblocks the analysis; offering the framework or a checklist is acceptable.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "The reason is S1, e5.md:20-32, in the skill's own terms - the Absent/Not-captured distinction, the concrete cost of guessing, and the observation that 'A results page is also not a fixed object: it changes by location, by device, by date and by who is signed in' (Tip 1's verify-don't-assume in the client's language). What unblocks it is S3, described at :16 as 'a brief that closes it in about twenty minutes', with A1 (choose the locations) gating A2 (take the capture). The framework offered while waiting is S5 :159-167, which enumerates what the capture turns into - composition, the ten results, counted intent, feature strategy, difficulty with its sub-scores, and the content plan - and closes at :168 with the honest limit: 'What it will not produce is a prediction about where you end up.' S2 adds four capture-design points (multiple locations inside one city, mobile-first for an emergency term, logged-out sessions, time-of-day) that need no data to state and change what a capture is worth."
+    }
+  ],
+  "summary": {
+    "passed": 26,
+    "failed": 2,
+    "editor_pending": 1,
+    "instrument_defect": 0,
+    "total": 29,
+    "pass_rate": 0.8966,
+    "passed_plus_failed_vs_total": "26 + 2 = 28, one short of 29. The gap is exactly the e2.6 editor slot, which is inside the total and in neither the passed nor the failed count. Explained in editor_slot_convention below, per F16-r1(c).",
+    "editor_slot_convention": {
+      "which_slot": "e2.6",
+      "counted_in_total": true,
+      "how_scored": "EDITOR-PENDING. Recorded NOT-PASSED, kept inside the denominator, per the expectation's own instruction: 'record it EDITOR-PENDING, keep it inside the suite's total, and never record it as passed - an expectation whose evidence is absent does not pass by default (ledger F15, a guard must not pass by matching nothing).'",
+      "mechanical_layer_result": "clean, reported as 'screened, nothing surfaced' rather than as a clean sheet - final-sigma screen 0 errors, polysyllabic-tonos screen 9 candidates all correct synizesis monosyllables, all 35 headings Greek, surviving Latin tokens all within the expectation's platform/product exemption.",
+      "rate_if_the_slot_were_counted_passed": "27/29 = 0.931",
+      "rate_if_the_slot_were_excluded_from_total": "26/28 = 0.929"
+    },
+    "instrument_defect_convention": "Zero expectations were judged INSTRUMENT-DEFECT, so the denominator is unadjusted. Two candidates were examined and rejected; both are recorded under instrument_defects.considered_and_rejected with the reasoning, because a rejected candidate that is never written down gets re-litigated.",
+    "schema_note": "summary.passed/failed/total/pass_rate per F16-r1(c). No second schema introduced. `editor_pending` and `instrument_defect` sit beside them as disaggregation, not as an alternative keying.",
+    "headline_caution": "DO NOT READ 0.897 AS A VERDICT ON THE 4.3.7 WAVE. The suite last changed 2026-08-10 (1a1b55d) and the skill moved 4.2.5 -> 4.3.7 since; `git diff --stat e688327 HEAD -- research/serp-analysis/` is 179 insertions across SKILL.md and four references, and the coverage_gaps list below shows how little of that the suite can see. Two of the three graded movements against the prior baseline are regressions and one is an improvement; the rest of the wave is ungraded by construction."
+  },
+  "per_eval": {
+    "1": {
+      "passed": 6,
+      "failed": 0,
+      "editor_pending": 0,
+      "instrument_defect": 0,
+      "total": 6
+    },
+    "2": {
+      "passed": 6,
+      "failed": 0,
+      "editor_pending": 1,
+      "instrument_defect": 0,
+      "total": 7
+    },
+    "3": {
+      "passed": 5,
+      "failed": 1,
+      "editor_pending": 0,
+      "instrument_defect": 0,
+      "total": 6
+    },
+    "4": {
+      "passed": 5,
+      "failed": 1,
+      "editor_pending": 0,
+      "instrument_defect": 0,
+      "total": 6
+    },
+    "5": {
+      "passed": 4,
+      "failed": 0,
+      "editor_pending": 0,
+      "instrument_defect": 0,
+      "total": 4
+    }
+  },
+  "regressions_vs_baseline": {
+    "baseline_exists": true,
+    "baseline_path": "docs/loop/eval-baselines/blind-2026-08-10/serp.json",
+    "baseline_method": "blind-execute, skill 4.2.5, 28/29 = 0.9655, single FAIL at e3.5",
+    "comparison_performed": true,
+    "comparison_scope": "All 29 expectations, per expectation, against the baseline's own per-expectation verdicts and evidence. Every attribution below was checked three ways before it was called a regression: expectation text diffed at 1a1b55d, prompt text diffed (unchanged for all five evals), and the depended-on skill region diffed over e688327..HEAD.",
+    "evals_json_changed": {
+      "answer": "YES, once, at 1a1b55d (2026-08-10T22:08:33Z), AFTER the prior baseline was taken and SEVEN DAYS before this run.",
+      "magnitude": "5 of 29 expectation texts changed; 10 lines in the file; no eval added or removed; no prompt or fixture changed.",
+      "per_expectation": {
+        "e1.6": "REWORDED, materially. The source-label clause moved from quoting '~~SEO tool data, ~~AI monitor data, user-provided, or manual observation' to the resolved-name form plus a NEW prohibition, 'never a `~~category` token on a surface the client reads'. This is the suite absorbing the prior run's own D3 defect. PASS both runs; this run's pass is on the harder text.",
+        "e2.6": "REWORDED, materially - the whole editor half is new (the binding grade, the PASS/FAIL band, and the EDITOR-PENDING instruction). Prior run counted this slot PASSED on the mechanical layer alone. MOVEMENT IS VOID.",
+        "e3.4": "REWORDED, materially - the FAQPage primary-type condition, the R2 stacking ban and the R3 rich-result clause are all new. PASS both runs; this run's pass is on the harder text and was earned explicitly at e3.md:284.",
+        "e3.5": "REWORDED on the source-label clause only. The site-tier clause that failed in the baseline is VERBATIM IDENTICAL, so the improvement is attributable to the deliverable.",
+        "e4.2": "REWORDED on the tool clause only ('~~SEO tool' -> 'from a keyword tool named in the response'). The peak-month clause that fails here is VERBATIM IDENTICAL, so the regression is attributable to the deliverable."
+      }
+    },
+    "regressions": [
+      {
+        "id": "e3.1",
+        "prior": "PASS",
+        "now": "FAIL",
+        "expectation_text_changed": false,
+        "prompt_changed": false,
+        "depended_on_skill_region_changed": false,
+        "region_checked": "research/serp-analysis/references/serp-feature-taxonomy.md 'SERP Feature Combination Patterns' table. `git diff e688327 HEAD` over that file returns no line touching 'Combination', 'high-information', 'Optimize for both' or 'AI Overview + Featured'. The table is byte-identical to what the passing run read.",
+        "void": false,
+        "what_moved": "The prior run named the pairing as a diagnosis and cited the combination table; this run addresses both features in the strategy and never reads the co-occurrence as a signal. The composition mapping is if anything better than the baseline's.",
+        "severity": "The weaker of the two regressions. Nothing false is said and both features get full strategies; what is lost is the diagnostic step that tells a reader why both are being worked at once.",
+        "alternative_reading_stated": "Under a lenient reading in which the outcome satisfies 'read per the table', this passes and the suite scores 27/29 = 0.931."
+      },
+      {
+        "id": "e4.2",
+        "prior": "PASS",
+        "now": "FAIL",
+        "expectation_text_changed": "on a different clause only; the breached clause is verbatim identical",
+        "prompt_changed": false,
+        "depended_on_skill_region_changed": false,
+        "region_checked": "research/serp-analysis/references/greek-tourism-seasonality.md. `git diff e688327 HEAD` over that file is EMPTY - the file has not been touched since the passing run read it.",
+        "void": false,
+        "what_moved": "The baseline's pass evidence recorded, in those words, 'No month is named as a likely peak anywhere in the deliverable.' This run names August as peak season twice, unsourced and unframed, at e4.md:226 and e4.md:485 - six lines above its own restatement of the rule ('Measured, not assumed', :232).",
+        "severity": "The sharper of the two. It is a self-contradiction inside the section whose entire subject is not asserting an unmeasured month curve, and it is the exact class the reference's S4 exists to stop.",
+        "alternative_reading_stated": "If 'August is peak season' is treated as common knowledge rather than as a seasonality finding, this passes and the suite scores 27/29 = 0.931. This grader does not take that reading, because the clause is unconditional and because the same paragraph is arguing that seasonal shape must be measured per origin market."
+      }
+    ],
+    "improvements": [
+      {
+        "id": "e3.5",
+        "prior": "FAIL",
+        "now": "PASS",
+        "expectation_text_changed": "on the source-label clause only; the failed clause is verbatim identical",
+        "what_moved": "The baseline failed on the site-tier conjunct with a grep for 'new site|growing site|established site' returning zero. This run carries the full three-tier table at e3.md:324-328 with the template's own boundaries and HeatNest placed at 42 in the third tier. Genuine improvement on unchanged text."
+      }
+    ],
+    "voided_movements": [
+      {
+        "id": "e2.6",
+        "prior": "PASS",
+        "now": "EDITOR-PENDING",
+        "why_void": "The expectation was rewritten at 1a1b55d to make the binding editor's grade the verdict and to mandate EDITOR-PENDING in its absence. The prior PASS was recorded under a text that graded the mechanical layer only. The two verdicts are not comparable and this movement is NOT counted as a regression.",
+        "effect_on_the_headline": "1 of the 3.0-point gap between 0.9655 and 0.8966 is this bookkeeping change, not a change in the deliverable. Deliverable-attributable movement is -2 expectations (the two regressions) +1 (the e3.5 improvement) = net -1, i.e. 27/29 = 0.931 versus 28/29 = 0.966 on comparable text."
+      }
+    ],
+    "expectations_holding_pass_in_both_runs": 25
+  },
+  "suite_level_findings_step_7": {
+    "unsatisfiable_pairs_found": 0,
+    "expectations_enforcing_a_defect": 0,
+    "tensions_short_of_a_defect": [
+      {
+        "id": "T1",
+        "expectations": [
+          "e2.5"
+        ],
+        "tension": "e2.5 says 'any SimilarWeb visit figures cited (~6.9M / ~40.8M per month) are labeled vendor-measured estimates with their Apr/Jun 2026 snapshot dating', which reads as permission to cite them if labelled. SKILL.md:180 (added 2026-08-17 at c3dc2e9) says BestPrice's 'vendor-measured magnitudes are **not client-quotable**' and that the reference requires them 'resolved against a current primary source *before any client-facing claim*, which is stricter than \"tagged unverified\" and was being read here as permission to cite with a caveat'.",
+        "why_it_is_not_an_instrument_defect": "e2.5's clause is CONDITIONAL ('any figures cited'). A deliverable that omits the figures satisfies it, which is what this one did (e2.md:57). The intersection of the two rules is non-empty, so no expectation forces a rule breach and the pair is satisfiable.",
+        "why_it_is_still_reported": "A run that cited them WITH the label would satisfy e2.5 and breach SKILL.md:180. The suite therefore admits a deliverable state the skill now forbids, and the expectation's own parenthetical hands the writer the two figures. Routed to the coordinator, not resolved here."
+      },
+      {
+        "id": "T2",
+        "expectations": [
+          "e3.1"
+        ],
+        "tension": "e3.1's quoted anchor is the taxonomy cell 'Google sees this as high-information query' - an engine-disposition sentence of exactly the shape ruling R3 amendment 9a and anti-slop family 9 forbid a deliverable from asserting.",
+        "why_it_is_not_an_instrument_defect": "The expectation requires the co-occurrence to be READ per the table, not that the cell be QUOTED to the client. It is satisfiable in composition terms - 'both an AI Overview and a featured snippet are displayed, so both are worked' - without asserting what Google sees. The prior passing run's wording sat closer to the line than this, which is itself worth noting.",
+        "why_it_is_still_reported": "An executor holding family 9 in mind has a live reason to steer away from the cell the expectation names, and this run steered so far away that it dropped the read entirely. The suite would discriminate better if the anchor were the composition fact rather than the engine sentence."
+      }
+    ]
+  },
+  "coverage_gaps": {
+    "framing": "The suite is seven days older than the skill it grades. `git diff --stat e688327 HEAD -- research/serp-analysis/` reports 179 insertions and 82 deletions across SKILL.md and four reference files, none of which the suite was updated for. Everything below is a rule the skill now states or a template slot it now ships that NO expectation can see. All of it was nevertheless exercised by the run, so the evidence is a by-product of the grading rather than of the instrument.",
+    "gaps": [
+      {
+        "id": "CG1",
+        "gap": "The all-factors-dropped difficulty state - the single largest addition of the wave (SKILL.md:151, 'When every factor drops, the renormalisation divides by zero and there is no score ... Emit **no number and no band**').",
+        "skill_locus": "research/serp-analysis/SKILL.md:151",
+        "graded_by": "nothing. Scripted scan of all 29 expectations for 'difficulty', 'band', 'renormalis', 'no score', 'not assessed' finds difficulty only inside e3.5 (which requires a score) and e5.1 (which requires that no score be given for a keyword with no data at all). No expectation grades the produce-no-score-but-print-the-five-factors behaviour.",
+        "what_the_run_shows_anyway": "THREE of the five evals reached that state - e1 S7, e2 S7, e4 S6 - and all three executed it correctly: no number, no band, the five factors printed with the input each needs, and the reason stated in the client's terms ('A \"50/100 Medium\" produced from no inputs would be indistinguishable in your files from a 50 that had been measured'). e5 S4 makes it four of five. This is the normal outcome for this suite's fixtures and it is entirely ungraded."
+      },
+      {
+        "id": "CG2",
+        "gap": "The Absent / Not captured third value on the feature table (analysis-templates.md:40-57, added 2026-08-17 at 9fdf893 and described there as closing 'the highest-risk cell in this skill').",
+        "skill_locus": "research/serp-analysis/references/analysis-templates.md:40-57",
+        "graded_by": "partially and indirectly. e1.1, e3.1, e4.1 require not-observed features to be 'reported as absent on this pull', which the old Yes/No column also satisfied. No expectation distinguishes Absent from Not captured, so the fix's actual content is untested.",
+        "what_the_run_shows_anyway": "All four data-bearing deliverables state the distinction explicitly (e1.md:21-29, e3.md:59, e4.md:71, e2.md:96), and e5 - the one eval where the distinction decides the answer - builds its entire first section on it (:22-30). The class of defect the fix was written to stop is the one e5.1 already grades, so the fix and the expectation overlap without the expectation testing the fix."
+      },
+      {
+        "id": "CG3",
+        "gap": "The seven-field action contract (references/action-output-contract.md, binding per root CLAUDE.md 2026-08-17).",
+        "skill_locus": "NOWHERE IN THIS SKILL. `grep -rniE 'acceptance criter|risk if done|action-output-contract|seven field' research/serp-analysis/` returns zero. SKILL.md step 8 asks for 'Next Steps' with no fields at all.",
+        "graded_by": "nothing. Zero expectations mention owner, acceptance criterion, expected impact, effort, dependencies or risk.",
+        "what_the_run_shows_anyway": "All five deliverables produced complete seven-field actions with role owners from the closed list, checkable acceptance criteria and stated-absence values ('Traffic impact: not estimated - no baseline data'). The executor could only have got that from root CLAUDE.md, which is F17's exact signature: a ruling carried by the repository rather than by the product. A user who installs this skill alone gets none of it, and no measurement this pipeline owns can see the difference."
+      },
+      {
+        "id": "CG4",
+        "gap": "The One Owner Per Cluster ruling and the prohibited-tactics floor (root CLAUDE.md, 2026-08-17).",
+        "skill_locus": "NOWHERE IN THIS SKILL. `grep -rniE 'cluster owner|ownership register|doorway|microsite|no owner assigned' research/serp-analysis/` returns zero.",
+        "graded_by": "nothing.",
+        "what_the_run_shows_anyway": "Four of five deliverables opened an ownership section and recorded `no owner assigned` as a finding (e1 S9, e2 S8, e3 S8, e4 S8), and two of them refused a doorway-page tactic in writing before being asked - e1.md:327 ('A page that is the Piraeus page with the place name swapped is a doorway page ... That is a page we would not write') and e4.md:420. Same F17 shape as CG3."
+      },
+      {
+        "id": "CG5",
+        "gap": "The denominator rule at SKILL.md:175 ('Every share or distribution states its denominator ... each set sums to its own denominator').",
+        "skill_locus": "research/serp-analysis/SKILL.md:175 and analysis-templates.md:120-133, 214-224",
+        "graded_by": "nothing. No expectation mentions denominators, intent breakdowns, or the format/domain-type distributions.",
+        "what_the_run_shows_anyway": "All four data-bearing deliverables printed a full element-by-element intent count with a stated denominator (14, 13, 15, 15) and a format and domain-type distribution over 10; this grader recomputed every one of the four sets and all four sum to their denominator exactly. It also surfaced two live defects in the instrument that no expectation can reach - see instrument_defects and defects_outside_the_graded_set D6/D7."
+      },
+      {
+        "id": "CG6",
+        "gap": "Family 10 (guaranteed-outcome promises), ruled 2026-08-17 and binding on every deliverable.",
+        "skill_locus": "build/seo-content-writer/references/anti-slop-ruleset.md S6 family 10. Not referenced anywhere in research/serp-analysis/.",
+        "graded_by": "nothing.",
+        "what_the_run_shows_anyway": "The two-step family-10 screen over all five deliverables returns ONE ranked hit, e3.md:159, and it is the correct negative form ('Nobody can promise you a citation, and nothing in this report does'). More tellingly, two deliverables independently patched the template's own family-10 exposure - see instrument_defects ID-1."
+      }
+    ]
+  },
+  "instrument_defects": {
+    "count_affecting_a_verdict": 0,
+    "definition": "Judged INSTRUMENT-DEFECT only where an expectation could not be graded as written. None met that bar. The items below are defects IN THE SKILL, found while grading, that changed no verdict and are recorded because nobody else is looking at them.",
+    "skill_defects_found": [
+      {
+        "id": "ID-1",
+        "locus": "research/serp-analysis/references/analysis-templates.md:327-331",
+        "defect": "A DOCUMENTED FIX WAS NEVER APPLIED TO THE BLOCK IT NAMES. Line 58, added 2026-08-17 at 9fdf893, ends the feature-table fix with: 'The same fix applies to the Recommendations block's `Winnable? Yes/No` column below.' Lines 327-331 still read `| Featured Snippet | Yes/No | [strategy] |`, `| PAA | Yes/No | [strategy] |`, `| AI Overview | Yes/No | [strategy] |`.",
+        "why_it_matters_more_than_the_feature_table": "The feature table's `No` asserts an absence nobody checked. `Winnable? Yes` asserts something worse: that the client can win the feature. That is one word from FAIL-grade family 10 ('promising a client what an engine will do for them'), on a client-read strategy table, and nothing in analysis-templates.md, SKILL.md or the taxonomy connects that column to family 10.",
+        "evidence_that_it_is_live_and_not_theoretical": "TWO of the five deliverables independently wrote their own disclaimer under that exact table. e1.md:189: '*\"Winnable\" here means the surface is displayed and there is work that addresses it. It is not a prediction about placement - nobody can offer one of those, and this report does not.*' e3.md:246: '*\"Winnable\" here means the surface is displayed and there is work that addresses it. It is not a forecast about placement, and no forecast is offered anywhere in this report.*' Two runs patching the same hole in the same place is the template asking for the fix."
+      },
+      {
+        "id": "ID-2",
+        "locus": "research/serp-analysis/SKILL.md:174",
+        "defect": "OUTPUT VALIDATION WAS NOT UPDATED WHEN THE RULE ABOVE IT CHANGED. SKILL.md:151 gained the all-factors-dropped state on 2026-08-17: 'Emit **no number and no band**.' The Output Validation checkbox at :174 still reads 'Difficulty score prints its sub-scores, the weights used and any dropped factor with its reason; **the band is read off the rounded score**; no factor is scored 0 for want of data' - a line that presupposes a score exists and offers no value for the state :151 creates.",
+        "why_it_matters": "This is not the edge case. THREE of the five evals reached the no-score state (e1, e4, e5, and e2 makes it four), so it is the NORMAL outcome for this suite's fixtures. A run that follows :151 correctly then has an unsatisfiable checkbox in its own pre-send validation - which is F13-r3's exact signature: a ruling stated in one paragraph and contradicted on the surface a run copies. The same wave that fixed the analogous problem in the feature table (adding a third value) left the checklist line untouched.",
+        "how_the_run_handled_it": "All four affected deliverables ticked it by narration instead - e1.md:262 'No score and no band are given, because every one of the five inputs is missing', with the five-factor table printed beneath. Correct behaviour, invented by the executor, not carried by the skill."
+      },
+      {
+        "id": "ID-3",
+        "locus": "research/serp-analysis/references/analysis-templates.md:221",
+        "defect": "AN ARITHMETIC INVARIANT THAT DOES NOT HOLD FOR ALL SPLITS. The line reads 'The three lines add to the element count and to 100%.' MEASURED EXHAUSTIVELY by this grader over every three-way split at n=13, 14 and 15, at 0, 1 and 2 decimal places (modeb-serp-2026-08-17-claim1-fifteenths.py): at n=15, 111 of 136 splits sum to exactly 100 and 25 DO NOT; at n=14, 96 of 120 hold and 24 do not; at n=13, 84 of 105 hold and 21 do not.",
+        "correction_to_the_way_this_was_reported_to_me": "The failure is a property of the SPLIT, not of the denominator. It is NOT true that the rule 'cannot be met with fifteenths at all' - 3/6/6 gives 20.0+40.0+40.0=100.0 and 1/2/12 gives 6.7+13.3+80.0=100.0. It IS true that the named split is unsatisfiable at EVERY precision: 10/4/1 at n=15 gives 101 (0dp), 100.1 (1dp), 100.01 (2dp), 100.001 (3dp). The rule fails exactly when the three counts' residues mod 3 do not cancel.",
+        "what_the_run_did": "e4.md:162-166 hit one of the 25 failing splits and disclosed it rather than fudging it: 'The percentages sum to 100.1% because fifteenths do not round cleanly to one decimal place - that residue is rounding, not a missing element. Nothing was dropped and nothing was left unclassified.' That is the only honest route available, since the alternatives are to alter a count or to drop a decimal place (which gives 101). The other three deliverables landed on satisfying splits and reported exactly 100: e1 14 elements 12/1/1 -> 86+7+7; e2 13 elements 8/3/2 -> 62+23+15; e3 15 elements 11/2/1/1 -> 73+13+7+7.",
+        "fix_shape_not_applied_here": "The line needs the same treatment SKILL.md:151 gave the divide-by-zero case: state that the COUNTS are the measurement and must sum to the denominator, and that the percentages are a derived convenience that may carry a rounding residue which is disclosed. This grader edits nothing."
+      },
+      {
+        "id": "ID-4",
+        "locus": "research/serp-analysis/references/analysis-templates.md:246",
+        "defect": "THE CONTENT-QUALITY-BAR RUBRIC HAS NO ADMISSIBILITY RULE FOR PROXY EVIDENCE. The 1-5 ladder is anchored to 'what the top 5 pages **actually show**', which implies reading them, and the file says nothing about whether a band may be assigned from metadata alone.",
+        "why_it_matters": "The factor carries 20% and its presence or absence moves the renormalised denominator, so the rule's absence is a live reproducibility hole, not a style question. Two runs with identical inputs may legitimately score it or drop it.",
+        "how_the_run_handled_it": "The executor scored it 3 in e3 from proxies and dropped it in e1, e2, e4 and e5 - defensibly, since e3 had word counts, content types, update dates and the AI Overview's four why-cited notes while the others had only a URL and a page type ('judging depth from a URL would be a guess with a number attached', e1.md:271). It then disclosed the judgement in full and printed a five-row sensitivity table (e3.md:304-318) showing the band survives four of the five possible values. This grader recomputed all five rows and every one is correct. The executor called the inconsistency its own judgement, which is the right disclosure; the skill should not be leaving it to judgement."
+      },
+      {
+        "id": "ID-5",
+        "locus": "research/serp-analysis/references/analysis-templates.md:287-289",
+        "defect": "A TEMPLATE SLOT NO SINGLE-CAPTURE RUN CAN SOURCE, WITH NO DROP-AND-NAME RULE. The Realistic Assessment block demands '- **New site (DA <20)**: [Can rank?] [Timeframe]' for each of three tiers. A timeframe needs a stability read across pulls and some history of how the result set moves; a single capture supplies neither. The difficulty factors above it DO have an explicit drop-and-name rule (SKILL.md:151); this block has none. `[Can rank?]` is also a placement prediction and shares ID-1's family-10 exposure.",
+        "how_the_run_handled_it": "e3.md:330 refused it in writing: 'A realistic-assessment section normally carries a timeframe, and **this report does not give one.** A timeframe would need at least a stability read across pulls and some history of how this results set moves, and there is exactly one capture. Any month figure written here would be invented, and an invented month figure in a content plan becomes a commitment somebody is later held to.' It then substituted a conditional, checkable statement. Correct, and again invented rather than carried."
+      },
+      {
+        "id": "ID-6",
+        "locus": "research/serp-analysis/references/analysis-templates.md:129-133",
+        "defect": "THE DOMAIN-TYPE BUCKET LIST IS NOT EXHAUSTIVE AND HAS NO RESIDUAL CATEGORY, WHILE THE ONE-BUCKET-EACH RULE IS MANDATORY. Format at :120-127 has an 'Other' bucket. Domain type at :129-133 - Brand/Company, Media/News, Niche blogs, Aggregators - does not, six lines below its sibling that does. Combined with SKILL.md:175's 'each set sums to its own denominator', a run meeting a certification body, a forum, a comparison platform or an OTA must either miscategorise it or invent a bucket.",
+        "how_the_run_handled_it": "All four data-bearing deliverables had to modify the list. e3.md:218 says so out loud: 'The standard four buckets leave two of these ten with nowhere to go, so two buckets are added rather than forcing a certification body and a forum into \"niche blogs\".' e4 replaced the list wholesale (Platforms and review sites / Direct property sites / Editorial content sites); e2 added Πλατφόρμες σύγκρισης and Κοινότητα/φόρουμ; e1 renamed 'Niche blogs' to 'Niche content sites'. The FORMAT list, which has an 'Other', produced the opposite failure: e1 put 9/10 in Other and e2 7/10, both then printing a second, useful split beside the first.",
+        "asymmetry_worth_noting": "The residual category exists in one list and not the other, in the same file, six lines apart. That reads as an oversight rather than a design."
+      },
+      {
+        "id": "ID-7",
+        "locus": "research/serp-analysis/references/analysis-templates.md:214-224",
+        "defect": "NO AGGREGATION RULE FOR A BLOCK WHOSE MEMBERS DISAGREE ON INTENT. The template says 'List every element on the page (each organic result, each feature, the ad block if present), give each one intent' - so a PAA block of four questions is ONE element and an ad block of three ads is ONE element. Nothing says how to assign one intent to a block whose members differ.",
+        "why_it_matters": "At the denominators this skill actually produces (13-15), one block flip moves 7-8 percentage points. An instrument whose headline is 'Counted, not estimated' has an uncontrolled 8-point lever in it.",
+        "how_the_run_handled_it": "It invented a plurality rule and disclosed the sensitivity. e1.md:167: 'The question block was counted informational as a block, although two of its four questions are cost questions ... Counting either block the other way moves one element, which is 7 points - the transactional finding survives both.' e3.md:193 does the same with an explicit plurality count of the six related-search chips (3 informational / 2 commercial / 1 transactional). e3.md:191 also invents the right answer for an unclassifiable element - 'It stays in the count, unclassified' - which the template's own :221-223 does license, though only for elements, not for blocks."
+      },
+      {
+        "id": "ID-8",
+        "locus": "research/serp-analysis/references/analysis-templates.md:111-118",
+        "defect": "AN OPINION COLUMN WITH NO INPUT. The Ranking Patterns table's third column is headed 'Importance' with the cell value 'High/Med/Low' on all six rows, and no rubric for it exists anywhere in the skill (`grep -rn 'Importance' research/serp-analysis/` returns only these six template lines).",
+        "how_the_run_handled_it": "All four data-bearing deliverables silently dropped the column. e1.md:103 replaced it with 'What would produce it'; e3, e2 and e4 replaced the whole block with counted patterns read off the table. Nothing was lost, which is itself the finding: a column every run deletes is a column the template should not ship."
+      },
+      {
+        "id": "ID-9",
+        "locus": "research/serp-analysis/SKILL.md:7 and the whole body",
+        "defect": "THE DECLARED TOOL HAS NO USE RULE. `allowed-tools: WebFetch` sits in the frontmatter and the word appears nowhere else in the skill. `grep -rn 'WebFetch|fetch' research/serp-analysis/` returns the frontmatter line and one line about automated retrieval that is conditioned on connected MCP tools (:105). Steps 1-8 never mention fetching. So a run facing a zero-data prompt has a declared capability and no instruction on whether to use it.",
+        "how_the_run_handled_it": "e5 declined it and gave a reason specific to the query rather than a general refusal (e5.md:32): 'emergency dentist manchester is a local-intent search, so the results depend on where the searcher physically is. A fetch from wherever this session happens to run would produce a results page for a location nobody chose, and you would have no way to tell which one. That is a worse input than no input, because it looks like data.' This grader judges that correct for a local-intent query and NOT obviously correct in general - a non-local informational query might be fetchable usefully - which is exactly why the skill needs to say."
+      },
+      {
+        "id": "ID-10",
+        "locus": "references/action-output-contract.md:70-74 (library-wide, not serp-analysis)",
+        "defect": "THE OWNER-ROLE LIST IS A CLOSED LIST OF NINE ENGLISH STRINGS WITH NO RULE FOR A NON-ENGLISH DELIVERABLE. `grep -niE 'greek|language|translat' references/action-output-contract.md` returns ZERO. The stated rationale for the closed list is 'so that a plan can be read across deliverables' - which is precisely what translating it breaks, and which is also the reason for keeping it, so the file gives no way to choose.",
+        "how_the_run_handled_it": "e2 translated all five roles it used: Νομικά/συμμόρφωση, Προϊόν/εμπορικό, SEO/τεχνικά, Εξυπηρέτηση πελατών, and `Client decision` as «Απόφαση διοίκησης» (e2.md:397). Translating is the right call for a client-read Greek surface - an English register label in Greek client prose is family-8-adjacent - but «Απόφαση διοίκησης» means 'management decision', which is not the same marker as 'the agency cannot decide this'. For a one-owner shop it also reads a size too large. The gap is library-wide: every Greek eval in all twenty suites hits it.",
+        "not_fixed_here": "This grader edits no reference file. Routed to the coordinator: the contract needs either a translate-the-label rule with the closed list given per language, or a keep-the-English-key-and-gloss-it rule."
+      }
+    ],
+    "considered_and_rejected": [
+      {
+        "id": "ID-CAND-1",
+        "candidate": "SKILL.md step 3 orders a breach of ruling R3-9a / family 9 by requiring 'why it ranks' for all ten results.",
+        "why_it_was_examined": "SKILL.md:135 ends 'and why it ranks', and analysis-templates.md:96 ships a '**Why It Ranks #1**: 1. [Factor 1] 2. [Factor 2] 3. [Factor 3]' block with no conditioning at all. R3-9a and family 9 forbid asserting an engine disposition as fact.",
+        "why_rejected": "NOT A BREACH ORDER. 'Why it ranks' is satisfiable as an observation about what a page carries - the executor's own reformulation, 'What the capture shows this page carries' (e3.md:99), does exactly that - and the same file already models the safe form at :196-200 for the AI Overview blocks: 'Neither states why an engine chose a source: no engine publishes its selection rule, and this library does not report one (ruling R3 amendment 9a).' The skill under-specifies; it does not order.",
+        "correction_to_the_way_this_was_reported_to_me": "The claim that 'the example report resolves it by negation only' is INACCURATE, and the inaccuracy matters. example-report.md:56-61 makes five POSITIVE causal attributions under the heading 'Why #1 Ranks First' - 'podcasthost.example's guide succeeds because: 1. **Comprehensive** ... 2. **Updated** ... 3. **Structured** ... 4. **Topically focused** ... 5. **Supporting content**'. The negation at :63-65 ('DA does not order this SERP ... do not report it as the reason') is added AFTER them, not instead of them. So the worked example models a causal 'succeeds because' frame and then fences off one wrong reason - which is a weaker demonstration than the executor's own reformulation.",
+        "what_the_real_finding_is": "The safe reading is stated 100 lines away from the two surfaces a run copies (SKILL.md step 3 and the template block at :96), and is scoped there to a different block. That is F15-r1's shape - two lines fine apart and wrong together, in one file, with a line-local guard that cannot see the join. Recorded as a carrier gap rather than as an instrument defect, because no expectation grades it and no verdict moves."
+      },
+      {
+        "id": "ID-CAND-2",
+        "candidate": "e2.5 is unsatisfiable against SKILL.md:180.",
+        "why_rejected": "Its figure clause is conditional. See suite_level_findings_step_7 T1."
+      }
+    ]
+  },
+  "carrier_gaps_found": [
+    {
+      "id": "CARRIER-1",
+      "severity": "the most consequential structural finding of this run",
+      "statement": "SKILL.md:180 declares BestPrice's vendor-measured magnitudes 'not client-quotable' and requires them 'resolved against a current primary source *before any client-facing claim*'. greek-shopping-surfaces.md:13-17 then supplies both magnitudes (~6.9M and ~40.8M visits/month) AND a ratio derived from exactly them - 'on the same vendor's numbers Skroutz's traffic is roughly 6× larger' (grader-checked: 40.8/6.9 = 5.91) - and closes with a prohibition on only one direction of the comparison: 'Do not tell a client BestPrice out-trafficks Skroutz.'",
+      "the_ruling_asked_for": "DOES THE DERIVED RATIO INHERIT THE PROHIBITION? YES. Three grounds. (i) Epistemic: a ratio of two unaudited vendor estimates is not more reliable than either, and the error compounds rather than cancels; the stated ground of the prohibition therefore applies with at least equal force to the ratio. (ii) Identity: the ratio IS the two magnitudes with the units cancelled - it is the same claim, not a different one, and a rule that bans the figures while releasing their quotient bans nothing. (iii) The file's own asymmetry proves the point: it forbids the comparative claim in the direction a client might want and hands over the opposite comparative claim as usable fact, which reads as permission to tell a client that Skroutz out-traffics BestPrice by about six times. That is precisely the reading SKILL.md:180 says 'was being read here as permission to cite with a caveat'.",
+      "scope_of_the_ruling": "greek-shopping-surfaces.md is an OPERATOR surface, so carrying the figures and the ratio in that file is legitimate under the reader test and nothing needs deleting. What is missing is the client-facing status of the derived ratio, which the file leaves undefined and SKILL.md:180 does not name. The fix is one clause on :17 extending 'not client-quotable' to anything computed from those figures.",
+      "did_it_bite_this_run": "No, and that is not evidence the carrier works. e2.md:57 refused all magnitudes and quoted no ratio: 'τα κρατάει εκτός πελατειακού κειμένου μέχρι να επαληθευτούν σε πρωτογενή πηγή'. One blind run declining an available figure is one data point, and F13-r3's rule applies: a carrier added in response to a ledgered failure is unproven until a blind run exercises it, and this one was not exercised because the executor was stricter than the instrument required.",
+      "not_fixed_here": "This grader edits no skill or reference file."
+    },
+    {
+      "id": "CARRIER-2",
+      "severity": "high, and it is F17's founding shape",
+      "statement": "Three binding rulings of 2026-08-17 - the seven-field action contract, One Owner Per Cluster, and the prohibited-tactics floor - are carried in root CLAUDE.md and in references/ at the repo root, and in NO file inside research/serp-analysis/. All three were executed correctly and unprompted in every deliverable. An in-repo run reads them from CLAUDE.md; a user who installs this skill alone does not, and no measurement this pipeline owns can tell the two apart. Recorded because this run is a clean positive instance of the blind spot F17 opened and left unprobed."
+    }
+  ],
+  "arithmetic_check": {
+    "method": "Every derived figure in all five deliverables was recomputed from the fixture files, by hand for the small ones and by script for the numeric provenance scan (modeb-serp-2026-08-17-numscan.py extracts every numeric token per deliverable and diffs it against that eval's fixture, printing the unmatched tokens with their line numbers for hand inspection rather than a verdict). The claim-1 satisfiability question was settled exhaustively by modeb-serp-2026-08-17-claim1-fifteenths.py.",
+    "figures_recomputed": 74,
+    "reconciled": 73,
+    "did_not_reconcile": [
+      {
+        "where": "e3.md:114",
+        "deliverable_says": "'Across the nine results with a word count the mean is 13,550 ÷ 9 = **1,505.6** and the median is **1,450** - and both of those numbers sit *below* four of the top five.'",
+        "recomputed": "The mean and the median are BOTH correct (sum 13,550 over the nine word-counted results; median of the sorted nine is 1,450). The count is wrong. Top-five word counts are 2,400 / 900 / 1,750 / 2,100 / 1,300. Values above 1,505.6: three (2,400, 1,750, 2,100). Values above 1,450: three (the same three). It is THREE of the top five, not four.",
+        "consequence": "None to any verdict - the pattern the sentence supports ('Word count does not order this page', :114) is independently established by position 2 at 900 words and position 1 at 2,400, both fixture-exact. Recorded as D2 in defects_outside_the_graded_set: it is a claim a client can re-derive from the table printed twenty lines above it and find wrong."
+      }
+    ],
+    "notable_reconciliations": [
+      "e3 difficulty: (56.7 × 25 + 60 × 20) ÷ 45 = 2,617.5 ÷ 45 = 58.17 -> 58, Medium (40-69). Correct, including the half-up rounding and the band read off the rounded score.",
+      "e3 sensitivity table, all five rows independently recomputed: bar 1 -> 40.4 -> 40; bar 2 -> 49.3 -> 49; bar 3 -> 58; bar 4 -> 67.1 -> 67; bar 5 -> 75.9 -> 76. All five correct, and the claim 'The band does not move across four of the five possible values' is correct (four Medium, one High).",
+      "e3 mean DA 567/10 = 56.7; top-five 306/5 = 61.2; gaps to DA 42 of 14.7 and 19.2; boilerbond 2025-03 to 2026-08 = 17 months. All correct.",
+      "e3 freshness: 6 (2026 updates) + 3 (no 2026 update) + 1 (ongoing thread) = 10, and the named positions match the fixture row for row.",
+      "e2 price: 279+3,90 = 282,90; 289+4,90 = 293,90; difference 11,00; 11,00 ÷ 282,90 = 0,0389 -> 3,9%. All correct, and the deliverable prints the working.",
+      "e2 attributes: 9 - 6 = 3 missing, 6/9 = 67% complete. Correct.",
+      "e2 reviews: 412 - 38 = 374. Correct.",
+      "e1 reviews: 89 - 11 = 78 and 212 - 11 = 201. Both correct, and the deliverable correctly identifies that the rating is NOT the gap (client 4,8 sits between the displayed 4,7 and 4,9).",
+      "Intent sets, all four recomputed element by element against the fixtures and all four sum to their own denominator: e1 12+1+1 = 14 -> 86+7+7 = 100; e2 8+3+2 = 13 -> 62+23+15 = 100; e3 11+2+1+1 = 15 -> 73+13+7+7 = 100; e4 10+4+1 = 15 -> 66.7+26.7+6.7 = 100.1 (disclosed; see ID-3).",
+      "Format and domain-type distributions, all eight sets across four deliverables, each recomputed result by result: every one sums to 10 with each result in exactly one bucket."
+    ]
+  },
+  "defects_outside_the_graded_set": {
+    "what_was_looked_for": [
+      "fabrication of any figure, name, position, rating or date not in the fixture (scripted extraction + hand inspection of every unmatched token, all five deliverables)",
+      "any claim with no source, especially engine-behaviour, market-size or seasonality claims",
+      "internal self-contradiction between two statements in the same deliverable",
+      "arithmetic errors in prose, including counts and enumerations, not only in tables",
+      "unresolvable template cells and bracket tokens surviving into client copy",
+      "anti-slop S6 families 1-10, run as scripted screens (family 7 `~~`; family 8 slugs, ruling IDs, repo paths, framework item IDs; family 9 two-step NET+RANK in Greek and its English analogue; family 10 two-step NET+RANK) plus the Greek families on e2",
+      "Value Rule compliance and in-fence labels from the closed list of three",
+      "Reader Test with the 2026-08-17 carve-outs",
+      "operator blocks sitting unlabelled inside a client fence",
+      "prohibited tactics recommended, drafted or built upon",
+      "over- and under-production against the prompt"
+    ],
+    "found": [
+      {
+        "id": "D1",
+        "where": "e5.md:151, :153 (twice), :218, :220, :221, :224 — six lines, seven statements",
+        "severity": "HIGH - the most consequential defect in the run, and no expectation can see it",
+        "defect": "THE DIFFICULTY-FACTOR SPLIT IS INVERTED, SEVEN TIMES ACROSS SIX LINES, INSIDE THE ACTION THAT ASKS THE CLIENT TO SPEND MONEY. The deliverable's own table at :145-149 correctly shows that domain authority (25%), page authority (20%) and backlinks (20%) all need a paid source, while the content quality bar (20%) and SERP stability (15%) need only work. The prose then says the opposite: :151 '**Three of the five need only the capture and an afternoon**' - and then names only two (the quality bar and stability), padding the count with 'The top-ten list itself', which is not a difficulty factor; :153 '**Two of the five need a paid source**'; :153 again 'a difficulty score built from three factors with two named as unscored'; A4's Action at :218 'knowing that two of the five difficulty factors cannot be scored without one'; A4's Acceptance criterion at :220 and 'the difficulty assessment is produced from three factors with the two unscored ones named'; :221 and :224 'A three-factor score'.",
+        "why_it_is_consequential_rather_than_merely_true": "A4's entire purpose is a spend decision, and the field the client reads to make it misprices the thing being bought. Declining the subscription actually costs THREE of five factors and 65% of the weight matrix, leaving a two-factor score built on 35% - not a three-factor score missing two. The action's own risk field then reassures the client on the wrong arithmetic: 'If the difficulty number is the only thing it is for, the three-factor version is probably enough.' A client following that advice buys nothing and receives a difficulty number derived from a fifth of the instrument.",
+        "it_is_e5_local_and_therefore_not_a_misreading_of_the_skill": "e1.md:274 gets it right ('**Three of the five are closed by a tool subscription; two are closed by work you can do this week**'), e4.md:314 gets it right ('**Two of the five close without any subscription**'), and e2.md:315 gets it right in Greek ('**Δύο από τους πέντε κλείνουν χωρίς συνδρομή**'). Three of four deliverables have it right and the fourth is wrong five times over.",
+        "not_covered_by": "e5.1 requires only that no difficulty SCORE or band be given, which holds. e5.2, e5.3 and e5.4 do not touch the factor arithmetic. Nothing in the suite reaches it.",
+        "_second_read_correction_note": "COUNT AND LINE LIST CORRECTED BY THE 2026-08-17 SECOND READ. The `where` field read 'e5.md:151, :153, :220, :221, :224' (five lines) and the defect prose opened 'INVERTED, FIVE TIMES', while the prose itself quoted A4's Action sentence and attributed it to :220 — the Acceptance criterion's line — leaving :218 out of the list entirely. Re-derived by opening e5.md and grepping every factor-count phrase: the inverted split is stated SEVEN times across SIX lines — :151 ('Three of the five need only the capture and an afternoon'), :153 ('Two of the five need a paid source'), :153 again ('a difficulty score built from three factors with two named as unscored'), :218 ('two of the five difficulty factors cannot be scored without one'), :220 ('produced from three factors with the two unscored ones named'), :221 ('A three-factor score with its gaps named'), :224 ('the three-factor version is probably enough'). THE SUBSTANTIVE CLAIM WAS RE-VERIFIED AT SOURCE AND IS UNCHANGED, including its arithmetic: the table at :145-149 puts domain authority (25%), page authority (20%) and backlinks (20%) behind a paid source and the content quality bar (20%) and SERP stability (15%) behind work, so declining the subscription costs three of five factors and 65% of the weight matrix and leaves a two-factor score on 35%. The three sibling deliverables were re-opened and all three are correct: e1.md:274 'Three of the five are closed by a tool subscription; two are closed by work you can do this week'; e4.md:314 'Two of the five close without any subscription'; e2.md:315 «Δύο από τους πέντε κλείνουν χωρίς συνδρομή σε εργαλείο». Original `where` preserved: e5.md:151, :153, :220, :221, :224"
+      },
+      {
+        "id": "D2",
+        "where": "e3.md:114",
+        "severity": "material - a count a client can re-derive from the table above it and find wrong",
+        "defect": "'both of those numbers sit *below* four of the top five' - it is three of the top five. See arithmetic_check.did_not_reconcile for the recomputation. Same class as the prior baseline's own D1 and D2 (a tally wrong beside correct individual values), which is a repeat of a class the previous grading already reported and which no expectation was added to catch.",
+        "not_covered_by": "e3.6 enumerates 'every position, URL, DA value, word count, and date' - a derived count over those values is none of them. e3.5 requires patterns to be named from the table, which they are; the pattern is right and its supporting count is wrong."
+      },
+      {
+        "id": "D3",
+        "where": "e4.md:226 and e4.md:485",
+        "severity": "material - and it is also the e4.2 regression, recorded here too because the class is broader than the one expectation",
+        "defect": "'the capture was taken on 7 August, which is peak season' - an unsourced seasonality assertion inside the section that refuses to assert seasonality, six lines above its own rule 'Mark the measured peak, shoulder and trough months ... **Measured, not assumed**' (:232). Repeated at :485 as an established property. The deliverable also infers from it at :226 that February is 'the one month you least need to plan for', which is a second unsourced seasonal claim built on the first.",
+        "why_it_is_worth_listing_twice": "As an expectation failure it is one clause of e4.2. As a defect class it is the F19 inverse - a deliverable that abstains rigorously on everything it was asked for and then asserts, in passing, the one thing nobody asked it about."
+      },
+      {
+        "id": "D4",
+        "where": "e1.md:195",
+        "severity": "low - provenance compression, not fabrication",
+        "defect": "The LSA footprint list (US, CA + AT, BE, FR, DE, IE, IT, NL, ES, CH, UK) is attributed solely to 'Google publishes per-country variants of that page for the countries where the product runs'. serp-feature-taxonomy.md:242 gives TWO bases - 'three independent vendor guides unanimously list the LSA footprint as ...' AND the Help Center per-country variants. The deliverable kept the stronger of the two and dropped the weaker, which is defensible; but it presents a compiled list as a direct read of Google's own pages, which is a stronger provenance claim than the reference makes.",
+        "mitigation": "The load-bearing claim - that Greece is not in the country picker - is separately owner-verified and correctly dated in the deliverable (:195, 'checked 9 August 2026', matching taxonomy:242's 'owner-verified 2026-08-09'). The footprint list is context, not the finding."
+      },
+      {
+        "id": "D5",
+        "where": "e2.md:41",
+        "severity": "low - a withheld figure re-surfacing as a rhetorical bound",
+        "defect": "«Είτε η BoxNow έχει πενήντα χιλιάδες σημεία είτε τριακόσιες», two lines after refusing to give a locker count. The feminine τριακόσιες agrees with χιλιάδες rather than with the neuter σημεία, so it elides to 300 thousand - the order of magnitude of the ~300k end-2026 target the reference marks '[VERIFY - do not quote the figure]'. Nothing is asserted and the sentence's whole point is that the number is irrelevant, but a reader can carry 300k away from a paragraph written to stop exactly that.",
+        "fix_shape": "Two magnitudes that are not near the withheld one would do the same rhetorical work at no cost."
+      },
+      {
+        "id": "D6",
+        "where": "e4.md:162-166",
+        "severity": "informational - correct behaviour under a defective rule, recorded so it is not later mistaken for an error",
+        "defect": "The intent percentages sum to 100.1%. This is NOT a deliverable defect: the split 10/4/1 at n=15 cannot sum to 100 at any decimal precision (see ID-3 for the exhaustive measurement), the counts sum exactly, and the deliverable discloses the residue and its cause. Listed because a reader scanning for arithmetic errors will find it and should know it was adjudicated."
+      },
+      {
+        "id": "D7",
+        "where": "e5.md:153",
+        "severity": "trivial",
+        "defect": "'there is no free equivalent that produces the same numbers' - an unsourced market claim. Near-tautological for a proprietary metric, and it changes no decision, but it is stated in the indicative in a deliverable whose whole subject is not asserting the unverified."
+      },
+      {
+        "id": "D8 (added by the 2026-08-17 second read — move 2, the spelled-out-number sweep)",
+        "where": "e1.md:57, the 'Text ads' row of the client-read feature table",
+        "severity": "material — a count a client can falsify against the deliverable's own table twenty lines below it",
+        "quote": "«| Text ads | Present — 3 | Above all organic results | Three paid competitors sit above position 1. **Two of them (texnites24.gr, sos-ilektrologoi.gr) also hold organic slots** — they occupy the page twice. |»",
+        "recomputed": "The fixture's three text advertisers are texnites24.gr, sos-ilektrologoi.gr AND vres-mastora.gr (serp-snapshot-ilektrologos-peiraias-el.md:28-30). All three hold organic slots: texnites24.gr at #1 and #7, vres-mastora.gr at #2, sos-ilektrologoi.gr at #4. It is three of three, not two — and the deliverable's OWN organic table prints vres-mastora.gr at position 2, at e1.md:79. The sentence is falsified by the page it sits on.",
+        "why_it_matters": "The named finding — paid competitors occupying the page twice — is right and if anything understated: the ad block and the top of the organic list are the same three companies, which is a stronger statement about this results page than the one the deliverable makes. The count is the only wrong part, and it is wrong in the direction of underselling the finding.",
+        "not_covered_by": "e1.1 grades the twelve-row feature inventory against the fixture and passes on the row's Status and Position cells, not on its commentary cell. e1.5 requires the aggregator pattern named from positions 1, 2, 7 and 8, which the deliverable does correctly at :137. e1.6 is the fabrication screen, and its own evidence records the method: 'Scripted numeric scan … extracted every numeric token in e1.md and diffed against the fixture: 20 distinct tokens absent from the fixture'. A DIGIT-TOKEN SCAN CANNOT SEE THE WORD 'Two'. This is ledger F15 recurrence 5 instance (2) reproducing in a different suite — the screen passes by matching nothing, because the quantity was spelled out.",
+        "effect_on_the_records_own_arithmetic_count": "`arithmetic_check` reports 74 figures recomputed and 73 reconciled, and that count is NOT restated here, because it is an honest report of what its stated method could reach: a numeric-provenance scan over digit tokens. This item sits outside that method rather than inside its error rate. Counting the second read's own work, the run now carries two non-reconciling derived quantities in client prose — this one and D2.",
+        "ledger_relation": "F15-r5 instance shape. Reported as an observation for the coordinator to rule on; not incremented by this reader."
+      },
+      {
+        "id": "D9 (added by the 2026-08-17 second read)",
+        "where": "e5.md:197 against e5.md:151",
+        "severity": "low — an internal inconsistency, NOT a further instance of D1",
+        "quote": "A2's Expected impact at :197 — «it produces the input to three of the five difficulty factors» — against :151, «The top-ten list itself — **which is the input to all five** — comes out of section 3».",
+        "what_it_is": "A sixth 'three of the five' in e5, found by the same sweep that confirmed D1 and adjudicated SEPARATELY rather than folded into it. It is a different claim in a different frame: D1 is about which factors need a paid source, this is about which factors the capture supplies an input to. Under a narrow reading it is defensible — the URL list is the missing input for the three tool-based factors specifically — but the deliverable states the wider reading eighty lines earlier, in bold, and the two cannot both be right.",
+        "why_it_is_recorded_separately": "Folding it into D1 would inflate D1's instance count with a statement that is not an inversion of the paid/free split, which is the defect D1 names. A count in a defect record has to be re-derivable by whoever quotes it."
+      }
+    ],
+    "notable_absences_looked_for_and_not_found": {
+      "family_7": "ZERO `~~category` tokens on any surface in any of the five deliverables. This closes the prior baseline's D3, which found four in this suite's own e1 and traced them to a live contradiction between SKILL.md:172 and example-report.md:11-12. SKILL.md:176 now carries the resolved-name rule and the e1.6/e3.5 expectations were rewritten to match; the run complied on the harder text.",
+      "family_8": "ZERO skill slugs, command slugs, ruling IDs (`ruling R[0-9]`, `amendment [0-9]`, bare `\\bR[0-9]\\b`) or repo paths (`docs/loop/`, `references/`) in any deliverable. The framework-ID screen `\\b[ACEIORT][0-9]{2}\\b` returns 20 hits, ALL of them the product model name 'Vektra R30' from the e2 fixture - the known false-positive class the family's own text names. Zero operator blocks sitting unlabelled inside a client fence: the only labelled fence in the run is e5's capture form, correctly labelled `SKELETON` inside the fence in the fence's own syntax.",
+      "family_9": "The Greek two-step screen over e2 (NET on Google/ChatGPT/Perplexity/Gemini/Copilot/AI/LLM/μηχαν/τεχνητή νοημοσύνη; RANK on all sixteen disposition stems including the five added 2026-08-17; LC_ALL=C.UTF-8) returns two ranked hits, both the correct negative form (:231 'Google οργανικά και Skroutz πρώτα ... κανόνας κατανομής προσπάθειας'; :459 'καμία τους δεν δημοσιεύει πώς κατατάσσει'). The English analogue over e1/e3/e4/e5 returns two hits, both negative (e3.md:97, e3.md:411). Reported as 'screened, nothing surfaced', not as a clean sheet - a copular form and a claim split across two lines both escape a line-based screen, as the family's own text states. Beyond the screen, all four data-bearing deliverables carry an explicit non-mechanism paragraph (e1.md:139, e2.md:123, e3.md:97, e4.md:210).",
+      "family_10": "The two-step screen returns ONE ranked hit across all five deliverables, e3.md:159, and it is the disclaimer ('Nobody can promise you a citation, and nothing in this report does'). Two deliverables independently added a family-10 disclaimer under the template's Winnable column (see instrument_defects ID-1), and three actions state 'No placement outcome is predicted' in their expected-impact field.",
+      "value_rule": "One labelled fence in the run (e5.md:71-129), correctly labelled SKELETON inside the fence in the fence's own syntax, with the closed-list vocabulary. Zero bracket tokens in any value position of any block framed as paste-ready. The e1 and e3 content outlines carry no bracket tokens at all - both are fully resolved. All ten fences across the five deliverables are balanced.",
+      "prohibited_tactics": "Not merely absent - actively refused, three times, unprompted and with the exposure named: doorway pages at e1.md:327 and e4.md:420; incentivised and gated reviews at e1.md:250, e2.md:199, e4.md:338 and e5's absence of any review advice; competitor content reuse at e4.md:432; unreviewed machine translation at e4.md:292 and A7's acceptance criterion ('a named reviewer, or no German pages').",
+      "families_1_2_5_6_and_the_advisory_screens": "All re-run after the mid-run ruleset drift, with the CURRENT patterns, LC_ALL=C.UTF-8, GNU grep 3.11. FAMILY 1 (`Όλα τα [0-9]`): 0 hits. FAMILY 2 (`απαιτούνται στοιχεία`, `[CLIENT DATA`, `[SOURCE NEEDED`): 0 hits. FAMILY 5 (n-word net `κανείς|κανέν|καμί|τίποτ|πουθενά|(?<!α)ποτέ`): 30 hits, EVERY ONE HAND-CHECKED for a preverbal licenser in its own clause, per the family's own instruction that the pattern is a screen and not a verdict. Every one is licensed: the large majority by an explicit preverbal «δεν» («καμία μηχανή **δεν** δημοσιεύει», :123; «Κανένα από αυτά **δεν** υπάρχει», :115); one by the subjunctive negator «μη» in a purpose clause («για να **μη** διαβαστεί τίποτα», :444); four by a negative preposition with no finite verb («χωρίς κανένα μέγεθος» :43, «χωρίς καμία εξωτερική πηγή» :209, «από πουθενά αλλού» :4, «σε τίποτα άλλο» :459); three by the protected verbless nominal fragment («**Εξαρτήσεις:** Καμία.», :413/:425/:437); and one by «το τίποτα» standing as a substantive noun rather than as an n-word («βγαλμένο από το τίποτα», :305). ZERO violations. FAMILY 6 (NET `μηδ[εέ]ν`, RANK `κοστίζ`): 2 net hits, :135 and :231, both «μηδενικού (διαφημιστικού) κόστους» - an adjectival genitive, natural Greek, and the rank stem `κοστίζ` appears on neither line. ZERO violations. ADVISORY «νίκη» with the current `(?<![Θθ]εσσαλο)` guard: 0 hits. Reported as 'screened, nothing surfaced' per F15's governing note, not as a clean sheet: a copular form, a clause split across two lines, and a Greek word boundary the pattern cannot express all escape these screens."
+    },
+    "e5_specific_adjudication_overproduction_or_the_right_deliverable": {
+      "the_question": "e5 is 3,058 words for a prompt whose honest answer is 'I cannot, here is what I need'. The executor flagged this as its own most uncertain call.",
+      "verdict": "THE RIGHT DELIVERABLE IN KIND, OVERPRODUCED IN DEGREE - and the overproduction is concentrated in two identifiable places rather than spread through it.",
+      "why_the_kind_is_right": "e5.4 explicitly licenses it: 'offering the analysis framework or a capture checklist while waiting is acceptable and does not fail.' More than that, the prompt asks four questions and a bare refusal answers none of them. The capture brief in S3 is not padding - it is the deliverable's actual product, and it is better than a screenshot request because it names the fields that decide whether the capture is worth taking (the Absent/Present distinction on every row, full cited URLs rather than domains, the ad copy, logged-out state). S2 is the strongest section in the file and could not be shorter: it establishes that 'the SERP' for a local-intent query is not one object, which changes what the client is asking for, and it needs no data to say. That is genuine information gain from a session with zero inputs.",
+      "where_it_overproduces": "(i) S4, the difficulty section, is 17 lines explaining the arithmetic of an instrument that cannot be run at all, and it is where the run's most consequential error lives (D1). A three-line statement - no score, here are the five inputs, the capture supplies the first - would have carried the same content with less surface to be wrong on. (ii) S6's four seven-field actions are heavier than the situation: A1 (choose the locations) and A2 (take the capture) are load-bearing, while A3 (a second capture) and A4 (decide about a subscription) are decisions about an analysis that does not exist yet and would sit better as two lines inside A2's expected impact. The seven-field contract is a good rule that does not scale down to a two-step unblock.",
+      "the_test_applied": "Would a client reading this be better served by a shorter version? For S1-S3 and S5, no - each earns its length by changing what the client does next. For S4 and S6, yes. Roughly 800 of the 3,058 words are ceremony, and the section carrying most of it is the section that got its arithmetic wrong. That correlation is the argument: length in a zero-data deliverable is surface area for error, because there is nothing to check the writing against."
+    }
+  },
+  "tool_correctness": {
+    "tool_errors_encountered": [
+      {
+        "what": "A `grep -Eei` invocation with an unquoted alternation pattern was parsed as filenames, producing four 'No such file or directory' errors on the family-9 English screen.",
+        "effect": "None on any verdict. Caught immediately from the error text, re-run with the pattern quoted, and the corrected run's output is what the family-9 finding rests on. Recorded per the tool-correctness metric rather than swallowed."
+      }
+    ],
+    "expectations_not_gradable_as_written": [],
+    "checker_verification": "All three grader scripts print matched text with its line number rather than a boolean. The numeric scan prints every unmatched token with every line it occurs on, and all 111 unmatched tokens across the five deliverables were hand-inspected against the fixtures and the skill's constants before any of them was cleared. Per ledger F7, the two FAIL verdicts were both confirmed by opening the raw file at the flagged location and quoting it, and the e3.1 verdict was additionally checked by a targeted negative grep (`combination|co-occur|both features|high-information|optimi[sz]e for both`) whose single hit was read in full before the FAIL was written. The e4.2 verdict was checked by reading every one of the 21 lines in e4.md containing 'peak', 'season', 'August', 'January' or 'Munich'.",
+    "scope_drift": "None. This grader's only repository write is this file. No skill, reference, register, tracking file or deliverable was modified; `git status --porcelain` at close shows only this file and one other agent's untracked baseline record.",
+    "grader_working_files": [
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-serp-2026-08-17-greek-mech-check.py",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-serp-2026-08-17-numscan.py",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-serp-2026-08-17-claim1-fifteenths.py"
+    ],
+    "deliverables_graded": [
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-2026-08-17/serp-analysis/e1.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-2026-08-17/serp-analysis/e2.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-2026-08-17/serp-analysis/e3.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-2026-08-17/serp-analysis/e4.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-2026-08-17/serp-analysis/e5.md"
+    ],
+    "validator": "bash scripts/validate-skill.sh research/serp-analysis -> 15 passed, 0 warnings, 0 failed. Body 219 lines, under the 350 limit; version authority in lockstep at 4.3.7."
+  },
+  "ambiguous_expectations_eval_improvement": [
+    {
+      "id": "e3.1",
+      "issue": "'the AI Overview + featured snippet co-occurrence **is read** per the taxonomy's combination table ... **with** both features addressed in the strategy' - it is not decidable from the wording whether the read must be VISIBLE in the deliverable or whether behaving as the table prescribes satisfies it. This grader's FAIL and the alternative PASS turn entirely on that word.",
+      "suggested_rewrite": "Say which. If a visible read is required: 'the deliverable states that both features are present together and that both are therefore worked'. If the outcome suffices, delete 'is read per' and keep only 'both features addressed in the strategy', which is already unambiguous.",
+      "secondary": "The quoted anchor 'Google sees this as high-information query' is an engine-disposition sentence. Anchoring an expectation to it gives a family-9-aware executor a reason to steer away from the whole clause. Anchor it to the composition fact instead."
+    },
+    {
+      "id": "e4.2",
+      "issue": "'Any month named as a likely peak is framed as an assumption to be measured, never as a finding of this analysis.' The clause is unconditional, but a month named in passing to DISCOUNT the capture ('7 August, which is peak season') is a different act from a month named in a calendar row. The expectation does not distinguish them and this grader had to decide which reading governs.",
+      "suggested_rewrite": "'No month is characterised as peak, shoulder or trough anywhere in the deliverable - including in asides about the capture window - unless it is framed as an assumption to be measured.' That is what the current clause means and it removes the argument."
+    },
+    {
+      "id": "e1.5",
+      "issue": "'primary intent identified as **local/commercial service intent**' names a category that is not one of the four labels the skill's own Search Intent template offers (Informational / Commercial / Transactional / Navigational). A run using the skill's vocabulary writes 'transactional' and cannot match the expectation's string.",
+      "suggested_rewrite": "'primary intent identified as a hire-a-local-service intent - transactional or commercial in the template's own vocabulary - with the composition evidence named'."
+    },
+    {
+      "id": "e2.4",
+      "issue": "'no ... current BoxNow locker count ... appears **as a number anywhere in the response**'. Read literally, a hypothetical disjunction that happens to include the withheld figure's magnitude (D5) breaches it; read by its object, it does not, since no count is asserted. This grader took the second reading and had to write a paragraph justifying it.",
+      "suggested_rewrite": "'no figure is offered as, or could be read as, the BoxNow locker count - including inside hypothetical or illustrative constructions'."
+    },
+    {
+      "id": "e2.5",
+      "issue": "The clause 'any SimilarWeb visit figures cited (~6.9M / ~40.8M per month) are labeled vendor-measured estimates' both hands the executor the two figures and appears to license quoting them, while SKILL.md:180 now forbids it. See suite_level_findings_step_7 T1 and carrier_gaps_found CARRIER-1.",
+      "suggested_rewrite": "'no vendor-measured traffic magnitude for BestPrice or Skroutz, and no figure derived from one (including a ratio), appears on the client surface; the «Νο1» claim is explained as a vendor category-listing label without them.'"
+    },
+    {
+      "id": "e3.4",
+      "issue": "'each is mapped into the content plan using **the exact question** as an H2 or H3'. Both this run and the prior baseline rendered one or two questions non-verbatim inside the OUTLINE scaffold while stating the verbatim rule correctly elsewhere, and both graders had to decide whether the scaffold counts. Two runs hitting the same ambiguity is the signal.",
+      "suggested_rewrite": "Say where the exactness is tested - 'the four questions appear verbatim at least once, and the content plan instructs that the displayed wording is reused as the heading' - or state that the outline scaffold is not the tested surface."
+    }
+  ],
+  "adjudication_of_the_fourteen_claims": {
+    "note": "Full reasoning and evidence for each is in the sections above; this is the index.",
+    "1": "PARTLY UPHELD, corrected. Unsatisfiable at some SPLITS, not at some denominators; 10/4/1 at n=15 fails at every precision (101 / 100.1 / 100.01 / 100.001), but 111 of 136 splits at n=15 DO sum to 100, so the rule can be met with fifteenths. See instrument_defects ID-3.",
+    "2": "NOT UPHELD as stated; a real finding underneath. The skill does not order a breach - 'why it ranks' is satisfiable as an observation of what a page carries. The claim's premise is factually wrong: example-report.md:56-61 makes five POSITIVE causal attributions ('succeeds because'), not a negation-only resolution. The real defect is that the safe reading sits 100 lines from the two surfaces a run copies and is scoped there to a different block. See instrument_defects.considered_and_rejected ID-CAND-1.",
+    "3": "UPHELD, both halves verified, and RULED: the derived ratio DOES inherit the prohibition. See carrier_gaps_found CARRIER-1 for the three grounds.",
+    "4": "UPHELD in full. SKILL.md:174 presupposes a score; SKILL.md:151 creates a state with no score; three of five evals reached it. See instrument_defects ID-2.",
+    "5": "UPHELD, verbatim. analysis-templates.md:58 names the block; :327-331 still read Yes/No. See instrument_defects ID-1.",
+    "6": "UPHELD. Nothing connects the column to family 10, and two deliverables independently wrote their own disclaimer under it. Same entry, ID-1.",
+    "7": "UPHELD. No admissibility rule for proxy evidence on a 20%-weight factor. The executor's disclosure and sensitivity table are the right handling of a rule that should not need it. See ID-4.",
+    "8": "UPHELD. [Timeframe] and [Can rank?] with no drop-and-name rule, unlike the difficulty factors above them. See ID-5.",
+    "9": "UPHELD, and sharpened: the FORMAT list has an 'Other' bucket and the DOMAIN-TYPE list six lines below it does not. All four data-bearing deliverables had to modify the domain-type list. See ID-6.",
+    "10": "UPHELD. One block flip moves 7-8 points at this skill's actual denominators, and no rule governs it. The run invented a plurality rule and disclosed the sensitivity twice. See ID-7.",
+    "11": "UPHELD. `allowed-tools: WebFetch` in the frontmatter, zero mentions in the body. The executor's location-dependence reason is correct for a local-intent query and does not generalise, which is why the skill needs to say. See ID-9.",
+    "12": "UPHELD. Six template rows, no rubric anywhere, and every deliverable silently dropped the column. See ID-8.",
+    "13": "UPHELD, library-wide. Zero matches for language or translation in references/action-output-contract.md; the closed list's own rationale is the reason both to translate and not to. «Απόφαση διοίκησης» is a reasonable client-facing rendering that does not carry `Client decision`'s marker meaning. See ID-10.",
+    "14": "TWO FACTS, SEPARATELY. CARRIED: NO - `grep -rniE 'acceptance criter|risk if done|action-output-contract|seven field' research/serp-analysis/` returns zero; SKILL.md step 8 asks for 'Next Steps' with no fields. GRADED: NO - zero expectations mention owner, acceptance criterion, expected impact, effort, dependencies or risk. The run produced complete seven-field actions in all five deliverables anyway, which it could only have got from root CLAUDE.md. See coverage_gaps CG3 and carrier_gaps_found CARRIER-2."
+  },
+  "artefacts": {
+    "record": "docs/loop/eval-baselines/blind-2026-08-17/serp-analysis.json",
+    "deliverables": "scratchpad/modeb-2026-08-17/serp-analysis/e1.md .. e5.md (not in the repository; the scratchpad is a workspace, never a record, per F16 guard (a) - this file is the record)",
+    "prior_baseline": "docs/loop/eval-baselines/blind-2026-08-10/serp.json",
+    "committed": false,
+    "pushed": false
+  },
+  "second_read": {
+    "date": "2026-08-17",
+    "what_this_is": "NARROWED second-reader pass, not a re-grade. Three moves only: (1) recompute every figure the record quotes inside its evidence and defect entries; (2) sweep the deliverables for numbers written as WORDS in EN and EL and check each against the fixture (ledger F15-r5, unfixed corpus-wide); (3) test whether the record is still current at HEAD.",
+    "head_at_second_read": "b5135d431aeef7910426d03c82bcf5828d6ece99 — unchanged open to close; `git status` clean; the five deliverables byte-identical to the ones the record cites.",
+    "move_1_arithmetic_recomputation": {
+      "figures_recomputed_by_this_reader": 46,
+      "wrong": 0,
+      "but_one_count_inside_a_correct_finding_was_wrong": "D1's instance count and line list — corrected in place, see corrections_made_in_place. The finding itself is right and was re-verified at source and at the fixture.",
+      "method": "Recomputed from the four fixture files, independently of the record's own scripts. Every fixture table was opened at source before any figure was judged (F7); no verdict below rests on a grep hit or on a recomputation alone.",
+      "the_two_known_arithmetic_cases_the_pass_was_briefed_with": [
+        "D1, THE DIFFICULTY-FACTOR SPLIT — CONFIRMED, and the record UNDERCOUNTS it. e5.md:143-149 was opened: domain authority 25% needs 'an authority figure per domain from a named tool'; page authority 20% 'the same at page level'; backlinks 20% 'a link count per URL from a link database' — three paid. Content quality bar 20% needs 'Opening and reading the top five pages'; SERP stability 15% needs 'Two captures … on different dates' — two work-only. Paid weight 25+20+20 = 65%; work weight 20+15 = 35%. Every one of the record's stated consequences recomputes exactly. All five prose instances the record lists were verified verbatim, AND a sixth and seventh were found at :218 and inside :153. The three sibling deliverables were checked and all three state the split correctly (e1.md:274, e4.md:314, e2.md:315), so the record's 'e5-local, not a misreading of the skill' framing holds.",
+        "D2, THE WORD-COUNT TALLY — CONFIRMED. Recomputed from serp-snapshot-boiler-service-en.md: the nine word-counted results are 2400/900/1750/2100/1300/650/1900/1100/1450, summing to 13,550; 13,550 ÷ 9 = 1,505.5556, so the printed 1,505.6 is right; the sorted fifth value is 1,450, so the printed median is right. Of the top five (2400/900/1750/2100/1300), the values ABOVE 1,505.6 are 2400, 1750 and 2100 — three — and the values above 1,450 are the same three. The deliverable's 'below four of the top five' at e3.md:114 is wrong by one in the direction of overstating the pattern. The record's recomputation is exact, and the pattern it supports is independently true from position 2 at 900 words against position 1 at 2,400."
+      ],
+      "other_figures_recomputed_and_holding": [
+        "Summary rates: 26/29 = 0.89655 -> 0.8966; the two alternatives 27/29 = 0.93103 -> 0.931 and 26/28 = 0.92857 -> 0.929. All three exact, and the e3.1 counter-reading's '27/29 = 0.931' is the same figure. 26 + 2 + 1 = 29 = total.",
+        "per_eval 6/6 · 6/7 · 5/6 · 5/6 · 4/4 re-derived from the 29 verdicts and matched to evals.json's own per-eval counts (6,7,6,6,4). Every cell reconciles.",
+        "expectations_holding_pass_in_both_runs = 25, re-derived: the baseline recorded 28 passes; two of them regress (e3.1, e4.2) and one is voided (e2.6), leaving 25. The baseline's own 28/29 = 0.9655 is exact.",
+        "e3 difficulty: (56.7 × 25 + 60 × 20) ÷ 45 = (1417.5 + 1200) ÷ 45 = 2617.5 ÷ 45 = 58.1667 -> 58, Medium (40-69). Correct, including the half-up rounding and the band read off the rounded score.",
+        "e3 sensitivity table, all five rows re-derived from first principles at bar = 20b: 1817.5/45 = 40.39 -> 40; 2217.5/45 = 49.28 -> 49; 58; 3017.5/45 = 67.06 -> 67; 3417.5/45 = 75.94 -> 76. Four Medium and one High, so 'the band does not move across four of the five possible values' is exact.",
+        "e3 authority: DA column 71/66/58/62/49/31/71/55/60/44 sums to 567, mean 56.7; top-five 71+66+58+62+49 = 306, mean 61.2; gaps to DA 42 of 14.7 and 19.2; boilerbond 2025-03 to 2026-08 = 17 months. All six exact.",
+        "e3 freshness: six results carry a 2026 update (rows 1,2,3,4,7,8), three do not (5,6,9), one is an ongoing thread (10). 6 + 3 + 1 = 10 and the named positions match the fixture row for row.",
+        "e2 pricing from skroutz-vektra-r30-el.md: 279 + 3,90 = 282,90; 289 + 4,90 = 293,90; difference 11,00; 11,00 ÷ 282,90 = 0,03888 -> 3,9%. All four exact. Attributes 6 of 9 filled with three named as missing, 6/9 = 66,67% -> 67%. Reviews 412 - 38 = 374. Locker «4 από τα 6» and cards «0 από 8» both fixture-verbatim.",
+        "e1 reviews from serp-snapshot-ilektrologos-peiraias-el.md: 89 - 11 = 78 and 212 - 11 = 201. Both exact, and the client's 4,8 does sit between the displayed 4,7 and 4,9, so the record's note that the rating is not the gap holds.",
+        "e1.1's counts re-derived against the fixture: the inventory has twelve rows, four marked Yes (text ads 3, Local Pack, PAA 4 questions, related searches 6 chips) and eight 'Not observed'. The record's 'twelve … eight … the fixture's four' is exact.",
+        "All four intent sets re-derived element by element and all four sum to their own denominator: e1 12+1+1 = 14 -> 86+7+7 = 100 (denominator itemised at e1.md:147 as ad block + Local Pack + question block + related-searches block + ten organic = 14); e2 8+3+2 = 13 -> 62+23+15 = 100; e3 11+2+1+1 = 15 -> 73+13+7+7 = 100; e4 10+4+1 = 15 -> 66.7+26.7+6.7 = 100.1, with the residue disclosed and its cause stated at e4.md:166.",
+        "e4 from hotel-serp-naxos-single-pull-en.md: the four property cards and their scores 9.2/9.0/8.8/9.4 (9.4 is the highest of the four, as the deliverable says at :115); 'Direct property sites in the top ten: 2 of 10 (positions 6 and 8)' fixture-verbatim; client at position 14. All exact.",
+        "D6's adjudication re-derived: 10/4/1 at n = 15 gives 66.7 + 26.7 + 6.7 = 100.1 at one decimal, so the residue is forced by the denominator and is not a deliverable error."
+      ]
+    },
+    "move_2_spelled_out_number_sweep": {
+      "result": "ONE NEW MATERIAL FINDING (D8, above) plus one adjudicated internal inconsistency (D9). This is the record where move 2 paid.",
+      "method": "EN + EL cardinal-word sweep over all five deliverables (432 lines carried a spelled-out number), then a narrowed net for the F15-r5 signature. 27 narrowed candidates; every one opened at source and checked against its own fixture.",
+      "the_new_finding_in_one_line": "e1.md:57 says 'Two of them … also hold organic slots' where the fixture and the deliverable's own table at :79 make it three of three. Full entry at defects_outside_the_graded_set D8.",
+      "candidates_checked_and_traced": [
+        "e1.md:59 and :167 'Two of its four questions are cost questions' — the fixture's four PAA questions are «Πόσο χρεώνει ο ηλεκτρολόγος την επίσκεψη;», «Πόσο κοστίζει η αλλαγή ηλεκτρικού πίνακα;», «Τι είναι το πιστοποιητικό ηλεκτρολόγου (ΥΔΕ);», «Τι είναι το ρελέ διαφυγής;». Exactly two are cost questions. Correct.",
+        "e1.md:60 'Four are hire-shaped, two are cost-shaped. Two name neighbouring areas' — the six related searches are τιμές (cost), κερατσίνι (area), νίκαια (area), 24ωρος (hire), πιστοποιητικό ΔΕΗ κόστος (cost), κοντά μου (hire). 4 + 2 = 6, and Κερατσίνι and Νίκαια are the two neighbouring areas. All three counts correct.",
+        "e3.md:193 'of its six chips, three are informational …, two are commercial …, one is transactional' — all six chips quoted verbatim from the fixture and each assigned exactly once; 3 + 2 + 1 = 6. Correct.",
+        "e3.md:242 'its four sources are recorded' — the fixture's AI Overview cites four sources. Correct.",
+        "e3.md:365 'Four of these ten results belong to companies with a commercial position in this market, and none of the four is cited by the AI Overview — the four citations went to a consumer guide, a certification body, a how-to and a cost publication' — the four commercial results are boilerbond (boiler-cover company blog), mansfield-heating (local installer), thermoplan (manufacturer FAQ) and cosynest-energy (energy-supplier blog); the four cited are warmhomehub, heatcert, plumbcity and homefix-journal, whose fixture-stated types are exactly the four the sentence names. The sets are disjoint. Correct, and the deliverable stays inside the fixture's own type labels rather than inferring commerciality from a domain name.",
+        "e3.md:461 'capture the AI Overview three times in one sitting' and e3.md:153 'at least three repeats in one sitting, reported as k of N' — the library's own N >= 3 sampling rule, not a claim about the world.",
+        "e4.md:115 'the fourth card in the hotel unit (rating 9.4, the highest of the four) … one of only two direct property sites in the top ten' — fixture-exact on all three counts.",
+        "e4.md:486 'A tool subscription for three of them; A4 and A6 for the other two' — the CORRECT split, in the deliverable D1 does not affect. Corroborates that D1 is e5-local.",
+        "e2.md:16 «κάτω από δύο πλατφόρμες σύγκρισης και τρία e-shop» — organic 1 skroutz and 3 bestprice are the two comparison platforms; 2 elektrocity, 4 spitihome and… re-checked against the fixture's ten rows and the count of e-shop category pages above position 6 is three (elektrocity #2, spitihome #4, and the client is #6, with texno-odigos #5 a buying guide rather than an e-shop). Correct.",
+        "e5.md:40 'A search from the city centre, from Didsbury and from Salford are three captures, not three copies of one' — an argument about capture design, no external quantity asserted."
+      ]
+    },
+    "move_3_currency": {
+      "verdict": "NOT CURRENT — re-run required under ruling M2, and the change is behaviourally material rather than nominal.",
+      "version_check": "Record's graded version 4.3.7. HEAD `research/serp-analysis/SKILL.md` carries `version: \"4.3.8\"` and `metadata.version: \"4.3.8\"` in lockstep. The record is one patch behind.",
+      "what_moved": "`git diff dcff7f7..HEAD -- research/serp-analysis/` = commit 1675e11 (2026-08-17T18:00:31Z): SKILL.md +6/-3, analysis-templates.md +15, serp-feature-taxonomy.md +5/-3, greek-tourism-seasonality.md +2. Not version-only.",
+      "why_it_matters_to_THIS_record": "1675e11 is the carrier fix for BOTH regressions this record reports, and it responds to this record by name in its own commit message. (a) For e3.1 it adds a 'Then read the features together, not only one at a time' step to SKILL.md, an Output Validation checkbox requiring the combination to be read before the per-feature strategies, and a 'Feature Combination Read' block with fill instructions to analysis-templates.md. (b) For e4.2 it adds a 'The rule binds sentences, not just calendar rows' paragraph to greek-tourism-seasonality.md whose worked counter-example is verbatim the shape this record failed — a month named in an aside to discount the run's own capture. A re-run at 4.3.8 exercises precisely the two expectations this record failed, which is the opposite of a behaviourally empty bump.",
+      "denominator_drift": "NONE. The record grades 29 expectations; evals.json at HEAD holds 6+7+6+6+4 = 29, and `git diff dcff7f7..HEAD -- research/serp-analysis/evals/evals.json` is empty. No expectation was added, so there is no added expectation to judge the deliverable against.",
+      "SUITE_CURRENCY_FINDING_FOR_THE_COORDINATOR": {
+        "what": "e3.1's expectation text at HEAD still quotes a phrase that HEAD's skill was deliberately edited to delete, on ruling grounds. The expectation reads: '… the AI Overview + featured snippet co-occurrence is read per the taxonomy's combination table (**'Google sees this as high-information query'** -> 'Optimize for both')'. At 1675e11 the taxonomy's own row was rewritten — serp-feature-taxonomy.md:405 now reads '| AI Overview + Featured Snippet | Two extracted answers above the first organic result — a high-information query | Optimize for both … |' — the column was reheaded from 'What It Signals' to 'What this library reads it as', and a standing note was added directly above it: 'No row here licenses \"Google sees…\", \"Google prefers…\" or any other engine disposition, in any language … (ruling R3 amendment 9a).'",
+        "effect": "The suite now grades against a string that exists nowhere in the skill, and whose form the skill explicitly forbids. A compliant executor at 4.3.8 will write the new wording; a grader matching the quoted phrase would fail it, and a grader reading the parenthesis as illustrative would pass it. That ambiguity lands on exactly the expectation this record already flags as strictly-graded-with-the-lenient-reading-printed-beside-it.",
+        "evidence": "`grep -rn 'high-information' research/serp-analysis/` returns the rewritten taxonomy row and two evals.json lines (the e3 expected_output and e3.1) carrying the old phrase.",
+        "status": "NOT registered anywhere this reader could find: `grep -rn 'Google sees this as high-information' docs/` returns zero. OPEN-FINDINGS 176 records the e3.1 regression itself but not this consequence. 1675e11's commit message says 'Three expectations need rewriting and were deliberately left alone, with the grader-proposed wordings recorded', and this reader could not locate where those wordings were recorded — `grep -rln 'grader-proposed\\|proposed wording' docs/` returns nothing.",
+        "what_this_reader_did_not_do": "Did not edit the suite, did not resolve the reading, did not re-grade e3.1. Returned to the coordinator to rule, per the step-7 discipline."
+      }
+    },
+    "corrections_made_in_place": [
+      "ONE. `defects_outside_the_graded_set` D1: the instance count 'INVERTED, FIVE TIMES' and the five-line `where` list are corrected to seven statements across six lines, and the A4 quote that was attributed to :220 is re-attributed to :218 with :220's own quote kept beside it. THE SUBSTANTIVE CLAIM AND ITS ARITHMETIC WERE RE-VERIFIED AT SOURCE AND AT THE FIXTURE AND ARE UNCHANGED — three of five factors and 65% of the weight matrix behind the paid source, two of five and 35% behind work, three of four deliverables correct and the fourth wrong throughout. The superseded `where` string is preserved in `_second_read_correction_note` so a reader who has already quoted it can see what moved.",
+      "TWO ADDITIONS, not corrections: D8 and D9 appended to the same list by this pass. D8 is the move-2 finding at e1.md:57; D9 is an internal inconsistency at e5.md:197 that was checked against D1's class and deliberately kept out of it."
+    ],
+    "taken_on_trust_not_re_verified": [
+      "The 29 expectation verdicts themselves — this is not a re-grade. In particular the e3.1 strict/lenient call was NOT revisited; the record states both readings and the coordinator holds it.",
+      "`arithmetic_check.figures_recomputed: 74`. This reader recomputed 46 figures independently and found no discrepancy in any of them; the residual 28 are the record's own enumeration and were not re-enumerated.",
+      "The Greek mechanical-layer screens under e2.6 (final sigma, polysyllabic tonos, the 35-heading census) — screening work, not arithmetic.",
+      "The greek-content-editor slot (e2.6) remains EDITOR-PENDING and untouched.",
+      "`instrument_defects.skill_defects_found` and `adjudication_of_the_fourteen_claims` — qualitative, outside all three moves."
+    ],
+    "nearly_recorded_then_cleared": [
+      "e5.md:197's 'three of the five' was very nearly folded into D1 as a sixth instance. It was opened at source and adjudicated as a DIFFERENT claim in a different frame — what the capture is an input to, not which factors need a paid source — and recorded separately as D9 at low severity. Folding it in would have inflated a defect count that a citer has to be able to re-derive.",
+      "e3.md:365's 'Four of these ten results belong to companies with a commercial position' was checked against the possibility that plumbcity.co.uk (a plumbing company by its domain name) belongs in the commercial four, which would falsify 'none of the four is cited'. CLEARED: the fixture's own type label for that row is 'how-to article', and the deliverable classifies from the fixture's labels rather than from domain names, which is the correct discipline. No finding.",
+      "e2.md:41's «πενήντα χιλιάδες … τριακόσιες» surfaced on the spelled-out sweep as a Greek number-word pair. It is already the record's D5 and its analysis holds — the feminine agreement does elide to 300 thousand, the order of magnitude of the withheld figure. Not double-counted."
+    ],
+    "verdicts_changed": "NONE. summary and per_eval are unchanged and were independently re-derived from the 29 expectation verdicts during this pass. The two regressions (e3.1, e4.2) stand, and the currency finding above strengthens rather than weakens the case for re-running the suite."
+  }
+}

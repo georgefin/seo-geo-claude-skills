@@ -6,7 +6,7 @@ compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, 
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.0.2"
+  version: "4.4.0"
   geo-relevance: "low"
   tags:
     - seo
@@ -176,6 +176,36 @@ project-root/
 
 > **Templates**: See [references/hot-cache-template.md](./references/hot-cache-template.md) for the complete CLAUDE.md hot cache template and [references/glossary-template.md](./references/glossary-template.md) for the project glossary template.
 
+### Data-Handling Floor — governs every write in this skill
+
+**No secret value is ever written into a file this skill controls** — not the hot cache, not any
+`memory/` file, not a report, and not a `.env` or a gitignored file. API keys, service-account
+private keys, OAuth tokens, passwords and shared admin logins are refused a place, and
+**relocating one to a quieter file is not compliance**: the rule is that the value is not written
+anywhere. Refuse in the same reply, give the reason, and offer the pointer form below.
+
+Three reasons, each sufficient alone: (1) **the hot cache auto-loads on every run, for everyone on
+the project** — not a file someone opens deliberately, so it reaches sessions run by people the
+credential was never issued to; (2) **the memory tree is version-controlled, so a secret committed
+once survives its deletion** — a later commit does not remove it from history, and from the moment
+it lands rotation is the only real remediation; (3) **a shared login destroys the audit trail** —
+with one account between several people no change in the CMS, the analytics property or the search
+console can be attributed to a person, a loss that outlasts the engagement.
+
+**Record the fact, never the value**: that the credential exists, who holds it, which secret store or password manager it lives in, and who grants access. `Search Console access — held by the marketing lead, in the company password manager` is a complete entry. Never reproduce a value the user has pasted, not even to confirm what you are declining to store. **A value already pasted is already exposed** — say so plainly and record that it needs rotating, because quietly declining to store it leaves the user believing it is safe.
+
+**Personal data is a judgement, not a bright line.** A work contact for a role is ordinary project context; a home address, personal mobile, ID number, or any health or financial detail is not, and convenience is not a reason to hold it. Name what was asked for, say why you are questioning it, and leave the decision with the person the data belongs to — it is not this skill's to make.
+
+> Library-wide statement of this floor: [Prohibited Tactics](../../references/prohibited-tactics.md) entry 11.
+
+### Provenance Floor — governs every value this skill stores
+
+**Every value written into memory, or re-emitted out of it, traces to a named input this run was given** — a file it was pointed at, what the user stated, or arithmetic over those values with the derivation shown. Nothing else is a source, and a plausible number is not one. Memory is the layer where an invented value stops being distinguishable from a measured one: the next run reads the row back as evidence, and the handoff payload carries it into every downstream skill that reads the cache. So no score, rank, search volume, domain-authority or CITE figure, traffic number, audit date or framework item ID is estimated, hedged, ranged or reconstructed to fill a cell — "recalled", "typical", "approximate" and "somewhere in the 50s" are the same failure wearing a qualifier.
+
+**An unmeasured cell stays unmeasured, and an audit that was never run is recorded as never run.** `not available — no ~~SEO tool connected`, `not measured`, `not yet evaluated`, «δεν έχει ελεγχθεί ποτέ» and an empty rank are values this skill carries through as written; filling one during an update is not an update, it is a measurement nobody took. Where no audit exists for a page or a domain, the record says so — no score, no dimension score, no rating band, no audit date, not even as a range — and that holds hardest under time pressure and under a request to produce the number anyway, which is when the cell gets filled. Where no memory was supplied at all, the answer is that there is none: nothing is recalled for the project, and the run does not claim to have checked a store it was never given. A stored value also keeps the page, project and date it belongs to — a neighbouring row is not a source for a field this audit did not produce.
+
+**A stored string persists character-for-character.** Tracked queries, glossary definitions, target keywords and any string quoted back from the client's own note are written and read back exactly as given — accents, final sigma and inflected form intact, never transliterated, uppercased, truncated, lemmatised, normalised or de-duplicated into a shared root — because the stored string is the key a later run matches on, against the client's rank sheet and against ranking history, and a tidied key matches nothing. Two inflected forms of one term are therefore two records here; whether they are one content target is `keyword-research`'s call and not a reason to merge the rows. Mechanics for the run's own Greek prose, and the verbatim-quotation rule these records inherit: [Greek Output Mechanics](../../references/greek-output-mechanics.md) §3.
+
 ### 4. Context Lookup Flow
 
 When a user references something unclear, follow this lookup sequence:
@@ -217,6 +247,14 @@ Step 4: Update both CLAUDE.md and memory/keywords/historical-rankings.csv
 
 > **Reference**: See [references/update-triggers-integration.md](./references/update-triggers-integration.md) for the complete update procedures after ranking checks, competitor analyses, audits, and reports; monthly/quarterly archive routines; and integration points with all 8 connected skills (keyword-research, rank-tracker, competitor-analysis, content-gap-analysis, seo-content-writer, content-quality-auditor, domain-authority-auditor).
 
+Memory is where a handoff payload is stored and re-read, so store the payload's fields in the payload's own notation — the framework-labelled score strings (`CORE-EEAT C:… O:… R:…`, `CITE C:… I:… T:… E:…`), prefixed item IDs, veto status and audit date — rather than paraphrasing them into a summary the next run has to re-parse. Field list and notation: [inter-skill-handoff.md](../../references/inter-skill-handoff.md). Everything promoted to the hot cache is operator-read, so run handles are correct there and never in a client deliverable drawn from it.
+
+### A stored action keeps all seven fields — the round trip is where they get lost
+
+**An action written into memory is stored with the seven fields it shipped with, and read back with them.** Every recommended action in this library carries **action · owner · acceptance criterion · expected impact · effort · dependencies · risk if done wrong**, the first three required and the rest holding a stated-absence value (`not estimated — no baseline data`, `not estimated`, `none`, `low — reversible, no downstream effect`) rather than a blank ([Action Output Contract](../../references/action-output-contract.md)). This skill does not author actions — it is the layer they survive in, and **a field this layer drops is a field the next run silently reinvents**. Promoting "top 3-5 action items" as bare one-line priorities is exactly that loss: it discards the owner and the acceptance criterion, which are the two fields that make an action implementable, and a later run re-emits the item into a client deliverable with a plausible owner nobody agreed to and nothing checkable. Store the row, not the headline.
+
+**Three consequences.** (1) The hot cache's *Current Optimization Priorities* block carries **Owner** and **Done when** alongside status and expected impact — the template in [hot-cache-template.md](./references/hot-cache-template.md) is the shape, and its ~100-line budget is met by holding fewer actions, never by holding them with fields stripped. (2) **Demotion to cold storage moves the whole row**; an archived action that lost its criterion cannot be checked, so the archive stops answering "was this ever done?", which is the question archives exist for. (3) A stored action whose owner reads `unassigned — needs an owner` **keeps that value on promotion and is surfaced in the weekly hot-cache review** — it is a legitimate value and a finding, and quietly filling it in during a memory update makes an assignment nobody made. Where a stored action predates this rule and its owner or criterion genuinely was never recorded, write `not recorded at capture — re-derive before re-issuing` rather than inventing one; a run that re-issues it names that gap in its own output.
+
 ## Validation Checkpoints
 
 ### Structure Validation
@@ -227,10 +265,12 @@ Step 4: Update both CLAUDE.md and memory/keywords/historical-rankings.csv
 
 ### Content Validation
 - [ ] CLAUDE.md "Last Updated" date is current
-- [ ] Every keyword in hot cache has current rank, target rank, and status
-- [ ] Every competitor has domain authority and position assessment
+- [ ] Every keyword in hot cache has current rank, target rank, and status, or a stated absence in place of any of those the inputs never measured
+- [ ] Every competitor has domain authority or a stated absence, and a position assessment
 - [ ] Every active campaign has status percentage and expected completion date
 - [ ] Key Metrics Snapshot shows "Previous" values for comparison
+- [ ] Every value this run wrote traces to a named input or to arithmetic over one with the derivation visible — no score, rank, volume, domain-authority or CITE figure, or audit date supplied by the run itself, and no cell the inputs left unmeasured now carries a number
+- [ ] Every stored string reproduces its input character-for-character — accents, final sigma and inflection intact, one record per string as given, nothing lemmatised or merged
 
 ### Lookup Validation
 - [ ] Test lookup flow: reference a term → verify it finds it in correct layer
@@ -241,8 +281,17 @@ Step 4: Update both CLAUDE.md and memory/keywords/historical-rankings.csv
 ### Update Validation
 - [ ] After ranking check, historical-rankings.csv has new row with today's date
 - [ ] After competitor analysis, analysis-history/ has dated file
-- [ ] After audit, top action items appear in CLAUDE.md priorities
+- [ ] After audit, top action items appear in CLAUDE.md priorities — each with all seven fields it arrived with (action, owner, acceptance criterion, expected impact, effort, dependencies, risk if done wrong), not compressed to a one-line headline; `unassigned — needs an owner` is carried through as written, never filled in during the update
+- [ ] Every action demoted to cold storage moved as a whole row, criterion included, so the archive can still answer "was this done?"; and any action stored without an owner or a criterion carries `not recorded at capture — re-derive before re-issuing` rather than a value this run supplied
 - [ ] After monthly report, metrics snapshot reflects new data
+
+### Data-Handling Validation
+- [ ] No secret value in any file this run wrote — hot cache, `memory/`, reports, config. Check the files written, not the intent: a key moved from the hot cache into `memory/` still fails
+- [ ] Nothing relocated to a `.env`, a gitignored file, or "a different file" as a workaround
+- [ ] No value the user pasted is reproduced anywhere in the run's own output
+- [ ] Every credential referenced is recorded fact-only — exists, who holds it, which secret store — with the value absent
+- [ ] Any already-pasted value is flagged as exposed, with rotation stated as the remedy
+- [ ] Personal data beyond a work contact for a role was named and referred back to its owner, not stored on the run's own judgement
 
 ## Examples
 
@@ -316,6 +365,8 @@ Identifies keyword overlaps, competitor intersections, and strategy similarities
 
 - [CORE-EEAT Content Benchmark](../../references/core-eeat-benchmark.md) — Content quality scoring stored in memory
 - [CITE Domain Rating](../../references/cite-domain-rating.md) — Domain authority scoring stored in memory
+- [Inter-Skill Handoff](../../references/inter-skill-handoff.md) — the payload fields and score-string notation to store verbatim, so a later run reads them without re-parsing
+- [Action Output Contract](../../references/action-output-contract.md) — the seven fields an action arrives with and must leave with: their stated-absence values, the closed owner-role list, and what makes an acceptance criterion checkable six weeks later by someone who was not there
 
 ## Related Skills
 
