@@ -1624,6 +1624,26 @@ owner's under `CLIENT-MANDATE.md` §4.
 **Fifteen consecutive rounds have measured a tree that did not move.** Both decisions are the
 owner's under `CLIENT-MANDATE.md` §4.
 
+### Round 28 — 2026-09-04 · a NINETEENTH round at zero; nothing moved; sixteenth still tree
+
+- **Round 28** `[obs:2026-09-04 highest heading -> 27]`. HEAD **`59c538d`**, clean, remote unmoved;
+  one commit from Round 27, and that commit was Round 27's own edit to this file
+  `[obs:2026-09-04 git status --short -> empty; git log HEAD..origin/... -> empty; git diff --name-only c35a973..HEAD -> docs/loop/GOALS-SCORECARD.md]`
+- **No fraction moved.** Goal 1 **4 of 9** · Goal 2 **6 of 9** · Goal 3 **7 of 8** · Goal 4A **3 of 4**.
+  4B owner-gated, unchanged.
+- Every criterion re-run. G3-C8 re-derived: **21 regressions across 20 compared suites · 544/610 ·
+  denominator 530 across 20 of 20** `[obs:2026-09-04 59c538d]`. Five probes PROBE PASS twice each;
+  gate exit 0; G3-C2 20/20; G3-C3 `10 / 15 warn / 0 fail`; G1-C1 `SELFTEST PASS`; G1-C7 **0**
+  recurrences dated to this round.
+
+| | rounds at zero | closes by | decision recorded |
+|---|---|---|---|
+| **G2-C3** | **19** | freeze the tree at one wave-wide SHA, re-run the blind wave | **none** |
+| **G4-C4** | **19** | one capture against prompt-set v1 under the N ≥ 3 protocol | **none** |
+
+**Sixteen consecutive rounds have measured a tree that did not move.** Both decisions are the
+owner's under `CLIENT-MANDATE.md` §4.
+
 ---
 
 ## Part C — What closes each gap
