@@ -1684,6 +1684,93 @@ owner's under `CLIENT-MANDATE.md` §4.
 **Eighteen consecutive rounds have measured a tree that did not move.** Both decisions are the
 owner's under `CLIENT-MANDATE.md` §4.
 
+### Round 31 — 2026-09-07 · the first round in nineteen where something moved — Goal 3 **7 of 8 → 6 of 8**
+
+- **Round 31** `[obs:2026-09-07 highest heading -> 30]`. HEAD **`ec55421`**, clean, remote unmoved;
+  one commit from Round 30, and that commit was Round 30's own edit to this file.
+- **The repository did not change. The environment did**, and it exposed a standing defect that
+  eighteen still rounds could not see.
+
+#### What was found
+
+`bash scripts/pre-push-gate.sh`, run bare as G3-C1 specifies, **exited 2 and refused to run**:
+
+> `ERROR: no diff base could be resolved -- refusing to run rather than guessing one.`
+> `ERROR: nothing was validated and no verdict was reached; do NOT read this as a pass.`
+
+**Cause: this container's branch had lost its upstream tracking config.** `branch.<name>.remote`
+and `branch.<name>.merge` were both unset, while `refs/remotes/origin/claude/...` still pointed at
+`ec55421` — this session's own last push. A local git-config fact, not a repository change
+`[obs:2026-09-07 git rev-parse --abbrev-ref '@{upstream}' -> "fatal: no upstream configured"; git config --get branch.<name>.remote -> empty; git for-each-ref refs/remotes/origin -> ec55421]`
+
+**The guard behaved exactly as designed.** `70a281c` was written so a leg refuses rather than
+silently re-scoping itself, and that is what happened. A gate that had guessed here would have
+printed PASSED over nothing.
+
+#### 🔴 The finding underneath it: the gate does not give its own base to three of its six legs
+
+Re-run with an explicit base, the gate still failed — **exit 1** — and the failing leg was
+`register-lock gate-check`, refusing for the same reason while the gate's header line read
+`Diff base: origin/claude/... (resolved from: explicit argument)`.
+
+Read at the source, the mechanism is unambiguous:
+
+| line | what it does |
+|---|---|
+| `pre-push-gate.sh:35` | `BASE="${1:-origin/main}"` — accepts a base |
+| `pre-push-gate.sh:99` | uses `"$BASE"` — **leg 1 only** |
+| `pre-push-gate.sh:141` | `bash "$ROOT/scripts/claims-gate.sh"` — **no argument** |
+| `pre-push-gate.sh:149` | `bash "$ROOT/scripts/commit-scope-check.sh"` — **no argument** |
+| `pre-push-gate.sh:160` | `bash "$ROOT/scripts/register-lock.sh" gate-check` — **no argument** |
+
+`[obs:2026-09-07 ec55421 grep -nE 'scripts/(claims-gate|commit-scope-check|register-lock)\.sh' scripts/pre-push-gate.sh, comment lines excluded]`
+
+**`scripts/pre-push-gate.sh <base>` does not scope legs 3–5 to `<base>`.** Each re-resolves
+`@{upstream}` independently. The gate announces one base and runs half its legs against another.
+
+**This is not new and it is not caused by the outage.** It has stood since `70a281c`, which fixed
+base-guessing *inside* each script and left the *caller-to-leg* propagation unfixed. It is
+invisible whenever `@{upstream}` resolves and happens to equal the passed base — which is every
+round before this one. **The missing upstream did not create the defect; it removed the coincidence
+that hid it.** That makes it the same family as G3-C7's founding case: an instrument whose stated
+scope and actual scope differ, reading green throughout.
+
+**Deliberately not patched in this round.** Changing what a shared push gate checks is a behaviour
+change to a guard several lanes depend on, and a measurement round that repairs its own subject and
+then scores the repair is the Round 7 laundering failure. Recorded here with the evidence and the
+line numbers; it wants its own change with its own probe.
+
+#### Scored as found
+
+| Goal | R30 | R31 |
+|---|---|---|
+| 1 | 4 of 9 | **4 of 9** |
+| 2 | 6 of 9 | **6 of 9** |
+| 3 | 7 of 8 | **6 of 8** |
+| 4A | 3 of 4 | **3 of 4** |
+
+- **G3-C1 NOT MET.** The criterion is `bash scripts/pre-push-gate.sh` → exit 0. It exited 2.
+- **G3-C4 NOT MET**, and worse than usual: with the gate refusing, **no leg had a subject at all**,
+  where the standing reading is two legs without one.
+- Everything else identical `[obs:2026-09-07 ec55421]`: five probes PROBE PASS twice each ·
+  G3-C2 20/20 · G3-C3 `10 / 15 warn / 0 fail` · G1-C1 `SELFTEST PASS` · G1-C7 **0** recurrences
+  dated to this round · **G2-C3 0 of 20** · G2-C6 21 across 12 · G2-C7 20 of 21 · G4-C1 20/20 ·
+  **G4-C4 0 captures** · G3-C8 re-derived at 21 / 20 compared, 544/610, denominator 530 across 20.
+
+**The environment was restored after measuring**, not before: `git branch --set-upstream-to` re-set
+the tracking config, after which the bare gate exits 0 again
+`[obs:2026-09-07 after restore, bash scripts/pre-push-gate.sh -> exit 0, "PASSED — but NOTHING WAS OUTGOING"]`.
+The next round should find G3-C1 MET and should verify it rather than trust this note.
+
+#### 🔴 Twenty-second round at zero — G2-C3 and G4-C4
+
+| | rounds at zero | closes by | decision recorded |
+|---|---|---|---|
+| **G2-C3** | **22** | freeze the tree at one wave-wide SHA, re-run the blind wave | **none** |
+| **G4-C4** | **22** | one capture against prompt-set v1 under the N ≥ 3 protocol | **none** |
+
+Both are the owner's under `CLIENT-MANDATE.md` §4.
+
 ---
 
 ## Part C — What closes each gap
