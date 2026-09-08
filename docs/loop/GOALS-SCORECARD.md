@@ -1771,6 +1771,71 @@ The next round should find G3-C1 MET and should verify it rather than trust this
 
 Both are the owner's under `CLIENT-MANDATE.md` §4.
 
+### Round 32 — 2026-09-08 · Goal 3 **6 of 8 → 7 of 8**, recovering Round 31's environment dip
+
+- **Round 32** `[obs:2026-09-08 highest heading -> 31]`. HEAD **`b806cc0`**, clean, remote unmoved;
+  one commit from Round 31, and that commit was Round 31's own edit to this file
+  `[obs:2026-09-08 git diff --name-only ec55421..HEAD -> docs/loop/GOALS-SCORECARD.md]`
+
+#### G3-C1 verified, not carried — and the environment fact did not recur
+
+Checked **before** anything else, in the order the environment matters:
+`git rev-parse --abbrev-ref '@{upstream}'` → `origin/claude/scheduled-skills-web-search-8zaz3j`.
+The tracking config Round 31 restored is still in place, so the bare gate ran as G3-C1 specifies and
+**exited 0** `[obs:2026-09-08 b806cc0 bash scripts/pre-push-gate.sh -> exit 0, "PASSED — but NOTHING WAS OUTGOING"]`.
+
+**G3-C1 MET. Goal 3 returns to 7 of 8.** Round 31's dip was an environment fact and is now recorded
+as one that did not repeat across a day — which is the evidence that distinguishes a one-off
+container state from a recurring one.
+
+#### The base-propagation defect still stands, unfixed and unchanged
+
+Re-read at the five lines Round 31 named `[obs:2026-09-08 b806cc0 sed -n '35p;99p;141p;149p;160p' scripts/pre-push-gate.sh]`:
+
+```
+BASE="${1:-origin/main}"
+    committed=$(git -C "$ROOT" diff --name-only "$BASE"...HEAD 2>/dev/null | skill_dirs_from || true)
+bash "$ROOT/scripts/claims-gate.sh" || overall=1
+bash "$ROOT/scripts/commit-scope-check.sh" || overall=1
+bash "$ROOT/scripts/register-lock.sh" gate-check || overall=1
+```
+
+Byte-for-byte what Round 31 recorded: the base reaches leg 1 and no other. **Not fixed here, for
+the reason Round 31 gave** — it is a behaviour change to a shared guard and wants its own commit and
+its own probe, not a patch inside a measurement round.
+
+#### An instrument correction — the seventh of this class, and the smallest
+
+The bare gate's `nothing to check` count read **1**, where every round since Round 12 read 2. That
+looked like movement. It was not: **`register-lock gate-check` words its null subject differently** —
+*"no lock ledger entries — no writer announced a path, nothing to attribute"* — so a grep for the
+literal phrase `nothing to check` sees `commit-scope-check` and misses it
+`[obs:2026-09-08 b806cc0 awk pairing each "== <leg>" header with its own null-subject line -> commit-scope-check: "no outgoing commits — nothing to check"; register-lock gate-check: "no lock ledger entries…"]`.
+**Two legs still have no subject and G3-C4 is unchanged.** Recorded because a phrase-count that
+silently drops a leg is the same family as everything else in this column, and because it very
+nearly became a reported movement.
+
+#### Standing
+
+| Goal | R30 | R31 | R32 |
+|---|---|---|---|
+| 1 | 4 of 9 | 4 of 9 | **4 of 9** |
+| 2 | 6 of 9 | 6 of 9 | **6 of 9** |
+| 3 | 7 of 8 | 6 of 8 | **7 of 8** |
+| 4A | 3 of 4 | 3 of 4 | **3 of 4** |
+
+Everything else identical `[obs:2026-09-08 b806cc0]`: five probes PROBE PASS twice each ·
+G3-C2 20/20 · G3-C3 `10 / 15 warn / 0 fail` · G1-C1 `SELFTEST PASS` · G1-C7 **0** recurrences dated
+to this round · **G2-C3 0 of 20** · G2-C6 21 across 12 · G2-C7 20 of 21 · G4-C1 20/20 ·
+**G4-C4 0 captures** · G3-C8 re-derived at 21 / 20 compared, 544/610, denominator 530 across 20.
+
+| | rounds at zero | closes by | decision recorded |
+|---|---|---|---|
+| **G2-C3** | **23** | freeze the tree at one wave-wide SHA, re-run the blind wave | **none** |
+| **G4-C4** | **23** | one capture against prompt-set v1 under the N ≥ 3 protocol | **none** |
+
+Both are the owner's under `CLIENT-MANDATE.md` §4.
+
 ---
 
 ## Part C — What closes each gap
