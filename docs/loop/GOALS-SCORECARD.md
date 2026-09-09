@@ -1836,6 +1836,36 @@ to this round · **G2-C3 0 of 20** · G2-C6 21 across 12 · G2-C7 20 of 21 · G4
 
 Both are the owner's under `CLIENT-MANDATE.md` §4.
 
+### Round 33 — 2026-09-09 · a TWENTY-FOURTH round at zero; nothing moved; nineteenth still tree
+
+- **Round 33** `[obs:2026-09-09 highest heading -> 32]`. HEAD **`6463cb9`**, clean, remote unmoved;
+  one commit from Round 32, and that commit was Round 32's own edit to this file
+  `[obs:2026-09-09 git diff --name-only b806cc0..HEAD -> docs/loop/GOALS-SCORECARD.md]`
+- **Environment checked first.** `@{upstream}` resolves to
+  `origin/claude/scheduled-skills-web-search-8zaz3j`; the tracking config has now held for two
+  consecutive rounds, so **Round 31's outage stands as a one-off, not a recurrence**
+  `[obs:2026-09-09 git rev-parse --abbrev-ref '@{upstream}']`
+- **No fraction moved.** Goal 1 **4 of 9** · Goal 2 **6 of 9** · Goal 3 **7 of 8** · Goal 4A **3 of 4**.
+  4B owner-gated, unchanged.
+- **G3-C1 MET** — bare gate exit 0. **G3-C4 unchanged at two legs with no subject**, counted by
+  pairing each `== <leg>` header with its own verdict line rather than grepping one phrase:
+  `commit-scope-check` and `register-lock gate-check` `[obs:2026-09-09 6463cb9 awk leg-pairing over the gate output]`
+- **The base-propagation defect still stands**, byte-for-byte at lines 35 / 99 / 141 / 149 / 160 —
+  third round recorded, still unfixed, still deliberately not patched inside a measurement round
+  `[obs:2026-09-09 6463cb9 sed -n '35p;99p;141p;149p;160p' scripts/pre-push-gate.sh]`
+- G3-C8 re-derived: **21 regressions across 20 compared suites · 544/610 · denominator 530 across
+  20 of 20**. Five probes PROBE PASS twice each; G3-C2 20/20; G3-C3 `10 / 15 warn / 0 fail`;
+  G1-C1 `SELFTEST PASS`; G1-C7 **0** recurrences dated to this round.
+
+| | rounds at zero | closes by | decision recorded |
+|---|---|---|---|
+| **G2-C3** | **24** | freeze the tree at one wave-wide SHA, re-run the blind wave | **none** |
+| **G4-C4** | **24** | one capture against prompt-set v1 under the N ≥ 3 protocol | **none** |
+
+**Nineteen consecutive rounds have measured a tree that did not move**, counting Round 31, whose
+movement was environmental rather than a repository change. Both decisions are the owner's under
+`CLIENT-MANDATE.md` §4.
+
 ---
 
 ## Part C — What closes each gap
