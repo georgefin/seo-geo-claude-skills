@@ -1866,6 +1866,50 @@ Both are the owner's under `CLIENT-MANDATE.md` §4.
 movement was environmental rather than a repository change. Both decisions are the owner's under
 `CLIENT-MANDATE.md` §4.
 
+### Round 34 — 2026-09-10 · no fraction moved, but **G4-C4's blocker lifted** — the first actionable change in 24 rounds
+
+- **Round 34** `[obs:2026-09-10 highest heading -> 33]`. HEAD **`da685fe`**, clean, remote unmoved;
+  one commit from Round 33, and that commit was Round 33's own edit to this file.
+- **Environment checked first.** `@{upstream}` resolves; third consecutive round present, so Round
+  31's outage remains a one-off `[obs:2026-09-10 git rev-parse --abbrev-ref '@{upstream}']`
+- **No fraction moved.** Goal 1 **4 of 9** · Goal 2 **6 of 9** · Goal 3 **7 of 8** · Goal 4A **3 of 4**.
+  G3-C1 MET (bare gate exit 0). G3-C4 unchanged at two null-subject legs, counted by leg-pairing.
+  The base-propagation defect stands byte-for-byte at lines 35 / 99 / 141 / 149 / 160 — **fourth
+  round recorded, still unfixed.** G3-C8 re-derived at **21 / 20 compared · 544/610 · denominator
+  530 across 20 of 20**. Five probes PROBE PASS twice each `[obs:2026-09-10 da685fe]`
+
+#### 🔴 The change: the capture route exists again
+
+`Perplexity Computer` reads **`enabledInChat: true`**. It read `false` from 2026-08-18 through
+Round 33 — a per-chat toggle, recorded in `pilot/tooling-assessment-2026-08-18.md` §4.2 as the one
+route around this container's egress allow-list
+`[obs:2026-09-10 ListConnectors keywords=["perplexity"] -> installState "connected", connected true, enabledInChat true]`
+
+**This matters to exactly one criterion, and it is one of the two that have sat at zero.** Part C
+classifies G4-C4 in two halves: locking the prompt set needs the client's own sales questions and is
+class (ii); **a capture against v1 as it stands, labelled as against a draft set, is class (i)** —
+work the library can do. It has been undone since 2026-08-17 for want of a route to an engine, not
+for want of a decision. **That want is now gone.**
+
+**Scored as found: G4-C4 NOT MET, 0 captures.** The capability existing is not a capture, and a
+round scores the tree it measured. What changed is that the criterion's obstacle was a
+missing route rather than a missing decision, and the route is back — a fact about the environment
+rather than about the scorecard.
+
+**G2-C3 is not affected.** It needs the tree frozen and the blind wave re-run — an owner decision
+about when to freeze, untouched by any connector.
+
+| | rounds at zero | closes by | status of the blocker |
+|---|---|---|---|
+| **G2-C3** | **25** | freeze the tree at one wave-wide SHA, re-run the blind wave | **owner decision, unchanged** |
+| **G4-C4** | **25** | one capture against prompt-set v1 under the N ≥ 3 protocol | **route restored this round; the class-(i) half is now executable** |
+
+Prompt-set v1 holds **50 rate-feeding prompts** (36 Greek, 14 English) across the two named clusters
+plus a brand cluster, and two verification rows excluded from every rate. The protocol that governs
+a capture is `references/ai-visibility-measurement.md` §4: N ≥ 3 repeats per prompt per engine in one
+session, `k of N` never a bare percentage, fresh session per capture, failed captures recorded
+rather than dropped.
+
 ---
 
 ## Part C — What closes each gap
