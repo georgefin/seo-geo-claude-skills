@@ -1910,6 +1910,56 @@ a capture is `references/ai-visibility-measurement.md` §4: N ≥ 3 repeats per 
 session, `k of N` never a bare percentage, fresh session per capture, failed captures recorded
 rather than dropped.
 
+### Round 35 — 2026-09-11 · the capture was attempted and refused; **Round 34's conclusion is corrected**
+
+- **Round 35** `[obs:2026-09-11 highest heading -> 34]`. HEAD **`39a84f8`**, clean, remote unmoved;
+  one commit from Round 34, its own. `@{upstream}` resolves — fourth consecutive round.
+- **No fraction moved.** Goal 1 **4 of 9** · Goal 2 **6 of 9** · Goal 3 **7 of 8** · Goal 4A **3 of 4**.
+  G3-C1 MET (bare gate exit 0) · G3-C4 two null-subject legs by leg-pairing · G3-C8 re-derived at
+  **21 / 20 compared · 544/610 · denominator 530 across 20 of 20** · five probes PROBE PASS twice
+  each · G3-C2 20/20 · G3-C3 `10 / 15 warn / 0 fail` · G1-C1 `SELFTEST PASS` · G1-C7 **0**
+  recurrences dated to this round. The base-propagation defect stands byte-for-byte at lines
+  35 / 99 / 141 / 149 / 160 — **fifth round recorded, still unfixed** `[obs:2026-09-11 39a84f8]`
+
+#### 🔴 The capture was attempted. It failed, and it corrects Round 34
+
+Round 34 read `Perplexity Computer` at `enabledInChat: true` and concluded **"the route is back"**
+and **"the class-(i) half is now executable."** The toggle reading was right. **The conclusion was
+wrong**, and this round found out the only way that settles it — by trying.
+
+Two prompts, chosen where a citation is commercially at stake — **B13** (*πού αγοράζω θερμοπομπό
+Nobo στην Ελλάδα με εγγύηση;*) and **A10** (*ποια μάρκα αφυγραντήρα είναι αξιόπιστη και έχει σέρβις
+στην Ελλάδα;*), one per named cluster. Both refused, independently:
+
+> `event: "insufficient_credits"` · *"To use Computer, add credits to your account or upgrade your plan."*
+
+`[obs:2026-09-11 two independent call_perplexity_computer calls, one returning thread_id 3a7da24a-bb8a-4210-91e5-284311dc20a2 and one without, both event "insufficient_credits"]`
+
+**`enabledInChat: true` licenses one statement — the connector is enabled in this chat — and does
+not license "a capture can be taken."** The account has no Computer credits, a second and
+independent gate the connector listing does not expose. **This is the F11 recurrence-9 class in a
+new place**: a real anchor supporting a sentence that reaches further than it does. Round 34 should
+have written *"the toggle is on; whether a capture can be taken is untested"* and then tested it.
+
+**Scored as found: G4-C4 NOT MET, 0 captures**, unchanged. Two failed attempts are recorded as rows
+with their reason in `pilot/ai-visibility-capture-2026-09-11.md`, per
+`ai-visibility-measurement.md` §4 — *"failed captures are recorded, not dropped… silently dropping
+them inflates every rate."* **No rate is reported from this round, because no capture succeeded.**
+
+**What is now known that was not:** the obstacle is no longer *"no route from this container."* It
+is **credits on the Perplexity account** — smaller, far more specific, and actionable in one step.
+But it is an account decision, so **G4-C4's class-(i) half is owner-gated again, for a new reason.**
+
+**A fidelity limit recorded now rather than after the fact**: Perplexity Computer is an *agent*, not
+the standard perplexity.ai answer surface a Greek buyer meets. Even funded, a capture this way is
+evidence about *an* AI surface and must carry the method in every row. Engine precedence puts
+ChatGPT Search first and Perplexity third; **ranks 1 and 2 remain entirely unmeasured.**
+
+| | rounds at zero | closes by | blocker as now understood |
+|---|---|---|---|
+| **G2-C3** | **26** | freeze the tree at one wave-wide SHA, re-run the blind wave | owner decision, unchanged |
+| **G4-C4** | **26** | one capture per named cluster at N ≥ 3 | **Perplexity Computer credits** — was "no route", now one account action |
+
 ---
 
 ## Part C — What closes each gap
