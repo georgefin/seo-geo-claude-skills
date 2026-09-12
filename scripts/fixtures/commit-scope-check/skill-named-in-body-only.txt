@@ -1,0 +1,13 @@
+# CASE: skill-named-in-body-only
+# ROLE: positive
+# EXPECT-EXIT: 1
+# EXPECT-MATCH: touches skill file(s) its subject does not declare: content-refresher
+# FILE: optimize/content-refresher/references/refresh-templates.md
+# WHY: pins a deliberate asymmetry. The register and gate legs read subject AND body;
+#      the skill leg reads the SUBJECT ONLY, because the subject is the line that shows
+#      up in `git log --oneline`. A skill named only in the body must still fail. If
+#      this case starts passing, the skill leg was quietly relaxed to the weaker form.
+# ---8<--- commit message
+chore: refresh the templates
+
+Touches content-refresher only.

@@ -1,0 +1,3 @@
+docs(loop): record G1 continuation approval + execution (eighth verdict-log entry)
+
+FLIP: G1-continuation @ 2026-08-09T10:24:00Z -- remains Sani's

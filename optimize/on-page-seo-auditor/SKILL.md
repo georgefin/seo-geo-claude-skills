@@ -1,6 +1,6 @@
 ---
 name: on-page-seo-auditor
-version: "4.1.1"
+version: "4.5.4"
 description: 'Audit on-page HTML elements including title tags, headers, image alt text, and internal links with a scored SEO report. Use when the user asks to "audit page SEO", "on-page SEO check", "SEO score", "page optimization", "what SEO issues does this page have", "score my page", "why is this page not ranking", or "check my page". For server, speed, and crawl issues, see technical-seo-checker. For full EEAT content quality scoring, see content-quality-auditor.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
@@ -8,7 +8,7 @@ homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 allowed-tools: WebFetch
 metadata:
   author: aaron-he-zhu
-  version: "4.1.1"
+  version: "4.5.4"
   geo-relevance: "medium"
   tags:
     - seo
@@ -106,6 +106,8 @@ Ask the user to provide:
 
 Proceed with the full audit using provided data. Note in the output which findings are from automated crawl vs. manual review.
 
+**Resolve every `~~category` token before the audit leaves.** The token addresses you and the operator, never the person reading the report: write the connected tool's real name (Google Search Console, Ahrefs, Screaming Frog), or name the actual source in plain language ("the HTML you pasted", "hand-checked in incognito, 10 Aug"), or state plainly that no tool was connected and the figure is therefore unavailable. Never a token where a source or a number belongs — an unobtainable metric is reported as unobtainable, which is what the Hypothesis label and the "what would confirm it" rule below already require. Internal surfaces keep the token (this skill's own text and references, operator notes). Rule: root `CLAUDE.md` Tool Connector Pattern; check: `build/seo-content-writer/references/anti-slop-ruleset.md` §6 family 7.
+
 ## Instructions
 
 When a user requests an on-page SEO audit:
@@ -123,6 +125,76 @@ matters), and **Fix** (the specific change), plus a **Confidence** label:
 **Rule**: every Hypothesis finding must name what would confirm it (the specific check,
 tool, or data source). Use the labels in each step's "Issues Found" list and carry them
 into the Step 11 Priority Issues summary.
+
+**Quote discipline**: the E-E-A-T signals row and the "Expert quotes" element in Step 5, and
+the Ept01/R02 rows of the Step 10 quick scan, all push a Fix toward "add an expert quote".
+Recommend the quote; never write one. A quotation attributed to a named person or
+organisation ships only with a real, checkable source in the same breath — speaker, role,
+where and when they said it, and a link that opens. Without one, do not attribute it:
+paraphrase it unattributed, or drop it, and never invent a name, credential or institution to
+carry a line (statistics rule: sourced, cited, or placeholder, never invented). The audit's
+own Evidence follows the same rule: quote the page verbatim from the HTML or content in front
+of you, never from memory or reconstruction — **and where the finding is about particular words on the page,
+those words are the Evidence**: a count describes the defect, the quote shows it, so take the shortest span that
+does and elide the rest. **The ban is on inventing a fact, not on making a proposal**: a recommended title,
+description, anchor or **alt text** is drafted from what the page itself establishes, names nothing it does not
+support, and carries "confirm before publishing" on the string itself — withholding it leaves a defect found and
+unfixed (ledger F19: a hedging rule carries its carve-out at the instruction). Worked form, the evidence a draft
+is built from, and the one case where none is possible:
+[references/audit-templates.md](./references/audit-templates.md) § Step 8.
+
+### Recommended Actions — the Seven Fields
+
+A finding diagnoses; an action gets done. Every action this audit recommends — each **Fix**
+above, every quick win, every Action Plan row — carries seven fields: **action** (one imperative
+sentence naming the element and the change), **owner**, **acceptance criterion** (labelled
+**Done when** in a per-action block and **Acceptance criterion** as a table column — one field,
+two labels, no third), **expected impact**, **effort**, **dependencies**, **risk if done
+wrong**. The **Fix** line *is* the action
+field and the **Impact** line *is* the expected-impact field, so an entry adds the other five
+rather than restating those two. Fields 1–3 are required — an action with no owner-role and no
+acceptance criterion does not ship as an action — and 4–7 take a stated-absence value
+(`not estimated — no baseline data`, `none`, `low — reversible, no downstream effect`), never a
+blank and never an invention, because the absence is itself something the client can act on.
+
+**Owner is a role** from a closed list, never a person unless the client supplied the name.
+`Client decision` is a real owner and assigning it makes a decision visible instead of leaving
+the action stalled; `unassigned — needs an owner` is legitimate and is itself a finding.
+
+**The acceptance-criterion test: could someone who was not part of this engagement check it six
+weeks from now, without asking anybody what was meant?** Observable, binary at the moment of
+checking, attached to a named artefact or measurement, dated or triggered. **It never requires
+an engine to do something** — an appearance in a generated answer is nobody's to deliver, and
+writing it turns the action into a promise; an AI-surface action is accepted on the work shipped
+plus the measurement re-run and recorded beside its dated baseline.
+
+**Ordering, stated once per report**: by expected impact ÷ effort with dependencies respected —
+an unmet dependency sinks an action below the thing it waits on, whatever its score — *inside*
+the existing Critical / Important / Minor severity bands, which stay this skill's only priority
+vocabulary. Role list, effort bands, worked criteria and the stated-absence values:
+[references/audit-templates.md](./references/audit-templates.md) § Recommended Actions and
+[Action Output Contract](../../references/action-output-contract.md). A prohibited tactic found
+on the audited page is reported the same way — named, exposure stated, remediation owned and
+accepted, ranked against everything else:
+[Prohibited Tactics](../../references/prohibited-tactics.md) §2.
+
+**Section scores and the overall score.** Every section score is arithmetic over the criterion
+table printed above it, scored on **that section's own maximum** — Title Tag /15 · Meta
+Description /5 · Header Structure /10 · Content Quality /25 · Keyword Optimization /15 ·
+Internal/External Links /10 · Image Optimization /10 · Page-Level Technical /10. Those eight
+maxima *are* the section weights (15%, 5%, 10%, 25%, 15%, 10%, 10%, 10%), so the **Overall Score
+is the plain sum of the eight section scores, out of 100** — no conversion step, no rounding
+drift, and a client can check it by adding the eight numbers the report already printed. Per
+criterion: ✅ full points · ⚠️ half · ❌ 0. **A criterion you could not verify is excluded from
+both the numerator and the section maximum** — never scored 0, never guessed (the rubric's own
+rule: "note it as unverified rather than guessing"), because zero means measured and failing
+while blank means unmeasured. The overall is then `round(100 × awarded ÷ points scored)` — **half up, once, with
+the grade band read off that rounded figure** (⚠️ is half a criterion's points; the A-to-F endpoints are whole
+numbers). Every score prints its numerator, its denominator, and how many criteria were excluded. **If no
+section could be scored, the report carries no overall score at all** — name which input unlocks which section
+and stop; a score for a page nobody has seen is a fabricated figure, whatever the requester says about the
+deadline. Criterion point tables, calibration examples, the unverified-criterion worked case and the grade
+bands: [references/scoring-rubric.md](./references/scoring-rubric.md).
 
 1. **Gather Page Information**
 
@@ -144,20 +216,22 @@ into the Step 11 Priority Issues summary.
    **Current Title**: [title]
    **Character Count**: [X] characters
    
-   | Criterion | Status | Notes |
-   |-----------|--------|-------|
-   | Length (50-60 chars) | ✅/⚠️/❌ | [notes] |
-   | Keyword included | ✅/⚠️/❌ | Position: [front/middle/end] |
-   | Keyword at front | ✅/⚠️/❌ | [notes] |
-   | Unique across site | ✅/⚠️/❌ | [notes] |
-   | Compelling/clickable | ✅/⚠️/❌ | [notes] |
-   | Matches intent | ✅/⚠️/❌ | [notes] |
+   | Criterion | Status | Points | Notes |
+   |-----------|--------|--------|-------|
+   | Keyword included | ✅/⚠️/❌ | [X]/3 | Position: [front/middle/end] |
+   | Keyword at front | ✅/⚠️/❌ | [X]/2 | [notes] |
+   | Length (50-60 chars — house range, not an engine limit) | ✅/⚠️/❌ | [X]/2 | [notes] |
+   | Unique across site | ✅/⚠️/❌ | [X]/2 | [notes] |
+   | Compelling/clickable | ✅/⚠️/❌ | [X]/2 | [notes] |
+   | Matches intent | ✅/⚠️/❌ | [X]/2 | [notes] |
+   | Brand at end | ✅/⚠️/❌ | [X]/1 | [notes] |
+   | No truncation risk | ✅/⚠️/❌ | [X]/1 | [notes] |
    
-   **Title Score**: [X]/10
+   **Title Score**: [X]/15 ([awarded] ÷ [points scored]; [N] criteria unverified and excluded)
    
    **Issues Found**:
-   - [Issue 1]
-   - [Issue 2]
+   - [Issue 1] — Confidence: [Confirmed/Likely/Hypothesis; a Hypothesis names what would confirm it]
+   - [Issue 2] — Confidence: [Confirmed/Likely/Hypothesis; a Hypothesis names what would confirm it]
    
    **Recommended Title**:
    "[Optimized title suggestion]"
@@ -173,19 +247,19 @@ into the Step 11 Priority Issues summary.
    **Current Description**: [description]
    **Character Count**: [X] characters
    
-   | Criterion | Status | Notes |
-   |-----------|--------|-------|
-   | Length (150-160 chars) | ✅/⚠️/❌ | [notes] |
-   | Keyword included | ✅/⚠️/❌ | [notes] |
-   | Call-to-action present | ✅/⚠️/❌ | [notes] |
-   | Unique across site | ✅/⚠️/❌ | [notes] |
-   | Accurately describes page | ✅/⚠️/❌ | [notes] |
-   | Compelling copy | ✅/⚠️/❌ | [notes] |
+   | Criterion | Status | Points | Notes |
+   |-----------|--------|--------|-------|
+   | Keyword included | ✅/⚠️/❌ | [X]/1 | [notes] |
+   | Length (150-160 chars — house range, not an engine limit) | ✅/⚠️/❌ | [X]/1 | [notes] |
+   | Call-to-action present | ✅/⚠️/❌ | [X]/1 | [notes] |
+   | Unique across site | ✅/⚠️/❌ | [X]/1 | [notes] |
+   | Accurately describes page | ✅/⚠️/❌ | [X]/1 | [notes] |
+   | Compelling copy | ✅/⚠️/❌ | — | Observed, not scored: the 5-point scale has no point for it. It drives the rewrite below |
    
-   **Description Score**: [X]/10
+   **Description Score**: [X]/5 ([awarded] ÷ [points scored]; [N] criteria unverified and excluded)
    
    **Issues Found**:
-   - [Issue 1]
+   - [Issue 1] — Confidence: [Confirmed/Likely/Hypothesis; a Hypothesis names what would confirm it]
    
    **Recommended Description**:
    "[Optimized description suggestion]" ([X] chars)
@@ -193,7 +267,7 @@ into the Step 11 Priority Issues summary.
 
 4. **Audit Header Structure**
 
-   ```markdown
+   ````markdown
    ## Header Structure Analysis
    
    ### Current Header Hierarchy
@@ -208,25 +282,25 @@ into the Step 11 Priority Issues summary.
      H2: [H2 text]
    ```
    
-   | Criterion | Status | Notes |
-   |-----------|--------|-------|
-   | Single H1 | ✅/⚠️/❌ | Found: [X] H1s |
-   | H1 includes keyword | ✅/⚠️/❌ | [notes] |
-   | Logical hierarchy | ✅/⚠️/❌ | [notes] |
-   | H2s include keywords | ✅/⚠️/❌ | [X]/[Y] contain keywords |
-   | No skipped levels | ✅/⚠️/❌ | [notes] |
-   | Descriptive headers | ✅/⚠️/❌ | [notes] |
+   | Criterion | Status | Points | Notes |
+   |-----------|--------|--------|-------|
+   | Single H1 | ✅/⚠️/❌ | [X]/2 | Found: [X] H1s |
+   | H1 includes keyword | ✅/⚠️/❌ | [X]/2 | [notes] |
+   | Logical hierarchy — no skipped levels | ✅/⚠️/❌ | [X]/2 | [notes] |
+   | H2s cover key subtopics | ✅/⚠️/❌ | [X]/2 | [notes] |
+   | Descriptive headers | ✅/⚠️/❌ | [X]/1 | [notes] |
+   | Keyword variations in H2s | ✅/⚠️/❌ | [X]/1 | [X]/[Y] contain keywords |
    
-   **Header Score**: [X]/10
+   **Header Score**: [X]/10 ([awarded] ÷ [points scored]; [N] criteria unverified and excluded)
    
    **Issues Found**:
-   - [Issue 1]
-   - [Issue 2]
+   - [Issue 1] — Confidence: [Confirmed/Likely/Hypothesis; a Hypothesis names what would confirm it]
+   - [Issue 2] — Confidence: [Confirmed/Likely/Hypothesis; a Hypothesis names what would confirm it]
    
    **Recommended Changes**:
    - H1: [suggestion]
    - H2s: [suggestions]
-   ```
+   ````
 
 5. **Audit Content Quality** — Word count, reading level, comprehensiveness, formatting, E-E-A-T signals, content elements checklist, gap identification
 
@@ -248,11 +322,11 @@ into the Step 11 Priority Issues summary.
 
    > **Reference**: See [references/audit-templates.md](./references/audit-templates.md) for the technical on-page template (Step 9).
 
-10. **CORE-EEAT Content Quality Quick Scan** — 17 on-page-relevant items from the 80-item CORE-EEAT benchmark
+10. **CORE-EEAT Content Quality Quick Scan** — 17 on-page-relevant items from the 80-item CORE-EEAT benchmark. **An operator triage step, not a client report section**: its pass count never enters the /100 overall, its item IDs are the input to the escalation payload, and the scan therefore ships as an operator block in a fence of its own carrying **both** labels — the in-fence comment and a visible line under it. The client sees these findings as Step 11 Priority Issues, in plain words.
 
     > **Reference**: See [references/audit-templates.md](./references/audit-templates.md) for the CORE-EEAT quick scan template (Step 10). Full benchmark: [CORE-EEAT Benchmark](../../references/core-eeat-benchmark.md).
 
-11. **Generate Audit Summary** — Overall score with visual breakdown, priority issues (critical/important/minor), quick wins, detailed recommendations, competitor comparison, action checklist, expected results
+11. **Generate Audit Summary** — Overall score with visual breakdown, priority issues (critical/important/minor), quick wins, detailed recommendations, competitor comparison, the seven-field Action Plan, expected results
 
     > **Reference**: See [references/audit-templates.md](./references/audit-templates.md) for the full audit summary template (Step 11).
 
@@ -266,9 +340,19 @@ into the Step 11 Priority Issues summary.
 ### Output Validation
 - [ ] Every recommendation cites specific data points (not generic advice)
 - [ ] Scores based on measurable criteria, not subjective opinion
+- [ ] Every section score is printed on its own maximum (Title /15, Meta /5, Headers /10, Content /25, Keywords /15, Links /10, Images /10, Technical /10) with its derivation — [awarded] ÷ [points scored] and the count of unverified criteria excluded; the Overall Score is the sum of the eight and recomputes from them; nothing measurable at all means no overall score in the report
+- [ ] No unverified criterion is scored 0 or guessed; it is named unverified and left out of both the numerator and that section's maximum
+- [ ] No ranking, CTR or traffic outcome is predicted as a number for this page — expected results are stated as what to re-measure and when, not as a forecast
 - [ ] All suggested changes include specific locations (title tag, H2 #3, paragraph 5, etc.)
-- [ ] Source of each data point clearly stated (~~SEO tool data, user-provided, ~~web crawler, or manual review)
+- [ ] Source of each data point stated in the report's own words — the resolved tool name (Google Search Console, Ahrefs, Screaming Frog), "the HTML you provided", or "manual review"; where no tool was connected and nothing was supplied, the report says exactly that and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
+- [ ] Greek audits carry their mechanics: final sigma and τόνοι correct in the audit's own new Greek (ALL-CAPS unaccented, no Latin homoglyph inside a Greek word) while quoted fixture strings stay character-for-character verbatim, one number-formatting convention held throughout, Greeklish kept out of visible copy, and anti-slop-ruleset.md §6 **families 1 and 2** screened alongside family 7 — [Greek Output Mechanics](../../references/greek-output-mechanics.md)
 - [ ] Every finding carries a Confidence label (Confirmed / Likely / Hypothesis); Hypothesis findings name what would confirm them
+- [ ] Every recommended action carries all seven fields — action, owner, acceptance criterion, expected impact, effort, dependencies, risk if done wrong — with a stated-absence value wherever an answer does not exist (`not estimated — no baseline data`, `none`, `low — reversible, no downstream effect`); no action ships without an owner-role and an acceptance criterion, and the owner is a role from the closed list (`Client decision` and `unassigned — needs an owner` both count, the second being itself a finding)
+- [ ] Every acceptance criterion is observable, binary at the moment of checking, attached to a named artefact or measurement, and dated or triggered — checkable by someone who was not part of this engagement, six weeks on, without asking what was meant. **None of them requires an engine to do something**: an AI-surface action is accepted on the work shipped plus the measurement re-run and recorded beside its dated baseline, never on an appearance in a generated answer
+- [ ] The ordering rule is stated once in the report, and actions run by expected impact ÷ effort with dependencies respected inside the existing Critical / Important / Minor severity bands — no second priority vocabulary appears beside them
+- [ ] No quotation attributes words to a named person or organisation without a checkable source beside it; page quotes are verbatim from the audited HTML/content, and no Fix drafts an expert quote for the writer. A finding about particular words on the page quotes those words in its Evidence, and every image with a missing, empty or non-descriptive alt carries a drafted replacement string with its confirm-before-publishing condition attached to it — a per-image "cannot be drafted" is a last resort and names who writes it
+- [ ] The Step 10 quick scan and the follow-up-run block are each their own fence carrying **both** labels — `<!-- OPERATOR BLOCK … -->` as the first line inside it **and** a visible *operator block; not part of the client report* line directly under it, because a comment alone renders to nothing in the delivered report and a heading alone is lost when a model copies the fence — and no framework item ID or skill slug appears in the client report: a reader who copies only a fence, and a reader handed only the rendered report, must each be able to tell who it is for
+- [ ] Schema recommendations name **one primary type** for the page; no second content type is recommended or scored as extra credit, and FAQ credit rests on the visible on-page Q&A block rather than on FAQPage markup
 
 ## Example
 
@@ -282,13 +366,16 @@ into the Step 11 Priority Issues summary.
 4. **Audit regularly** - Content degrades over time
 5. **Test changes** - Track ranking changes after updates
 
-> **Scoring details**: For the complete weight distribution, scoring scale, issue resolution playbook, and industry benchmarks, see [references/scoring-rubric.md](./references/scoring-rubric.md).
+> **Scoring details**: For the per-criterion point tables, the unverified-criterion rule, calibration examples, weight distribution, issue resolution playbook, and industry benchmarks, see [references/scoring-rubric.md](./references/scoring-rubric.md).
 
 ## Reference Materials
 
-- [Scoring Rubric](./references/scoring-rubric.md) — Detailed scoring criteria, weight distribution, and grade boundaries for on-page audits
+- [Scoring Rubric](./references/scoring-rubric.md) — Per-criterion points for all eight sections and their maxima, how ✅/⚠️/❌ becomes points, what an unverified criterion does to the denominator, the overall-score arithmetic and grade bands, plus calibration examples
 - [Audit Templates](./references/audit-templates.md) — Detailed output templates for steps 5-11 (content quality, keywords, links, images, technical, CORE-EEAT scan, audit summary)
 - [Audit Example & Checklists](./references/audit-example.md) — Full worked example and page-type checklists (blog, product, landing page)
+- [Action Output Contract](../../references/action-output-contract.md) — the seven fields every recommended action carries, their stated-absence values, the closed owner-role list, worked acceptance criteria (and the AI-surface measurement rule), the three permitted shapes of expected impact, and the ordering rule
+- [Prohibited Tactics](../../references/prohibited-tactics.md) — what an action may never be, and §2 for how an existing instance found on the audited page is named, costed, remediated, owned and ranked
+- [Inter-Skill Handoff](../../references/inter-skill-handoff.md) — what to pass when this audit names a follow-up run (step 10's escalation to the full 80-item audit is the standing one), the operator-block placement rule, and the drop-and-name rule for an unavailable field
 
 ## Related Skills
 

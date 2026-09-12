@@ -1,0 +1,11 @@
+# CASE: skill-multi-partial
+# ROLE: positive
+# EXPECT-EXIT: 1
+# EXPECT-MATCH: touches skill file(s) its subject does not declare: rank-tracker
+# EXPECT-ABSENT: declare: seo-content-writer
+# FILE: build/seo-content-writer/references/anti-slop-ruleset.md
+# FILE: monitor/rank-tracker/SKILL.md
+# WHY: two skills, one named. The named one must NOT appear in the missing list — a
+#      leg that reported both would be indiscriminate rather than accurate.
+# ---8<--- commit message
+fix(seo-content-writer): tighten family 8

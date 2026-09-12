@@ -1,0 +1,9 @@
+# CASE: skill-declared
+# ROLE: negative
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: 1 passed
+# EXPECT-ABSENT: FAIL
+# FILE: build/meta-tags-optimizer/SKILL.md
+# FILE: build/meta-tags-optimizer/references/meta-tag-code-templates.md
+# ---8<--- commit message
+fix(meta-tags-optimizer): carry the value rule into the templates

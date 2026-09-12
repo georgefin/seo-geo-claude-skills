@@ -1,0 +1,8 @@
+--- a/docs/loop/GATED-ITEMS.md
++++ b/docs/loop/GATED-ITEMS.md
+@@ -1,2 +1,5 @@
+ ## G3 — WordPress/CVE security lane: restore, relocate, or retire
+
++- Basis, confirmed from Sani's pasted registry: the five retired watch items fall
++  under the same site-health process, the registry hook is machine-independent,
++  and list_issues returning EMPTY on disabled repos is GitHub-wide behavior.

@@ -6,12 +6,16 @@ Approver: Sani. Repo: fork `georgefin/seo-geo-claude-skills` (upstream:
 G2 executed — weekly prompt v4.2, report archive live; G3 retired — WP vuln watching
 owned by Sani's local loop registry; v4.3.5 pending-tasks wave — settled-pointer
 gate check (g) shipped, marketplace-discovery shim, rank-tracker 4.1.1; G1
-continuation executed — v4.4.0 manifest migration, install end-state verified).
+continuation executed — v4.4.0 manifest migration, install end-state verified;
+framework + eval-v3 wave — the binding Greek-editor gate caught the note-only-lesson
+class (ledger F13), geo 4.1.6 placement rule shipped; Master Improvement Directive
+received — G5–G8 registered, proposal in `MASTER-IMPROVEMENT-PLAN.md`).
 
 **GROUNDING RULE — do this first**: before researching or proposing anything, read the
 five files in `docs/loop/`: `PIPELINE.md` (this file), `SETTLED-RULINGS.md`,
 `WATCH-ITEMS.md`, `GATED-ITEMS.md`, `FAILURE-LEDGER.md`. Local checkout preferred; else
-fetch raw from the fork (same pattern as `VERSIONS.md:3`). Rulings are non-relitigable
+fetch raw from the fork (same pattern as `VERSIONS.md:3` ("raw.githubusercontent.com")).
+Rulings are non-relitigable
 without new primary evidence; gated items are untouchable without Sani's recorded
 verdict; ledgered failures must not be repeated — repeating one is an incident.
 
@@ -43,9 +47,13 @@ verdict; ledgered failures must not be repeated — repeating one is an incident
    completes against its frozen SHAs and its findings land fix-forward on the
    successor accumulator. The review is never skipped, only its landing point
    moves. Branch naming
-   per `CLAUDE.md:54` (`feature/…`, `fix/…`, `docs/…`); cloud sessions use their assigned
-   `claude/*` branch. Skill edits trigger the 5-tracking-file sync (`CLAUDE.md:53`);
-   docs-only changes (this directory) do NOT.
+   per `CLAUDE.md:155` ("Branch naming") (`feature/…`, `fix/…`, `docs/…`); cloud sessions
+   use their assigned `claude/*` branch. Skill edits trigger the 5-tracking-file sync
+   (`CLAUDE.md:154` ("update all 5 tracking files")); docs-only changes (this directory)
+   do NOT. Both pointers refreshed and anchor-tagged 2026-08-17: `:62`/`:61` had drifted
+   onto the connector-resolution paragraph and a blank line respectively — the second
+   silent drift of this same pair (the first, to `:53`/`:54`, is recorded in GATED-ITEMS
+   as the case that motivated extending check (g) past `VERSIONS.md`).
 4. **VALIDATE** — two legs, both required:
    (i) STRUCTURAL: `scripts/pre-push-gate.sh` before EVERY push — runs
    `scripts/validate-skill.sh` on each touched skill plus `scripts/validate-tracking.sh`
@@ -57,8 +65,64 @@ verdict; ledgered failures must not be repeated — repeating one is an incident
    (ii) BEHAVIORAL: skills carrying an `evals/` suite (pilot 2026-08-08:
    schema-markup-generator, keyword-research, geo-content-optimizer) must pass their
    suite — `skill-reviewer` (Mode B) executes and grades per skill-creator conventions;
-   an eval regression is a do-not-merge finding. Greek-language outputs additionally go
-   to `greek-content-editor` for register/diacritics/Greeklish-placement judgment.
+   an eval regression is a do-not-merge finding.
+   **Frozen input manifest (Mode B, 2026-08-10)**: Mode A launches only against a frozen
+   target (F8); Mode B declares the same about its INPUTS, because a skill's references
+   are at once the executor's instructions and the grader's rubric, so an edit to either
+   mid-run changes what was graded. At launch the run records the HEAD SHA and the files
+   it grades against — target `SKILL.md`, the `references/` it cites, `evals/evals.json`
+   and its fixtures; at close it re-checks that list and reports any drift together with
+   the verdicts the drift touches. This is a reporting obligation, not a lock: parallel
+   authoring continues, and the failure is an UNREPORTED drift, not the drift. Founding
+   evidence, both 2026-08-10: two blind runs graded against an `anti-slop-ruleset.md`
+   that gained a FAIL-grade family and a `SKILL.md` that a parallel agent version-bumped
+   while they ran — each caught it only by a closing `git status`, and each proposed this
+   rule in its own words. Runner-side carrier: the input-recheck hard rule in
+   `.claude/agents/skill-reviewer.md` (agent definitions load at session start, so it
+   binds from the next session on).
+   **Split executor from grader (Mode B method, binding from 2026-08-10).** One agent that
+   executes a suite *while knowing its expectations* is not measuring the skill; it is
+   measuring whether a model that has been told the answer can write to it. Both roles stay
+   in Mode B, but they must be two agents:
+   - **EXECUTOR (blind).** Receives the skill name, the eval prompts *verbatim*, the fixture
+     paths, and a workspace path — nothing else. Forbidden from reading `evals/evals.json`,
+     `docs/loop/eval-baselines/`, any `grading*.json`, and any prior run output for the
+     suite. Blindness is established **by construction, not by instruction**: the
+     coordinator extracts the prompts and pastes them into the brief, so the expectations
+     are never on a path the executor has a reason to open. It saves each deliverable the
+     moment it is finished and grades nothing.
+   - **GRADER (informed).** Receives the saved deliverables and the expectations, and never
+     re-runs the skill. Its per-expectation evidence quotes the deliverable as written.
+   A run that sees an expectation is **labelled contaminated, not discarded quietly** — a
+   labelled contaminated run is usable evidence; a silently contaminated one poisons the
+   baseline it lands in.
+   Founding measurement (2026-08-10, same library, same window; full records in
+   `eval-baselines/2026-08-10-blind.json` and `blind-2026-08-10/<suite>.json`): ten
+   informed-executor suites returned **276/282 = 97.9%**, ten blind suites **252/286 =
+   88.1%**. **Do not quote that 9.8-point gap as the method effect** — the two sets are
+   almost disjoint, only `domain`, `serp` and `technical` were measured both ways, so the
+   pooled figure mixes the method with which skills each method happened to cover. The
+   defensible comparison is the paired one: informed 81/83 = 97.6% → blind 77/83 = 92.8%,
+   a **4.8-point method effect**, same direction in all three suites (domain −3.8, serp
+   −3.4, technical −7.1), n = 3 — act on it, do not treat it as a coefficient.
+   The **discrimination** finding is the stronger one and it survives the confound: across
+   ten different skills no informed run scored below 96.2%, ten independent subjects inside
+   a 3.8-point band just under ceiling, while ten blind runs spread over 37.9 points. A
+   measurement that cannot separate its subjects cannot tell you what to fix next, which is
+   the only thing these numbers are for. The blind spread put `entity-optimizer` at the
+   library's floor (62.1%) and inspecting why found it carried no no-fabrication guidance at
+   all while its own suite graded fabrication. State that as found-by-blind, **not** as
+   missed-by-informed: entity-optimizer was never run informed, so there is no informed run
+   to have missed it.
+   Blindness is **not uniform across those ten** and each record states its own limits —
+   `technical` saved all five deliverables before opening `evals.json` at all; seven suites
+   used per-eval alternation so later evals had seen earlier expectations (`metatags` labels
+   this "RESIDUAL CONTAMINATION, DISCLOSED" and shows it in its data); `memory` calls itself
+   "informed executor, blind grader" because its launching brief pre-named traps, and `serp`
+   carries the same discount. Every one of those disclosures was volunteered by the run that
+   made it and every one weakens its own number. That is the behaviour to keep.
+   Greek-language outputs additionally go to `greek-content-editor` for
+   register/diacritics/Greeklish-placement judgment.
    `scripts/check-freshness.sh` (advisory, non-blocking) flags dated baselines and
    snapshots older than their re-check window.
 5. **MONITOR** — `subscribe_pr_activity` on open PRs (webhook events wake the session)
@@ -140,6 +204,9 @@ same winter drift — its fix would be `0 5 * * 1-5`.
 | `GATED-ITEMS.md` | proposals awaiting Sani, risk/rollback, verdicts | Sani's verdict via PR |
 | `FAILURE-LEDGER.md` | append-only failure entries + guards + recurrence counts | every FIX/BLOCK, regression, revert, incident |
 | `eval-baselines/` | dated eval-run records (per-expectation outcomes, tool-correctness) — regression-rate denominator | skill-reviewer runs via APPLY sessions |
+| `PILOT.md` | real-site pilot: keyword set, measurement design, per-change HITL workflow; deployment gated on Sani's three inputs (§0) | scope edits via gated PR |
+| `ADVERSARIAL-LAYER.md` | second-lane review protocols (Protocol A cross-tier contrastive; Protocol B Sani's monthly cross-family paste) | protocol edits via normal PR |
+| `KPI.md` | append-only cold KPI rows (weekly loop metrics for trend reads) | weekly routine appends a row; corrections append, never rewrite |
 | `reports/` (optional) | dated weekly report mirrors | APPLY-stage sessions |
 
 ## Trigger hygiene policy (standing)

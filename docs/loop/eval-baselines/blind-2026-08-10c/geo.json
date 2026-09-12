@@ -1,0 +1,124 @@
+{
+  "skill_name": "geo-content-optimizer",
+  "skill_version_under_test": "4.2.2",
+  "method": "blind-execute, split grader",
+  "run_date": "2026-08-10",
+  "founding_blind_datum": true,
+  "grader_head_sha_at_open": "36d2f18814e1177e436cbe8949b5f1c8863e538b",
+  "grader_head_sha_at_close": "00487a583f7f6580f7ad38bc11ee64afde5eaf41",
+  "input_drift_during_run": {
+    "files_regraded_at_close": [
+      "build/geo-content-optimizer/evals/evals.json",
+      "build/geo-content-optimizer/SKILL.md",
+      "build/geo-content-optimizer/references/geo-optimization-techniques.md",
+      "build/geo-content-optimizer/references/ai-citation-patterns.md",
+      "build/geo-content-optimizer/evals/files/ (all 5 fixtures)",
+      "build/seo-content-writer/references/anti-slop-ruleset.md",
+      "docs/loop/SETTLED-RULINGS.md",
+      "scripts/eval-corpus-report.sh"
+    ],
+    "byte_identical_at_close": "all of the above",
+    "changed_at_close": "docs/loop/FAILURE-LEDGER.md only (+121 lines: commits 7b2539b F18, 00487a5 F9-r3)",
+    "effect_on_verdicts": "none. No FAIL-grade family was added to anti-slop-ruleset.md §6 and no expectation changed. F18 independently corroborates this run's contamination finding (recorded below); F9-r3 concerns content-gap-analysis's GEO Opportunity table, not this skill's score tables."
+  },
+  "deliverables": {
+    "1": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-geo-out-e1.md",
+    "2": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-geo-out-e2.md",
+    "3": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-geo-out-e3.md",
+    "4": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-geo-out-e4.md",
+    "5": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-geo-out-e5.md"
+  },
+  "per_eval_grading_records": {
+    "1": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-geo-grading-e1.json",
+    "2": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-geo-grading-e2.json",
+    "3": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-geo-grading-e3.json",
+    "4": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-geo-grading-e4.json",
+    "5": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-geo-grading-e5.json"
+  },
+  "checker_script": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-geo-grader-checks.py",
+  "evals": [
+    {"id": 1, "language": "el", "passed": 6, "failed": 0, "total": 6, "failed_ids": []},
+    {"id": 2, "language": "el", "passed": 5, "failed": 1, "total": 6, "failed_ids": ["e2.2 — FAQ answer-length quota: only 2 of 6 answers in the 40-80 word band, quota is 3"]},
+    {"id": 3, "language": "en", "passed": 7, "failed": 0, "total": 7, "failed_ids": []},
+    {"id": 4, "language": "en", "passed": 4, "failed": 1, "total": 5, "failed_ids": ["e4.2 — R2 single-type clause: two JSON-LD types recommended (LocalBusiness kept + FAQPage added)"]},
+    {"id": 5, "language": "en", "passed": 5, "failed": 0, "total": 5, "failed_ids": []}
+  ],
+  "summary": {
+    "passed": 27,
+    "failed": 2,
+    "total": 29,
+    "pass_rate": 0.931,
+    "editor_slot_convention": "COUNTED IN, COUNTED PASSED. The two Greek editor-pending slots (e1.6, e2.6) are inside the denominator and are counted as passed because their mechanically checkable layer was graded here and is clean; register/naturalness/translation-ese are delegated to the binding greek-content-editor and are NOT graded by this record. This matches performance-reporter e5.3, the 11-of-16 majority convention (F16-r1(d)); passed + failed = total, so this record reads as a single-convention record to scripts/eval-corpus-report.sh and adds no third schema.",
+    "alternative_convention_rate": "if the two editor slots were left uncounted and therefore treated as not-passed (the internal-linking-optimizer e3.4 convention, 5 of 16 suites), this suite would publish 25/29 = 0.8621",
+    "schema_note": "uses the summary.passed / summary.failed / summary.total / summary.pass_rate schema per F16-r1(c); no totals.* keys are present"
+  },
+  "regressions_vs_baseline": {
+    "verdict": "NO PRIOR BLIND BASELINE — this is the founding blind datum for geo-content-optimizer. No regression verdict is issued.",
+    "prior_records_that_exist": [
+      "2026-08-09.json — geo-only, informed, skill 4.1.5, 29/29",
+      "2026-08-09-v3.json — informed, skill 4.1.6 (three-iteration arc), 29/29",
+      "2026-08-08-v2.json — informed, skill 4.1.x, geo suite included"
+    ],
+    "why_not_called_a_regression": "All three prior records are informed-executor runs at skill 4.1.5/4.1.6; this run is blind at 4.2.2. Both the method and the window differ, so per F16 guard (b) the comparison is labelled cross-method AND cross-window rather than stated as a difference. The two expectations failing here (e2.2, e4.2) are recorded as passing in those informed records.",
+    "f13_r3_signature_match": "e2.2 and e4.2 are the F13-r3 shape — a carrier that passes informed and fails blind. Both carriers were PRESENT and unchanged: e2.2's 40-60-word FAQ answer guidance at geo-optimization-techniques.md:219 and :224 and ai-citation-patterns.md:230 (files the skill routes to at SKILL.md:183); e4.2's one-accurate-type rule at SKILL.md:142. Neither is an uncarried expectation; both are carriers that did not hold once the executor could not read the expectation. Offered to the coordinator as a candidate F13-r3 increment, not asserted as one."
+  },
+  "greek_referrals_to_greek_content_editor": {
+    "scope": "e1 and e2 are entirely Greek. Structure, thresholds, number formatting, schema mirroring and the §6 FAIL-grade family screen are graded in this record. Register, idiomatic naturalness, translation-ese and tone are NOT.",
+    "screened_families": {
+      "family_1_totality_calque": "screened, nothing surfaced (e1, e2)",
+      "family_2_provenance_placeholder": "screened, nothing surfaced (e1, e2) — 0 hits of «απαιτούνται στοιχεία» / [CLIENT DATA / [SOURCE NEEDED anywhere in either file",
+      "family_5_negative_concord": "screened, nothing surfaced — 21 n-word hits across the two files, each hand-checked; all licensed by a preverbal «δεν» in their own clause or protected verbless nominal parallels",
+      "family_6_costs_zero_calque": "screened, nothing surfaced — net `μηδ[εέ]ν` 0 hits",
+      "family_7_connector_placeholder": "screened, nothing surfaced — `~~` 0 hits in all five deliverables",
+      "family_8_artefact_names_and_item_ids": "screened, nothing surfaced — 0 framework item IDs, 0 skill slugs, 0 «δεξιότητ» in all five deliverables; the single «CORE-EEAT» occurrence per file is glossed on first use, which is family 8's stated exemption"
+    },
+    "mechanical_layer_findings": "final sigma: 0 word-final 'σ', 0 word-internal 'ς' in either file. Diacritics: every unaccented 4+-char word is a legitimate monotonic form. Headings: all Greek, no untranslated English boilerplate.",
+    "referred_for_editor_judgement": [
+      "e1 — register and naturalness of the published copy (L42-93) and of the FAQ answers",
+      "e2 — retail register of the category copy (L42-98); whether the FAQ questions read as native Greek search phrasing rather than translated PAA templates",
+      "e1 L3 / e2 L3 — the header line carries the fixture path `evals/files/…`, an operator-facing artefact on a document otherwise addressed to the client; not a §6 family, offered as a register observation"
+    ],
+    "priming_caveat_on_family_1_and_family_2_evidence": "e2 produces family 1's ruled native form «Και τα 18 μοντέλα» three times (L44, L98, L182) and carries zero family-2 leaks. This is real, but it is NOT cold evidence that the carriers work: anti-slop-ruleset.md §6:168 states family 1 using «Όλα τα 18 μοντέλα συνοδεύονται…» → «Και τα 18 μοντέλα συνοδεύονται…», and §6:169 states family 2 using «(απαιτούνται στοιχεία προϊόντος)» inside a FAQ answer or JSON-LD — both are geo e2's own defect sentences on a fixture that has exactly 18 models, and the ruleset is on the blind executor's required-read list. Label the two results PRIMED at the expectation level."
+  },
+  "contamination_findings": {
+    "verified_vector_1": {
+      "claim": "anti-slop-ruleset.md §6 family-7 provenance contains an unattributed verbatim quotation of an eval expectation",
+      "verdict": "CONFIRMED independently by repo-wide string search",
+      "evidence": "The string `absent tools mean absent numbers` occurs in exactly three files: build/seo-content-writer/references/anti-slop-ruleset.md:265 (unattributed, inside the family-7 provenance paragraph, framed as 'the same honest zero-data move the eval suites already expect'), cross-cutting/domain-authority-auditor/evals/evals.json:15, and cross-cutting/domain-authority-auditor/evals/evals.json:69.",
+      "source_suite": "cross-cutting/domain-authority-auditor (two expectations, e1 and the zero-data eval)",
+      "scope": "every blind executor of every suite, because the ruleset is required reading as skill instruction the deliverable must obey",
+      "ledger_status": "opened as F18 by commit 7b2539b during this run, which reached the same conclusion from three other executors' unprompted reports"
+    },
+    "verified_vector_2_correction_to_f18": {
+      "claim_being_corrected": "F18 states 'geo-content-optimizer and content-gap-analysis are unaffected by this vector'",
+      "verdict": "NOT correct for geo-content-optimizer, on the evidence below",
+      "evidence": "anti-slop-ruleset.md §6:168 (family 1) states its ruled form as «Όλα τα 18 μοντέλα συνοδεύονται…» → «Και τα 18 μοντέλα συνοδεύονται…», and §6:169 (family 2) states its ruled form as «(απαιτούνται στοιχεία προϊόντος)» inside a FAQ answer or JSON-LD, citing 'structural carrier: geo-content-optimizer 4.1.6 Statistics-rule Placement clause'. Both are verbatim the geo e2 defects recorded in F13 and F13-r1, on a fixture whose catalogue is exactly 18 models. §6:169's parenthetical also names the skill and its version.",
+      "effect_on_this_run": "e2.5 and e2.6 are primed, not blind, at the family-1 and family-2 level. Neither verdict changes — priming can only assist a pass, and both were graded PASS on the deliverable's own content — but the record labels them so the founding blind datum is not read as cold evidence that those two carriers hold."
+    }
+  },
+  "skill_defects_confirmed": [
+    {"id": "D1", "claim": "SKILL.md:247-262 mandates a post-optimization table whose first column is framework item IDs, which anti-slop §6 family 8 never exempts on a client-read surface", "verdict": "CONFIRMED as a skill defect; NO expectation in this suite mandates it", "evidence": "SKILL.md:247 '| ID | Standard | Status | Notes |' with rows :249-:262 carrying C02 C04 C09 O02 O03 O05 O06 R01 R02 R04 R07 E01 Exp10 Ept08. anti-slop-ruleset.md:174 — 'What is never exempt is a framework **item ID** (`O05`, `T03`, `C01`) — a coordinate in a document the client has never seen'; :269 — family 8 is 'ruled here, enforced everywhere'. No geo expectation requires the ID column in the deliverable: e5.4 explicitly allows 'any section counts' and states the literal 'Items Needing Attention' slot is not required. The executor's dropped-ID-column, plain-language table is correct on both surfaces and was not penalised. Same class as the recorded research/competitor-analysis instance at analysis-templates.md:224."},
+    {"id": "D2", "claim": "SKILL.md:284's Placement clause is contradicted by the skill's own worked Example at :297-303", "verdict": "CONFIRMED", "evidence": "SKILL.md:284 — 'placeholders and provenance notes … belong in the report/gap-table sections only, never inside ship-ready surfaces: schema/JSON-LD, meta tags, or answer text presented as paste-ready.' SKILL.md:297 opens '## GEO-Optimized Version' and :301-302 place '[CLIENT DATA: share of Greek households — no source provided]' inside that block. The :284 escape hatch ('Draft body copy may carry a bracketed placeholder only with an explicit resolve-before-publication flag') is not met inside the block: the only resolve note is at :320, outside the block, and CLAUDE.md's Value Rule §2 is explicit that a model copies the fence, not the heading above it — the skeleton label must live inside the fence in that fence's own syntax. F3/F13-r2's shape: a worked example modelling the behaviour the rule forbids."},
+    {"id": "D3", "claim": "Output Validation's 'at least 5 verifiable statistics' is unreachable on e4 and e5 without inventing figures, and the skill never says which rule wins", "verdict": "CONFIRMED, and sharper than reported", "evidence": "SKILL.md:278 requires it; SKILL.md:284 forbids inventing to satisfy a threshold; nothing in SKILL.md or its three references reconciles them. The e4 fixture yields two figures (2011, once a year) and the e5 prompt supplies none. The reconciliation exists ONLY in the eval suite — e5's first expectation resolves it in the honest direction ('although the skill's output validation demands … the output invents NO statistics') — i.e. on the grader's surface, not the writer's. That is F13-r2's exact statement: an expectation is a carrier for whoever grades, not for whoever writes. Both deliverables marked the item ❌ with the count and the reason (e4 L255, e5 L255), which is the behaviour the suite rewards."},
+    {"id": "D4", "claim": "two score tables with different factor sets produce two different 'before' numbers, and ':281 GEO score improvement of at least 50% from baseline' never says which baseline", "verdict": "CONFIRMED", "evidence": "SKILL.md step 2 table :156-164 has 8 factors (adds Content freshness, Structure clarity) with the average at :165 labelled 'GEO Readiness'; step 4 table :222-227 has 6 with the average at :228 labelled 'Overall GEO Score'. Both are computed from the same content, so they diverge by construction, and all five deliverables show the divergence: e1 1,3 vs 1,2 · e2 1,3 vs 1,2 · e3 1.1 vs 1.0 · e4 2.3 vs 2.2 · e5 1.5 vs 1.3. No grading effect — e3.6 only requires the before/after table and >=50%, met on either baseline (+720%). Not covered by the F9-r3 survey committed during this run, which addresses content-gap-analysis's GEO Opportunity table."},
+    {"id": "D5", "claim": "the skill offers 'estimated' as a source label one line above a rule banning invented figures", "verdict": "CONFIRMED, with the line numbers corrected to :282 and :284 (adjacent paragraphs, :283 blank)", "evidence": "SKILL.md:282 — 'Source of each data point stated in the deliverable's own words — the resolved tool name (Otterly, Profound), \"user-provided\", or \"estimated\"'. SKILL.md:284 — 'Every statistic must come from user-supplied data, a cited source, or be marked as a `[CLIENT DATA: …]` placeholder — never invented to satisfy a threshold.' :282 offers a fourth origin that :284's three-item enumeration excludes: a figure with no supplied source and no citation is, under :284, dropped or bracketed, never shipped under an 'estimated' label. The suite carries the tension too — e3's third expectation quotes the :282 vocabulary verbatim, 'estimated' included."},
+    {"id": "D6", "claim": "no rule for a fixture claim that contradicts the prompt, or for an unsourceable claim already published on the client's page", "verdict": "CONFIRMED — the gap is total", "evidence": "A search of SKILL.md and all three reference files for any rule on pre-existing, conflicting or already-published claims ('already on the page', 'existing claim', 'contradict', 'source of truth') returns zero hits. The Statistics rule at :284 governs statistics the skill ADDS and is silent on what to do with one the page already carries. Live in e4: the fixture publishes 'Most manufacturers recommend a professional service at least once a year' with no manufacturer named. The executor converted it to a first-party 'We recommend…' and disclosed the conversion at L202; a different executor could equally have kept it, dropped it, or sourced it, with nothing in the skill to prefer one. e4's fifth expectation lists it among the page's usable facts, which is a third position again."},
+    {"id": "D7-new", "claim": "not reported by the executor — the skill mandates both sides of the e4.2 collision", "verdict": "CONFIRMED, and it is the probable cause of this run's only English failure", "evidence": "SKILL.md:119 ranks C09 'Structured FAQ with Schema' as GEO-First priority #2 ('Directly matches AI follow-up queries'); SKILL.md:193 lists 'FAQ schema: JSON-LD FAQPage markup matching visible content' as one of the six core techniques; SKILL.md:251 makes 'C09 | Structured FAQ with Schema' a required row of the post-optimization check. SKILL.md:142 simultaneously states 'schema-stacking (not a signal — one accurate JSON-LD type per O05 is enough)'. On a page that already carries an accurate JSON-LD type — which is exactly the e4 fixture, with its LocalBusiness block — adding the FAQ the skill demands and marking it up as the skill demands necessarily produces two types, which the same skill forbids. The skill states no precedence, and SETTLED-RULINGS R2 boundary (c) names 'FAQPage bolted onto a service page' as the banned case while its own exception clause ('unless the page genuinely is both things') is what the deliverable invoked."}
+  ],
+  "tool_correctness": {
+    "tool_errors": 0,
+    "checker_false_verdicts_caught_before_reporting": 0,
+    "f7_raw_inspection_performed": "yes — both failures were re-derived from the raw file before being recorded. e2.2: all six FAQ answers were re-extracted and printed token-by-token under a second, independent whitespace-split counter and hand-recounted (55/28/30/34/50/11), confirming the 40-80 band count of 2. e4.2: L29, L35, L126 and L253 were each read in full context before the failure was written.",
+    "checker_noise_recorded": "the number-scan check reported section-heading and list numerals ('## 2. Optimized content', '1.', '2.') as REVIEW tokens because the allowed-set was keyed to content figures only; resolved by inspection, no verdict affected. Comma-formatted figures (3,200 / 6,400 / 9,600) surfaced as REVIEW against a dot-formatted allowed set; resolved by inspection, no verdict affected.",
+    "expectations_ungradeable_as_written": 0,
+    "expectations_with_ambiguous_wording": ["e2.5", "e4.2", "e1.5", "e3.7"],
+    "scope_drift": "none — the grader executed no eval prompt and produced no deliverable content. Files written: five per-eval grading records and one checker script in the scratchpad (all suite-prefixed `modeb-geo-`), plus this record."
+  },
+  "eval_improvement_feedback": [
+    "e2.5 — states the gap must be 'marked [CLIENT DATA NEEDED] / «απαιτούνται στοιχεία προϊόντος» in the report/gap-table sections'. A deliverable that names the gap in a dedicated gap table without the literal token satisfies the purpose but not the letter. Say whether the marker string is required or whether any explicit gap record in the report section counts — the strict reading would demand a bracket token that the skill's own Placement clause exists to confine.",
+    "e4.2 — 'keeping or recommending a single accurate type for the page' does not say whether FAQPage may be added when the optimization itself adds a visible FAQ to a page that already carries a type. The skill mandates that FAQ and its markup (C09, GEO-First priority #2), so the expectation and the skill currently point opposite ways on the e4 fixture. Resolve in the expectation and in SKILL.md:142 together; see D7-new.",
+    "e1.5 — 'never attributed to a source the user did not name' does not say whether the deliverable may name a plausible first-party document (here «αρχεία εργασιών της εταιρείας») for figures the prompt supplied without naming a document. Graded PASS on the grammatical reading that the clause governs additional, unsupplied metrics.",
+    "e3.7 — 'a derived figure presented without its derivation fails' does not say whether the derivation must accompany EVERY occurrence or appear once in the document. The e3 deliverable states '€6,400' and 'about 15 years' in the takeaways box and the table before showing the arithmetic at L81; graded PASS on the once-per-document reading.",
+    "e2.2 — the 40-80 word quota is well specified and was the only quantitative miss in the run; worth keeping verbatim. Consider whether the skill's own carrier should say 40-60 words as a floor rather than a target, since the carrier states '[Direct answer: 40-60 words]' while the expectation grades a 40-80 band."
+  ]
+}

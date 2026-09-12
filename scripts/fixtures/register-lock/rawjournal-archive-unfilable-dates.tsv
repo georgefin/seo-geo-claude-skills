@@ -1,0 +1,34 @@
+# rawjournal-archive-unfilable-dates.tsv — the ONE fixture family in this corpus whose
+# column 2 is LITERAL, not an offset from now.
+#
+# WHY IT IS ALLOWED TO BREAK THE OFFSET RULE. The rule exists because staleness is
+# defined relative to now, so a frozen timestamp decays from live to stale and the
+# fixture stops meaning what it says. Every row here is a value that is NOT A
+# TIMESTAMP AT ALL — that is the entire subject of the file. There is nothing for an
+# offset to express, and materialising these through `date -u -d @<epoch>` would
+# destroy the only property under test. `rawjournal-*.tsv` is copied byte-for-byte
+# (comment and blank lines stripped); `journal-*.tsv` is materialised from offsets.
+# Nothing that depends on now may be written here.
+#
+# WHAT IT MEASURES. do_archive builds a filename from characters 1-10 of field 2. The
+# only thing standing between that and an arbitrary write path is one shell `case`
+# glob. Rows 1 and 2 are chosen so that removing that guard writes OUTSIDE the archive
+# directory into a directory that EXISTS — repo root and docs/loop/ — because a
+# traversal that lands in a directory nobody created fails on the redirect and would
+# let the probe pass for the wrong reason:
+#   ../../../x  -> <root>/x.tsv                     (escapes the whole docs tree)
+#   ../KPI.md   -> <root>/docs/loop/KPI.md.tsv      (lands beside the registers)
+# The remaining rows are the ordinary garbage a hand-appended journal produces.
+#
+# The last row is NOT an escape and IS archived: 9999-99-99 satisfies the glob, which
+# tests SHAPE and not the calendar. That is a stated limit of the guard, asserted here
+# so it stays measured rather than described.
+ACQUIRE	../../../x	lane-esc	docs/loop/KPI.md
+ACQUIRE	../KPI.md	lane-esc	docs/loop/KPI.md
+ACQUIRE	../../etc/passwd	lane-esc	docs/loop/KPI.md
+ACQUIRE	/etc/passwd	lane-esc	docs/loop/KPI.md
+ACQUIRE	not-a-date	lane-esc	docs/loop/KPI.md
+ACQUIRE	*	lane-esc	docs/loop/KPI.md
+ACQUIRE		lane-esc	docs/loop/KPI.md
+ACQUIRE
+ACQUIRE	9999-99-99T00:00:00Z	lane-esc	docs/loop/KPI.md

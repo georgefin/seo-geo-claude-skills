@@ -54,6 +54,9 @@ Configures proactive **monitoring alerts for critical SEO and GEO metrics**, def
 ## Output Format
 
 ```
+# SKELETON -- scaffold, not output. Every [bracket] is a slot filled from the alerts
+# actually configured; anything left unconfigured is named as such, never shipped as a
+# bracket.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ALERT CONFIGURATION SUMMARY
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

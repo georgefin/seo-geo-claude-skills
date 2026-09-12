@@ -1,0 +1,12 @@
+# CASE: gate-unlocked-path
+# ROLE: negative
+# JOURNAL: journal-live-two-holders.tsv
+# COMMIT-AT: -200
+# FILE: README.md
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: none landed inside another holder's tenure undeclared
+# EXPECT-ABSENT: FAIL
+# WHY: inside both tenures in TIME, overlapping neither in PATH. path_overlap must
+#      return false here or the ledger becomes a repo-wide freeze.
+# ---8<--- commit message
+docs: tidy the install section

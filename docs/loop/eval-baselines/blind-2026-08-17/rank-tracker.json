@@ -1,0 +1,660 @@
+{
+  "suite": "ranktracker",
+  "skill": "rank-tracker",
+  "suite_path": "monitor/rank-tracker",
+  "skill_version_under_test": "4.3.0 (SKILL.md frontmatter version and metadata.version, in lockstep; the AI-visibility wave af230bb, 2026-08-17T10:43:28Z)",
+  "run_label": "blind-2026-08-17",
+  "run_date": "2026-08-17",
+  "method": "blind",
+  "method_detail": {
+    "executor": "blind, separate agent; deliverables e1.md..e5.md under scratchpad/modeb-2026-08-17/rank-tracker/",
+    "grader": "informed, this agent; produced no rank-tracker deliverable of its own at any point and did not read the executor's transcript or any other agent's output",
+    "blindness_enforcement": "MECHANICAL, NOT SELF-REPORT. The executor was served each prompt through `scripts/eval-prompt.sh monitor/rank-tracker <id>`, which drops `expectations` and `expected_output` from the JSON before printing anything, so the blind half of the protocol holds by construction. The grader read the same evals through the separate `--grade` call, which is a visibly different invocation in the transcript. No claim in this record rests on the executor asserting it did not look.",
+    "grader_call_used": "bash scripts/eval-prompt.sh monitor/rank-tracker {1,2,3,4,5} --grade",
+    "editor_referral": "e3.5 referred to the binding greek-content-editor. The mechanical layer of e3.5 was checked by this grader and is clean (see the e3.5 evidence field); fluency, idiomatic naturalness and register are the editor's and this grader formed no second opinion on them. One item travels with the referral: the client-facing arithmetic error at e3.md:84 («Δεκαπέντε εμφανίσεις κάτω από το κατώφλι μας», where the fixture gives six) is a factual defect, not a register question, and is failed here under e3.6 rather than deferred.",
+    "note_on_eval_ids": "The suite's ids are bare integers 1-5, not e1-e5; `eval-prompt.sh monitor/rank-tracker e1` exits 2. Expectation ids below follow the suite's own printed form eN.M."
+  },
+  "repo_head_at_open": "61ac57acb08f6e75ae25f509297c3b657e526822",
+  "repo_head_at_close": "61ac57acb08f6e75ae25f509297c3b657e526822",
+  "input_drift_during_the_grading": {
+    "checked": "`git rev-parse HEAD` and `git status --porcelain` at open and at close; `git diff --stat 61ac57a -- monitor/rank-tracker/ build/seo-content-writer/references/ docs/loop/SETTLED-RULINGS.md CLAUDE.md`; per-file `git log -1` on every graded input; deliverable mtimes.",
+    "result": "ZERO DRIFT. HEAD is byte-identical at open and close (61ac57a). `git status --porcelain` returned empty at close — no other lane held uncommitted work in this tree during the grading. The scoped diff against the opening SHA is empty for the skill, its evals, its fixtures, its four references, the anti-slop ruleset, SETTLED-RULINGS.md and CLAUDE.md.",
+    "effect_on_verdicts": "none. No graded input changed, so no verdict below rests on text that moved under it.",
+    "subject_stability": "monitor/rank-tracker/SKILL.md and two of its references last changed at af230bb (2026-08-17T10:43:28Z), 24 minutes before the first deliverable was written (e1.md mtime 11:07:26) and unchanged since. The skill was byte-identical throughout the executor's run and throughout this grading.",
+    "suite_stability": "monitor/rank-tracker/evals/evals.json last changed at 1a1b55d, 2026-08-10 — SEVEN DAYS BEFORE the skill it grades. `git diff --stat 1a1b55d af230bb -- monitor/rank-tracker/` reports SKILL.md +128/-22, ranking-analysis-templates.md +113, metric-derivations.md +41, and no change to evals.json. Every expectation below was written against 4.2.x and none was updated for 4.3.0. This is the single largest fact about this record and it is developed under `coverage_gaps`.",
+    "deliverable_integrity": "All five deliverable mtimes (11:07:26 / 11:11:45 / 11:24:44 / 11:29:27 / 11:33:51) precede this grading window and are unchanged; no deliverable was revisited after any expectation was printed."
+  },
+  "expectations": [
+    {
+      "id": "e1.1",
+      "text": "Position deltas 2026-07-13 -> 2026-08-10 fixture-exact, sign convention stated, per-keyword change vs previous period, 200-litre keyword as a New Ranking and never a delta from NF or an assumed 50",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "All five named deltas are fixture-exact and grader-recomputed. Sign convention stated once at L12-13: 'Change = new position - old position. A **negative** number is an improvement, a **positive** number is a decline. This convention holds in every table below.' Detailed table L78-89 carries a 'Change vs 13 Jul' column: theta-ermopompoi '+6' (4->10), antlia thermotitas epidotisi '-11' (18->7), endodapedia thermansi '+1' (10->11), levitas aeriou '0' (6->6, restated at L159 as 'Net change 0 across the period'). The 200-litre keyword is L89 'New ranking' in the change column, and L135-137 gives it its own New Ranking table: 'First check with a position 2026-08-03 | 46 | 38 ... recorded as not found in the top 50 for the first three checks. Between the two checks where it does hold a position - 3 and 10 August - it moved 46 -> 38 (change -8). That figure ... belongs to no average in this report.' The 2026-07-30 publication is named as context in the same row. The -8 is computed between two observed positions, never from NF; L131-132 states the rule explicitly: 'Reported as an entry, never as a change from an assumed starting position.'"
+    },
+    {
+      "id": "e1.2",
+      "text": "Volatility classified per the guide's fluctuation table and not inverted: levitas aeriou recovered-drop -> monitor/no-action; thermopompoi steady decline -> real ranking loss -> investigate; fluctuation-band keywords not manufactured into issues",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "levitas aeriou is filed under the section headed '3.5 What is just noise' (L146-159) with the row read '6, 15, 7, 6, 6 | Net change 0 across the period'; no action, no diagnostic and no protocol row is assigned to it anywhere in the six-item action list (L278-389), and the only follow-up is the watch-list entry at L538 '«levitas aeriou» (does the July pattern recur)'. The retrospective naming the expectation permits is present at L194-196: 'Read on 20 July alone, that check is a page-one exit - 6 to 15 - and under our response protocol a page-one exit is an emergency response whatever its size. By the following check it had recovered on its own.' The guide's row is then applied: 'A sudden fall of five or more positions that recovers is one of the patterns our interpretation guide reads as ordinary volatility rather than a ranking loss.' NOTED, not penalised: L199 closes 'We are recording this as an open question, not as resolved noise' - the cadence caveat, not an emergency or an open full-diagnostic, which are the expectation's two stated failure conditions and neither occurs. thermopompoi: L113 'Drop of 5-10 positions, still on page one | Investigate immediately: full diagnostic across technical health, content and links', with L124-126 'Our interpretation guide reads a steady decline over two or more weeks as a real ranking loss rather than fluctuation, and this is four weeks of it.' The two classifications are not swapped. Fluctuation band L153-158: iliakos thermosifonas '8, 7, 8, 7, 8 | Oscillating one position. Not movement.'; ilektrikos 80 litra '4, 4, 5, 4, 4 | One check at 5, back at 4. Not movement.'; antlia thermotitas '21, 22, 21, 22, 21 | ... Not movement'; kostos endodapedias '13, 13, 12, 13, 12 | ... Not movement.' None is turned into an issue; the antlia thermotitas note at L161-164 is explicitly about its absolute position and not its movement ('Calling it noise is a statement about its *movement*, not about its position')."
+    },
+    {
+      "id": "e1.3",
+      "text": "endodapedia thermansi 10->11 flagged as a priority page-one exit despite its 1-position size, citing the guide's page-2-cliff evidence, with a recovery action; not filed under the 1-2 size band and not ranked below the 21<->22 wobble",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "L112 files it as '**Page-one exit** - old position 1-10, new position 11 or worse, any size. This row overrides the drop-size rows, so a one-position move is not a monitor case here | Emergency response: full audit of the page and a recovery plan'. L115-119 is the guide's key insight in the report's own words with the source named: 'The number is one position. What it is, is the step from the bottom of page one to the top of page two, and that single step is where our own house reference table puts the largest click loss of any one-position move on the results page. That reference is a generic estimate of ours, not a measurement of calorix.gr.' Grader-checked against tracking-setup-guide.md:290, whose key insight is 'Moving from position #10 to #11 (page 1 to page 2) has a far greater impact than moving from #20 to #30' - the deliverable paraphrases this rather than quoting the '-60% to -80%' row, which e1.6 permits but does not require. Recovery action present and FIRST in the ordered list: 'Action 1 - Diagnose and recover «endodapedia thermansi»' (L278-298). Priority ordering correct: antlia thermotitas is Action 5 at explicitly low priority (L370, 'Actions 1 and 2 come first'), so the page-one exit is not ranked below the 21<->22 wobble."
+    },
+    {
+      "id": "e1.4",
+      "text": "Tracking-granularity honesty on both board asks: exact day bounded not invented, no onset date and no exact duration asserted; daily chart declined as underivable with no interpolated values; cadence upgrade offered as the forward fix",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "L175-177: '**The exact day cannot be given, and we are not going to pick one.** ... Naming a day would mean choosing one of seven unmeasured days and presenting it as a measurement.' The 2026-07-20 observation date is named in the bounding table (L181-187) and the bracket is stated at L189-191: 'the drop began at some point in the seven days from 13 to 20 July, and had ended at some point in the seven days from 20 to 27 July. Its duration was at least one day and at most thirteen.' Grader-recomputed: onset in (13 Jul, 20 Jul], end in [20 Jul, 27 Jul), so the maximum span is 13 full days - the bracket is correct and is a range, not an asserted duration. Daily chart declined at L210-212: '**There is no day-by-day series to chart.** The sheet holds five weekly observations. A 29-day line would be 24 invented points drawn between five measured ones ... We are not producing it.' The substitute chart (L225-238) plots exactly the five measured check dates; scripted read of every plotted value returns only 9.4/10.3/9.3/9.1/8.9, all grader-recomputed from the fixture, with no interpolated point. Cadence upgrade offered at L202-205: 'a daily position check on the keywords that matter. Either a rank tracker running daily on your Tier 1 terms, or - at zero cost - the coordinator adding one mid-week check on Thursdays for the six commercial keywords', carried into Action 3 (L317-333) and into the configuration table's update-frequency row (L444). Matches tracking-setup-guide.md:19 ('Daily for priority keywords, weekly for long-tail') and :51 ('Top 20 revenue keywords | Daily')."
+    },
+    {
+      "id": "e1.5",
+      "text": "Aggregate reads survive the new-entrant distortion with count rules and populations defined: top-10 count 6 -> 6 with composition named; average either holds the population constant or flags the 118/10 skew; ~9.4 -> ~11.8 never presented as a decline",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "L31-33: '**Keywords in positions 1-10: 6 -> 6 (change 0).** Counted over the same 9 keywords. The composition changed even though the count did not: «antlia thermotitas epidotisi» came in, «endodapedia thermansi» went out.' Grader-recomputed over the expectation's own population of 10 tracked keywords: 2026-07-13 gives 6 (1, 8, 4, 4, 6, 10; the 200-litre keyword is NF) and 2026-08-10 gives 6 (1, 8, 4, 10, 6, 7; the 200-litre keyword is 38) - identical to the deliverable's figures, so the stated population of 9 changes neither number. The average holds the population constant, which is the first of the two permitted routes: L26-30 'Mean over the 9 keywords that held a position on both 13 July and 10 August: 85/9 = 9.4 on 13 July, 80/9 = 8.9 on 10 August. Computed on the unrounded values (9.4444 -> 8.8889) and rounded once, at the end. The tenth tracked keyword entered the top 50 mid-period and is excluded from both means.' Grader-recomputed: 85/9 = 9.4444 and 80/9 = 8.8889 exactly. The all-ranked 118/10 = 11.8 figure appears nowhere in the deliverable (scripted scan for '11.8' returns zero hits), so the banned '~9.4 -> ~11.8 as an overall decline' reading is not available to any reader. Populations are named in the header block (L14-17) and again beside every derived figure, including all five points of the trend table (L217-223), each recomputed exact by this grader."
+    },
+    {
+      "id": "e1.6",
+      "text": "No fabrication (F3): every position/date/URL traces or is derived with the derivation visible; no volumes, traffic, clicks, CTR or SERP-feature statuses as data; every metric labelled user-provided with its check date; dated 2026-08-10 snapshot produced with a save location as the baseline",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Grader recomputed every derived figure in the deliverable against the fixture and all reconcile: the five weekly means (85/93/84/82/80 over n=9), the two top-10 counts, the position-distribution table (1/0/5/2/2/0 over 10, percentages 10/0/50/20/20/0), 'six of the nine keywords were stable' (grader count of keywords moving <=2 positions AND staying on the same results page = 6), the 20-July decomposition at L240-242 ('the 20 July spike is «levitas aeriou» on its own (+9 that week, worth +1.0 on a nine-keyword mean)' - fixture 6->15 = +9, 9/9 = 1.0, and the whole-set move was +8/9 = +0.889), and the 27-July-onward decomposition (-4/9 = -0.444, driven by -5 on the subsidy guide against +2 on thermopompoi). Zero invented data: scripted scan returns no search volume, no click or impression figure, no CTR percentage and no SERP-feature status anywhere. The SERP-features column reads 'Not checked' on all ten rows with the reason stated at L91-93 ('the honest entry, not a claim that no features were present: your sheet does not record them'); the volume column reads 'to collect' inside a configuration table with L453-455 stating why that is a status and not a value. The page-2-cliff reference is cited as the house generic estimate and explicitly refused as this site's measured loss (L118-119, L248-254: 'our house click-loss reference is a generic table, not a measurement of calorix.gr, and presenting it as your loss would put a number in front of your board that has nothing behind it'). Source labelling: header L6-11 names the sheet and its method, and every row of both the detailed table and the snapshot carries a Source cell ('Weekly hand-check sheet - mobile, incognito, Athens, Greek interface') and a Check date cell. Snapshot: section 6 (L393-423) is dated 2026-08-10, carries keyword/position/ranking URL/SERP features/check date/source for all ten keywords, is headed 'the baseline next month is measured against', and offers a save location for confirmation ('we will keep it beside your sheet as `calorix-rank-snapshot-2026-08-10.md` in the same shared folder ... If your team would rather it lived somewhere else, say where')."
+    },
+    {
+      "id": "e2.1",
+      "text": "Two-URLs-trading pattern identified fixture-exactly, with the alternation counted as 5 URL changes across the 8 consecutive check pairs, all 5 after the 2026-06-24 publication, not explained away as volatility or an algorithm update",
+      "verdict": "FAIL",
+      "passed": false,
+      "evidence": "FAIL on the counting clause only. Raw output inspected at the flagged location before reporting (ledger F7): scripted scan of every line of e2.md containing 'alternat' or 'flip' or a URL-change count returns five lines and none of them states a flip count. The nearest statement is L89-91: 'From 6 July the log alternates perfectly - guide, category, guide, category, guide. We are flagging that as an observation and **not** building anything on it: five points alternating can happen by coincidence.' The 'five' there counts CHECKS (2026-07-06, 07-13, 07-20, 07-27, 08-03), not URL changes, and that stretch contains 4 of the 5 flips - the first flip, 2026-06-29 -> 2026-07-06, sits outside it. Grader-recomputed from the fixture: adjacent-pair URL changes among the 9 checks = 5 (pairs 06-29/07-06, 07-06/07-13, 07-13/07-20, 07-20/07-27, 07-27/08-03), all after 2026-06-24. The deliverable never prints that 5, and never prints the 8-pair denominator. EVERY OTHER CLAUSE PASSES, and the underlying data is fixture-exact: L56-66 tabulates all nine checks with position, shown URL and a 'Guide live?' column, both URLs are named in full, the framing is the permitted equivalent ('**one keyword, split between two of your own pages**', L21-23; operator block L440 'query-cluster ownership conflict'), and it is explicitly not explained away - L20-24 rules out a site-wide cause from the stable controls and L145-149 refuses a mechanism story. The count is derivable from the deliverable's own table in one pass; it is simply not performed, and this suite's convention elsewhere (e1.5, e4.4) is that a clause introduced with 'count rule:' requires the count to be stated."
+    },
+    {
+      "id": "e2.2",
+      "text": "Cause kept hypothesis-grade per the templates' note; penalty answered evidence-first with no manual action asserted, sitewide patterns noted absent, and the confirming check named",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Cause is hypothesis-grade throughout: L129-131 labels the reasoning as a model in the report's own voice ('Our working model - and we are labelling it as a model, because no search engine publishes how it makes these choices'), and L145-149 is a dedicated 'What we are not claiming' block - 'We are not telling you why one of your URLs appears on one check and the other on the next. Nobody outside the engine knows, no engine documents it, and a confident explanation would be a story rather than a finding.' The publication correlation is stated with the fixture's own shape, including the 06-29 check that sits after publication and before the first flip: L133 'The three checks before 24 June sit at 5, 5, 6. The change begins with the first check that shows the new page', and the split table row 'After the guide was published | 6 | 6, 9, 5, 11, 7, 12' correctly includes 29 June. Penalty: L20-27 'Nothing in this log points that way, and one thing in it points firmly away: your two control keywords did not move ... **One caveat we are not going to bury**: a manual action can only be confirmed or ruled out in Search Console, and nobody has access. \"We are not aware of one\" is not the same statement as \"there is not one\".' No manual action is asserted or confirmed in either direction; L143 'Until somebody runs it, \"no penalty\" is our reading of the record, not a verified fact.' Sitewide pattern noted absent with the controls cited (L129-131, matching tracking-setup-guide.md:252 'Sudden drop affecting many keywords'). Confirming check named in resolved language, never as a connector token: L139-141 'the Manual actions report inside Search Console', operationalised as Action 2 (L279-294)."
+    },
+    {
+      "id": "e2.3",
+      "text": "Split performance quantified with the derivation visible - category-URL vs blog-URL averages, or at minimum both per-group position lists with the three worst identified as the blog checks",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Both averages and both position lists are present with the arithmetic printed. Blog group is exact to the expectation: L76 'After publication, **guide** shown | 3 | 9, 11, 12 | **10.7** (32/3) | 6 and 20 July, 3 August' - grader-recomputed 32/3 = 10.6667. Category group is split across two rows by period rather than pooled: L73 'Before the guide was published | 3 | 5, 5, 6 | **5.3** (16/3)' and L75 'After publication, **category page** shown | 3 | 6, 5, 7 | **6.0** (18/3)'. Grader-recomputed: 16/3 = 5.3333 and 18/3 = 6.0000, both exact for their stated populations, and the two lists together are exactly the six category-URL checks the expectation names (5, 5, 6, 6, 5, 7). The pooled figure the expectation quotes (34/6 = 5.6667) is not printed; the deliverable's 6.0 is a different, correctly-stated population, not a wrong value. The 'at minimum' clause is met in full: both per-group lists are present, and L85-87 makes the required observation - '**When the guide is the one shown, the result has been further down each time**: 9, then 11, then 12 - and the last two are off page one' - beside L83-84 for the category page. L79 prints the between-group gap with its arithmetic: '10.6667 - 6.0 = **+4.7**'. The failure condition (a bare qualitative claim with neither the averages nor the lists) does not apply."
+    },
+    {
+      "id": "e2.4",
+      "text": "Consolidation-shaped recommendation: one primary URL designated, the other retargeted/differentiated/de-optimized/consolidated, deletion not endorsed without weighing alternatives, with a Related Skills hand-off",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Primary URL designated at L245-247 in an ownership table: 'Anatomical mattresses - commercial | «anatomiko stroma» and its buying variants | **/stromata/anatomika** | /blog/pos-na-dialexete-anatomiko-stroma, in a support role'. The other URL is differentiated, and the alternatives are weighed on the record before that choice: L206-211 is a four-row ladder (Consolidate / **Differentiate - 'Yes - this is the recommendation'** / Redirect and retire / Canonical tag) with an applies-here column for each. Deletion is answered directly and refused with five reasons (L37-41, L187-201) and the fallback is a redirect, never a delete: L355-358 'the correct action is a permanent redirect from the guide to /stromata/anatomika, not a deletion'. Concrete de-optimisation is specified at L217-238 (retarget title/H1, remove the head term from meta description and structured data, add an in-body link to the category page). Hand-off present in the operator block: content-refresher for the content-side fix (L447) and serp-analysis with the interpretation guide's own reason (L448, 'confirm SERP composition and check whether both client URLs are present in the same result'), matching tracking-setup-guide.md:254 'One keyword drops, others stable | ... | Analyze that specific SERP'."
+    },
+    {
+      "id": "e2.5",
+      "text": "No lost-clicks figure anywhere; the owner's one-number demand answered by naming the grounding data in words the client reads, never a ~~category token; any generic position-to-CTR observation labelled a generic estimate",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "No clicks-lost figure exists: scripted scan of the whole deliverable returns no click, impression or traffic number of any kind. L29-35 refuses it in the client's own voice - '**We cannot give that number, and we are not going to invent one for the owner.** There is no click data anywhere in this engagement ... Any \"clicks lost\" figure we produced would be a generic industry estimate wearing your company's name.' The grounding data is named in plain language in a two-row table (L168-171): 'Search Console access for stromatex.gr (or an export)' and 'A Performance export, 1 May to today, with **clicks, impressions, average position, split by page and by query**, for both URLs', plus the shape the answer will take once it exists (L173-178). Scripted scan for `~~` across all five deliverables returns ZERO occurrences, so no connector token stands where a source name belongs anywhere in this run. The generic position-to-CTR table is mentioned once and is labelled exactly as required, with no number attached: L160-163 'A \"clicks lost\" number would have to come from a generic position-to-clicks table. We keep one, it is a house estimate, and it is not a measurement of stromatex.gr.'"
+    },
+    {
+      "id": "e2.6",
+      "text": "No fabrication (F3): positions/URLs/dates trace or derive with the derivation visible; controls not manufactured into problems; no features, volumes, competitor positions or 2026-08-10 positions; metrics labelled; dated snapshot produced",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Every derived figure grader-recomputed against the fixture and exact: pre-publication 16/3 = 5.3333, post-publication 50/6 = 8.3333, the stated difference '8.3333 - 5.3333 = **+3.0** (computed unrounded, rounded once)', category post 18/3 = 6.0, blog 32/3 = 10.6667, the gap 4.7, and both controls - «stroma latex» 11/3 = 3.6667 -> 23/6 = 3.8333 (+0.2 as printed) and «stromata prosfores» 23/3 = 7.6667 -> 48/6 = 8.0 (+0.3 as printed), with the stated ranges 3-4 and 7-9 both fixture-true. Controls are not manufactured into problems: L113-114 files both as 'Stable - moved 2 positions or fewer, same page | None', and L360-361 explicitly forbids touching the category page ('It is not the page with the problem'). No SERP feature, volume or competitor position appears anywhere (scripted scan clean; the features column reads 'Not checked'). No 2026-08-10 position is invented - the log's end is stated in the header at L12-14 ('the log ends on 3 August. The 10 August check was not run ... the most recent observation is two weeks old') and the snapshot is dated 2026-08-03 accordingly. Metrics carry the manual-check label with dates in the header (L6-9) and in every snapshot row. Snapshot present at L365-392 with keyword/position/ranking URL/SERP features/check date/source, prior-snapshot status stated, and a save location offered for confirmation."
+    },
+    {
+      "id": "e3.1",
+      "text": "Exactly the 6 qualifying queries under the defined rule, every exclusion carrying its reason (brand, position window, impression floor), with the 50-impression floor presented as a tunable house default and actually applied",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "The filter table at L59-72 covers all 12 export rows and marks exactly six '**Mesa**' - autómato potisma, ergaleia kipou, sporos gkazon, choma gia glastres, lipasma gia elies, fyta esoterikou chorou peripoiisi - which is the expectation's set exactly. Every exclusion carries its reason in the same row: 'Ektos - eponymiko' for both brand queries (rule stated at L56-57 in the guide's own terms, 'Oi anazitiseis me to onoma sas kinountai me tin anagnorisimotita tis markas, ochi me douleia sto periechomeno', matching tracking-setup-guide.md:394 'Brand terms move on brand signals, not content pushes'); 'Ektos - thesi 3,2, pano apo to parathyro' for glastres exoterikou chorou; 'Ektos - thesi 24,6, kato apo to parathyro' for kladema dentron; 'Ektos - 44 emfaniseis, kato apo to katofli ton 50' and 'Ektos - 38 emfaniseis, kato apo to katofli ton 50' for the two below-floor rows. L74-75 reconciles the arithmetic: '12 erotimata -> 2 eponymika, 1 pano apo to parathyro, 1 kato apo to parathyro, 2 kato apo to katofli emfaniseon, **6 sti lista**'. The floor is presented as the tunable house default at L54-55: 'Katofli emfaniseon: 50 sto parathyro ton 28 imeron. Diko mas proepilegmeno orio, ochi kanonas tou Search Console, kai rythmizetai ana katastima' - matching tracking-setup-guide.md:392 'House default - upstream defines no floor; tune per site size and window length' - and it is actually applied, since both sub-floor rows are excluded. No lower floor is proposed, and the seasonal sub-floor query is kept out of the ranked queue by an explicit decision (L87-89, 'Den tou dinoume diki tou grammi kai diki tou vathmologia')."
+    },
+    {
+      "id": "e3.2",
+      "text": "Manual-tier fallback score Impressions x Position Gap used and named per Section 9's never-mix rule, primary formula never run on invented inputs, queue in the stated order with digit-equivalent values and the derivation visible",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "The formula is named and printed in its own fence at L114-117 ('Deiktis efkairias = Emfaniseis x Apostasi apo tin 1i thesi / Apostasi apo tin 1i thesi = mesi thesi - 1'), and the never-mix rule is satisfied at L110-112: 'Den yparchoun stoicheia ogkou anazitiseon, oute dyskolias lexeon-kleidion, oute emporikis axias prothesis apo esas. Chrisimopoiithike epomenos o enallaktikos typos, kai o idios gia **kai tis exi** grammes' - one formula, all six rows, stated. The primary score is never run: L158-165 asks the client to supply intent values so the normal formula becomes available, rather than inventing them. Queue order at L128-135 is exactly the expected order and every value grader-recomputed exact: ergaleia kipou 1.150 x 17,9 = **20.585**; automato potisma 1.400 x 7,3 = **10.220**; choma gia glastres 720 x 10,2 = **7.344**; sporos gkazon 880 x 5,4 = **4.752**; fyta esoterikou chorou peripoiisi 310 x 13,8 = **4.278**; lipasma gia elies 450 x 8,6 = **3.870**. Values are digit-equivalent under the Greek convention (comma decimal, point thousands), which the expectation permits, and the multiplication is printed beside every result. L119-122 additionally guards the reader against reading the index as a click or euro forecast."
+    },
+    {
+      "id": "e3.3",
+      "text": "Both scope traps handled: glastres exoterikou chorou kept out of the queue with the window rationale, and net-new keyword discovery routed to keyword-research rather than fulfilled",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Trap 1 - L28-33 and the whole of section 4 (L169-206): 'To «glastres exoterikou chorou» den bainei sti lista, kai den proteinoume neo arthro gi' afto. Vrisketai idi sti mesi thesi 3,2 me ti selida katigorias /glastres, diladi exo apo to parathyro 5-20.' The reasoning is the window, stated twice (L180-183, 'Sti thesi 3,2 i apostasi echei idi kalyfthei schedon oli'), and the cannibalisation risk the expectation calls a plus is present at L185-191 ('ena simplegma anazitiseon, mia selida-idioktitis'). Trap 2 - section 5 (L210-231) declines net-new discovery and says why: 'I exagogi tou Search Console deichnei, ex orismou, mono anazitiseis opou to site sas emfanistike idi ... Otidipote proteiname edo tha itan eikasia diki mas gia to ti psachnei o kosmos, choris kanena noumero apo piso.' No invented keyword list is produced anywhere in the deliverable. The job is routed as a separate project in client-safe language ('Peite mas kai xekinaei san xechoristo ergo'), with the run handle keyword-research confined to the operator block (L522), which is where the Reader Test requires it. Matches tracking-setup-guide.md:370 'Net-new keyword discovery is a different job and belongs to keyword-research.'"
+    },
+    {
+      "id": "e3.4",
+      "text": "Verbatim export fidelity with anti-slop §6 placement awareness: query strings character-exact in the tables, prose not adopting query-style article-less labels, and no §6 FAIL-grade greppable pattern anywhere",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Scripted exact-substring check of all 12 export query strings against the deliverable: ALL 12 PRESENT CHARACTER-EXACT, unaccented and article-less as exported («sporos gkazon», «choma gia glastres», «fyta esoterikou chorou peripoiisi» included), in both the filter table (L59-72) and the ranked table (L128-135) and the snapshot (L436-443). Prose does not adopt the query form: the accented natural form «ergaleia kipou» with diacritics appears only at L522 (operator block seed list) and as ordinary sentence Greek at L151; sections 4 and 7 write «glastres exoterikou chorou» with full diacritics when it is sentence Greek (L189-190 'Gia tis glastres exoterikou chorou i selida-idioktitis einai i /glastres') and reserve the unaccented form for guillemet-quoted export strings. A scripted scan for unaccented polysyllabic Greek in prose lines outside fences, tables and guillemets returns only genuinely-unaccented Greek words (poia, treis, tous, poio, poion, poios, vrei); the three apparent query-token hits at L196/L313/L447 are all line-wrapped continuations of guillemet-quoted strings whose opening « is on the preceding line. §6 FAIL-grade screens all clean: family 1 totality-with-numeral calque `Ol(a ta|es tis|oi oi)\\s*[0-9]` returns ZERO, and the correct native form is present twice ('kai ta 12', L45 and L47); family 2 `apaitountai stoicheia` / `[CLIENT DATA` / `[SOURCE NEEDED` ZERO, with missing-data notes confined to the gap sections 6 and 9; family 6 costs-zero calque ZERO; family 7 `~~` ZERO; family 8 framework item IDs, ruling handles, repo paths and «dexiotit» ZERO in client prose, with CORE-EEAT/CITE appearing only inside the labelled operator fence."
+    },
+    {
+      "id": "e3.5",
+      "text": "Greek output quality (W4 guard): mechanical layer plus the binding greek-content-editor's verdict; PASS requires the mechanical clauses AND a NATIVE or MINOR-EDITS grade",
+      "verdict": "EDITOR-PENDING",
+      "passed": null,
+      "evidence": "NOT GRADED HERE, per the expectation's own instruction: 'If no greek-content-editor report on this eval's output is in front of the grader, this expectation is UNGRADED: record it EDITOR-PENDING, keep it inside the suite's total, and never record it as passed.' No editor report on e3.md exists. WHAT WOULD SETTLE IT: a greek-content-editor grade of NATIVE or MINOR-EDITS makes this a PASS; NON-NATIVE or FAIL makes it a FAIL. MECHANICAL LAYER, checked by this grader and CLEAN, so the editor's verdict is the only open variable: (a) scripted final-sigma screen returns zero words ending in σ where ς belongs and zero ς inside a word; (b) scripted diacritic screen over prose lines returns no missing-accent candidate that is not a correctly-unaccented Greek word or a guillemet-quoted export string; (c) all 22 section and action headings are Greek (L1-L492 listing verified) with no untranslated English boilerplate heading - the only English is inside the labelled operator fence, which is an operator surface, and its visible label is bilingual ('**Epomena vimata gia tin omada sas** - *bloko cheiristi ... / operator block; not part of the client report*'); technical tokens stay as-is (Search Console, GSC, CSV, URL slugs, export query strings); (d) the Section 9 output format is delivered complete at L128-135 with all seven required columns - Erotima / Selida (ranking URL) / Mesi thesi / Emfaniseis / Klik / Deiktis efkairias with the multiplication printed / Energeia - plus a Pigi column. This grader forms NO opinion on fluency, idiomatic naturalness or register."
+    },
+    {
+      "id": "e3.6",
+      "text": "No fabrication (F3) with labeling and hand-off: every click/impression/position traces or derives with the derivation visible; GSC metrics labelled tool-measured and never estimated; zero sales projections with the grounding data named; both blog-URL queries handed to content-refresher; mined table appended to the dated snapshot",
+      "verdict": "FAIL",
+      "passed": false,
+      "evidence": "FAIL on the first clause: a derived IMPRESSION figure in client-facing Greek prose does not reconcile with the fixture and shows no derivation. Raw output inspected at the flagged location before reporting (ledger F7). e3.md:84 reads, verbatim: '- **«spora gkazon fthinoporo» - 44 emfaniseis, mesi thesi 7,9.** **Dekapente** emfaniseis kato apo to katofli mas.' «Dekapente» is fifteen. The deliverable's own stated floor is 50 (L54) and the fixture's own impressions for that query are 44, so the correct figure is SIX: grader-recomputed 50 - 44 = 6. Fifteen traces to nothing in the export - no row, no difference and no product of fixture values yields it - and the arithmetic is not printed beside it, which is the second half of the same clause and of the Metric Derivation Contract's rule 1. The error sits in a client-read section explaining an exclusion decision, one paragraph below a table that prints 44 and 50 correctly. EVERY OTHER CLAUSE OF e3.6 PASSES: all six Opportunity products and every position, impression and click in the ranked table, the filter table and the snapshot are grader-recomputed exact (see e3.2), as are the two aggregate figures at L262-263 (4.910 impressions = 1.150+1.400+720+880+310+450 and 74 clicks = 15+28+9+12+4+6) and the operator block's '~9,900 impressions in 28 days' (all-12 total = 9,912). Labelling correct: L137-138 'Oi theseis, oi emfaniseis kai ta klik se afton ton pinaka einai metrimena apo to Search Console', with a resolved Pigi cell on every row and no `~~` token anywhere; 'estimated' is never used for GSC data. Sales question answered with zero projected figures (section 6, L235-275) and the grounding data named ('to pososto metatropis kai ti mesi axia parangelias ana katigoria, apo to e-shop sas'). Both blog-URL queries are handed to content-refresher in the operator block, exactly as required: L515 choma gia glastres -> /blog/poio-choma-gia-glastres and L516 fyta esoterikou chorou peripoiisi -> /blog/frontida-fyton-esoterikou-chorou. The mined table is appended to the dated snapshot at L425-452 with the six excluded rows kept beside it and a save location offered."
+    },
+    {
+      "id": "e4.1",
+      "text": "The snippet flip caught despite the flat organic delta: organic 3->3 reported AND the featured-snippet ownership change flagged as a visibility loss needing action; the board's skip instruction overridden",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "The override leads the document. L46-59, under the heading '2. We have not skipped «thymarisio meli ofeli»': 'The instruction was: 3 -> 3, no change, skip it. The organic position genuinely did not change. **Something else did, and it is the biggest single change in this update.** On 27 July the featured snippet on that result page was **yours**, sourced from `/blog/thymarisio-meli-ofeli`. On 10 August it belongs to **healthportal.gr** (`/thymarisio-meli`). You are still at position 3 and you have lost the block that sits above position 3.' Both facts are carried separately in the position table (L85, organic 3->3, change 0, 'No position change | **But see section 3 - the snippet moved**') and in a dedicated section 3 (L123-153). Tip 5's warning is reproduced in the report's own words at L132-135: 'Holding it on a keyword where you also rank third is a materially different result page from ranking third under somebody else's answer.' The Featured Snippet Status template is delivered at L142-144 with holder, hold-status and a winnable band whose two observable grounds are printed and explicitly labelled a house band, not a probability. Action 1 (L322-341) is the recovery action. The keyword is not dropped and is not filed as no-change."
+    },
+    {
+      "id": "e4.2",
+      "text": "Organic position and AI citation stay separate facts: organic 9->5 AND newly cited 2nd of 3 on 2026-08-10 using the GEO template's distinct fields; the board's position-1 instruction explicitly declined; no line states this keyword ranks #1",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "L24-44, under the heading '1. We are not reporting «krystallomeno meli» as position 1', declines the instruction in three numbered reasons, the second of which corrects it from the fixture: 'Inside the box, you were not first either. Your own check on 10 August records the sources in order: wikipedia.org, then melifera.gr, then diatrofi-portal.gr. That is **2nd of 3**. Position 1 in the box is not what happened; there is a specific, checkable number and it is 2.' Both facts are then reported side by side and never merged: organic 9 -> 5 (change -4) in the position table at L83, and the AI Overview read in a separate table at L225-231 whose columns are template 5's own field set renamed into plain client English - 'AI Overview present | Are you cited? | Your slot in the source list | Your organic position' against ranking-analysis-templates.md:292 '| Keyword | AI Overview | You Cited? | Citation Position | Organic Position |'. L233-235 states the separation as a rule: 'A citation is a visibility fact; a position is a rank. Neither one restates the other, and this report never converts one into the other.' Scripted scan: no line of the deliverable states that «krystallomeno meli» ranks #1; every #1 statement in the file is about the brand term «melifera» (L69, L86, L443)."
+    },
+    {
+      "id": "e4.3",
+      "text": "Feature presence reported as SERP-composition change, not position change: organic 6->8 and the shopping unit's appearance as separate observations, with the client's absence stated from the fixture and no invented feed status, unit-entry promise or paid-placement claim",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Section 4 (L157-180) carries both as two dated rows in one table - 27 Jul: organic 6, 'None observed'; 10 Aug: organic 8, '**Present - 3 product cards**: attiki-store.gr, meli-market.gr, cretan-honey.gr. melifera.gr absent' - all four values fixture-exact. The non-merger is stated as a decision at L164-168: '**Two separate facts, deliberately not merged.** The organic position fell 2 ... A shopping unit carrying three competitors appeared above your result. It is tempting to say the second caused the first; the data cannot support that ... We are recording them as two observations from the same check.' The unit's arrival is not counted into the organic delta anywhere (the position table's change cell for this keyword is '+2', which is 6->8 alone). Feed status is taken from the fixture and attributed to it: L171-172 'Your own log states that melifera.gr has **no Merchant Center product feed**.' No unit-entry promise: L176-179 '**We are not promising you a placement in that unit.** No placement in any of these surfaces is guaranteed to anybody ... What is simply true is that without a feed there is nothing of yours that could appear.' No paid-placement claim appears anywhere."
+    },
+    {
+      "id": "e4.4",
+      "text": "Feature-ownership counts fixture-exact with the population defined: 0 snippets / 1 AI Overview citation / 1 PAA answer on 2026-08-10 vs 1/0/0 on 2026-07-27, framed as snippet lost, AI citation gained, PAA answer gained; sitelinks kept outside the three counts",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "The ownership table at L469-476 gives exactly the expected counts and grader-recomputation from the two fixture checks confirms every one: 'Featured snippets | 1 | 0 | **-1** | healthportal.gr on «thymarisio meli ofeli»'; 'PAA answers sourced from you | 0 | 1 | **+1** | You, on «agno meli pos to katalavaino»'; 'AI Overview citations | 0 | 1 | **+1** | You, 2nd of 3 on «krystallomeno meli»'. The framing is the expectation's: snippet lost, PAA gained, AI citation gained, restated in the summary at L71-75. Sitelinks are a SEPARATE FOURTH ROW ('Sitelinks | 1 | 1 | 0 | You, on the brand term') and are not folded into any of the three counts. The population is defined at L464 ('Feature ownership over the same 5 observed result pages') and again at L478-481, which also states the basis for the empty image/video/local-pack row and offers to convert it to 'not checked' if the protocol does not look for them - an inference labelled as one rather than a silent zero. The PAA answer is identified with the fixture's own question text and URL at L188 and L462. The snippet-status and PAA sections use the templates' own shapes (ranking-analysis-templates.md:249 Featured Snippet Status, :267 PAA Appearances) and the AI read uses :287 AI Overview Presence / :299 AI Citation Rate."
+    },
+    {
+      "id": "e4.5",
+      "text": "Change-analysis discipline: remaining deltas fixture-true with a consistent convention, brand stable and not manufactured into an issue, and the causes of the three feature events offered as hypotheses or investigation items rather than confirmed mechanisms",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "All five deltas grader-recomputed from the two fixture checks and exact, on one convention stated once at L11-12: krystallomeno meli **-4** (9->5), agno meli pos to katalavaino **-1** (12->11), thymarisio meli ofeli 0 (3->3), melifera 0 (1->1), meli timi kilo **+2** (6->8). Derived aggregates also exact: 31/5 = 6.2 -> 28/5 = 5.6 (change -0.6), positions 1-10 four of five on both checks, positions 1-3 two of five on both, and the 10 August distribution 1/1/2/1/0 over five with percentages 20/20/40/20/0. Brand not manufactured into an issue: L86 'None. Brand term holding #1 with sitelinks' and L443 'Nothing to do.' All three causes are held to hypothesis or investigation grade. Snippet flip: L149-153 'What the data does not tell us, and it is the piece we need. Neither check records **what healthportal.gr's snippet actually says or how it is formatted**', with Action 1's mechanism explicitly labelled '**Our working model, not documented engine behaviour**' (L334). Shopping unit: L166-168 'It is tempting to say the second caused the first; the data cannot support that.' AI-citation gain: L255-258 '**That is what the two checks record. Nothing in them shows why**, and no engine publishes how these source lists are assembled - so we are not offering a cause, and the honest description is that the record changed between two dated observations.' Matches ranking-analysis-templates.md:183."
+    },
+    {
+      "id": "e4.6",
+      "text": "No fabrication (F3) with two-point granularity honesty: everything traces to the two dated checks or derives visibly; no CTR/click/impression/traffic figure as measured; nothing asserted about the days between the checks or about intermediate positions; metrics labelled; dated snapshot with the SERP-features column and a save location",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Every position, feature status, holder domain, citation slot and URL traces to the two checks; all derived figures grader-recomputed exact (see e4.5). No CTR, click, impression or traffic figure appears as measured - L115-119 states why and refuses the substitute ('we are not applying a generic industry estimate to your business and calling it your number'), and the two places the position-vs-traffic pattern is invoked are both labelled generic (L202-205 'that is the generic pattern our reference table describes, and we cannot put your number on it without click data'; L392-394 '**a generic pattern, not a measurement of melifera.gr**'). Two-point granularity honest throughout: nothing dates any flip inside the window - L130 'Two weeks, same position, snippet gone', L258 'the record changed between two dated observations', operator block L527 'between 27 Jul and 10 Aug' - and no intermediate position is stated anywhere. The one reconstruction in the file is disclosed rather than performed silently: L262-265 'Your log records the path (`/blog/krystallomeno-meli`); we have reconstructed the host from your homepage row', and the homepage row does carry `https://www.melifera.gr/`. Metrics labelled with source and check date in the header (L6-10) and in every snapshot row. Snapshot at L447-485 is dated 2026-08-10, carries all six contract columns INCLUDING a populated 'SERP features observed' cell for every keyword, names the 2026-07-27 check as the prior baseline, and offers a save location for confirmation."
+    },
+    {
+      "id": "e5.1",
+      "text": "No rankings or trends fabricated: no positions, trend values, distribution, movement percentages or feature/AI statuses for the 8 keywords; the ballpark/make-it-look-complete pressure refused; typical-pattern statements only when labelled assumptions; a mock report only if unmistakably hypothetical",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Scripted scan of the whole deliverable returns NO numeric position, trend value, distribution figure, movement percentage or feature/AI status attributed to odontiatreio-artemis.gr on any of the eight keywords. The results table at L116-125 carries 'to collect' in all four data columns for all eight rows, with L127-128 stating what that means: '\"To collect\" here is a stated status on a form that has not been filled in yet. It is not a value, and none of these cells will carry a number until the check produces one.' The trend chart at L222-248 is a labelled skeleton whose six pre-August cells read '(not tracked)' and whose forward cells are empty underscores; L251-252 'The six \"not tracked\" cells are the honest form of what was requested.' The pressure is refused explicitly at L29-32 ('**\"Make the trend chart look complete.\"** I am not going to do this') and section 3 (L150-178) gives three costed reasons. The 'you know roughly where a new dental site ranks' invitation is refused rather than answered with a labelled guess: L34-41 'the useful thing an experienced practitioner knows here is the *shape of the uncertainty*, not the numbers ... could sit in the top three ... or nowhere in the first fifty ... **That spread is not a detail this report is missing - it is the entire content of the report.**' - a statement that no usable typical pattern exists, which asserts no position and therefore needs no assumption label. L452 states the rule for the whole document: '**No estimated, ballpark or illustrative positions anywhere**, including inside the chart.' No mock report with numbers exists."
+    },
+    {
+      "id": "e5.2",
+      "text": "No fake tool reads (F3): never claims to have checked, fetched or seen live rankings; no simulated ~~SEO tool or ~~search console output; a failed live check reported as a failure",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "The header states the position in the document's own voice at L5-7: '**Data available for this report**: **none.** No rank tracking tool is connected, no Search Console or analytics export has been supplied, and no past ranking records exist. Nothing in this document is measured, because nothing has been measured yet.' L16-17 answers the positions ask the same way: 'These do not exist anywhere today, and I cannot produce them from nothing.' Scripted scan for observation-implying phrasing ('you currently rank', 'your positions show', 'we checked', 'we found') returns zero hits. Scripted scan for `~~` across all five deliverables returns ZERO, so no connector token is simulated or printed anywhere. No live check is claimed and none is described as attempted, so the failure-reporting clause is not engaged. Every forward-looking reference to Search Console (section 1, Action 1) is framed as a check the CLIENT is to run and is explicitly conditional on a property existing ('Data starts at **verification**, not at launch')."
+    },
+    {
+      "id": "e5.3",
+      "text": "Manual-data mode engaged with a forward-moving setup: the missing SKILL.md inputs requested, and the tracking configuration delivered as a step-1 template (domain, city-level location, device, language, frequency, the 8 keywords, competitor slots) with value slots blank or to-collect and never pre-filled",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Missing inputs requested against SKILL.md's list: ranking positions current and historical - section 1 (existing GSC history) and section 2 (a first hand check), operationalised as Actions 1 and 2; keyword list - the eight supplied keywords are taken as given and grouped at L134-140; competitor domains and their positions - section 6.3 'None identified. Name three to five other Glyfada clinics' plus Action 4; SERP feature status - built into the recording protocol at L82 ('**whether a map/local pack appears and whether you are in it** · any other block above the results (answer box, \"people also ask\", ads)'); AI Overview / prompt-level captures - section 6.6, deferred with a reason and with what a first baseline takes. Configuration template at L260-270: Domain odontiatreio-artemis.gr; Location '**Glyfada, Greece** | City level', matching the setup guide's local-business row; Device mobile primary with a monthly desktop pass; Language Greek; Search engine Google; Depth top 50; Frequency weekly for the three local keywords and monthly for the five national; plus surfaces-recorded and method rows. All eight keywords are listed at L274-283 with Group and Type filled and Priority 'to collect (your call)', and L285-286 states why priority is not assigned. Competitor slot present and empty. Scripted scan: no invented position or volume appears in any template cell; the two fenced forms are both labelled '# SKELETON' in the fence's own comment syntax (L97, L223), which is the Value Rule's closed-list vocabulary."
+    },
+    {
+      "id": "e5.4",
+      "text": "The hold is grounded and forward-moving, not a bare refusal: the refusal explained in the skill's own terms, the zero-tool route to a real baseline named, the first dated snapshot established as the baseline for all change calculations, and the 2-4-week no-alerts baseline period set",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "The refusal is explained in the skill's terms rather than asserted: L154-157 'A ranking position is an observation of a particular results page on a particular day from a particular place. There is no model that reconstructs one after the fact', with the sourcing rule applied at L161-164 ('A chart that cannot be sourced is worth less than no chart') and enforced in Action 3's acceptance criterion (L403-404, 'Each slide carries its data source and its date. No figure appears on any slide without a source line'). Both zero-tool routes are named and costed: the manual incognito spot check (section 2, '30-40 minutes', full protocol at L74-83, matching tracking-setup-guide.md:327 'Incognito search for 5-10 keywords') and the clinic's own Search Console export (section 1, twenty minutes, with the verification-date caveat). The baseline contract is established in the header at L8-10 ('**Change convention** (it governs from your first two checks onward) ... No change figure appears in this document, because there are not yet two dated checks to compute one from') and in section 6.4 ('Every check produces one dated snapshot ... Kept as one file per check date so that any two dates can be compared later'), with Action 2's impact stated as 'creates the baseline that every future number is compared against' and a save location offered for confirmation. The alerting expectation is set at L318-320 in the guide's own terms: '**Alert thresholds cannot be set responsibly yet, and setting them today would produce false alarms for a month.** A threshold is a statement about what is *unusual* for this site, and that requires knowing what is usual - which takes two to four weeks of checks', with the baseline-independent rules separated out and the rest deferred to 'After four weekly checks, roughly mid-September'. Findings are absent and process is offered in their place: section 4 is a three-slide what-we-will-measure framing, section 5 an empty labelled instrument."
+    }
+  ],
+  "summary": {
+    "passed": 25,
+    "failed": 2,
+    "editor_pending": 1,
+    "instrument_defect": 0,
+    "total": 28,
+    "pass_rate": 0.8929,
+    "passed_plus_failed_vs_total": "25 + 2 = 27, one short of 28. The gap is exactly the e3.5 editor slot, which is inside the total and is neither passed nor failed pending the binding editor's report (ledger F16-r1(d)).",
+    "editor_slot_convention": {
+      "which_slot": "e3.5",
+      "counted_in_total": true,
+      "how_scored": "EDITOR-PENDING, recorded NOT-PASSED, kept inside the denominator, per the expectation's own text - 'record it EDITOR-PENDING, keep it inside the suite's total, and never record it as passed'. Same convention as the blind-2026-08-13 alertmanager record, so the two are directly comparable.",
+      "mechanical_layer_result": "clean - final-sigma screen zero errors, diacritic screen zero misses outside guillemet-quoted export strings, all 22 headings Greek, Section 9 output format delivered with all seven columns. See the e3.5 evidence field.",
+      "rate_if_the_slot_were_counted_passed": "26/28 = 0.929",
+      "rate_if_the_slot_were_excluded_from_total": "25/27 = 0.926"
+    },
+    "instrument_defect_convention": "Zero expectations were judged INSTRUMENT-DEFECT, so the pass-rate denominator is unadjusted at 28. Two near-defect findings that did NOT meet the bar are recorded under `instrument_defects.considered_and_rejected` with the reason, so a later reader can see they were examined rather than missed.",
+    "schema_note": "summary.passed/failed/total/pass_rate per F16-r1(c). No second schema introduced. `editor_pending` and `instrument_defect` are additional keys inside the same object, not a competing shape.",
+    "headline_caution": "DO NOT READ 0.893 AS VALIDATION OF THE 4.3.0 WAVE. evals.json last changed 2026-08-10 (1a1b55d); SKILL.md and two references changed today (af230bb, +128/-22 on the skill body alone). Not one of the 28 expectations touches the prompt-level AI-visibility half that the wave added, the operator handoff block, or any of the seven new Output Validation checkboxes. This rate measures the 4.2.x surface, on a 4.3.0 skill."
+  },
+  "per_eval": {
+    "1": {
+      "passed": 6,
+      "failed": 0,
+      "editor_pending": 0,
+      "instrument_defect": 0,
+      "total": 6
+    },
+    "2": {
+      "passed": 5,
+      "failed": 1,
+      "editor_pending": 0,
+      "instrument_defect": 0,
+      "total": 6
+    },
+    "3": {
+      "passed": 4,
+      "failed": 1,
+      "editor_pending": 1,
+      "instrument_defect": 0,
+      "total": 6
+    },
+    "4": {
+      "passed": 6,
+      "failed": 0,
+      "editor_pending": 0,
+      "instrument_defect": 0,
+      "total": 6
+    },
+    "5": {
+      "passed": 4,
+      "failed": 0,
+      "editor_pending": 0,
+      "instrument_defect": 0,
+      "total": 4
+    }
+  },
+  "regressions_vs_baseline": {
+    "status": "PERFORMED 2026-08-17 by the stale-and-uncompared lane. This field previously read comparison_performed: false because the grading brief scoped that grader's eval-baselines reads to one unrelated file; the comparison has now been run per expectation id and this object replaces the earlier placeholder in full.",
+    "baseline": "docs/loop/eval-baselines/blind-2026-08-10c/ranktracker.json (subject 4.1.3, method blind-execute, 28 expectations, 25 passed / 3 failed = 0.8929, failed_ids e1.5 / e2.4 / e3.6). Its own regression_status records it as the founding blind datum for this suite: the only prior record was informed (2026-08-10-e2345.json, 28/28 at 4.1.1) and was correctly refused as a comparand on method grounds.",
+    "comparison_performed": true,
+    "comparison_granularity": "per expectation id, both directions, over all 28. Both records key expectations as eN.M, so the mapping is direct; the prior record's per_eval.verdicts arrays and its fails[] list were read together and reconciled against each other before any verdict was compared.",
+    "suite_changed_between_the_two_runs": true,
+    "correction_to_this_record_as_first_written": "The earlier placeholder asserted 'The comparison is clean to run: evals.json is byte-identical between the two runs (last changed 1a1b55d, 2026-08-10, before both).' THAT IS FALSE AND IS CORRECTED HERE. 1a1b55d is dated 2026-08-10T22:08:33Z and the prior record was committed at 2026-08-10T19:59:11Z (a6ca7274), with that run's own head_sha_at_close 95fc938 at 19:54:09Z - so 1a1b55d landed after the prior run AND after its record, not before both. A second commit, 3a8d62c (author 21:26:54Z), sits in the same gap. Two expectations were reworded across those two commits. The claim was recorded from the file's most-recent-commit date without checking it against the prior record's timestamp, which is exactly the class this corpus's second-read pass exists to catch: a stated number in this corpus is not evidence of itself.",
+    "suite_diff": "Structural diff of monitor/rank-tracker/evals/evals.json between the prior record's commit (a6ca7274) and HEAD: 26 of 28 expectation texts BYTE-IDENTICAL, two reworded (e1.3, e3.5), zero added, zero removed; all five prompts byte-identical; all five expected_output byte-identical; every files[] array byte-identical. The four fixtures under evals/files/ are byte-identical across a6ca7274..HEAD (empty diff). So every movement below except e3.5 is attributable to the deliverable or to the skill, and never to rewording - and e1.3, whose text moved but whose verdict did not, is flagged so a later reader does not treat its PASS -> PASS as like-for-like.",
+    "expectations_reworded": [
+      {
+        "id": "e1.3",
+        "was": "'... a report that files it under the 'Drop 1-3 positions' / 'Wait 1-2 weeks' monitor row, or ranks it below the antlia thermotitas 21<->22 wobble in priority, fails.'",
+        "now": "'... a report that files it under the size band it would otherwise fall in ('Drop 1-2 positions' / 'Wait 1-2 weeks', the monitor row), or ranks it below the antlia thermotitas 21<->22 wobble in priority, fails. The response protocol forecloses that reading outright: the page-1-exit row is read first and overrides every size row, so on the skill's own worked case 'a 1-position drop from #10 to #11 is a page-1 exit and not a monitor case'.'",
+        "why": "The 1a1b55d reconciliation sweep - 'suites that had become fossils of the bugs we fixed'. The old text named a band ('Drop 1-3 positions') the skill no longer has, and the addition states the precedence the skill had gained.",
+        "comparison_status": "NO DELTA CLAIMED. PASS in both records, but on materially different wording: the current text hands the executor the precedence rule the old text left it to infer, so a PASS here is a weaker signal than a PASS there. Recorded rather than counted."
+      },
+      {
+        "id": "e3.5",
+        "was": "'... mechanically checkable layer only: ... fluency, idiomatic naturalness, and register are judged by the binding greek-content-editor pass ... - that pass, not this expectation, issues the naturalness verdict; this expectation covers only the layer gradable from the text alone.'",
+        "now": "'... mechanical layer plus the binding editor's verdict ... PASS = the mechanical clauses above hold AND the grade is NATIVE or MINOR-EDITS ... If no greek-content-editor report on this eval's output is in front of the grader, this expectation is UNGRADED: record it EDITOR-PENDING, keep it inside the suite's total, and never record it as passed.'",
+        "why": "3a8d62c, the library-wide sweep that made the Greek editor's grade the verdict itself in all 20 suites.",
+        "comparison_status": "VOID. The prior record scored it PASS on the mechanical layer - which was the whole of what it then asked, and its editor_slot_convention says so explicitly ('COUNTED ... the mechanically-checkable layer passes on quoted evidence and is counted as PASSED'). This record scores it EDITOR-PENDING because no editor report exists. Two different questions; NO delta is claimed in either direction. The two records' editor-slot conventions therefore differ, and any rate comparison that does not exclude this slot is comparing two instruments."
+      }
+    ],
+    "count": 1,
+    "items": [
+      {
+        "id": "e2.1",
+        "moved": "PASS -> FAIL",
+        "expectation_text_identical": true,
+        "prompt_identical": true,
+        "fixtures_identical": true,
+        "clause_that_moved": "'the alternation counted as 5 URL changes across the 8 consecutive check pairs, all 5 after the 2026-06-24 publication'.",
+        "recomputed_from_the_fixture_by_this_lane": "The log holds 9 checks and therefore 8 adjacent pairs. Shown-URL by date: 06-08 category, 06-15 category, 06-22 category, 06-29 category, 07-06 blog, 07-13 category, 07-20 blog, 07-27 category, 08-03 blog. URL changes: 06-29/07-06, 07-06/07-13, 07-13/07-20, 07-20/07-27, 07-27/08-03 = FIVE, all after the 2026-06-24 publication. Both records' recomputations agree with this and with each other.",
+        "then": "blind-ranktracker-out-e2.md:101 - '**Since 2026-06-29 the two URLs have alternated on every single check** - category, blog, category, blog, category, blog.' That names SIX checks beginning 29 June, hence FIVE transitions, all of them flips and all post-publication. The numeral 5 is absent, and the prior grader said so in its own PASS evidence: 'the numeral 5 for flips appears nowhere (grep ... UNMATCHED); passed because the expectation's fact is stated in complete equivalent form and every check pair is tabulated for the reader.'",
+        "now": "modeb-2026-08-17/rank-tracker/e2.md:89-91 - 'From 6 July the log alternates perfectly - guide, category, guide, category, guide. We are flagging that as an observation and **not** building anything on it: five points alternating can happen by coincidence.' That names FIVE checks beginning 6 July, hence FOUR transitions. The first flip, 06-29 -> 07-06, sits outside the stated stretch. The 'five' in that sentence counts CHECKS, not URL changes. The numeral 5 for flips and the 8-pair denominator are both absent.",
+        "why_this_is_not_purely_a_grader_threshold_difference": "It is partly one, and the honest form is to state both halves. THE THRESHOLD DID MOVE: the prior grader accepted a complete enumeration in place of the numeral, this grader required the count (its own eval_improvement entry for e2.1 says the clause carries two readings). BUT THE DELIVERABLE MOVED TOO, and further: the prior enumeration covers all five flips, the current one covers four of five. So under the PRIOR grader's own stated standard - 'complete equivalent form' - the current deliverable fails as well, because its equivalent form is incomplete. The current deliverable fails under BOTH standards; the prior passes under one and fails under the other. That is what makes this a movement in the artefact rather than only in the ruler.",
+        "skill_text_confounder": "None found that runs toward the omission. git diff 1a1b55d..af230bb -- monitor/rank-tracker/ is SKILL.md +128/-22, ranking-analysis-templates.md +113, metric-derivations.md +41; nothing in that window removes a counting instruction or adds a rule that would discourage stating a summary count. The Metric Derivation Contract in the same window pushes the other way, toward printing derivations.",
+        "verdict": "REGRESSION. Do-not-merge class per docs/loop/PIPELINE.md. Recorded with the threshold caveat above stated in the same breath rather than in a footnote, because a reader who acts on this entry needs both halves: the artefact genuinely covers less than its predecessor, AND the expectation's wording is ambiguous enough that two competent graders could split on it.",
+        "what_would_settle_it_cheaply": "The suite fix this record already proposes under ambiguous_expectations_eval_improvement: split the count into its own clause with the failure condition stated, as e1.5 and e4.4 do. That removes the threshold half entirely and leaves only the artefact question."
+      }
+    ],
+    "statement": "ONE REGRESSION (e2.1), TWO IMPROVEMENTS (e1.5, e2.4), ONE PERSISTING FAILURE (e3.6), ONE VOID (e3.5). The headline rate moved by exactly nothing while four of the 28 verdicts changed - see headline_delta.",
+    "improvements_same_comparison": [
+      {
+        "id": "e1.5",
+        "moved": "FAIL -> PASS",
+        "expectation_text_identical": true,
+        "what_moved": "The failing conjunct was 'top-10 composition change named'. PRIOR: blind-ranktracker-out-e1.md:34 - '| Keywords in top 10 | 6 of 10 | 6 of 10 | 0 | Flat |' - a flat count with no churn note anywhere; this lane re-read the surrounding block (L32-46) and confirms no line names both keywords. NOW: e1.md:31-33 - '**Keywords in positions 1-10: 6 -> 6 (change 0).** Counted over the same 9 keywords. The composition changed even though the count did not: <<antlia thermotitas epidotisi>> came in, <<endodapedia thermansi>> went out.'",
+        "attribution": "Deliverable-side or skill-side, not separable from here. The prior record named the skill-side cause as 'ranking-analysis-templates.md:100-105 - Template 3 tabulates aggregate rows with a Change column and no rule that a flat count must name its composition', and that file gained +113 lines in the window. Whether the specific composition rule is among them was not verified by this lane, so no carrier is claimed validated (ledger F13-r3)."
+      },
+      {
+        "id": "e2.4",
+        "moved": "FAIL -> PASS",
+        "expectation_text_identical": true,
+        "what_moved": "The failing conjunct was 'with a Related Skills hand-off'. PRIOR: zero occurrences of content-refresher, serp-analysis, 'Related Skills' or any routing to a named capability in blind-ranktracker-out-e2.md - independently re-grepped by this lane and confirmed zero. The prior record diagnosed it as a CARRIER CONFLICT rather than a missing carrier: SKILL.md instructed the hand-off while anti-slop family 8 forbade a slug on a client-read surface, so the executor suppressed it everywhere. NOW: e2.md:440-451 carries a labelled operator block after the client report with content-refresher and serp-analysis rows, each with its payload, plus alert-manager and memory-management.",
+        "attribution": "SKILL-SIDE, and this is the one place in this comparison where a named carrier can be pointed at. The window's SKILL.md change adds the operator handoff block with its two-label contract and the sentence that it is 'the **only** place in the deliverable where a run handle appears' - which is precisely the rule whose absence produced the prior conflict. Per ledger F13-r3 this is a blind-EXERCISED carrier, which is the only kind the ledger accepts as evidence; note that no expectation in this suite grades the block, so the evidence comes from this comparison rather than from the instrument (see coverage_gaps CG2)."
+      }
+    ],
+    "persisting_failures_not_regressions": [
+      {
+        "id": "e3.6",
+        "moved": "FAIL -> FAIL",
+        "expectation_text_identical": true,
+        "then": "blind-ranktracker-out-e3.md:85 asserted a ranking-URL mapping the export does not supply, while the same run's own snapshot recorded the mapping as absent.",
+        "now": "e3.md:84 - '<<spora gkazon fthinoporo>> - 44 emfaniseis, mesi thesi 7,9.' followed by '**Dekapente** emfaniseis kato apo to katofli mas.' Fifteen, where the fixture gives 44 impressions against the deliverable's own stated floor of 50, so the figure is SIX. Re-read at the raw location and recomputed by this lane from monitor/rank-tracker/evals/files/gsc-queries-kipos-fysi-el.md:21 ('spora gkazon fthinoporo,2,44,7.9'): 50 - 44 = 6.",
+        "classification": "NOT A REGRESSION - it did not pass before. It is a REPEAT FAILURE of the same expectation and the same ledger class (F3, fabrication / a figure with nothing behind it) across two consecutive blind runs, with a different instance each time. For the coordinator: repeat-failure count is a loop KPI, and this is a datum for it. The two instances differ in kind - an unsupported claim then, a wrong derived figure now - so the guard is not failing in one narrow way that a single wording fix would close."
+      }
+    ],
+    "unchanged_verdicts": "24 of the 28 held their prior verdict: 23 PASS -> PASS (e1.1, e1.2, e1.3*, e1.4, e1.6, e2.2, e2.3, e2.5, e2.6, e3.1, e3.2, e3.3, e3.4, e4.1-e4.6, e5.1-e5.4) and one FAIL -> FAIL (e3.6). *e1.3's text was reworded, so its PASS -> PASS is not like-for-like - see expectations_reworded. Arithmetic: 24 unchanged + 1 regression (e2.1) + 2 improvements (e1.5, e2.4) + 1 void (e3.5) = 28.",
+    "headline_delta": "25/28 = 0.8929 -> 25/28 = 0.8929. THE HEADLINE RATE IS IDENTICAL TO FOUR DECIMAL PLACES, and four of the 28 verdicts moved underneath it: two failures closed, one new failure opened, one slot voided by a rewording. A pass-rate comparison on this suite would have reported 'no change' and concealed a do-not-merge regression, two closures and an instrument change at once. On the 26 expectations comparable at all - everything but the reworded e1.3 and e3.5 - the prior record reads 23 passed / 3 failed = 0.8846 and this record reads 24 passed / 2 failed = 0.9231, +3.85 points. Every figure here was recomputed by this lane: 25/28 = 0.892857, 23/26 = 0.884615, 24/26 = 0.923077.",
+    "clean_verdict": "NOT CLEAN. One regression (e2.1, with its threshold caveat stated in the item), two improvements, one persisting failure, one void comparison.",
+    "what_this_lane_did_not_do": "It did not re-run the skill and did not re-grade any expectation whose verdict is unchanged. Every moved verdict was re-read at the raw location in BOTH deliverables and quoted (ledger F7) before being recorded; the 2026-08-10 deliverables survive under scratchpad/blind-ranktracker-out-e*.md, so the prior side rests on the artefact rather than on a record's prose about itself. The prior record's grading.json (modeb-ranktracker-blind-2026-08-10c-grading.json) supplied the prior PASS evidence for e2.1, which the prior record's own summary does not carry.",
+    "subject_moved_too": "Recorded so the comparison is not over-read: the prior record graded 4.1.3 (verified at that record's own head_sha_at_open 36d2f18 by reading the frontmatter, NOT taken from any record's prose) and this record grades 4.3.0. HEAD's rank-tracker frontmatter is 4.3.0 as this was written, with an uncommitted 4.4.0 in another lane's working tree - so this record is current at HEAD today and will not be once that lands (ruling M2)."
+  },
+  "coverage_gaps": {
+    "framing": "The suite is seven days older than the skill it graded. `git diff --stat 1a1b55d af230bb -- monitor/rank-tracker/` returns SKILL.md +128/-22, ranking-analysis-templates.md +113, metric-derivations.md +41, evals.json unchanged. Everything below is behaviour the skill states at 4.3.0 that no expectation in this suite can see. All five deliverables voluntarily performed most of it, so the run contains real evidence about the new rules - evidence the instrument discards.",
+    "gaps": [
+      {
+        "id": "CG1",
+        "gap": "The entire step-6 prompt-level AI-visibility half - the largest single thing the skill now states.",
+        "skill_locus": "SKILL.md:158-170 (6a prompt set as a versioned artefact, 6b engine precedence, 6c the twelve recorded fields, 6d N>=3 / k-of-N / observation labelling / failed captures, 6e finding-to-destination routing), SKILL.md:188 (the six derived rates and their denominators), SKILL.md:120-127 (the manual capture protocol and the with-neither-tool rule), SKILL.md:118 (the four questions to ask a connected AI monitor).",
+        "graded_by": "nothing. Scripted scan of all 28 expectations for 'prompt', 'prompt set', 'N >= 3', 'k of N', 'mention rate', 'citation rate', 'recommendation', 'capture', 'engine precedence', 'ChatGPT', 'Perplexity', 'Gemini' returns zero hits. e4.2 and e4.4 grade the SERP-level AI Overview read (template 5) only, which the skill explicitly says is a DIFFERENT observation from step 6 (SKILL.md:170).",
+        "what_the_run_shows_anyway": "All five deliverables addressed step 6 unprompted and correctly: e1 §7.4, e2 §7, e3 §9, e4 §6.3, e5 §6.6. Each states the unit is a buyer's question and not a keyword; each keeps mentioned / cited / recommended as three separate facts; each states N=3 in one sitting, logged out, with failed captures logged; each states the with-neither-tool rule in the skill's own shape ('no figure of any kind is stated here - not a low one, none'). Three of the five (e3, e4, e5) print the engine-precedence order AND the organic-is-a-different-instrument sentence the skill requires wherever the order appears; the two that omit the sentence (e1 states it, e2) are consistent - e2 does not print the order, so the obligation is not triggered. All five snapshots carry the new two-kinds-of-row persistence contract with '0 prompt rows' stated."
+      },
+      {
+        "id": "CG2",
+        "gap": "The operator handoff block and its two-label contract - and therefore the Reader Test and anti-slop family 8, which CLAUDE.md makes binding.",
+        "skill_locus": "SKILL.md:176 (the block, its visible label AND its in-fence comment, the one-row-per-follow-up payload fields, 'the **only** place in the deliverable where a run handle appears', and 'this skill computes no CORE-EEAT or CITE score, so those fields read \"not computed by this skill\" rather than being invented'), SKILL.md:209 and :346.",
+        "graded_by": "nothing. e2.4 and e3.6 grade that a hand-off HAPPENS ('via the skill's Related Skills', 'handed to content-refresher'); no expectation grades where it sits, whether it is labelled, or whether a run handle leaked into client prose.",
+        "what_the_run_shows_anyway": "All five deliverables produced a compliant block: both labels present in all five (`<!-- OPERATOR BLOCK ... -->` plus the visible '*operator block; not part of the client report*', bilingual in e3), each in its own fence after the client report rather than inside a client fence - the form the Reader Test ruling calls preferred. Scripted family-8 sweep across all five: framework item IDs, ruling IDs, repo paths and «dexiotit» return ZERO; every CORE-EEAT/CITE occurrence is inside a labelled operator fence carrying the contract's exact 'not computed by this skill' string; every skill slug is inside one. This is a clean result on a binding rule that the instrument cannot register."
+      },
+      {
+        "id": "CG3",
+        "gap": "The Value Rule's skeleton-label contract - closed vocabulary of three, label inside the fence in that fence's own syntax.",
+        "skill_locus": "CLAUDE.md 'The Value Rule' §2 (binding, ruled 2026-08-10, vocabulary closed 2026-08-17) and SKILL.md:208.",
+        "graded_by": "nothing. e5.3's 'value slots left blank or marked to-collect' is the closest, and it grades the cells rather than the fence label.",
+        "what_the_run_shows_anyway": "e5 shipped two fenced forms, both correctly labelled: `# SKELETON - recording form` (L97, CSV comment syntax) and `# SKELETON - trend chart form` (L223, text comment syntax). Both use the closed-list token. Zero bracket tokens, `TBD` or `XX` in a value position anywhere in the five deliverables."
+      },
+      {
+        "id": "CG4",
+        "gap": "Connector-token resolution as a general client-surface rule.",
+        "skill_locus": "SKILL.md:138, :146 ('**every** data-source cell -- keyword rows and prompt rows alike'), :206; CLAUDE.md Tool Connector Pattern (binding); anti-slop family 7.",
+        "graded_by": "partially. e2.5 and e3.6 each carry a 'never a ~~category token standing where the source name belongs' sub-clause, scoped to the one position where a source name belongs. Nothing grades the snapshot's data-source column, the configuration tables, or the report body. e1, e4 and e5 have no such clause at all, and e1 and e4 are the two evals that produce a full snapshot with a data-source column.",
+        "what_the_run_shows_anyway": "Scripted `~~` sweep over all five deliverables: ZERO occurrences. Nothing escaped; the point is that on three of five evals nothing could have caught it."
+      },
+      {
+        "id": "CG5",
+        "gap": "The sign-convention consistency rule's second half.",
+        "skill_locus": "SKILL.md:190 - 'Where a table instead labels movement in words (\"improved 11\"), it uses words throughout - the two conventions are never mixed inside one report.'",
+        "graded_by": "e1.1 requires the convention 'stated or self-evident' and stops there. No expectation grades mixing.",
+        "what_the_run_shows_anyway": "All four data-bearing deliverables state the convention once in the header and use signed numbers in every table; no mixed-convention table appears."
+      },
+      {
+        "id": "CG6",
+        "gap": "Step 7, competitor comparison - share of voice, head-to-head per keyword, competitor movement alerts with threat level.",
+        "skill_locus": "SKILL.md:172; Validation Checkpoints 'Competitor domains identified for comparison'.",
+        "graded_by": "nothing, in any of the five evals.",
+        "what_the_run_shows_anyway": "Four of five deliverables (e1 §4.3, e2 §7, e3 §9, e5 §6.3) declare that no competitors were supplied, state the consequence, and request three to five. e4 §8 goes further and states that the competitor-average and opportunity COLUMNS are 'absent rather than empty'. A deliverable that instead invented a competitor set would have scored identically."
+      },
+      {
+        "id": "CG7",
+        "gap": "Step 3's ranking overview by position range and the position-distribution visualisation.",
+        "skill_locus": "SKILL.md:152.",
+        "graded_by": "nothing. No expectation checks that the ranges are exhaustive and non-overlapping, that the counts sum to the population, or that the percentages reconcile.",
+        "what_the_run_shows_anyway": "e1 §2 and e4 §2 both produced distribution tables with percentages; this grader recomputed both and both reconcile exactly (e1: 1/0/5/2/2/0 = 10 tracked, 10/0/50/20/20/0%; e4: 1/1/2/1/0 = 5 tracked, 20/20/40/20/0%). e1 also names the top-50 observation limit as a property of the last row. An off-by-one or a percentage that did not sum would have passed unseen."
+      },
+      {
+        "id": "CG8",
+        "gap": "Four of the six Response Protocol bands, and the decimal-rounding rule attached to the table.",
+        "skill_locus": "SKILL.md:324-333 - the '3-4 positions', '11+ still on page 1' and 'Position gained' rows, and 'where positions are decimal averages, round the drop to the nearest whole position (halves away from zero) and band the rounded value'.",
+        "graded_by": "e1.2/e1.3 exercise the page-1-exit row and the 5-10 row; e4.1 exercises the 1-2 monitor row in the negative. Nothing exercises the rest, and nothing exercises the decimal-rounding rule - which is exactly the rule e3's decimal GSC positions engage on a second pull.",
+        "what_the_run_shows_anyway": "e4 §2 correctly assigns 'Position gained' to the two improvements and 'Drop of 1-2 positions | Monitor for 1-2 weeks' to the +2 decline, and e4's 'Not an action this cycle' section holds that classification. No deliverable had a 3-4 or 11+ case to handle."
+      },
+      {
+        "id": "CG9",
+        "gap": "Internal consistency between a summary figure and the table it summarises.",
+        "skill_locus": "Metric Derivation Contract rule 1 and rule 2 as they apply across sections, not within a line.",
+        "graded_by": "nothing. Every fixture-exactness expectation checks a figure against the FIXTURE; none checks a figure against another figure in the same deliverable.",
+        "what_the_run_shows_anyway": "Checked by hand across all five. The only near-miss is e1 L148-159, where 'Six of the nine keywords moved 2 positions or fewer' introduces a six-row table and the following sentence says 'Five of them oscillate inside the +/-1-2 band'; the sixth row (levitas aeriou) is the one that does not oscillate and its own cell says so, so the pair reconciles."
+      }
+    ]
+  },
+  "defects_outside_the_graded_set": {
+    "what_was_looked_for": [
+      "`~~category` connector tokens on any client surface (scripted, all five files)",
+      "run handles - skill slugs, framework item IDs, ruling IDs, repo paths, «dexiotit» - outside a labelled operator block (scripted, all five files)",
+      "anti-slop §6 FAIL-grade greppable patterns in the Greek deliverable: family 1 totality-with-numeral calque, family 2 agency-provenance label, family 6 costs-zero calque (scripted, with a live non-vacuity control - the correct native form «kai ta 12» is present twice)",
+      "guaranteed-outcome promises about a search or AI surface, in English and Greek (scripted; 17 promise-shaped hits inspected individually)",
+      "engine-disposition claims in the indicative, in English and Greek (scripted)",
+      "settled-ruling contradictions: R1 llms.txt, R2 schema-stacking, R3 FAQPage, R4 CWV/FID, R5 unlinked brand mentions (scripted token sweep across all five)",
+      "invented statistics, competitor positions, search volumes, CTR percentages, traffic or revenue figures (scripted plus read-through)",
+      "unresolvable template cells - bracket tokens, TBD, XX in a value position - and skeleton fences without an in-fence closed-list label (scripted plus read-through)",
+      "arithmetic errors in prose: every derived figure in all five deliverables recomputed from the fixtures (see arithmetic_check)",
+      "state claims asserted beyond what the fixture attests (read-through, F4 discipline)"
+    ],
+    "found": [
+      {
+        "id": "D1",
+        "where": "e3.md:84",
+        "severity": "HIGH - and it is the only one of these that a graded expectation caught",
+        "defect": "«Dekapente emfaniseis kato apo to katofli mas» - fifteen impressions below the threshold, where the fixture and the deliverable's own stated floor give six (50 - 44). A wrong derived figure in client-facing prose, with no derivation printed. Failed under e3.6; listed here because it is the run's most consequential deliverable defect and because it is the kind of slip that only recomputation finds."
+      },
+      {
+        "id": "D2",
+        "where": "e2.md:12-13",
+        "severity": "medium",
+        "defect": "'The 10 August check was not run and neither was 17 August' - stated as fact. The fixture attests only the first: 'The 2026-08-10 check has not been run (the coordinator is on leave - the log ends at 2026-08-03).' Whether a check happened on 2026-08-17, the day the report is dated, is not in the input; the deliverable infers it from the log's absence and reports it in the indicative. F4 shape (a state claim not read from the evidence). No expectation covers it. The honest form was available and is used elsewhere in the same file ('the most recent observation is two weeks old')."
+      },
+      {
+        "id": "D3",
+        "where": "e5.md:292 and e5.md:296",
+        "severity": "medium",
+        "defect": "Two unsourced generic-industry claims on a client surface, in the indicative with hedging only and no assumption label: brand searches 'for a clinic they usually convert better than anything else on the list', and near-me terms 'for a single-location clinic they are usually in the top five terms'. Nothing in the input supplies either, and e5.1's assumption-label rule is scoped to statements about where new dental sites RANK, so neither falls inside it. This is the F13-r3 shape - hedging words are not a label - displaced one axis, onto conversion and demand rather than position. Low blast radius (neither is a number and neither drives a recommendation), but it is exactly the class no expectation in this suite can see."
+      },
+      {
+        "id": "D4",
+        "where": "e5.md:87 and e5.md:135-136",
+        "severity": "low",
+        "defect": "SERP-composition claims about result pages nobody has checked: 'the map block with three clinics is very likely the most valuable thing on the page' and 'the map block probably dominant'. Hedged, not labelled, and about the same eight keywords the document otherwise refuses to characterise. Mitigating: the document's own §8 promises 'No estimated, ballpark or illustrative positions anywhere', and these are about the surface rather than about the clinic's place in it - but the three-clinic composition is stated as a known quantity."
+      },
+      {
+        "id": "D5",
+        "where": "e1.md:103",
+        "severity": "low",
+        "defect": "'it is the only keyword whose URL you touched in the period' - the change log records a second URL event inside the period, the 2026-07-30 publication of /iliakoi-thermosifones/200-litra, which is a tracked keyword's ranking URL. The intended meaning (the only pre-existing page edited) is clear from context and the 200-litre keyword is handled correctly everywhere else, but the sentence as written is false against the fixture."
+      },
+      {
+        "id": "D6",
+        "where": "e2.md:449 (operator block)",
+        "severity": "low",
+        "defect": "'this is the signal position-only alerting missed for six weeks'. Grader-recomputed: the first URL flip is observed at the 2026-07-06 check, four weeks before the log ends; from the 2026-06-24 publication it is 5.7 weeks. 'Six weeks' reconciles with no window in the fixture. Operator surface, so no client sees it, but it is a number that does not derive."
+      },
+      {
+        "id": "D7",
+        "where": "e1.md:190-191",
+        "severity": "low",
+        "defect": "'Its duration was at least one day and at most thirteen.' The upper bound is correct. The lower bound is not derivable - the dip was observed on one check, so its minimum possible duration is minutes, not a day. The same deliverable states the honest form two paragraphs later ('your sheet cannot tell a two-day dip from a twelve-day one'), so this is an internal inconsistency in the direction of overstating what was measured."
+      },
+      {
+        "id": "D8",
+        "where": "e4.md:170-171",
+        "severity": "very low, recorded for completeness",
+        "defect": "'Product cards in those units are populated from product data submitted through Google Merchant Center' - a mechanism claim about a Google surface, in the indicative, with no source. It is accurate documented product behaviour rather than an engine-disposition guess, and the deliverable immediately refuses the promise that would follow from it ('We are not promising you a placement in that unit'). Noted because family 9 is the nearest rule and no expectation in this suite screens for it."
+      },
+      {
+        "id": "D9",
+        "where": "e3.md:272-274",
+        "severity": "very low, recorded for completeness",
+        "defect": "The future-answer template uses Greek letter placeholders in prose: 'oi exi selides pigan apo 74 se **CH** klik ... aftо antistoichei se **PS** parangelies'. Not in a paste-ready block and not in a findings-table cell, so the Value Rule does not bite and the surrounding sentence makes the shape explicit. It is nonetheless the nearest thing to a bracket token anywhere in the five deliverables."
+      }
+    ],
+    "notable_absences_looked_for_and_not_found": "ZERO `~~category` tokens on any surface in any of the five deliverables. ZERO run handles outside a labelled operator block; every CORE-EEAT/CITE occurrence sits inside one. ZERO anti-slop §6 FAIL-grade greppable patterns in the Greek deliverable, against a live control that the correct native form is present. ZERO guaranteed-outcome promises: all 17 promise-shaped matches are explicit REFUSALS to promise, several of them unprompted ('nobody can promise a snippet', 'No placement is promised', 'Den yposchomaste thesi'). ZERO engine-disposition claims in the indicative in either language. ZERO contradictions of R1-R5 - none of the five deliverables touches their subject matter. ZERO invented search volumes, competitor positions, CTR percentages, traffic or revenue figures; every one of the four position-vs-traffic invocations is explicitly labelled the house generic estimate and explicitly refused as this site's measured loss. ZERO fabricated positions in e5, including inside the chart, where the six pre-August cells read '(not tracked)'. ZERO bracket tokens, TBD or XX in a value position; both e5 skeleton fences carry an in-fence closed-list label."
+  },
+  "instrument_defects": {
+    "count": 0,
+    "items": [],
+    "considered_and_rejected": [
+      {
+        "id": "ID-CAND-1",
+        "expectation": "e1.2",
+        "why_it_was_examined": "It requires the closing classification on the levitas aeriou 6->15->7 event to be monitor/no-action, and the SKILL's own Response Protocol bands that raw event as 'Drop off page 1 - old position 1-10, new position 11 or worse, **any** drop size | Emergency response | Comprehensive audit + recovery plan' (SKILL.md:326). The opposite answer comes from tracking-setup-guide.md:250 ('Sudden drop 5+ positions, recovers in 2-3 days | Monitor, no action needed'). The skill states NO precedence between the two instruments: the only precedence sentence, SKILL.md:333, is internal to the protocol table ('read the page-1 exit row first - it overrides every size row') and if anything points the other way. So the expectation grades a precedence the skill never states - the F13-r4 signature.",
+        "why_rejected": "Not a defect by this grader's four-verdict definition: it is satisfiable (the deliverable satisfied it), it contradicts no other expectation, and the expectation itself writes in the carve-out that keeps it satisfiable ('Retrospectively naming the response-protocol rows the raw 6->15 event would have tripped is allowed'). It is a CARRIER GAP in the skill, not a broken instrument, and it is recorded as the run's most consequential structural finding under `carrier_gaps_found`.",
+        "escalation_if_it_recurs": "If a future blind run classifies this event as an emergency and fails e1.2, that is not a skill defect to be logged against the executor - it is this carrier gap firing, and it should increment F13-r4 rather than F3."
+      },
+      {
+        "id": "ID-CAND-2",
+        "expectation": "e2.3",
+        "why_it_was_examined": "Its primary clause names a category-URL average of ~5.7 (34/6) pooled across the publication boundary, while the same suite's e2.2 makes the publication boundary the load-bearing division of the data. A deliverable that splits the category checks by period - which is the more informative read and which e2.2's logic invites - cannot produce 5.7.",
+        "why_rejected": "The expectation anticipates this and supplies an 'at minimum' route that a period-split satisfies (both per-group position lists plus the three-worst observation), and its stated failure condition is only a bare qualitative claim with neither the averages nor the lists. Not a contradiction; a well-constructed alternative. Recorded under `ambiguous_expectations_eval_improvement` instead."
+      }
+    ]
+  },
+  "carrier_gaps_found": [
+    {
+      "id": "CARRIER-1",
+      "severity": "the most consequential structural finding of this run",
+      "statement": "The skill gives two instruments opposite answers on a recovered page-one-exit dip, and states no precedence between them. SKILL.md:326 bands a 6->15 move as Emergency response / comprehensive audit, 'any drop size'. tracking-setup-guide.md:250 bands a sudden 5+ drop that recovers as Monitor, no action needed. SKILL.md:333's precedence sentence resolves only protocol-row-vs-protocol-row ('it overrides every size row'), and a grep of SKILL.md plus all four references for 'recover' returns four hits, none of which states which instrument wins. The rule that resolves it exists in exactly one place in this repository: eval expectation e1.2.",
+      "why_it_matters": "This is the F13-r4 signature - a suite grading a convention the skill never names - and F13-r3's lesson applies to the fix: an informed executor reads the resolution out of the expectation and complies, so only a blind run can show whether the skill carries it. This blind run landed on the expectation's side, but it landed there by reasoning rather than by carriage, and the reasoning is visible in the text: e1.md:194-200 names the protocol row first, then the guide row, then declines to close ('We are recording this as an open question, not as resolved noise') precisely because the skill gave it nothing to close with. A different blind executor reading SKILL.md:333's 'read the page-1 exit row first' could reasonably file the event as an open emergency and fail e1.2 on a rule it was never told.",
+      "not_fixed_here": "This grader edits no skill, reference or register. The fix is a precedence sentence in the skill body beside the Response Protocol, and it should be validated by a blind re-run rather than declared sound because it exists (F13-r3)."
+    },
+    {
+      "id": "CARRIER-2",
+      "severity": "medium",
+      "statement": "e1.4 grades the cadence-upgrade remedy against tracking-setup-guide.md:19 and :51, and e5.4 grades the no-alerts baseline period against :163 and :327. All four rows exist in the guide and are reachable, so these are carried. Recorded as a checked negative so a later reader does not have to re-derive it."
+    }
+  ],
+  "arithmetic_check": {
+    "method": "Every derived figure in all five deliverables was recomputed from the fixture files by script (modeb-ranktracker-grade-screen.py, section D) and by hand where the figure was prose-embedded. The script prints the matched values, never bare booleans (ledger F7), and every reported failure below was re-read at the raw location in the deliverable before being recorded.",
+    "figures_recomputed": 61,
+    "reconciled": 60,
+    "did_not_reconcile": [
+      {
+        "where": "e3.md:84",
+        "deliverable_says": "«Dekapente emfaniseis kato apo to katofli mas» - fifteen impressions below the threshold",
+        "fixture_gives": "six. The query «spora gkazon fthinoporo» has 44 impressions (gsc-queries-kipos-fysi-el.md); the deliverable's own stated floor is 50 (e3.md:54); 50 - 44 = 6.",
+        "consequence": "e3.6 FAIL. No downstream figure depends on it - the query is correctly excluded from the queue on the correct impression count, which is printed accurately in the same sentence and in the filter table - so the exclusion decision is right and only the sentence explaining it is wrong."
+      }
+    ],
+    "notable_reconciliations": [
+      "e1: all five weekly means over the constant 9-keyword population (85/93/84/82/80 over 9 = 9.4444 / 10.3333 / 9.3333 / 9.1111 / 8.8889) match the deliverable's five printed values and its five printed sums.",
+      "e1: the 20-July decomposition - levitas aeriou +9 alone is worth exactly 9/9 = 1.0 on a nine-keyword mean, against a whole-set move of +8/9 = +0.889. The deliverable's claim that the spike 'is levitas aeriou on its own' is arithmetically true, not rhetorical.",
+      "e1: 'six of the nine keywords were stable' - grader count of keywords moving <=2 positions AND staying on the same results page = 6 (endodapedia thermansi is correctly excluded by the page condition despite moving 1).",
+      "e1: the top-10 counts are 6 and 6 whether computed over the deliverable's stated population of 9 or the expectation's stated population of 10, so the population difference changes no printed figure.",
+      "e2: pre 16/3 = 5.3333, post 50/6 = 8.3333, difference exactly +3.0; both controls +0.1667 and +0.3333 against printed +0.2 and +0.3; blog 32/3 = 10.6667 against printed 10.7; category post 18/3 = 6.0 exact.",
+      "e3: all six Opportunity products exact to the digit under the Greek separator convention (1150x17.9=20585, 1400x7.3=10220, 720x10.2=7344, 880x5.4=4752, 310x13.8=4278, 450x8.6=3870), and the ranked order is the strict descending order of those products.",
+      "e3: the two aggregates at L262-263 (4,910 impressions and 74 clicks over the six) and the operator block's '~9,900 impressions in 28 days' (all-12 total = 9,912) are all exact.",
+      "e4: 31/5 = 6.2 -> 28/5 = 5.6, change -0.6; all five deltas; positions 1-10 four-of-five on both dates; the 10 August distribution 1/1/2/1/0 summing to 5 with percentages 20/20/40/20/0; the three feature-ownership counts 1/0/0 -> 0/1/1 recomputed independently from both fixture check tables; 'none of those three was noted on any of the ten observations' (5 keywords x 2 checks = 10).",
+      "e5: no derived figure exists to check, which is the correct outcome for a zero-data eval."
+    ]
+  },
+  "tool_correctness": {
+    "tool_errors_encountered": [
+      "scripts/eval-prompt.sh monitor/rank-tracker e1 --grade exits 2 with 'no eval with id e1'. This suite's ids are bare integers; the correct call is `... monitor/rank-tracker 1 --grade`. `--ids` disambiguates it in one call. Not a script defect - other suites use eN ids - but it costs a round trip and is worth a line in the script's usage string."
+    ],
+    "expectations_not_gradable_as_written": [
+      "e3.5, by design - it defers to the binding greek-content-editor and instructs the grader to record EDITOR-PENDING when no editor report is present. Recorded as such, inside the total, not passed."
+    ],
+    "checker_verification": "The screen script prints matched text with 60 characters of context on both sides for every hit and prints '(no match)' explicitly for every clean pattern, so a vacuous pattern is visible as such. Non-vacuity controls were run for the two screens most likely to pass by matching nothing: the family-1 Greek calque screen was paired with a positive control for the CORRECT native form (which returned two hits, e3:45 and e3:47), and the export-fidelity screen reported EXACT-PRESENT for all 12 strings rather than a count. Both FAIL verdicts (e2.1, e3.6) were re-read at the raw location in the deliverable and quoted verbatim before being recorded (ledger F7).",
+    "scope_drift": "None. This grader's only repository write is this file. No skill, reference, register or tracking file was edited; no git command beyond read-only rev-parse / status / log / diff / show was run.",
+    "grader_working_files": [
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-ranktracker-grade-screen.py"
+    ],
+    "deliverables_graded": [
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-2026-08-17/rank-tracker/e1.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-2026-08-17/rank-tracker/e2.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-2026-08-17/rank-tracker/e3.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-2026-08-17/rank-tracker/e4.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-2026-08-17/rank-tracker/e5.md"
+    ]
+  },
+  "ambiguous_expectations_eval_improvement": [
+    {
+      "id": "e2.1",
+      "expectation": "'with the alternation counted as 5 URL changes across the 8 consecutive check pairs (count rule: ...)'",
+      "issue": "The clause is embedded mid-sentence inside a requirement whose head is 'the two-URLs-trading pattern is identified fixture-exactly'. A deliverable can identify the pattern with complete fixture-exact data - all nine rows, both URLs, the publication correlation - and never print the summary count, which is what happened. Two readings are available: 'the count must appear' (this grader's, on the suite's own convention that a 'count rule:' clause names a figure to be checked, as in e1.5 and e4.4) and 'the alternation must be established, and here is how the grader counts it'. Suggested fix: split it into its own clause with the failure condition stated, as e1.5 and e4.4 do ('a report that does not state the count fails'), or drop the count if the table alone is what is wanted."
+    },
+    {
+      "id": "e1.2",
+      "expectation": "'so the standing classification is monitor/no-action and no ongoing problem is described'",
+      "issue": "'No ongoing problem is described' and the stated failure condition ('leaves it standing as an emergency or open full-diagnostic item') are not coextensive. This deliverable assigns no action and no diagnostic, files the keyword under a section headed 'What is just noise', and puts it on a watch list - but closes with 'We are recording this as an open question, not as resolved noise', which is a statement about MEASUREMENT granularity rather than about the ranking. Graded PASS on the stated failure condition. A stricter grader could read the first clause and reach the opposite verdict, which is a discrimination problem in the expectation rather than in the deliverable. See also `carrier_gaps_found` CARRIER-1: the skill itself gives no precedence rule here, so the executor's hedge is a reasonable response to a genuine gap."
+    },
+    {
+      "id": "e2.3",
+      "expectation": "'the six category-URL checks average ~5.7 (34/6 ...)'",
+      "issue": "The named population pools category checks across the 2026-06-24 publication boundary, while e2.2 in the same eval makes that boundary the load-bearing division. A deliverable that splits the category group by period - arguably the better read, and the one this deliverable took - produces 6.0 (18/3) and 5.3 (16/3) instead. The 'at minimum' fallback rescues it, but the primary clause's figure is unreachable for a deliverable following e2.2's logic. Suggested fix: accept either population explicitly, or move the pooled figure into the fallback."
+    },
+    {
+      "id": "e4.2",
+      "expectation": "\"using the GEO template's distinct fields ('You Cited?' / 'Citation Position')\"",
+      "issue": "Quoting the template's literal column headers invites a grader to require those strings on a client-read surface, where plain-language equivalents are better practice and are what this deliverable produced ('Are you cited?' / 'Your slot in the source list'). Graded PASS on the substance - the two facts occupy distinct columns and are never converted - but the wording should say 'the template's two distinct fields (however labelled)' so the requirement is the separation and not the string."
+    },
+    {
+      "id": "e1.6 and e4.6",
+      "expectation": "the snapshot column lists - e1.6 'keyword, position, ranking URL, check date, data source rows'; e4.6 'keyword, position, ranking URL, SERP features, check date, and data source'",
+      "issue": "e1.6 omits SERP features from a list e4.6 and SKILL.md:146 both include. Harmless here (e1's snapshot carries the column anyway, marked 'Not checked'), but the two evals grade the same contract to two different column sets, and a future deliverable that dropped the column in e1 would pass while failing the skill's own persistence contract."
+    }
+  ],
+  "second_read": {
+    "date": "2026-08-17",
+    "what_this_is": "NARROWED second-reader pass, not a re-grade. Three moves only: (1) recompute every figure the record quotes inside its evidence and defect entries; (2) sweep the deliverables for numbers written as WORDS in EN and EL and check each against the fixture (ledger F15-r5, unfixed corpus-wide); (3) test whether the record is still current at HEAD. No expectation was re-graded and no verdict was re-derived from scratch.",
+    "head_at_second_read": "b5135d431aeef7910426d03c82bcf5828d6ece99 — unchanged from the open of this pass to its close; `git status` clean; the five deliverables byte-identical to the ones the record cites.",
+    "move_1_arithmetic_recomputation": {
+      "figures_recomputed_by_this_reader": 34,
+      "wrong": 0,
+      "method": "Recomputed from the four fixture files, independently of the record's own scripts. Every figure below was re-derived rather than re-read; the fixture rows were opened at source before any figure was judged (F7).",
+      "recomputed_and_holding": [
+        "Summary rates: 25/28 = 0.89286 -> 0.8929; the two alternatives 26/28 = 0.92857 -> 0.929 and 25/27 = 0.92593 -> 0.926. All three exact. 25 + 2 + 1 = 28 = total.",
+        "per_eval tallies 6/6/6/6/4 re-derived from the 28 expectation verdicts and matched to evals.json's own per-eval counts (6,6,6,6,4). Every cell reconciles.",
+        "e1 weekly sums over the constant 9-keyword population, re-added column by column from rank-export-calorix-weekly-el.md: 85 / 93 / 84 / 82 / 80. Means 9.4444 / 10.3333 / 9.3333 / 9.1111 / 8.8889. All ten figures exact.",
+        "e1 20-July decomposition: «λέβητας αερίου» 6 -> 15 = +9, worth 9/9 = 1.0 on a nine-keyword mean, against the whole-set move 85 -> 93 = +8, i.e. +0.8889. The record's claim that the spike is that one keyword is arithmetically true — every other keyword moved net -1 across the set.",
+        "e1 'six of the nine keywords were stable' re-derived keyword by keyword (<=2 positions AND same results page): calorix 1->1, ηλιακός θερμοσίφωνας 8->8, ηλεκτρικός θερμοσίφωνας 80 4->4, λέβητας αερίου 6->6, αντλία θερμότητας 21->21, κόστος ενδοδαπέδιας 13->12 = 6. «ενδοδαπέδια θέρμανση» 10->11 correctly excluded by the page condition despite moving 1. Exact.",
+        "e1 top-10 counts 6 and 6 on both dates, and unchanged whether the 10th keyword (NF -> 38) is inside or outside the population. Exact.",
+        "e2 from rank-log-stromatex-anatomiko-el.md: pre 5+5+6 = 16/3 = 5.3333; post 6+9+5+11+7+12 = 50/6 = 8.3333; difference exactly +3.0. Controls re-derived independently: «στρώμα latex» 11/3 = 3.6667 -> 23/6 = 3.8333 = +0.1667 (printed +0.2); «στρώματα προσφορές» 23/3 = 7.6667 -> 48/6 = 8.0 = +0.3333 (printed +0.3). Blog-URL checks 9+11+12 = 32/3 = 10.6667 (printed 10.7); category-URL post checks 6+5+7 = 18/3 = 6.0 exact. All nine exact.",
+        "e3 all six Opportunity products re-derived from gsc-queries-kipos-fysi-el.md as impressions x (position - 1): 1150x17.9 = 20,585 · 1400x7.3 = 10,220 · 720x10.2 = 7,344 · 880x5.4 = 4,752 · 310x13.8 = 4,278 · 450x8.6 = 3,870. All exact, and the printed rank order is the strict descending order of those products.",
+        "e3 aggregates: impressions over the six = 1150+1400+720+880+310+450 = 4,910; clicks = 15+28+9+12+4+6 = 74; all-12 impressions total = 9,912, so the operator block's '~9,900 in 28 days' is exact-to-the-rounding. All three exact.",
+        "e4 from serp-feature-log-melifera-el.md: 3+9+6+12+1 = 31/5 = 6.2 -> 3+5+8+11+1 = 28/5 = 5.6, change -0.6; the five per-keyword deltas 0/-4/+2/-1/0; positions 1-10 four-of-five on both dates; the 10-August distribution 1/1/2/1/0 summing to 5 with 20/20/40/20/0; the three feature-ownership counts 1/0/0 -> 0/1/1 re-derived independently from both check tables; 5 keywords x 2 checks = 10 observations. All exact."
+      ],
+      "the_records_one_did_not_reconcile_CONFIRMED": "e3.md:84 opened at source. The deliverable reads «σπορα γκαζον φθινοπωρο» — 44 εμφανίσεις, μέση θέση 7,9. **Δεκαπέντε εμφανίσεις κάτω από το κατώφλι μας.**' The fixture gives 44 impressions and the deliverable's own stated floor at :54 is 50, so the gap is 6. The record's recomputation is exact and its consequence analysis holds — the 44 is printed correctly in the same sentence and the exclusion decision is right.",
+      "defect_entries_recomputed": [
+        "D5 (e1.md:103, 'the only keyword whose URL you touched in the period') — the fixture change log records TWO URL events inside the period: 2026-07-08 refresh of /blog/antlia-thermotitas-epidotisi-2026 and 2026-07-30 publication of /iliakoi-thermosifones/200-litra, both of which are tracked keywords' ranking URLs. The record is correct.",
+        "D6 (e2.md:449, 'six weeks') — re-derived: 2026-06-24 publication to the 2026-08-03 log end is 40 days = 5.71 weeks; the first observed URL flip (2026-07-06) to the log end is 28 days = 4 weeks. Neither is six. The record is correct.",
+        "D7 (e1.md:190-191, 'at least one day and at most thirteen') — the dip sits between checks on 2026-07-13 and 2026-07-27, 14 days apart, so the upper bound of 13 is right and the lower bound is not derivable from one observation. The record is correct."
+      ]
+    },
+    "move_2_spelled_out_number_sweep": {
+      "result": "CLEAN — and this suite's own grader had already found the one instance, which is worth recording because it is the first time the F15-r5 class was caught inside a first read rather than by a second reader.",
+      "method": "EN + EL cardinal-word sweep over all five deliverables (551 lines carried a spelled-out number), then a narrowed net for the F15-r5 signature — a spelled-out count of an external population, or a count preceded by a history marker (our/last/past/previous). 41 narrowed candidates; every one opened at source and checked against its fixture or prompt.",
+      "candidates_checked_and_traced": [
+        "e1.md:310 'has fallen in each of the last four weeks' — θερμοπομποί 4/6/8/9/10 gives four consecutive week-over-week declines and a current position of 10. Correct.",
+        "e1.md:516-517 '25-30 questions ... run three times across three surfaces. That is about 250 captures' — 25x3x3 = 225 to 30x3x3 = 270. 'About 250' sits inside the range. Correct. The 'three times' is the library's own N>=3 rule, not a claim about the world.",
+        "e2.md:83-87 'category ... 6, 5, 7 against a pre-publication 5, 5, 6' and 'guide ... 9, then 11, then 12 — the last two are off page one' — all eight values fixture-exact, and 11 and 12 are indeed off page one. 'From 6 July the log alternates perfectly — guide, category, guide, category, guide' re-checked row by row: correct.",
+        "e2.md:190 'shown ... for a commercial keyword three times in the last five weeks' — the blog URL is the shown URL on 07-06, 07-20 and 08-03, which are three of the last five check dates. Correct.",
+        "e4.md:140 'one of the five keywords. The other four SERPs showed no featured snippet on either check' and e4.md:209 'the other three questions' (fixture: PAA box present, 4 questions, one of which is now sourced from melifera) — both correct.",
+        "e5.md:77 'Three of your eight keywords name Glyfada and the other five are treatment searches' — re-derived from the eval-5 prompt's own eight keywords: «οδοντίατρος γλυφάδα», «παιδοδοντίατρος γλυφάδα», «οδοντιατρείο γλυφάδα κριτικές» name Glyfada (3); the remaining five are treatment/cost searches. Exact.",
+        "e5.md:175-176 and :192 'six-month-old site' / 'six months of' — the prompt says the site launched in February and the report is dated 17 August 2026. Correct."
+      ],
+      "nothing_new_found": "No spelled-out number in any of the five deliverables asserts a quantity the fixture or the prompt does not supply, beyond the one the record already reports."
+    },
+    "move_3_currency": {
+      "verdict": "CURRENT.",
+      "version_check": "Record's graded version 4.3.0. HEAD `monitor/rank-tracker/SKILL.md` carries `version: \"4.3.0\"` and `metadata.version: \"4.3.0\"` in lockstep. Ruling M2 does not bite: nothing to be behind.",
+      "diff_since_the_records_own_close": "`git diff 61ac57a..HEAD -- monitor/rank-tracker/` is EMPTY. The skill, its references and its suite have not moved since this record closed.",
+      "denominator_drift": "NONE. The record grades 28 expectations; `monitor/rank-tracker/evals/evals.json` at HEAD holds 6+6+6+6+4 = 28, and `git diff 61ac57a..HEAD -- monitor/rank-tracker/evals/evals.json` is empty. No expectation was added, so there is no added expectation to judge the deliverable against.",
+      "headline_caution_re_verified": "The record's own `summary.headline_caution` — that 0.893 measures the 4.2.x surface on a 4.3.0 skill because no expectation touches the prompt-level AI-visibility half — is unaffected by this pass and still stands. Currency of the RECORD is not coverage of the SUITE, and only the first is in this pass's scope."
+    },
+    "corrections_made_in_place": "NONE. Every number this record quotes recomputes.",
+    "taken_on_trust_not_re_verified": [
+      "The 28 expectation verdicts themselves — this is not a re-grade. Only the figures quoted inside their evidence were recomputed.",
+      "The record's own count `arithmetic_check.figures_recomputed: 61`. This reader recomputed 34 figures independently and found no discrepancy; the residual 27 are the record's own enumeration and were not re-enumerated.",
+      "The Greek mechanical-layer screens reported under e3.5 (final sigma, diacritics, heading census) — screening work, not arithmetic, and outside all three moves.",
+      "The greek-content-editor slot (e3.5) remains EDITOR-PENDING and untouched."
+    ],
+    "nearly_recorded_then_cleared": [
+      "The record renders the e3.md:84 defect quote in Latin transliteration — «Dekapente emfaniseis kato apo to katofli mas» — while the deliverable reads «Δεκαπέντε εμφανίσεις κάτω από το κατώφλι μας». Checked and NOT recorded as an error: the transliteration is faithful and the line reference is exact. Recorded here only because a citer copying the record's quoted string and grepping for it in the deliverable will get zero hits."
+    ],
+    "verdicts_changed": "NONE. summary and per_eval are unchanged, and both were independently re-derived from the expectation verdicts during this pass."
+  }
+}

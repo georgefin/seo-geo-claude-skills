@@ -1,0 +1,8 @@
+--- a/docs/loop/GATED-ITEMS.md
++++ b/docs/loop/GATED-ITEMS.md
+@@ -1,2 +1,5 @@
+ ## G2 — Publish weekly reports as GitHub Issues on the fork
+
++- Issue #6 repair, verified on inspection: the how-to placeholder was eaten by
++  HTML sanitization and the attribution footer was stripped by a prior body
++  update; both re-applied in the same pass.

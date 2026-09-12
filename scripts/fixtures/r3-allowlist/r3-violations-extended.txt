@@ -1,0 +1,81 @@
+# FIXTURE — R3 violation channels found BEYOND Mode A's 17, and the holes still open.
+#
+# Same rule as the frozen file: every line asserts, as current fact, that FAQ markup earns a FAQ
+# rich result. The difference is that this file is allowed to grow, and that each entry declares
+# what the shipped guard actually does with it — `# EXPECT: CAUGHT` (default) or
+# `# EXPECT: MISSED — reason`.
+#
+# A DECLARED MISS IS STILL A HOLE. It is written down so the number is honest, not so the hole is
+# closed. The probe prints every declared miss on every run, under that heading, and FAILS if a
+# declared miss is ever CAUGHT — because that means the guard got narrower and this register is
+# now lying about it. Fixing that failure means moving the line up into the caught set, not
+# deleting it.
+#
+# FORMAT: `# ` comment, `>>> ` data. COUNT is asserted by the probe.
+#
+# COUNT: 10
+#
+# ---------------------------------------------------------------------------------------------
+# CLOSED by the proximity fix: a generic marker sitting BEFORE the claim, about another subject.
+# Word-bounding could never reach these — the marker is a whole word and it is spelled correctly.
+# ---------------------------------------------------------------------------------------------
+#
+# 1. `government/health` — true of How-to markup, false of the FAQ claim beside it.
+>>> The government/health restriction applies to How-to markup only, so FAQ schema still earns FAQ rich results.
+#
+# 2. `aug 2023` — the sourced date, used as a date rather than as the restriction it marks.
+>>> Since Aug 2023 our template library has shipped FAQ schema for the FAQ rich result on every page.
+#
+# 3. `no need to (proactively )?remove` — Google's actual permission, applied to stylesheets.
+>>> There is no need to proactively remove the old CSS, and FAQPage still earns FAQ rich results.
+#
+# ---------------------------------------------------------------------------------------------
+# STILL OPEN, class A: the FAQ-NAMING markers stay whole-line. Every marker below contains "faq"
+# and asserts something false about FAQ eligibility, so it cannot be about an unrelated subject —
+# but it can still sit in one clause while the next clause contradicts it. Binding these by
+# proximity was measured and refused: the marker sits INSIDE or ADJACENT TO the token span on the
+# real lines (`Rich Results Test (non-FAQ types)`), so a proximity rule un-excuses six real lines.
+# Closing this needs a claim detector — a positive test for the assertion — not a narrower excuse.
+# ---------------------------------------------------------------------------------------------
+#
+# 4. `non-faq` — sole excuse for 6 real lines, so the most load-bearing marker in the allowlist.
+# EXPECT: MISSED — FAQ-naming markers are whole-line by design; see the tier note in check (f).
+>>> Use the Rich Results Test for non-FAQ types, and expect FAQ rich results from your FAQPage too.
+#
+# 5. `no faq rich result` — a true observation about last month, then a false forecast.
+# EXPECT: MISSED — same tier.
+>>> Last month showed no FAQ rich result, but FAQPage is eligible for FAQ rich results and will earn one.
+#
+# 6. `does not (support|test) faqpage` — true about the tool, false about the SERP.
+# EXPECT: MISSED — same tier.
+>>> The Rich Results Test does not test FAQPage, yet FAQPage still earns FAQ rich results in the live SERP.
+#
+# 7. `do not run it through` — the one member kept whole-line WITHOUT naming FAQ. On the real line
+#    it excuses (validation-guide.md:255) the marker sits inside the token span, so proximity
+#    cannot see it. It is a 5-word phrase rather than a common word, which is the only thing
+#    limiting the damage.
+# EXPECT: MISSED — kept whole-line to protect one real line; the trade is recorded, not hidden.
+>>> Do not run it through the old sitemap pinger; FAQPage is eligible for FAQ rich results.
+#
+# ---------------------------------------------------------------------------------------------
+# STILL OPEN, class B: a generic marker AFTER the claim, inside the same sentence, about something
+# else. The after-window has to be 60 characters because one real line needs 50 (see
+# r3-legitimate.txt, commands/generate-schema.md:19), and 60 characters of English is room enough
+# to change the subject. This is the residual the window buys.
+# ---------------------------------------------------------------------------------------------
+#
+# 8. Subject changes after an em dash, 55 characters from the claim.
+# EXPECT: MISSED — marker follows the claim within the 60-character window.
+>>> FAQPage schema is eligible for FAQ rich results — the sitemap ping endpoint was discontinued in 2023.
+#
+# 9. The comma case, and the exact price of one design decision. The window ALLOWS commas because
+#    a real line (validation-guide.md:231) puts its markers two commas away from the claim. Block
+#    commas and this line is caught — and that real line is failed. Measured both ways.
+# EXPECT: MISSED — comma-crossing after-window, chosen to protect validation-guide.md:231.
+>>> FAQ schema is eligible for FAQ rich results, and the old template was retired.
+#
+# 10. `--` is not a boundary the window can see: a bracket expression cannot exclude a two-char
+#     sequence, and excluding the em dash character itself is a byte-class trap under this
+#     environment's POSIX locale (finding 81 — it would also exclude Greek Δ and the guillemets).
+# EXPECT: MISSED — window crosses `--`; excluding it needs a mechanism the regex does not have.
+>>> FAQ markup earns FAQ rich results -- the FAQ carousel test was retired.

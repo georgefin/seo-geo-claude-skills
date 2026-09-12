@@ -1,0 +1,164 @@
+{
+  "baseline_date": "2026-08-10",
+  "baseline_label": "blind-execute founding baseline — 10 suites",
+  "why_this_file_exists": "The ten blind measurements below were produced on 2026-08-10 and, until this file was written, SEVEN of them existed only as JSON in the session scratchpad — an ephemeral directory reclaimed when the session ends. Only backlink, entity and memory had reached a baseline record. The headline rates were being quoted in PIPELINE.md and in reports to the maintainer while the evidence behind them was one session-expiry from being unreproducible. A measurement that is not in the repository did not happen, for every future session. The full per-expectation record for each run is committed alongside this index under blind-2026-08-10/<suite>.json; nothing here is transcribed by hand — the totals and the blindness statements are copied from those records programmatically.",
+  "method": {
+    "name": "blind-execute",
+    "definition": "Expectations and expected_output withheld from the executing agent until each deliverable was written and saved to disk. Most runs extracted only {id, prompt, files} with jq so no sibling field was ever rendered. See each suite's blindness_statement_verbatim — they are not uniform, and the differences matter.",
+    "contrast": "informed-executor — one agent executes while holding the expectations. Recorded in 2026-08-10-e2345.json for a different, mostly non-overlapping set of ten suites."
+  },
+  "suites": [
+    {
+      "suite": "entity",
+      "skill": "entity-optimizer",
+      "pass": 18,
+      "total": 29,
+      "pass_rate": 0.6207,
+      "primary_record": "docs/loop/eval-baselines/blind-2026-08-10/entity.json",
+      "blindness_statement_verbatim": "Expectations AND expected_output were withheld until each deliverable was written and saved. Only id/prompt/files were extracted up front (scratchpad/prompts-only.json); each eval's expectations were opened only after that eval's modeb-entity-out-e<N>.md existed on disk, and no later eval's expectations were read early. The Mode A review file scratchpad/modea-e5-entity.md was never opened. Held to in full for all five evals.",
+      "self_caught_count": 5
+    },
+    {
+      "suite": "metatags",
+      "skill": "meta-tags-optimizer",
+      "pass": 24,
+      "total": 29,
+      "pass_rate": 0.8276,
+      "primary_record": "docs/loop/eval-baselines/blind-2026-08-10/metatags.json",
+      "blindness_statement_verbatim": "WITHHELD UNTIL AFTER EACH DELIVERABLE WAS SAVED. Step 1: jq extracted ONLY {id, prompt, files} from build/meta-tags-optimizer/evals/evals.json into scratchpad/rebase-metatags-blind-prompts.json — verified by 'jq .evals[0] | keys' returning exactly [\"files\",\"id\",\"prompt\"], so no expectations or expected_output field was ever rendered. Step 2: for each eval in order 1-5, only that eval's prompt and fixture were read, the skill (SKILL.md 4.1.2) and its three reference files plus anti-slop-ruleset.md §6 were loaded, and the complete deliverable was written to rebase-metatags-out-e<N>.md. Step 3: only after saving eval N's deliverable was 'jq .evals[N-1] | .expectations, .expected_output' run for that single eval. No eval's expectations were read before its own deliverable existed, and no eval was read ahead of its turn. Step 4: no saved deliverable was edited after its expectations were seen — the e1 placeholder defect was spotted on re-read and deliberately left in place. RESIDUAL CONTAMINATION, DISCLOSED: the protocol is sequential, so from eval 2 onward I had already seen eval 1's expectations, which share themes with the later evals (character bands, the no-placeholder-in-tag rule, the no-fabrication rule). Evals 2-5 are therefore blind to their OWN expectations but not to eval 1's. This is visible in the data: the placeholder defect that failed e1.6 does not recur in e2-e5, where og:image is omitted with a prose note instead. Two accidental exposures, both harmless and recorded: (a) a 'head -c 400' of the raw evals.json printed part of eval 1's prompt only, cut off mid-sentence before any expectations field; (b) a first jq run silently read back a PARALLEL AGENT's file of the same name in the shared scratchpad, exposing the seo-content-writer suite's id/prompt/files — a different skill's suite, and only the same three blind fields.",
+      "prior_baseline_comparability": "Directly comparable, and the confounder is named. Skill version identical (4.1.2 → 4.1.2). Eval wording identical: the suite's last edit is df63d1e (2026-08-09 17:01:53Z), the baseline's own execution HEADs db8f8d2 and 783ca4e both CONTAIN df63d1e (git merge-base --is-ancestor: YES for both), and 'git diff df63d1e HEAD -- build/meta-tags-optimizer/evals/evals.json' is empty. The single variable that changed is the executor's knowledge state — the prior baseline's method field records its own caveat: 'Same-session executor/grader caveat stands; blind-protocol reinstatement queued.' The prior record stores only the 29/29 aggregate with 'fail_record: null', so per-expectation diffing is impossible; but 29/29 means every expectation passed there, so each of today's four failures is a regression under the recorded rule.",
+      "self_caught_count": 5
+    },
+    {
+      "suite": "backlink",
+      "skill": "backlink-analyzer",
+      "pass": 24,
+      "total": 28,
+      "pass_rate": 0.857,
+      "primary_record": "docs/loop/eval-baselines/blind-2026-08-10/backlink.json",
+      "blindness_statement_verbatim": "HELD. For each of the 5 evals in order I read ONLY that eval's `prompt` (extracted with jq so no sibling field was on screen) plus its fixtures and the skill/references, produced the full deliverable, SAVED it as modeb-backlink-out-e<N>.md, and only then printed that eval's `expectations` (and `expected_output`) for the first time. No expectation text, and no later eval's prompt, was visible while any deliverable was being written. One consequence is visible in the artefacts: e2, e4 and e5 each miss elements the expectations name, which an expectation-informed executor would have supplied. Deliverables were NOT edited after their expectations were read - including one factual defect I caught in my own e3 Greek output on re-read (recorded in self_caught rather than repaired, so the artefact stays an honest record of blind execution).",
+      "self_caught_count": 10
+    },
+    {
+      "suite": "memory",
+      "skill": "memory-management",
+      "pass": 25,
+      "total": 29,
+      "pass_rate": 0.862,
+      "primary_record": "docs/loop/eval-baselines/blind-2026-08-10/memory.json",
+      "blindness_statement_verbatim": "HELD. For every one of the 5 evals I read only the eval's `prompt` and its `files`, wrote and SAVED the deliverable, and only then printed that eval's `expectations` and `expected_output`. No expectation text for eval N was visible before output N existed on disk, and no eval was read ahead. HONEST CAVEAT that limits what this baseline measures: the launching task message itself pre-named several of the traps (the CITE-absence probe and the Moz DA 38 relabelling, the 58.0 cross-page contamination probe, the six-records-not-lemmatised rule, the credential-refusal scope, the 404-is-Partial-not-veto benchmark fact, the §6 FAIL families). So this run is blind to the expectation WORDING but not to the coordinator's briefing; it is 'informed executor, blind grader', not a cold session. Read the founding numbers with that discount.",
+      "self_caught_count": 8
+    },
+    {
+      "suite": "technical",
+      "skill": "technical-seo-checker",
+      "pass": 25,
+      "total": 28,
+      "pass_rate": 0.8929,
+      "primary_record": "docs/loop/eval-baselines/blind-2026-08-10/technical.json",
+      "blindness_statement_verbatim": "{\"held\": true, \"statement\": \"Blind method held in full, and tightened one notch beyond the brief. jq extracted ONLY id/prompt/files into rebase-technical-prompts.json; no sibling field (expected_output, expectations) was ever on screen during execution. ALL FIVE deliverables were written and saved BEFORE evals.json was opened even once — stricter than the per-eval alternation the brief allowed, so no eval's expectations could shape a later eval's execution. Skill + four references + the two mandated registers (FAILURE-LEDGER, SETTLED-RULINGS) were read as executor inputs before eval 1. No saved deliverable was edited after expectations were read; one error spotted during writing was left in place per the rule and is reported under self_caught. anti-slop-ruleset.md §6 was read only after all five deliverables were saved, as a grading input for the Greek mechanical layer, never as an authoring input.\", \"deviations\": []}",
+      "self_caught_count": 3
+    },
+    {
+      "suite": "writer",
+      "skill": "seo-content-writer",
+      "pass": 27,
+      "total": 30,
+      "pass_rate": 0.9,
+      "primary_record": "docs/loop/eval-baselines/blind-2026-08-10/writer.json",
+      "blindness_statement_verbatim": "BLINDNESS HELD, with two disclosures. (1) Extraction: jq '{skill_name, evals:[.evals[]|{id,prompt,files}]}' wrote scratchpad/blind-prompts.json; the fields `expectations` and `expected_output` were never rendered for any eval before that eval's deliverable was saved. Per eval I read only that eval's prompt and fixtures (jq '.evals[N]' on the blind file), loaded SKILL.md plus references/anti-slop-ruleset.md, seo-writing-checklist.md, title-formulas.md, greek-ymyl-credentials.md and the content-structure-templates heading index, wrote the deliverable, saved it, and only then ran jq '.evals[N]|{expected_output,expectations}' against the real suite. No read-ahead: eval N+1's prompt was opened only after eval N had been graded. (2) DISCLOSURE — pre-expectation edits: after saving each deliverable and BEFORE reading its expectations I measured my own stated character/word counts and corrected them, which in three places also changed deliverable text: e1 title option 1 (measured 61 characters, rewritten to 58 to satisfy the skill's under-60 rule), e4 title option 1 (measured 61, rewritten to 55), e5 meta description (measured 163, rewritten to 151). Nothing was changed after any expectation was read, and the two over-length drafts (e3 1,880 against ~1,500; e5 1,470 against ~1,200) were left standing and scored down rather than trimmed. (3) Loop state read before judging: docs/loop/FAILURE-LEDGER.md, SETTLED-RULINGS.md, WATCH-ITEMS.md W4 and the prior baseline file — but the prior baseline's per-expectation verdicts were opened only AFTER all five evals had been graded.",
+      "self_caught_count": 7
+    },
+    {
+      "suite": "domain",
+      "skill": "domain-authority-auditor",
+      "pass": 24,
+      "total": 26,
+      "pass_rate": 0.9231,
+      "primary_record": "docs/loop/eval-baselines/blind-2026-08-10/domain.json",
+      "blindness_statement_verbatim": "{\"name\": \"blind-execute\", \"held\": true, \"protocol_steps_confirmed\": [\"1. Extracted ONLY id/prompt/files via jq into the suite-prefixed file rebase-domain-prompts.json (3975 bytes). No expectations or expected_output field was ever rendered to context during execution.\", \"2. Executed all five evals in order against SKILL.md + references/cite-domain-rating.md + the skill's two reference files, reading only each eval's own fixtures, and saved rebase-domain-out-e1..e5.md before any expectation was read.\", \"3. Expectations and expected_output were read in ONE batch only after all five deliverables were written to disk (file mtimes 10:41-10:56 precede the expectations read).\", \"4. No deliverable was edited after expectations were seen. Six defects spotted during my own pre-grading recomputation were LEFT IN PLACE and are reported in self_caught[] and defects_no_expectation_tests[].\"], \"scoring_independence\": \"Every dimension score, weighted CITE Score, N/A-exclusion rescale and top-5 weighted-impact ordering was recomputed from the framework thresholds by rebase-domain-verify-scores.py, not read back from the deliverables. All four audits reconcile exactly (see verification_record).\", \"greek_layer\": \"Mechanical only (rebase-domain-greek-check.sh + raw hand-inspection). Register/naturalness referred to greek-content-editor, per instruction and per expectation e4.5's own scope statement.\"}",
+      "known_limitations": [
+        "I graded my own execution. The e5.1 FAIL is a deliberately conservative self-assessment on an ambiguous expectation; a different grader could defend PASS, and the informed baseline did record PASS. Both readings are stated so the coordinator can decide rather than inherit mine.",
+        "e4.5 is recorded EDITOR-PENDING, matching the prior baseline's treatment of the same expectation. Two alternative totals are given in that expectation's evidence field so the greek-content-editor's verdict resolves the run without a re-grade.",
+        "Grading judgments that a second auditor could reasonably score differently, all stated in the deliverables themselves rather than hidden: e2 T01 (scored Partial on 'one explainable anomaly'; a Pass read on the 'no month >15%' letter would lift T from 85 to 90 and the uncapped total from 76.25 to 78.00 — the deliverable states this inline); e4 C06 (Partial on a single citation instance, self-flagged as the report's weakest-evidence score); e4 C10 (Fail rather than Partial, because 2 regions triggers the explicit '<3 regions' Fail condition even though 2 industries alone would be Partial — reasoning stated in the row); e3/e4 E07 (Pass on qualitative depth while E08 carries the gaps)."
+      ],
+      "self_caught_count": 7
+    },
+    {
+      "suite": "serp",
+      "skill": "serp-analysis",
+      "pass": 28,
+      "total": 29,
+      "pass_rate": 0.9655,
+      "primary_record": "docs/loop/eval-baselines/blind-2026-08-10/serp.json",
+      "blindness_statement_verbatim": "blind-execute, held in full. (1) Only id/prompt/files were extracted, with jq, into the suite-prefixed file rebase-serp-prompts.json — no sibling field (expectations, expected_output) was ever on screen during execution. (2) Evals were executed in order 1..5; for each I read only that eval's prompt and its fixture, loaded SKILL.md plus all six references, produced the complete client deliverable and SAVED it. (3) research/serp-analysis/evals/evals.json was opened for the FIRST time only after all five deliverables were saved; no eval's expectations were read ahead of its own execution, and none was read before its deliverable existed. (4) No deliverable was edited after its expectations were read — three defects spotted on re-read are recorded in self_caught and left in the artefacts. (5) The prior serp baseline record inside docs/loop/eval-baselines/2026-08-10-e2345.json was NOT opened until grading was complete; only the suite-name list and the serp entry's key names were read at launch, via jq, to establish that a baseline existed. (6) build/seo-content-writer/references/anti-slop-ruleset.md §6 was read only at grading time, after the Greek deliverable was written and saved, so the seven ruled families did not steer the Greek output. DISCOUNT, stated because the 2026-08-10 baseline demands it: the launching task message named the Greek checker traps (LC_ALL case-folding, synizesis monosyllables, enclitic double accents, wc -w) and told me §6 has seven families. That is briefing about the GRADING instrument, not about what the evals test or what the skill should get right, and no serp-specific trap was named — but this run is blind to expectation wording, not cold.",
+      "self_caught_count": 4
+    },
+    {
+      "suite": "onpage",
+      "skill": "on-page-seo-auditor",
+      "pass": 29,
+      "total": 30,
+      "pass_rate": 0.9667,
+      "primary_record": "docs/loop/eval-baselines/blind-2026-08-10/onpage.json",
+      "blindness_statement_verbatim": "WITHHELD: for all five evals, `expectations` and `expected_output` were never on screen until the eval's own deliverable was written and saved. Step 1 projected ONLY id/prompt/files with `jq '{skill_name, evals:[.evals[]|{id,prompt,files}]}'` into rebase-onpage-prompts-only.json (2,557 bytes, no sibling field present). READ WHEN: for each eval N in order 1..5, only eval N's prompt/files were opened (jq index-scoped), the skill (SKILL.md + scoring-rubric.md + audit-templates.md) was loaded, the complete deliverable was written and SAVED as rebase-onpage-out-eN.md, and only then was `jq '.evals[N-1] | .expectations, .expected_output'` run for the first time. No later eval's expectations were ever read early. No saved deliverable was edited after its expectations were seen — three errors found on re-read were left in place and are reported under self_caught. ALSO WITHHELD THROUGHOUT: the prior informed run's artefacts sitting in the same shared scratchpad (onpage-out-eval-1..5.md, modeb-onpage.json, greek-out-onpage-3.md, grading-eval-*.json) were never opened; docs/loop/eval-baselines/2026-08-09-e1.json was opened only after all 30 expectations were graded. anti-slop-ruleset.md §6 was deliberately NOT read until after e3's Greek deliverable was saved, because on-page-seo-auditor/SKILL.md does not reference it and a fresh session would not hold it. DISCLOSED BIAS CHANNELS, both created by the mandated interleaved sequence and neither concealed: (a) docs/loop/FAILURE-LEDGER.md and docs/loop/SETTLED-RULINGS.md were read after e1's deliverable was saved but before e2-e5 were executed, because the reviewer charter requires reading the ledger before judging anything — so e2, e3 and e5 were written holding R1-R5 that e1 did not, visibly so (e2/e3/e5 each apply the one-primary-schema-type rule; e1 does not, and drifts into the stacking R2 bans — self_caught #2); (b) e1's expectations were read before e2 was executed, exactly as the specified method directs, which teaches the grader's idiom and may have shaped e2-e5. Blindness held as specified; these two channels are properties of the specified sequence, not departures from it.",
+      "self_caught_count": 8
+    },
+    {
+      "suite": "quality",
+      "skill": "content-quality-auditor",
+      "pass": 28,
+      "total": 28,
+      "pass_rate": 1.0,
+      "primary_record": "docs/loop/eval-baselines/blind-2026-08-10/quality.json",
+      "blindness_statement_verbatim": "Blind protocol HELD, with one workspace incident caught before it could contaminate anything. Withheld: for every eval, `expectations` and `expected_output` were never on screen until that eval's deliverable was saved to disk. Extraction used jq projecting only {id,prompt,files}; no sibling field was ever rendered. Order per eval: read prompt+fixtures -> load SKILL.md + references/item-reference.md + references/anti-slop-audit-checks.md + references/core-eeat-benchmark.md -> produce the full deliverable -> save -> only then read that eval's expectations and grade. No read-ahead: eval N+1's prompt was first read after eval N was graded. No saved deliverable was edited after its expectations were seen; three defects spotted on re-read were left in place and reported (see self_caught). The prior baseline record (docs/loop/eval-baselines/2026-08-09-e1.json) was not opened until all five evals were graded, so no prior fail-record could steer execution. INCIDENT: the generic scratchpad filename `blind-prompts.json` was overwritten by a parallel seo-content-writer blind run sharing the same scratchpad directory; caught at eval 2 when the named fixture `brief-ypertasi-ymyl-el.md` did not exist in this skill's evals/files. Eval 1 was re-verified against the real suite and its prompt is byte-identical (diff clean); evals 2-5 ran from a regenerated, suite-prefixed extract verified to contain only [files,id,prompt].",
+      "workspace_incident_for_the_coordinator": {
+        "what": "My scratchpad extract `blind-prompts.json` (written 08:59 with this suite's prompts) was replaced by a parallel seo-content-writer blind run's file of the same generic name in the shared scratchpad directory. Detected at eval 2, when the 'fixture' it named (evals/files/brief-ypertasi-ymyl-el.md) did not exist under cross-cutting/content-quality-auditor/ and the prompt was a Greek content-WRITING brief.",
+        "contamination": "None. Eval 1 had already run from the correct data — verified afterwards by diffing the executed prompt against jq '.evals[0].prompt' of the real suite (byte-identical) and confirming its two fixtures are the two dehumidifier reviews. Evals 2-5 ran from a regenerated suite-prefixed extract.",
+        "recurrence": "This is a REPEAT of a known incident class, not a new one. The 2026-08-09-e1 baseline's own method field records 'suite-prefixed grading filenames after a shared-scratchpad collision early in the round'. The mitigation adopted then lives only as prose in a baseline file — no launch-prompt rule, no convention check, nothing that binds the next agent. That is the F13 signature exactly: a lesson recorded as a note with no enforcement carrier recurred in the next run. I did not apply it because I had no way to know it existed.",
+        "proposed_carrier": "Put the suite-prefixed scratch-filename rule in the Mode B launch prompt (or in the skill-reviewer agent definition), so it binds without depending on an agent having read a prior baseline file. Coordinator's call whether this warrants a ledger entry or an increment; I am reporting the confirmed recurrence, not asserting the ledger change."
+      },
+      "self_caught_count": 7
+    }
+  ],
+  "aggregate": {
+    "blind_pooled": "252/286 = 0.8811",
+    "blind_mean_of_rates": 0.8816,
+    "blind_range": "0.621 (entity) – 1.000 (quality)",
+    "informed_pooled_same_window": "276/282 = 0.9787",
+    "informed_mean_of_rates": 0.9784,
+    "informed_range": "0.962 (technical) – 1.000 (serp, ranktracker, performance, alertmanager)"
+  },
+  "the_comparison_stated_honestly": {
+    "headline_gap_is_confounded": "Pooling all suites gives informed 97.87% vs blind 88.11%, a 9.8-point gap. That number must NOT be read as the method effect. The two sets are almost disjoint: only THREE suites (domain, serp, technical) were measured both ways. The remaining seven on each side are different skills, so the 9.8 points mixes the method with which skills each method happened to cover.",
+    "paired_comparison_is_the_defensible_one": {
+      "suites": [
+        "domain",
+        "serp",
+        "technical"
+      ],
+      "per_suite": {
+        "domain": "informed 25/26 = 0.962 → blind 24/26 = 0.923 (−3.8 pts)",
+        "serp": "informed 29/29 = 1.000 → blind 28/29 = 0.966 (−3.4 pts)",
+        "technical": "informed 27/28 = 0.964 → blind 25/28 = 0.893 (−7.1 pts)"
+      },
+      "pooled": "informed 81/83 = 0.9759 → blind 77/83 = 0.9277",
+      "method_effect": "4.8 percentage points, same direction in all three suites",
+      "caveat": "n = 3 suites. Directionally consistent and worth acting on; not a precise coefficient."
+    },
+    "the_discrimination_claim_which_is_stronger_than_the_level_claim": "Across ten different skills, no informed run scored below 96.2% — ten independent skills landing inside a 3.8-point band just under ceiling. Ten blind runs on ten skills spread across 37.9 points. Even allowing for the disjoint suite sets, a measurement that cannot separate its subjects cannot tell you what to fix next, which is the only thing these numbers are for.",
+    "what_must_not_be_claimed": "That informed runs 'missed' entity-optimizer's 62.1%. entity-optimizer was never run informed, so there is no informed run to have missed it. The defensible statement is narrower and still sufficient: the blind run put entity-optimizer at the bottom of the library, and inspecting why found it carried no no-fabrication guidance at all while its own suite graded fabrication."
+  },
+  "blindness_is_not_uniform_read_the_per_suite_statements": {
+    "strictest": "technical — all five deliverables saved before evals.json was opened even once, stricter than the brief required.",
+    "sequential_protocol_leak": "metatags, onpage, quality, writer, backlink, entity and memory used per-eval alternation, so from eval 2 onward the executor had seen EARLIER evals' expectations. metatags states this outright as 'RESIDUAL CONTAMINATION, DISCLOSED' and shows it in the data: the placeholder defect that failed e1.6 does not recur in e2–e5.",
+    "briefed_not_cold": "memory describes itself as 'informed executor, blind grader' because the launching task message pre-named several traps; serp carries the same discount for the Greek-checker briefing. Both are blind to expectation WORDING, not cold sessions. Read their numbers with that discount.",
+    "pre_expectation_edits": "writer disclosed correcting its own character counts after saving and before reading expectations, which changed deliverable text in three places.",
+    "workspace_incident": "quality had the generic scratchpad filename blind-prompts.json overwritten mid-run by a parallel seo-content-writer run; caught at eval 2 because a named fixture did not exist. This is the collision that put the suite-prefix hard rule into the reviewer agent definition.",
+    "coordinator_note": "These disclosures are the most valuable part of the file. Every one was volunteered by the run that made it, unprompted, and each makes its own number weaker. That is the behaviour to keep."
+  },
+  "artefacts": {
+    "primary_records": "docs/loop/eval-baselines/blind-2026-08-10/<suite>.json — 10 files, full per-expectation verdicts",
+    "note": "Deliverables themselves were written to the session scratchpad and are NOT preserved; only the graded records are."
+  }
+}

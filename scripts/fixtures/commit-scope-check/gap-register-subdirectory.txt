@@ -1,0 +1,13 @@
+# CASE: gap-register-subdirectory
+# ROLE: known-gap
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: 1 passed
+# FILE: docs/loop/eval-baselines/1999-01-01-blind.json
+# GAP: the register pattern is `docs/loop/[^/]+\.md`, one level and markdown only. The
+#      eval baselines under docs/loop/eval-baselines/*.json are shared, un-owned,
+#      written by parallel agents and are exactly the kind of file F14 is about — and
+#      they are invisible to this leg. So is docs/loop/pilot/*.md.
+# WHY NOT FIXED HERE: same reason as gap-gate-allowlist-txt — it changes what the gate
+#      demands of every lane mid-flight.
+# ---8<--- commit message
+chore: record a run

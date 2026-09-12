@@ -1,0 +1,361 @@
+{
+  "skill_name": "performance-reporter",
+  "suite": "performance",
+  "method": "blind-execute, split grader",
+  "role_split": "EXECUTOR was blind (prompts only, never opened evals.json / eval-baselines / any grading file). GRADER (this record) is informed and produced NO deliverable output of its own; every figure below was re-derived independently from the four fixtures in evals/files/, not read back from the executor's blind-performance-calc.py.",
+  "graded_on": "2026-08-10",
+  "skill_version_under_test": "4.1.3",
+  "skill_version_note": "frontmatter version + metadata.version, monitor/performance-reporter/SKILL.md (baseline 2026-08-10-e2345 ran 4.1.1)",
+  "repo_head_at_open": "122bc1b7f6e96da8f3f6ab12976c8548040b3061",
+  "repo_head_at_close": "d8dd690adcb7d3dc803214e724137c86b6fa05e5",
+  "input_drift_check": {
+    "verdict": "DRIFT PRESENT, VERDICTS UNAFFECTED",
+    "commits_in_range": ["d8dd690 fix(seo-content-writer): family 8's item-ID net caught 50 of 90; probe each component"],
+    "graded_inputs_that_changed": [
+      {
+        "file": "build/seo-content-writer/references/anti-slop-ruleset.md",
+        "change": "family 8 GREPPABLE PATTERN widened only: `\\b[CORET][0-9]{2}\\b` -> `\\b[ACEIORT][0-9]{2}\\b` + `\\bEpt[0-9]{2}\\b` + `\\bExp[0-9]{2}\\b`. No family added, none redefined, no ruled form changed.",
+        "effect": "NONE. I read and screened against the POST-change file (git hash-object 39063e67 = the '+' side of the diff), so my family-8 screen used the widened pattern. It returned zero hits on the Greek deliverable under either pattern. Unlike the two 2026-08-10 incidents the HARD RULE cites, this drift ADDED screen coverage rather than adding or redefining a FAIL-grade family, so the run was not split across two rubrics."
+      },
+      {
+        "file": "docs/loop/SETTLED-RULINGS.md",
+        "change": "VERSIONS.md line-number pointer refreshes only (F12 anchor maintenance): :195->:197, :199->:201, :200->:202.",
+        "effect": "NONE. R4's substantive statement (LCP <=2.5s / INP <=200ms / CLS <=0.1; FID retired) is byte-identical."
+      }
+    ],
+    "graded_inputs_confirmed_UNCHANGED": [
+      "monitor/performance-reporter/evals/evals.json (044b8aef) — unchanged since 4979309, the baseline's own run commit, so expectation wording is identical to the baseline's",
+      "monitor/performance-reporter/SKILL.md (9889e4b0)",
+      "references/kpi-definitions.md (a6bbe3cd)",
+      "references/report-output-templates.md (fdca5cbf)",
+      "references/report-templates.md (3dcf60f1)",
+      "all four fixtures (764481cd, 0a56308b, ab3d602c, 242b6092)",
+      "docs/loop/eval-baselines/2026-08-10-e2345.json (4ec3556e)",
+      "docs/loop/FAILURE-LEDGER.md (e04300da)"
+    ]
+  },
+  "regression_check": {
+    "prior_record": "docs/loop/eval-baselines/2026-08-10-e2345.json, suite performance-reporter, 29/29, method informed-executor, skill 4.1.1",
+    "rule_applied_verbatim": "Regression = an expectation recorded passing here that fails in a later run of the SAME suite at same-or-later skill version under unchanged expectation wording AND under the same method. A blind-method result scoring below an informed-executor baseline for the same suite is a method change, not a regression, and must be recorded as a new founding datum for that method.",
+    "verdict": "NO REGRESSION. Skill version is later (4.1.3 vs 4.1.1) and expectation wording is unchanged, but the METHOD differs (blind-execute vs informed-executor). Per the rule's own second sentence this is a method change, and the e2.2 FAIL is a new founding datum for the blind method on this suite, not a regression against 29/29.",
+    "same_method_baseline_searched_for": "docs/loop/eval-baselines/blind-2026-08-10/ (10 suites) and blind-2026-08-10b/ (3 suites) — performance-reporter is in neither. No prior blind record exists for this suite.",
+    "founding_blind_datum": true
+  },
+  "expectations": [
+    {
+      "eval": 1,
+      "n": 1,
+      "text": "The report opens with the skill's configuration and executive-summary shape per the report-output templates: domain elia-thymari.gr, report period July 2026, comparison period June 2026, and the executive/investor audience stated, plus a key-metrics-at-a-glance table showing July and June values side by side with a change column.",
+      "passed": true,
+      "evidence": "e1 L5-11: '**Domain:** elia-thymari.gr / **Report period:** 1-31 July 2026 / **Comparison period:** 1-30 June 2026 / **Report type:** Monthly / **Audience:** Investors (non-operational shareholders)'. At-a-glance table L110-124 has columns 'Metric | Jul 2026 | Jun 2026 | Change | Benchmark (KPI reference) | Status'. The template's 'Target' column is replaced with an explicit reason at L107-108: 'No performance targets were agreed with the investors for July, so the right-hand column carries the benchmark from our KPI reference rather than an invented target.'"
+    },
+    {
+      "eval": 1,
+      "n": 2,
+      "text": "Period-over-period deltas computed correctly; GA4 sessions and GSC clicks kept as two distinct metrics.",
+      "passed": true,
+      "evidence": "GRADER RE-DERIVED INDEPENDENTLY: 510/2380=+21.4286%, 512/2000=+25.6000%, 20000/50000=+40.0000%, 7/46=+15.2174%. Deliverable L112-118 prints +21.4%/+25.6%/+40.0%/+15.2% and L582-588 the same at 2dp. Populations: L320-323 '**Search Console clicks and GA4 sessions are different things** and are not added anywhere in this report. For scale: 2,890 / 2,512 = 1.15 sessions per Google click in July'. The 2,512 is labelled 'Search clicks' at L117, never 'sessions' or 'visits'."
+    },
+    {
+      "eval": 1,
+      "n": 3,
+      "text": "Ratio KPIs follow the kpi-definitions formulas with populations intact: CTR = clicks/impressions (4.00%->3.59%), conversion rate = purchases/organic sessions (1.93%->1.83%).",
+      "passed": true,
+      "evidence": "RE-DERIVED: 2000/50000=4.0000%, 2512/70000=3.5886%; 46/2380=1.9328%, 53/2890=1.8339%. Deliverable L209 'CTR check: 2,512 / 70,000 = 3.5886%; 2,000 / 50,000 = 4.0000%; difference -0.4114 pp' and L344 'Conversion rate: 53 / 2,890 = 1.8339%; 46 / 2,380 = 1.9328%'. Both denominators correct; no sessions in CTR, no clicks in CVR."
+    },
+    {
+      "eval": 1,
+      "n": 4,
+      "text": "SEO ROI uses ((organic revenue - investment)/investment) with EUR900 and EUR2,060 — approx +129% for July, derivation visible — and carries the 12+ month horizon caveat.",
+      "passed": true,
+      "evidence": "RE-DERIVED: (2060-900)/900 = 1.288889 = +128.8889%. Deliverable L132-135 prints the formula on four lines ending '= 128.9%'. It also pre-empts the failure mode at L140-143: 'on the same two numbers *revenue / investment* gives 228.9% for July' (my check: 2060/900 = 228.89%). Horizon caveat L399-402: 'Our KPI reference is explicit that SEO ROI should be judged over 12 months or more ... Read +128.9% as one month's snapshot, not a run rate.' Gross-margin break-even RE-DERIVED 900/2060 = 43.6893%; deliverable L392 '= 43.7%'."
+    },
+    {
+      "eval": 1,
+      "n": 5,
+      "text": "Technical-health section judges PageSpeed against exactly LCP <=2.5s / INP <=200ms / CLS <=0.1 (R4), scoped to homepage/mobile/lab, FID never a live metric.",
+      "passed": true,
+      "evidence": "L411-415 table gives thresholds '<= 2.5 s', '<= 200 ms', '<= 0.1' and statuses 'Needs improvement' / 'Good — crossed the line' / 'Good'. L421 '2.5-4.0 s \"needs improvement\" band'; L419 'the 200-500 ms band' — both match kpi-definitions:304-306 exactly. Scope L408-409 '**Homepage only, mobile only, laboratory data.**' Screened for FID across all five deliverables: '\\bFID\\b' and 'First Input Delay' ABSENT in all five (this is the passing state — F9 guard)."
+    },
+    {
+      "eval": 1,
+      "n": 6,
+      "text": "Sections without fixture data scoped honestly: CITE and CORE-EEAT 'Not yet evaluated'; backlinks, rankings, AI citations, competitive standing reported as no data, naming what would supply them.",
+      "passed": true,
+      "evidence": "L459 '**Not yet evaluated.** No CITE domain audit has been run'; L467 '**Not yet evaluated.** No page-level content-quality audit has been run'; L476 backlinks '**No data.**'; L438 AI '**Not available this period.**'; L506 competitive '**No data.**'; L324-326 'No ranking-tool data exists'. What each would take is tabled at L619-630 (e.g. 'Backlinks, domain rating | Sections 8 and 10 empty | A link-database export, or the domain audit')."
+    },
+    {
+      "eval": 1,
+      "n": 7,
+      "text": "No fabrication (F3 guard): every number traces to the fixtures or the prompt, derivations visible, source-labeled user-provided, no invented YoY/targets/benchmarks-as-measurements/third-party metrics.",
+      "passed": true,
+      "evidence": "Every headline figure re-derived and matched (see modeb-performance-grader-arith-out.txt). Source discipline L574-576: '**Nothing in this report was measured by a connected tool.** Every figure traces to one of the hand transcriptions above.' Data-source table L562-572 labels each row 'User-provided' or 'Absent'. All benchmark bands traced to kpi-definitions: '>3% good, <1.5% warning' (:36-37), '<20 good, >30 warning' (:65-66), '1-3% for e-commerce' (:126), '>50% good, <30% warning' (:142-143), '0.5-2% for positions 11-20' (:49). No YoY anywhere; L551-554 states no seasonal data exists. Connector-token screen: zero '~~' occurrences in any of the five deliverables.",
+      "recorded_defect_not_failed": "L545 attributes '4-10%' to 'the healthy MoM band in our KPI reference' while kpi-definitions:18 says '3-10% MoM growth is healthy' — and the SAME document quotes it correctly at L70-71 ('the 3-10% month-on-month growth our KPI reference calls healthy'). The band is narrowed, not invented; the arithmetic is shown (2,890 x 1.04 = 3,006); and the figures sit in a table L539-541 explicitly labelled 'proposals for the founders to accept or change', so no benchmark is passed off as a measurement — which is what this expectation's anti-clause forbids. Recorded, not failed."
+    },
+    {
+      "eval": 2,
+      "n": 1,
+      "text": "CTR figures fixture-exact as clicks/impressions: overall 4.00%->3.59%, brand 12.0%->13.0%, non-brand established 2.0%->2.3%, new cluster 1.96%; sessions/users never substituted.",
+      "passed": true,
+      "evidence": "RE-DERIVED: 1200/10000=12.0000%, 1170/9000=13.0000%, 800/40000=2.0000%, 989/43000=2.3000%, 353/18000=1.9611%. Deliverable L69-71 segment table and L76 'Segment CTRs: 1,170 / 9,000 = 13.00%; 989 / 43,000 = 2.30%; 353 / 18,000 = 1.96%'; L47 for the overall pair. Cross-fixture screen on e2 for GA4 tokens returned only the explicit non-use at L311-312: 'Analytics session data was not supplied with this request, so this section states Search Console clicks only.' (This confirms the executor's self-caught scope repair landed.)"
+    },
+    {
+      "eval": 2,
+      "n": 2,
+      "text": "The mix-shift is named as the explanation: ... because the impression mix shifted toward structurally lower-CTR non-brand queries — non-brand share of total impressions 80.0% (40,000/50,000) -> 87.1% (61,000/70,000), the new cluster alone contributing 18,000 of July's 70,000 impressions — ...",
+      "passed": false,
+      "evidence": "NAMED FIGURE ABSENT. I re-derived it (40,000/50,000 = 80.0000%; 61,000/70,000 = 87.1429%, +7.14 pp) and then screened e2 for it: grep for '87.1', '80.0', '61,000', 'share of.*impression', 'impression.*share', 'impression mix' returns NO MATCH in e2 (or in e1). Printing every e2 line containing 'impression' or 'share' confirms it: every share in the section is a share of CLICKS (L228-235 'Share of the +512'; L258 'Non-brand share of clicks | 53.4% | 45.8%'; L261; L268) or of the click growth. Impressions appear only as absolute counts and per-segment rows. WHAT PASSES: the other conjuncts all hold — L78 '**Not one segment's CTR fell.** The site-wide figure fell while all of its parts rose'; L50-54 the denominator/numerator mix explanation; L18-20 'added 18,000 impressions (25.7% of the month's total)' (my check 18,000/70,000 = 25.7143%); the investors' snippet reading is refuted across §3.3. WHY THIS IS STILL A FAIL: the suite's own convention distinguishes required from illustrative — e2.5 prefixes the identical figures with 'e.g.', e2.2 does not, and writes them in the same ratio-plus-arithmetic shape it uses for the hard requirements in e1.2 and e3.1. On that convention the pair is required and is not present."
+    },
+    {
+      "eval": 2,
+      "n": 3,
+      "text": "Average position handled per kpi-definitions; 5.68 -> 7.98 explained by the new cluster at 14.9 while brand held 1.2 and non-brand established improved 6.8 -> 6.5.",
+      "passed": true,
+      "evidence": "RE-DERIVED the impression-weighting and it reproduces the fixture exactly: June (10000x1.2 + 40000x6.8)/50000 = 5.680000 (fixture 5.68); July (9000x1.2 + 43000x6.5 + 18000x14.9)/70000 = 7.978571 (fixture 7.98). Deliverable L139-140 prints both with the same arithmetic and the '- reported 5.68 checkmark' reconciliation. Decomposition L157-161: established -0.10 (5.583 - 5.680), new cluster +2.40 (7.979 - 5.583), net +2.299. Directional caveat L327-328: '**Average position is impression-weighted and directional.** It is not a rank.' No collapse reading anywhere."
+    },
+    {
+      "eval": 2,
+      "n": 4,
+      "text": "The take-the-guides-down question answered from the fixture: 353 clicks at 1.96% CTR from position 14.9, at or above the 0.5-2% band for positions 11-20, so removal unsupported; outside causes only as labeled hypotheses naming their confirming check.",
+      "passed": true,
+      "evidence": "RE-DERIVED removal cost: 353/2512 = 14.0525%. Deliverable L254 '**-353 (-14.05%)**' and L31 '14.1% of July's search traffic'; both roundings of the same figure. Band: L180 '**#11-20** | **0.5-2%**' quoted from kpi-definitions:49, L182-183 'its CTR is **1.96%** (353 / 18,000) - at the top of the expected band' (the baseline flagged 'at or above' as ambiguous here; 'at the top of' is the arithmetically correct reading). Recommendation L30 '**Recommendation: keep the six guides.**' Update ruled out from the fixture, L306-307. Open causes labelled and each names its check, L314-319: '*Page-level overlap between one guide and one product page.* Needs page-level data (§3.7).' The one estimate is fenced at L290-296: '**This is a model output from a benchmark table, not a measurement**'."
+    },
+    {
+      "eval": 2,
+      "n": 5,
+      "text": "No fabrication (F3 guard): every click/impression/CTR/position/share traces to the fixture, derivations visible, populations labelled, section labelled user-provided, and no search volumes, sessions, revenue, SERP-feature data or competitor figures appear.",
+      "passed": true,
+      "evidence": "Anti-clause screened: grep for 'EUR|revenue|competitor|search volume|Ahrefs|Semrush' in e2 returns NOTHING. Every figure re-derived and matched, including the ones most likely to drift: 189/800 = 23.63% (L213), 3000/40000 = 7.50% (L213), 30/2512 = 1.194% (L241 '1.2% of the month's total clicks'), 989/2159 = 45.808% (L262), 353/1342 = 26.30% (L268), 4300x2%..5% = 86..215 and 5100x2%..5% = 102..255 (L292). Source label L6-10: 'hand-transcribed by the SEO consultant on 5 August 2026 ... every figure below is user-provided transcription'. NOTE: this expectation's own 'e.g., the 80.0% -> 87.1% impression shares' is an EXAMPLE clause ('e.g.'), so its absence does not fail this expectation as it does e2.2."
+    },
+    {
+      "eval": 3,
+      "n": 1,
+      "text": "Headline: AI referral sessions 50 -> 95 (+90%) and AI share of total sessions 1.23% -> 2.04% (approx +0.8pp), denominator all-channel (4,072 / 4,664).",
+      "passed": true,
+      "evidence": "RE-DERIVED: 29+12+6+3 = 50; 58+22+10+5 = 95; (95-50)/50 = +90.0000% — NOT doubled, and the executor says so at L37: 'Site-wide AI referrals grew **+90%** (50 -> 95), not 100%.' Share: 50/4072 = 1.2279%, 95/4664 = 2.0369%, delta +0.8090 pp. Deliverable L58-63 prints exactly these with the all-channel denominators. The subordinate referral-base ratio at L85 ('50 / 310 = 16.13% -> 95 / 356 = 26.69%') is a separately labelled metric, 'AI share of the referral channel', not the headline share — the headline table L56-60 uses 4,072/4,664. (This is the ambiguity the baseline's eval_feedback_backlog already logged for e3.1; graded on the headline denominator, which is correct.)"
+    },
+    {
+      "eval": 3,
+      "n": 2,
+      "text": "Count rule stated and applied against the kpi-definitions AI hostname roster; skroutz.gr, pagkritio-forum.gr and aggregated other sources never counted into any AI figure; roster treated as operational matching config.",
+      "passed": true,
+      "evidence": "Rule L22-26: 'Sessions counted as \"AI\" are those whose GA4 session source is one of four hostnames on our AI referrer roster: chatgpt.com, perplexity.ai, copilot.microsoft.com, claude.ai. The roster is operational configuration that assistant vendors change without notice; it should be re-checked against the live referral list each month'. Per-assistant table L93-97 matches the fixture exactly (29->58, 12->22, 6->10, 3->5). Exclusions are shown as separate rows L76-78 and reconciled: my check 50+148+41+71 = 310 and 95+141+45+75 = 356, matching the fixture totals — so the AI figure demonstrably excludes them. Completeness never asserted; L269 says the opposite: 'a missed hostname silently understates this whole section.'"
+    },
+    {
+      "eval": 3,
+      "n": 3,
+      "text": "Board claim answered with the control rule: delta-vs-control, reworked +194.4% (18->53) vs untouched holdout +33.3% (15->20), gap approx 161pp; same-week confound acknowledged; causal language at consistent-with.",
+      "passed": true,
+      "evidence": "RE-DERIVED: (53-18)/18 = +194.4444%; (20-15)/15 = +33.3333%; gap = 161.1111 pp. Control-adjusted attribution RE-DERIVED: 18 x (20/15) = 24.0000 counterfactual sessions, 53 - 24 = 29.0000 excess. Deliverable L143 '**+161.1 percentage points of growth**' and L147-148 '18 x (20 / 15) = **24.0 sessions** ... **Excess over control: 53 - 24.0 = 29.0 sessions.**' Confound L322-323: 'Και οι έξι'-equivalent in English at L233 'Six brand-new guides also went live 24-26 June, the same week.' Causal language L153-154 'are consistent with a rise that was happening anyway'; L242 'encouraging but not proven'. The raw doubling is explicitly refused at L227-231."
+    },
+    {
+      "eval": 3,
+      "n": 4,
+      "text": "Linked-not-cited caveat carried in substance alongside any win claim; referrals treated as leads for citation checking with the next step named.",
+      "passed": true,
+      "evidence": "L213-216: '**AI referral traffic proves an AI answer *linked* this site. It does not prove the answer *cited* the site prominently, or at all in the way we would want.** ... it says nothing about whether the shop was named as the source, listed fifth among eight, or shown as a bare link at the bottom.' L218 'should therefore be treated as **leads for citation checking**, not as citation wins.' Next step named at L254-256: 'Either server-log referrer data, or AI-surface data in Search Console ..., or an AI-visibility tool that reports actual citations.' Note the expectation's own '~~AI monitor' token is correctly RESOLVED in the deliverable (family 7 / CLAUDE.md step (c)) — zero '~~' occurrences in any output."
+    },
+    {
+      "eval": 3,
+      "n": 5,
+      "text": "GSC AI-surface slot carries 'not exposed for this property' with no simulated rows; every figure labelled hand-transcribed user-provided, never live tool-fetched.",
+      "passed": true,
+      "evidence": "L14 source table: 'Google Search Console AI-surface query/click data | **Not exposed for this property** (checked 5 Aug 2026) | Nothing — no independent corroboration of the GA4 rows'. §5b.5 L201-207 repeats it and adds the server-log absence. No simulated AI-surface rows anywhere. Labels L12-13 'Available, hand-transcribed by the consultant 5 Aug 2026' and L18-19 'Every figure below is therefore **user-provided transcription from a single source**, GA4, with no second source to check it against.'"
+    },
+    {
+      "eval": 3,
+      "n": 6,
+      "text": "No fabrication (F3 guard): session and purchase counts trace to the fixtures, AI conversion rates 1/50 = 2.0% and 3/95 approx 3.2%, engagement-rate row omitted or marked not-transcribed, no citation counts/positions/coverage figures.",
+      "passed": true,
+      "evidence": "RE-DERIVED: July AI purchases 2+1+0+0 = 3; 1/50 = 2.0000%, 3/95 = 3.1579%. Deliverable L100-101 '2 / 58 = 3.45%; 1 / 22 = 4.55%; 3 / 95 = 3.16%. June AI conversion rate: 1 / 50 = 2.00%'. Engagement row MARKED, not filled — L174 '| Engagement rate | **not transcribed** | **not transcribed** | cannot be reported |' and L194-195. Citation figures appear only as explicit absences (L16, L219-221), verified by reading each matched line.",
+      "recorded_defect_not_failed": "L156-159 sensitivity remark: 'It is also a small base: 15 sessions in June, so its own +33.3% is five sessions and would read as +20% or +47% if one session had fallen either way.' A +/-1-session perturbation does NOT give those figures — I computed all four: June 16 -> +25.0%, June 14 -> +42.9%, July 19 -> +26.7%, July 21 -> +40.0%. The printed 20% and 47% reconstruct only as 3/15 = 20.0% and 7/15 = 46.7%, i.e. a +/-2 change to the gain with the base held at 15. So the figures are traceable arithmetic but the stated cause ('one session') is wrong by a factor of two. Not failed: this expectation's population is 'every session and purchase count', and 20%/47% are neither — they are percentages inside an explicitly counterfactual clause ('would read as'). Recorded per the house precedent for undergraded precision defects (serp and refresher baselines)."
+    },
+    {
+      "eval": 4,
+      "n": 1,
+      "text": "The data gap is named with its count rule before any numbers: Q3 covers 1 of 3 months, requested Q2 baseline 1 of 3, so neither quarter can be reported as measured.",
+      "passed": true,
+      "evidence": "Stated in §0, before every table. L17-19 '**A Q3 2026 quarterly report cannot be produced today, and a Q3-versus-Q2 comparison cannot be produced at all from this data.** Not \"would be approximate\" — the numbers required do not exist'. L21-23 '**Q3 2026 is 1 July to 30 September.** Today is 10 August. Two of its three months have not happened yet'. L24-25 '**two of the three months are missing**' for Q2. Count rule tabled L52 '| Months of Q3 with data | **1 of 3** | July checkmark, August cross, September cross |' and L68 for Q2. Day arithmetic RE-DERIVED: 41/92 = 44.565% (L49 '44.6%'), 31/92 = 33.696% (L51 '33.7%'), 30/91 = 32.967% (L67 '33.0%')."
+    },
+    {
+      "eval": 4,
+      "n": 2,
+      "text": "No quarterly figures fabricated despite the pressure: no Q3/Q2 totals and no QoQ percentages as actuals; declining the requested QoQ table IS the passing behavior.",
+      "passed": true,
+      "evidence": "Screened for 'Q3 (total|2026 total)|QoQ [0-9]|quarter-over-quarter [0-9]|Q3 [0-9,]+ sessions' — no match. The requested QoQ table is rendered at L87-103 with 15 'not computable' cells and every month value explicitly scoped, e.g. L89 '**incomplete — July only (2,890); Aug, Sep not available**'. The fallacy is named to be refused, L105-109: '**A quarterly figure is not the sum of the months you happen to have.** Putting 2,890 in a cell headed \"Q3 organic sessions\" would state that the shop had 2,890 sessions across three months'. The run-rate figures at L222 (RE-DERIVED: 2890x3 = 8670, 53x3 = 159, 2060x3 = 6180) sit inside a table headed 'The extrapolation this pack does not make' with a column 'Why it is not in this pack', and the appendix row L316 labels them '(**shown in §5 only to be refused**)'. NOTE the divergence from the informed baseline, which REMOVED its illustrative run-rate figures; this blind run keeps them inside an explicit refusal frame, which the expectation's wording permits ('no July x3 run-rate passed off as the quarter')."
+    },
+    {
+      "eval": 4,
+      "n": 3,
+      "text": "The honestly scoped alternative delivered: July-vs-June MoM (2,380->2,890 +21.4%; 2,000->2,512 +25.6%; 46->53 +15.2%) framed as month one of Q3, true quarterly report scheduled after 30 September, missing inputs named.",
+      "passed": true,
+      "evidence": "§4.1 L124-127 and §4.3 L162 carry all three deltas at 2dp, matching my re-derivation. Framing L4 'Delivered: Q3 2026 **to date** — July trading update' and L116-118 '**June is a Q2 month and July is a Q3 month**, so this comparison crosses the quarter boundary. It is a month-over-month reading, and calling it anything else would be the same error in smaller type.' Schedule L54-57: '**The earliest date a complete Q3 report can be produced is early October 2026** ... which puts the real Q3 pack at roughly 5 October' — traceable to report-templates.md's freshness table ('Quarterly review | 5 days after quarter end'), not invented. Missing inputs named at §7 items 1-3 and L282."
+    },
+    {
+      "eval": 4,
+      "n": 4,
+      "text": "The report configuration states what the report actually is: report period July 2026, comparison period June 2026, audience executive/board — not 'Q3 2026 vs Q2 2026' — and any quarter-to-date label explicitly scoped to July only.",
+      "passed": true,
+      "evidence": "Period and comparison stated at L4 'Delivered: Q3 2026 **to date** — July trading update' and in §4's heading L113 'What the data does support: July 2026 versus June 2026'. Audience L1 'board pack' and L8 '**Requested by:** the investor group'. The forbidden framing is explicitly refused, not asserted — L3-4 separates '## Requested: Q3 2026 quarterly report ...' from '## Delivered: ...'. The quarter-to-date label is scoped in the same line it appears ('— July trading update') and again at L245 'retitled *Q3 2026 to date: July trading update*, with section 1's coverage line on the first slide (\"1 of 3 months; 33.7% of the quarter\")'.",
+      "noted_weakness": "e4 is the ONLY one of the five deliverables that does not render period/comparison as labelled configuration fields — e1 L5-11 and e2 L4 both do ('**Report period:** 1-31 July 2026 / **Comparison period:** 1-30 June 2026'). e4's header carries Domain, Prepared, Requested by and Data available, but no 'Report Period:' / 'Comparison Period:' line per report-output-templates.md §1. Graded PASS because all three named items ARE stated (in prose and headings) and the expectation's own failure condition — a configuration claiming 'Q3 2026 vs Q2 2026' — is precisely what the document refuses. A grader reading 'per the configuration template' as requiring the labelled fields would fail it; see eval_feedback."
+    },
+    {
+      "eval": 4,
+      "n": 5,
+      "text": "No fabrication (F3 guard): every figure traces to the fixtures, no August-to-date / YoY / target / revenue-projection numbers invented, no-data sections honest.",
+      "passed": true,
+      "evidence": "All §8.2 methodology rows re-derived and matched. No August-to-date figure anywhere (L54 'August is 10 days old and untranscribed'). No YoY (L228-230, L268 name the 2025 gap). No-data sections L207-211 and the L282-285 'Absent' rows, including '| Investment / cost figures | — | **Not supplied with this request** | Absent |', which correctly declines ROI (L98).",
+      "recorded_defect_not_failed": "L235-237: 'our KPI reference calls 3-10% month-over-month growth healthy, which from July's 2,890 sessions gives 3,006-3,179 for August.' The cited band and the printed range disagree: 2,890 x 1.03 = 2,976.7, not 3,006. The range is the 4-10% one used in e1/e5 (2,890 x 1.04 = 3,006), and unlike e1/e5 this deliverable does not show the multiplier, so the reader cannot reconcile it. Same root as the e1.7 defect. Not failed: 3,006 is a labelled goal ('That is a target to be measured against, and it is labelled as one'), not a fabricated measurement, and this expectation's anti-clause targets invented quarter/YoY/projection figures, of which there are none."
+    },
+    {
+      "eval": 5,
+      "n": 1,
+      "text": "Greek client-facing July-vs-June report in the skill's shape with fixture-exact headline numbers and populations kept distinct in the Greek wording.",
+      "passed": true,
+      "evidence": "Shape: summary §1, metrics table L40-50, goals check §2, August recommendations §9. Headline numbers present and fixture-exact (screened counts): 2.890 x18, 2.512 x9, 70.000 x8, 53 x18, 2.060 x6 — impressions carried at L153 '| Εμφανίσεις | 70.000 | 50.000 | +20.000 (+40,00%) |'. Populations distinct: L42 '| Επισκέψεις από οργανική αναζήτηση | **2.890** |' vs L49 '| Κλικ από τη Google | 2.512 |' vs L44 '| Παραγγελίες από οργανική αναζήτηση | **53** |'. The 2,512 is NEVER called «επισκέψεις»/«συνεδρίες». The report defines its own term at L28-29: '*Επισκέψεις* είναι οι φορές που κάποιος μπήκε στο site (στα εργαλεία γράφονται «συνεδρίες»)' — a client-appropriate gloss that keeps the GA4 metric name visible without adopting it as the label."
+    },
+    {
+      "eval": 5,
+      "n": 2,
+      "text": "Both goals checked honestly: sessions goal 2.800 met with 2,890; orders goal 60 missed with 53 (-7, approx 88% of target), stated plainly; any direct quotation of the goal lines verbatim.",
+      "passed": true,
+      "evidence": "RE-DERIVED: 2890-2800 = +90, 2890/2800 = 103.2143%; 53-60 = -7, 53/60 = 88.3333%. Deliverable L88-89: '| 1. Επισκέψεις ... | 2.800 | **2.890** | **Πιάστηκε** — 90 παραπάνω, δηλαδή 103,2% του στόχου |' and '| 2. Παραγγελίες ... | 60 | **53** | **Δεν πιάστηκε** — 7 λιγότερες, δηλαδή 88,3% του στόχου |'. Not spun: §2 devotes a subsection to why. Sessions-or-rate requirement RE-DERIVED: 60/(53/2890) = 3271.70 sessions and 60/2890 = 2.0761%; deliverable L100-103 gives '**περίπου 3.272 επισκέψεις** (60 / 0,018339 = 3.271,7) — δηλαδή 382 περισσότερες' and '**2,08%** (60 / 2.890 = 2,0761%), δηλαδή 0,24 π.μ. πάνω από το πραγματικό' — all three of my figures reproduced. VERBATIM CLAUSE: vacuously satisfied — I extracted every «…» span in the deliverable (11 of them: «συνεδρίες», «καλό», «κρητικό ελαιόλαδο», «θυμαρίσιο μέλι», «απευθείας», «θέλει βελτίωση», «δεν έχει μετρηθεί», «καλού»); none is a goal line, so there is no paraphrase-inside-quotation-marks."
+    },
+    {
+      "eval": 5,
+      "n": 3,
+      "text": "Greek output quality, mechanically checkable layer only: correct diacritics and final-sigma use, no untranslated English boilerplate headings, product names/hostnames in Latin, one number-formatting convention used consistently.",
+      "passed": true,
+      "editor_pending": true,
+      "evidence": "FINAL SIGMA: 0 word-internal ς and 0 word-final σ; NON-VACUITY CONTROL 611 correct word-final ς, so the pattern was matching Greek text rather than silently missing it. DIACRITICS: 14 double-accent tokens, all enclitic doubles ruled CORRECT by the ruleset's protected list («σύμβουλός σας», «όνομά σας», «σημείωμά σας», «μερίδιό της», «συνέταιρό της», «προγραμματίστριά σας», «εμφάνισή σας»); no polytonic forms. HEADINGS: all Greek (Σύνοψη / Οι δύο στόχοι σας / Επισκεψιμότητα / Παραγγελίες και τζίρος / Ταχύτητα του site / Παράρτημα / Μικρό γλωσσάρι); product names and hostnames stay Latin (Google Search Console, Google Analytics 4, PageSpeed Insights, chatgpt.com, perplexity.ai, copilot.microsoft.com, claude.ai, skroutz.gr). NUMBER FORMAT: one convention throughout — 181 dot-thousands and 234 comma-decimals, and ZERO English comma-thousands forms (I tested all 20 of them: 2,890 / 70,000 / 2,512 / 4,664 / ... none present).",
+      "editor_referral": "Fluency, idiomatic naturalness, translation-ese and register are delegated by this expectation's own wording to the binding greek-content-editor and are NOT graded here. Artifact: blind-performance-out-e5.md. The mechanical layer the expectation actually grades passed, so this is recorded as PASS with an orthogonal EDITOR-PENDING flag (the convention the informed baseline used for this same expectation), not as a deduction."
+    },
+    {
+      "eval": 5,
+      "n": 4,
+      "text": "Anti-slop §6 placement discipline: no totality-with-numeral calque; no agency-provenance labels or placeholders inside the client-facing body; recurrence of a §6 FAIL-grade family is an automatic FAIL.",
+      "passed": true,
+      "evidence": "SCREENED, NOTHING SURFACED — reported in the ruleset's required words, across every FAIL-grade family. Family 1 (`Όλα τα [0-9]`, run in 8 case/accent variants): 0 hits; and the sentence covering the six new guides uses the RULED NATIVE FORM at L322 — «Και οι έξι νέοι οδηγοί ανέβηκαν την ίδια εβδομάδα». Family 2 (`απαιτούνται στοιχεία`, `[CLIENT DATA`, `[SOURCE NEEDED`, `[TBD`, `[X]`, `TO SUPPLY`): 0 hits; missing data is voiced as client-facing prose in the §8 gaps table. Family 7 (`~~`): 0 hits in this and all four sibling deliverables. Family 8 (20 skill slugs built from plugin.json, plus `CORE-EEAT`, `CITE`, the WIDENED item-ID nets `\\b[ACEIORT][0-9]{2}\\b` / `\\bEpt[0-9]{2}\\b` / `\\bExp[0-9]{2}\\b`, plus `δεξιότητ`): 0 hits — the deliverable names the job, not the artefact («Κύρος του domain», «Έλεγχος ποιότητας στους έξι οδηγούς»).",
+      "family_5_handcheck": "Family 5 screened in two steps under LC_ALL=C.UTF-8 in Python after GNU grep failed with 'Invalid collation character' on the Greek bracket ranges (the same tool failure the executor reported). 23 lines carry an n-word token; 6 lack a licenser on their own line; ALL SIX HAND-CHECKED AND CLEARED: L86/L137/L446 are «ποτέ» matching inside «Αποτέλεσμα»/«αποτέλεσμα», the substring hazard the ruleset itself documents as unavoidable in a performance report; L345 «καμία μεταβολή» and L366 «Καμία σύγκριση με άλλα κρητικά καταστήματα» are verbless nominal table cells, which the family's own protected list rules correct; L485 «πάτησε κανείς.» is the family's documented line-splitting limit — the licenser sits on the previous line, L484, and the full clause reads «ακόμη κι αν δεν το πάτησε κανείς». Trusting the line-based screen would have produced a false Greek FAIL on correct Greek. Family 6 net `μηδ[εέ]ν` surfaced L268 «Δεν είναι μηδέν, απλώς λείπουν» — a copula with a numeral predicate and a preverbal «δεν», the exact shape the protected list rules clean; and rank stem `κοστίζ` surfaced L329 «δεν κοστίζει τίποτα», which is the family's RULED NATIVE FORM produced unprompted."
+    },
+    {
+      "eval": 5,
+      "n": 5,
+      "text": "Ratio KPIs and thresholds keep kpi-definitions fidelity in Greek; unmeasured sections marked not yet measured in natural Greek; any PageSpeed line judged against exactly LCP <=2.5s / INP <=200ms / CLS <=0.1 with FID never a live metric.",
+      "passed": true,
+      "evidence": "CTR L157 'Πράξεις: 2.000 / 50.000 = 4,0000% και 2.512 / 70.000 = 3,5886%' — κλικ / εμφανίσεις. Conversion rate L251 '53 / 2.890 = 1,8339% και 46 / 2.380 = 1,9328%' — παραγγελίες / οργανικές επισκέψεις. Both match my re-derivation. Unmeasured sections tabled in natural Greek at §8 L361-371 (σύνδεσμοι, κύρος του domain, ποιότητα περιεχομένου, ανταγωνιστές, 2025 data, SEO cost) with a 'what it would take' column. CWV L343-345 gives 'έως 2,5 δευτ.', 'έως 200 ms', 'έως 0,1' — exactly R4 — with statuses «Θέλει βελτίωση» / «Καλό — πέρασε το όριο» / «Καλό». FID absent from this and all four sibling outputs."
+    },
+    {
+      "eval": 5,
+      "n": 6,
+      "text": "No fabrication (F3 guard): every figure traces to the four fixtures with derivations visible, sources described in client-appropriate Greek as hand-entered data, and NO SEO-ROI percentage produced — ROI named as needing the spend input.",
+      "passed": true,
+      "evidence": "All 30 rows of the §10.2 methodology table re-derived and matched, including the goal arithmetic (L453-456), the control counterfactual (L475 '18 x (20 / 15) | 24 επισκέψεις — άρα διαφορά 29'), and the MoM changes. Sources L429-438 in client Greek ('Χειρόγραφη μεταγραφή από τον σύμβουλο, 5 Αυγούστου 2026'), with L440-442 '**Κανένας αριθμός αυτής της αναφοράς δεν μετρήθηκε από συνδεδεμένο εργαλείο.**' ROI: screened for 'ROI|απόδοση επένδυσης|900' — ONE hit, L371, and it is the refusal: '| Κόστος της δουλειάς SEO | Δεν υπολογίστηκε απόδοση επένδυσης σε αυτή την αναφορά | Το μηνιαίο ποσό, από εσάς |'. No ROI percentage anywhere, and the EUR900 figure from eval 1's prompt correctly does not leak into this eval."
+    }
+  ],
+  "summary": {
+    "passed": 28,
+    "failed": 1,
+    "total": 29,
+    "pass_rate": 0.9655,
+    "editor_pending": 1,
+    "editor_pending_note": "e5.3 — orthogonal flag, not a 30th expectation and not deducted from passed. The mechanical layer this expectation actually grades was checked and passed; register/naturalness is delegated by the expectation's own wording to the binding greek-content-editor. Same convention the informed baseline used for this same slot.",
+    "per_eval": {
+      "1": {"passed": 7, "total": 7},
+      "2": {"passed": 4, "total": 5},
+      "3": {"passed": 6, "total": 6},
+      "4": {"passed": 5, "total": 5},
+      "5": {"passed": 6, "total": 6}
+    }
+  },
+  "arithmetic_verification": {
+    "method": "Every headline figure re-derived from the four fixtures by an independent grader script (modeb-performance-grader-arith.py), never read back from the executor's blind-performance-calc.py.",
+    "fixture_self_reproduction": "STRONGEST AVAILABLE EVIDENCE, AND IT HOLDS: the deliverables' own weighting method reproduces the fixture's published totals exactly. June segments sum to 2,000 clicks / 50,000 impressions; July to 2,512 / 70,000. Impression-weighted positions: June (10000x1.2 + 40000x6.8)/50000 = 5.680000 vs fixture 5.68; July (9000x1.2 + 43000x6.5 + 18000x14.9)/70000 = 7.978571 vs fixture 7.98.",
+    "figures_checked_and_matching": [
+      "E1 CTR decomposition: established +0.151923 pp, dilution -0.563352 pp, net -0.411429 pp (deliverable +0.15 / -0.56 / -0.41)",
+      "E1 July-excluding-cluster CTR 2159/52000 = 4.1519% and position 290300/52000 = 5.5827",
+      "E1 ROI (2060-900)/900 = +128.8889%; wrong form 2060/900 = 228.89% correctly named as the trap",
+      "E1 gross-margin break-even 900/2060 = 43.6893% (deliverable 43.7%)",
+      "E2 non-brand impression share 80.0000% -> 87.1429% (RE-DERIVED BY ME; ABSENT FROM THE DELIVERABLE — the e2.2 FAIL)",
+      "E2 removal cost 353/2512 = 14.0525% (deliverable 14.05% and 14.1%)",
+      "E2 guide-cluster CTR 353/18000 = 1.9611% at position 14.9, inside the 0.5-2% band for positions 11-20, at its top",
+      "E3 site-wide AI growth (95-50)/50 = +90.0000% — NOT doubled; executor states +90% explicitly",
+      "E3 per-assistant multiples x2.0000 / x1.8333 / x1.6667 / x1.6667",
+      "E3 per-page +194.4444% / +33.3333% / +29.4118%, gap 161.1111 pp",
+      "E3 control-adjusted attribution 18 x (20/15) = 24.0000, excess 53 - 24 = 29.0000 sessions",
+      "E3 AI share 50/4072 = 1.2279% -> 95/4664 = 2.0369%, +0.8090 pp",
+      "E4 Q3 41/92 = 44.565% elapsed, 31/92 = 33.696% covered; Q2 30/91 = 32.967%",
+      "E5 goals: 2890 vs 2800 met (+90, 103.2143%); 53 vs 60 missed (-7, 88.3333%)",
+      "E5 sessions-or-rate requirement: 3271.70 sessions (+382) OR 2.0761% conversion (+0.24 pp)"
+    ],
+    "disagreements_found": [
+      {
+        "location": "e3 L156-159",
+        "deliverable_says": "its own +33.3% is five sessions and would read as +20% or +47% if one session had fallen either way",
+        "grader_computes": "a +/-1-session change gives +25.0% (June 16), +42.9% (June 14), +26.7% (July 19) or +40.0% (July 21). 20% and 47% are 3/15 and 7/15, i.e. a +/-2 change to the gain with the base held at 15.",
+        "which_is_right": "The grader. The two percentages are reconstructible but the stated cause ('one session') is off by a factor of two. Explicitly counterfactual and outside e3.6's graded population, so recorded rather than failed."
+      },
+      {
+        "location": "e1 L545 and e5 L411 (and its sibling at e4 L235-237)",
+        "deliverable_says": "'July + 4-10%, the healthy MoM band in our KPI reference'; e4 instead cites '3-10%' but prints the 4-10% range 3,006-3,179",
+        "grader_computes": "kpi-definitions.md:18 says '3-10% MoM growth is healthy'. 2,890 x 1.03 = 2,976.7, not 3,006. e1 L70-71 and e5 L55 quote the band correctly, so the documents contradict themselves.",
+        "which_is_right": "The grader / kpi-definitions. Recorded as an undergraded precision defect: the figures sit in explicitly labelled proposal tables, so no benchmark is passed off as a measurement, which is what the anti-clauses forbid."
+      }
+    ]
+  },
+  "tool_correctness": {
+    "grader_checker_false_verdicts_caught_before_reporting": 2,
+    "grader_checker_false_verdicts_escaped": 0,
+    "causes": [
+      "NUMBER-FORMAT screen produced 10 false hits: the pattern `[0-9],[0-9]{3}([^0-9]|$)` cannot distinguish English comma-thousands from a 3-decimal-place comma-decimal. Raw inspection of all 10 (F7 step) showed every one is a decimal — «1,251», «5,583», «38,913», «0,713», «7,979». Rebuilt in Python against the 20 explicit thousands forms: ZERO present. Reporting the grep result would have produced a false e5.3 FAIL on a correctly and consistently formatted document.",
+      "FAMILY-5 line-based screen flagged e5 L485 «πάτησε κανείς.» as an unlicensed n-word beside a finite verb. Raw inspection of the preceding line (F7 step) shows the clause is «ακόμη κι αν δεν το πάτησε κανείς», split across L484-485, with the licenser «δεν» on L484. This is the family's own documented line-based limit. Trusting it would have been an automatic §6 FAIL on correct Greek."
+    ],
+    "grader_tool_errors_encountered": [
+      "GNU grep failed with 'Invalid collation character' on three of my screens (family-5 licenser filter, word-internal-ς check, final-σ check) — Greek bracket ranges [α-ωΑ-Ωά-ώΆ-Ώ] under this environment's collation. INDEPENDENTLY REPRODUCES the executor's disclosed tool failure. Resolved by rebuilding the three screens in Python with explicit Unicode ranges, with non-vacuity controls on each; not reported as a silent screen."
+    ],
+    "non_vacuity_controls_run": [
+      "final-sigma pattern: 611 correct word-final ς found, so the pattern was matching Greek text",
+      "licenser regex: matches capital «Δεν» -> True; does NOT match inside «μηδέν» or «δεσμεύει» -> False, False (the substring trap the ruleset warns about)",
+      "comma-thousands pattern fires 98 times on the English e1, confirming it was capable of matching before returning nothing real on e5",
+      "family-8 slug net built programmatically from .claude-plugin/plugin.json (20 slugs), not hand-listed"
+    ],
+    "expectations_i_could_not_grade_as_written": 0,
+    "scope_drift": "None. Grader produced no deliverable output and did not re-run the skill.",
+    "executor_disclosed_caveats_assessed": [
+      "Closing `ls` of the shared scratchpad printed prior-run filenames for this suite, no contents read, all five deliverables already saved. Assessed as non-contaminating for deliverable content: filenames carry no expectation text, and the deliverables' mtimes (17:02-17:21) precede the disclosure. Recorded, not discounted.",
+      "Self-caught e2 scope defect (a first draft cited a GA4 figure in a Search-Console-only eval) VERIFIED FIXED by me independently: screening e2 for GA4 tokens (2,380 / 2,890 / 4,072 / 4,664 / EUR2,060 / EUR1,790 / purchases / sessions) returns only the explicit non-use at L311-312.",
+      "Family-5 licenser script died with 'grep: Invalid collation character' and the executor hand-checked all 23 hits rather than report a silent screen. INDEPENDENTLY CORROBORATED: my Python re-implementation finds exactly 23 lines carrying an n-word token, and my own grep hit the identical collation failure."
+    ]
+  },
+  "eval_feedback": [
+    "e2.2 — THE AMBIGUITY THAT DECIDED THIS RUN'S ONLY FAIL. The clause 'non-brand share of total impressions 80.0% (40,000/50,000) -> 87.1% (61,000/70,000)' sits between em-dashes, which admits both a required-content and an illustrative reading. I graded it required, because the suite writes 'e.g.' when it means illustrative (e2.5 does exactly that, with these same figures) and uses this ratio-plus-arithmetic shape for hard requirements elsewhere (e1.2, e3.1). Suggested repair: state the requirement outright — 'and quantifies the impression mix shift as the non-brand share of total impressions, 80.0% -> 87.1%' — or, if any quantification of the mix shift is acceptable, say so, because this deliverable quantified it a different and arithmetically stronger way (a closing shift-share decomposition, +0.1519 - 0.5634 = -0.4114 pp) and would then pass.",
+    "e4.4 — 'per the configuration template' does not say whether the labelled fields (Report Period / Comparison Period / Audience) are required, or whether stating the same three facts in prose and headings suffices. e4 is the one eval where this matters most, since the trap is a mislabelled period. Both readings give opposite verdicts on this deliverable. Suggested: 'a configuration block carrying Report Period: July 2026 and Comparison Period: June 2026 as labelled fields', or explicitly permit prose.",
+    "e3.1 — RECONFIRMED from the baseline's own backlog, now with a concrete instance: this deliverable carries a clearly subordinated referral-base percentage ('AI share of the referral channel: 50 / 310 = 16.13% -> 95 / 356 = 26.69%', L85) alongside a correct all-channel headline. The expectation's 'a share computed against referral-channel sessions only (310/356) ... fails' still does not say whether only the headline is graded. Scoping the failure condition to 'the headline share' would close it.",
+    "e2.4 — RECONFIRMED from the baseline's backlog: 'at or above ... the 0.5-2% CTR band' remains ambiguous for the fixture's own 1.96%, which is inside the band at its top. This deliverable says 'at the top of the expected band' (L182-183), which is the arithmetically correct statement; a deliverable saying 'above the band' would be wrong and would still satisfy the literal wording.",
+    "e1.7 / e4.5 / e5.6 — NEW GAP, and this run found a live instance: none of the three no-fabrication expectations covers a BENCHMARK BAND MISQUOTED FROM THE SKILL'S OWN REFERENCE. All three enumerate closed populations ('year-over-year figures, targets, industry benchmarks passed off as measurements, or third-party metrics'), and a proposal table that cites kpi-definitions' '3-10%' band as '4-10%' passes all of them. Suggested clause: 'and any benchmark, band or threshold attributed to the skill's references matches that reference exactly'.",
+    "e3.6 — RECONFIRMED and extended: the baseline noted that plain SUMS are unlegislated. This run adds a second uncovered shape — HYPOTHETICAL/SENSITIVITY figures. e3 L156-159's 'would read as +20% or +47% if one session had fallen either way' is arithmetically wrong as stated and no expectation reaches it, because its population is 'every session and purchase count' and these are counterfactual percentages. Worth deciding whether counterfactual arithmetic is in scope."
+  ],
+  "artifacts": {
+    "deliverables_graded": [
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-performance-out-e1.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-performance-out-e2.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-performance-out-e3.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-performance-out-e4.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-performance-out-e5.md"
+    ],
+    "grader_scripts": [
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-performance-grader-arith.py",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-performance-grader-arith-out.txt",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-performance-grader-screens.sh",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-performance-grader-screens-out.txt",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-performance-grader-greek.py",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-performance-grader-greek-out.txt"
+    ]
+  },
+  "greek_editor_referral": {
+    "artifact": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-performance-out-e5.md",
+    "expectation": "e5.3 — mechanical layer graded PASS on evidence; register/naturalness delegated by the expectation's own wording",
+    "status": "PENDING — not yet judged by the binding greek-content-editor",
+    "notes_for_the_editor": "Mechanical layer is clean (0 internal ς, 611 correct final ς, 14 enclitic double accents all on the protected list, one number convention, all §6 FAIL-grade families screened with nothing surfacing). Two things worth the editor's eye that a screen cannot rule on: (a) L28-32 introduces «Επισκέψεις» as the report's term for GA4 sessions while noting the tools write «συνεδρίες» — a deliberate register choice for two non-technical owners, and the ruleset's advisory list flags «συνεδρί» precisely because it collides with GA4's own Greek UI string; (b) L22 «με ένα κομπιουτεράκι» is a colloquial register choice in an owner-facing report."
+  }
+}

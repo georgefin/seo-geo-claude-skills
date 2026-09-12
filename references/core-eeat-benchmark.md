@@ -4,7 +4,7 @@
 >
 > This file is a reference adaptation for the SEO & GEO Skills Library. For the full benchmark with detailed examples, see the source repository.
 >
-> **Version sync**: When the source spec updates, check: item count references in README (currently "80 items"), skill validation checkpoints, and Sections 2, 3, 7 below. Library-governed refinements — the R10/T04 veto semantics and veto scoring consequences (Sections 2, 3, 7) and the Section 5 single-primary schema mapping — supersede the v3.0 source wording where they differ; do not revert them on a sync.
+> **Version sync**: When the source spec updates, check: item count references in README (currently "80 items"), skill validation checkpoints, and Sections 2, 3, 7 below. Library-governed refinements — the R10/T04 veto semantics and veto scoring consequences (Sections 2, 3, 7), the Section 5 single-primary schema mapping (including its e-commerce category row, the nesting-is-not-stacking test, and the type-replacement rule), and the C09 Pass criterion (Section 7 — the visible Q&A block earns the Pass; FAQPage markup is conditional on FAQPage being the page's one primary type, per Section 5) — supersede the v3.0 source wording where they differ; do not revert them on a sync.
 
 **8 dimensions × 10 items = 80 evaluation criteria** for optimizing content visibility across AI engines (GEO) and search engines (SEO).
 
@@ -147,6 +147,8 @@
 | Fail | 0 |
 | N/A (item not applicable, e.g., T04 with no material connection) | Excluded from the dimension average — never converted to Partial or Fail |
 
+Rubric-granted conditionality (currently T04 only) is the sole rubric-level source of N/A: no other item may be judged "not applicable" at the auditor's discretion — for every other item, N/A marks only unobservable evidence (e.g., site-level data not provided), never an applicability call.
+
 ### Score Calculation
 
 - **Dimension score** = sum of 10 items (0–100)
@@ -168,6 +170,8 @@
 | A | 5% | 5% | 5% | 25% | 5% | 5% | 5% | 5% | 5% |
 | T | 15% | 15% | 10% | 25% | 10% | 10% | 20% | 10% | 20% |
 
+A content type with no column here — an e-commerce category page (Section 5) is the current case — has **no library-set weight profile**. Score it with the unweighted **Total Score** and say in the report that no weight profile exists for the type. Never improvise a column: a weight invented per audit makes two audits of the same page incomparable, which is the one thing a weighted score is for.
+
 ### Rating Scale
 
 | Score Range | Rating |
@@ -177,6 +181,40 @@
 | 60–74 | Medium |
 | 40–59 | Low |
 | 0–39 | Poor |
+
+**Round the score to a whole number, half up, and read the band off the rounded figure.** Every
+endpoint above is a whole number and every score this framework produces is a mean or a weighted
+mean, so the computed figure usually is not. Unrounded, four windows per hundred belong to no band
+at all — anything strictly between 39 and 40, 59 and 60, 74 and 75, or 89 and 90. A blind run
+produced a corrected weighted total of **39.80** and the scale had nowhere to put it. The rounding
+step is what makes the bands contiguous, and it does that **without moving a single endpoint**.
+
+**Both figures appear, and neither replaces the other.** Print the computed value with its
+derivation — that is what a reader reproduces the score from — and print the rounded value carrying
+the rating word: `Weighted Total = 12.00 + 9.60 + … = 39.80 → 40/100, Low`. The rounded figure is
+the band's input only. It is never the figure the arithmetic is checked against, and a report that
+prints only the rounded number has thrown away the derivation every skill in this library is
+required to show.
+
+**Round once, from the computed figure.** Where a skill also prints the score at some presentation
+precision, the band still comes off the computed value rounded straight to a whole number — never
+off the presentation figure rounded a second time. Chaining the two moves a band: a computed 74.46
+rounds to 74, Medium, but via 74.5 it becomes 75, Good.
+
+**Precision follows the band's own endpoints — do not harmonise the two scales.** These bands have
+whole-number endpoints, so the score rounds to a whole number. The Link Quality Score in
+[monitor/backlink-analyzer/references/link-quality-rubric.md](../monitor/backlink-analyzer/references/link-quality-rubric.md)
+§1 rounds to **one decimal**, because its bands have one-decimal endpoints (4.0-5.0 · 2.5-3.9 ·
+1.0-2.4). One rule, two precisions, each set by the scale it serves. Rounding this score to one
+decimal leaves 39.8 exactly where it was — in no band — and rounding an LQS to a whole number
+collapses three bands into two. The difference is not a discrepancy to tidy up.
+
+**Item criteria are read the same way, at their own precision.** A Section 7 criterion written with
+whole-number endpoints (`Partial: 30–50%` of page area) is read against a measurement rounded to a
+whole number, half up; where an item's own endpoints carry a decimal, the measurement is read to
+that decimal. This is a reading rule for the measured quantity, not a change to any threshold: it
+moves a borderline observation by at most half a unit of the band's own precision, which is the
+price of every value having a grade instead of some values having none.
 
 ### Veto Items
 
@@ -194,29 +232,65 @@ Three items act as vetoes — trust failures that override the arithmetic regard
 | Two or more verified veto failures | BLOCK-class outcome — no final score is reported (dimension scores may still be shown; the final is suppressed) |
 | Evidence for a veto item missing or unassessable | No final score is issued at all — a veto item is never guessed past |
 
+**Round first, then apply the cap — and read the band off the same figure the cap sits on.** The
+cap is a ceiling on the score the report prints, and the score the report prints is the rounded
+one, so the ceiling belongs on the rounded figure.
+
+Worked, one verified veto, weighted total **59.6**: rounding gives **60**, which reads Medium and
+stands above the cap; the cap then binds and the reported score is **59, Low**. Applying the cap to
+the unrounded 59.6 and rounding afterwards reaches the same 59, and that coincidence is exactly why
+the order gets left to inference. The defect this ordering prevents is not the arithmetic — it is
+checking the cap against one figure (59.6, already at or above 59, so "capped") and then reading
+the band off another (60, Medium). **A vetoed report that prints 60/Medium has breached the cap
+however it got there.** State the cap and the band against the one rounded number.
+
 ---
 
-## 4. AI Engine Citation Preferences
+## 4. GEO Prioritisation Model
 
-### Engine-Specific Priorities
+> **Evidence grade — read before quoting anything in this section.** What follows is
+> **this library's working model of which items to do first**, not documented engine
+> behaviour. No engine publishes its citation-selection mechanics, and nothing here has
+> a primary source. Ruling R3 amendment 9a retracted a claim of exactly this shape — that
+> FAQPage markup earns AI citations — on the ground that **no primary source establishes
+> it in either direction**; that absence is not narrower for the rows below. So this
+> section ranks work, and states the library's reason for each rank. It does not report
+> what an engine does.
+>
+> **In a deliverable**: use these ranks to order recommendations, and justify each one by
+> what it puts on the page — a direct answer a reader gets in the first 150 words, a
+> comparison a reader can scan. Never by an asserted engine mechanic. "Engines extract
+> from the first paragraph" is not a sentence this library can source; "the answer is in
+> the first 150 words, where a reader and any extractive consumer both reach it without
+> scrolling" is.
 
-| Engine | Citation Style | Priority Items |
-|--------|---------------|----------------|
-| Google AI Overview | Snippet extraction from paragraphs, lists, tables, FAQs | C02, O03, O05, C09 |
-| ChatGPT Browse | Conversational with links | C02, R01, R02, E01 |
-| Perplexity AI | Multi-source synthesis + inline citations | E01, R03, R05, Ept05 |
-| Claude | Precision-first with nuanced arguments | R04, Ept08, Exp10, R03 |
+### Engine-Specific Priorities — the library's working map
+
+Each row is **the item set this library optimises for when that engine is the named
+target**, paired with the citation style its published output visibly takes. The
+*styles* are observable in the products themselves; the *item mappings* are this
+library's judgement and carry no source.
+
+| Engine | Citation style (observable in its output) | Items this library prioritises |
+|--------|-------------------------------------------|--------------------------------|
+| Google AI Overview | Short synthesised answer above the results, with links out | C02, O03, O05, C09 |
+| ChatGPT Browse | Conversational answer with inline links | C02, R01, R02, E01 |
+| Perplexity AI | Multi-source synthesis with numbered inline citations | E01, R03, R05, Ept05 |
+| Claude | Prose answer, sources named where browsing is used | R04, Ept08, Exp10, R03 |
 
 ### Top 6 GEO-First Priority Items
 
-| Rank | ID | Name | Why It Matters |
-|------|----|------|----------------|
-| 1 | C02 | Direct Answer | All engines extract from first paragraph |
-| 2 | C09 | FAQ Coverage | FAQ structure directly matches user follow-ups |
-| 3 | O03 | Data Tables | Comparison data is most extractable format |
-| 4 | O05 | Schema Markup | JSON-LD helps AI understand content type |
-| 5 | E01 | Original Data | AI prefers citing exclusive sources |
-| 6 | O02 | Summary Box | Key Takeaways often first choice for AI summary |
+Ranked by this library. The reason column states **what the item puts on the page** —
+which is checkable by opening the page — not what an engine is claimed to do with it.
+
+| Rank | ID | Name | Why this library ranks it here |
+|------|----|------|--------------------------------|
+| 1 | C02 | Direct Answer | Puts the answer where a reader reaches it without scrolling, and where any extractive consumer meets it first |
+| 2 | C09 | FAQ Coverage | Answers the follow-up questions the query itself raises, in the querent's own words |
+| 3 | O03 | Data Tables | Comparison values become addressable cells instead of sentences a reader has to reassemble |
+| 4 | O05 | Schema Markup | States the page's type and key entities in a machine-readable form, unambiguously |
+| 5 | E01 | Original Data | Content that exists nowhere else; the one thing a competitor cannot also supply |
+| 6 | O02 | Summary Box | A self-contained précis of the page, quotable without the surrounding article |
 
 ---
 
@@ -231,10 +305,17 @@ One primary content type per page (item O05). Documented auxiliaries are legitim
 | Blog (insights) | Article | BreadcrumbList; author/publisher nested |
 | Alternative | Article (comparison editorial) | BreadcrumbList |
 | Best-of | ItemList | BreadcrumbList |
+| E-commerce category (product listing) | ItemList — the products as `itemListElement` entries | BreadcrumbList (real trail); seller/publisher Organization nested; each product described *inside* the list, never a separate top-level `Product` per item |
 | Use-case | WebPage | BreadcrumbList |
 | FAQ | FAQPage | BreadcrumbList |
 | Landing | SoftwareApplication (or the accurate Product/Service type) | BreadcrumbList |
 | Testimonial | Review | BreadcrumbList; reviewed item + reviewer nested inside the Review |
+
+**The e-commerce category row, and `CollectionPage`.** A catalogue listing page is the same shape as Best-of — a page whose content *is* the list — so it takes the same primary type, and the library's schema skill already maps it that way (`build/schema-markup-generator/references/schema-decision-tree.md`, E-commerce row: "category/list pages → ItemList"). `CollectionPage` is also a valid schema.org page type for such a page, and is what an unaided derivation tends to reach for. Rule: **new markup uses `ItemList`**, so that two skills scoring the same page produce the same answer; where a page **already** carries `CollectionPage` as its root with the listing nested as its `mainEntity`, that is one accurate object graph — leave it, do not rewrite it, and never emit both as top-level objects. [VERIFY — the schema.org modelling behind this pair is not owner-read: schema.org and developers.google.com are both refused by this environment's egress (re-tested 2026-08-13). No engine documents a category-page rich result, so this is a type-accuracy call, not a feature call; an owner read of `schema.org/CollectionPage` and `schema.org/ItemList` would settle it.]
+
+**Nesting is not stacking.** A type that appears only as the value of a property of the primary object — `mainEntity`, `itemListElement`, `publisher`, `author`, `about`, `itemReviewed` — describes part of that object. It makes no second claim about what the page *is*, so it is not a second content type and it is not stacking. That is the shape settled ruling R2 already sanctions when it nests Organization as publisher. Stacking is a second content type at the **root** of the graph: two top-level objects, or a second `@type` on the root node, each asserting the page is something. The test in one question: **could this node stand alone as a claim about the page?** A `CollectionPage` whose `mainEntity` is an `ItemList` makes one claim. A page emitting `ItemList` and `FAQPage` side by side makes two. (This states how R2 applies to nesting, which R2 does not mention; it changes no Pass criterion here.)
+
+**When the correct type changes because of the edit.** R2 bans *adding* a second type; it does not freeze the first one. If an optimisation genuinely changes what the page is — a guide rewritten into a step-by-step procedure moves from Article to HowTo under the Blog (guides) row above — the primary type is **replaced** in the same change: the old object goes out as the new one goes in, the page still carries exactly one primary type, and no stacking occurs. R2's "never bolted onto a page that already carries an accurate type" turns on *accurate*, and a type the edit has made wrong is no longer that. Two guards on it. First, the change is reported, naming what in the content moved it, and the replacement is routed through the library's schema skill rather than emitted on a hunch. Second, the bar is what the page now **is**, not how it now looks: a page that gained a numbered list of tips is not a procedure; a page whose purpose is to walk the reader through an ordered process, where the order is load-bearing, is. O05 scores type accuracy, so the only question is ever which type is true of the page.
 
 ---
 
@@ -245,6 +326,7 @@ What is the primary goal?
 ├── Teach users how to do something         → Blog (guides)
 ├── Your product vs one competitor           → Alternative
 ├── Objective comparison of 3+ products      → Best-of
+├── List the products in a catalogue section → E-commerce category
 ├── Show product fits a persona              → Use-case
 ├── Show verified customer results           → Testimonial
 ├── Answer common questions                  → FAQ
@@ -264,7 +346,7 @@ What is the primary goal?
 - **Fail**: Clickbait; content doesn't match title.
 
 **C02: Direct Answer** | GEO 🎯
-- **Pass**: First 150 words contain clear definition or conclusion (directly citable by AI).
+- **Pass**: First 150 words contain clear definition or conclusion (directly citable by AI). The count starts at the first body word after the H1 — the H1's own words are not part of the count.
 - **Partial**: Answer within first 300 words with lengthy preamble.
 - **Fail**: Answer buried in middle or end.
 
@@ -299,7 +381,7 @@ What is the primary goal?
 - **Fail**: No use case guidance.
 
 **C09: FAQ Coverage** | GEO 🎯
-- **Pass**: Structured FAQ with FAQPage Schema covering long-tail follow-ups.
+- **Pass**: Structured FAQ covering long-tail follow-ups, present as a visible on-page Q&A block. **Markup is not required for the Pass** — the Pass is earned by the visible Q&A block itself, which is what a reader gets and what any consumer can read without markup. *(Wording corrected 2026-08-13. This previously read "engines parse the visible Q&A either way", asserting engine behaviour as fact. Ruling R3 amendment 9a retracted the mirror image of that claim — that FAQPage markup earns AI citations — on the ground that **no primary source establishes it in either direction**. The same absence applies here, so the criterion now rests on what the page contains rather than on what an engine does with it. Retracting one unsourced engine-behaviour claim while leaving its opposite asserted in the framework every skill scores against would have been the harder position to defend.)* FAQPage JSON-LD is creditable only where FAQPage is the page's ONE primary type (Section 5); bolting it onto a page that already carries an accurate primary type is stacking and is not allowed, so such a page earns its C09 Pass on the visible FAQ alone and is scored for O05 on the primary type the page actually needs.
 - **Partial**: Q&A content but not structured.
 - **Fail**: No FAQ or Q&A.
 

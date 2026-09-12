@@ -27,7 +27,7 @@ SERP features fall into five broad categories:
 |----------|---------|--------------|
 | **Knowledge Features** | Knowledge Panel, AI Overview, Featured Snippet | Content quality + structured data |
 | **Engagement Features** | People Also Ask, Related Searches, Things to Know | Content relevance + question coverage |
-| **Rich Results** | FAQ, How-To, Review Stars, Recipe, Event, Product | Schema markup + content format |
+| **Rich Results** | How-To, Review Stars, Recipe, Event, Product (no FAQ rich result for ordinary sites — Aug 2023) | Schema markup + content format |
 | **Media Features** | Image Pack, Video Carousel, Web Stories | Media optimization + hosting platform |
 | **Commerce Features** | Shopping Results, Local Pack, Ads | Merchant feeds + Google Business Profile + ad spend |
 
@@ -80,7 +80,7 @@ SERP features fall into five broad categories:
 1. **Mine PAA questions for content ideas** -- Each PAA question is a validated search query
 2. **Answer PAA questions within your content** -- Use the exact question as an H2 or H3
 3. **Keep answers concise (40-60 words)** -- PAA answers are short excerpts
-4. **Use FAQ schema markup** -- Increases eligibility for PAA and FAQ rich results
+4. **Use FAQ schema markup -- only where FAQPage is the page's ONE primary type** -- Not a SERP-feature play either way (no FAQ rich result for ordinary sites — government/health only, Aug 2023, ruling R3). A real FAQ section is the precondition, not the permission: bolting FAQPage onto a page whose accurate type is Article, Product or LocalBusiness is schema stacking and adds no citation signal (ruling R2). That page keeps its visible Q&A block -- readable text that any consumer reaches without markup, and it earns CORE-EEAT C09 on its own
 5. **Create dedicated FAQ sections** -- Group 5-10 related questions at the end of articles
 6. **Target the cascade** -- When users click one PAA, new questions appear; cover those too
 
@@ -117,24 +117,33 @@ SERP features fall into five broad categories:
 
 **Optimization Playbook:**
 
-1. **Write clear, citable sentences** -- AI systems extract well-formed statements of fact
+These are **this library's working bets on what to do first**, not published engine behaviour;
+no engine documents its selection rule (ruling R3 amendment 9a, on a claim of the same shape).
+Each reason states what the tactic puts on the page, which is checkable by opening it -- write
+the recommendation that way in a client report, never as an engine mechanic.
+
+1. **Write clear, citable sentences** -- A well-formed statement of fact can be lifted and quoted intact; a hedged compound sentence cannot
 2. **Front-load key information** -- Place the most important answer in the first 1-2 sentences of each section
-3. **Use structured data** -- Schema markup helps AI systems understand your content
-4. **Establish topical authority** -- AI overviews prefer citing authoritative sources on a topic
-5. **Include original data and statistics** -- Unique data points are highly citable
-6. **Create comparison content** -- AI loves to cite well-structured comparison tables
-7. **Update content regularly** -- Recency signals influence AI source selection
-8. **Use clear section headings** -- AI systems use headings to understand content structure
+3. **Use structured data** -- One accurate primary type per page states what the page is, unambiguously; piling on extra types adds no citation signal (ruling R2)
+4. **Establish topical authority** -- Coverage across the topic that a generalist page does not have
+5. **Include original data and statistics** -- Unique data points exist nowhere else, so no competing source can supply them either
+6. **Create comparison content** -- A structured comparison table turns values into addressable cells instead of prose a reader has to reassemble
+7. **Update content regularly** -- A visible current date and a re-checked figure are what a reader sees; a three-year-old number is one a reader can disprove
+8. **Use clear section headings** -- A heading that states the question it answers makes each section addressable on its own, instead of a passage a reader has to locate
 
 **Source Citation Patterns:**
 
-| What Gets Cited | Why | How to Optimize |
+Same evidence grade as the playbook above -- the left column is what this library
+prioritises writing, the middle column states what that content **is** on the page, and
+neither reports an engine mechanic. No engine documents its selection rule.
+
+| Content this library prioritises | What it puts on the page | How to Optimize |
 |----------------|-----|----------------|
-| Definitions | AI needs authoritative definitions | Write clear, complete definitions in first paragraph |
-| Statistics | AI cites specific data points | Include original research, cite sources |
-| Step-by-step processes | AI extracts structured sequences | Use numbered lists with clear step headers |
-| Comparison data | AI synthesizes multi-source comparisons | Create comparison tables with clear labels |
-| Expert quotes | AI values authoritative voices | Include expert attribution with credentials |
+| Definitions | A standalone definition that can be lifted and quoted intact | Write clear, complete definitions in first paragraph |
+| Statistics | A specific data point with a unit and a source, which a reader can check | Include original research, cite sources |
+| Step-by-step processes | An ordered sequence with each step addressable on its own | Use numbered lists with clear step headers |
+| Comparison data | Values as addressable cells instead of prose a reader has to reassemble | Create comparison tables with clear labels |
+| Expert quotes | A named expert with checkable credentials -- something a competitor cannot also claim | Include expert attribution with credentials |
 
 **Greece (el-GR) availability:** Google **AI Mode** (the adjacent conversational search surface) is live in Greek since 2025-10-08 (pinned baseline, last verified 2026-08-08). AI Overview trigger rates for el-GR queries are not separately verified — record AI Overview presence per keyword during the audit rather than assuming the general trigger patterns above hold for Greek queries.
 
@@ -287,7 +296,7 @@ These features depend on specific structured data markup:
 
 | Rich Result | Schema Required | Content Type | Visual Impact |
 |------------|----------------|-------------|--------------|
-| FAQ | FAQPage | FAQ sections on any page | Expandable Q&A below listing |
+| FAQ | FAQPage | Pages that ARE a FAQ, where FAQPage is the one primary type — never a FAQ section bolted onto an Article/Product page (ruling R2) | None — no FAQ rich result for ordinary sites — government/health only, Aug 2023; markup kept because it stays valid and Google says there is no need to proactively remove it (ruling R3 + amendment 9a — a permission to leave it, not advice to keep it; no evidenced citation benefit either way) |
 | How-To | HowTo | Step-by-step instructions | Steps with optional images |
 | Review Stars | Review / AggregateRating | Product/service reviews | Star rating in snippet |
 | Recipe | Recipe | Food/cooking content | Image, cook time, calories |
@@ -298,11 +307,11 @@ These features depend on specific structured data markup:
 
 **General Rich Result Optimization:**
 
-1. **Validate with Rich Results Test** -- Test every page before publishing
+1. **Validate before publishing** -- Rich Results Test for the types it still covers; Schema.org Validator for syntax, and for FAQPage that validator is the only check left (Rich Results Test does not support FAQPage, ruling R3)
 2. **Follow Google's structured data guidelines** -- No cloaking or misleading markup
 3. **Keep markup accurate** -- Schema content must match visible page content
-4. **Monitor in Search Console** -- Check Enhancement reports for errors
-5. **Don't over-mark** -- Only add schema for content types genuinely on the page
+4. **Monitor in Search Console** -- Check Enhancement reports for errors (an ordinary site has no FAQ rich result to report on -- nothing to monitor there)
+5. **Don't over-mark** -- Only add schema for content types genuinely on the page, and only ONE primary content type per page: extra content types add no citation signal (ruling R2). Documented auxiliaries alongside it are fine where the page data warrants them -- BreadcrumbList for a real trail, Organization or Person as publisher/author identity, WebSite on the homepage
 
 ---
 
@@ -349,7 +358,6 @@ Not all SERP features deserve equal attention. Prioritize based on your content 
 | People Also Ask | Medium-High | Low-Medium | FAQ-rich content |
 | Video Carousel | High | High (video production) | Tutorial/how-to content |
 | Local Pack | Very High (local) | Medium | Local businesses |
-| Rich Results (FAQ) | Medium | Low | Any content with Q&A |
 | Rich Results (Review) | Medium-High | Low-Medium | Product/service reviews |
 | Image Pack | Medium | Low-Medium | Visual content creators |
 | Shopping Results | Very High (ecommerce) | Medium | Product sellers |
@@ -388,11 +396,13 @@ When SERP features change for your target keywords, investigate:
 
 ## SERP Feature Combination Patterns
 
-Certain SERP feature combinations indicate specific opportunities:
+Certain SERP feature combinations indicate specific opportunities. Read the composition you captured as a whole, and put that read in the deliverable before the per-feature strategies — otherwise the client is handed two strategies with nothing saying why both are being run.
 
-| SERP Combination | What It Signals | Opportunity |
+**The middle column is this library's read of an observed composition, not a statement about an engine.** Write it that way: what appeared together, what this library takes that to mean about the query, what to do. No row here licenses "Google sees…", "Google prefers…" or any other engine disposition, in any language — no primary source establishes one in either direction, and asserting the negative is the same unsourced move in reverse (ruling R3 amendment 9a).
+
+| SERP Combination | What this library reads it as | Opportunity |
 |-----------------|----------------|-------------|
-| AI Overview + Featured Snippet | Google sees this as high-information query | Optimize for both -- structured content with clear answers |
+| AI Overview + Featured Snippet | Two extracted answers above the first organic result — a high-information query | Optimize for both -- structured content with clear answers |
 | Video + PAA + Featured Snippet | Multi-format informational query | Create comprehensive guide with video and FAQ |
 | Shopping + Ads + Reviews | Strong commercial intent | Product optimization, review content |
 | Local Pack + Ads | Local commercial intent | Google Business Profile optimization |
@@ -408,14 +418,14 @@ The rise of AI Overviews changes how to prioritize SERP features:
 | Scenario | Traditional Strategy | AI-Era Strategy |
 |---------|---------------------|----------------|
 | Informational query | Win featured snippet | Win AI Overview citation AND featured snippet |
-| Comparison query | Create comparison content | Create structured comparison tables (AI prefers these) |
+| Comparison query | Create comparison content | Create structured comparison tables (values become addressable cells, not prose to reassemble) |
 | Definition query | Write clear definition for snippet | Write authoritative, citable definition with evidence |
-| How-to query | Create step-by-step list | Create steps with unique insights AI can synthesize |
-| List query | Create comprehensive ranked list | Create list with original data/reasoning AI can cite |
+| How-to query | Create step-by-step list | Create steps carrying an insight no other source on the page-one set states |
+| List query | Create comprehensive ranked list | Create list with original data and stated reasoning — the one thing a competing list cannot also supply |
 
 ### Key Difference
 
-- **Traditional SERP features** reward **format optimization** (structure your content to match the feature)
-- **AI Overviews** reward **authority and uniqueness** (be the source AI trusts for accurate, original information)
+- **Traditional SERP features** have **documented format requirements** — Google publishes what each one needs, so structure the content to match the feature
+- **AI Overviews** publish nothing comparable, so this library plays **authority and uniqueness** instead: be the most substantive and least replaceable source on the topic. That is a working bet, not a documented mechanic — do not report it to a client as one
 
 Optimizing for both requires content that is both structurally sound AND substantively authoritative.

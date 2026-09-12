@@ -1,0 +1,11 @@
+# CASE: register-basename-declared
+# ROLE: negative
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: 1 passed
+# EXPECT-ABSENT: FAIL
+# FILE: docs/loop/FAILURE-LEDGER.md
+# WHY: the same file as register-undeclared, declared. Registers legitimately ride
+#      along with the work they record; the leg exists to make that visible, not to
+#      forbid it.
+# ---8<--- commit message
+docs(loop): failure-ledger recurrence entry for F15

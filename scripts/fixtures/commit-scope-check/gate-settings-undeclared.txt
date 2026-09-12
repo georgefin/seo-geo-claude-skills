@@ -1,0 +1,9 @@
+# CASE: gate-settings-undeclared
+# ROLE: positive
+# EXPECT-EXIT: 1
+# EXPECT-MATCH: .claude/settings.json
+# FILE: .claude/settings.json
+# WHY: the third alternative of the gate-file pattern, and the one that carries the
+#      PreToolUse hook — a change here changes whether the gate runs at all.
+# ---8<--- commit message
+chore: small hook tweak

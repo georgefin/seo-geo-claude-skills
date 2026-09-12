@@ -1,0 +1,16 @@
+# CASE: gate-inside-tenure-declared
+# ROLE: negative
+# JOURNAL: journal-live-two-holders.tsv
+# COMMIT-AT: -450
+# FILE: docs/loop/KPI.md
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: none landed inside another holder's tenure undeclared
+# EXPECT-ABSENT: FAIL
+# WHY: the same commit as gate-inside-tenure-undeclared, with the trailer that makes
+#      the post-hoc question answerable. Without this control the leg could be
+#      tightened into one that fails every commit in every tenure, which would make
+#      the honest declaration worthless and teach people to break locks instead.
+# ---8<--- commit message
+docs(loop): weekly numbers
+
+Register-Lock: lane-a

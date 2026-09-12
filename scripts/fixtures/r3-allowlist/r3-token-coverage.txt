@@ -1,0 +1,51 @@
+# FIXTURE — one violation per ALTERNATIVE of check (f)'s R3_TOKENS.
+#
+# WHY THIS FILE IS SEPARATE FROM THE OTHER TWO VIOLATION CORPORA.
+# `r3-violations.txt` measures the ALLOWLIST: 17 lines, frozen, the denominator of a published
+# number. This file measures the TOKEN LIST, which nothing else does. Mutation-testing on
+# 2026-08-17 deleted `expandable q&a below` from the sibling guard's copy of these tokens and
+# every check stayed green, because no fixture line exercised that branch; the same test run
+# against this file's tokens on 2026-08-17 found `serp accordion` exercised by nothing at all.
+# A token alternative no line reaches can be deleted in silence, and a deleted alternative is a
+# claim class that stops being checked without anything going red — F15's founding shape, one
+# level below where F15 is usually looked for.
+#
+# THE PROBE DERIVES THE REQUIREMENT, IT DOES NOT KEEP A LIST. `--probe` splits the live
+# R3_TOKENS on its top-level `|` and demands at least one line here per alternative, so a token
+# added later WITHOUT a line here fails the probe on the next run. That is the only arrangement
+# that cannot go stale: a hand-maintained list of "which tokens are covered" is the thing this
+# repository has now been bitten by three times.
+#
+# WHAT THIS DOES NOT MEASURE, stated so a clean run is not over-read: coverage is per TOP-LEVEL
+# alternative, not per inner branch. `faq (accordion|dropdown|drop-down)` is one alternative and
+# one line here exercises it through `accordion` only — deleting `drop-down` from inside that
+# group would still pass. Closing that needs a line per inner branch, which is not done.
+#
+# Every line below is a plain violation: it asserts a FAQ rich-result outcome as current fact and
+# carries no retraction marker, so each must be CAUGHT. There are no declared misses in this file
+# — a token that cannot catch its own bare, unexcused instance is broken, not merely narrow.
+#
+# FORMAT: `# ` comment, `>>> ` data. COUNT is asserted by the probe.
+#
+# COUNT: 7
+#
+# 1. faq.*rich[- ]?(result|snippet)
+>>> FAQPage markup earns a FAQ rich snippet in Google Search today.
+#
+# 2. rich[- ]?(result|snippet)s?.*faq
+>>> Rich results are still awarded to FAQ pages on any domain.
+#
+# 3. eligib[^.|]*faq
+>>> Every product page is eligible for the FAQ appearance in Search.
+#
+# 4. faq[^.|]*eligib
+>>> FAQ markup on a product page is eligible for enhanced display.
+#
+# 5. expandable q&a below
+>>> Google renders an expandable q&a below the blue link.
+#
+# 6. faq (accordion|dropdown|drop-down)  — inner branch `accordion` only, see the note above
+>>> The FAQ accordion opens directly in Search.
+#
+# 7. serp accordion  — added 2026-08-17: this alternative was exercised by no fixture line
+>>> The SERP accordion is the payoff for adding FAQPage markup.

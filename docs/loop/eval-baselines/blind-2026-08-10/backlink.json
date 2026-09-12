@@ -1,0 +1,237 @@
+{
+  "suite": "backlink",
+  "skill": "backlink-analyzer",
+  "run": "2026-08-10 founding Mode B (post-fixes 2ab6854 + skill fix f9d7414; blind-execute method)",
+  "method": "HELD. For each of the 5 evals in order I read ONLY that eval's `prompt` (extracted with jq so no sibling field was on screen) plus its fixtures and the skill/references, produced the full deliverable, SAVED it as modeb-backlink-out-e<N>.md, and only then printed that eval's `expectations` (and `expected_output`) for the first time. No expectation text, and no later eval's prompt, was visible while any deliverable was being written. One consequence is visible in the artefacts: e2, e4 and e5 each miss elements the expectations name, which an expectation-informed executor would have supplied. Deliverables were NOT edited after their expectations were read - including one factual defect I caught in my own e3 Greek output on re-read (recorded in self_caught rather than repaired, so the artefact stays an honest record of blind execution).",
+  "baseline": "no prior baseline - docs/loop/eval-baselines/ holds 2026-08-08, 2026-08-08-v2, 2026-08-09, 2026-08-09-v3 and 2026-08-09-e1, none of which contains a backlink-analyzer record (grep -ril backlink over that directory returns nothing). This run is the founding baseline; regression check not applicable.",
+  "totals": {
+    "pass": 24,
+    "fail": 4,
+    "editor_pending": 1,
+    "total": 28,
+    "pass_rate": 0.857,
+    "editor_pending_note": "The 1 counts the naturalness/register layer of e3 expectation 5, which that expectation itself assigns to the binding greek-content-editor pass. It OVERLAPS the PASS recorded for the same expectation's mechanical layer and is not a separate expectation: pass + fail = 24 + 4 = 28 = total."
+  },
+  "evals": [
+    {
+      "id": "1",
+      "expectations": [
+        {
+          "n": 1,
+          "verdict": "PASS",
+          "evidence": "L41-L46: '| Total backlinks | 1,437 |' / '| Referring domains | 412 |' / '| Dofollow backlinks | 1,308 (91.0% of backlinks) |' / '| Nofollow backlinks | 129 (9.0% of backlinks) |' / '| Average source DR, all 412 referring domains | 21 |'; CSV framed as sample: L12 'top 25 referring domains by source DR, one row per domain', L23 'The CSV is the **top 25 domains by DR** - a top-of-profile sample, explicitly not representative of the 412-domain profile', L69-71 'Average DR of the 25 sampled domains: **48.7** ... Set against the profile-wide average of **21** across all 412 domains ... the remaining ~387'",
+          "note": "Sample DR average 48.7 is explicitly contrasted with, never substituted for, the profile-wide 21. No sample nofollow rate is stated anywhere (checker hit on '3 of 25' is the DR 20-39 authority-distribution row, L65, not a nofollow claim). Coverage stated against referring domains (25 of 412, remaining ~387) though not as the '6.1%' figure the expectation illustrates."
+        },
+        {
+          "n": 2,
+          "verdict": "PASS",
+          "evidence": "L97 'Population: **all 1,437 backlinks** (the aggregate tab's own population - not referring domains, and not the 25-row sample)'; L102 '| Exact match (commercial keyword) | 489 | 34.0% | 5-15%; critical >25% | **Critical** |'; L103 '| Brand | 158 | 11.0% | 25-45%; warning <15% | **Warning** |'; L110 '1. «στρώμα online» - 214 backlinks'; L51 'Benchmark ranges are quoted from the skill's own link-quality rubric (§5 health benchmarks and industry table)'; L117 'above the rubric's critical line of 25%'; L306 'Dilute the anchor profile: every new link earned should use brand or descriptive anchors until brand share moves from 11.0% back toward the 25-45% healthy band'",
+          "note": "Fixture shares used verbatim (34.0/11.0/16.1/22.0/16.8, sum 99.9) - no rescaling. Derived restatement 382/1437=26.6% is arithmetic on fixture counts. Diversification is recommended toward brand (and descriptive) only; the expectation's additional 'naked-URL and generic' targets are not named - see eval_feedback, since the fixture places both already inside the healthy band."
+        },
+        {
+          "n": 3,
+          "verdict": "PASS",
+          "evidence": "L44 '1,308 (91.0% of backlinks) | Healthy 60-80%; warning >90% | **Warning**'; L46 'Average source DR, all 412 referring domains | 21 | Healthy 25+; warning 15-25 | **Warning**'; L47 '| Link diversity (referring domains / backlinks) | 0.29 - derived: 412 / 1,437 | Healthy >0.3; warning 0.1-0.3 | **Warning** |'; L42 industry column reads 'E-commerce (general): 500-15,000+ typical' with L52 'they are reference ranges, not measurements of your competitors'; L89 '**Profile health score**: deliberately **not expressed as an /100 number**. This skill defines no health-score scale'",
+          "note": "No invented competitor/market average anywhere in the benchmark column."
+        },
+        {
+          "n": 4,
+          "verdict": "PASS",
+          "evidence": "L131 'Population: **backlinks**, per the source tab's explicit note. Not referring domains.'; L137-140 velocity table reproduces 19/22/241/198/24/21 and '| 2026-07 (1-30 July, to export date) | 21 | 64 | **-43** |'; L146 'The only month in the data with a net loss'; L154 'April ran 241 and May 198 - 439 new backlinks across the two months'; L149 'Full 6 months in the export | 525 | 105 | +420'; L251-254 'the data set contains no campaign link list, so I cannot attribute the 439 backlinks to the campaign as a verified fact - the association is a timing coincidence between your invoice dates and the velocity spike ... but it is inference, not tool-confirmed attribution'; L156 'more than the 41 lost across the whole preceding five months combined (7+9+6+11+8)'",
+          "note": "No backlink count is converted to a referring-domain gain; L264-265 states the opposite explicitly ('the data set cannot tell you how many *new domains* the campaign won')."
+        },
+        {
+          "n": 5,
+          "verdict": "PASS",
+          "evidence": "L43 '| Domain Rating (own domain) | **Not in the data set** | - | Cannot be reported - see Question 1 |'; L207-208 'the tool's overview tab - including the client's own domain rating - was not saved. There is therefore **no measurement of your Domain Rating in this data set at all**, at 55 or any other value'; L214 'It is not your Domain Rating, it is not \"your DR fell from 55 to 21\"'; L300 re-obtain action 'Re-measure your own Domain Rating with a connected tool'; L49 '| Toxicity / spam score | **N/A - not tool-reported** |'; L283 'the export has no spam/toxicity column, and this skill defines no risk scale of its own, so no link here gets a numeric risk score'; ranking: 'Referring domain counts and average DR do not convert into position movement, and this skill has no model that makes that conversion; if you need the ranking answer, measure it with rank tracking rather than projecting it from link counts'",
+          "note": "Checker false-verdict caught here: the 'rank tracking' probe printed ABSENT because the phrase is split across a line wrap ('with rank\\n  tracking'); raw-text inspection per F7 found it present. Logged in self_caught."
+        },
+        {
+          "n": 6,
+          "verdict": "PASS",
+          "evidence": "Full digit scan of the output run against the two fixtures: every token traces. Fixture-exact: 1,437/412/1,308/129/21/489/158/232/316/242/34.0/11.0/16.1/22.0/16.8/214/168/121/107/96, velocity 19,22,241,198,24,21 & 7,9,6,11,8,64, CSV DRs 71,66,63,61,58,47,46,43,38 and traffic 85,000/60,000/92,000/140,000/22,000/4,000/7,000/3,500/21,000, dates 2026-04-14/04-22/05-06/05-18. Derived with visible derivation: '0.29 - derived: 412 / 1,437', '3.5 - derived: 1,437 / 412', '48.7 (derived: sum 1,217 / 25)', '525 | 105 | +420 | Derived: sums of the two columns above', '243 | 83 | +160 | Derived: 198+24+21 and 11+8+64', '~435 backlinks' (439-4), '~387' (412-25), 26.6% (382/1,437), 41 (7+9+6+11+8). Source/date labeling: L11 'Export saved 2026-07-30 (licence lapsed 2026-08-01)'; L15-16 'No tools are connected in this session ... Nothing is pulled live'. No competitor metric, no referral-traffic figure, no per-link spam score.",
+          "note": "Two precision drifts in MY deliverable, neither a fabricated number, both logged in self_caught: (a) 'three of the four have the lowest traffic estimates in the entire 25-row sample' overstates - 3,500 is 2nd-lowest, 4,000 3rd, 7,000 6th of 25 (2,000 at ptixiaki-ygeias.example is lowest); (b) 'roughly 40-48' for a baseline-matched two months where the fixture range is 38-48."
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "expectations": [
+        {
+          "n": 1,
+          "verdict": "FAIL",
+          "evidence": "Per-domain criteria naming is incomplete. NAMED: #1 L64 'Foreign-language spam network (Russian payday-loan blogs) + sitewide footer template + no topical connection to pet supplies. Three separate rubric triggers on one domain' (§4 row 'Foreign language spam'); #5 L68 'Link farm by the rubric's definition: a directory-style links page with hundreds of outbound links and no content' (§3 risk type 'Link farms'). NOT NAMED: #4 L67 '| 4 | spin-arthra-blog.example | 4 | 5 | dofollow | in-content | N/A — not tool-reported | Machine-spun Greek text; each page links out to 40+ unrelated shops. That is a link-selling page pattern, not content |' — the row carries the worksheet's evidence plus my own coinage ('link-selling page pattern'), and names no rubric factor, no §4 disavow row and no §3 risk type, so a reader cannot check WHICH element it fails. BORDERLINE (criterion named in substance only, without its label): #2 L65 'the topic is unrelated to the link. Auto-generation plus zero relevance is manipulation, not editorial' (Factor 2 / 'Irrelevant sites' never labelled); #3 L66 'Comment spam placed on a pharmacy-spam blog ... the host is itself spam' ('Spammy domains' never labelled). Global tie present but conditional: L40 'Every verdict below comes from the skill's link-quality rubric, §4 \"When to Disavow\"' and L83 'bought links are the rubric's \"paid links you cannot get removed\" case' — the latter is attached to an origin inference the same passage calls unproven.",
+          "note": "Graded against the expectation's explicit fail clause: 'an answer that reproduces the Reviewer-notes column without naming a rubric factor, disavow-table row or risk type for each of the five fails'. One clear miss (#4) and two label-free borderlines. Recorded as a real miss rather than waved through - it is evidence the expectation discriminates even against an informed executor."
+        },
+        {
+          "n": 2,
+          "verdict": "PASS",
+          "evidence": "L29 '| **Toxic score** | **N/A — not tool-reported.** The worksheet carries no spam or toxicity column, and this skill defines no risk-score scale of its own'; per-link Risk score column reads 'N/A — not tool-reported' on all five rows (L64-L68); L70 'I will not attach a number to a link to make the recommendation look quantified'; L116-119 'On the \"toxicity score 68 out of 100\": I cannot confirm it and I cannot reproduce it. The worksheet has no toxicity or spam-score column — not for the profile, not for any individual row — so there is no figure in this data set that a 68 could have come from ... If the other consultant used a specific tool, the honest ask is: which tool, on what date, and what was the score's population'. Risk tier is verbal, not numeric: L132 'Honest risk level: LOW-to-MODERATE'. DR values appear only as source DR in the DR column; no DR is converted into a toxicity number.",
+          "note": "The only '/100' strings in the output are the quoted third-party claim and the template slot being refused."
+        },
+        {
+          "n": 3,
+          "verdict": "PASS",
+          "evidence": "L12 '| **Covered** | 16 referring domains carrying 74 backlinks |'; L32 '| **Disavow candidates** | **5 domains, carrying 57 of the 74 reviewed backlinks** (57 ÷ 74 = 77.0% of the reviewed backlinks; 5 ÷ 16 = 31.3% of the reviewed domains) — both figures are within the reviewed subset only |'; L140 'the 41-backlink domain is a *single sitewide footer template* on one site, which one `domain:` line removes entirely'; L19-21 'this worksheet is a *selected* set, not a sample ... Any ratio computed from it ... describes **the reviewed 16 domains only** and cannot be projected onto her profile. A profile-level \"toxic %\" is not computable from this data set at all, because the denominator (her total referring domains) was never saved'; L207-208 'Neither is \"77% of Petcare Hellas's backlinks are toxic\" — that sentence would be false'.",
+          "note": "The expectation's illustrative 55.4% (41 of 74) is not restated as a percentage; the 41 is given with its sitewide-footer mechanism and its 74-backlink population, and no share is expressed against the whole profile."
+        },
+        {
+          "n": 4,
+          "verdict": "PASS",
+          "evidence": "L50 quoted rule '| **Low-DA sites with real content** | **No** | **Low quality is not toxic** |'; L90 '| 6 | gataki-blog.example | 1 | 12 | dofollow | Personal cat blog, genuine hands-on product review, editorial in-content. DR 12 is low authority — and low authority is not toxicity |'; L91-92 rows for skylos-ekpaideusi (DR 14) and mikres-agkalies (DR 9) in the same keep table; L107-109 'Do not touch the low-DR editorial links (#6 DR 12, #8 DR 9, #7 DR 14) either ... Low authority is not toxicity, and a disavow file that eats them makes the profile worse'; L93 'Rubric: nofollow links from any source are not disavow candidates; no risk to remove'; L94 'Same reasoning as #9 — junk, but inert'; L99 '| 15 | forum-katoikidia.example | 1 | 19 | **ugc** | Genuine user recommendation carrying rel=ugc. Not followed, not manipulated'.",
+          "note": "All three inert-link classes are stated explicitly, not left to omission."
+        },
+        {
+          "n": 5,
+          "verdict": "PASS",
+          "evidence": "L126-130 'The strongest actual evidence in the file cuts the other way. The owner's own Search Console check on 2026-08-05 returned Manual actions — \"No issues detected\" ... It does not certify that every link is fine, and it cannot speak to algorithmic treatment — but it is the only Google-first-party evidence anyone in this story has, and it says there is no penalty to clean up'; L132 'Honest risk level: LOW-to-MODERATE, and specifically not an emergency'; L15 'Handover note (user-reported, not tool data): the freelancer admitted buying \"SEO packages\" in autumn 2024'; L81-82 'the purchase is a user-reported handover note, and this worksheet contains no invoice or vendor link list — so the date alignment is consistent with the admission rather than proof of it'. No ranking drop, traffic loss, penalty or recovery is asserted or predicted anywhere in the output (digit scan carries no ranking/traffic figure; the only forward-looking numbers are the rubric's own workflow waits, '4-6 weeks' step 9 and 'two weeks' step 5).",
+          "note": null
+        },
+        {
+          "n": 6,
+          "verdict": "PASS",
+          "evidence": "Digit scan: every value traces to the worksheet (DRs 1,2,4,5,6,7,8,9,12,14,19,22,25,27,31,38; per-domain backlinks 41,3,2,4,7 and the eleven keep rows; first-seen dates 2024-08-19/09-02/09-12/10-03/11-07; '40+ unrelated shops'; SC date 2026-08-05) or is fixture arithmetic with components shown ('57 ÷ 74 = 77.0%', '5 ÷ 16 = 31.3%', keep-group 11 domains / 17 backlinks reproducible from the printed keep table's eleven counts). L150-155 '**On the €2,400 quote** ... I have no basis in this data set for pricing the work and am not offering one' — the €2,400 is the user's own figure, not invented. No removal-success rate, no recovery timeline beyond the rubric's own workflow waits, no figure for the unreviewed remainder. L6 'User-provided file; no tools are connected in this session and nothing here is a live read'; L4 'saved at handover **2026-08-05**'.",
+          "note": "Two soft spots logged in self_caught rather than scored: (a) 'will almost certainly not answer' is an unevidenced qualitative prediction about removal outreach (no rate given, so not a banned figure); (b) the illustrative '5 out of 30 referring domains or 5 out of 300' invents two numbers inside an explicit no-guess frame ('What I cannot tell you, and will not guess') - safe as written, but F3-adjacent phrasing I would not repeat."
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "expectations": [
+        {
+          "n": 1,
+          "verdict": "PASS",
+          "evidence": "L16-L26 '| Backlinks | 402 | **407** | +5 |' / '| Referring domains | 118 | **122** | +4 |' with the rules printed: '- Backlinks: 402 + 8 νέα − 3 χαμένα = **407**' and '- Referring domains: 118 + 7 νέα domains − 3 domains που χάθηκαν = **122**'; L28-31 'τα 8 νέα backlinks ήρθαν από 7 domains, επειδή το gastronomos-blog.example έδωσε δύο συνδέσμους (γραμμές 1 και 7 του αρχείου). Και τα 7 domains είναι καινούρια για το προφίλ, οπότε μετρούν και τα 7 στα referring domains'; L77-78 'Και οι τρεις πηγές έδιναν από έναν σύνδεσμο η καθεμία, άρα οι 3 χαμένοι σύνδεσμοι είναι και 3 χαμένα referring domains'. The two gastronomos rows appear in the table as /afieroma-meli (2026-07-09) and /syntagi-baklava (2026-07-30).",
+          "note": "No '8 new domains' string anywhere; the two populations are never netted against each other - the summary table carries one row per population."
+        },
+        {
+          "n": 2,
+          "verdict": "PASS",
+          "evidence": "New-links table header 'Πηγή | Σελίδα-στόχος | Anchor text | Ημερομηνία | rel | DR πηγής' carries all five required columns plus the optional target page; lost-links table reproduces the tool's causes verbatim: «Η σελίδα αφαιρέθηκε (404)», «Ο σύνδεσμος αφαιρέθηκε από τη σελίδα», «Ο τομέας έληξε (domain expired)». Per-loss handling: 'koutali-kai-pirouni.example (DR 26) — η σελίδα «top-meli-2024» κατέβηκε. Ο ιστότοπος υπάρχει· απλώς η συγκεκριμένη σελίδα έφυγε. Αξίζει ένα μήνυμα'; 'diakosmisi-spiti.example (DR 17) — αφαίρεσαν τον σύνδεσμο από σελίδα με δώρα. Χαμηλή αξία, χαμηλή προτεραιότητα'; 'palia-agora.example (DR 8) — έληξε το ίδιο το domain. Δεν υπάρχει τρόπος ανάκτησης και δεν αξίζει καθόλου χρόνο· αυτός ο σύνδεσμος έφυγε οριστικά'. Prioritized August list present as a 4-row ranked table plus prose. No probability or success rate appears anywhere in the output.",
+          "note": "Nuance recorded: diakosmisi-spiti is declined on cost/benefit ('δυσανάλογος κόπος για την αξία'), not on impossibility - only the expired domain is called unrecoverable, which is the discrimination the expectation guards."
+        },
+        {
+          "n": 3,
+          "verdict": "PASS",
+          "evidence": "Excluded from counts: L108-110 'Δεν είναι backlink, και δεν το μέτρησα σαν backlink. Το mesogeiaki-kouzina-mag.example δεν εμφανίζεται πουθενά στα 8 νέα backlinks ούτε στα 122 referring domains, γιατί απλούστατα δεν υπάρχει σύνδεσμος προς το site σας'. Affirmed as a scored signal: L114-116 'Έχει όμως πραγματική αξία ως σήμα. Οι αναφορές μάρκας χωρίς σύνδεσμο μετρούν ως σήμα οντότητας και ορατότητας — είναι βαθμολογούμενο στοιχείο στο πλαίσιο αξιολόγησης κύρους domain που χρησιμοποιούμε (στοιχείο I09: αναφορές μάρκας χωρίς σύνδεσμο)'. Direct answer to the owner's question: L104-106 'Ρωτήσατε αν το περιοδικό ... «δεν έχει καμία αξία» και αν να το ξεχάσετε. **Όχι — και μάλιστα είναι η καλύτερη ευκαιρία που έχετε αυτόν τον μήνα.**' Reclamation opportunity ranked first: '| 1 | mesogeiaki-kouzina-mag.example (DR 58) — αίτημα για σύνδεσμο στην υπάρχουσα αναφορά | Χαμηλός | Υψηλός |' and the KPI row 'Αναφορές χωρίς σύνδεσμο | 1 γνωστή | ξεχωριστό μέγεθος — ποτέ μέσα στα backlinks'.",
+          "note": "R5-compliant: excluded from link counts, affirmed as scored. The optional I09 ID is attributed to the domain-authority (CITE) framework, not to backlink-analyzer's own mapping table."
+        },
+        {
+          "n": 4,
+          "verdict": "PASS",
+          "evidence": "Byte-check executed against the fixture (NFC-normalised, fixture line-wrap folded): FIXTURE 'Ξεχωρίσαμε το θυμαρίσιο μέλι της οικογενειακής μονάδας Μέλι Αρκαδίας — ίσως το πιο αρωματικό ελληνικό μέλι που δοκιμάσαμε φέτος.' == OUTPUT (identical: True). Magazine name mesogeiaki-kouzina-mag.example, DR 58 and date 2026-07-25 all fixture-exact: 'Εδώ ειπώθηκε στις 2026-07-25, σε περιοδικό με DR 58'.",
+          "note": null
+        },
+        {
+          "n": 5,
+          "verdict": "PASS",
+          "evidence": "MECHANICAL LAYER ONLY (the layer this expectation assigns to Mode B). Final sigma: scan for «ς» followed by a Greek letter -> clean; scan for word-final «σ» -> clean. Script mixing (Latin letters inside Greek words) -> clean. All eight headings Greek: '# Μηνιαία αναφορά backlinks — Μέλι Αρκαδίας', '## 1. Πού βρισκόμαστε σε σχέση με την αρχή της περιόδου', '## 2. Τι κερδίσαμε — 8 νέα backlinks από 7 domains', '## 3. Τι χάσαμε — 3 backlinks από 3 domains', '## 4. Η αναφορά χωρίς σύνδεσμο — η απάντηση στην απορία σας', '## 5. Τι να κυνηγήσετε πρώτο τον Αύγουστο', '## 6. Τι δεν λέει αυτό το αρχείο — για να μη σας το πουλήσει κανείς αλλιώς', '## Τι να παρακολουθείτε κάθε μήνα' - Latin script confined to permitted technical tokens (backlinks, dofollow, nofollow, ugc, rel, DR, anchor text, .example domains). One date convention: 22 date strings, all ISO, zero slash-form. One number convention: decimal comma throughout (1,2 / 3,4 / 17,0 / 37,1 / 38,9), zero dot-decimals. Accent scan of 5+ letter Greek tokens returns a single unaccented token, «τρεις» - monosyllabic, correctly unaccented (checker false-positive, inspected and cleared).",
+          "note": "EDITOR-PENDING RIDER (not a Mode B verdict): the Greek naturalness/register layer is routed to greek-content-editor per this expectation's own wording. Items to put in front of that pass: (a) the visible mid-sentence self-correction at «(ο καλύτερος ήταν DR 64 — όχι, ας το πω σωστά: το DR 58 του περιοδικού είναι δεύτερο μετά το DR 64 …)» - a think-aloud left in client-facing copy whose pre-dash clause is factually wrong before it is retracted; (b) register of «για να μη σας το πουλήσει κανείς αλλιώς» in a client report; (c) «Λέω και τα δύο επίτηδες» first-person voice."
+        },
+        {
+          "n": 6,
+          "verdict": "PASS",
+          "evidence": "Family-1 grep «Όλα τα [0-9]» -> zero hits; the ruled native form is produced instead: 'Και τα 7 domains είναι καινούρια για το προφίλ', 'μετρούν και τα 7 στα referring domains', 'Και οι τρεις πηγές έδιναν από έναν σύνδεσμο η καθεμία'. Family-6 «κοστίζει μηδέν» -> zero hits. Family-5 negative concord: all n-word hits hand-checked with word-bounded licensers - L8 «Κανένα εργαλείο δεν είναι συνδεδεμένο» OK, L10 «Δεν έγινε καμία νέα μέτρηση» OK, L65 «Κανένα εμπορικό anchor δεν επαναλαμβάνεται» OK, L104 «δεν έχει καμία αξία» (quoting the owner) OK, L109 «δεν εμφανίζεται πουθενά … ούτε …» OK, L167 «για να μη σας το πουλήσει κανείς» OK (licenser «μη»), L176 «δεν βαθμολογώ κανέναν σύνδεσμο» OK, L190 «ποτέ μέσα στα backlinks» verbless fragment (the ruleset's own stated grep limit). Family-2: zero hits for «απαιτούνται στοιχεία», [CLIENT DATA, [SOURCE NEEDED; gaps are voiced as prose in the labelled section '## 6. Τι δεν λέει αυτό το αρχείο'. Advisory scans (το skill / του skill / το template / του template / βιβλιοθήκη μας / copy-paste / (user-provided) / Γρήγορα κέρδη / εξουσία domain / prefix-hyphen / μακριάς) -> all clean.",
+          "note": "Single «τομέα» hit is the tool's own reason string «Ο τομέας έληξε (domain expired)» reproduced verbatim inside the column labelled «Αιτία (όπως τη δίνει το εργαλείο)» - quoted data, exempt; my own prose says «έληξε το ίδιο το domain». Two §6 grep-coverage gaps caught and reported (not edited): the family-5 token list misses the nominative n-word «κανείς», and being case-sensitive it misses capitalised «Κανένα» (two instances here, both correct Greek)."
+        },
+        {
+          "n": 7,
+          "verdict": "PASS",
+          "evidence": "Derivations printed for the headline chains: '402 + 8 νέα − 3 χαμένα = **407**', '118 + 7 νέα domains − 3 domains που χάθηκαν = **122**', '+1,2% σε backlinks (5 ÷ 402) και +3,4% σε referring domains (4 ÷ 118)'. Averages carry their populations: 'Μέσο DR των νέων συνδέσμων: 38,9 — μέσος όρος στα 8 backlinks (311 ÷ 8). Αν μετρήσετε ανά domain … βγαίνει 37,1 (260 ÷ 7)' plus 'Μέσο DR των χαμένων: 17,0 (51 ÷ 3)'. Dofollow count is given at backlink population only: '6 dofollow, 1 nofollow (diatrofologos-athina.example) και 1 ugc από φόρουμ' (verified 6/8). Every DR (51,64,33,28,21,44,19,26,17,8,58), date, anchor and loss cause traces to the fixture. Refusals: 'Δεν υπάρχει DR για το δικό σας domain … δεν θα δώσω νούμερο που δεν μέτρησα'; 'Δεν υπάρχουν στοιχεία επισκεψιμότητας ούτε κατατάξεις … Όποιος το πει, το μαντεύει'; 'Δεν υπάρχει βαθμολογία τοξικότητας'.",
+          "note": "One derived figure printed without its arithmetic: «των υπόλοιπων 399 backlinks» (407 − 8, equivalently 402 − 3). Value is exact by both routes; the derivation is not shown inline as the two headline chains are."
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "expectations": [
+        {
+          "n": 1,
+          "verdict": "PASS",
+          "evidence": "Digit scan of the whole output returns only list markers ('1', '1.', '2.', '3.', '4.') — zero numeric values of any kind, so no referring-domain count, backlink total, DR/DA, dofollow ratio, anchor distribution, velocity figure, toxic count or competitor metric exists to be an observation or an estimate. Explicit refusal of the 'typical' escape hatch: '| How many referring domains do we have? | **No figure.** Not a range, not an estimate, not a \"typical for your size\" | Referring-domain counts exist only in a link index. No index is connected and no export was provided'. The rubric is referenced only as criteria to be applied later ('anchor-text distribution against the rubric's health bands' in the what-you-get-once-data-arrives table) with no band values quoted onto this domain. No worked example profile appears.",
+          "note": null
+        },
+        {
+          "n": 2,
+          "verdict": "PASS",
+          "evidence": "No claim of having checked anything: probe for 'I (checked|pulled|crawled|found|see|looked up)' returns ABSENT. The stated position is the opposite: 'In this session there is no link database connected, no SEO tool connected, no analytics connected, and you have not supplied an export. I have no independent index of the web, so I cannot look up who links to your site any more than I could read your Search Console for you.' No lookup was attempted, so there is no failed-lookup report to make and no substitute is produced.",
+          "note": null
+        },
+        {
+          "n": 3,
+          "verdict": "FAIL",
+          "evidence": "The intake list names four of the five manual-data inputs SKILL.md asks for and omits one, and never asks for the collection date. PRESENT: export fields — 'source URL, target URL, anchor text, first-seen date, follow status (dofollow/nofollow/ugc/sponsored), and the tool's authority score per source domain' plus 'your profile totals: total backlinks, total referring domains, dofollow/nofollow split'; competitors — '**3. The two competitor domains, by name.**'; known toxic/spammy — '**4. Anything you already suspect.** If someone bought links for this site at any point, or if you have had spam-looking domains appear, say so'. ABSENT: SKILL.md input 4, 'Recent link gains/losses if tracking changes', is never requested (the grep for gains/losses matched only the substring inside 'aGAINSt' on L13/L71/L82 — inspected and cleared, see self_caught). ABSENT: the export's collection date — the only 'date' hits are the per-link 'first-seen date' field (L48) and a DR caveat (L84, 'a DR quoted without its vendor and date is not worth acting on'), neither of which asks what date the export was pulled, which is the Output Validation item this expectation cites by name.",
+          "note": "Graded strictly because both omissions are unconditional-to-near-unconditional in the expectation's own enumeration and neither is contraindicated by the situation — unlike the e1.2 partial, where the unnamed items were already inside their healthy bands."
+        },
+        {
+          "n": 4,
+          "verdict": "PASS",
+          "evidence": "Per-question blocked-and-why table: '| Your question | What I can answer today | Why |' with a row for each of the four — referring domains ('No figure'), domain rating ('**No figure.** ... DR/DA is a vendor's proprietary score, not a public property of your domain'), toxic links ('**No assessment.** ... With zero links in front of me there is nothing to judge. I also will not tell you that you are \"probably fine\": that is a guess dressed as reassurance'), competitors ('**No comparison.** I do not have their data, and I do not even have their names'). What unblocks each: the numbered intake section plus the '## What you get once each input lands' table, whose last row reads '| Nothing at all | This page. It does not get better by my guessing |'. Criteria stated without pre-filling: 'I will assess each flagged link on evidence you can check yourself — is the source topically related, is the placement editorial or a footer/comment/links-page, is the link followed, does the site have real content — and I will say which rubric criterion each verdict rests on.' Source discipline: 'I will give you the analysis with every number traceable to the file it came from'.",
+          "note": "No slot in either table is pre-filled with a number (confirmed by the zero-value digit scan)."
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "expectations": [
+        {
+          "n": 1,
+          "verdict": "FAIL",
+          "evidence": "The rule is refused and the domain-level sweep is quantified — 'Her rule was \"every domain with DR under 15\". Ten of the sixteen reviewed domains meet that condition. Five of them are the spam above.' — and the three rubric-protected editorial links are named with their DRs in the keep table ('gataki-blog.example | 12 | 1 | dofollow', 'skylos-ekpaideusi.example | 14 | 1 | dofollow', 'mikres-agkalies.example | 9 | 1 | dofollow'), with the authority-vs-toxicity point stated and sourced: '**DR measures how strong a site is, not whether it is harmful.** The skill's own disavow guidance draws the line explicitly — \"Low-DA sites with real content → No · Low quality is not toxic\"'. MISSING: the backlink-level quantification the expectation's main clause names. Digit scan of the output confirms the token '68' is ABSENT. The output instead reports the two components against the same /74 population — 'Five domains, carrying 57 of the 74 backlinks in the reviewed worksheet' and 'That is 11 of the 74 reviewed backlinks that her rule would have thrown away' (57 + 11 = 68, arithmetic consistent) — so the sweep's gross backlink figure is never stated.",
+          "note": "Wording-sensitive miss, flagged in eval_feedback: the expectation pins the GROSS sweep (68/74) while a decision-useful answer naturally reports the NET cost (11/74) alongside the justified share (57/74). Graded FAIL because the missing figure sits in the expectation's main clause, not in a parenthetical arithmetic aid (contrast e1.4's '≈83.6%', which I passed as an aid)."
+        },
+        {
+          "n": 2,
+          "verdict": "PASS",
+          "evidence": "Both excluded on rel evidence, with their backlink counts: '| top-eshops-catalog.example | 7 | 5 | nofollow | Scraped e-shop catalog; all outbound links nofollow | **Keep** — nofollow, carries no risk to remove |' and '| coupon-scraper-site.example | 8 | 3 | nofollow | Auto-scraped coupon pages; links nofollow | **Keep** — same reason |'; rubric rule invoked: '**Both are nofollow already.** The worksheet is explicit for both: \"all outbound links carry rel=nofollow\" and \"links nofollow\" ... The disavow guidance says so directly: nofollow links from any source — do not disavow, no risk.' Scraping treated as a separate content problem: '**Disavow does not stop scraping.** It changes only how Google treats links pointing *at* her site' plus a four-item content-side remedy list (copy URLs, check outranking, copyright removal route, canonical/indexable checks). Neither domain appears in the disavow file (the five `domain:` lines are the flagged spam only).",
+          "note": "Also flags that the scraping claim itself is the owner's report, not in the worksheet: 'the scraping claim is not in the worksheet ... I have not verified it'."
+        },
+        {
+          "n": 3,
+          "verdict": "FAIL",
+          "evidence": "The expectation requires the rubric's sequence intact and 'upload this afternoon' answered with a sequenced plan; the output does the opposite. Line 7: 'You can upload this afternoon. The file below is ready.' Outreach is demoted to optional and parallel: 'Optional and parallel, not a blocker for today: email the five domains asking for link removal. Standard practice is to try removal before disavowing. For a payday-loan network and a link farm this rarely goes anywhere, which is why I have not held the upload for it'. Probes on the other required elements, each inspected in the raw text before reporting: 'no removal outreach has been attempted by anyone' — ABSENT (the handover note is never carried); 'two weeks' / '2 weeks' response window (rubric §4 workflow steps 4-6) — ABSENT; the rubric's warning that 'unnecessary disavow can hurt your rankings' — ABSENT (the nearest text is 'would have cost her real links' and '11 of the 74 reviewed backlinks that her rule would have thrown away', which argue the same point without the rubric's rankings-harm warning). The 2026-08-05 Search Console check IS carried but is deployed against the recovery promise — 'There is no penalty on record. Her own Search Console check on 2026-08-05 returned Manual actions — \"No issues detected\". A disavow does not lift something that was never applied' — and is not framed as reducing urgency-but-not-proving-safety (contrast my own e2 output, which did add that qualifier).",
+          "note": "Four of five sub-requirements missed. The failure is real and directional: the deliverable optimises for the owner's same-day deadline and drops the rubric's last-resort sequencing, which is precisely the pressure this eval applies."
+        },
+        {
+          "n": 4,
+          "verdict": "PASS",
+          "evidence": "The file follows the §4 format: header comments '# Disavow file for petcare-hellas.example / # Generated: 2026-08-10 / # Reason: bought-link cleanup — \"SEO packages\" purchased autumn 2024 (per handover note) / # Source of review: freelancer handover worksheet dated 2026-08-05, 16 referring domains / # Scope: covers reviewed domains only', then exactly five commented `domain:` entries — kredit-dengi-zaim.example, casino-bonus-hub.example, pharma-discount-24.example, spin-arthra-blog.example, mega-links-farm.example — each preceded by its reason comment ('# Russian-language payday-loan blog network; identical sitewide footer link; 41 backlinks' etc.). No entry outside the five flagged spam domains; none of the eleven comparison-sample domains appears. The client's own domain appears only inside the rubric's own header-comment form ('# Disavow file for …'), never as an entry. Backup warning included: 'If a disavow file already exists in the account, uploading replaces it wholesale'.",
+          "note": null
+        },
+        {
+          "n": 5,
+          "verdict": "PASS",
+          "evidence": "No recovery date, window or percentage: '| A line saying when rankings recover | Not written — alternative wording supplied below |' and 'I cannot write a line saying when the rankings will recover'. The three stated grounds: '**There is no evidence of a ranking loss to recover from.** The worksheet contains no rankings and no traffic data at all — not a position, not a session, not a date'; '**There is no penalty on record.**'; '**Nothing converts a disavow into a date.** Disavowing is a signal to Google to ignore certain links; it is processed as pages are recrawled, on no published schedule, and it carries no promised effect on position.' Supplied email wording keeps the refusal: 'we are not in a position to promise a movement or a date — and anyone who gives you one is guessing'. Digit scan: 16, 74, 5, 57, 10, 11, 41, 40, 15, DRs 12/14/9/7/8, dates 2026-08-05 / 2026-08-10 / 2024 — all worksheet-traceable; the 11 is reproducible from the printed keep table (1+1+1+5+3). No spam score, no cleanup cost, no webmaster contact detail, no profile-wide toxic percentage.",
+          "note": "Two derived counts are stated without their arithmetic shown in THIS reply — 57 (41+3+2+4+7) and the DR<15 membership count 10 (the five spam DRs are not reprinted here, only in the eval-2 analysis this one follows up). Both trace to the worksheet; noted rather than scored, since the expectation's derivation example targets the DR-rule arithmetic."
+        }
+      ]
+    }
+  ],
+  "self_caught": [
+    "CHECKER FALSE-VERDICT (e1.5): my probe for the ranking-projection refusal printed ABSENT because the phrase is broken by a line wrap ('measure it with rank\\n  tracking'). Raw-text inspection per F7 found it present; the expectation is a genuine PASS. A bare-boolean checker would have reported a false failure here.",
+    "CHECKER FALSE-VERDICT (e3.6): my negative-concord licenser regex reported 'NONE -> HAND-CHECK' for «Δεν έγινε καμία νέα μέτρηση» because the licenser alternation was lowercase-only and the sentence opens with capitalised «Δεν». This is exactly the Greek non-case-folding trap: the clause is correct Greek and the flag was spurious.",
+    "CHECKER FALSE-POSITIVE (e3.5): the accent scan flagged «τρεις» as an unaccented 5+ letter Greek token; it is monosyllabic and correctly unaccented. Cleared by inspection.",
+    "CHECKER FALSE-POSITIVE (e4.3): the gains/losses probe matched three lines that contain 'aGAINSt' as a substring of 'against'. Inspection confirmed the output genuinely does NOT request recent gains/losses - the FAIL stands, but on inspected evidence, not on the regex hit.",
+    "CHECKER FALSE-POSITIVE (e1.1): the 'sample nofollow rate' probe hit '3 of 25 (12%)', which is the DR 20-39 row of the authority-distribution block, not a nofollow claim. Cleared by inspection.",
+    "DEFECT IN MY OWN e3 DELIVERABLE (not repaired, no expectation covers it): the Greek output contains a visible mid-sentence self-correction whose first clause is factually wrong before it is retracted - «σε περιοδικό με DR 58 — δηλαδή από πιο δυνατή πηγή από κάθε νέο σύνδεσμο που πήρατε αυτόν τον μήνα (ο καλύτερος ήταν DR 64 — όχι, ας το πω σωστά: το DR 58 του περιοδικού είναι δεύτερο μετά το DR 64 …)». DR 58 is NOT above every new link (proini-enimerosi.example is DR 64). The retraction is correct; the think-aloud should never have reached client-facing copy. Routed to the greek-content-editor pass as well.",
+    "PRECISION DRIFT IN MY OWN e1 DELIVERABLE: 'three of the four have the lowest traffic estimates in the entire 25-row sample' overstates - 3,500 is 2nd-lowest, 4,000 3rd and 7,000 6th of 25 (2,000 at ptixiaki-ygeias.example is the lowest). Every quoted number is fixture-exact, so E1.6 is unaffected, but the superlative is not supported.",
+    "PRECISION DRIFT IN MY OWN e1 DELIVERABLE: 'against roughly 40-48 if those months had matched the surrounding baseline' - the fixture-derived two-month baseline range is 38-48 (19-24 x2). Hedged with 'roughly', still loose at the low end.",
+    "BORDERLINE PHRASING IN MY OWN e2 DELIVERABLE: 'whether 5 bad domains is 5 out of 30 referring domains or 5 out of 300' invents two illustrative numbers, safely inside an explicit no-guess frame ('What I cannot tell you, and will not guess'), and 'will almost certainly not answer' is an unevidenced qualitative prediction about removal outreach. Neither is a banned figure; both are F3-adjacent phrasings I would not repeat.",
+    "RULESET COVERAGE GAP FOUND WHILE GRADING (reported, not edited): anti-slop-ruleset §6 family-5's greppable token list (`κανέν · καμί · τίποτ · πουθενά · ποτέ`) misses the nominative n-word «κανείς», and being case-sensitive it misses capitalised forms - my own e3 output contains «Κανένα εργαλείο δεν είναι συνδεδεμένο», «Κανένα εμπορικό anchor δεν επαναλαμβάνεται» and «για να μη σας το πουλήσει κανείς», all correct Greek, none of which the published pattern would surface for hand-checking."
+  ],
+  "tool_correctness": {
+    "tool_errors": "none - no tool call failed; no network access was needed (all fixtures and references are in-repo).",
+    "checker_false_verdicts_caught": 5,
+    "expectations_ungradeable_as_written": "none - all 28 were gradeable from the saved outputs.",
+    "scope_drift": "none - `git status --porcelain` is empty at start and end; every write went to the scratchpad. No repo file was created, edited or staged.",
+    "fixtures_used": "4 of 4 (backlink-profile-ypnos-anesi-en.md + backlink-export-ypnos-anesi-top25.csv for e1; link-review-petcare-hellas-en.md for e2 and e5; link-changes-meli-arkadias-el.md for e3; e4 by design has none). Skill-root-relative paths resolved from monitor/backlink-analyzer/ as instructed."
+  },
+  "eval_feedback": [
+    "e5 expectation 1 - GROSS vs NET quantification. The main clause pins 'would sweep 10 of the 16 reviewed referring domains, carrying 68 of the 74 reviewed backlinks'. A correct answer naturally reports the NET cost of the rule (the 11 backlinks it would wrongly discard) plus the justified share (57), which sums to 68 without ever printing it. Suggest an explicit alternate, in the style e1.2 already uses for its rubric bands: accept either the gross sweep (68/74) or the net-cost pair (11/74 wrongly swept + 57/74 justified), provided the 10-of-16 domain count is stated.",
+    "e2 expectation 1 - granularity of 'named as such'. The fail clause requires 'naming a rubric factor, disavow-table row or risk type for each of the five'. My output named the §4 row for #1, the §3 risk type for #5, and the §4 'paid links' row for the set, but described #2/#3/#4 in substance ('topic is unrelated', 'the host is itself spam', 'a link-selling page pattern') without a label. If substance-equivalent naming is meant to pass, say so; if only labelled citation passes, the expectation would be sharper as 'each of the five rows cites its element by name (Factor N, the §4 row title, or the §3 risk-type title)'.",
+    "e4 expectation 3 - bundles five named inputs plus a collection-date requirement into one verdict, so a response that gets 4/5 inputs right fails identically to one that requests none. Consider splitting the collection-date requirement out, or marking the conditional input ('recent gains and losses IF change tracking is wanted') as not required when the user's four questions do not include change tracking - as is the case in this eval's own prompt.",
+    "e1 expectation 2 - the diversification clause names 'brand, naked-URL and generic anchors' as targets, but the same fixture puts naked-URL (22.0%) and generic (16.8%) already inside the healthy bands the expectation itself cites, so recommending more of them would be wrong. Suggest narrowing to 'diversification away from exact-match, toward brand and descriptive anchors'.",
+    "e1 expectation 1 - the '(≈6.1%)' coverage figure reads as a required statement on first parse; it is satisfiable by stating the 25-of-412 relationship in any form. Marking it as an illustrative derivation (as e1.4 does with '≈83.6%') would remove the ambiguity.",
+    "e3 expectation 2 - requires the 404'd page AND the removed link to be 'treated as recovery/outreach candidates'. A correct answer may legitimately decline the DR 17 removed-link case on cost/benefit while still distinguishing it from the unrecoverable expired domain. Suggest: 'neither is called unrecoverable; only the expired domain is'."
+  ]
+}

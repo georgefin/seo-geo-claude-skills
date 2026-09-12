@@ -1,0 +1,13 @@
+# CASE: gate-inside-tenure-undeclared
+# ROLE: positive
+# JOURNAL: journal-live-two-holders.tsv
+# COMMIT-AT: -450
+# FILE: docs/loop/KPI.md
+# EXPECT-EXIT: 1
+# EXPECT-MATCH: touched docs/loop/KPI.md inside another holder's tenure
+# EXPECT-MATCH: locked: docs/loop/ by 'lane-a'
+# WHY: the founding shape — another writer's hunk riding in your commit. Also the
+#      DIRECTORY-PREFIX branch of path_overlap: the lock is on docs/loop/, the file
+#      is one level inside it.
+# ---8<--- commit message
+docs(loop): weekly numbers

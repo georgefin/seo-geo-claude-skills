@@ -1,0 +1,24 @@
+# CASE: clean-legacy-lockstep
+# ROLE: negative
+# DIR: probe-legacy-lockstep
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: version authority: legacy lockstep
+# EXPECT-ABSENT: version drift
+# WHY: a top-level `version:` LOOKS like the drift defect and is legitimate while
+#      it stays equal to metadata.version (G1 transitional rule, CLAUDE.md).
+#      This is the control that stops the drift branch from firing on legacy skills.
+# ---8<--- SKILL.md
+---
+name: probe-legacy-lockstep
+version: "2.4.1"
+description: 'Probe fixture for the legacy version shape. Use when the user asks to "check version lockstep" or "validate a legacy skill".'
+license: Apache-2.0
+compatibility: "Claude Code >=1.0."
+metadata:
+  author: probe-fixture
+  version: "2.4.1"
+---
+
+# Probe Legacy Lockstep
+
+Body content.

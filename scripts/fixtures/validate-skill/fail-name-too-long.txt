@@ -1,0 +1,21 @@
+# CASE: fail-name-too-long
+# ROLE: positive
+# DIR: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+# EXPECT-EXIT: 1
+# EXPECT-MATCH: name exceeds 64 chars: 65 chars
+# WHY: 65 characters, one over the Agent Skills cap. The name is otherwise a
+#      valid slug and matches its directory, so this branch fires alone.
+# ---8<--- SKILL.md
+---
+name: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+description: 'Probe fixture with a 65-character name. Use when the user asks to "validate an over-long skill name".'
+license: Apache-2.0
+compatibility: "Claude Code >=1.0."
+metadata:
+  author: probe-fixture
+  version: "1.0.0"
+---
+
+# Long Name
+
+Body content.

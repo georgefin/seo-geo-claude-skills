@@ -1,0 +1,19 @@
+# CASE: warn-missing-license-compat
+# ROLE: positive
+# DIR: probe-no-license
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: Missing recommended field: license
+# EXPECT-MATCH: Missing recommended field: compatibility
+# EXPECT-ABSENT: FAIL
+# ---8<--- SKILL.md
+---
+name: probe-no-license
+description: 'Probe fixture with neither license nor compatibility. Use when the user asks to "validate the recommended frontmatter fields".'
+metadata:
+  author: probe-fixture
+  version: "1.0.0"
+---
+
+# Probe No License
+
+Body content.

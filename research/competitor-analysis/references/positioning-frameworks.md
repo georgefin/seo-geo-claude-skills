@@ -29,7 +29,15 @@ because [reason to believe / proof point].
 ```
 
 **Example (SEO tool):**
-> For growth-stage SaaS marketers, Clearscope is the content optimization platform that ensures every article ranks on page one because it uses real-time SERP data and NLP to grade content against ranking competitors.
+> For growth-stage SaaS marketers, Clearscope is the content optimization platform that shows exactly which terms and subtopics the current page-one results already cover, because it grades a draft against real-time SERP data and an NLP read of the competitors currently ranking.
+
+**Why the benefit clause names a capability and not an outcome**: an earlier form of this example
+read *"ensures every article ranks on page one"*. A positioning statement is copy a client
+publishes, and a guaranteed search outcome is FAIL-grade family 10 in the
+[anti-slop ruleset](../../../build/seo-content-writer/references/anti-slop-ruleset.md) §6 — no
+engine's ranking is in the vendor's gift, so the promise is unkeepable and legally exposed. The
+`[key benefit / point of difference]` slot takes **what the product does that others do not**;
+what the customer then achieves belongs in the proof point, with evidence.
 
 ### Extended Positioning Statement
 

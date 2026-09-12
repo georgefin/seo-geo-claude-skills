@@ -1,0 +1,334 @@
+{
+  "suite": "writer",
+  "skill": "seo-content-writer",
+  "skill_version_executed": "Executed and graded against 4.2.4 (the version loaded at run start). The working tree was bumped to 4.2.5 by a parallel agent DURING this run (SKILL.md mtime 2026-08-10 09:42:41Z, after all five deliverables were written and while grading was in progress) — see run_integrity. Baseline was 4.2.2. evals.json is byte-identical to the baseline commit df63d1e (`git diff df63d1e..HEAD -- build/seo-content-writer/evals/evals.json` returns empty), so the baseline's 'unchanged wording' regression condition holds.",
+  "run": "2026-08-10 blind-execute re-baseline",
+  "method": "BLINDNESS HELD, with two disclosures. (1) Extraction: jq '{skill_name, evals:[.evals[]|{id,prompt,files}]}' wrote scratchpad/blind-prompts.json; the fields `expectations` and `expected_output` were never rendered for any eval before that eval's deliverable was saved. Per eval I read only that eval's prompt and fixtures (jq '.evals[N]' on the blind file), loaded SKILL.md plus references/anti-slop-ruleset.md, seo-writing-checklist.md, title-formulas.md, greek-ymyl-credentials.md and the content-structure-templates heading index, wrote the deliverable, saved it, and only then ran jq '.evals[N]|{expected_output,expectations}' against the real suite. No read-ahead: eval N+1's prompt was opened only after eval N had been graded. (2) DISCLOSURE — pre-expectation edits: after saving each deliverable and BEFORE reading its expectations I measured my own stated character/word counts and corrected them, which in three places also changed deliverable text: e1 title option 1 (measured 61 characters, rewritten to 58 to satisfy the skill's under-60 rule), e4 title option 1 (measured 61, rewritten to 55), e5 meta description (measured 163, rewritten to 151). Nothing was changed after any expectation was read, and the two over-length drafts (e3 1,880 against ~1,500; e5 1,470 against ~1,200) were left standing and scored down rather than trimmed. (3) Loop state read before judging: docs/loop/FAILURE-LEDGER.md, SETTLED-RULINGS.md, WATCH-ITEMS.md W4 and the prior baseline file — but the prior baseline's per-expectation verdicts were opened only AFTER all five evals had been graded.",
+  "prior_baseline": "30/30 informed-executor, 2026-08-09-e1.json (seo-content-writer 4.2.2, pass_rate 1.0; that file's own method field records 'Same-session executor/grader caveat stands; blind-protocol reinstatement queued')",
+  "totals": {
+    "pass": 27,
+    "fail": 3,
+    "editor_pending": 0,
+    "total": 30,
+    "pass_rate": 0.9
+  },
+  "delta_vs_prior": "30/30 (100%) informed-executor -> 27/30 (90%) blind-executor: minus 3 expectations, minus 10.0 points. Three expectations the baseline recorded passing now fail — e1#1, e2#6, e4#3 — and under the baseline's own rule ('an expectation recorded passing here that fails in a later run of the same suite at same-or-later skill version under unchanged wording') all three are formal REGRESSIONS, named first in the report. They are NOT evidence that 4.2.4 degraded: no failing expectation touches anything the 4.2.2->4.2.4 diff changed (that diff added the §6 Greek-regression carriers), and all three are output-quality misses of exactly the kind an executor who already knew the expectations would have written around. The honest reading is that the 30/30 record measured a ceiling and should be superseded by this run rather than treated as a defect to revert. Cross-suite context: 90.0% here against the 86.2% / 85.7% / 62.1% blind results cited for the three other re-run suites.",
+  "regressions_vs_baseline": [
+    {
+      "expectation": "eval 1 #1 (C02 plus R07 provider full name)",
+      "baseline": "PASS (30/30 record)",
+      "now": "FAIL",
+      "kind": "omission",
+      "note": "Formal regression under the baseline rule. Caused by the blind executor never naming the legal entity in the page body."
+    },
+    {
+      "expectation": "eval 2 #6 (Greek mechanical layer — every medical term glossed)",
+      "baseline": "PASS (30/30 record; the editor gave greek-out-writer-2.md MINOR-EDITS)",
+      "now": "FAIL",
+      "kind": "omission",
+      "note": "Formal regression under the baseline rule. Two clinical terms unglossed in the emergency-symptom sentence."
+    },
+    {
+      "expectation": "eval 4 #3 (per-locale checklist plus publish gate)",
+      "baseline": "PASS (30/30 record)",
+      "now": "FAIL",
+      "kind": "positive_error",
+      "note": "Formal regression under the baseline rule. The deliverable asserts publishability against SKILL.md step 9's explicit gate."
+    }
+  ],
+  "evals": [
+    {
+      "id": "1 — EL service page «μετακομίσεις Θεσσαλονίκη»",
+      "output": "rebase-writer-out-e1.md",
+      "greek": "rebase-writer-greek-e1.md",
+      "expectations": [
+        {
+          "n": 1,
+          "verdict": "FAIL",
+          "evidence": "Draft page, first 100 body words after H1 (verbatim): «Αναλαμβάνουμε μετακομίσεις στη Θεσσαλονίκη από το 2012, με 6 συνεργεία και 8 φορτηγά με υδραυλική πόρτα. … Μέσα στο 2025 ολοκληρώσαμε πάνω από 1.900 μετακομίσεις.» Service (μετακομίσεις) PRESENT, area (Θεσσαλονίκη) PRESENT, primary keyword PRESENT in inflected form at words 2-4. Provider full name ABSENT: scripted scan of the whole draft page (rebase-writer-greek-e1.md) returns 0 occurrences of «Βαρδάρη». «Μετακομίσεις Βαρδάρης Ι.Κ.Ε.» appears only in the deliverable header line 3 (**Πελάτης:** Μετακομίσεις Βαρδάρης Ι.Κ.Ε.) and in a §10 alt-text suggestion — both outside the draft page. Raw inspection confirms the absence; it is not a regex miss.",
+          "note": "Conjunctive expectation: 3 of 4 conjuncts hold; the R07 full-supplied-name conjunct fails. The page speaks entirely in first person («Αναλαμβάνουμε») and never names the legal entity."
+        },
+        {
+          "n": 2,
+          "verdict": "PASS",
+          "evidence": "Recommended title = option 1: «Μετακομίσεις Θεσσαλονίκη: αυτοψία 48 ωρών, τιμές από 180 €» — measured 58 Unicode characters (annotation excluded), primary keyword front-loaded. Meta: «Μετακομίσεις Θεσσαλονίκη από 180 € με ΦΠΑ, με 6 συνεργεία και 8 φορτηγά. Δωρεάν αυτοψία σε 48 ώρες και ασφάλιση οικοσκευής έως 15.000 €. Ζητήστε προσφορά.» — measured 154 characters, keyword present, CTA «Ζητήστε προσφορά» present.",
+          "note": "58 ≤ 60; 140 ≤ 154 ≤ 160."
+        },
+        {
+          "n": 3,
+          "verdict": "PASS",
+          "evidence": "Scripted Tier-1/structural/calque scan of the draft page: TIER-1 hits=0, STRUCTURAL padding hits=0, CALQUES §1.3 hits=0. F7 inspection of the full deliverable's 9 apparent hits at lines 297-298 shows negated mentions inside my own QA bullet — raw line 297: «Καμία απαγορευμένη έκφραση κατηγορίας 1 (ελληνικά ή αγγλικά): δεν υπάρχει «στη σημερινή ψηφιακή εποχή», «ξεκλειδώστε», «απογειώστε» …». Checker artifact, not usage.",
+          "note": "Same artifact class as ledger F7 (markdown-negation blindness); inspected and quoted before verdict."
+        },
+        {
+          "n": 4,
+          "verdict": "PASS",
+          "evidence": "All seven brief figures present in the draft page with Greek formatting: «από το 2012» (L3,19), «6 συνεργεία» (L3,20,41,87), «8 φορτηγά» (L3,20,31), «πάνω από 1.900 μετακομίσεις» (L5,21), «180 € με ΦΠΑ» (L3,22,45,83), «εντός 48 ωρών» (L1,3,23,36,87,95), «έως 15.000 €» (L3,24,57,59,91). Full numeral scan returns only these plus 2025 (brief-supplied), list ordinals 1.-5., and the preparation-timeline recommendations «3–4 εβδομάδες πριν», «2 εβδομάδες πριν», «1 εβδομάδα πριν», «2 ημέρες πριν». No third-party statistic anywhere.",
+          "note": "The timeline numerals are imperative scheduling advice («ζητήστε αυτοψία και κλειδώστε ημερομηνία»), not measurements of the world; flagged in eval_feedback as a grading ambiguity."
+        },
+        {
+          "n": 5,
+          "verdict": "PASS",
+          "evidence": "Estimates labelled: §3 «**Δεν έγινε ανάλυση SERP με εργαλείο.** … Ό,τι ακολουθεί είναι **εκτίμηση συντάκτη, όχι μέτρηση**» and §9 «Βαθμολογία SEO (εσωτερική εκτίμηση, όχι μέτρηση εργαλείου)». Declared gaps routed to the §10 data-collection table (τιμοκατάλογος, κριτικές, ΓΕΜΗ, δεδομένα αναζήτησης, οπτικό υλικό), closing «Καμία από τις παραπάνω ελλείψεις δεν καλύφθηκε με δικό μας νούμερο ή με εφευρημένο στοιχείο.» Page-copy gap sentence is customer voice: «Αναλυτικός τιμοκατάλογος ανά τύπο κατοικίας δεν έχει οριστικοποιηθεί ακόμη, και προτιμούμε να το πούμε παρά να δώσουμε εύρη που δεν θα τηρηθούν.» Internal-link table carries «Οι διευθύνσεις είναι προτάσεις. Πριν τη δημοσίευση αντιστοιχίστε τες με τις σελίδες που υπάρχουν ήδη στο site».",
+          "note": "Expectation allows the notes/data-collection route ('and/or'); external targets thessaloniki.gr, gov.gr, deddie.gr are real institutional domains with deep paths explicitly deferred to publish day."
+        },
+        {
+          "n": 6,
+          "verdict": "PASS",
+          "evidence": "Mechanical scan of rebase-writer-greek-e1.md: final-sigma errors 0; calque patterns 0. Latin-script heading check flagged 7 headings; F7 inspection shows the only Latin content is the anchor identifier, e.g. «## Κόστος μετακόμισης στη Θεσσαλονίκη {#kostos}» — configuration identifiers, exempt per the §6 protected list. Negative-concord candidates L36/L99 are both licensed: «Η αυτοψία δεν κοστίζει τίποτα και δεν σας δεσμεύει.» and «Δεν προπληρώνετε τίποτα και δεν δεσμεύεστε από την επίσκεψη.»",
+          "note": "Mechanical layer only; the binding greek-content-editor pass on rebase-writer-greek-e1.md is still owed and issues the NATIVE/MINOR-EDITS/FAIL verdict."
+        }
+      ]
+    },
+    {
+      "id": "2 — EL YMYL health article «μέτρηση πίεσης στο σπίτι»",
+      "output": "rebase-writer-out-e2.md",
+      "greek": "rebase-writer-greek-e2.md",
+      "expectations": [
+        {
+          "n": 1,
+          "verdict": "PASS",
+          "evidence": "Byline reproduced fixture-verbatim in the article (rebase-writer-greek-e2.md L4) and in the §2 signature block: «**Επιστημονική επιμέλεια:** Ελένη Ασημακοπούλου, Καρδιολόγος, μέλος του Ιατρικού Συλλόγου Αθηνών, Α.Μ. ΙΣΑ 24815». Scripted honorific probe over the whole deliverable: Δρ. 0, Καθηγ 0, PhD 0, Νοσοκομ 0. The single διδάκτ hit (L36) is a negated mention: «χωρίς προσθήκες: καμία υποειδικότητα, κανένα «διδάκτωρ», κανένα νοσοκομείο που δεν δόθηκε» (F7 inspected).",
+          "note": ""
+        },
+        {
+          "n": 2,
+          "verdict": "PASS",
+          "evidence": "Both occurrences of the writer's name read «Μαρίνα Κ., συντάκτρια του Καρδιολογικού Ιατρείου Ασημακοπούλου» — no surname expansion, no credential. Fallback pattern applied as the reference prescribes (§2: «εφαρμόζεται το σχήμα «επιστημονικής επιμέλειας»»). The ειδικ/έμπειρ probes hit only the negation at L37: «Δεν χαρακτηρίζεται «ειδικός υγείας», «έμπειρη στον χώρο της υγείας» ή κάτι ανάλογο» (F7 inspected).",
+          "note": ""
+        },
+        {
+          "n": 3,
+          "verdict": "PASS",
+          "evidence": "Full numeral scan of the article: 135/85 mmHg, 140/90 mmHg, 7 ημέρες, 2+2 μετρήσεις, 5 λεπτά, 1.240 ασθενείς, ESC 2024, records 2025, plus list ordinals — nothing else. Attributions carried: «σύμφωνα με τις οδηγίες ESC 2024» and the footer «*Πηγή ορίων: κατευθυντήριες οδηγίες Ευρωπαϊκής Καρδιολογικής Εταιρείας (ESC), 2024. Στοιχείο ασθενών: αρχεία του ιατρείου, 2025.*» Zero prevalence percentages, zero named studies, zero expert quotes.",
+          "note": "The one candidate extra source (Ελληνική Καρδιολογική Εταιρεία) sits in §6 as a request — «Χρειάζεται έλεγχος πριν μπει ο σύνδεσμος» — not as a citation."
+        },
+        {
+          "n": 4,
+          "verdict": "PASS",
+          "evidence": "Intro opens with the answer, not a question: «Η μέτρηση πίεσης στο σπίτι κρίνεται από τον μέσο όρο των μετρήσεων, όχι από μία τιμή.» Tier-1 scan of the article: 0 hits (no επαναστατικ, no «στη σημερινή ψηφιακή εποχή», no «αξίζει να σημειωθεί»). No stacked evaluative adjectives around the clinic — the only clinic sentence is factual: «Στο Καρδιολογικό Ιατρείο Ασημακοπούλου παρακολουθούμε τακτικά 1.240 ασθενείς με υπέρταση.»",
+          "note": ""
+        },
+        {
+          "n": 5,
+          "verdict": "PASS",
+          "evidence": "Agency-aside probes inside the article all return empty: [CLIENT DATA, [SOURCE, «απαιτούνται στοιχεία», brief, «δεν ενέκρινε», «έγκριση». Declared absences live in §8 only (rows for επιδημιολογικά ποσοστά, τιμές επισκέψεων, χρόνος αποχής/μέγεθος περιχειρίδας). The patient-facing gap sentence hedges in customer voice: «Ποιο μοντέλο και ποιο μέγεθος περιχειρίδας σας ταιριάζει είναι κάτι που το βλέπουμε μαζί στο ραντεβού.»",
+          "note": ""
+        },
+        {
+          "n": 6,
+          "verdict": "FAIL",
+          "evidence": "Diacritics/final-sigma 0 errors; calques 0; Latin-script headings are anchor identifiers only. But the 'every medical term explained in plain words on first use' conjunct fails: FAQ-4 reads «Αν όμως νιώθετε έντονο πονοκέφαλο, θωρακικό πόνο, δύσπνοια ή θόλωση όρασης, μην περιμένετε το πρωτόκολλο — ζητήστε ιατρική βοήθεια αμέσως.» — «δύσπνοια» and «θωρακικό πόνο» carry no plain-words gloss, while «συστολική», «διαστολική», «mmHg», «περιχειρίδα» and «υπέρταση της λευκής μπλούζας» are each glossed on first use. «Αλλαγή αγωγής» at L68 is likewise unglossed.",
+          "note": "Real failure mode, not a nitpick: the brief's audience rule is absolute («κάθε ιατρικός όρος να εξηγείται με απλά λόγια», readers 45+ χωρίς ιατρικές γνώσεις) and the omission sits in the emergency-symptom sentence, where comprehension matters most. Term-materiality is contestable — recommend the binding editor confirm; eval_feedback proposes a materiality rule."
+        }
+      ]
+    },
+    {
+      "id": "3 — EN zero-data guide 'cash flow management for small businesses'",
+      "output": "rebase-writer-out-e3.md",
+      "draft": "rebase-writer-out-e3-draft.md",
+      "expectations": [
+        {
+          "n": 1,
+          "verdict": "PASS",
+          "evidence": "Scripted scan of the draft: percentage regex -> [], 'percent' -> [], '82' -> [], 'survey' -> [], 'research shows' -> [], 'according to' -> [], 'experts say/agree' -> []. The single 'study' hit (L101) is inside a placeholder: «[SOURCED STAT: share of small-business invoices paid after their due date, and average days overdue — license from a named study, or replace with Ledgerline's own aggregate once there is a customer base]». The meme stat is named only as something to source properly, never stated: §8 row 3 reads 'Share of small-business failures with a cash-flow cause | A candidate opening statistic — currently absent by choice | … do not use the widely repeated unattributed version'.",
+          "note": "Residual reported rather than hidden (see self_caught): the draft's forecast-horizon hedge 'for many small service businesses that is somewhere between eight and thirteen weeks' / 'commonly eight to thirteen weeks' is an unsourced empirical generalization. It is none of the enumerated classes (statistic, named study, expert quote, benchmark figure, percentage), so it does not flip this verdict, but it is the one soft spot and the coordinator may rule otherwise."
+        },
+        {
+          "n": 2,
+          "verdict": "PASS",
+          "evidence": "Both placeholders name datum plus source class: «[SOURCED STAT: typical payment terms and average days-to-pay for small service businesses in your market — license from a named payments or accounting benchmark report before quoting any figure here]» and the days-overdue slot quoted above. §8 gathers them as collection requests across three tables (licence/buy items 1-4, first-party instrumentation 5-8, assets 9-11), each phrased as a request with a source class and none pre-filled.",
+          "note": ""
+        },
+        {
+          "n": 3,
+          "verdict": "PASS",
+          "evidence": "Self-check rows verbatim: '| **R01 Data Precision** | **FAIL — cannot pass honestly** | … Inventing five figures would clear the item and break the statistics rule — so it stays failed |' and '| **R02 Citation Density** | **FAIL — cannot pass honestly** | The bar is ≥1 external citation per 500 words, i.e. 3 for this draft. There are 0. |'. The 10-factor SEO table scores external links '2/10 | **0 in the draft.** The checklist asks for 2–3; none can be added without a source we have read'. Tally line: '**Honest tally: 11 PASS · 2 PARTIAL · 3 FAIL.**'",
+          "note": ""
+        },
+        {
+          "n": 4,
+          "verdict": "PASS",
+          "evidence": "First body word onward: 'Cash flow management for small businesses comes down to controlling *timing*: when money actually lands in the account versus when it actually leaves.' The primary keyword occupies words 1-7 of the 100-word window; the working answer (three habits) completes inside the first 80 words.",
+          "note": ""
+        },
+        {
+          "n": 5,
+          "verdict": "PASS",
+          "evidence": "Heading walk shows H1 → H2 → H3 with no skipped level (H3s appear only under 'Build a cash flow forecast…' and 'Frequently asked questions'). FAQ = 4 questions; measured answer lengths 51 / 50 / 51 / 51 words, all four inside the 40-80 band, so the quota of 2 is exceeded. Body length 1,871 words after the H1, over the 800 minimum.",
+          "note": ""
+        },
+        {
+          "n": 6,
+          "verdict": "PASS",
+          "evidence": "Tier-1 scan of the draft: zero hits across delve / today's fast-paced world / digital age / unlock / elevate / game-changer / it's important to note / it's worth noting / navigate the … / embark on a journey / 'In conclusion'; 'Let's dive in', 'Without further ado', 'Let's get started' and 'Overall,' section-enders all zero. Tier-2: 'essential' n=1 (draft L105, 'payroll, rent, insurance, loan repayments, essential software'); crucial/leverage/robust/comprehensive/streamline n=0 — within the 2-uses allowance for 1,871 body words. F7 note: the full-file scan shows all six Tier-2 terms plus delve/unlock at lines 298-299, which is my own anti-slop QA bullet listing them as zero-count.",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "4 — EL locale adaptation, TaskHarbor landing page",
+      "output": "rebase-writer-out-e4.md",
+      "greek": "rebase-writer-greek-e4.md",
+      "expectations": [
+        {
+          "n": 1,
+          "verdict": "PASS",
+          "evidence": "EL draft contains 0 occurrences of $29 / Redline / Whitfield / 214 / 31% / Denver / Ντένβερ (scripted). Supplied signals present: «**27 € ανά χρήστη τον μήνα, πλέον ΦΠΑ 24%**, με μηνιαία χρέωση.» (L20, repeated L32); «Η αθηναϊκή διαφημιστική εταιρεία **Nova Creative Ε.Ε.** μείωσε τις χαμένες προθεσμίες κατά **22% μέσα σε 6 μήνες**» (L16); footer «TaskHarbor Ελλάς Μ.Ι.Κ.Ε. · Έδρα: Αθήνα · Αρ. ΓΕΜΗ: 176350904000» under the heading «*Υποσέλιδο (νομική ταυτότητα):*» (L50-51); «Chat και email στα ελληνικά, Δευτέρα έως Παρασκευή, 09:00–18:00, ώρα Ελλάδας.» (L26).",
+          "note": ""
+        },
+        {
+          "n": 2,
+          "verdict": "PASS",
+          "evidence": "No euro conversion invented — the deliverable explicitly declines: §5 «**Τιμή με ΦΠΑ.** Θέλετε να εμφανίζεται και η τελική τιμή με ΦΠΑ δίπλα στα 27 €; Δεν την υπολογίσαμε μόνοι μας, επειδή το σημείωμα ορίζει ότι ισχύουν μόνο τα εγκεκριμένα στοιχεία.» No invented Greek author: «Αυτό που **δεν** κάνουμε: μεταφρασμένο βιογραφικό του James Whitfield, ούτε επινοημένο ελληνικό όνομα.» Nova figures carry their supplied attribution: «Τα στοιχεία τα έδωσε η ίδια η εταιρεία (2025) και η χρήση τους έχει γραπτή έγκριση.»",
+          "note": "Redline is not kept on the EL page; it appears only in §1's removal table, adjacent to the row naming the 2025 customer survey (214 agencies) as removed. Residual noted: that removal row states «μείωση 31%» without restating the survey attribution in-row."
+        },
+        {
+          "n": 3,
+          "verdict": "FAIL",
+          "evidence": "All four rows are delivered with per-row status (§4: Σήματα συντάκτη «**Μερικώς** — εμπόδιο Α»; Πηγές «**Δεν πληρούται** — εμπόδιο Β»; Παραδείγματα «**Πληρούται**»; Τιμές «**Πληρούται**»), and §5 gives collection requests for both open rows. But the blocking-language requirement is not merely unmet, it is contradicted. §5 closes under the heading «### Τι δεν χρειάζεται να λυθεί για να βγει η σελίδα» with «Η σελίδα είναι δημοσιεύσιμη σήμερα με τα εγκεκριμένα στοιχεία … Τα εμπόδια Α, Β και Γ την κάνουν ισχυρότερη· δεν την κρατούν πίσω.», and the gap headings read «(σοβαρό, δεν μπλοκάρει από μόνο του)» and «(μπλοκάρει την πλήρη συμμόρφωση, όχι τη δημοσίευση)».",
+          "note": "Direct contradiction of SKILL.md step 9: 'Do not publish a language variant until every row above is locale-native, not translated.' Two rows are open and the deliverable declares the page publishable today."
+        },
+        {
+          "n": 4,
+          "verdict": "PASS",
+          "evidence": "§4 note keeps the hedge: «Το βήμα προσαρμογής … αναφέρει, με ένδειξη προς επαλήθευση, ότι οι σελίδες που είναι μόνο μεταφράσεις **φέρονται** να χάνουν αναφορές από τις μηχανές AI υπέρ της ισχυρότερης γλωσσικής έκδοσης. Δεν το παρουσιάζουμε ως τεκμηριωμένο γεγονός — είναι ένδειξη κατεύθυνσης, όχι μετρημένο αποτέλεσμα». «με ένδειξη προς επαλήθευση» renders the [VERIFY] tag and «φέρονται να» renders 'reportedly'; no engine-official attribution anywhere.",
+          "note": "Cross-checked against WATCH-ITEMS.md W4 (source searchengineland.com, 2026) — not asserted as engine behaviour."
+        },
+        {
+          "n": 5,
+          "verdict": "PASS",
+          "evidence": "Calque/opener scan of the EL draft: 0 hits for «όταν έρχεται στο», «κάνει νόημα», «στο τέλος της ημέρας», «Στη σημερινή ψηφιακή εποχή», «Σε έναν κόσμο που συνεχώς εξελίσσεται», «Ας δούμε», «Ας εξερευνήσουμε». Latin tokens in the draft are TaskHarbor, Slack, chat, email — product/brand names plus terms the client's own note uses («Ελληνόφωνη υποστήριξη (chat και email)»), i.e. the ruleset's Greek-trade-press exception. No 'game-changer', 'insights' or 'know-how'.",
+          "note": ""
+        },
+        {
+          "n": 6,
+          "verdict": "PASS",
+          "evidence": "Final-sigma errors 0; diacritics clean. Headings are native rather than translated EN templates — EN 'Why agencies pick TaskHarbor' / 'Results our customers report' / 'Pricing' / 'Support' became «Τι κάνει το TaskHarbor», «Ένα ελληνικό παράδειγμα», «Τιμολόγηση για την Ελλάδα», «Υποστήριξη στα ελληνικά». Greek-market formatting: «27 €» (numeral, space, symbol), «πλέον ΦΠΑ 24%», «Δευτέρα έως Παρασκευή, 09:00–18:00, ώρα Ελλάδας». No English title-case in Greek headings and no ampersand.",
+          "note": "Mechanical layer only; the §6-advisory slips I self-caught sit in the REPORT sections, outside this expectation's EL-draft scope — reported in self_caught regardless."
+        }
+      ]
+    },
+    {
+      "id": "5 — EN comparison 'window film vs blinds' with an empty data side",
+      "output": "rebase-writer-out-e5.md",
+      "draft": "rebase-writer-out-e5-draft.md",
+      "expectations": [
+        {
+          "n": 1,
+          "verdict": "PASS",
+          "evidence": "All six figures present with units and the correct attribution split. Own monitoring: 'across 60 residential installs we monitored with data loggers in summer 2025 … cut peak-afternoon interior temperature by an average of **4.8 °C**'; 'Across the 60 jobs in our monitoring set, installed cost came out at **£14–£22 per m²**'; 'A typical three-window living room is a **2–3 hour** job'. Manufacturer: 'The manufacturer spec sheet rates it at **78% solar heat gain reduction**'; 'The film carries a **10-year warranty** per the manufacturer spec sheet.' The phrase 'manufacturer spec sheet' occurs 8× in the draft; no figure is re-attributed to a study or industry body.",
+          "note": ""
+        },
+        {
+          "n": 2,
+          "verdict": "PASS",
+          "evidence": "Every blinds table cell scanned for numerals, all empty: '**No data — we have not measured blinds**' [], 'No data — ask the supplier for the rated figure' [], 'No data — quote required' [], 'No data' [], 'No data — ask for the warranty term in writing' [], 'Yes, by design' []. Blinds body-section numerals: []. Blinds content is mechanism only: 'Internal blinds intercept sunlight after it has already passed through the glass. External shutters and awnings intercept it before.' Sourcing answered in §8 with four named data points and source classes (manufacturer spec sheets, written supplier quotes, warranty terms in writing, Energy Saving Trust / building-physics guidance).",
+          "note": ""
+        },
+        {
+          "n": 3,
+          "verdict": "PASS",
+          "evidence": "Gaps are mirrored in the collection section — §8 rows 1-3 name exactly the blinds figures the table leaves blank, and the draft points readers there: 'Section \"what to ask a blinds supplier\" below turns each blank into a question you can put to a quote'. Gap cells are customer voice addressed to the reader, not agency-to-client asides: '**No data — we have not measured blinds**', 'No data — ask the supplier for the rated figure', with the body explaining 'The right-hand column is blank because we have not measured it, not because blinds perform badly.'",
+          "note": "DOCUMENTED INTERPRETATION and the single most consequential judgment in this run. The draft contains ZERO square-bracketed placeholders (scripted probe: NONE FOUND), so the expectation's literal first clause — gaps appear only as square-bracketed placeholders — is not satisfied. I graded on the 'unbracketed AGENCY-PERSPECTIVE aside' clause instead because (a) the expectation cites failure-ledger F13, and F13 family 2 in this skill's own references/anti-slop-ruleset.md §6 makes any [CLIENT DATA / [SOURCE NEEDED inside paste-ready copy FAIL-grade while explicitly protecting customer-voice hedging, so the literal reading would mandate the very violation F13 exists to prevent; (b) the brief says 'we do not want fake balance in the table'; (c) the prior baseline recorded this identical call — its backlog line reads 'Judgment call on record: e5 \"we do not sell or monitor them\" graded customer-voice'. If the coordinator adopts the literal reading this flips to FAIL and the run total becomes 26/30."
+        },
+        {
+          "n": 4,
+          "verdict": "PASS",
+          "evidence": "Each H2 carries a non-derivable element: 'The short answer' -> mechanism ('film stops solar heat at the glass … Blinds sit inside the room, where the occupant opens and closes them'); 'Quick comparison' -> the figure table; 'What heat-reducing window film does' -> 78% + 4.8 °C + 60 installs plus the laboratory-versus-real-world distinction; 'What blinds do' -> the interception-position mechanism; 'Cost, install time and lifespan' -> £14–£22, 2–3 hours, 10 years plus the cause of the spread ('a bay of Georgian-bar panes takes far longer per square metre than one large picture window'); 'Which one for your room' -> five conditional decision rules, e.g. '**The room overheats whether or not anyone is in it** — film, because it works unattended.'",
+          "note": "Rules are condition-then-recommendation rather than literal 'Choose [A] if:' headers; the expectation's own gloss (conditions a reader can apply to their own room/budget, not it-depends filler) is met."
+        },
+        {
+          "n": 5,
+          "verdict": "PASS",
+          "evidence": "Scripted scan of the draft: 'Overall,' 0, 'Let's dive in' 0, 'Without further ado' 0, 'Let's get started' 0, 'It's not just'/'It is not just' 0. Intro opens with a conditional statement, not a question: 'If your south- or west-facing rooms are unusable on a hot afternoon, the choice usually comes down to window film vs blinds.' The H2 set is varied in form — 'The short answer' / 'Quick comparison' / 'What heat-reducing window film does' / 'What blinds do — mechanism, not measurement' / 'Cost, install time and lifespan' / 'Which one for your room' / 'Frequently asked questions' / 'Book a free measure-up'.",
+          "note": ""
+        },
+        {
+          "n": 6,
+          "verdict": "PASS",
+          "evidence": "Draft-scoped Tier-1 scan across every listed term (delve, tapestry, today's fast-paced world, ever-evolving/ever-changing, unlock, elevate, harness, unleash, game-changer, revolutioniz*, revolutionary, a testament to, seamless, look no further, 'whether you're a'): zero hits. The comparison is delivered as the template's quick-comparison table. F7 inspection of the 7 full-file hits at line 260 confirms a negated QA bullet: '- **Anti-slop.** Zero Tier-1 vocabulary — no delve, unlock, elevate, game-changer …'.",
+          "note": ""
+        }
+      ]
+    }
+  ],
+  "fails_classified": [
+    {
+      "expectation": "eval 1 #1 — C02/R07: service, provider full name and area inside the first 150 body words",
+      "kind": "omission",
+      "what": "«Μετακομίσεις Βαρδάρης Ι.Κ.Ε.» never appears in the draft page at all (0 hits for «Βαρδάρη» in rebase-writer-greek-e1.md). The page is written entirely in first person, so the R07 entity-precision conjunct is missing rather than wrong; service, area and the primary keyword are all present in the first 100 words."
+    },
+    {
+      "expectation": "eval 2 #6 — Greek mechanical layer, 'every medical term explained in plain words on first use'",
+      "kind": "omission",
+      "what": "«δύσπνοια» and «θωρακικό πόνο» are used with no gloss in the FAQ-4 emergency sentence and «αγωγή» is unglossed at first use, while «συστολική», «διαστολική», «mmHg», «περιχειρίδα» and «υπέρταση της λευκής μπλούζας» are each explained. Missing glosses, not wrong ones."
+    },
+    {
+      "expectation": "eval 4 #3 — per-locale checklist filled plus 'not publish-ready until those rows close'",
+      "kind": "positive_error",
+      "what": "The deliverable asserts the opposite of the skill's gate: «Η σελίδα είναι δημοσιεύσιμη σήμερα με τα εγκεκριμένα στοιχεία … Τα εμπόδια Α, Β και Γ την κάνουν ισχυρότερη· δεν την κρατούν πίσω», under a heading «Τι δεν χρειάζεται να λυθεί για να βγει η σελίδα», while two of the four step-9 rows are open. A claim was made, not left out."
+    }
+  ],
+  "self_caught": [
+    "e4 line 115: «Το βήμα προσαρμογής **του skill** αναφέρει …» — a §6 advisory violation (English artefact names in Greek client-visible prose; the ruleset's own greppable pattern is `του skill`). Spotted on re-read, LEFT IN per the method. Zero instances in e1/e2/e3.",
+    "e4 heading «## 3. Ελληνική σελίδα προορισμού (draft)» — untranslated English word inside a Greek heading, same §6 advisory family (English residue never finished into Greek). Left in.",
+    "e3 draft is 1,880 words against a ~1,500 target (25% over) and e5 draft is 1,470 against ~1,200 (22% over). Both left unrewritten; both scored down in their own self-checks (e3 factor 10 at 6/10, e5 factor 10 at 7/10) with a named trim.",
+    "e3 draft carries one unsourced empirical generalization in a zero-data brief: 'for many small service businesses that is somewhere between eight and thirteen weeks' and the FAQ's 'commonly eight to thirteen weeks for small service businesses'. Not one of the fabrication classes eval 3 #1 enumerates, so it did not flip that verdict — reported so the coordinator can rule.",
+    "e5 §7 claims the FAQ answers are '40–60 words'; measured they are 53 / 46 / 45 / 38 / 45, so one is 38. A small unsupported claim inside my own self-check.",
+    "e1 recommended title (58 characters) and the article H1 (61 characters) are different strings. The H1 is not bound by the 60-character SERP rule, but the divergence was unintended rather than argued.",
+    "e1 §9 quotes the banned Tier-1 strings and «Όλα τα 8 φορτηγά» inside a client-visible QA section to show they were avoided. Harmless to a grader who inspects, but it puts ruled patterns into client-facing prose and would trip any naive §6 scan of the full deliverable."
+  ],
+  "tool_correctness": {
+    "tool_errors": [
+      "1 self-inflicted script error: a Python f-string containing a backslash raised SyntaxError in the eval-5 checker, and a second SyntaxError from an embedded double quote while building this JSON. Both rewritten and rerun; no verdict was ever issued from a failed run."
+    ],
+    "checker_false_positives_caught_in_f7_position": [
+      "e1 full-deliverable Tier-1/structural/calque scan: 9 apparent hits, all negated mentions in my own QA bullets at lines 297-298. Inspected and quoted before verdict.",
+      "e1 §6 family-1 scan: 1 hit for the `Όλα τα [0-9]` pattern at line 301, which reads «Αποφεύχθηκε ο τύπος «Όλα τα 8 φορτηγά»· γράφτηκε «Και τα 8 φορτηγά μας».» — a negated mention.",
+      "e5 full-deliverable Tier-1 scan: 7 hits at line 260, all inside the bullet '- **Anti-slop.** Zero Tier-1 vocabulary — no delve, unlock …'.",
+      "e3 full-file Tier-2 scan: all six rationed terms plus delve/unlock reported at lines 298-299, again my own zero-count QA bullet.",
+      "Latin-script-heading check: 7 (e1) + 6 (e2) + 2 (e4) headings flagged whose only Latin content is the {#anchor} identifier — exempt per the §6 'configuration values and identifiers' protected entry.",
+      "§6 family-5 negative-concord grep: 4 (e1) + 3 (e4) lines returned licensers=NONE; all are verbless nominal fragments («καμία υπερβολή», «Καμία επιβεβαίωση …»), which §6's own stated limits predict as false positives. Every licensed line was hand-checked against its own clause."
+    ],
+    "escapes": 0,
+    "greek_casefold_handling": "LC_ALL=C.UTF-8 exported for every scan; licenser matching done in Python with explicit Greek-letter boundary classes rather than `grep -i`, per the §6 coverage-gap note. No accent- or capital-driven miss observed.",
+    "expectations_gradable_as_written": "28 of 30 graded directly. 2 needed a documented interpretation: eval 5 #3 (bracketed-placeholder clause versus F13 family 2 — resolved to PASS with the flip condition stated in its note) and eval 2 #6 ('every medical term' has no materiality rule — resolved to FAIL on the emergency sentence).",
+    "scope_drift": "none — every write landed under the scratchpad path; zero repo files created, edited, staged, committed or pushed."
+  },
+  "artifacts": {
+    "deliverables": [
+      "rebase-writer-out-e1.md",
+      "rebase-writer-out-e2.md",
+      "rebase-writer-out-e3.md",
+      "rebase-writer-out-e4.md",
+      "rebase-writer-out-e5.md"
+    ],
+    "raw_greek": [
+      "rebase-writer-greek-e1.md",
+      "rebase-writer-greek-e2.md",
+      "rebase-writer-greek-e4.md"
+    ],
+    "extracted_drafts": [
+      "rebase-writer-out-e3-draft.md",
+      "rebase-writer-out-e5-draft.md"
+    ],
+    "blind_input": "blind-prompts.json (id/prompt/files only)",
+    "checker": "check.py"
+  },
+  "greek_editor_handoff": "Three fresh Greek outputs owe the binding greek-content-editor pass and I did not attempt their register/naturalness verdicts: rebase-writer-greek-e1.md (service-page commercial register), rebase-writer-greek-e2.md (YMYL patient register — please also rule whether unglossed «δύσπνοια»/«θωρακικό πόνο» is FAIL-grade, which is my eval-2 #6 verdict), rebase-writer-greek-e4.md (B2B SaaS register; note the §6 advisory slips «του skill» and «(draft)» sit in the report sections of rebase-writer-out-e4.md at lines 115 and 42).",
+  "eval_feedback": [
+    "eval 5 #3 is self-contradictory as written and is this run's biggest grading hazard. Its first clause requires that gaps appear only as square-bracketed placeholders inside the draft article AND ITS TABLE, yet it cites failure-ledger F13, whose family 2 (references/anti-slop-ruleset.md §6) makes any [CLIENT DATA / [SOURCE NEEDED inside paste-ready copy FAIL-grade and explicitly protects customer-voice hedging. A published comparison table cannot satisfy both. The prior baseline hit the same fork and logged it as a judgment call. Proposed rewording: gaps appear either as square-bracketed placeholders in draft-only sections or as customer-voice absence statements in publishable copy, and an agency-to-client aside such as 'data needed from client' fails in both.",
+    "eval 2 #6's clause 'every medical term explained in plain words on first use' needs a materiality rule or an enumerated term list. «συστολική» and «περιχειρίδα» clearly qualify; «δύσπνοια» and «θωρακικό πόνο» are contestable, and a whole expectation's verdict currently turns on that contest.",
+    "eval 1 #4 and eval 3 #1 both exempt self-scores, character/word-count annotations and quoted skill thresholds, but say nothing about ADVICE PARAMETERS — «3–4 εβδομάδες πριν», 'set terms to 14 days', 'eight to thirteen weeks'. These are recommendations rather than measurements, yet they are numerals inside a no-invented-numbers eval. The prior baseline's backlog already carries 'e3#1 advice-parameter clause' and it is still open.",
+    "eval 1 #1 requires the provider's full supplied name inside the first 150 BODY words. For a first-person service page that is a real constraint but an invisible one: nothing in the prompt or the brief signals that the legal entity must appear in the page copy rather than in the deliverable header. Either the prompt should ask for it, or the expectation should accept the name anywhere in the draft page.",
+    "eval 4 #3's blocking-language clause is the only place in the suite that tests the skill's own step-9 publish gate, and it is easy to fail by writing a helpful 'ship it now' recommendation. Worth stating in the eval PROMPT that the publish / do-not-publish call is part of the deliverable, so the failure measures judgement rather than prompt-reading.",
+    "No eval in this suite tests compliance with the brief's own word-count target. Both English drafts overran by more than 20% and nothing caught it; the honest self-scores were volunteered, not required. A structure expectation with a plus-or-minus 15% band would close the gap."
+  ],
+  "run_integrity": {
+    "working_tree_state": "The repo working tree was NOT clean during this run and I did not make it dirty: I performed zero repo writes, and every artefact of this run is under the scratchpad path. Modified files observed growing across the run: CLAUDE.md (09:41:12Z), references/anti-slop-ruleset.md (09:42:16Z), SKILL.md (09:42:41Z), VERSIONS.md (09:43:04Z).",
+    "f8_class_event": "BOTH of this run's primary inputs mutated mid-run. (1) references/anti-slop-ruleset.md — a named grading input — was read at its committed 239-line state at run start and is 257 lines in the working tree by the end, a parallel agent having added a new FAIL-grade §6 family 7 (connector placeholders `~~category` on client-read surfaces, greppable `~~`) plus a recurrence note and the new token `δεξιότητ` on the English-artefact-names advisory. (2) The target SKILL.md itself was bumped 4.2.4 -> 4.2.5, adding a Data-Sources paragraph requiring `~~` resolution and rewriting the Output Validation source-label line that previously read '(~~SEO tool data, user-provided, or estimated)'. This is the ledger F8 signature — review target mutated during an in-flight review — in its Mode B form; the F14 second-mechanism residual (parallel agents writing shared files while another actor is working) is the mechanism.",
+    "impact_on_verdicts": "NONE, verified rather than assumed. Scripted scan of all five deliverables and all three raw-Greek files returns 0 occurrences of `~~` and 0 of `δεξιότητ`. All five deliverables independently label provenance in plain language — «**Πηγή δεδομένων:** αποκλειστικά το brief της 2026-08-03», «**Πηγή δεδομένων:** αποκλειστικά το brief του ιατρείου», 'Data provenance: everything in the draft is either (a) reasoning the reader can verify …', 'SEO tooling | None connected' — i.e. they already satisfy 4.2.5's family-7 rule without having seen it. No verdict in this file would change under the newer texts; every §6 verdict was graded against the HEAD 239-line text, which is the version the executor had loaded, and that is stated so the record is reconstructible.",
+    "recommendation": "No re-grade needed, but the near miss is the finding. Mode B should declare a frozen input manifest at launch the way Mode A declares a frozen target (F8 guard): a skill's SKILL.md and references are simultaneously the executor's instructions and the grader's rubric, so a mid-run edit can silently change what 'correct' means. Had my outputs contained a single `~~` token, this run would have produced a verdict against a rule that did not exist when the output was written."
+  }
+}

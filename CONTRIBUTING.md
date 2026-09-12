@@ -4,7 +4,7 @@ Thanks for your interest in contributing to the SEO & GEO Skills Library! This g
 
 ## Requesting a Skill
 
-If you have an idea for a skill but don't want to build it yourself, [open a Skill Request issue](https://github.com/aaron-he-zhu/seo-geo-claude-skills/issues/new?template=skill-request.yml).
+If you have an idea for a skill but don't want to build it yourself, [open a Skill Request issue](https://github.com/georgefin/seo-geo-claude-skills/issues/new?template=skill-request.yml).
 
 ## Adding a New Skill
 

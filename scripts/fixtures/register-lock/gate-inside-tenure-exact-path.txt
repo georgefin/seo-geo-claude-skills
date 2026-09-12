@@ -1,0 +1,12 @@
+# CASE: gate-inside-tenure-exact-path
+# ROLE: positive
+# JOURNAL: journal-live-two-holders.tsv
+# COMMIT-AT: -200
+# FILE: VERSIONS.md
+# EXPECT-EXIT: 1
+# EXPECT-MATCH: touched VERSIONS.md inside another holder's tenure
+# EXPECT-MATCH: by 'lane-b'
+# WHY: the EXACT-MATCH branch of path_overlap, and a second holder — a journal with
+#      two tenures must be walked, not just read at the first entry.
+# ---8<--- commit message
+chore: bump the changelog

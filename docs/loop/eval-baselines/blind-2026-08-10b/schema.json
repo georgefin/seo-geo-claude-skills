@@ -1,0 +1,649 @@
+{
+  "skill_name": "schema-markup-generator",
+  "skill_version_at_run": "4.1.1 (SKILL.md frontmatter version and metadata.version, both '4.1.1')",
+  "run_date": "2026-08-10",
+  "method": "blind-execute, split grader",
+  "method_detail": "A separate executor produced the five deliverables without ever opening evals.json, the eval baselines or any grading file; this grader read the expectations and graded the finished artefacts only. The grader did NOT re-run the skill, did not write or repair any markup, and did not generate a comparison block — every verdict is against what is on the page.",
+  "repo_head_at_grading": "da1689353400acb8bbdcfbaf9228234636c8de73",
+  "artefacts_graded": {
+    "deliverables": [
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-schema-out-e1.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-schema-out-e2.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-schema-out-e3.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-schema-out-e4.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-schema-out-e5.md"
+    ],
+    "primary_json_blocks": [
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-schema-json-e1.json",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-schema-json-e2.json",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-schema-json-e3.json",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-schema-json-e4.json",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-schema-json-e5.json"
+    ],
+    "equivalence_check": "each blind-schema-json-eN.json is deep-equal to the first ```json fence of blind-schema-out-eN.md (verified programmatically, 5/5)",
+    "checker": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-schema-grade-check.py"
+  },
+  "executor_disclosed_caveats": [
+    "Never opened evals.json, docs/loop/eval-baselines/ or any grading file.",
+    "Deliberately did NOT read docs/loop/FAILURE-LEDGER.md — it judged nothing, and reading it would have given a fresh session knowledge it would not hold. (This grader DID read the ledger, as Mode B requires.)",
+    "Validated every JSON block with a parser before saving — independently reproduced here: 5/5 parse, 0 trailing commas.",
+    "anti-slop-ruleset.md drifted mid-run (family 6 widened, family 7 declared language-neutral); the executor re-screened all five deliverables afterwards and reported 'screened, nothing surfaced'. Independently re-screened here against the current text of §6."
+  ],
+  "evals": [
+    {
+      "id": 1,
+      "deliverable": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-schema-out-e1.md",
+      "expectations": [
+        {
+          "text": "The response contains a JSON-LD code block that parses as valid JSON (no trailing commas, all property names quoted).",
+          "passed": true,
+          "evidence": "PARSED: json.load of blind-schema-json-e1.json -> dict, container=dict; trailing-comma literal scan `,\\s*[}\\]]` = 0 matches. The saved file is deep-equal to the sole ```json fence at blind-schema-out-e1.md line 47 (verified programmatically), so the parsed object IS the deliverable's block."
+        },
+        {
+          "text": "The JSON-LD declares \"@context\": \"https://schema.org\" and its top-level \"@type\" is \"LocalBusiness\" or a schema.org LocalBusiness subtype fitting an HVAC company (e.g. \"HVACBusiness\" or \"HomeAndConstructionBusiness\").",
+          "passed": true,
+          "evidence": "Parsed: @context='https://schema.org'; top-level @type='HVACBusiness' (a schema.org LocalBusiness subtype for HVAC contractors, named in the expectation). Deliverable L29-33: '**Primary type (ONE per page)**: `HVACBusiness` — the schema.org LocalBusiness subtype for heating/ventilation/air-conditioning contractors.'"
+        },
+        {
+          "text": "Exactly one top-level schema object is produced for the page — the output is not a JSON array of multiple schema types, and no additional top-level types (Organization, WebSite, BreadcrumbList, FAQPage) are emitted (settled ruling R2: one accurate type per page).",
+          "passed": true,
+          "evidence": "Parsed container is dict, not list. Top-level non-@ keys = ['name','url','telephone','email','foundingDate','address','areaServed','openingHoursSpecification','hasOfferCatalog'] — every one a property, no second schema object. The .md holds exactly one ```json fence (line 47); the two ```html fences (L186, L204) are placement illustrations, and the L186 one repeats the SAME HVACBusiness type truncated, explicitly labelled at L198-199: '(the snippet above is only to show placement — paste the **full** JSON-LD block…)'. No Organization / WebSite / BreadcrumbList / FAQPage anywhere. Deliverable L34-36 declines auxiliaries: 'Auxiliaries (only if page data warrants): none.'"
+        },
+        {
+          "text": "All required LocalBusiness properties are present: name, and address as a PostalAddress with streetAddress, addressLocality, addressRegion, postalCode, and addressCountry \"GR\".",
+          "passed": true,
+          "evidence": "Parsed: name='Κλιματισμός Οικονόμου Ο.Ε.'; address.@type='PostalAddress', streetAddress='Λεωφόρος Βουλιαγμένης 274', addressLocality='Άγιος Δημήτριος', addressRegion='Αττική', postalCode='173 43', addressCountry='GR'. All six required members present on the parsed object."
+        },
+        {
+          "text": "The \"name\" value is exactly \"Κλιματισμός Οικονόμου Ο.Ε.\" — Greek script preserved with correct tonos diacritics; the business name is not transliterated to Latin characters (no \"Klimatismos Oikonomou\" as the name value).",
+          "passed": true,
+          "evidence": "Parsed name = 'Κλιματισμός Οικονόμου Ο.Ε.'; NFC-normalised equality against the fixture string = True. Codepoints of the first 12 chars are all Greek block (0x39a 0x3bb 0x3b9 0x3bc 0x3b1 0x3c4 0x3b9 0x3c3 0x3bc 0x3cc 0x3c2 0x20) — 0x3cc is ό with tonos. No Latin transliteration present."
+        },
+        {
+          "text": "Address values reproduce the fixture's Greek data: streetAddress \"Λεωφόρος Βουλιαγμένης 274\", addressLocality \"Άγιος Δημήτριος\", postalCode \"173 43\" (or \"17343\"), addressRegion \"Αττική\".",
+          "passed": true,
+          "evidence": "Parsed against fixture line 9 ('Λεωφόρος Βουλιαγμένης 274, Άγιος Δημήτριος 173 43, Αττική'): streetAddress='Λεωφόρος Βουλιαγμένης 274', addressLocality='Άγιος Δημήτριος', postalCode='173 43' (space form, allowed), addressRegion='Αττική' — exact matches."
+        },
+        {
+          "text": "The telephone value is in international format: it contains the +30 country code and the digit sequence 210 976 5432 from the fixture (spacing/dashes may vary).",
+          "passed": true,
+          "evidence": "Parsed telephone='+30 210 976 5432'. Digits after stripping non-digits = '302109765432'; starts with '+30' = True; contains '2109765432' = True. Deliverable L149 discloses the normalisation: 'Digits exactly as printed (210 976 5432), with `+30` prefixed because Google asks for international dialling format.' (The digit sweep flagged '30' as not literally in the fixture; inspected — it is the country code this expectation itself requires.)"
+        },
+        {
+          "text": "openingHoursSpecification matches the fixture: Monday–Friday opens \"08:00\" closes \"16:00\", and Saturday opens \"09:00\" closes \"14:00\"; no opening hours are asserted for Sunday.",
+          "passed": true,
+          "evidence": "Parsed openingHoursSpecification = [{'dayOfWeek': ['Monday','Tuesday','Wednesday','Thursday','Friday'], 'opens':'08:00','closes':'16:00'}, {'dayOfWeek':'Saturday','opens':'09:00','closes':'14:00'}]. Days asserted across the array = Mon,Tue,Wed,Thu,Fri,Sat; 'Sunday' in that list = False. Prose L172-175 explains the omission ('An omitted day already reads as closed, so I left it out') and offers an OPTIONAL Sunday 00:00/00:00 object outside the markup — the closed convention, asserting no open hours."
+        },
+        {
+          "text": "No fabricated values appear: the fixture supplies no coordinates, ratings, or price range, so geo, aggregateRating, and priceRange are either omitted or contain clearly marked placeholders — a placeholder counts as clearly marked only if it is wrapped in square brackets (e.g. \"[LATITUDE]\", \"[PRICE-RANGE]\"); an unbracketed stand-in value fails; the bracket rule governs placeholder values in the emitted JSON-LD (prose suggestions that merely name the missing data need no brackets) — never concrete invented numbers.",
+          "passed": true,
+          "evidence": "Parsed: 'geo' in object = False; 'aggregateRating' = False; 'priceRange' = False; 'review' = False. Square-bracket placeholder scan over json.dumps of the emitted object = (none) — nothing needed one, because all three are simply absent. Prose L161-167 names each absence: '`geo` (latitude/longitude) — not on your page. I will not guess coordinates'; '`priceRange` — no prices on the contact page'; '`aggregateRating` / `review` — no reviews on the page.' Digit sweep of the whole emitted block: 00,08,09,14,16,173,1998,210,274,30,43,5432,976 — every token traced to the fixture except '30' (country code, required by exp 7). NOTE (observation, not a failure of this expectation): foundingDate '1998' is a reading of fixture line 4 «από το 1998», and the deliverable flags it rather than asserting it — L153: 'I read that as the founding year — **please confirm**.'"
+        }
+      ],
+      "summary": {
+        "passed": 9,
+        "failed": 0,
+        "total": 9,
+        "pass_rate": 1.0
+      }
+    },
+    {
+      "id": 2,
+      "deliverable": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-schema-out-e2.md",
+      "expectations": [
+        {
+          "text": "The response contains a JSON-LD code block that parses as valid JSON.",
+          "passed": true,
+          "evidence": "PARSED: json.load of blind-schema-json-e2.json -> dict; trailing-comma scan = 0 matches. Deep-equal to the ```json fence at blind-schema-out-e2.md line 41. A second ```json fence at line 92 also parses ('@type':'UnitPriceSpecification')."
+        },
+        {
+          "text": "The JSON-LD declares \"@context\": \"https://schema.org\" and exactly one top-level \"@type\": \"Product\".",
+          "passed": true,
+          "evidence": "Parsed: @context='https://schema.org'; top-level @type='Product'; container=dict (single object, not an array)."
+        },
+        {
+          "text": "The Offer appears only nested under the Product's \"offers\" property (\"@type\": \"Offer\") — not as a separate top-level object — and no extra top-level types (Organization, BreadcrumbList, FAQPage) are stacked on the page (settled ruling R2).",
+          "passed": true,
+          "evidence": "Parsed: offers is a dict nested under the Product's 'offers' key with '@type':'Offer' — offers.@type='Offer', not a sibling object. No Organization/BreadcrumbList/FAQPage at top level (top-level keys: @context,@type,name,description,sku,brand,offers). The second fence at L92 is a UnitPriceSpecification, and L87-89/L100-101 bind it as a NESTED optional: «μπορεί να προστεθεί **μέσα στο `offers`**» … «(ως τιμή της ιδιότητας `priceSpecification`)» — not a stacked top-level type, and not one of the named types. L29-34 states the rule: «Βοηθητικοί τύποι: δεν προστέθηκε κανένας … Ένας κύριος τύπος ανά σελίδα (ρύθμιση R2 / CORE-EEAT O05)»."
+        },
+        {
+          "text": "Price-display properties are complete: offers.price, offers.priceCurrency, and offers.availability are all present, alongside the Product's required name.",
+          "passed": true,
+          "evidence": "Parsed: offers.price='12.90', offers.priceCurrency='EUR', offers.availability='https://schema.org/InStock', and Product name='Εξαιρετικό Παρθένο Ελαιόλαδο Καλαμάτας ΠΟΠ 750ml'. All four present."
+        },
+        {
+          "text": "The Greek price notation \"12,90 €\" is converted correctly: \"price\": \"12.90\" (decimal point, no currency symbol inside the value) with \"priceCurrency\": \"EUR\".",
+          "passed": true,
+          "evidence": "Parsed offers.price='12.90' — decimal point, no '€' inside the value, no thousands separator — with offers.priceCurrency='EUR'. Fixture line 7 reads «Τιμή: 12,90 € (με ΦΠΑ)». Deliverable L77 documents the conversion: «Στο JSON γράφεται `12.90`: υποδιαστολή με τελεία, χωρίς σύμβολο νομίσματος»."
+        },
+        {
+          "text": "The Greek availability phrase \"Άμεσα διαθέσιμο\" is mapped to \"availability\": \"https://schema.org/InStock\".",
+          "passed": true,
+          "evidence": "Parsed offers.availability='https://schema.org/InStock'. Deliverable L79 maps it explicitly: «Διαθεσιμότητα: Άμεσα διαθέσιμο» → `InStock`."
+        },
+        {
+          "text": "The product name is exactly \"Εξαιρετικό Παρθένο Ελαιόλαδο Καλαμάτας ΠΟΠ 750ml\" with all diacritics intact — not transliterated to Latin script and not translated to English.",
+          "passed": true,
+          "evidence": "Parsed name='Εξαιρετικό Παρθένο Ελαιόλαδο Καλαμάτας ΠΟΠ 750ml'; NFC equality with the fixture heading = True. Greek script throughout, no Latin transliteration, no English translation."
+        },
+        {
+          "text": "Fixture data is carried over faithfully: sku \"EL-KAL-750\", brand name \"Ελαιώνες Μεσσηνίας\", and a Greek-language description drawn from the fixture's Περιγραφή text.",
+          "passed": true,
+          "evidence": "Parsed sku='EL-KAL-750' (verbatim substring of fixture: True); brand={'@type':'Brand','name':'Ελαιώνες Μεσσηνίας'} (verbatim: True); description = «Εξαιρετικό παρθένο ελαιόλαδο ψυχρής έκθλιψης από ελιές ποικιλίας Κορωνέικη, με οξύτητα 0,3%. Παράγεται και εμφιαλώνεται στη Μεσσηνία. Προστατευόμενη Ονομασία Προέλευσης (ΠΟΠ) Καλαμάτας.» — whitespace-normalised verbatim substring of the fixture's «Περιγραφή» section: True. seller name also verbatim: True."
+        },
+        {
+          "text": "Nothing is fabricated: the fixture provides no image URL, no ratings, no reviews, and no price expiry date, so image is a clearly marked placeholder — a placeholder counts as clearly marked only if it is wrapped in square brackets (e.g. \"[IMAGE-URL]\"); an unbracketed stand-in value fails; the bracket rule governs placeholder values in the emitted JSON-LD (prose suggestions that merely name the missing data need no brackets) — or the response asks the user for it, and aggregateRating, review, and priceValidUntil carry no invented values.",
+          "passed": true,
+          "evidence": "Parsed: 'image' in object = False; 'aggregateRating' = False; 'review' = False; 'priceValidUntil' in offers = False. The expectation's second arm is satisfied — the response asks the user for the image, at length: L112-118 «Η μοναδική εκκρεμότητα είναι η εικόνα … χρειαζόμαστε την **πλήρη** διεύθυνσή της» and the open checklist item L205 «- [ ] Προσθήκη `image` με την πραγματική διεύθυνση φωτογραφίας — **εκκρεμεί από εσάς**». L149-151 states the placement rule the ledger F13 class turns on: «Αυτά είναι σημειωμένα εδώ, στην αναφορά, και **δεν** μπήκαν ως κενά πεδία μέσα στο markup». Digit sweep of the emitted block: 0,12,3,750,90 — all traced to the fixture."
+        }
+      ],
+      "summary": {
+        "passed": 9,
+        "failed": 0,
+        "total": 9,
+        "pass_rate": 1.0
+      }
+    },
+    {
+      "id": 3,
+      "deliverable": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-schema-out-e3.md",
+      "expectations": [
+        {
+          "text": "The skill DOES generate FAQPage JSON-LD (settled ruling R3: FAQPage is kept despite the 2026 rich-result retirement) — it does not refuse or substitute a different schema type.",
+          "passed": true,
+          "evidence": "FAQPage IS generated — parsed top-level @type='FAQPage' with 4 Question objects. No refusal, no substitution (settled ruling R3 honoured). Deliverable L16-19: 'The markup is still worth shipping, for a different and smaller reason. FAQPage gives answer engines … clean, unambiguous question and answer pairs'."
+        },
+        {
+          "text": "The JSON-LD parses as valid JSON and declares \"@context\": \"https://schema.org\" with top-level \"@type\": \"FAQPage\".",
+          "passed": true,
+          "evidence": "PARSED: json.load -> dict; trailing-comma scan = 0. @context='https://schema.org', top-level @type='FAQPage'. Deep-equal to the ```json fence at blind-schema-out-e3.md line 64."
+        },
+        {
+          "text": "Exactly one schema type is emitted for the page — no Article, BreadcrumbList, or Organization stacked alongside the FAQPage (settled ruling R2).",
+          "passed": true,
+          "evidence": "Exactly one ```json fence in the deliverable; parsed container=dict with top-level keys [@context,@type,url,mainEntity]. No Article, BreadcrumbList or Organization anywhere. Deliverable L129-139 declines each by name: 'No `Product` or `SoftwareApplication` block… No `Organization` block… No `speakable`, no `QAPage`.'"
+        },
+        {
+          "text": "mainEntity is an array of exactly 4 objects of \"@type\": \"Question\", each with a \"name\" and an \"acceptedAnswer\" of \"@type\": \"Answer\" containing \"text\".",
+          "passed": true,
+          "evidence": "Parsed: mainEntity is a list, len=4. Each element: @type='Question', has 'name', and acceptedAnswer with @type='Answer' and a 'text' key — checked per element, all four True."
+        },
+        {
+          "text": "The four question names match the fixture's headings verbatim, including \"How much does TidyBooks cost?\" and \"Do you offer a discount for annual billing?\".",
+          "passed": true,
+          "evidence": "Parsed question names, each tested as a whitespace-normalised substring of the fixture: 'How much does TidyBooks cost?' True; 'Is there a free trial?' True; 'Can I cancel my subscription at any time?' True; 'Do you offer a discount for annual billing?' True. Both names the expectation calls out are present verbatim."
+        },
+        {
+          "text": "Each answer text matches the fixture's visible answer copy (content-match policy) — no rewritten, shortened, or invented answers, and no fifth Q&A pair added.",
+          "passed": true,
+          "evidence": "All four acceptedAnswer.text values tested as whitespace-normalised substrings of the fixture: True, True, True, True (no rewriting, shortening or invention). mainEntity length = 4 exactly, so no fifth pair. Digit sweep of the block: 10,12,20,29,30,79 — every figure traced to the fixture's own answers."
+        },
+        {
+          "text": "The response nowhere claims the markup is eligible for FAQ rich results, SERP dropdowns/accordions, or any Google rich-result appearance — despite the user explicitly asking for \"those FAQ dropdowns\". Labels and headers are not claims: a table header, row label, or section heading that merely names the concept (e.g. a status-table row labeled \"FAQ rich results\") does not count; only prose asserting eligibility or promising such an appearance counts as a claim — and that same assert-or-promise test governs any novel phrasing this list does not anticipate.",
+          "passed": true,
+          "evidence": "Screened for dropdown/accordion/expandable, 'rich result|rich snippet', 'eligib', and each hit read in context. The only 'eligib' hits are the table header L39 '**Eligible Rich Results**' and the column header L41 '| Rich Result Type | Eligibility | Impact |' — both excused by this expectation's own labels-are-not-claims clause. The FAQ row L43 reads '| FAQ | ❌ (retired 2026) | No SERP result at all …'. Every prose mention denies the appearance: L3 'the dropdowns are not coming back'; L12 '**no markup I can write will put the expandable Q&A back under your listing.**'; L13 'Anyone who quotes you for \"FAQ rich snippets\" today is selling a feature that no longer exists.'; L207 'not a dropdown in Google.' No assert-or-promise sentence exists."
+        },
+        {
+          "text": "The response states that Google retired FAQ rich results in 2026 and frames the markup's remaining value as AI-engine/GEO parsing (answer engines extracting clean Q&A pairs).",
+          "passed": true,
+          "evidence": "L6-7: '**Google retired FAQ rich results in 2026.**' L8-10 enumerates what was cut. GEO framing at L16-19: 'FAQPage gives answer engines — AI Overviews, ChatGPT, Perplexity, Copilot — clean, unambiguous question and answer pairs instead of prose they have to infer structure from. That is a parsing and citation-surface benefit, not a SERP-appearance one'. Reinforced L205-207: 'whether answer engines quote your pricing answers'."
+        },
+        {
+          "text": "The response does not instruct the user to monitor FAQ rich results in Search Console or to test FAQ eligibility in Google's Rich Results Test (both were cut for FAQ in 2026); if validation is suggested, it points to the Schema.org validator.",
+          "passed": true,
+          "evidence": "Both potentially-offending lines opened and read in full (ledger F7 discipline — this suite's own historical false verdict was a claim-scan regex missing bold negations). L177-180: '2. **Rich Results Test** … **Skip it for this page.** FAQ support was removed from the tool in 2026, so it will tell you nothing useful about FAQPage'. L181-184: '3. **Search Console** → Enhancements / Nothing to monitor here for FAQ either: the FAQ report, its API and the appearance filter were all cut in 2026. Do not go looking for an FAQ row'. Both are instructions NOT to. Validation is pointed at the Schema.org validator: L174-176 '1. **Schema.org Validator** — https://validator.schema.org/ **This is the whole check for FAQPage.**'"
+        }
+      ],
+      "summary": {
+        "passed": 9,
+        "failed": 0,
+        "total": 9,
+        "pass_rate": 1.0
+      }
+    },
+    {
+      "id": 4,
+      "deliverable": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-schema-out-e4.md",
+      "expectations": [
+        {
+          "text": "The response picks exactly ONE schema type for the page and says so explicitly: Event is recommended as the single type, and the user's suggestion to add both Event and Organization is declined with a one-accurate-type-per-page rationale (settled ruling R2).",
+          "passed": true,
+          "evidence": "L3 heading: '## Short answer: Event, not Organization, and not both'. L5-6: '**Event.** One primary type on this page, and Wildbird Yoga goes *inside* it as the `organizer` property rather than beside it as a second top-level object.' Rationale L8-18: 'mark up what the page **is**, not everything the page **mentions**' … 'Repeating it on a workshop page adds no documented benefit; no search or AI engine publishes any citation or ranking gain from carrying extra schema types' — the R2 one-accurate-type rationale, and the 'both' option declined explicitly."
+        },
+        {
+          "text": "The JSON-LD parses as valid JSON and declares \"@context\": \"https://schema.org\" with a single top-level \"@type\": \"Event\" — the output is not an array containing an Organization or any second top-level object.",
+          "passed": true,
+          "evidence": "PARSED: json.load -> dict (isinstance list = False); trailing-comma scan = 0. @context='https://schema.org', top-level @type='Event'. Deep-equal to the ```json fence at blind-schema-out-e4.md line 63; it is the only ```json fence in the file."
+        },
+        {
+          "text": "Required Event properties are present: name, startDate, and location.",
+          "passed": true,
+          "evidence": "Parsed: name='Aerial Yoga for Beginners — Autumn Workshop'; startDate='2026-09-19T10:00:00+01:00'; location={'@type':'Place', …}. All three required properties present."
+        },
+        {
+          "text": "startDate is ISO 8601 and encodes 19 September 2026 at 10:00 — the bare local form (\"2026-09-19T10:00\", with or without seconds), the same datetime with a timezone offset (e.g. \"2026-09-19T10:00:00+01:00\"), and the equivalent UTC instant with the Z designator (\"2026-09-19T09:00:00Z\") all pass; if endDate is present it encodes 13:00 on the same date.",
+          "passed": true,
+          "evidence": "Parsed startDate='2026-09-19T10:00:00+01:00' — datetime.fromisoformat accepts it: 2026-09-19T10:00:00+01:00, date=2026-09-19, local time 10:00, utcoffset 1:00:00. This is the offset form the expectation names verbatim as passing. endDate='2026-09-19T13:00:00+01:00' parses to the same date at 13:00. Sanity-checked the deliverable's two supporting claims rather than taking them: 2026-09-19 is a Saturday (parser: weekday=Saturday), and BST 2026 runs 2026-03-29..2026-10-25, so +01:00 is the correct offset for that date — the offset is not an invented value."
+        },
+        {
+          "text": "location is a Place named \"The Loft Studio\" with a PostalAddress matching the fixture: streetAddress \"14 Ropewalk Lane\", addressLocality \"Norwich\", postalCode \"NR1 3EX\", and addressCountry exactly \"GB\" (the ISO 3166-1 alpha-2 code) — \"UK\" or \"United Kingdom\" fails.",
+          "passed": true,
+          "evidence": "Parsed location: @type='Place', name='The Loft Studio', address.@type='PostalAddress', streetAddress='14 Ropewalk Lane', addressLocality='Norwich', postalCode='NR1 3EX', addressCountry='GB'. addressCountry is exactly the alpha-2 'GB', not 'UK' or 'United Kingdom' (the fixture writes 'United Kingdom'; deliverable L113 documents the normalisation: '`GB` — the ISO code for \"United Kingdom\" as written on your page')."
+        },
+        {
+          "text": "The £35 ticket is nested as offers (\"@type\": \"Offer\") with \"price\": \"35\" or \"35.00\" and \"priceCurrency\": \"GBP\", using the booking URL from the fixture.",
+          "passed": true,
+          "evidence": "Parsed offers = {'@type':'Offer', 'url':'https://www.wildbirdyoga.co.uk/book/aerial-beginners-autumn', 'price':'35', 'priceCurrency':'GBP'} — nested under the Event's 'offers' key. price '35' is one of the two accepted forms; URL is the fixture's booking link (fixture line 13)."
+        },
+        {
+          "text": "Wildbird Yoga appears, if at all, only as the nested \"organizer\" property of the Event — never as a separate top-level Organization schema object.",
+          "passed": true,
+          "evidence": "Parsed organizer = {'@type':'Organization','name':'Wildbird Yoga','url':'https://www.wildbirdyoga.co.uk'} — nested under the Event's 'organizer' key. Container is a single dict, so no second top-level object exists to hold an Organization. L20-23 explicitly routes the standalone Organization elsewhere: 'put `Organization` … on your homepage once … Different page, different job.'"
+        },
+        {
+          "text": "No data is fabricated: the fixture supplies no event image, no performer, and no ticket-sale start date, so image, performer, and offers.validFrom are omitted or clearly marked placeholders — a placeholder counts as clearly marked only if it is wrapped in square brackets (e.g. \"[EVENT-IMAGE-URL]\"); an unbracketed stand-in value fails — never invented values.",
+          "passed": true,
+          "evidence": "Parsed: 'image' in object = False; 'performer' in object = False; 'validFrom' in offers = False — all three OMITTED, which is this expectation's first disjunct, so the bracket rule (which governs the placeholder disjunct) is not reached. Absences are named in prose: L121 '`image` | Recommended — **missing** | No image URL in the copy you sent'; L122 '`performer` | Optional — omitted | Your copy does not name the teacher'; L131-135 'Availability is deliberately absent. Your page does not say whether places remain, so I did not assert it.' L142-144 also declines addressRegion: 'not in the markup because it is not on your page … a deliberate omission, not a gap to fill with a guess.' Digit sweep of the block: 00,01,09,1,10,12,13,14,19,2026,3,35 — all fixture-traceable except '09', inspected and found to be the ISO month number for the fixture's word 'September'."
+        }
+      ],
+      "summary": {
+        "passed": 8,
+        "failed": 0,
+        "total": 8,
+        "pass_rate": 1.0
+      }
+    },
+    {
+      "id": 5,
+      "deliverable": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-schema-out-e5.md",
+      "expectations": [
+        {
+          "text": "The corrected JSON-LD parses as valid JSON — the trailing comma after the author's \"name\" property is removed.",
+          "passed": true,
+          "evidence": "PARSED: json.load of blind-schema-json-e5.json -> dict; trailing-comma literal scan = 0 matches; author = {'@type':'Person','name':'Dana Okafor'} with no dangling comma. Control run for contrast: the fixture's original block still fails to parse — 'Expecting property name enclosed in double quotes: line 11 column 5 (char 298)' — so the defect existed and is gone in the correction."
+        },
+        {
+          "text": "The corrected output contains exactly one top-level schema object of \"@type\": \"BlogPosting\" (or \"Article\") — the stacked Product object is removed and the output is no longer an array of multiple types (settled ruling R2).",
+          "passed": true,
+          "evidence": "Parsed container = dict (isinstance list = False), top-level @type='BlogPosting'. Search for 'Product' anywhere in json.dumps of the emitted object = False. The Corrected Markup fence (blind-schema-out-e5.md line 79) is the only paste-ready block; the second ```json fence at L115 is an ImageObject the text binds as nested-and-not-yet-shippable — L123-124: 'This snippet is **not** part of the paste-ready block above — it is a slot waiting for a real value.' Error-table row 10 records the array unwrap: 'With the Product gone there is one object left, so the `[ ... ]` brackets come off.'"
+        },
+        {
+          "text": "The response explicitly flags the Product markup as inappropriate/spammy for a blog post (schema must match visible page content; a consulting service marked up as Product on an article page violates that policy).",
+          "passed": true,
+          "evidence": "Error-table row 2, L64: 'Second top-level object: `Product` \"Northbeam Retail Ops Consulting\" on a blog post | **Critical** — content mismatch with the visible page, which sells nothing and shows no product. Structured data must describe what is on the page; markup that does not is a spam-policy risk that can cost rich results site-wide.' Fix column: 'Object removed.'"
+        },
+        {
+          "text": "The response identifies all three syntax/format defects by name: the trailing comma, the non-ISO date format, and the relative image URL.",
+          "passed": true,
+          "evidence": "All three named in the error table: row 1 L63 'Trailing comma after `\"name\": \"Dana Okafor\",`'; row 4 L66 '`\"datePublished\": \"03/12/2025\"` — not ISO 8601'; row 3 L65 '`\"image\": \"/img/fulfilment-hero.jpg\"` — relative URL'."
+        },
+        {
+          "text": "datePublished is corrected to ISO 8601 for 12 March 2025 — it begins with \"2025-03-12\", not \"2025-12-03\" (the visible byline disambiguates \"03/12/2025\").",
+          "passed": true,
+          "evidence": "Parsed datePublished='2025-03-12'; startswith('2025-03-12') = True (not 2025-12-03). L66 gives the disambiguation: 'Set to `2025-03-12`, which is what the visible byline says (\"Published 12 March 2025\")' — the fixture byline at line 9 is 'By Dana Okafor · Published 12 March 2025'."
+        },
+        {
+          "text": "The image URL is made absolute on the site's own domain: \"https://www.northbeam-consulting.com/img/fulfilment-hero.jpg\" — not left relative and not moved to an invented domain.",
+          "passed": true,
+          "evidence": "Parsed image='https://www.northbeam-consulting.com/img/fulfilment-hero.jpg' — exactly the expected string; absolute, on the fixture's own canonical host (fixture line 3: 'Canonical URL: https://www.northbeam-consulting.com/blog/cut-fulfilment-costs'), path preserved from the relative original '/img/fulfilment-hero.jpg'. No invented domain."
+        },
+        {
+          "text": "Required Article properties are present in the corrected markup: headline, image, datePublished, and author (\"@type\": \"Person\", \"name\": \"Dana Okafor\").",
+          "passed": true,
+          "evidence": "Parsed: headline present; image present; datePublished present; author = {'@type':'Person','name':'Dana Okafor'} — @type is Person and the name is the fixture's byline name (verbatim in fixture: True)."
+        },
+        {
+          "text": "The headline value matches the visible post title exactly: \"How Mid-Market Retailers Can Cut Fulfilment Costs by 18%\".",
+          "passed": true,
+          "evidence": "Parsed headline = 'How Mid-Market Retailers Can Cut Fulfilment Costs by 18%'; string equality with the visible post title = True (fixture line 7)."
+        },
+        {
+          "text": "The publisher is not fabricated: publisher.name, if present, is accepted only when traceable to fixture branding (e.g. \"Northbeam Consulting\", matching the fixture's domain and existing brand markup); a publisher name not traceable to the fixture fails. The publisher.logo URL is a clearly marked placeholder — a placeholder counts as clearly marked only if it is wrapped in square brackets (e.g. \"[PUBLISHER-LOGO-URL]\") — or explicitly requested from the user; never an invented URL.",
+          "passed": true,
+          "evidence": "Parsed publisher = {'@type':'Organization','name':'Northbeam Consulting','url':'https://www.northbeam-consulting.com'}. 'Northbeam Consulting' occurs twice in the fixture (the page header and the existing Product block's brand name), and matches the domain — traceable, not invented. publisher.logo is NOT in the emitted object ('logo' in publisher = False) and is explicitly requested from the user, which is this expectation's second disjunct — L109-112: '**1. `publisher.logo`** — required for the Article rich result, and I do not have your logo file's URL. I will not put a guessed path into markup you are about to publish … Send me the absolute URL'. Open checklist item L189: '- [ ] Supply the publisher logo URL'. No invented URL reaches the paste-ready block."
+        }
+      ],
+      "summary": {
+        "passed": 9,
+        "failed": 0,
+        "total": 9,
+        "pass_rate": 1.0
+      }
+    }
+  ],
+  "expectations": [
+    {
+      "text": "The response contains a JSON-LD code block that parses as valid JSON (no trailing commas, all property names quoted).",
+      "passed": true,
+      "evidence": "PARSED: json.load of blind-schema-json-e1.json -> dict, container=dict; trailing-comma literal scan `,\\s*[}\\]]` = 0 matches. The saved file is deep-equal to the sole ```json fence at blind-schema-out-e1.md line 47 (verified programmatically), so the parsed object IS the deliverable's block."
+    },
+    {
+      "text": "The JSON-LD declares \"@context\": \"https://schema.org\" and its top-level \"@type\" is \"LocalBusiness\" or a schema.org LocalBusiness subtype fitting an HVAC company (e.g. \"HVACBusiness\" or \"HomeAndConstructionBusiness\").",
+      "passed": true,
+      "evidence": "Parsed: @context='https://schema.org'; top-level @type='HVACBusiness' (a schema.org LocalBusiness subtype for HVAC contractors, named in the expectation). Deliverable L29-33: '**Primary type (ONE per page)**: `HVACBusiness` — the schema.org LocalBusiness subtype for heating/ventilation/air-conditioning contractors.'"
+    },
+    {
+      "text": "Exactly one top-level schema object is produced for the page — the output is not a JSON array of multiple schema types, and no additional top-level types (Organization, WebSite, BreadcrumbList, FAQPage) are emitted (settled ruling R2: one accurate type per page).",
+      "passed": true,
+      "evidence": "Parsed container is dict, not list. Top-level non-@ keys = ['name','url','telephone','email','foundingDate','address','areaServed','openingHoursSpecification','hasOfferCatalog'] — every one a property, no second schema object. The .md holds exactly one ```json fence (line 47); the two ```html fences (L186, L204) are placement illustrations, and the L186 one repeats the SAME HVACBusiness type truncated, explicitly labelled at L198-199: '(the snippet above is only to show placement — paste the **full** JSON-LD block…)'. No Organization / WebSite / BreadcrumbList / FAQPage anywhere. Deliverable L34-36 declines auxiliaries: 'Auxiliaries (only if page data warrants): none.'"
+    },
+    {
+      "text": "All required LocalBusiness properties are present: name, and address as a PostalAddress with streetAddress, addressLocality, addressRegion, postalCode, and addressCountry \"GR\".",
+      "passed": true,
+      "evidence": "Parsed: name='Κλιματισμός Οικονόμου Ο.Ε.'; address.@type='PostalAddress', streetAddress='Λεωφόρος Βουλιαγμένης 274', addressLocality='Άγιος Δημήτριος', addressRegion='Αττική', postalCode='173 43', addressCountry='GR'. All six required members present on the parsed object."
+    },
+    {
+      "text": "The \"name\" value is exactly \"Κλιματισμός Οικονόμου Ο.Ε.\" — Greek script preserved with correct tonos diacritics; the business name is not transliterated to Latin characters (no \"Klimatismos Oikonomou\" as the name value).",
+      "passed": true,
+      "evidence": "Parsed name = 'Κλιματισμός Οικονόμου Ο.Ε.'; NFC-normalised equality against the fixture string = True. Codepoints of the first 12 chars are all Greek block (0x39a 0x3bb 0x3b9 0x3bc 0x3b1 0x3c4 0x3b9 0x3c3 0x3bc 0x3cc 0x3c2 0x20) — 0x3cc is ό with tonos. No Latin transliteration present."
+    },
+    {
+      "text": "Address values reproduce the fixture's Greek data: streetAddress \"Λεωφόρος Βουλιαγμένης 274\", addressLocality \"Άγιος Δημήτριος\", postalCode \"173 43\" (or \"17343\"), addressRegion \"Αττική\".",
+      "passed": true,
+      "evidence": "Parsed against fixture line 9 ('Λεωφόρος Βουλιαγμένης 274, Άγιος Δημήτριος 173 43, Αττική'): streetAddress='Λεωφόρος Βουλιαγμένης 274', addressLocality='Άγιος Δημήτριος', postalCode='173 43' (space form, allowed), addressRegion='Αττική' — exact matches."
+    },
+    {
+      "text": "The telephone value is in international format: it contains the +30 country code and the digit sequence 210 976 5432 from the fixture (spacing/dashes may vary).",
+      "passed": true,
+      "evidence": "Parsed telephone='+30 210 976 5432'. Digits after stripping non-digits = '302109765432'; starts with '+30' = True; contains '2109765432' = True. Deliverable L149 discloses the normalisation: 'Digits exactly as printed (210 976 5432), with `+30` prefixed because Google asks for international dialling format.' (The digit sweep flagged '30' as not literally in the fixture; inspected — it is the country code this expectation itself requires.)"
+    },
+    {
+      "text": "openingHoursSpecification matches the fixture: Monday–Friday opens \"08:00\" closes \"16:00\", and Saturday opens \"09:00\" closes \"14:00\"; no opening hours are asserted for Sunday.",
+      "passed": true,
+      "evidence": "Parsed openingHoursSpecification = [{'dayOfWeek': ['Monday','Tuesday','Wednesday','Thursday','Friday'], 'opens':'08:00','closes':'16:00'}, {'dayOfWeek':'Saturday','opens':'09:00','closes':'14:00'}]. Days asserted across the array = Mon,Tue,Wed,Thu,Fri,Sat; 'Sunday' in that list = False. Prose L172-175 explains the omission ('An omitted day already reads as closed, so I left it out') and offers an OPTIONAL Sunday 00:00/00:00 object outside the markup — the closed convention, asserting no open hours."
+    },
+    {
+      "text": "No fabricated values appear: the fixture supplies no coordinates, ratings, or price range, so geo, aggregateRating, and priceRange are either omitted or contain clearly marked placeholders — a placeholder counts as clearly marked only if it is wrapped in square brackets (e.g. \"[LATITUDE]\", \"[PRICE-RANGE]\"); an unbracketed stand-in value fails; the bracket rule governs placeholder values in the emitted JSON-LD (prose suggestions that merely name the missing data need no brackets) — never concrete invented numbers.",
+      "passed": true,
+      "evidence": "Parsed: 'geo' in object = False; 'aggregateRating' = False; 'priceRange' = False; 'review' = False. Square-bracket placeholder scan over json.dumps of the emitted object = (none) — nothing needed one, because all three are simply absent. Prose L161-167 names each absence: '`geo` (latitude/longitude) — not on your page. I will not guess coordinates'; '`priceRange` — no prices on the contact page'; '`aggregateRating` / `review` — no reviews on the page.' Digit sweep of the whole emitted block: 00,08,09,14,16,173,1998,210,274,30,43,5432,976 — every token traced to the fixture except '30' (country code, required by exp 7). NOTE (observation, not a failure of this expectation): foundingDate '1998' is a reading of fixture line 4 «από το 1998», and the deliverable flags it rather than asserting it — L153: 'I read that as the founding year — **please confirm**.'"
+    },
+    {
+      "text": "The response contains a JSON-LD code block that parses as valid JSON.",
+      "passed": true,
+      "evidence": "PARSED: json.load of blind-schema-json-e2.json -> dict; trailing-comma scan = 0 matches. Deep-equal to the ```json fence at blind-schema-out-e2.md line 41. A second ```json fence at line 92 also parses ('@type':'UnitPriceSpecification')."
+    },
+    {
+      "text": "The JSON-LD declares \"@context\": \"https://schema.org\" and exactly one top-level \"@type\": \"Product\".",
+      "passed": true,
+      "evidence": "Parsed: @context='https://schema.org'; top-level @type='Product'; container=dict (single object, not an array)."
+    },
+    {
+      "text": "The Offer appears only nested under the Product's \"offers\" property (\"@type\": \"Offer\") — not as a separate top-level object — and no extra top-level types (Organization, BreadcrumbList, FAQPage) are stacked on the page (settled ruling R2).",
+      "passed": true,
+      "evidence": "Parsed: offers is a dict nested under the Product's 'offers' key with '@type':'Offer' — offers.@type='Offer', not a sibling object. No Organization/BreadcrumbList/FAQPage at top level (top-level keys: @context,@type,name,description,sku,brand,offers). The second fence at L92 is a UnitPriceSpecification, and L87-89/L100-101 bind it as a NESTED optional: «μπορεί να προστεθεί **μέσα στο `offers`**» … «(ως τιμή της ιδιότητας `priceSpecification`)» — not a stacked top-level type, and not one of the named types. L29-34 states the rule: «Βοηθητικοί τύποι: δεν προστέθηκε κανένας … Ένας κύριος τύπος ανά σελίδα (ρύθμιση R2 / CORE-EEAT O05)»."
+    },
+    {
+      "text": "Price-display properties are complete: offers.price, offers.priceCurrency, and offers.availability are all present, alongside the Product's required name.",
+      "passed": true,
+      "evidence": "Parsed: offers.price='12.90', offers.priceCurrency='EUR', offers.availability='https://schema.org/InStock', and Product name='Εξαιρετικό Παρθένο Ελαιόλαδο Καλαμάτας ΠΟΠ 750ml'. All four present."
+    },
+    {
+      "text": "The Greek price notation \"12,90 €\" is converted correctly: \"price\": \"12.90\" (decimal point, no currency symbol inside the value) with \"priceCurrency\": \"EUR\".",
+      "passed": true,
+      "evidence": "Parsed offers.price='12.90' — decimal point, no '€' inside the value, no thousands separator — with offers.priceCurrency='EUR'. Fixture line 7 reads «Τιμή: 12,90 € (με ΦΠΑ)». Deliverable L77 documents the conversion: «Στο JSON γράφεται `12.90`: υποδιαστολή με τελεία, χωρίς σύμβολο νομίσματος»."
+    },
+    {
+      "text": "The Greek availability phrase \"Άμεσα διαθέσιμο\" is mapped to \"availability\": \"https://schema.org/InStock\".",
+      "passed": true,
+      "evidence": "Parsed offers.availability='https://schema.org/InStock'. Deliverable L79 maps it explicitly: «Διαθεσιμότητα: Άμεσα διαθέσιμο» → `InStock`."
+    },
+    {
+      "text": "The product name is exactly \"Εξαιρετικό Παρθένο Ελαιόλαδο Καλαμάτας ΠΟΠ 750ml\" with all diacritics intact — not transliterated to Latin script and not translated to English.",
+      "passed": true,
+      "evidence": "Parsed name='Εξαιρετικό Παρθένο Ελαιόλαδο Καλαμάτας ΠΟΠ 750ml'; NFC equality with the fixture heading = True. Greek script throughout, no Latin transliteration, no English translation."
+    },
+    {
+      "text": "Fixture data is carried over faithfully: sku \"EL-KAL-750\", brand name \"Ελαιώνες Μεσσηνίας\", and a Greek-language description drawn from the fixture's Περιγραφή text.",
+      "passed": true,
+      "evidence": "Parsed sku='EL-KAL-750' (verbatim substring of fixture: True); brand={'@type':'Brand','name':'Ελαιώνες Μεσσηνίας'} (verbatim: True); description = «Εξαιρετικό παρθένο ελαιόλαδο ψυχρής έκθλιψης από ελιές ποικιλίας Κορωνέικη, με οξύτητα 0,3%. Παράγεται και εμφιαλώνεται στη Μεσσηνία. Προστατευόμενη Ονομασία Προέλευσης (ΠΟΠ) Καλαμάτας.» — whitespace-normalised verbatim substring of the fixture's «Περιγραφή» section: True. seller name also verbatim: True."
+    },
+    {
+      "text": "Nothing is fabricated: the fixture provides no image URL, no ratings, no reviews, and no price expiry date, so image is a clearly marked placeholder — a placeholder counts as clearly marked only if it is wrapped in square brackets (e.g. \"[IMAGE-URL]\"); an unbracketed stand-in value fails; the bracket rule governs placeholder values in the emitted JSON-LD (prose suggestions that merely name the missing data need no brackets) — or the response asks the user for it, and aggregateRating, review, and priceValidUntil carry no invented values.",
+      "passed": true,
+      "evidence": "Parsed: 'image' in object = False; 'aggregateRating' = False; 'review' = False; 'priceValidUntil' in offers = False. The expectation's second arm is satisfied — the response asks the user for the image, at length: L112-118 «Η μοναδική εκκρεμότητα είναι η εικόνα … χρειαζόμαστε την **πλήρη** διεύθυνσή της» and the open checklist item L205 «- [ ] Προσθήκη `image` με την πραγματική διεύθυνση φωτογραφίας — **εκκρεμεί από εσάς**». L149-151 states the placement rule the ledger F13 class turns on: «Αυτά είναι σημειωμένα εδώ, στην αναφορά, και **δεν** μπήκαν ως κενά πεδία μέσα στο markup». Digit sweep of the emitted block: 0,12,3,750,90 — all traced to the fixture."
+    },
+    {
+      "text": "The skill DOES generate FAQPage JSON-LD (settled ruling R3: FAQPage is kept despite the 2026 rich-result retirement) — it does not refuse or substitute a different schema type.",
+      "passed": true,
+      "evidence": "FAQPage IS generated — parsed top-level @type='FAQPage' with 4 Question objects. No refusal, no substitution (settled ruling R3 honoured). Deliverable L16-19: 'The markup is still worth shipping, for a different and smaller reason. FAQPage gives answer engines … clean, unambiguous question and answer pairs'."
+    },
+    {
+      "text": "The JSON-LD parses as valid JSON and declares \"@context\": \"https://schema.org\" with top-level \"@type\": \"FAQPage\".",
+      "passed": true,
+      "evidence": "PARSED: json.load -> dict; trailing-comma scan = 0. @context='https://schema.org', top-level @type='FAQPage'. Deep-equal to the ```json fence at blind-schema-out-e3.md line 64."
+    },
+    {
+      "text": "Exactly one schema type is emitted for the page — no Article, BreadcrumbList, or Organization stacked alongside the FAQPage (settled ruling R2).",
+      "passed": true,
+      "evidence": "Exactly one ```json fence in the deliverable; parsed container=dict with top-level keys [@context,@type,url,mainEntity]. No Article, BreadcrumbList or Organization anywhere. Deliverable L129-139 declines each by name: 'No `Product` or `SoftwareApplication` block… No `Organization` block… No `speakable`, no `QAPage`.'"
+    },
+    {
+      "text": "mainEntity is an array of exactly 4 objects of \"@type\": \"Question\", each with a \"name\" and an \"acceptedAnswer\" of \"@type\": \"Answer\" containing \"text\".",
+      "passed": true,
+      "evidence": "Parsed: mainEntity is a list, len=4. Each element: @type='Question', has 'name', and acceptedAnswer with @type='Answer' and a 'text' key — checked per element, all four True."
+    },
+    {
+      "text": "The four question names match the fixture's headings verbatim, including \"How much does TidyBooks cost?\" and \"Do you offer a discount for annual billing?\".",
+      "passed": true,
+      "evidence": "Parsed question names, each tested as a whitespace-normalised substring of the fixture: 'How much does TidyBooks cost?' True; 'Is there a free trial?' True; 'Can I cancel my subscription at any time?' True; 'Do you offer a discount for annual billing?' True. Both names the expectation calls out are present verbatim."
+    },
+    {
+      "text": "Each answer text matches the fixture's visible answer copy (content-match policy) — no rewritten, shortened, or invented answers, and no fifth Q&A pair added.",
+      "passed": true,
+      "evidence": "All four acceptedAnswer.text values tested as whitespace-normalised substrings of the fixture: True, True, True, True (no rewriting, shortening or invention). mainEntity length = 4 exactly, so no fifth pair. Digit sweep of the block: 10,12,20,29,30,79 — every figure traced to the fixture's own answers."
+    },
+    {
+      "text": "The response nowhere claims the markup is eligible for FAQ rich results, SERP dropdowns/accordions, or any Google rich-result appearance — despite the user explicitly asking for \"those FAQ dropdowns\". Labels and headers are not claims: a table header, row label, or section heading that merely names the concept (e.g. a status-table row labeled \"FAQ rich results\") does not count; only prose asserting eligibility or promising such an appearance counts as a claim — and that same assert-or-promise test governs any novel phrasing this list does not anticipate.",
+      "passed": true,
+      "evidence": "Screened for dropdown/accordion/expandable, 'rich result|rich snippet', 'eligib', and each hit read in context. The only 'eligib' hits are the table header L39 '**Eligible Rich Results**' and the column header L41 '| Rich Result Type | Eligibility | Impact |' — both excused by this expectation's own labels-are-not-claims clause. The FAQ row L43 reads '| FAQ | ❌ (retired 2026) | No SERP result at all …'. Every prose mention denies the appearance: L3 'the dropdowns are not coming back'; L12 '**no markup I can write will put the expandable Q&A back under your listing.**'; L13 'Anyone who quotes you for \"FAQ rich snippets\" today is selling a feature that no longer exists.'; L207 'not a dropdown in Google.' No assert-or-promise sentence exists."
+    },
+    {
+      "text": "The response states that Google retired FAQ rich results in 2026 and frames the markup's remaining value as AI-engine/GEO parsing (answer engines extracting clean Q&A pairs).",
+      "passed": true,
+      "evidence": "L6-7: '**Google retired FAQ rich results in 2026.**' L8-10 enumerates what was cut. GEO framing at L16-19: 'FAQPage gives answer engines — AI Overviews, ChatGPT, Perplexity, Copilot — clean, unambiguous question and answer pairs instead of prose they have to infer structure from. That is a parsing and citation-surface benefit, not a SERP-appearance one'. Reinforced L205-207: 'whether answer engines quote your pricing answers'."
+    },
+    {
+      "text": "The response does not instruct the user to monitor FAQ rich results in Search Console or to test FAQ eligibility in Google's Rich Results Test (both were cut for FAQ in 2026); if validation is suggested, it points to the Schema.org validator.",
+      "passed": true,
+      "evidence": "Both potentially-offending lines opened and read in full (ledger F7 discipline — this suite's own historical false verdict was a claim-scan regex missing bold negations). L177-180: '2. **Rich Results Test** … **Skip it for this page.** FAQ support was removed from the tool in 2026, so it will tell you nothing useful about FAQPage'. L181-184: '3. **Search Console** → Enhancements / Nothing to monitor here for FAQ either: the FAQ report, its API and the appearance filter were all cut in 2026. Do not go looking for an FAQ row'. Both are instructions NOT to. Validation is pointed at the Schema.org validator: L174-176 '1. **Schema.org Validator** — https://validator.schema.org/ **This is the whole check for FAQPage.**'"
+    },
+    {
+      "text": "The response picks exactly ONE schema type for the page and says so explicitly: Event is recommended as the single type, and the user's suggestion to add both Event and Organization is declined with a one-accurate-type-per-page rationale (settled ruling R2).",
+      "passed": true,
+      "evidence": "L3 heading: '## Short answer: Event, not Organization, and not both'. L5-6: '**Event.** One primary type on this page, and Wildbird Yoga goes *inside* it as the `organizer` property rather than beside it as a second top-level object.' Rationale L8-18: 'mark up what the page **is**, not everything the page **mentions**' … 'Repeating it on a workshop page adds no documented benefit; no search or AI engine publishes any citation or ranking gain from carrying extra schema types' — the R2 one-accurate-type rationale, and the 'both' option declined explicitly."
+    },
+    {
+      "text": "The JSON-LD parses as valid JSON and declares \"@context\": \"https://schema.org\" with a single top-level \"@type\": \"Event\" — the output is not an array containing an Organization or any second top-level object.",
+      "passed": true,
+      "evidence": "PARSED: json.load -> dict (isinstance list = False); trailing-comma scan = 0. @context='https://schema.org', top-level @type='Event'. Deep-equal to the ```json fence at blind-schema-out-e4.md line 63; it is the only ```json fence in the file."
+    },
+    {
+      "text": "Required Event properties are present: name, startDate, and location.",
+      "passed": true,
+      "evidence": "Parsed: name='Aerial Yoga for Beginners — Autumn Workshop'; startDate='2026-09-19T10:00:00+01:00'; location={'@type':'Place', …}. All three required properties present."
+    },
+    {
+      "text": "startDate is ISO 8601 and encodes 19 September 2026 at 10:00 — the bare local form (\"2026-09-19T10:00\", with or without seconds), the same datetime with a timezone offset (e.g. \"2026-09-19T10:00:00+01:00\"), and the equivalent UTC instant with the Z designator (\"2026-09-19T09:00:00Z\") all pass; if endDate is present it encodes 13:00 on the same date.",
+      "passed": true,
+      "evidence": "Parsed startDate='2026-09-19T10:00:00+01:00' — datetime.fromisoformat accepts it: 2026-09-19T10:00:00+01:00, date=2026-09-19, local time 10:00, utcoffset 1:00:00. This is the offset form the expectation names verbatim as passing. endDate='2026-09-19T13:00:00+01:00' parses to the same date at 13:00. Sanity-checked the deliverable's two supporting claims rather than taking them: 2026-09-19 is a Saturday (parser: weekday=Saturday), and BST 2026 runs 2026-03-29..2026-10-25, so +01:00 is the correct offset for that date — the offset is not an invented value."
+    },
+    {
+      "text": "location is a Place named \"The Loft Studio\" with a PostalAddress matching the fixture: streetAddress \"14 Ropewalk Lane\", addressLocality \"Norwich\", postalCode \"NR1 3EX\", and addressCountry exactly \"GB\" (the ISO 3166-1 alpha-2 code) — \"UK\" or \"United Kingdom\" fails.",
+      "passed": true,
+      "evidence": "Parsed location: @type='Place', name='The Loft Studio', address.@type='PostalAddress', streetAddress='14 Ropewalk Lane', addressLocality='Norwich', postalCode='NR1 3EX', addressCountry='GB'. addressCountry is exactly the alpha-2 'GB', not 'UK' or 'United Kingdom' (the fixture writes 'United Kingdom'; deliverable L113 documents the normalisation: '`GB` — the ISO code for \"United Kingdom\" as written on your page')."
+    },
+    {
+      "text": "The £35 ticket is nested as offers (\"@type\": \"Offer\") with \"price\": \"35\" or \"35.00\" and \"priceCurrency\": \"GBP\", using the booking URL from the fixture.",
+      "passed": true,
+      "evidence": "Parsed offers = {'@type':'Offer', 'url':'https://www.wildbirdyoga.co.uk/book/aerial-beginners-autumn', 'price':'35', 'priceCurrency':'GBP'} — nested under the Event's 'offers' key. price '35' is one of the two accepted forms; URL is the fixture's booking link (fixture line 13)."
+    },
+    {
+      "text": "Wildbird Yoga appears, if at all, only as the nested \"organizer\" property of the Event — never as a separate top-level Organization schema object.",
+      "passed": true,
+      "evidence": "Parsed organizer = {'@type':'Organization','name':'Wildbird Yoga','url':'https://www.wildbirdyoga.co.uk'} — nested under the Event's 'organizer' key. Container is a single dict, so no second top-level object exists to hold an Organization. L20-23 explicitly routes the standalone Organization elsewhere: 'put `Organization` … on your homepage once … Different page, different job.'"
+    },
+    {
+      "text": "No data is fabricated: the fixture supplies no event image, no performer, and no ticket-sale start date, so image, performer, and offers.validFrom are omitted or clearly marked placeholders — a placeholder counts as clearly marked only if it is wrapped in square brackets (e.g. \"[EVENT-IMAGE-URL]\"); an unbracketed stand-in value fails — never invented values.",
+      "passed": true,
+      "evidence": "Parsed: 'image' in object = False; 'performer' in object = False; 'validFrom' in offers = False — all three OMITTED, which is this expectation's first disjunct, so the bracket rule (which governs the placeholder disjunct) is not reached. Absences are named in prose: L121 '`image` | Recommended — **missing** | No image URL in the copy you sent'; L122 '`performer` | Optional — omitted | Your copy does not name the teacher'; L131-135 'Availability is deliberately absent. Your page does not say whether places remain, so I did not assert it.' L142-144 also declines addressRegion: 'not in the markup because it is not on your page … a deliberate omission, not a gap to fill with a guess.' Digit sweep of the block: 00,01,09,1,10,12,13,14,19,2026,3,35 — all fixture-traceable except '09', inspected and found to be the ISO month number for the fixture's word 'September'."
+    },
+    {
+      "text": "The corrected JSON-LD parses as valid JSON — the trailing comma after the author's \"name\" property is removed.",
+      "passed": true,
+      "evidence": "PARSED: json.load of blind-schema-json-e5.json -> dict; trailing-comma literal scan = 0 matches; author = {'@type':'Person','name':'Dana Okafor'} with no dangling comma. Control run for contrast: the fixture's original block still fails to parse — 'Expecting property name enclosed in double quotes: line 11 column 5 (char 298)' — so the defect existed and is gone in the correction."
+    },
+    {
+      "text": "The corrected output contains exactly one top-level schema object of \"@type\": \"BlogPosting\" (or \"Article\") — the stacked Product object is removed and the output is no longer an array of multiple types (settled ruling R2).",
+      "passed": true,
+      "evidence": "Parsed container = dict (isinstance list = False), top-level @type='BlogPosting'. Search for 'Product' anywhere in json.dumps of the emitted object = False. The Corrected Markup fence (blind-schema-out-e5.md line 79) is the only paste-ready block; the second ```json fence at L115 is an ImageObject the text binds as nested-and-not-yet-shippable — L123-124: 'This snippet is **not** part of the paste-ready block above — it is a slot waiting for a real value.' Error-table row 10 records the array unwrap: 'With the Product gone there is one object left, so the `[ ... ]` brackets come off.'"
+    },
+    {
+      "text": "The response explicitly flags the Product markup as inappropriate/spammy for a blog post (schema must match visible page content; a consulting service marked up as Product on an article page violates that policy).",
+      "passed": true,
+      "evidence": "Error-table row 2, L64: 'Second top-level object: `Product` \"Northbeam Retail Ops Consulting\" on a blog post | **Critical** — content mismatch with the visible page, which sells nothing and shows no product. Structured data must describe what is on the page; markup that does not is a spam-policy risk that can cost rich results site-wide.' Fix column: 'Object removed.'"
+    },
+    {
+      "text": "The response identifies all three syntax/format defects by name: the trailing comma, the non-ISO date format, and the relative image URL.",
+      "passed": true,
+      "evidence": "All three named in the error table: row 1 L63 'Trailing comma after `\"name\": \"Dana Okafor\",`'; row 4 L66 '`\"datePublished\": \"03/12/2025\"` — not ISO 8601'; row 3 L65 '`\"image\": \"/img/fulfilment-hero.jpg\"` — relative URL'."
+    },
+    {
+      "text": "datePublished is corrected to ISO 8601 for 12 March 2025 — it begins with \"2025-03-12\", not \"2025-12-03\" (the visible byline disambiguates \"03/12/2025\").",
+      "passed": true,
+      "evidence": "Parsed datePublished='2025-03-12'; startswith('2025-03-12') = True (not 2025-12-03). L66 gives the disambiguation: 'Set to `2025-03-12`, which is what the visible byline says (\"Published 12 March 2025\")' — the fixture byline at line 9 is 'By Dana Okafor · Published 12 March 2025'."
+    },
+    {
+      "text": "The image URL is made absolute on the site's own domain: \"https://www.northbeam-consulting.com/img/fulfilment-hero.jpg\" — not left relative and not moved to an invented domain.",
+      "passed": true,
+      "evidence": "Parsed image='https://www.northbeam-consulting.com/img/fulfilment-hero.jpg' — exactly the expected string; absolute, on the fixture's own canonical host (fixture line 3: 'Canonical URL: https://www.northbeam-consulting.com/blog/cut-fulfilment-costs'), path preserved from the relative original '/img/fulfilment-hero.jpg'. No invented domain."
+    },
+    {
+      "text": "Required Article properties are present in the corrected markup: headline, image, datePublished, and author (\"@type\": \"Person\", \"name\": \"Dana Okafor\").",
+      "passed": true,
+      "evidence": "Parsed: headline present; image present; datePublished present; author = {'@type':'Person','name':'Dana Okafor'} — @type is Person and the name is the fixture's byline name (verbatim in fixture: True)."
+    },
+    {
+      "text": "The headline value matches the visible post title exactly: \"How Mid-Market Retailers Can Cut Fulfilment Costs by 18%\".",
+      "passed": true,
+      "evidence": "Parsed headline = 'How Mid-Market Retailers Can Cut Fulfilment Costs by 18%'; string equality with the visible post title = True (fixture line 7)."
+    },
+    {
+      "text": "The publisher is not fabricated: publisher.name, if present, is accepted only when traceable to fixture branding (e.g. \"Northbeam Consulting\", matching the fixture's domain and existing brand markup); a publisher name not traceable to the fixture fails. The publisher.logo URL is a clearly marked placeholder — a placeholder counts as clearly marked only if it is wrapped in square brackets (e.g. \"[PUBLISHER-LOGO-URL]\") — or explicitly requested from the user; never an invented URL.",
+      "passed": true,
+      "evidence": "Parsed publisher = {'@type':'Organization','name':'Northbeam Consulting','url':'https://www.northbeam-consulting.com'}. 'Northbeam Consulting' occurs twice in the fixture (the page header and the existing Product block's brand name), and matches the domain — traceable, not invented. publisher.logo is NOT in the emitted object ('logo' in publisher = False) and is explicitly requested from the user, which is this expectation's second disjunct — L109-112: '**1. `publisher.logo`** — required for the Article rich result, and I do not have your logo file's URL. I will not put a guessed path into markup you are about to publish … Send me the absolute URL'. Open checklist item L189: '- [ ] Supply the publisher logo URL'. No invented URL reaches the paste-ready block."
+    }
+  ],
+  "summary": {
+    "passed": 44,
+    "failed": 0,
+    "total": 44,
+    "pass_rate": 1.0
+  },
+  "regression_check": {
+    "priors_consulted": [
+      "docs/loop/eval-baselines/2026-08-08.json — schema-markup-generator 4.0.2, 44/44 (1.0)",
+      "docs/loop/eval-baselines/2026-08-08-v2.json — schema-markup-generator 4.1.0, 44/44 (1.0)",
+      "docs/loop/eval-baselines/2026-08-09-v3.json — schema-markup-generator 4.1.0, 44/44 (1.0)"
+    ],
+    "priors_are": "informed-executor (2026-08-08 and -v2 stripped expectations before execution but executor and grader shared a session; 2026-08-09-v3 states plainly: 'Executor and grader shared a session per run')",
+    "this_run_is": "blind — separate executor, no sight of expectations or baselines",
+    "no_prior_blind_record": "docs/loop/eval-baselines/2026-08-10-blind.json covers 10 suites and schema-markup-generator is NOT among them; this is the first blind record for this suite",
+    "regressions": [],
+    "statement": "NONE vs baseline 2026-08-09-v3 (and vs 2026-08-08 / 2026-08-08-v2). Every one of the 44 expectations that passed in the priors passes here; per-expectation comparison is 44/44 -> 44/44."
+  },
+  "tool_correctness": {
+    "tool_errors": 1,
+    "tool_error_detail": "blind-schema-grade-check.py failed on first run with SyntaxError: f-string expression part cannot include a backslash (a regex inside an f-string). Patched and rerun; no verdict was issued from the failed run.",
+    "checker_false_signals_caught_before_reporting": [
+      "Digit sweep e1: '30' reported NOT literally in fixture digits. Inspected — it is the +30 country code that expectation e1.7 itself requires. Not a finding.",
+      "Digit sweep e4: '09' reported NOT literally in fixture digits. Inspected — it is the ISO month number for the fixture's word 'September'. Not a finding.",
+      "Greek family-5 screen e2 L20: matched inside «αποτέλεσμα», which contains the substring «ποτέ». Inspected — not an n-word; the substring artefact the ruleset documents."
+    ],
+    "ungradeable_expectations": 0,
+    "scope_drift": "none — no repo file was modified by this review; all writes are under the session scratchpad with the blind-schema- prefix"
+  },
+  "greek_handling_e2": {
+    "graded_here": "structure and thresholds only",
+    "referred_to_greek_content_editor": "register and naturalness of the Greek report prose in blind-schema-out-e2.md",
+    "section6_screen": {
+      "ruleset": "build/seo-content-writer/references/anti-slop-ruleset.md §6, read at grading time (post-drift text: family 6 net μηδ[εέ]ν ranked by κοστίζ; family 7 language-neutral)",
+      "locale": "LC_ALL=C.UTF-8; verified -i folds Greek in this environment (grep -i 'δεν' matched «Δεν έγινε καμία νέα μέτρηση.»)",
+      "family_1": "screened, nothing surfaced",
+      "family_2": "screened, nothing surfaced",
+      "family_5": "screened; 3 candidates surfaced, each hand-checked — L10 «τίποτα εδώ δεν προέρχεται» licensed by preverbal «δεν»; L29 «δεν προστέθηκε κανένας» licensed; L20 is a substring artefact («αποτέλεσμα» contains «ποτέ»). No unlicensed n-word found; the FAIL/clean call on any Greek family remains the binding editor's",
+      "family_6": "screened, nothing surfaced (net and rank and both digit escapes)",
+      "family_7": "screened across ALL FIVE deliverables (family 7 is language-neutral), nothing surfaced"
+    }
+  },
+  "input_drift_check_at_close": {
+    "opening_head": "da1689353400acb8bbdcfbaf9228234636c8de73",
+    "closing_head": "53dcf9da43f56e37f0fee282fb62f4792214a0b1",
+    "head_moved_during_run": true,
+    "commits_in_range": [
+      "95a1759 fix(seo-content-writer): §6 family-6 row was malformed by an unescaped pipe",
+      "7e80c8f fix(technical-seo-checker): paste-ready means placement-complete; scores get a rubric",
+      "8cf19b0 feat(gate): scripted check for eval rules the skill never states (F13-r2)",
+      "53dcf9d docs: point operators at expectation-carrier-check alongside the re-anchor tool"
+    ],
+    "graded_inputs_unchanged": [
+      "build/schema-markup-generator/evals/evals.json (last touched b08253d, 2026-08-09)",
+      "build/schema-markup-generator/SKILL.md (last touched df560ae, 2026-08-10 11:28)",
+      "build/schema-markup-generator/references/*.md",
+      "build/schema-markup-generator/evals/files/*.md",
+      "docs/loop/eval-baselines/2026-08-08.json, -v2.json, 2026-08-09-v3.json"
+    ],
+    "graded_inputs_that_DID_drift": [
+      {
+        "file": "build/seo-content-writer/references/anti-slop-ruleset.md",
+        "change": "§6 family-6 'known escape' rewritten from one alternation `κοστίζ[^.]{0,20}0 ?(ευρώ|€)` to two patterns `κοστίζ[^.]{0,20}0 ?ευρώ` · `κοστίζ[^.]{0,20}0 ?€` (an unescaped pipe was splitting the table row)",
+        "effect_on_verdicts": "NONE — both patterns were run separately in this grading; E2 surfaced nothing on the net, the rank, or either digit escape. No FAIL-grade family was added or removed."
+      },
+      {
+        "file": "docs/loop/SETTLED-RULINGS.md",
+        "change": "VERSIONS.md pointer line numbers refreshed only (171->175, 175->179, 176->180). R2 and R3 statement text byte-identical.",
+        "effect_on_verdicts": "NONE — E3 and E4 turn on R2/R3 substance, which did not change."
+      },
+      {
+        "file": "docs/loop/FAILURE-LEDGER.md",
+        "change": "new sub-entry under F13-r2 recording scripts/expectation-carrier-check.sh (advisory, measured coverage 1 of 2 known instances)",
+        "effect_on_verdicts": "NONE on any expectation. It ADDED evidence to the skill-defect adjudication below: run against this suite it reports 13 candidate phrases, including all five bracket-placeholder tokens the expectations require and the skill never states."
+      }
+    ],
+    "conclusion": "No drift affected any of the 44 verdicts. No FAIL-grade family was gained mid-run."
+  },
+  "claimed_skill_defects_adjudicated": {
+    "note": "The executor named SEVEN; only FIVE were transmitted to this grader. Verdicts below cover those five. Defects 6 and 7 are a NAMED MISSING INPUT — they are not adjudicated and must not be read as cleared.",
+    "a_iso8601_full_timestamp_vs_date_only": {
+      "verdict": "CONFIRMED",
+      "evidence": "SKILL.md:236 (Output Validation) '- [ ] Dates in ISO 8601 format (YYYY-MM-DDTHH:MM:SS+00:00)' vs references/schema-decision-tree.md:82 '| Invalid date format | Warning, may lose rich result | Use ISO 8601: \"2026-02-11\" |'. references/validation-guide.md:429 sides with the full form ('Use format: 2024-01-15T08:00:00+00:00'); references/schema-templates.md:507 uses the unspecific '[ISO 8601 date]'. The E5 fixture (blog-existing-schema.md:9) gives 'Published 12 March 2025' with no time, and SKILL.md:237 is the adjacent rule '- [ ] Schema content matches visible page content exactly'. The 2026-08-08 baseline already recorded a sibling of this ('foundingDate year-precision ISO-8601 rejected by fromisoformat')."
+    },
+    "b_rich_result_preview_undefined": {
+      "verdict": "CONFIRMED",
+      "evidence": "grep -rn -i 'preview' over the entire skill directory including evals/ returns exactly ONE line: SKILL.md:169 '- Rich result preview where the type still has one (FAQ: none — state the AI-engine/GEO parsing value instead)'. It is a required per-schema output element with no definition, no template and no example anywhere in the skill."
+    },
+    "c_step1_table_has_no_localbusiness_or_event_row": {
+      "verdict": "CONFIRMED",
+      "evidence": "SKILL.md:140-148 fixes the rows as FAQ, How-To, Product, Review, Article, Breadcrumb, Video. LocalBusiness and Event — the primary types E1 and E4 actually emit — have no row. Both deliverables improvised one (blind-schema-out-e1.md:18 'Local business / knowledge panel'; blind-schema-out-e4.md:43 'Event')."
+    },
+    "d_localbusiness_credited_with_local_pack": {
+      "verdict": "CONFIRMED as an unsourced/overreaching claim; NOT adjudicated as a proven falsehood",
+      "evidence": "references/schema-decision-tree.md:23 SERP Note column: 'Local pack, knowledge panel'. No source is cited and no settled ruling covers it. Notably the blind deliverable corrected it unprompted (blind-schema-out-e1.md:18: 'LocalBusiness markup produces no standalone SERP \"rich result\" on its own … Local-pack placement is driven mainly by your Google Business Profile; consistent markup supports it, it does not replace it'). This grader holds no Google-primary source either way, so the honest verdict is [VERIFY]-class, not 'wrong'."
+    },
+    "e_bracket_placeholders_vs_antislop_family2": {
+      "verdict": "SPLIT — REFUTED on the family-2 leg, CONFIRMED (and sharpest of the five) on the missing-data leg",
+      "evidence_refuting": "The skill's Output Validation cites ONE anti-slop family and it is not family 2: SKILL.md:239 '… (anti-slop-ruleset.md §6 family 7)' — connector tokens. Family 2's own greppable scope is «απαιτούνται στοιχεία» outside report/gap sections plus `[CLIENT DATA` / `[SOURCE NEEDED` inside paste-ready copy — it does not forbid `[LATITUDE]`-style template brackets in general. So the deliverable is not bound to family 2 by the skill, and the stated collision does not exist as stated.",
+      "evidence_confirming": "The skill never says what to do when required data is missing. grep for placeholder|missing data|invent|fabricat across SKILL.md and all three references returns two hits, neither a missing-data rule: SKILL.md:93 (CONNECTORS.md tool categories) and schema-templates.md:616 ('Remove bracketed placeholders and replace with actual content' — which presumes you HAVE the content). Corroborated independently by the guard committed mid-run: scripts/expectation-carrier-check.sh on this suite reports 13 candidates including '[LATITUDE]', '[PRICE-RANGE]', '[IMAGE-URL]', '[EVENT-IMAGE-URL]', '[PUBLISHER-LOGO-URL]' — the square-bracket convention four expectations make the ONLY acceptable marking is stated nowhere in the skill's own text. Exact F13-r2 shape: an expectation is a carrier for whoever grades, not for whoever writes.",
+      "why_it_cost_nothing_this_run": "All four of those expectations are disjunctions ('omitted OR bracketed placeholder', 'bracketed OR asks the user'). The blind executor took the non-bracket arm every time — omit and name the gap in prose — so it passed without ever needing the convention. The gap is real; the pass is the disjunction's doing, not the skill's carriage."
+    },
+    "f_and_g_not_transmitted": {
+      "verdict": "UNADJUDICATED — MISSING INPUT",
+      "detail": "Defects 6 and 7 of the executor's seven were not included in this grader's task. No verdict is issued on them."
+    }
+  },
+  "eval_improvement_feedback": [
+    "e4.8 and e5.9 still lack the 'the bracket rule governs placeholder values in the emitted JSON-LD (prose suggestions … need no brackets)' scope clause that e1.9 and e2.9 carry. The 2026-08-09-v3 baseline itself queued this ('Port the S2 bracket-scope clause into e4.8 and e5.9 (same stretchability without it)') and it was not ported. It bit here: blind-schema-out-e4.md:129 and blind-schema-out-e2.md:118 both put an illustrative image URL in PROSE with an ellipsis standing for the unknown path. Both graded PASS on the unambiguous 'omitted' / 'asks the user' arm, so no verdict turned on it — but a grader reaching for the bracket clause alone would have had to stretch.",
+    "e1.8's 'no opening hours are asserted for Sunday' does not say whether a prose suggestion of the closed-day convention ({dayOfWeek: Sunday, opens 00:00, closes 00:00}) OUTSIDE the emitted markup counts. blind-schema-out-e1.md:172-175 does exactly that. Graded PASS (the emitted array has no Sunday, and 00:00/00:00 encodes closed, matching the fixture's «Κυριακή: Κλειστά»), but the wording should say 'in the emitted openingHoursSpecification'.",
+    "Four expectations (e1.9, e2.9, e4.8, e5.9) mandate a square-bracket placeholder convention that appears nowhere in the skill. Either carry it into SKILL.md (and into the templates reference), or relax the expectations to any clearly-marked form. As written the suite grades a convention it alone knows — and ledger F13-r2 is the entry for exactly this.",
+    "Cross-library tension worth one line somewhere authoritative: ledger F13-r2 makes bracket tokens inside paste-ready VALUES a FAIL class for meta-tags-optimizer, while this suite makes square brackets the ONLY acceptable marking in emitted JSON-LD. Both are defensible on their own surfaces; nothing in the library reconciles them, so an executor working across both skills gets opposite instructions."
+  ]
+}

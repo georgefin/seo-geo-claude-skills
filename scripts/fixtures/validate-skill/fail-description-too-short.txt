@@ -1,0 +1,19 @@
+# CASE: fail-description-too-short
+# ROLE: positive
+# DIR: probe-description-short
+# EXPECT-EXIT: 1
+# EXPECT-MATCH: description too short: 5 chars
+# ---8<--- SKILL.md
+---
+name: probe-description-short
+description: Audit
+license: Apache-2.0
+compatibility: "Claude Code >=1.0."
+metadata:
+  author: probe-fixture
+  version: "1.0.0"
+---
+
+# Probe Description Short
+
+Body content.

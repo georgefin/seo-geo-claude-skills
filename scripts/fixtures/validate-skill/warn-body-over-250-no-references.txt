@@ -1,0 +1,24 @@
+# CASE: warn-body-over-250-no-references
+# ROLE: positive
+# DIR: probe-no-references
+# PAD-BODY: 260
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: no references/ directory found
+# EXPECT-MATCH: Skill body length OK
+# EXPECT-ABSENT: FAIL
+# WHY: 260 body lines is over the references/ threshold and under the 400-line
+#      warning, so the two body branches are separated.
+# ---8<--- SKILL.md
+---
+name: probe-no-references
+description: 'Probe fixture with a mid-length body and no references directory. Use when the user asks to "validate reference extraction" or "check skill structure".'
+license: Apache-2.0
+compatibility: "Claude Code >=1.0."
+metadata:
+  author: probe-fixture
+  version: "1.0.0"
+---
+
+# Probe No References
+
+Body content follows, padded at materialisation time.

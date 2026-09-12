@@ -1,0 +1,23 @@
+# CASE: fail-name-pattern
+# ROLE: positive
+# DIR: Keyword_Research
+# EXPECT-EXIT: 1
+# EXPECT-MATCH: name must be lowercase letters, numbers, hyphens only (got: Keyword_Research)
+# EXPECT-MATCH: name fails ClawHub slug pattern
+# WHY: the directory is named to MATCH the bad name on purpose, so the
+#      name-vs-directory branch stays out of this case and the two pattern
+#      branches are the only things that fire.
+# ---8<--- SKILL.md
+---
+name: Keyword_Research
+description: 'Probe fixture with an uppercase, underscored name. Use when the user asks to "validate a non-slug skill name".'
+license: Apache-2.0
+compatibility: "Claude Code >=1.0."
+metadata:
+  author: probe-fixture
+  version: "1.0.0"
+---
+
+# Keyword Research
+
+Body content.

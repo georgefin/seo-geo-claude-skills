@@ -1,0 +1,20 @@
+# CASE: fail-version-top-only
+# ROLE: positive
+# DIR: probe-version-top-only
+# EXPECT-EXIT: 1
+# EXPECT-MATCH: present but metadata.version missing
+# EXPECT-MATCH: metadata.version not found
+# ---8<--- SKILL.md
+---
+name: probe-version-top-only
+version: "1.0.0"
+description: 'Probe fixture carrying only the legacy top-level version. Use when the user asks to "validate the version authority rule".'
+license: Apache-2.0
+compatibility: "Claude Code >=1.0."
+metadata:
+  author: probe-fixture
+---
+
+# Probe Version Top Only
+
+Body content.

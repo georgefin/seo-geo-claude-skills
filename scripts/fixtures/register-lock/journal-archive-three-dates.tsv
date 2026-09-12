@@ -1,0 +1,16 @@
+# journal-archive-three-dates.tsv — three rows whose OWN timestamps fall on three
+# different UTC dates, for do_archive's date partitioning.
+# Layout: EVENT<TAB>OFFSET-SECONDS-FROM-NOW<TAB>HOLDER<TAB>PATH [<TAB>VICTIM<TAB>REASON]
+#
+# The offsets are EXACTLY 86400 apart, which is the whole design of this fixture.
+# "now-1s / now-1d / now-2d" would collide: run one second after midnight, now-1s and
+# now-86400s land on the SAME date and the case would silently degrade to two files
+# while still looking green. Whole days from one PNOW cannot collide, whatever second
+# the probe runs at.
+#
+# What it separates: filing by the ROW's own date from filing by "today". A reading
+# that used today's date would put all three rows in one file and every other
+# assertion here would still pass.
+ACQUIRE	-172800	lane-arch	docs/loop/KPI.md
+ACQUIRE	-86400	lane-arch	VERSIONS.md
+RELEASE	0	lane-arch	docs/loop/KPI.md

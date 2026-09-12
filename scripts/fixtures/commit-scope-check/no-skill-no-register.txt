@@ -1,0 +1,13 @@
+# CASE: no-skill-no-register
+# ROLE: negative
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: 1 passed
+# EXPECT-ABSENT: FAIL
+# FILE: README.md
+# FILE: AGENTS.md
+# WHY: the zero-touched path. Root docs are owned by nobody and named by no leg, so a
+#      commit that only touches them passes without any declaration. That is the design
+#      ("register/script/root-doc commits"), and it is worth an explicit control because
+#      it is also the path a mis-written path pattern would send EVERYTHING down.
+# ---8<--- commit message
+docs: tidy the install section

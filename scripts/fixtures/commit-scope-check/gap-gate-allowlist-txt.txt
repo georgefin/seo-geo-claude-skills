@@ -1,0 +1,16 @@
+# CASE: gap-gate-allowlist-txt
+# ROLE: known-gap
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: 1 passed
+# FILE: scripts/claims-gate-allowlist.txt
+# GAP: the gate leg matches `scripts/.*\.(sh|py)` only, so a commit that edits
+#      scripts/claims-gate-allowlist.txt — a file whose whole function is to widen what
+#      claims-gate accepts — passes undeclared. Same for scripts/fixtures/**, where a
+#      rewritten fixture changes what a probe proves. This is the leg's own founding
+#      argument ("a commit that changes what the gates accept") landing one file
+#      extension short.
+# WHY NOT FIXED HERE: widening the pattern to scripts/* would immediately require every
+#      in-flight lane to name .txt files it is already committing, which is a live
+#      behaviour change to a gated leg. It belongs to whoever owns the leg.
+# ---8<--- commit message
+chore: tidy an allowlist

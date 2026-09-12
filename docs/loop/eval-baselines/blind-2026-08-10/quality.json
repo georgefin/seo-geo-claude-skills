@@ -1,0 +1,284 @@
+{
+  "suite": "quality",
+  "skill": "content-quality-auditor",
+  "skill_version": "4.2.1",
+  "run": "2026-08-10 blind-execute re-baseline",
+  "method": "Blind protocol HELD, with one workspace incident caught before it could contaminate anything. Withheld: for every eval, `expectations` and `expected_output` were never on screen until that eval's deliverable was saved to disk. Extraction used jq projecting only {id,prompt,files}; no sibling field was ever rendered. Order per eval: read prompt+fixtures -> load SKILL.md + references/item-reference.md + references/anti-slop-audit-checks.md + references/core-eeat-benchmark.md -> produce the full deliverable -> save -> only then read that eval's expectations and grade. No read-ahead: eval N+1's prompt was first read after eval N was graded. No saved deliverable was edited after its expectations were seen; three defects spotted on re-read were left in place and reported (see self_caught). The prior baseline record (docs/loop/eval-baselines/2026-08-09-e1.json) was not opened until all five evals were graded, so no prior fail-record could steer execution. INCIDENT: the generic scratchpad filename `blind-prompts.json` was overwritten by a parallel seo-content-writer blind run sharing the same scratchpad directory; caught at eval 2 when the named fixture `brief-ypertasi-ymyl-el.md` did not exist in this skill's evals/files. Eval 1 was re-verified against the real suite and its prompt is byte-identical (diff clean); evals 2-5 ran from a regenerated, suite-prefixed extract verified to contain only [files,id,prompt].",
+  "prior_baseline": "26/28 informed-executor, 2026-08-09-e1.json (same skill version 4.2.1; that record's own method note says 'Same-session executor/grader caveat stands; blind-protocol reinstatement queued')",
+  "totals": {
+    "pass": 28,
+    "fail": 0,
+    "editor_pending": 0,
+    "total": 28,
+    "pass_rate": 1.0
+  },
+  "delta_vs_prior": "28/28 (100%) vs 26/28 (92.9%) — +2 expectations, zero regressions. The prior baseline's only two fails were e4.4 and e4.6, both caused by ONE root defect («πιστοποιημένοι τεχνικοί» guillemet-quoted where the fixture reads «Οι τεχνικοί μας είναι πιστοποιημένοι»); this run quotes the full fixture form and both expectations pass. IMPORTANT CAVEAT AGAINST OVER-READING THE DELTA: this is not evidence that blind execution outperforms informed execution. It is a same-version (4.2.1) re-measurement showing the skill's instructions were sufficient to produce expectation-satisfying behaviour WITHOUT the expectations in view — which is what the re-baseline was commissioned to establish. Three of the 28 passes are borderline and a stricter grader could flip any of them (e2.3 'the note' scope; e4.3 the numeral 59 inside a negation; e5.1 the 71/100 counterfactual), so the defensible floor for this run is 25/28.",
+  "evals": [
+    {
+      "id": "1",
+      "file": "rebase-quality-out-e1.md",
+      "expectations": [
+        {
+          "n": 1,
+          "verdict": "PASS",
+          "evidence": "Page 1 veto table: 'T04: Disclosure Statements | ✅ Pass — material connection EXISTS (affiliate commission on both retailer links, `rel=\"sponsored\"`)' + '**T04 applicability**: a material connection exists, so T04 is assessed (not N/A).' Page 2 item row: '| T04 | Disclosure Statements | **Fail — ⛔ VETO** | Material connection (affiliate parameters `?tag=hcpicks-21` / `?aff=hcpicks` + `rel=\"sponsored\"`) carried by both retailer links'",
+          "note": "T04 assessed as applicable on both pages; N/A on neither."
+        },
+        {
+          "n": 2,
+          "verdict": "PASS",
+          "evidence": "'| T04 | Disclosure Statements | **Pass** | Material connection exists and is disclosed in human-readable copy above the fold, restated at the link point' and '**Veto Status**: ✅ No triggers — T04 Pass, C01 Pass, R10 Pass. Final score issued without cap.' Disclosure quoted verbatim incl. '(Reminder: these are affiliate links — see the disclosure at the top of this page.)'",
+          "note": "Pass, not Partial; final 60.6/100 reported uncapped."
+        },
+        {
+          "n": 3,
+          "verdict": "PASS",
+          "evidence": "'**One verified veto (T04) → final overall score capped at 59.** Dimension scores and the weighted total are still shown.' and '**Veto Status**: ⚠️ **T04 triggered — one verified veto. Final score capped at 59.** The arithmetic total (56.1) already sits below the cap, so the cap does not change the number here — its operative consequence is the publish-blocking flag, not a numeric reduction. Had the page scored 70, it would have been reported as 59.'",
+          "note": "Cap stated and attributed to the veto; full 8-row dimension table shown; no suppression. Computed 56.1 < 59, so the cap is non-binding in this fixture — the open eval-feedback item carried over from the prior baseline."
+        },
+        {
+          "n": 4,
+          "verdict": "PASS",
+          "evidence": "Both affiliate links quoted verbatim as a code block, then: 'Per the benchmark, link markup does not substitute for human-readable disclosure — `rel=\"sponsored\"` speaks to crawlers, not readers.' Absence evidenced: 'there is no disclosure line under the byline (\"By Nikos Ferentinos · Published 3 February 2026\" is the entire header), none in the \"Where to buy\" section'",
+          "note": ""
+        },
+        {
+          "n": 5,
+          "verdict": "PASS",
+          "evidence": "'**GEO Score (CORE)** = (70.0 + 61.1 + 72.2 + 30.0) / 4 = **58.3/100**' — checker recomputed 58.325 from my own dimension rows (within 1 pt). SEO: '**SEO Score (EEAT)** = (80.0 + 50.0) / 2 = **65.0/100** — computed on 2 of 4 dimensions; A and T excluded for insufficient data, so this figure is not comparable to a full four-dimension SEO score.'",
+          "note": "Scripted: dimension scores recomputed from the per-item rows match every stated figure; weighted total recomputed 60.56 vs stated 60.6."
+        },
+        {
+          "n": 6,
+          "verdict": "PASS",
+          "evidence": "Scripted verbatim check: 39 quoted spans across both fixtures, 0 not found verbatim. Item-ID scan: 0 non-benchmark IDs on either page. R10 Pass on both pages; Page 1 note: 'crawler check 5 February 2026 returned HTTP 200 on all outbound links'; no broken-link or contradiction finding anywhere.",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "file": "rebase-quality-out-e2.md",
+      "expectations": [
+        {
+          "n": 1,
+          "verdict": "PASS",
+          "evidence": "'| R10: Content Consistency | ⛔ **VETO — material internal contradiction** |' with both sentences blockquoted verbatim: '**Opening paragraph**: \"In Athens in 2026, a standard maintenance visit for one residential split-type air conditioner costs **€35–€45 including VAT**.\"' and '**\"Budgeting for the year\"**: \"For a standard single-split maintenance visit in Athens, expect to pay **€80–€120 including VAT**.\"' plus 'The two ranges do not overlap and are not reconcilable by scope'",
+          "note": ""
+        },
+        {
+          "n": 2,
+          "verdict": "PASS",
+          "evidence": "'**One verified veto → final overall score capped at 59.** Dimension scores and the weighted total are still reported.' and '**Veto Status**: ⛔ **R10 triggered — one verified veto. Final score capped at 59.**' with the full 8-row dimension table above it.",
+          "note": "Computed 38.7 < 59; the report states the cap is therefore numerically non-binding and that a 70 would have been reported as 59."
+        },
+        {
+          "n": 3,
+          "verdict": "PASS",
+          "evidence": "'| R10 | Content Consistency | Partial | **Two of three cited sources return HTTP 404** per the link check of record (EN 16798 summary; Cooling Lab filter study 2023). Under the benchmark this is a remediable Partial-level finding and explicitly not a veto. … — Confirmed |' The two 404 URLs are blockquoted verbatim in the same R10 finding: 'https://standards.example.org/en16798-part1 returned HTTP 404 and https://coolinglab.example.com/filter-study-2023 returned HTTP 404'",
+          "note": "Partial + Confirmed label + not-a-veto stated. Ambiguity flagged in eval_feedback: 'the note' may mean the table cell alone, where the two URLs appear by title rather than by URL."
+        },
+        {
+          "n": 4,
+          "verdict": "PASS",
+          "evidence": "'### Veto Check' row: '| R10: Content Consistency | ✅ **Pass on the veto test — 2 of 3 cited links are dead (recorded as a Partial-level finding, NOT a veto)** |' and '**Veto Status**: ✅ **No triggers.** T04 N/A (no material connection), C01 Pass, R10 Partial … Score issued uncapped.' Final: '**Weighted Total (reported final) = 55.5/100 (Low)**'",
+          "note": ""
+        },
+        {
+          "n": 5,
+          "verdict": "PASS",
+          "evidence": "Scripted structure check: Page 1 5/5 entries and Page 2 5/5 entries each carry Finding+Evidence+Impact+Fix and exactly one label. Page 1 entry 4: 'E08 Depth Advantage — **Hypothesis** (verification: pull the top 5 SERP results for the query and compare word count, price granularity, and sourcing)'. Page 2 entry 3: 'E05 Proprietary Visuals — **Likely** (verification: open the rendered URL)'.",
+          "note": "Weakest evidence field: Page 2 entry 5 (E10) evidences by absence ('nothing in the page projects how requirements change with unit age, refrigerant phase-outs, or efficiency regulation') rather than by quote — permitted by the expectation's 'quotes or measurably references' but the only entry of the ten not carrying a quoted span."
+        },
+        {
+          "n": 6,
+          "verdict": "PASS",
+          "evidence": "Page 1: 'Link status | \"Link check (run 5 August 2026): all outbound links on this page returned HTTP 200\" | no link findings on this page'. Page 2 contradiction test run and passed: four intro-vs-table reconciliations tabled, incl. 'Commercial space, daily use | Every 6 months | Weekly → consistent'. Page 1 C01 = Pass with 'The reliability defect in that answer is scored once, at R10'. Scripted: 40 quoted spans checked, 0 missing; 0 non-benchmark IDs.",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "file": "rebase-quality-out-e3.md",
+      "expectations": [
+        {
+          "n": 1,
+          "verdict": "PASS",
+          "evidence": "'**Veto Status**: ✅ **No triggers** — T04 N/A (no material connection), C01 Pass, R10 Pass. No cap, no suppression, full final score issued.' and '**Total Score**: **81.7/100 (Good)** — weighted; unweighted total 82.7'",
+          "note": ""
+        },
+        {
+          "n": 2,
+          "verdict": "PASS",
+          "evidence": "'| T04 | Disclosure Statements | **N/A** | Conditional veto not assessed — no material connection exists. The author's employer affiliation is stated openly in the About block |' and the T calculation excludes it: 'T = (0+5+0) / (3 × 10) × 100 = 5/30 = **16.7**'",
+          "note": "Scripted: T shows 3 scored items and 7 N/A — T04 excluded from the average, not scored."
+        },
+        {
+          "n": 3,
+          "verdict": "PASS",
+          "evidence": "Scripted N/A-reason audit over all 19 N/A items: every one carries a missing-evidence reason. Examples: 'O05 | Not observable — the export is text and carries no markup layer. Requires page source'; 'A01 | Requires site-level backlink data — expressly not supplied'; 'T03 | Site-wide HTTPS not verifiable from one page'.",
+          "note": "T03 was flagged NO-REASON by my checker's keyword list; raw-text inspection (ledger F7) shows 'not verifiable from one page' — a missing-evidence reason. Checker false-flag, not a deliverable defect."
+        },
+        {
+          "n": 4,
+          "verdict": "PASS",
+          "evidence": "A '### Score Calculation (shown as requested)' block gives each dimension's arithmetic, then '**GEO Score (CORE)** = (C + O + R + E) / 4 = (95.0 + 83.3 + 83.3 + 60.0) / 4 = 321.6 / 4 = **80.4/100**' (checker: 80.42) and '**SEO Score (EEAT)** = (Exp + Ept + A + T) / 4 is not computable as written: A and T are both Insufficient Data (>50% N/A each) and are excluded. … = **85.0/100** — **on 2 of 4 dimensions**'. Re-normalisation shown: 'the remaining 85% re-normalised to 100% (each weight ÷ 0.85)'.",
+          "note": ""
+        },
+        {
+          "n": 5,
+          "verdict": "PASS",
+          "evidence": "Scripted: 17 Partial/Fail notes, 0 violations of the exactly-one-label rule; 5/5 Top-5 entries carry exactly one label and all four F/E/I/F parts. No Hypothesis entries appear in this report, so the verification-step clause is vacuously met; Likely notes still name their step, e.g. 'E06 … **Likely** (verification: pull the top 5 ranking pages for \"indoor humidity Athens apartment\" and confirm none quantifies habit effects)'.",
+          "note": ""
+        },
+        {
+          "n": 6,
+          "verdict": "PASS",
+          "evidence": "'AS-1 Slop-vocabulary density | **0 Tier-1 hits, 0 Tier-2 over-cap hits** across ~800 words.' No contradiction/clickbait/undisclosed finding: R10 Pass with nine reconciliations incl. 'Sample split … 9 + 5 + 24 = 38 → **arithmetic closes exactly**'. Scripted: 80/80 item rows, 0 non-benchmark IDs, 34 quoted spans checked with 0 missing.",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "file": "rebase-quality-out-e4.md",
+      "greek_raw": "rebase-quality-greek-e4.md",
+      "expectations": [
+        {
+          "n": 1,
+          "verdict": "PASS",
+          "evidence": "'### C01 — τεκμήριο βέτο (Επιβεβαιωμένο)' with the fixture blockquoted: «Κατά καιρούς ανακοινώνονται προγράμματα επιδότησης … **δεν θα σταθούμε όμως στις λεπτομέρειες** … **Ας δούμε λοιπόν τις υπηρεσίες μας.», then: 'το ποσό «1.200 €» εμφανίζεται **μόνο** στον τίτλο … Δεν κατονομάζεται πρόγραμμα, δεν αναφέρεται φορέας, δεν δίνεται προϋπόθεση, ποσοστό, προθεσμία ή βήμα αίτησης.'",
+          "note": ""
+        },
+        {
+          "n": 2,
+          "verdict": "PASS",
+          "evidence": "Both price claims blockquoted verbatim under '### R10 — τεκμήριο βέτο': «…κοστίζει **μόλις 25 € με ΦΠΑ**…» and «…**ξεκινά από τα 70 € με ΦΠΑ**…», with 'Το αντικείμενο είναι ίδιο και στις δύο («ετήσια συντήρηση οικιακού split»), η βάση τιμολόγησης είναι ίδια («με ΦΠΑ»)'",
+          "note": ""
+        },
+        {
+          "n": 3,
+          "verdict": "PASS",
+          "evidence": "Header: '## ⛔ Πρώτα το κρίσιμο: δεν εκδίδεται τελικό σκορ'. Table row: '| **Τελικό σταθμισμένο σκορ** | **⛔ ΔΕΝ ΕΚΔΙΔΕΤΑΙ** | **BLOCK — δύο επιβεβαιωμένα βέτο** | — |'. Client demand answered by rule, not number: 'τα δύο αιτήματα εδώ συγκρούονται, και το δεύτερο υπερισχύει: **δεν υπάρχει τελικό σκορ για αυτή τη σελίδα**'. Scripted: no weighted total emitted anywhere.",
+          "note": "BORDERLINE, flagged: the numeral 59 appears once, inside a negation — 'Δεν πρόκειται για πλαφόν στο 59 — αυτό ισχύει όταν το βέτο είναι ένα· εδώ είναι δύο και το πλαίσιο δεν εκδίδει αριθμό καθόλου.' No score is capped at 59 and none is produced; a literal string check on '59' would false-FAIL this. Graded PASS on the expectation's operative requirement."
+        },
+        {
+          "n": 4,
+          "verdict": "PASS",
+          "evidence": "Scripted: 106 guillemet spans extracted; every span attributed to the fixture matches byte-exact once markdown emphasis markers are stripped (4 blockquote/inline quotes verified STRIPPED-EXACT=True; 3 elided quotes verified part-by-part with the ellipsis marked). Diacritics and final sigma intact on all 15 spot-checked spans incl. «κάνει τη διαφορά στην καθημερινότητά σας» (enclitic double accent preserved). No Latin transliteration of Greek. The non-fixture spans are my own terminology or proposed fix wording (e.g. «βασικός καθαρισμός φίλτρων 25 €»), not attributed quotes.",
+          "note": "This is the expectation the prior baseline failed (paraphrase-as-quote on «πιστοποιημένοι τεχνικοί»). This run quotes the full fixture form «Οι τεχνικοί μας είναι πιστοποιημένοι» (verified in-fixture)."
+        },
+        {
+          "n": 5,
+          "verdict": "PASS",
+          "evidence": "AS-1 row: '**3 ευρήματα κατηγορίας 1 σε ~330 λέξεις** (≈9 ανά 1.000 λέξεις, έναντι ορίου 3): «Στη σημερινή ψηφιακή εποχή», «Είτε είστε …», «απρόσκοπτη εμπειρία» | O09 (Αποτυχία), Ept03'. Same hits repeated in the O09 note and cross-referenced (not re-counted) in Ept03. Scripted: O09 = Αποτυχία (not Pass); 80/80 item rows; 0 non-benchmark IDs; weights unchanged.",
+          "note": ""
+        },
+        {
+          "n": 6,
+          "verdict": "PASS",
+          "evidence": "No number emitted past the BLOCK (scripted: the only score-shaped cells read '⛔ ΔΕΝ ΕΚΔΙΔΕΤΑΙ'; the GEO/SEO figures are labelled '**μέσοι όροι των παραπάνω διαστάσεων — **δεν είναι τελικό σκορ και δεν πρέπει να αναφερθούν ως τέτοιο**'). No third veto: 'T04 = Επιτυχία' with 'Τα βέτο παραμένουν δύο.' All fixture-attributed Greek verified in-fixture.",
+          "note": "Judgment recorded transparently in the deliverable: T04 scored Pass on the reading that the publisher-sells-what-it-recommends connection is material and fully disclosed, with the narrow reading (N/A) named and shown to reach the same no-veto outcome."
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "file": "rebase-quality-out-e5.md",
+      "expectations": [
+        {
+          "n": 1,
+          "verdict": "PASS",
+          "evidence": "Scripted: zero 'GEO Score'/'SEO Score' figures, zero dimension scores, zero Pass/Partial/Fail scoring rows, zero estimate language. The refusal is explicit: 'I can't produce those honestly, and a fabricated set is the one outcome that would actually hurt tomorrow's meeting.' and 'A \"standard HVAC landing page\" score would be a description of my assumptions, dressed as a measurement of your page.'",
+          "note": "BORDERLINE, flagged and self-reported: one score-shaped numeral survives, in a counterfactual — 'If it came back at 71/100, your team would spend tomorrow morning debating priorities derived from a page nobody has read'. It is not offered as their page's score and no stand-in audit is produced, so the expectation as written is met; but it is liftable out of context and it falsifies my own later sentence 'So: no numbers in this message.'"
+        },
+        {
+          "n": 2,
+          "verdict": "PASS",
+          "evidence": "'**Minimum to unlock most of the audit — send one thing:** 1. **The URL** (or a plain-text export of the page copy if it is still on staging behind auth).' plus page source, link check and site-level facts as items 2–4. Content type requested for confirmation: '## Content-type weights I'll apply (Landing Page) — Confirm this is right before I run — if the page is really a service/comparison hybrid, the weights change and so does the priority order.'",
+          "note": ""
+        },
+        {
+          "n": 3,
+          "verdict": "PASS",
+          "evidence": "No property of the user's page is asserted anywhere. The ten meeting items are questions, not findings: 'Does the headline promise exactly what the page delivers, in the same words a customer would use?'. Where the page could have been characterised, the text characterises my own limits instead: 'I would be inventing your response times, your service areas, your prices.'",
+          "note": ""
+        },
+        {
+          "n": 4,
+          "verdict": "PASS",
+          "evidence": "All three veto rows carry 'pending page' as their status: '| **C01 Intent Alignment** | Does the headline promise match what the page delivers? | pending page |'; likewise T04 and R10. The consequences are stated as rules, prospectively: 'one verified veto caps the final score at 59 and the cap is flagged. Two or more verified vetoes produce a BLOCK … That last line is why this message has no numbers in it.'",
+          "note": "Table header is 'What decides it | Status', so no veto status — pass, N/A, or triggered — is declared for the unseen page."
+        }
+      ]
+    }
+  ],
+  "fails_classified": [],
+  "self_caught": [
+    "e1 Page 2 (Boreas B16): the T10 Customer Support row is MISSING from the Trust table — 79 of 80 items rendered, while my own T-score text claims '6/10 N/A'. The skill's Output Validation requires all 80 scored or marked N/A. Score impact nil (T10 would be N/A and T was excluded as Insufficient Data anyway), record impact real. No e1 expectation checks 80-item completeness, so it passed unnoticed. Kind: omission.",
+    "e1 Page 2: A01-A10 collapsed into a single table row ('| A01–A10 | Backlink Profile, Media Mentions, … | N/A ×10 |') instead of ten per-item rows as the skill's Step 3 format prescribes. All ten are named and carry a reason; the deviation is format, not evaluation. Evals 2, 3 and 4 use per-item rows. Kind: format deviation.",
+    "e1 Page 1: an invented figure in a FIX suggestion — 'why the \"20 L/day\" class rating is unreachable at 55% RH'. The fixture never states the Mistral Dry D20's rated capacity; I inferred it from the model name. It is not quoted evidence and not a defect claim, so e1.6 (which scopes fabrication to quoted evidence and defect claims) did not catch it — but the library's no-invented-numbers rule (ledger F3) says it should have been a placeholder. Kind: positive error, uncaught by the suite.",
+    "e5: 'If it came back at 71/100' — a score-shaped numeral in a refusal whose own later sentence reads 'So: no numbers in this message.' The counterfactual framing is intact but the claim is falsified by it and the figure is liftable into a meeting deck. Kind: positive error (self-contradiction), uncaught by the suite.",
+    "e4: the numeral 59 appears once, in a negation distinguishing the one-veto cap from the two-veto BLOCK. Correct as reasoning; collides with e4.3's literal wording 'no capped-at-59 number appears anywhere in the report'.",
+    "e4: term-mention guillemets in citation form — «ψυκτικό υγρό», «θερμοστάτης» — where the fixture carries the inflected «ψυκτικού υγρού» / «θερμοστάτη». These are mentions inside an Ept03 scoring note, not evidence spans, and Greek inflection is an explicit checker trap — but the class sits directly adjacent to the paraphrase-as-quote defect that cost the prior baseline its only two points.",
+    "e3: I scored T09 Review Authenticity as Fail on a research report that has no reason to carry user reviews, and T06 as Fail for having only a publish date. Both follow the rubric's literal bands and both are labelled in the deliverable as genre mismatches, but they are the two items most likely to read as manufactured on an otherwise clean page — recorded so the judgment is visible rather than buried."
+  ],
+  "greek_editor_pending": {
+    "why": "The suite itself routes this layer out: eval 4's expected_output carries the grader note 'any fresh Greek prose the auditor writes in findings or fixes (beyond verbatim fixture quotes) is routed to the greek-content-editor binding pass before this run is certified.' All six e4 expectations are mechanical and were graded here; none is a fluency judgment, so editor_pending stays 0 against the 28-expectation total and this run's e4 certification remains open.",
+    "artefact": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-quality-greek-e4.md",
+    "mechanical_scan_result": "§6 FAIL-grade families 1, 2, 5, 6: zero violations. Family 5 hand-check under LC_ALL=C.UTF-8 with both cases matched on token and licenser: 40 n-word candidates, every one either carrying a preverbal «δεν» in its own clause or a verbless fragment (the ruleset's own protected shape). Family 7 (connector placeholders, ADDED to the carrier at 09:42:16 after my read — re-checked against the current file): zero '~~' occurrences. Advisory English-artefact-name class incl. the new «δεξιότητ» token: zero. No Latin title-case Greek headings, no '&'.",
+    "spans_queued_for_the_editor": [
+      "«το ποσό «1.200 €» εμφανίζεται **μόνο** στον τίτλο και πουθενά αλλού» — family-5 boundary: an n-word in a finite clause with no preverbal «δεν». I judge the «μόνο … και πουθενά αλλού» idiom correct and licensed by the exclusive «μόνο», but the ruleset is explicit that the grep proposes and the editor rules.",
+      "«Καμία πηγή οποιασδήποτε βαθμίδας» (R03 note) — hits the process-machinery advisory token 'βαθμίδ' added to the carrier at 09:42:16. Hand-check: this is source-tier vocabulary (Tier 1/2), not the ruled «χειροκίνητη βαθμίδα» connector sense. Editor to confirm.",
+      "«αναφέρεται το βήμα» / «βήμα επαλήθευσης» — hits the same new advisory token 'το βήμα'. Hand-check: these name a step the CLIENT takes, not internal process machinery. Editor to confirm.",
+      "The framework labels kept in Latin on a client surface — 'BLOCK' (glossed on first use), 'Blog Post' (the client's own word from the prompt), 'CORE-EEAT', 'GEO', 'SEO', 'AS-1', 'backlinks', 'schema', 'HTML', 'Knowledge Graph' — and the client's own phrase quoted back, «ό,τι προβλέπει το framework». Boundary against the 'English residue' advisory family."
+    ]
+  },
+  "tool_correctness": {
+    "tool_errors": "1 self-inflicted: an f-string containing a backslash raised SyntaxError in check_e3.py; patched and rerun, no verdict affected. 0 tool failures otherwise.",
+    "checker_false_flags_caught_in_F7_position": [
+      "e1 checker reported 11 'missing' item IDs on Page 2. Raw inspection showed 10 of them were a legitimately collapsed A01-A10 row that the row regex could not see — and exactly 1 (T10) genuinely absent. Reporting the checker's number unexamined would have overstated a format deviation as ten unscored items.",
+      "e3 N/A-reason checker printed 'T03: NO-REASON'. The raw note reads 'Site-wide HTTPS not verifiable from one page' — a missing-evidence reason my keyword list lacked. Checker wrong, deliverable right.",
+      "e4 Greek quote checker reported 20 spans 'not verbatim in fixture'. Inspection showed the fixture-attributed ones differed only by markdown emphasis markers I had added inside the quotes; re-checked with markers stripped, all matched byte-exact. The rest were my own terminology and proposed fix wording."
+    ],
+    "escapes": 0,
+    "expectations_ungradeable_as_written": 0,
+    "borderline_verdicts": 3,
+    "scope_drift": "None. Every write went to the scratchpad; no repo file was created, edited, staged, committed or pushed. `git status` shows 8 modified repo files, none of them mine — they belong to parallel agents sharing this working tree (mtimes 09:41–09:44, concurrent with this run).",
+    "concurrency_note": "F8 signature in a Mode B setting: build/seo-content-writer/references/anti-slop-ruleset.md — the §6 carrier I graded the Greek against — was modified at 09:42:16, AFTER my read (~09:36) and after the e4 deliverable was written (09:38). I re-ran the Greek scan against the current file: the change adds FAIL-grade family 7 (connector placeholders) plus two advisory tokens. Zero family-7 hits; two advisory boundary hits queued for the editor. Carrier sha256 at re-check: 5563b413138ebd67d4d3a36e8dd19d6214f92a056fcae3452f160207bd770420. Suite sha256: 512ff6ca9149cabcbf6ee2525489a4e305906a4f11d05f0fb3e643f372142b4c. SKILL.md sha256: 9b948fd6c182af503b6e6e2881c3fe6eb4581a6989869a41919de25dcf8b0509."
+  },
+  "workspace_incident_for_the_coordinator": {
+    "what": "My scratchpad extract `blind-prompts.json` (written 08:59 with this suite's prompts) was replaced by a parallel seo-content-writer blind run's file of the same generic name in the shared scratchpad directory. Detected at eval 2, when the 'fixture' it named (evals/files/brief-ypertasi-ymyl-el.md) did not exist under cross-cutting/content-quality-auditor/ and the prompt was a Greek content-WRITING brief.",
+    "contamination": "None. Eval 1 had already run from the correct data — verified afterwards by diffing the executed prompt against jq '.evals[0].prompt' of the real suite (byte-identical) and confirming its two fixtures are the two dehumidifier reviews. Evals 2-5 ran from a regenerated suite-prefixed extract.",
+    "recurrence": "This is a REPEAT of a known incident class, not a new one. The 2026-08-09-e1 baseline's own method field records 'suite-prefixed grading filenames after a shared-scratchpad collision early in the round'. The mitigation adopted then lives only as prose in a baseline file — no launch-prompt rule, no convention check, nothing that binds the next agent. That is the F13 signature exactly: a lesson recorded as a note with no enforcement carrier recurred in the next run. I did not apply it because I had no way to know it existed.",
+    "proposed_carrier": "Put the suite-prefixed scratch-filename rule in the Mode B launch prompt (or in the skill-reviewer agent definition), so it binds without depending on an agent having read a prior baseline file. Coordinator's call whether this warrants a ledger entry or an increment; I am reporting the confirmed recurrence, not asserting the ledger change."
+  },
+  "eval_feedback": [
+    "e2.3 wording: 'with the note quoting the link-check evidence (the two HTTP 404 URLs)'. Ambiguous whether 'the note' is the R10 table cell alone or the R10 finding as a whole. My cell names the two dead sources by title while the full link-check line with both URLs is blockquoted in the same finding, three lines above. Suggest 'with the finding quoting …'.",
+    "e4.3 wording: 'no capped-at-59 number appears anywhere in the report' — a literal string check on '59' false-FAILs a correct report that explicitly distinguishes the one-veto cap from the two-veto BLOCK (mine says 'Δεν πρόκειται για πλαφόν στο 59'). Suggest 'no final score is reported, including a 59-capped one'.",
+    "RE-RAISE (open since 2026-08-09, now confirmed with numbers): the 59 cap never binds in this suite. e1 page B computes 56.1 and e2 page 1 computes 38.7 — both already below 59, so in both veto fixtures the cap changes no number and the expectation can be satisfied without the cap logic ever being exercised. A fixture whose computed score exceeds 59 would close this.",
+    "RE-RAISE (open since 2026-08-09): e4.4 and e4.6 both police Greek quote fidelity, so one root defect fails two expectations — which is exactly what cost the prior baseline its 2 points. Scope e4.6's quote clause to invented content.",
+    "RE-RAISE (open since 2026-08-09, now strongly confirmed): no fixture exercises the full four-dimension SEO score. In all four scored evals, A came out 10/10 N/A and T 6-7/10 N/A, so both were flagged Insufficient Data and SEO ran as (Exp+Ept)/2 every single time. The (Exp+Ept+A+T)/4 path in the skill is untested by this suite. A fixture carrying site-level data (policy pages, contact block, backlink note) would close it.",
+    "NEW: nothing in the suite checks 80-item completeness. My e1 Page 2 table shipped 79 items (T10 missing) and all six e1 expectations still passed. A one-line count expectation on any full-audit eval would catch it.",
+    "NEW: the Trust dimension is structurally excluded in every scored eval of this suite. The item-reference guidance marks T01-T03, T05, T07, T10 as site-level N/A, which is 6 of 10 before T04's conditional N/A is even considered — so a single-page fixture mechanically pushes T over the 50% Insufficient-Data threshold. That means T04's veto is exercised while the T dimension never reaches the weighted total. Worth an explicit expectation either way, because an auditor could also get this wrong by scoring site-level items on guesses.",
+    "NEW: e5 forbids emitted scores but says nothing about hypothetical or illustrative numerals in refusal prose. My '71/100' counterfactual passed all four expectations. Suggest adding 'no score-shaped numeral appears at all, including in hypothetical or illustrative framing'.",
+    "NEW: e1.6 scopes fabrication to quoted evidence and to claimed defects, leaving FIX text unguarded. My invented '20 L/day class rating' sits in a fix suggestion and passed. Suggest extending the no-fabrication clause to recommendations."
+  ],
+  "artefacts": {
+    "deliverables": [
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-quality-out-e1.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-quality-out-e2.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-quality-out-e3.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-quality-out-e4.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-quality-out-e5.md"
+    ],
+    "greek_raw": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-quality-greek-e4.md",
+    "checkers": [
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/check_e1.py",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/check_e2.py",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/check_e3.py"
+    ],
+    "blind_extract": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/blind-CQA-prompts-only.json"
+  }
+}

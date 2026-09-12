@@ -1,0 +1,13 @@
+Negative control — a clean close-out in the honest house forms. Every exemption path
+is load-bearing at least once:
+  - "live" hard token + [obs:<ISO> <token>] anchor on the line -> anchored, passes;
+  - "until this wave merged" hard phrase + "historical as of <ts>" in the +/-2
+    window (wrapped to the next line, the registers' real wrap pattern) -> passes;
+  - "live registers" -> allowlist mask (scripts/claims-gate-allowlist.txt) -> passes;
+  - "blocked" inside a ``` quoted-output fence -> skipped as evidence;
+  - future date 2026-09-01 with deadline/re-check/before markers -> schedule, passes;
+  - "~16:20Z" inside the **bold** verdict-log header label (exact clock-read
+    16:20:11Z alongside, per post-F11 discipline) -> header-label form, passes;
+  - verdict-log addition = flip trigger, satisfied by an explicit "FLIP: … -- none"
+    trailer (declared no-touched-claims, not a forgotten sweep).
+Expect: exit 0 — 0 FAIL, 0 WARN (all three rule sections PASS).

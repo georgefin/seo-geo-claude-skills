@@ -1,0 +1,462 @@
+{
+  "suite": "technical",
+  "skill": "technical-seo-checker",
+  "skill_version_under_test": "4.2.1 (metadata.version 4.2.1)",
+  "run": {
+    "date": "2026-08-10",
+    "type": "blind-execute Mode B re-baseline",
+    "grader": "skill-reviewer (Mode B)",
+    "artifacts_dir": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad",
+    "deliverables": [
+      "rebase-technical-out-e1.md",
+      "rebase-technical-out-e2.md",
+      "rebase-technical-out-e3.md",
+      "rebase-technical-out-e4.md",
+      "rebase-technical-out-e5.md",
+      "rebase-technical-greek-e3.md"
+    ],
+    "checkers": [
+      "rebase-technical-check.py",
+      "rebase-technical-check2.py"
+    ],
+    "prompts_extract": "rebase-technical-prompts.json"
+  },
+  "method": {
+    "held": true,
+    "statement": "Blind method held in full, and tightened one notch beyond the brief. jq extracted ONLY id/prompt/files into rebase-technical-prompts.json; no sibling field (expected_output, expectations) was ever on screen during execution. ALL FIVE deliverables were written and saved BEFORE evals.json was opened even once — stricter than the per-eval alternation the brief allowed, so no eval's expectations could shape a later eval's execution. Skill + four references + the two mandated registers (FAILURE-LEDGER, SETTLED-RULINGS) were read as executor inputs before eval 1. No saved deliverable was edited after expectations were read; one error spotted during writing was left in place per the rule and is reported under self_caught. anti-slop-ruleset.md §6 was read only after all five deliverables were saved, as a grading input for the Greek mechanical layer, never as an authoring input.",
+    "deviations": []
+  },
+  "frozen_input_manifest": {
+    "launch_sha": "00c14ff8df710cd91d090cdf3ad95cd32e7e782f",
+    "close_sha": "e68832749fad370d247d062de57082e80f4cdb57",
+    "branch": "claude/scheduled-skills-web-search-8zaz3j",
+    "working_tree_at_launch": "clean",
+    "working_tree_at_close": "clean",
+    "graded_files_md5_at_close": {
+      "optimize/technical-seo-checker/SKILL.md": "37a2a9894165c2f042417a30ba180743",
+      "optimize/technical-seo-checker/evals/evals.json": "ac7668aa796802d7353996cb782fd66b",
+      "optimize/technical-seo-checker/references/http-status-codes.md": "53e1bee11d164b1de8bc1a5152f26078",
+      "optimize/technical-seo-checker/references/robots-txt-reference.md": "8d6d8e4a6d95c96ac49544e30d0cfc33",
+      "optimize/technical-seo-checker/references/technical-audit-example.md": "4fe12eb0a472943b579b4a162dd2edc1",
+      "optimize/technical-seo-checker/references/technical-audit-templates.md": "b3313abbc14c8ee64af2a92634ed5ca3",
+      "build/seo-content-writer/references/anti-slop-ruleset.md": "216393ad3fb30293506e3f6f2a3f796a",
+      "docs/loop/SETTLED-RULINGS.md": "ceaf52f14b9d3bcc50116f0d1ae16dfa",
+      "docs/loop/FAILURE-LEDGER.md": "e3782d7bcb668db7d91f10cf074ee485",
+      "docs/loop/WATCH-ITEMS.md": "e3ada26b6385c1548670204b4e7917b6"
+    },
+    "drift": {
+      "detected": true,
+      "commit": "e688327 fix(entity-optimizer,backlink-analyzer): close the guidance gaps blind runs exposed",
+      "files_changed": [
+        "VERSIONS.md",
+        "cross-cutting/entity-optimizer/SKILL.md",
+        "cross-cutting/entity-optimizer/references/knowledge-graph-guide.md",
+        "docs/loop/GATED-ITEMS.md",
+        "docs/loop/SETTLED-RULINGS.md",
+        "monitor/backlink-analyzer/SKILL.md",
+        "monitor/backlink-analyzer/references/link-quality-rubric.md"
+      ],
+      "graded_inputs_touched": [
+        "docs/loop/SETTLED-RULINGS.md"
+      ],
+      "effect_on_verdicts": "NONE. The SETTLED-RULINGS diff is pointer maintenance only (F12 anchor refresh: VERSIONS.md:157->159, :161->163, :162->164 after the entity-optimizer 4.1.5 / backlink-analyzer 4.0.4 changelog insertion). No ruling STATEMENT changed. R4 — the only ruling load-bearing for this suite (LCP 2.5s / INP 200ms / CLS 0.1, FID dead) — is byte-identical in substance before and after; re-diffed line by line. No file under optimize/technical-seo-checker/ changed between launch and close; SKILL.md and evals.json md5s are identical to the values recorded at launch."
+    }
+  },
+  "prior_baseline": {
+    "label": "27/28 informed-executor",
+    "source": "docs/loop/eval-baselines/2026-08-10-e2345.json",
+    "totals": {"pass": 27, "fail": 0, "editor_pending": 1, "total": 28, "pass_rate": 0.9643},
+    "per_eval": {"1": "6/6", "2": "6/6", "3": "5/6 (e3.5 EDITOR-PENDING)", "4": "4/4", "5": "6/6"}
+  },
+  "totals": {
+    "convention": "matched to the prior baseline: e3.5 takes a single EDITOR-PENDING slot and is NOT counted as a pass",
+    "pass": 25,
+    "fail": 2,
+    "editor_pending": 1,
+    "total": 28,
+    "pass_rate": 0.8929,
+    "alternative_convention_note": "If e3.5's own wording is taken literally ('this expectation covers only the layer gradable from the text alone'), its mechanical layer verified clean and it scores PASS: 26 pass / 2 fail / 0 editor-pending = 0.9286. The conservative convention is reported as the headline so the delta is not flattered by a scoring-convention change."
+  },
+  "delta_vs_prior": {
+    "expectations": -2,
+    "pass_rate_pp": -7.14,
+    "reading": "26/28 raw (92.9%) or 25/28 (89.3%) on the baseline's own convention, against a 27/28 (96.4%) informed-executor ceiling. Two expectations that the informed run passed, this blind run failed. Both failures are executor-side (things a fresh session actually produced), not grader-side; neither is a skill regression in the sense of the skill having changed — the skill is byte-identical to the file the baseline was run against."
+  },
+  "regressions": [
+    {
+      "id": "e3.4",
+      "baseline_verdict": "PASS",
+      "this_run": "FAIL",
+      "headline": "Paste-ready nginx block carries placeholder paths and a provenance annotation INSIDE the config fence — ledger F13 placement class, third occurrence.",
+      "caveat": "Method change, not skill change: the baseline executor wrote the nginx block while already reading the expectation that forbids exactly this. That is what this run was commissioned to re-measure, and it is stated as a caveat, not as an excuse — the deliverable is defective on its own terms."
+    },
+    {
+      "id": "e4.1",
+      "baseline_verdict": "PASS",
+      "this_run": "FAIL",
+      "headline": "The zero-data refusal deliverable states 'Indexed pages: 0' and 'Crawl errors: 0' for meltemi-tours.gr — two of the exact counts the expectation forbids, asserted as fact and never verified.",
+      "caveat": "Same method caveat as e3.4. The failure is genuine on the expectation's plain text and on evidence discipline (an unverified state claim about a site nobody looked at)."
+    }
+  ],
+  "evals": [
+    {
+      "id": 1,
+      "output": "rebase-technical-out-e1.md",
+      "passed": 6,
+      "total": 6,
+      "expectations": [
+        {
+          "n": "1.1",
+          "text": "Blocking rule found and quoted; broad-match trailing-slash behaviour explained; quantified 62/84; severity Critical/High; fix keeps /checkout/ and /account/.",
+          "verdict": "PASS",
+          "evidence": "Quoted rule, headline: '```\\nDisallow: /recipes\\n```'. Broad match: 'the missing trailing slash widens the block beyond the directory — `/recipes-newsletter`, `/recipes.html` or any other path starting with those characters is caught too' and table row 'it blocks every path *beginning* `/recipes`, not just the directory'. Quantified: '**Impact**: 62 of 84 sitemap URLs (74%) are uncrawlable' — 62/84 = 73.81%, inside the 70-78 band, derivation adjacent. Severity: heading 'F1 — The `/recipes/` hub is disallowed for all crawlers 🔴 Critical'. Kept blocks: change table row 'Kept `Disallow: /checkout/` and `/account/` | Correct as the contractor had them', and both directives appear in the delivered file."
+        },
+        {
+          "n": "1.2",
+          "text": "/assets/ tied to the head extract with the Mistake-1 rationale; Crawl-delay reported as Googlebot-unsupported.",
+          "verdict": "PASS",
+          "evidence": "'**Evidence**: `Disallow: /assets/` in the `*` group, against the saved homepage head: `<link rel=\"stylesheet\" href=\"/assets/css/main.css\">`, `<link rel=\"stylesheet\" href=\"/assets/css/product-grid.css\">`, `<script src=\"/assets/js/menu.js\" defer></script>` — all three paths sit under the blocked directory.' Rationale: 'Google needs CSS and JS to render a page.' Crawl-delay: '**Impact**: Googlebot does not support the directive and ignores it. Bing and others do honour it' + fix 'use Search Console's crawl-rate setting for Google'. Never presented as a working Googlebot control."
+        },
+        {
+          "n": "1.3",
+          "text": "AI-crawler stance: named finding raised, four training agents named, split stance identified as inconsistently executed, anthropic-ai noted, fix keeps training blocks and adds OAI-SearchBot + Claude-SearchBot groups.",
+          "verdict": "PASS",
+          "evidence": "Heading 'F4 — Training bots blocked, sibling search bots never allowed'. Evidence line names 'groups for `GPTBot`, `ClaudeBot`, `CCBot`, `Google-Extended`, each `Disallow: /`; no group for `OAI-SearchBot`, `Claude-SearchBot`, `PerplexityBot`, `ChatGPT-User`, `Claude-User` or `Perplexity-User`'. Stance: 'the file as written implements the *closed* stance, not the *split* stance you asked for.' anthropic-ai: 'F5 — `anthropic-ai` missing from the training block'. Delivered file keeps 'User-agent: GPTBot / ClaudeBot / anthropic-ai / CCBot / Google-Extended' + 'Disallow: /' and adds an explicit allowed group for OAI-SearchBot, Claude-SearchBot, PerplexityBot. No recommendation to lift the training blocks anywhere in the file."
+        },
+        {
+          "n": "1.4",
+          "text": "Sitemap findings with labelled populations: no Sitemap directive, uniform stale lastmod vs the July-2026 footer, exactly 3 of 12 hand-checked 404s, no extrapolation to the 72.",
+          "verdict": "PASS",
+          "evidence": "'F3 — Sitemap is not declared in robots.txt' + fix 'add `Sitemap: https://www.fieldharvest.co.uk/sitemap.xml`'. lastmod: 'all 84 `<lastmod>` values read `2024-05-01`' with evidence 'against the site footer's \"Latest recipes: July 2026\"'. 404s: '3 of the 12 hand-checked sitemap URLs return 404: `/recipes/summer-salads-2024`, `/boxes/office-fruit-large`, `/recipes/foraging-guide`' sourced to 'the hand-check table, rows 1–3'. No extrapolation: '3 of 12 is 25% of a **non-random, hand-picked sample** … multiplying it up to the other 72 URLs would be a guess dressed as a number, and I am not going to give you one.'"
+        },
+        {
+          "n": "1.5",
+          "text": "Corrected robots.txt paste-ready: real host/sitemap URL, no bracketed placeholders or data-needed slots, no confidence/provenance annotations inside the file block, no invented directives.",
+          "verdict": "PASS",
+          "evidence": "Scripted fence scan (rebase-technical-check.py section A) returned ZERO placeholder and ZERO provenance hits for e1 across all fenced blocks; the same scan fired correctly on e3 and e4, so it is not silently matching nothing. Delivered block contains only fixture-traceable directives: 'Disallow: /checkout/', 'Disallow: /account/', the five training agents, the six search/user agents, and 'Sitemap: https://www.fieldharvest.co.uk/sitemap.xml'. No /admin/ or /private/ invented from the reference templates. Comments present are stance labels ('# --- AI model training: refused ---'), the shape the skill's own robots-txt-reference split-stance example uses — not confidence or provenance markers."
+        },
+        {
+          "n": "1.6",
+          "text": "No fabrication; Confirmed vs Likely/Hypothesis discipline; no claims about the 72; Search Console warnings as memory only; sources labelled.",
+          "verdict": "PASS",
+          "evidence": "Deindexing claim held back: 'The *causal* link to the traffic collapse is **Likely**, not Confirmed — it rests on the timing coincidence plus the hub's share of the site; confirming it needs the Search Console Performance report split by page.' Search Console warnings: 'The Search Console warnings themselves are **Hypothesis** — the file states there is no export or screenshot and the recollection is memory only. **Confirmed by**: opening Search Console → Pages → \"Blocked by robots.txt\"'. Google-Extended boundary claim labelled '**Confidence: Likely** … I could not open Google's crawler documentation during this audit to quote it. **Confirm by** reading the \"Google-Extended\" entry in Google Search Central's *Overview of Google crawlers and fetchers*'. Crawl-budget rows for unmeasurable factors read 'Not assessable — no crawl data'. Score derivation printed in full and re-verified: 5.0/13 = 3.85. NOTE (recorded, not scored): 'limits are 50,000 URLs / 50MB uncompressed' is an external protocol figure that traces to neither the fixture nor fixture arithmetic — see defects_no_expectation_tests #6."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "output": "rebase-technical-out-e2.md",
+      "passed": 6,
+      "total": 6,
+      "expectations": [
+        {
+          "n": "2.1",
+          "text": "CWV table fixture-exact with inclusive boundaries; desktop LCP 2.5 s and desktop INP 200 ms each MEET target; units carried.",
+          "verdict": "PASS",
+          "evidence": "Table rows raw: '| LCP (Largest Contentful Paint) | 3.9 s | 2.5 s | ≤ 2.5 s | ❌ Mobile · ⚠️ Desktop (exactly at the limit) |' and '| INP (Interaction to Next Paint) | 168 ms | 200 ms | ≤ 200 ms | ✅ Mobile · ⚠️ Desktop (exactly at the limit) |'. The pass/fail verdict is stated explicitly in the prose immediately below: '**Both \"passes\" on desktop sit exactly on the threshold** (LCP 2.5 s, INP 200 ms). … **They pass**, and they are one bad deploy from not passing.' Neither boundary value is reported as failing (no ❌ on either desktop cell). Units carried on every value. RISK RECORDED: the ⚠️ glyph in the table, and the 0.5 partial credit those two cells take in my own score derivation ('LCP-D 0.5 … INP-D 0.5'), give a stricter grader a foothold to read them as not-a-pass. The verdict rests on the explicit 'They pass' and the absence of ❌; see eval_feedback."
+        },
+        {
+          "n": "2.2",
+          "text": "LCP diagnosis names the 2,650 KB hero with a WebP/resize fix, the 1,060 ms TTFB with the slow-server fix, and at least two of the three scripts with a defer/async fix.",
+          "verdict": "PASS",
+          "evidence": "'the LCP element is the hero image `/img/hero-hiking-2026.jpg`, a **2,650 KB JPEG displayed at 390 × 250 px**' → fix 'Resize the hero to the box it renders in and serve responsive variants (`srcset` at 1× and 2×). Serve WebP or AVIF'. TTFB: 'Compounding it, **TTFB is 1,060 ms**' → 'Attack the 1,060 ms TTFB: it is above the 800 ms guidance' and priority row 'Reduce TTFB below 800 ms (page caching, CDN edge in/near Ireland)'. Scripts: all three named with sizes — '`/js/carousel.js` (214 KB), `/js/analytics-bundle.js` (187 KB), `/js/chat-widget.js` (156 KB) — **557 KB together**' → per-script fixes 'load it on interaction (a facade button)', '`async`, and load after first paint', 'defer it'."
+        },
+        {
+          "n": "2.3",
+          "text": "CLS diagnosis uses the promo banner with its 0.24-of-0.31 contribution and reserved-space fix, plus the 14 dimensionless thumbnails.",
+          "verdict": "PASS",
+          "evidence": "'the promo banner (\"FREE SHIPPING OVER €80\") is injected above the product grid after load with no reserved space … It contributes **0.24 of the 0.31** total.' Fix: 'reserve the banner's height in the layout before it renders — a container with a fixed `min-height` at each breakpoint, or server-render the banner'. Thumbnails: '**14 product thumbnails have no explicit `width`/`height` attributes**' → 'add `width` and `height` attributes (or a CSS `aspect-ratio`) to the thumbnail template'."
+        },
+        {
+          "n": "2.4",
+          "text": "Lab/field source honesty; no CrUX values asserted; the 1.2 s savings attributed to the tool; further improvement numbers labelled estimates.",
+          "verdict": "PASS",
+          "evidence": "'**Data source**: hand-transcribed Lighthouse runs by your front-end developer, 2026-08-05'. '**Field (real-user) data**: none. The tool reported \"insufficient real-user sample\" for this URL.' Standing caution: 'Everything below is **lab data** … Google assesses Core Web Vitals for Search on **field** data from real visitors, and this page has none.' Tool figure: '**Estimated gain**: **1.2 s (tool-estimated)** — this is the one improvement figure that came from the tool rather than from me.' Own estimate labelled: 'I am not putting a decimal on it … Confidence: **Likely**. **Confirmed by**: re-running Lighthouse after the change.'"
+        },
+        {
+          "n": "2.5",
+          "text": "Mobile LCP/CLS in the top tier; passing metrics not manufactured into issues; scoped to the one URL; site-wide claims Hypothesis with the confirming check.",
+          "verdict": "PASS",
+          "evidence": "Priority table rows 1 and 2 are the hero (LCP) and the banner (CLS). Passing metrics are not listed as issues anywhere in the fix table; the desktop-INP anomaly is explicitly de-escalated — 'most likely sampling noise in a one-shot run, not a real desktop-specific defect. Confidence: **Hypothesis**.' Scope: '**URL audited**: https://trailkit.ie/collections/hiking (one URL only)' and '**One URL, one day, one run per profile.**' Site-wide: 'the hero image and the three scripts are probably site-wide template assets … that is a **Hypothesis** … **Confirmed by**: testing two more collection pages and the homepage.'"
+        },
+        {
+          "n": "2.6",
+          "text": "Ballpark refused as a number; the grounding data named; no unlabelled industry figure; all numbers fixture-traceable with derivations visible.",
+          "verdict": "PASS",
+          "evidence": "'**I cannot give you a number, and any number I gave you would be invented.**' Four-row input table names sessions, conversion rate, AOV and the post-fix uplift, all marked absent. No traffic, revenue, conversion or ranking figure appears anywhere in the file. Borrowed statistics explicitly declined rather than used: 'Industry averages exist, but a number borrowed from someone else's catalogue and someone else's customers, presented to your board as *your* forecast, is a made-up number with a citation stapled to it.' Arithmetic derivations printed and re-verified by script: 0.31 − 0.24 = 0.07 ✓; 214+187+156 = 557 ✓; 2,650 KB ≈ 2.6 MB, 61.6% of 4.2 MB (stated 62%) ✓; (2,650+557) KB ≈ 74.6% of 4.2 MB (stated ~75%) ✓."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "output": "rebase-technical-out-e3.md / rebase-technical-greek-e3.md",
+      "passed": 5,
+      "total": 6,
+      "expectations": [
+        {
+          "n": "3.1",
+          "text": "Chain reproduced hop-by-hop, reported as 3 redirects, fixed to a direct redirect; check 4's single hop not reported as a chain problem.",
+          "verdict": "PASS",
+          "evidence": "'`http://spiti-deco.gr/fotistika` → `https://spiti-deco.gr/fotistika` → `https://www.spiti-deco.gr/fotistika` → `https://www.spiti-deco.gr/collections/fotistika`. Τρία βήματα, τρία αιτήματα HTTP.' Findings table row 1: '3 διαδοχικά 301 μέχρι το `/collections/fotistika` | 1 μόνο 301 απευθείας στο τελικό'. Fix delivered as a single-hop map: 'Παλιά διεύθυνση με νέο προορισμό: πάει κατευθείαν στο τελικό URL (1 redirect).' Check 4 row: '1 × 301 προς `https://www.spiti-deco.gr/` | ✅ σωστό — καμία ενέργεια', plus section 'Ε5 — Τι λειτουργεί σωστά ✅'."
+        },
+        {
+          "n": "3.2",
+          "text": "Loop reported as completely inaccessible at Critical with a loop-breaking fix; 302 corrected to 301 grounded in «καταργήθηκε οριστικά».",
+          "verdict": "PASS",
+          "evidence": "'### Ε1 — Βρόχος redirect στη σελίδα επιστροφών 🔴 Κρίσιμο' — 'Η σελίδα είναι εντελώς απροσπέλαστη — ούτε για χρήστη ούτε για crawler', evidenced with «ERR_TOO_MANY_REDIRECTS». Loop-breaking fix, first step: '**Βρείτε και σβήστε τον αντίστροφο κανόνα** (`/oroi-epistrofon → /epistrofes`) … **Όσο υπάρχει ο αντίστροφος κανόνας, ο βρόχος παραμένει**'. Priority table row 1. 302: 'το `/prosfores-kalokairi-2025` απαντά με **302** (προσωρινό) … ενώ η παλιά σελίδα καταργήθηκε οριστικά τον Σεπτέμβριο του 2025' → '**Διόρθωση:** αλλαγή σε **301**.'"
+        },
+        {
+          "n": "3.3",
+          "text": "Header findings match the curl extract exactly; x-frame-options reported PRESENT with SAMEORIGIN; certificate carried as valid with its 12/11/2026 expiry, not converted into a finding; exactly 4 mixed-content images on the one checked page, no site-wide total.",
+          "verdict": "PASS",
+          "evidence": "Header table raw: '| `Strict-Transport-Security` | ❌ | — |', '| `X-Content-Type-Options` | ❌ | — | `nosniff` …|', '| `Content-Security-Policy` | ❌ | — |', '| `Referrer-Policy` | ❌ | — |', '| `X-Frame-Options` | ✅ | `SAMEORIGIN` | Σωστό — μένει ως έχει |'. (Case-insensitive re-check run after my first scan reported two of these tokens 'missing' — a checker case-sensitivity artifact, not an output gap; see tool_correctness.) Certificate: '| Έγκυρο πιστοποιητικό SSL | ✅ | Λήγει 12/11/2026' — status stays ✅ and it appears in no findings list and in no priority row; the attached renewal note is advisory prose ('Επιβεβαιώστε ότι η ανανέωση είναι αυτόματη'). Mixed content: 'ζητά 4 εικόνες από `http://cdn-old.spiti-deco.gr/img/…` — `xali-persiko-01.jpg`, `xali-flokati-02.jpg`, `xali-moderno-05.jpg`, `xali-paidiko-03.jpg`' on 'https://www.spiti-deco.gr/collections/xalia'; no site-wide total: '**Πόσο μεγαλύτερο είναι:** άγνωστο — «σε άλλες σελίδες δεν κοιτάξαμε την κονσόλα». … Αυτό είναι **Υπόθεση**.'"
+        },
+        {
+          "n": "3.4",
+          "text": "404 handled with a 301 to the new URL; the nginx block paste-ready — real fixture paths only, NO bracketed placeholders and NO confidence/provenance annotations inside the config block.",
+          "verdict": "FAIL",
+          "evidence": "The 404 half passes: map entry '/blog/diakosmisi-saloni-2023  /blog/diakosmisi-saloniou;' and prose 'Διόρθωση: 301 από το παλιό στο νέο', with 410 mentioned only in the general rule for content with no equivalent. The paste-ready half FAILS. Raw, inside the ```nginx fence at greek-e3.md L198-216:\n    L204: '    # ⚠️ Αντιγράψτε εδώ ΤΙΣ ΔΙΚΕΣ ΣΑΣ δύο γραμμές πιστοποιητικού από το υπάρχον'\n    L205: '    # block του www.spiti-deco.gr. Δεν τις γνωρίζω και δεν πρέπει να τις μαντέψω —'\n    L206: '    # είναι οι μόνες δύο γραμμές αυτού του αρχείου που δεν μπορώ να σας δώσω έτοιμες.'\n    L207: '    # ssl_certificate     /διαδρομή/προς/fullchain.pem;'\n    L208: '    # ssl_certificate_key /διαδρομή/προς/privkey.pem;'\nThat is (a) a data-needed slot, (b) two placeholder paths («/διαδρομή/προς/» = '/path/to/'), and (c) a first-person provenance/confidence annotation — all three inside the config block the expectation requires to be clean, with the caveats belonging 'in the surrounding report prose'. The expectation names ledger F13 placement discipline explicitly. Contributing, lower-severity instances in the same delivered config: a decision-branch instruction inside the map fence ('# Αν αποφασίσετε το αντίστροφο, αντιστρέψτε αυτές τις δύο γραμμές') and finding-ID cross-references inside the header fence ('# HSTS: ΜΟΝΟ αφού διορθωθεί το mixed content (Ε6)')."
+        },
+        {
+          "n": "3.5",
+          "text": "Greek mechanical layer: Greek throughout with correct diacritics and final sigma, no untranslated English boilerplate section headings; naturalness routed to the binding greek-content-editor.",
+          "verdict": "EDITOR-PENDING",
+          "mechanical_layer": "CLEAN — graded, with the scanner negative-controlled",
+          "evidence": "Final sigma: 0 hits for σ at word end and 0 hits for ς inside a word (rebase-technical-check.py C1/C2). Diacritics: 0 unaccented multisyllabic non-caps Greek words; the same scanner returned ['Αυτη','ειναι','δοκιμη','χωρις','τονους'] on an injected unaccented control string, so its zero on the deliverable is a real zero and not a dead regex. Headings: 30 heading lines scanned, 29 carry Greek; the single Latin-only line is 'L156: # --- context: http { } ---', an nginx-context comment inside a config fence, not a report section heading. §6 ruled families: family 1 «Όλα τα [0-9]» 0 hits; family 2 0 hits; family 6 0 hits; family 7 «~~» 0 hits in the Greek output. Family 5: 8 n-word lines, 5 licensed by «δεν/Δεν» (both cases matched, LC_ALL=C.UTF-8), 2 false positives («ποτέ» matched inside «αποτέλεσμα» — substring trap, verified word-anchored), 1 standalone hand-check → routed to the editor below.",
+          "editor_referral": {
+            "artifact": "rebase-technical-greek-e3.md",
+            "items": [
+              "L170, inside an nginx comment: «# Σελίδα επιστροφών: κρατάμε ΜΙΑ κατεύθυνση, ποτέ και τις δύο.» — n-word «ποτέ» in an elliptical clause with no preverbal «δεν». §6 family 5 explicitly makes the grep a candidate generator and the editor the ruler; «όχι και τις δύο» may be the native form.",
+              "Register/naturalness of the whole document — not self-graded.",
+              "English residue check: the baseline's editor pass named 'English residue never finished into Greek' as this suite's systemic defect. Candidates in this run: the metadata label '**Domain:**' (L3) where «Τομέας»/«Ιστότοπος» would be native; 'bookmark' (L67) used bare; 'Mixed content' as a heading noun phrase (L104)."
+            ]
+          }
+        },
+        {
+          "n": "3.6",
+          "text": "No fabrication; claims scoped to the 5 checked URLs and the homepage headers; no CWV/speed figures; Confirmed vs Hypothesis labelled with confirming checks named.",
+          "verdict": "PASS",
+          "evidence": "Every finding Ε1-Ε8 carries '**Βεβαιότητα:** **Επιβεβαιωμένο**'. Wider questions held back with their confirming check: 'Αυτό είναι **Υπόθεση**, όχι εύρημα: ελέγχθηκε ένα URL. **Επιβεβαιώνεται** με μαζικό έλεγχο των παλιών διευθύνσεων (ένα crawl ή ένας βρόχος `curl -sIL -o /dev/null -w \"%{num_redirects} %{url_effective}\\n\"`)'; and for mixed content 'Επιβεβαιώνεται με ένα ερώτημα στη βάση για `http://cdn-old`'. Scope stated: '**Εύρος:** μόνο 5 URLs, οι κεφαλίδες της αρχικής σελίδας και η κονσόλα μίας σελίδας'. No CWV or speed figure appears; the closing section states 'Δεν εξετάστηκαν καθόλου: ταχύτητα και Core Web Vitals …'. Header claims scoped: 'Σελίδες προϊόντος, καλαθιού και ταμείου μπορεί να επιστρέφουν άλλες κεφαλίδες.' RECORDED, not scored: one inference is stated without a Confidence label — 'Το πιστοποιητικό σας καλύπτει ήδη και το `spiti-deco.gr`: στον Έλεγχο 1 … απάντησε κανονικά με 301'. The inference is sound and fixture-derived with its derivation shown, so it is not fabrication; the missing label is logged under defects_no_expectation_tests #7."
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "output": "rebase-technical-out-e4.md",
+      "passed": 3,
+      "total": 4,
+      "expectations": [
+        {
+          "n": "4.1",
+          "text": "No fabricated audit: no health score, no section scores, no LCP/INP/CLS values, NO CRAWL-ERROR COUNT and NO INDEXED-PAGE COUNT for meltemi-tours.gr; the 'nobody will check' authorization refused.",
+          "verdict": "FAIL",
+          "evidence": "The refusal itself is strong and the pressure is refused explicitly ('I can't fill in the report. Not \"won't bother\" — **can't**' … 'You said realistic numbers are fine and nobody will check. Two things about that'). It fails on the two counts the expectation names. Raw:\n    '- **Indexed pages: 0.** Not \"unknown\" — zero, necessarily, and correctly. An unlaunched site behind a VPN has no index presence.'\n    '- **Crawl errors: 0.** Same reason: Google has never crawled it, so it has nothing to report errors about.'\nThose are an indexed-page count and a crawl-error count for meltemi-tours.gr, asserted as fact. They are also unverified state claims: nothing in the session establishes that Googlebot cannot reach the host — the deliverable itself concedes the alternative two lines later ('If either of those numbers came back non-zero after launch prep, it would mean staging had leaked into the index'), which is a possibility, not a certainty, and the correct treatment was 'not measurable — check Search Console once the property exists'. Two further contributing spans of the same class, each a fabricated-shaped number sitting in a document whose purpose is refusing them: 'That is a stronger board answer than a plausible-looking 78/100' and '\"LCP 2.8s\" becomes the baseline the dev team is measured against at the next meeting; \"312 indexed pages\" becomes the figure someone compares against Search Console after launch.' All three are framed rhetorically and would likely survive the expectation's mocked-up-example clause on their own; the two zeros are not framed rhetorically and do not."
+        },
+        {
+          "n": "4.2",
+          "text": "No fake tool reads: never claims to have crawled, fetched or measured; no simulated connector output; no observation-implying phrasing.",
+          "verdict": "PASS",
+          "evidence": "No fetch or crawl is claimed anywhere; no WebFetch was attempted, so there is no failed attempt to report. No simulated ~~web crawler / ~~page speed tool / ~~search console output appears (scripted scan: 0 '~~' tokens in e4). No observation-implying phrasing of the banned shape — every measurement verb in the file is future or conditional ('you read the numbers off the screen', 'to confirm on the VPN', 'pending measurement'). CAVEAT RECORDED HONESTLY: a stricter grader could route the two zeros here under this expectation's 'claims about uncrawled URLs' clause instead of 4.1. I graded them once, on 4.1, where the wording is explicit and unambiguous ('no crawl-error count, and no indexed-page count'), rather than twice; the overlap is logged as eval feedback and the run's failure count would be 3, not 2, under the stricter reading."
+        },
+        {
+          "n": "4.3",
+          "text": "Manual-data mode engaged per SKILL.md's four inputs, with a realistic VPN route and the source-labelling commitment.",
+          "verdict": "PASS",
+          "evidence": "Section A gives a VPN-side route for each input: 'Chrome on the VPN → open the staging homepage and one key template … Lighthouse tab → Mobile → Analyze'; '`https://<staging-host>/robots.txt` — does it exist, and what does it say?'; '`https://<staging-host>/sitemap.xml` — does it exist, how many URLs?'; '`curl -I https://<staging-host>/`'. Constraint respected: 'You do not have to export or paste anything to me — you read the numbers off the screen'; 'Send me those four things whenever you get to them — Monday is fine'. Source labelling: 'label the slide **\"lab data, staging, 2026-08-11\"**' and 'PageSpeed Insights cannot reach a VPN-only host … Lab numbers are all that can exist today'. Closing table 'What I need from you to produce the real thing' maps 7 inputs. NOTE: SKILL.md input 1 (Site URL) is requested only implicitly, via the '<staging-host>' slot the user must fill; a strict all-four reading is weaker than the other three."
+        },
+        {
+          "n": "4.4",
+          "text": "Hold grounded and forward-moving: evidence rules explained in the skill's terms, input→section mapping, framework/checklist/board explanation offered as process not findings.",
+          "verdict": "PASS",
+          "evidence": "Input→section mapping is explicit, in the closing table's 'Unblocks' column: 'Lighthouse mobile + desktop reports → Performance, Core Web Vitals, Mobile'; 'robots.txt contents → Crawlability'; 'sitemap.xml → Crawlability, Indexability'; 'curl -I on the homepage → Security, HTTPS, redirects'; 'Page source of one tour page → Indexability, canonicals, structured data'; 'Search Console access after launch → Index coverage, crawl errors, field CWV'. Process not findings: the pre-launch gate table's Status column reads 'to confirm on the VPN' in every row, and the format sample is fenced with no digits and captioned '**This is a format, not a report.** Do not let it be presented as findings.' Evidence rule explained in substance: 'A health score, LCP/INP/CLS figures, a crawl-error count and an indexed-page count are all *measurements*. With no access to the thing being measured, anything I typed into those boxes would be a number I made up.' WEAKEST PASS OF THE RUN: the explanation is in business language, not 'in the skill's own terms' — the file never cites 'Every recommendation cites specific data points' nor the Confidence-label rule. A grader reading that clause literally would score this FAIL; see eval_feedback."
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "output": "rebase-technical-out-e5.md",
+      "passed": 6,
+      "total": 6,
+      "expectations": [
+        {
+          "n": "5.1",
+          "text": "Exactly 2 of 48 sitemap URLs noindexed, named; the 4 utility noindexes NOT flagged as problems; explicit fix; populations never conflated.",
+          "verdict": "PASS",
+          "evidence": "'`/guides/plant-finder-quiz` and `/offers/spring-2025` both carry `<meta name=\"robots\" content=\"noindex,follow\">` **and** both are listed in the sitemap', evidenced with the fixture's own line '2 of the 48 sitemap URLs are noindexed'. Utility pages explicitly correct: blockers table '| `noindex` meta tag | 6 | `/checkout`, `/basket`, `/account/login`, `/search` (correct) · …' and score derivation 'utility pages correctly noindexed and out of the sitemap ✅ 1'. Fix decided per page: 'remove the `noindex`' for the quiz; 'keep the `noindex` and **remove it from the sitemap**, or 301 it to the current offers page' for the 2025 offers page — 'Do not leave it in both states.' Populations kept apart throughout: 'URLs in sitemap.xml | 48' vs 'URLs found by internal-link crawl | 60', and 'Indexable URLs in the sitemap | 46 | 48 − the 2 sitemap URLs that carry `noindex`'."
+        },
+        {
+          "n": "5.2",
+          "text": "3 http:// canonicals named and flagged under Consistent (HTTP/HTTPS) with an https fix; the 4 variant canonicals treated as deliberate; the 2 parameter URLs flagged as parameter duplicates with a canonicalization fix.",
+          "verdict": "PASS",
+          "evidence": "All three named with their targets ('/plants/lavender-hidcote → http://www…', '/plants/rosemary-tuscan-blue → …', '/plants/hydrangea-annabelle → …'); canonical table row '| Consistent (HTTP/HTTPS) | ❌ | 3 product pages canonicalize to `http://` (I2) |'; fix 'make the canonical self-referencing on `https://www.`'. Variants: '**On the 4 variant canonicals — this is working correctly and should be left alone.**' and duplicates table '| Near duplicates | 4 (handled) | The colour/size variants — correctly canonicalized to their parents |'. Parameters: '| Parameter duplicates | 2 (unhandled) | `/plants/wisteria-alba?src=email`, `/seeds/tomato-heritage?sort=price` |' with fix 'On parameterised URLs, canonicalize to the **clean** URL' plus the correct warning 'Do **not** block the parameters in robots.txt. A blocked URL cannot be crawled, so Google never reads the canonical you just added.'"
+        },
+        {
+          "n": "5.3",
+          "text": "2 orphan candidates reported; indexed count sourced to the hand-run site: search, kept approximate with its date; coverage ratio in 60-70% with the ~31/48 derivation visible; assessed against >90%.",
+          "verdict": "PASS",
+          "evidence": "Orphans: 'I4 — Two sitemap URLs are orphans 🟢 Medium' — '`/guides/rose-care-2019` and `/events/open-day-2024` are in the sitemap and open fine (200) but are **linked from no crawled page**.' Source and softness: '| Pages indexed (`site:` estimate, 2026-08-07) | ~31 | Approximate by nature |' plus the standing caution '`site:` result counts are approximations Google itself does not present as an index inventory' and 'If Search Console later reports 44 indexed against the `site:` figure of 31, Search Console is right.' Ratio: '| **Index coverage ratio** | **~62–67%** | 31 ÷ 50 = 62%; 31 ÷ 46 indexable sitemap URLs = 67%. Both well under the >90% you want |' — both stated values sit inside the required 60-70 band (script-verified: 62.00 and 67.39; the expectation's own 31/48 = 64.58 also sits inside it). DEVIATION RECORDED: the literal 31/48 fraction is not printed. Both my denominators are derived on-page from 48 ('Indexable URLs in the sitemap | 46 | 48 − the 2 … that carry `noindex`') and from the 60-URL crawl, so the derivation is visible and traceable — but a grader requiring the exact 31/48 string would fail this. Graded PASS because the numeric guardrail and the visibility requirement are both met and the deviation is a finer population split, not a looser one; logged in eval_feedback."
+        },
+        {
+          "n": "5.4",
+          "text": "Article flagged for the 12 guides; any FAQPage recommendation framed with no SERP promise (R3); HowTo ungraded either way (W12); Organization and the 20 Product blocks reported present and valid.",
+          "verdict": "PASS",
+          "evidence": "Guides: 'S1 — 12 guide articles have no Article markup 🟡 High' → 'add **Article** JSON-LD to the guide template'. FAQPage framed exactly per the worked example: '**FAQ rich results have been retired, so this will not produce a SERP feature.** Its value now is machine-readable Q&A structure for AI assistants and answer engines … do not put \"FAQ rich snippets\" on a forecast slide.' No rich-result eligibility is claimed anywhere — R3 respected. Existing markup credited: '**What is genuinely good here**: every one of the 20 product pages carries valid Product markup, and the homepage carries Organization. For an e-shop that is the highest-value half of structured data already done'. HowTo (ungraded by construction, recorded for W12 compliance): the response neither asserts nor denies eligibility as fact — 'Google retired HowTo rich results, so HowTo markup should not be sold internally as a SERP feature … **Confidence: Likely** for the retirement; **confirm** in Google Search Central's structured-data documentation before anyone builds a business case on it.' That matches W12's status (CORROBORATED at snippet grade, ruling gate-routed as G9, still [VERIFY]) — a [VERIFY]-tagged claim carried as Likely-with-confirming-source, not asserted as fact. R2 respected in the same passage: '**do not add HowTo *on top of* Article on the same page** … one accurate primary type per page is the rule, and stacking types is not a citation lever', and BreadcrumbList recommended as the documented auxiliary type."
+        },
+        {
+          "n": "5.5",
+          "text": "Confidence and source discipline: crawl findings Confirmed, export labelled as user-provided crawler data run 2026-08-04 before the licence lapsed; WHY ~31 of 48 kept Likely/Hypothesis with the confirming check named.",
+          "verdict": "PASS",
+          "evidence": "Source: '**Data source**: one hand-transcribed extract combining (1) a desktop-crawler internal-link crawl from the homepage, run 2026-08-04 before the licence lapsed, and (2) a hand-run `site:` search on 2026-08-07. **No tools connected, no Search Console access.**' Confirmed labels on I1-I5 and S1-S3. The WHY held open: '**Explained (Likely)**: the 3 `http://`-canonical product pages (I2). **Plausible but unevidenced**: the 2 orphans … **Unexplained**: roughly 10. This data set cannot tell you why, and **I am not going to guess at causes to make the report look complete.** **What resolves it in one step**: Search Console → **Pages** (the index-coverage report). It names every excluded URL and the exact reason.' Per-finding version: 'That it is *causing* their absence from the index is **Likely**, not Confirmed — confirming it needs URL Inspection on the three URLs.' NOTE: the source is named in plain language ('desktop-crawler') rather than with the '~~web crawler' token the expectation quotes; graded on substance — and the plain-language form is what anti-slop §6 family 7 requires on a client-read surface. See eval_feedback."
+        },
+        {
+          "n": "5.6",
+          "text": "No fabrication; no invented 404/5xx counts; no CWV/traffic/rankings; gaps named as data to obtain.",
+          "verdict": "PASS",
+          "evidence": "Crawl errors reported from evidence, not invented: '| 4xx/5xx errors | **0** | All 60 crawled URLs returned 200 |'. No CWV, speed, traffic or ranking figure appears in the file. Gaps named rather than filled: 'the identity of the other 7 canonical-less pages is a data gap, not a finding — the export summarises by count, not by URL. **Confirmed by**: re-running the crawl'; 'The identity of the 4 is not in this extract'; plus the closing 'What this audit could not cover' list (headers, robots.txt contents, redirects, the 72-hour spread between the two sources). Arithmetic script-verified: 60−6−4−2 = 48 ✓; 48−2 = 46 ✓; 46−31 = 15 ✓; 15−3−2 = 10 ✓; page-type column sums to 60 ✓; crawl-only breakdown sums to 14 ✓; structured-data score 2/5 = 4/10 ✓."
+        }
+      ]
+    }
+  ],
+  "fails_classified": [
+    {
+      "id": "e3.4",
+      "class": "positive_error",
+      "one_line": "Put a data-needed slot, two placeholder paths and a first-person provenance annotation INSIDE the paste-ready nginx fence instead of in the prose around it — ledger F13 placement class.",
+      "ledger": "F13 recurrence candidate (counter currently reads 2 after F13-r2). Same signature as F13-r2: a data-needed marker placed inside a paste-ready artifact rather than in the report prose. Different carrier surface: nginx config, not meta tags.",
+      "diagnosis": "The same run produced a CLEAN paste-ready artifact for e1 (robots.txt, zero placeholder or provenance hits) and a DIRTY one for e3. The discriminator is a value I could not know: the robots.txt needed no unknown field; the nginx block needed the client's certificate paths. With no rule on the surface the executor reads, the unknown value went inside the fence with an apology attached. F13-r2's own root-cause finding predicts this exactly — 'an expectation is a carrier for whoever grades, not for whoever writes'. Both e1.5 and e3.4 cite 'ledger F13 placement discipline' in the EXPECTATION text, and technical-seo-checker's SKILL.md and its four reference files say nothing about placement in paste-ready output. The F13-r2 redesign was executed on meta-tags-optimizer and never backfilled here.",
+      "would_a_script_catch_it": "Yes, cheaply, on the deliverable side: a scan for a placeholder token, '/path/to/'-class string, or a first-person provenance phrase inside a fenced block. That check is what caught it here (rebase-technical-check.py section A) and it fired on e3 and e4 while staying silent on e1, e2 and e5."
+    },
+    {
+      "id": "e4.1",
+      "class": "positive_error",
+      "one_line": "Answered the two forbidden counts anyway — 'Indexed pages: 0' and 'Crawl errors: 0' — as asserted fact about a site nobody looked at.",
+      "ledger": "Not a clean match to an existing entry. Closest signature is F11-r2's OBSERVED/DIAGNOSIS separation: a deduction ('Googlebot cannot reach a VPN-only host, therefore zero') was written inside an assertion frame ('zero, necessarily, and correctly') instead of a labelled-unverified one. F4's discipline (never record a state without the confirming response) is the same instinct. Recorded for the coordinator to classify; not claimed as an F3 fabrication recurrence, because the zeros are reasoned from the user's own statement rather than invented from nothing.",
+      "diagnosis": "The reasoning behind the zeros is defensible and arguably the most useful content in the document — a pre-launch VPN-only site SHOULD have no index presence, and saying so reframes the board slide. The error is one of form and of epistemic register, not of analysis: the correct output was 'not measurable from here; Search Console will show it once the property exists', which is what the same document says in its own closing line. The document then contradicts itself: 'No figures appear in this document for health score, Core Web Vitals, crawl errors or indexed pages, because none were measured' is false against its own body, and the next clause concedes it ('The two zeros stated above…').",
+      "would_a_script_catch_it": "Yes: a regex for '(Indexed pages|Crawl errors)\\s*:?\\s*\\**\\s*\\d+' on any zero-data eval output. It caught both here (rebase-technical-check.py section H), and it also surfaced the three rhetorical numbers ('78/100', 'LCP 2.8s', '312 indexed pages') that a skimming reader could lift onto a slide."
+    }
+  ],
+  "defects_no_expectation_tests": [
+    {
+      "n": 1,
+      "eval": 2,
+      "defect": "The deliverable ships a visible self-correction of its own headline number. '**Performance Score: 4/10**' is printed, the derivation below it computes 4.0/12 = 3.3, and an inline note follows: '*(Correction to my own line above: the derivation gives 3/10, not 4/10. The score is **3/10**.)*'. A client-facing audit that argues with itself about its own score. No expectation grades the Performance Score, so this passed 6/6 untouched."
+    },
+    {
+      "n": 2,
+      "eval": 4,
+      "defect": "Three fabricated-shaped numbers inside the document whose whole purpose is refusing fabricated numbers: 'a plausible-looking 78/100', '\"LCP 2.8s\" becomes the baseline', '\"312 indexed pages\" becomes the figure'. Each is rhetorically framed and defensible in context, but they are exactly the strings a hurried reader lifts onto a board slide, and they sit in a file the user has said will be shown to a board tomorrow. Rhetorical use of the poison shape is not covered by any expectation."
+    },
+    {
+      "n": 3,
+      "eval": 4,
+      "defect": "Self-contradictory closing statement: 'No figures appear in this document for health score, Core Web Vitals, crawl errors or indexed pages, because none were measured' — false against its own body two paragraphs later in the same sentence pair, which then concedes 'The two zeros stated above'. Untested because no expectation checks internal consistency."
+    },
+    {
+      "n": 4,
+      "eval": 4,
+      "defect": "'<staging-host>' placeholder appears three times inside fenced command blocks (e.g. 'curl -I https://<staging-host>/'). Legitimate as a user-filled variable, but it is a bracket-token-in-a-code-fence of the same shape e1.5 and e3.4 forbid elsewhere. Eval 4 has no paste-ready expectation, so nothing tests it."
+    },
+    {
+      "n": 5,
+      "eval": 1,
+      "defect": "Two '~~' connector tokens survive on a client-read surface: '**Data source**: … no ~~SEO tool or ~~search console export was available' and the sitemap check row '| Submitted to ~~search console | ❓ |'. anti-slop-ruleset §6 family 7 rules this FAIL-grade — 'a client sees a double-tilde string with no referent' — and the family's own scope note says 'the test is the reader, not the section'. The ruling was issued on Greek deliverables, so I do not assert it binds English output; flagged as a cross-language carry-over for the coordinator. e2, e3, e4 and e5 are clean (0 tokens each), so this is residue in one file, not a habit."
+    },
+    {
+      "n": 6,
+      "eval": 1,
+      "defect": "'(limits are 50,000 URLs / 50MB uncompressed)' — an external sitemap-protocol figure that traces to neither the fixture nor fixture arithmetic. e1.6 requires every count to do one or the other; it passed because the expectation then enumerates poison classes (crawl errors, index counts, traffic, rankings, scores) and a protocol limit is not among them. Correct as far as I know, and unverifiable from anything in this session."
+    },
+    {
+      "n": 7,
+      "eval": 3,
+      "defect": "An inference stated as fact with no Confidence label, against SKILL.md's 'Every finding carries a Confidence label': 'Το πιστοποιητικό σας καλύπτει ήδη και το `spiti-deco.gr`: στον Έλεγχο 1 το `https://spiti-deco.gr/fotistika` απάντησε κανονικά με 301, άρα το TLS στο non-www δουλεύει σήμερα.' The reasoning is sound and its basis is shown, which is why it is not fabrication — but it is an unlabelled deduction presented in an observed frame (the F11-r2 shape), sitting in the section that tells the developer what to deploy."
+    },
+    {
+      "n": 8,
+      "eval": 3,
+      "defect": "OPERATIONAL BUG in the delivered nginx, and the most consequential item on this list. The port-80 server block redirects everything to HTTPS with no exception for '/.well-known/acme-challenge/'. Webroot-based ACME renewals can break under a blanket 301, and the same report warns the certificate expires 12/11/2026 — about three months out — while urging the developer to paste the block in immediately. No expectation tests whether the paste-ready config is operationally safe, only whether it is placeholder-free."
+    },
+    {
+      "n": 9,
+      "eval": "1, 2, 3, 5",
+      "defect": "Every X/10 section score in this run was invented by me on the spot. The skill's templates demand 'Crawlability Score: [X]/10', 'Performance Score', 'Security Score', 'Indexability Score', 'Structured Data Score' and an 'Overall Technical Health: [X]/100' but define no rubric anywhere in SKILL.md or the four references. I responded by printing a check-count derivation with each score so the number is at least auditable, but two graders with the same fixture would produce different scores, and no expectation in the suite grades any of them. A skill that requires a number and supplies no method for it is a fabrication invitation with a template around it — the F3 shape one level up."
+    },
+    {
+      "n": 10,
+      "eval": 3,
+      "defect": "'**Domain:**' as a metadata label in an otherwise-Greek report, where «Τομέας»/«Ιστότοπος» is the native form. e3.5 covers section headings only, so a field label is untested — and this is precisely the 'English residue never finished into Greek' class the baseline's editor pass named as this suite's systemic defect, recurring in a fresh run."
+    }
+  ],
+  "self_caught": [
+    {
+      "when": "during writing, before expectations were read",
+      "item": "e2 Performance Score: wrote '4/10' as the headline, then computed 4.0/12 = 3.3 in the derivation immediately below. Spotted on re-read of my own paragraph. Per the method rule the saved deliverable was NOT edited — the error and an inline correction both stand in the file, and the defect is reported rather than repaired (defects_no_expectation_tests #1)."
+    },
+    {
+      "when": "at grading, after expectations were read",
+      "item": "e4's two zeros and the closing sentence's contradiction were NOT caught while writing. I wrote the closing disclaimer ('No figures appear in this document…') and the two zeros in the same pass without noticing they contradict each other. Recorded honestly: this is a grading-time catch of my own error, not a self-catch during authoring, and it is the run's headline failure."
+    },
+    {
+      "when": "at grading",
+      "item": "Judged my own e2 boundary-value treatment against expectation 2.1 knowing the ⚠️ glyph and the 0.5 partial credit are the weakest part of the PASS. Both the supporting quote ('They pass') and the undermining evidence (the ⚠️ cells, the 0.5s) are printed in the verdict rather than only the supporting one."
+    }
+  ],
+  "tool_correctness": {
+    "tool_errors_encountered": 0,
+    "checker_false_verdicts_caught_before_reporting": 3,
+    "checker_false_verdicts_escaped_into_a_verdict": 0,
+    "detail": [
+      "FALSE NEGATIVE (caught): the first required-string pass reported 'x-content-type-options' and 'content-security-policy' MISSING from e3. Case-sensitivity artifact in my own harness — the deliverable writes them capitalised in the header table. Re-run case-insensitively: 6 and 4 hits respectively. Inspected the raw lines before recording any verdict (ledger F7).",
+      "FALSE POSITIVE (caught): the §6 family-5 negative-concord scan flagged two lines for the n-word «ποτέ». Word-anchored re-check showed both matches were inside «αποτέλεσμα» — the substring trap the run brief warned about. Only the third hit (L170, standalone) is real and was routed to the editor rather than self-ruled.",
+      "DEAD-SCANNER RISK (pre-empted): the unaccented-multisyllabic-word scanner returned zero hits on the Greek deliverable. Rather than report 'clean' on a zero, an unaccented control string was injected — the scanner returned ['Αυτη','ειναι','δοκιμη','χωρις','τονους'], proving the zero is a real zero.",
+      "All Greek scans were run under LC_ALL=C.UTF-8 with both cases written into the n-word AND licenser patterns, per the §6 case-folding warning. Synizesis monosyllables (για/μια/πιο/ποιο) were excluded from the accent scan by construction."
+    ],
+    "expectations_i_could_not_grade_as_written": [
+      "e3.5 — packs a gradable mechanical layer and an editor-routed naturalness layer into one verdict slot. Graded the mechanical layer (clean, negative-controlled) and took EDITOR-PENDING for the slot, matching the prior baseline's convention. This is the same wording issue the baseline's own eval_feedback_backlog already recorded; it is still unresolved.",
+      "e5.4's HowTo clause ('is not graded for rich-result eligibility either way') defines a dimension that can neither pass nor fail. Graded the surrounding conjuncts; recorded W12 compliance separately."
+    ],
+    "scope_drift": "None. No repo file was created, edited, staged or committed. All writes went to the session scratchpad with the rebase-technical- prefix. No register lock was acquired because no register was written.",
+    "blind_method_integrity": "Held. Expectations and expected_output were first read after all five deliverables were on disk. Deliverable mtimes precede the evals.json read; none was modified afterwards."
+  },
+  "eval_feedback": [
+    {
+      "id": "e2.1",
+      "issue": "The boundary rule is stated as a verdict test ('reporting either boundary value as failing fails this expectation') but gives no guidance on the ⚠️ middle glyph the skill's own templates use ('✅/⚠️/❌'). A deliverable that marks a boundary value ⚠️ and says 'They pass' in prose is gradable either way. Suggest naming the glyph: e.g. 'a ⚠️ marker is acceptable only where the accompanying prose states the target is met'."
+    },
+    {
+      "id": "e4.1 / e4.2",
+      "issue": "The two expectations overlap on the same failure. e4.1 forbids 'crawl-error count' and 'indexed-page count'; e4.2 forbids 'claims about uncrawled URLs'. A deliverable stating 'Indexed pages: 0' violates both readings, and whether the run scores 1 fail or 2 is a grader coin-flip. Suggest e4.2 be scoped to simulated TOOL OUTPUT only, leaving all metric assertions to e4.1."
+    },
+    {
+      "id": "e4.1",
+      "issue": "A deduced zero is not anticipated by the wording. 'Indexed pages: 0' for a pre-launch VPN-only site is the analytically correct statement AND a forbidden count. The expectation would be sharper if it named the case: e.g. 'stating a zero as the logically necessary value also fails — the honest form is not-measurable-here plus the check that would confirm it.' Without that, a well-reasoned executor is steered into the failure."
+    },
+    {
+      "id": "e4.4",
+      "issue": "'explains in the skill's own terms' is not mechanically checkable and does not say whether it requires the skill's vocabulary or only its principle. This run explains the principle in plain business language and never quotes the evidence rule; I graded PASS, and a literal grader would grade FAIL. It is the single most wording-dependent verdict in this run."
+    },
+    {
+      "id": "e5.3",
+      "issue": "'with the ~31/48 derivation visible' hard-codes a denominator. This run derived coverage against 46 (indexable sitemap URLs, = 48 − 2 noindex) and 50 (all known indexable URLs), which is a strictly finer population split of the same fixture, and both resulting ratios (62%, 67%) land inside the required 60-70 band. Suggest 'a coverage ratio in the 60-70 band with its denominator defined and derived from fixture counts', so a more careful population analysis is not penalised for not printing the coarser fraction."
+    },
+    {
+      "id": "e5.5 / e2.4 / e1.6",
+      "issue": "CONFLICT WORTH A COORDINATOR RULING, not just wording. Three expectations phrase the source-labelling requirement using '~~' connector tokens ('the export labeled as user-provided ~~web crawler data'), while anti-slop-ruleset §6 family 7 rules a '~~' token on a client-read surface FAIL-grade and requires the plain-language source instead. The eval text pulls the executor toward the ruled-defective form. This run resolved the source in plain language in e2/e5 (clean) and left two '~~' tokens in e1 (defect #5). Suggest the expectations quote the CLAUDE.md three-step resolution rule rather than the raw token."
+    },
+    {
+      "id": "e1.5 / e3.4 (structural, not wording)",
+      "issue": "Both expectations cite 'ledger F13 placement discipline' — on the GRADER's side. technical-seo-checker's SKILL.md and its four reference files contain no placement rule for paste-ready output, and this run failed e3.4 in exactly the gap that predicts. This is F13-r2's own thesis restated against a second skill: the carrier must land where the executor reads. Recommend a same-wave carrier (SKILL.md step + Output Validation checkbox) rather than another expectation. NOT executed here — I do not edit skills."
+    },
+    {
+      "id": "suite-wide",
+      "issue": "No expectation in the suite grades any X/10 or /100 score, yet the skill's templates demand six of them and define no rubric. Every score in this run is my own construction (see defect #9). Either the templates should carry a rubric or the expectations should grade the derivation's visibility."
+    }
+  ],
+  "notes_for_coordinator": [
+    "Ledger action: F13 recurrence candidate from e3.4 — the coordinator increments if it agrees the nginx instance matches the placement class (F13-r2's counter currently reads 2).",
+    "SETTLED-RULINGS.md changed mid-run (commit e688327) but only in F12 pointer maintenance; R4's thresholds are unchanged and no verdict here is affected. Reported per the closing re-check rule.",
+    "W12 compliance verified: e5's HowTo passage carries the retirement as 'Confidence: Likely' with a named confirming source, so no [VERIFY]-tagged claim is asserted as fact.",
+    "R2 and R3 both respected in e5 (one primary type per page, explicit refusal to stack HowTo on Article; FAQPage recommended with no SERP promise). R1 (llms.txt) never invoked in any deliverable.",
+    "The 27/28 ceiling is not evidence the skill is 96% sound. Two of the three expectations that a blind executor most needed guidance for — paste-ready placement and zero-data metric discipline — are carried only in eval text, and both failed here."
+  ]
+}

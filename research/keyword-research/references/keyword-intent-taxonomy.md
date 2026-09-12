@@ -52,7 +52,7 @@ The user wants to **learn something**. They are seeking knowledge, not a product
 | Featured Snippet | Very High | Especially for "what is" and "how to" queries |
 | People Also Ask | Very High | Almost always present for informational queries |
 | Knowledge Panel | High | For entity-related informational queries |
-| AI Overview | Very High | AI systems prioritize informational answers |
+| AI Overview | Very High | Appears on most informational queries in this set — confirm per keyword rather than assuming |
 | Video Carousel | Medium-High | Especially for instructional queries |
 | Image Pack | Medium | For visual/diagram-seeking queries |
 | Shopping Results | Very Low | Rarely appears for pure informational |
@@ -152,7 +152,7 @@ The user is **researching before making a purchase decision**. They are comparin
 |-------------|------------------------|-------|
 | People Also Ask | Very High | Comparison and evaluation questions |
 | Featured Snippet | High | Especially for "best" and comparison queries |
-| AI Overview | High | AI often synthesizes comparisons |
+| AI Overview | High | Usually appears in comparison form on these queries — record the form you actually saw, per query |
 | Shopping Results | Medium | When products have direct purchase path |
 | Video Carousel | Medium | Review and comparison videos |
 | Ads (top) | Very High | Advertisers target commercial intent heavily |
@@ -260,12 +260,14 @@ Advocacy        →   Informational            Enable sharing
 
 Many real-world queries blend multiple intent types. Recognize and address the dominant + secondary intent.
 
+**Both halves of the pair come from the four categories** — informational, navigational, commercial, transactional. A blended query is never labelled with the bare word `Mixed`, and never with a fifth label: `Mixed` names none of the four, so it carries no instruction to whoever writes the page. Sub-categories (Instructional, Comparison, Evaluation, Download) narrow an intent inside its category and are useful in the Sub-category column; they never occupy the Primary or Secondary Intent column on their own.
+
 ### Common Mixed Intent Patterns
 
 | Query Pattern | Primary Intent | Secondary Intent | Content Strategy |
 |--------------|---------------|-----------------|-----------------|
 | "best [product] for [use case]" | Commercial | Informational | Buying guide with educational context |
-| "how to [task] with [product]" | Instructional | Navigational | Tutorial featuring the product |
+| "how to [task] with [product]" | Informational (instructional) | Navigational | Tutorial featuring the product |
 | "[product] review and pricing" | Commercial | Transactional | Review with clear pricing CTAs |
 | "what is [concept] tools" | Informational | Commercial | Explainer that transitions to tool recommendations |
 | "[product] free download" | Transactional | Navigational | Landing page with download + product info |
@@ -321,4 +323,44 @@ Many real-world queries blend multiple intent types. Recognize and address the d
 | Treating all questions as informational | "how much does Ahrefs cost" | User is evaluating a purchase | Commercial / Transactional |
 | Ignoring local intent | "SEO services" | May have strong local intent in many contexts | Transactional (local) |
 | Missing navigational intent | "HubSpot blog" | User wants a specific page | Navigational |
-| Assuming single intent | "SEO tools" | Could be informational OR commercial | Mixed -- check SERP |
+| Assuming single intent | "SEO tools" | Could be informational OR commercial | Commercial (primary) / Informational (secondary) -- check SERP |
+
+---
+
+## Keyword Expansion Patterns (SKILL.md Step 3)
+
+The modifier library Step 3 expands each seed keyword through. It lives here rather than in the
+body because a modifier is an intent signal before it is a variation: the modifier you attach is
+usually what decides which of the four categories the expanded keyword lands in, so the list and
+the signal-word tables above belong on the same page. Expand every seed against both columns,
+then classify each result with Step 5 — do not assume the modifier's usual intent without
+checking the SERP (see "Common Classification Mistakes" directly above).
+
+| Modifier pattern | Usual intent it produces |
+|------------------|--------------------------|
+| Best [keyword] | Commercial |
+| Top [keyword] | Commercial |
+| [keyword] for [audience] | Commercial or Informational — depends on the audience term |
+| [keyword] near me | Transactional (local) |
+| [keyword] [year] | Follows the base keyword; signals a freshness expectation |
+| How to [keyword] | Informational |
+| What is [keyword] | Informational |
+| [keyword] vs [alternative] | Commercial |
+| [keyword] examples | Informational |
+| [keyword] tools | Commercial |
+
+| Long-tail variation | Usual intent it produces |
+|---------------------|--------------------------|
+| [keyword] for beginners | Informational |
+| [keyword] for small business | Commercial |
+| Free [keyword] | Commercial (often price-sensitive) |
+| [keyword] software / tool / service | Commercial |
+| [keyword] template | Informational, with a download as the conversion |
+| [keyword] checklist | Informational, with a download as the conversion |
+| [keyword] guide | Informational |
+
+The "usual intent" column is a starting point for classification, never the classification itself:
+Step 5 requires every keyword to carry one of the four categories (or a primary + secondary pair
+drawn from them), and a modifier's usual intent is exactly the kind of assumption the mistakes
+table above exists to catch. For Greek seeds, expand first and then run the Step 4 dual-coverage
+table over each expanded demand — the four forms are ways of typing one demand, not four seeds.

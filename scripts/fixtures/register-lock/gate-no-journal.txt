@@ -1,0 +1,13 @@
+# CASE: gate-no-journal
+# ROLE: negative
+# JOURNAL: NONE
+# COMMIT-AT: -200
+# FILE: docs/loop/KPI.md
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: no lock ledger entries
+# WHY: zero friction by construction — a solo session that never announces a path is
+#      never blocked. It is also the leg's blind spot stated out loud: a writer who
+#      skips `acquire` is invisible to it, so this PASS is the absence of a subject,
+#      not a clean bill of health.
+# ---8<--- commit message
+docs(loop): weekly numbers

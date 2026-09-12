@@ -82,7 +82,7 @@
 | T02 | Dofollow Ratio Normality | Dofollow 40-85% of total backlinks |
 | T03 | Link-Traffic Coherence | Link volume proportional to organic traffic (**Veto Item**) |
 | T04 | IP/Network Diversity | >=100 unique C-class IP ranges; no single C-class >5% |
-| T05 | Backlink Profile Uniqueness | No other domain shares >60% same referring domains (**Veto Item**) |
+| T05 | Backlink Profile Uniqueness | No other domain shares 40%+ of the same referring domains; >60% triggers the veto (**Veto Item**) |
 | T06 | WHOIS & Registration Transparency | Public WHOIS, reputable registrar, stable ownership >=2 years |
 | T07 | Technical Security | Site-wide HTTPS + HSTS; no malware/phishing flags |
 | T08 | Content Freshness Signal | New/updated content within last 90 days |
@@ -141,6 +141,40 @@
 | 40–59 | Low |
 | 0–39 | Poor |
 
+**Round the score to a whole number, half up, and read the band off the rounded figure.** Every
+endpoint above is a whole number and the CITE Score is a weighted mean, so the computed figure
+usually is not. Unrounded, four windows per hundred belong to no band at all — anything strictly
+between 39 and 40, 59 and 60, 74 and 75, or 89 and 90. The rounding step is what makes the bands
+contiguous, and it does that **without moving a single endpoint**.
+
+**Both figures appear, and neither replaces the other.** Print the computed value with its
+derivation — that is what a reader reproduces the score from — and print the rounded value carrying
+the rating word: `CITE Score = 28.0 + 8.25 + 16.0 + 16.25 = 68.5 → 68.5/100, band read off 69 → Medium`. The rounded
+figure is the band's input only. It is never the figure the arithmetic is checked against, and a
+report that prints only the rounded number has thrown away the derivation.
+
+**Round once, from the computed figure.** `domain-authority-auditor` reports the CITE Score at one
+decimal; that is a presentation precision, and the band still comes off the computed value rounded
+straight to a whole number — never off the one-decimal figure rounded a second time. Chaining the
+two moves a band: a computed 74.46 rounds to 74, Medium, but via 74.5 it becomes 75, Good.
+
+**Precision follows the band's own endpoints — do not harmonise the two scales.** These bands have
+whole-number endpoints, so the score rounds to a whole number. The Link Quality Score in
+[monitor/backlink-analyzer/references/link-quality-rubric.md](../monitor/backlink-analyzer/references/link-quality-rubric.md)
+§1 rounds to **one decimal**, because its bands have one-decimal endpoints (4.0-5.0 · 2.5-3.9 ·
+1.0-2.4). One rule, two precisions, each set by the scale it serves. Rounding a CITE Score to one
+decimal leaves 39.8 exactly where it was — in no band — and rounding an LQS to a whole number
+collapses three bands into two. The difference is not a discrepancy to tidy up.
+
+**Item criteria are read the same way, at their own precision.** Section 7's Pass/Partial/Fail
+criteria are written with whole-number endpoints (`Partial: 30-59% editorial links`), so a measured
+quantity is rounded to a whole number, half up, before it is read against them — 59.6% editorial
+reads 60% and takes the Pass its endpoint names, and 59.4% reads 59% and takes the Partial. Where
+an item's own endpoints carry a decimal — **T10** alone, at `3.0-3.4` against a `>=3.5` Pass — the
+measurement is read to one decimal instead. This is a reading rule for the measured quantity, not a
+change to any threshold: it moves a borderline observation by at most half a unit of the band's own
+precision, which is the price of every value having a grade instead of some values having none.
+
 ### Veto Items
 
 The following items can override the overall score — a Fail on any veto item caps the CITE Score at 39 (Poor) and raises a **Manipulation Alert**:
@@ -148,6 +182,19 @@ The following items can override the overall score — a Fail on any veto item c
 - **T03** — Thousands of links but near-zero organic traffic (link farm)
 - **T05** — Near-identical backlink profile found on another domain (manipulation network)
 - **T09** — Google manual action or deindexing (zero trust)
+
+**Round first, then apply the cap — and read the band off the same figure the cap sits on.** The
+cap is a ceiling on the score the report prints, and the score the report prints is the rounded
+one, so the ceiling belongs on the rounded figure.
+
+Worked, one veto Fail, weighted total **39.6**: rounding gives **40**, which reads Low and stands
+above the cap; the cap then binds and the reported score is **39, Poor**, with the Manipulation
+Alert raised. Applying the cap to the unrounded 39.6 and rounding afterwards reaches the same 39,
+and that coincidence is exactly why the order gets left to inference. The defect this ordering
+prevents is not the arithmetic — it is checking the cap against one figure (39.6, already above 39,
+so "capped") and then reading the band off another (40, Low). **A vetoed report that prints 40/Low
+has breached the cap however it got there.** State the cap and the band against the one rounded
+number. CITE has no 59 cap and no BLOCK verdict; those are CORE-EEAT's mechanics.
 
 ---
 
@@ -165,11 +212,18 @@ What is the domain's primary function?
 
 ---
 
-## 5. AI Engine Citation Preferences (Domain Signals)
+## 5. Per-Engine Prioritisation Map (Domain Signals)
 
-| Engine | Preferred Domain Signals | Priority CITE Items |
-|--------|-------------------------|---------------------|
-| Google AI Overview | High organic rankings, Schema.org, SERP features | E01, E03, I04, C01 |
+> **Evidence grade.** No engine publishes the domain signals it weights. Every row below is
+> **this library's judgement about where to spend effort** when that engine is the named
+> target — not a preference any engine has stated. Ruling R3 amendment 9a retracted a claim of
+> this shape on the ground that no primary source establishes it in either direction. Use the
+> rows to order work; justify each recommendation in a client report by what it does for the
+> domain, never by an asserted engine preference.
+
+| Engine | Domain signals this library emphasises | Priority CITE Items |
+|--------|----------------------------------------|---------------------|
+| Google AI Overview | High organic rankings, Schema.org coverage, SERP features | E01, E03, I04, C01 |
 | ChatGPT Browse | Original data, authoritative sources, clear conclusions | C05, C06, I01, E06 |
 | Perplexity AI | Research-grade content, methodology transparency, tiered sources | C09, C10, E07, I05 |
 | Google Gemini | Knowledge graph presence, brand recognition, topical authority | I01, I02, E07, E08 |
@@ -177,14 +231,20 @@ What is the domain's primary function?
 
 ### Top 6 CITE Priority Items for AI Visibility
 
-| Rank | ID | Name | Why It Matters |
-|------|----|------|----------------|
-| 1 | C05 | AI Citation Frequency | Direct measurement of AI engine citation |
-| 2 | I01 | Knowledge Graph Presence | AI engines use KG to verify entity identity |
+Ranked by this library — a do-first order, **not documented engine behaviour**. No engine
+publishes how it selects sources, so each reason below states what the item *is* or what it
+puts in front of a reader, which is checkable. Ruling R3 amendment 9a retracted a claim of
+this shape on the ground that no primary source establishes it in either direction; that
+absence is not narrower here. Do not write an engine mechanic into a client report.
+
+| Rank | ID | Name | Why this library ranks it here |
+|------|----|------|--------------------------------|
+| 1 | C05 | AI Citation Frequency | The outcome itself, counted directly — not a proxy for it |
+| 2 | I01 | Knowledge Graph Presence | The entity is resolvable to one identity across sources, instead of ambiguous |
 | 3 | T03 | Link-Traffic Coherence | Veto item that invalidates all other scores |
-| 4 | E07 | Topical Authority Depth | AI prefers deep niche experts over generalists |
-| 5 | C01 | Referring Domains Volume | Foundation signal — links remain the backbone |
-| 6 | I04 | Schema.org Coverage | Structured data helps AI parse your content |
+| 4 | E07 | Topical Authority Depth | Depth a generalist site does not have, on the topic being asked about |
+| 5 | C01 | Referring Domains Volume | The most-corroborated third-party signal available, and the cheapest to verify |
+| 6 | I04 | Schema.org Coverage | States the site's entities and page types in a machine-readable form, unambiguously |
 
 ---
 
@@ -192,7 +252,7 @@ What is the domain's primary function?
 
 | CITE Item | Related CORE-EEAT Items | Relationship |
 |-----------|------------------------|--------------|
-| C05-C08 (AI Citations) | C02 (Direct Answer), O02 (Summary Box), E01 (Original Data) | Domain gets cited when content is citable |
+| C05-C08 (AI Citations) | C02 (Direct Answer), O02 (Summary Box), E01 (Original Data) | The CORE-EEAT items name what makes a page liftable; the CITE items count where it was actually quoted |
 | I01 (Knowledge Graph) | A07 (Knowledge Graph Presence), A08 (Entity Consistency) | EEAT-A items build the identity that I items measure |
 | I04 (Schema.org) | O05 (Schema Markup), R09 (HTML Semantics) | Content-level schema contributes to domain-level coverage |
 | I05 (Author Entity) | Ept01 (Author Identity), Ept02 (Credentials Display) | Content author signals build domain author recognition |
@@ -325,7 +385,7 @@ What is the domain's primary function?
 
 **T02: Dofollow Ratio Normality**
 - **Pass**: 40-85% dofollow.
-- **Partial**: 85-90% (slightly elevated).
+- **Partial**: 20% up to but not including 40% (below the normal range), or above 85% up to 90% (slightly elevated).
 - **Fail**: >90% (manipulation signal) or <20%.
 
 **T03: Link-Traffic Coherence** | **VETO ITEM**
@@ -339,7 +399,7 @@ What is the domain's primary function?
 - **Fail**: <50 C-class ranges or >20% from one C-class (PBN signature).
 
 **T05: Backlink Profile Uniqueness** | **VETO ITEM**
-- **Pass**: No domain shares >60% of same referring domains.
+- **Pass**: No domain shares 40% or more of the same referring domains.
 - **Partial**: One domain shares 40-60% overlap.
 - **Fail**: Another domain shares >60% → **Veto triggered**.
 
@@ -355,7 +415,7 @@ What is the domain's primary function?
 
 **T08: Content Freshness Signal**
 - **Pass**: Content published/updated within last 90 days.
-- **Partial**: Last update 90-365 days ago.
+- **Partial**: Last update more than 90 and up to 365 days ago.
 - **Fail**: No updates for >1 year.
 
 **T09: Penalty & Deindex History** | **VETO ITEM**
@@ -478,11 +538,11 @@ What is the domain's primary function?
 | 1 | Ignoring AI citations | C05 | Only checking backlinks | Also monitor AI engine citations across major platforms |
 | 2 | Counting total links, not domains | C01 | "We have 50,000 backlinks!" | Count unique referring domains, not total link count |
 | 3 | Link quality conflated with quantity | C02 | 10,000 low-authority links = good | 200 high-authority editorial links > 10,000 directory links |
-| 4 | Ignoring entity identity | I01 | Focus only on links and traffic | Check knowledge graph presence; it's how AI verifies sources |
-| 5 | Neglecting Schema markup | I04 | "Schema doesn't matter for authority" | Schema helps AI engines understand your domain's scope |
+| 4 | Ignoring entity identity | I01 | Focus only on links and traffic | Check knowledge graph presence; it is what makes the entity resolvable to one identity across sources instead of ambiguous |
+| 5 | Neglecting Schema markup | I04 | "Schema doesn't matter for authority" | Schema states the site's entities and page types in a machine-readable form; prose alone leaves them to inference |
 | 6 | Not checking veto items first | T03 | Full evaluation before checking fundamentals | Always check T03, T05, T09 first — they can invalidate everything |
 | 7 | Treating abandoned domains as trustworthy | T08 | "Old domain = authoritative domain" | A domain dormant for 3 years has decayed authority |
-| 8 | Overlooking AI crawler policies | E04 | Blocking all bots for "security" | Review robots.txt; blocking AI crawlers kills GEO potential |
+| 8 | Overlooking AI crawler policies | E04 | Blocking all bots for "security" | Review robots.txt; a blanket block also covers the vendors' named search/citation agents, so decide each agent's access deliberately rather than inherit it |
 | 9 | Equating social presence with authority | E05 | "We have 100K followers = high authority" | Social presence is one of 40 items, not a proxy for overall authority |
 | 10 | Using single-metric shortcuts | — | "Our Moz DA is 60, so we're good" | No single metric captures the full picture; CITE evaluates 40 signals |
 

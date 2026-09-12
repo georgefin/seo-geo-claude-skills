@@ -1,0 +1,3 @@
+docs(loop): twelfth verdict-log entry — fixture-suite acceptance recorded
+
+FLIP: fixture-control @ 2026-08-09T16:20:00Z -- none

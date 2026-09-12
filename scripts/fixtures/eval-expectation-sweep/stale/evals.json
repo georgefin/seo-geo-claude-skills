@@ -1,0 +1,95 @@
+{
+  "_FIXTURE": "FIXTURE — defective eval suite (scripts/eval-expectation-sweep.sh). Not a suite. A fault-injection fixture reproducing the 2026-08-13 content-refresher defect in miniature, so the guard can be shown FIRING rather than asserted to work. Expected: exit 1.",
+  "_WHY": "The 2026-08-13 incident: three expectations and two expected_output fields REQUIRED a claim the library had just retracted across nine files. A skill corrected to the sourced position would have FAILED ITS OWN EVAL FOR BEING RIGHT. Every eval below is one shape of that defect. This file is deliberately wrong and must never be copied as a template.",
+  "_EXPECTED_FAILS": "(f1) x1 · (f2) x1 · (f3) x1 · (e1) x2 · (e2) x3 — see each eval's _EXPECT note. Zero WARNs: every hit here is a RULE, not an ambiguous quotation.",
+  "_REGRESSION_NOTE": "Evals 6-8 are not new defect shapes; they are the three bugs the 2026-08-17 fault-injection run found in the guard itself. Each was a SILENT MISS against a real defective field in a76706d^. If a future edit reintroduces any of them, the corresponding eval below stops firing and the probe transcript changes. That is the point of them.",
+  "skill_name": "fixture-skill",
+  "evals": [
+    {
+      "id": 1,
+      "_EXPECT": "(e1) + (e2) — the founding defect verbatim: the grader demands the response assert the unsourced 2026 date AND the AI-parsing rationale 9a says has no primary source either way.",
+      "prompt": "Add FAQ schema to our pricing page and tell me what it does for us in search.",
+      "files": ["evals/files/fixture-page.md"],
+      "expected_output": "FAQPage JSON-LD plus a SERP-status note: Google retired FAQ rich results in 2026, and the markup is kept for AI-engine/GEO parsing only.",
+      "expectations": [
+        "The response states that Google retired FAQ rich results in 2026 and frames the remaining value as AI-engine/GEO parsing."
+      ]
+    },
+    {
+      "id": 2,
+      "_EXPECT": "(f2) — a live SERP-eligibility promise required of the response, with no marker denying it anywhere near.",
+      "prompt": "Will this markup get us those expandable answer boxes?",
+      "files": ["evals/files/fixture-page.md"],
+      "expected_output": "A schema plan confirming the page is eligible for FAQ rich results and will render as a SERP accordion.",
+      "expectations": [
+        "The response confirms the page is eligible for FAQ rich results and describes the FAQ accordion it will earn in the SERP."
+      ]
+    },
+    {
+      "id": 3,
+      "_EXPECT": "(f1) — the deprecated Core Web Vital, required as a live metric. check (f) catches this in skill text and cannot see it here.",
+      "prompt": "Audit the speed section of our report template.",
+      "files": ["evals/files/fixture-page.md"],
+      "expected_output": "A Core Web Vitals block reporting LCP, FID and CLS for the page.",
+      "expectations": [
+        "The response reports First Input Delay alongside LCP and CLS as the three Core Web Vitals to monitor."
+      ]
+    },
+    {
+      "id": 4,
+      "_EXPECT": "(f3) — B2, 2026-08-13: a PERMISSION shipped as a RECOMMENDATION. Google's words are 'there's no need to proactively remove it'; 'advises against removing' is advice Google never gave. Never legal, in any framing.",
+      "prompt": "Should we strip the old FAQ markup out?",
+      "files": ["evals/files/fixture-page.md"],
+      "expected_output": "Guidance that Google advises against removing FAQPage markup from existing pages.",
+      "expectations": [
+        "The response explains that Google advises against removing the FAQPage markup already on the page."
+      ]
+    },
+    {
+      "id": 41,
+      "_EXPECT": "(f3) — PARITY CANARY for the 2026-08-17 re-sync. 'recommended against removing' and 'says you should keep' are two of the five variants check (f)'s original R3_OVERSTATE missed (measured 3 of 8). They are here so the widened copy is probe-covered rather than asserted, and so a future narrowing shows up as this eval going quiet.",
+      "prompt": "Our dev wants to delete the FAQ markup. What is Google's position?",
+      "files": ["evals/files/fixture-page.md"],
+      "expected_output": "Guidance that Google has recommended against removing FAQPage markup and says you should keep it in place.",
+      "expectations": [
+        "The response reports that Google discourages removing the markup and tells you not to remove it."
+      ]
+    },
+    {
+      "id": 5,
+      "_EXPECT": "(e1) — the aside form. The requirement itself is correct and negative; the retracted claim sits in the grader's parenthetical rationale. Still a defect (check (f) would fail the identical sentence in skill text) but a WEAKER one, and the FAIL message must say so rather than claim the expectation requires it.",
+      "prompt": "How do I check the markup is working?",
+      "files": ["evals/files/fixture-page.md"],
+      "expectations": [
+        "The response does not send the user to the FAQ eligibility report (both were cut for FAQ in 2026)."
+      ]
+    },
+    {
+      "id": 6,
+      "_EXPECT": "(e2) — REGRESSION CANARY for MISS A, the phantom quote span. The possessive apostrophes in 'the fixture's single Article block' and 'Google's FAQ rich results' made the naive QSPAN treat the rule text BETWEEN them as a quotation, so this exact shape was exempted in silence against a76706d^. It must classify RULE and FAIL.",
+      "prompt": "Port the FAQ block across and say what the markup buys us.",
+      "files": ["evals/files/fixture-page.md"],
+      "expectations": [
+        "Markup discipline: FAQ content is the port (otherwise no schema change to the fixture's single Article block), any markup mention promises AI-engine parsing only — 'Google's FAQ rich results are retired, so promise no SERP feature' — and the structured-data step never adds types to chase citations."
+      ]
+    },
+    {
+      "id": 7,
+      "_EXPECT": "(e2) — REGRESSION CANARY for MISS B, the distant qualifier. 'unestablished in either direction' is a real and correct hedge, but it is written here about HowTo under W12, ~200 characters away and about a different claim entirely. It must NOT excuse the FAQ benefit claim. If PROXIMITY is ever widened past the measured gap, this eval goes quiet.",
+      "prompt": "Add the GEO elements and the schema in one pass.",
+      "files": ["evals/files/fixture-page.md"],
+      "expectations": [
+        "The refresh frames any FAQPage addition for AI-engine/GEO parsing value, adds a clear opening definition and a concise direct answer under each heading, keeps every figure traceable to the fixture's own tables, proposes word counts and section locations for each new block, and leaves the step-by-step page's HowTo markup ungraded because its status is unestablished in either direction."
+      ]
+    },
+    {
+      "id": 8,
+      "_EXPECT": "(e2) — REGRESSION CANARY for MISS C, the ruling citation as its own pass condition. R3 amendment 9a withdrew R3's warrant from exactly this clause ('A skill may say FAQPage is valid and cheap to keep. It may not say it earns AI citations.'), so citing R3 does not license an AI-parsing benefit claim. With `ruling r3` in the (e2) qualifier set this field was exempted in silence against a76706d^. NOTE the contrast with eval 9 in ../correct/, where the same citation legally warrants the DATE claim.",
+      "prompt": "What is the FAQ markup actually worth now?",
+      "files": ["evals/files/fixture-page.md"],
+      "expectations": [
+        "Any FAQPage recommendation is framed for AI-engine/GEO parsing only with no SERP-feature promise (ruling R3)."
+      ]
+    }
+  ]
+}

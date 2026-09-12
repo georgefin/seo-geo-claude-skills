@@ -2,6 +2,14 @@
 
 Systematic memory update procedures triggered by specific events, plus integration points with other SEO skills.
 
+**Every write below is governed by the Data-Handling Floor in `SKILL.md`.** Cold storage is not a
+safer place for a secret than the hot cache: `memory/` is plain text in the project directory and
+is normally version-controlled, so a credential saved into a dated audit or report file survives
+its own deletion just as it would in `CLAUDE.md`. Routing a key, password or shared login *out* of
+the hot cache and *into* `memory/` — or into a `.env` or a gitignored file — is not compliance.
+Record that the credential exists, who holds it and which secret store it lives in; never the
+value. A pasted value is already exposed and needs rotating, and saying so is part of the write.
+
 ## Update Triggers
 
 After specific events, update memory systematically:
@@ -26,7 +34,12 @@ After specific events, update memory systematically:
 ### After Audit (Technical/Content/Backlink)
 ```markdown
 1. Save full report to memory/audits/[type]/YYYY-MM-DD-[audit-name].md
-2. Extract top 3-5 action items -> CLAUDE.md Current Optimization Priorities
+2. Extract top 3-5 action items -> CLAUDE.md Current Optimization Priorities.
+   Copy each item's whole row, not its headline: action, owner, acceptance criterion,
+   expected impact, effort, dependencies, risk if done wrong. Owner and acceptance
+   criterion are what a one-line summary drops, and they are the two that make the item
+   implementable when a later run reads it back. `unassigned — needs an owner` carries
+   through as written; it is a finding, not a blank to fill in here.
 3. Update Key Metrics Snapshot if audit includes metrics
 4. Create campaign entry if audit spawns new initiative
 ```
@@ -63,6 +76,10 @@ After specific events, update memory systematically:
 ## Cross-Skill Memory Integration
 
 This skill coordinates with other SEO skills:
+
+> Store each producing run's handoff payload in its own notation — framework-labelled score
+> strings, prefixed item IDs, veto status, audit date — so a later run can read it without
+> re-parsing a summary: [inter-skill-handoff.md](../../../references/inter-skill-handoff.md).
 
 ### When keyword-research runs:
 - Add discovered keywords to memory/keywords/

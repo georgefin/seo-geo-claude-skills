@@ -2,6 +2,11 @@
 
 Detailed triggers and actions for moving items between the hot cache (CLAUDE.md) and cold storage (memory/ subdirectories).
 
+**These rules route items that belong in memory at all.** A credential, password, shared login or
+personal detail is not promotable or demotable — it has no layer, because it is not written to
+either one. Demotion is not a disposal route for a secret: both layers are plain text in a
+version-controlled project directory. See the Data-Handling Floor in `SKILL.md`.
+
 ## Promotion Logic
 
 **Promote to Hot Cache when:**

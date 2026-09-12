@@ -1,0 +1,26 @@
+# CASE: clean-openclaw-consistent
+# ROLE: negative
+# DIR: probe-openclaw-consistent
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: runtime declaration present and consistent
+# EXPECT-ABSENT: requires.env is empty
+# WHY: declaring primaryEnv is only a defect when requires.env is EMPTY. A skill
+#      that declares both is the legitimate shape and must not fire.
+# ---8<--- SKILL.md
+---
+name: probe-openclaw-consistent
+description: 'Probe fixture carrying a consistent ClawHub runtime block. Use when the user asks to "check the openclaw block" or "validate runtime declarations".'
+license: Apache-2.0
+compatibility: "Claude Code >=1.0."
+metadata:
+  author: probe-fixture
+  version: "1.0.0"
+  openclaw:
+    primaryEnv: AHREFS_API_KEY
+    requires:
+      env: [AHREFS_API_KEY]
+---
+
+# Probe OpenClaw Consistent
+
+Body content.

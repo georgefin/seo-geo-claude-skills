@@ -1,20 +1,20 @@
 {
   "name": "seo-geo-claude-skills",
   "owner": {
-    "name": "Aaron He Zhu",
-    "url": "https://github.com/aaron-he-zhu"
+    "name": "Sani Hellas",
+    "url": "https://github.com/georgefin"
   },
   "metadata": {
     "description": "SEO & GEO agent tools for Claude Code and Cowork",
-    "version": "4.4.0",
-    "repository": "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
+    "version": "4.6.1",
+    "repository": "https://github.com/georgefin/seo-geo-claude-skills"
   },
   "plugins": [
     {
       "name": "seo-geo-claude-skills",
       "source": "./",
       "description": "20 skills and 9 commands for Search Engine Optimization (SEO) and Generative Engine Optimization (GEO). Content quality powered by CORE-EEAT (80 items). Domain authority powered by CITE (40 items). Keyword research, competitor analysis, content writing, technical audits, rank tracking, schema markup, and AI citation optimization.",
-      "version": "4.4.0",
+      "version": "4.6.1",
       "category": "marketing",
       "tags": [
         "seo",

@@ -1,0 +1,9 @@
+Ledger instance: F11 founding class (c) — attribution gloss: inferences ("the five …
+fall under the same site-health process", "machine-independent", the list_issues-EMPTY
+behavior as a GitHub-wide fact) presented inside a "confirmed from the paste" frame,
+where the paste contains none of those content words (G2/G3 close-out rounds).
+Expect: exit 0 with 1 WARN — rule 1 WARN tier flags "confirmed" as an unanchored
+verification frame and prints the line. This class lands in the WARN tier BY DESIGN
+(plan §1b two-tier lexicon): whether the framed content matches the evidence is a
+truth question, and truth stays with the mandatory Mode A review (plan §0.1). With
+CLAIMS_GATE_WARN_AS_FAIL=1 the same hit is a FAIL (exit 1).

@@ -1,0 +1,15 @@
+Ledger instance: F11 recurrence 5 — register-wide stale live-state claims: the ninth
+verdict-log entry itself was clean, but the PR #8 merge it records had falsified two
+live-state claims ELSEWHERE in the same register, left unmarked: the attribution
+queued row's "installs are blocked" and the G1 note's "until this wave merges". Drove
+the third scope widening (word -> entry -> REGISTER): a recorded flip triggers a
+whole-register re-scan — here executed by machine.
+Expect: exit 1 — rule 2: the added verdict-log entry is the flip trigger; the FLIP
+trailer names both touched-claim tokens @ 2026-08-09T10:47:00Z; the sweep hits BOTH
+stale lines (different sections of registers/docs/loop/GATED-ITEMS.md), neither
+carrying a post-flip timestamp or "historical as of" marker -> 2 FAILs, each printing
+the hit line. Note the ~10:47Z inside the added entry's **bold** header label does
+NOT trip rule 3 (house header form); the equal-date "2026-08-09" on the stale queued
+row does NOT count as post-flip (bare date == flip date proves nothing).
+Token discipline this fixture also demonstrates: sweep tokens are line-based — both
+tokens were chosen short enough to sit on one wrapped register line.

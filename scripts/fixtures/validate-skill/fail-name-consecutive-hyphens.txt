@@ -1,0 +1,20 @@
+# CASE: fail-name-consecutive-hyphens
+# ROLE: positive
+# DIR: rank--tracker
+# EXPECT-EXIT: 1
+# EXPECT-MATCH: name contains consecutive hyphens: rank--tracker
+# EXPECT-MATCH: name fails ClawHub slug pattern
+# ---8<--- SKILL.md
+---
+name: rank--tracker
+description: 'Probe fixture with consecutive hyphens in the name. Use when the user asks to "validate a double-hyphen skill name".'
+license: Apache-2.0
+compatibility: "Claude Code >=1.0."
+metadata:
+  author: probe-fixture
+  version: "1.0.0"
+---
+
+# Rank Tracker
+
+Body content.

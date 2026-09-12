@@ -6,7 +6,7 @@ Detailed output templates for each step of the backlink analysis workflow. Use t
 
 ## 1. Profile Overview Template
 
-```markdown
+````markdown
 ## Backlink Profile Overview
 
 **Domain**: [domain]
@@ -14,14 +14,14 @@ Detailed output templates for each step of the backlink analysis workflow. Use t
 
 ### Key Metrics
 
-| Metric | Value | Industry Avg | Status |
-|--------|-------|--------------|--------|
-| Total Backlinks | [X] | [Y] | [Above/Below avg] |
-| Referring Domains | [X] | [Y] | [status] |
-| Domain Authority | [X] | [Y] | [status] |
-| Domain Rating | [X] | [Y] | [status] |
-| Dofollow Links | [X] ([Y]%) | [Z]% | [status] |
-| Nofollow Links | [X] ([Y]%) | [Z]% | [status] |
+| Metric | Value | Reference band (source) | Status |
+|--------|-------|------------------------|--------|
+| Total Backlinks | [X] | no band in this library | Not benchmarked |
+| Referring Domains | [X] | [typical range for your vertical, rubric §5] | [inside / below / above band] |
+| Domain Authority | [X] | no band — §5's ranges are DR, not DA | Not benchmarked |
+| Domain Rating | [X] | [typical DR range, rubric §5 — top-10 sites] | [inside / below / above band] |
+| Dofollow Links | [X] ([Y]%) | 60-80% healthy, >90% warning (rubric §5) | [healthy / warning / critical] |
+| Nofollow Links | [X] ([Y]%) | derived from the dofollow row, no separate band | Read with the row above |
 
 ### Link Velocity
 
@@ -41,8 +41,38 @@ DA 20-39:  [X]%
 DA 0-19:   [X]%
 ```
 
-**Profile Health Score**: [X]/100
-```
+**Profile Health Score**: [X]/100 ([points] ÷ [rows scored] × 100; [N] rows not scored: [which and why])
+````
+
+**How the Profile Health Score is computed** — it is a tally of the eight benchmark rows in
+[link-quality-rubric.md](./link-quality-rubric.md) §5, not a judgement about the profile. Score
+each row against its own band: **Healthy = 1 · Warning = 0.5 · Critical = 0**, then
+`round(100 × points ÷ rows scored)`, an exact half rounding down. A row you have no data for
+(no topical-relevance sample, no growth history) is left out of both sides and named beside the
+score — never scored 0, which says "measured and failing". With all eight rows scored the
+attainable values are the multiples of 6.25 rounded to whole numbers — 100, 94, 87, 81, 75, 69,
+62, 56, 50 and down — so a score between two of them did not come from this table. **If fewer than four rows could
+be scored, print no health score** — name what is missing instead; a health figure standing on two
+rows reads as a verdict on the whole profile. Worked: 5 Healthy + 2 Warning + 1 Critical =
+`100 × 6 ÷ 8` = **75/100**.
+
+**Third-column provenance**: it is a band you look up and cite, not an average you supply. Every
+filled cell names its source — `references/link-quality-rubric.md` §5, this library's own general
+ranges — and you carry the band's population into the reading: §5's DR and referring-domain ranges
+describe the **top 10 sites** in a vertical, so a site under them is behind that vertical's leaders,
+not "below average". Where §5 has no band, the cell says so and Status reads "Not benchmarked":
+that is the finished answer, not a cell awaiting a number. Domain Authority is the standing example
+— §5 bands DR, and borrowing a DR band for a DA figure compares two vendors' scales.
+
+The column was headed "Industry Avg" until 2026-08-10. Nothing this skill collects, and nothing in
+this library, supplies a single industry mean for backlink counts, referring domains or DA/DR — so
+the only way to fill that cell was to invent the number, and a benchmark cell with nothing behind it
+gets filled anyway, because the cell exists (statistics rule: sourced, cited, or placeholder, never
+invented). Renaming keeps the comparison the table is for and removes the invitation: a band cannot
+be filled without naming where it came from. A published third-party benchmark may replace a band
+only when you have read it — name the publisher, the year and the sample, and link it. The same
+discipline governs the competitive template in §4: those columns are measured per named competitor,
+so their mean is a competitor mean, never an industry one.
 
 ---
 
@@ -94,16 +124,33 @@ DA 0-19:   [X]%
 | [Country 3] | [X] | [Y]% |
 ```
 
+**The Target Page cell is copied from the export's target column — never read off the source URL.**
+Every row in a backlink export carries two URLs, and they are not interchangeable: the source is the
+page the link sits on, the target is the page of the client's site it points at. Publishers write
+about the same subject the client does, so the two paths often echo each other — a source at
+`coffee-magazine.example/reviews/best-espresso-machines` beside a target at
+`client.example/blog/espresso-buying-guide` is two content teams naming one topic, not one page.
+Filling this column from the source path silently reassigns links between the client's own pages,
+and every page-level finding built on it — most-linked page, page-level counts, which page earned
+the coverage — inherits the error while looking derived.
+
+**A most-linked-page reading is a count over the whole export, and it ships with the count.** Group
+the rows by target, print the top targets with their figures and the population they were counted
+over ("N of the M exported rows", both numbers written), and expect the homepage to win: a page
+called "the most linked" without the homepage's own figure beside it is usually a claim about second
+place. Where the export has no target column, say so and drop the page-level section — an inferred
+target is not a weaker finding, it is a different one.
+
 ---
 
 ## 3. Toxic Link Analysis Template
 
-```markdown
+````markdown
 ## Toxic Link Analysis
 
 ### Risk Summary
 
-**Toxic Score**: [X]/100
+**Toxic Score**: [X]% — [toxic referring domains] of [referring domains reviewed]
 **High Risk Links**: [X]
 **Medium Risk Links**: [X]
 **Action Required**: [Yes/No]
@@ -123,14 +170,24 @@ DA 0-19:   [X]%
 
 | Source Domain | Risk Score | Issue | Recommendation |
 |---------------|------------|-------|----------------|
-| [domain 1] | 95/100 | Link farm | Disavow |
-| [domain 2] | 85/100 | Spam site | Disavow |
-| [domain 3] | 72/100 | PBN | Investigate |
+| [domain 1] | [score]/100 | Link farm | Disavow |
+| [domain 2] | [score]/100 | Spam site | Disavow |
+| [domain 3] | [score]/100 | PBN | Investigate |
 
 ### Disavow Recommendations
 
 **Domains to disavow** ([X] total):
 ```
+# SKELETON — every bracket token below is a placeholder, not a value. Nothing here is paste-ready.
+#
+# WARNING — READ BEFORE UPLOADING. An unnecessary disavow can hurt your rankings.
+# Google applies this file as submitted; it does not check whether the entries were
+# warranted, and reversing a disavow is slow and uncertain.
+# This file is NOT ready to upload unless all four are true: every domain below was
+# reviewed by hand, removal was requested by email first, two weeks were allowed for
+# replies, and someone accountable approved this exact file. If any one is false,
+# this is a draft — do not upload it.
+
 domain:[spam-site-1.com]
 domain:[spam-site-2.com]
 domain:[link-farm.com]
@@ -138,10 +195,32 @@ domain:[link-farm.com]
 
 **Individual URLs to disavow** ([X] total):
 ```
+# SKELETON — placeholders. The warning block above belongs at the top of the single
+# .txt file these two lists are combined into, not only in the report around them.
 [specific-url-1]
 [specific-url-2]
 ```
-```
+````
+
+**Risk Score provenance**: `[score]` is filled from the toxicity/spam score reported by
+~~link database or the user's export, with that tool named beside it. This skill defines no
+risk-score scale of its own, so a link with no tool-reported score gets "N/A — not
+tool-reported" plus a written justification in the Issue column — never a number assigned
+to fit the recommendation.
+
+**Toxic Score provenance and arithmetic**: the same rule one level up. This skill defines no
+profile-level toxicity scale either, so the Toxic Score line is a **share you counted**, not an
+index: toxic referring domains ÷ referring domains reviewed × 100, both counts printed, one
+decimal, half up. "Reviewed" is the population you actually looked at — say so when it is a sample
+(`18.2% — 4 of 22 referring domains reviewed; the full profile was not exported`), because a share
+of a 22-domain sample is not a share of the profile. A domain counts once however many links it
+carries; if links matter more than domains for this profile, report the link share as a second
+figure with its own two counts rather than blending them. Where the backlink index reports its own
+profile-level toxicity number, print **that** instead, named and dated as the tool's figure
+(`Ahrefs Spam Score 34/100, pulled 12 Aug`) — never averaged or reconciled with the counted share,
+which is a different measurement. Both bands come from
+[link-quality-rubric.md](./link-quality-rubric.md) §5: under 5% healthy, 5-10% warning, above 10%
+critical.
 
 ---
 
@@ -242,6 +321,15 @@ Sites linking to multiple competitors but not you:
 | Guest posts | High | High | Medium |
 ```
 
+**What may enter these tables**: every row is a place that might cite the site because something on
+it earns the citation. A prospect offered as a purchasable placement, an expired domain offered for
+the links it carries, a redirect from an unrelated domain, or a site whose only offer is a
+reciprocal swap does not enter the prospect list — and does not enter the client report as a
+declined option either, because the report carries findings and actions, not a list of what was
+declined. The "Guest Post Prospects" row means one publication, one pitch, written for its readers
+and edited by them; bulk placement bought per-URL is the prohibited shape it is confused with.
+Where each line runs: [link-quality-rubric.md](./link-quality-rubric.md) §6.
+
 ---
 
 ## 6. Link Change Tracking Template
@@ -256,7 +344,7 @@ Sites linking to multiple competitors but not you:
 | [domain 1] | [DA] | [type] | [anchor] | [date] |
 
 **Total new links**: [X]
-**Average DA of new links**: [X]
+**Average DA of new links**: [X] — mean of the [N] new links that carry a DA (name the source); if some do not, say how many were left out
 **Best new link**: [domain] (DA [X])
 
 ### Lost Links (Last 30 Days)
@@ -292,11 +380,11 @@ Sites linking to multiple competitors but not you:
 
 Your backlink profile is [healthy/needs attention/concerning].
 
-**Key Stats**:
+**Key Stats** — each figure carries the count it was taken over:
 - Referring domains: [X] ([+/-Y] vs last month)
-- Average link authority: [X] DA
-- Link velocity: [X] new links/month
-- Toxic link percentage: [X]%
+- Average link authority: [X] DA — mean over the [N] links carrying a DA from [named source]; links with no DA are excluded and counted here
+- Link velocity: [X] new links/month — [total new] ÷ [months in the window]
+- Toxic link percentage: [X]% — [toxic] of [reviewed] referring domains
 
 ## Profile Strengths
 
@@ -340,7 +428,7 @@ Your referring domains rank #[X] among [Y] competitors.
 
 ### Long-term (This Quarter)
 - [ ] Create linkable asset targeting [topic]
-- [ ] Launch guest posting campaign
+- [ ] Pitch [X] contributed articles, one per publication named in the prospect list
 - [ ] Build [X] resource page links
 
 ## KPIs to Track

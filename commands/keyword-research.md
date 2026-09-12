@@ -54,6 +54,9 @@ Discovers high-value keywords from a seed topic, classifies intent, scores diffi
 ## Output Format
 
 ```markdown
+<!-- SKELETON -- scaffold, not output. Every [bracket] is a slot filled from this run's own
+     research; a column with no data behind it is dropped and the gap named in prose, never
+     shipped as a bracket. -->
 # Keyword Research Report: [Topic]
 
 **Seed**: [keyword] | **Audience**: [audience] | **Goal**: [goal]

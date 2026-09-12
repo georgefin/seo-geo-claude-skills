@@ -1,0 +1,92 @@
+{
+  "_FIXTURE": "FIXTURE — correct eval suite (scripts/eval-expectation-sweep.sh). The negative control. Same eight defects as ../stale/, repaired and nothing else changed. Expected: exit 0, no FAIL, no WARN.",
+  "_WHY": "A guard that only ever fires proves nothing about the tree it guards (ledger F15). More sharply, THIS guard's specific failure mode is punishing the corrected line: check (f)'s own notes record three separate occasions when the most accurate lines in the repository were the only ones its allowlist rejected, and 'revert to the wording the guard likes' is the cheap escape that teaches authors to write for the checker. Every expectation below is a line this library WANTS written. If any of them ever fails, the guard is the thing that is wrong.",
+  "_THE_DISTINCTION_THIS_FILE_PROVES": "Eval 1 is the case the whole design turns on: an expectation that QUOTES the fixture page's bad claim in order to require that the model catch it. The words 'Google displays FAQ rich results as expandable questions right in the SERP' appear here in full, and they must NOT fire, because the sentence around them says the model has to flag them as no longer true. A guard that grepped this file whole could not tell that from eval 2 of ../stale/, which asserts nearly the same words as a rule.",
+  "skill_name": "fixture-skill",
+  "evals": [
+    {
+      "id": 1,
+      "_EXPECT": "PASS via the QUOTE path — fixture text quoted for the model to catch, framed by a detection verb ('is flagged as no longer true') inside the proximity window.",
+      "prompt": "Refresh this post, it is two years old.",
+      "files": ["evals/files/fixture-page.md"],
+      "expected_output": "A refresh plan that flags the article's FAQ promise as no longer true and replaces it with the sourced position.",
+      "expectations": [
+        "The article's claim that 'Google displays FAQ rich results as expandable questions right in the SERP' is flagged as no longer true — an ordinary site gets no FAQ rich result, government/health only since 2023-08-08."
+      ]
+    },
+    {
+      "id": 2,
+      "_EXPECT": "PASS — the repair of ../stale/ eval 2. The sourced 2023-08-08 position instead of a live eligibility promise.",
+      "prompt": "Will this markup get us those expandable answer boxes?",
+      "files": ["evals/files/fixture-page.md"],
+      "expected_output": "A schema plan stating plainly that an ordinary site gets no FAQ rich result — government and health sites only, since 2023-08-08 — so no SERP accordion is promised.",
+      "expectations": [
+        "The response promises no SERP feature: an ordinary commercial page has no FAQ rich result, restricted to government and health sites since 2023-08-08, and no accordion or dropdown is described."
+      ]
+    },
+    {
+      "id": 3,
+      "_EXPECT": "PASS — the repair of ../stale/ eval 3. Ruling R4's corrected metric set.",
+      "prompt": "Audit the speed section of our report template.",
+      "files": ["evals/files/fixture-page.md"],
+      "expected_output": "A Core Web Vitals block on the corrected metric set: LCP <=2.5 s, INP <=200 ms, CLS <=0.1.",
+      "expectations": [
+        "The LCP-2.0/FID line is corrected to LCP <=2.5 s and INP <=200 ms; nothing in the response treats FID as a live metric."
+      ]
+    },
+    {
+      "id": 4,
+      "_EXPECT": "PASS — the repair of ../stale/ eval 4. Google's permission written as a permission, in Google's own shape: you MAY drop it, and there is no need to proactively remove it.",
+      "prompt": "Should we strip the old FAQ markup out?",
+      "files": ["evals/files/fixture-page.md"],
+      "expectations": [
+        "The response states the permission rather than a recommendation: the markup may be dropped, and there is no need to proactively remove it."
+      ]
+    },
+    {
+      "id": 5,
+      "_EXPECT": "PASS — the repair of ../stale/ eval 5. The aside now carries the warrant it was missing.",
+      "prompt": "How do I check the markup is working?",
+      "files": ["evals/files/fixture-page.md"],
+      "expectations": [
+        "The response does not send the user to the FAQ eligibility report (settled ruling R3), and points at the Schema.org validator instead."
+      ]
+    },
+    {
+      "id": 6,
+      "_EXPECT": "PASS — the repair of ../stale/ eval 6, and the MISS A control. Same possessive apostrophes, same quoted clause, same sentence shape; only the claim is fixed. This proves the QSPAN repair did not simply stop exempting quotations.",
+      "prompt": "Port the FAQ block across and say what the markup buys us.",
+      "files": ["evals/files/fixture-page.md"],
+      "expectations": [
+        "Markup discipline: FAQ content is the port (otherwise no schema change to the fixture's single Article block), any markup mention promises NOTHING — neither a SERP feature (an ordinary site gets no FAQ rich result; government/health only since 2023-08-08) nor a citation or parsing benefit (unestablished in either direction, R3 amendment 9a) — and the structured-data step never adds types to chase citations."
+      ]
+    },
+    {
+      "id": 7,
+      "_EXPECT": "PASS — the repair of ../stale/ eval 7, and the MISS B control in the other direction. The hedge now sits NEXT TO the claim it is about instead of 200 characters away about a different one. If PROXIMITY is ever narrowed too far, this eval starts failing and says so.",
+      "prompt": "Add the GEO elements and the schema in one pass.",
+      "files": ["evals/files/fixture-page.md"],
+      "expectations": [
+        "The refresh frames any FAQPage addition as valid and cheap to keep, claiming no citation or parsing benefit (unestablished in either direction, R3 amendment 9a), adds a clear opening definition and a concise direct answer under each heading, keeps every figure traceable to the fixture's own tables, and leaves the step-by-step page's HowTo markup ungraded."
+      ]
+    },
+    {
+      "id": 8,
+      "_EXPECT": "PASS — the repair of ../stale/ eval 8. The benefit claim is dropped rather than re-warranted, because 9a says no warrant exists in either direction.",
+      "prompt": "What is the FAQ markup actually worth now?",
+      "files": ["evals/files/fixture-page.md"],
+      "expectations": [
+        "Any FAQPage recommendation is framed as valid and cheap to keep, with no SERP-feature promise and no citation or parsing benefit claimed (no primary source establishes one, R3 amendment 9a)."
+      ]
+    },
+    {
+      "id": 9,
+      "_EXPECT": "PASS — the (e1)/(e2) ASYMMETRY, which is the subtlest thing this guard does and the easiest to break. Citing R3 legally warrants the DATE claim, because R3's Statement still asserts it at a grade R3 states. The identical citation does NOT warrant the AI-parsing claim in ../stale/ eval 8, because 9a withdrew it from exactly that clause. If someone 'simplifies' the two qualifier sets back into one, one of those two evals flips and the transcripts stop matching.",
+      "prompt": "Can we still claim the FAQ dropdown in the deck?",
+      "files": ["evals/files/fixture-page.md"],
+      "expectations": [
+        "No FAQ rich-result, SERP-dropdown or accordion eligibility is claimed for any markup, FAQ rich results having been retired in 2026 (settled ruling R3)."
+      ]
+    }
+  ]
+}

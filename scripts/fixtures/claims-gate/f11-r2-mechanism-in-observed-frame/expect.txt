@@ -1,0 +1,10 @@
+Ledger instance: F11 recurrence 2 — mechanism-in-observed-frame: the PR-#5
+merge-transition entry asserted two failure MECHANISMS ("eaten by HTML sanitization";
+"stripped by a prior body update") inside its found-on-inspection frame, where the
+evidence attested only the observables (placeholder missing, footer absent). Drove
+the structural OBSERVED/DIAGNOSIS separation redesign.
+Expect: exit 0 with 1 WARN — rule 1 WARN tier flags "verified" as an unanchored
+verification frame and prints the line carrying both mechanism claims. Separating
+observables from diagnosis inside the frame is the truth leg (plan §0.1) — Mode A
+enforces the OBSERVED/DIAGNOSIS split mechanically; the gate's job is to make the
+unanchored frame visible. With CLAIMS_GATE_WARN_AS_FAIL=1 the hit is a FAIL (exit 1).

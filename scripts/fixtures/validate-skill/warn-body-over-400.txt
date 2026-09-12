@@ -1,0 +1,26 @@
+# CASE: warn-body-over-400
+# ROLE: positive
+# DIR: probe-long-body
+# PAD-BODY: 410
+# ADD-FILE: references/probe-notes.md
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: recommended: <350 lines
+# EXPECT-ABSENT: no references/ directory found
+# EXPECT-ABSENT: FAIL
+# WHY: PAD-BODY appends filler lines at materialisation time so the fixture stays
+#      readable. The references/ file is here so the SECOND body branch stays
+#      quiet and this case attributes to one branch only.
+# ---8<--- SKILL.md
+---
+name: probe-long-body
+description: 'Probe fixture with an over-long body. Use when the user asks to "validate the body length cap" or "check skill body size".'
+license: Apache-2.0
+compatibility: "Claude Code >=1.0."
+metadata:
+  author: probe-fixture
+  version: "1.0.0"
+---
+
+# Probe Long Body
+
+Body content follows, padded at materialisation time.

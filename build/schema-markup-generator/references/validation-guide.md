@@ -2,6 +2,12 @@
 
 Complete reference for validating, testing, and troubleshooting structured data.
 
+**The value rule (applies to every example in this file and to anything generated from it)**: a JSON-LD block handed to a user carries resolved values only. A property whose value cannot be sourced from the page is dropped from the block and named in the report prose — never filled with an invented value or an unbracketed stand-in. Bracket tokens (`[PUBLISHER-LOGO-URL]`) belong only in a block explicitly labelled a skeleton. Full rule: SKILL.md step 2, *Missing data — the value rule*.
+
+**Date precision**: ISO 8601 includes reduced-precision forms. Match the precision the page states — `2025-03-12` when the page shows a date and no time, `2025-03-12T09:00:00+02:00` when it states a time. Inventing a time (or a zone) to reach the longer form manufactures data the page does not carry, which is the content-match policy's own failure mode.
+
+**Time and zone forms**: where the page states a time, three writings are equally valid ISO 8601 and mean the page's own clock time — the bare local form `2026-09-19T10:00` (seconds optional) when no zone is known, the same instant with a UTC offset `2026-09-19T10:00:00+01:00`, and the equivalent UTC instant with the Z designator `2026-09-19T09:00:00Z`. Prefer whichever the source actually supports; never derive an offset by guessing the venue's zone.
+
 ## Validation Tools
 
 ### Google Rich Results Test
@@ -9,20 +15,20 @@ Complete reference for validating, testing, and troubleshooting structured data.
 - **Purpose**: Check if your schema is eligible for Google rich results
 - **Tests**: Live URL or code snippet
 - **Output**: Errors, warnings, eligible rich result types
-- **FAQ exception**: FAQ support was cut in 2026 — do not use this tool for FAQPage; validate FAQPage with the Schema.org Validator instead
+- **FAQ exception**: this tool does not test FAQPage — validate FAQPage with the Schema.org Validator instead. *(The library dates that cut to 2026; that date is unverified, the 2023-08-08 eligibility restriction is not. Either way the tool is not the route for FAQPage.)*
 
 ### Schema.org Validator
 - **URL**: https://validator.schema.org/
 - **Purpose**: Validate against official Schema.org specification
 - **Tests**: URL, code snippet, or microdata
 - **Output**: Technical validation errors
-- **Note**: The primary (and only) validator for FAQPage since the 2026 FAQ rich-result retirement
+- **Note**: The primary (and only) validator this library uses for FAQPage
 
 ### Google Search Console
 - **Location**: Search Console → Enhancements section
 - **Purpose**: Monitor rich results performance and errors at scale
 - **Reports**: Rich results status, coverage, issues over time
-- **FAQ exception**: FAQ reporting, the API, and the Enhancements appearance filter were cut in 2026 — there is nothing to monitor here for FAQPage
+- **FAQ exception**: an ordinary site has no FAQ rich result to monitor — Google restricted them to well-known government and health websites on 2023-08-08. *(This library also carried a set of 2026 dates for reporting, the appearance filter and an August 2026 API cut. Those are **unverified**: the two URLs ruling R3 cites do not contain them. Do not state them — see `docs/loop/r3-decision-brief.md`.)*
 
 ---
 
@@ -73,12 +79,14 @@ Complete reference for validating, testing, and troubleshooting structured data.
 }
 ```
 
-**Fix**: Use ISO 8601 format
+**Fix**: Use ISO 8601 at the precision the source states. The page above shows a date and no time, so the date-only form is the correct fix — reduced precision is valid ISO 8601:
 ```json
 {
-  "datePublished": "2024-01-15T08:00:00+00:00"
+  "datePublished": "2024-01-15"
 }
 ```
+
+Add time and offset only when the page (or the CMS) actually states them — `"datePublished": "2024-01-15T08:00:00+00:00"`. A time invented to fill out the longer form is fabricated data.
 
 ### Relative URLs Instead of Absolute
 
@@ -116,6 +124,21 @@ Complete reference for validating, testing, and troubleshooting structured data.
 
 ## Required vs Recommended Properties
 
+**Standard-format properties are normalised, and that is not a content mismatch.** A handful of
+properties below carry a documented notation, and the markup writes the value in that notation even
+where the page prints it some other way: `addressCountry` as an ISO 3166-1 alpha-2 code, not a
+country name; `offers.priceCurrency` as an ISO 4217 code, not the symbol; `datePublished` /
+`dateModified` as ISO 8601; `telephone` in international dialling format with the country code.
+**"Content matches visible page content" governs what the value says, not how it is spelled** — the
+page's «Αθήνα, Ελλάδα» and the markup's `GR` are the same fact in two notations, and so are a
+national-format phone number and the same number with its country code. The content-match policy
+bans a *different value*
+in the markup from the one on the page, which is why the normalisation is bounded on both sides: it
+may only re-notate a fact the page already states, never add one it does not. Where the page does not
+establish the input the notation needs — no country for a phone number, no time zone for a
+timestamp, no currency for a price — the property is dropped and the gap is named in prose, exactly
+as for any other unsourceable value. Never invent the missing half to complete the format.
+
 ### FAQPage Schema
 
 | Property | Status | Notes |
@@ -125,7 +148,7 @@ Complete reference for validating, testing, and troubleshooting structured data.
 | Question.name | Required | The question text |
 | Answer.text | Required | The answer text |
 
-**Status note**: FAQPage produces no Google rich result (retired 2026). It is still generated for AI-engine/GEO parsing (settled ruling R3) and validates against Schema.org semantics only.
+**Status note**: FAQPage produces no Google rich result (none for an ordinary site — government/health only since Aug 2023). It is still generated because it is valid, cheap to keep, and Google's own guidance is that you *can* drop it but there is no need to proactively remove it (settled ruling R3 + amendment 9a — which also records that no primary source establishes a citation benefit either way). That is a permission to leave existing markup alone, not advice to keep it; do not report it to a client as a Google recommendation. It validates against Schema.org semantics only.
 
 ### HowTo Schema
 
@@ -149,7 +172,7 @@ Complete reference for validating, testing, and troubleshooting structured data.
 | @type | Required | Article/BlogPosting/NewsArticle |
 | headline | Required | Max 110 characters |
 | image | Required | Minimum 1200px wide |
-| datePublished | Required | ISO 8601 format |
+| datePublished | Required | ISO 8601 at the page's own precision — date-only when no time is shown |
 | author | Required | Person or Organization |
 | publisher | Required | Organization with logo |
 | publisher.logo | Required | Max 600px wide, 60px high |
@@ -166,9 +189,9 @@ Complete reference for validating, testing, and troubleshooting structured data.
 | description | Recommended | Product description |
 | offers | Recommended | Required for price display |
 | offers.price | Recommended | Required for price display |
-| offers.priceCurrency | Recommended | Required for price display |
+| offers.priceCurrency | Recommended | Required for price display; ISO 4217 code — USD, EUR, GBP — never the symbol |
 | offers.availability | Recommended | Stock status |
-| aggregateRating | Recommended | Required for star ratings |
+| aggregateRating | Recommended | Required for star ratings — only where the page shows genuine ratings; never assembled from nothing |
 | review | Recommended | Individual reviews |
 | sku | Recommended | Product identifier |
 | brand | Recommended | Brand information |
@@ -184,12 +207,12 @@ Complete reference for validating, testing, and troubleshooting structured data.
 | address.addressLocality | Required | City |
 | address.addressRegion | Required | State/province |
 | address.postalCode | Required | ZIP/postal code |
-| address.addressCountry | Required | Country code |
+| address.addressCountry | Required | ISO 3166-1 alpha-2 code — GR, GB, US, DE. Not a country name, and not "UK" (not an alpha-2 code) |
 | geo | Recommended | Latitude/longitude |
-| telephone | Recommended | Phone number |
+| telephone | Recommended | International dialling format, country code first — `+30 2310 555 000`, not `2310 555 000`. Same normalisation `addressCountry` gets one row above: the page prints the national form for readers who already know the country, and the markup is read out of that context, where the digits alone do not identify one. Take the country code from `addressCountry` (GR → +30, GB → +44, US → +1); where the country is not established on the page, the property is dropped and the gap named, never guessed. Spacing and dashes are free |
 | openingHoursSpecification | Recommended | Business hours |
 | priceRange | Recommended | Price range indicator |
-| aggregateRating | Recommended | Customer ratings |
+| aggregateRating | Recommended | Customer ratings — only where the page shows genuine ratings; a rating not visible on the page is a content-mismatch violation |
 
 ### Organization Schema
 
@@ -204,14 +227,51 @@ Complete reference for validating, testing, and troubleshooting structured data.
 
 ---
 
+## Rich-Result Eligibility Note
+
+The per-schema element SKILL.md step 2 requires in every deliverable. It is a **note, not a mock-up**: no drawn SERP listing, no ASCII box imitating a Google result, no screenshot-shaped illustration. A picture of a result reads as a promise of the result, and this skill promises eligibility only — Google decides per query and per device whether to show anything, and for some types there is nothing left to show.
+
+**Shape — three parts, in this order:**
+
+1. **Eligible for** — the rich result the type can qualify for, or "nothing in Google Search" where the feature is retired or none exists for the type.
+2. **What feeds it** — which of the properties you actually emitted supply that result, plus any required property still missing and therefore blocking it.
+3. **Caveat** — eligibility is not an appearance: Google chooses per query and per device, and display typically lags the next crawl by days to weeks.
+
+**Worked example — Product (price snippet)**
+
+> **Eligible for**: the price/availability snippet on your product result. **What feeds it**: the emitted `offers.price` (12.90), `offers.priceCurrency` (EUR) and `offers.availability` (InStock); `image` is a required property for this type and is still missing, so the snippet stays blocked until you send the URL. **Caveat**: correct markup makes the page eligible, not guaranteed — Google decides per query and per device, and any change usually surfaces days to weeks after the next crawl.
+
+**Worked example — FAQPage (retired feature)**
+
+> **Eligible for**: nothing in Google Search for an ordinary site — Google restricted FAQ rich results to well-known, authoritative government and health websites on 2023-08-08, and for everyone else the result "will no longer be shown regularly" (Google's words). **What feeds it**: the four `Question`/`acceptedAnswer` pairs are valid schema.org and machine-readable by any consumer that chooses to read them. **Caveat**: no engine promises to use it and no primary source establishes a citation benefit either way (ruling R3, amendment 9a) — this is machine-readable input, not a placement and not a lever.
+
+**Worked example — LocalBusiness (no result of its own)**
+
+> **Eligible for**: no rich result of its own that we would promise you. **What feeds it**: `name`, `address`, `telephone` and `openingHoursSpecification` state the business entity in a form any consumer that reads the page can parse. **Caveat**: what decides placement in the local map results is not something we can evidence in either direction, so this report tells you neither that the markup does it nor that it does not — and promises no placement. What the markup demonstrably does is put your name, address, phone and hours on the page in machine-readable form, which you can check by viewing the source.
+
+*(Skill-side note, not part of the deliverable: the caveat above asserts nothing either way, and that is the point of its wording. Writing "it does not by itself place you in the local pack" is the same unsourced claim in reverse and is banned by SKILL.md's LocalBusiness `[VERIFY]` note — no Google-primary source is on file supporting or refuting it. The mechanism is `[VERIFY]`-tagged in schema-decision-tree.md; `[VERIFY]` is an in-repo tag and never appears in a deliverable.)*
+
+---
+
 ## Google Rich Result Eligibility Requirements
 
-### FAQPage — No Rich Result (Retired 2026)
+### FAQPage — No Rich Result for an Ordinary Site (government/health only since Aug 2023)
 
-Google retired FAQ rich results in 2026: Search Console reporting, the API, the Enhancements appearance filter, and Rich Results Test support were all cut. There is no FAQ eligibility to test and no SERP accordion to earn — promise neither.
+**What is sourced**: on 2023-08-08 Google restricted FAQ rich results to well-known, authoritative government and health websites; for all other sites *"this rich result will no longer be shown regularly."* So for an ordinary client there is no FAQ eligibility to test and no SERP accordion to earn — promise neither.
 
-FAQPage stays in the library (settled ruling R3): its value is AI-engine/GEO parsing — answer engines extract clean Q&A pairs from it. The quality bar that still applies:
+**What is now sourced (the owner check happened, 2026-08-19)**: the feature ended outright. It stopped appearing in Google Search on **2026-05-07** (notice dated May 8) and the **documentation was removed on 2026-06-15**. Both read directly on `developers.google.com/search/updates`, and the same two entries were quoted identically by an independent re-fetch from outside this environment on the same day. State these as fact; `SKILL.md` already does.
 
+**What is not sourced, and must not be written as fact**: a further set of 2026 events — search appearance, Search Console reporting, the Enhancements appearance filter and Rich Results Test support all dropped, plus an August 2026 API cut. Ruling R3 asserts these, but the two URLs it cites as its sources were read in a browser on 2026-08-11 and contain none of them; the page they actually came from has never been read by anyone. They may well be true. Until an owner check settles it (`docs/loop/r3-decision-brief.md`), state the 2023 restriction and stop there.
+
+**How this reconciles with the paragraph ABOVE, which is deliberately left byte-unchanged.** That paragraph ends "state the 2023 restriction and stop there", and it enumerates **five** events, not four. Four of them — Search Console reporting, the Enhancements appearance filter, Rich Results Test support, and the August 2026 API cut — are still unsettled, and its instruction holds for them unchanged.
+
+**The fifth is superseded, and naming it is the whole point of this note.** That paragraph's first listed item is `search appearance`, and the owner check closed exactly that one on 2026-08-19 — it is stated as fact at the top of this section. An earlier draft of this note said the paragraph was "scoped to the items it lists" and then re-listed only the four, which would have concealed the overlap instead of resolving it: the forbidden list and the stated fact would still have collided, and a run would still have been deciding by read order. Four of five hold; the first does not.
+
+**Why the paragraph is left verbatim rather than rewritten.** Not because check (f) in `scripts/validate-tracking.sh` "accepts" it — that check does not evaluate it at all. The line carries no FAQ token, so it sits outside the hit set and passes vacuously. A rewrite that names FAQ retirement *becomes* a hit and then needs a retraction marker bound to the claim, which is what three attempted rewrites failed to do. That check's comment block (`:682`) states that a miss must never be repaired by adding a marker, because every added marker widens the hole — so the repair was to stop editing the guarded line and scope it from here. The unsettled remainder stays open at `docs/loop/r3-decision-brief.md`.
+
+FAQPage stays in the library (settled ruling R3) because it is valid schema.org, costs nothing to keep, and Google's own guidance is that there is no need to proactively remove it. **State that basis and no more.** R3 amendment 9a records that its former rationale — that the value is AI-engine parsing — has **no primary source either way**, and that Google's 2026 AI-optimization guide says no special structured data is needed for its own AI surfaces. So a deliverable may say the markup is valid and cheap to keep; it may not say it earns AI citations. The quality bar that still applies:
+
+- FAQPage is the page's ONE primary type — a dedicated FAQ page, not an FAQ block bolted onto a page that already carries an accurate type (settled ruling R2), unless the page genuinely is both things and each type is complete, accurate, and independently justified. That carve-out is the same one the pre-launch check below applies to every type, and it is narrow: having an FAQ section does not make a page an FAQ page, so the ordinary case is still the ban. The visible Q&A earns CORE-EEAT C09 on its own, so a page that keeps the Q&A and drops the markup loses nothing on that item
 - Q&A pairs match the visible page content exactly (general structured-data content-match policy)
 - Questions are actual questions; answers are complete
 - Neutral, informational wording — not promotional copy
@@ -221,7 +281,9 @@ Validate FAQPage at https://validator.schema.org/ (syntax + Schema.org semantics
 
 ### How-To Rich Results
 
-**Eligibility checklist**:
+`[VERIFY]` **Whether this rich result is still offered is an open question in this library.** A 2023-08-08 Google Search Central post (title: "Changes to HowTo and FAQ rich results"; its FAQ half is superseded here by ruling R3, which has FAQ retired outright) is quoted as taking How-to results desktop-only and then dropping them "as of September 13", with the How-to report and Rich Results Test support withdrawn — read at search-snippet grade over the primary domain (2026-08-10), not owner-read, and no ruling has issued (WATCH-ITEMS W12 → gated item G9). Keep generating HowTo where the content genuinely is step-by-step; the content checklist below is what makes the markup honest either way. Promise no How-to SERP appearance until this resolves.
+
+**Content checklist** (also the eligibility checklist if the feature is still offered):
 - [ ] Minimum 2 steps with clear instructions
 - [ ] Complete process from start to finish
 - [ ] Each step has meaningful text (not just a title)
@@ -275,7 +337,7 @@ Validate FAQPage at https://validator.schema.org/ (syntax + Schema.org semantics
 3. **Test at Google Rich Results Test (non-FAQ types only)**
    - Check for Google-specific issues
    - Verify eligible rich result types
-   - FAQPage: skip this step — FAQ support was cut in 2026; the Schema.org validation in step 2 is the whole check
+   - FAQPage: skip this step — this tool does not test FAQPage; the Schema.org validation in step 2 is the whole check
 4. **Visual inspection**
    - View page source to confirm schema is present
    - Check JSON formatting in browser
@@ -292,7 +354,7 @@ Validate FAQPage at https://validator.schema.org/ (syntax + Schema.org semantics
 ### Post-Launch Monitoring
 
 1. **Submit sitemap to Google Search Console**
-2. **Monitor Enhancements reports** (non-FAQ types — FAQ reporting was cut in 2026)
+2. **Monitor Enhancements reports** (non-FAQ types — an ordinary site has no FAQ rich result to report on since the 2023-08-08 restriction)
    - Check for validation errors
    - Watch for policy violations
    - Track rich result impressions
@@ -365,7 +427,7 @@ Validate FAQPage at https://validator.schema.org/ (syntax + Schema.org semantics
 ### Rich Results Not Showing in Search
 
 **Possible causes**:
-- The type no longer has a rich result (FAQ retired in 2026 — nothing will show; that is expected, not a bug)
+- The type no longer has a rich result (no FAQ rich result for ordinary sites since Aug 2023 — nothing will show; that is expected, not a bug)
 - Schema is new (can take days/weeks to appear)
 - Page not indexed by Google
 - Schema has errors in Search Console
@@ -426,7 +488,7 @@ Validate FAQPage at https://validator.schema.org/ (syntax + Schema.org semantics
 | Error Message | Cause | Fix |
 |---------------|-------|-----|
 | "Missing required field" | Required property not included | Add the required property |
-| "Invalid date format" | Date not in ISO 8601 | Use format: 2024-01-15T08:00:00+00:00 |
+| "Invalid date format" | Date not in ISO 8601 | Use 2024-01-15 when the page states no time; 2024-01-15T08:00:00+00:00 when it does |
 | "URL is not absolute" | Relative URL used | Add full URL with https:// |
 | "Unexpected token" | JSON syntax error | Check for missing quotes, brackets, commas |
 | "This markup is not eligible for rich results" | Schema type or content doesn't qualify | Review eligibility requirements |
@@ -440,6 +502,6 @@ Validate FAQPage at https://validator.schema.org/ (syntax + Schema.org semantics
 
 - **Schema.org Documentation**: https://schema.org/
 - **Google Search Central**: https://developers.google.com/search/docs/appearance/structured-data
-- **Rich Results Test**: https://search.google.com/test/rich-results (no FAQ support since 2026)
+- **Rich Results Test**: https://search.google.com/test/rich-results (does not test FAQPage — validate that with the Schema.org Validator)
 - **Schema Validator**: https://validator.schema.org/ (use this for FAQPage)
 - **JSON-LD Playground**: https://json-ld.org/playground/

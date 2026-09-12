@@ -1,0 +1,97 @@
+{
+  "baseline_date": "2026-08-09",
+  "baseline_label": "e1",
+  "scope": "First Mode B baselines for the four G7 wave-E1 suites: on-page-seo-auditor (4.1.1), content-quality-auditor (4.2.1), meta-tags-optimizer (4.1.2), seo-content-writer (4.2.2). Founding records — no suite here has any prior baseline; zero-regression protection for each starts from this file. Suites graded post-df63d1e wording (all Mode A fixes applied).",
+  "method": "skill-reviewer Mode B runs (execute-then-grade; scripted checkers print evidence per ledger F7; suite-prefixed grading filenames after a shared-scratchpad collision early in the round). Same-session executor/grader caveat stands; blind-protocol reinstatement queued. Execution HEADs db8f8d2/783ca4e with mid-run sibling commits verified byte-neutral to each run's inputs (per-fragment records).",
+  "regression_rule": "Regression = an expectation recorded passing here that fails in a later run of the same suite at same-or-later skill version under unchanged wording.",
+  "suites": [
+    {
+      "skill": "on-page-seo-auditor",
+      "skill_version": "4.1.1",
+      "passed": 29,
+      "total": 30,
+      "pass_rate": 0.967,
+      "fail_record": "e5.6 — meta-table note quoted a paraphrased fixture fragment as if verbatim (no facts invented; quote-form infidelity). Honest FAIL recorded as the founding datum.",
+      "greek_editor": "greek-out-onpage-3.md MINOR-EDITS — all §6 families absent; paste-ready title/meta/alts/anchor NATIVE-grade with counts 57/159 verified exact; 4 report-prose advisories (κλικαμπλ, «λεπτό περιεχόμενο», «κάλεσμα δράσης», «301 ανακατεύθυνση word order»).",
+      "no_fabrication_guard": "HELD (all digit flags adjudicated benign)",
+      "tool_correctness": "3 checker false verdicts self-caught pre-report (F7 designed position); 0 escapes; Greek casefold trap confirmed and handled («Περιστέρι»/«Περιστερίου»).",
+      "eval_feedback_backlog": [
+        "Quote-discipline: quote verbatim or unquote summaries (shared class — see lessons)",
+        "Harmonize e2.6/e5.6 with e1.7's entity-decode allowance",
+        "Consider making the CORE-EEAT scan explicitly required for full-audit prompts (e1.4 conditional)"
+      ]
+    },
+    {
+      "skill": "content-quality-auditor",
+      "skill_version": "4.2.1",
+      "passed": 26,
+      "total": 28,
+      "pass_rate": 0.929,
+      "fail_record": "e4.4 + e4.6 — one root defect double-counted: «πιστοποιημένοι τεχνικοί» guillemet-quoted though the fixture phrase is «Οι τεχνικοί μας είναι πιστοποιημένοι» (paraphrase-as-quote; content fixture-real). Editor confirmed the Greek itself unobjectionable — the FAIL is quote-form, owned by the structural layer.",
+      "greek_editor": "greek-out-quality-4.md MINOR-EDITS — §6 clean with the ruled native form «και τα 10 κριτήρια» positively used (backfill carrier working cross-skill); slop vocabulary confined to quoted audit evidence; 4 advisories (ρέτζιστερ, «χτυπήματα», «κοινόχρηστοι», adverb placement).",
+      "no_fabrication_guard": "HELD (zero invented numbers/dates/names; word counts verified against fixtures)",
+      "tool_correctness": "5 checker false-flags caught in F7 position incl. a wc -w Greek miscount (52 vs 324, caught by Python recount); 0 escapes.",
+      "eval_feedback_backlog": [
+        "Cap wording: consider min(computed, 59) phrasing or a fixture whose computed score exceeds 59 so the cap binds",
+        "e4.4/e4.6 double-count one defect — scope e4.6's quote clause to invented content",
+        "EN quote fidelity in Pass notes unbound by any expectation",
+        "Single-page fixtures never exercise the full SEO-score path"
+      ]
+    },
+    {
+      "skill": "meta-tags-optimizer",
+      "skill_version": "4.1.2",
+      "passed": 29,
+      "total": 29,
+      "pass_rate": 1.0,
+      "fail_record": null,
+      "greek_editor": "greek-out-metatags-3.md NATIVE — first NATIVE grade of the pipeline; §6 absent; counts 52/157 verified exact; «online» CTA and category-caps judged market-native; executor's enclitic flag moot (string absent from file); one report-voice nit («πείτε το μας»); editor scope note: no OG block present in the output file to judge (e3 graded 6/6 by the suite's own expectations — recorded as an observation, not a defect).",
+      "no_fabrication_guard": "HELD (all 22 tag strings measured stated==true; £4.50/3,50 € kept out of tags; quote-fidelity clean — the sibling class did not recur)",
+      "tool_correctness": "1 script error fixed pre-verdict; 3 checker false verdicts self-caught; 0 escapes. House note: ` | ` brand separators need escaping in markdown table cells.",
+      "eval_feedback_backlog": [
+        "e2.3 adjacency question for 'cleaners harrogate' (graded natural-order tokens)",
+        "e2.4 migration ban — 'in another page's tags' would remove ambiguity",
+        "SKILL.md worked example contradicts the suite's bands (skill-wave defect already queued)"
+      ]
+    },
+    {
+      "skill": "seo-content-writer",
+      "skill_version": "4.2.2",
+      "passed": 30,
+      "total": 30,
+      "pass_rate": 1.0,
+      "fail_record": null,
+      "greek_editor": "greek-out-writer-1.md NATIVE (Thessaloniki locale genuine — «πολεοδομικό συγκρότημα», declined municipalities, «ώς το πεζοδρόμιο» CORRECTLY accented per ΛΚΝ, do not fix; counts 56/148 exact; query-string/visible-copy split model-grade). greek-out-writer-2.md MINOR-EDITS (YMYL register achieved; «14 με 9» native idiom; 6 polish edits led by the L83 tense mismatch). greek-out-writer-4.md MINOR-EDITS (B2B register strong — «πλέον ΦΠΑ», «ο account», ΓΕΜΗ footer; 3 visible-copy edits led by «προθεσμίες που γλιστρούν»).",
+      "no_fabrication_guard": "HELD (595 digit tokens scanned, zero fabricated; e2 FAQ attribution defect self-caught and rewritten pre-grading; quote-fidelity clean ×3)",
+      "tool_correctness": "1 checker false-FAIL (Greek casefold Θ) caught in F7 position, rerun clean; 0 escapes. Residuals recorded not patched: e5 '~1,100' stale approximation (actual 1,220); e1 FAQ answer 2 at 39 words vs non-binding guidance.",
+      "eval_feedback_backlog": [
+        "e1#2 title-inflection wording",
+        "e3#1 advice-parameter clause",
+        "e5#3 allowed-form example",
+        "Step-10 pattern-quoting scanner noise — candidate skill-rule line",
+        "Judgment call on record: e5 'we do not sell or monitor them' graded customer-voice"
+      ]
+    }
+  ],
+  "totals": {
+    "passed": 114,
+    "total": 117,
+    "pass_rate": 0.974,
+    "editor_verdicts": "6 binding passes across the round: NATIVE ×2 (meta-tags e3, writer e1), MINOR-EDITS ×4 (on-page e3, quality e4, writer e2, writer e4), FAIL ×0. Zero ruled-family recurrences in customer-visible surfaces across all six judged files."
+  },
+  "lessons": {
+    "quote_fidelity": "Two of four suites (on-page e5.6, quality e4.4/e4.6) failed expectations on paraphrase-presented-as-quote in the same round; both auditor-report surfaces. Meta-tags and writer runs, warned in-prompt, came back clean. Carrier decision: one quote-discipline line in the two auditors' report-format sections rides the next skill-body wave (third-instance rule met — 3 failed expectations across 2 skills).",
+    "cross_skill_carrier_evidence": "The §6 ruled-classes table demonstrably transfers: quality-auditor and writer outputs used the ruled native forms («και τα 10 κριτήρια», «και τα 7 στοιχεία») unprompted; F13's backfill carrier is working beyond its founding skill.",
+    "checker_integrity": "12 checker false verdicts self-caught across the four runs (regex scope, Greek casefold, wc -w Greek miscount, substring slices) — zero escaped into recorded verdicts; the F7 evidence-print position is the load-bearing control.",
+    "operational": "Shared-scratchpad collision (bare grading.json overwritten) — suite-prefixed filenames now mandatory in Mode B prompts."
+  },
+  "learning_metrics_at_baseline": {
+    "mode_a_findings_by_wave": {
+      "E1": 4,
+      "E2": 6,
+      "E3": 1
+    },
+    "note": "Authoring quality improved as wave lessons accumulated into author prompts; E3 reviewed 3 SHIP zero-findings + 1 FIX.",
+    "method_caveat": "Same-session executor/grader throughout; blind-protocol reinstatement queued."
+  }
+}

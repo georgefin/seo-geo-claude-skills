@@ -1,0 +1,10 @@
+# CASE: scope-no-outgoing-commits
+# ROLE: negative
+# BASE: HEAD
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: no outgoing commits — nothing to check
+# WHY: no FILE lines, so no commit is made and the range is empty. The gate's own
+#      null-scope disclosure exists because this state LOOKS like a clean bill of
+#      health; the probe asserts the check says which one it is.
+# ---8<--- commit message
+(no commit is made for this case)

@@ -37,16 +37,25 @@ Templates for each step of the SERP analysis workflow. Use these to structure yo
 
 | Feature | Present | Position | Opportunity |
 |---------|---------|----------|-------------|
-| AI Overview | Yes/No | Top | [analysis] |
-| Featured Snippet | Yes/No | [pos] | [analysis] |
-| People Also Ask | Yes/No | [pos] | [analysis] |
-| Knowledge Panel | Yes/No | Right | [analysis] |
-| Image Pack | Yes/No | [pos] | [analysis] |
-| Video Results | Yes/No | [pos] | [analysis] |
-| Local Pack | Yes/No | [pos] | [analysis] |
-| Shopping Results | Yes/No | [pos] | [analysis] |
-| News Results | Yes/No | [pos] | [analysis] |
-| Sitelinks | Yes/No | [pos] | [analysis] |
+| AI Overview | Present / Absent / **Not captured** | Top | [analysis] |
+| Featured Snippet | Present / Absent / **Not captured** | [pos] | [analysis] |
+| People Also Ask | Present / Absent / **Not captured** | [pos] | [analysis] |
+| Knowledge Panel | Present / Absent / **Not captured** | Right | [analysis] |
+| Image Pack | Present / Absent / **Not captured** | [pos] | [analysis] |
+| Video Results | Present / Absent / **Not captured** | [pos] | [analysis] |
+| Local Pack | Present / Absent / **Not captured** | [pos] | [analysis] |
+| Shopping Results | Present / Absent / **Not captured** | [pos] | [analysis] |
+| News Results | Present / Absent / **Not captured** | [pos] | [analysis] |
+| Sitelinks | Present / Absent / **Not captured** | [pos] | [analysis] |
+
+> **The third value is not optional, and it is why this column was changed on 2026-08-17.** The
+> column read `Yes/No`. A run that never captured the SERP — no tool, no screenshot, no browse —
+> has only two writable values there, and **"No" asserts a finding it does not have**: it tells the
+> client the feature is absent when the truth is that nobody looked. That is the highest-risk cell
+> in this skill, because the fabrication is *forced by the template* rather than chosen by the
+> writer. **Absent** means looked and not there. **Not captured** means not looked. They are
+> different claims and the client is entitled to know which one they were handed.
+> The same fix applies to the Recommendations block's `Winnable? Yes/No` column below.
 ```
 
 ## Top Results Analysis Template
@@ -108,14 +117,16 @@ Templates for each step of the SERP analysis workflow. Use these to structure yo
 | HTTPS | [X]% | High/Med/Low |
 | Mobile Optimized | [X]% | High/Med/Low |
 
-**Content Format Distribution**:
+**Content Format Distribution** (denominator = organic results you actually classified; if you
+captured 8, write /8 — every result falls in exactly one bucket and the buckets sum to the
+denominator):
 - How-to guides: [X]/10
 - Listicles: [X]/10
 - In-depth articles: [X]/10
 - Product pages: [X]/10
 - Other: [X]/10
 
-**Domain Type Distribution**:
+**Domain Type Distribution** (same denominator, same one-bucket-each rule):
 - Brand/Company sites: [X]/10
 - Media/News sites: [X]/10
 - Niche blogs: [X]/10
@@ -131,6 +142,14 @@ Templates for each step of the SERP analysis workflow. Use these to structure yo
 ## SERP Features Analysis Template
 
 ```markdown
+### Feature Combination Read
+
+**Features observed together**: [the features your capture actually showed side by side]
+**What this library reads that as**: [the read from serp-feature-taxonomy.md → "SERP Feature Combination Patterns", in your own words]
+**What it implies here**: [what the pairing tells you to do, before the per-feature strategies below]
+
+---
+
 ### Featured Snippet Analysis
 
 **Current Snippet Holder**: [URL]
@@ -156,7 +175,8 @@ Templates for each step of the SERP analysis workflow. Use these to structure yo
 **PAA Optimization Strategy**:
 - Include these questions as H2/H3 headings
 - Provide direct, concise answers (40-60 words)
-- Use FAQ schema markup
+- Answer them in a visible on-page Q&A block — readable text any consumer reaches without markup, so markup is not required for it
+- Add FAQPage markup only where FAQPage is the page's one primary type. On a page that already carries an accurate type (Article, Product, LocalBusiness), a second content type is schema stacking and adds no citation signal — and Google restricted FAQ rich results to government and health sites in Aug 2023, so there is no SERP result to win either
 
 ---
 
@@ -166,20 +186,33 @@ Templates for each step of the SERP analysis workflow. Use these to structure yo
 **AI Overview Type**: [Summary/List/Comparison/etc.]
 
 **Sources Cited in AI Overview**:
-1. [Source 1] - [Why cited]
-2. [Source 2] - [Why cited]
-3. [Source 3] - [Why cited]
+1. [Source 1] - [what that page carries that the quoted passage came from]
+2. [Source 2] - [what that page carries that the quoted passage came from]
+3. [Source 3] - [what that page carries that the quoted passage came from]
 
 **AI Overview Content Patterns**:
 - Pulls definitions from: [source type]
 - Lists information as: [format]
 - Cites statistics from: [source type]
 
-**How to Get Cited in AI Overview**:
-1. [Specific recommendation]
-2. [Specific recommendation]
-3. [Specific recommendation]
+**How to Compete for an AI Overview Citation**:
+1. [recommendation, stated as what to put on the page]
+2. [recommendation, stated as what to put on the page]
+3. [recommendation, stated as what to put on the page]
 ```
+
+> **Filling the Feature Combination Read.** It comes first because it is the reason the
+> per-feature sections below are being run at once. Take the read from
+> [serp-feature-taxonomy.md](./serp-feature-taxonomy.md) → "SERP Feature Combination Patterns"
+> and write it in your own words. Where only one feature is present, say so — a single-feature
+> composition is a read too. State what the composition **is** and what you take it to mean;
+> never what an engine wants from it, in any language (ruling R3 amendment 9a).
+
+> **Filling the two blocks above.** The *Sources Cited* and *Content Patterns* rows record
+> what you saw in the Overview you actually ran — an observation, dated. The recommendation
+> rows say what to put on the page, which the client can check by opening it. Neither states
+> why an engine chose a source: no engine publishes its selection rule, and this library does
+> not report one (ruling R3 amendment 9a).
 
 ## Search Intent Template
 
@@ -193,10 +226,17 @@ Templates for each step of the SERP analysis workflow. Use these to structure yo
 - Top results are: [content types]
 - User likely wants: [description]
 
-**Intent Breakdown**:
-- Informational signals: [X]%
-- Commercial signals: [X]%
-- Transactional signals: [X]%
+**Intent Breakdown** — count the SERP elements you classified, do not estimate the split. List
+every element on the page (each organic result, each feature, the ad block if present), give each
+one intent, then print counts before percentages:
+- Informational signals: [X] of [N] elements = [X/N]%
+- Commercial signals: [X] of [N] elements = [X/N]%
+- Transactional signals: [X] of [N] elements = [X/N]%
+
+The three lines add to the element count and to 100%. An element you cannot classify is listed as
+unclassified and stays in the denominator — dropping it inflates whichever intent you were already
+leaning towards. 100% for one intent is a legitimate result on a uniform SERP; it just has to be
+9 of 9, not a feeling.
 
 **Content Format Implication**:
 Based on intent, your content should:
@@ -207,20 +247,55 @@ Based on intent, your content should:
 
 ## Difficulty Assessment Template
 
+### How the difficulty score is built
+
+Five factors, each converted to the **same 1-100 scale** before anything is weighted — a mean DA,
+a link count and a judged quality bar cannot be added together in their own units. Convert first,
+then weight.
+
+| Factor | Weight | Sub-score on 1-100 |
+|--------|--------|--------------------|
+| Top 10 Domain Authority | 25% | the mean DA of the results you captured (already 0-100 — name the tool it came from) |
+| Top 10 Page Authority | 20% | the mean page-level authority of the same results |
+| Backlinks Required | 20% | median link count of those results, banded: 0-9 → **10** · 10-49 → **30** · 50-199 → **50** · 200-999 → **70** · 1,000+ → **90**. Say which count you used (referring domains or page backlinks) — they are not interchangeable |
+| Content Quality Bar | 20% | what the top 5 pages actually show, 1-5 then × 20: **1** thin or outdated · **2** ordinary blog depth · **3** thorough coverage, nothing original · **4** thorough plus original data, media or tooling · **5** category-defining, cited by others |
+| SERP Stability | 15% | share of top-10 URLs unchanged since your previous pull, as a percentage. Needs two pulls; with one pull it is not scored |
+
+**Difficulty** = Σ(sub-score × weight) ÷ Σ(weights of the factors you could score), rounded to a
+whole number with a half rounding up. The division renormalises: when a factor has no data, drop
+it and divide by what is left — never score it 0, which claims the SERP is easy on that axis.
+State the renormalisation beside the number, with the dropped factors named.
+
+**Bands** — the same cut `keyword-research` Step 6 uses, so one number means one thing across the
+library: **70-100 High · 40-69 Medium · 1-39 Low**. Read the band off the rounded score, so the
+bands stay contiguous. The scale starts at 1: a live SERP with ten results in it never scores 0.
+
+Worked, on a single pull of five captured results with no page-authority pull and no history:
+
+```
+DA        mean 75          weight 0.25 → renormalised 0.25/0.65 = 0.385
+Links     median 1,100 → 90  weight 0.20 → renormalised 0.20/0.65 = 0.308
+Bar       3 → 60           weight 0.20 → renormalised 0.20/0.65 = 0.308
+Page authority and SERP stability not scored (no PA pull, single snapshot) — 0.35 dropped
+
+(75 × 5 + 90 × 4 + 60 × 4) ÷ 13 = 975 ÷ 13 = 75 → High
+```
+
 ```markdown
 ### Difficulty Assessment
 
-**Overall Difficulty Score**: [X]/100
+**Overall Difficulty Score**: [X]/100 ([band]) — [weights and sub-scores substituted, e.g.
+"(75×5 + 90×4 + 60×4) ÷ 13"; name any factor not scored and the weight renormalised away]
 
 **Difficulty Factors**:
 
-| Factor | Score | Weight | Impact |
-|--------|-------|--------|--------|
-| Top 10 Domain Authority | [avg] | 25% | [High/Med/Low] |
-| Top 10 Page Authority | [avg] | 20% | [High/Med/Low] |
-| Backlinks Required | [est.] | 20% | [High/Med/Low] |
-| Content Quality Bar | [rating] | 20% | [High/Med/Low] |
-| SERP Stability | [rating] | 15% | [High/Med/Low] |
+| Factor | Measured value | Sub-score /100 | Weight | Weight used |
+|--------|----------------|----------------|--------|-------------|
+| Top 10 Domain Authority | [mean DA, source] | [X] | 25% | [renormalised or 25%] |
+| Top 10 Page Authority | [mean PA, source] | [X] | 20% | [or "not scored — no PA data"] |
+| Backlinks Required | [median count, which count] | [X] | 20% | [ ] |
+| Content Quality Bar | [1-5 with the one-line reason] | [X] | 20% | [ ] |
+| SERP Stability | [% URLs unchanged, vs which pull] | [X] | 15% | [or "not scored — single pull"] |
 
 **Realistic Assessment**:
 
@@ -230,8 +305,9 @@ Based on intent, your content should:
 
 **Easier Alternatives**:
 If too difficult, consider:
-- [Alternative keyword 1] - Difficulty: [X]
-- [Alternative keyword 2] - Difficulty: [X]
+- [Alternative keyword 1] - [tool-reported Keyword Difficulty, tool named — a different
+  instrument from the SERP score above, so do not rank the two in one list]
+- [Alternative keyword 2] - [same, or "not scored — needs its own SERP pull"]
 ```
 
 ## Recommendations Template
@@ -250,7 +326,7 @@ If too difficult, consider:
 To compete for "[keyword]", you need:
 
 **Minimum Requirements**:
-- [ ] Word count: [X]+ words
+- [ ] Word count: [X]+ words   <!-- SKELETON slot — resolved from the captured top-10 mean, or the row is dropped -->
 - [ ] Backlinks: [X]+ referring domains
 - [ ] Domain Authority: [X]+
 - [ ] Content format: [type]
@@ -271,9 +347,13 @@ To compete for "[keyword]", you need:
 
 ### Recommended Content Outline
 
-Based on SERP analysis:
+Fill every slot from the SERP you captured. If you did not capture one, **do not emit this block
+at all** — an outline built from nothing is a guess wearing a structure.
 
 ```
+# SKELETON — scaffold, not output. Every [bracket] is a slot filled from the captured SERP.
+# What ships to the client carries resolved values only; a slot with no SERP behind it means
+# the outline is not emitted, and the missing capture is named in the report instead.
 Title: [Optimized title]
 
 H1: [Main heading]

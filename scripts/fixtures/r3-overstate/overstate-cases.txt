@@ -1,0 +1,139 @@
+# Fixture corpus for check (f)'s R3-OVERSTATEMENT leg — the wrapped-phrase cases.
+# Read by `scripts/validate-tracking.sh --probe`, which materialises every case below as its own
+# .md file in a temporary tree and runs the REAL sweep function (f_over_hits) over it.
+#
+# WHY THIS FILE EXISTS, AND WHY IT IS NOT IN ../r3-allowlist/ (2026-08-17, ledger F15 recurrence 5).
+# The sibling corpus there is one datum PER LINE (`>>> ` prefixed). That format cannot express the
+# defect this corpus measures: a phrase with a line break inside it. The guard it fed was probed
+# with variants that were all written on one line, so the probe passed while the guard could not
+# see its own ruled defect sitting in a shipped skill file — the phrase straddled the break between
+# `refresh-templates.md`:464 and :465 and check (f)'s line-based grep returned 0 on that file.
+# A probe built from variants that all share the defect's accidental formatting tests the pattern
+# against itself. So the unit here is a CASE, not a line, and a case may be as many lines as it
+# needs to be.
+#
+# FORMAT
+#   `=== CASE <name> [flags]`   opens a case; every following line is verbatim content of <name>.md
+#   `=== NOTE <text>`           ignored (provenance, rationale)
+#   any other `=== ` line       a format error, reported by the probe rather than skipped
+#   lines before the first case free-form header; `# COUNT: <n>` is asserted against the parse
+#
+# FLAGS — no flag means "must be reported as a violation"
+#   CLEAN          must NOT be reported; a line the library wants to be able to write
+#   WRAPPED        the overstatement phrase straddles a line break in this case, and the probe
+#                  asserts the sweep says so. A future reflow of this file that quietly joins the
+#                  lines would otherwise leave the corpus looking full while measuring nothing.
+#   SUBJECT-BOUND  a CLEAN case that is clean BECAUSE of the FAQ/schema/markup conjunct, not
+#                  because it lacks the phrase. The probe re-runs it with that conjunct made
+#                  trivially true and requires it to fire. A legitimate case that stays quiet
+#                  under that substitution is passing for a reason nobody tested.
+#
+# DO NOT REFLOW THIS FILE. The line breaks inside the cases are the measurement.
+#
+# COUNT: 16
+
+=== NOTE optimize/content-refresher/references/refresh-templates.md:464-465 at commit 3ce98c9^ —
+=== NOTE the real defect, verbatim. Certified FIXED across 13 shipped surfaces on 2026-08-13 and
+=== NOTE still live here four days later, because the guard could not see a break. This citation is
+=== NOTE into git history rather than into the tree, so it does not drift: reproduce it with
+=== NOTE `git show 3ce98c9^:optimize/content-refresher/references/refresh-templates.md | sed -n 464,465p`.
+=== CASE historical-wrap WRAPPED
+ruling supports and no more: it is valid schema.org, it costs nothing to keep, and Google advises
+against proactively removing it. An ordinary site gets no FAQ rich result — since 2023-08-08 Google
+
+=== NOTE the same sentence on one line — the form the line-based grep DID catch. Non-regression
+=== NOTE control: the fix must not trade the old case for the new one.
+=== CASE historical-flat
+ruling supports and no more: it is valid schema.org, it costs nothing to keep, and Google advises against proactively removing it.
+
+=== CASE advised-past-wrap WRAPPED
+The FAQPage block stays where it is. Google advised
+against removing it, so leave the markup alone.
+
+=== CASE recommends-wrap WRAPPED
+Google recommends against proactively
+deleting FAQPage structured data once it is published.
+
+=== CASE counsels-wrap WRAPPED
+Our reading of the schema guidance is that Google counsels
+against dropping the block from the template.
+
+=== CASE discourages-wrap WRAPPED
+The markup is cheap to keep, and Google discourages
+removing it from pages that already carry it.
+
+=== CASE tells-you-not-to-wrap WRAPPED
+On FAQPage, the documentation tells you not to
+remove what you have already published.
+
+=== CASE says-you-should-keep-wrap WRAPPED
+For FAQ markup specifically, Google says you should
+keep it in place indefinitely.
+
+=== NOTE the conjunct wraps for the same reason the phrase does. Here the phrase is intact on one
+=== NOTE line and the SUBJECT sits on the line before it, so a guard that fixed only the phrase
+=== NOTE would report nothing. Not flagged WRAPPED: the phrase itself does not straddle.
+=== CASE subject-on-previous-line
+The FAQPage block is valid markup and Google
+advises against removing it.
+
+=== NOTE a markdown list continuation is indented, so joining the raw lines leaves three spaces
+=== NOTE where the phrase needs one. This case is why the window is whitespace-flattened and not
+=== NOTE merely concatenated.
+=== CASE indented-list-continuation WRAPPED
+- FAQPage schema stays on the page because Google advises
+  against removing it once it is published.
+
+=== CASE blank-line-split WRAPPED
+FAQPage schema, in short: Google advises
+
+against removing it.
+
+=== NOTE broken twice, on short lines — a table cell or a hard-wrapped fragment. A two-line
+=== NOTE window would report nothing here.
+=== CASE three-line-break WRAPPED
+The FAQPage markup is valid and Google
+advises
+against removing it from the page.
+
+=== NOTE ---------- CLEAN cases below this point ----------
+
+=== NOTE the corrected phrasing. Google's words are a permission, not a recommendation, and the
+=== NOTE library must be able to write them — wrapped, as it does today.
+=== CASE faithful-permission CLEAN
+The FAQPage markup is valid schema.org and costs nothing to keep, and Google says there is
+no need to proactively remove it.
+
+=== NOTE optimize/content-refresher/references/refresh-templates.md, verbatim — the live sentence
+=== NOTE that replaced the defect. If this ever fires, the fix has started failing the sentence it
+=== NOTE exists to protect.
+=== NOTE ANCHORED, NOT NUMBERED (F12's rule): grep the file for "no need to proactively remove it".
+=== NOTE It was :464-465 when it was the defect, :509-510 four hours into 2026-08-17 and :529-530
+=== NOTE four hours later again, moved twice in a day by lanes doing unrelated work. The text is
+=== NOTE authoritative here; any line number written down would be wrong by the next commit.
+=== CASE head-verbatim CLEAN
+ruling supports and no more: it is valid schema.org and it costs nothing to keep, and
+**Google says there is no need to proactively remove it** — a permission to leave existing markup
+
+=== NOTE the deliberate narrowing: "advises against removing" is TRUE of other things. Nothing in
+=== NOTE this case's window is about FAQ, schema, structured data or markup.
+=== NOTE THE CASE NAME IS LOAD-BEARING — do not rename it. It carries the word `schema`, so the
+=== NOTE file's PATH satisfies the conjunct even though its TEXT does not. The implementation this
+=== NOTE corpus replaced piped `path:line:text` into the subject grep, so every file whose path
+=== NOTE carried one of those words had the narrowing switched off — 5 of the 121 swept files at
+=== NOTE 2026-08-17, all of build/schema-markup-generator plus commands/generate-schema.md. Same
+=== NOTE class as the `^[^:]*:[0-9]+:` anchor in f_excuse, which reached the two allowlist legs on
+=== NOTE 2026-08-17 and never reached this one. This case fires if a path ever leaks in again.
+=== CASE redirects-not-schema CLEAN SUBJECT-BOUND
+This paragraph is about canonical tags and redirect chains only, and it advises against removing
+them once the crawler has settled on a target.
+
+=== NOTE the case that separates a bounded window from a whole-file flatten. The subject word is
+=== NOTE in the file, far past the window. A flattened-whole-file scan reports this; the window
+=== NOTE must not. If the window is ever widened past this distance, this case fires and says so.
+=== CASE subject-past-the-window CLEAN SUBJECT-BOUND
+This paragraph is about canonical tags and redirect chains only, and it advises against removing
+them once the crawler has settled on a target, which is a decision about redirects and nothing else.
+Filler line one, long enough on its own to push the later mention past the configured context window.
+Filler line two, long enough on its own to push the later mention past the configured context window.
+Structured data is discussed only down here, far past the window, as JSON-LD markup.

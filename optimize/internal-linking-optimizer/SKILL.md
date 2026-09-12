@@ -1,13 +1,13 @@
 ---
 name: internal-linking-optimizer
-version: "4.0.1"
+version: "4.6.1"
 description: 'Analyze and optimize internal link structure to improve site architecture, distribute page authority, and fix orphan pages. Use when the user asks to "fix internal links", "improve site architecture", "link structure", "distribute page authority", "internal linking strategy", "orphan pages", "site architecture is messy", or "pages have no links pointing to them". For a broader on-page audit, see on-page-seo-auditor. For external link analysis, see backlink-analyzer.'
 license: Apache-2.0
 compatibility: "Claude Code ≥1.0, skills.sh marketplace, ClawHub marketplace, Vercel Labs skills ecosystem. No system packages required. Optional: MCP network access for SEO tool integrations."
 homepage: "https://github.com/aaron-he-zhu/seo-geo-claude-skills"
 metadata:
   author: aaron-he-zhu
-  version: "4.0.1"
+  version: "4.6.1"
   geo-relevance: "low"
   tags:
     - seo
@@ -42,7 +42,6 @@ metadata:
 
 # Internal Linking Optimizer
 
-
 This skill analyzes your site's internal link structure and provides recommendations to improve SEO through strategic internal linking. It helps distribute authority, establish topical relevance, and improve crawlability.
 
 ## When to Use This Skill
@@ -61,7 +60,7 @@ This skill analyzes your site's internal link structure and provides recommendat
 2. **Authority Flow Mapping**: Shows how PageRank flows through site
 3. **Orphan Page Detection**: Finds pages with no internal links
 4. **Anchor Text Optimization**: Improves anchor text diversity
-5. **Topic Cluster Linking**: Creates pillar-cluster link strategies
+5. **Topic Cluster Linking**: Creates pillar-cluster link strategies, and cross-property support links across a multi-site portfolio
 6. **Link Opportunity Finding**: Identifies where to add links
 7. **Navigation Optimization**: Improves site-wide link elements
 
@@ -117,6 +116,15 @@ Proceed with the analysis using provided data. Note in the output which findings
 
 ## Instructions
 
+**The suggestion contract, binding on every step below.** A concrete link suggestion carries four
+fields — source page, target page, **anchor text**, placement. A bare count ("add links from 3
+pages", "add the two missing cluster links") is a finding, not a suggestion: expand it into one
+row per link, each with its own anchor, or cite the table row that carries them. A redirect or a
+deletion is not a link suggestion; a navigation entry's anchor is its menu label. **Anchors ship
+as final copy**: bracket tokens in the templates below are slots you fill, and a client-pasted
+string carries no bracket token, no `TBD`, no provenance note and no workflow marker — where a
+value cannot be sourced, drop that field and name the gap in report prose *outside* the string.
+
 When a user requests internal linking optimization:
 
 1. **Analyze Current Internal Link Structure**
@@ -128,18 +136,22 @@ When a user requests internal linking optimization:
    
    **Domain**: [domain]
    **Total Pages Analyzed**: [X]
-   **Total Internal Links**: [X]
-   **Average Links per Page**: [X]
+   **Total Internal Links**: [X] — [n] in body copy ([b] of them broken) and [m] template links
+   **Average Links per Page**: [links] ÷ [pages] = [X] (counting [which population])
    
    ### Link Distribution
    
-   | Links per Page | Page Count | Percentage |
-   |----------------|------------|------------|
-   | 0 (Orphan) | [X] | [X]% |
+   Rows count **inbound** links per page — the axis orphan status is read off — and separate
+   in-body links from template ones, because only the first kind is editorial.
+   
+   | Inbound links per page | Page Count | Percentage |
+   |------------------------|------------|------------|
+   | 0 in-body **and** 0 template — orphan | [X] | [X]% |
+   | 0 in-body, template/nav inbound only — not an orphan | [X] | [X]% |
    | 1-5 | [X] | [X]% |
    | 6-10 | [X] | [X]% |
    | 11-20 | [X] | [X]% |
-   | 20+ | [X] | [X]% |
+   | 21+ | [X] | [X]% |
    
    ### Top Linked Pages
    
@@ -151,13 +163,25 @@ When a user requests internal linking optimization:
    
    ### Under-Linked Important Pages
    
-   | Page | Current Links | Traffic | Recommended Links |
+   | Page | Current Links | Traffic | Recommended Links (a count — the links themselves are in Steps 4-5) |
    |------|---------------|---------|-------------------|
    | [URL 1] | [X] | [X]/mo | [X]+ |
    | [URL 2] | [X] | [X]/mo | [X]+ |
    
-   **Structure Score**: [X]/10
+   **Structure Score**: [X]/10 ([points] ÷ [rows scored]; [N] rows not checked — [why]; scored against the [model] targets)
    ```
+
+   > **Deriving it**: six rows — orphan pages, average links per page, under-linked important
+   > pages, click depth, broken internal links, cluster bidirectionality — each ✅ 1 · ⚠️ 0.5 ·
+   > ❌ 0, then `round(10 × points ÷ rows scored)` with an exact half rounding down. Rows you
+   > could not check leave the denominator; they are never scored 0. The tables above the score
+   > are evidence, not scored rows. Row definitions, targets and a worked derivation:
+   > [references/score-rubric.md](./references/score-rubric.md).
+   >
+   > **Authority** in the Top Linked Pages table is a within-site relative label read off that
+   > row's own inbound-link count, and the cut is stated ("High = 5+ inbound in-body links on
+   > this 8-page site"). It is never an external metric — no DA, DR, PA or vendor authority
+   > score appears unless a named connected tool supplied it.
 
 2. **Identify Orphan Pages**
 
@@ -165,35 +189,39 @@ When a user requests internal linking optimization:
    ## Orphan Page Analysis
    
    ### Definition
-   Orphan pages have no internal links pointing to them, making them 
-   hard for users and search engines to discover.
+   Orphan pages have no internal links pointing to them — **none of any kind**: none in body
+   copy and none from a template (menu, footer, logo) — making them hard for users and search
+   engines to discover. A page whose only inbound links are template links is reachable and is
+   **not** an orphan: report it as template-only inbound. The site root is never an orphan.
    
    ### Orphan Pages Found: [X]
    
-   | Page | Traffic | Priority | Recommended Action |
-   |------|---------|----------|-------------------|
-   | [URL 1] | [X]/mo | High | Link from [pages] |
-   | [URL 2] | [X]/mo | Medium | Add to navigation |
-   | [URL 3] | 0 | Low | Consider deleting/redirecting |
+   | Page | Inbound (in-body / template) | Traffic | Priority | Action class |
+   |------|------------------------------|---------|----------|--------------|
+   | [URL 1] | 0 / 0 | [X]/mo | High | Add contextual links |
+   | [URL 2] | 0 / 0 | [X]/mo | Medium | Add to navigation |
+   | [URL 3] | 0 / 0 | 0 | Low | Redirect or delete |
    
    ### Fix Strategy
    
-   **High Priority Orphans** (have traffic/rankings):
-   1. [URL] - Add links from: [relevant pages]
-   2. [URL] - Add links from: [relevant pages]
+   Priority: **High** where the orphan pages have traffic/rankings, **Medium** where they are
+   potentially valuable, **Low** where you would consider removing them. Each fix below is a link
+   suggestion, so it carries the contract's four fields: source page, target page, anchor text,
+   placement — one row per link, and the anchor is the string that ships.
    
-   **Medium Priority Orphans** (potentially valuable):
-   1. [URL] - Add to category/tag page
-   2. [URL] - Link from related content
+   | Orphan (target) | Priority | Link from (source) | Anchor text | Placement on source |
+   |-----------------|----------|--------------------|-------------|---------------------|
+   | [URL] | High | [source URL] | "[anchor]" | [section or paragraph] |
+   | [URL] | High | [source URL] | "[anchor]" | [section or paragraph] |
+   | [URL] | Medium | [category or tag page] | "[anchor]" | [listing or section] |
    
-   **Low Priority Orphans** (consider removing):
-   1. [URL] - Redirect to [better page]
-   2. [URL] - Delete or noindex
+   **Low Priority Orphans** (consider removing) — a redirect or a deletion is not a link
+   suggestion, so no anchor is required: [URL] redirect to [better page] · [URL] delete or noindex
    ```
 
 3. **Analyze Anchor Text Distribution**
 
-   > **CORE-EEAT alignment**: Internal linking quality maps to R08 (Internal Link Graph) in the CORE-EEAT benchmark -- use descriptive anchors, ensure links support topical authority. See [content-quality-auditor](../../cross-cutting/content-quality-auditor/) for full audit.
+   > **CORE-EEAT alignment**: Internal linking quality maps to R08 (Internal Link Graph) in the CORE-EEAT benchmark -- use descriptive anchors, ensure links support topical authority. See [content-quality-auditor](../../cross-cutting/content-quality-auditor/) for full audit. That recommendation is a handoff: the slug and the item ID make it operator-addressed, so it goes in an operator block with the URLs and their content types, never in a client-read paragraph — [inter-skill-handoff.md](../../references/inter-skill-handoff.md).
 
    ```markdown
    ## Anchor Text Analysis
@@ -206,8 +234,10 @@ When a user requests internal linking optimization:
    |-------------|-------|--------------|------------|
    | "click here" | [X] | [X] pages | ❌ Not descriptive |
    | "read more" | [X] | [X] pages | ❌ Not descriptive |
+   | "this article" / "learn more" | [X] | [X] pages | ❌ Content-free — names no destination |
    | "[exact keyword]" | [X] | [page] | ⚠️ May be over-optimized |
    | "[descriptive phrase]" | [X] | [page] | ✅ Good |
+   | "this guide to [subtopic]" | [X] | [page] | ✅ Good — conversational and descriptive |
    
    ### Anchor Text Distribution by Page
    
@@ -218,10 +248,7 @@ When a user requests internal linking optimization:
    | "[anchor 1]" | [source URL] | ✅/⚠️/❌ |
    | "[anchor 2]" | [source URL] | ✅/⚠️/❌ |
    
-   **Issues Found**:
-   - Over-optimized anchors: [X] instances
-   - Generic anchors: [X] instances
-   - Same anchor to multiple pages: [X] instances
+   **Issues Found**: over-optimized anchors [X] instances · generic anchors [X] instances · same anchor to multiple pages [X] instances
    
    ### Anchor Text Recommendations
    
@@ -229,21 +256,42 @@ When a user requests internal linking optimization:
    
    Current: "[current anchor]" used [X] times
    
-   Recommended variety:
-   - "[variation 1]" - Use from [page type]
-   - "[variation 2]" - Use from [page type]
-   - "[variation 3]" - Use from [page type]
+   Recommended variety — each line names the source page the anchor goes on; the string ships as written:
+   - "[variation 1]" - on [source URL], [section]
+   - "[variation 2]" - on [source URL], [section]
+   - "[variation 3]" - on [source URL], [section]
    
-   **Anchor Score**: [X]/10
+   **Anchor Score**: [X]/10 ([points] ÷ [N] in-body link instances; [M] template links excluded)
    ```
+
+   > **Deriving it**: one row per internal link instance you inventoried, graded by the
+   > Assessment column above — ✅ 1 descriptive, which includes a conversational anchor that
+   > still names its destination ("this guide to brake adjustment") · ⚠️ 0.5 exact-match
+   > repetition into one target, or the same anchor on two different targets · ❌ 0
+   > **content-free** — an anchor naming neither the destination nor its topic ("click here",
+   > "read more", "this article", "learn more", a bare URL) — then
+   > `round(10 × points ÷ instances graded)`, halves down. **The population is printed with the
+   > score**: 6/10 over 14 links and 6/10 over 1,400 are different findings, and a reader who
+   > cannot see which cannot check either. Template links repeated site-wide are excluded (or
+   > graded once) and the report says which rule it applied. Grades, the Natural-band ruling
+   > and a worked derivation: [references/score-rubric.md](./references/score-rubric.md).
+   >
+   > **The Natural band is descriptive, not content-free** (ruled 2026-08-10, resolving the
+   > conflict between this table and the Anchor Text Guidelines in linking-templates.md). The
+   > Natural row's 20-30% share is for anchors that are *conversational but still name what is
+   > on the other side* — "this guide to brake adjustment". Content-free strings are in no band
+   > at any percentage: they tell a reader nothing and give an engine nothing, so they are ❌
+   > here, 0% of the target mix, and never a recommended anchor.
 
 4. **Create Topic Cluster Link Strategy** — Map current pillar/cluster links, recommend link structure, list specific links to add
 
-   > **Reference**: See [references/linking-templates.md](./references/linking-templates.md) for the topic cluster link strategy template (Step 4).
+   **Linking follows ownership.** A cluster has one owning URL, and that URL is where the cluster's links point — not whichever page currently ranks, not the newest one. The pillar of a cluster is its owning URL unless the ownership register says otherwise; where a plan's pillar and the register's owner differ, that is a finding to raise, not a preference to split links across. A page that does not own the cluster supports it only when **all three** hold: it takes a different angle or intent, it carries an in-body link to the owning URL with descriptive anchor text, and it does not target the owner's head query in its title, H1 or schema. Fail any one and that page is competing with the owner, not supporting it — report it as a collision with a proposed resolution, never as a linking opportunity, because more links into a competing page deepen the split. Where a cluster has no settled owner, say so and plan no cluster links for it: choosing a destination silently makes an ownership decision inside a linking deliverable, where nobody will look for it later. Orphan fixes are not blocked by this — reachability is repaired regardless, and the open assignment is named. **In a portfolio the same rule crosses domains**: a supporting page on one property links to the owning URL on another, one way (supporter to owner, never reciprocal on the same head query), in body copy rather than a site-wide footer, and worth clicking for the reader who is on the supporting page. Each cross-property row names both properties and who can implement it, since it needs edit access to the source site — often a different team or CMS. Such links are external in HTML terms and third-party tools report them that way, so they are counted on their own line and never folded into a property's internal-link total or into any earned-link count.
+
+   > **Reference**: See [references/linking-templates.md](./references/linking-templates.md) for the topic cluster link strategy template (Step 4) — its Links to Add table carries the From Page / To Page / Anchor Text / Location columns every suggestion needs. The support test as a checklist, the cross-property row's two extra fields, anchor rules for owner-directed links and the collision finding's shape: [references/ownership-linking.md](./references/ownership-linking.md).
 
 5. **Find Contextual Link Opportunities** — Analyze each page for topic-relevant link opportunities, prioritize high-impact additions
 
-   > **Reference**: See [references/linking-templates.md](./references/linking-templates.md) for the contextual link opportunities template (Step 5).
+   > **Reference**: See [references/linking-templates.md](./references/linking-templates.md) for the contextual link opportunities template (Step 5) — same four fields per suggestion.
 
 6. **Optimize Navigation and Footer Links** — Analyze main/footer/sidebar/breadcrumb navigation, recommend pages to add or remove
 
@@ -251,7 +299,45 @@ When a user requests internal linking optimization:
 
 7. **Generate Link Implementation Plan** — Executive summary, current state metrics, phased priority actions (weeks 1-4+), implementation guide, tracking plan
 
-   > **Reference**: See [references/linking-templates.md](./references/linking-templates.md) for the full implementation plan template (Step 7).
+   **Two contracts meet here, and neither replaces the other.** The suggestion contract above governs the *link*: source page, target page, anchor text, placement, one row per link. The **action contract** governs the *work item* a phase groups those links into — fix these four orphans, rewrite these six exact-match anchors — and it carries seven fields: **action** (one imperative sentence naming what changes), **owner**, **acceptance criterion**, **expected impact**, **effort**, **dependencies**, **risk if done wrong**. A plan can satisfy the first contract completely and still be unimplementable: forty perfectly specified link rows with nobody named to add them and nothing that says when the phase is finished is a specification, not a plan. Fields 1-3 are required; 4-7 take a stated-absence value — `not estimated — no baseline data`, `not estimated`, `none`, `low — reversible, no downstream effect` — never a blank and never an invention. **Owner is a role** from a closed list (Content · SEO/technical · Developer · Designer · Product/merchandising · Customer service · Legal/compliance · Agency · Client decision), never a person unless the client supplied the name. **A cross-property row is where this bites**: it needs edit access to a site the main team may not hold, so it names its own owner rather than inheriting the phase's, and `Client decision` is the right owner where the blocker is an unsettled cluster assignment. `unassigned — needs an owner` is legitimate and is itself a finding — on a portfolio it is often the most useful line in the plan. **The acceptance-criterion test: could someone who was not part of this engagement check it six weeks from now, without asking anybody what was meant?** Observable, binary at the moment of checking, attached to a named artefact or measurement, dated or triggered — "all 4 orphans carry at least one in-body inbound link with descriptive anchor text, verified in a re-crawl export dated after the phase closes" rather than "orphan pages fixed". **A phase week and a priority band are not criteria**: the week says when it starts, the band says how it ranked. Expected impact obeys the impact-figure rule above — link-graph arithmetic derived from this plan's own additions, or a stated-absence value; never a traffic or ranking forecast, and never the `[VERIFY]`-tagged ROI ranges. Ordering is the existing phase sequence (structural fixes, architecture, cross-linking, anchors), stated once; no second impact ÷ effort vocabulary beside it. Field table, stated-absence values, worked criteria and the role list: [Action Output Contract](../../references/action-output-contract.md).
+
+   > **Reference**: See [references/linking-templates.md](./references/linking-templates.md) for the full implementation plan template (Step 7), whose Phase Actions table carries the seven fields. This is the what-to-fix-first surface, so the suggestion contract applies hardest here too: every phase checkbox that adds a link is one checkbox per link, written `[source] → [target] · "[anchor]" · [placement]` — never "add links from [X] pages" or "add the [X] missing cluster links". A checkbox may cite the row that already carries the four fields instead of repeating them.
+
+## Scoring & Impact-Figure Rules
+
+Three rules that bind every step above.
+
+**Every number shows its working.** Both scores are arithmetic over rows the analysis already
+printed (Steps 1 and 3 above), and so is everything else: a total names its population before
+it is stated — "21 link instances — 14 in body copy, 1 of them broken, plus 7 template logo
+links" — and every derived figure prints its arithmetic, `14 ÷ 8 = 1.75`, `3/5 = 60%`. A
+percentage or a score without a visible base is not deliverable. A row, or a whole score, that
+the data could not settle is written `not scored — no link data`, never `0/10`: zero means
+measured and failing, blank means unmeasured. **With no site data at all, neither score is
+printed** — name the input that unlocks each one and stop. Full rubric:
+[references/score-rubric.md](./references/score-rubric.md).
+
+**An after-state figure is derived too, and derived from this report's own proposals.** A
+projected link count, average, inbound total or authority share may assume **only** the link
+changes this report itself lists, and it shows the addition that gets there — "13 live in-body
+links + the 10 additions above = 23". Borrowing changes recommended in another report, or in
+another conversation, makes the figure unreproducible for the reader holding this one. A figure
+produced by a named model rather than by arithmetic — a PageRank-style authority share — counts
+as shown only when the model, its parameters and the exact graph it ran on are all printed
+here ("damped random-surfer, damping 0.85, on the 8-page graph above, logo links included, the
+broken link excluded"); otherwise show the arithmetic or leave the figure out. This is
+link-graph arithmetic, not a forecast: it says how the links would sit, never what traffic
+would follow.
+
+**No site-specific traffic or ranking forecast.** Predicting "+18% traffic" for a named site
+needs a ranking and traffic baseline plus a counterfactual, and an internal-link analysis has
+neither — so the Step 7 executive summary reports what was measured (link opportunities found,
+orphans to fix, pages gaining inbound links) and stops. The ROI Estimation ranges in
+[references/link-architecture-patterns.md](./references/link-architecture-patterns.md) are
+uncited practitioner estimates carrying a `[VERIFY]` tag; they may be quoted only with that
+attribution in the same sentence, never in the summary's metrics list, never multiplied by the
+site's sessions, never as "expected". When a client wants a number, offer the measurement that
+would produce one — baseline the affected pages now, re-measure 4-8 weeks after implementation.
 
 ## Validation Checkpoints
 
@@ -262,9 +348,20 @@ When a user requests internal linking optimization:
 
 ### Output Validation
 - [ ] Every recommendation cites specific data points (not generic advice)
-- [ ] All link suggestions include source page, target page, and recommended anchor text
-- [ ] Orphan page lists include URLs and recommended actions
-- [ ] Source of each data point clearly stated (~~web crawler data, ~~analytics, user-provided, or manual analysis)
+- [ ] All link suggestions include source page, target page, and recommended anchor text — orphan fixes included, since a fix for an orphan is a link suggestion (Step 2's Fix Strategy table carries the same four fields as Step 4's)
+- [ ] Orphan page lists include URLs and recommended actions, and list only pages with no inbound link of any kind; a page reachable through template/nav links only is reported as template-only inbound, not as an orphan
+- [ ] No recommended anchor is content-free ("click here", "read more", "this article", "learn more", a bare URL) — the Natural band means conversational *and* descriptive
+- [ ] Every cluster in the plan names its owning URL (or says the owner is unassigned, and plans no cluster links for it), and every cluster link points at that URL; a supporting page is checked against all three conditions with the check shown, and one failed condition makes it a collision finding with a proposed resolution rather than a linking opportunity
+- [ ] Every cross-property link names both properties and who can implement it, runs one way from supporter to owner, sits in body copy, and is counted on its own line — never folded into a property's internal-link total and never presented as an earned link
+- [ ] Every paste-ready string — a recommended anchor, the sentence carrying it, any link markup — is final copy: no bracket token, no `TBD`/`XX`, no provenance note ("client data needed", "per the export") and no agency-workflow marker inside it. Gaps, assumptions and source labels live in the report and recommendation-table frame around it, never in the string the client copies
+- [ ] Every phase work item in the implementation plan carries all seven action fields — action, owner, acceptance criterion, expected impact, effort, dependencies, risk if done wrong — with a stated-absence value wherever an answer does not exist (`not estimated — no baseline data`, `none`, `low — reversible, no downstream effect`); no item ships without an owner-role and an acceptance criterion, and the owner is a role from the closed list. A cross-property item names its own owner rather than inheriting the phase's, because it needs edit access to a site the main team may not hold; `unassigned — needs an owner` and `Client decision` are both legitimate, the first being itself a finding
+- [ ] Every acceptance criterion is observable, binary at the moment of checking, attached to a named artefact or measurement, and dated or triggered — a phase week and a priority band are neither of them criteria, and "orphan pages fixed" is not one either. The four-field link rows satisfy the suggestion contract; they do not satisfy this one, and a fully specified set of links with nobody named to add them is a specification rather than a plan
+- [ ] Every projected or after-state figure is re-derivable from the changes this report itself proposes, with the addition shown; a model-produced figure prints its model, parameters and input graph
+- [ ] Source of each data point stated in the report's own words — the resolved tool name (Screaming Frog, Google Analytics 4), "user-provided", or "manual analysis"; where no tool was connected and nothing was supplied, that is stated plainly and the figure stays out. Never a `~~category` token on a surface the client reads (anti-slop-ruleset.md §6 family 7)
+- [ ] Greek analyses and every proposed Greek anchor string carry their mechanics: final sigma, τόνοι (ALL-CAPS unaccented, no Latin homoglyph inside a Greek word), one number-formatting convention held throughout, Greeklish kept out of visible anchor copy, and anti-slop-ruleset.md §6 **families 1 and 2** screened alongside family 7 — [Greek Output Mechanics](../../references/greek-output-mechanics.md)
+- [ ] Each score prints its derivation — Structure Score as [points] ÷ [rows scored] with the model it was scored against and the unchecked rows named; Anchor Score as [points] ÷ [link instances graded] with the excluded template links named. A score with nothing checkable reads "not scored — no link data", never 0/10; no site data at all means no score in the report
+- [ ] Every total names its population and every derived figure shows its arithmetic (`14 ÷ 8 = 1.75`, `3/5 = 60%`); the Authority column states its cut and carries no external DA/DR/PA figure unless a named tool supplied it
+- [ ] No traffic or ranking outcome is stated as this site's expected number; the reference's ROI ranges appear only with their "typical ranges, not a projection for your site" attribution attached, and never in the executive summary's metrics list
 
 ## Example
 
@@ -272,17 +369,17 @@ When a user requests internal linking optimization:
 
 ## Tips for Success
 
-1. **Quality over quantity** - Add relevant links, not random ones
-2. **User-first thinking** - Links should help users navigate
-3. **Vary anchor text** - Avoid over-optimization
-4. **Link to important pages** - Distribute authority strategically
-5. **Regular audits** - Internal links need maintenance as content grows
+> **Reference**: The five working rules — quality over quantity, user-first thinking, vary anchor text, link to the cluster's owning URL, audit regularly — are in [references/score-rubric.md](./references/score-rubric.md) § Tips for Success, each tied to the rule in this skill it protects.
 
 ## Reference Materials
 
-- [Link Architecture Patterns](./references/link-architecture-patterns.md) — Architecture models (hub-and-spoke, silo, flat, pyramid, mesh), anchor text diversity framework, link equity flow model, and internal link audit checklist
-- [Linking Templates](./references/linking-templates.md) — Detailed output templates for steps 6-7 (navigation optimization, implementation plan)
+- [Score Rubric & Impact-Figure Rule](./references/score-rubric.md) — How the Structure Score and Anchor Score are derived: the six structure rows and their targets, one row per link instance for anchors, population and rounding rules, when a score is withheld, and what the plan may say about traffic impact
+- [Link Architecture Patterns](./references/link-architecture-patterns.md) — Architecture models (hub-and-spoke, silo, flat, pyramid, mesh) with their link rules, migration paths, the Key Metrics by Architecture Model targets the Structure Score is scored against, the Monthly Monitoring Checklist, the `[VERIFY]`-tagged ROI ranges, and the Implementation Priority Order
+- [Linking Templates](./references/linking-templates.md) — Detailed output templates for **steps 4-7**: topic cluster strategy (Step 4) and contextual opportunities (Step 5), both carrying the From Page / To Page / Anchor Text / Location columns, plus navigation optimization (Step 6), the implementation plan (Step 7) and the Anchor Text Guidelines bands
 - [Linking Example](./references/linking-example.md) — Full worked example for internal linking opportunities
+- [Ownership Linking](./references/ownership-linking.md) — Why the owning URL is the link target, the three-condition support test and what a failed condition becomes, the cross-property link pattern with its extra fields and counting rule, what to do when a cluster has no settled owner, and how a collision found in the link graph is reported
+- [Action Output Contract](../../references/action-output-contract.md) — library-wide: the seven fields every phase work item carries (as distinct from the four-field suggestion contract governing each link), their stated-absence values, the closed owner-role list, worked acceptance criteria, and the ordering rule
+- [Inter-Skill Handoff](../../references/inter-skill-handoff.md) — what to pass when this analysis names a follow-up run (step 3's escalation to a content audit is the standing one), the operator-block placement rule, and the drop-and-name rule for an unavailable field
 
 ## Related Skills
 

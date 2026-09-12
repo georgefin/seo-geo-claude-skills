@@ -1,0 +1,19 @@
+# CASE: fail-name-dir-mismatch
+# ROLE: positive
+# DIR: probe-keyword-analysis
+# EXPECT-EXIT: 1
+# EXPECT-MATCH: does not match directory
+# ---8<--- SKILL.md
+---
+name: probe-keyword-research
+description: 'Probe fixture whose name does not match its directory. Use when the user asks to "validate a renamed skill directory".'
+license: Apache-2.0
+compatibility: "Claude Code >=1.0."
+metadata:
+  author: probe-fixture
+  version: "1.0.0"
+---
+
+# Probe Keyword Research
+
+Body content.

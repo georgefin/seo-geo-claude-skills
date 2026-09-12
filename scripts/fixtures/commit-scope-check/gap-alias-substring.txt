@@ -1,0 +1,17 @@
+# CASE: gap-alias-substring
+# ROLE: known-gap
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: 1 passed
+# FILE: docs/loop/SETTLED-RULINGS.md
+# GAP: aliases are matched as SUBSTRINGS of the whole lowercased message, and the
+#      settled-rulings alias list contains the two-character tokens r1..r5. The subject
+#      below never mentions the register in any sense a reader would accept, and the
+#      leg passes it because "error1" contains "r1". The gated-items list has the same
+#      shape with g1..g9. This is F15's signature — a guard passing by matching
+#      something that meant something else — surviving inside the leg that was written
+#      to fix exactly that in its own gate branch.
+# WHY NOT FIXED HERE: word-bounding the aliases is a real fix, and it is a behaviour
+#      change to a gated leg that would start failing in-flight commits written under
+#      the current rule. Reported, not applied.
+# ---8<--- commit message
+chore: rename error1 to parse-error

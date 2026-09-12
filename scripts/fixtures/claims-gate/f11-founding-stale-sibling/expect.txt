@@ -1,0 +1,8 @@
+Ledger instance: F11 founding class (a) — stale sibling field. G3's close-out flipped
+"Status" to RESOLVED while "Verdict: _none yet_" sat three fields below (69455b6 round,
+FIX x4). Reconstructed as the single-pass drafting that produced it: the Status flip is
+committed with NO FLIP: trailer — the drafter never declared the flip's touched claims,
+which is exactly why the sibling was never re-scanned.
+Expect: exit 1 — rule 2 FAIL "flip line(s) added but NO 'FLIP:' trailer", printing the
+added Status line as evidence. (The with-trailer sweep branch that would then catch the
+"_none yet_" sibling by token is exercised by the r4 and r5 fixtures.)

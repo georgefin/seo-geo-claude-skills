@@ -1,0 +1,18 @@
+# CASE: fail-description-missing
+# ROLE: positive
+# DIR: probe-description-missing
+# EXPECT-EXIT: 1
+# EXPECT-MATCH: Missing required field: description
+# ---8<--- SKILL.md
+---
+name: probe-description-missing
+license: Apache-2.0
+compatibility: "Claude Code >=1.0."
+metadata:
+  author: probe-fixture
+  version: "1.0.0"
+---
+
+# Probe Description Missing
+
+Body content.

@@ -1,0 +1,26 @@
+# CASE: clean-spec-aligned
+# ROLE: negative
+# DIR: probe-clean-skill
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: 15 passed
+# EXPECT-MATCH: 0 warnings
+# EXPECT-MATCH: 0 failed
+# EXPECT-MATCH: version authority: spec-aligned
+# EXPECT-ABSENT: FAIL
+# EXPECT-ABSENT: WARN
+# WHY: the 15/15/0 shape every shipped skill returns (G3-C2). If this case ever
+#      drops below 15 passes, a pass branch was removed or renamed.
+# ---8<--- SKILL.md
+---
+name: probe-clean-skill
+description: 'Probe fixture standing in for a spec-aligned skill. Use when the user asks to "run the validate-skill probe" or "check the fixture corpus". Carries every field a shipped skill carries and nothing else.'
+license: Apache-2.0
+compatibility: "Claude Code >=1.0. No system packages required."
+metadata:
+  author: probe-fixture
+  version: "1.0.0"
+---
+
+# Probe Clean Skill
+
+Body content. Short on purpose: the body-length branches have their own fixtures.

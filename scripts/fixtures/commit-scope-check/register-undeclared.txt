@@ -1,0 +1,11 @@
+# CASE: register-undeclared
+# ROLE: positive
+# EXPECT-EXIT: 1
+# EXPECT-MATCH: touches register(s) its message never mentions: failure-ledger
+# FILE: docs/loop/FAILURE-LEDGER.md
+# WHY: the founding shape of the register leg — a shared register rides along in a
+#      commit whose message is accurate about its own work and silent about the file.
+# ---8<--- commit message
+fix(agent): tighten the blind-executor brief
+
+The brief now names the search guard explicitly.

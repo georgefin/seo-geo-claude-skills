@@ -1,0 +1,24 @@
+# CASE: gate-bare-none-rejected
+# ROLE: positive
+# JOURNAL: journal-live-two-holders.tsv
+# COMMIT-AT: -450
+# FILE: docs/loop/KPI.md
+# EXPECT-EXIT: 1
+# EXPECT-MATCH: inside another holder's tenure
+# EXPECT-ABSENT: asserts no holder content
+# WHY: a bare `Register-Lock: none` carries no auditable claim, so it must NOT buy a
+#      pass. This case was `gap-bare-none-accepted` until 2026-08-17 and asserted the
+#      opposite, because the shipped extraction never fired: `sed 's/^[^-]*--...'` and
+#      `[^-]*` cannot reach the `--` past the hyphen in "Register-Lock" itself, so
+#      `none_reason` became the whole trailer line — non-empty, unequal to "none" —
+#      and ANY commit could wave itself past this gated leg. Ruling M3 fixed the
+#      extraction and flipped this fixture, which is what a known-gap case is for: it
+#      turns red the moment the gap closes, and the flip is the evidence.
+#      Pairs with gate-none-with-reason (em dash form, must still pass) and with
+#      gate-none-prose-is-not-a-trailer. A reader checking only this file cannot tell
+#      a correct fix from one that broke the escape hatch outright; the pair is what
+#      separates them.
+# ---8<--- commit message
+docs(loop): weekly numbers
+
+Register-Lock: none

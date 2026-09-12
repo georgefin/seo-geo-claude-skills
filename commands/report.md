@@ -49,6 +49,8 @@ A comprehensive **SEO and GEO performance report** that aggregates data across a
 ## Output Format
 
 ```
+# SKELETON -- scaffold, not output. Every [bracket] is a slot filled from the period's own
+# data; a metric with no data behind it is named as unavailable, never shipped as a bracket.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 SEO & GEO PERFORMANCE REPORT
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

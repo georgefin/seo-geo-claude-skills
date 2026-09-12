@@ -2,6 +2,11 @@
 
 Referenced from [SKILL.md](../SKILL.md).
 
+**What this example is modelling**: every suggested link below carries its source page, its target
+page and the anchor as final copy — no bracket token, no `TBD`, no provenance note inside a string
+the client would paste. The closing Priority Actions are counts *because they cite the rows above
+that hold the four fields*; a count standing on its own would not be implementable.
+
 ---
 
 ## Worked Example

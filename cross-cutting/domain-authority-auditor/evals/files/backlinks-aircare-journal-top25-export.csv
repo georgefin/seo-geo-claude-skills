@@ -1,0 +1,26 @@
+referring_domain,domain_rating,first_seen,link_context,rel,outbound_linked_domains,industry,country
+buildscience-review.example,91,2019-06-12,editorial-in-content,dofollow,410,academia,US
+home-climate-weekly.example,88,2021-02-03,editorial-in-content,dofollow,530,consumer media,UK
+energie-haus-blog.example,86,2020-09-27,editorial-in-content,dofollow,340,energy efficiency,DE
+renovation-quarterly.example,84,2022-04-18,editorial-in-content,dofollow,620,home improvement,US
+hvac-praxis.example,82,2018-11-05,editorial-in-content,dofollow,280,building trade,DE
+healthyhome-institute.example,81,2023-01-22,editorial-in-content,dofollow,190,health,NL
+dampfreehomes.example,79,2019-08-14,editorial-in-content,dofollow,450,consumer media,UK
+mediterranean-living.example,78,2021-07-09,editorial-in-content,nofollow,700,consumer media,IT
+polytechnic-air-lab.example,77,2020-03-30,editorial-in-content,dofollow,150,academia,GR
+casa-salud.example,76,2022-10-11,editorial-in-content,dofollow,380,health,ES
+bau-handwerk-portal.example,75,2019-12-02,directory,dofollow,880,building trade,DE
+athens-home-guide.example,74,2021-05-25,editorial-in-content,dofollow,260,home improvement,GR
+air-quality-news.example,73,2018-06-19,editorial-in-content,dofollow,510,consumer media,US
+energy-savers-hub.example,72,2023-04-07,editorial-in-content,nofollow,430,energy efficiency,FR
+maison-humide.example,71,2020-08-23,editorial-in-content,dofollow,320,home improvement,FR
+respiratory-health-daily.example,70,2022-01-16,editorial-in-content,dofollow,590,health,UK
+trade-fitters-network.example,69,2019-04-08,directory,nofollow,940,building trade,UK
+domus-verde.example,68,2021-11-29,editorial-in-content,dofollow,370,energy efficiency,IT
+nicosia-property-times.example,67,2023-07-13,editorial-in-content,dofollow,240,consumer media,CY
+hollandse-huizen.example,66,2020-05-06,editorial-in-content,dofollow,410,home improvement,NL
+campus-engineering-review.example,65,2022-08-31,editorial-in-content,dofollow,180,academia,US
+wohnklima-magazin.example,64,2021-03-14,editorial-in-content,dofollow,350,consumer media,DE
+iberia-home-tech.example,63,2023-02-27,editorial-in-content,nofollow,290,home improvement,ES
+wellness-habitat.example,63,2019-10-21,editorial-in-content,dofollow,220,health,GR
+paris-renov-expert.example,62,2022-06-04,editorial-in-content,dofollow,480,home improvement,FR

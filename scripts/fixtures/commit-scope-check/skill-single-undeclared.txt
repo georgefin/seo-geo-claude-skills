@@ -1,0 +1,10 @@
+# CASE: skill-single-undeclared
+# ROLE: positive
+# EXPECT-EXIT: 1
+# EXPECT-MATCH: touches skill file(s) its subject does not declare: seo-content-writer
+# EXPECT-MATCH: offending: build/seo-content-writer/SKILL.md
+# FILE: build/seo-content-writer/SKILL.md
+# WHY: ledger F14's own shape — one skill directory swept into a commit about
+#      something else.
+# ---8<--- commit message
+chore: fix a typo

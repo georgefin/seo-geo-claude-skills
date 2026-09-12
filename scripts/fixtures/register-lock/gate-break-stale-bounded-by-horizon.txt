@@ -1,0 +1,14 @@
+# CASE: gate-break-stale-bounded-by-horizon
+# ROLE: negative
+# JOURNAL: journal-broken-stale.tsv
+# COMMIT-AT: -3600
+# FILE: docs/loop/PILOT.md
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: none landed inside another holder's tenure undeclared
+# EXPECT-ABSENT: FAIL
+# WHY: this commit sits AFTER the horizon (acquire+90m) and BEFORE the break. It must
+#      pass. If the BREAK-stale arm ever bounds at the break time instead of at
+#      min(break, acquire+TTL), this case turns red — and it is the only case that can
+#      tell those two readings apart, because they differ nowhere else.
+# ---8<--- commit message
+docs(loop): pilot scope

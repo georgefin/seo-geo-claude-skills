@@ -1,0 +1,239 @@
+{
+ "suite": "refresher",
+ "skill": "content-refresher",
+ "suite_path": "optimize/content-refresher",
+ "skill_version_under_test": "4.1.4",
+ "skill_version_note": "SKILL.md frontmatter version + metadata.version, in lockstep",
+ "run_label": "blind-2026-08-10c",
+ "run_date": "2026-08-10",
+ "method": "blind",
+ "method_detail": {
+  "role_split": "EXECUTOR (blind) wrote the five deliverables from the eval prompts alone; GRADER (informed) never executed and produced no output of its own.",
+  "executor_brief": "scratchpad/herbert-blindprompts-refresher.json — VERIFIED by the grader to contain only {id, prompt, files, n_expectations}. No expectation text, no expected_output. The one residual leak is n_expectations, a count (6/6/6/5/4); it carries no content but does tell the executor how many things each eval wants.",
+  "grader_produced_no_deliverable": true
+ },
+ "repo_head_at_open": "36d2f18814e1177e436cbe8949b5f1c8863e538b",
+ "repo_head_at_close": "a6ca72749938d12d41fed35e3b64a5302f698d95",
+ "PRIMED_NOT_BLIND": {
+  "scope": "e3 only, and within e3 the anti-slop §6 family-5 and family-6 checks inside expectation e3.5. Every other expectation and every other eval is unaffected.",
+  "verified_at_source_by_the_grader": "build/seo-content-writer/references/anti-slop-ruleset.md:177-181 reads: 'Families 5-6 provenance (2026-08-10): both come from ONE eight-word span of paste-ready customer copy — a FAQ answer under «Έτοιμα κείμενα για δημοσίευση» in the content-refresher E3 output, i.e. text the client is told to publish unchanged. The editor graded the span FAIL on the dropped negator and named the calque as its second defect.' The literal defect strings live one and two rows above, at :172 (family 5, the «δεν» rule) and :173 (family 6, «κοστίζει μηδέν»). The file is a REQUIRED READ on this executor's brief. Line numbers confirmed exact.",
+  "causal_chain_now_documented": "The prior INFORMED run's e3 deliverable is the source: its record (2026-08-10-e2345.json, refresher.editor_referral) quotes the offending span «… η εκτίμηση κοστίζει μηδέν και δεσμεύει κανέναν.» and records the binding editor's FAIL — THE ONLY EDITOR FAIL OF THAT WAVE. That FAIL became §6 families 5 and 6, whose provenance note names this suite. The blind executor read the note before writing its own e3, and its e3 avoids both classes.",
+  "consequence_for_the_record": "e3.5's family-5 and family-6 sub-checks are evidence that a PRIMED executor avoids two named classes. They are NOT evidence that the skill carries those rules. e3.5's other components (diacritics, final sigma, headings, families 1, 2, 7, 8) are unprimed — §6 names no suite for those.",
+  "not_primed_despite_appearances": "Families 1 and 2 are also stated in §6 with their patterns, and e3.5 quotes those same patterns as grading criteria (`Όλα τα [0-9]`, `[CLIENT DATA`, `[SOURCE NEEDED`). That is the rule working, not a leak: §6 names no run or suite for those families, so the executor was INSTRUCTED, not tipped off. Direction matters — the expectation cites the ruleset here, whereas F18's :265 case is the ruleset citing an expectation. NOT an F18 increment; recorded so the counter is not inflated.",
+  "ledger": "Independently opened as F18 by another agent DURING this grading (commit 7b2539b). F18 verified the same lines at source and states: 'content-refresher's e3 is primed on families 5 and 6 specifically... labelled primed, not blind at the expectation level rather than discarded: a labelled run is evidence, an unlabelled one is contamination.' This record executes that labelling."
+ },
+ "PRIOR_INFORMED_RUN_IN_THE_SHARED_SCRATCHPAD": {
+  "executor_claim": "Saw the filenames only, in a closing `ls`, after all five deliverables were written.",
+  "what_is_actually_there": "A complete prior INFORMED run of this same suite: modeb-refresher-out-e1..e5.md, greek-out-refresher-e3.md, modeb-refresher.json (the grading file, which contains the expectations), plus refresher_checks.py, refresher_grade_checks.py, write_refresher_json.py. Confirmed present.",
+  "timestamps_corroborate": true,
+  "evidence": {
+   "informed_run_window": "mtime 03:08:53 -> 03:34:57 (2026-08-10)",
+   "blind_run_window": "mtime 19:19:08 -> 19:31:35 (2026-08-10), order e2 -> e3 -> e4 -> e5 -> e1",
+   "decisive_datum": "The ATIME of every informed artefact is frozen inside the informed window (modeb-refresher-out-e1.md a=03:22:36; modeb-refresher-out-e5.md a=03:24:06; greek-out-refresher-e3.md a=03:27:05; refresher_grade_checks.py a=03:26:58; modeb-refresher.json a=03:34:57.402, one millisecond after its own write — i.e. never read since it was created). Not one informed artefact carries a 19:xx atime.",
+   "why_that_is_positive_evidence_and_not_merely_absence": "atime is demonstrably live on this filesystem for these files: blind-refresher-out-e2.md has m=19:19:08 / a=19:26:51 and modeb-refresher-out-e1.md has m=03:08:53 / a=03:22:36, so reads DO move atime here. A read of any informed artefact during the blind window would have left a 19:xx atime. None did.",
+   "what_the_timestamps_cannot_establish": "The moment the closing `ls` ran. A directory listing updates only the directory's atime, never the per-file atimes, so 'filenames only' leaves no per-file trace by construction. The ordering claim is therefore unfalsifiable from the filesystem — nothing contradicts it, and the load-bearing claim (no informed artefact was opened) is positively corroborated."
+  },
+  "verdict": "The executor's account is corroborated on the claim that matters. No expectation reached it by this route."
+ },
+ "regression_check": {
+  "prior_BLIND_baseline": "NONE — this is the founding blind datum for this suite.",
+  "regressions": "none — no prior blind record exists to regress against.",
+  "prior_INFORMED_record_exists_and_is_named_here_rather_than_omitted": {
+   "path": "docs/loop/eval-baselines/2026-08-10-e2345.json (suites[] -> suite 'refresher')",
+   "figures": "pass 26 / fail 0 / editor_pending 1 / total 27 / pass_rate 0.963, at skill version 4.1.1, method 'informed-executor'",
+   "per_eval": "e1 6/6, e2 6/6, e3 5/6 (e3.5 EDITOR-PENDING), e4 5/5, e5 4/4",
+   "comparison_and_why_it_is_not_a_regression_check": "Zero expectations passed there and fail here, so no regression exists under any reading. The two records differ on THREE axes at once — method (informed vs blind), skill version (4.1.1 vs 4.1.4) and editor-slot convention (not-passed vs passed) — so the numeric difference must not be read as a method effect. Per ledger F16(b), the subjects are stated before the difference: same suite, same 27 expectations, different method AND different version. Under the prior record's own convention this run reads 26/27 = 0.963, identical to the informed run; under this record's convention it reads 27/27."
+  }
+ },
+ "summary": {
+  "passed": 27,
+  "failed": 0,
+  "total": 27,
+  "pass_rate": 1.0,
+  "alternative_convention_rate": 0.963,
+  "editor_slot_convention": {
+   "convention_used_by_the_headline_rate": "DELEGATED SLOT IN THE DENOMINATOR, COUNTED PASSED",
+   "which_slot": "e3.5",
+   "why": "e3.5's own text opens 'Greek output quality — mechanical layer only' and closes by assigning the naturalness verdict to the binding greek-content-editor pass — 'that pass, not this expectation, issues the naturalness verdict'. Everything the expectation asks a Mode B grader to check (diacritics, final sigma, boilerplate headings, the greppable §6 families) was checked and is clean, so all 27 expectations carry a Mode B verdict and passed + failed = total.",
+   "alternative_rate_under_the_other_convention": "26/27 = 0.963 — delegated slot IN the denominator, counted NOT-PASSED pending the editor. This is the convention the prior INFORMED record for this same suite used (2026-08-10-e2345.json, refresher: pass 26 / editor_pending 1 / total 27), and it is printed here so the two records are comparable in both directions without a hand tally (ledger F16-r1(d)).",
+   "greek_editor_verdict_is_pending_either_way": true
+  },
+  "schema_note": "summary.passed/failed/total/pass_rate, matching the wave-b and wave-c records. Two conventions exist for the delegated Greek-editor slot; both rates are published here and the headline names its own. No third schema introduced."
+ },
+ "per_eval": {
+  "1": {
+   "passed": 6,
+   "failed": 0,
+   "total": 6
+  },
+  "2": {
+   "passed": 6,
+   "failed": 0,
+   "total": 6
+  },
+  "3": {
+   "passed": 6,
+   "failed": 0,
+   "total": 6
+  },
+  "4": {
+   "passed": 5,
+   "failed": 0,
+   "total": 5
+  },
+  "5": {
+   "passed": 4,
+   "failed": 0,
+   "total": 4
+  }
+ },
+ "SKILL_DEFECTS_ADJUDICATED": {
+  "note": "Nine were reported by the executor and judged here on the evidence, not on the report. Two more were found by the grader. None is bound by any expectation in this suite unless stated.",
+  "1_skill_slug_inside_the_emitted_fence": {
+   "verdict": "CONFIRMED — real, and the fence boundaries are exactly as reported.",
+   "evidence": "SKILL.md:120 opens ```markdown, :146 closes it, and :145 sits inside: '_For full 80-item audit, use [content-quality-auditor](../../cross-cutting/content-quality-auditor/)_'. Step 1 instructs the model to emit that block. anti-slop-ruleset.md:174 makes skill slugs on a client-read surface a FAIL-grade family (family 8, promoted from advisory 2026-08-10 at Recurrence 2). A model copies the fence, so the slug travels into the deliverable.",
+   "does_any_expectation_MANDATE_it": "NO. Checked all 27: none mentions content-quality-auditor or requires the link. So this is NOT a fourth instance of an expectation mandating a ruleset violation — the executor raised that only conditionally, and the condition is false. The nearest relative, e2.5's entity-optimizer handoff, names the skill as the identifier of the handoff target and does not require the slug in the deliverable; the deliverable named the job instead and stayed family-8 clean.",
+   "observed_in_this_run": "No. All five deliverables are family-8 clean: zero of the 20 plugin slugs, zero framework item IDs, zero «δεξιότητ». The executor rewrote the line as prose (e1:L65-66, e3:L57). The template's defect is latent, not realised."
+  },
+  "2_terminal_decay_precedence": {
+   "verdict": "CONFIRMED, and it is the most serious of the nine. All three lines verified.",
+   "evidence": "content-decay-signals.md:178 '| 81-100 | Terminal decay | Rewrite, redirect, or retire |'; :358 '| **Terminal decay** | No organic traffic, deindexed | Critical | Rewrite, redirect, or retire |'; :371 '**Decision rule:** If the URL has backlinks and was ranking, REFRESH.' The two tables sit 180 lines apart, neither cross-references the other, and THE SKILL CARRIES NO PRECEDENCE RULE — nothing states which governs when a score-band label and its own symptom definition disagree. On e1 the composite is 89 (band label: retire) against 1,530 sessions/mo and three keywords still ranking (symptoms: not remotely terminal). A literal executor tells the client to retire their best lead-driver.",
+   "how_the_run_handled_it": "Correctly, and by noticing the contradiction rather than by following either branch blindly. e1:L125-130 'One caveat you should know about, because it changes the recommendation: 89 lands in our model's top band, whose label is \"terminal decay\". The symptom definition of that band is *no organic traffic, deindexed*. You have 1,530 sessions a month and all three keywords still rank. The score overshoots the symptoms.' e3:L112-117 reproduces the same reasoning in Greek at score 81/85. The skill got the right answer from the executor's judgement, not from the skill.",
+   "consequence": "This is a latent client-harm defect and the highest-value fix in the file: state that the symptom column governs the stage, and that :371's REFRESH rule outranks the band label whenever backlinks + prior ranking are present."
+  },
+  "3_absent_signal_in_the_composite": {
+   "verdict": "CONFIRMED. content-decay-signals.md:160-168 defines a five-signal weighted sum with no rule for a missing signal; e3's fixture supplies no CTR, which is 15% of the weight.",
+   "how_the_run_handled_it": "Renormalised and said so: e3:L106 '| Πτώση CTR | 15% | — | Δεν υπάρχουν στοιχεία· δεν βαθμολογείται και δεν εικάζεται |' and L110 '**Σύνθετος βαθμός: 81 από τις 85 μονάδες βαρύτητας που ήταν διαθέσιμες (≈96/100 αναγωγικά).**' Arithmetic re-verified: 0.30(95)+0.25(100)+0.15(100)+0.15(85) = 81.25 of 85; 81.25/85 = 95.6, printed as ≈96. Correct.",
+   "note": "keyword-research already carries a worked renormalisation convention (per F9-r3, ledger). Copying it here is the cheap fix."
+  },
+  "4_CORE_EEAT_forces_eight_numbers": {
+   "verdict": "CONFIRMED, and INDEPENDENTLY LEDGERED DURING THIS RUN.",
+   "evidence": "SKILL.md:126-137 prints '[X]/100' for all eight dimensions with no insufficient-evidence cell. On e4 there is no page copy at all, so followed literally it forces eight invented numbers. F9 Recurrence 3 (commit 00487a5, landed mid-grading) names the same skill from the other side: content-refresher 'derives its Composite Decay Score completely (content-decay-signals.md:158-180) and its CORE-EEAT Quick Score not at all — and that second score's own worked example is non-monotonic against its own flag (refresh-example.md:21-28: 55 -> green, 60 -> red, 60 -> red, 50 -> amber)'. So the template both forces a number and gives no way to derive it.",
+   "how_the_run_handled_it": "By refusing the cell rather than filling it. e1:L47 '| T — Trust | Not scored | ... | — |' with the reason at L51-53 'T (Trust) is not scored, not scored zero... Guessing a Trust score from body copy would be inventing a number.' e2 leaves FIVE of eight unscored on the same ground (L44-49). e4 emits NO quality table at all and says why at L19-21: 'No page copy was supplied. So there is no content-quality score in this report.' Three different correct behaviours, none of them the template's."
+  },
+  "5_step_1_unconditional": {
+   "verdict": "CONFIRMED. SKILL.md:114-116 makes step 1 unconditional ('When a user requests content refresh help: 1. CORE-EEAT Quick Score'), while the inventory use case advertised at :77 ('Which of my blog posts have lost the most traffic?') has no article to assess. e4 is exactly that case.",
+   "how_the_run_handled_it": "Skipped it with a stated reason (e4:L19-21) and routed it to refresh time: 'it runs per page at refresh time, starting with the page at the top of the queue.'"
+  },
+  "6_worked_example_teaches_what_the_rules_forbid": {
+   "verdict": "CONFIRMED on all three counts. This is ledger F3's shape (a worked example modelling the behaviour the rules forbid), inside the file SKILL.md:300 offers as the full worked example.",
+   "evidence": "(a) refresh-example.md:99-103 fills the Expected Outcomes table with bare numbers (position 8-10 / 3-6; traffic 2,200 / 3,500; snippets 1 / 2+) and NO assumption sentence, which refresh-templates.md:266-269 explicitly forbids: 'Every target in this table states the assumption it rests on, in the sentence underneath it — otherwise write \"not projected; to be measured after republishing\".' Two files of the same skill give opposite instructions. (b) :95 stamps 'share on social as \"Updated for 2024.\"' and :71 titles the refreshed page '...2024' inside a 2026 skill. (c) :53 asserts unsourced current prices for real named vendors — 'AWS Lightsail listed at $3.50/mo (now $5/mo), DigitalOcean at $4/mo (now $6/mo)' — which is the F3-recurrence-1 statistics-half class; note the ledger's narrowed vendor deny-list would MISS this one, because AWS and DigitalOcean are not on it, so the recorded 'one hit today' figure understates the class.",
+   "how_the_run_handled_it": "Followed the TEMPLATE, not the example, in all three deliverables that reach step 9: e1:L482-484, e3:L408-410 and e4:L264 all print the refusal wording rather than numbers. The example did not propagate."
+  },
+  "7_half_applied_skeleton_labelling": {
+   "verdict": "CONFIRMED, and the fence boundaries are as reported.",
+   "evidence": "refresh-templates.md's Step-6 fence opens at :75 and closes at :123. Inside it, :95-99 carries a proper '<!-- SKELETON — not publishable copy ... -->' comment over the statistics slot, while the introduction block (:80-84) and the FAQ block (:108-122, '### [Question matching PAA/common query]?', '[Direct answer in 40-60 words...]') carry unlabelled bracket tokens in the SAME fence. The Step-7 fence (:129-171) repeats the pattern: :140-143 labels the quotable-statements slot, while the definitions block at :134-136 ('> **[Topic]** is [clear, quotable definition...]') is unlabelled. Per the CLAUDE.md Value Rule the label must live inside the fence in that fence's own syntax, because a model copies the fence, not the heading above it.",
+   "observed_in_this_run": "No leakage: 17/17/19 quoted paste-ready blocks across e1/e2/e3 scanned, ZERO bracket tokens, TBD, XX or to-supply. The executor filled every slot or dropped it and named the gap in prose."
+  },
+  "8_no_step_selection_rule": {
+   "verdict": "CONFIRMED. SKILL.md steps 1-9 each carry their own output template and nothing states whether all nine run, or how to select by request type. The five prompts span four different shapes (single-article refresh, displacement diagnosis, inventory prioritisation, zero-data hold) and the skill gives no routing.",
+   "how_the_run_handled_it": "By shaping the output to the request — e1/e3 run the full nine, e2 runs the displacement playbook with steps 1/3/6/7 folded in, e4 runs 2/4/5 only, e5 runs none and asks for inputs. All four shapes are defensible; none is instructed."
+  },
+  "9_ai_overview_trigger_upper_bound": {
+   "verdict": "REAL BUT PARTIALLY MITIGATED, and the executor's line pointer is off by one.",
+   "evidence": "The CTR band is at ai-overview-recovery.md:15 ('| CTR drop | Down 20-60% on ≥5 queries | Search Console query report |'), not :16 (:16 is the Window row). The all-must-hold test is at :10-11 'when ALL of the following hold (defaults tunable)'. So a -65% CTR collapse with impressions flat and rankings top-3 literally fails the trigger and would be routed to ordinary decay — the substance of the report is right. MITIGATION the executor did not weigh: :6 states 'Every numeric threshold in this file is a house operational default (tunable per site and market), not a measured fact', and :11 repeats '(defaults tunable)', so an executor is licensed to widen. What is missing is the REASON for an upper bound at all, which is what would tell a reader whether widening is correct.",
+   "observed_in_this_run": "No. e2's six drops are -25% to -54%, all inside the band, so the hole was never exercised. Judged from the file, not from the run."
+  },
+  "10_GRADER_FOUND_unsupported_competitor_ranking_claim": {
+   "verdict": "REAL, SYSTEMATIC, AND CAUSED BY THE SKILL. Not reported by the executor.",
+   "evidence": "e1:L121 '| Competitive displacement | 15% | 85 | 2 newer competitor guides now outrank you |' and e3:L108 '| Εκτόπιση από ανταγωνισμό | 15% | 85 | Δύο νεότεροι οδηγοί του 2026 προηγούνται |'. NEITHER FIXTURE STATES A COMPETITOR POSITION. The e1 fixture gives two competitor URLs with observed H2s only; the e3 fixture gives two competitor URLs and says both have cost-of-operation and FAQ sections. 'Outrank' / «προηγούνται» is asserted in the indicative with no assumption label, in a scored table cell that contributes 12.75 of e1's 89 points.",
+   "root_cause_is_the_skill": "content-decay-signals.md:168 defines the competitive-displacement signal as '0 = no new competitors, 100 = displaced from top 3' — a scale that CANNOT be scored without competitor positions, on fixtures that supply none. The skill demands an input the data cannot give, and the model filled it with an inference.",
+   "ledger_class": "F13 Recurrence 3, exact signature: 'the deliverable asserted in the indicative what monday.com and asana.com rank for... with no assumption label (hedging words like \"likely\" are not a label)'.",
+   "why_it_is_recorded_and_not_scored_as_a_FAIL": "No expectation in this suite reaches it. e1.6's clauses are: metrics trace to the fixture; the 61% figure is not replaced with an invented number; no CLIENT ranking history beyond the fixture's position columns ('no was-ranking-#1 stories'); CORE-EEAT framed as estimates; outcomes framed as targets. A third party's CURRENT ranking is none of these, and the claim carries no invented number. Failing it under e1.6 would mean grading a rule the expectation does not state — the mirror of the F13/F17 carrier defect, committed from the grader's side. It is therefore reported first-class here, with the alternative reading named, so the coordinator can rule on an F13 increment rather than have the grader smuggle one in.",
+   "note_the_run_hedged_the_neighbouring_claim_correctly": "e3:L91-93 «Η χρονική σύμπτωση δεν αποδεικνύει αιτία, αλλά δείχνει πού να κοιτάξετε» — the timing coincidence is explicitly not causal. The scored cell four rows earlier is the unlabelled one. Same document, both behaviours."
+  },
+  "11_GRADER_FOUND_W12_asserted_as_fact_on_a_client_read_surface": {
+   "verdict": "REAL, and structurally uncatchable by this suite.",
+   "evidence": "e1:L142 rules the HowTo sentence 'the same applies to HowTo' and e1:L379-380 puts it in customer-visible FAQ copy: 'Does structured data still get me a rich result? / Not for FAQ or how-to content — those SERP features were retired.' WATCH-ITEMS.md:206 still carries W12 as '[VERIFY]'; its 2026-08-10 verification bullet corroborates the retirement at primary-domain SNIPPET grade only, with the caveat that developers.google.com is egress-restricted and the September date is 'contextually 2023 but not independently pinned'.",
+   "why_no_verdict_effect": "e1.2 rules the HowTo sentence ungraded in either direction, by name. So the suite cannot fail it, and I did not.",
+   "why_it_is_worth_the_coordinator's_attention": "The substance is probably right; the epistemic status is not. A blind deliverable stated a [VERIFY]-tagged item as settled fact in copy the client is told to publish, and the suite's own abstention clause guarantees no expectation will ever notice."
+  },
+  "12_GRADER_FOUND_unsourced_CTR_curve_outside_W14_scope": {
+   "verdict": "REAL, and found by the closing input re-check rather than by the run — W14 was opened by a parallel agent DURING this grading (commit 8c35548).",
+   "evidence": "W14 tags `build/meta-tags-optimizer/references/meta-tag-formulas.md:210-219` — 'the position-by-CTR curve and the per-vertical CTR bands' — as [VERIFY], on the ground that they 'carry no citation here and none anywhere in the repository'. content-refresher carries a SIBLING of exactly that class at `content-decay-signals.md:47-55`, 'Expected CTR by position (organic, desktop, approximate)' — position 1 25-35%, 2 12-18%, 3 8-12%, 4-5 5-8%, 6-10 2-5% — unsourced and untagged. W14's 'Where' field names only meta-tags-optimizer, so this instance sits outside the register row that was written for its class.",
+   "ledger_class": "F9's per-skill-scoping signature applied to a [VERIFY] tag rather than to a deprecated token — the same motion F9 Recurrence 3 was ledgered for one hour earlier, in this same skill. Not asserted as an increment; reported so the coordinator can rule.",
+   "did_the_run_use_it": "Yes, and defensibly. e2:L88-92 'our generic expected-CTR band for position 2 is 12-18%, and your *pre-drop* CTRs were 4.8-7.4%... So **measure recovery against your own pre-drop numbers, not against a generic table**'. The figure is labelled as the house band, is used only to argue for preferring the client's own data, and shapes no target. No expectation is affected — e2.6 governs figures about this page from the export, and this is not one."
+  }
+ },
+ "self_caught_defect_confirmed_fixed": {
+  "what_the_executor_reported": "Its first e1 draft attributed the traffic-recovery band to 'a house planning band from our own casework' where content-decay-signals.md:253 labels it 'Based on industry data for content refreshes' — an invented provenance, caught and fixed before delivery.",
+  "grader_verification": "CLEAN. The string 'casework' appears ZERO times across all five shipped deliverables (grep -c on each). The shipped wording at e1:L492-496 reads: 'the recovery bands in our method put a page at this decay stage somewhere between 40% and 90% of its previous peak, over 4-12 weeks. Be clear about what that band is: a house planning default, described in our own reference as based on industry data but not traceable to a named study. It is a range for a budget conversation, not a forecast and not a commitment.' That reproduces what :253 actually claims AND states what it does not — a stronger disclosure than the reference itself carries.",
+  "residual_imprecision_recorded": "The band quoted (40-90% over 4-12 weeks) is the union of the reference's Active-decay row (70-90%, 4-8 weeks) and Significant-decay row (40-70%, 6-12 weeks) without saying it is a union, while the same report places the page in Significant decay — where the reference's own band is 40-70% over 6-12 weeks. Framed throughout as a planning range and explicitly not a forecast, so no expectation is failed; recorded because it is a derived-figure widening against the skill's own table."
+ },
+ "checker_false_verdicts": {
+  "caught_before_reporting": 6,
+  "escaped_into_a_verdict": 0,
+  "instances": [
+   "e2.4 'FAQPage NOT added' reported UNMATCHED. Raw inspection: e2:L261-262 reads 'Do **not** add / FAQPage markup to this page.' — the sentence hard-wraps and the line-based screen split it. A bare boolean would have produced a false FAIL on a correct deliverable, and it would have been the run's only failure. This is the F7 class exactly.",
+   "e1 'outdated screenshots' MATCHED. Raw: e1:L43 'no client results, no screenshots, no numbers of your own' — an absence statement inside the Exclusivity cell, i.e. the non-assertion the expectation asks for.",
+   "e1 'promises a rich result' MATCHED. Raw: e1:L142 is the QUOTED stale claim in the 'On the page now' column, ruled 'Both promise SERP features that no longer exist' in the very next column.",
+   "e1 'invented replacement statistic for 61%' MATCHED. Raw: e1:L278 is the OLD-statement column quoting the fixture's own figure; the replacement column carries no number.",
+   "e3 'invented successor product' MATCHED. Regex fault: `Helioterm [A-Z](?! ?S)` matches 'Helioterm S' because the lookahead tests the position AFTER the S. All four hits are the fixture's own product name.",
+   "e3 'new coverage percentage' MATCHED on 70%/100%. Raw: all four hits are the response quoting the article's existing claims as defects to remove — e3:L132 «Το 70% πρέπει να βγει από το κείμενο»."
+  ]
+ },
+ "greek_editor_referral": {
+  "artefact": "scratchpad/blind-refresher-out-e3.md (39,070 bytes)",
+  "expectation": "e3.5 — mechanical layer graded CLEAN by this grader; fluency, register, idiomatic naturalness and translation-ese are NOT graded here and are referred to the binding greek-content-editor, which this expectation's own text names as the issuing authority.",
+  "status": "PENDING",
+  "what_the_editor_should_know": [
+   "PRIMED on §6 families 5 and 6 (see PRIMED_NOT_BLIND). The prior informed run's e3 is the founding instance of both families and the editor FAILed it; this executor read that provenance note first. Avoidance here is weaker evidence than it looks.",
+   "Screened, nothing surfaced, on families 1, 2, 5, 6, 7, 8 — reported in those words per the §6 governing note. Family 5 produced 9 unlicensed candidates, all hand-checked as verbless nominal fragments or clauses whose «δεν» sits on the adjacent line; the line-based limit is the ruleset's own stated one.",
+   "The customer-visible surfaces to judge are the introduction (L246-255), the seven-answer FAQ (L259-304), the definition (L327-329) and the three standalone quotable sentences (L338-343).",
+   "One construction worth an eye: L110 «81 από τις 85 μονάδες βαρύτητας που ήταν διαθέσιμες (≈96/100 αναγωγικά)» — «αναγωγικά» is a register call, not a mechanical one."
+  ]
+ },
+ "undergraded_imprecisions_recorded_not_inflated": [
+  "e4:L69 prints the smart-plugs weighted priority total as 5.00 where its own stated inputs give 4.95 (0.25*7 + 0.20*6 + 0.15*4 + 0.10*7 + 0.10*7). Ordering is unaffected (7.40 > 4.95 > 4.15) and the factor scores are labelled estimates at L71-73. No expectation grades the priority score.",
+  "e4:L202 '4-9 sessions a month since 2022' extends a range that traces to four CSV cells (6/6/4/9) across the whole period since publication.",
+  "e1:L123 states the composite as 89 where the printed terms sum to 89.65, and e1:L119 scores the CTR signal 90 where -37% on a 40%-is-maximum scale gives 92.5. Both are roundings in the conservative direction; the band and the decision are unchanged.",
+  "e1:L237 reframes structured data as 'an AI-parsing and eligibility measure'. 'Eligibility' is loose one clause after removing two rich-result promises; it names no type and no feature, so it is not a rich-result-eligibility claim, but it is the weakest wording in an otherwise exact R3 treatment.",
+  "e1:L212 puts '24 Tasks in Priority Order' in a paste-ready title where the fixture supports no task count, then corrects it in prose at L217-219 ('Set the task count in the title to the number you actually publish'). Not a bracket token, so e1.5's ban is not triggered; the CLAUDE.md Value Rule's own remedy for an unsourceable value is to drop it and name the gap, and this names the gap without dropping the value.",
+  "e5:L110-111 'In a typical inventory the biggest single loss is a page whose owner had not thought about it in a year' — an unsourced empirical generalisation. It carries no number and is not attributed to gearloft.io, so e5.3's operative ban ('no typical-decay NUMBER presented as this site's measurement') is not triggered."
+ ],
+ "tool_correctness": {
+  "tool_errors_encountered": 0,
+  "expectations_that_could_not_be_graded_as_written": 0,
+  "expectations_whose_wording_made_grading_ambiguous": 4,
+  "scope_drift": "none — the grader wrote only under the scratchpad and this record's own path; it edited no SKILL.md, no reference and no tracking file, and produced no deliverable of its own.",
+  "scripts": [
+   "scratchpad/modeb-refresher-blind3c-checks.py — anti-slop screens on all five deliverables plus per-expectation checks; prints matched/unmatched evidence with line numbers, never booleans.",
+   "scratchpad/modeb-refresher-blind3c-followup.py — family-5 licenser screen, independent CSV recompute, composite-score arithmetic, and the F7 re-inspection of every first-pass flag.",
+   "scratchpad/modeb-refresher-blind3c-writerecord.py / -writesuite.py — record builders."
+  ],
+  "arithmetic_independently_reverified": "All 16 percentage claims in e4 recomputed from the CSV: 16/16 exact. e1 and e3 composite decay scores recomputed from their own printed terms. e2's bolded answer measured at 28 words and all six FAQ answers at 45-48 words against their stated bands. e5's overdue-date column checked against the skill's intervals from 2026-08-10: all four correct."
+ },
+ "input_drift_during_the_run": {
+  "detected": true,
+  "head_moved": "36d2f18 -> a6ca727 (9 commits by parallel agents during grading)",
+  "graded_inputs_rechecked_at_close": [
+   "optimize/content-refresher/SKILL.md",
+   "optimize/content-refresher/evals/evals.json",
+   "optimize/content-refresher/references/*.md (4 files)",
+   "optimize/content-refresher/evals/files/* (4 fixtures)",
+   "build/seo-content-writer/references/anti-slop-ruleset.md"
+  ],
+  "result": "ZERO drift in every graded input: SKILL.md md5 fe171eea079e762f0922307aa3d59f7e, evals.json a4e1c7403fb8576040d494b1aa426e6d and anti-slop-ruleset.md 1e28a2c5a70f9ec2b9b379debfa20564 are identical at open and close, and `git diff 36d2f18..HEAD -- optimize/content-refresher/` is empty. Three register files moved: FAILURE-LEDGER.md (+F18, +F9-r3), SETTLED-RULINGS.md (VERSIONS.md pointer re-anchoring ONLY — 205->211, 209->215, 210->216; the R1/R2/R3/R4 ruling TEXT is byte-identical, verified line by line), and WATCH-ITEMS.md (+W14; W12 unchanged, verified).",
+  "effect_on_verdicts": "NONE. No expectation, skill line, reference line or fixture byte changed, and no new FAIL-grade family landed in the §6 rubric. The register additions are evidential, not scoring: F18 independently confirms this record's priming disclosure at source; F9-r3 independently confirms defect 4 and sharpens it; W14 produced finding 12 below.",
+  "contrast_with_the_two_2026-08-10_incidents": "Both of those had a ruleset gain a FAIL-grade family mid-run. This one did not; the rubric surface (anti-slop-ruleset.md §6) is byte-identical at open and close, md5 1e28a2c5a70f9ec2b9b379debfa20564."
+ },
+ "eval_feedback": [
+  "e2.1 quotes the playbook's full framing ('house operational default (tunable per site and market), not a measured fact') but states its failure conditions only as (i) no displacement diagnosis and (ii) the profile presented as a measured industry statistic. The deliverable heads its column 'House threshold' and carries no 'tunable' clause. Say whether the word 'tunable' (or an equivalent) is required, or drop it from the quoted string — two graders can split here.",
+  "e2.5 requires the entity-optimizer handoff to carry 'CORE-EEAT quick scores if available'. e2's set is partial by design (4 of 8 scored, 4 explicitly not scored) and the handoff omits them. State whether a partial set counts as available, and whether omission of an available item fails.",
+  "e3.3 requires that 'the plan routes verification to the official/primary source before publication'. The deliverable gates the section's return on a working official link (L127) and commits to checking current status (L304) without using the words official/primary source. Name the acceptable forms, or the clause turns on vocabulary rather than behaviour.",
+  "e3.5 remains the suite's one expectation whose pass/fail arithmetic is undefined by the suite itself — the prior informed record raised this and it is unchanged. Splitting it into 5a (mechanical, Mode B) and 5b (register, editor) would end the editor-slot ambiguity that ledger F16-r1(d) records, for this suite at least.",
+  "HIGHEST-VALUE ADDITION, from defect 10: no expectation in this suite forbids asserting a THIRD PARTY's current ranking without an assumption label, and both e1 and e3 did exactly that in the competitive-displacement cell. keyword-research e5.2 already carries the rule for competitor keywords (ledger F13-r3). Add its sibling here — e1.6 and e3.4 are the natural homes — and the suite would catch the one fabrication class that got through.",
+  "e1.2's W12 abstention clause is correct as a grading rule but guarantees the suite can never notice a deliverable stating the HowTo retirement as settled fact in client-facing copy, which is what happened at e1:L379. Consider a separate expectation that grades the EPISTEMIC form (open item stated as open) while keeping the substance ungraded."
+ ],
+ "artefacts": {
+  "deliverables_graded": [
+   "scratchpad/blind-refresher-out-e1.md",
+   "scratchpad/blind-refresher-out-e2.md",
+   "scratchpad/blind-refresher-out-e3.md",
+   "scratchpad/blind-refresher-out-e4.md",
+   "scratchpad/blind-refresher-out-e5.md"
+  ],
+  "grading_json": "scratchpad/modeb-refresher-blind3c-grading.json",
+  "this_record": "docs/loop/eval-baselines/blind-2026-08-10c/refresher.json"
+ }
+}

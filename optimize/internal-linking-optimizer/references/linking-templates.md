@@ -2,6 +2,16 @@
 
 Detailed output templates for internal-linking-optimizer steps 4-7. Referenced from [SKILL.md](../SKILL.md).
 
+**The suggestion contract applies to every template in this file** (SKILL.md § Instructions).
+Each of these templates emits link suggestions, and a suggestion carries four fields — source
+page, target page, **anchor text**, placement. One row or checkbox per link: a bare count ("add
+links from 3 pages", "add the 2 missing cluster links") is a finding, not a suggestion — the site
+owner still has no words to put on the page. Every `"[anchor]"` below is a slot you fill with the
+string that ships; a client-read string never carries a bracket token, `TBD`, a provenance note
+or an agency-workflow marker. An anchor you cannot source — because the
+target page's own wording is not in front of you — means that suggestion is left out and the gap
+is named in the report prose, never shipped as `"[anchor TBD]"`.
+
 ---
 
 ## Step 4: Create Topic Cluster Link Strategy
@@ -48,6 +58,11 @@ Detailed output templates for internal-linking-optimizer steps 4-7. Referenced f
 | [URL 1] | [URL 2] | "[anchor]" | [paragraph/section] |
 | [URL 2] | [URL 3] | "[anchor]" | [paragraph/section] |
 | [Pillar] | [Cluster 1] | "[anchor]" | [section] |
+
+One row per missing link — every pillar→cluster and cluster→pillar gap the map above shows gets
+its own row here, so "the cluster is incomplete" never travels as a summary. The Anchor Text cell
+holds the exact words that will appear on the source page; if the source page's own wording is
+not in front of you, leave the row out and say which page's text you need.
 ```
 
 ---
@@ -124,8 +139,10 @@ For each page, find relevant pages to link to based on:
 
 ### Pages to Add to Navigation
 
-1. [Page] - Add to [location] because [reason]
-2. [Page] - Add to [location] because [reason]
+A navigation entry's anchor is its menu label, so name the label you propose.
+
+1. [Page] - Add to [location] with the label "[label]" because [reason]
+2. [Page] - Add to [location] with the label "[label]" because [reason]
 
 ### Pages to Remove from Navigation
 
@@ -146,47 +163,101 @@ For each page, find relevant pages to link to based on:
 
 - Total link opportunities found: [X]
 - Orphan pages to fix: [X]
-- Estimated traffic impact: [+X%]
+- Pages gaining inbound links under this plan: [X]
 - Priority actions: [X]
+
+*No traffic or ranking forecast appears here.* Every line above is a count this analysis
+produced. A "+X% traffic" figure would need a ranking and traffic baseline plus a
+counterfactual, and this analysis has neither — see [score-rubric.md](./score-rubric.md) §6,
+and offer the baseline-then-re-measure plan instead of a number.
 
 ## Current State
 
 | Metric | Current | Target | Gap |
 |--------|---------|--------|-----|
-| Avg links per page | [X] | [X] | [X] |
+| Avg links per page | [X] ([links] ÷ [pages]) | [X] | [X] |
 | Orphan pages | [X] | 0 | [X] |
-| Over-optimized anchors | [X]% | <10% | [X]% |
-| Topic cluster coverage | [X]% | 100% | [X]% |
+| Over-optimized anchors | [X]% ([n]/[base]) | <10% | [X]% |
+| Topic cluster coverage | [X]% ([n]/[base]) | 100% | [X]% |
+
+Current is the measurement with its base shown; Target is the target; Gap is their difference.
+
+## After This Plan
+
+Optional — print it only if you state projected figures at all, and only for the link graph.
+
+| Metric | Now | After these changes | How it gets there |
+|--------|-----|---------------------|-------------------|
+| Live in-body internal links | [X] | [Y] | [X] + [n] additions listed above = [Y] |
+| Avg links per page | [X] | [Y] | [after-state links] ÷ [pages] = [Y] |
+| Orphan pages | [X] | [Y] | [which listed fix removes which orphan] |
+| Inbound links to [priority page] | [X] | [Y] | [X] + [n] of the additions target it = [Y] |
+
+The last column is the check: every projection assumes **only** the changes this plan lists,
+and the reader can re-run it from the tables above. Drop a row whose arithmetic will not fit
+there, and drop the table entirely rather than carry one borrowed figure. No traffic or ranking
+row belongs here — see [score-rubric.md](./score-rubric.md) §5 (after-state figures) and §6.
 
 ## Priority Actions
 
+Phases follow the Implementation Priority Order (structural fixes, then architecture, then
+cross-linking, then anchors) — **that sequence is this plan's ordering rule and its only one**.
+Every checkbox that adds or rewrites a link is a link suggestion, so it is written one link per
+checkbox as `[source] → [target] · "[anchor]" · [placement]`. A checkbox may cite the row that
+already carries those fields ("Links to Add, row 3") instead of repeating them; it may not
+replace them with a count.
+
+### Phase Actions
+
+The checkboxes say which links. This table says who does the work and what proves it done —
+one row per work item, not per link.
+
+| # | Action | Owner | Acceptance criterion | Expected impact | Effort | Depends on | Risk if done wrong |
+|---|--------|-------|----------------------|-----------------|--------|------------|--------------------|
+| 1 | [one imperative sentence naming what changes, e.g. "add in-body inbound links to the 4 orphan pages listed in Phase 1"] | [role] | [observable, binary, attached to a named artefact or measurement, dated or triggered — e.g. "all 4 orphans carry at least one in-body inbound link with descriptive anchor text, verified in a re-crawl export dated after this phase closes"] | [link-graph arithmetic from this plan's own additions, or `not estimated — no baseline data`] | [S / M / L, or `not estimated`] | [named blocker, or `none`] | [failure mode, or `low — reversible, no downstream effect`] |
+| 2 | [work item] | [role] | [criterion] | [impact] | [effort] | [depends on] | [risk] |
+
+<!-- Four rules for this table. (1) Owner and Acceptance criterion are required: a phase whose
+     links are all perfectly specified but which nobody is named to do, and which has no finish
+     condition, is a specification rather than a plan. (2) A cross-property row names its own
+     owner instead of inheriting the phase's — it needs edit access to a site the main team may
+     not hold — and `Client decision` is the owner where the blocker is an unsettled cluster
+     assignment. (3) A phase week and a priority band are not criteria: the week says when it
+     starts, the band says how it ranked. (4) No traffic or ranking figure in Expected impact,
+     and never the [VERIFY]-tagged ROI ranges — this is link-graph arithmetic, not a forecast. -->
+
+
 ### Phase 1: Critical Fixes (Week 1)
 
-**Fix Orphan Pages**:
-- [ ] [URL] - Add links from [X] pages
-- [ ] [URL] - Add links from [X] pages
+**Fix Orphan Pages** — one checkbox per inbound link, not one per orphan:
+- [ ] [source URL] → [orphan URL] · "[anchor]" · [section on the source page]
+- [ ] [source URL] → [orphan URL] · "[anchor]" · [section on the source page]
+
+**Fix Broken Internal Links**:
+- [ ] [source URL] → [broken URL] · repoint to [live URL], anchor "[anchor]" · [section] (or remove the link and say so)
 
 **High-Value Link Additions**:
-- [ ] Link [Page A] to [Page B] with "[anchor]"
-- [ ] Link [Page A] to [Page C] with "[anchor]"
+- [ ] [Page A] → [Page B] · "[anchor]" · [section]
+- [ ] [Page A] → [Page C] · "[anchor]" · [section]
 
 ### Phase 2: Topic Clusters (Week 2-3)
 
-**Cluster 1: [Topic]**
-- [ ] Ensure pillar links to all [X] cluster articles
-- [ ] Add [X] cross-links between cluster articles
+**Cluster 1: [Topic]** — one checkbox per missing link; "complete the cluster" is not a task:
+- [ ] [Pillar] → [Cluster article 1] · "[anchor]" · [section]
+- [ ] [Cluster article 2] → [Pillar] · "[anchor]" · [section]
+- [ ] [Cluster article 1] → [Cluster article 2] · "[anchor]" · [section] — cross-link
 
 **Cluster 2: [Topic]**
-- [ ] [Tasks]
+- [ ] [same shape, one checkbox per link]
 
 ### Phase 3: Optimization (Week 4+)
 
-**Anchor Text Diversity**:
-- [ ] Vary anchors for [Page] - currently [X]% exact match
-- [ ] [Additional tasks]
+**Anchor Text Diversity** — a rewrite names the link it rewrites and both strings:
+- [ ] [source URL] → [target URL] · "[current anchor]" → "[replacement anchor]" ([n] of [base] inbound anchors are exact match, [X]%)
+- [ ] [source URL] → [target URL] · "[current anchor]" → "[replacement anchor]"
 
-**Navigation Updates**:
-- [ ] Add [Page] to main navigation
+**Navigation Updates** (template links — the menu label is the anchor):
+- [ ] Add [Page] to main navigation with the label "[label]"
 - [ ] Update footer links
 
 ## Implementation Guide
@@ -207,13 +278,31 @@ Best practices:
 | Exact match | "keyword research" | 10-20% |
 | Partial match | "tips for keyword research" | 30-40% |
 | Branded | "Brand's guide to..." | 10-20% |
-| Natural | "this article", "learn more" | 20-30% |
+| Natural (conversational, still names the destination) | "this guide to brake adjustment", "how we true a wheel" | 20-30% |
+| Content-free | "this article", "learn more", "click here", "read more", a bare URL | 0% |
+
+**Natural means conversational, not content-free** (ruled 2026-08-10, resolving this table's
+conflict with SKILL.md Step 3, which marks content-free anchors ❌ Not descriptive). A
+Natural-band anchor is relaxed phrasing that still tells the reader what is on the other side —
+"this guide to brake adjustment", not "this article". A content-free string names neither the
+destination nor its topic, so it gives a reader nothing to decide on and an engine nothing to
+index; it is in no band at any percentage, and it is never a recommended anchor. Score-side
+consequence in [score-rubric.md](./score-rubric.md) §3: descriptive-conversational scores ✅ 1,
+content-free scores ❌ 0.
 
 ## Tracking Success
 
-Monitor these metrics weekly:
-- [ ] Rankings for target keywords
-- [ ] Traffic to previously orphan pages
-- [ ] Crawl stats in ~~search console
-- [ ] Internal link distribution changes
+Baselined from this analysis (measurable today, re-measurable after each phase):
+- [ ] Inbound in-body link count per priority page — baseline: [X]
+- [ ] Orphan page count — baseline: [X]
+- [ ] Anchor distribution for the over-optimized targets — baseline: [n]/[base]
+
+Needs data not yet connected (list the connector, do not report a baseline):
+- [ ] Rankings for target keywords — requires rank-tracking data
+- [ ] Traffic to previously orphan pages — requires analytics
+- [ ] Crawl stats — requires Search Console
 ```
+
+**Split the tracking list.** Metrics this analysis can baseline get a number now; metrics that
+need a tool nobody connected are listed with the connector they need and no baseline beside
+them. A tracking row with an invented starting figure poisons every later comparison.

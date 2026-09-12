@@ -1,0 +1,372 @@
+{
+  "suite": "serp",
+  "skill": "serp-analysis",
+  "skill_version_under_test": "4.2.5",
+  "run": "2026-08-10 blind-execute re-baseline",
+  "method": "blind-execute, held in full. (1) Only id/prompt/files were extracted, with jq, into the suite-prefixed file rebase-serp-prompts.json — no sibling field (expectations, expected_output) was ever on screen during execution. (2) Evals were executed in order 1..5; for each I read only that eval's prompt and its fixture, loaded SKILL.md plus all six references, produced the complete client deliverable and SAVED it. (3) research/serp-analysis/evals/evals.json was opened for the FIRST time only after all five deliverables were saved; no eval's expectations were read ahead of its own execution, and none was read before its deliverable existed. (4) No deliverable was edited after its expectations were read — three defects spotted on re-read are recorded in self_caught and left in the artefacts. (5) The prior serp baseline record inside docs/loop/eval-baselines/2026-08-10-e2345.json was NOT opened until grading was complete; only the suite-name list and the serp entry's key names were read at launch, via jq, to establish that a baseline existed. (6) build/seo-content-writer/references/anti-slop-ruleset.md §6 was read only at grading time, after the Greek deliverable was written and saved, so the seven ruled families did not steer the Greek output. DISCOUNT, stated because the 2026-08-10 baseline demands it: the launching task message named the Greek checker traps (LC_ALL case-folding, synizesis monosyllables, enclitic double accents, wc -w) and told me §6 has seven families. That is briefing about the GRADING instrument, not about what the evals test or what the skill should get right, and no serp-specific trap was named — but this run is blind to expectation wording, not cold.",
+  "frozen_input_manifest": {
+    "launch_sha": "00c14ff8df710cd91d090cdf3ad95cd32e7e782f",
+    "close_sha": "e68832749fad370d247d062de57082e80f4cdb57",
+    "branch": "claude/scheduled-skills-web-search-8zaz3j",
+    "files_graded_against": [
+      "research/serp-analysis/SKILL.md (sha256 3233ab6c…)",
+      "research/serp-analysis/references/{analysis-templates,example-report,greek-shopping-surfaces,greek-tourism-seasonality,serp-feature-taxonomy,skroutz-visibility-factors}.md",
+      "research/serp-analysis/evals/evals.json (sha256 f3fed35d…)",
+      "research/serp-analysis/evals/files/{hotel-serp-naxos-single-pull-en,serp-snapshot-boiler-service-en,serp-snapshot-ilektrologos-peiraias-el,skroutz-vektra-r30-el}.md",
+      "build/seo-content-writer/references/anti-slop-ruleset.md (sha256 5563b413…)"
+    ],
+    "manifest_files": [
+      "rebase-serp-manifest-launch.txt",
+      "rebase-serp-manifest-close.txt"
+    ],
+    "drift": "HEAD MOVED mid-run (one commit, e688327 'fix(entity-optimizer,backlink-analyzer): close the guidance gaps blind runs exposed'), but ZERO drift in the graded set: all 13 manifest files re-hash byte-identical at close and git status is clean. The commit touched VERSIONS.md, docs/loop/GATED-ITEMS.md, docs/loop/SETTLED-RULINGS.md and the entity-optimizer/backlink-analyzer trees. SETTLED-RULINGS.md was read at launch and re-diffed at close: the only changes are F12 anchor-pointer line-number refreshes (VERSIONS.md:157→159, :161→163, :162→164) with no ruling statement altered. R3 (FAQPage kept, cited in my e1 and e3) and the pinned 'Google AI Mode in Greek live since 2025-10-08' baseline (cited in my e1) are unchanged. EFFECT ON VERDICTS: none."
+  },
+  "prior_baseline": "29/29 informed-executor (docs/loop/eval-baselines/2026-08-10-e2345.json, suite 'serp', skill version 4.2.4). That record is additionally flagged in the same file as a GRADING-ONLY SALVAGE PASS at the file's weakest attestation grade — its executor half was produced by a prior interrupted runner and the grader could not attest fresh-session conditions.",
+  "regression_check": {
+    "verdict": "NO REGRESSION — and this is not a soft call, it is the baseline's own rule.",
+    "rule_quoted": "2026-08-10-e2345.json regression_rule: 'Regression = an expectation recorded passing here that fails in a later run of the SAME suite at same-or-later skill version under unchanged expectation wording AND under the same method. A blind-method result scoring below an informed-executor baseline for the same suite is a method change, not a regression, and must be recorded as a new founding datum for that method.'",
+    "application": "Prior serp record = informed-executor at 4.2.4; this run = blind-execute at 4.2.5. Method differs, so the single FAIL (e3.5) is NOT a regression. It is the FOUNDING blind-method datum for this suite, and from this file forward a later blind run that fails any of the 28 expectations passing here IS a regression.",
+    "expectation_level_delta": "e3.5 passed in the informed run and fails here. All other 28 expectations hold PASS in both."
+  },
+  "totals": {
+    "pass": 28,
+    "fail": 1,
+    "editor_pending": 0,
+    "total": 29,
+    "pass_rate": 0.9655
+  },
+  "delta_vs_prior": "28/29 (96.6%) blind vs 29/29 (100%) informed — one expectation lower, and per the baseline's comparability_rule the two numbers are not comparable as scores. The informative comparison is qualitative: the blind run reproduced the informed run's headline behaviours (LSA correction, three magnitude refusals, BestPrice bounding, seasonality/CTR/DMA honest gaps, the zero-data hold) but missed one template-vocabulary requirement and shipped three arithmetic/labelling defects that no expectation tests — including the exact derived-tally class the prior baseline's own eval_feedback_backlog item 1 predicted would escape this suite.",
+  "evals": [
+    {
+      "id": 1,
+      "output": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-serp-out-e1.md",
+      "grading_json": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-serp-grading-e1.json",
+      "passed": 6,
+      "failed": 0,
+      "total": 6,
+      "pass_rate": 1.0,
+      "expectations": [
+        {
+          "text": "e1.1 SERP composition mapped fixture-exactly; observed features identified, not-observed reported absent as an observation of the 2026-08-05 capture; nothing present that the fixture does not show",
+          "passed": true,
+          "evidence": "Feature-map table carries every fixture row. Present: L46 '| Text ads x 3 |' (rendered '| Text ads × 3 |'); L68 '| Local Pack (§7, commerce) | **Yes** | Between organic #2 and #3 |'; L69 '| People Also Ask (§2, engagement) | **Yes** — 4 |'; L70 '| Related Searches (§11, engagement) | Yes — 6 | Bottom |'. Absent: L71 Featured Snippet 'Not observed', L72 AI Overview, L73 Knowledge Panel, L74 Image Pack, L75 Video results, L76 Shopping results, L77 Sitelinks, L79 '| **Local Services Ads / «Google Screened»** | **Not observed** |'. This-pull framing at L34-36: '\"Not observed\" != \"never appears\". ... A featured snippet or AI Overview that fires on a different phrasing, device or day would not appear in this file. Re-pull before treating any absence as permanent.' Capture metadata table L13-16. No feature is reported present that the fixture does not show (only extra row is 'Rich results ... Not observed')."
+        },
+        {
+          "text": "e1.2 LSA advice corrected per taxonomy §7 el-GR annotation; no LSA/Google-Screened recommendation; LSA kept distinct from the organic Local Pack",
+          "passed": true,
+          "evidence": "L256-258: '**Local Services Ads is not offered in Greece.** This was owner-verified on 2026-08-09: the country picker on Google's LSA getting-started page (support.google.com/localservices/answer/6224841) does not list Greece.' L268-270: 'There is no workaround, no partner, no agency that can enable it. There is no Greek equivalent of the Google Screened badge. **Any budget line for LSA in Greece is unspendable**'. Distinctness: L79 lists LSA as its own feature row separate from the Local Pack row at L68; L279 'the budget it assumed should move to the Local Pack work in Priority 1 — which targets the organic unit the paid one would have sat beside.' Plus the LSA-to-Google-Ads re-check (plus item) at L272-274. Checker note: my first pattern for this item MISSED; raw-text inspection found the evidence at L279 (F7 discipline, no false FAIL reported)."
+        },
+        {
+          "text": "e1.3 Local Pack strategy follows taxonomy §7 and cites the fixture's GBP-completeness and review numbers",
+          "passed": true,
+          "evidence": "L173: '| **11 reviews, 4,8 rating** | Γ. Σταθόπουλος 4,9 / 212 · Ηλεκτρο-Τεχνική Δρακάκης 4,7 / 89 · SOS Ηλεκτρολόγοι 4,4 / 301 |'. L174 '| **Last owner post: 14 months ago** |'; L175 '| **Products/Services section empty** |'. Actions L190-193: '(1) systematic review-request process on completed jobs ... (2) fill Products/Services with the actual job types ... (3) seed and answer Q&A using the four PAA questions verbatim; (4) restart posting; (5) photos of real jobs.' L188 keeps it a lever, not a weight: 'Google does not publish the Local Pack's weighting, so these are levers to work, not a formula that guarantees entry.'"
+        },
+        {
+          "text": "e1.4 el-GR census discipline: snippet/AI Overview handled evidence-first, no promise of winning a snippet this SERP does not display, pursuit framed as confirm-per-keyword",
+          "passed": true,
+          "evidence": "L283 'No featured snippet appeared on this pull.' L285-287 '1. **You cannot win a feature that is not being displayed.** Snippet optimisation is format-matching ... With nothing displayed there is no format to match and no incumbent to displace.' L292-293 '**\"Not observed\" is one capture.** ... Re-pull on desktop and on a couple of other days before closing the question.' Redirection conditioned per keyword at L298-300: '... same technique, moved off the head keyword and onto the questions the SERP is already showing you. Check each satellite query's own SERP first for a live snippet and its format.' Locale note carried at L86-90 ('absence of an annotation means unknown for Greece')."
+        },
+        {
+          "text": "e1.5 intent and ranking patterns derived from the fixture; capture date, location and device carried",
+          "passed": true,
+          "evidence": "L135 '**Primary intent: transactional/local — hire an electrician now, in Piraeus.**' with composition evidence L137-142 (Local Pack above position 3; three ads, two selling immediacy; 5/10 business pages; «24ωρος», «κοντά μου» chips). Aggregator pattern L109 '- Aggregators / directories: 4/10 — #1, #2, #7, #8'. Client-vs-aggregator read L332-334 'You are at #9, on the page, with a homepage rather than a targeted service page'. Content opportunity L118-121 'The only editorial page (#5) is a **cost** guide ... Three independent places on one SERP say the same thing: **price is the unmet question in this market.**' Metadata L13 '2026-08-05', L14 'Piraeus, Greece', L16 'mobile only'."
+        },
+        {
+          "text": "e1.6 No fabrication (ledger F3): all data traces to the fixture; no volumes/CTR/DA/backlinks as measured data; sources labeled",
+          "passed": true,
+          "evidence": "Scripted scan rebase_serp_numscan.py: 22 numeric tokens not literally in fixture/prompt, all adjudicated non-data (skill-sourced 40-60 / 15-20 / 1-100 / 25-20-20-20-15% weights; taxonomy §7 URL 6224841; taxonomy dates 2025-10-08 and 2027; plan week ranges). Zero invented SERP metrics. Top-10 table L97-107 puts 'not in the data set' in every DA/backlink/word-count cell. L20-24 '**Source of every data point in this report: user-provided manual observation.** No ~~SEO tool, no ~~search console, no ~~AI monitor is connected ... Where the standard workflow calls for such a metric you will see \"not in the data set\" rather than an estimate.' Nothing presented as tool-fetched."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "output": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-serp-out-e2.md",
+      "greek_raw": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-serp-greek-e2.md",
+      "grading_json": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-serp-grading-e2.json",
+      "passed": 7,
+      "failed": 0,
+      "total": 7,
+      "pass_rate": 1.0,
+      "expectations": [
+        {
+          "text": "e2.1 Surface separation: Skroutz separate from Google; no cross-surface factor merging; per-surface reporting for Shopping and BestPrice",
+          "passed": true,
+          "evidence": "Structure: §1 Google organic, §2 Google Shopping, §3-4 Skroutz, §5 BestPrice, each with its own recommendations. Explicit rule at L28-31: '**Τέσσερις χωριστές επιφάνειες.** Google οργανικά, Google Shopping, Skroutz και BestPrice είναι διαφορετικές επιφάνειες με ανεξάρτητους, μη δημοσιευμένους αλγορίθμους. Τις αναφέρω χωριστά και δεν ανακατεύω τους παράγοντες της μίας με της άλλης — η κατάταξη στο Skroutz δεν εξηγεί την κατάταξη στο Google, ούτε το αντίστροφο.' No Skroutz position is explained by a Google factor anywhere."
+        },
+        {
+          "text": "e2.2 All six fixture levers worked with the fixture's own numbers (attributes, price basis, locker gap, reviews, returns mismatch, Merchant Center)",
+          "passed": true,
+          "evidence": "(a) L155 'Λείπουν: **χωρητικότητα κάδου**, **αυτονομία**, **λειτουργία σφουγγαρίσματος**' tied to filtered eligibility L158-160. (b) L122-126 price table on a stated shipping basis: 'Φθηνότερο κατάστημα | 279 € | 3,90 € | **282,90 €**' vs 'Εσείς | 289 € | 4,90 € | **293,90 €**', identical-SKU framing. (c) L143 'BoxNow εμφανίζεται σε **4 από τα 6** καταστήματα. Σε εσάς όχι.' (d) L173-176 table 4,6/5 vs 4,8/5, 38 vs 412, 'τελευταία πριν 5 μήνες' vs 'νέες κάθε εβδομάδα', 'σπάνια' vs 'ναι'. (e) L195-199 '**Στο seller panel δηλώνετε 14 ημέρες. Στο site σας γράφετε 10.** ... Δεν είναι θέμα SEO — είναι θέμα συμμόρφωσης'. (f) L86-95 Shopping unit R30 on two competitor cards at 279 €/285 €, none of the client's, plus 'Οι δωρεάν καταχωρίσεις προϊόντων μέσω Merchant Center **υποστηρίζονται για την Ελλάδα**' and L92 'Το εμπόδιο δεν είναι διαφημιστικό budget· είναι λογαριασμός και feed.'"
+        },
+        {
+          "text": "e2.3 W6 claim-tag discipline: every Skroutz ranking-effect statement framed as an unconfirmed observable lever; no factor asserted as a confirmed weight or percentage",
+          "passed": true,
+          "evidence": "Section-opening blanket L115-116: 'Ο Skroutz δεν δημοσιεύει τον αλγόριθμό του. Ό,τι ακολουθεί είναι **παρατηρήσιμα σημεία ελέγχου**, όχι επιβεβαιωμένα βάρη κατάταξης.' Price-sort tagged L137-139: 'Το αν η τιμή επηρεάζει την προεπιλεγμένη ταξινόμηση πέρα από τις ρητές ταξινομήσεις τιμής **δεν είναι επιβεβαιωμένο** από τον Skroutz.' Attribute magnitude L161-162: 'Η κατεύθυνση είναι σαφής ... το **μέγεθος** της επίδρασης δεν δημοσιεύεται.' 5th-of-6 stated as observation only (L117). No weight or percentage asserted anywhere. PARTIAL noted: the delivery-badge 'not confirmed either way' and the Trusted-Reviews 'weight not published' framings are covered only by the section blanket — §3.2 and §4.1 make buyer-perception claims and no ranking-effect claim, so the expectation's stated failure condition ('any factor asserted as a confirmed weight or percentage') is not triggered."
+        },
+        {
+          "text": "e2.4 The three magnitude questions answered with zero invented figures; Skoop routed to primary sources and treated as cost input; BoxNow 300k only as the reported end-2026 target",
+          "passed": true,
+          "evidence": "(a) L252-256: '**Δεν σας δίνω ποσό.** ... **το τρέχον ύψος, τα όρια και το ποιες κατηγορίες πωλητών καλύπτει δεν είναι επιβεβαιωμένα** από πρωτογενή πηγή', with 'αναφέρεται ότι ισχύει από την 1η Δεκεμβρίου 2025' and L263-264 'το τέλος είναι **στοιχείο κόστους** που τροφοδοτεί την τιμολόγηση — δεν είναι παράγοντας κατάταξης'; routed L266 'στους τρέχοντες όρους Skroutz/Skoop και στο seller panel σας'. (b) L270-273: '**Τρέχοντα αριθμό δεν έχουμε.** Αυτό που υπάρχει είναι **στόχος**, όχι μέτρηση: αναφορά της 12ης Ιουλίου 2026 μιλά για στόχο περίπου 300.000 lockers **έως το τέλος του 2026**. Δεν είναι επιβεβαιωμένο ... Μην το πείτε σε κανέναν ως τρέχον νούμερο'. (c) L286-288: '**Δεν δημοσιεύεται.** Τα ακριβή όρια SLA — ανώτατο ποσοστό ακυρώσεων, ελάχιστη ακρίβεια αποθέματος, όρια χρόνου αποστολής — δεν είναι δημόσια διαθέσιμα'. Numeric scan confirms no fee amount, no current locker count, no SLA percentage anywhere."
+        },
+        {
+          "text": "e2.5 W9 vendor-magnitude bounding on BestPrice: «Νο1» explained as a SimilarWeb category label, no out-traffics claim, figures labeled vendor estimates, effort-ordering kept",
+          "passed": true,
+          "evidence": "L301-311: 'Το «Νο1» προέρχεται από **ετικέτα κατάταξης σε κατηγορία** ενός εργαλείου μέτρησης επισκεψιμότητας (SimilarWeb) ... BestPrice.gr περίπου **6,9 εκατ. επισκέψεις/μήνα**, Skroutz.gr περίπου **40,8 εκατ. επισκέψεις/μήνα** — δηλαδή ο Skroutz είναι περίπου **έξι φορές** μεγαλύτερος. Ο Skroutz απλώς δεν είναι καταχωρημένος σε εκείνη τη συγκεκριμένη κατηγορία της λίστας.' Labeling L312-313: '**Και τα δύο μεγέθη είναι εκτιμήσεις παρόχου** (στιγμιότυπα Απριλίου/Ιουνίου 2026), όχι ελεγμένα στοιχεία.' Verdict L317-321: 'δεν είναι ούτε υποκατάστατο του Skroutz ούτε προτεραιότητα ... Google οργανικά και Skroutz πρώτα, μετά το δωρεάν feed του Merchant Center, μετά ο έλεγχος στο BestPrice. Αυτό είναι ιεράρχηση προσπάθειας — δεν ισχυρίζομαι μερίδιο επισκεψιμότητας.' BestPrice work is the §5 presence-and-quality checklist."
+        },
+        {
+          "text": "e2.6 Greek mechanical layer: correct diacritics and final sigma, no untranslated English boilerplate headings (naturalness routed to the binding greek-content-editor)",
+          "passed": true,
+          "evidence": "rebase_serp_greek_mech.py CHECK 1: '0 findings — every word-final sigma is ς and no ς appears word-internally.' CHECK 2: 1 unaccented polysyllabic candidate, «εκατ» at L308 — the standard abbreviation «εκατ.» for «εκατομμύρια», correctly unaccented. All 22 headings are Greek (L1-L342 heading dump); Latin script only on platform/product names the expectation permits (Google, Skroutz, BestPrice, BoxNow, Merchant Center, Vektra R30, SLA) plus the client's own term «business case» taken verbatim from the prompt. §6 seven-family scan: family 1 (Όλα τα [0-9]) 0 hits; family 6 (κοστίζει μηδέν) 0 hits; family 7 (~~) 0 hits; family 2 pattern fired once at L96 on ordinary prose ('η λίστα χωρών όπου απαιτούνται στοιχεία αποστολής' — Merchant Center shipping data), hand-checked false positive; family 5 produced 10 candidates, all hand-checked correct (licenser «δεν»/«Μην» present at L9/L221/L273/L287-288, verbless fragments at L14/L88/L189/L296, idiom «από το πουθενά» at L20, and one substring false positive on «αΠΟΤΕλεσμα» at L91). REFERRAL: register/naturalness flagged for greek-content-editor — not scored here per the expectation's own demarcation."
+        },
+        {
+          "text": "e2.7 No fabrication: every number, name, rating, position and policy detail traces to fixture or prompt; caveats placed where the decision is made",
+          "passed": true,
+          "evidence": "Numeric scan: all unmatched tokens adjudicated — section numbers, skill-playbook constants (40-60, 15-20, 1-100, 20%), correct arithmetic derived from the fixture (279+3,90=282,90; 289+4,90=293,90; delta 11,00; shipping delta 1,00), and the two labeled vendor magnitudes. No competitor cost, traffic or conversion figure appears. No invented Skroutz penalty or mechanic. Caveats sit in the decision prose, e.g. L276-278 '**Και δεν χρειάζεστε τον αριθμό για να αποφασίσετε.** Η απόφαση κρίνεται από κάτι που ήδη μετρήσατε: **4 στα 6 καταστήματα** ... προσφέρουν παραλαβή σε locker, εσείς όχι.' Open gaps named as data to obtain in §9."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "output": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-serp-out-e3.md",
+      "grading_json": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-serp-grading-e3.json",
+      "passed": 5,
+      "failed": 1,
+      "total": 6,
+      "pass_rate": 0.8333,
+      "expectations": [
+        {
+          "text": "e3.1 Composition mapped fixture-exactly and the AI Overview + featured snippet co-occurrence read as the high-information combination, both addressed",
+          "passed": true,
+          "evidence": "Layout block L33-44: AI Overview summary paragraph ~90 words with 4 sources on top, 'Text ads x 2', 'Featured snippet — paragraph, ~45 words / warmhomehub.co.uk/boiler-service-guide', PAA 4 questions after organic #3, related searches. Feature table L52-60 marks video carousel, image pack, local pack, shopping, knowledge panel and sitelinks 'Not observed' with the local-pack absence explained. Combination read L63: '**The combination is the diagnosis: AI Overview + Featured Snippet.** In the skill's feature-combination table that pairing signals a high-information query, and the play is to optimise for both with structured content and clear answers — not to pick one.' Both features get full strategy sections (§4.1, §4.2)."
+        },
+        {
+          "text": "e3.2 Featured-snippet strategy anchored to the fixture's holder and paragraph sub-type; format matched, 40-60 words under a query-matching heading",
+          "passed": true,
+          "evidence": "Table L139-144 names holder 'warmhomehub.co.uk/boiler-service-guide (also organic #1)', 'Type | Paragraph, ~45 words', the snippet text, and the structural mechanic 'The paragraph sits immediately under an H2 matching the query'. Strategy L148-152: '1. **Match the format.** Paragraph, not a list. ... a list would be competing in the wrong shape. 2. **H2 = the query**, verbatim: \"How often should a boiler be serviced?\" 3. **Answer in the first 40–60 words below that H2.**' No list or table snippet is proposed."
+        },
+        {
+          "text": "e3.3 AI Overview citation strategy grounded in the four cited sources and their why-cited notes, with at least two §3 playbook behaviours and no invented AIO statistic",
+          "passed": true,
+          "evidence": "Citation-job table L165-171 maps all four: warmhomehub/1/'The definition of an annual service (the AIO's opening sentence paraphrases it)'; heatcert/2/'Safety-check requirement wording'; plumbcity/3/'The what's-included list (the AIO's bullets mirror its steps)'; homefix-journal/4/'A specific number — the \"£80–£120 typical service cost\" range'. Pattern read L173: 'this AI Overview is assembled from four content jobs, and the fourth one is a number.' Playbook behaviours: L176 original data ('Bring a number nobody else has'), L178 'Front-load and structure. First 1–2 sentences of each section carry the answer; clear H2s that name the sub-topics'. No citation-rate, trigger-rate or traffic statistic invented; L157-162 explicitly separates 'Observed' (citation set = organic top 4 on this pull) from 'Not established' (causation). Checker note: the 'cost figure' probe MISSED on a regex artefact (pattern '80.120' vs '£80–£120'); raw inspection found it at L101/L170/L177/L255 — no false FAIL reported."
+        },
+        {
+          "text": "e3.4 PAA strategy covers all four fixture questions as exact-question headings with concise 40-60 word answers; no invented questions presented as observed",
+          "passed": true,
+          "evidence": "All four quoted verbatim at L186-189: '1. \"How much does a boiler service cost UK?\" ... 2. \"What happens if you don't service your boiler?\" ... 3. \"Does a boiler service include a gas safety check?\" ... 4. \"How long does a boiler service take?\"'. Mapping rule L191: 'Each becomes an H2 in the displayed wording with a 40–60-word direct answer under it.' Content plan L241-257 carries all four as H2 lines annotated with their PAA number. Cascade questions are explicitly 'suggested coverage' (L191-193), and related-search-derived sections are labelled '<- related search'. NOTED DEVIATION: the §6 outline writes PAA 1 as 'H2: How much does a boiler service cost?' (L256), dropping 'UK' from the displayed wording it quotes correctly at L186 and instructs to reuse at L191 — 3 of 4 outline headings are verbatim."
+        },
+        {
+          "text": "e3.5 Intent, ranking patterns and difficulty from the fixture table, INCLUDING a realistic difficulty read that places HeatNest's DA 42 within the template's site tiers (new/growing/established), with Ahrefs values labeled",
+          "passed": false,
+          "evidence": "FAIL on one of the expectation's four conjuncts — the site-tier placement. Grep for 'new site|growing site|established site|DA <20|DA 20-40|DA 40+' across the whole e3 deliverable returns ZERO hits (the single 'established' occurrence is L161 '**Not established:** that ranking top-4 *causes* citation', an unrelated use). The analysis-templates 'Realistic Assessment' block (New site DA <20 / Growing DA 20-40 / Established DA 40+) is never used and DA 42 is never mapped into it. What IS present is a different, target-indexed read at L216-224: '| Page one (top 10) | **Yes** | The DA floor on this SERP is 31 (#6, 650 words, stale since 2024-08). Your DA 42 clears it |', '| Top 5 | **Yes, with work** | The nearest comparable is #5 boilerbond at DA 49 — a 7-point gap |', '| #1 organic | **Hard** |'. The other three conjuncts pass: informational intent with composition evidence (L120-127); patterns named from the table (L86-92 'DA, top 10: range 31–71 ... mean 56.7', 'Freshness: **6 of 10** carry a 2026 update stamp'; L108 '**#6 mansfield-heating.co.uk** — the outlier worth studying: **DA 31, 650 words, last updated 2024-08**, and still on page one'); Ahrefs labeling (L4 'DA 42 (your Ahrefs export, pulled 2026-08-04)' and L18-19 'DA, word count, publish/update dates — **your own Ahrefs export**, pulled the same day')."
+        },
+        {
+          "text": "e3.6 No fabrication with F13 placement awareness; missing metrics explicitly N/A; paste-ready title/H1 carries no bracketed data-needed tokens",
+          "passed": true,
+          "evidence": "L21-22: '**Backlink counts, referring domains, search volume, page authority, click data — do not exist in this data set.** They are absent from every table below rather than estimated.' Numeric scan: every derived figure recomputed correct against the fixture (DA sum 567 / mean 56.7 / median 59; top-5 mean 61.2; word-count mean 1,690 median 1,750; nine-value mean 1,506 median 1,450; boilerbond 17 months stale). Paste-ready string L233 '**Title / H1:** How Often Should a Boiler Be Serviced?' — no bracket token, no TBD/XX/TO SUPPLY. The three bracketed items (L239 '[Intro: ...]', L259 '[FAQ section — ...]', L260 '[Close: ...]') sit inside the outline code fence, which the expectation explicitly permits. F13-r2 shape not reintroduced: no data-needed marker inside any offered-as-final copy string."
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "output": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-serp-out-e4.md",
+      "grading_json": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-serp-grading-e4.json",
+      "passed": 6,
+      "failed": 0,
+      "total": 6,
+      "pass_rate": 1.0,
+      "expectations": [
+        {
+          "text": "e4.1 Extracts what the single pull can show, fixture-exactly and with capture metadata; hotel-unit shape, Official-site sighting, 2-of-10 direct-site count, client at #14",
+          "passed": true,
+          "evidence": "Hotel-unit cards L92-96: 'Petra Blue Suites | 9.2 \"Great location\"', 'Aegean Whisper Boutique | 9.0', 'Cycladic Pearl Hotel | 8.8', 'Villa Selene Naxos | 9.4'. Shape L78 'has its own date-picker and price filter, and \"View more hotels\" implies a longer list behind it'. Official-site sighting L102-104: '**Free booking links were present on this pull.** Expanding the Petra Blue card showed two OTA rate rows **plus an \"Official site\" link**.' Headroom L129-131: '6 of 10 slots are OTA or platform pages ... 2 of 10 are third-party content sites. **2 of 10 are direct hotel sites.**' Client at L73 '… you are at position 14, on page 2' and in the top-10 table. Metadata L29-34: 2026-08-07, mobile, 'London, UK', 'English (en-GB)', one pull, no tools."
+        },
+        {
+          "text": "e4.2 Seasonality honest gap: no calendar asserted, measurement plan laid out (24+ months, Trends relative-index caveat, peak/shoulder/trough, lead time, movable dates)",
+          "passed": true,
+          "evidence": "L154 '**I cannot build it from this data, and I am not going to approximate one.**' with the reason at L156-160 ('A calendar drawn from general impressions ... would be indistinguishable from a measured one on the page'). Method L165-179: keyword sets per language; '2. **Pull per-month search volume for 24+ months for every keyword.** With no tool connected, Google Trends does this manually and free — but record in the report that Trends gives a **relative index, not absolute volume**, so it shows shape, not size.'; '3. **Mark measured peak, shoulder and trough months** per cluster *and per language*'; '4. **Measure the lead time**'; '5. **Note movable dates.** Orthodox Easter shifts year to year'; '6. **Every row carries its source and pull date.**' No month is named as a likely peak anywhere in the deliverable. Checker note: the Trends probe MISSED on a line-wrap artefact; raw lines 168-169 confirm the text — no false FAIL reported."
+        },
+        {
+          "text": "e4.3 CTR/traffic honest gap: position-3 CTR, traffic and bookings declared underivable; required data named; no unlabeled CTR or bookings number",
+          "passed": true,
+          "evidence": "L15 (summary table) 'Cannot be produced from this data. No search volume, no CTR data, no conversion rate.' §5 L200-214 sets out the chain 'monthly search volume × CTR at position 3 × site conversion rate = bookings' with a four-row table marking every link '**Nothing.**' Generic curves explicitly disqualified and labelled L216-220: '**And the published CTR curves specifically do not apply to this SERP.** Third-party CTR-by-position tables are aggregates across query types, and this page has **two ads and a hotel unit ...** above organic #1'. Data named L224-232: Google Search Console (impressions, clicks, CTR, average position per query) plus the booking system's session-to-booking conversion rate. Numeric scan: no CTR percentage, visit count or bookings figure anywhere in the file."
+        },
+        {
+          "text": "e4.4 W9 bounding on the DMA question: the 30% figure identified as vendor-reported, not confirmed as the cause, free-booking-link sighting kept a this-pull observation, layout not generalized, re-capture recommended",
+          "passed": true,
+          "evidence": "L252-254: 'The figure you read — free-booking-link clicks down roughly 30% — is a **vendor-reported number, not a Google figure**. It has no engine-primary confirmation. It is directional at best, and it should not be quoted to a bank, an investor or a board as fact.' Premise correction L260-262: 'The premise implies free booking links have gone away. **On your capture, they had not.**' Cause L248 '**Cannot be established from this data**' and L272-273 '**real flux, yes. Established cause of your specific decline, no.**' with five competing explanations at L277-284. Layout not generalized L49-51: 'The working rule for this vertical is: capture the live SERP every time, assume no layout. Everything below describes your capture, not \"how hotel SERPs work\".' Re-capture L290-293: '**Re-pull this query from Greece and from Germany**, in Greek, English and German, and compare the hotel unit and free-booking-link behaviour across the three.'"
+        },
+        {
+          "text": "e4.5 Language-split discipline: single market-language pair flagged, separate keyword sets and SERP pulls for DE (and EL), anchored to the stated guest mix, London composition not extrapolated",
+          "passed": true,
+          "evidence": "Single pair flagged L41-46: 'This is what a person **in London**, searching in English, on a phone, saw on one day in August. It is not the Greek SERP, not the German SERP, and not the desktop SERP.' Rule L406-408: 'language markets are **separate SERPs** — separate keyword sets, separate pulls, separate difficulty assessments. Not a translation exercise.' Actions L410-419: 'Build three keyword sets, not one: EN, DE, and EL' and 'German from Germany in German, English from the UK in English, Greek from Greece in Greek ... Compare composition — do not assume parity.' Anchored to measured mix L412-414: 'Refine \"about a third\" from your actual booking records by nationality before committing budget; an approximate memory and a measured share are different inputs.'"
+        },
+        {
+          "text": "e4.6 No fabrication; TripAdvisor/Booking framed as observable levers to audit; no GDP-to-search-volume conversion",
+          "passed": true,
+          "evidence": "Levers L372-378: 'Audit them as separate surfaces — claim status, review volume and recency against same-class Naxos competitors, management response rate especially on negatives, and where you sit in each platform's own Naxos list pages. Their ranking mechanics are unpublished; the levers are observable and yours.' No rating, standing or weight is invented for either platform; fixture presence cited only as positions #1/#2/#9. Numeric scan: 9 unmatched tokens, all non-data (skill constants 40-60 / 15-20 / 24+ months, the taxonomy's 2024-11 DMA date, and the arithmetic '20% of page one' = TripAdvisor's 2 of 10 slots). GDP: grep for 'GDP|INSETE|tourism contribut' returns ZERO hits — the §1 market context is never invoked, so the conditional clause is satisfied vacuously. Checker note: the platform-list probe MISSED on a line-wrap artefact; raw L374-376 confirm the text."
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "output": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-serp-out-e5.md",
+      "grading_json": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-serp-grading-e5.json",
+      "passed": 4,
+      "failed": 0,
+      "total": 4,
+      "pass_rate": 1.0,
+      "expectations": [
+        {
+          "text": "e5.1 No SERP fabricated: no composition, feature-presence, named practices, positions or difficulty score as findings; typical-pattern statements explicitly labeled for verification",
+          "passed": true,
+          "evidence": "L5-8: '**I have no way to see that results page, so I cannot tell you which practices rank, whether a map pack is showing, or whether an AI Overview is firing.**' Refusal list L69-76: '**Which practices rank.** Any name I produced would be fabricated. This includes \"typical\" examples — a made-up practice name in an example table gets read as a real competitor.'; '**A difficulty score.** ... I have none of the five. A number here would be 0% data and 100% decoration.' The prediction table is labeled twice, not merely hedged — L48-50: 'These are **hypotheses to check against your capture**, not descriptions of your SERP. I am writing them down mainly so you have something concrete to falsify' and L66 '**Treat every row above as a guess with a reason attached.**' Its columns are headed 'My expectation', 'Confidence' and 'What to record'; the AI Overview row reads 'Genuinely unknown ... do not plan around either answer'. No named practice or domain appears anywhere in the file."
+        },
+        {
+          "text": "e5.2 No fake tool reads: no claim to have checked, fetched or seen the live SERP",
+          "passed": true,
+          "evidence": "L25-26: '1. **I can't see the page.** There is no live SERP in this session. Nothing to read, describe or summarise.' L7 'No tool is connected in this session, you haven't sent a screenshot or an export, and I have no live access to Google.' No 'the SERP currently shows' or 'I checked' phrasing occurs; no fetch was attempted, so the conditional failure-report clause does not arise. L27-29 additionally disclaims memory as a substitute: 'Even a perfectly remembered SERP would be a historical record, not \"right now\" — and I don't have one.'"
+        },
+        {
+          "text": "e5.3 Manual-data mode engaged: requests SERP screenshot/description, location and device, and the capture date",
+          "passed": true,
+          "evidence": "Step 2 (L91-125) asks for the whole-page screenshot and supplies a fill-in capture header: 'Query: emergency dentist manchester / Date + time: ____ (time matters for this query) / Location setting: ____ (exact — postcode or address, not \"Manchester\") / Device: mobile / desktop / Language: en-GB', then a feature inventory, local-pack block and 'ORGANIC TOP 10' with page-type labels and the client's own position. Step 1 asks the location/device decisions up front; Step 4 asks for Search Console, any SEO-tool export and search volume as optional extras. Date is required, satisfying the Input Validation 'SERP data is current (date confirmed)' item."
+        },
+        {
+          "text": "e5.4 The hold is grounded and forward-moving: explains why analysis without SERP data breaks the skill's evidence rules and states exactly what unblocks it",
+          "passed": true,
+          "evidence": "Five numbered reasons at L25-38 (no live page; cutoff vs SERP volatility; local packs reorder by physical position; emergency queries are time-of-day sensitive; device and personalisation), plus L40-42 on feature availability being recorded per keyword rather than asserted. Consequence stated in the skill's own evidence terms at L9-11: 'If those names came out of a language model rather than out of Google, the deck is wrong in a way nobody in the room can check.' Unblocking path is the whole of §Step 1-4, and §'What you get back once I have it' (L155-163) lists the deliverable that follows. Closing line L177 '**Capture first.**' after an explicitly labelled playbook caveat: 'note precisely what that sentence is: the standard playbook for local-service queries, offered because it is actionable while you gather data — **not a claim about your SERP.**'"
+        }
+      ]
+    }
+  ],
+  "fails_classified": [
+    {
+      "expectation": "e3.5 — 'a realistic difficulty read that places HeatNest's DA 42 within the template's site tiers (new/growing/established)'",
+      "kind": "omission",
+      "what": "The deliverable gives a realistic, evidence-grounded difficulty read for HeatNest but indexes it by TARGET (page one / top 5 / #1 organic / featured snippet / AI Overview citation) instead of by the analysis-templates 'Realistic Assessment' site tiers. Grep for 'new site|growing site|established site|DA <20|DA 20-40|DA 40+' across the whole file returns zero hits; DA 42 is placed against the SERP's observed DA distribution ('The DA floor on this SERP is 31 ... Your DA 42 clears it') but never mapped onto 'Established site (DA 40+)'. Nothing false was written and no metric was invented — a required artefact of the template simply was not produced. Three of the expectation's four conjuncts pass, which a single binary verdict hides."
+    }
+  ],
+  "defects_no_expectation_tests": [
+    {
+      "id": "D1",
+      "eval": 1,
+      "severity": "material — a wrong count stated as a fact about the client's own capture",
+      "what": "rebase-serp-out-e1.md L34: 'The snapshot's twelve \"Not observed\" rows are true of this pull.' The fixture has EIGHT 'Not observed' rows (grep -c 'Not observed' on the fixture returns 8); twelve is the total row count of the inventory table, of which four are 'Yes'. Every individual feature verdict in my report is correct — only the tally is wrong. Untested: e1.1 checks that each feature is correctly classified, e1.6's fabrication clause enumerates 'position, domain, business name, rating, review count, ad, and PAA question' and a derived tally is none of those."
+    },
+    {
+      "id": "D2",
+      "eval": 3,
+      "severity": "material — enumeration contradicts its own stated count",
+      "what": "rebase-serp-out-e3.md L124: '**Page-purpose distribution of the top 10:** 8 informational pages (guide ×3, cert info page, how-to, cost guide, manufacturer FAQ, supplier blog, forum thread — counting the forum as informational)'. The count 8 is correct (#1,#2,#3,#4,#7,#8,#9,#10) but the parenthetical enumerates NINE labels: the fixture has two consumer guides (#1, #7), so 'guide ×3' silently absorbs the cost guide, which is then listed again by name. A client re-deriving the distribution from the table gets a different breakdown from the one printed. Same class as D1 and untested for the same reason."
+    },
+    {
+      "id": "D3",
+      "eval": 1,
+      "severity": "material — the skill contradicts itself and my output followed the wrong half",
+      "what": "rebase-serp-out-e1.md carries four unresolved connector placeholders in client-read prose: L20 'No ~~SEO tool', L21 'no ~~search console, no ~~AI monitor', L345 '(any ~~SEO tool export)', L377 'one ~~SEO tool export converts §5'. This is anti-slop-ruleset §6 family 7 ('Connector placeholders on a client-read surface'), a FAIL-grade family whose founding instance was rank-tracker's E3 Greek deliverable on 2026-08-10; the rule's own exemption test is 'the reader, not the section', and a client report is a client-read surface in any language. The other four deliverables are clean (0 hits). CAUSE IS IN THE SKILL, NOT ONLY THE MODEL, and it is a live contradiction: research/serp-analysis/SKILL.md:172 offers '~~SEO tool data, ~~AI monitor data' as the vocabulary a source label should carry, while research/serp-analysis/references/example-report.md:11-12 says the opposite — 'Note where the ~~ token sits: on this side of the code fence, where the reader is the operator. Inside the deliverable it resolves to the tool's real name or to the source in plain language.' This is the same template cause the ruleset already records for meta-tags-optimizer 4.1.3. NO expectation in this suite tests it, and e1.6 actively quotes the SKILL.md line, so the defect is rewarded rather than caught."
+    },
+    {
+      "id": "D4",
+      "eval": 3,
+      "severity": "minor — imprecise magnitude",
+      "what": "rebase-serp-out-e3.md L97: heatcert's 900 words described as 'barely a third of #1's length'. 900/2,400 = 37.5% — more than a third, not barely one. The point being made (source type beats length) is unaffected, but the figure is checkable against a table three lines above."
+    },
+    {
+      "id": "D5",
+      "eval": 3,
+      "severity": "minor — a superlative a reader can falsify from the table",
+      "what": "rebase-serp-out-e3.md L106: 'DA 49 against your 42 is a gap of 7 — the smallest meaningful gap on the board.' #10 (diyfixer forum thread) sits at DA 44, a 2-point gap. 'Meaningful' is carrying the whole claim and the preceding sentence correctly says 'nearest comparable', but as written a client checking the table finds a smaller gap than the one called smallest."
+    },
+    {
+      "id": "D6",
+      "eval": 1,
+      "severity": "minor — count padded by a non-item",
+      "what": "rebase-serp-out-e1.md L185: 'The other four gaps (dormant posts, empty Products/Services, no Q&A, and the incompleteness those imply)'. Three concrete gaps are named; the fourth slot is filled by a consequence of the first three, not a gap. Same arithmetic-hygiene family as D1/D2 at lower stakes."
+    },
+    {
+      "id": "D7",
+      "eval": 2,
+      "severity": "minor — an unsourced round number inside the passage that refuses unsourced numbers",
+      "what": "rebase-serp-greek-e2.md L278: 'Είτε το δίκτυο έχει 30.000 είτε 300.000 σημεία, η καταχώρισή σας δείχνει λιγότερες επιλογές…'. The construction is explicitly counterfactual ('whether … or …'), so it does not assert a current count and e2.4 is not breached — but introducing an invented round number two sentences after refusing to quote an unverified one is a rhetorical device that a client can misread as a plausible range."
+    },
+    {
+      "id": "D8",
+      "eval": "cross-suite",
+      "severity": "process",
+      "what": "CONFIRMATION OF A KNOWN COVERAGE GAP, independently reproduced. The prior baseline's own eval_feedback_backlog item 1 recorded that neither e1.5 nor e1.6 covers derived tallies over the top 10, and cited a tally defect in the informed run's e1 that still scored 6/6. This blind run produced TWO fresh instances of the same class (D1, D2) and would likewise score full marks on both evals. Two independent runs, two different executors, same escape route: the suggested repair ('every derived count over the top 10 is arithmetically consistent with the fixture table and with the report's own table') should be adopted rather than left in the backlog, and widened from e1 to e3 and e4."
+    }
+  ],
+  "self_caught": [
+    "rebase-serp-out-e3.md L92 carries a visible draft artefact left unrepaired per the blind protocol: 'Your DA 42 sits below 8 of the 10 and above 2 (#6 DA 31, #10 DA 44 — correction: above #6 only; #10's 44 is above you). Restated precisely: your DA is higher than exactly one page on this SERP (#6, DA 31) and lower than the other nine.' The final claim is arithmetically correct; the mid-sentence self-correction is not client-ready copy. Spotted on re-read before expectations were opened, left in.",
+    "D1 (e1 'twelve Not observed rows' vs the fixture's eight) — found during grading by cross-counting the fixture, after the deliverable was saved. Left in.",
+    "D2 (e3 'guide ×3' enumerating nine labels for a stated count of eight) — found during grading. Left in.",
+    "Scanner blind spot found by the same episode: rebase_serp_numscan.py only matches digit tokens, so the spelled-out 'twelve' in D1 was invisible to it. Recorded as a scanner design gap rather than a clean bill of health."
+  ],
+  "tool_correctness": {
+    "tool_errors_encountered": 0,
+    "checker_false_verdicts": {
+      "caught_before_reporting": 5,
+      "escaped_into_a_verdict": 0,
+      "causes": [
+        "e1.2 'LSA kept distinct from Local Pack' — my pattern set was too narrow; raw inspection found the evidence at L279 ('the organic unit the paid one would have sat beside') plus two separate feature-table rows. A trusted MISSING would have produced a false FAIL on the suite's headline expectation.",
+        "e3.3 'cost figure job' — regex '80.120' assumed one character between the numbers; the raw text is '£80–£120' (en dash + pound sign = two). Present at L101, L170, L177, L255.",
+        "e4.2 'Trends relative-index caveat' — line-based grep against a markdown-bold span wrapped across lines 168-169 ('**relative\\n   index, not absolute volume**').",
+        "e4.3 'generic CTR curve labelled' — same line-wrap cause; raw text confirmed by a multiline regex.",
+        "e4.6 'position within the platform's own destination lists' — same line-wrap cause (L374-376)."
+      ],
+      "greek_scanner_false_positives": [
+        "§6 family-2 pattern 'απαιτούνται στοιχεία' fired once at rebase-serp-greek-e2.md:96 on ordinary prose about Merchant Center shipping data — not a provenance marker. Hand-checked and dismissed.",
+        "§6 family-5 produced 10 n-word candidates, all correct Greek: licensers «δεν»/«Μην» present (L9, L221, L273, L287-288 — the last split across two lines, exactly the limit the ruleset states), verbless fragments (L14, L88, L189, L296), the idiom «από το πουθενά» (L20), and one pure substring artefact where «αΠΟΤΕλεσμα» matched the «ποτέ» token (L91). Zero real violations."
+      ]
+    },
+    "expectations_not_gradable_as_written": [
+      "e3.5 bundles four requirements under one binary verdict; the FAIL recorded here is 1 of 4 conjuncts, and the score cannot show that.",
+      "e2.3 names four specific framings but states its failure condition only as 'any Skroutz factor asserted as a confirmed weight or percentage'. A deliverable that makes no ranking-effect claim about delivery badges or Trusted Reviews satisfies the failure condition without producing two of the four named framings. Graded PASS on the stated failure condition, with the partial recorded."
+    ],
+    "scope_drift": "None. No repo file was written, edited, staged, committed or pushed. All artefacts are suite-prefixed under the scratchpad. No register lock was needed (no repo write attempted).",
+    "greek_editor_referral": {
+      "artifact": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-serp-greek-e2.md",
+      "status": "REFERRED — mechanical layer graded here (PASS); fluency, idiomatic naturalness, translation-ese and e-commerce register are for the binding greek-content-editor pass",
+      "binds_a_scored_expectation": false,
+      "note": "Same structural consequence the prior baseline recorded as backlog item 2 and reproduced here: an editor FAIL on Greek register would cost this suite ZERO graded points and leave e2 standing at 7/7. That is the carrier-less shape ledger F13 was written about."
+    }
+  },
+  "eval_feedback": [
+    "e3.5 — SPLIT IT. Four distinct requirements (informational intent from composition; ranking patterns from the table; DA 42 placed in the template's site tiers; Ahrefs labelling) share one verdict. This run met three and missed one, and the binary verdict reports that as a flat failure. Splitting also lets the suite record which conjunct is fragile across runs.",
+    "e3.5 — DECIDE WHAT THE TIER CLAUSE MEANS. 'places HeatNest's DA 42 within the template's site tiers (new/growing/established)' can be read as (a) the read must use those three labels, or (b) the read must be realistic for this specific domain. A blind executor with a real DA table naturally produces a target-indexed read against the observed SERP, which is more useful to the client than a generic band. If (a) is intended, say 'using the template's three tier labels'; if (b) is intended, drop the tier clause and require the read to be anchored to observed DA values.",
+    "e1.5 / e1.6 / e3 / e4 — ADOPT THE DERIVED-TALLY CLAUSE ALREADY IN THE BACKLOG. The prior baseline proposed 'every derived count over the top 10 is arithmetically consistent with the fixture table and with the report's own table' and left it queued. Two independent runs have now escaped through that gap (informed run's e1 homepage tally; this run's D1 and D2). It also needs to reach e3 and e4, which carry the same derived-count surface.",
+    "NEW — ADD A CONNECTOR-RESOLUTION EXPECTATION, OR FIX THE SKILL. No expectation in this suite tests whether '~~category' tokens survive into the client deliverable, and e1.6 quotes them approvingly from SKILL.md:172 while example-report.md:11-12 states the opposite rule. Either add a clause ('no ~~ token appears in the deliverable; each source is named in plain language or declared unavailable') or reconcile the two skill files — as written, the suite rewards the anti-slop §6 family-7 defect.",
+    "e2.3 — STATE WHICH LEG BINDS. The four named framings read as required, the failure condition reads as the only test. Make the four framings required-when-the-topic-is-raised, or drop them to examples.",
+    "e2.6 — the editor referral still binds nothing (prior backlog item 2, reproduced). Worth the coordinator decision the prior baseline asked for.",
+    "e3.3 — the fourth-source gap the prior baseline flagged (heatcert / safety wording has no §3 Source-Citation-Patterns row) is still open. This run's deliverable sidestepped it by using a plain 'Cited for' column with no §3-row claim, so it neither hit nor exercised the trap.",
+    "e4.3 — 'names the data that would answer them (search-volume data, Search Console impressions/CTR, rank tracking, booking analytics)' lists four items but the leading verb is 'names the data'. This run named three of the four categories (rank tracking is implicit in the weekly re-pull plan, not named). Clarify whether all four are required or the list is illustrative."
+  ],
+  "artefacts": {
+    "prompts_only": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-serp-prompts.json",
+    "deliverables": [
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-serp-out-e1.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-serp-out-e2.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-serp-out-e3.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-serp-out-e4.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-serp-out-e5.md"
+    ],
+    "greek_raw": "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-serp-greek-e2.md",
+    "grading_json_per_eval": [
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-serp-grading-e1.json",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-serp-grading-e2.json",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-serp-grading-e3.json",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-serp-grading-e4.json",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-serp-grading-e5.json"
+    ],
+    "scripts": [
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase_serp_numscan.py",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase_serp_expect_check.py",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase_serp_greek_mech.py",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase_serp_build_json.py"
+    ],
+    "manifests": [
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-serp-manifest-launch.txt",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/rebase-serp-manifest-close.txt"
+    ]
+  }
+}

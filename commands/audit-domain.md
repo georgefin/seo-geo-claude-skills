@@ -55,6 +55,9 @@ A comprehensive **CITE 40-item domain authority** audit with veto checks and act
 ## Output Format
 
 ```
+# SKELETON -- scaffold, not output. Every [bracket] and XX is a slot filled from this
+# audit's own figures; an item that could not be scored is named as unscored, never
+# shipped as XX.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 CITE DOMAIN AUTHORITY AUDIT: [Domain]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

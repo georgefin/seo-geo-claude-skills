@@ -24,6 +24,15 @@ except Exception:
 [ -n "$cmd" ] || exit 0
 printf '%s' "$cmd" | grep -qE '(^|[;&|[:space:]])git[[:space:]]+([^;&|]*[[:space:]])?push([[:space:]]|$)' || exit 0
 
+# `git stash push` is a LOCAL operation that happens to contain the word `push`. The broad
+# pattern above is deliberate — it must catch `git -c k=v push`, `git --no-pager push` and
+# friends — but it blocked `git stash push -- <paths>` mid-session, and the block is
+# whole-Bash-call, so the surrounding work does not run either. Found in use 2026-08-17, not
+# by a probe. Same family as `git stash pop`/`git subtree push`? No: `subtree push` DOES
+# reach a remote and must stay caught, which is why this exclusion names one subcommand
+# rather than filtering on the word.
+printf '%s' "$cmd" | grep -qE '(^|[;&|[:space:]])git[[:space:]]+stash[[:space:]]+push([[:space:]]|$)' && exit 0
+
 root="${CLAUDE_PROJECT_DIR:-.}"
 gate="$root/scripts/pre-push-gate.sh"
 [ -f "$gate" ] || exit 0

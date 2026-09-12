@@ -6,7 +6,17 @@ Complete checklist of entity signals organized by priority and verification meth
 
 ## Priority 1: Foundation Signals (Must-Have)
 
-These signals form the minimum viable entity identity. Without them, search engines and AI systems cannot reliably identify the entity.
+These signals form the minimum viable entity identity: with all of them in place, every public
+record naming the brand says the same thing about it, and each one can be checked by opening it.
+Where they are absent, that record is incomplete or self-contradictory — which is the finding, and
+it is a finding you can show the client.
+
+**What is not the finding: anything about what an engine would then do.** *"Without these, search
+engines and AI systems cannot reliably identify the entity"* stood here as fact and is withdrawn —
+it is the same unsourced claim as *"with these, engines will identify the entity"*, and ruling R3
+amendment 9a bars it **in either direction**, a negative existence or capability claim about an
+engine being no more sourceable than a positive one. Priority 3 below settles the question the
+only honest way there is: ask the engines and record what comes back, with the date.
 
 ### On-Site Structured Data
 
@@ -34,7 +44,7 @@ These signals form the minimum viable entity identity. Without them, search engi
 |---|--------|-------------------|---------------|
 | 11 | Branded search returns correct entity | Google "[entity name]" | Entity's website is #1; Knowledge Panel appears or SERP clearly identifies entity |
 | 12 | No disambiguation confusion | Google "[entity name]" | No other prominent entity dominates results for the same name |
-| 13 | Branded search volume exists | Check ~~SEO tool | Measurable branded search volume (any amount > 0) |
+| 13 | Branded search volume exists | Keyword-volume check (name the tool used) | Measurable branded search volume (any amount > 0) |
 
 ## Priority 2: Authority Signals (Should-Have)
 
@@ -58,7 +68,32 @@ These signals establish the entity as recognized and authoritative. They separat
 | 20 | Industry awards or recognitions | Search "[entity] award" | At least 1 verifiable award or recognition |
 | 21 | Co-citation with established entities | Search for entity alongside competitors | Appears in "X vs Y" comparisons, listicles, or industry roundups |
 | 22 | Speaking engagements or publications | Search event/conference sites | Appears as speaker, author, or contributor |
-| 23 | Reviews on third-party platforms | Check G2, Trustpilot, Yelp, etc. | Reviews exist with reasonable volume and rating |
+| 23 | Reviews on third-party platforms | Check G2, Trustpilot, Yelp, etc. | Reviews exist with reasonable volume and rating, collected without reward and without gating — see the integrity note below |
+
+**Review integrity — how signal 23 is passed, and how it is never passed.** The library-wide
+statement is [prohibited-tactics.md](../../../references/prohibited-tactics.md) entry 3. Written,
+bought or incentivised reviews and review gating are out of scope for every recommendation this
+skill makes, whatever the volume gap looks like. Two exposures, and the order matters: in many
+jurisdictions this is **illegal as an unfair commercial practice independent of any platform
+policy**, and platform enforcement is the second one — retroactive removal, which pulls the reviews
+out of the entity signal long after they were counted into it.
+
+| Legitimate | The test | Prohibited |
+|---|---|---|
+| Asking every customer, every time, through the same channel | Nobody is pre-selected by how happy they are | Asking only the customers a survey scored highly (gating, whatever it is called) |
+| A review request in the standard post-purchase flow | The request is the same for everyone | A discount, prize draw, free month, or loyalty points attached to leaving one |
+| Replying to negative reviews in public, and fixing what they name | The record stays complete | Suppressing, burying, or routing negatives to a private inbox instead of the platform |
+| A staff-wide push to remember to ask | No target attaches to an individual | Per-staff review quotas, or scripting customers to name a staff member (Google policy, SKILL.md Step 2) |
+| Reporting review volume as a count with its window and platform | It is a measurement | Reporting a rating whose collection method the audit did not check |
+
+Where the audit finds any of these already running, it is handled the way
+[prohibited-tactics.md](../../../references/prohibited-tactics.md) §2 sets out — named, exposure
+stated, remediation with an owner-role and an acceptance criterion, ranked against the rest of the
+report.
+A criterion that works here is observable: "from the changeover date recorded in the plan, the
+review request goes to every completed order through one template, with no pre-survey and no
+incentive — verified in the sending tool's audit log". Signal 23 is then scored on what the honest
+flow produces, and a volume gap it exposes is reported as a gap.
 
 ### Content Authority
 
@@ -71,7 +106,9 @@ These signals establish the entity as recognized and authoritative. They separat
 
 ## Priority 3: AI-Specific Signals (Must-Have for GEO)
 
-These signals specifically help AI systems recognize, understand, and cite the entity.
+These are the signals this library puts in place first when GEO is the goal, and the items
+below **test** the result by asking the engines directly rather than predicting it. What any
+engine does internally is not published and is not claimed here (ruling R3 amendment 9a).
 
 ### AI Recognition
 
@@ -118,13 +155,54 @@ These signals provide marginal gains but demonstrate thoroughness and maturity.
 
 | # | Signal | Verification Method | Pass Criteria |
 |---|--------|-------------------|---------------|
-| 45 | Entity homepage has strong backlink profile | Check ~~link database | Homepage DR/DA above industry median |
+| 45 | Entity homepage has strong backlink profile | Backlink-profile check (name the tool used) | Homepage DR/DA above industry median |
 | 46 | Branded anchor text in backlinks | Analyze anchor text distribution | Entity name appears naturally in inbound link anchor text |
 | 47 | Entity subdomain consistency | Check all subdomains | Same entity schema and branding across all subdomains |
 
 ## How to Use This Checklist
 
 Work through signals by priority tier. For each signal, mark status as ✅ (present and correct), ⚠️ (present but incomplete), or ❌ (absent). Focus on completing each priority tier before moving to the next.
+
+## From 47 signals to the report's 7 category statuses
+
+The tiers above are the working order — what to fix first. The report summarises the same signals
+in the seven categories of SKILL.md Step 2, which is a different cut of one list. Each signal
+belongs to exactly one category:
+
+| Report category | Signals | Count |
+|-----------------|---------|-------|
+| 1. Structured Data | 1, 2, 3, 47 | 4 |
+| 2. Knowledge Base | 6, 8, 9, 10, 14, 15, 16, 17, 18, 38, 39, 40, 41 | 13 |
+| 3. Consistency (NAP+E) | 5, 35, 42, 43 | 4 |
+| 4. Content-Based | 4, 11, 24, 25, 26, 27, 45, 46 | 8 |
+| 5. Third-Party | 13, 19, 20, 21, 22, 23, 44 | 7 |
+| 6. AI-Specific | 12, 28, 29, 30, 31, 32, 33, 34, 36, 37 | 10 |
+| 7. Google Business Profile | signal 7, plus the six GBP checks named in SKILL.md Step 2 (completeness, category accuracy, Posts/Q&A/Products activity, photo freshness, review velocity, review response rate) | 7 |
+
+4 + 13 + 4 + 8 + 7 + 10 + 7 = 53 rows: the 47 numbered signals plus the six GBP checks that live
+in SKILL.md rather than in this list.
+
+### Deriving each category's status
+
+**✅ 1 · ⚠️ 0.5 · ❌ 0**, then `points ÷ signals scored`, printed as a percentage to one decimal,
+half up.
+
+| Status | Share of the category's scored signals |
+|--------|----------------------------------------|
+| ✅ Strong | 80% or more |
+| ⚠️ Gaps | 40% up to 80% |
+| ❌ Missing | below 40% — nothing there, or so little the category does not function |
+
+A boundary value takes the higher status: exactly 80.0% is Strong, exactly 40.0% is Gaps. A signal
+that cannot apply to this entity (ISNI for an organisation, a Google Business Profile for a
+company with no public premises) or that nothing in the inputs can settle is **excluded from both
+sides and named** — never scored ❌, which claims you looked and it was absent. Where **no** signal
+in a category could be scored, the row reads `Not applicable` or `Not assessed` with the reason,
+never a status.
+
+Print the working in the report, beside the status: `⚠️ Gaps — 3.0 of 6 scored signals = 50.0%;
+signals 45, 46 excluded (no backlink data)`. Two audits of the same inputs then land on the same
+seven words, and the client can see which signal moves which status.
 
 ### Priority Action Matrix
 

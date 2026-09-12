@@ -1,0 +1,13 @@
+# CASE: gate-outside-tenure
+# ROLE: negative
+# JOURNAL: journal-live-two-holders.tsv
+# COMMIT-AT: -900
+# FILE: docs/loop/KPI.md
+# EXPECT-EXIT: 0
+# EXPECT-MATCH: none landed inside another holder's tenure undeclared
+# EXPECT-ABSENT: FAIL
+# WHY: the commit predates the acquire by five minutes. A check that fires on a
+#      locked PATH regardless of TIME would be a permanent block on every register
+#      file anyone ever locked, and this is the control that would catch it.
+# ---8<--- commit message
+docs(loop): weekly numbers

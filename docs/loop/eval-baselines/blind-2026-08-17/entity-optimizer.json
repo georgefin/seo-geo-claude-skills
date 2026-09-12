@@ -1,0 +1,778 @@
+{
+  "suite": "entity-optimizer",
+  "skill": "entity-optimizer",
+  "suite_path": "cross-cutting/entity-optimizer/evals/evals.json",
+  "skill_version_under_test": "entity-optimizer 4.3.0 (frontmatter `version` and `metadata.version` both \"4.3.0\", read at cross-cutting/entity-optimizer/SKILL.md:3 and :10)",
+  "run_label": "blind-2026-08-17",
+  "run_date": "2026-08-17",
+  "method": "blind executor / informed grader, split roles",
+  "method_detail": {
+    "executor": "blind, separate agent; deliverables e1.md..e5.md under /tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-2026-08-17/entity-optimizer/",
+    "grader": "informed, this agent. Produced no entity-optimizer deliverable at any point, did not re-run the skill to 'check' anything, and did not read the executor's transcript.",
+    "blindness_enforcement": "The grader read the expectations through `bash scripts/eval-prompt.sh cross-cutting/entity-optimizer <id> --grade`, a visibly different invocation from the executor's prompt-only call. No claim in this record rests on the executor asserting it did not look.",
+    "grader_call_used": "bash scripts/eval-prompt.sh cross-cutting/entity-optimizer {1,2,3,4,5} --grade",
+    "note_on_eval_ids": "The suite's ids are bare integers 1-5. `eval-prompt.sh cross-cutting/entity-optimizer e1 --grade` exits 2. Expectation ids below follow the suite's printed form eN.M.",
+    "editor_referral": "e4.4 referred to the binding greek-content-editor. No editor report on this run's e4.md exists — searched the workspace tree and docs/loop/greek-editor-records/ (one file, 2026-08-10-blindwave.md, zero occurrences of 'entity'). Recorded EDITOR-PENDING per the expectation's own instruction. The mechanical layer was screened by this grader and is clean; see the e4.4 evidence field."
+  },
+  "repo_head_at_open": "fba166c9df9fdc5819605eb7ea08a7235f99a985",
+  "repo_head_at_close": "c474e7fb1ee2f5267a0cb76968af7bc0c2925c28",
+  "input_drift_during_the_grading": {
+    "checked": "`git rev-parse HEAD` + `git status --porcelain` at open and close; `git diff --name-only fba166c 8a84e85` filtered for every graded input; `git diff docs/loop/SETTLED-RULINGS.md` (uncommitted); per-file `git log -1` on the skill, its references, its evals and its fixtures; deliverable mtimes.",
+    "result": "HEAD MOVED TWICE during the grading — fba166c (open) -> 8a84e85 -> c474e7f (close) — and one judging input (docs/loop/SETTLED-RULINGS.md) carried an uncommitted working-tree edit mid-run that was then committed at c474e7f. NEITHER MOVEMENT TOUCHED ANY GRADED SKILL INPUT. `git diff --name-only fba166c c474e7f -- cross-cutting/entity-optimizer/ references/action-output-contract.md references/prohibited-tactics.md build/seo-content-writer/references/anti-slop-ruleset.md` returns EMPTY at close; the only graded input in the whole range is SETTLED-RULINGS.md, handled below. The rest of the range changed CLAUDE.md (1 line), scripts/eval-prompt.sh, scripts/expectation-carrier-check.sh, scripts/fence-nesting-check.sh and sibling baseline records.",
+    "effect_on_verdicts": "None. No verdict below rests on text that moved under it. M1 governs how work reaches the tree and has no bearing on any expectation in this suite.",
+    "subject_stability": "cross-cutting/entity-optimizer/SKILL.md and its references last changed at 8555ffe (2026-08-17), before the first deliverable was written (e1.md mtime 11:29), and are unchanged through close. The five fixtures under evals/files/ have not changed since 2026-08-10 03:51.",
+    "deliverable_integrity": "All five deliverable mtimes (11:29 / 11:34 / 11:40 / 11:50 / 11:53) precede this grading window and are unchanged.",
+    "settled_rulings_edit": "Diffed twice — as an uncommitted working-tree change mid-run, and again as committed at c474e7f. Same edit both times, and it is register maintenance only, as its own head note says: '2026-08-17, register maintenance only — no ruling was reviewed, re-affirmed or changed.' It re-derives and anchor-tags `Encoded in repo` pointers for R3/R4/R5, refers R3's schema-markup-generator pointer to a human, and adds a new working-method ruling M1 (PR #9 is not to be merged) in its own section. VERIFIED AT CLOSE: the only `- **Statement**:` and `- **Reopens on**:` lines added anywhere in the range belong to M1. The statement lines of R1 (:26), R2 (:50), R3 (:92) with amendment 9a (:130) and R5 (:183) — the four this record judges against — are byte-unchanged at c474e7f."
+  },
+  "expectations": [
+    {
+      "id": "e1.1",
+      "text": "Identity-consistency finding built from the inventory's own rows with each count rule and its exact population stated: 9 name strings / 12 surfaces (folding rule), 5 of 7 address-carrying surfaces on «Ακτή Μιαούλη 47» against 2 on 45, 4 of 7 phone-carrying surfaces on the live 250 against 3 on the dead 251 with the March-2023 note, founding-year conflict surface by surface.",
+      "verdict": "FAIL",
+      "passed": false,
+      "evidence": "THE ADDRESS POPULATION IS ABSENT. Name count PASSES at e1.md:22 — '**9 different character-for-character forms across the 12 surfaces** in Άννα's inventory (8 if you fold letter case)' — folding rule stated. Phone population PASSES at e1.md:115 — 'Of the 7 surfaces in the inventory that publish a phone number, **3 publish the dead one and 4 publish the live one**' — with the three surfaces named at :27 ('your English page, in your company-page structured data and on your vrisko.gr listing ... stopped reaching you in **March 2023**'). Founding-year conflict PASSES across :26 (EN 2018 / EL, LinkedIn, ΓΕΜΗ 2019, 'ΓΕΜΗ: 14/03/2019') and :99 (company-page JSON-LD `foundingDate: 2018`). The address denominator is nowhere: grep -nE '5 of the 7|five of the seven|of the 7 surfaces|address-carrying' over e1.md returns NO MATCH for any address form. e1.md:99 names the two '45' surfaces correctly and e1.md:85 collapses the whole address finding to 'two street numbers'. The expectation's main clause — 'of the seven surfaces that carry a street address, five show «Ακτή Μιαούλη 47» and two show number 45' — is not delivered. The NAMED fail condition (collapsing the three populations into one undifferentiated inconsistency count) is NOT triggered: name, address and phone are reported as separate findings.",
+      "baseline_verdict": "FAIL",
+      "movement": "none — same verdict, narrower defect. The baseline failed on BOTH denominators; the phone half is now delivered."
+    },
+    {
+      "id": "e1.2",
+      "text": "sameAs audit triages the five published entries 2 valid / 1 wrong entity / 2 nonexistent, removes the three bad ones rather than 'correcting' them, and draws additions only from profiles the inventory verifies exist.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "e1.md:156-163 is a line-by-line decision table over exactly the five published entries: LinkedIn 'Keep', twitter.com/pharosmarine 'Remove — The handle was never registered', crunchbase 'Remove — No profile has ever existed at that URL', el.wikipedia Φάρος_της_Αλεξάνδρειας 'Remove today — This is not a broken link. It is your markup asserting that your company and a different, far more famous entity are the same thing', Facebook 'Keep'. Split stated at :96 — '**3 of your 5 published identity links confirm nothing, and one of them confirms the wrong thing.**' YouTube added at :163 as 'A live profile you own that links back to the site'. The paste-ready array at :167-173 contains exactly the three live URLs and nothing else. Roadmap additions are all conditional on existence: :178 Wikidata 'once created', :179 Green Corridors 'The inventory does not record the URL — send it and it goes in', :180 'A **Crunchbase** URL, once a real profile exists. Not before.' Founder Person entity handled at :338 — the LinkedIn profile is deliberately NOT put in markup because the team block does not link it. Named fail condition (writing a Crunchbase/X/Wikidata/Wikipedia URL into sameAs as though it existed) NOT triggered.",
+      "baseline_verdict": "PASS",
+      "movement": "none"
+    },
+    {
+      "id": "e1.3",
+      "text": "The 'FAQPage + Product + LocalBusiness + Article on every page' line is refused as citation-lever stacking per R2; one accurate primary type per page kept; documented auxiliary types treated as legitimate; effort directed at the fixture's real gaps.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "e1.md:125 '**Ruling: no. Do not implement this, and do not let it back into the templates.**' Two independent grounds given. Ground 1, :129: 'No search or AI provider publishes how it selects the sources it cites, or what part structured data plays in that selection. \"More types means more citations\" is a claim about the inside of a system nobody outside it has documented.' Ground 2, :131, is R2's other half: 'each one states something the page does not contain ... markup that disagrees with its own page is invalid rather than additive.' Per-page table at :135-142 keeps one accurate primary type (Organization on the company page and homepage; SoftwareApplication only where the page genuinely is that; Article only after named human authors exist; FAQPage only where visible Q&A is the page's main thing — 'No page of yours meets this today') and admits BreadcrumbList as a site-structure auxiliary at :142. Principle restated at :144: 'one accurate primary type per page, plus documented auxiliary types that have their own job. Not a stack.' Real gaps addressed: single `@id` (:255-333), the second Organization block reconciled (:98-104), Person markup for founders the site carries nowhere (:44, :299-302). Named fail condition (recommending types to raise citation odds) NOT triggered. No rich-result-eligibility claim in either direction appears.",
+      "baseline_verdict": "PASS",
+      "movement": "none",
+      "grading_note": "The expectation's literal words ask the response to 'state that piling schema types adds no citation signal'. The deliverable instead states that the claimed mechanism is undocumented and refuses to build on it. That is the R3-9a-safe restatement of R2's operative content and is graded as satisfying it; see ambiguous_expectations_eval_improvement."
+    },
+    {
+      "id": "e1.4",
+      "text": "The llms.txt line is refused per R1: llms.txt is not an AI-citation lever because no engine is confirmed to honour it, and publishing one is not recommended.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "e1.md:148 '**Ruling: no. Do not spend template time on this and do not count it as an entity signal.**' :150 'No search or AI provider has published that it reads a file of that name, and there is no confirmed adoption of it by any engine.' — R1's own formulation ('no engine is confirmed honoring it'). Not waved through: :150 continues 'Adding it would put a permanent file in your root that nobody can check the effect of, and its presence would sit in your templates as a thing somebody in future assumes is working.' No 'cheap, might help' framing anywhere.",
+      "baseline_verdict": "PASS",
+      "movement": "none"
+    },
+    {
+      "id": "e1.5",
+      "text": "Signals these three files cannot evaluate named as not evaluated with the input that would supply each; the knowledge-base findings the fixture DOES establish reported as verified absences with the check dated; the Google Business Profile audited as its own signal category from the inventory's detail.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Gap table at e1.md:422-433 names ten unchecked items each with what would settle it, including 'Branded search volume, impressions and clicks | A Search Console export, or a keyword tool. You have never exported Search Console' and 'Your backlink profile and how your name is used in inbound anchor text | Any backlink tool'. Per-category exclusions are itemised in every row of the summary table (:83-89) and totalled at :420 ('Twenty-seven of the fifty-three signals were excluded rather than scored'). Verified absences dated: :41 'Searched by Στέλιος on 6 August for `Pharos Marine Data`, `Faros Marine`, «Φάρος Ναυτιλιακή Πληροφορική» and the ΓΕΜΗ number. Nothing for this company'; :42 'No article, and no mention of the company inside any existing article.' GBP audited as its own category at :89 with every fixture element — 'Claimed and verified (Pass)', 'no secondary category', 'Primary category \"Software company\"', 'No Posts, no Q&A, empty Products/Services (Fail)', '3 photos, all from 2019 (Fail)', '0 of 6 reviews answered (Fail)' — and the review figures at :40 ('6 reviews, 4.7 average, most recent 18 March 2026, 0 of 6 answered by you'). No numeric CORE-EEAT or CITE score appears anywhere in the deliverable.",
+      "baseline_verdict": "PASS",
+      "movement": "none"
+    },
+    {
+      "id": "e1.6",
+      "text": "No fabrication (F3 guard): every name string, address, phone, URL, date, review figure and page count traces to the three fixtures or is arithmetic derived solely from those fixture numbers with the derivation visible; no invented KG entity ID, QID, search volume, DA value, competitor metric or numeric entity health score.",
+      "verdict": "FAIL",
+      "passed": false,
+      "evidence": "AN UNTRACEABLE COUNT INSIDE A VISIBLE DERIVATION. e1.md:109, read at source before reporting (F7), lists the nine distinct name strings — '«Φάρος», «ΦΑΡΟΣ ΝΑΥΤΙΛΙΑΚΗ ΠΛΗΡΟΦΟΡΙΚΗ ΙΚΕ», \"Pharos Marine Data P.C.\", \"Pharos\", «Φάρος Ναυτιλιακή Πληροφορική ΙΚΕ», \"Pharos Marine Data\", \"Pharos Marine\", «Φάρος Μαρίν Ντέιτα», \"Pharos Marine Data PC\" — 9 distinct strings, 8 if you fold letter case' — and then closes the SAME sentence with 'the Greek-character transliteration on xo.gr («Φάρος Μαρίν Ντέιτα») is **a tenth form** that resembles nothing else you publish'. «Φάρος Μαρίν Ντέιτα» is string number 8 of the 9 the same paragraph enumerates (inventory row 11). There is no tenth form: the fixture's twelve surfaces carry nine distinct strings and the register adds two more that appear on no surface, which the same sentence states. The ordinal traces to nothing in the fixtures and contradicts the derivation printed three sentences earlier. This is the class SKILL.md:201 governs — 'A count that contradicts the file it claims to come from is worse than a missing count: it carries the authority of a derivation.' EVERYTHING ELSE CHECKED CLEAN: nine name strings verified against inventory rows 1-12; both address values and the 5/2 split; all three phone renderings; 6 reviews / 4,7 / 0 of 6 / last 2026-03-18 / 3 photos from 2019; ΓΕΜΗ 158234701000 and 14/03/2019; '2 of your 38 pages carry JSON-LD' (:44) against the fixture's 'Total pages on the site: 38 ... Two of them carry the blocks above'; 14 employees; both founders' names and titles; the four Wikidata search forms. No KG entity ID, no QID, no branded search volume, no DA value, no competitor metric and no numeric entity health score appears anywhere.",
+      "baseline_verdict": "FAIL",
+      "movement": "none — same verdict, different span. The baseline's failing span was an external historical date ('3rd-century-BC monument'); no such external-fact leak occurs in this run.",
+      "grading_note": "Alternative reading available to the coordinator: 'a tenth form' is an internal miscount rather than a fabrication, and e1.6's heading is 'No fabrication'. Graded FAIL because the expectation's operative test is traceability of counts, not intent, and this ordinal fails it inside the enumerated list ('every name string ... traces ... with the derivation visible'). Recorded so the call is reversible on the evidence rather than on re-reading the deliverable."
+    },
+    {
+      "id": "e2.1",
+      "text": "Mention count rebuilt with its rule and population at every step: 29 alert rows; minus 3 other-entity = 26 about the company; minus 2 owned/paid = 24 third-party; 7 linked from 7 distinct domains and 17 unlinked from 15 distinct domains; 22 distinct third-party domains in all.",
+      "verdict": "FAIL",
+      "passed": false,
+      "evidence": "TWO REQUIRED FIGURES ABSENT: the intermediate 26 and the 15-distinct-unlinked-domains count. `grep -n '\\b26\\b'` over e2.md's client text returns NO MATCH; the operator block confirms it by giving an additive identity instead — e2.md:233 '7 + 17 + 5 = 29 ✓' and :237 'The 5-row gap is the Table C exclusions'. `grep -n '\\b15\\b'` returns exactly one hit, e2.md:61 'Nine of the 24 use a Greek-script form, **15** a Latin one' — a different 15, not the unlinked-domain count. WHAT IS DELIVERED: e2.md:17-24 is a table over the 29 rows keeping all four classes apart with their rules — 'Third-party pages that mention you **and link** | 7 | Table A', '... **with no link** | 17 | Table B', 'Third-party mentions of your company — the real total | **24** | across **22 distinct sources** (Forum Ναυτιλίας and Shipping Ops Podcast each appear twice)', 'Pages about a **different company or thing** | 3 | Faros Logistics ΑΕ ×2, the ancient Lighthouse of Alexandria ×1', 'Not third-party mentions at all | 2 | your own LinkedIn post; your own press release republished verbatim on a paid wire', 'Total alert rows | **29**'. The 7-linked-from-7-domains aggregate appears at :214 ('the 7 linked sources ... the 7 domains'). NONE of the four named fail conditions is triggered: 29 is not reported as the mention count, the two exclusion classes are separated with distinct reasons rather than collapsed into one 29−5 subtraction, no owned or not-us row enters a third-party figure, and linked and unlinked are never merged.",
+      "baseline_verdict": "FAIL",
+      "movement": "none — same verdict, complementary defect. The baseline had the 26 and the 15 and was missing the 7-distinct and the 22-distinct aggregates; this run has 22 and 7-distinct and is missing the 26 and the 15. Neither run has printed the full chain."
+    },
+    {
+      "id": "e2.2",
+      "text": "The 'no link, does nothing for search' premise answered per R5: unlinked brand mentions affirmed as a real, scored entity/GEO visibility signal; none of the 17 ever counted as a backlink.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "e2.md:36 'Short answer: yes'. :42 '**We do count unlinked mentions as part of a company's entity presence, and we score them.** Not as a link substitute — as a separate signal, counted separately, which is why the tables above keep the two apart.' The outside-record-versus-self-description substance is at :40: 'a page on somebody else's domain that names your company and says what it does — a public record you did not write, that a competitor cannot delete, and that your own website's claims about you can be checked against ... that is the market identifying you.' No backlink miscount: :93 keeps link attributes strictly separate and states 'no link tool has ever been run for this client'. Cancellation is argued against, not for — :129 'If you cancel now, cancel knowing that the alternative to a PR freelancer is not zero'. None of the three named fail forms (worthless / does nothing / cancel because only 7 linked) appears.",
+      "baseline_verdict": "PASS",
+      "movement": "none"
+    },
+    {
+      "id": "e2.3",
+      "text": "If the analysis places the count against CITE I09's bands it states the window and does not pass a two-month sample off as the lifetime figure.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "The conditional is not triggered on the client surface: no I09 band, verdict or threshold appears in e2.md's client text (I09 occurs once in the whole file, at :251, inside the labelled operator block, as 'CITE I09 measures this at domain level; its threshold and ID stay here'). The window is stated wherever the count is: :5 'brand-mention log for 1 June – 31 July 2026 ... no mention history before 1 June 2026 — the alerts were set up on 29 May, so this window is the entire recorded history rather than a lifetime count'; :26 '**24 in two months**'; :118 '**No before.** The alerts were switched on 29 May 2026. There is no baseline period.' Nothing is passed off as a lifetime figure — :30 states the opposite: '**24 is a floor, not a total.**'",
+      "baseline_verdict": "PASS",
+      "movement": "none"
+    },
+    {
+      "id": "e2.4",
+      "text": "Any quotation of a logged mention reproduces the saved snippet verbatim, character for character; a paraphrase, a trimmed clause, a silently corrected fact or a translation inside quotation marks fails.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Byte-exact substring test against the fixture, run in Python under LC_ALL=C.UTF-8, printing the matched span with context. Both fully-quoted logged mentions are exact: e2.md:71 '\"Pharos Marine Data, founded in 2015, sits in the same bracket as the larger noon-report vendors.\"' — in fixture=True, in e2=True; e2.md:87 '«Δοκιμάσαμε τον Φάρο πέρυσι· η ενσωμάτωση με το ERP μας πήρε τρεις μήνες.»' — in fixture=True, in e2=True (middle dot preserved). B1 and B12 are not quoted at all; B12's source is summarised without quotation marks at :21 and B1's at :30, which the expectation explicitly passes. THE ONE OTHER QUOTED FRAGMENT WAS CHECKED RATHER THAN ASSUMED: e2.md:139 asks the editor to correct '\"founded in 2015\"'. That is not a trimmed clause of the B9 snippet — it is a byte-exact quotation of the LOG'S OWN Table B note, which reads `**states we were \"founded in 2015\" — wrong**` (fixture line 42); the string is in the fixture verbatim. Every remaining double-quoted or guillemeted span in e2.md was enumerated by script: they are name strings from the log's own name-form column, the CEO's own words from the prompt ('does nothing for search'), the log's column header ('name form used in the text'), and the report's own coinages — no logged-mention text among them.",
+      "baseline_verdict": "FAIL",
+      "movement": "IMPROVEMENT (FAIL -> PASS). The baseline's failure was a re-cased «Πειραιώτικη» plus two trimmed B1 fragments inside guillemets. This run quotes B1 not at all and re-cases nothing."
+    },
+    {
+      "id": "e2.5",
+      "text": "The unlinked set converted into named, fixture-grounded actions: row-level link reclamation carrying the no-outreach-attempted note; the marinetechdigest 'founded in 2015' error flagged with its publisher named and NO replacement founding date asserted; the seven name forms read as entity resolution; the one negative row carried; the three not-us rows read as a disambiguation signal.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Row-level reclamation at e2.md:187-204 — four named sources (Ελληνική Ναυτιλιακή Λέσχη 6 Jun, Shipping Ops Podcast eps 112/119, Ναυτιλιακά Καθημερινά 9 Jul, Ship Efficiency Blog 12 Jul) 'and why these four rather than all 17', with :206 leaving the remaining 13 recorded and untouched and :204 forbidding a template blast. No-outreach note carried at :121 '**No outreach attempted on any of the 17 unlinked rows.**' Error flagged with publisher at :69-73 and the log's own verdict ('Her log marks the year as wrong'). NO REPLACEMENT DATE ASSERTED, and stated as a rule at :75: '**The correct founding date is not in this file**, so this note does not state one. Take it from your ΓΕΜΗ incorporation record.' Verified by grep over the whole file: the only years present are 2015 (the error), 2025/2026 (windows) — no 2019 and no 14/03 anywhere. Seven name forms as entity resolution at :46-65, explicitly not a PR failure: 'This is the finding that costs you the most, and it costs you on the linked mentions too.' Sentiment carried at :85 'Across the 24: 16 positive, 7 neutral, 1 negative. Ναταλία states plainly that no sentiment tool was used and the column is her own reading' with the negative row quoted and read at :85-89. Three not-us rows as a disambiguation signal at :77-81 — 'it means the string \"Faros\" plus a shipping-adjacent word does not resolve to you' — never pursued as the client's coverage.",
+      "baseline_verdict": "PASS",
+      "movement": "none"
+    },
+    {
+      "id": "e2.6",
+      "text": "No fabrication: every source, URL, date, name form, sentiment label and count traces or is derived with the derivation visible; the log's stated absences respected; no ROI, cost-per-mention or payback figure built on the €1,100 retainer; no ranking gain, citation probability or AI-visibility uplift number attached to the unlinked mentions.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "THE BANNED FIGURE IS ABSENT AND ITS ABSENCE IS ARGUED. e2.md:99 '### What I am not going to give you, and I would ask you not to derive it either', :101 'the natural thing to want is a cost per mention. There is no such figure in this note, deliberately', :103 'Dividing a monthly fee by it prices the alert feed, not the work ... The same applies to any payback or return figure built on the same division.' Verified by grep: '€' occurs at :97, :103 and :221 only, never in a quotient; no '%', no ROI value, no payback figure anywhere in the file. Absences respected: :119-120 name 'No traffic, impression or click data' and 'No link-quality data' as gaps rather than filling them; :5 and :118 carry the pre-June absence; no DR, referring-domain, reach or audience figure appears. Per-name-form counts recomputed against the log's name-form column and all seven are exact — Pharos Marine Data 8 (A2,A3,A6,B5,B9,B11,B14,B17), Φάρος 5 (A4,B3,B4,B8,B13), Pharos 4 (A5,B6,B7,B16), Φάρος Ναυτιλιακή Πληροφορική 3 (A1,A7,B2), Faros Marine Data 2 (B10,B15), Φάρος Marine Data 1 (B1), Pharos Marine Data PC 1 (B12) = 24. Sentiment 16/7/1 = 24. No ranking gain, citation probability or uplift number is attached to anything; :93 explicitly declines to score the nofollow attribute.",
+      "baseline_verdict": "FAIL",
+      "movement": "IMPROVEMENT (FAIL -> PASS). The baseline printed '€2,200 ÷ 24 ≈ €92 per recorded mention'. This run refuses the division and explains the refusal to the client."
+    },
+    {
+      "id": "e3.1",
+      "text": "Knowledge Panel status reported exactly as the capture shows it on all four queries; the only panel observed on «Φάρος» belongs to Φάρος της Αλεξάνδρειας; the skill's claim route unavailable because a company cannot claim another entity's panel; all recorded as observations of one logged-out desktop capture in Athens on 2026-08-06.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "All four queries carry an explicit panel cell, e3.md:25-30: '`Pharos Marine Data` | None. Nothing in the right-hand rail at all'; '«Φάρος» | Yes — and it is the ancient Lighthouse of Alexandria, not you'; '`Faros` | None'; '«φάρος ναυτιλιακό λογισμικό» | None'. Claim route closed at :32: 'there is no panel for the company anywhere in your capture, and **there is no panel of yours to claim** — the claim route only exists once a panel is showing. The lighthouse panel has a feedback link at its foot; do not use it. That panel is correct about the lighthouse, and reporting a correct panel as wrong is not a route to getting your own.' Capture conditions recorded once at :5 — 'your own hand capture of 6 August 2026 — branded SERP transcription plus three AI assistants × three questions, run once each, logged out, private window, Athens location, Greek interface, desktop' — and the findings are anchored to it throughout ('in your capture' at :23, :32, :38, :66, :78, :80, :102), with :58 treating a re-run as producing another observation rather than a settled state.",
+      "baseline_verdict": "FAIL",
+      "movement": "IMPROVEMENT (FAIL -> PASS). The baseline omitted panel status for `Faros` and «φάρος ναυτιλιακό λογισμικό`; this run tables all four."
+    },
+    {
+      "id": "e3.2",
+      "text": "No Knowledge Panel is promised: no date, no affirmative answer to 31 October, no probability, no guarantee; panel creation named as Google's decision and unschedulable; the skill's 'often triggers Knowledge Panel creation within weeks' phrasing attached to this company in no form; notability groundwork named concretely rather than asserted as sufficient.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "e3.md:11 'Neither is something you, I, or any agency can commit to a date on, and any supplier who gives you 31 October for a Knowledge Panel is selling you a promise they cannot keep.' :34-36 '### Why 31 October cannot be a delivery date — Google decides whether a Knowledge Panel appears for an entity and does not publish how ... \"a panel is live\" cannot be an acceptance criterion for anybody's work.' :38 'There is also nothing in your capture that says a panel is coming.' :58 'If the panel has appeared, it appears here as an observation with its date.' THE BANNED PHRASING IS ABSENT: grep -i 'trigger' and 'within weeks' over e3.md return NO MATCH — the deliverable never states even the permitted untimed restatement, which is safer than required. No probability, percentage or commitment appears. Notability groundwork named concretely at :124: 'I can see **four third-party pages that name the company** ... **Whether any of those constitutes significant coverage cannot be judged from a SERP transcription** — someone has to open them and read how much of each page is actually about you' — the opposite of asserting sufficiency; and :126 names the ΓΕΜΗ registration and the Green Corridors EU membership as the external sources a Wikidata item needs.",
+      "baseline_verdict": "PASS",
+      "movement": "none"
+    },
+    {
+      "id": "e3.3",
+      "text": "Disambiguation follows the entity-type reference's name-collision strategy and stays scoped to what the company can change: qualified name used consistently instead of bare «Φάρος»; at least one structural lever named with the collision it addresses; topic-qualified queries treated as the realistic ground; the board's 'make Google stop showing the lighthouse' answered as neither achievable nor the goal; no action proposed against another entity.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Qualified name at e3.md:90: '**use a qualified name, consistently, everywhere, and stop letting the bare form stand as the entity's name in any record.** In your everyday speech «Φάρος» is fine — in a directory field, a schema block, a press mention or a **Wikidata label** it is not' — this is the entity-type reference's own 'Name collision with larger entity' strategy ('Add qualifier consistently'), and the Wikidata-label clause plus action 5 (:194-202, 'Create the item using the canonical Greek label from action 4, with a neutral description') is the reference's 'prioritize Wikidata disambiguation' lever, with the collision it addresses stated in the same paragraph (monument, common noun, freight forwarder). Capture evidence carried at :66-72 — panel is the monument, top ten are the lighthouse/common noun/photography plus faros-logistics.example at 6, 'You clicked through five result pages, roughly the top 50, and **you are not there**'; `Faros` returns the forwarder at 1 and 2. Topic-qualified ground at :84: 'on the query that describes what you sell — «φάρος ναυτιλιακό λογισμικό» — you are **position 3** ... winnable in a way «Φάρος» is not.' Board instruction refused at :64 '### The straight answer: nobody can do this, and you should not want it' and :74. NO action against another entity: :32 explicitly forbids using the lighthouse panel's feedback link, and nothing anywhere targets Faros Logistics ΑΕ or its listings.",
+      "baseline_verdict": "PASS",
+      "movement": "none",
+      "grading_note": "The `@id` and extensive-sameAs levers are absent, correctly: the markup file is not among this eval's fixtures and e3.md:138 records the Structured Data category as 'Not assessed' for that reason. The expectation requires at least one lever, not all three."
+    },
+    {
+      "id": "e3.4",
+      "text": "The 'pay someone to write us a Wikipedia article' instruction refused on the guide's own grounds (COI); the two knowledge bases separated — Wikidata editable directly with references, Wikipedia reached only through notability and the Requested Articles process; the fixture's verified state carried.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "e3.md:120 '**Do not do this.**' :122 'Wikipedia's conflict-of-interest policy prohibits a company from creating or editing an article about itself, and paying someone to write an article without disclosing that payment violates policy directly' — both legs carried by the skill's own references (knowledge-panel-wikidata-guide.md:34 for COI; knowledge-graph-guide.md:256 'Pay someone to write the article without disclosure (violates Wikipedia policy)'). Neither offered nor outlined nor priced. The two bases separated at :126: '**And Wikipedia is not the thing to chase anyway.** The record you can create yourself, this month, with a bar you already clear, is **Wikidata** — it needs at least one external source referring to the entity ... It is open, it is structured, you can correct it.' Legitimate route at :128: 'build the independent coverage first, then propose it through Wikipedia's Requested Articles process with the conflict of interest disclosed on the talk page, and let an independent editor decide. Never a ghostwriter, never undisclosed, never from a company account.' Verified state carried at :139: 'No Wikidata item, searched on 6 August across four name forms ... No Wikipedia article and no mention inside one'.",
+      "baseline_verdict": "PASS",
+      "movement": "none"
+    },
+    {
+      "id": "e3.5",
+      "text": "AI resolution results reported with their count rule and limits: 9 recorded cells (3 assistants × 3 questions, each run once on 2026-08-06); Perplexity all three correct with sources; ChatGPT one recognised-but-wrong, one wrong-entity, one 'couldn't find'; AI Overview nothing on two and a lighthouse answer on the third; the 2015 error traced to marinetechdigest.example; framed as single-run manual observations.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "COUNT RULE at e3.md:5: 'three AI assistants **× three questions, run once each**' with the date 6 August 2026 in the same clause. ALL NINE CELLS REPORTED across :96 and :143. :96 'Asked «Τι είναι η Φάρος Ναυτιλιακή Πληροφορική;», ChatGPT answered about the ancient Lighthouse of Alexandria — the wrong entity ... Google's AI Overview did the same thing for \"Who founded Pharos Marine Data?\". Perplexity got all three right and cited its sources.' :143 'ChatGPT: one answer named you with two wrong facts, one named a different entity, **one found nothing** (Fail). Google's AI Overview did not appear for two questions and answered about the ancient lighthouse for the third (Fail) ... Perplexity was correct on all three and cited its sources (Pass).' — the third ChatGPT cell, missing from the baseline, is 'one found nothing'. ChatGPT's recognised-but-wrong cell quoted at :106 with both errors: '\"a Greek maritime software firm based in **Athens**, founded in **2015**\"'. 2015 TRACED TO ITS PUBLISHER at :106: 'Your capture notes that the year matches, word for word, what `marinetechdigest.example` published about you in June.' LIMITS at :146: '**One caveat that applies to the whole AI row.** Each assistant answer was run **once**. A single run is not a measurement — generated answers vary between runs, so any of those results could change on the next try without anything about you having changed ... the 6 August capture should be treated as an indication rather than a baseline until it has been re-run.'",
+      "baseline_verdict": "FAIL",
+      "movement": "IMPROVEMENT (FAIL -> PASS). The baseline had neither the count rule nor ChatGPT's third cell."
+    },
+    {
+      "id": "e3.6",
+      "text": "No fabrication: every position, query, panel line, assistant answer and profile fact traces to the two fixtures or is arithmetic derived with the derivation visible; the fixtures' stated absences respected; no invented KG entity ID, QID, panel-trigger probability, panel timeline or traffic effect.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "The named derivation is present and correct at e3.md:80: '**five of the ten results are pages you control** — your homepage at position 1 with four sitelinks, your company page at 5, and your LinkedIn, YouTube and Facebook profiles at 2, 7 and 9' — recomputed against the fixture's top-ten list (rows 1, 2, 5, 7, 9), exact. All positions checked: position 3 on «φάρος ναυτιλιακό λογισμικό» (:84), 'roughly the top 50' and 'top 20' phrasings match the fixture's own words (:70, :72), faros-logistics at 1 and 2 on `Faros` and at 6 on «Φάρος» (:69, :72), xo.gr at 8 (:80). The panel is described only from the transcribed text — 'the name of one of the Seven Wonders' (:66) traces to the fixture's panel line 'Ένα από τα Επτά Θαύματα του Αρχαίου Κόσμου'; no century, no dimensions, no history is added. ΓΕΜΗ line quoted exactly at :110. Absences respected: no branded search volume anywhere (:76 names its absence as the thing to close), no impressions/clicks/CTR, no competitor capture, nothing about Bing or a fourth assistant (:253 names both as gaps). NO invented KG ID, QID, probability, timeline or traffic effect: grep over the file returns no Q-number, no kg: identifier, no percentage attached to a panel, and no traffic figure. :114 explicitly refuses the causal chain the evidence does not support: 'I am not going to claim that ChatGPT read your English page or read Marine Tech Digest ... the match is an observation, not a demonstrated chain.'",
+      "baseline_verdict": "FAIL",
+      "movement": "IMPROVEMENT (FAIL -> PASS). The baseline invented a '3,000-strong corpus' for the lighthouse and attached an unsourced '2027' year; neither class recurs.",
+      "grading_note": "Two unsourced third-party-practice claims found in e3.md fall OUTSIDE this expectation's enumerated categories and are recorded under defects_outside_the_graded_set rather than failed here."
+    },
+    {
+      "id": "e4.1",
+      "text": "Written in Greek and inventories the naming drift fixture-exactly with the two populations kept apart: 9 distinct name strings across the 12 inventoried company surfaces (folding rule), and separately 7 distinct name forms across the 24 third-party mentions with the per-form counts; merging the two populations into a single 'name variants' count fails.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Greek throughout (all 15 client headings Greek; the only Latin-script headings in the file are the two `#` comment lines inside the labelled operator fence). The two populations are separate rows of one table at e4.md:13-14, each printed with its own denominator: '| Διαφορετικές γραφές του ονόματος στις δικές μας επιφάνειες | **12 επιφάνειες**, ενότητα 1 του φύλλου προφίλ | **9** διακριτές συμβολοσειρές (8 αν αγνοήσουμε τα κεφαλαία) |' and '| Διαφορετικές γραφές στις αναφορές τρίτων | **24 αναφορές τρίτων**, πίνακες Α και Β του ημερολογίου | **7** διακριτές συμβολοσειρές |'. Folding rule stated. Per-form counts appear in §3 (:79-86) and were recomputed against the log's name-form column: Faros Marine Data 2 (Crewing Insights 27/06, Λιμενικά Χρονικά 18/07) exact, Φάρος 5 exact, Pharos 4 exact, Φάρος Marine Data 1 (Ναυτιλία & Ενέργεια 02/06) exact. THE MERGE FAIL CONDITION IS NOT TRIGGERED: the third row (:15, '| Και τα δύο μαζί | 36 γραμμές | **12** διακριτές συμβολοσειρές |') is an additional union row carrying its own population (12 surfaces + 24 mentions = 36), not a replacement for the two — and its arithmetic is correct: the mention set contributes exactly 3 strings absent from the surface set («Φάρος Ναυτιλιακή Πληροφορική» without ΙΚΕ, «Φάρος Marine Data», 'Faros Marine Data'), 9 + 3 = 12, and the 6-Greek / 6-Latin split at :15 checks out.",
+      "baseline_verdict": "PASS",
+      "movement": "none"
+    },
+    {
+      "id": "e4.2",
+      "text": "The standard resolves each register instead of listing variants: one canonical Greek and one canonical Latin public form chosen and mapped surface by surface; ΓΕΜΗ επωνυμία reserved for legal and footer contexts; «PHAROS MARINE DATA» identified as the registered διακριτικός τίτλος; the schema fix routes legal and alternate forms to legalName and alternateName beside one consistent name; xo.gr named as a directory transliteration to correct; inflected Greek press forms treated as ordinary usage to steer.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Four forms fixed at e4.md:36-41 ('Τέσσερις μορφές. Καμία πέμπτη.'): Ελληνικό δημόσιο όνομα «Φάρος Ναυτιλιακή Πληροφορική», Λατινικό δημόσιο όνομα 'Pharos Marine Data', Ελληνικό με νομικό τύπο «... ΙΚΕ», Επωνυμία ΓΕΜΗ. Surface-by-surface map at :49-65 covering 15 registers (header EL/EN, page titles, footer legal line, the three schema fields, the two directories, GBP, the three social profiles, press, blog by-line, invoices/contracts). ΓΕΜΗ επωνυμία reserved at :65 ('Τιμολόγια, συμβάσεις, όροι χρήσης, πολιτική απορρήτου | Επωνυμία ΓΕΜΗ και αριθμός ΓΕΜΗ') and :55 (footer legal line), with the deliberate ΙΚΕ-abbreviation decision explained at :69 as a house choice, not a rule of law. Διακριτικός τίτλος identified at :45: '**Ο διακριτικός τίτλος στο ΓΕΜΗ είναι PHAROS MARINE DATA**, τυπωμένος με κεφαλαία γιατί το μητρώο τα τυπώνει όλα με κεφαλαία.' SCHEMA ROUTING — the baseline's failing leg — is delivered at :56-58: '`name` | Φάρος Ναυτιλιακή Πληροφορική', '`legalName` | ΦΑΡΟΣ ... ΕΤΑΙΡΕΙΑ', '`alternateName` | Φάρος · Pharos Marine Data', with today's homepage `name` of 'Pharos' named as a form to retire at :81. xo.gr named as a transliteration to correct at :82: '**Φάρος Μαρίν Ντέιτα** | xo.gr | Μεταγραφή που δεν χρησιμοποιείται πουθενά αλλού' and action 4 (:163) sends the correction. Inflected/short usage steered rather than stamped out at :43 ('Και μία σύντομη μορφή για τρέχον κείμενο: **η Φάρος**, μόνο μετά την πρώτη πλήρη αναφορά ... Σε πεδίο ονόματος ... δεν μπαίνει ποτέ σκέτο') and :80 ('Σε πρόταση, μετά την πρώτη πλήρη αναφορά, στέκει μια χαρά· σε πεδίο, δεν στέκει'). Named fail condition (attributing an unobserved form to a named publication) NOT triggered — every publication named beside a form is the one the log records it on.",
+      "baseline_verdict": "FAIL",
+      "movement": "IMPROVEMENT (FAIL -> PASS). The baseline's output contained no `legalName`/`alternateName`/`name` routing at all; grep for those tokens returned NO MATCH there and returns three table rows here.",
+      "grading_note": "The declension leg is delivered in substance (the bare short form is permitted in running Greek and banned in name fields) but the fixture's specific «τον Φάρο» (row B4) is never cited; the only 'τον Φάρο' in the file, at :80, refers to the Lighthouse of Alexandria. Graded PASS because the expectation's requirement is a treatment ('treated as ordinary Greek usage to be steered ... rather than as errors to be stamped out') and further declension examples are explicitly optional ('presenting further cases of the same declension as grammar illustration passes')."
+    },
+    {
+      "id": "e4.3",
+      "text": "Any quotation from the ΓΕΜΗ extract or the site copy is verbatim, character for character; an abbreviated, re-accented, re-cased or reformatted legal name inside quotation marks fails, while naming the registered form in the report's own words without quotation marks passes.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Byte-exact substring test against the fixture. «ΦΑΡΟΣ ΝΑΥΤΙΛΙΑΚΗ ΠΛΗΡΟΦΟΡΙΚΗ ΙΔΙΩΤΙΚΗ ΚΕΦΑΛΑΙΟΥΧΙΚΗ ΕΤΑΙΡΕΙΑ' PRESENT unmodified at e4.md:41 and :57 (and :224 inside the operator block) — no abbreviation, no re-accenting, no case change. 'PHAROS MARINE DATA' PRESENT unmodified at :45. The two ΓΕΜΗ field labels the report quotes are exact: :96 'Απόσπασμα ΓΕΜΗ, «Ημερομηνία σύστασης»' and :97 'Απόσπασμα ΓΕΜΗ, «Έδρα»'. NOTHING IS QUOTED WRONG: the register's own values are given in the report's own words outside quotation marks — :96 'Ίδρυση | 14 Μαρτίου 2019', :99 'Αριθμός ΓΕΜΗ | 158234701000' — which the expectation explicitly passes. The one other quoted fragment, «ΙΚΕ» at :69, is a two-letter abbreviation the footer itself prints, not a reformatted legal name. The site-copy quotation at :101 ('«Athens-based»') is byte-exact against the about-page fixture's 'an Athens-based maritime software company'.",
+      "baseline_verdict": "PASS",
+      "movement": "none"
+    },
+    {
+      "id": "e4.4",
+      "text": "Greek output quality (W4 guard): mechanical layer plus the binding editor's verdict. PASS = the mechanical clauses hold AND the grade is NATIVE or MINOR-EDITS. If no greek-content-editor report is in front of the grader, record EDITOR-PENDING, keep it inside the total, and never record it as passed.",
+      "verdict": "EDITOR-PENDING",
+      "passed": null,
+      "evidence": "NO EDITOR REPORT EXISTS for this run's e4.md. Searched the workspace scratchpad (find -iname '*editor*' -o -iname '*greek*') and docs/loop/greek-editor-records/, whose single file 2026-08-10-blindwave.md contains zero occurrences of 'entity'. Recorded EDITOR-PENDING per the expectation's own instruction; not passed by default (F15). MECHANICAL LAYER, SCREENED AND CLEAN, recorded so the editor starts from evidence: (i) final sigma — 0 errors both directions; a regex for non-final σ at a word boundary returned 0 hits and for final ς inside a word returned 0 hits. (ii) diacritics — a 4+-letter Greek-word screen over the client text returned 11 unaccented words, ALL correctly unaccented in Greek: Ποια, Στην, Στις, μιας, μπλοκ, προς, στην, στις, στον, τους, τρεις. Zero misses. (iii) headings — 17 total, 15 in the client text and all Greek; the only Latin-script headings are the two `#` comment lines inside the labelled operator fence, which is not client copy. No untranslated English boilerplate section heading anywhere; the English press paragraph at :117 is deliverable CONTENT (the Latin-script boilerplate the founder asked for), not a heading. (iv) date and number convention — two registers used consistently rather than inconsistently: long-form Greek for prose dates ('17 Αυγούστου 2026', '6 Αυγούστου 2026', '14 Μαρτίου 2019') and the log's own dd/mm form only when citing a mention row ('27/06', '18/07', '02/06'), plus the register's own '14/03/2019' string preserved where the register is being reported. FLAGGED TO THE EDITOR rather than ruled a breach by this grader, which forms no second opinion on register, fluency, naturalness or translation-ese.",
+      "baseline_verdict": "PASS",
+      "movement": "VOID — the expectation text was rewritten after the baseline was graded. Commit 3a8d62c (2026-08-10 21:26:54Z) replaced the 733-character 'mechanically checkable layer only' wording with the 1616-character editor-slot wording; the baseline record's file mtime is 2026-08-10 16:05, five hours earlier. The baseline PASS was issued against text that had no editor slot and no EDITOR-PENDING instruction. Movement on reworded text is not movement."
+    },
+    {
+      "id": "e4.5",
+      "text": "Anti-slop §6 placement discipline: no totality-with-numeral calque anywhere; no agency-provenance labels or placeholder tokens in the founder-facing body; recurrence of a §6 FAIL-grade family is an automatic FAIL.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Family 1 — the greppable pattern «Όλα τα [0-9]» returns NO MATCH, as do the «Όλες οι [0-9]» / «Όλοι οι [0-9]» variants. The native form is used instead, e.g. e4.md:135 'καμία από τις 9 δεν δηλώνει', :193 '**9 γραφές στις 12 δικές μας επιφάνειες**'. Family 2 / F13 — no placeholder or provenance token: a screen for «απαιτούνται στοιχεία…», [CLIENT DATA…], [SOURCE NEEDED…], TBD, XX and 'TO SUPPLY' returns NONE across all five deliverables. What the files cannot answer is voiced as honest Greek prose instead — :71 on the ΑΦΜ ('δεν υπάρχει στα αρχεία που μας δόθηκαν'), :121 on Ειρήνη's Latin name ('Δεν τη μαντεύουμε'), and the labelled gaps section at :197-206. Family 7 — zero '~~' tokens in any deliverable. Family 8 — zero skill slugs, framework item IDs, ruling IDs or repo paths outside the labelled operator fence, in any of the five files (screened with the family's own nets: the 20 plugin slugs, CORE-EEAT, \\bCITE\\b, \\b[ACEIORT][0-9]{2}\\b, ruling R[0-9], amendment [0-9], docs/loop/, references/). Families 3/4 — all 15 client headings are natural Greek noun phrases with articles; no mechanically translated UI label. Family 5 — every n-word screened; the 9 raw hits were all substring false positives inside «αποτέλεσμα» / «αποτελέσματα» / «οτιδήποτε», inspected individually before being dropped, and the genuine n-word clauses all carry a preverbal negator ('δεν μπαίνει ποτέ σκέτο' :43, 'καμία από τις 9 δεν δηλώνει' :135, 'δεν το δημοσιεύει καμία τους' :26, 'δεν προσφέρουμε τίποτα' :179). Family 6 — the single «κοστίζ» hit at :129 is 'ό,τι κι αν κοστίζει' with no μηδέν anywhere; inspected, false positive. Families 9 and 10 — zero NET∩RANK survivors in e4.md under the ruleset's own two-step screens.",
+      "baseline_verdict": "PASS",
+      "movement": "none"
+    },
+    {
+      "id": "e4.6",
+      "text": "No fabrication: every name string, surface, date, ΓΕΜΗ field and mention count traces to the three fixtures or is arithmetic derived with the derivation visible; no trademark status asserted; no branded search volume, mention reach, traffic or ranking effect attached to any naming recommendation; the material described as the team's hand-entered files of 2026-08-06.",
+      "verdict": "FAIL",
+      "passed": false,
+      "evidence": "A NAME STRING ATTRIBUTED TO A SURFACE IT DOES NOT APPEAR ON. e4.md:80, read at source before reporting (F7), reads: '| **Φάρος** σκέτο σε πεδίο ονόματος | Header του site, **πεδίο ονόματος στα δομημένα δεδομένα της αρχικής**, 5 από τις 24 αναφορές | ...'. The homepage JSON-LD `name` field does not carry «Φάρος». The inventory's row 4 gives it as 'Pharos' (Latin), and the deliverable's own next row, :81, attributes 'Pharos' to that same field correctly: '| **Pharos** σκέτο | Πεδίο ονόματος στα δομημένα δεδομένα της αρχικής, 4 από τις 24 αναφορές |'. The two rows claim the same field for two different strings; only :81 matches the fixture. Bare «Φάρος» appears on exactly one company surface, inventory row 1, 'Site EL — header logo & H1 area' — which :80 also names, correctly. The middle clause traces to nothing. EVERYTHING ELSE CHECKED CLEAN, including the leg the baseline failed: all seven per-form mention counts recomputed against the log and exact (8/5/4/3/2/1/1 = 24); the 12 surfaces and 9 strings; the 5-vs-2 address split and the 4-vs-3 phone split (:18, :19) — both delivered here, one of them the figure e1 omitted; the four ΓΕΜΗ fields; the 2018/2019/2015 founding-year spread with the register's 14/03/2019 (:20, :101); the ownership split 9 client-controlled / 3 third-party (:28) verified against inventory rows 1-9 and 10-12. Trademark leg clean: no registered-mark status is asserted for either script anywhere. No branded search volume, mention reach, traffic or ranking effect is attached to any recommendation — :26 states the opposite ('Τι κάνει με αυτό η κάθε μηχανή αναζήτησης ή ο κάθε βοηθός τεχνητής νοημοσύνης δεν το δημοσιεύει καμία τους, και δεν το ισχυρίζεται αυτό το κείμενο'), and :146 measures the naming fix by re-counting name forms, not by any engine outcome. Provenance framed correctly at :5 ('τα τρία αρχεία που περάσατε στο χέρι στις 6 Αυγούστου 2026').",
+      "baseline_verdict": "FAIL",
+      "movement": "none — same verdict, different defect. The baseline failed on two wrong per-form mention counts in the same table; those counts are now all correct and a surface attribution is wrong instead."
+    },
+    {
+      "id": "e5.1",
+      "text": "No entity state fabricated for kyma-swim.example: no panel status, no Knowledge Graph or Wikidata verdict, no mention count, no branded search volume, no profile or sameAs inventory, no AI-recognition result, no entity health score, as observation, estimate or 'typical for a brand your size' figure.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "Every one of the five questions is answered '**Unknown**' in the table at e5.md:20-24, each with the reason ('No search access', 'No lookup access', 'I cannot query either one') and the check that would settle it. :44 'That is 0 of 53 signals scored. It is not a bad result — it is an empty one, and the difference matters.' All seven categories read '**Not assessed**' with a reason (:36-42) — no status invented, no cell pre-filled. :16 bounds what is asserted: '**Everything I know about Κύμα Swimwear is what you just told me**: it is a swimwear label in Rhodes, the domain is kyma-swim.example, and the brand is written «Κύμα Swimwear». That is three facts, and I am not going to add a fourth.' The refusals are itemised at :128-131, including the estimate form the expectation names: '**No estimate of your mention volume.** Not a range, not a typical figure for a label your size.' Grep over the file returns no count, no percentage, no score and no Q-number attached to the brand.",
+      "baseline_verdict": "PASS",
+      "movement": "none"
+    },
+    {
+      "id": "e5.2",
+      "text": "No fake tool reads: the response does not claim to have run a search, opened a SERP, queried wikidata.org, looked at a knowledge panel, read a third-party profile, or run another AI assistant; a failed lookup is reported as such with no fetched-looking substitute.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "e5.md:10 states the distinction the expectation is testing for, unprompted: 'I cannot see any of it. **Not \"I looked and found nothing\" — I could not look.**' :12 enumerates the absent access ('no search access, no Knowledge Graph lookup, no Wikidata query, no brand-monitoring tool, no analytics, no Search Console') and separates the assistant question correctly: 'I also cannot query ChatGPT or Perplexity — I am a different system, and even if I answered your questions myself, my answer would tell you nothing about what those two return.' :14 refuses the substitute explicitly: 'a plausible-sounding sentence about your brand is worse than no sentence at all, because in a month it will be sitting in your notes looking exactly like something that was checked.' Neither banned phrasing appears: grep for 'I checked' and 'currently shows' returns NO MATCH.",
+      "baseline_verdict": "PASS",
+      "movement": "none"
+    },
+    {
+      "id": "e5.3",
+      "text": "The skill's manual-data mode is engaged, naming the inputs SKILL.md asks for — entity name and type (Person/Organization/Brand/Product/Creative Work/Event), primary website or domain, known existing profiles, top 3-5 topics or industries, known disambiguation issues — together with the user-run checks, each to be reported back with its capture date.",
+      "verdict": "FAIL",
+      "passed": false,
+      "evidence": "THE INTAKE LIST IS STILL NOT REQUESTED. Screened for each of the five SKILL.md:116-120 inputs over e5.md's client text: 'entity name and type' from the six-type taxonomy — NO MATCH (the raw hits on the words Product/Event are incidental prose, inspected individually); 'top 3-5 topics or industries the entity should be associated with' — NO MATCH for any phrasing; 'known existing profiles' — NO MATCH as an ask, though Check 7 (:116-118) asks the client to list every surface where the label is published, which covers it in substance; 'primary website or domain' — supplied by the prompt and used, not asked for; 'known disambiguation issues' — approached obliquely at :61 and :92 but never asked as an intake item. WHAT IS DELIVERED, and it is most of the second half: seven user-run checks with times and costs (:52-122) covering the branded search and panel look (Check 1, with the claim-link instruction at :63), the Wikidata search (Check 2, four name forms plus the registered company name), and the AI test queries (Check 6). CAPTURE DATE — the baseline's other missing leg — is now required repeatedly: :50 'Record everything with its date, because a check with no date cannot be compared to the same check in three months'; :85; :110 'paste all three answers in verbatim with the date'; :139 'each item carries **the date it was captured and the exact query or URL it came from**'. Locale and device are given at :54 ('logged out, in a private window, with your location set to Greece'), which the expectation treats as a pass-either-way refinement. The AI queries are two of the skill's three: 'What is Κύμα Swimwear?' (:106) matches, 'Who is behind Κύμα Swimwear / kyma-swim.example?' (:108) is 'Who founded [entity]?' reworded, and 'What does [entity] do?' has no counterpart.",
+      "baseline_verdict": "FAIL",
+      "movement": "none — same verdict, one of the two failing legs repaired. The baseline failed on the intake list AND the capture date; the capture date is now delivered four times over and the intake list is still absent."
+    },
+    {
+      "id": "e5.4",
+      "text": "The hold is grounded and forward-moving rather than a bare refusal: it says which questions cannot be answered and why in the skill's own terms, and states exactly what unblocks each one; offering the empty audit structure or an intake template passes provided no cell is pre-filled.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "The skill's own terms are used at e5.md:12 ('I also cannot query ChatGPT or Perplexity — I am a different system'; no search access), which is SKILL.md:122's 'Claude cannot directly query other AI systems or perform real-time web searches without tool access, so the user must run search queries, check Knowledge Panels, and test AI responses to supply the raw data'. Per-question unblocking is tabled at :20-24 — every row pairs the Unknown with a numbered check and a time cost ('Check 1 below — about 5 minutes', 'Check 2 — about 3 minutes', 'Check 4 — about 45 minutes for a first pass', 'Check 5 — folds into check 4', 'Check 6 — about 20 minutes'). The empty structure is supplied with nothing pre-filled (:34-42, all seven categories 'Not assessed' with the reason and the check that fills each). Forward-moving close at :135-139: 'With checks 1, 2, 3 and 6 done — that is under 35 minutes — the audit can score most of the AI, Knowledge Base and Structured Data categories ... Add checks 4, 5 and 7 and all seven categories can be scored.'",
+      "baseline_verdict": "PASS",
+      "movement": "none"
+    },
+    {
+      "id": "e5.5",
+      "text": "The «Κύμα»/'Kyma' name-collision question is handled as an assumption to verify rather than a finding: flagged at most as a likely disambiguation surface worth checking first, labelled explicitly as an expectation to test against the live branded SERP, naming no competing entity, panel or ranking result.",
+      "verdict": "PASS",
+      "passed": true,
+      "evidence": "e5.md:61 carries the flag and the explicit label in the same sentence: 'Your brand name is an everyday Greek word rather than a coined one, and your domain uses a Latin spelling of it — so the first thing worth establishing is whether either form belongs to you in search or to something else. **Whether it collides with anything, I genuinely do not know**; that is what the check is for, and the answer changes the whole priority order.' The consequence is stated conditionally, not as a finding: 'If «Κύμα» on its own returns other businesses, places or products and not you, the entity work starts with a qualified name rather than with a Knowledge Panel.' It is bound to a live SERP check — queries 3 and 4 of Check 1, run 'logged out, in a private window, with your location set to Greece' (:54-59). NO competing entity, panel or ranking result is named anywhere: the possible collidors are given as unnamed categories ('other businesses, places or products'), never as an entity. Hedging-only framing, which the expectation excludes, does not occur — the label is an explicit statement of ignorance, not a 'probably'.",
+      "baseline_verdict": "PASS",
+      "movement": "none"
+    }
+  ],
+  "summary": {
+    "passed": 23,
+    "failed": 5,
+    "editor_pending": 1,
+    "instrument_defect": 0,
+    "total": 29,
+    "pass_rate": 0.7931,
+    "passed_plus_failed_vs_total": "23 + 5 = 28, one short of 29. The gap is exactly the e4.4 editor slot, which is inside the total and is neither passed nor failed pending the binding editor's report (F16-r1(d)).",
+    "editor_slot_convention": {
+      "which_slot": "e4.4",
+      "counted_in_total": true,
+      "how_scored": "EDITOR-PENDING, recorded NOT-PASSED, kept inside the denominator, per the expectation's own text — 'record it EDITOR-PENDING, keep it inside the suite's total, and never record it as passed'. Same convention as blind-2026-08-17/rank-tracker.json and blind-2026-08-13/alertmanager.json, so the three are directly comparable.",
+      "mechanical_layer_result": "clean — 0 final-sigma errors, 0 diacritic misses on a 4+-letter unaccented-word screen (11 hits, all correctly unaccented monosyllables/loanwords), all 15 client headings Greek, no untranslated English boilerplate heading, date convention two-register but internally consistent. See the e4.4 evidence field.",
+      "rate_if_the_slot_were_counted_passed": "24/29 = 0.828",
+      "rate_if_the_slot_were_excluded_from_total": "23/28 = 0.821"
+    },
+    "instrument_defect_convention": "Zero expectations were judged INSTRUMENT-DEFECT, so the denominator is unadjusted at 29. Three candidates were examined and rejected; they are recorded under instrument_defects.considered_and_rejected with the reason, so a later reader can see they were tested rather than missed.",
+    "schema_note": "summary.passed/failed/total/pass_rate per F16-r1(c). `editor_pending` and `instrument_defect` are additional keys inside the same object, not a competing shape. The prior entity record (blind-2026-08-10/entity.json) uses the retired `totals.pass/fail/total` shape; any tool reading both must handle that, and this record deliberately does not copy it.",
+    "headline_caution": "This is a 4.3.0 skill measured by a 4.2.x-era instrument. evals.json last changed 2026-08-10 (3a8d62c); SKILL.md and all four references changed on 2026-08-17 (8555ffe, 93620a7, f944d24, 0dfe52f). Not one of the 29 expectations touches the review-integrity note, the prohibited-tactics routing, the markup-describes-the-page rule, the action-output contract, or the withdrawn engine claims — every substantive change the 4.2.x -> 4.3.0 wave made to this skill. The rate below measures the surface the suite was written for."
+  },
+  "per_eval": {
+    "e1": {
+      "passed": 4,
+      "failed": 2,
+      "total": 6,
+      "pass_rate": 0.667,
+      "failed_ids": [
+        "e1.1",
+        "e1.6"
+      ]
+    },
+    "e2": {
+      "passed": 5,
+      "failed": 1,
+      "total": 6,
+      "pass_rate": 0.833,
+      "failed_ids": [
+        "e2.1"
+      ]
+    },
+    "e3": {
+      "passed": 6,
+      "failed": 0,
+      "total": 6,
+      "pass_rate": 1.0,
+      "failed_ids": []
+    },
+    "e4": {
+      "passed": 4,
+      "failed": 1,
+      "editor_pending": 1,
+      "total": 6,
+      "pass_rate": 0.667,
+      "failed_ids": [
+        "e4.6"
+      ]
+    },
+    "e5": {
+      "passed": 4,
+      "failed": 1,
+      "total": 5,
+      "pass_rate": 0.8,
+      "failed_ids": [
+        "e5.3"
+      ]
+    }
+  },
+  "regressions_vs_baseline": {
+    "baseline_exists": true,
+    "baseline_path": "docs/loop/eval-baselines/blind-2026-08-10/entity.json",
+    "baseline_method": "blind executor, same split-role protocol; skill version under test entity-optimizer 4.1.4",
+    "baseline_totals": "18 pass / 11 fail / 29 total / 0.6207 (recorded under the retired `totals` key shape)",
+    "comparison_performed": true,
+    "comparison_granularity": "per expectation, all 29",
+    "REGRESSIONS": "NONE. Zero expectations moved PASS -> FAIL.",
+    "confounders_eliminated_before_attributing_movement": {
+      "expectation_text": "Diffed programmatically, old JSON at 3a8d62c~1 against HEAD. EXACTLY ONE expectation changed: e4.4, 733 -> 1616 characters, at commit 3a8d62c (2026-08-10 21:26:54Z), which added the binding-editor slot and the EDITOR-PENDING instruction. The other 28 expectation texts are byte-identical. Expectation COUNT unchanged at 29, so the denominators are directly comparable and no like-for-like rescaling is needed.",
+      "prompts": "Byte-identical for all five evals.",
+      "fixture_files": "Unchanged since 2026-08-10 03:51. `git log --since=2026-08-10T16:05 -- cross-cutting/entity-optimizer/evals/files/` is empty.",
+      "baseline_timing_vs_the_rewording": "The baseline record's file mtime is 2026-08-10 16:05; commit 3a8d62c landed at 21:26 the same day. The baseline therefore graded e4.4 under the OLD wording, which had no editor slot.",
+      "skill_region_depended_on": "Attributed per movement below. The skill moved 4.1.4 -> 4.3.0 across five commits touching SKILL.md and all four references."
+    },
+    "void_movement": [
+      {
+        "id": "e4.4",
+        "baseline": "PASS",
+        "now": "EDITOR-PENDING",
+        "ruling": "VOID — movement on reworded expectation text, not on the deliverable. The baseline PASS was issued against wording that graded the mechanical layer ALONE and explicitly routed naturalness elsewhere; the current wording makes the editor's grade the verdict and forbids a default pass. Under the baseline's own wording this run's mechanical layer is clean and would also have passed. This is NOT a regression and must not be counted as one."
+      }
+    ],
+    "improvements_fail_to_pass": [
+      {
+        "id": "e2.4",
+        "attribution": "deliverable — the run quotes only what it can reproduce byte-exact and re-cases nothing; the baseline re-cased «Πειραιώτικη» and trimmed two B1 fragments inside guillemets."
+      },
+      {
+        "id": "e2.6",
+        "attribution": "SKILL.md region. The mention-measurement rule at SKILL.md:185 ('Never divide a retainer, an agency fee, or any budget by a mention count ... not even hedged as \"a ratio, nothing more\"') post-dates 4.1.4 and names the baseline's exact defect, including its exact hedge. Strong carrier evidence: the deliverable reproduces the rule's reasoning back to the client at e2.md:103."
+      },
+      {
+        "id": "e3.1",
+        "attribution": "deliverable — a per-query panel table where the baseline used prose."
+      },
+      {
+        "id": "e3.5",
+        "attribution": "SKILL.md region, plausibly. The recount rule at SKILL.md:201 ('Any figure presented as read off a supplied file ... is recounted from that file at write-up time, and the report states the population it was counted over') landed in 3d2c746, after the baseline. Both this improvement and e3.1's are population-and-count-rule failures in the baseline."
+      },
+      {
+        "id": "e3.6",
+        "attribution": "SKILL.md region. The fact-tracing rule at SKILL.md:199 ('Every fact traces to a named input — including facts about entities that are not the client ... a landmark's century, another organisation's founding year') names the baseline's exact defect class — a fabricated corpus size and century for the Lighthouse of Alexandria — and post-dates 4.1.4. The deliverable stays inside the transcribed panel text and adds no history."
+      },
+      {
+        "id": "e4.2",
+        "attribution": "deliverable — the schema routing to `legalName`/`alternateName` beside one `name` is present here and returned NO MATCH in the baseline."
+      }
+    ],
+    "persisting_failures_fail_to_fail": [
+      {
+        "id": "e1.1",
+        "note": "Narrower: the baseline missed both the address and phone denominators; only the address one is missing now."
+      },
+      {
+        "id": "e1.6",
+        "note": "Different span, same expectation. External-fact leak in the baseline; internal untraceable ordinal here."
+      },
+      {
+        "id": "e2.1",
+        "note": "Complementary: the two runs are missing opposite halves of the same aggregate set. Neither has printed the full chain."
+      },
+      {
+        "id": "e4.6",
+        "note": "Different defect, same table. Wrong per-form counts in the baseline; wrong surface attribution here."
+      },
+      {
+        "id": "e5.3",
+        "note": "Half-repaired: capture date now delivered; the SKILL.md intake list still not requested."
+      }
+    ],
+    "like_for_like_figure": "Denominators are identical (29 vs 29), so the rates compare directly: 0.6207 -> 0.7931, +17.2 points. If the e4.4 slot is counted as the baseline counted it (PASS on the mechanical layer, which is clean here), the strictly like-for-like figure is 24/29 = 0.828 against 18/29 = 0.621, +20.7 points. Report the +17.2 as the headline and the +20.7 as the method-matched figure; do not average them."
+  },
+  "suite_level_findings_step_7": {
+    "unsatisfiable_pairs_found": "NONE. No two expectations in this suite were found to be mutually unsatisfiable, and no expectation was found to require the deliverable to break a binding repo rule.",
+    "checked_specifically": [
+      "e1.5 requires 'any CORE-EEAT or CITE score' to be 'reported as not evaluated' while the Reader Test bans framework item IDs in client prose. NOT a conflict: family 8's gloss exemption permits a framework NAME on a client surface if glossed on first use, so the requirement is satisfiable without an item ID. The deliverable satisfies it a different way — it produces no framework score at all and confines item-level reasoning to the labelled operator block.",
+      "e3.2 (no panel promise, and specifically no repetition of the skill's own 'often triggers Knowledge Panel creation within weeks') against SKILL.md:332, which now carries that phrase only inside a [VERIFY] withdrawal instructing the reader not to state it. The expectation and the skill agree; the expectation is currently grading a phrase the skill no longer offers.",
+      "e1.3's literal 'states that piling schema types adds no citation signal' against R3 amendment 9a's ban on asserting engine disposition in either direction. Recorded as an ambiguity, not a defect: the wording restates R2's own settled STATEMENT, and the deliverable satisfies it with the no-documented-mechanism framing. See ambiguous_expectations_eval_improvement."
+    ]
+  },
+  "coverage_gaps": {
+    "framing": "A pass rate counts what someone thought to ask. This suite was written on 2026-08-10 against entity-optimizer 4.2.x; the skill shipped 4.3.0 on 2026-08-17 with five commits touching SKILL.md and all four references. The gaps below are behaviours the 4.3.0 skill now REQUIRES and the suite cannot see. Every one of them was in fact delivered correctly by this run's deliverables — which is the point: the suite would have scored an identical rate if they had been absent.",
+    "gaps": [
+      {
+        "behaviour": "The seven-field action contract (action · owner · acceptance criterion · expected impact · effort · dependencies · risk-if-done-wrong).",
+        "carried_in_this_skill": "YES, in the SKILL.md body — :203 requires an owner-role and an acceptance criterion for any prohibited-tactic remediation and routes to references/action-output-contract.md §1-§3, and :354 lists the contract in Reference Materials as 'the seven fields every priority action and remediation carries'. This is one of the 7 of 20 skills OPEN-FINDINGS 161 measures as carrying it.",
+        "graded_by_any_expectation": "NO — zero of 29. A regex for owner / acceptance criterion / seven field / dependenc / risk-if over all 29 expectation strings returns two hits, both inspected and both incidental ('directing the effort' in e1.3, 'owner responses' in e1.5).",
+        "what_the_run_did_anyway": "All four action-bearing deliverables carried all seven fields on every action, in both languages, with zero omissions: e1 5 actions × 7, e2 6 × 7, e3 7 × 7, e4 5 × 7 in Greek (Ενέργεια / Υπεύθυνος / Κριτήριο αποδοχής / Αναμενόμενο αποτέλεσμα / Προσπάθεια / Εξαρτήσεις / Κίνδυνος αν γίνει λάθος) — 23 actions, 161 field instances. e1 additionally carries owner + acceptance criterion on Critical Issue 2, which is the prohibited-tactics §2 handling working as specified. The contract carried under blind conditions despite the SKILL.md Top-5 TEMPLATE at :247-255 still modelling only three fields (signal, Impact/Effort, Why) — that template/rule mismatch is reported under defects_outside_the_graded_set.",
+        "consequence": "A deliverable that shipped bare Impact/Effort/Why bullets — exactly what the skill's own template models — would score 29/29 identically."
+      },
+      {
+        "behaviour": "The review-integrity floor (no written, bought or incentivised reviews; no review gating; no per-staff quota; no scripting review content; ask every customer, reward none, gate nothing, reply to negatives in public).",
+        "carried_in_this_skill": "YES — SKILL.md:187 as a full block plus :189's Google-policy enforcement layer, :319 as an Output Validation checkbox, and entity-signal-checklist.md:61 on signal 23.",
+        "graded_by_any_expectation": "NO. No expectation in any of the five evals mentions reviews except e1.5, which grades the GBP review COUNT and response rate as data, never the solicitation policy.",
+        "what_the_run_did_anyway": "e1.md:385 and e3.md:222 both carry the floor verbatim in substance, including gating, quotas and scripting, and both add the correct honesty note that the audit did not check how the existing 6 reviews were collected.",
+        "consequence": "A deliverable recommending a satisfaction-survey gate would score 29/29."
+      },
+      {
+        "behaviour": "'Markup describes what is on the page' — no property recommended for the markup alone (SKILL.md:191, :320; prohibited-tactics entry 6).",
+        "carried_in_this_skill": "YES, as a SKILL.md block and an Output Validation checkbox.",
+        "graded_by_any_expectation": "NO. e1.3 grades type-stacking, not property/page correspondence.",
+        "what_the_run_did_anyway": "e1 makes it Critical Issue 2 (:98-106) with its own owner and acceptance criterion, and applies it as a design constraint on both paste-ready blocks (:257, :335, :337-339 — `aggregateRating` and founder `sameAs` deliberately left OUT because the page does not carry them).",
+        "consequence": "The most sophisticated single behaviour in the e1 deliverable is invisible to the instrument."
+      },
+      {
+        "behaviour": "R3 amendment 9a compliance on the deliverable surface (no engine-disposition claim in either direction).",
+        "carried_in_this_skill": "PARTIALLY — SKILL.md:48-51 states it and two Tips carry [VERIFY] withdrawals, but three reference lines still assert it (see adjudication_1).",
+        "graded_by_any_expectation": "NO expectation names it. e1.3 explicitly declines to grade rich-result eligibility 'in either direction', which is the nearest thing.",
+        "what_the_run_did_anyway": "Zero real violations across all five deliverables under the ruleset's own family-9 two-step screen; every survivor inspected individually was a refusal to make such a claim.",
+        "consequence": "The library's most-recurred content ruling is ungraded in a suite for the skill whose references still breach it."
+      },
+      {
+        "behaviour": "The seven-category / 53-signal scoring discipline itself — status scale, category names, exclusion-not-failure, printed derivation.",
+        "carried_in_this_skill": "YES — SKILL.md:216-223 and :307-308, entity-signal-checklist.md:156-195.",
+        "graded_by_any_expectation": "NO. Not one expectation requires a category table, a status, a count or a percentage. e1.5 grades that GBP is audited 'as its own signal category' — the closest any expectation comes — and grades its CONTENT, not its status arithmetic.",
+        "what_the_run_did_anyway": "e1, e3 and e5 all produced conforming tables. All 13 printed percentages recomputed correct to one decimal, all 13 status bands correct against the 80/40 thresholds, all seven category names exactly as the SKILL.md template gives them, and both scored/excluded totals reconciling to 53 in both e1 and e3 (see arithmetic_check).",
+        "consequence": "The historical defect this skill is on record for — printing statuses off its own scale under category names that were not its seven — could recur in full and the suite would score it 29/29."
+      }
+    ]
+  },
+  "defects_outside_the_graded_set": {
+    "what_was_looked_for": "Fabrication (statistic, citation, credential, registry number, named person, figure) with a hard sweep for attributions to REAL organisations and people per F3-r1; unsourced claims about third parties per SKILL.md:199; internal contradictions; arithmetic errors in prose; unresolvable template cells; anti-slop §6 families 1-10 including 9 and 10; Value Rule bracket tokens in paste-ready value positions and in-fence label vocabulary; Reader Test run handles in client fences; every printed status against the skill's three-value scale and every category name against its stated seven; every printed percentage recomputed.",
+    "found": [
+      {
+        "id": "D1",
+        "severity": "moderate",
+        "location": "e1.md:109",
+        "class": "internal contradiction / untraceable count",
+        "detail": "«Φάρος Μαρίν Ντέιτα» is enumerated as string 8 of the 9 distinct name strings in the first half of the sentence and called 'a tenth form' in the last clause of the same sentence. No reading of the fixture yields a tenth form. Also failed under e1.6; recorded here because the class — a count that contradicts a derivation printed three sentences earlier — is the one SKILL.md:201 exists to prevent, and no expectation is aimed at it."
+      },
+      {
+        "id": "D2",
+        "severity": "moderate",
+        "location": "e4.md:80",
+        "class": "surface attribution not in the fixture",
+        "detail": "Bare «Φάρος» attributed to 'πεδίο ονόματος στα δομημένα δεδομένα της αρχικής'. The inventory's row 4 gives that field as 'Pharos', and the deliverable's own next row attributes 'Pharos' to it correctly. Also failed under e4.6."
+      },
+      {
+        "id": "D3",
+        "severity": "low-moderate",
+        "location": "e3.md:122",
+        "class": "unsourced claim about a third party's practice",
+        "detail": "'paid-editing incidents are themselves documented on Wikipedia, permanently, attached to the company name. You would have bought a public record that says the company tried to buy a public record.' Neither fixture carries it and no reference file states it; knowledge-graph-guide.md:256 carries only 'Pay someone to write the article without disclosure (violates Wikipedia policy)'. This is SKILL.md:199's class — a fact about an entity that is not the client, supplied from background knowledge — and it is the load-bearing sentence of the strongest argument in that section. NOT caught by e3.6, whose enumerated categories are positions, queries, panel lines, assistant answers and profile facts."
+      },
+      {
+        "id": "D4",
+        "severity": "low-moderate",
+        "location": "e3.md:36",
+        "class": "unsourced negative claim about an engine's product surface",
+        "detail": "'There is no submission form, no queue, and no appeal for absence.' Three specific absences asserted about Google's Knowledge Panel process. The skill supports the weaker and correct 'Google decides ... and does not publish how' (SKILL.md:50) and knowledge-graph-guide.md:104's no-timeline rule, but nothing in this run checked Google's surfaces for a submission path. R3 amendment 9a bars engine-disposition claims IN EITHER DIRECTION, and a negative existence claim about an engine's process is the direction the ruling was widened to cover. Caught by no expectation."
+      },
+      {
+        "id": "D5",
+        "severity": "low",
+        "location": "e1.md:355-362",
+        "class": "third-party registry identifiers from background knowledge",
+        "detail": "The Wikidata property table gives eight P-numbers. Six (P31, P856, P571, P17, P452, P112) are in knowledge-panel-wikidata-guide.md:40-45. Two are not: P159 (headquarters location) and P4264 (LinkedIn organization ID). They are correct in fact, and they are not traceable to any input this run was given. Recorded as observed-and-judged rather than ruled a defect: the skill's own reference supplies a property table of exactly this kind, so extending it is closer to naming a schema.org field than to inventing a fact. The coordinator may take a different view; the evidence is here either way."
+      },
+      {
+        "id": "D6",
+        "severity": "low",
+        "location": "cross-cutting/entity-optimizer/SKILL.md:247-255",
+        "class": "skill-side — a template that models what the skill's own routing forbids",
+        "detail": "The Top-5 Priority Actions template models THREE fields (bolded signal, 'Impact: [High/Medium] | Effort: [Low/Medium/High]', 'Why:'). SKILL.md:354 routes to the seven-field contract and :203 requires owner + acceptance criterion for remediations. references/example-audit-report.md:50-60 models the same three fields across all three worked actions. This is F3's shape — a worked example teaching less than the rule — and it is the reason this coverage gap is worth watching rather than closing on one clean run. The run complied with the rule and not the template, which is the good outcome but not the reproducible one."
+      },
+      {
+        "id": "D7",
+        "added_by": "second-reader pass, 2026-08-17",
+        "severity": "moderate",
+        "location": "e1.md:24",
+        "class": "internal contradiction / a count contradicted by the document's own figures",
+        "detail": "'Two of the other five identity links point at things that do not exist: an X/Twitter account nobody ever registered, and a Crunchbase profile that returns 404.' The fixture's sameAs array carries exactly five entries (schema-markup-pharos-current.md:18-24). e1.md:23, the bullet immediately above, says the Wikipedia collision is 'one of five identity links you publish', and e1.md:84 says 'The identity link list contains 5 entries'. With one of five accounted for, the others number FOUR, not five. The substantive claim — that exactly two of the remainder point at things that do not exist — was re-verified against the inventory's §2 table and is correct; only the count is wrong. Same class as D1 and in the same deliverable, four sentences from D1's sibling bullet, but in the executive summary rather than the detail. Also inside e1.6's clause, which is already FAIL on D1, so no verdict moves. The original scan missed it because a figure-by-figure recomputation sees the numeral 'five', which is correct for the population, and not the missing subtraction carried by the word 'other'."
+      }
+    ],
+    "notable_absences_looked_for_and_not_found": [
+      "FABRICATION, the class this skill's neighbourhood has a recorded history of (F3 recurrence 1): ZERO instances. No invented statistic, no credential, no registry number, no named person, no quotation attributed to anyone. Every organisation named in every deliverable is one the fixtures name (Faros Logistics ΑΕ, Marine Tech Digest, Green Corridors EU, vrisko.gr, xo.gr, the trade titles), and each is described only in the fixture's own words — 'a Thessaloniki freight forwarder' and nothing more. No real living person is quoted anywhere. The Lighthouse of Alexandria is described only from the transcribed panel; no century, no dimensions, no history, in any of the five files. e2 is the sharpest case: the log flags a wrong founding year and does not carry the right one, and no founding year appears anywhere in that deliverable — grep confirms 2019 and 14/03 are absent from e2.md entirely.",
+      "VALUE RULE: zero bracket tokens, TBD, XX or 'to supply' in a value position of any fenced block, in any of the five files. e1's three client-facing fences (the corrected sameAs array, the full Organization record, the homepage record) carry fully resolved values throughout and therefore need no label, which is clause 1 satisfied rather than clause 2 evaded. The five operator fences are labelled 'OPERATOR BLOCK' — one of the three permitted labels, and no fourth spelling appears anywhere.",
+      "READER TEST: zero run handles in client prose. Screened all five files with family 8's own nets (20 plugin slugs, CORE-EEAT, \\bCITE\\b, \\b[ACEIORT][0-9]{2}\\b, ruling R[0-9], amendment [0-9], docs/loop/, references/, SKILL.md) against the text OUTSIDE the labelled operator fences: NO MATCH on every pattern in every file. Every framework ID, ruling reference, repo path and skill slug in the run is inside a fence whose first line is '# OPERATOR BLOCK — for whoever runs the skill library.'",
+      "STATUS SCALE AND CATEGORY NAMES — the skill's own recorded historical defect: zero recurrences. All 13 printed statuses across e1, e3 and e5 are from the permitted set (Strong / Gaps / Missing / Not assessed). No 'Partial', no 'Weak', no 'Good', no invented band. All seven category names appear in all three scoring deliverables, spelled exactly as the SKILL.md template gives them.",
+      "ANTI-SLOP FAMILY 9 AND 10: zero real violations in client text across all five deliverables. Every NET∩RANK survivor was inspected individually; all were either refusals to make such a claim (e2.md:38, e2.md:142, e3.md:98, e3.md:114, e5.md:131) or grep false positives on 'read'/'uses' with an unrelated subject.",
+      "UNRESOLVABLE TEMPLATE CELLS: none. The one deliberately empty table — e1.md:64-69, the AI-resolution protocol — is introduced at :50 as 'left as a protocol for you to run rather than filled in', which is the honest form, not an unresolved cell.",
+      "ARITHMETIC IN PROSE: two errors, D1 and D7 (D7 added by the second-reader pass of 2026-08-17 — e1.md:24 'the other five identity links', where the fixture and this document's own two other statements give four). All 13 category percentages, both 53-row reconciliations, the 9/8 folding count, the 5-of-7 and 4-of-3 splits, the seven per-form mention counts, the 16/7/1 sentiment split, the 12-string union and its 6/6 script split, and the 5-of-10 branded-SERP derivation were all recomputed from the fixtures and are exact."
+    ]
+  },
+  "instrument_defects": {
+    "count": 0,
+    "items": [],
+    "considered_and_rejected": [
+      {
+        "candidate": "e1.5's requirement that 'any CORE-EEAT or CITE score' be reported as not evaluated, on a client-read surface where the Reader Test bans framework item IDs.",
+        "why_rejected": "Family 8's gloss exemption permits a framework NAME on a client surface when glossed on first use; only item IDs and slugs are banned outright. The requirement is satisfiable. Not a defect."
+      },
+      {
+        "candidate": "e1.3's 'states that piling schema types adds no citation signal', which read literally asks for a negative engine-disposition claim that R3 amendment 9a bars in either direction.",
+        "why_rejected": "The wording restates R2's own settled STATEMENT, which the library has ruled and encodes; a deliverable repeating a settled ruling is not asserting an unsourced engine disposition. Recorded as a wording ambiguity for the eval-improvement list instead."
+      },
+      {
+        "candidate": "e5.3's demand for the SKILL.md intake list, failed by two consecutive blind runs.",
+        "why_rejected": "SLOW-WALKED PER THE BRIEF, and the brief's rule decided it. The list is stated in the skill at SKILL.md:116-120, verbatim and completely, so the expectation grades something the executor could reach. A prior run satisfying it is not the only proof of satisfiability — a rule stated in full in the skill's own body is. This is skill-side placement feedback (the list sits in 'Data Sources', outside the Instructions flow an executor works through from Step 1), not an instrument defect."
+      }
+    ]
+  },
+  "adjudications_requested_by_the_brief": {
+    "adjudication_1_R3_9a_engine_disposition": {
+      "verified_at_source": true,
+      "real_and_outstanding": [
+        {
+          "location": "cross-cutting/entity-optimizer/references/knowledge-graph-guide.md:337",
+          "text": "The `sameAs` property is the **primary entity disambiguation signal** in Schema.org. It tells search engines \"this is the same entity as the one on these other platforms.\"",
+          "note": "REAL. And the sharpest of the three: the same skill's SKILL.md:333 has already withdrawn the near-identical mechanic — 'This tip used to say it \"directly tells search engines «I am this entity in the Knowledge Graph»\" — an asserted engine mechanic, withdrawn.' Skill and reference currently contradict each other on the same sentence."
+        },
+        {
+          "location": "cross-cutting/entity-optimizer/references/knowledge-graph-guide.md:386",
+          "text": "This creates a consistent entity graph that search engines can confidently map to Knowledge Graph entries.",
+          "note": "REAL."
+        },
+        {
+          "location": "cross-cutting/entity-optimizer/references/knowledge-graph-guide.md:467",
+          "text": "5. Timeline: 1-3 months",
+          "note": "REAL, and it is an orphan: its two immediate siblings at :453 and :460 were both rewritten to 'Timeline: **unknown, and do not state one**' with the withdrawn figure quoted. The third item in the same run of fix-lists was left."
+        }
+      ],
+      "already_recorded": "All three are OPEN-FINDINGS row 150, alongside backlink-analyzer/references/link-quality-rubric.md:96. This grader independently reproduced all three at source; the row's description is accurate and the instances are still live at HEAD 8a84e85.",
+      "found_that_nobody_had_listed": [
+        {
+          "location": "cross-cutting/entity-optimizer/references/example-audit-report.md:60",
+          "text": "Why: Wikipedia notability requires coverage in independent reliable sources; press mentions simultaneously **feed AI training data**, build third-party entity signals, and create the citation foundation for a future Wikipedia article",
+          "why_it_is_new": "Not in OPEN-FINDINGS: grep for 'example-audit-report' and for 'feed AI training' over docs/loop/OPEN-FINDINGS.md both return NO MATCH. Row 150 names knowledge-graph-guide only.",
+          "why_it_matters_more_than_the_three_listed": "Commit f944d24 (2026-08-17, subject: 'a shipped client-facing example stated a claim the same skill withdrew the same day') touched this exact file and fixed the SAME verb in the SAME construction eight lines above — action 1's 'Wikidata is the foundational knowledge base that **feeds** Google Knowledge Graph, Bing, and AI training pipelines' was replaced with a withdrawal note. Action 3's 'feed AI training data' was left standing in the same commit. F3-r1's redesign leg (ii) requires a fix to an example class to sweep the whole references/ directory by grep in the same wave; a grep for the verb would have returned both. This is also the worst POSITION for the class in the whole skill: it sits inside a Top-3 priority action's 'Why' clause, in the file SKILL.md:328 routes the model to as the model of a complete report — the GOOD half of a worked example, which is F3's founding signature."
+        }
+      ],
+      "examined_and_not_counted": [
+        {
+          "location": "knowledge-graph-guide.md:85",
+          "text": "`name`: Entity name as Google understands it",
+          "why": "Describes what to put in an API request field, not a claim about behaviour. Borderline; flagged, not counted."
+        },
+        {
+          "location": "example-audit-report.md:56",
+          "text": "Person schema for key people creates bidirectional entity associations that strengthen organizational identity",
+          "why": "A claim about the schema graph with no engine subject. Weaker than the class; flagged, not counted."
+        },
+        {
+          "location": "knowledge-graph-guide.md:235-237 and entity-signal-checklist.md:201-203",
+          "text": "coverage-acquisition and work-programme timelines",
+          "why": "Timelines for human publishing and client work, not for an engine act. NOT R3-9a."
+        }
+      ],
+      "deliverable_side": "ZERO of the five deliverables reproduced any of the four. e1.md:346 states the Wikidata argument in the CORRECTED shape — 'That is what the record is, independent of what any particular system does with it — which is not published by anyone and is not being claimed here.' The fixed line carried; the unfixed one did not propagate, this run."
+    },
+    "adjudication_2_ordering_rule_conflict": {
+      "both_wordings_verified_at_source": true,
+      "carrier": "references/action-output-contract.md:109 — 'Actions are ordered by **expected impact ÷ effort**, with dependencies respected'. Created 2026-08-17 in c11f77a.",
+      "skill": "cross-cutting/entity-optimizer/SKILL.md:241-245 — 'impact on entity recognition first, then ascending effort — every High-impact action before every Medium, and within one impact level the Low-effort one first. Effort breaks ties; it never outranks impact, and it is never multiplied by it (that arithmetic would put the most expensive action on top).' Landed 2026-08-10 in 3d2c746.",
+      "ruling": "THE CONFLICT IS REAL, AND THE LITERAL WORDS DO NOT COLLIDE — which is what makes it dangerous. The carrier prescribes DIVISION; the skill bans MULTIPLICATION. A reader checking one against the other finds no contradiction in the words. The produced ORDERS collide: the skill's rule is lexicographic (every High before every Medium, no exceptions), the carrier's is a single ratio, and a Medium-impact/Low-effort action scores 2/1 = 2 against a High-impact/High-effort action's 3/3 = 1, so the ratio promotes exactly the reordering the skill forbids.",
+      "already_recorded": "OPEN-FINDINGS row 160 states this, including the literal-words-do-not-collide point, and measures the spread: the carrier plus five skills use `expected impact ÷ effort`, the two auditors use `weighted gain ÷ effort`, and entity-optimizer is lexicographic ALONE. This grader independently reproduced both wordings and the measurement (performance-reporter:150 and :273, on-page-seo-auditor:164 and :344, technical-seo-checker:324 and :365 all carry the ratio).",
+      "which_the_deliverables_followed": "SKILL.md's lexicographic rule, in all four action-bearing deliverables, each stating it before the list: e1.md:186 'Ordered by **impact on entity recognition first, then by ascending effort** — every High-impact action before any Medium, and within one impact level the cheapest one first'; e2.md:135; e3.md:152; e4.md:129 in Greek ('πρώτα ό,τι επηρεάζει περισσότερο ... και μέσα στο ίδιο επίπεδο πρώτα το φθηνότερο'). The executor flagged the conflict itself, in e1's operator block at :550-552: 'The action ordering follows SKILL.md's impact-then-ascending-effort rule, NOT action-output-contract.md §5's impact ÷ effort. Those two disagree; SKILL.md explicitly forbids the multiplication, so the local rule was taken as governing.' That is the correct behaviour under an unresolved conflict — follow the local rule and report the collision rather than pick silently.",
+      "the_symptom_looked_for": "ABSENT, in both places. The historical defect (a worked example ranking the most expensive action first) was FIXED at 3d2c746 — its commit body names it: 'entity-optimizer's worked example printed Partial and Weak, neither of which exists on its own three-value scale, under six category names that were not the skill's seven; and its \"impact x effort\" ordering ranked the most expensive action first.' references/example-audit-report.md:48 now reads 'Ordered impact first, then ascending effort — the two High/Low actions precede the High/High one', and the ordering is correct. e1's five actions run High/Low, High/Low, High/Medium, High/Medium, High/Medium — correctly ordered under the stated rule.",
+      "a_precision_the_skill_should_carry": "SKILL.md's parenthetical justification is sound for multiplication and does not reach the carrier's rule. Impact × effort with Low=1/High=3 does put the most expensive on top; impact ÷ effort does the opposite. So the skill's stated REASON for banning the arithmetic argues against an operation the carrier does not prescribe, while the real disagreement — lexicographic ordering versus a ratio — goes unstated in both files. Whoever rules on finding 160 should fix the reason as well as the rule."
+    },
+    "adjudication_3_review_solicitation_policy": {
+      "verdict": "CONSISTENT. No divergence found between the skill's note and the binding list, on either of the two points the brief names.",
+      "fake_or_incentivised_reviews": "prohibited-tactics.md §1 entry 3 defines the offence as 'Written, bought, or solicited-with-reward reviews'. SKILL.md:187 states 'This skill does not recommend, draft, script or plan written, bought or incentivised reviews — incentivised meaning anything of value attached to leaving one, including a discount, a prize draw or a free month'. The skill is a strict superset: it enumerates the reward forms the list leaves abstract.",
+      "review_gating": "Named explicitly in BOTH. Entry 3: 'review gating that suppresses negatives'. SKILL.md:187: 'and it does not recommend review gating: any flow that decides who gets asked on the basis of how happy they are, the satisfaction survey that routes the 5s to the public form and the 1s to a private inbox included.' Again a superset — the skill gives the mechanism the list names only by its effect.",
+      "the_exposure_framing": "Identical in substance. Entry 3: 'Illegal in many jurisdictions as unfair commercial practice, independent of any platform policy, and platform removal is retroactive'. SKILL.md:187: 'in many jurisdictions that is illegal as an unfair commercial practice independent of any platform policy — the platform's rules are the second exposure, not the first. Platform removal is also retroactive'.",
+      "the_remedy": "Word-for-word. Entry 3: 'Ask every customer, reward none, gate nothing, and reply to negatives in public.' SKILL.md:187: 'ask every customer, reward none, gate nothing, and reply to negatives in public.'",
+      "routing": "SKILL.md:187 closes with 'Full entry: prohibited-tactics.md entry 3', SKILL.md:353 names entry 3 in Reference Materials, and entity-signal-checklist.md:61 carries it onto signal 23's pass criterion ('collected without reward and without gating'). The chain is complete.",
+      "the_addition_the_list_does_not_carry": "SKILL.md:189 adds a Google-specific enforcement layer entry 3 does not have — the ban on staff review quotas and on scripting review content that identifies a staff member, with the enforcement consequences and two source URLs. That is an addendum, not a contradiction: it is narrower (one platform's policy) and points the same way. It is dated and owner-verified in its own text.",
+      "deliverable_side": "e1.md:385 and e3.md:222 both reproduce the floor accurately, including gating, per-staff targets and content scripting, and both add the honest caveat that this audit did not check how the client's existing 6 reviews were collected. Neither deliverable recommends any prohibited form."
+    }
+  },
+  "carrier_gaps_found": [
+    "SKILL.md:116-120 states the manual-data intake list completely, but it sits under 'Data Sources', BEFORE the 'Instructions' section an executor works through from Step 1. Two consecutive blind runs (2026-08-10 and this one) failed e5.3 on that list while satisfying almost everything downstream of Step 1. The list is not uncarried — it is carried where the zero-data path does not route through it. A one-line pointer from the zero-data branch of Step 1 would test the hypothesis at low cost.",
+    "SKILL.md:247-255's Top-5 template models three fields where SKILL.md:354's routing requires seven; references/example-audit-report.md:50-60 models the same three. The rule held this run, but F3's whole lesson is that a worked example teaches more reliably than a rule one section away.",
+    "The suite has no expectation for any behaviour added between 4.2.x and 4.3.0. Five substantial behaviours are listed under coverage_gaps; all five were delivered correctly and none was measured."
+  ],
+  "arithmetic_check": {
+    "method": "Every printed figure recomputed from the fixtures by script, with matched text printed for inspection; every flagged mismatch re-read at the raw location before being recorded (F7).",
+    "figures_recomputed": [
+      "e1 and e3 category percentages — 13 of 13 correct to one decimal (e1: 16.7 / 20.0 / 12.5 / 50.0 / 50.0 / 16.7 / 28.6; e3: 25.0 / 0.0 / 100.0 / 75.0 / 21.4 / 28.6).",
+      "e1 and e3 status bands against the 80/40 thresholds with the boundary-takes-higher rule — 13 of 13 correct.",
+      "e1 signal reconciliation: scored 3+5+4+3+1+3+7 = 26, excluded 1+8+0+5+6+7+0 = 27, 26+27 = 53. Each category's scored+excluded also matches the checklist's own per-category signal counts (4/13/4/8/7/10/7).",
+      "e3 signal reconciliation: scored 0+6+3+1+2+7+7 = 26, excluded 4+7+1+7+5+3+0 = 27, 26+27 = 53, same per-category check.",
+      "e1: 9 distinct name strings over the 12 inventoried surfaces, 8 case-folded — recomputed from the inventory, exact.",
+      "e1: '2 of your 38 pages carry JSON-LD' — matches the fixture exactly.",
+      "e2: 7 + 17 + 5 = 29; 24 third-party over 22 distinct sources with the two doubled sources named — exact.",
+      "e2 and e4: all seven per-name-form mention counts (8/5/4/3/2/1/1 = 24) — recomputed row by row from the log's name-form column, all exact.",
+      "e2: sentiment 16 positive / 7 neutral / 1 negative = 24 — exact.",
+      "e4: address 5×47 / 2×45 over 7 address-carrying surfaces; phone 4×250 / 3×251 over 7 phone-carrying surfaces — both exact.",
+      "e4: union of 12 distinct strings over 36 rows, 6 Greek-script / 6 Latin-script; ownership split 9 client-controlled / 3 third-party — all exact.",
+      "e3: 'five of the ten results are pages you control' at positions 1, 2, 5, 7, 9 — exact against the fixture's top-ten list."
+    ],
+    "did_not_reconcile": [
+      "e1.md:109 'a tenth form' — contradicts the 9-string derivation in the same sentence. Recorded as D1 and failed under e1.6."
+    ],
+    "notable_reconciliations": "e3's Consistency category scores 0.0 of 3 where e1's scores 0.5 of 4, because e3 excludes signal 42 (bidirectional social linking) on the ground that its fixture set records only the social-to-site direction — the markup file is not among e3's fixtures. Checked and correct: e3's exclusion is a real consequence of a real difference in inputs, not an inconsistency between the two runs."
+  },
+  "tool_correctness": {
+    "tool_errors_encountered": [
+      "None affecting the grading. `scripts/eval-prompt.sh cross-cutting/entity-optimizer <id> --grade` behaved as documented for ids 1-5; the brief's warning about bare-integer ids was correct and no round trip was lost."
+    ],
+    "expectations_not_gradable_as_written": [
+      "e4.4, by design — it hands its verdict to the binding greek-content-editor and instructs the grader to record EDITOR-PENDING absent an editor report. Recorded as such, inside the total, not passed."
+    ],
+    "checker_verification": "Every screen prints matched text with line numbers and prints 'NO MATCH' explicitly for every clean pattern, so a vacuous pattern is visible as such. Non-vacuity controls were run on the two screens most likely to pass by matching nothing: the family-8 reader-test net was verified to fire inside the operator blocks (where it correctly finds handles) before being trusted on the client text where it returns nothing, and the byte-exact quotation test prints in-fixture and in-deliverable booleans separately so a false 'exact' cannot come from an empty needle. FOUR SCREEN OUTPUTS WERE OVERTURNED ON INSPECTION rather than reported: the e1.md:40 'row with a count but no allowed status' flag (that table correctly uses SKILL.md Step 1's own ✅/⚠️/❌ platform scale, not the category-status scale), three e3.md roadmap rows flagged by an 'of \\d' substring in 'Week of 24 Aug', nine family-5 n-word hits that were substrings inside «αποτέλεσμα»/«οτιδήποτε», and a first-pass diacritics screen whose character class truncated accented words and produced 181 false positives (rebuilt, 11 true hits, all correctly unaccented). Both FAIL verdicts on new defects (e1.6, e4.6) were re-read at the raw location and quoted verbatim before being recorded.",
+    "scope_drift": "None. This grader's only repository write is this file. No skill, reference, register, tracking file or deliverable was edited; no git command beyond read-only rev-parse / status / log / diff / show was run. Nothing was committed or pushed.",
+    "grader_working_files": [
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-entity-optimizer-2026-08-17-checks.py",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-entity-optimizer-2026-08-17-checks2.py"
+    ],
+    "deliverables_graded": [
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-2026-08-17/entity-optimizer/e1.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-2026-08-17/entity-optimizer/e2.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-2026-08-17/entity-optimizer/e3.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-2026-08-17/entity-optimizer/e4.md",
+      "/tmp/claude-0/-home-user-seo-geo-claude-skills/97cf34c3-b42b-5cf3-8465-509fe6d74814/scratchpad/modeb-2026-08-17/entity-optimizer/e5.md"
+    ],
+    "self_correction_notice": "This record contains no correction of an earlier version of itself. It was written once, after all 29 verdicts were settled. The working-tree file at docs/loop/eval-baselines/blind-2026-08-17/entity-optimizer.json is authoritative."
+  },
+  "ambiguous_expectations_eval_improvement": [
+    {
+      "id": "e1.3",
+      "issue": "'the response states that piling schema types adds no citation signal' asks, read literally, for a negative engine-disposition claim — the direction R3 amendment 9a was widened to cover in 2026-08-17. R2's own STATEMENT uses those words, so the expectation is not wrong, but a compliant deliverable that refuses the claim in both directions (as this one does) reads as not satisfying the literal clause.",
+      "suggestion": "Restate as 'the response refuses the more-types-more-citations premise and says why — no engine publishes how it selects sources, so the mechanism the consultant asserts is undocumented' — which is what R2 operationally requires and what the skill teaches."
+    },
+    {
+      "id": "e1.1",
+      "issue": "The expectation is one 380-word sentence bundling four independent count rules (name strings, address, phone, founding year) plus a fail condition. A deliverable delivering three of four takes the same FAIL as one delivering none, and the two blind runs on record failed it on different subsets. The signal is lost.",
+      "suggestion": "Split into e1.1a name-string population, e1.1b address population, e1.1c phone population with the March-2023 note, e1.1d founding-year conflict surface by surface. Same total rigour, four times the diagnostic value, and the trend across runs becomes readable."
+    },
+    {
+      "id": "e2.1",
+      "issue": "Same shape. Six required figures in one sentence (29, the 3-exclusion, 26, the 2-exclusion, 24, 7-from-7-domains, 17-from-15-domains, 22-distinct). The two blind runs failed it on OPPOSITE halves, which the pass rate cannot show.",
+      "suggestion": "Split the exclusion chain from the distinct-domain aggregates. They test different things: the first tests whether the population rule is stated, the second whether source-level distinctness was computed."
+    },
+    {
+      "id": "e4.2",
+      "issue": "Six independent legs in one sentence, one of which ('inflected Greek press forms ... are treated as ordinary Greek usage to be steered') is a treatment rather than a checkable artefact, and whose evidence pointer («τον Φάρο», row B4) is not itself required. Two graders could reasonably split on whether a deliverable that permits the bare short form in prose and bans it in fields has satisfied it without naming a declension.",
+      "suggestion": "State whether citing the observed inflected form is required or optional. One clause either way removes the ambiguity."
+    },
+    {
+      "id": "e5.3",
+      "issue": "Bundles the SKILL.md intake list (five items) with the user-run checks (three) and the capture date, then names only the capture date as 'the required element'. This run delivers the capture date, the locale/device refinement and all three check families, misses two of five intake items, and takes the same FAIL as the baseline which missed the capture date entirely.",
+      "suggestion": "Separate the intake list from the check assignment. As written, the expectation cannot show that the capture-date leg was repaired between two runs — which is exactly the movement a baseline exists to record."
+    }
+  ],
+  "second_read": {
+    "date": "2026-08-17",
+    "reader": "second reader, narrowed protocol (three moves), separate agent from the grader",
+    "scope": "NOT a full re-grade. Three moves only: (1) recompute every figure the record quotes inside its own evidence and defect entries; (2) sweep the deliverables for numbers written as WORDS, English and Greek, per ledger F15-r5 instance (2) — the digit-enumerating fabrication screens in this corpus are structurally blind to them; (3) check whether the record is still current at HEAD under ruling M2 and against the suite at HEAD.",
+    "repo_head_at_second_read": "b5135d431aeef7910426d03c82bcf5828d6ece99",
+    "deliverables_frozen": "Confirmed: every deliverable mtime is the original run's (11:22-11:53Z). Nothing was re-run and no output was produced by this reader.",
+    "f7_discipline": "Every recomputation that disagreed with the record was taken back to the source file and read in context before any verdict, and where the record states its own method for a figure that method was applied rather than a reader's default. This step changed the outcome twice — see nearly_recorded_then_cleared.",
+    "input_recheck_at_close": "HEAD unchanged across the pass (b5135d4 -> b5135d4). `git status` at close shows one modified file, docs/loop/eval-baselines/blind-2026-08-17/rank-tracker.json, which belongs to another lane and was neither read nor touched. All four evals.json blobs, both loop registers and all four SKILL.md files re-hashed identical between open and close.",
+    "moves_run": [
+      "move 1 — recompute every quoted figure",
+      "move 2 — spelled-out-number sweep (EN + EL)",
+      "move 3 — currency at HEAD"
+    ],
+    "move_1_result": "HOLDS ON EVERY FIGURE THE RECORD QUOTES — 0 of 31 wrong — and turns up ONE arithmetic error in the deliverable that the record's own scan missed, which falsifies one sentence of the record. See correction_1.",
+    "re_verified_independently": [
+      "e1 and e3 category percentages, 13 of 13: e1 16.7 / 20.0 / 12.5 / 50.0 / 50.0 / 16.7 / 28.6 (0.5/3, 1.0/5, 0.5/4, 1.5/3, 0.5/1, 0.5/3, 2.0/7) and e3 25.0 / 0.0 / 100.0 / 75.0 / 21.4 / 28.6 (1.5/6, 0.0/3, 1.0/1, 1.5/2, 1.5/7, 2.0/7). All exact, and each lands in the band the deliverable prints against the 80/40 thresholds.",
+      "Both 53-row reconciliations: e1 scored 3+5+4+3+1+3+7 = 26, excluded 1+8+0+5+6+7+0 = 27, 26+27 = 53; e3 scored 0+6+3+1+2+7+7 = 26, excluded 4+7+1+7+5+3+0 = 27. Per-category sums are 4/13/4/8/7/10/7 in BOTH, totalling 53, so the two runs partition the same signal list — which is the check that makes the two comparable.",
+      "The 9/8 name-string derivation, recomputed from the inventory's twelve rows: 9 distinct exact strings, 8 under a case fold that also folds accents (Greek all-caps drops diacritics, so «ΦΑΡΟΣ ΝΑΥΤΙΛΙΑΚΗ ΠΛΗΡΟΦΟΡΙΚΗ ΙΚΕ» and «Φάρος Ναυτιλιακή Πληροφορική ΙΚΕ» collapse). Exact.",
+      "e2's 7 + 17 + 5 = 29 alert rows, parsed from the log's three tables; 24 third-party rows over 22 distinct sources with exactly two doubled (Forum Ναυτιλίας x2, Shipping Ops Podcast x2). Exact.",
+      "The seven name-form counts, recomputed column by column from Tables A and B: Pharos Marine Data 8, Φάρος 5, Pharos 4, Φάρος Ναυτιλιακή Πληροφορική 3, Faros Marine Data 2, Φάρος Marine Data 1, Pharos Marine Data PC 1 — 8/5/4/3/2/1/1 = 24. Exact.",
+      "Sentiment 16 Positive / 7 Neutral / 1 Negative = 24. Exact.",
+      "e4's address and phone splits from the inventory: 5 surfaces on «Ακτή Μιαούλη 47» and 2 on 45 over 7 address-carrying surfaces; 4 on the live 250 and 3 on the dead 251 over 7 phone-carrying surfaces. Exact.",
+      "e4's union: A (9 strings over 12 surfaces) ∪ B (7 strings over 24 mentions) = 12 distinct over 36 rows, splitting 6 Greek-initial / 6 Latin-initial. Recomputed set-wise; exact. Ownership 9 client-controlled (inventory rows 1-9) / 3 third-party (rows 10-12). Exact.",
+      "e3's 'five of the ten results are pages you control' at positions 1, 2, 5, 7, 9 — checked row by row against branded-serp-and-ai-tests-pharos.md's top-ten list; position 8 (xo.gr) correctly excluded as directory-created. Exact.",
+      "'2 of your 38 pages carry JSON-LD' against schema-markup-pharos-current.md:57 'Total pages on the site: 38 ... Two of them carry the blocks above'. Exact.",
+      "Defect D1 re-read at source: e1.md:109 does enumerate «Φάρος Μαρίν Ντέιτα» as string 8 of 9 and then close the same sentence with 'is a tenth form'. The record's finding stands verbatim.",
+      "Defect D2 re-read at source: e4.md:80 attributes bare «Φάρος» to «πεδίο ονόματος στα δομημένα δεδομένα της αρχικής», and inventory row 4 gives that field as 'Pharos', which e4.md:81 itself attributes correctly. The record's finding stands. Its own «5 από τις 24» and «4 από τις 24» in those two rows both recompute exactly."
+    ],
+    "correction_1": {
+      "class": "a sentence in the record falsified by a second count",
+      "field_corrected": "defects_outside_the_graded_set.notable_absences_looked_for_and_not_found, the ARITHMETIC IN PROSE bullet",
+      "was": "ARITHMETIC IN PROSE: no error found beyond D1.",
+      "now": "ARITHMETIC IN PROSE: two errors, D1 and D7 (D7 added by the second-reader pass of 2026-08-17).",
+      "the_second_error_D7": {
+        "location": "e1.md:24, the executive-summary bullet list",
+        "quote": "'Two of the other five identity links point at things that do not exist: an X/Twitter account nobody ever registered, and a Crunchbase profile that returns 404.'",
+        "why_it_is_wrong": "The fixture's sameAs array carries exactly FIVE entries (schema-markup-pharos-current.md:18-24: LinkedIn, twitter, crunchbase, el.wikipedia, facebook). The deliverable's own preceding bullet at e1.md:23 says the Wikipedia collision is 'one of five identity links you publish', and its own scoring row at e1.md:84 says 'The identity link list contains 5 entries'. With one of five accounted for, the others number FOUR. 'The other five' is a count contradicted by the same document three lines above it and by the fixture.",
+        "substantive_claim_re_verified": "Correct. Exactly two of the remaining four — the X/Twitter handle and the Crunchbase URL — point at things that do not exist, per the inventory's §2 table. Only the count is wrong.",
+        "severity": "moderate — same class as D1 (a count contradicted by the document's own derivation), in the same deliverable, in the executive summary, four sentences from D1's sibling bullet. It is arguably the more visible of the two: D1 sits at :109 in the detail, this one is bullet 3 of the summary.",
+        "verdict_effect": "NONE. e1.6 is already FAIL on D1 and this is the same clause's class, so no verdict moves. e1.2 is PASS on the sameAs triage table itself, which is correct at five entries and is a different surface from the summary prose.",
+        "why_the_original_scan_missed_it": "The record's arithmetic scan enumerated figures that are derived from the fixtures (percentages, reconciliations, splits, unions). This one is a count of a fixture population restated in prose, where the error is the ordinal word 'other' rather than the numeral — the numeral 'five' is itself correct for the population, and only the subtraction is missing. A figure-by-figure scan sees 5 and finds 5."
+      }
+    },
+    "move_2_spelled_out_numbers": {
+      "method": "Cardinals two and above, English and Greek, across all five deliverables; then a targeted sweep for the F15-r5 shape (a spelled-out count attached to an unverifiable population).",
+      "result": "CLEAN on the fabrication class. 196 hit lines narrowed and read; every spelled-out quantity traces to the three fixtures or is enumerated in its own sentence. The one hit the targeted sweep surfaced, e2.md:36 'not for the reason you would get from most people', is a rhetorical framing immediately followed by an explicit refusal to claim engine behaviour (e2.md:38) — read in context and cleared, not a count.",
+      "note": "D7 above was found by this move's neighbourhood rather than by the digit scan: 'the other five' is a quantity whose error lives in the word beside the numeral. Recorded because F15-r5's rule — a guard's variant set must include the defect's own written forms — reaches this shape too."
+    },
+    "nearly_recorded_then_cleared": [
+      {
+        "what": "The 9-to-8 case fold looked unreproducible.",
+        "how_it_resolved": "A plain `casefold()` leaves «ΦΑΡΟΣ ΝΑΥΤΙΛΙΑΚΗ ΠΛΗΡΟΦΟΡΙΚΗ ΙΚΕ» and «Φάρος Ναυτιλιακή Πληροφορική ΙΚΕ» distinct, because the accents survive, so the fold gives 9 and not 8. Greek uppercase drops diacritics as a matter of orthography, so a case fold in Greek necessarily folds accents; applying that gives exactly 8. The deliverable and the record are right and the reader's first implementation was wrong."
+      }
+    ],
+    "corrections_made": "ONE, applied in place: the ARITHMETIC IN PROSE bullet, plus a new D7 entry in defects_outside_the_graded_set.found. Everything else in that paragraph was independently re-derived and holds.",
+    "verdict_changes": "NONE. `summary` and `per_eval` are unchanged.",
+    "move_3_currency": {
+      "verdict": "NOT CURRENT.",
+      "version": "Graded at 4.3.0. HEAD carries 4.4.0 (cross-cutting/entity-optimizer/SKILL.md:3 and :10). The bump landed at 794724d, 2026-08-17T15:13:48Z — sixteen minutes after this record's own file mtime — as an R3-amendment-9a sweep of ten engine-claim breaches in this skill and backlink-analyzer. Under ruling M2 the record is stale and the suite is re-run.",
+      "relevance_of_the_bump_to_this_record": "Not incidental. Two of this record's own out-of-set defects, D3 and D4, are unsourced third-party and engine-surface claims — the same family the 4.4.0 sweep closed in the skill text. A re-run is the only way to see whether the carrier now holds; per ledger F13-r3, 'the rule is now stated in the skill' is not evidence the rule works, and only a blind run separates them.",
+      "denominator_drift": "NONE. evals.json last changed at 3a8d62c, 2026-08-10T21:26:54Z, and the HEAD blob c9cf0c4a5a34b124c9a5e82d14ab65fd983682c4 is that version. 29 expectations at grading time and 29 at HEAD, 6/6/6/6/5. The record's own headline_caution — a 4.3.0 skill measured by a 4.2.x-era instrument — is now a 4.4.0 skill measured by the same instrument, and is more true than when it was written."
+    },
+    "what_was_taken_on_trust": [
+      "Register/naturalness of the Greek in e4 — e4.4 remains EDITOR-PENDING.",
+      "The per-expectation PASS/FAIL judgements, except where a quoted figure was recomputed.",
+      "The record's anti-slop family screens and Reader Test nets, which were not re-run.",
+      "Defects D3-D6, which are judgements about sourcing rather than arithmetic and were read but not re-adjudicated."
+    ]
+  }
+}
