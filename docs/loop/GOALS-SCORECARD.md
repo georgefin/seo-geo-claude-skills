@@ -1962,6 +1962,121 @@ ChatGPT Search first and Perplexity third; **ranks 1 and 2 remain entirely unmea
 
 ---
 
+### Round 36 — 2026-09-12 · no fraction moved, and **two recorded figures did not reproduce**
+
+- **Round 36** `[obs:2026-09-12 grep -n '^### Round ' GOALS-SCORECARD.md | tail -1 -> Round 35]`.
+  HEAD **`f6da8ee`**, clean, remote unmoved; one commit from Round 35, and that commit was Round
+  35's own `[obs:2026-09-12 git log --oneline 39a84f8..HEAD -> f6da8ee; git diff --name-only 39a84f8..HEAD -> GOALS-SCORECARD.md, pilot/ai-visibility-capture-2026-09-11.md]`
+- **Environment checked first.** `@{upstream}` resolves to
+  `origin/claude/scheduled-skills-web-search-8zaz3j` — **sixth consecutive round present**, so
+  Round 31's tracking outage stays a one-off `[obs:2026-09-12 git rev-parse --abbrev-ref '@{upstream}']`
+- **No fraction moved.** Goal 1 **4 of 9** · Goal 2 **6 of 9** · Goal 3 **7 of 8** · Goal 4A
+  **3 of 4**. 4B owner-gated, unchanged.
+- **Every cell re-run at `f6da8ee`**: G1-C1 `SELFTEST PASS` (20 suites, 200 id round-trips, 100
+  blind evals) · G1-C2 **13/20** · G1-C3 **18/20** · G1-C4 **20/20** · G1-C5 three archives
+  (`08-10`, `08-17`, `08-18`) · G1-C7 **0** recurrences dated to this round · G1-C9 **13/20** ·
+  G2-C1 20/20 · G2-C2 20/20 · **G2-C3 0 of 20** · G2-C4 20/20 · G2-C5 20/20 · **G2-C6 21 across
+  12 suites** · G2-C8 20/20 integer summaries, every record read · G2-C9 20/20 · G3-C1 gate
+  exit 0 · G3-C2 20/20 at `15 passed, 0 warnings, 0 failed` · G3-C3 `10 passed, 15 warnings,
+  0 failed` · **G3-C5 five probes PROBE PASS twice each** · G3-C6 5 of 5 advisories reproduce ·
+  G3-C7 four files carry the R3 phrase multiline, **none in a skill tree** · **G3-C8 21 / 20
+  compared · 544/610 · denominator 530 across 20 of 20** · G4-C1 20/20 (19 strict) · G4-C2 20/20 ·
+  G4-C3 **9** pilot artefacts · **G4-C4 0 captures**
+- **The base-propagation defect stands byte-for-byte** at lines 35 / 99 / 141 / 149 / 160 of
+  `scripts/pre-push-gate.sh` — **sixth round recorded, still unfixed**, still deliberately not
+  patched inside a measurement round, because a behaviour change to a shared guard needs its own
+  commit and its own probe `[obs:2026-09-12 f6da8ee sed -n '35p;99p;141p;149p;160p' scripts/pre-push-gate.sh]`
+
+#### 🔴 Finding 1 — G3-C4 has been counted one short since Round 12. It is **three** legs, not two
+
+Every round since Round 12 has recorded *"two legs with no subject"*. Re-read leg by leg, with each
+`== <leg>` header paired against **every** null-subject line beneath it rather than one phrase:
+
+| leg | null-subject lines | wording |
+|---|---|---|
+| `validate-skill` ×20 | 0 | scanned 20 skill directories |
+| `validate-tracking` | 0 | scanned the tree |
+| `fence-nesting-check` | 0 | scanned the tree |
+| **`claims-gate`** | **3 of its 3 checks** | *"no added lines in scoped register files — nothing to scan"* · *"no Status:/Verdict: field changes … flip sweep not required"* · *"no added register lines — no timestamps to check"* |
+| **`commit-scope-check`** | 1 | *"no outgoing commits — nothing to check"* |
+| **`register-lock gate-check`** | 1 | *"no lock ledger entries — no writer announced a path, nothing to attribute"* |
+| `register-lock archive` | 0 | writes; a different class of evidence |
+
+`[obs:2026-09-12 f6da8ee bash scripts/pre-push-gate.sh | awk pairing each "== " header with every line beneath it matching any null wording -> claims-gate 3, commit-scope-check 1, register-lock gate-check 1; all other legs 0]`
+
+**Round 1 got this right and recorded three.** The regression is in the *instrument*, not the gate:
+Round 32 replaced a `grep -c "nothing to check"` with awk leg-pairing precisely because the phrase
+undercounted — and the replacement keyed on a null-subject *phrase list* that `claims-gate` does
+not use. `claims-gate` words its three nulls three different ways, none of them *"nothing to
+check"*, so it was scored as a leg with a subject for twenty-four rounds.
+
+**This is the Round 32 lesson recurring inside the fix for the Round 32 lesson.** The stable form
+is the one used above: **a leg has a subject only if it names something it examined.** Do not
+enumerate null wordings — every new leg invents a new one.
+
+**G3-C4's verdict does not move** — it was NOT MET at two and is NOT MET at three, so Goal 3 stays
+**7 of 8**. What moves is the figure, and the figure is the whole content of the criterion: a green
+bare gate at HEAD is evidence about **three** of six legs, not four.
+
+#### 🔴 Finding 2 — the Perplexity credit gate is **cost-sensitive, not binary**, and the probe this round was told to run could not have detected that
+
+The instruction this round fired with said: *"TEST, do not infer: make ONE `call_perplexity_computer`
+call with a trivial message. If it returns `insufficient_credits`, record it and stop."* It was run,
+and it **succeeded** — the entire message was *"Reply with the single word: ok"* and the reply was
+`ok`. Both real capture prompts, in the same session, were refused.
+
+`[obs:2026-09-12 call_perplexity_computer "Reply with the single word: ok" -> {"thread_id":"1d3efcf2-2084-40e3-af5b-fc76aaf2f794","event":"complete","text":"ok"}]`
+`[obs:2026-09-12 same tool, same session, B13 «πού αγοράζω θερμοπομπό Nobo στην Ελλάδα με εγγύηση;» and A10 «ποια μάρκα αφυγραντήρα είναι αξιόπιστη και έχει σέρβις στην Ελλάδα;» -> event "insufficient_credits" on both]`
+
+**The gate meters work, not calls.** Had this round obeyed its instruction literally and stopped at
+the cheap probe, it would have recorded *"the credit gate has lifted"* — **wrong in exactly the
+shape Round 34 was wrong**, a real observation licensing a sentence that reaches past it. The
+instruction was written by the previous round; the round that inherits an instruction is the round
+that has to notice it is the wrong instrument.
+
+**Rule, stated so the next round inherits it: a capability probe must cost what the real work
+costs.** A probe cheaper than the thing it probes for is testing a different question. The cheap
+probe is still worth running — it separates *no route* from *no budget* — but its only licensed
+statement is **the connector answers; a capture still does not.**
+
+**Scored as found: G4-C4 NOT MET, 0 captures — twenty-seventh round at zero.** The two refusals are
+recorded as rows with their reason in `pilot/ai-visibility-capture-2026-09-11.md` §5, per
+`ai-visibility-measurement.md` §4. Running total across both dates: **4 attempts, 0 captures.** No
+rate is reported from this round, because no capture succeeded.
+
+#### Finding 3 — two figures carried by earlier rounds do not reproduce, and neither moves a fraction
+
+**(a) G1-C6 is 50, not 51.** Rounds 13 and 14 recorded *"51 ledger entries"* without naming a
+pattern. At HEAD the count is **50** under Round 1's own pattern, and the ledger's last commit is
+`d05ab0f` (2026-08-18) — which predates both rounds, so the file has not lost an entry; the 51
+simply never reproduced `[obs:2026-09-12 grep -c '^#\{2,3\} F[0-9]' docs/loop/FAILURE-LEDGER.md -> 50; grep -cE '^#{2,4} F[0-9]' -> 50; git log -1 --format='%h %ad' -- docs/loop/FAILURE-LEDGER.md -> d05ab0f 2026-08-18]`.
+G1-C6's pass condition is *"every identified breach has an entry with a rule"*, not a count, so the
+criterion is unaffected — but rule 3 of this file says a figure travels with its command, and this
+one did not.
+
+**(b) G2-C7's 20 of 21 could not be re-derived by an independent route this round.** The recorded
+figure names its gap as `performance-reporter e4.3`, and an independent re-derivation **does** place
+`performance-reporter e4.3` among the unregistered — but it returns **12 of 17**, because
+`regressions_vs_baseline` has no fixed schema across the corpus: some records id their items
+`eN.N`, some `R1`/`R2`, and four of the twelve suites carry a count with no id-bearing items list at
+all `[obs:2026-09-12 python extraction of every regressions_vs_baseline item id, matched against OPEN-FINDINGS.md + FAILURE-LEDGER.md + KPI.md on a co-located suite+id line -> 17 ids found, 12 co-located]`.
+**That is a reach problem in the re-derivation, not a movement in the criterion** — it finds fewer
+ids than exist, so it cannot be reported as a drop. G2-C7 is carried at **20 of 21** on its original
+instrument, and is recorded here as *not independently re-derivable until the corpus item shapes are
+normalised*. G2-C7 is unmet either way, so Goal 2 stays **6 of 9**.
+
+| | rounds at zero | closes by | blocker as now understood |
+|---|---|---|---|
+| **G2-C3** | **27** | freeze the tree at one wave-wide SHA, re-run the blind wave | owner decision, unchanged |
+| **G4-C4** | **27** | one capture per named cluster at N ≥ 3 | **Perplexity Computer credits for capture-weight work** — narrower than "credits", same owner |
+
+**Twenty-two consecutive rounds have measured a tree that did not move.** Both decisions are the
+owner's under `CLIENT-MANDATE.md` §4. What this round adds is not movement: it is that **two of the
+figures the file has been repeating were not re-derivable, and one of them was wrong** — which is
+the case for re-running rather than reading, made by the instrument that keeps failing to.
+
+---
+
 ## Part C — What closes each gap
 
 Class: **(i)** work the library can do · **(ii)** a decision only the owner can make ·
@@ -2007,3 +2122,15 @@ reason — the gap is work not yet done and decisions not yet made.
 - **Two criteria are known to be uncomfortable by construction and must not be softened**:
   G1-C7 (coordinator recurrences) and G1-C9 (second reader). Both score the party most likely to
   be writing the round.
+- **Count a null-subject leg by what it says it examined, never by a phrase list** (Round 36).
+  `commit-scope-check` says *"nothing to check"*, `register-lock gate-check` says *"nothing to
+  attribute"*, `claims-gate` says *"nothing to scan"* / *"not required"* / *"no timestamps to
+  check"*. Three legs, three vocabularies, and every new leg invents a fourth. A leg has a subject
+  only if it **names something it examined**.
+- **A capability probe must cost what the real work costs** (Round 36). A probe cheaper than the
+  thing it probes for is testing a different question and will return a green that means nothing.
+  Run the cheap probe too if it separates *no route* from *no budget* — but record only what it
+  licenses.
+- **A figure a round repeats is not a figure a round measured.** Two carried figures failed to
+  re-derive in Round 36 — one wrong, one not independently derivable at all. If a cell cannot be
+  re-derived at HEAD, record *that*, and do not carry the number forward as though it had been.

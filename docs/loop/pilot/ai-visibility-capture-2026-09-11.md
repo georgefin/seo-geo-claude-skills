@@ -84,3 +84,63 @@ first and Perplexity third. **Nothing in this file touches ranks 1 or 2**, which
 ---
 
 **Nothing was published and no property was touched.** This is a record of two refused requests.
+
+---
+
+## 5. Second attempt — 2026-09-12 · **still no capture**, and the gate is now better understood
+
+Two more attempts, the same two prompts, one per named cluster. Both failed the same way.
+
+| # | Date | Prompt ID | Prompt (verbatim) | Cluster | Engine / surface | Intended N | Obtained | Outcome |
+|---|---|---|---|---|---|---|---|---|
+| 3 | 2026-09-12 | **B13** | πού αγοράζω θερμοπομπό Nobo στην Ελλάδα με εγγύηση; | B — θερμοπομποί | Perplexity Computer (agent) | 3 | **0** | **FAILED — `insufficient_credits`** |
+| 4 | 2026-09-12 | **A10** | ποια μάρκα αφυγραντήρα είναι αξιόπιστη και έχει σέρβις στην Ελλάδα; | A — αφυγραντήρες | Perplexity Computer (agent) | 3 | **0** | **FAILED — `insufficient_credits`** |
+
+**Running totals: 4 attempts, 0 captures, 2 prompts, 2 clusters.** No rate is reported here either,
+for the same reason as §1 — there is nothing to take a rate over. These rows exist so that a later
+session computing any rate over this prompt set has the refusals in front of it and not just the
+successes, which is the whole of `ai-visibility-measurement.md` §4's requirement.
+
+### 5.1 The new fact: the credit gate is cost-sensitive, not binary
+
+A third call was made first, deliberately cheap — the entire message was *"Reply with the single
+word: ok"*. **It succeeded.**
+
+`[obs:2026-09-12 mcp__Perplexity_Computer__call_perplexity_computer with message "Reply with the single word: ok" -> {"thread_id":"1d3efcf2-2084-40e3-af5b-fc76aaf2f794","event":"complete","text":"ok"}]`
+
+`[obs:2026-09-12 the same tool, same session, with the B13 prompt and with the A10 prompt -> event "insufficient_credits" on both]`
+
+**So the account is not simply out of credits.** A trivial reply is served; capture-weight work —
+a prompt that requires the agent to actually search, browse and compose — is refused. The gate
+meters *work*, not *calls*.
+
+**This corrects a probe design, not a finding.** The re-armed instruction written on 2026-09-11
+said: *"TEST, do not infer: make ONE call with a trivial message. If it returns
+`insufficient_credits`, record it and stop."* That probe is exactly the probe that **cannot detect
+this gate** — a trivial message is cheap enough to pass while the real work is refused, so the
+probe returns a green that means nothing about whether a capture can be taken. Had this round run
+only the cheap probe, it would have recorded *"the credit gate has lifted"* and been wrong in the
+same shape Round 34 was wrong: a real observation used to license a sentence that reaches past it.
+
+**The rule this puts on every future capability probe here: a capability probe must cost what the
+real work costs.** A probe that is cheaper than the thing it is probing for is testing a different
+question. Where the cheap probe is run anyway — it is useful, because it separates *no route* from
+*no budget* — its result is recorded as what it is: **the connector answers; a capture still does
+not.**
+
+### 5.2 What this does and does not change for G4-C4
+
+| | before this round | after |
+|---|---|---|
+| Captures recorded | 0 | **0** — unchanged, and G4-C4 stays NOT MET |
+| Obstacle | "no Computer credits on the account" | **"no Computer credits for capture-weight work"** — narrower and more precisely stated |
+| Who can clear it | account holder | **account holder, unchanged** |
+| Probe that settles it | a trivial call | **a real capture prompt**, per §5.1 |
+
+Row 1 of §3's closing table is unchanged and its acceptance criterion is unchanged, except that it
+is now testable only one way: *a subsequent call carrying an actual capture prompt returns an answer
+rather than `insufficient_credits`*. A trivial call returning `ok` does not satisfy it and never did
+— §3 said "a subsequent `call_perplexity_computer`", and this round is what makes that wording
+specific.
+
+**Nothing was published and no property was touched.** These are two more refused requests.
